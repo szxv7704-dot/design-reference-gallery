@@ -1,0 +1,1012 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #6 딜러의 세 더미</title>
+<style>
+/* 레이아웃: 장표 한 장을 맨 위에 크게, 아래로 설명·코드·PPT표·스펙이 한 단으로 흐르는 참고서 */
+:root {
+  --pg-bg: #FAFAF7;
+  --pg-fg: #1C1F1D;
+  --pg-muted: #5E665F;
+  --pg-line: #DCE0D8;
+  --pg-panel: #F0F2EC;
+  --pg-code: #F3F4F0;
+  --pg-accent: #2E6B57;
+  --pg-font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --pg-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --pg-bg: #151816; --pg-fg: #E7EAE5; --pg-muted: #9CA59E; --pg-line: #313732;
+    --pg-panel: #1E221F; --pg-code: #1B1F1C; --pg-accent: #7CC3A6; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --pg-bg: #151816; --pg-fg: #E7EAE5; --pg-muted: #9CA59E; --pg-line: #313732;
+  --pg-panel: #1E221F; --pg-code: #1B1F1C; --pg-accent: #7CC3A6; color-scheme: dark;
+}
+body { background: var(--pg-bg); color: var(--pg-fg); font-family: var(--pg-font); font-size: 15px; line-height: 1.65; }
+.pg { max-width: 1080px; margin: 0 auto; padding: 28px 16px 64px; display: grid; gap: 48px; }
+.pg > * { min-width: 0; }
+.pg-head { display: grid; gap: 4px; }
+.pg-kicker { margin: 0; font-family: var(--pg-mono); font-size: 12px; letter-spacing: .08em; color: var(--pg-muted); text-transform: uppercase; }
+h1 { margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -.02em; line-height: 1.25; text-wrap: balance; }
+h2 { margin: 0 0 14px; font-size: 20px; letter-spacing: -.01em; text-wrap: balance; }
+h3 { margin: 0 0 8px; font-size: 15px; }
+p { margin: 0 0 10px; max-width: 68ch; }
+.pg-demo { display: grid; gap: 10px; }
+/* 페이지 안의 장표 조작 막대를 페이지 테마에 맞춤 */
+.pg-demo .rd-sort__caption { color: var(--pg-muted); }
+.pg-demo .rd-sort__btn { border-color: var(--pg-line); background: var(--pg-panel); color: var(--pg-fg); }
+.pg-demo .rd-sort__btn--main { background: var(--pg-fg); border-color: var(--pg-fg); color: var(--pg-bg); }
+.pg-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px 40px; }
+.pg-two > * { min-width: 0; }
+ul.pg-list { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 68ch; }
+.pg-list b { font-weight: 600; }
+.pg-code-wrap { border: 1px solid var(--pg-line); border-radius: 8px; overflow: hidden; background: var(--pg-code); }
+.pg-code-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 12px; border-bottom: 1px solid var(--pg-line); font-family: var(--pg-mono); font-size: 12px; color: var(--pg-muted); }
+.pg-copy { font: 500 13px/1 var(--pg-font); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--pg-accent); background: var(--pg-accent); color: var(--pg-bg); cursor: pointer; }
+.pg-copy:focus-visible { outline: 3px solid var(--pg-accent); outline-offset: 2px; }
+pre.pg-code { margin: 0; padding: 14px; max-height: 440px; overflow: auto; font-family: var(--pg-mono); font-size: 12.5px; line-height: 1.55; color: var(--pg-fg); tab-size: 2; }
+.pg-swap { margin-top: 14px; }
+.pg-swap li code, p code, td code { font-family: var(--pg-mono); font-size: .9em; background: var(--pg-panel); padding: 1px 5px; border-radius: 4px; }
+.pg-table-wrap { overflow-x: auto; border: 1px solid var(--pg-line); border-radius: 8px; }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 13.5px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--pg-line); }
+th { background: var(--pg-panel); font-weight: 600; font-size: 12.5px; color: var(--pg-muted); white-space: nowrap; }
+td.num { font-family: var(--pg-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+.pg-note { margin-top: 18px; padding: 14px 16px; background: var(--pg-panel); border-radius: 8px; }
+.pg-note p:last-child { margin-bottom: 0; }
+.pg-spec { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; }
+.pg-spec > div { min-width: 0; }
+.pg-swatches { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.pg-swatches li { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.pg-swatches i { width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--pg-line); flex: none; }
+.pg-swatches code { font-family: var(--pg-mono); font-size: 12px; color: var(--pg-muted); }
+.pg-dl { margin: 0; display: grid; gap: 4px; font-size: 13.5px; }
+.pg-dl dt { color: var(--pg-muted); font-size: 12px; margin-top: 6px; }
+.pg-dl dd { margin: 0; }
+@media (max-width: 520px) { .pg { gap: 36px; } }
+</style>
+
+<main class="pg">
+  <header class="pg-head">
+    <p class="pg-kicker">디자인 레퍼런스 #6 · 실무형 · 유목화</p>
+    <h1>딜러의 세 더미: 흩어진 과제를 영역으로 묶기</h1>
+  </header>
+
+  <section class="pg-demo" aria-label="도식 장표">
+<!-- ============================================================
+  유목화 도식 장표: 흩어진 과제 카드 12장 → 영역 3개로 묶기
+  이 블록(<link>부터 마지막 </script>까지)을 통째로 붙여 넣으면 동작합니다.
+  같은 페이지에 여러 개를 넣어도 서로 간섭하지 않습니다.
+============================================================ -->
+<!-- 글꼴: 다른 한글 글꼴로 바꾸려면 이 줄과 --rd-font-* 변수를 함께 바꿉니다 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+
+<div class="rd-sort" data-autoplay="true">
+  <div class="rd-sort__slide" tabindex="0" aria-label="유목화 도식 장표. 오른쪽 화살표나 스페이스로 한 단계씩 진행">
+    <header class="rd-sort__top">
+      <p class="rd-sort__eyebrow">○○교육청 2027 특수교육 통합교육 지원 계획(안) · Ⅲ. 세부 추진 과제 <span class="rd-sort__tag">가상 예시</span></p>
+      <!-- 장표 제목: 결론을 한 문장으로 -->
+      <h2 class="rd-sort__title">12개 과제는 세 갈래로 묶인다</h2>
+    </header>
+
+    <!-- 영역(레인): data-area 값(a/b/c)이 색과 단계 목록을 연결합니다.
+         영역을 늘리려면 section을 복사하고, CSS의 [data-area] 색 규칙과 RD_STEPS에 한 줄씩 더합니다. -->
+    <div class="rd-sort__table">
+      <section class="rd-sort__lane" data-area="a">
+        <h3 class="rd-sort__head"><span>수업·교육과정</span><em class="rd-sort__count">4개</em></h3>
+        <div class="rd-sort__tray">
+          <div class="rd-sort__bed"></div>
+          <ol class="rd-sort__cards">
+            <!-- data-no = 계획안에 적힌 순서(흩어질 때 이 순서로 놓임) -->
+            <li class="rd-sort__card" data-no="1"><b>01</b><span>통합학급 협력교수</span></li>
+            <li class="rd-sort__card" data-no="4"><b>04</b><span>개별화교육계획 공동 수립</span></li>
+            <li class="rd-sort__card" data-no="7"><b>07</b><span>보편적 학습설계 자료</span></li>
+            <li class="rd-sort__card" data-no="10"><b>10</b><span>평가 조정 지침 보급</span></li>
+          </ol>
+        </div>
+      </section>
+      <section class="rd-sort__lane" data-area="b">
+        <h3 class="rd-sort__head"><span>인력·전문성</span><em class="rd-sort__count">4개</em></h3>
+        <div class="rd-sort__tray">
+          <div class="rd-sort__bed"></div>
+          <ol class="rd-sort__cards">
+            <li class="rd-sort__card" data-no="2"><b>02</b><span>특수교육 보조인력 배치</span></li>
+            <li class="rd-sort__card" data-no="5"><b>05</b><span>통합교육 지원교사 증원</span></li>
+            <li class="rd-sort__card" data-no="8"><b>08</b><span>일반교사 통합교육 연수</span></li>
+            <li class="rd-sort__card" data-no="11"><b>11</b><span>순회교육 협의체 운영</span></li>
+          </ol>
+        </div>
+      </section>
+      <section class="rd-sort__lane" data-area="c">
+        <h3 class="rd-sort__head"><span>인식·문화</span><em class="rd-sort__count">4개</em></h3>
+        <div class="rd-sort__tray">
+          <div class="rd-sort__bed"></div>
+          <ol class="rd-sort__cards">
+            <li class="rd-sort__card" data-no="3"><b>03</b><span>장애이해교육 주간</span></li>
+            <li class="rd-sort__card" data-no="6"><b>06</b><span>학부모 인식개선 연수</span></li>
+            <li class="rd-sort__card" data-no="9"><b>09</b><span>통합 동아리·체험활동</span></li>
+            <li class="rd-sort__card" data-no="12"><b>12</b><span>우수사례 나눔 자리</span></li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <p class="rd-sort__foot">번호 = 계획안 기재 순서</p>
+  </div>
+
+  <div class="rd-sort__bar">
+    <button type="button" class="rd-sort__btn" data-rd="replay">다시 보기</button>
+    <button type="button" class="rd-sort__btn rd-sort__btn--main" data-rd="step">한 단계씩</button>
+    <p class="rd-sort__caption" data-rd="caption" aria-live="polite">완성 상태</p>
+  </div>
+</div>
+
+<style>
+/* ── 여기를 바꾸면: 색·크기·타이밍 전체가 바뀝니다 ── */
+.rd-sort {
+  /* 장표 바탕·글자·선 */
+  --rd-bg: #F1F2EE;
+  --rd-ink: #1C1F1D;
+  --rd-muted: #68706A;
+  --rd-line: #CDD2CA;
+  --rd-card: #FFFFFF;
+  /* 영역 색(진한 색 / 옅은 바탕) — 영역 a·b·c */
+  --rd-a: #2E6B57;  --rd-a-soft: #DFEBE4;
+  --rd-b: #B4532A;  --rd-b-soft: #F4E2D7;
+  --rd-c: #634A8C;  --rd-c-soft: #E8E2F1;
+  /* 글꼴 */
+  --rd-font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --rd-font-num: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  /* 타이밍(ms): 던지기 / 모이기 / 카드 사이 간격 / 단계 사이 쉼 */
+  --rd-deal-ms: 560;
+  --rd-sort-ms: 780;
+  --rd-stagger-ms: 60;
+  --rd-gap-ms: 520;
+  /* 튕김 곡선: 두 번째 숫자(1.35)를 키우면 더 크게 튕깁니다 */
+  --rd-bounce: cubic-bezier(.22, 1.35, .36, 1);
+  /* 흩어졌을 때 카드 크기 비율 */
+  --rd-scatter-scale: .74;
+
+  font-family: var(--rd-font);
+  color: var(--rd-ink);
+  container-type: inline-size;
+  max-width: 100%;
+}
+.rd-sort *, .rd-sort *::before, .rd-sort *::after { box-sizing: border-box; }
+
+.rd-sort__slide {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  overflow: hidden;
+  background: var(--rd-bg);
+  color: var(--rd-ink);
+  padding: 3.4cqw 3.6cqw 2.6cqw;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 2.4cqw;
+  border-radius: .6cqw;
+  outline: none;
+}
+.rd-sort__slide:focus-visible { box-shadow: 0 0 0 3px var(--rd-a); }
+
+.rd-sort__eyebrow {
+  margin: 0 0 .7cqw;
+  font-size: 1.25cqw;
+  letter-spacing: .02em;
+  color: var(--rd-muted);
+  display: flex; align-items: center; gap: .8cqw;
+}
+.rd-sort__tag {
+  font-size: 1cqw;
+  padding: .15cqw .6cqw;
+  border: 1px solid var(--rd-line);
+  border-radius: 99px;
+  color: var(--rd-muted);
+}
+.rd-sort__title {
+  margin: 0;
+  font-size: 3.4cqw;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+}
+
+.rd-sort__table {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2.2cqw;
+  min-height: 0;
+}
+.rd-sort__lane {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 1cqw;
+  min-height: 0;
+}
+/* 영역별 색 연결: 영역을 늘리면 여기에 한 줄 추가 */
+.rd-sort__lane[data-area="a"] { --rd-k: var(--rd-a); --rd-k-soft: var(--rd-a-soft); }
+.rd-sort__lane[data-area="b"] { --rd-k: var(--rd-b); --rd-k-soft: var(--rd-b-soft); }
+.rd-sort__lane[data-area="c"] { --rd-k: var(--rd-c); --rd-k-soft: var(--rd-c-soft); }
+
+.rd-sort__head {
+  position: relative; z-index: 1;
+  margin: 0;
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: .55cqw;
+  border-bottom: .28cqw solid var(--rd-k);
+  font-size: 1.75cqw;
+  font-weight: 700;
+  color: var(--rd-k);
+}
+.rd-sort__count {
+  font-style: normal;
+  font-family: var(--rd-font-num);
+  font-size: 1.35cqw;
+  font-weight: 600;
+  transform-origin: right center;
+}
+.rd-sort__tray { position: relative; min-height: 0; }
+.rd-sort__bed {
+  position: absolute; inset: 0;
+  border: 1px dashed var(--rd-line);
+  border-radius: .5cqw;
+}
+.rd-sort__cards {
+  position: relative;
+  list-style: none;
+  margin: 0; padding: .9cqw;
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  row-gap: .8cqw;
+}
+.rd-sort__card {
+  position: relative; z-index: 3; /* 분류된 카드가 흩어진 카드 위에 오도록 */
+  display: flex; align-items: center; gap: 1cqw;
+  padding: 0 1.1cqw;
+  background: var(--rd-k-soft);
+  border: 1px solid var(--rd-k);
+  border-radius: .4cqw;
+  font-size: 1.5cqw;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--rd-ink);
+  transition: background-color .45s ease, border-color .45s ease;
+  will-change: transform;
+}
+.rd-sort__card b {
+  font-family: var(--rd-font-num);
+  font-size: 1.25cqw;
+  font-weight: 600;
+  color: var(--rd-k);
+  transition: color .45s ease;
+}
+/* 아직 분류되지 않은 카드(무채색) */
+.rd-sort__card.is-loose {
+  z-index: 2;
+  background: var(--rd-card);
+  border-color: var(--rd-line);
+  box-shadow: 0 .3cqw .8cqw rgba(28, 31, 29, .10);
+}
+.rd-sort__card.is-loose b { color: var(--rd-muted); }
+.rd-sort--instant .rd-sort__card,
+.rd-sort--instant .rd-sort__card b { transition: none !important; }
+
+.rd-sort__foot {
+  margin: 0;
+  justify-self: end;
+  font-family: var(--rd-font-num);
+  font-size: 1cqw;
+  color: var(--rd-muted);
+}
+
+/* 장표 아래 조작 막대 */
+.rd-sort__bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
+  margin-top: 12px;
+}
+.rd-sort__btn {
+  font: 500 14px/1 var(--rd-font);
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--rd-line);
+  background: var(--rd-card);
+  color: var(--rd-ink);
+  cursor: pointer;
+}
+.rd-sort__btn--main { background: var(--rd-ink); border-color: var(--rd-ink); color: var(--rd-card); }
+.rd-sort__btn:focus-visible { outline: 3px solid var(--rd-a); outline-offset: 2px; }
+.rd-sort__caption {
+  margin: 0; flex: 1 1 200px; min-width: 0;
+  font-size: 13px;
+  color: var(--rd-muted);
+}
+</style>
+
+<script>
+(function () {
+  /* ── 단계 목록: 한 줄 = 클릭 한 번. 순서를 바꾸거나 줄을 지우면 재생 순서가 바뀝니다 ──
+     act: deal(카드 던지기) / lanes(영역 틀 펼치기) / sort(해당 영역으로 모으기) / count(개수 표시) */
+  var RD_STEPS = [
+    { act: 'deal',  label: '계획안 순서대로 과제 12개가 던져진다' },
+    { act: 'lanes', label: '묶을 영역 3개가 자리를 편다' },
+    { act: 'sort', area: 'a', label: '수업·교육과정 과제 4개가 모인다' },
+    { act: 'sort', area: 'b', label: '인력·전문성 과제 4개가 모인다' },
+    { act: 'sort', area: 'c', label: '인식·문화 과제 4개가 모인다' },
+    { act: 'count', label: '영역마다 과제 수가 붙는다' }
+  ];
+  /* 흩어진 자리: [가로 0~1, 세로 0~1, 기울기(도)] — data-no 1번부터 순서대로, 표 영역 기준 */
+  var RD_SCATTER = [
+    [.13, .17, -5], [.38, .21, 3], [.62, .15, -2], [.87, .20, 6],
+    [.12, .50, 4], [.37, .47, -4], [.63, .52, 5], [.88, .48, -3],
+    [.14, .83, -3], [.38, .80, 6], [.62, .84, -6], [.86, .81, 2]
+  ];
+
+  function init(root) {
+    if (root.dataset.rdReady) return;
+    root.dataset.rdReady = '1';
+    var table = root.querySelector('.rd-sort__table');
+    var cards = Array.prototype.slice.call(root.querySelectorAll('.rd-sort__card'));
+    var heads = root.querySelectorAll('.rd-sort__head');
+    var beds = root.querySelectorAll('.rd-sort__bed');
+    var counts = root.querySelectorAll('.rd-sort__count');
+    var caption = root.querySelector('[data-rd="caption"]');
+    var btnStep = root.querySelector('[data-rd="step"]');
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var N = RD_STEPS.length, cur = N, runId = 0;
+
+    cards.sort(function (x, y) { return x.dataset.no - y.dataset.no; });
+
+    function v(name) { return getComputedStyle(root).getPropertyValue(name).trim(); }
+    function ms(name) { return parseFloat(v(name)) || 0; }
+
+    /* 요소를 to 상태로 두고, 시간이 있으면 from→to로 움직인다 */
+    function tween(el, from, to, dur, delay, easing) {
+      for (var k in to) el.style[k] = to[k];
+      if (!dur || reduce || !el.animate) return;
+      el.animate([from, to], { duration: dur, delay: delay || 0, easing: easing || 'ease-out', fill: 'backwards' });
+    }
+    /* 카드의 원래(최종) 중심 좌표: 표 영역 기준, 변형 무시 */
+    function home(el) {
+      var x = 0, y = 0, n = el;
+      while (n && n !== table) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+      return { x: x + el.offsetWidth / 2, y: y + el.offsetHeight / 2 };
+    }
+    function scatterT(card) {
+      var p = RD_SCATTER[(card.dataset.no - 1) % RD_SCATTER.length], h = home(card);
+      return 'translate(' + (p[0] * table.clientWidth - h.x) + 'px,' + (p[1] * table.clientHeight - h.y) + 'px) rotate(' + p[2] + 'deg) scale(' + v('--rd-scatter-scale') + ')';
+    }
+    function deckT(card) {
+      var p = RD_SCATTER[(card.dataset.no - 1) % RD_SCATTER.length], h = home(card);
+      return 'translate(' + (table.clientWidth / 2 - h.x) + 'px,' + (table.clientHeight * 1.45 - h.y) + 'px) rotate(' + (p[2] * 4) + 'deg) scale(' + v('--rd-scatter-scale') + ')';
+    }
+    var HOME = 'translate(0px,0px) rotate(0deg) scale(1)';
+
+    function reset() {
+      cards.forEach(function (c) { c.classList.add('is-loose'); c.style.transitionDelay = '0ms'; c.style.opacity = '0'; c.style.transform = deckT(c); });
+      heads.forEach(function (h) { h.style.clipPath = 'inset(0 100% 0 0)'; });
+      beds.forEach(function (b) { b.style.opacity = '0'; });
+      counts.forEach(function (c) { c.style.opacity = '0'; c.style.transform = 'scale(.3)'; });
+    }
+
+    /* 단계 i를 실행하고 걸리는 시간(ms)을 돌려준다. anim=false면 즉시 적용 */
+    function doStep(i, anim) {
+      var s = RD_STEPS[i], st = ms('--rd-stagger-ms'), bounce = v('--rd-bounce');
+      if (s.act === 'deal') {
+        var d = anim ? ms('--rd-deal-ms') : 0;
+        cards.forEach(function (c, j) {
+          tween(c, { opacity: 0, transform: deckT(c) }, { opacity: 1, transform: scatterT(c) }, d, j * st, bounce);
+        });
+        return d + (cards.length - 1) * st;
+      }
+      if (s.act === 'lanes') {
+        var d2 = anim ? 420 : 0;
+        heads.forEach(function (h, j) { tween(h, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }, d2, j * 110, 'cubic-bezier(.6,0,.2,1)'); });
+        beds.forEach(function (b, j) { tween(b, { opacity: 0 }, { opacity: 1 }, d2, 80 + j * 110); });
+        return d2 + 2 * 110;
+      }
+      if (s.act === 'sort') {
+        var d3 = anim ? ms('--rd-sort-ms') : 0, group = root.querySelectorAll('[data-area="' + s.area + '"] .rd-sort__card');
+        Array.prototype.forEach.call(group, function (c, j) {
+          var from = { opacity: 1, transform: c.style.transform };
+          c.style.transitionDelay = (anim ? j * st + d3 * .35 : 0) + 'ms';
+          c.classList.remove('is-loose');
+          tween(c, from, { opacity: 1, transform: HOME }, d3, j * st, bounce);
+        });
+        return d3 + (group.length - 1) * st;
+      }
+      if (s.act === 'count') {
+        var d4 = anim ? 420 : 0;
+        counts.forEach(function (c, j) { tween(c, { opacity: 0, transform: 'scale(.3)' }, { opacity: 1, transform: 'scale(1)' }, d4, j * 90, bounce); });
+        return d4 + 2 * 90;
+      }
+      return 0;
+    }
+
+    function cancelAll() {
+      root.querySelectorAll('.rd-sort__card, .rd-sort__head, .rd-sort__bed, .rd-sort__count').forEach(function (el) {
+        if (el.getAnimations) el.getAnimations().forEach(function (a) { a.cancel(); });
+      });
+    }
+    /* 0~n단계까지 즉시 적용 */
+    function go(n) {
+      cancelAll();
+      root.classList.add('rd-sort--instant');
+      reset();
+      for (var i = 0; i < n; i++) doStep(i, false);
+      void root.offsetWidth;
+      root.classList.remove('rd-sort--instant');
+      cur = n; label();
+    }
+    function label() {
+      caption.textContent = cur === 0 ? '빈 장표' : (cur + '/' + N + ' · ' + RD_STEPS[cur - 1].label);
+      btnStep.textContent = cur >= N ? '한 단계씩 (처음부터)' : '한 단계씩 (' + (cur + 1) + '/' + N + ')';
+    }
+    function next() {
+      runId++;
+      go(cur >= N ? 0 : cur);
+      doStep(cur, true); cur++; label();
+    }
+    function playAll() {
+      var id = ++runId;
+      if (reduce) { go(N); return; }
+      go(0);
+      var i = 0;
+      (function tick() {
+        if (id !== runId || i >= N) return;
+        var t = doStep(i, true); i++; cur = i; label();
+        setTimeout(tick, t + ms('--rd-gap-ms'));
+      })();
+    }
+
+    root.querySelector('[data-rd="replay"]').addEventListener('click', playAll);
+    btnStep.addEventListener('click', next);
+    root.querySelector('.rd-sort__slide').addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+    });
+    /* 크기가 바뀌면 현재 단계를 다시 맞춘다 */
+    var lastW = table.clientWidth;
+    if (window.ResizeObserver) new ResizeObserver(function () {
+      if (Math.abs(table.clientWidth - lastW) < 1) return;
+      lastW = table.clientWidth; runId++; go(cur);
+    }).observe(table);
+
+    if (root.dataset.autoplay === 'true' && !reduce) playAll(); else go(N);
+  }
+
+  function boot() { document.querySelectorAll('.rd-sort').forEach(init); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+</script>
+
+  </section>
+
+  <section>
+    <h2>이 움직임이 보여 주는 것</h2>
+    <div class="pg-two">
+      <div>
+        <p>계획안 본문에는 세부 과제가 01부터 12까지 한 줄로 적혀 있습니다. 카드 딜러가 패를 테이블에 던지듯 그 순서 그대로 펼쳐 놓고, 영역 틀이 자리를 편 뒤 같은 성격의 카드만 한 더미씩 모입니다.</p>
+        <p>모이는 순간 회색 카드가 영역 색으로 바뀌고, 카드 번호는 그대로 남습니다. 그래서 멈춘 화면에서도 “01·04·07·10이 한 영역”처럼 원래 순서와 분류가 동시에 읽힙니다.</p>
+      </div>
+      <div>
+        <h3>계획안의 다른 부분에 쓰기</h3>
+        <ul class="pg-list">
+          <li><b>대상별 지원 유형</b>: 지원 사례 카드를 “유아 / 초등 / 특수” 세 더미로 모으기</li>
+          <li><b>예산 편성 내역</b>: 사업 카드를 “인건비 / 운영비 / 시설비”로 묶고 영역 머리에 합계를 붙이기</li>
+          <li><b>기존안 대 개선안</b>: 과제를 “유지 / 통합 / 신설” 세 더미로 가르며 달라진 점 보여 주기</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>HTML로 가져다 쓰기</h2>
+    <div class="pg-code-wrap">
+      <div class="pg-code-bar"><span>rd-sort · 장표 전체 코드(HTML+CSS+JS)</span><button type="button" class="pg-copy" id="pg-copy">코드 복사</button></div>
+      <pre class="pg-code" id="pg-code" tabindex="0">&lt;!-- ============================================================
+  유목화 도식 장표: 흩어진 과제 카드 12장 → 영역 3개로 묶기
+  이 블록(&lt;link&gt;부터 마지막 &lt;/script&gt;까지)을 통째로 붙여 넣으면 동작합니다.
+  같은 페이지에 여러 개를 넣어도 서로 간섭하지 않습니다.
+============================================================ --&gt;
+&lt;!-- 글꼴: 다른 한글 글꼴로 바꾸려면 이 줄과 --rd-font-* 변수를 함께 바꿉니다 --&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap"&gt;
+
+&lt;div class="rd-sort" data-autoplay="true"&gt;
+  &lt;div class="rd-sort__slide" tabindex="0" aria-label="유목화 도식 장표. 오른쪽 화살표나 스페이스로 한 단계씩 진행"&gt;
+    &lt;header class="rd-sort__top"&gt;
+      &lt;p class="rd-sort__eyebrow"&gt;○○교육청 2027 특수교육 통합교육 지원 계획(안) · Ⅲ. 세부 추진 과제 &lt;span class="rd-sort__tag"&gt;가상 예시&lt;/span&gt;&lt;/p&gt;
+      &lt;!-- 장표 제목: 결론을 한 문장으로 --&gt;
+      &lt;h2 class="rd-sort__title"&gt;12개 과제는 세 갈래로 묶인다&lt;/h2&gt;
+    &lt;/header&gt;
+
+    &lt;!-- 영역(레인): data-area 값(a/b/c)이 색과 단계 목록을 연결합니다.
+         영역을 늘리려면 section을 복사하고, CSS의 [data-area] 색 규칙과 RD_STEPS에 한 줄씩 더합니다. --&gt;
+    &lt;div class="rd-sort__table"&gt;
+      &lt;section class="rd-sort__lane" data-area="a"&gt;
+        &lt;h3 class="rd-sort__head"&gt;&lt;span&gt;수업·교육과정&lt;/span&gt;&lt;em class="rd-sort__count"&gt;4개&lt;/em&gt;&lt;/h3&gt;
+        &lt;div class="rd-sort__tray"&gt;
+          &lt;div class="rd-sort__bed"&gt;&lt;/div&gt;
+          &lt;ol class="rd-sort__cards"&gt;
+            &lt;!-- data-no = 계획안에 적힌 순서(흩어질 때 이 순서로 놓임) --&gt;
+            &lt;li class="rd-sort__card" data-no="1"&gt;&lt;b&gt;01&lt;/b&gt;&lt;span&gt;통합학급 협력교수&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="4"&gt;&lt;b&gt;04&lt;/b&gt;&lt;span&gt;개별화교육계획 공동 수립&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="7"&gt;&lt;b&gt;07&lt;/b&gt;&lt;span&gt;보편적 학습설계 자료&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="10"&gt;&lt;b&gt;10&lt;/b&gt;&lt;span&gt;평가 조정 지침 보급&lt;/span&gt;&lt;/li&gt;
+          &lt;/ol&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+      &lt;section class="rd-sort__lane" data-area="b"&gt;
+        &lt;h3 class="rd-sort__head"&gt;&lt;span&gt;인력·전문성&lt;/span&gt;&lt;em class="rd-sort__count"&gt;4개&lt;/em&gt;&lt;/h3&gt;
+        &lt;div class="rd-sort__tray"&gt;
+          &lt;div class="rd-sort__bed"&gt;&lt;/div&gt;
+          &lt;ol class="rd-sort__cards"&gt;
+            &lt;li class="rd-sort__card" data-no="2"&gt;&lt;b&gt;02&lt;/b&gt;&lt;span&gt;특수교육 보조인력 배치&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="5"&gt;&lt;b&gt;05&lt;/b&gt;&lt;span&gt;통합교육 지원교사 증원&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="8"&gt;&lt;b&gt;08&lt;/b&gt;&lt;span&gt;일반교사 통합교육 연수&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="11"&gt;&lt;b&gt;11&lt;/b&gt;&lt;span&gt;순회교육 협의체 운영&lt;/span&gt;&lt;/li&gt;
+          &lt;/ol&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+      &lt;section class="rd-sort__lane" data-area="c"&gt;
+        &lt;h3 class="rd-sort__head"&gt;&lt;span&gt;인식·문화&lt;/span&gt;&lt;em class="rd-sort__count"&gt;4개&lt;/em&gt;&lt;/h3&gt;
+        &lt;div class="rd-sort__tray"&gt;
+          &lt;div class="rd-sort__bed"&gt;&lt;/div&gt;
+          &lt;ol class="rd-sort__cards"&gt;
+            &lt;li class="rd-sort__card" data-no="3"&gt;&lt;b&gt;03&lt;/b&gt;&lt;span&gt;장애이해교육 주간&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="6"&gt;&lt;b&gt;06&lt;/b&gt;&lt;span&gt;학부모 인식개선 연수&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="9"&gt;&lt;b&gt;09&lt;/b&gt;&lt;span&gt;통합 동아리·체험활동&lt;/span&gt;&lt;/li&gt;
+            &lt;li class="rd-sort__card" data-no="12"&gt;&lt;b&gt;12&lt;/b&gt;&lt;span&gt;우수사례 나눔 자리&lt;/span&gt;&lt;/li&gt;
+          &lt;/ol&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+    &lt;/div&gt;
+
+    &lt;p class="rd-sort__foot"&gt;번호 = 계획안 기재 순서&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class="rd-sort__bar"&gt;
+    &lt;button type="button" class="rd-sort__btn" data-rd="replay"&gt;다시 보기&lt;/button&gt;
+    &lt;button type="button" class="rd-sort__btn rd-sort__btn--main" data-rd="step"&gt;한 단계씩&lt;/button&gt;
+    &lt;p class="rd-sort__caption" data-rd="caption" aria-live="polite"&gt;완성 상태&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+/* ── 여기를 바꾸면: 색·크기·타이밍 전체가 바뀝니다 ── */
+.rd-sort {
+  /* 장표 바탕·글자·선 */
+  --rd-bg: #F1F2EE;
+  --rd-ink: #1C1F1D;
+  --rd-muted: #68706A;
+  --rd-line: #CDD2CA;
+  --rd-card: #FFFFFF;
+  /* 영역 색(진한 색 / 옅은 바탕) — 영역 a·b·c */
+  --rd-a: #2E6B57;  --rd-a-soft: #DFEBE4;
+  --rd-b: #B4532A;  --rd-b-soft: #F4E2D7;
+  --rd-c: #634A8C;  --rd-c-soft: #E8E2F1;
+  /* 글꼴 */
+  --rd-font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --rd-font-num: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  /* 타이밍(ms): 던지기 / 모이기 / 카드 사이 간격 / 단계 사이 쉼 */
+  --rd-deal-ms: 560;
+  --rd-sort-ms: 780;
+  --rd-stagger-ms: 60;
+  --rd-gap-ms: 520;
+  /* 튕김 곡선: 두 번째 숫자(1.35)를 키우면 더 크게 튕깁니다 */
+  --rd-bounce: cubic-bezier(.22, 1.35, .36, 1);
+  /* 흩어졌을 때 카드 크기 비율 */
+  --rd-scatter-scale: .74;
+
+  font-family: var(--rd-font);
+  color: var(--rd-ink);
+  container-type: inline-size;
+  max-width: 100%;
+}
+.rd-sort *, .rd-sort *::before, .rd-sort *::after { box-sizing: border-box; }
+
+.rd-sort__slide {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  overflow: hidden;
+  background: var(--rd-bg);
+  color: var(--rd-ink);
+  padding: 3.4cqw 3.6cqw 2.6cqw;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 2.4cqw;
+  border-radius: .6cqw;
+  outline: none;
+}
+.rd-sort__slide:focus-visible { box-shadow: 0 0 0 3px var(--rd-a); }
+
+.rd-sort__eyebrow {
+  margin: 0 0 .7cqw;
+  font-size: 1.25cqw;
+  letter-spacing: .02em;
+  color: var(--rd-muted);
+  display: flex; align-items: center; gap: .8cqw;
+}
+.rd-sort__tag {
+  font-size: 1cqw;
+  padding: .15cqw .6cqw;
+  border: 1px solid var(--rd-line);
+  border-radius: 99px;
+  color: var(--rd-muted);
+}
+.rd-sort__title {
+  margin: 0;
+  font-size: 3.4cqw;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.15;
+}
+
+.rd-sort__table {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2.2cqw;
+  min-height: 0;
+}
+.rd-sort__lane {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: 1cqw;
+  min-height: 0;
+}
+/* 영역별 색 연결: 영역을 늘리면 여기에 한 줄 추가 */
+.rd-sort__lane[data-area="a"] { --rd-k: var(--rd-a); --rd-k-soft: var(--rd-a-soft); }
+.rd-sort__lane[data-area="b"] { --rd-k: var(--rd-b); --rd-k-soft: var(--rd-b-soft); }
+.rd-sort__lane[data-area="c"] { --rd-k: var(--rd-c); --rd-k-soft: var(--rd-c-soft); }
+
+.rd-sort__head {
+  position: relative; z-index: 1;
+  margin: 0;
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: .55cqw;
+  border-bottom: .28cqw solid var(--rd-k);
+  font-size: 1.75cqw;
+  font-weight: 700;
+  color: var(--rd-k);
+}
+.rd-sort__count {
+  font-style: normal;
+  font-family: var(--rd-font-num);
+  font-size: 1.35cqw;
+  font-weight: 600;
+  transform-origin: right center;
+}
+.rd-sort__tray { position: relative; min-height: 0; }
+.rd-sort__bed {
+  position: absolute; inset: 0;
+  border: 1px dashed var(--rd-line);
+  border-radius: .5cqw;
+}
+.rd-sort__cards {
+  position: relative;
+  list-style: none;
+  margin: 0; padding: .9cqw;
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  row-gap: .8cqw;
+}
+.rd-sort__card {
+  position: relative; z-index: 3; /* 분류된 카드가 흩어진 카드 위에 오도록 */
+  display: flex; align-items: center; gap: 1cqw;
+  padding: 0 1.1cqw;
+  background: var(--rd-k-soft);
+  border: 1px solid var(--rd-k);
+  border-radius: .4cqw;
+  font-size: 1.5cqw;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--rd-ink);
+  transition: background-color .45s ease, border-color .45s ease;
+  will-change: transform;
+}
+.rd-sort__card b {
+  font-family: var(--rd-font-num);
+  font-size: 1.25cqw;
+  font-weight: 600;
+  color: var(--rd-k);
+  transition: color .45s ease;
+}
+/* 아직 분류되지 않은 카드(무채색) */
+.rd-sort__card.is-loose {
+  z-index: 2;
+  background: var(--rd-card);
+  border-color: var(--rd-line);
+  box-shadow: 0 .3cqw .8cqw rgba(28, 31, 29, .10);
+}
+.rd-sort__card.is-loose b { color: var(--rd-muted); }
+.rd-sort--instant .rd-sort__card,
+.rd-sort--instant .rd-sort__card b { transition: none !important; }
+
+.rd-sort__foot {
+  margin: 0;
+  justify-self: end;
+  font-family: var(--rd-font-num);
+  font-size: 1cqw;
+  color: var(--rd-muted);
+}
+
+/* 장표 아래 조작 막대 */
+.rd-sort__bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
+  margin-top: 12px;
+}
+.rd-sort__btn {
+  font: 500 14px/1 var(--rd-font);
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--rd-line);
+  background: var(--rd-card);
+  color: var(--rd-ink);
+  cursor: pointer;
+}
+.rd-sort__btn--main { background: var(--rd-ink); border-color: var(--rd-ink); color: var(--rd-card); }
+.rd-sort__btn:focus-visible { outline: 3px solid var(--rd-a); outline-offset: 2px; }
+.rd-sort__caption {
+  margin: 0; flex: 1 1 200px; min-width: 0;
+  font-size: 13px;
+  color: var(--rd-muted);
+}
+&lt;/style&gt;
+
+&lt;script&gt;
+(function () {
+  /* ── 단계 목록: 한 줄 = 클릭 한 번. 순서를 바꾸거나 줄을 지우면 재생 순서가 바뀝니다 ──
+     act: deal(카드 던지기) / lanes(영역 틀 펼치기) / sort(해당 영역으로 모으기) / count(개수 표시) */
+  var RD_STEPS = [
+    { act: 'deal',  label: '계획안 순서대로 과제 12개가 던져진다' },
+    { act: 'lanes', label: '묶을 영역 3개가 자리를 편다' },
+    { act: 'sort', area: 'a', label: '수업·교육과정 과제 4개가 모인다' },
+    { act: 'sort', area: 'b', label: '인력·전문성 과제 4개가 모인다' },
+    { act: 'sort', area: 'c', label: '인식·문화 과제 4개가 모인다' },
+    { act: 'count', label: '영역마다 과제 수가 붙는다' }
+  ];
+  /* 흩어진 자리: [가로 0~1, 세로 0~1, 기울기(도)] — data-no 1번부터 순서대로, 표 영역 기준 */
+  var RD_SCATTER = [
+    [.13, .17, -5], [.38, .21, 3], [.62, .15, -2], [.87, .20, 6],
+    [.12, .50, 4], [.37, .47, -4], [.63, .52, 5], [.88, .48, -3],
+    [.14, .83, -3], [.38, .80, 6], [.62, .84, -6], [.86, .81, 2]
+  ];
+
+  function init(root) {
+    if (root.dataset.rdReady) return;
+    root.dataset.rdReady = '1';
+    var table = root.querySelector('.rd-sort__table');
+    var cards = Array.prototype.slice.call(root.querySelectorAll('.rd-sort__card'));
+    var heads = root.querySelectorAll('.rd-sort__head');
+    var beds = root.querySelectorAll('.rd-sort__bed');
+    var counts = root.querySelectorAll('.rd-sort__count');
+    var caption = root.querySelector('[data-rd="caption"]');
+    var btnStep = root.querySelector('[data-rd="step"]');
+    var reduce = window.matchMedia &amp;&amp; matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var N = RD_STEPS.length, cur = N, runId = 0;
+
+    cards.sort(function (x, y) { return x.dataset.no - y.dataset.no; });
+
+    function v(name) { return getComputedStyle(root).getPropertyValue(name).trim(); }
+    function ms(name) { return parseFloat(v(name)) || 0; }
+
+    /* 요소를 to 상태로 두고, 시간이 있으면 from→to로 움직인다 */
+    function tween(el, from, to, dur, delay, easing) {
+      for (var k in to) el.style[k] = to[k];
+      if (!dur || reduce || !el.animate) return;
+      el.animate([from, to], { duration: dur, delay: delay || 0, easing: easing || 'ease-out', fill: 'backwards' });
+    }
+    /* 카드의 원래(최종) 중심 좌표: 표 영역 기준, 변형 무시 */
+    function home(el) {
+      var x = 0, y = 0, n = el;
+      while (n &amp;&amp; n !== table) { x += n.offsetLeft; y += n.offsetTop; n = n.offsetParent; }
+      return { x: x + el.offsetWidth / 2, y: y + el.offsetHeight / 2 };
+    }
+    function scatterT(card) {
+      var p = RD_SCATTER[(card.dataset.no - 1) % RD_SCATTER.length], h = home(card);
+      return 'translate(' + (p[0] * table.clientWidth - h.x) + 'px,' + (p[1] * table.clientHeight - h.y) + 'px) rotate(' + p[2] + 'deg) scale(' + v('--rd-scatter-scale') + ')';
+    }
+    function deckT(card) {
+      var p = RD_SCATTER[(card.dataset.no - 1) % RD_SCATTER.length], h = home(card);
+      return 'translate(' + (table.clientWidth / 2 - h.x) + 'px,' + (table.clientHeight * 1.45 - h.y) + 'px) rotate(' + (p[2] * 4) + 'deg) scale(' + v('--rd-scatter-scale') + ')';
+    }
+    var HOME = 'translate(0px,0px) rotate(0deg) scale(1)';
+
+    function reset() {
+      cards.forEach(function (c) { c.classList.add('is-loose'); c.style.transitionDelay = '0ms'; c.style.opacity = '0'; c.style.transform = deckT(c); });
+      heads.forEach(function (h) { h.style.clipPath = 'inset(0 100% 0 0)'; });
+      beds.forEach(function (b) { b.style.opacity = '0'; });
+      counts.forEach(function (c) { c.style.opacity = '0'; c.style.transform = 'scale(.3)'; });
+    }
+
+    /* 단계 i를 실행하고 걸리는 시간(ms)을 돌려준다. anim=false면 즉시 적용 */
+    function doStep(i, anim) {
+      var s = RD_STEPS[i], st = ms('--rd-stagger-ms'), bounce = v('--rd-bounce');
+      if (s.act === 'deal') {
+        var d = anim ? ms('--rd-deal-ms') : 0;
+        cards.forEach(function (c, j) {
+          tween(c, { opacity: 0, transform: deckT(c) }, { opacity: 1, transform: scatterT(c) }, d, j * st, bounce);
+        });
+        return d + (cards.length - 1) * st;
+      }
+      if (s.act === 'lanes') {
+        var d2 = anim ? 420 : 0;
+        heads.forEach(function (h, j) { tween(h, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }, d2, j * 110, 'cubic-bezier(.6,0,.2,1)'); });
+        beds.forEach(function (b, j) { tween(b, { opacity: 0 }, { opacity: 1 }, d2, 80 + j * 110); });
+        return d2 + 2 * 110;
+      }
+      if (s.act === 'sort') {
+        var d3 = anim ? ms('--rd-sort-ms') : 0, group = root.querySelectorAll('[data-area="' + s.area + '"] .rd-sort__card');
+        Array.prototype.forEach.call(group, function (c, j) {
+          var from = { opacity: 1, transform: c.style.transform };
+          c.style.transitionDelay = (anim ? j * st + d3 * .35 : 0) + 'ms';
+          c.classList.remove('is-loose');
+          tween(c, from, { opacity: 1, transform: HOME }, d3, j * st, bounce);
+        });
+        return d3 + (group.length - 1) * st;
+      }
+      if (s.act === 'count') {
+        var d4 = anim ? 420 : 0;
+        counts.forEach(function (c, j) { tween(c, { opacity: 0, transform: 'scale(.3)' }, { opacity: 1, transform: 'scale(1)' }, d4, j * 90, bounce); });
+        return d4 + 2 * 90;
+      }
+      return 0;
+    }
+
+    function cancelAll() {
+      root.querySelectorAll('.rd-sort__card, .rd-sort__head, .rd-sort__bed, .rd-sort__count').forEach(function (el) {
+        if (el.getAnimations) el.getAnimations().forEach(function (a) { a.cancel(); });
+      });
+    }
+    /* 0~n단계까지 즉시 적용 */
+    function go(n) {
+      cancelAll();
+      root.classList.add('rd-sort--instant');
+      reset();
+      for (var i = 0; i &lt; n; i++) doStep(i, false);
+      void root.offsetWidth;
+      root.classList.remove('rd-sort--instant');
+      cur = n; label();
+    }
+    function label() {
+      caption.textContent = cur === 0 ? '빈 장표' : (cur + '/' + N + ' · ' + RD_STEPS[cur - 1].label);
+      btnStep.textContent = cur &gt;= N ? '한 단계씩 (처음부터)' : '한 단계씩 (' + (cur + 1) + '/' + N + ')';
+    }
+    function next() {
+      runId++;
+      go(cur &gt;= N ? 0 : cur);
+      doStep(cur, true); cur++; label();
+    }
+    function playAll() {
+      var id = ++runId;
+      if (reduce) { go(N); return; }
+      go(0);
+      var i = 0;
+      (function tick() {
+        if (id !== runId || i &gt;= N) return;
+        var t = doStep(i, true); i++; cur = i; label();
+        setTimeout(tick, t + ms('--rd-gap-ms'));
+      })();
+    }
+
+    root.querySelector('[data-rd="replay"]').addEventListener('click', playAll);
+    btnStep.addEventListener('click', next);
+    root.querySelector('.rd-sort__slide').addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+    });
+    /* 크기가 바뀌면 현재 단계를 다시 맞춘다 */
+    var lastW = table.clientWidth;
+    if (window.ResizeObserver) new ResizeObserver(function () {
+      if (Math.abs(table.clientWidth - lastW) &lt; 1) return;
+      lastW = table.clientWidth; runId++; go(cur);
+    }).observe(table);
+
+    if (root.dataset.autoplay === 'true' &amp;&amp; !reduce) playAll(); else go(N);
+  }
+
+  function boot() { document.querySelectorAll('.rd-sort').forEach(init); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+&lt;/script&gt;
+</pre>
+    </div>
+    <ul class="pg-list pg-swap">
+      <li><b>내용</b>: 영역 이름은 <code>.rd-sort__head</code>의 글자, 과제는 <code>&lt;li class="rd-sort__card" data-no="…"&gt;</code>. <code>data-no</code>는 계획안 기재 순서이고 흩어질 때 이 순서로 놓입니다.</li>
+      <li><b>색·타이밍</b>: 맨 위 <code>.rd-sort { --rd-a … --rd-bounce }</code> 변수만 고치면 됩니다. 튕김이 과하면 <code>1.35</code>를 <code>1.1</code>로.</li>
+      <li><b>클릭 순서</b>: 스크립트 맨 위 <code>RD_STEPS</code> 배열 한 줄이 클릭 한 번입니다. 영역을 한꺼번에 모으려면 sort 세 줄을 지우고 순서를 바꿔 보세요.</li>
+      <li><b>과제 수가 다를 때</b>: 카드 개수에 맞춰 <code>RD_SCATTER</code> 좌표를 늘리거나 줄이고, 레인당 카드 수가 4가 아니면 <code>grid-template-rows: repeat(4, 1fr)</code>의 4를 바꿉니다.</li>
+      <li><b>자동 재생 끄기</b>: <code>data-autoplay="false"</code>로 두면 완성 상태로 시작하고 버튼으로만 재생합니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>PPT로 옮기기</h2>
+    <p>모이는 동작은 <b>화면 전환-모핑</b>이 가장 쉽고 정확합니다. 장표를 네 장으로 복제해 한 장마다 한 영역씩 제자리로 옮겨 두면, 모핑이 위치·기울기·크기·채우기 색을 한 번에 보간합니다.</p>
+    <div class="pg-table-wrap">
+      <table>
+        <thead>
+          <tr><th>클릭</th><th>대상 개체</th><th>PPT 애니메이션(한국어판)</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">1</td><td>과제 카드 12장 (장표 1, 흩어진 배치·기울기 적용해 둠)</td><td>나타내기-날아오기</td><td>방향: 아래쪽에서 · 부드러운 끝내기 0.2초 · 바운스 끝내기 0.25초</td><td>첫 장 “클릭할 때”, 나머지 “이전 효과와 함께”</td><td class="num">0.55초</td><td class="num">0, 0.06, 0.12 … 0.66초</td></tr>
+          <tr><td class="num">2</td><td>영역 머리띠 3개(글자+밑줄 묶음)</td><td>나타내기-닦아내기</td><td>방향: 왼쪽에서</td><td>첫째 “클릭할 때”, 나머지 “이전 효과와 함께”</td><td class="num">0.4초</td><td class="num">0, 0.11, 0.22초</td></tr>
+          <tr><td class="num">2</td><td>점선 트레이 3개</td><td>나타내기-페이드</td><td>–</td><td>이전 효과와 함께</td><td class="num">0.4초</td><td class="num">0.08, 0.19, 0.3초</td></tr>
+          <tr><td class="num">3</td><td>수업·교육과정 카드 4장 (장표 1→2)</td><td>화면 전환-모핑</td><td>효과 옵션: 개체</td><td>클릭할 때(다음 장)</td><td class="num">0.8초</td><td class="num">–</td></tr>
+          <tr><td class="num">4</td><td>인력·전문성 카드 4장 (장표 2→3)</td><td>화면 전환-모핑</td><td>효과 옵션: 개체</td><td>클릭할 때(다음 장)</td><td class="num">0.8초</td><td class="num">–</td></tr>
+          <tr><td class="num">5</td><td>인식·문화 카드 4장 (장표 3→4)</td><td>화면 전환-모핑</td><td>효과 옵션: 개체</td><td>클릭할 때(다음 장)</td><td class="num">0.8초</td><td class="num">–</td></tr>
+          <tr><td class="num">6</td><td>개수 라벨 “4개” 3개 (장표 4)</td><td>나타내기-확대/축소</td><td>개체 중심</td><td>첫째 “클릭할 때”, 나머지 “이전 효과와 함께”</td><td class="num">0.4초</td><td class="num">0, 0.09, 0.18초</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pg-note">
+      <h3>장표 네 장 만드는 법</h3>
+      <p>① 장표 1: 최종 배치를 먼저 만든 뒤 카드 12장을 흩어진 자리로 옮기고 5° 안팎으로 기울이고 74%로 줄입니다. 채우기는 흰색, 번호는 회색. 클릭 1·2 애니메이션은 이 장에만 넣습니다.</p>
+      <p>② 선택 창(Alt+F10)에서 카드 이름을 <code>!!과제01</code>…<code>!!과제12</code>로 바꿉니다. 이름 앞 <code>!!</code>가 붙으면 모핑이 장이 달라도 같은 개체로 짝을 맞춥니다.</p>
+      <p>③ 장표 1을 복제해 장표 2에서는 수업·교육과정 4장만 제자리·원래 크기·기울기 0°·영역 색으로 바꿉니다. 장표 3, 4도 같은 방식으로 한 영역씩 더 옮깁니다. 장표 2~4에 화면 전환-모핑을 적용합니다.</p>
+      <h3>똑같이 안 되는 부분과 근사 방법</h3>
+      <p><b>모일 때 튕김</b>: 모핑에는 오버슈트가 없습니다. 모핑 뒤 해당 카드 4장에 강조-크게/작게(105%, 자동 반대로, 0.2초)를 “이전 효과 다음에”로 붙이면 착지감이 비슷해집니다.<br>
+      <b>카드 사이 시간차</b>: 모핑은 4장이 동시에 움직입니다. 시간차가 꼭 필요하면 모핑 대신 카드마다 이동 경로(선)+강조-회전+강조-크게/작게를 “이전 효과와 함께”로 묶고 지연을 0.06초씩 늘립니다. 손이 많이 가므로 기본은 모핑을 권합니다.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>스펙</h2>
+    <div class="pg-spec">
+      <div>
+        <h3>팔레트</h3>
+        <ul class="pg-swatches">
+          <li><i style="background:#F1F2EE"></i>장표 바탕 <code>#F1F2EE</code></li>
+          <li><i style="background:#1C1F1D"></i>글자 <code>#1C1F1D</code></li>
+          <li><i style="background:#CDD2CA"></i>선·미분류 테두리 <code>#CDD2CA</code></li>
+          <li><i style="background:#2E6B57"></i>영역 A 수업·교육과정 <code>#2E6B57</code></li>
+          <li><i style="background:#B4532A"></i>영역 B 인력·전문성 <code>#B4532A</code></li>
+          <li><i style="background:#634A8C"></i>영역 C 인식·문화 <code>#634A8C</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>폰트</h3>
+        <dl class="pg-dl">
+          <dt>본문·제목</dt><dd>IBM Plex Sans KR 400/500/700 → Apple SD Gothic Neo, 맑은 고딕, Noto Sans KR</dd>
+          <dt>번호·개수</dt><dd>IBM Plex Mono 500/600 → Consolas, monospace</dd>
+          <dt>PPT에서</dt><dd>글꼴이 없으면 맑은 고딕 굵게 / Consolas로 대체</dd>
+        </dl>
+      </div>
+      <div>
+        <h3>난이도</h3>
+        <dl class="pg-dl">
+          <dt>HTML</dt><dd>하: 붙여 넣고 글자·색 변수만 수정</dd>
+          <dt>PPT</dt><dd>중: 장표 4장 복제 + 개체 이름 맞추기(약 20분)</dd>
+        </dl>
+        <h3 style="margin-top:14px">반영 트렌드</h3>
+        <p>목적 있는 모션(움직임이 분류라는 의미를 전달), 결론형 제목(“12개 과제는 세 갈래로 묶인다”), 모듈형 그리드. 출처: ChatSlide·Slidesgo 2026 프레젠테이션 디자인 트렌드.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var btn = document.getElementById('pg-copy'), pre = document.getElementById('pg-code');
+  function selectCode() {
+    var r = document.createRange(); r.selectNodeContents(pre);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = '코드 복사'; }, 2200); }
+  btn.addEventListener('click', function () {
+    var text = pre.textContent;
+    try {
+      navigator.clipboard.writeText(text).then(function () { done('복사됨'); }, function () { selectCode(); done('선택됨: Ctrl+C'); });
+    } catch (e) { selectCode(); done('선택됨: Ctrl+C'); }
+  });
+})();
+</script>
+
+</body></html>

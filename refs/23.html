@@ -1,0 +1,482 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #23 주 경로 간트</title>
+<style>
+/* 레이아웃: 장표를 맨 위에 크게, 아래로 설명·코드·PPT 표·스펙을 한 단으로 */
+:root{
+  --bg:#EEF0F1; --surface:#F9F9F7; --fg:#1B2130; --muted:#5A6272; --line:#D2D6DB; --accent:#3A6FF2; --code-bg:#1B2130; --code-fg:#E6E9EE;
+  --display:"IBM Plex Sans KR","Noto Sans KR",sans-serif; --body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --mono:"IBM Plex Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#14171D; --surface:#1C2028; --fg:#E7E9ED; --muted:#A1A8B5; --line:#30363F; --accent:#8FB0FA; --code-bg:#0D1015; --code-fg:#DCE1E8; color-scheme:dark } }
+:root[data-theme="dark"]{ --bg:#14171D; --surface:#1C2028; --fg:#E7E9ED; --muted:#A1A8B5; --line:#30363F; --accent:#8FB0FA; --code-bg:#0D1015; --code-fg:#DCE1E8; color-scheme:dark }
+body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.65}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:16px; padding-block:24px 64px; display:flex; flex-direction:column; gap:40px}
+.top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 16px}
+.top h1{margin:0; font:700 22px/1.3 var(--display); letter-spacing:-.01em}
+.top span{font:500 12px var(--mono); color:var(--muted); letter-spacing:.04em}
+section{display:flex; flex-direction:column; gap:14px; min-width:0}
+h2.sec{margin:0; font:700 19px/1.35 var(--display); display:flex; gap:10px; align-items:baseline}
+h2.sec small{font:500 12px var(--mono); color:var(--accent); letter-spacing:.06em}
+p{margin:0; max-width:68ch}
+.apps{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+.apps div{border-top:2px solid var(--fg); padding-top:8px; min-width:0}
+.apps b{display:block; font-size:14px}
+.apps span{font-size:13.5px; color:var(--muted)}
+.codebox{position:relative; min-width:0}
+.codebox pre{margin:0; max-height:420px; overflow:auto; background:var(--code-bg); color:var(--code-fg); padding:16px; border-radius:6px; font:12.5px/1.55 var(--mono); white-space:pre}
+.copy{position:absolute; top:10px; right:10px; appearance:none; border:1px solid var(--code-fg); background:var(--code-bg); color:var(--code-fg); font:700 13px var(--body); padding:7px 12px; border-radius:4px; cursor:pointer}
+.copy:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+ol.hint{margin:0; padding-left:20px; max-width:72ch} ol.hint li{margin:2px 0}
+code{font-family:var(--mono); font-size:.9em; background:var(--surface); border:1px solid var(--line); padding:0 4px; border-radius:3px}
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:820px; font-size:13.5px}
+th,td{text-align:left; vertical-align:top; padding:9px 12px; border-bottom:1px solid var(--line)}
+th{font-weight:700; font-size:12.5px; color:var(--muted); white-space:nowrap}
+td:first-child{font:700 13px var(--mono); white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.note{border-left:3px solid var(--accent); padding:4px 0 4px 14px; max-width:76ch}
+.note p+p{margin-top:6px}
+.spec{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px}
+.spec h3{margin:0 0 6px; font:700 14px var(--body)}
+.sw{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
+.sw div{font:500 11.5px var(--mono); color:var(--muted)}
+.sw i{display:block; height:30px; border-radius:3px; border:1px solid var(--line); margin-bottom:3px}
+.spec ul{margin:0; padding-left:18px; font-size:14px}
+a{color:var(--accent)}
+</style>
+<div class="wrap">
+<div class="top"><h1>레퍼런스 #23 · 주 경로 간트</h1><span>실무형 · 늘이기 · 2026-10-02</span></div>
+<section>
+<!-- ===== 연간 추진 일정 간트 (gt- 접두어) : 이 블록 전체를 복사해 붙이면 동작합니다 ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+.gt-root{
+  /* 색: 바탕·잉크, 과제 묶음 4색, 주 경로(늦으면 전체가 밀리는 줄) 색 */
+  --gt-desk:#F2F4F7; --gt-paper:#FFFFFF; --gt-ink:#121826; --gt-sub:#5B6475; --gt-grid:#E1E5EC; --gt-grid2:#EDF0F4;
+  --gt-c1:#3A6FF2; --gt-c2:#10A37F; --gt-c3:#F08A24; --gt-c4:#8B5CF6; --gt-crit:#E5484D;
+  /* 타이밍(ms): 막대가 늘어나는 시간, 화살표 긋기, 마일스톤 튀어나옴, 자동 재생 때 단계 사이 쉼 */
+  --gt-grow-ms:800; --gt-draw-ms:500; --gt-pop-ms:450; --gt-gap-ms:450;
+  --gt-font:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --gt-font-mono:"IBM Plex Mono","D2Coding",Consolas,monospace;
+  display:flex; flex-direction:column; gap:12px; width:100%; max-width:100%;
+}
+.gt-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--gt-desk); border-radius:4px}
+.gt-slide svg{display:block; width:100%; height:100%}
+.gt-slide text{font-family:var(--gt-font)}
+.gt-slide .gt-mono{font-family:var(--gt-font-mono); font-variant-numeric:tabular-nums}
+.gt-bar,.gt-ms{transform-box:fill-box}
+.gt-bar{transform-origin:left center}
+.gt-ms{transform-origin:center}
+.gt-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--gt-font)}
+.gt-btn{appearance:none; border:1.5px solid var(--gt-ink); background:var(--gt-paper); color:var(--gt-ink); font:700 14px/1 var(--gt-font); padding:10px 16px; border-radius:4px; cursor:pointer}
+.gt-btn:hover{background:var(--gt-ink); color:var(--gt-paper)}
+.gt-btn:focus-visible{outline:3px solid var(--gt-c1); outline-offset:2px}
+.gt-status{font:500 13px/1.4 var(--gt-font-mono); color:var(--gt-sub); padding-left:4px}
+</style>
+
+<div class="gt-root" data-gt-root>
+  <div class="gt-slide">
+    <svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="디지털 기반 교육 혁신 2027 추진 일정 간트 차트: 교원 연수, 기기·네트워크, 수업 적용, 성과 점검 네 묶음의 막대와 선후 관계, 기기 보급에서 최종 보고까지의 주 경로">
+      <rect width="1600" height="900" fill="var(--gt-desk)"/>
+      <text x="80" y="70" class="gt-mono" font-size="15" fill="var(--gt-sub)"><tspan fill="var(--gt-ink)" font-weight="600">○○교육청 2027 디지털 기반 교육 혁신 추진 계획(안)</tspan> · Ⅳ. 추진 일정</text>
+      <text x="80" y="126" font-size="40" font-weight="700" fill="var(--gt-ink)" letter-spacing="-1"><tspan fill="var(--gt-crit)">4월 기기 보급</tspan>이 늦으면 12월 확산이 함께 밀린다</text>
+      <g transform="translate(1452 50)"><rect width="78" height="28" rx="14" fill="var(--gt-paper)" stroke="var(--gt-grid)"/><text x="39" y="19" text-anchor="middle" font-size="13" fill="var(--gt-sub)">가상 예시</text></g>
+      <g id="gt-grid"></g>
+      <g id="gt-deps"></g>
+      <g id="gt-bars"></g>
+      <g id="gt-note"></g>
+    </svg>
+  </div>
+  <div class="gt-controls">
+    <button type="button" class="gt-btn" data-gt-replay>다시 보기</button>
+    <button type="button" class="gt-btn" data-gt-step>한 단계씩</button>
+    <span class="gt-status" data-gt-status aria-live="polite">완성 상태</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.querySelector('[data-gt-root]');
+  if (!root) return;
+  var NS = 'http://www.w3.org/2000/svg';
+
+  // 과제 묶음(색 순서대로)과 막대: s·e = 시작·끝 월(3.5 = 3월 중순), ms = 마일스톤(하루짜리 표식), crit = 주 경로
+  var GT_GROUPS = ['교원 디지털 역량', '기기·네트워크', '수업 적용', '성과 점검'];
+  var GT_TASKS = [
+    { id: 'a1', g: 0, name: '기초 연수 전 교원',      s: 1,   e: 3.9 },
+    { id: 'a2', g: 0, name: '수업 설계 실습',          s: 4,   e: 7.9 },
+    { id: 'a3', g: 0, name: '선도교사 코칭',           s: 8,   e: 11.9 },
+    { id: 'b1', g: 1, name: '무선망 점검',             s: 1,   e: 2.5 },
+    { id: 'b2', g: 1, name: '기기 보급·교체',          s: 2,   e: 4.9, crit: true },
+    { id: 'b3', g: 1, name: '유지보수 지원',           s: 5,   e: 12.9, light: true },
+    { id: 'c1', g: 2, name: '선도학교 30교 운영',      s: 5,   e: 8.9, crit: true },
+    { id: 'c2', g: 2, name: '확산 120교',              s: 9.6, e: 12.9, crit: true },
+    { id: 'd1', g: 3, name: '학생·교원 설문',          s: 6,   e: 7.6 },
+    { id: 'm1', g: 3, name: '중간 점검',  s: 9.3,  ms: true, crit: true, row: 9 },
+    { id: 'm2', g: 3, name: '성과 공유회', s: 11.5, ms: true, row: 9 },
+    { id: 'm3', g: 3, name: '최종 보고',  s: 12.85, ms: true, crit: true, row: 9 }
+  ];
+  // 선후 관계: 앞 막대가 끝나야 뒤 막대가 시작
+  var GT_DEPS = [['a1', 'c1'], ['b2', 'c1'], ['c1', 'm1'], ['m1', 'c2'], ['a2', 'c2'], ['c2', 'm3']];
+  // 단계 목록: show = 이 단계에서 나타날 막대·화살표(id), crit = 주 경로 강조
+  var GT_STEPS = [
+    { label: '월 격자와 과제 묶음',            show: ['grid'] },
+    { label: '교원 연수가 1년 내내 이어진다',  show: ['a1', 'a2', 'a3'] },
+    { label: '기기·네트워크를 먼저 깐다',      show: ['b1', 'b2', 'b3'] },
+    { label: '연수와 기기가 끝나야 선도학교',  show: ['a1>c1', 'b2>c1', 'c1'] },
+    { label: '중간 점검을 거쳐 확산',          show: ['d1', 'c1>m1', 'm1', 'a2>c2', 'm1>c2', 'c2'] },
+    { label: '공유회·최종 보고',               show: ['m2', 'c2>m3', 'm3'] },
+    { label: '주 경로 — 늦으면 전체가 밀린다', show: ['crit'] }
+  ];
+
+  var css = getComputedStyle(root);
+  function ms(v){ var n = parseFloat(css.getPropertyValue(v)); return isNaN(n) ? 600 : n; }
+  function el(tag, attrs, parent, text){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var status = root.querySelector('[data-gt-status]');
+  var X0 = 400, X1 = 1520, MW = (X1 - X0) / 12, Y0 = 214, RH = 52, BH = 30;
+  function mx(m){ return X0 + (m - 1) * MW; }
+  var rowOf = {}, r = 0; GT_TASKS.forEach(function(t){ if (t.ms){ rowOf[t.id] = t.row; } else rowOf[t.id] = r++; });
+  function ry(row){ return Y0 + 44 + row * RH; }
+  var nodes = {};
+
+  // grid
+  var grid = root.querySelector('#gt-grid'); var gg = el('g', {}, grid); nodes.grid = { g: gg, kind: 'grid' };
+  for (var m = 1; m <= 12; m++){
+    el('rect', {x: mx(m), y: Y0, width: MW, height: 10 * RH + 22, fill: m % 2 ? 'var(--gt-paper)' : 'var(--gt-grid2)'}, gg);
+    el('text', {x: mx(m) + MW / 2, y: Y0 + 26, 'text-anchor': 'middle', 'font-size': 15, 'font-weight': 600, fill: 'var(--gt-sub)', 'class': 'gt-mono'}, gg, m + '월');
+  }
+  [3.0, 8.0].forEach(function(mm){ var t = el('text', {x: mx(mm) + 6, y: Y0 + 10 * RH + 46, 'font-size': 13, fill: 'var(--gt-sub)'}, gg, mm === 3 ? '1학기 시작' : '2학기 시작'); el('line', {x1: mx(mm), y1: Y0, x2: mx(mm), y2: Y0 + 10 * RH + 30, stroke: 'var(--gt-sub)', 'stroke-dasharray': '3 4'}, gg); });
+  // group labels
+  var groupRows = [[0, 2], [3, 5], [6, 7], [8, 9]];
+  groupRows.forEach(function(gr, i){
+    var y0 = ry(gr[0]) - 8, y1 = ry(gr[1]) + BH + 8;
+    el('rect', {x: 80, y: y0, width: 6, height: y1 - y0, rx: 2, fill: 'var(--gt-c' + (i + 1) + ')'}, gg);
+    el('text', {x: 100, y: y0 + 22, 'font-size': 18, 'font-weight': 700, fill: 'var(--gt-ink)'}, gg, GT_GROUPS[i]);
+    el('line', {x1: 80, y1: y1 + 9, x2: X1, y2: y1 + 9, stroke: 'var(--gt-grid)'}, gg);
+  });
+  // bars and milestones
+  var barG = root.querySelector('#gt-bars');
+  GT_TASKS.forEach(function(t){
+    var y = ry(rowOf[t.id]), c = 'var(--gt-c' + (t.g + 1) + ')', g = el('g', {}, barG);
+    if (t.ms){
+      var x = mx(t.s), d = el('g', {'class': 'gt-ms'}, g);
+      el('path', {d: 'M' + x + ' ' + (y - 2) + 'l17 17-17 17-17-17z', fill: c, stroke: 'var(--gt-paper)', 'stroke-width': 2, 'data-crit': t.crit ? 1 : 0}, d);
+      el('text', {x: x, y: y + 54, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 600, fill: 'var(--gt-ink)'}, g, t.name);
+      el('text', {x: x, y: y + 70, 'text-anchor': 'middle', 'font-size': 12, fill: 'var(--gt-sub)', 'class': 'gt-mono'}, g, Math.floor(t.s) + '월');
+      nodes[t.id] = { g: g, kind: 'ms', inner: d, x: x, y: y + 15, xe: x };
+    } else {
+      var x0 = mx(t.s), x1 = mx(t.e + 0.1), w = x1 - x0;
+      var b = el('rect', {'class': 'gt-bar', x: x0, y: y, width: w, height: BH, rx: 5, fill: c, 'fill-opacity': t.light ? .35 : 1}, g);
+      var inside = w > 170;
+      el('text', {x: inside ? x0 + 12 : x1 + 10, y: y + 21, 'font-size': 15, 'font-weight': 600, fill: inside && !t.light ? '#FFFFFF' : 'var(--gt-ink)'}, g, t.name);
+      nodes[t.id] = { g: g, kind: 'bar', inner: b, x: x0, y: y + BH / 2, xe: x1, crit: t.crit };
+    }
+  });
+  // deps
+  var depG = root.querySelector('#gt-deps');
+  GT_DEPS.forEach(function(dp){
+    var a = nodes[dp[0]], b = nodes[dp[1]], ax = a.kind === 'ms' ? a.x + 17 : a.xe, bx = b.kind === 'ms' ? b.x - 17 : b.x;
+    var mid = Math.max(ax + 14, bx - 20);
+    var d = 'M' + ax + ' ' + a.y + 'H' + mid + 'V' + b.y + 'H' + (bx - 4);
+    var g = el('g', {}, depG);
+    var p = el('path', {d: d, fill: 'none', stroke: 'var(--gt-ink)', 'stroke-width': 1.6, pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 0}, g);
+    var hd = el('path', {d: 'M' + (bx - 11) + ' ' + (b.y - 5) + 'L' + (bx - 3) + ' ' + b.y + 'L' + (bx - 11) + ' ' + (b.y + 5), fill: 'none', stroke: 'var(--gt-ink)', 'stroke-width': 1.6}, g);
+    var critDep = (a.crit || (GT_TASKS.filter(function(t){ return t.id === dp[0]; })[0] || {}).crit) && (GT_TASKS.filter(function(t){ return t.id === dp[1]; })[0] || {}).crit;
+    nodes[dp[0] + '>' + dp[1]] = { g: g, kind: 'dep', inner: p, head: hd, critDep: critDep };
+  });
+  // critical-path note
+  var note = root.querySelector('#gt-note'), ng = el('g', {}, note);
+  el('rect', {x: 80, y: 820, width: 1440, height: 50, rx: 4, fill: 'var(--gt-paper)', stroke: 'var(--gt-crit)'}, ng);
+  el('text', {x: 104, y: 852, 'font-size': 18, fill: 'var(--gt-ink)'}, ng).innerHTML = '<tspan font-weight="700" fill="var(--gt-crit)">주 경로</tspan><tspan dx="12">기기 보급·교체 → 선도학교 30교 → 중간 점검 → 확산 120교 → 최종 보고 · 여유 기간 0주, 기기 입찰을 1월에 마쳐야 합니다</tspan>';
+  nodes.crit = { g: ng, kind: 'crit' };
+
+  function setCrit(on){
+    GT_TASKS.forEach(function(t){ if (!t.crit) return; var n = nodes[t.id]; var tgt = n.kind === 'ms' ? n.inner.firstChild : n.inner; tgt.setAttribute('stroke', on ? 'var(--gt-crit)' : (n.kind === 'ms' ? 'var(--gt-paper)' : 'none')); tgt.setAttribute('stroke-width', on ? 4 : 2); });
+    for (var k in nodes){ var n = nodes[k]; if (n.kind === 'dep' && n.critDep){ n.inner.setAttribute('stroke', on ? 'var(--gt-crit)' : 'var(--gt-ink)'); n.head.setAttribute('stroke', on ? 'var(--gt-crit)' : 'var(--gt-ink)'); n.inner.setAttribute('stroke-width', on ? 3 : 1.6); } }
+  }
+  var shownAt = {}; GT_STEPS.forEach(function(s, i){ s.show.forEach(function(id){ shownAt[id] = i; }); });
+  var cur = GT_STEPS.length, token = 0;
+  function applyState(n){
+    cur = n;
+    for (var k in nodes){ var nd = nodes[k]; [nd.g, nd.inner, nd.head].forEach(function(x){ if (x) x.getAnimations().forEach(function(a){ a.cancel(); }); }); nd.g.style.opacity = (shownAt[k] !== undefined && shownAt[k] < n) ? 1 : 0; }
+    setCrit(n >= GT_STEPS.length);
+    show();
+  }
+  function show(){ if (!status) return; status.textContent = cur >= GT_STEPS.length ? '완성 상태 · ' + GT_STEPS.length + '단계' : cur === 0 ? '시작 전 · 0/' + GT_STEPS.length : cur + '/' + GT_STEPS.length + ' · ' + GT_STEPS[cur - 1].label; }
+  function playStep(i){
+    cur = i + 1; show();
+    var ps = [], delay = 0;
+    GT_STEPS[i].show.forEach(function(id){
+      var n = nodes[id]; if (!n) return; n.g.style.opacity = 1;
+      if (n.kind === 'bar') ps.push(n.inner.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: ms('--gt-grow-ms'), delay: delay, easing: 'cubic-bezier(.3,0,.2,1)', fill: 'backwards' }).finished), n.g.animate([{ opacity: 0 }, { opacity: 0, offset: .01 }, { opacity: 1 }], { duration: 300, delay: delay, fill: 'backwards' });
+      else if (n.kind === 'dep'){ ps.push(n.inner.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: ms('--gt-draw-ms'), delay: delay, easing: 'ease-out', fill: 'backwards' }).finished); n.head.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, delay: delay + ms('--gt-draw-ms') * .8, fill: 'backwards' }); }
+      else if (n.kind === 'ms') ps.push(n.inner.animate([{ transform: 'scale(0)' }, { transform: 'scale(1.3)', offset: .7 }, { transform: 'scale(1)' }], { duration: ms('--gt-pop-ms'), delay: delay, easing: 'ease-out', fill: 'backwards' }).finished);
+      else if (n.kind === 'crit'){ setCrit(true); ps.push(n.g.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 500, fill: 'backwards' }).finished); }
+      else n.g.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400 });
+      delay += n.kind === 'dep' ? 120 : 220;
+    });
+    return Promise.all(ps).catch(function(){});
+  }
+  function wait(t){ return new Promise(function(r){ setTimeout(r, t); }); }
+  // 다시 보기: 처음부터 끝까지 한 번 재생하고 완성 상태에서 멈춤
+  function replay(){
+    var my = ++token;
+    if (reduced){ applyState(GT_STEPS.length); return; }
+    applyState(0);
+    var chain = wait(400);
+    GT_STEPS.forEach(function(_, i){ chain = chain.then(function(){ if (my === token) return playStep(i).then(function(){ return wait(ms('--gt-gap-ms')); }); }); });
+  }
+  // 한 단계씩: 클릭할 때마다 다음 동작 하나 (끝까지 가면 처음부터)
+  function stepOnce(){
+    ++token;
+    var next = cur >= GT_STEPS.length ? 0 : cur;
+    applyState(next);
+    if (reduced){ applyState(next + 1); return; }
+    playStep(next);
+  }
+  root.querySelector('[data-gt-replay]').addEventListener('click', replay);
+  root.querySelector('[data-gt-step]').addEventListener('click', stepOnce);
+  applyState(GT_STEPS.length);            // 첫 화면은 완성된 도식
+  if (!reduced) setTimeout(replay, 1200); // 잠시 뒤 한 번 재생
+})();
+</script>
+<!-- ===== 연간 추진 일정 간트 끝 ===== -->
+
+</section>
+
+<section>
+<h2 class="sec"><small>01</small>동작 설명</h2>
+<p>추진 일정을 묶음별로 한 줄씩 늘어나는 간트 막대로 보여 줍니다. 막대가 왼쪽에서 오른쪽으로 자라며 기간을 그리고, 선후 관계 화살표가 '앞 일이 끝나야 뒤 일이 시작된다'는 연결을 긋습니다. 마일스톤은 마름모가 튀어나오며 찍힙니다. 마지막 단계에서 여유 기간이 없는 막대와 화살표만 빨갛게 바뀌어 주 경로(critical path)가 드러나고, 제목의 결론('4월 기기 보급이 늦으면 12월 확산이 함께 밀린다')을 그림이 증명합니다. 일정표를 날짜 나열이 아니라 위험 관리 근거로 읽게 만드는 장표입니다.</p>
+<div class="apps"><div><b>공모·예산 사업 일정</b><span>공고·선정·집행·정산 묶음. 정산 마감이 걸린 줄을 주 경로로 표시합니다.</span></div><div><b>학교 신설·공사 일정</b><span>설계·인허가·시공·개교 준비. 마일스톤에 개교일을 두고 역산합니다.</span></div><div><b>교육과정 개정 적용</b><span>연구·시범·연수·전면 적용. 학년도별로 막대를 쪼개 단계적 적용을 보여 줍니다.</span></div></div>
+</section>
+
+<section>
+<h2 class="sec"><small>02</small>HTML로 가져다 쓰기</h2>
+<div class="codebox"><button type="button" class="copy" id="copyBtn">코드 복사</button><pre id="code" tabindex="0">&lt;!-- ===== 연간 추진 일정 간트 (gt- 접두어) : 이 블록 전체를 복사해 붙이면 동작합니다 ===== --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap&quot;&gt;
+&lt;style&gt;
+.gt-root{
+  /* 색: 바탕·잉크, 과제 묶음 4색, 주 경로(늦으면 전체가 밀리는 줄) 색 */
+  --gt-desk:#F2F4F7; --gt-paper:#FFFFFF; --gt-ink:#121826; --gt-sub:#5B6475; --gt-grid:#E1E5EC; --gt-grid2:#EDF0F4;
+  --gt-c1:#3A6FF2; --gt-c2:#10A37F; --gt-c3:#F08A24; --gt-c4:#8B5CF6; --gt-crit:#E5484D;
+  /* 타이밍(ms): 막대가 늘어나는 시간, 화살표 긋기, 마일스톤 튀어나옴, 자동 재생 때 단계 사이 쉼 */
+  --gt-grow-ms:800; --gt-draw-ms:500; --gt-pop-ms:450; --gt-gap-ms:450;
+  --gt-font:&quot;IBM Plex Sans KR&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --gt-font-mono:&quot;IBM Plex Mono&quot;,&quot;D2Coding&quot;,Consolas,monospace;
+  display:flex; flex-direction:column; gap:12px; width:100%; max-width:100%;
+}
+.gt-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--gt-desk); border-radius:4px}
+.gt-slide svg{display:block; width:100%; height:100%}
+.gt-slide text{font-family:var(--gt-font)}
+.gt-slide .gt-mono{font-family:var(--gt-font-mono); font-variant-numeric:tabular-nums}
+.gt-bar,.gt-ms{transform-box:fill-box}
+.gt-bar{transform-origin:left center}
+.gt-ms{transform-origin:center}
+.gt-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--gt-font)}
+.gt-btn{appearance:none; border:1.5px solid var(--gt-ink); background:var(--gt-paper); color:var(--gt-ink); font:700 14px/1 var(--gt-font); padding:10px 16px; border-radius:4px; cursor:pointer}
+.gt-btn:hover{background:var(--gt-ink); color:var(--gt-paper)}
+.gt-btn:focus-visible{outline:3px solid var(--gt-c1); outline-offset:2px}
+.gt-status{font:500 13px/1.4 var(--gt-font-mono); color:var(--gt-sub); padding-left:4px}
+&lt;/style&gt;
+
+&lt;div class=&quot;gt-root&quot; data-gt-root&gt;
+  &lt;div class=&quot;gt-slide&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 1600 900&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; role=&quot;img&quot; aria-label=&quot;디지털 기반 교육 혁신 2027 추진 일정 간트 차트: 교원 연수, 기기·네트워크, 수업 적용, 성과 점검 네 묶음의 막대와 선후 관계, 기기 보급에서 최종 보고까지의 주 경로&quot;&gt;
+      &lt;rect width=&quot;1600&quot; height=&quot;900&quot; fill=&quot;var(--gt-desk)&quot;/&gt;
+      &lt;text x=&quot;80&quot; y=&quot;70&quot; class=&quot;gt-mono&quot; font-size=&quot;15&quot; fill=&quot;var(--gt-sub)&quot;&gt;&lt;tspan fill=&quot;var(--gt-ink)&quot; font-weight=&quot;600&quot;&gt;○○교육청 2027 디지털 기반 교육 혁신 추진 계획(안)&lt;/tspan&gt; · Ⅳ. 추진 일정&lt;/text&gt;
+      &lt;text x=&quot;80&quot; y=&quot;126&quot; font-size=&quot;40&quot; font-weight=&quot;700&quot; fill=&quot;var(--gt-ink)&quot; letter-spacing=&quot;-1&quot;&gt;&lt;tspan fill=&quot;var(--gt-crit)&quot;&gt;4월 기기 보급&lt;/tspan&gt;이 늦으면 12월 확산이 함께 밀린다&lt;/text&gt;
+      &lt;g transform=&quot;translate(1452 50)&quot;&gt;&lt;rect width=&quot;78&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;var(--gt-paper)&quot; stroke=&quot;var(--gt-grid)&quot;/&gt;&lt;text x=&quot;39&quot; y=&quot;19&quot; text-anchor=&quot;middle&quot; font-size=&quot;13&quot; fill=&quot;var(--gt-sub)&quot;&gt;가상 예시&lt;/text&gt;&lt;/g&gt;
+      &lt;g id=&quot;gt-grid&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;gt-deps&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;gt-bars&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;gt-note&quot;&gt;&lt;/g&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;gt-controls&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;gt-btn&quot; data-gt-replay&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;gt-btn&quot; data-gt-step&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;gt-status&quot; data-gt-status aria-live=&quot;polite&quot;&gt;완성 상태&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  var root = document.querySelector(&#x27;[data-gt-root]&#x27;);
+  if (!root) return;
+  var NS = &#x27;http://www.w3.org/2000/svg&#x27;;
+
+  // 과제 묶음(색 순서대로)과 막대: s·e = 시작·끝 월(3.5 = 3월 중순), ms = 마일스톤(하루짜리 표식), crit = 주 경로
+  var GT_GROUPS = [&#x27;교원 디지털 역량&#x27;, &#x27;기기·네트워크&#x27;, &#x27;수업 적용&#x27;, &#x27;성과 점검&#x27;];
+  var GT_TASKS = [
+    { id: &#x27;a1&#x27;, g: 0, name: &#x27;기초 연수 전 교원&#x27;,      s: 1,   e: 3.9 },
+    { id: &#x27;a2&#x27;, g: 0, name: &#x27;수업 설계 실습&#x27;,          s: 4,   e: 7.9 },
+    { id: &#x27;a3&#x27;, g: 0, name: &#x27;선도교사 코칭&#x27;,           s: 8,   e: 11.9 },
+    { id: &#x27;b1&#x27;, g: 1, name: &#x27;무선망 점검&#x27;,             s: 1,   e: 2.5 },
+    { id: &#x27;b2&#x27;, g: 1, name: &#x27;기기 보급·교체&#x27;,          s: 2,   e: 4.9, crit: true },
+    { id: &#x27;b3&#x27;, g: 1, name: &#x27;유지보수 지원&#x27;,           s: 5,   e: 12.9, light: true },
+    { id: &#x27;c1&#x27;, g: 2, name: &#x27;선도학교 30교 운영&#x27;,      s: 5,   e: 8.9, crit: true },
+    { id: &#x27;c2&#x27;, g: 2, name: &#x27;확산 120교&#x27;,              s: 9.6, e: 12.9, crit: true },
+    { id: &#x27;d1&#x27;, g: 3, name: &#x27;학생·교원 설문&#x27;,          s: 6,   e: 7.6 },
+    { id: &#x27;m1&#x27;, g: 3, name: &#x27;중간 점검&#x27;,  s: 9.3,  ms: true, crit: true, row: 9 },
+    { id: &#x27;m2&#x27;, g: 3, name: &#x27;성과 공유회&#x27;, s: 11.5, ms: true, row: 9 },
+    { id: &#x27;m3&#x27;, g: 3, name: &#x27;최종 보고&#x27;,  s: 12.85, ms: true, crit: true, row: 9 }
+  ];
+  // 선후 관계: 앞 막대가 끝나야 뒤 막대가 시작
+  var GT_DEPS = [[&#x27;a1&#x27;, &#x27;c1&#x27;], [&#x27;b2&#x27;, &#x27;c1&#x27;], [&#x27;c1&#x27;, &#x27;m1&#x27;], [&#x27;m1&#x27;, &#x27;c2&#x27;], [&#x27;a2&#x27;, &#x27;c2&#x27;], [&#x27;c2&#x27;, &#x27;m3&#x27;]];
+  // 단계 목록: show = 이 단계에서 나타날 막대·화살표(id), crit = 주 경로 강조
+  var GT_STEPS = [
+    { label: &#x27;월 격자와 과제 묶음&#x27;,            show: [&#x27;grid&#x27;] },
+    { label: &#x27;교원 연수가 1년 내내 이어진다&#x27;,  show: [&#x27;a1&#x27;, &#x27;a2&#x27;, &#x27;a3&#x27;] },
+    { label: &#x27;기기·네트워크를 먼저 깐다&#x27;,      show: [&#x27;b1&#x27;, &#x27;b2&#x27;, &#x27;b3&#x27;] },
+    { label: &#x27;연수와 기기가 끝나야 선도학교&#x27;,  show: [&#x27;a1&gt;c1&#x27;, &#x27;b2&gt;c1&#x27;, &#x27;c1&#x27;] },
+    { label: &#x27;중간 점검을 거쳐 확산&#x27;,          show: [&#x27;d1&#x27;, &#x27;c1&gt;m1&#x27;, &#x27;m1&#x27;, &#x27;a2&gt;c2&#x27;, &#x27;m1&gt;c2&#x27;, &#x27;c2&#x27;] },
+    { label: &#x27;공유회·최종 보고&#x27;,               show: [&#x27;m2&#x27;, &#x27;c2&gt;m3&#x27;, &#x27;m3&#x27;] },
+    { label: &#x27;주 경로 — 늦으면 전체가 밀린다&#x27;, show: [&#x27;crit&#x27;] }
+  ];
+
+  var css = getComputedStyle(root);
+  function ms(v){ var n = parseFloat(css.getPropertyValue(v)); return isNaN(n) ? 600 : n; }
+  function el(tag, attrs, parent, text){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+  var reduced = window.matchMedia &amp;&amp; matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  var status = root.querySelector(&#x27;[data-gt-status]&#x27;);
+  var X0 = 400, X1 = 1520, MW = (X1 - X0) / 12, Y0 = 214, RH = 52, BH = 30;
+  function mx(m){ return X0 + (m - 1) * MW; }
+  var rowOf = {}, r = 0; GT_TASKS.forEach(function(t){ if (t.ms){ rowOf[t.id] = t.row; } else rowOf[t.id] = r++; });
+  function ry(row){ return Y0 + 44 + row * RH; }
+  var nodes = {};
+
+  // grid
+  var grid = root.querySelector(&#x27;#gt-grid&#x27;); var gg = el(&#x27;g&#x27;, {}, grid); nodes.grid = { g: gg, kind: &#x27;grid&#x27; };
+  for (var m = 1; m &lt;= 12; m++){
+    el(&#x27;rect&#x27;, {x: mx(m), y: Y0, width: MW, height: 10 * RH + 22, fill: m % 2 ? &#x27;var(--gt-paper)&#x27; : &#x27;var(--gt-grid2)&#x27;}, gg);
+    el(&#x27;text&#x27;, {x: mx(m) + MW / 2, y: Y0 + 26, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 15, &#x27;font-weight&#x27;: 600, fill: &#x27;var(--gt-sub)&#x27;, &#x27;class&#x27;: &#x27;gt-mono&#x27;}, gg, m + &#x27;월&#x27;);
+  }
+  [3.0, 8.0].forEach(function(mm){ var t = el(&#x27;text&#x27;, {x: mx(mm) + 6, y: Y0 + 10 * RH + 46, &#x27;font-size&#x27;: 13, fill: &#x27;var(--gt-sub)&#x27;}, gg, mm === 3 ? &#x27;1학기 시작&#x27; : &#x27;2학기 시작&#x27;); el(&#x27;line&#x27;, {x1: mx(mm), y1: Y0, x2: mx(mm), y2: Y0 + 10 * RH + 30, stroke: &#x27;var(--gt-sub)&#x27;, &#x27;stroke-dasharray&#x27;: &#x27;3 4&#x27;}, gg); });
+  // group labels
+  var groupRows = [[0, 2], [3, 5], [6, 7], [8, 9]];
+  groupRows.forEach(function(gr, i){
+    var y0 = ry(gr[0]) - 8, y1 = ry(gr[1]) + BH + 8;
+    el(&#x27;rect&#x27;, {x: 80, y: y0, width: 6, height: y1 - y0, rx: 2, fill: &#x27;var(--gt-c&#x27; + (i + 1) + &#x27;)&#x27;}, gg);
+    el(&#x27;text&#x27;, {x: 100, y: y0 + 22, &#x27;font-size&#x27;: 18, &#x27;font-weight&#x27;: 700, fill: &#x27;var(--gt-ink)&#x27;}, gg, GT_GROUPS[i]);
+    el(&#x27;line&#x27;, {x1: 80, y1: y1 + 9, x2: X1, y2: y1 + 9, stroke: &#x27;var(--gt-grid)&#x27;}, gg);
+  });
+  // bars and milestones
+  var barG = root.querySelector(&#x27;#gt-bars&#x27;);
+  GT_TASKS.forEach(function(t){
+    var y = ry(rowOf[t.id]), c = &#x27;var(--gt-c&#x27; + (t.g + 1) + &#x27;)&#x27;, g = el(&#x27;g&#x27;, {}, barG);
+    if (t.ms){
+      var x = mx(t.s), d = el(&#x27;g&#x27;, {&#x27;class&#x27;: &#x27;gt-ms&#x27;}, g);
+      el(&#x27;path&#x27;, {d: &#x27;M&#x27; + x + &#x27; &#x27; + (y - 2) + &#x27;l17 17-17 17-17-17z&#x27;, fill: c, stroke: &#x27;var(--gt-paper)&#x27;, &#x27;stroke-width&#x27;: 2, &#x27;data-crit&#x27;: t.crit ? 1 : 0}, d);
+      el(&#x27;text&#x27;, {x: x, y: y + 54, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 14, &#x27;font-weight&#x27;: 600, fill: &#x27;var(--gt-ink)&#x27;}, g, t.name);
+      el(&#x27;text&#x27;, {x: x, y: y + 70, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 12, fill: &#x27;var(--gt-sub)&#x27;, &#x27;class&#x27;: &#x27;gt-mono&#x27;}, g, Math.floor(t.s) + &#x27;월&#x27;);
+      nodes[t.id] = { g: g, kind: &#x27;ms&#x27;, inner: d, x: x, y: y + 15, xe: x };
+    } else {
+      var x0 = mx(t.s), x1 = mx(t.e + 0.1), w = x1 - x0;
+      var b = el(&#x27;rect&#x27;, {&#x27;class&#x27;: &#x27;gt-bar&#x27;, x: x0, y: y, width: w, height: BH, rx: 5, fill: c, &#x27;fill-opacity&#x27;: t.light ? .35 : 1}, g);
+      var inside = w &gt; 170;
+      el(&#x27;text&#x27;, {x: inside ? x0 + 12 : x1 + 10, y: y + 21, &#x27;font-size&#x27;: 15, &#x27;font-weight&#x27;: 600, fill: inside &amp;&amp; !t.light ? &#x27;#FFFFFF&#x27; : &#x27;var(--gt-ink)&#x27;}, g, t.name);
+      nodes[t.id] = { g: g, kind: &#x27;bar&#x27;, inner: b, x: x0, y: y + BH / 2, xe: x1, crit: t.crit };
+    }
+  });
+  // deps
+  var depG = root.querySelector(&#x27;#gt-deps&#x27;);
+  GT_DEPS.forEach(function(dp){
+    var a = nodes[dp[0]], b = nodes[dp[1]], ax = a.kind === &#x27;ms&#x27; ? a.x + 17 : a.xe, bx = b.kind === &#x27;ms&#x27; ? b.x - 17 : b.x;
+    var mid = Math.max(ax + 14, bx - 20);
+    var d = &#x27;M&#x27; + ax + &#x27; &#x27; + a.y + &#x27;H&#x27; + mid + &#x27;V&#x27; + b.y + &#x27;H&#x27; + (bx - 4);
+    var g = el(&#x27;g&#x27;, {}, depG);
+    var p = el(&#x27;path&#x27;, {d: d, fill: &#x27;none&#x27;, stroke: &#x27;var(--gt-ink)&#x27;, &#x27;stroke-width&#x27;: 1.6, pathLength: 1, &#x27;stroke-dasharray&#x27;: 1, &#x27;stroke-dashoffset&#x27;: 0}, g);
+    var hd = el(&#x27;path&#x27;, {d: &#x27;M&#x27; + (bx - 11) + &#x27; &#x27; + (b.y - 5) + &#x27;L&#x27; + (bx - 3) + &#x27; &#x27; + b.y + &#x27;L&#x27; + (bx - 11) + &#x27; &#x27; + (b.y + 5), fill: &#x27;none&#x27;, stroke: &#x27;var(--gt-ink)&#x27;, &#x27;stroke-width&#x27;: 1.6}, g);
+    var critDep = (a.crit || (GT_TASKS.filter(function(t){ return t.id === dp[0]; })[0] || {}).crit) &amp;&amp; (GT_TASKS.filter(function(t){ return t.id === dp[1]; })[0] || {}).crit;
+    nodes[dp[0] + &#x27;&gt;&#x27; + dp[1]] = { g: g, kind: &#x27;dep&#x27;, inner: p, head: hd, critDep: critDep };
+  });
+  // critical-path note
+  var note = root.querySelector(&#x27;#gt-note&#x27;), ng = el(&#x27;g&#x27;, {}, note);
+  el(&#x27;rect&#x27;, {x: 80, y: 820, width: 1440, height: 50, rx: 4, fill: &#x27;var(--gt-paper)&#x27;, stroke: &#x27;var(--gt-crit)&#x27;}, ng);
+  el(&#x27;text&#x27;, {x: 104, y: 852, &#x27;font-size&#x27;: 18, fill: &#x27;var(--gt-ink)&#x27;}, ng).innerHTML = &#x27;&lt;tspan font-weight=&quot;700&quot; fill=&quot;var(--gt-crit)&quot;&gt;주 경로&lt;/tspan&gt;&lt;tspan dx=&quot;12&quot;&gt;기기 보급·교체 → 선도학교 30교 → 중간 점검 → 확산 120교 → 최종 보고 · 여유 기간 0주, 기기 입찰을 1월에 마쳐야 합니다&lt;/tspan&gt;&#x27;;
+  nodes.crit = { g: ng, kind: &#x27;crit&#x27; };
+
+  function setCrit(on){
+    GT_TASKS.forEach(function(t){ if (!t.crit) return; var n = nodes[t.id]; var tgt = n.kind === &#x27;ms&#x27; ? n.inner.firstChild : n.inner; tgt.setAttribute(&#x27;stroke&#x27;, on ? &#x27;var(--gt-crit)&#x27; : (n.kind === &#x27;ms&#x27; ? &#x27;var(--gt-paper)&#x27; : &#x27;none&#x27;)); tgt.setAttribute(&#x27;stroke-width&#x27;, on ? 4 : 2); });
+    for (var k in nodes){ var n = nodes[k]; if (n.kind === &#x27;dep&#x27; &amp;&amp; n.critDep){ n.inner.setAttribute(&#x27;stroke&#x27;, on ? &#x27;var(--gt-crit)&#x27; : &#x27;var(--gt-ink)&#x27;); n.head.setAttribute(&#x27;stroke&#x27;, on ? &#x27;var(--gt-crit)&#x27; : &#x27;var(--gt-ink)&#x27;); n.inner.setAttribute(&#x27;stroke-width&#x27;, on ? 3 : 1.6); } }
+  }
+  var shownAt = {}; GT_STEPS.forEach(function(s, i){ s.show.forEach(function(id){ shownAt[id] = i; }); });
+  var cur = GT_STEPS.length, token = 0;
+  function applyState(n){
+    cur = n;
+    for (var k in nodes){ var nd = nodes[k]; [nd.g, nd.inner, nd.head].forEach(function(x){ if (x) x.getAnimations().forEach(function(a){ a.cancel(); }); }); nd.g.style.opacity = (shownAt[k] !== undefined &amp;&amp; shownAt[k] &lt; n) ? 1 : 0; }
+    setCrit(n &gt;= GT_STEPS.length);
+    show();
+  }
+  function show(){ if (!status) return; status.textContent = cur &gt;= GT_STEPS.length ? &#x27;완성 상태 · &#x27; + GT_STEPS.length + &#x27;단계&#x27; : cur === 0 ? &#x27;시작 전 · 0/&#x27; + GT_STEPS.length : cur + &#x27;/&#x27; + GT_STEPS.length + &#x27; · &#x27; + GT_STEPS[cur - 1].label; }
+  function playStep(i){
+    cur = i + 1; show();
+    var ps = [], delay = 0;
+    GT_STEPS[i].show.forEach(function(id){
+      var n = nodes[id]; if (!n) return; n.g.style.opacity = 1;
+      if (n.kind === &#x27;bar&#x27;) ps.push(n.inner.animate([{ transform: &#x27;scaleX(0)&#x27; }, { transform: &#x27;scaleX(1)&#x27; }], { duration: ms(&#x27;--gt-grow-ms&#x27;), delay: delay, easing: &#x27;cubic-bezier(.3,0,.2,1)&#x27;, fill: &#x27;backwards&#x27; }).finished), n.g.animate([{ opacity: 0 }, { opacity: 0, offset: .01 }, { opacity: 1 }], { duration: 300, delay: delay, fill: &#x27;backwards&#x27; });
+      else if (n.kind === &#x27;dep&#x27;){ ps.push(n.inner.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: ms(&#x27;--gt-draw-ms&#x27;), delay: delay, easing: &#x27;ease-out&#x27;, fill: &#x27;backwards&#x27; }).finished); n.head.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, delay: delay + ms(&#x27;--gt-draw-ms&#x27;) * .8, fill: &#x27;backwards&#x27; }); }
+      else if (n.kind === &#x27;ms&#x27;) ps.push(n.inner.animate([{ transform: &#x27;scale(0)&#x27; }, { transform: &#x27;scale(1.3)&#x27;, offset: .7 }, { transform: &#x27;scale(1)&#x27; }], { duration: ms(&#x27;--gt-pop-ms&#x27;), delay: delay, easing: &#x27;ease-out&#x27;, fill: &#x27;backwards&#x27; }).finished);
+      else if (n.kind === &#x27;crit&#x27;){ setCrit(true); ps.push(n.g.animate([{ opacity: 0, transform: &#x27;translateY(10px)&#x27; }, { opacity: 1, transform: &#x27;translateY(0)&#x27; }], { duration: 500, fill: &#x27;backwards&#x27; }).finished); }
+      else n.g.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400 });
+      delay += n.kind === &#x27;dep&#x27; ? 120 : 220;
+    });
+    return Promise.all(ps).catch(function(){});
+  }
+  function wait(t){ return new Promise(function(r){ setTimeout(r, t); }); }
+  // 다시 보기: 처음부터 끝까지 한 번 재생하고 완성 상태에서 멈춤
+  function replay(){
+    var my = ++token;
+    if (reduced){ applyState(GT_STEPS.length); return; }
+    applyState(0);
+    var chain = wait(400);
+    GT_STEPS.forEach(function(_, i){ chain = chain.then(function(){ if (my === token) return playStep(i).then(function(){ return wait(ms(&#x27;--gt-gap-ms&#x27;)); }); }); });
+  }
+  // 한 단계씩: 클릭할 때마다 다음 동작 하나 (끝까지 가면 처음부터)
+  function stepOnce(){
+    ++token;
+    var next = cur &gt;= GT_STEPS.length ? 0 : cur;
+    applyState(next);
+    if (reduced){ applyState(next + 1); return; }
+    playStep(next);
+  }
+  root.querySelector(&#x27;[data-gt-replay]&#x27;).addEventListener(&#x27;click&#x27;, replay);
+  root.querySelector(&#x27;[data-gt-step]&#x27;).addEventListener(&#x27;click&#x27;, stepOnce);
+  applyState(GT_STEPS.length);            // 첫 화면은 완성된 도식
+  if (!reduced) setTimeout(replay, 1200); // 잠시 뒤 한 번 재생
+})();
+&lt;/script&gt;
+&lt;!-- ===== 연간 추진 일정 간트 끝 ===== --&gt;
+</pre></div>
+<ol class="hint"><li>색은 <code>.gt-root</code>의 <code>--gt-c1</code>~<code>--gt-c4</code>(묶음 색)와 <code>--gt-crit</code>(주 경로)만 바꾸면 됩니다.</li><li>막대는 <code>GT_TASKS</code>에서 이름과 시작·끝 월(<code>s</code>, <code>e</code>)을 고칩니다. 3.5는 3월 중순입니다. <code>ms: true</code>는 마일스톤, <code>crit: true</code>는 주 경로입니다.</li><li>선후 관계는 <code>GT_DEPS</code>에 <code>['앞 id', '뒤 id']</code>로 한 줄씩 추가합니다.</li><li>등장 순서는 <code>GT_STEPS</code>의 <code>show</code> 목록입니다. 화살표는 <code>'a1&gt;c1'</code>처럼 앞·뒤 id를 <code>&gt;</code>로 이어 씁니다. 한 페이지에 한 번만 넣는 것을 전제로 합니다.</li></ol>
+</section>
+
+<section>
+<h2 class="sec"><small>03</small>PPT로 옮기기</h2>
+<p>PowerPoint의 <b>닦아내기(왼쪽에서)</b>가 막대가 늘어나는 동작과 거의 같아서 재현이 쉬운 편입니다. 막대·화살표·마름모를 각각 개체로 두고, 묶음 단위로 클릭 순서를 정합니다. 한국어판 PowerPoint 기준입니다.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>순서</th><th>대상 개체</th><th>애니메이션</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+<tbody><tr><td>0</td><td>제목·월 격자·묶음 이름</td><td>(애니메이션 없음)</td><td>–</td><td>–</td><td>–</td><td>–</td></tr><tr><td>1</td><td>교원 연수 막대 3개</td><td>나타내기 - 닦아내기</td><td>왼쪽에서</td><td>클릭할 때 / 이전 효과 다음에</td><td>0.80초</td><td>0.22초씩</td></tr><tr><td>2</td><td>기기·네트워크 막대 3개</td><td>나타내기 - 닦아내기</td><td>왼쪽에서</td><td>클릭할 때 / 이전 효과 다음에</td><td>0.80초</td><td>0.22초씩</td></tr><tr><td>3</td><td>화살표 2개 → 선도학교 막대</td><td>닦아내기(화살표 진행 방향) → 닦아내기(왼쪽에서)</td><td>–</td><td>클릭할 때 / 이전 효과 다음에</td><td>0.50초 / 0.80초</td><td>0</td></tr><tr><td>4</td><td>설문 막대, 중간 점검 마름모, 확산 막대와 화살표</td><td>닦아내기 / 확대/축소(바운드) / 닦아내기</td><td>–</td><td>클릭할 때 / 이전 효과 다음에</td><td>0.45~0.80초</td><td>0.12초씩</td></tr><tr><td>5</td><td>공유회·최종 보고 마름모</td><td>나타내기 - 확대/축소</td><td>개체 중심</td><td>클릭할 때</td><td>0.45초</td><td>0.20초</td></tr><tr><td>6</td><td>주 경로 막대·화살표 테두리</td><td>강조 - 선 색</td><td>빨강 #E5484D, 4.5pt</td><td>클릭할 때</td><td>0.50초</td><td>0</td></tr><tr><td>6</td><td>주 경로 설명 띠</td><td>나타내기 - 올라오기</td><td>–</td><td>이전 효과와 함께</td><td>0.50초</td><td>0</td></tr></tbody></table></div>
+<div class="note"><p><b>모핑으로 더 비슷하게:</b> 장표 8장을 복제하고 전환을 <b>모핑</b>으로 둡니다. 아직 안 나온 막대는 시작 위치에 너비 0.1cm로 두고 이름을 <code>!!기기보급</code>처럼 모든 장표에서 같게 지으면, 다음 장에서 원래 너비로 늘어납니다. 마일스톤은 크기 0.1cm에서 원래 크기로.</p><p><b>PPT에서 근사하는 부분:</b> 꺾인 화살표가 그려지는 동작은 꺾인 연결선에 닦아내기를 걸면 한 방향으로만 그려집니다. 꺾임이 큰 화살표는 가로·세로 두 조각으로 나눠 차례로 닦아내세요.</p></div>
+</section>
+
+<section>
+<h2 class="sec"><small>04</small>스펙</h2>
+<div class="spec">
+  <div><h3>팔레트</h3><div class="sw"><div><i style="background:#F2F4F7"></i>#F2F4F7 바탕</div><div><i style="background:#121826"></i>#121826 잉크</div><div><i style="background:#3A6FF2"></i>#3A6FF2 교원 연수</div><div><i style="background:#10A37F"></i>#10A37F 기기·네트워크</div><div><i style="background:#F08A24"></i>#F08A24 수업 적용</div><div><i style="background:#8B5CF6"></i>#8B5CF6 성과 점검</div><div><i style="background:#E5484D"></i>#E5484D 주 경로</div><div><i style="background:#E1E5EC"></i>#E1E5EC 격자</div></div></div>
+  <div><h3>폰트</h3><ul><li>제목·막대 이름: IBM Plex Sans KR 700/600 (대체: Apple SD Gothic Neo, 맑은 고딕)</li><li>월·라벨: IBM Plex Mono (대체: D2Coding, Consolas)</li><li>PPT: 막대 안 글자는 흰색 14pt 이상, 너비가 좁은 막대는 글자를 막대 오른쪽에</li></ul></div>
+  <div><h3>난이도 · 트렌드</h3><ul><li>HTML: 중 (막대·화살표 좌표를 월 단위로 계산)</li><li>PPT: 하~중 (닦아내기만으로 대부분 재현)</li><li>반영 트렌드: 결론형 제목과 장식보다 쓸모 있는 기능형 애니메이션 — 늘어나는 막대 자체가 기간을, 빨간 경로가 위험을 말함 (<a href="https://lomatechnology.com/blog/motion-ui-trends-2026/2911">Loma Technology, Motion UI Trends 2026</a>; <a href="https://www.renderforest.com/blog/design-trends-in-2026">Renderforest, Design Trends in 2026</a>)</li><li>일정·학교 수·계획안 제목은 가상 예시</li></ul></div>
+</div>
+</section>
+</div>
+<script>
+document.getElementById('copyBtn').addEventListener('click', function(){
+  var btn = this, pre = document.getElementById('code');
+  function selectIt(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨 · Ctrl+C로 복사'; }
+  try {
+    navigator.clipboard.writeText(pre.textContent).then(function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1800); }, selectIt);
+  } catch (e) { selectIt(); }
+});
+</script>
+
+</body></html>

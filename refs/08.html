@@ -1,0 +1,648 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #8 세 겹 병풍</title>
+<style>
+/* 레이아웃: 장표를 맨 위에 크게, 아래로 설명·코드·PPT 표·스펙을 한 단으로 */
+:root{
+  --bg:#EEF0F1; --surface:#F9F9F7; --fg:#1B2130; --muted:#5A6272; --line:#D2D6DB; --accent:#4565AC; --code-bg:#1B2130; --code-fg:#E6E9EE;
+  --display:"Hahmlet","Noto Serif KR",serif; --body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --mono:"Spline Sans Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#14171D; --surface:#1C2028; --fg:#E7E9ED; --muted:#A1A8B5; --line:#30363F; --accent:#8AA3D4; --code-bg:#0D1015; --code-fg:#DCE1E8; color-scheme:dark } }
+:root[data-theme="dark"]{ --bg:#14171D; --surface:#1C2028; --fg:#E7E9ED; --muted:#A1A8B5; --line:#30363F; --accent:#8AA3D4; --code-bg:#0D1015; --code-fg:#DCE1E8; color-scheme:dark }
+body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.65}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:16px; padding-block:24px 64px; display:flex; flex-direction:column; gap:40px}
+.top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 16px}
+.top h1{margin:0; font:700 22px/1.3 var(--display); letter-spacing:-.01em}
+.top span{font:500 12px var(--mono); color:var(--muted); letter-spacing:.04em}
+section{display:flex; flex-direction:column; gap:14px; min-width:0}
+h2.sec{margin:0; font:700 19px/1.35 var(--display); display:flex; gap:10px; align-items:baseline}
+h2.sec small{font:500 12px var(--mono); color:var(--accent); letter-spacing:.06em}
+p{margin:0; max-width:68ch}
+.apps{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+.apps div{border-top:2px solid var(--fg); padding-top:8px; min-width:0}
+.apps b{display:block; font-size:14px}
+.apps span{font-size:13.5px; color:var(--muted)}
+.codebox{position:relative; min-width:0}
+.codebox pre{margin:0; max-height:420px; overflow:auto; background:var(--code-bg); color:var(--code-fg); padding:16px; border-radius:6px; font:12.5px/1.55 var(--mono); white-space:pre}
+.copy{position:absolute; top:10px; right:10px; appearance:none; border:1px solid var(--code-fg); background:var(--code-bg); color:var(--code-fg); font:700 13px var(--body); padding:7px 12px; border-radius:4px; cursor:pointer}
+.copy:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+ol.hint{margin:0; padding-left:20px; max-width:72ch} ol.hint li{margin:2px 0}
+code{font-family:var(--mono); font-size:.9em; background:var(--surface); border:1px solid var(--line); padding:0 4px; border-radius:3px}
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:820px; font-size:13.5px}
+th,td{text-align:left; vertical-align:top; padding:9px 12px; border-bottom:1px solid var(--line)}
+th{font-weight:700; font-size:12.5px; color:var(--muted); white-space:nowrap}
+td:first-child{font:700 13px var(--mono); white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.note{border-left:3px solid var(--accent); padding:4px 0 4px 14px; max-width:76ch}
+.note p+p{margin-top:6px}
+.spec{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px}
+.spec h3{margin:0 0 6px; font:700 14px var(--body)}
+.sw{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
+.sw div{font:500 11.5px var(--mono); color:var(--muted)}
+.sw i{display:block; height:30px; border-radius:3px; border:1px solid var(--line); margin-bottom:3px}
+.spec ul{margin:0; padding-left:18px; font-size:14px}
+</style>
+<div class="wrap">
+<div class="top"><h1>레퍼런스 #8 · 세 겹 병풍</h1><span>실무형 · 접기·펼치기 · 2026-10-02</span></div>
+<section>
+<!-- ===== 세 겹 병풍 도식 (fs- 접두어) : 이 블록 전체를 복사해 붙이면 동작합니다 ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&family=Spline+Sans+Mono:wght@500&display=swap">
+<style>
+.fs-root{
+  /* 색: 여기를 바꾸면 장표 전체 색이 바뀝니다 (t1~t3 = 1·2·3겹 색, 진할수록 지원 강도 높음) */
+  --fs-desk:#E2E5E7; --fs-paper:#F8F7F3; --fs-paper-back:#E9E6DE; --fs-ink:#1B2130; --fs-sub:#596172;
+  --fs-t1:#8AA3D4; --fs-t2:#4565AC; --fs-t3:#1E326C; --fs-accent:#D9582A; --fs-line:#C3C8CF;
+  /* 크기: 병풍 한 폭의 너비·높이, 아래로 내려오는 날개 높이 (cqw = 장표 너비의 1%) */
+  --fs-panel-w:23.4cqw; --fs-panel-h:16cqw; --fs-flap-h:17.5cqw;
+  /* 타이밍(ms): 펼침·날개·등장·선 긋기 시간, 자동 재생 때 단계 사이 쉼 */
+  --fs-unfold-ms:1000; --fs-flap-ms:800; --fs-drop-ms:600; --fs-draw-ms:450; --fs-gap-ms:350;
+  --fs-font-display:"Hahmlet","Noto Serif KR","Apple SD Gothic Neo","Malgun Gothic",serif;
+  --fs-font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --fs-font-mono:"Spline Sans Mono","D2Coding",Consolas,monospace;
+  display:flex; flex-direction:column; gap:12px; width:100%; max-width:100%;
+}
+.fs-slide{
+  container-type:inline-size; position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden;
+  background-color:var(--fs-desk); color:var(--fs-ink); font-family:var(--fs-font-body);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.12 0 0 0 0 0.16 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.fs-inner{position:absolute; inset:0}
+.fs-kicker{position:absolute; left:4.5cqw; top:3.4cqw; font:500 1.05cqw/1.3 var(--fs-font-mono); letter-spacing:.04em; color:var(--fs-sub)}
+.fs-kicker b{color:var(--fs-ink); font-weight:500}
+.fs-title{position:absolute; left:4.5cqw; right:12cqw; top:5.5cqw; margin:0; font:700 2.6cqw/1.25 var(--fs-font-display); letter-spacing:-.02em; text-wrap:balance; color:var(--fs-ink)}
+.fs-title em{font-style:normal; color:var(--fs-t2)}
+.fs-mark{position:absolute; right:4.5cqw; top:3.3cqw; padding:.25cqw .7cqw; border:.1cqw solid var(--fs-line); border-radius:99cqw; font:500 .9cqw/1.3 var(--fs-font-body); color:var(--fs-sub); background:var(--fs-paper)}
+.fs-stage{position:absolute; left:0; right:0; top:15.4cqw; height:40cqw; perspective:150cqw; perspective-origin:62% 20%}
+
+/* 진단 쪽지 */
+.fs-diag{position:absolute; left:4.5cqw; top:0; width:14.2cqw; height:var(--fs-panel-h); box-sizing:border-box; padding:1.2cqw 1.3cqw;
+  background:var(--fs-paper); border:.12cqw dashed var(--fs-sub); display:flex; flex-direction:column; gap:.35cqw}
+.fs-diag .fs-tag{color:var(--fs-sub)}
+.fs-diag-num{font:700 2.5cqw/1 var(--fs-font-mono); color:var(--fs-accent); margin-top:auto; font-variant-numeric:tabular-nums}
+.fs-diag-num small{font:500 1.1cqw var(--fs-font-body); color:var(--fs-ink); margin-left:.2cqw}
+.fs-arrow{position:absolute; left:18.9cqw; top:0; width:4.5cqw; height:var(--fs-panel-h); overflow:visible}
+.fs-arrow path{fill:none; stroke:var(--fs-ink); stroke-width:.16cqw; stroke-dasharray:1; stroke-dashoffset:0}
+
+/* 병풍 폭: 다음 폭이 앞 폭 안에 들어 있어 경첩처럼 함께 움직입니다 */
+.fs-panel{position:absolute; top:0; width:var(--fs-panel-w); height:var(--fs-panel-h); transform-style:preserve-3d; transform-origin:0 50%}
+.fs-panel.fs-p1{left:23.4cqw}
+.fs-panel .fs-panel{left:100%}
+.fs-face{position:absolute; inset:0; box-sizing:border-box; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden;
+  background-color:var(--fs-paper); background-image:inherit}
+.fs-front{padding:1.15cqw 1.4cqw 1cqw; display:flex; flex-direction:column; gap:.3cqw; border-top:.55cqw solid var(--fs-tc)}
+.fs-p2 > .fs-front, .fs-p3 > .fs-front{box-shadow:inset .5cqw 0 .7cqw -.45cqw rgba(27,33,48,.28)}
+.fs-back{transform:rotateY(180deg); background-color:var(--fs-paper-back)}
+.fs-p1{--fs-tc:var(--fs-t1)} .fs-p2{--fs-tc:var(--fs-t2)} .fs-p3{--fs-tc:var(--fs-t3)}
+.fs-tag{font:500 .95cqw/1.2 var(--fs-font-mono); letter-spacing:.08em; color:var(--fs-tc)}
+.fs-name{font:700 1.75cqw/1.2 var(--fs-font-display); letter-spacing:-.02em}
+.fs-desc{font:400 1.02cqw/1.45 var(--fs-font-body); color:var(--fs-sub)}
+.fs-count{margin-top:auto; display:flex; align-items:baseline; justify-content:space-between; border-top:.1cqw solid var(--fs-line); padding-top:.5cqw;
+  font:500 .95cqw var(--fs-font-body); color:var(--fs-sub)}
+.fs-count b{font:700 1.65cqw var(--fs-font-mono); color:var(--fs-accent); font-variant-numeric:tabular-nums}
+.fs-shade{position:absolute; inset:0; pointer-events:none; opacity:0; background:linear-gradient(90deg,rgba(27,33,48,.55),rgba(27,33,48,.18))}
+
+/* 아래 날개: 폭 뒤에 접혀 있다가 아래로 내려옵니다 */
+.fs-flap{position:absolute; left:0; top:100%; width:100%; height:var(--fs-flap-h); transform-style:preserve-3d; transform-origin:50% 0}
+.fs-flap > .fs-front{border-top:.12cqw dashed var(--fs-line); padding:1cqw 1.4cqw; gap:0; background-color:var(--fs-paper)}
+.fs-flap > .fs-back{transform:rotateX(180deg)}
+.fs-flap .fs-shade{background:linear-gradient(180deg,rgba(27,33,48,.5),rgba(27,33,48,.12))}
+.fs-flap ul{list-style:none; margin:0; padding:0; display:grid; gap:0}
+.fs-flap li{display:grid; grid-template-columns:1.6cqw 1fr; align-items:center; padding:.78cqw 0; border-bottom:.08cqw solid var(--fs-line); font:500 1.12cqw/1.3 var(--fs-font-body)}
+.fs-flap li::before{content:""; width:.9cqw; height:.28cqw; background:var(--fs-tc)}
+.fs-who{margin-top:auto; font:500 .88cqw/1.3 var(--fs-font-mono); color:var(--fs-sub); letter-spacing:.03em}
+
+/* 강도 띠 */
+.fs-axis{position:absolute; left:23.4cqw; top:calc(var(--fs-panel-h) + var(--fs-flap-h) + 1.4cqw); width:calc(var(--fs-panel-w) * 3); height:3.6cqw; clip-path:inset(0 0 0 0)}
+.fs-bars{display:grid; grid-template-columns:repeat(3,1fr); align-items:end; height:1.2cqw}
+.fs-bars i{display:block; margin-right:.25cqw}
+.fs-bars i:nth-child(1){height:.3cqw; background:var(--fs-t1)}
+.fs-bars i:nth-child(2){height:.65cqw; background:var(--fs-t2)}
+.fs-bars i:nth-child(3){height:1.1cqw; background:var(--fs-t3); margin-right:0}
+.fs-axis p{margin:.55cqw 0 0; display:flex; justify-content:space-between; font:500 .98cqw/1.3 var(--fs-font-body); color:var(--fs-sub)}
+.fs-axis p b{color:var(--fs-ink); font-weight:700}
+
+/* 조작 버튼 (장표 밖) */
+.fs-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--fs-font-body)}
+.fs-btn{appearance:none; border:1.5px solid var(--fs-ink); background:var(--fs-paper); color:var(--fs-ink); font:700 14px/1 var(--fs-font-body); padding:10px 16px; border-radius:4px; cursor:pointer}
+.fs-btn:hover{background:var(--fs-ink); color:var(--fs-paper)}
+.fs-btn:focus-visible{outline:3px solid var(--fs-t2); outline-offset:2px}
+.fs-status{font:500 13px/1.4 var(--fs-font-mono); color:var(--fs-sub); padding-left:4px}
+</style>
+
+<div class="fs-root" data-fs-root>
+  <div class="fs-slide" role="img" aria-label="기초학력 3단계 학습안전망: 진단 후 교실, 학교, 지역 세 겹으로 지원이 넓어지는 도식">
+    <div class="fs-inner">
+      <div class="fs-kicker"><b>새솔교육청 2027 기초학력 보장 추진 계획(안)</b> · Ⅲ. 세부 추진 과제 1 — 3단계 학습안전망</div>
+      <h2 class="fs-title">놓친 배움은 <em>교실 → 학교 → 지역</em>으로 한 겹씩 넓혀 붙잡는다</h2>
+      <div class="fs-mark">가상 예시</div>
+      <div class="fs-stage">
+        <div class="fs-diag" data-fs="diag">
+          <span class="fs-tag">0 · 3월 진단</span>
+          <span class="fs-name" style="font-size:1.45cqw">기초학력 진단</span>
+          <span class="fs-desc">초1~중3 전원 검사 후 지원 대상 선정</span>
+          <span class="fs-diag-num">2,140<small>명</small></span>
+        </div>
+        <svg class="fs-arrow" viewBox="0 0 45 150" preserveAspectRatio="none" aria-hidden="true">
+          <path data-fs="arrow" pathLength="1" d="M4 75 H38 M30 67 L39 75 L30 83" vector-effect="non-scaling-stroke"/>
+        </svg>
+
+        <!-- 1겹 -->
+        <div class="fs-panel fs-p1">
+          <div class="fs-face fs-front">
+            <span class="fs-tag">1겹 · 교실</span>
+            <span class="fs-name">담임 책임지도</span>
+            <span class="fs-desc">수업 안에서 먼저 붙잡는다</span>
+            <span class="fs-count">지원 대상 <b>2,140</b></span>
+          </div>
+          <div class="fs-face fs-back"></div>
+          <div class="fs-flap" data-fs="flap1">
+            <div class="fs-face fs-front"><ul><li>수업 중 맞춤 피드백</li><li>협력강사 2인 수업</li><li>방과후 보충 주 2회</li></ul><span class="fs-who">담임 · 협력강사</span><span class="fs-shade"></span></div>
+            <div class="fs-face fs-back"></div>
+          </div>
+
+          <!-- 2겹 -->
+          <div class="fs-panel fs-p2" data-fs="p2">
+            <div class="fs-face fs-front">
+              <span class="fs-tag">2겹 · 학교</span>
+              <span class="fs-name">학교 학습지원팀</span>
+              <span class="fs-desc">교실에서 남은 학생을 함께 본다</span>
+              <span class="fs-count">지원 대상 <b>430</b></span>
+              <span class="fs-shade"></span>
+            </div>
+            <div class="fs-face fs-back"></div>
+            <div class="fs-flap" data-fs="flap2">
+              <div class="fs-face fs-front"><ul><li>다중지원팀 사례 협의</li><li>1:1 학습 코칭</li><li>정서·행동 상담 연계</li></ul><span class="fs-who">교감 · 상담교사 · 담임</span><span class="fs-shade"></span></div>
+              <div class="fs-face fs-back"></div>
+            </div>
+
+            <!-- 3겹 -->
+            <div class="fs-panel fs-p3" data-fs="p3">
+              <div class="fs-face fs-front">
+                <span class="fs-tag">3겹 · 지역</span>
+                <span class="fs-name">학습종합클리닉센터</span>
+                <span class="fs-desc">전문 진단과 기관 연계로 잇는다</span>
+                <span class="fs-count">지원 대상 <b>95</b></span>
+                <span class="fs-shade"></span>
+              </div>
+              <div class="fs-face fs-back"></div>
+              <div class="fs-flap" data-fs="flap3">
+                <div class="fs-face fs-front"><ul><li>난독·경계선 지능 진단</li><li>전문가 학교 방문 지원</li><li>의료·복지기관 연계</li></ul><span class="fs-who">교육지원청 · 전문 인력</span><span class="fs-shade"></span></div>
+                <div class="fs-face fs-back"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fs-axis" data-fs="axis">
+          <div class="fs-bars"><i></i><i></i><i></i></div>
+          <p><span>겹이 넓어질수록 <b>지원은 깊어지고</b></span><span><b>대상은 좁아진다</b> · 2,140 → 430 → 95명</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fs-controls">
+    <button type="button" class="fs-btn" data-fs-replay>다시 보기</button>
+    <button type="button" class="fs-btn" data-fs-step>한 단계씩</button>
+    <span class="fs-status" data-fs-status aria-live="polite">완성 상태</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.querySelector('[data-fs-root]');
+  if (!root) return;
+  function el(name){ return root.querySelector('[data-fs="' + name + '"]'); }
+
+  // 단계 목록: 순서를 바꾸거나 줄을 지우면 재생·클릭 순서가 바뀝니다.
+  // t = data-fs 이름, m = 아래 FS_MOVES의 동작 이름, delay = 같은 단계 안에서 늦게 시작(ms)
+  var FS_STEPS = [
+    { label: '3월 진단으로 지원 대상 선정', items: [{ t: 'diag', m: 'drop' }, { t: 'arrow', m: 'draw', delay: 300 }] },
+    { label: '1겹 교실 — 세부 지원',        items: [{ t: 'flap1', m: 'flapDown' }] },
+    { label: '2겹 학교로 펼침',             items: [{ t: 'p2', m: 'unfold' }] },
+    { label: '2겹 학교 — 세부 지원',        items: [{ t: 'flap2', m: 'flapDown' }] },
+    { label: '3겹 지역으로 펼침',           items: [{ t: 'p3', m: 'unfold' }] },
+    { label: '3겹 지역 — 세부 지원',        items: [{ t: 'flap3', m: 'flapDown' }] },
+    { label: '겹마다 강도는 깊게, 대상은 좁게', items: [{ t: 'axis', m: 'wipe' }] }
+  ];
+
+  // 동작 정의: kf = 시작→끝 모양, dur = 시간을 담은 CSS 변수, hide = 시작 전 숨김, shade = 접힘 그림자 함께 재생
+  var FS_MOVES = {
+    drop:     { kf: [{ opacity: 0, transform: 'translateY(-2.5cqw)' }, { opacity: 1, transform: 'translateY(0)' }], dur: '--fs-drop-ms', ease: 'cubic-bezier(.2,.9,.3,1.25)' },
+    draw:     { kf: [{ strokeDashoffset: '1' }, { strokeDashoffset: '0' }], dur: '--fs-draw-ms', ease: 'ease-out' },
+    unfold:   { kf: [{ transform: 'rotateY(179deg)' }, { transform: 'rotateY(-7deg)', offset: .8 }, { transform: 'rotateY(0deg)' }], dur: '--fs-unfold-ms', ease: 'cubic-bezier(.5,0,.25,1)', hide: true, shade: true },
+    flapDown: { kf: [{ transform: 'rotateX(-179deg)' }, { transform: 'rotateX(9deg)', offset: .8 }, { transform: 'rotateX(0deg)' }], dur: '--fs-flap-ms', ease: 'cubic-bezier(.5,0,.25,1)', hide: true, shade: true },
+    wipe:     { kf: [{ clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)' }], dur: '--fs-unfold-ms', ease: 'cubic-bezier(.6,0,.2,1)' }
+  };
+  var SHADE_KF = [{ opacity: .9 }, { opacity: .35, offset: .55 }, { opacity: 0 }];
+
+  var css = getComputedStyle(root);
+  function ms(v){ var n = parseFloat(css.getPropertyValue(v)); return isNaN(n) ? 600 : n; }
+  function clean(k){ var o = {}; for (var p in k) if (p !== 'offset') o[p] = k[p]; return o; }
+  function shadeOf(node){ return node.querySelector(':scope > .fs-front > .fs-shade'); }
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var status = root.querySelector('[data-fs-status]');
+  var cur = FS_STEPS.length, token = 0;
+
+  function setItem(it, done){
+    var node = el(it.t), mv = FS_MOVES[it.m];
+    if (!node || !mv) return;
+    node.getAnimations().forEach(function(a){ a.cancel(); });
+    var sh = mv.shade && shadeOf(node);
+    if (sh) { sh.getAnimations().forEach(function(a){ a.cancel(); }); sh.style.opacity = 0; }
+    Object.assign(node.style, clean(done ? mv.kf[mv.kf.length - 1] : mv.kf[0]));
+    node.style.visibility = (!done && mv.hide) ? 'hidden' : 'visible';
+  }
+  function applyState(n){
+    FS_STEPS.forEach(function(s, i){ s.items.forEach(function(it){ setItem(it, i < n); }); });
+    cur = n; show();
+  }
+  function show(){
+    if (!status) return;
+    status.textContent = cur >= FS_STEPS.length ? '완성 상태 · ' + FS_STEPS.length + '단계'
+      : cur === 0 ? '시작 전 · 0/' + FS_STEPS.length : cur + '/' + FS_STEPS.length + ' · ' + FS_STEPS[cur - 1].label;
+  }
+  function playItem(it){
+    var node = el(it.t), mv = FS_MOVES[it.m];
+    if (!node || !mv) return Promise.resolve();
+    node.style.visibility = 'visible';
+    var opt = { duration: ms(mv.dur), delay: it.delay || 0, easing: mv.ease, fill: 'both' };
+    var a = node.animate(mv.kf, opt);
+    var sh = mv.shade && shadeOf(node);
+    if (sh) sh.animate(SHADE_KF, opt);
+    return a.finished.then(function(){ Object.assign(node.style, clean(mv.kf[mv.kf.length - 1])); a.cancel(); }, function(){});
+  }
+  function playStep(i){
+    cur = i + 1; show();
+    return Promise.all(FS_STEPS[i].items.map(playItem));
+  }
+  function wait(t){ return new Promise(function(r){ setTimeout(r, t); }); }
+
+  // 다시 보기: 처음부터 끝까지 한 번 재생하고 완성 상태에서 멈춤
+  function replay(){
+    var my = ++token;
+    if (reduced) { applyState(FS_STEPS.length); return; }
+    applyState(0);
+    var chain = wait(500);
+    FS_STEPS.forEach(function(_, i){
+      chain = chain.then(function(){ if (my === token) return playStep(i).then(function(){ return wait(ms('--fs-gap-ms')); }); });
+    });
+  }
+  // 한 단계씩: 클릭할 때마다 다음 동작 하나 (끝까지 가면 처음부터)
+  function stepOnce(){
+    ++token;
+    var next = cur >= FS_STEPS.length ? 0 : cur;
+    applyState(next);
+    if (reduced) { applyState(next + 1); return; }
+    playStep(next);
+  }
+  root.querySelector('[data-fs-replay]').addEventListener('click', replay);
+  root.querySelector('[data-fs-step]').addEventListener('click', stepOnce);
+
+  applyState(FS_STEPS.length);           // 첫 화면은 완성된 도식
+  if (!reduced) setTimeout(replay, 1200); // 잠시 뒤 한 번 재생
+})();
+</script>
+<!-- ===== 세 겹 병풍 도식 끝 ===== -->
+</section>
+
+<section>
+<h2 class="sec"><small>01</small>동작 설명</h2>
+<p>병풍이 한 폭씩 펼쳐지는 순서가 지원 단계의 순서이고, 앞 폭 안에 다음 폭이 접혀 있다는 구조가 "앞 단계에서 해결되지 않은 학생만 다음 단계로 넘어간다"는 포함 관계를 보여 줍니다. 각 폭 아래 날개가 내려오면서 그 단계의 세부 지원이 드러나고, 마지막 강도 띠가 겹이 넓어질수록 지원은 깊어지고 대상은 줄어든다는 결론을 정리합니다.</p>
+<div class="apps">
+  <div><b>연간 추진 일정</b><span>분기 4폭 병풍. 한 분기씩 펼치고 날개에 월별 행사를 넣는다.</span></div>
+  <div><b>기존안 대 개선안</b><span>한 폭을 뒤집어 앞면은 기존안, 뒷면은 개선안. 펼침 동작이 곧 "바뀐다"는 말이 된다.</span></div>
+  <div><b>대상별 지원 유형</b><span>유아·초등·특수 3폭. 날개에 대상별 지원 메뉴를 접어 두고 질의응답 때 필요한 폭만 연다.</span></div>
+</div>
+</section>
+
+<section>
+<h2 class="sec"><small>02</small>HTML로 가져다 쓰기</h2>
+<div class="codebox"><button type="button" class="copy" id="copyBtn">코드 복사</button><pre id="code" tabindex="0">&lt;!-- ===== 세 겹 병풍 도식 (fs- 접두어) : 이 블록 전체를 복사해 붙이면 동작합니다 ===== --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700&amp;family=Noto+Sans+KR:wght@400;500;700&amp;family=Spline+Sans+Mono:wght@500&amp;display=swap&quot;&gt;
+&lt;style&gt;
+.fs-root{
+  /* 색: 여기를 바꾸면 장표 전체 색이 바뀝니다 (t1~t3 = 1·2·3겹 색, 진할수록 지원 강도 높음) */
+  --fs-desk:#E2E5E7; --fs-paper:#F8F7F3; --fs-paper-back:#E9E6DE; --fs-ink:#1B2130; --fs-sub:#596172;
+  --fs-t1:#8AA3D4; --fs-t2:#4565AC; --fs-t3:#1E326C; --fs-accent:#D9582A; --fs-line:#C3C8CF;
+  /* 크기: 병풍 한 폭의 너비·높이, 아래로 내려오는 날개 높이 (cqw = 장표 너비의 1%) */
+  --fs-panel-w:23.4cqw; --fs-panel-h:16cqw; --fs-flap-h:17.5cqw;
+  /* 타이밍(ms): 펼침·날개·등장·선 긋기 시간, 자동 재생 때 단계 사이 쉼 */
+  --fs-unfold-ms:1000; --fs-flap-ms:800; --fs-drop-ms:600; --fs-draw-ms:450; --fs-gap-ms:350;
+  --fs-font-display:&quot;Hahmlet&quot;,&quot;Noto Serif KR&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,serif;
+  --fs-font-body:&quot;Noto Sans KR&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --fs-font-mono:&quot;Spline Sans Mono&quot;,&quot;D2Coding&quot;,Consolas,monospace;
+  display:flex; flex-direction:column; gap:12px; width:100%; max-width:100%;
+}
+.fs-slide{
+  container-type:inline-size; position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden;
+  background-color:var(--fs-desk); color:var(--fs-ink); font-family:var(--fs-font-body);
+  background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; width=&#x27;160&#x27; height=&#x27;160&#x27;%3E%3Cfilter id=&#x27;n&#x27;%3E%3CfeTurbulence type=&#x27;fractalNoise&#x27; baseFrequency=&#x27;.9&#x27; numOctaves=&#x27;2&#x27; stitchTiles=&#x27;stitch&#x27;/%3E%3CfeColorMatrix values=&#x27;0 0 0 0 0.1 0 0 0 0 0.12 0 0 0 0 0.16 0 0 0 .07 0&#x27;/%3E%3C/filter%3E%3Crect width=&#x27;160&#x27; height=&#x27;160&#x27; filter=&#x27;url(%23n)&#x27;/%3E%3C/svg%3E&quot;);
+}
+.fs-inner{position:absolute; inset:0}
+.fs-kicker{position:absolute; left:4.5cqw; top:3.4cqw; font:500 1.05cqw/1.3 var(--fs-font-mono); letter-spacing:.04em; color:var(--fs-sub)}
+.fs-kicker b{color:var(--fs-ink); font-weight:500}
+.fs-title{position:absolute; left:4.5cqw; right:12cqw; top:5.5cqw; margin:0; font:700 2.6cqw/1.25 var(--fs-font-display); letter-spacing:-.02em; text-wrap:balance; color:var(--fs-ink)}
+.fs-title em{font-style:normal; color:var(--fs-t2)}
+.fs-mark{position:absolute; right:4.5cqw; top:3.3cqw; padding:.25cqw .7cqw; border:.1cqw solid var(--fs-line); border-radius:99cqw; font:500 .9cqw/1.3 var(--fs-font-body); color:var(--fs-sub); background:var(--fs-paper)}
+.fs-stage{position:absolute; left:0; right:0; top:15.4cqw; height:40cqw; perspective:150cqw; perspective-origin:62% 20%}
+
+/* 진단 쪽지 */
+.fs-diag{position:absolute; left:4.5cqw; top:0; width:14.2cqw; height:var(--fs-panel-h); box-sizing:border-box; padding:1.2cqw 1.3cqw;
+  background:var(--fs-paper); border:.12cqw dashed var(--fs-sub); display:flex; flex-direction:column; gap:.35cqw}
+.fs-diag .fs-tag{color:var(--fs-sub)}
+.fs-diag-num{font:700 2.5cqw/1 var(--fs-font-mono); color:var(--fs-accent); margin-top:auto; font-variant-numeric:tabular-nums}
+.fs-diag-num small{font:500 1.1cqw var(--fs-font-body); color:var(--fs-ink); margin-left:.2cqw}
+.fs-arrow{position:absolute; left:18.9cqw; top:0; width:4.5cqw; height:var(--fs-panel-h); overflow:visible}
+.fs-arrow path{fill:none; stroke:var(--fs-ink); stroke-width:.16cqw; stroke-dasharray:1; stroke-dashoffset:0}
+
+/* 병풍 폭: 다음 폭이 앞 폭 안에 들어 있어 경첩처럼 함께 움직입니다 */
+.fs-panel{position:absolute; top:0; width:var(--fs-panel-w); height:var(--fs-panel-h); transform-style:preserve-3d; transform-origin:0 50%}
+.fs-panel.fs-p1{left:23.4cqw}
+.fs-panel .fs-panel{left:100%}
+.fs-face{position:absolute; inset:0; box-sizing:border-box; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden;
+  background-color:var(--fs-paper); background-image:inherit}
+.fs-front{padding:1.15cqw 1.4cqw 1cqw; display:flex; flex-direction:column; gap:.3cqw; border-top:.55cqw solid var(--fs-tc)}
+.fs-p2 &gt; .fs-front, .fs-p3 &gt; .fs-front{box-shadow:inset .5cqw 0 .7cqw -.45cqw rgba(27,33,48,.28)}
+.fs-back{transform:rotateY(180deg); background-color:var(--fs-paper-back)}
+.fs-p1{--fs-tc:var(--fs-t1)} .fs-p2{--fs-tc:var(--fs-t2)} .fs-p3{--fs-tc:var(--fs-t3)}
+.fs-tag{font:500 .95cqw/1.2 var(--fs-font-mono); letter-spacing:.08em; color:var(--fs-tc)}
+.fs-name{font:700 1.75cqw/1.2 var(--fs-font-display); letter-spacing:-.02em}
+.fs-desc{font:400 1.02cqw/1.45 var(--fs-font-body); color:var(--fs-sub)}
+.fs-count{margin-top:auto; display:flex; align-items:baseline; justify-content:space-between; border-top:.1cqw solid var(--fs-line); padding-top:.5cqw;
+  font:500 .95cqw var(--fs-font-body); color:var(--fs-sub)}
+.fs-count b{font:700 1.65cqw var(--fs-font-mono); color:var(--fs-accent); font-variant-numeric:tabular-nums}
+.fs-shade{position:absolute; inset:0; pointer-events:none; opacity:0; background:linear-gradient(90deg,rgba(27,33,48,.55),rgba(27,33,48,.18))}
+
+/* 아래 날개: 폭 뒤에 접혀 있다가 아래로 내려옵니다 */
+.fs-flap{position:absolute; left:0; top:100%; width:100%; height:var(--fs-flap-h); transform-style:preserve-3d; transform-origin:50% 0}
+.fs-flap &gt; .fs-front{border-top:.12cqw dashed var(--fs-line); padding:1cqw 1.4cqw; gap:0; background-color:var(--fs-paper)}
+.fs-flap &gt; .fs-back{transform:rotateX(180deg)}
+.fs-flap .fs-shade{background:linear-gradient(180deg,rgba(27,33,48,.5),rgba(27,33,48,.12))}
+.fs-flap ul{list-style:none; margin:0; padding:0; display:grid; gap:0}
+.fs-flap li{display:grid; grid-template-columns:1.6cqw 1fr; align-items:center; padding:.78cqw 0; border-bottom:.08cqw solid var(--fs-line); font:500 1.12cqw/1.3 var(--fs-font-body)}
+.fs-flap li::before{content:&quot;&quot;; width:.9cqw; height:.28cqw; background:var(--fs-tc)}
+.fs-who{margin-top:auto; font:500 .88cqw/1.3 var(--fs-font-mono); color:var(--fs-sub); letter-spacing:.03em}
+
+/* 강도 띠 */
+.fs-axis{position:absolute; left:23.4cqw; top:calc(var(--fs-panel-h) + var(--fs-flap-h) + 1.4cqw); width:calc(var(--fs-panel-w) * 3); height:3.6cqw; clip-path:inset(0 0 0 0)}
+.fs-bars{display:grid; grid-template-columns:repeat(3,1fr); align-items:end; height:1.2cqw}
+.fs-bars i{display:block; margin-right:.25cqw}
+.fs-bars i:nth-child(1){height:.3cqw; background:var(--fs-t1)}
+.fs-bars i:nth-child(2){height:.65cqw; background:var(--fs-t2)}
+.fs-bars i:nth-child(3){height:1.1cqw; background:var(--fs-t3); margin-right:0}
+.fs-axis p{margin:.55cqw 0 0; display:flex; justify-content:space-between; font:500 .98cqw/1.3 var(--fs-font-body); color:var(--fs-sub)}
+.fs-axis p b{color:var(--fs-ink); font-weight:700}
+
+/* 조작 버튼 (장표 밖) */
+.fs-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--fs-font-body)}
+.fs-btn{appearance:none; border:1.5px solid var(--fs-ink); background:var(--fs-paper); color:var(--fs-ink); font:700 14px/1 var(--fs-font-body); padding:10px 16px; border-radius:4px; cursor:pointer}
+.fs-btn:hover{background:var(--fs-ink); color:var(--fs-paper)}
+.fs-btn:focus-visible{outline:3px solid var(--fs-t2); outline-offset:2px}
+.fs-status{font:500 13px/1.4 var(--fs-font-mono); color:var(--fs-sub); padding-left:4px}
+&lt;/style&gt;
+
+&lt;div class=&quot;fs-root&quot; data-fs-root&gt;
+  &lt;div class=&quot;fs-slide&quot; role=&quot;img&quot; aria-label=&quot;기초학력 3단계 학습안전망: 진단 후 교실, 학교, 지역 세 겹으로 지원이 넓어지는 도식&quot;&gt;
+    &lt;div class=&quot;fs-inner&quot;&gt;
+      &lt;div class=&quot;fs-kicker&quot;&gt;&lt;b&gt;새솔교육청 2027 기초학력 보장 추진 계획(안)&lt;/b&gt; · Ⅲ. 세부 추진 과제 1 — 3단계 학습안전망&lt;/div&gt;
+      &lt;h2 class=&quot;fs-title&quot;&gt;놓친 배움은 &lt;em&gt;교실 → 학교 → 지역&lt;/em&gt;으로 한 겹씩 넓혀 붙잡는다&lt;/h2&gt;
+      &lt;div class=&quot;fs-mark&quot;&gt;가상 예시&lt;/div&gt;
+      &lt;div class=&quot;fs-stage&quot;&gt;
+        &lt;div class=&quot;fs-diag&quot; data-fs=&quot;diag&quot;&gt;
+          &lt;span class=&quot;fs-tag&quot;&gt;0 · 3월 진단&lt;/span&gt;
+          &lt;span class=&quot;fs-name&quot; style=&quot;font-size:1.45cqw&quot;&gt;기초학력 진단&lt;/span&gt;
+          &lt;span class=&quot;fs-desc&quot;&gt;초1~중3 전원 검사 후 지원 대상 선정&lt;/span&gt;
+          &lt;span class=&quot;fs-diag-num&quot;&gt;2,140&lt;small&gt;명&lt;/small&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;svg class=&quot;fs-arrow&quot; viewBox=&quot;0 0 45 150&quot; preserveAspectRatio=&quot;none&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path data-fs=&quot;arrow&quot; pathLength=&quot;1&quot; d=&quot;M4 75 H38 M30 67 L39 75 L30 83&quot; vector-effect=&quot;non-scaling-stroke&quot;/&gt;
+        &lt;/svg&gt;
+
+        &lt;!-- 1겹 --&gt;
+        &lt;div class=&quot;fs-panel fs-p1&quot;&gt;
+          &lt;div class=&quot;fs-face fs-front&quot;&gt;
+            &lt;span class=&quot;fs-tag&quot;&gt;1겹 · 교실&lt;/span&gt;
+            &lt;span class=&quot;fs-name&quot;&gt;담임 책임지도&lt;/span&gt;
+            &lt;span class=&quot;fs-desc&quot;&gt;수업 안에서 먼저 붙잡는다&lt;/span&gt;
+            &lt;span class=&quot;fs-count&quot;&gt;지원 대상 &lt;b&gt;2,140&lt;/b&gt;&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;fs-face fs-back&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;fs-flap&quot; data-fs=&quot;flap1&quot;&gt;
+            &lt;div class=&quot;fs-face fs-front&quot;&gt;&lt;ul&gt;&lt;li&gt;수업 중 맞춤 피드백&lt;/li&gt;&lt;li&gt;협력강사 2인 수업&lt;/li&gt;&lt;li&gt;방과후 보충 주 2회&lt;/li&gt;&lt;/ul&gt;&lt;span class=&quot;fs-who&quot;&gt;담임 · 협력강사&lt;/span&gt;&lt;span class=&quot;fs-shade&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;fs-face fs-back&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- 2겹 --&gt;
+          &lt;div class=&quot;fs-panel fs-p2&quot; data-fs=&quot;p2&quot;&gt;
+            &lt;div class=&quot;fs-face fs-front&quot;&gt;
+              &lt;span class=&quot;fs-tag&quot;&gt;2겹 · 학교&lt;/span&gt;
+              &lt;span class=&quot;fs-name&quot;&gt;학교 학습지원팀&lt;/span&gt;
+              &lt;span class=&quot;fs-desc&quot;&gt;교실에서 남은 학생을 함께 본다&lt;/span&gt;
+              &lt;span class=&quot;fs-count&quot;&gt;지원 대상 &lt;b&gt;430&lt;/b&gt;&lt;/span&gt;
+              &lt;span class=&quot;fs-shade&quot;&gt;&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;fs-face fs-back&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;fs-flap&quot; data-fs=&quot;flap2&quot;&gt;
+              &lt;div class=&quot;fs-face fs-front&quot;&gt;&lt;ul&gt;&lt;li&gt;다중지원팀 사례 협의&lt;/li&gt;&lt;li&gt;1:1 학습 코칭&lt;/li&gt;&lt;li&gt;정서·행동 상담 연계&lt;/li&gt;&lt;/ul&gt;&lt;span class=&quot;fs-who&quot;&gt;교감 · 상담교사 · 담임&lt;/span&gt;&lt;span class=&quot;fs-shade&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+              &lt;div class=&quot;fs-face fs-back&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- 3겹 --&gt;
+            &lt;div class=&quot;fs-panel fs-p3&quot; data-fs=&quot;p3&quot;&gt;
+              &lt;div class=&quot;fs-face fs-front&quot;&gt;
+                &lt;span class=&quot;fs-tag&quot;&gt;3겹 · 지역&lt;/span&gt;
+                &lt;span class=&quot;fs-name&quot;&gt;학습종합클리닉센터&lt;/span&gt;
+                &lt;span class=&quot;fs-desc&quot;&gt;전문 진단과 기관 연계로 잇는다&lt;/span&gt;
+                &lt;span class=&quot;fs-count&quot;&gt;지원 대상 &lt;b&gt;95&lt;/b&gt;&lt;/span&gt;
+                &lt;span class=&quot;fs-shade&quot;&gt;&lt;/span&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;fs-face fs-back&quot;&gt;&lt;/div&gt;
+              &lt;div class=&quot;fs-flap&quot; data-fs=&quot;flap3&quot;&gt;
+                &lt;div class=&quot;fs-face fs-front&quot;&gt;&lt;ul&gt;&lt;li&gt;난독·경계선 지능 진단&lt;/li&gt;&lt;li&gt;전문가 학교 방문 지원&lt;/li&gt;&lt;li&gt;의료·복지기관 연계&lt;/li&gt;&lt;/ul&gt;&lt;span class=&quot;fs-who&quot;&gt;교육지원청 · 전문 인력&lt;/span&gt;&lt;span class=&quot;fs-shade&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+                &lt;div class=&quot;fs-face fs-back&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;fs-axis&quot; data-fs=&quot;axis&quot;&gt;
+          &lt;div class=&quot;fs-bars&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
+          &lt;p&gt;&lt;span&gt;겹이 넓어질수록 &lt;b&gt;지원은 깊어지고&lt;/b&gt;&lt;/span&gt;&lt;span&gt;&lt;b&gt;대상은 좁아진다&lt;/b&gt; · 2,140 → 430 → 95명&lt;/span&gt;&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;fs-controls&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;fs-btn&quot; data-fs-replay&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;fs-btn&quot; data-fs-step&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;fs-status&quot; data-fs-status aria-live=&quot;polite&quot;&gt;완성 상태&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  var root = document.querySelector(&#x27;[data-fs-root]&#x27;);
+  if (!root) return;
+  function el(name){ return root.querySelector(&#x27;[data-fs=&quot;&#x27; + name + &#x27;&quot;]&#x27;); }
+
+  // 단계 목록: 순서를 바꾸거나 줄을 지우면 재생·클릭 순서가 바뀝니다.
+  // t = data-fs 이름, m = 아래 FS_MOVES의 동작 이름, delay = 같은 단계 안에서 늦게 시작(ms)
+  var FS_STEPS = [
+    { label: &#x27;3월 진단으로 지원 대상 선정&#x27;, items: [{ t: &#x27;diag&#x27;, m: &#x27;drop&#x27; }, { t: &#x27;arrow&#x27;, m: &#x27;draw&#x27;, delay: 300 }] },
+    { label: &#x27;1겹 교실 — 세부 지원&#x27;,        items: [{ t: &#x27;flap1&#x27;, m: &#x27;flapDown&#x27; }] },
+    { label: &#x27;2겹 학교로 펼침&#x27;,             items: [{ t: &#x27;p2&#x27;, m: &#x27;unfold&#x27; }] },
+    { label: &#x27;2겹 학교 — 세부 지원&#x27;,        items: [{ t: &#x27;flap2&#x27;, m: &#x27;flapDown&#x27; }] },
+    { label: &#x27;3겹 지역으로 펼침&#x27;,           items: [{ t: &#x27;p3&#x27;, m: &#x27;unfold&#x27; }] },
+    { label: &#x27;3겹 지역 — 세부 지원&#x27;,        items: [{ t: &#x27;flap3&#x27;, m: &#x27;flapDown&#x27; }] },
+    { label: &#x27;겹마다 강도는 깊게, 대상은 좁게&#x27;, items: [{ t: &#x27;axis&#x27;, m: &#x27;wipe&#x27; }] }
+  ];
+
+  // 동작 정의: kf = 시작→끝 모양, dur = 시간을 담은 CSS 변수, hide = 시작 전 숨김, shade = 접힘 그림자 함께 재생
+  var FS_MOVES = {
+    drop:     { kf: [{ opacity: 0, transform: &#x27;translateY(-2.5cqw)&#x27; }, { opacity: 1, transform: &#x27;translateY(0)&#x27; }], dur: &#x27;--fs-drop-ms&#x27;, ease: &#x27;cubic-bezier(.2,.9,.3,1.25)&#x27; },
+    draw:     { kf: [{ strokeDashoffset: &#x27;1&#x27; }, { strokeDashoffset: &#x27;0&#x27; }], dur: &#x27;--fs-draw-ms&#x27;, ease: &#x27;ease-out&#x27; },
+    unfold:   { kf: [{ transform: &#x27;rotateY(179deg)&#x27; }, { transform: &#x27;rotateY(-7deg)&#x27;, offset: .8 }, { transform: &#x27;rotateY(0deg)&#x27; }], dur: &#x27;--fs-unfold-ms&#x27;, ease: &#x27;cubic-bezier(.5,0,.25,1)&#x27;, hide: true, shade: true },
+    flapDown: { kf: [{ transform: &#x27;rotateX(-179deg)&#x27; }, { transform: &#x27;rotateX(9deg)&#x27;, offset: .8 }, { transform: &#x27;rotateX(0deg)&#x27; }], dur: &#x27;--fs-flap-ms&#x27;, ease: &#x27;cubic-bezier(.5,0,.25,1)&#x27;, hide: true, shade: true },
+    wipe:     { kf: [{ clipPath: &#x27;inset(0 100% 0 0)&#x27; }, { clipPath: &#x27;inset(0 0% 0 0)&#x27; }], dur: &#x27;--fs-unfold-ms&#x27;, ease: &#x27;cubic-bezier(.6,0,.2,1)&#x27; }
+  };
+  var SHADE_KF = [{ opacity: .9 }, { opacity: .35, offset: .55 }, { opacity: 0 }];
+
+  var css = getComputedStyle(root);
+  function ms(v){ var n = parseFloat(css.getPropertyValue(v)); return isNaN(n) ? 600 : n; }
+  function clean(k){ var o = {}; for (var p in k) if (p !== &#x27;offset&#x27;) o[p] = k[p]; return o; }
+  function shadeOf(node){ return node.querySelector(&#x27;:scope &gt; .fs-front &gt; .fs-shade&#x27;); }
+  var reduced = window.matchMedia &amp;&amp; matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  var status = root.querySelector(&#x27;[data-fs-status]&#x27;);
+  var cur = FS_STEPS.length, token = 0;
+
+  function setItem(it, done){
+    var node = el(it.t), mv = FS_MOVES[it.m];
+    if (!node || !mv) return;
+    node.getAnimations().forEach(function(a){ a.cancel(); });
+    var sh = mv.shade &amp;&amp; shadeOf(node);
+    if (sh) { sh.getAnimations().forEach(function(a){ a.cancel(); }); sh.style.opacity = 0; }
+    Object.assign(node.style, clean(done ? mv.kf[mv.kf.length - 1] : mv.kf[0]));
+    node.style.visibility = (!done &amp;&amp; mv.hide) ? &#x27;hidden&#x27; : &#x27;visible&#x27;;
+  }
+  function applyState(n){
+    FS_STEPS.forEach(function(s, i){ s.items.forEach(function(it){ setItem(it, i &lt; n); }); });
+    cur = n; show();
+  }
+  function show(){
+    if (!status) return;
+    status.textContent = cur &gt;= FS_STEPS.length ? &#x27;완성 상태 · &#x27; + FS_STEPS.length + &#x27;단계&#x27;
+      : cur === 0 ? &#x27;시작 전 · 0/&#x27; + FS_STEPS.length : cur + &#x27;/&#x27; + FS_STEPS.length + &#x27; · &#x27; + FS_STEPS[cur - 1].label;
+  }
+  function playItem(it){
+    var node = el(it.t), mv = FS_MOVES[it.m];
+    if (!node || !mv) return Promise.resolve();
+    node.style.visibility = &#x27;visible&#x27;;
+    var opt = { duration: ms(mv.dur), delay: it.delay || 0, easing: mv.ease, fill: &#x27;both&#x27; };
+    var a = node.animate(mv.kf, opt);
+    var sh = mv.shade &amp;&amp; shadeOf(node);
+    if (sh) sh.animate(SHADE_KF, opt);
+    return a.finished.then(function(){ Object.assign(node.style, clean(mv.kf[mv.kf.length - 1])); a.cancel(); }, function(){});
+  }
+  function playStep(i){
+    cur = i + 1; show();
+    return Promise.all(FS_STEPS[i].items.map(playItem));
+  }
+  function wait(t){ return new Promise(function(r){ setTimeout(r, t); }); }
+
+  // 다시 보기: 처음부터 끝까지 한 번 재생하고 완성 상태에서 멈춤
+  function replay(){
+    var my = ++token;
+    if (reduced) { applyState(FS_STEPS.length); return; }
+    applyState(0);
+    var chain = wait(500);
+    FS_STEPS.forEach(function(_, i){
+      chain = chain.then(function(){ if (my === token) return playStep(i).then(function(){ return wait(ms(&#x27;--fs-gap-ms&#x27;)); }); });
+    });
+  }
+  // 한 단계씩: 클릭할 때마다 다음 동작 하나 (끝까지 가면 처음부터)
+  function stepOnce(){
+    ++token;
+    var next = cur &gt;= FS_STEPS.length ? 0 : cur;
+    applyState(next);
+    if (reduced) { applyState(next + 1); return; }
+    playStep(next);
+  }
+  root.querySelector(&#x27;[data-fs-replay]&#x27;).addEventListener(&#x27;click&#x27;, replay);
+  root.querySelector(&#x27;[data-fs-step]&#x27;).addEventListener(&#x27;click&#x27;, stepOnce);
+
+  applyState(FS_STEPS.length);           // 첫 화면은 완성된 도식
+  if (!reduced) setTimeout(replay, 1200); // 잠시 뒤 한 번 재생
+})();
+&lt;/script&gt;
+&lt;!-- ===== 세 겹 병풍 도식 끝 ===== --&gt;
+</pre></div>
+<ol class="hint">
+  <li>색은 <code>.fs-root</code>의 <code>--fs-t1</code>~<code>--fs-t3</code>(겹별 색)와 <code>--fs-accent</code>(인원 숫자)만 바꾸면 됩니다.</li>
+  <li>폭 크기와 날개 높이는 <code>--fs-panel-w</code>, <code>--fs-panel-h</code>, <code>--fs-flap-h</code>로 조정합니다. 3폭 합이 장표 너비를 넘지 않게 하세요.</li>
+  <li>속도는 <code>--fs-unfold-ms</code>, <code>--fs-flap-ms</code>, <code>--fs-gap-ms</code>로 바꿉니다.</li>
+  <li>클릭 순서는 스크립트의 <code>FS_STEPS</code> 배열 한 곳에서 정합니다. 날개를 먼저 다 펼치고 싶으면 줄 순서만 바꾸면 됩니다.</li>
+  <li>폭을 하나 더 늘리려면 <code>.fs-p3</code> 안에 같은 구조의 <code>.fs-panel</code>을 넣고 <code>data-fs</code> 이름을 붙여 배열에 한 줄 추가합니다. 한 페이지에 한 번만 넣는 것을 전제로 합니다.</li>
+</ol>
+</section>
+
+<section>
+<h2 class="sec"><small>03</small>PPT로 옮기기</h2>
+<p>PowerPoint에는 3D 접힘 효과가 없으므로 경첩 쪽을 기준으로 폭이 늘어나는 효과로 근사합니다. 개체는 폭마다 <b>앞면 그룹</b>(색 띠+제목+인원)과 <b>날개 그룹</b>(목록 3줄)으로 묶어 두세요. 한국어판 PowerPoint 기준입니다.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>순서</th><th>대상 개체</th><th>애니메이션</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>제목·1겹 앞면</td><td>(애니메이션 없음, 처음부터 보임)</td><td>–</td><td>–</td><td>–</td><td>–</td></tr>
+<tr><td>1</td><td>진단 쪽지</td><td>나타내기 - 날아오기</td><td>위에서, 부드럽게 끝내기</td><td>클릭할 때</td><td>0.60초</td><td>0</td></tr>
+<tr><td>1</td><td>화살표</td><td>나타내기 - 닦아내기</td><td>왼쪽에서</td><td>이전 효과와 함께</td><td>0.45초</td><td>0.30초</td></tr>
+<tr><td>2</td><td>1겹 날개</td><td>나타내기 - 닦아내기</td><td>위에서</td><td>클릭할 때</td><td>0.80초</td><td>0</td></tr>
+<tr><td>3</td><td>2겹 앞면</td><td>나타내기 - 늘이기</td><td>왼쪽에서 (경첩 쪽에서 펼쳐짐)</td><td>클릭할 때</td><td>1.00초</td><td>0</td></tr>
+<tr><td>3</td><td>2겹 그림자 사각형(반투명 남색)</td><td>끝내기 - 밝기 변화</td><td>–</td><td>이전 효과와 함께</td><td>1.00초</td><td>0</td></tr>
+<tr><td>4</td><td>2겹 날개</td><td>나타내기 - 닦아내기</td><td>위에서</td><td>클릭할 때</td><td>0.80초</td><td>0</td></tr>
+<tr><td>5</td><td>3겹 앞면 + 그림자</td><td>3번과 같음 (늘이기 + 밝기 변화)</td><td>왼쪽에서</td><td>클릭할 때 / 이전 효과와 함께</td><td>1.00초</td><td>0</td></tr>
+<tr><td>6</td><td>3겹 날개</td><td>나타내기 - 닦아내기</td><td>위에서</td><td>클릭할 때</td><td>0.80초</td><td>0</td></tr>
+<tr><td>7</td><td>강도 띠(막대 3개 + 문구)</td><td>나타내기 - 닦아내기</td><td>왼쪽에서</td><td>클릭할 때</td><td>1.00초</td><td>0</td></tr>
+</tbody></table></div>
+<div class="note">
+<p><b>모핑으로 더 비슷하게:</b> 장표 8장을 복제해 만들고 화면 전환을 모두 <b>모핑(효과 옵션: 개체)</b>으로 둡니다. 선택 창(Alt+F10)에서 개체 이름을 <code>!!진단</code>, <code>!!폭2</code>, <code>!!날개1</code>처럼 앞에 <code>!!</code>를 붙여 모든 장표에서 똑같이 지으면, 위치·크기가 달라도 같은 개체로 짝지어 움직입니다.</p>
+<p>1장에서는 아직 안 펼친 폭을 경첩 위치에 너비 0.1cm로, 날개를 폭 아래에 높이 0.1cm로 두고 진하게 칠합니다. 다음 장마다 한 개체씩 원래 크기와 색으로 되돌리면, 모핑이 "경첩에서 펼쳐지며 그림자가 걷히는" 움직임을 만들어 줍니다.</p>
+<p><b>PPT에서 근사하는 부분:</b> 끝에서 살짝 넘어갔다 돌아오는 튕김(오버슈트)은 늘이기 효과 옵션의 <b>바운드 끝내기</b>(0.1~0.2초)로 비슷하게 만들고, 뒤에서 앞으로 돌아 나오는 원근감은 그림자 사각형이 밝아지는 효과로 대신합니다.</p>
+</div>
+</section>
+
+<section>
+<h2 class="sec"><small>04</small>스펙</h2>
+<div class="spec">
+  <div><h3>팔레트</h3><div class="sw">
+    <div><i style="background:#E2E5E7"></i>#E2E5E7 책상</div>
+    <div><i style="background:#F8F7F3"></i>#F8F7F3 종이</div>
+    <div><i style="background:#1B2130"></i>#1B2130 먹</div>
+    <div><i style="background:#8AA3D4"></i>#8AA3D4 1겹</div>
+    <div><i style="background:#4565AC"></i>#4565AC 2겹</div>
+    <div><i style="background:#1E326C"></i>#1E326C 3겹</div>
+    <div><i style="background:#D9582A"></i>#D9582A 인원</div>
+  </div></div>
+  <div><h3>폰트</h3><ul>
+    <li>제목·폭 이름: Hahmlet 700 (대체: Noto Serif KR, 맑은 고딕)</li>
+    <li>본문: Noto Sans KR (대체: Apple SD Gothic Neo, 맑은 고딕)</li>
+    <li>라벨·숫자: Spline Sans Mono (대체: D2Coding, Consolas)</li>
+    <li>PPT: 함렛이 없으면 제목은 "KoPub바탕 Bold", 숫자는 "Consolas"</li>
+  </ul></div>
+  <div><h3>난이도 · 트렌드</h3><ul>
+    <li>HTML: 중 (3D 경첩을 겹쳐 넣는 구조)</li>
+    <li>PPT: 중 (늘이기 근사는 하, 모핑 8장은 중)</li>
+    <li>반영 트렌드: 종이 결 노이즈와 접힘 그림자로 손으로 만든 듯한 표면 (<a href="https://blog.videobolt.net/post/top-motion-graphics-trends-2026">Videobolt, Motion Graphics Trends 2026</a>), 움직임을 첫 번째 의미 층으로 쓰기 (<a href="https://www.renderforest.com/blog/design-trends-in-2026">Renderforest, Design Trends in 2026</a>)</li>
+  </ul></div>
+</div>
+</section>
+</div>
+<script>
+document.getElementById('copyBtn').addEventListener('click', function(){
+  var btn = this, pre = document.getElementById('code');
+  function selectIt(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨 · Ctrl+C로 복사'; }
+  try {
+    navigator.clipboard.writeText(pre.textContent).then(function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1800); }, selectIt);
+  } catch (e) { selectIt(); }
+});
+</script>
+
+</body></html>

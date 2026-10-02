@@ -1,0 +1,464 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #20 페이스 라이트 판정</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800;900&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: 16:9 표지 = 레인 표면 클로즈업 canvas(위 77%) + 포토 피니시 라인스캔 띠(아래 23%), 그 위에 반투명 제목 판과 방송형 페이스 보드. 아래는 메모(테마 대응). */
+:root{
+  --track:#B4523E; --track-deep:#7A3427; --paint:#F2EFEA; --ink:#121C30;
+  --l1:#FFE45A; --l2:#8DFF6E; --l3:#5BE3FF; --l4:#E7B9FF;
+  --bg:#EEEBE8; --paper:#FFFFFF; --fg:#1A1F2B; --muted:#5E6472; --hair:#D9D4CF; --hair2:#E8E4E0; --accent:#B4523E; --chipbg:#F6F3F0;
+  --disp:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --num:"Saira Semi Condensed","Arial Narrow",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14161B; --paper:#1C1F26; --fg:#E9E7E4; --muted:#A3A6AF; --hair:#343842; --hair2:#2A2D35; --accent:#E8846E; --chipbg:#23262E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14161B; --paper:#1C1F26; --fg:#E9E7E4; --muted:#A3A6AF; --hair:#343842; --hair2:#2A2D35; --accent:#E8846E; --chipbg:#23262E; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--disp);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:16px;padding-block:20px 64px}
+.kicker{font:600 13px/1.4 var(--disp);color:var(--muted);margin:0 0 10px;letter-spacing:.02em}
+.kicker b{color:var(--fg)}
+
+/* ---------- cover ---------- */
+.cover{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;margin:0;overflow:hidden;border-radius:3px;background:#7A3427;container-type:inline-size;box-shadow:0 12px 34px rgba(40,20,10,.22)}
+.cover canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.plate{position:absolute;left:3cqw;top:2.8cqw;width:39cqw;padding:2cqw 2.4cqw 1.8cqw;background:rgba(246,243,239,.74);-webkit-backdrop-filter:blur(.9cqw) saturate(1.1);backdrop-filter:blur(.9cqw) saturate(1.1);border-radius:.25cqw;color:var(--ink);box-shadow:0 .4cqw 1.6cqw rgba(60,20,10,.18)}
+.plate .eb{margin:0 0 .9cqw;font:800 1.05cqw/1 var(--disp);letter-spacing:.14em;color:#7A3427}
+.plate h1{margin:0;font:900 2.85cqw/1.24 var(--disp);letter-spacing:-.02em;text-wrap:balance}
+.plate .sub{margin:1.1cqw 0 0;font:600 1.45cqw/1.4 var(--disp);color:#2C3448}
+.plate .meta{margin:1.5cqw 0 0;padding-top:1cqw;border-top:.08cqw solid rgba(18,28,48,.25);display:flex;gap:1.6cqw;align-items:center;font:600 1cqw/1 var(--disp);color:#2C3448}
+.plate .meta .fake{margin-left:auto;font:600 .82cqw/1 var(--disp);color:#6A6F7C;border:.07cqw solid #9A9EA8;padding:.3cqw .55cqw;border-radius:.2cqw}
+.board{position:absolute;left:3cqw;bottom:14.9cqw;width:26cqw;background:rgba(14,22,38,.82);color:#fff;border-radius:.25cqw;overflow:hidden;font-family:var(--disp)}
+.board .bh{display:flex;align-items:baseline;justify-content:space-between;padding:.75cqw 1.1cqw .6cqw;border-bottom:.07cqw solid rgba(255,255,255,.16)}
+.board .bh span{font:600 .82cqw/1 var(--num);letter-spacing:.18em;color:#AEB7C9}
+.board .bh b{font:700 1.7cqw/1 var(--num);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.board table{width:100%;border-collapse:collapse}
+.board th{font:600 .72cqw/1 var(--disp);color:#8F99AD;text-align:left;padding:.55cqw 1.1cqw .35cqw;letter-spacing:.04em}
+.board td{padding:.48cqw 1.1cqw;font:600 1.02cqw/1.15 var(--disp);border-top:.07cqw solid rgba(255,255,255,.08);vertical-align:middle}
+.board td.ln{width:3.2cqw}
+.board td.ln i{display:inline-grid;place-items:center;width:1.7cqw;height:1.7cqw;border-radius:.15cqw;font:700 1.1cqw/1 var(--num);font-style:normal;color:#0E1626}
+.board td.pc,.board td.fx{font:600 1.1cqw/1 var(--num);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.board th.r{text-align:right}
+.board td.fx{color:#5F6A80}
+.board tr.done td.fx{color:#fff}
+.board .bf{padding:.5cqw 1.1cqw .65cqw;font:600 .72cqw/1.3 var(--disp);color:#8F99AD;border-top:.07cqw solid rgba(255,255,255,.12)}
+
+/* ---------- controls ---------- */
+.ctrl{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--paper);border:1px solid var(--hair);border-radius:4px;padding:10px 12px}
+.ctrl button{font:700 13px/1 var(--disp);color:var(--fg);background:var(--paper);border:1px solid var(--hair);border-radius:3px;padding:9px 12px;cursor:pointer}
+.ctrl button:hover{border-color:var(--muted)}
+.ctrl button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ctrl button[aria-pressed="true"]{background:var(--fg);color:var(--paper);border-color:var(--fg)}
+.ctrl .play{border-color:var(--accent);color:var(--accent)}
+.ctrl .stat{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.ctrl .stat kbd{font:600 11px/1 var(--num);border:1px solid var(--hair);border-radius:3px;padding:2px 5px;background:var(--chipbg)}
+@media (max-width:640px){.ctrl .stat{margin-left:0;width:100%}}
+
+/* ---------- memo ---------- */
+.memo{margin-top:44px;display:grid;gap:40px}
+.memo>section{min-width:0}
+.memo h2{font:800 21px/1.3 var(--disp);margin:0 0 4px;text-wrap:balance}
+.memo h2 .no{font:600 13px var(--num);color:var(--accent);margin-right:10px;letter-spacing:.1em}
+.lede{color:var(--muted);margin:0 0 16px;max-width:70ch}
+.card{background:var(--paper);border:1px solid var(--hair);border-radius:4px;padding:18px 20px;min-width:0}
+@media (max-width:560px){.card{padding:14px 12px}}
+.tbl{overflow-x:auto}
+table.map{border-collapse:collapse;width:100%;min-width:780px;font-size:14px}
+table.map th,table.map td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--hair2)}
+table.map th{font-size:12px;color:var(--muted);border-bottom:1px solid var(--hair)}
+table.map td:first-child{font-weight:800;white-space:nowrap}
+table.map td .s{display:block;font-size:12.5px;color:var(--muted)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin-top:18px;padding:0;list-style:none}
+.flow li{flex:1 1 140px;min-width:0;background:var(--chipbg);border:1px solid var(--hair);border-radius:3px;padding:10px 12px;position:relative}
+.flow li b{display:block;font-size:14px}
+.flow li span{display:block;font-size:12.5px;color:var(--muted);line-height:1.5}
+.flow li em{font:600 11px/1 var(--num);font-style:normal;color:var(--accent);letter-spacing:.1em;display:block;margin-bottom:5px}
+.check{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:0 26px}
+.check li{display:grid;grid-template-columns:26px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid var(--hair2);font-size:14px;min-width:0}
+.check li .k{font:600 12px/22px var(--num);color:var(--accent)}
+.check li .w{display:block;color:var(--muted);font-size:13px}
+.check li .w a{word-break:break-all}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.sw div{border:1px solid var(--hair);border-radius:3px;overflow:hidden;font-size:12px;background:var(--paper)}
+.sw i{display:block;height:38px}
+.sw p{margin:0;padding:6px 8px;line-height:1.35}
+.sw code{font:600 12px var(--num);letter-spacing:.03em}
+dl.spec{display:grid;grid-template-columns:118px 1fr;gap:12px 18px;margin:18px 0 0;font-size:14px}
+dl.spec dt{font-weight:800;color:var(--muted);font-size:13px}
+dl.spec dd{margin:0;min-width:0}
+dl.spec ol{margin:0;padding-left:20px}
+@media (max-width:560px){dl.spec{grid-template-columns:1fr;gap:4px}dl.spec dd{margin-bottom:10px}}
+a{color:var(--accent)}
+.foot{font-size:13px;color:var(--muted)}
+</style>
+
+<main class="wrap">
+  <p class="kicker"><b>디자인 레퍼런스 #20</b> · 실험형 · 장애학생 진로·직업교육 · 비교·대조</p>
+
+  <figure class="cover" id="cover" aria-label="표지: 고무 트랙 레인 표면을 낮게 클로즈업한 장면. 레인 1~4를 각기 다른 색의 페이스 라이트가 서로 다른 속도로 달려 결승선을 지나고, 아래 포토 피니시 띠에 네 도착 시각이 기록된다.">
+    <canvas id="cv" role="img" aria-label="레인 표면 클로즈업과 포토 피니시 라인스캔 띠"></canvas>
+    <div class="plate">
+      <p class="eb">○○교육청 · 특수교육</p>
+      <h1>2027 장애학생 진로·직업교육<br>내실화 계획(안)</h1>
+      <p class="sub">각자의 페이스로, 모두 결승선까지</p>
+      <p class="meta"><span>2026. 10.</span><span>○○교육청 특수교육과</span><span class="fake">가상 예시</span></p>
+    </div>
+    <div class="board" aria-label="페이스 보드">
+      <div class="bh"><span>PACE LIGHTS</span><b id="clock">57.00</b></div>
+      <table>
+        <thead><tr><th>레인</th><th>진로 경로</th><th class="r">목표</th><th class="r">판정</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="bf">빛 = 개별화 목표 속도 · 결승선 = 자립</div>
+    </div>
+  </figure>
+
+  <div class="ctrl" role="group" aria-label="장면 단계">
+    <button class="play" id="play" type="button">▶ 출발부터 재생</button>
+    <button type="button" data-step="0" aria-pressed="false">출발</button>
+    <button type="button" data-step="1" aria-pressed="false">질주</button>
+    <button type="button" data-step="2" aria-pressed="false">첫 도착</button>
+    <button type="button" data-step="3" aria-pressed="true">판정 완료</button>
+    <span class="stat" id="stat" aria-live="polite"><kbd>←</kbd> <kbd>→</kbd> 단계 이동 · 판정 완료</span>
+  </div>
+
+  <div class="memo">
+    <section>
+      <h2><span class="no">02</span>흐름 설계 메모</h2>
+      <p class="lede">레인이 넷이고 빛마다 목표 속도가 다릅니다. 같은 결승선에 다른 시각에 닿는 장면이라 진로 경로를 나란히 놓고 견주는 "비교·대조" 구조와 맞습니다. 판정 띠에는 순위가 아니라 각자의 도착 시각만 남깁니다.</p>
+      <div class="card">
+        <div class="tbl">
+          <table class="map">
+            <thead><tr><th>레이스 요소</th><th>계획안 구성</th><th>안쪽 장표 아이디어</th></tr></thead>
+            <tbody>
+              <tr><td>출발선</td><td>Ⅰ. 추진 배경<span class="s">고3·전공과 학생 진로 현황, 현장 의견</span></td><td>출발선 위 레인별 현황 수치 네 개를 같은 높이에 배치</td></tr>
+              <tr><td>레인 1~4</td><td>Ⅱ. 진로 경로 유형<span class="s">지원고용 · 취업 · 전공과 진학 · 평생교육</span></td><td>레인 번호 노면 표시를 장 표지로 반복(레인 = 장 번호)</td></tr>
+              <tr><td>페이스 라이트 속도</td><td>개별화교육계획(IEP) 기반 개인별 목표<span class="s">학생마다 다른 준비 기간 인정</span></td><td>페이스 보드 형식 표: 경로 · 목표 시점 · 지원 담당</td></tr>
+              <tr><td>질주 구간</td><td>Ⅲ. 추진 과제<span class="s">현장실습, 직무 훈련, 전환교육, 가족 상담</span></td><td>레인 표면 위 빛줄기 길이로 과제 기간 표시</td></tr>
+              <tr><td>결승선(흰 선 50mm)</td><td>Ⅳ. 성과 지표<span class="s">지역사회 자립·정착</span></td><td>결승선 한 줄을 지표 기준선으로, 위아래에 목표·실적</td></tr>
+              <tr><td>포토 피니시 띠</td><td>Ⅴ. 사후 관리<span class="s">졸업생 추적 기록, 재지원 연계</span></td><td>가로축 시간 띠에 도착 시점별 기록 칩, 미도착 구간은 회색</td></tr>
+              <tr><td>1/1000초 계측</td><td>Ⅵ. 행정 사항<span class="s">점검 일정, 예산, 협력 기관</span></td><td>타임스탬프 표기를 일정표 날짜 칸 서체로 재사용</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol class="flow" aria-label="발표 흐름">
+          <li><em>START</em><b>현황</b><span>출발선에 선 네 경로</span></li>
+          <li><em>LANE</em><b>경로 배정</b><span>학생별 레인 정하기</span></li>
+          <li><em>PACE</em><b>목표 속도</b><span>IEP로 개인 페이스 설정</span></li>
+          <li><em>RUN</em><b>추진 과제</b><span>구간별 지원</span></li>
+          <li><em>FINISH</em><b>자립 지표</b><span>결승선 통과 기준</span></li>
+          <li><em>PHOTO</em><b>기록·추적</b><span>도착 시각 모두 기록</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="no">03</span>재현 체크</h2>
+      <p class="lede">실물에서 가져온 요소입니다. 표지에서 바꾼 부분은 따로 적었습니다.</p>
+      <div class="card">
+        <ul class="check">
+          <li><span class="k">01</span><div>페이스 라이트는 트랙 안쪽 가장자리를 따라 LED 묶음이 정해진 기록 페이스로 이동하고, 목표마다 색을 달리합니다.<span class="w">World Athletics, <a href="https://www.worldathletics.org/news/feature/wavelight-technology-athletics">Wavelight technology</a>(2020)</span></div></li>
+          <li><span class="k">02</span><div>세계육상연맹 기술규칙 6.4.8은 진행 시간을 보여 주는 전자 조명을 허용된 보조로 둡니다. 2020년부터 경기 사용이 허용됐습니다.<span class="w"><a href="https://en.wikipedia.org/wiki/Wavelight">Wikipedia: Wavelight</a></span></div></li>
+          <li><span class="k">03</span><div>각색: 실물은 안쪽 연석 한 줄에만 설치합니다. 표지는 경로를 구분하려고 레인마다 빛 하나를 두었습니다. 발표에서 실물처럼 보여야 하면 빛 네 개를 연석 한 줄에 색만 달리해 놓으면 됩니다.<span class="w">위 두 출처 기준</span></div></li>
+          <li><span class="k">04</span><div>포토 피니시는 결승선만 보는 폭 몇 픽셀짜리 라인스캔 카메라가 찍은 세로줄을 가로로 이어 붙인 이미지라 가로축이 시간입니다. 그래서 움직이지 않는 레인 선은 가로 줄무늬로 늘어납니다.<span class="w"><a href="https://en.wikipedia.org/wiki/Fully_automatic_time">Wikipedia: Fully automatic time</a></span></div></li>
+          <li><span class="k">05</span><div>판정 기록은 1/1000초 단위로 표기합니다(띠의 45.120 같은 세 자리 소수).<span class="w">FinishLynx, <a href="https://finishlynx.com/about-us/what-is-fully-automatic-timing/">What is Fully Automatic Timing</a></span></div></li>
+          <li><span class="k">06</span><div>레인 폭 1.22m, 레인 선·결승선은 폭 50mm 흰 선. 표지의 원근 계산에 이 치수를 그대로 썼습니다.<span class="w">World Athletics <a href="https://worldathletics.org/about-iaaf/documents/book-of-rules">Book of Rules</a>, Technical Rules 14</span></div></li>
+          <li><span class="k">07</span><div>트랙 표면은 고무 입자가 드러난 합성 포장이고 흰 선은 그 위에 칠한 도료라 입자가 비쳐 보입니다. canvas에서 입자 노이즈 위에 도료를 덮고 일부 입자가 튀어나오게 그렸습니다.<span class="w">실물 관찰 기준(별도 출처 없음)</span></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="no">04</span>스펙</h2>
+      <p class="lede">밝은 낮 트랙 톤입니다. 빛 네 색은 붉은 트랙 위에서 서로 구분되도록 노랑·연두·하늘·연보라로 골랐습니다.</p>
+      <div class="card">
+        <div class="sw">
+          <div><i style="background:#B4523E"></i><p>트랙 고무<br><code>#B4523E</code></p></div>
+          <div><i style="background:#7A3427"></i><p>트랙 그늘<br><code>#7A3427</code></p></div>
+          <div><i style="background:#F2EFEA"></i><p>레인 도료<br><code>#F2EFEA</code></p></div>
+          <div><i style="background:#121C30"></i><p>방송 남색<br><code>#121C30</code></p></div>
+          <div><i style="background:#FFE45A"></i><p>L1 지원고용<br><code>#FFE45A</code></p></div>
+          <div><i style="background:#8DFF6E"></i><p>L2 취업<br><code>#8DFF6E</code></p></div>
+          <div><i style="background:#5BE3FF"></i><p>L3 전공과<br><code>#5BE3FF</code></p></div>
+          <div><i style="background:#E7B9FF"></i><p>L4 평생교육<br><code>#E7B9FF</code></p></div>
+        </div>
+        <dl class="spec">
+          <dt>폰트</dt><dd>Gothic A1 900/800(제목), 600(본문·보드) + Saira Semi Condensed 600/700(기록·레인 번호). 대체: 맑은 고딕 / Arial Narrow.</dd>
+          <dt>표현</dt><dd>사진 없이 canvas로 그렸습니다. 레인 1.22m·선 50mm로 원근을 계산하고, 픽셀마다 고무 입자·얼룩·도료 질감을 칠한 뒤 위아래를 흐려 얕은 피사계 심도를 냈습니다. 빛은 가산 합성으로 LED 알갱이, 번짐, 바닥 반사, 잔광 꼬리를 겹쳤고 필름 그레인을 전체에 덮었습니다.</dd>
+          <dt>PPT 이식</dt><dd><ol>
+            <li>'판정 완료' 단계에서 표지를 화면 캡처해 배경 이미지로 씁니다(제목 판·보드는 캡처 후 지우거나 가린 뒤 PPT에서 다시 만듭니다).</li>
+            <li>제목 판: 흰색 투명도 25% 사각형 + Gothic A1. 보드는 남색 투명도 18% 표.</li>
+            <li>포토 피니시 띠: 남색 바탕 위 4행 표, 행마다 색 그라데이션 막대(왼쪽 흰색 → 레인 색 → 투명)와 시각 칩.</li>
+            <li>애니메이션: 빛은 '이동 경로', 띠는 '닦아내기(왼쪽에서)'를 도착 순서대로 지연을 두어 재생.</li>
+          </ol></dd>
+          <dt>난이도</dt><dd>상 (★★★★☆) — 배경 질감은 캡처로 대신하면 중.</dd>
+          <dt>반영 트렌드</dt><dd>그레인과 의도된 흐림, 부드러운 빛 번짐으로 손맛 있는 질감을 내는 흐름 — Blend <a href="https://www.blendnow.com/blog/design-trends-2026-you-need-to-know">Design Trends 2026</a>, Videobolt <a href="https://blog.videobolt.net/post/top-motion-graphics-trends-2026">Top Motion Graphics Trends for 2026</a></dd>
+        </dl>
+      </div>
+      <p class="foot">가상 예시입니다. 기관명·계획명·기록 수치는 모두 지어낸 값이고 실존 대회나 장비 브랜드를 표시하지 않습니다.</p>
+    </section>
+  </div>
+</main>
+
+<script>
+(function(){
+const LANES=[
+  {n:1,path:'지원고용',A:50.85,col:'#FFE45A',rgb:[255,228,90]},
+  {n:2,path:'취업',A:47.40,col:'#8DFF6E',rgb:[141,255,110]},
+  {n:3,path:'전공과 진학',A:44.20,col:'#5BE3FF',rgb:[91,227,255]},
+  {n:4,path:'평생교육',A:55.90,col:'#E7B9FF',rgb:[231,185,255]}];
+const W=1600,H=900,SH=690,LW=1.22,ZF=2.0,ZS=0.3,PARK=0.7,TEND=57.0;
+const STEPS=[0,30,44.2,TEND],STEPNAME=['출발','질주','첫 도착','판정 완료'];
+const D=Math.PI/180;
+const cam={x:0.2,h:1.1,pitch:33*D,yaw:15*D,F:640,cx:800,cy:345};
+const st=Math.sin(cam.pitch),ct=Math.cos(cam.pitch),sy=Math.sin(cam.yaw),cy_=Math.cos(cam.yaw);
+const f=[sy*ct,-st,cy_*ct],r=[cy_,0,-sy],u=[sy*st,ct,cy_*st];
+function proj(x,z){const p0=x-cam.x,p1=-cam.h,p2=z;const d=f[0]*p0+f[1]*p1+f[2]*p2;
+  return {x:cam.cx+cam.F*(r[0]*p0+r[2]*p2)/d,y:cam.cy-cam.F*(u[0]*p0+u[1]*p1+u[2]*p2)/d,d:d};}
+function zAt(L,t){if(t<=0)return ZS;if(t<=L.A)return ZS+(ZF-ZS)*t/L.A;return ZF+PARK*(1-Math.exp(-(t-L.A)/0.9));}
+function vAt(L,t){if(t<=0)return 0;if(t<=L.A)return (ZF-ZS)/L.A;return PARK/0.9*Math.exp(-(t-L.A)/0.9);}
+const VMEAN=(ZF-ZS)/48;
+// strip mapping
+const SX0=96,SX1=1588,T0=43.4,T1=57.2,SY0=718,ROWH=38;
+const tx=t=>SX0+(t-T0)/(T1-T0)*(SX1-SX0);
+
+function hash(i,j){let h=(Math.imul(i,374761393)+Math.imul(j,668265263))|0;h=Math.imul(h^(h>>>13),1274126177);return ((h^(h>>>16))>>>0)/4294967296;}
+function vnoise(x,y){const i=Math.floor(x),j=Math.floor(y),fx=x-i,fy=y-j,sx=fx*fx*(3-2*fx),sy2=fy*fy*(3-2*fy);
+  const a=hash(i,j),b=hash(i+1,j),c=hash(i,j+1),d=hash(i+1,j+1);return a+(b-a)*sx+(c-a)*sy2+(a-b-c+d)*sx*sy2;}
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+
+const cover=document.getElementById('cover'),cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+let S=1,bg=null,stripBg=null,glyph=null,t=TEND,step=3,playing=false,raf=0;
+
+function makeGlyphs(){const gw=100,gh=150,c=document.createElement('canvas');c.width=gw*4;c.height=gh;const g=c.getContext('2d');
+  g.fillStyle='#fff';g.textAlign='center';g.textBaseline='alphabetic';g.font='700 168px "Saira Semi Condensed","Arial Narrow",sans-serif';
+  for(let k=0;k<4;k++){g.save();g.translate(gw*k+gw/2,0);g.scale(0.8,1);g.fillText(String(k+1),0,gh-8);g.restore();}
+  const id=g.getImageData(0,0,c.width,gh);return {gw,gh,w:c.width,data:id.data};}
+
+function renderScene(){
+  const cw=cv.width,sh=Math.round(SH*S);
+  const sharp=document.createElement('canvas');sharp.width=cw;sharp.height=sh;const sc=sharp.getContext('2d');
+  const img=sc.createImageData(cw,sh),px=img.data;
+  const F=cam.F;
+  for(let py=0;py<sh;py++){
+    const Y=py/S,b=(cam.cy-Y)/F;
+    for(let pxi=0;pxi<cw;pxi++){
+      const X=pxi/S,a=(X-cam.cx)/F;
+      const dx=f[0]+r[0]*a+u[0]*b,dyv=f[1]+u[1]*b,dz=f[2]+r[2]*a+u[2]*b;
+      const o=(py*cw+pxi)*4;
+      if(dyv>-0.002){px[o]=200;px[o+1]=150;px[o+2]=135;px[o+3]=255;continue;}
+      const tt=cam.h/(-dyv),gx=cam.x+tt*dx,gz=tt*dz;
+      const len=Math.sqrt(dx*dx+dyv*dyv+dz*dz);
+      const fp=tt*len/(F*S)/Math.max(0.12,-dyv/len);
+      let R,G,B;
+      // rubber base
+      const gs=0.0042,gi=Math.floor(gx/gs),gj=Math.floor(gz/gs),h1=hash(gi,gj),h2=hash(gi+7,gj-3);
+      const gf=clamp(gs*1.4/fp,0,1);
+      const mott=vnoise(gx/0.045,gz/0.045)-0.5,wear=vnoise(gx/0.7+20,gz/0.7)-0.5,big=vnoise(gx/3,gz/3+9)-0.5;
+      let k=1+0.10*mott*clamp(0.03/fp,0,1)+0.08*wear+0.05*big;
+      let gran=(h1-0.5)*0.34;if(h2>0.9)gran-=0.32;if(h2<0.05)gran+=0.18;
+      k+=gran*gf;
+      if(gx<-0.06){ // infield turf
+        const tn=vnoise(gx/0.01,gz/0.01)*gf+(1-gf)*0.5;R=70+40*tn;G=98+46*tn;B=62+26*tn;
+      }else if(gx<0){ // aluminium kerb
+        const sh2=0.85+0.15*Math.sin(gx/0.06*Math.PI);R=206*sh2;G=210*sh2;B=214*sh2;
+      }else{
+        R=180*k;G=82*k;B=62*k;
+        // paint coverage
+        let cov=0;const jit=(vnoise(gx*90,gz*9)-0.5)*0.006;
+        const ln=Math.round(gx/LW),dl=Math.abs(gx-ln*LW);   // lane lines (50mm, centred on boundary)
+        if(ln>=0&&ln<=8){const hw=0.025+jit;cov=Math.max(cov,clamp((hw-dl)/fp+0.5,0,1));}
+        if(gx>0){const dfz=Math.abs(gz-(ZF-0.025)),hw=0.025+jit;cov=Math.max(cov,clamp((hw-dfz)/fp+0.5,0,1));} // finish line
+        // start line
+        {const dsz=Math.abs(gz-(ZS-0.025));cov=Math.max(cov,clamp((0.025+jit-dsz)/fp+0.5,0,1)*0.92);}
+        // lane numbers painted beyond finish
+        const lane=Math.floor(gx/LW);
+        if(lane>=0&&lane<4&&glyph){const lc=(lane+0.5)*LW,uu=(gx-lc)/0.62+0.5,vv=1-(gz-(ZF+0.42))/0.95;
+          if(uu>0&&uu<1&&vv>0&&vv<1){const gxp=Math.floor(uu*glyph.gw)+lane*glyph.gw,gyp=Math.floor(vv*glyph.gh);
+            cov=Math.max(cov,glyph.data[(gyp*glyph.w+gxp)*4+3]/255*0.95);}}
+        if(cov>0){cov*=1-0.35*Math.max(0,gran)*gf-(h2>0.93?0.4*gf:0);cov=clamp(cov,0,1);
+          const pk=0.94+0.06*mott;R=R+(242*pk-R)*cov;G=G+(239*pk-G)*cov;B=B+(234*pk-B)*cov;}
+      }
+      // daylight: sky sheen toward the far end, gentle vignette
+      const far=clamp(1-Y/SH,0,1),vx=(X-800)/800;
+      let li=1.0+0.16*far*far-0.10*vx*vx-0.06*clamp((Y-520)/170,0,1);
+      R=R*li+18*far;G=G*li+16*far;B=B*li+18*far;
+      px[o]=R;px[o+1]=G;px[o+2]=B;px[o+3]=255;
+    }
+  }
+  sc.putImageData(img,0,0);
+  // depth of field: two blur levels by down/up scaling
+  function blurred(div){const s1=document.createElement('canvas');s1.width=Math.max(1,cw/div|0);s1.height=Math.max(1,sh/div|0);
+    const a=s1.getContext('2d');a.imageSmoothingQuality='high';a.drawImage(sharp,0,0,s1.width,s1.height);
+    const s2=document.createElement('canvas');s2.width=Math.max(1,s1.width/2|0);s2.height=Math.max(1,s1.height/2|0);
+    s2.getContext('2d').drawImage(s1,0,0,s2.width,s2.height);
+    const o=document.createElement('canvas');o.width=cw;o.height=sh;const oc=o.getContext('2d');oc.imageSmoothingQuality='high';oc.drawImage(s2,0,0,cw,sh);return o;}
+  const bA=blurred(3),bB=blurred(8);
+  const fy=proj(2.44,ZF).y*S;
+  function masked(src,stops){const m=document.createElement('canvas');m.width=cw;m.height=sh;const mc=m.getContext('2d');mc.drawImage(src,0,0);
+    mc.globalCompositeOperation='destination-in';const g=mc.createLinearGradient(0,0,0,sh);
+    stops.forEach(([y,al])=>g.addColorStop(clamp(y/sh,0,1),'rgba(0,0,0,'+al+')'));mc.fillStyle=g;mc.fillRect(0,0,cw,sh);return m;}
+  const out=document.createElement('canvas');out.width=cw;out.height=sh;const oc=out.getContext('2d');
+  oc.drawImage(bB,0,0);
+  oc.drawImage(masked(bA,[[0,0],[fy-230*S,0],[fy-120*S,1],[sh-80*S,1],[sh,0.5]]),0,0);
+  oc.drawImage(masked(sharp,[[0,0],[fy-170*S,0],[fy-80*S,1],[fy+170*S,1],[sh-60*S,0.15],[sh,0]]),0,0);
+  // film grain
+  const n=document.createElement('canvas');n.width=n.height=256;const nc=n.getContext('2d'),nd=nc.createImageData(256,256);
+  for(let i=0;i<nd.data.length;i+=4){const v=Math.random()*255;nd.data[i]=nd.data[i+1]=nd.data[i+2]=v;nd.data[i+3]=255;}
+  nc.putImageData(nd,0,0);oc.globalAlpha=0.09;oc.globalCompositeOperation='overlay';oc.fillStyle=oc.createPattern(n,'repeat');oc.fillRect(0,0,cw,sh);
+  oc.globalAlpha=1;oc.globalCompositeOperation='source-over';
+  return out;
+}
+
+function renderStripBg(){
+  const cw=cv.width,c=document.createElement('canvas');c.width=cw;c.height=Math.round((H-SH)*S)+1;const g=c.getContext('2d');
+  g.setTransform(S,0,0,S,0,-SH*S);
+  g.fillStyle='#0F1828';g.fillRect(0,SH,W,H-SH);
+  // header
+  g.fillStyle='#E9ECF2';g.font='700 15px "Saira Semi Condensed","Arial Narrow",sans-serif';g.textBaseline='middle';
+  if(g.letterSpacing!==undefined)g.letterSpacing='3px';g.fillText('PHOTO FINISH',SX0,SH+15);if(g.letterSpacing!==undefined)g.letterSpacing='0px';
+  g.fillStyle='#9AA4B8';g.font='600 13px "Gothic A1",sans-serif';g.fillText('결승선 라인스캔 · 가로축 = 시간(초) · 도착 시각은 달라도 모두 기록',SX0+150,SH+15);
+  g.textAlign='right';g.fillText('1/1000초 판정',W-14,SH+15);g.textAlign='left';
+  // scan image background: static scene becomes horizontal streaks
+  const ih=ROWH*4;
+  for(let y=0;y<ih;y++){const row=y%ROWH;const base=0.80+0.30*hash(y,11)+0.1*Math.sin(y*0.7);
+    let R=150*base,G=66*base,B=50*base;
+    if(row<3){const w=row===1?1:0.55;R=R+(232-R)*w;G=G+(228-G)*w;B=B+(222-B)*w;}
+    g.fillStyle='rgb('+(R|0)+','+(G|0)+','+(B|0)+')';g.fillRect(SX0,SY0+y,SX1-SX0+12,1);}
+  g.fillStyle='rgba(232,228,222,.85)';g.fillRect(SX0,SY0+ih,SX1-SX0+12,2);
+  // time ticks
+  const ty=SY0+ih+4;
+  for(let tt=Math.ceil(T0*10)/10;tt<=T1+1e-6;tt+=0.1){const x=tx(tt),whole=Math.abs(tt-Math.round(tt))<1e-6;
+    g.fillStyle=whole?'#C9D0DC':'#5A6680';g.fillRect(x,ty,1,whole?9:4);
+    if(whole){g.fillStyle='#C9D0DC';g.font='600 12px "Saira Semi Condensed","Arial Narrow",sans-serif';g.textAlign='center';g.fillText(String(Math.round(tt)),x,ty+18);}}
+  g.textAlign='left';
+  // lane labels
+  LANES.forEach((L,i)=>{const y=SY0+i*ROWH;g.fillStyle=L.col;g.fillRect(14,y+9,20,20);
+    g.fillStyle='#0E1626';g.font='700 15px "Saira Semi Condensed",sans-serif';g.textAlign='center';g.fillText(String(L.n),24,y+20);
+    g.textAlign='left';g.fillStyle='#C9D0DC';g.font='600 11.5px "Gothic A1",sans-serif';g.fillText(L.path.length>4?L.path.slice(0,3):L.path,40,y+20);});
+  return c;
+}
+
+function drawLights(){
+  ctx.save();ctx.beginPath();ctx.rect(0,0,W,SH);ctx.clip();
+  ctx.globalCompositeOperation='lighter';
+  const focusD=proj(2.44,ZF).d;
+  LANES.forEach((L,i)=>{
+    const lx=(i+0.5)*LW,zh=zAt(L,t),v=vAt(L,t),[cr,cg,cb]=L.rgb;
+    const trail=Math.min(zh-ZS+0.02,0.62*Math.min(1.6,v/VMEAN)+0.05);
+    const N=48;
+    // floor bloom / reflection under the head
+    const hp=proj(lx,zh);if(hp.d<0.2)return;
+    const sc=cam.F/hp.d,blurA=clamp(Math.abs(hp.d-focusD)/focusD*1.3,0,1.4);
+    ctx.save();ctx.translate(hp.x,hp.y);ctx.scale(1,0.42);
+    let g=ctx.createRadialGradient(0,0,0,0,0,sc*0.75*(1+blurA*0.5));
+    g.addColorStop(0,'rgba('+cr+','+cg+','+cb+',0.42)');g.addColorStop(0.4,'rgba('+cr+','+cg+','+cb+',0.14)');g.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,sc*0.75*(1+blurA*0.5),0,7);ctx.fill();ctx.restore();
+    // trail (motion blur + afterglow)
+    for(let k=N;k>=1;k--){const s=k/N,z=zh-trail*s;if(z<ZS-0.01)continue;const p=proj(lx,z);if(p.d<0.2)continue;
+      const scl=cam.F/p.d,bl=clamp(Math.abs(p.d-focusD)/focusD*1.3,0,1.4);
+      const rad=scl*0.10*(1+bl*1.6),al=0.26*Math.pow(1-s,1.6)/(1+bl);
+      ctx.save();ctx.translate(p.x,p.y);ctx.scale(1,0.55);
+      const gg=ctx.createRadialGradient(0,0,0,0,0,rad);gg.addColorStop(0,'rgba('+cr+','+cg+','+cb+','+al+')');gg.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
+      ctx.fillStyle=gg;ctx.beginPath();ctx.arc(0,0,rad,0,7);ctx.fill();ctx.restore();}
+    // LED pips at the head
+    for(let k=0;k<7;k++){const z=zh-k*0.055;if(z<ZS-0.01)break;const p=proj(lx+(k%2?0.004:-0.004)*0,z);
+      const scl=cam.F/p.d,bl=clamp(Math.abs(p.d-focusD)/focusD*1.3,0,1.4),fade=1-k/8;
+      const rad=scl*0.042*(1+bl*1.8);
+      ctx.save();ctx.translate(p.x,p.y);ctx.scale(1,0.6);
+      const gg=ctx.createRadialGradient(0,0,0,0,0,rad*3.2);
+      gg.addColorStop(0,'rgba(255,255,255,'+(0.95*fade/(1+bl))+')');gg.addColorStop(0.18,'rgba('+cr+','+cg+','+cb+','+(0.85*fade/(1+bl))+')');
+      gg.addColorStop(0.45,'rgba('+cr+','+cg+','+cb+','+(0.22*fade/(1+bl))+')');gg.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
+      ctx.fillStyle=gg;ctx.beginPath();ctx.arc(0,0,rad*3.2,0,7);ctx.fill();ctx.restore();}
+    // light spill on the lane lines either side
+    [i*LW,(i+1)*LW].forEach(ex=>{const p=proj(ex,zh);const scl=cam.F/p.d;ctx.save();ctx.translate(p.x,p.y);ctx.scale(1,0.4);
+      const gg=ctx.createRadialGradient(0,0,0,0,0,scl*0.22);gg.addColorStop(0,'rgba('+cr+','+cg+','+cb+',0.22)');gg.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
+      ctx.fillStyle=gg;ctx.beginPath();ctx.arc(0,0,scl*0.22,0,7);ctx.fill();ctx.restore();});
+  });
+  ctx.restore();
+  // broadcast lane tags just past the finish line (only once a lane has finished)
+  ctx.save();ctx.font='700 13px "Saira Semi Condensed","Arial Narrow",sans-serif';ctx.textBaseline='middle';
+  LANES.forEach((L,i)=>{if(t<L.A)return;const p=proj((i+0.5)*LW,ZF);const txt=L.A.toFixed(3);const w=ctx.measureText(txt).width+26;
+    const x=p.x-w/2,y=p.y-46;ctx.fillStyle='rgba(14,22,38,.86)';ctx.fillRect(x,y,w,22);ctx.fillStyle=L.col;ctx.fillRect(x,y,5,22);
+    ctx.fillStyle='#fff';ctx.textAlign='left';ctx.fillText(txt,x+14,y+11.5);});
+  ctx.restore();
+}
+
+function drawStrip(){
+  ctx.drawImage(stripBg,0,SH,stripBg.width/S,stripBg.height/S);
+  const xc=tx(clamp(t,T0,T1));
+  ctx.save();ctx.beginPath();ctx.rect(SX0,SY0,Math.max(0,xc-SX0),ROWH*4);ctx.clip();
+  ctx.globalCompositeOperation='lighter';
+  LANES.forEach((L,i)=>{const x=tx(L.A),y=SY0+i*ROWH+ROWH/2,[cr,cg,cb]=L.rgb,len=tx(L.A+0.85)-x;
+    ctx.save();ctx.shadowColor=L.col;ctx.shadowBlur=14;
+    const g=ctx.createLinearGradient(x,0,x+len,0);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(0.03,'rgba('+cr+','+cg+','+cb+',1)');
+    g.addColorStop(0.4,'rgba('+cr+','+cg+','+cb+',.45)');g.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
+    ctx.fillStyle=g;ctx.fillRect(x,y-8,len,16);ctx.restore();
+    for(let k=0;k<7;k++){const px=x+k*7.5;ctx.fillStyle='rgba(255,255,255,'+(0.75*(1-k/7))+')';ctx.fillRect(px,y-5,2.4,10);}
+    ctx.fillStyle='rgba('+cr+','+cg+','+cb+',.55)';ctx.fillRect(x,SY0+i*ROWH+3,1,ROWH-3);});
+  ctx.restore();
+  // time tags
+  ctx.save();ctx.font='700 13px "Saira Semi Condensed","Arial Narrow",sans-serif';ctx.textBaseline='middle';
+  LANES.forEach((L,i)=>{if(t<L.A)return;const x=tx(L.A),y=SY0+i*ROWH+ROWH/2;const txt=L.n+'  '+L.A.toFixed(3);const w=ctx.measureText(txt).width+16;
+    ctx.fillStyle='rgba(12,18,32,.88)';ctx.fillRect(x-w-8,y-11,w,22);ctx.fillStyle=L.col;ctx.fillRect(x-10,y-11,2,22);
+    ctx.fillStyle='#fff';ctx.textAlign='left';ctx.fillText(txt,x-w,y+0.5);
+    ctx.fillStyle=L.col;ctx.beginPath();ctx.moveTo(x-4,SY0+ROWH*4+2);ctx.lineTo(x+4,SY0+ROWH*4+2);ctx.lineTo(x,SY0+ROWH*4+8);ctx.fill();});
+  ctx.restore();
+  // pending part of the scan and cursor
+  if(t<T1-0.3){ctx.fillStyle='rgba(15,24,40,.72)';ctx.fillRect(Math.max(SX0,xc),SY0,SX1+12-Math.max(SX0,xc),ROWH*4);
+    if(t>=T0){ctx.fillStyle='#fff';ctx.fillRect(xc-1,SY0-3,2,ROWH*4+6);}}
+}
+
+function frame(){
+  if(!bg)return;
+  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.drawImage(bg,0,0);
+  ctx.setTransform(S,0,0,S,0,0);
+  drawLights();drawStrip();
+  document.getElementById('clock').textContent=t.toFixed(2);
+  LANES.forEach((L,i)=>{const tr=rowsEl.children[i],done=t>=L.A;tr.classList.toggle('done',done);tr.lastElementChild.textContent=done?L.A.toFixed(3):'—';});
+}
+
+const rowsEl=document.getElementById('rows');
+rowsEl.innerHTML=LANES.map(L=>'<tr><td class="ln"><i style="background:'+L.col+'">'+L.n+'</i></td><td>'+L.path+'</td><td class="pc">'+L.A.toFixed(2)+'</td><td class="fx">—</td></tr>').join('');
+
+let rTimer=0;
+function build(){
+  const w=cover.clientWidth;if(!w)return;
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+  const cw=Math.min(2200,Math.round(w*dpr));
+  cv.width=cw;cv.height=Math.round(cw*9/16);S=cw/W;
+  glyph=makeGlyphs();bg=renderScene();stripBg=renderStripBg();frame();
+}
+const ro=new ResizeObserver(()=>{clearTimeout(rTimer);rTimer=setTimeout(()=>{if(!bg||Math.abs(cover.clientWidth*Math.min(devicePixelRatio||1,2)-cv.width)>40)build();},180);});
+ro.observe(cover);
+
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+const stepBtns=[...document.querySelectorAll('[data-step]')],stat=document.getElementById('stat'),playBtn=document.getElementById('play');
+function setStatus(txt){stat.innerHTML='<kbd>←</kbd> <kbd>→</kbd> 단계 이동 · '+txt;}
+function mark(){stepBtns.forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.step===step)));}
+function stop(){playing=false;cancelAnimationFrame(raf);playBtn.textContent='▶ 출발부터 재생';}
+function goStep(n,animate){stop();const from=t;step=clamp(n,0,3);const to=STEPS[step];mark();setStatus(STEPNAME[step]);
+  if(!animate||reduce.matches||to<=from){t=to;frame();return;}
+  const dur=Math.min(3200,(to-from)/TEND*7000+300),t0=performance.now();playing=true;
+  const tick=now=>{const k=clamp((now-t0)/dur,0,1);t=from+(to-from)*k;frame();if(k<1&&playing)raf=requestAnimationFrame(tick);else playing=false;};raf=requestAnimationFrame(tick);}
+function play(){if(playing){stop();return;}
+  if(reduce.matches){step=3;t=TEND;mark();setStatus('판정 완료 (움직임 줄이기 설정: 바로 표시)');frame();return;}
+  t=0;step=0;mark();frame();playing=true;playBtn.textContent='❚❚ 멈춤';const t0=performance.now(),dur=8000;
+  const tick=now=>{if(!playing)return;const k=clamp((now-t0)/dur,0,1);t=TEND*k;
+    const s=t>=TEND-1e-6?3:t>=STEPS[2]?2:t>=STEPS[1]?1:0;if(s!==step){step=s;mark();setStatus(STEPNAME[s]);}
+    frame();if(k<1)raf=requestAnimationFrame(tick);else stop();};raf=requestAnimationFrame(tick);}
+playBtn.addEventListener('click',play);
+stepBtns.forEach(b=>b.addEventListener('click',()=>goStep(+b.dataset.step,true)));
+document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea,select'))return;
+  if(e.key==='ArrowRight'){e.preventDefault();goStep(step+1,true);}else if(e.key==='ArrowLeft'){e.preventDefault();goStep(step-1,true);}});
+
+const fontsReady=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('700 40px "Saira Semi Condensed"'),document.fonts.load('600 13px "Gothic A1"')]).catch(()=>{}):Promise.resolve();
+Promise.race([fontsReady,new Promise(r=>setTimeout(r,1500))]).then(build);
+})();
+</script>
+
+</body></html>

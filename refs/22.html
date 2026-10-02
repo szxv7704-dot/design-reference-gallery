@@ -1,0 +1,480 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #22 다섯 칸 다이얼</title>
+<style>
+/* 레이아웃: 장표를 맨 위에 크게, 아래로 설명·코드·PPT 표·스펙을 한 단으로 */
+:root{
+  --bg:#EEF0F1; --surface:#F9F9F7; --fg:#1B2130; --muted:#5A6272; --line:#D2D6DB; --accent:#5866E8; --code-bg:#1B2130; --code-fg:#E6E9EE;
+  --display:"Gothic A1","Noto Sans KR",sans-serif; --body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --mono:"IBM Plex Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#14171D; --surface:#1C2028; --fg:#E7E9ED; --muted:#A1A8B5; --line:#30363F; --accent:#9EA7F5; --code-bg:#0D1015; --code-fg:#DCE1E8; color-scheme:dark } }
+:root[data-theme="dark"]{ --bg:#14171D; --surface:#1C2028; --fg:#E7E9ED; --muted:#A1A8B5; --line:#30363F; --accent:#9EA7F5; --code-bg:#0D1015; --code-fg:#DCE1E8; color-scheme:dark }
+body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.65}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:16px; padding-block:24px 64px; display:flex; flex-direction:column; gap:40px}
+.top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 16px}
+.top h1{margin:0; font:700 22px/1.3 var(--display); letter-spacing:-.01em}
+.top span{font:500 12px var(--mono); color:var(--muted); letter-spacing:.04em}
+section{display:flex; flex-direction:column; gap:14px; min-width:0}
+h2.sec{margin:0; font:700 19px/1.35 var(--display); display:flex; gap:10px; align-items:baseline}
+h2.sec small{font:500 12px var(--mono); color:var(--accent); letter-spacing:.06em}
+p{margin:0; max-width:68ch}
+.apps{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+.apps div{border-top:2px solid var(--fg); padding-top:8px; min-width:0}
+.apps b{display:block; font-size:14px}
+.apps span{font-size:13.5px; color:var(--muted)}
+.codebox{position:relative; min-width:0}
+.codebox pre{margin:0; max-height:420px; overflow:auto; background:var(--code-bg); color:var(--code-fg); padding:16px; border-radius:6px; font:12.5px/1.55 var(--mono); white-space:pre}
+.copy{position:absolute; top:10px; right:10px; appearance:none; border:1px solid var(--code-fg); background:var(--code-bg); color:var(--code-fg); font:700 13px var(--body); padding:7px 12px; border-radius:4px; cursor:pointer}
+.copy:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+ol.hint{margin:0; padding-left:20px; max-width:72ch} ol.hint li{margin:2px 0}
+code{font-family:var(--mono); font-size:.9em; background:var(--surface); border:1px solid var(--line); padding:0 4px; border-radius:3px}
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:820px; font-size:13.5px}
+th,td{text-align:left; vertical-align:top; padding:9px 12px; border-bottom:1px solid var(--line)}
+th{font-weight:700; font-size:12.5px; color:var(--muted); white-space:nowrap}
+td:first-child{font:700 13px var(--mono); white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.note{border-left:3px solid var(--accent); padding:4px 0 4px 14px; max-width:76ch}
+.note p+p{margin-top:6px}
+.spec{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px}
+.spec h3{margin:0 0 6px; font:700 14px var(--body)}
+.sw{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
+.sw div{font:500 11.5px var(--mono); color:var(--muted)}
+.sw i{display:block; height:30px; border-radius:3px; border:1px solid var(--line); margin-bottom:3px}
+.spec ul{margin:0; padding-left:18px; font-size:14px}
+a{color:var(--accent)}
+</style>
+<div class="wrap">
+<div class="top"><h1>레퍼런스 #22 · 다섯 칸 다이얼</h1><span>실무형 · 회전·순환 · 2026-10-02</span></div>
+<section>
+<!-- ===== 교육활동 보호 순환 다이얼 (rt- 접두어) : 이 블록 전체를 복사해 붙이면 동작합니다 ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+.rt-root{
+  /* 색: 바탕·잉크와 다섯 칸 색(c1 예방 → c5 재발 방지). 흐린 칸은 같은 색을 옅게 씁니다 */
+  --rt-desk:#F1F0F5; --rt-paper:#FFFFFF; --rt-ink:#1D1B2B; --rt-sub:#5E5B70; --rt-line:#D9D7E2;
+  --rt-c1:#5866E8; --rt-c2:#2B9FD6; --rt-c3:#17977C; --rt-c4:#D99A00; --rt-c5:#D4566C;
+  /* 크기: 다이얼 바깥·안쪽 반지름, 활성 칸이 튀어나오는 거리 (SVG 단위) */
+  --rt-r-out:300; --rt-r-in:150; --rt-pop:18;
+  /* 타이밍(ms): 바늘 회전, 칸 강조, 카드 교체, 자동 재생 때 단계 사이 쉼 */
+  --rt-turn-ms:900; --rt-pop-ms:500; --rt-card-ms:450; --rt-gap-ms:700;
+  --rt-font-display:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --rt-font-mono:"IBM Plex Mono","D2Coding",Consolas,monospace;
+  display:flex; flex-direction:column; gap:12px; width:100%; max-width:100%;
+}
+.rt-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--rt-desk); border-radius:4px}
+.rt-slide svg{display:block; width:100%; height:100%}
+.rt-slide text{font-family:var(--rt-font-display)}
+.rt-slide .rt-mono{font-family:var(--rt-font-mono)}
+.rt-needle,.rt-sec{transform-box:view-box}
+.rt-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--rt-font-display)}
+.rt-btn{appearance:none; border:1.5px solid var(--rt-ink); background:var(--rt-paper); color:var(--rt-ink); font:700 14px/1 var(--rt-font-display); padding:10px 16px; border-radius:4px; cursor:pointer}
+.rt-btn:hover{background:var(--rt-ink); color:var(--rt-paper)}
+.rt-btn:focus-visible{outline:3px solid var(--rt-c1); outline-offset:2px}
+.rt-status{font:500 13px/1.4 var(--rt-font-mono); color:var(--rt-sub); padding-left:4px}
+</style>
+
+<div class="rt-root" data-rt-root>
+  <div class="rt-slide">
+    <svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="교육활동 보호 순환 체계: 예방, 신고·접수, 조사·보호 조치, 회복 지원, 재발 방지 다섯 칸을 바늘이 차례로 돌고 다시 예방으로 돌아오는 다이얼">
+      <rect width="1600" height="900" fill="var(--rt-desk)"/>
+      <text x="80" y="70" class="rt-mono" font-size="15" fill="var(--rt-sub)"><tspan fill="var(--rt-ink)" font-weight="600">○○교육청 2027 교육활동 보호 강화 계획(안)</tspan> · Ⅲ. 세부 추진 과제 1 — 침해 대응 순환 체계</text>
+      <text x="80" y="128" font-size="42" font-weight="800" fill="var(--rt-ink)" letter-spacing="-1">한 번 막고 끝내지 않는다, <tspan fill="var(--rt-c1)">다섯 칸을 돌아 다시 예방으로</tspan></text>
+      <g transform="translate(1452 50)"><rect width="78" height="28" rx="14" fill="var(--rt-paper)" stroke="var(--rt-line)"/><text x="39" y="19" text-anchor="middle" font-size="13" fill="var(--rt-sub)">가상 예시</text></g>
+      <g id="rt-loop"></g>
+      <g id="rt-dial"></g>
+      <g id="rt-hub"></g>
+      <g id="rt-needle" class="rt-needle"></g>
+      <g id="rt-card"></g>
+    </svg>
+  </div>
+  <div class="rt-controls">
+    <button type="button" class="rt-btn" data-rt-replay>다시 보기</button>
+    <button type="button" class="rt-btn" data-rt-step>한 단계씩</button>
+    <span class="rt-status" data-rt-status aria-live="polite">완성 상태</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.querySelector('[data-rt-root]');
+  if (!root) return;
+  var NS = 'http://www.w3.org/2000/svg', CX = 520, CY = 520;
+
+  // 다섯 칸: 이름·핵심 수치·할 일 3개·담당만 바꾸면 됩니다 (칸 수를 바꾸면 다이얼이 그 수로 나뉩니다)
+  var RT_STEPS = [
+    { name: '예방',          key: '민원대응팀 100%',   acts: ['학교 민원대응팀 구성·운영', '교원·학부모 교육활동 보호 연수', '민원 응대 안내서 배포'], who: '학교 · 교육청' },
+    { name: '신고·접수',     key: '24시간 내 접수',    acts: ['교육활동 보호 전담 창구 일원화', '접수 즉시 교원·관리자 안내', '긴급 사안 분리 조치 요청'], who: '교육지원청 전담팀' },
+    { name: '조사·보호 조치', key: '지역교권보호위원회', acts: ['사안 조사·사실 확인', '교권보호위원회 심의·조치', '피해 교원 특별휴가·업무 조정'], who: '교육지원청' },
+    { name: '회복 지원',     key: '상담 10회 + 법률', acts: ['심리 상담·치유 프로그램', '변호사 법률 자문·소송 지원', '복귀 전 맞춤 회복 연수'], who: '교원치유센터' },
+    { name: '재발 방지',     key: '매년 안내서 개정',  acts: ['사례 분석·유형별 대응 정리', '학교 컨설팅·관리자 연수', '다음 해 예방 안내서 개정'], who: '교육청 정책팀' }
+  ];
+  var LOOP_LABEL = '재발 방지에서 배운 것을 다음 해 예방에 반영 · 매년 한 바퀴';
+
+  var css = getComputedStyle(root);
+  function num(v, d){ var n = parseFloat(css.getPropertyValue(v)); return isNaN(n) ? d : n; }
+  function el(tag, attrs, parent, text){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var status = root.querySelector('[data-rt-status]');
+  var K = RT_STEPS.length, RO = num('--rt-r-out', 300), RI = num('--rt-r-in', 150), POP = num('--rt-pop', 18);
+  var D2R = Math.PI / 180, SPAN = 360 / K;
+  function angOf(i){ return -90 + SPAN * i + SPAN / 2; }  // sector centre angle, clockwise from top
+  function pt(a, r){ return [CX + Math.cos(a * D2R) * r, CY + Math.sin(a * D2R) * r]; }
+  function arcPath(a0, a1, r0, r1){
+    var p0 = pt(a0, r1), p1 = pt(a1, r1), p2 = pt(a1, r0), p3 = pt(a0, r0), big = (a1 - a0) > 180 ? 1 : 0;
+    return 'M' + p0 + 'A' + r1 + ' ' + r1 + ' 0 ' + big + ' 1 ' + p1 + 'L' + p2 + 'A' + r0 + ' ' + r0 + ' 0 ' + big + ' 0 ' + p3 + 'Z';
+  }
+  // dial sectors
+  var dial = root.querySelector('#rt-dial'), secs = [];
+  RT_STEPS.forEach(function(s, i){
+    var a0 = -90 + SPAN * i + 1.2, a1 = -90 + SPAN * (i + 1) - 1.2, c = 'var(--rt-c' + (i + 1) + ')';
+    var g = el('g', {'class': 'rt-sec'}, dial);
+    var base = el('path', {d: arcPath(a0, a1, RI, RO), fill: c}, g);
+    var am = angOf(i), lp = pt(am, (RI + RO) / 2);
+    el('text', {x: lp[0], y: lp[1] - 8, 'text-anchor': 'middle', 'font-size': 15, 'font-weight': 600, fill: '#FFFFFF', 'class': 'rt-mono'}, g, String(i + 1).padStart(2, '0'));
+    el('text', {x: lp[0], y: lp[1] + 18, 'text-anchor': 'middle', 'font-size': 22, 'font-weight': 800, fill: '#FFFFFF'}, g, s.name);
+    secs.push({ g: g, base: base, ang: am });
+  });
+  // loop arrow around the dial (drawn at the end)
+  var loopG = root.querySelector('#rt-loop'), LR = RO + 34;
+  var lp0 = pt(-90 + 6, LR), lp1 = pt(-90 - 6 + 360 - 0.01, LR);
+  var loop = el('path', {d: 'M' + lp0 + 'A' + LR + ' ' + LR + ' 0 1 1 ' + lp1, fill: 'none', stroke: 'var(--rt-ink)', 'stroke-width': 2.4, 'stroke-dasharray': '6 7', pathLength: 1}, loopG);
+  var head = pt(-90 - 6, LR);
+  var arrow = el('path', {d: 'M' + (head[0] - 14) + ' ' + (head[1] - 9) + 'L' + head[0] + ' ' + head[1] + 'L' + (head[0] - 14) + ' ' + (head[1] + 9), fill: 'none', stroke: 'var(--rt-ink)', 'stroke-width': 2.4, 'stroke-linecap': 'round'}, loopG);
+  var loopTxt = el('text', {x: CX, y: CY + LR + 34, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 700, fill: 'var(--rt-ink)'}, loopG, LOOP_LABEL);
+  // needle
+  var needle = root.querySelector('#rt-needle');
+  el('path', {d: 'M' + (CX - 13) + ' ' + (CY - RI + 32) + 'L' + CX + ' ' + (CY - RI + 6) + 'L' + (CX + 13) + ' ' + (CY - RI + 32) + 'Z', fill: 'var(--rt-ink)'}, needle);
+  needle.style.transformOrigin = CX + 'px ' + CY + 'px';
+  // hub
+  var hub = root.querySelector('#rt-hub');
+  el('circle', {cx: CX, cy: CY, r: RI - 34, fill: 'var(--rt-paper)', stroke: 'var(--rt-line)'}, hub);
+  el('circle', {cx: CX, cy: CY, r: 10, fill: 'var(--rt-ink)'}, hub);
+  var hubTop = el('text', {x: CX, y: CY - 30, 'text-anchor': 'middle', 'font-size': 14, fill: 'var(--rt-sub)'}, hub, '');
+  var hubKey = el('text', {x: CX, y: CY + 42, 'text-anchor': 'middle', 'font-size': 19, 'font-weight': 800, fill: 'var(--rt-ink)'}, hub, '');
+  // detail card
+  var card = root.querySelector('#rt-card');
+  function drawCard(n){
+    while (card.firstChild) card.removeChild(card.firstChild);
+    var x = 960, y = 230, w = 560;
+    el('rect', {x: x, y: y, width: w, height: 520, rx: 8, fill: 'var(--rt-paper)', stroke: 'var(--rt-line)'}, card);
+    if (n >= 1 && n <= K){
+      var s = RT_STEPS[n - 1], c = 'var(--rt-c' + n + ')';
+      el('rect', {x: x, y: y, width: 10, height: 520, rx: 3, fill: c}, card);
+      el('text', {x: x + 40, y: y + 56, 'font-size': 16, fill: c, 'font-weight': 700, 'class': 'rt-mono'}, card, 'STEP ' + String(n).padStart(2, '0') + ' / ' + String(K).padStart(2, '0'));
+      el('text', {x: x + 40, y: y + 110, 'font-size': 44, 'font-weight': 800, fill: 'var(--rt-ink)'}, card, s.name);
+      el('text', {x: x + 40, y: y + 152, 'font-size': 20, 'font-weight': 700, fill: c}, card, s.key);
+      s.acts.forEach(function(a, k){ var yy = y + 222 + k * 66; el('line', {x1: x + 40, y1: yy - 34, x2: x + w - 40, y2: yy - 34, stroke: 'var(--rt-line)'}, card); el('rect', {x: x + 40, y: yy - 10, width: 14, height: 4, fill: c}, card); el('text', {x: x + 68, y: yy, 'font-size': 21, 'font-weight': 500, fill: 'var(--rt-ink)'}, card, a); });
+      el('text', {x: x + 40, y: y + 480, 'font-size': 15, fill: 'var(--rt-sub)', 'class': 'rt-mono'}, card, '담당 · ' + s.who);
+    } else if (n > K){
+      el('text', {x: x + 40, y: y + 56, 'font-size': 16, fill: 'var(--rt-sub)', 'font-weight': 700, 'class': 'rt-mono'}, card, 'ONE CYCLE · 한 바퀴');
+      el('text', {x: x + 40, y: y + 106, 'font-size': 34, 'font-weight': 800, fill: 'var(--rt-ink)'}, card, '다섯 칸이 한 해의 순환');
+      RT_STEPS.forEach(function(s, k){ var yy = y + 170 + k * 62, c = 'var(--rt-c' + (k + 1) + ')';
+        el('rect', {x: x + 40, y: yy - 22, width: 30, height: 30, rx: 15, fill: c}, card);
+        el('text', {x: x + 55, y: yy - 1, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 600, fill: '#FFFFFF', 'class': 'rt-mono'}, card, String(k + 1));
+        el('text', {x: x + 86, y: yy, 'font-size': 21, 'font-weight': 800, fill: 'var(--rt-ink)'}, card, s.name);
+        el('text', {x: x + w - 40, y: yy, 'text-anchor': 'end', 'font-size': 17, fill: c, 'font-weight': 700}, card, s.key); });
+      el('text', {x: x + 40, y: y + 486, 'font-size': 15, fill: 'var(--rt-sub)'}, card, '바늘이 다시 01로 돌아오면 다음 해 예방이 강화된 상태로 시작합니다.');
+    } else {
+      el('text', {x: x + 40, y: y + 270, 'font-size': 22, fill: 'var(--rt-sub)'}, card, '바늘이 돌면 칸마다 할 일이 펼쳐집니다');
+    }
+  }
+  // state
+  function setSectors(n){
+    secs.forEach(function(s, i){
+      var on = (n > K) || (i === n - 1), done = i < n - 1;
+      var o = n > K ? 1 : on ? 1 : done ? .55 : .18;
+      s.g.style.opacity = o;
+      var off = (on && n <= K) ? POP : 0, a = s.ang * D2R;
+      s.g.style.transform = 'translate(' + (Math.cos(a) * off).toFixed(1) + 'px,' + (Math.sin(a) * off).toFixed(1) + 'px)';
+    });
+  }
+  function needleAngle(n){ if (n <= 0) return 0; if (n > K) return 360; return angOf(n - 1) + 90; }
+  function setHub(n){
+    if (n >= 1 && n <= K){ hubTop.textContent = 'STEP ' + String(n).padStart(2, '0'); hubKey.textContent = RT_STEPS[n - 1].name; }
+    else if (n > K){ hubTop.textContent = '1년 한 바퀴'; hubKey.textContent = '다시 예방으로'; }
+    else { hubTop.textContent = '침해 대응'; hubKey.textContent = '순환 체계'; }
+  }
+  function setLoop(n){ var on = n > K; loop.style.strokeDasharray = on ? '6 7' : '0 1'; loop.style.opacity = on ? 1 : 0; arrow.style.opacity = on ? 1 : 0; loopTxt.style.opacity = on ? 1 : 0; }
+  var cur = K + 1, token = 0, TOTAL = K + 1;
+  function applyState(n){ cur = n; root.querySelectorAll('.rt-sec, #rt-needle, #rt-card').forEach(function(x){ x.getAnimations().forEach(function(a){ a.cancel(); }); });
+    setSectors(n); needle.style.transform = 'rotate(' + needleAngle(n) + 'deg)'; needle.style.opacity = n === 0 ? 0 : 1; setHub(n); drawCard(n); setLoop(n); show(); }
+  function show(){ if (!status) return; status.textContent = cur >= TOTAL ? '완성 상태 · ' + TOTAL + '단계' : cur === 0 ? '시작 전 · 0/' + TOTAL : cur + '/' + TOTAL + ' · ' + (cur <= K ? RT_STEPS[cur - 1].name : '한 바퀴'); }
+  function playStep(i){
+    var n = i + 1, from = needleAngle(i), to = needleAngle(n);
+    cur = n; show();
+    needle.style.opacity = 1;
+    var turn = needle.animate([{ transform: 'rotate(' + from + 'deg)' }, { transform: 'rotate(' + (to + 6) + 'deg)', offset: .78 }, { transform: 'rotate(' + to + 'deg)' }], { duration: num('--rt-turn-ms', 900), easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' });
+    return turn.finished.then(function(){
+      needle.style.transform = 'rotate(' + to + 'deg)'; turn.cancel();
+      setSectors(n); setHub(n); setLoop(n);
+      if (n > K){ loop.animate([{ strokeDasharray: '0 1' }, { strokeDasharray: '1 0' }], { duration: 1100, easing: 'ease-in-out' }); }
+      drawCard(n);
+      var a = card.animate([{ opacity: 0, transform: 'translateX(24px)' }, { opacity: 1, transform: 'translateX(0)' }], { duration: num('--rt-card-ms', 450), easing: 'cubic-bezier(.2,.8,.3,1)' });
+      var p = secs[Math.min(n, K) - 1];
+      if (n <= K) p.g.animate([{ filter: 'brightness(1.25)' }, { filter: 'brightness(1)' }], { duration: num('--rt-pop-ms', 500) });
+      return a.finished;
+    }, function(){});
+  }
+  function wait(t){ return new Promise(function(r){ setTimeout(r, t); }); }
+  // 다시 보기: 처음부터 끝까지 한 번 재생하고 완성 상태에서 멈춤
+  function replay(){
+    var my = ++token;
+    if (reduced){ applyState(TOTAL); return; }
+    applyState(0);
+    var chain = wait(400);
+    for (var i = 0; i < TOTAL; i++) (function(i){ chain = chain.then(function(){ if (my === token) return playStep(i).then(function(){ return wait(num('--rt-gap-ms', 700)); }); }); })(i);
+  }
+  // 한 단계씩: 클릭할 때마다 다음 칸으로 (끝까지 가면 처음부터)
+  function stepOnce(){
+    ++token;
+    var next = cur >= TOTAL ? 0 : cur;
+    applyState(next);
+    if (reduced){ applyState(next + 1); return; }
+    playStep(next);
+  }
+  root.querySelector('[data-rt-replay]').addEventListener('click', replay);
+  root.querySelector('[data-rt-step]').addEventListener('click', stepOnce);
+  secs.forEach(function(s){ s.g.style.transition = reduced ? 'none' : 'transform .5s cubic-bezier(.3,1.4,.5,1), opacity .4s ease'; });
+  applyState(TOTAL);                     // 첫 화면은 완성된 도식
+  if (!reduced) setTimeout(replay, 1200); // 잠시 뒤 한 번 재생
+})();
+</script>
+<!-- ===== 교육활동 보호 순환 다이얼 끝 ===== -->
+
+</section>
+
+<section>
+<h2 class="sec"><small>01</small>동작 설명</h2>
+<p>교육활동 침해 대응을 다섯 칸짜리 다이얼로 보여 줍니다. 바늘이 시계 방향으로 한 칸씩 돌 때마다 그 칸이 바깥으로 살짝 튀어나오고, 오른쪽 카드가 그 단계의 핵심 수치와 할 일 3개, 담당으로 바뀝니다. 지나온 칸은 반쯤 흐리게, 아직 안 온 칸은 더 흐리게 남겨 지금 어디쯤인지 한눈에 보입니다. 마지막에 바늘이 한 바퀴를 채워 다시 '예방'을 가리키고, 다이얼 바깥 고리가 그려지며 '재발 방지에서 배운 것을 다음 해 예방에 반영한다'는 환류가 완성됩니다. 순서도 화살표보다 '끝나지 않고 돈다'는 뜻이 강하게 전달됩니다.</p>
+<div class="apps"><div><b>학교 자체 평가 PDCA</b><span>계획·실행·점검·개선 4칸. 칸 수를 4로 줄이면 다이얼이 자동으로 4등분됩니다.</span></div><div><b>연간 교육과정 운영</b><span>학기·방학 4칸 또는 월별 12칸. 카드에 그 시기의 행사·평가를 넣습니다.</span></div><div><b>민원 처리 절차</b><span>접수·배정·검토·회신·만족도 조사 5칸. 핵심 수치 칸에 처리 기한을 씁니다.</span></div></div>
+</section>
+
+<section>
+<h2 class="sec"><small>02</small>HTML로 가져다 쓰기</h2>
+<div class="codebox"><button type="button" class="copy" id="copyBtn">코드 복사</button><pre id="code" tabindex="0">&lt;!-- ===== 교육활동 보호 순환 다이얼 (rt- 접두어) : 이 블록 전체를 복사해 붙이면 동작합니다 ===== --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap&quot;&gt;
+&lt;style&gt;
+.rt-root{
+  /* 색: 바탕·잉크와 다섯 칸 색(c1 예방 → c5 재발 방지). 흐린 칸은 같은 색을 옅게 씁니다 */
+  --rt-desk:#F1F0F5; --rt-paper:#FFFFFF; --rt-ink:#1D1B2B; --rt-sub:#5E5B70; --rt-line:#D9D7E2;
+  --rt-c1:#5866E8; --rt-c2:#2B9FD6; --rt-c3:#17977C; --rt-c4:#D99A00; --rt-c5:#D4566C;
+  /* 크기: 다이얼 바깥·안쪽 반지름, 활성 칸이 튀어나오는 거리 (SVG 단위) */
+  --rt-r-out:300; --rt-r-in:150; --rt-pop:18;
+  /* 타이밍(ms): 바늘 회전, 칸 강조, 카드 교체, 자동 재생 때 단계 사이 쉼 */
+  --rt-turn-ms:900; --rt-pop-ms:500; --rt-card-ms:450; --rt-gap-ms:700;
+  --rt-font-display:&quot;Gothic A1&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --rt-font-mono:&quot;IBM Plex Mono&quot;,&quot;D2Coding&quot;,Consolas,monospace;
+  display:flex; flex-direction:column; gap:12px; width:100%; max-width:100%;
+}
+.rt-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--rt-desk); border-radius:4px}
+.rt-slide svg{display:block; width:100%; height:100%}
+.rt-slide text{font-family:var(--rt-font-display)}
+.rt-slide .rt-mono{font-family:var(--rt-font-mono)}
+.rt-needle,.rt-sec{transform-box:view-box}
+.rt-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--rt-font-display)}
+.rt-btn{appearance:none; border:1.5px solid var(--rt-ink); background:var(--rt-paper); color:var(--rt-ink); font:700 14px/1 var(--rt-font-display); padding:10px 16px; border-radius:4px; cursor:pointer}
+.rt-btn:hover{background:var(--rt-ink); color:var(--rt-paper)}
+.rt-btn:focus-visible{outline:3px solid var(--rt-c1); outline-offset:2px}
+.rt-status{font:500 13px/1.4 var(--rt-font-mono); color:var(--rt-sub); padding-left:4px}
+&lt;/style&gt;
+
+&lt;div class=&quot;rt-root&quot; data-rt-root&gt;
+  &lt;div class=&quot;rt-slide&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 1600 900&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; role=&quot;img&quot; aria-label=&quot;교육활동 보호 순환 체계: 예방, 신고·접수, 조사·보호 조치, 회복 지원, 재발 방지 다섯 칸을 바늘이 차례로 돌고 다시 예방으로 돌아오는 다이얼&quot;&gt;
+      &lt;rect width=&quot;1600&quot; height=&quot;900&quot; fill=&quot;var(--rt-desk)&quot;/&gt;
+      &lt;text x=&quot;80&quot; y=&quot;70&quot; class=&quot;rt-mono&quot; font-size=&quot;15&quot; fill=&quot;var(--rt-sub)&quot;&gt;&lt;tspan fill=&quot;var(--rt-ink)&quot; font-weight=&quot;600&quot;&gt;○○교육청 2027 교육활동 보호 강화 계획(안)&lt;/tspan&gt; · Ⅲ. 세부 추진 과제 1 — 침해 대응 순환 체계&lt;/text&gt;
+      &lt;text x=&quot;80&quot; y=&quot;128&quot; font-size=&quot;42&quot; font-weight=&quot;800&quot; fill=&quot;var(--rt-ink)&quot; letter-spacing=&quot;-1&quot;&gt;한 번 막고 끝내지 않는다, &lt;tspan fill=&quot;var(--rt-c1)&quot;&gt;다섯 칸을 돌아 다시 예방으로&lt;/tspan&gt;&lt;/text&gt;
+      &lt;g transform=&quot;translate(1452 50)&quot;&gt;&lt;rect width=&quot;78&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;var(--rt-paper)&quot; stroke=&quot;var(--rt-line)&quot;/&gt;&lt;text x=&quot;39&quot; y=&quot;19&quot; text-anchor=&quot;middle&quot; font-size=&quot;13&quot; fill=&quot;var(--rt-sub)&quot;&gt;가상 예시&lt;/text&gt;&lt;/g&gt;
+      &lt;g id=&quot;rt-loop&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;rt-dial&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;rt-hub&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;rt-needle&quot; class=&quot;rt-needle&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;rt-card&quot;&gt;&lt;/g&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;rt-controls&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;rt-btn&quot; data-rt-replay&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;rt-btn&quot; data-rt-step&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;rt-status&quot; data-rt-status aria-live=&quot;polite&quot;&gt;완성 상태&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  var root = document.querySelector(&#x27;[data-rt-root]&#x27;);
+  if (!root) return;
+  var NS = &#x27;http://www.w3.org/2000/svg&#x27;, CX = 520, CY = 520;
+
+  // 다섯 칸: 이름·핵심 수치·할 일 3개·담당만 바꾸면 됩니다 (칸 수를 바꾸면 다이얼이 그 수로 나뉩니다)
+  var RT_STEPS = [
+    { name: &#x27;예방&#x27;,          key: &#x27;민원대응팀 100%&#x27;,   acts: [&#x27;학교 민원대응팀 구성·운영&#x27;, &#x27;교원·학부모 교육활동 보호 연수&#x27;, &#x27;민원 응대 안내서 배포&#x27;], who: &#x27;학교 · 교육청&#x27; },
+    { name: &#x27;신고·접수&#x27;,     key: &#x27;24시간 내 접수&#x27;,    acts: [&#x27;교육활동 보호 전담 창구 일원화&#x27;, &#x27;접수 즉시 교원·관리자 안내&#x27;, &#x27;긴급 사안 분리 조치 요청&#x27;], who: &#x27;교육지원청 전담팀&#x27; },
+    { name: &#x27;조사·보호 조치&#x27;, key: &#x27;지역교권보호위원회&#x27;, acts: [&#x27;사안 조사·사실 확인&#x27;, &#x27;교권보호위원회 심의·조치&#x27;, &#x27;피해 교원 특별휴가·업무 조정&#x27;], who: &#x27;교육지원청&#x27; },
+    { name: &#x27;회복 지원&#x27;,     key: &#x27;상담 10회 + 법률&#x27;, acts: [&#x27;심리 상담·치유 프로그램&#x27;, &#x27;변호사 법률 자문·소송 지원&#x27;, &#x27;복귀 전 맞춤 회복 연수&#x27;], who: &#x27;교원치유센터&#x27; },
+    { name: &#x27;재발 방지&#x27;,     key: &#x27;매년 안내서 개정&#x27;,  acts: [&#x27;사례 분석·유형별 대응 정리&#x27;, &#x27;학교 컨설팅·관리자 연수&#x27;, &#x27;다음 해 예방 안내서 개정&#x27;], who: &#x27;교육청 정책팀&#x27; }
+  ];
+  var LOOP_LABEL = &#x27;재발 방지에서 배운 것을 다음 해 예방에 반영 · 매년 한 바퀴&#x27;;
+
+  var css = getComputedStyle(root);
+  function num(v, d){ var n = parseFloat(css.getPropertyValue(v)); return isNaN(n) ? d : n; }
+  function el(tag, attrs, parent, text){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+  var reduced = window.matchMedia &amp;&amp; matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  var status = root.querySelector(&#x27;[data-rt-status]&#x27;);
+  var K = RT_STEPS.length, RO = num(&#x27;--rt-r-out&#x27;, 300), RI = num(&#x27;--rt-r-in&#x27;, 150), POP = num(&#x27;--rt-pop&#x27;, 18);
+  var D2R = Math.PI / 180, SPAN = 360 / K;
+  function angOf(i){ return -90 + SPAN * i + SPAN / 2; }  // sector centre angle, clockwise from top
+  function pt(a, r){ return [CX + Math.cos(a * D2R) * r, CY + Math.sin(a * D2R) * r]; }
+  function arcPath(a0, a1, r0, r1){
+    var p0 = pt(a0, r1), p1 = pt(a1, r1), p2 = pt(a1, r0), p3 = pt(a0, r0), big = (a1 - a0) &gt; 180 ? 1 : 0;
+    return &#x27;M&#x27; + p0 + &#x27;A&#x27; + r1 + &#x27; &#x27; + r1 + &#x27; 0 &#x27; + big + &#x27; 1 &#x27; + p1 + &#x27;L&#x27; + p2 + &#x27;A&#x27; + r0 + &#x27; &#x27; + r0 + &#x27; 0 &#x27; + big + &#x27; 0 &#x27; + p3 + &#x27;Z&#x27;;
+  }
+  // dial sectors
+  var dial = root.querySelector(&#x27;#rt-dial&#x27;), secs = [];
+  RT_STEPS.forEach(function(s, i){
+    var a0 = -90 + SPAN * i + 1.2, a1 = -90 + SPAN * (i + 1) - 1.2, c = &#x27;var(--rt-c&#x27; + (i + 1) + &#x27;)&#x27;;
+    var g = el(&#x27;g&#x27;, {&#x27;class&#x27;: &#x27;rt-sec&#x27;}, dial);
+    var base = el(&#x27;path&#x27;, {d: arcPath(a0, a1, RI, RO), fill: c}, g);
+    var am = angOf(i), lp = pt(am, (RI + RO) / 2);
+    el(&#x27;text&#x27;, {x: lp[0], y: lp[1] - 8, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 15, &#x27;font-weight&#x27;: 600, fill: &#x27;#FFFFFF&#x27;, &#x27;class&#x27;: &#x27;rt-mono&#x27;}, g, String(i + 1).padStart(2, &#x27;0&#x27;));
+    el(&#x27;text&#x27;, {x: lp[0], y: lp[1] + 18, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 22, &#x27;font-weight&#x27;: 800, fill: &#x27;#FFFFFF&#x27;}, g, s.name);
+    secs.push({ g: g, base: base, ang: am });
+  });
+  // loop arrow around the dial (drawn at the end)
+  var loopG = root.querySelector(&#x27;#rt-loop&#x27;), LR = RO + 34;
+  var lp0 = pt(-90 + 6, LR), lp1 = pt(-90 - 6 + 360 - 0.01, LR);
+  var loop = el(&#x27;path&#x27;, {d: &#x27;M&#x27; + lp0 + &#x27;A&#x27; + LR + &#x27; &#x27; + LR + &#x27; 0 1 1 &#x27; + lp1, fill: &#x27;none&#x27;, stroke: &#x27;var(--rt-ink)&#x27;, &#x27;stroke-width&#x27;: 2.4, &#x27;stroke-dasharray&#x27;: &#x27;6 7&#x27;, pathLength: 1}, loopG);
+  var head = pt(-90 - 6, LR);
+  var arrow = el(&#x27;path&#x27;, {d: &#x27;M&#x27; + (head[0] - 14) + &#x27; &#x27; + (head[1] - 9) + &#x27;L&#x27; + head[0] + &#x27; &#x27; + head[1] + &#x27;L&#x27; + (head[0] - 14) + &#x27; &#x27; + (head[1] + 9), fill: &#x27;none&#x27;, stroke: &#x27;var(--rt-ink)&#x27;, &#x27;stroke-width&#x27;: 2.4, &#x27;stroke-linecap&#x27;: &#x27;round&#x27;}, loopG);
+  var loopTxt = el(&#x27;text&#x27;, {x: CX, y: CY + LR + 34, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 16, &#x27;font-weight&#x27;: 700, fill: &#x27;var(--rt-ink)&#x27;}, loopG, LOOP_LABEL);
+  // needle
+  var needle = root.querySelector(&#x27;#rt-needle&#x27;);
+  el(&#x27;path&#x27;, {d: &#x27;M&#x27; + (CX - 13) + &#x27; &#x27; + (CY - RI + 32) + &#x27;L&#x27; + CX + &#x27; &#x27; + (CY - RI + 6) + &#x27;L&#x27; + (CX + 13) + &#x27; &#x27; + (CY - RI + 32) + &#x27;Z&#x27;, fill: &#x27;var(--rt-ink)&#x27;}, needle);
+  needle.style.transformOrigin = CX + &#x27;px &#x27; + CY + &#x27;px&#x27;;
+  // hub
+  var hub = root.querySelector(&#x27;#rt-hub&#x27;);
+  el(&#x27;circle&#x27;, {cx: CX, cy: CY, r: RI - 34, fill: &#x27;var(--rt-paper)&#x27;, stroke: &#x27;var(--rt-line)&#x27;}, hub);
+  el(&#x27;circle&#x27;, {cx: CX, cy: CY, r: 10, fill: &#x27;var(--rt-ink)&#x27;}, hub);
+  var hubTop = el(&#x27;text&#x27;, {x: CX, y: CY - 30, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 14, fill: &#x27;var(--rt-sub)&#x27;}, hub, &#x27;&#x27;);
+  var hubKey = el(&#x27;text&#x27;, {x: CX, y: CY + 42, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 19, &#x27;font-weight&#x27;: 800, fill: &#x27;var(--rt-ink)&#x27;}, hub, &#x27;&#x27;);
+  // detail card
+  var card = root.querySelector(&#x27;#rt-card&#x27;);
+  function drawCard(n){
+    while (card.firstChild) card.removeChild(card.firstChild);
+    var x = 960, y = 230, w = 560;
+    el(&#x27;rect&#x27;, {x: x, y: y, width: w, height: 520, rx: 8, fill: &#x27;var(--rt-paper)&#x27;, stroke: &#x27;var(--rt-line)&#x27;}, card);
+    if (n &gt;= 1 &amp;&amp; n &lt;= K){
+      var s = RT_STEPS[n - 1], c = &#x27;var(--rt-c&#x27; + n + &#x27;)&#x27;;
+      el(&#x27;rect&#x27;, {x: x, y: y, width: 10, height: 520, rx: 3, fill: c}, card);
+      el(&#x27;text&#x27;, {x: x + 40, y: y + 56, &#x27;font-size&#x27;: 16, fill: c, &#x27;font-weight&#x27;: 700, &#x27;class&#x27;: &#x27;rt-mono&#x27;}, card, &#x27;STEP &#x27; + String(n).padStart(2, &#x27;0&#x27;) + &#x27; / &#x27; + String(K).padStart(2, &#x27;0&#x27;));
+      el(&#x27;text&#x27;, {x: x + 40, y: y + 110, &#x27;font-size&#x27;: 44, &#x27;font-weight&#x27;: 800, fill: &#x27;var(--rt-ink)&#x27;}, card, s.name);
+      el(&#x27;text&#x27;, {x: x + 40, y: y + 152, &#x27;font-size&#x27;: 20, &#x27;font-weight&#x27;: 700, fill: c}, card, s.key);
+      s.acts.forEach(function(a, k){ var yy = y + 222 + k * 66; el(&#x27;line&#x27;, {x1: x + 40, y1: yy - 34, x2: x + w - 40, y2: yy - 34, stroke: &#x27;var(--rt-line)&#x27;}, card); el(&#x27;rect&#x27;, {x: x + 40, y: yy - 10, width: 14, height: 4, fill: c}, card); el(&#x27;text&#x27;, {x: x + 68, y: yy, &#x27;font-size&#x27;: 21, &#x27;font-weight&#x27;: 500, fill: &#x27;var(--rt-ink)&#x27;}, card, a); });
+      el(&#x27;text&#x27;, {x: x + 40, y: y + 480, &#x27;font-size&#x27;: 15, fill: &#x27;var(--rt-sub)&#x27;, &#x27;class&#x27;: &#x27;rt-mono&#x27;}, card, &#x27;담당 · &#x27; + s.who);
+    } else if (n &gt; K){
+      el(&#x27;text&#x27;, {x: x + 40, y: y + 56, &#x27;font-size&#x27;: 16, fill: &#x27;var(--rt-sub)&#x27;, &#x27;font-weight&#x27;: 700, &#x27;class&#x27;: &#x27;rt-mono&#x27;}, card, &#x27;ONE CYCLE · 한 바퀴&#x27;);
+      el(&#x27;text&#x27;, {x: x + 40, y: y + 106, &#x27;font-size&#x27;: 34, &#x27;font-weight&#x27;: 800, fill: &#x27;var(--rt-ink)&#x27;}, card, &#x27;다섯 칸이 한 해의 순환&#x27;);
+      RT_STEPS.forEach(function(s, k){ var yy = y + 170 + k * 62, c = &#x27;var(--rt-c&#x27; + (k + 1) + &#x27;)&#x27;;
+        el(&#x27;rect&#x27;, {x: x + 40, y: yy - 22, width: 30, height: 30, rx: 15, fill: c}, card);
+        el(&#x27;text&#x27;, {x: x + 55, y: yy - 1, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 13, &#x27;font-weight&#x27;: 600, fill: &#x27;#FFFFFF&#x27;, &#x27;class&#x27;: &#x27;rt-mono&#x27;}, card, String(k + 1));
+        el(&#x27;text&#x27;, {x: x + 86, y: yy, &#x27;font-size&#x27;: 21, &#x27;font-weight&#x27;: 800, fill: &#x27;var(--rt-ink)&#x27;}, card, s.name);
+        el(&#x27;text&#x27;, {x: x + w - 40, y: yy, &#x27;text-anchor&#x27;: &#x27;end&#x27;, &#x27;font-size&#x27;: 17, fill: c, &#x27;font-weight&#x27;: 700}, card, s.key); });
+      el(&#x27;text&#x27;, {x: x + 40, y: y + 486, &#x27;font-size&#x27;: 15, fill: &#x27;var(--rt-sub)&#x27;}, card, &#x27;바늘이 다시 01로 돌아오면 다음 해 예방이 강화된 상태로 시작합니다.&#x27;);
+    } else {
+      el(&#x27;text&#x27;, {x: x + 40, y: y + 270, &#x27;font-size&#x27;: 22, fill: &#x27;var(--rt-sub)&#x27;}, card, &#x27;바늘이 돌면 칸마다 할 일이 펼쳐집니다&#x27;);
+    }
+  }
+  // state
+  function setSectors(n){
+    secs.forEach(function(s, i){
+      var on = (n &gt; K) || (i === n - 1), done = i &lt; n - 1;
+      var o = n &gt; K ? 1 : on ? 1 : done ? .55 : .18;
+      s.g.style.opacity = o;
+      var off = (on &amp;&amp; n &lt;= K) ? POP : 0, a = s.ang * D2R;
+      s.g.style.transform = &#x27;translate(&#x27; + (Math.cos(a) * off).toFixed(1) + &#x27;px,&#x27; + (Math.sin(a) * off).toFixed(1) + &#x27;px)&#x27;;
+    });
+  }
+  function needleAngle(n){ if (n &lt;= 0) return 0; if (n &gt; K) return 360; return angOf(n - 1) + 90; }
+  function setHub(n){
+    if (n &gt;= 1 &amp;&amp; n &lt;= K){ hubTop.textContent = &#x27;STEP &#x27; + String(n).padStart(2, &#x27;0&#x27;); hubKey.textContent = RT_STEPS[n - 1].name; }
+    else if (n &gt; K){ hubTop.textContent = &#x27;1년 한 바퀴&#x27;; hubKey.textContent = &#x27;다시 예방으로&#x27;; }
+    else { hubTop.textContent = &#x27;침해 대응&#x27;; hubKey.textContent = &#x27;순환 체계&#x27;; }
+  }
+  function setLoop(n){ var on = n &gt; K; loop.style.strokeDasharray = on ? &#x27;6 7&#x27; : &#x27;0 1&#x27;; loop.style.opacity = on ? 1 : 0; arrow.style.opacity = on ? 1 : 0; loopTxt.style.opacity = on ? 1 : 0; }
+  var cur = K + 1, token = 0, TOTAL = K + 1;
+  function applyState(n){ cur = n; root.querySelectorAll(&#x27;.rt-sec, #rt-needle, #rt-card&#x27;).forEach(function(x){ x.getAnimations().forEach(function(a){ a.cancel(); }); });
+    setSectors(n); needle.style.transform = &#x27;rotate(&#x27; + needleAngle(n) + &#x27;deg)&#x27;; needle.style.opacity = n === 0 ? 0 : 1; setHub(n); drawCard(n); setLoop(n); show(); }
+  function show(){ if (!status) return; status.textContent = cur &gt;= TOTAL ? &#x27;완성 상태 · &#x27; + TOTAL + &#x27;단계&#x27; : cur === 0 ? &#x27;시작 전 · 0/&#x27; + TOTAL : cur + &#x27;/&#x27; + TOTAL + &#x27; · &#x27; + (cur &lt;= K ? RT_STEPS[cur - 1].name : &#x27;한 바퀴&#x27;); }
+  function playStep(i){
+    var n = i + 1, from = needleAngle(i), to = needleAngle(n);
+    cur = n; show();
+    needle.style.opacity = 1;
+    var turn = needle.animate([{ transform: &#x27;rotate(&#x27; + from + &#x27;deg)&#x27; }, { transform: &#x27;rotate(&#x27; + (to + 6) + &#x27;deg)&#x27;, offset: .78 }, { transform: &#x27;rotate(&#x27; + to + &#x27;deg)&#x27; }], { duration: num(&#x27;--rt-turn-ms&#x27;, 900), easing: &#x27;cubic-bezier(.45,0,.2,1)&#x27;, fill: &#x27;forwards&#x27; });
+    return turn.finished.then(function(){
+      needle.style.transform = &#x27;rotate(&#x27; + to + &#x27;deg)&#x27;; turn.cancel();
+      setSectors(n); setHub(n); setLoop(n);
+      if (n &gt; K){ loop.animate([{ strokeDasharray: &#x27;0 1&#x27; }, { strokeDasharray: &#x27;1 0&#x27; }], { duration: 1100, easing: &#x27;ease-in-out&#x27; }); }
+      drawCard(n);
+      var a = card.animate([{ opacity: 0, transform: &#x27;translateX(24px)&#x27; }, { opacity: 1, transform: &#x27;translateX(0)&#x27; }], { duration: num(&#x27;--rt-card-ms&#x27;, 450), easing: &#x27;cubic-bezier(.2,.8,.3,1)&#x27; });
+      var p = secs[Math.min(n, K) - 1];
+      if (n &lt;= K) p.g.animate([{ filter: &#x27;brightness(1.25)&#x27; }, { filter: &#x27;brightness(1)&#x27; }], { duration: num(&#x27;--rt-pop-ms&#x27;, 500) });
+      return a.finished;
+    }, function(){});
+  }
+  function wait(t){ return new Promise(function(r){ setTimeout(r, t); }); }
+  // 다시 보기: 처음부터 끝까지 한 번 재생하고 완성 상태에서 멈춤
+  function replay(){
+    var my = ++token;
+    if (reduced){ applyState(TOTAL); return; }
+    applyState(0);
+    var chain = wait(400);
+    for (var i = 0; i &lt; TOTAL; i++) (function(i){ chain = chain.then(function(){ if (my === token) return playStep(i).then(function(){ return wait(num(&#x27;--rt-gap-ms&#x27;, 700)); }); }); })(i);
+  }
+  // 한 단계씩: 클릭할 때마다 다음 칸으로 (끝까지 가면 처음부터)
+  function stepOnce(){
+    ++token;
+    var next = cur &gt;= TOTAL ? 0 : cur;
+    applyState(next);
+    if (reduced){ applyState(next + 1); return; }
+    playStep(next);
+  }
+  root.querySelector(&#x27;[data-rt-replay]&#x27;).addEventListener(&#x27;click&#x27;, replay);
+  root.querySelector(&#x27;[data-rt-step]&#x27;).addEventListener(&#x27;click&#x27;, stepOnce);
+  secs.forEach(function(s){ s.g.style.transition = reduced ? &#x27;none&#x27; : &#x27;transform .5s cubic-bezier(.3,1.4,.5,1), opacity .4s ease&#x27;; });
+  applyState(TOTAL);                     // 첫 화면은 완성된 도식
+  if (!reduced) setTimeout(replay, 1200); // 잠시 뒤 한 번 재생
+})();
+&lt;/script&gt;
+&lt;!-- ===== 교육활동 보호 순환 다이얼 끝 ===== --&gt;
+</pre></div>
+<ol class="hint"><li>색은 <code>.rt-root</code>의 <code>--rt-c1</code>~<code>--rt-c5</code>(칸별 색)만 바꾸면 됩니다. 칸을 늘리면 <code>--rt-c6</code>처럼 변수를 추가하세요.</li><li>칸 이름·핵심 수치·할 일·담당은 <code>RT_STEPS</code> 배열에서 바꿉니다. 배열 길이가 곧 칸 수입니다(4~8칸 권장).</li><li>다이얼 크기는 <code>--rt-r-out</code>, <code>--rt-r-in</code>, 튀어나오는 거리는 <code>--rt-pop</code>으로 조정합니다.</li><li>바늘 속도는 <code>--rt-turn-ms</code>, 자동 재생 때 칸 사이 쉼은 <code>--rt-gap-ms</code>입니다. 한 페이지에 한 번만 넣는 것을 전제로 합니다.</li></ol>
+</section>
+
+<section>
+<h2 class="sec"><small>03</small>PPT로 옮기기</h2>
+<p>다이얼은 <b>막힌 원호</b> 도형 5개로, 바늘은 가는 삼각형 하나로 만듭니다. 바늘 회전의 기준점이 다이얼 중심에 오도록, 바늘 아래쪽에 같은 길이의 투명 삼각형을 붙여 그룹으로 묶으세요(그룹의 중심이 회전 중심이 됩니다). 한국어판 PowerPoint 기준입니다.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>순서</th><th>대상 개체</th><th>애니메이션</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+<tbody><tr><td>0</td><td>제목·다이얼 5칸(흐리게)·중심 원</td><td>(애니메이션 없음)</td><td>–</td><td>–</td><td>–</td><td>–</td></tr><tr><td>1</td><td>바늘 그룹</td><td>강조 - 회전</td><td>시계 방향, 36°(첫 칸 중심)</td><td>클릭할 때</td><td>0.90초</td><td>0</td></tr><tr><td>1</td><td>1칸 '예방'</td><td>강조 - 채우기 색 + 이동 경로(바깥 방향 짧게)</td><td>원래 색</td><td>이전 효과와 함께</td><td>0.50초</td><td>0.70초</td></tr><tr><td>1</td><td>카드 1</td><td>나타내기 - 날아오기</td><td>오른쪽에서, 부드럽게 끝내기</td><td>이전 효과와 함께</td><td>0.45초</td><td>0.80초</td></tr><tr><td>2~5</td><td>바늘 그룹</td><td>강조 - 회전</td><td>시계 방향, 72°씩</td><td>클릭할 때</td><td>0.90초</td><td>0</td></tr><tr><td>2~5</td><td>해당 칸 + 이전 카드 / 새 카드</td><td>채우기 색 / 끝내기 - 밝기 변화 / 나타내기 - 날아오기</td><td>–</td><td>이전 효과와 함께</td><td>0.45초</td><td>0.70초</td></tr><tr><td>6</td><td>바늘 그룹</td><td>강조 - 회전</td><td>시계 방향, 144°(한 바퀴 채움)</td><td>클릭할 때</td><td>0.90초</td><td>0</td></tr><tr><td>6</td><td>바깥 고리 화살표</td><td>나타내기 - 바퀴</td><td>1 살</td><td>이전 효과와 함께</td><td>1.10초</td><td>0.80초</td></tr><tr><td>6</td><td>요약 카드</td><td>나타내기 - 밝기 변화</td><td>–</td><td>이전 효과와 함께</td><td>0.50초</td><td>1.00초</td></tr></tbody></table></div>
+<div class="note"><p><b>모핑으로 더 비슷하게:</b> 장표 7장을 복제하고 화면 전환을 <b>모핑(효과 옵션: 개체)</b>으로 둡니다. 바늘 그룹 이름을 모든 장표에서 <code>!!바늘</code>로 같게 하고 장표마다 회전 각도만 72°씩 늘리면, 모핑이 바늘을 돌려 줍니다. 칸도 <code>!!칸1</code>~<code>!!칸5</code>로 이름을 맞추고 활성 칸만 바깥으로 0.3cm 옮기세요.</p><p><b>PPT에서 근사하는 부분:</b> 끝에서 살짝 넘어갔다 돌아오는 바늘 튕김은 회전 효과 옵션의 <b>바운드 끝내기</b>(0.15초)로 비슷하게 만듭니다. 모핑에서는 회전이 360°를 넘으면 반대로 돌 수 있으니 마지막 장은 각도를 359°로 두세요.</p></div>
+</section>
+
+<section>
+<h2 class="sec"><small>04</small>스펙</h2>
+<div class="spec">
+  <div><h3>팔레트</h3><div class="sw"><div><i style="background:#F1F0F5"></i>#F1F0F5 바탕</div><div><i style="background:#1D1B2B"></i>#1D1B2B 잉크</div><div><i style="background:#5866E8"></i>#5866E8 예방</div><div><i style="background:#2B9FD6"></i>#2B9FD6 신고·접수</div><div><i style="background:#17977C"></i>#17977C 보호 조치</div><div><i style="background:#D99A00"></i>#D99A00 회복 지원</div><div><i style="background:#D4566C"></i>#D4566C 재발 방지</div><div><i style="background:#D9D7E2"></i>#D9D7E2 선</div></div></div>
+  <div><h3>폰트</h3><ul><li>제목·칸 이름: Gothic A1 800 (대체: 나눔고딕 ExtraBold, 맑은 고딕)</li><li>라벨·단계 번호: IBM Plex Mono (대체: D2Coding, Consolas)</li><li>PPT: 칸 이름은 흰색 굵은 글꼴, 최소 18pt (빔프로젝터에서 색 칸 위 글자가 뭉개지지 않게)</li></ul></div>
+  <div><h3>난이도 · 트렌드</h3><ul><li>HTML: 중 (원호 계산 + 바늘 회전 기준점)</li><li>PPT: 중 (회전 기준점 맞추기가 관건, 모핑 7장)</li><li>반영 트렌드: 단계적으로 드러내는 스토리형 모션과 의미를 전달하는 기능형 애니메이션 (<a href="https://lomatechnology.com/blog/motion-ui-trends-2026/2911">Loma Technology, Motion UI Trends 2026</a>; <a href="https://www.renderforest.com/blog/design-trends-in-2026">Renderforest, Design Trends in 2026</a>)</li><li>사실 메모: 2024년 3월부터 교권보호위원회는 교육지원청(지역교권보호위원회)에서 운영됩니다. 핵심 수치·기관명 일부는 가상 예시</li></ul></div>
+</div>
+</section>
+</div>
+<script>
+document.getElementById('copyBtn').addEventListener('click', function(){
+  var btn = this, pre = document.getElementById('code');
+  function selectIt(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨 · Ctrl+C로 복사'; }
+  try {
+    navigator.clipboard.writeText(pre.textContent).then(function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1800); }, selectIt);
+  } catch (e) { selectIt(); }
+});
+</script>
+
+</body></html>

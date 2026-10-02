@@ -1,0 +1,784 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #15 연수 배선반</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* 레이아웃: 위에 장표 한 장을 크게, 아래는 12열 그리드 위 문서형 섹션. 단일 밝은 테마로 고정 */
+:root{
+  --bg:#FAFAF7; --fg:#1C2629; --muted:#5E6967; --rule:#DCDFD8; --panel:#F0F2EC;
+  --accent:#E2571E; --code-bg:#EEF0EA; --code-fg:#24302F;
+  --sans:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --mono:"IBM Plex Mono",Consolas,monospace;
+  color-scheme:light;
+}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.7;padding-inline:20px;padding-block:28px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:56px}
+.top{display:grid;gap:14px}
+.eyebrow{margin:0;font:500 12px/1.4 var(--mono);letter-spacing:.08em;color:var(--muted)}
+.eyebrow b{color:var(--accent);font-weight:500}
+h1{margin:0;font-size:26px;line-height:1.3;letter-spacing:-.02em;text-wrap:balance}
+h2{margin:0 0 16px;font-size:20px;letter-spacing:-.015em;display:flex;gap:12px;align-items:baseline}
+h2 .n{font:500 13px/1 var(--mono);color:var(--muted)}
+h3{margin:0 0 8px;font-size:15px}
+p{margin:0}
+section{border-top:1px solid var(--rule);padding-top:24px;min-width:0}
+.cols{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.c7{grid-column:span 7;min-width:0}.c5{grid-column:span 5;min-width:0}.c6{grid-column:span 6;min-width:0}.c12{grid-column:span 12;min-width:0}
+@media (max-width:820px){.c7,.c5,.c6{grid-column:span 12}}
+.prose{max-width:62ch;display:grid;gap:12px}
+ul.apps{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+ul.apps li{padding:12px 14px;background:var(--panel);border-radius:6px}
+ul.apps b{display:block;font-size:14px}
+ul.apps span{font-size:13px;color:var(--muted)}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.codebar small{font:500 12px/1.4 var(--mono);color:var(--muted)}
+.copy{font:600 13px/1 var(--sans);color:#FFFFFF;background:var(--fg);border:0;border-radius:6px;padding:10px 14px;cursor:pointer}
+.copy:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+pre.code{margin:0;max-height:480px;overflow:auto;background:var(--code-bg);color:var(--code-fg);border-radius:6px;padding:16px;font:12.5px/1.55 var(--mono);tab-size:2}
+.swap{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14px}
+.swap code,.prose code,td code{font:12.5px var(--mono);background:var(--code-bg);padding:1px 5px;border-radius:3px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:13.5px;line-height:1.5}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--rule)}
+th{font:500 12px/1.4 var(--mono);color:var(--muted);letter-spacing:.04em;background:var(--panel)}
+td.k{font:500 13px var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.grp td{border-top:2px solid var(--fg)}
+.note{display:grid;gap:10px;font-size:14px}
+.note dt{font-weight:700}
+.note dd{margin:0 0 6px;color:var(--fg)}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:0;padding:0;list-style:none}
+.sw li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:center;font-size:13px;line-height:1.35}
+.sw i{width:28px;height:28px;border-radius:4px;border:1px solid var(--rule)}
+.sw code{font:12px var(--mono);color:var(--muted)}
+dl.spec{display:grid;grid-template-columns:max-content 1fr;gap:8px 20px;margin:0;font-size:14px}
+dl.spec dt{color:var(--muted);font:500 12px/1.9 var(--mono)}
+dl.spec dd{margin:0}
+a{color:var(--fg);text-decoration-color:var(--accent);text-underline-offset:3px}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <p class="eyebrow">REFERENCE <b>#15</b> · 실무형 · 동작 패턴 <b>연결</b> · 교원·보조인력 연수</p>
+    <h1>연수 배선반</h1>
+    <!-- ▣ 연수 배선반 (연결 패턴) — 감싸는 요소 .sw-kit 하나로 동작합니다. 클래스 접두어: sw- -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<div class="sw-kit">
+  <div class="sw-slide" tabindex="0" aria-label="연수 대상과 연수 과정의 연결도. 오른쪽 화살표 키로 한 단계씩 진행">
+    <header class="sw-head">
+      <p class="sw-crumb"><span>○○교육청 2027 유·초·특수 교원 및 보조인력 역량 강화 연수 계획(안)</span><span>Ⅲ-2. 대상별 연수 과정 편성</span></p>
+      <h2 class="sw-title">다섯 대상은 <em>필수 공통</em> 하나로 묶이고, 나머지는 직무별로 갈린다</h2>
+      <span class="sw-tag">가상 예시</span>
+    </header>
+    <svg class="sw-board" viewBox="0 0 1500 660" preserveAspectRatio="xMidYMid meet" role="img" aria-label="대상 5개와 과정 4개를 잇는 선"></svg>
+    <footer class="sw-foot">
+      <p class="sw-caption"><b class="sw-stepno">5/5</b><span class="sw-captxt"></span></p>
+      <p class="sw-legend"><i class="sw-key sw-key-hub"></i>공통 과정<i class="sw-key"></i>맞춤 과정</p>
+    </footer>
+  </div>
+  <div class="sw-controls">
+    <button type="button" class="sw-btn" data-sw="replay">다시 보기</button>
+    <button type="button" class="sw-btn sw-btn-main" data-sw="step">한 단계씩</button>
+    <span class="sw-hint">장표를 누른 뒤 → 키로도 진행</span>
+  </div>
+</div>
+
+<style>
+/* ── 색·크기·타이밍은 여기 변수만 바꾸면 됩니다 ── */
+.sw-kit{
+  --sw-bg:#F3F4EF;      /* 장표 바탕(옅은 회녹색 배선반) */
+  --sw-ink:#1C2629;     /* 본문 글자 */
+  --sw-muted:#66716F;   /* 보조 글자 */
+  --sw-rule:#C9CDC4;    /* 구분선 */
+  --sw-plate:#DADDD5;   /* 단자판 */
+  --sw-hole:#3A4547;    /* 단자 구멍 */
+  --sw-common:#E2571E;  /* 공통 과정(허브) 색 */
+  --sw-deep:#2C6E8A;    /* 직무 심화 */
+  --sw-consult:#8A5BB0; /* 현장 컨설팅 */
+  --sw-online:#3E8E5B;  /* 온라인 자율 */
+  --sw-w:4.5;           /* 선 굵기 */
+  --sw-w-hub:10;        /* 허브 강조 시 공통 선 굵기 */
+  --sw-draw:700ms;      /* 선 한 가닥 그리는 시간 */
+  --sw-stagger:110ms;   /* 같은 단계 안에서 선 사이 간격 */
+  --sw-pause:650ms;     /* 자동 재생 시 단계 사이 쉼 */
+  --sw-hub:650ms;       /* 허브 강조 전환 시간 */
+  --sw-font:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --sw-mono:"IBM Plex Mono",Consolas,monospace;
+  container-type:inline-size;
+  width:100%;max-width:100%;
+  font-family:var(--sw-font);color:var(--sw-ink);
+}
+.sw-kit *{box-sizing:border-box}
+.sw-slide{
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;overflow:hidden;
+  display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:1.2cqw;
+  padding:2.4cqw 3.4cqw 1.6cqw;background:var(--sw-bg);
+  border:1px solid var(--sw-rule);border-radius:.6cqw;outline:none;
+}
+.sw-slide:focus-visible{box-shadow:0 0 0 3px var(--sw-common)}
+.sw-head{display:grid;gap:.7cqw;padding-right:9cqw}
+.sw-crumb{margin:0;display:flex;gap:1.2cqw;font:500 1.05cqw/1.3 var(--sw-mono);color:var(--sw-muted);letter-spacing:.02em}
+.sw-crumb span+span{padding-left:1.2cqw;border-left:1px solid var(--sw-rule)}
+.sw-title{margin:0;font:700 2.75cqw/1.2 var(--sw-font);letter-spacing:-.025em;text-wrap:balance;color:var(--sw-ink)}
+.sw-title em{font-style:normal;color:var(--sw-common)}
+.sw-tag{position:absolute;top:2.4cqw;right:3.4cqw;font:500 .95cqw/1 var(--sw-mono);color:var(--sw-muted);border:1px solid var(--sw-rule);padding:.4cqw .7cqw;border-radius:.3cqw;background:var(--sw-bg)}
+.sw-board{width:100%;height:100%;display:block;overflow:visible}
+.sw-foot{display:flex;justify-content:space-between;align-items:center;gap:2cqw;border-top:1px solid var(--sw-rule);padding-top:1cqw}
+.sw-caption{margin:0;font:500 1.3cqw/1.3 var(--sw-font);color:var(--sw-ink);display:flex;gap:1cqw;align-items:baseline}
+.sw-stepno{font:500 1.1cqw/1 var(--sw-mono);color:var(--sw-muted);font-variant-numeric:tabular-nums}
+.sw-legend{margin:0;display:flex;align-items:center;gap:.6cqw;font:500 1.05cqw/1 var(--sw-font);color:var(--sw-muted);white-space:nowrap}
+.sw-key{display:inline-block;width:2.4cqw;height:.3cqw;background:var(--sw-deep);border-radius:1px;margin-left:1cqw}
+.sw-key-hub{height:.6cqw;background:var(--sw-common);margin-left:0}
+
+/* 판 위 요소 */
+.sw-board text{font-family:var(--sw-font);fill:var(--sw-ink)}
+.sw-board .sw-colhead{font:500 15px var(--sw-mono);fill:var(--sw-muted);letter-spacing:.08em}
+.sw-board .sw-grp{font:500 15px var(--sw-mono);fill:var(--sw-muted);letter-spacing:.1em}
+.sw-bracket{stroke:var(--sw-rule);stroke-width:2;fill:none}
+.sw-name{font-size:29px;font-weight:600}
+.sw-sub{font-size:17px;fill:var(--sw-muted)!important}
+.sw-plate{fill:var(--sw-plate)}
+.sw-strip{fill:var(--sw-plate);transform-box:fill-box;transform-origin:center;transition:transform var(--sw-hub) ease,fill var(--sw-hub) ease}
+.sw-hole{fill:var(--sw-hole)}
+.sw-led{fill:var(--sw-plate);stroke:var(--sw-rule);stroke-width:2;transition:fill .25s ease}
+.sw-led.is-lit{fill:var(--led);stroke:var(--led)}
+.sw-wire{fill:none;stroke-width:var(--sw-w);stroke-linecap:butt;visibility:hidden;transition:stroke-width var(--sw-hub) ease,opacity var(--sw-hub) ease}
+.sw-wire.is-on{visibility:visible}
+.sw-plug{visibility:hidden;stroke:var(--sw-bg);stroke-width:3;transform-box:fill-box;transform-origin:center}
+.sw-plug.is-on{visibility:visible}
+.sw-hubnote{font-size:17px;font-weight:700;fill:var(--sw-common)!important;opacity:0;transition:opacity var(--sw-hub) ease}
+.sw-node{cursor:default;outline:none}
+.sw-node:focus-visible .sw-name{text-decoration:underline}
+
+/* 허브 강조 단계: 공통 선만 굵게, 맞춤 선은 물러남 */
+.sw-kit.is-hub .sw-wire[data-c="common"]{stroke-width:var(--sw-w-hub)}
+.sw-kit.is-hub .sw-wire:not([data-c="common"]){opacity:.28}
+.sw-kit.is-hub .sw-strip[data-c="common"]{transform:scaleX(1.7);fill:var(--sw-common)}
+.sw-kit.is-hub .sw-hubnote{opacity:1}
+/* 마우스를 올린 대상·과정의 선만 남기기 */
+.sw-kit.is-focus .sw-wire.is-on:not(.is-hot){opacity:.1}
+.sw-kit.is-focus .sw-wire.is-hot{opacity:1}
+.sw-kit.is-focus .sw-plug:not(.is-hot){opacity:.15}
+/* 상태를 즉시 맞출 때는 전환 끄기 */
+.sw-kit.is-snap *{transition:none!important}
+
+.sw-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
+.sw-btn{font:600 14px/1 var(--sw-font);color:var(--sw-ink);background:#FFFFFF;border:1px solid var(--sw-rule);border-radius:6px;padding:10px 16px;cursor:pointer}
+.sw-btn:hover{border-color:var(--sw-ink)}
+.sw-btn:focus-visible{outline:3px solid var(--sw-common);outline-offset:2px}
+.sw-btn-main{background:var(--sw-ink);color:#FFFFFF;border-color:var(--sw-ink)}
+.sw-btn-main:hover{background:#33403F}
+.sw-hint{font:500 12px/1.3 var(--sw-font);color:var(--sw-muted)}
+@media (prefers-reduced-motion:reduce){.sw-kit *{transition:none!important}}
+</style>
+
+<script>
+(function(){
+  // ── 1) 왼쪽: 연수 대상 (group은 왼쪽 묶음 괄호 이름) ──
+  var SW_TARGETS = [
+    {id:'kinder', name:'유치원 교사',     group:'교원'},
+    {id:'elem',   name:'초등 교사',       group:'교원'},
+    {id:'sped',   name:'특수교사',        group:'교원'},
+    {id:'aide',   name:'특수교육 실무사', group:'보조인력'},
+    {id:'after',  name:'방과후 강사',     group:'보조인력'}
+  ];
+  // ── 2) 오른쪽: 연수 과정 (color는 위 CSS 변수 이름, hub:true가 마지막에 강조되는 공통 과정) ──
+  var SW_COURSES = [
+    {id:'deep',    name:'직무 심화',   sub:'학교급·발달 단계별',      color:'--sw-deep'},
+    {id:'common',  name:'필수 공통',   sub:'아동학대 예방·인권·안전', color:'--sw-common', hub:true},
+    {id:'consult', name:'현장 컨설팅', sub:'학교 방문 코칭',          color:'--sw-consult'},
+    {id:'online',  name:'온라인 자율', sub:'원격 연수원 선택 수강',   color:'--sw-online'}
+  ];
+  // ── 3) 연결 목록: [대상 id, 과정 id] ──
+  var SW_LINKS = [
+    ['kinder','deep'],['elem','deep'],['sped','deep'],
+    ['sped','consult'],['aide','consult'],
+    ['aide','online'],['after','online'],
+    ['kinder','common'],['elem','common'],['sped','common'],['aide','common'],['after','common']
+  ];
+  // ── 4) 단계 목록: 클릭 한 번 = 한 줄. course는 그 과정의 선을 그림, hub는 허브 강조 ──
+  var SW_STEPS = [
+    {course:'deep',    text:'직무 심화 — 교원 세 직군만 연결된다'},
+    {course:'consult', text:'현장 컨설팅 — 특수교사와 실무사가 한 짝으로'},
+    {course:'online',  text:'온라인 자율 — 보조인력의 시간 제약을 메운다'},
+    {course:'common',  text:'필수 공통 — 다섯 대상이 모두 같은 단자로'},
+    {hub:'common',     text:'공통 1개가 뼈대, 맞춤 3개가 갈래'}
+  ];
+  var SW_START_TEXT = '대상 5 · 과정 4 배치 — 클릭하면 연결이 시작된다';
+
+  // 판 좌표(viewBox 1500×660 기준)
+  var LX = 365, RX = 1135, TOP = 100, BOT = 610, PORT = 24;
+  var NS = 'http://www.w3.org/2000/svg';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function el(tag, attrs, parent, text){
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function ms(kit, name){ return parseFloat(getComputedStyle(kit).getPropertyValue(name)) || 0; }
+
+  function init(kit){
+    kit.setAttribute('data-sw-ready', '');
+    var svg = kit.querySelector('.sw-board');
+    var stepno = kit.querySelector('.sw-stepno'), captxt = kit.querySelector('.sw-captxt');
+    var N = SW_STEPS.length, state = N, timers = [], anims = [];
+
+    // 위치 계산: 대상은 균등 배치, 과정은 연결 수만큼 단자대 높이를 주고 남는 공간을 간격으로
+    var tY = {}, cY = {}, cTop = {}, cnt = {};
+    SW_TARGETS.forEach(function(t, i){ tY[t.id] = TOP + i * (BOT - TOP) / (SW_TARGETS.length - 1); });
+    SW_COURSES.forEach(function(c){ cnt[c.id] = SW_LINKS.filter(function(l){ return l[1] === c.id; }).length; });
+    var used = SW_COURSES.reduce(function(s, c){ return s + (cnt[c.id] - 1) * PORT; }, 0);
+    var gap = (BOT - TOP - used) / (SW_COURSES.length - 1), y = TOP;
+    SW_COURSES.forEach(function(c){ cTop[c.id] = y; cY[c.id] = y + (cnt[c.id] - 1) * PORT / 2; y += (cnt[c.id] - 1) * PORT + gap; });
+
+    // 단자 배정: 양 끝 모두 상대편 높이 순으로 정렬해 선이 엉키지 않게
+    var links = SW_LINKS.map(function(l){ return {t:l[0], c:l[1]}; });
+    SW_TARGETS.forEach(function(t){
+      var mine = links.filter(function(l){ return l.t === t.id; }).sort(function(a, b){ return cY[a.c] - cY[b.c]; });
+      mine.forEach(function(l, j){ l.y1 = tY[t.id] + (j - (mine.length - 1) / 2) * PORT; });
+    });
+    SW_COURSES.forEach(function(c){
+      links.filter(function(l){ return l.c === c.id; }).sort(function(a, b){ return a.y1 - b.y1; })
+        .forEach(function(l, j){ l.y2 = cTop[c.id] + j * PORT; });
+    });
+    var course = {}; SW_COURSES.forEach(function(c){ course[c.id] = c; });
+
+    // 그리기 순서: 머리글·괄호 → 선 → 단자판 → 플러그 → 글자
+    el('text', {x:LX + 15, y:36, 'text-anchor':'end', 'class':'sw-colhead'}, svg, '연수 대상 · IN');
+    el('text', {x:RX - 15, y:36, 'class':'sw-colhead'}, svg, 'OUT · 연수 과정');
+    var groups = [];
+    SW_TARGETS.forEach(function(t){ var g = groups[groups.length - 1]; if (!g || g.name !== t.group) groups.push(g = {name:t.group, ys:[]}); g.ys.push(tY[t.id]); });
+    groups.forEach(function(g){
+      var a = g.ys[0] - 26, b = g.ys[g.ys.length - 1] + 26;
+      el('path', {d:'M52 ' + a + ' H30 V' + b + ' H52', 'class':'sw-bracket'}, svg);
+      el('text', {x:30, y:a - 12, 'class':'sw-grp'}, svg, g.name);
+    });
+
+    var wireLayer = el('g', {}, svg);
+    links.forEach(function(l){
+      var k = (RX - LX) * 0.45;
+      l.path = el('path', {d:'M' + LX + ' ' + l.y1 + ' C' + (LX + k) + ' ' + l.y1 + ' ' + (RX - k) + ' ' + l.y2 + ' ' + RX + ' ' + l.y2,
+        'class':'sw-wire', 'data-c':l.c, 'data-t':l.t, style:'stroke:var(' + course[l.c].color + ')'}, wireLayer);
+      l.len = l.path.getTotalLength();
+      l.path.setAttribute('stroke-dasharray', l.len + ' ' + l.len);
+    });
+
+    SW_TARGETS.forEach(function(t){
+      var ys = links.filter(function(l){ return l.t === t.id; }).map(function(l){ return l.y1; });
+      var g = el('g', {'class':'sw-node', 'data-t':t.id, tabindex:0}, svg);
+      el('rect', {x:LX - 15, y:Math.min.apply(null, ys) - 16, width:30, height:Math.max.apply(null, ys) - Math.min.apply(null, ys) + 32, rx:6, 'class':'sw-plate'}, g);
+      ys.forEach(function(py){ el('circle', {cx:LX, cy:py, r:6, 'class':'sw-hole'}, g); });
+      el('text', {x:LX - 32, y:tY[t.id], 'text-anchor':'end', 'dominant-baseline':'central', 'class':'sw-name'}, g, t.name);
+    });
+    SW_COURSES.forEach(function(c){
+      var g = el('g', {'class':'sw-node', 'data-c':c.id, tabindex:0}, svg), h = (cnt[c.id] - 1) * PORT;
+      el('rect', {x:RX - 15, y:cTop[c.id] - 16, width:30, height:h + 32, rx:6, 'class':'sw-strip', 'data-c':c.id}, g);
+      for (var j = 0; j < cnt[c.id]; j++) el('circle', {cx:RX, cy:cTop[c.id] + j * PORT, r:6, 'class':'sw-hole'}, g);
+      c.led = el('circle', {cx:RX + 40, cy:cY[c.id] - 10, r:7, 'class':'sw-led', style:'--led:var(' + c.color + ')'}, g);
+      el('text', {x:RX + 60, y:cY[c.id] - 10, 'dominant-baseline':'central', 'class':'sw-name'}, g, c.name);
+      el('text', {x:RX + 60, y:cY[c.id] + 22, 'dominant-baseline':'central', 'class':'sw-sub'}, g, c.sub);
+      if (c.hub) el('text', {x:RX + 60, y:cY[c.id] + 48, 'dominant-baseline':'central', 'class':'sw-hubnote'}, g, cnt[c.id] + '개 대상 공유');
+    });
+    links.forEach(function(l){
+      var st = 'fill:var(' + course[l.c].color + ')';
+      l.p1 = el('circle', {cx:LX, cy:l.y1, r:8, 'class':'sw-plug', 'data-c':l.c, 'data-t':l.t, style:st}, svg);
+      l.p2 = el('circle', {cx:RX, cy:l.y2, r:8, 'class':'sw-plug', 'data-c':l.c, 'data-t':l.t, style:st}, svg);
+    });
+
+    // ── 상태: k단계까지 완료된 모습을 즉시 그림 ──
+    function stepOf(cid){ for (var i = 0; i < N; i++) if (SW_STEPS[i].course === cid) return i + 1; return Infinity; }
+    function cancelAll(){ timers.forEach(clearTimeout); timers = []; anims.forEach(function(a){ a.cancel(); }); anims = []; }
+    function caption(k){ stepno.textContent = k + '/' + N; captxt.textContent = k === 0 ? SW_START_TEXT : SW_STEPS[k - 1].text; }
+    function apply(k){
+      cancelAll();
+      kit.classList.add('is-snap');
+      links.forEach(function(l){ var on = stepOf(l.c) <= k; [l.path, l.p1, l.p2].forEach(function(n){ n.classList.toggle('is-on', on); }); });
+      SW_COURSES.forEach(function(c){ c.led.classList.toggle('is-lit', stepOf(c.id) <= k); });
+      var hubOn = SW_STEPS.some(function(s, i){ return s.hub && i < k; });
+      kit.classList.toggle('is-hub', hubOn);
+      caption(k); state = k;
+      void kit.offsetWidth; kit.classList.remove('is-snap');
+    }
+    // 한 단계 재생에 걸리는 시간
+    function durOf(k){
+      var s = SW_STEPS[k - 1];
+      if (s.hub) return ms(kit, '--sw-hub');
+      var n = links.filter(function(l){ return l.c === s.course; }).length;
+      return (n - 1) * ms(kit, '--sw-stagger') + ms(kit, '--sw-draw') + 220;
+    }
+    // ── k-1 → k 로 움직이며 넘어가기 ──
+    function play(k){
+      if (reduce) { apply(k); return; }
+      apply(k - 1);
+      var s = SW_STEPS[k - 1], draw = ms(kit, '--sw-draw'), stag = ms(kit, '--sw-stagger');
+      caption(k); state = k;
+      if (s.hub) { kit.classList.add('is-hub'); return; }
+      var mine = links.filter(function(l){ return l.c === s.course; }).sort(function(a, b){ return a.y1 - b.y1; });
+      mine.forEach(function(l, i){
+        var d = i * stag;
+        [l.path, l.p1, l.p2].forEach(function(n){ n.classList.add('is-on'); });
+        // 선: 왼쪽 플러그 → 선이 그어짐 → 오른쪽 플러그 꽂힘
+        anims.push(l.p1.animate([{transform:'scale(0)'}, {transform:'scale(1)'}], {duration:200, delay:d, fill:'backwards', easing:'cubic-bezier(.3,1.6,.6,1)'}));
+        anims.push(l.path.animate([{strokeDashoffset:l.len}, {strokeDashoffset:0}], {duration:draw, delay:d, fill:'backwards', easing:'cubic-bezier(.45,0,.2,1)'}));
+        anims.push(l.p2.animate([{transform:'scale(0)'}, {transform:'scale(1)'}], {duration:220, delay:d + draw, fill:'backwards', easing:'cubic-bezier(.3,1.6,.6,1)'}));
+      });
+      // 과정 표시등은 마지막 선이 꽂힐 때 켜짐
+      timers.push(setTimeout(function(){ course[s.course].led.classList.add('is-lit'); }, (mine.length - 1) * stag + draw));
+    }
+    function replay(){
+      apply(0);
+      if (reduce) { apply(N); return; }
+      var t = 500, pause = ms(kit, '--sw-pause'), k;
+      for (k = 1; k <= N; k++) (function(k, at){ timers.push(setTimeout(function(){ var keep = timers; timers = []; play(k); timers = keep.concat(timers); }, at)); })(k, t), t += durOf(k) + pause;
+    }
+    function step(){ if (state >= N) apply(0); else play(state + 1); }
+
+    kit.querySelector('[data-sw="replay"]').addEventListener('click', replay);
+    kit.querySelector('[data-sw="step"]').addEventListener('click', step);
+    kit.querySelector('.sw-slide').addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); step(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); apply(Math.max(0, state - 1)); }
+    });
+    // 대상·과정에 올리면 관련 선만 남김
+    svg.querySelectorAll('.sw-node').forEach(function(g){
+      var key = g.getAttribute('data-t') ? 'data-t' : 'data-c', val = g.getAttribute(key);
+      function on(){ kit.classList.add('is-focus'); svg.querySelectorAll('.sw-wire,.sw-plug').forEach(function(n){ n.classList.toggle('is-hot', n.getAttribute(key) === val); }); }
+      function off(){ kit.classList.remove('is-focus'); }
+      g.addEventListener('pointerenter', on); g.addEventListener('pointerleave', off);
+      g.addEventListener('focus', on); g.addEventListener('blur', off);
+    });
+
+    // 열면 완성 상태를 먼저 보여 주고, 잠시 뒤 처음부터 한 번 재생 후 최종 상태로 멈춤
+    apply(N);
+    if (!reduce) setTimeout(replay, 1400);
+  }
+  document.querySelectorAll('.sw-kit:not([data-sw-ready])').forEach(init);
+})();
+</script>
+
+  </div>
+
+  <section>
+    <h2><span class="n">02</span>동작 설명</h2>
+    <div class="cols">
+      <div class="c7 prose">
+        <p>왼쪽 단자는 연수 대상, 오른쪽 단자대는 연수 과정입니다. 클릭마다 과정 하나가 꽂히는데, 맞춤 과정(직무 심화·현장 컨설팅·온라인 자율)을 먼저 그려 대상마다 갈래가 다르다는 걸 보여 주고, 마지막에 필수 공통 선 다섯 가닥을 꽂습니다.</p>
+        <p>허브 단계에서 공통 선만 굵어지고 맞춤 선은 물러나므로 "모두가 거치는 과정 하나 + 직무별 갈래 셋"이라는 편성 원칙이 숫자 없이 읽힙니다. 단자대 높이는 연결 수에 비례해, 선이 몰리는 곳이 곧 허브입니다.</p>
+        <p>선은 모두 왼쪽에서 오른쪽으로만 흐르고, 양 끝 단자는 상대편 높이 순으로 배정해 교차를 최소화했습니다. 대상이나 과정에 마우스를 올리면 그 선만 남습니다.</p>
+      </div>
+      <div class="c5">
+        <h3>이렇게도 씁니다</h3>
+        <ul class="apps">
+          <li><b>특수교육 대상학생 ↔ 지원 서비스</b><span>치료지원·통학비·보조인력 배치 중 무엇이 공통이고 무엇이 개별인지</span></li>
+          <li><b>방과후·돌봄 프로그램 ↔ 학년군</b><span>전 학년 공통 프로그램과 학년별 프로그램 구분</span></li>
+          <li><b>담당자 ↔ 세부 사업</b><span>업무분장에서 여러 사업을 겸하는 사람(허브)을 드러내기</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">03</span>HTML로 가져다 쓰기</h2>
+    <div class="cols">
+      <div class="c7">
+        <div class="codebar"><small>아래 코드 전체를 HTML 본문에 붙이면 그대로 동작합니다 (외부 라이브러리 없음)</small><button type="button" class="copy" id="copyBtn">코드 복사</button></div>
+        <pre class="code" id="code" tabindex="0">&lt;!-- ▣ 연수 배선반 (연결 패턴) — 감싸는 요소 .sw-kit 하나로 동작합니다. 클래스 접두어: sw- --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=IBM+Plex+Sans+KR:wght@400;500;600;700&amp;display=swap&quot;&gt;
+&lt;div class=&quot;sw-kit&quot;&gt;
+  &lt;div class=&quot;sw-slide&quot; tabindex=&quot;0&quot; aria-label=&quot;연수 대상과 연수 과정의 연결도. 오른쪽 화살표 키로 한 단계씩 진행&quot;&gt;
+    &lt;header class=&quot;sw-head&quot;&gt;
+      &lt;p class=&quot;sw-crumb&quot;&gt;&lt;span&gt;○○교육청 2027 유·초·특수 교원 및 보조인력 역량 강화 연수 계획(안)&lt;/span&gt;&lt;span&gt;Ⅲ-2. 대상별 연수 과정 편성&lt;/span&gt;&lt;/p&gt;
+      &lt;h2 class=&quot;sw-title&quot;&gt;다섯 대상은 &lt;em&gt;필수 공통&lt;/em&gt; 하나로 묶이고, 나머지는 직무별로 갈린다&lt;/h2&gt;
+      &lt;span class=&quot;sw-tag&quot;&gt;가상 예시&lt;/span&gt;
+    &lt;/header&gt;
+    &lt;svg class=&quot;sw-board&quot; viewBox=&quot;0 0 1500 660&quot; preserveAspectRatio=&quot;xMidYMid meet&quot; role=&quot;img&quot; aria-label=&quot;대상 5개와 과정 4개를 잇는 선&quot;&gt;&lt;/svg&gt;
+    &lt;footer class=&quot;sw-foot&quot;&gt;
+      &lt;p class=&quot;sw-caption&quot;&gt;&lt;b class=&quot;sw-stepno&quot;&gt;5/5&lt;/b&gt;&lt;span class=&quot;sw-captxt&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;p class=&quot;sw-legend&quot;&gt;&lt;i class=&quot;sw-key sw-key-hub&quot;&gt;&lt;/i&gt;공통 과정&lt;i class=&quot;sw-key&quot;&gt;&lt;/i&gt;맞춤 과정&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;sw-controls&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;sw-btn&quot; data-sw=&quot;replay&quot;&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;sw-btn sw-btn-main&quot; data-sw=&quot;step&quot;&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;sw-hint&quot;&gt;장표를 누른 뒤 → 키로도 진행&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+/* ── 색·크기·타이밍은 여기 변수만 바꾸면 됩니다 ── */
+.sw-kit{
+  --sw-bg:#F3F4EF;      /* 장표 바탕(옅은 회녹색 배선반) */
+  --sw-ink:#1C2629;     /* 본문 글자 */
+  --sw-muted:#66716F;   /* 보조 글자 */
+  --sw-rule:#C9CDC4;    /* 구분선 */
+  --sw-plate:#DADDD5;   /* 단자판 */
+  --sw-hole:#3A4547;    /* 단자 구멍 */
+  --sw-common:#E2571E;  /* 공통 과정(허브) 색 */
+  --sw-deep:#2C6E8A;    /* 직무 심화 */
+  --sw-consult:#8A5BB0; /* 현장 컨설팅 */
+  --sw-online:#3E8E5B;  /* 온라인 자율 */
+  --sw-w:4.5;           /* 선 굵기 */
+  --sw-w-hub:10;        /* 허브 강조 시 공통 선 굵기 */
+  --sw-draw:700ms;      /* 선 한 가닥 그리는 시간 */
+  --sw-stagger:110ms;   /* 같은 단계 안에서 선 사이 간격 */
+  --sw-pause:650ms;     /* 자동 재생 시 단계 사이 쉼 */
+  --sw-hub:650ms;       /* 허브 강조 전환 시간 */
+  --sw-font:&quot;IBM Plex Sans KR&quot;,&quot;Malgun Gothic&quot;,&quot;Apple SD Gothic Neo&quot;,sans-serif;
+  --sw-mono:&quot;IBM Plex Mono&quot;,Consolas,monospace;
+  container-type:inline-size;
+  width:100%;max-width:100%;
+  font-family:var(--sw-font);color:var(--sw-ink);
+}
+.sw-kit *{box-sizing:border-box}
+.sw-slide{
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;overflow:hidden;
+  display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:1.2cqw;
+  padding:2.4cqw 3.4cqw 1.6cqw;background:var(--sw-bg);
+  border:1px solid var(--sw-rule);border-radius:.6cqw;outline:none;
+}
+.sw-slide:focus-visible{box-shadow:0 0 0 3px var(--sw-common)}
+.sw-head{display:grid;gap:.7cqw;padding-right:9cqw}
+.sw-crumb{margin:0;display:flex;gap:1.2cqw;font:500 1.05cqw/1.3 var(--sw-mono);color:var(--sw-muted);letter-spacing:.02em}
+.sw-crumb span+span{padding-left:1.2cqw;border-left:1px solid var(--sw-rule)}
+.sw-title{margin:0;font:700 2.75cqw/1.2 var(--sw-font);letter-spacing:-.025em;text-wrap:balance;color:var(--sw-ink)}
+.sw-title em{font-style:normal;color:var(--sw-common)}
+.sw-tag{position:absolute;top:2.4cqw;right:3.4cqw;font:500 .95cqw/1 var(--sw-mono);color:var(--sw-muted);border:1px solid var(--sw-rule);padding:.4cqw .7cqw;border-radius:.3cqw;background:var(--sw-bg)}
+.sw-board{width:100%;height:100%;display:block;overflow:visible}
+.sw-foot{display:flex;justify-content:space-between;align-items:center;gap:2cqw;border-top:1px solid var(--sw-rule);padding-top:1cqw}
+.sw-caption{margin:0;font:500 1.3cqw/1.3 var(--sw-font);color:var(--sw-ink);display:flex;gap:1cqw;align-items:baseline}
+.sw-stepno{font:500 1.1cqw/1 var(--sw-mono);color:var(--sw-muted);font-variant-numeric:tabular-nums}
+.sw-legend{margin:0;display:flex;align-items:center;gap:.6cqw;font:500 1.05cqw/1 var(--sw-font);color:var(--sw-muted);white-space:nowrap}
+.sw-key{display:inline-block;width:2.4cqw;height:.3cqw;background:var(--sw-deep);border-radius:1px;margin-left:1cqw}
+.sw-key-hub{height:.6cqw;background:var(--sw-common);margin-left:0}
+
+/* 판 위 요소 */
+.sw-board text{font-family:var(--sw-font);fill:var(--sw-ink)}
+.sw-board .sw-colhead{font:500 15px var(--sw-mono);fill:var(--sw-muted);letter-spacing:.08em}
+.sw-board .sw-grp{font:500 15px var(--sw-mono);fill:var(--sw-muted);letter-spacing:.1em}
+.sw-bracket{stroke:var(--sw-rule);stroke-width:2;fill:none}
+.sw-name{font-size:29px;font-weight:600}
+.sw-sub{font-size:17px;fill:var(--sw-muted)!important}
+.sw-plate{fill:var(--sw-plate)}
+.sw-strip{fill:var(--sw-plate);transform-box:fill-box;transform-origin:center;transition:transform var(--sw-hub) ease,fill var(--sw-hub) ease}
+.sw-hole{fill:var(--sw-hole)}
+.sw-led{fill:var(--sw-plate);stroke:var(--sw-rule);stroke-width:2;transition:fill .25s ease}
+.sw-led.is-lit{fill:var(--led);stroke:var(--led)}
+.sw-wire{fill:none;stroke-width:var(--sw-w);stroke-linecap:butt;visibility:hidden;transition:stroke-width var(--sw-hub) ease,opacity var(--sw-hub) ease}
+.sw-wire.is-on{visibility:visible}
+.sw-plug{visibility:hidden;stroke:var(--sw-bg);stroke-width:3;transform-box:fill-box;transform-origin:center}
+.sw-plug.is-on{visibility:visible}
+.sw-hubnote{font-size:17px;font-weight:700;fill:var(--sw-common)!important;opacity:0;transition:opacity var(--sw-hub) ease}
+.sw-node{cursor:default;outline:none}
+.sw-node:focus-visible .sw-name{text-decoration:underline}
+
+/* 허브 강조 단계: 공통 선만 굵게, 맞춤 선은 물러남 */
+.sw-kit.is-hub .sw-wire[data-c=&quot;common&quot;]{stroke-width:var(--sw-w-hub)}
+.sw-kit.is-hub .sw-wire:not([data-c=&quot;common&quot;]){opacity:.28}
+.sw-kit.is-hub .sw-strip[data-c=&quot;common&quot;]{transform:scaleX(1.7);fill:var(--sw-common)}
+.sw-kit.is-hub .sw-hubnote{opacity:1}
+/* 마우스를 올린 대상·과정의 선만 남기기 */
+.sw-kit.is-focus .sw-wire.is-on:not(.is-hot){opacity:.1}
+.sw-kit.is-focus .sw-wire.is-hot{opacity:1}
+.sw-kit.is-focus .sw-plug:not(.is-hot){opacity:.15}
+/* 상태를 즉시 맞출 때는 전환 끄기 */
+.sw-kit.is-snap *{transition:none!important}
+
+.sw-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
+.sw-btn{font:600 14px/1 var(--sw-font);color:var(--sw-ink);background:#FFFFFF;border:1px solid var(--sw-rule);border-radius:6px;padding:10px 16px;cursor:pointer}
+.sw-btn:hover{border-color:var(--sw-ink)}
+.sw-btn:focus-visible{outline:3px solid var(--sw-common);outline-offset:2px}
+.sw-btn-main{background:var(--sw-ink);color:#FFFFFF;border-color:var(--sw-ink)}
+.sw-btn-main:hover{background:#33403F}
+.sw-hint{font:500 12px/1.3 var(--sw-font);color:var(--sw-muted)}
+@media (prefers-reduced-motion:reduce){.sw-kit *{transition:none!important}}
+&lt;/style&gt;
+
+&lt;script&gt;
+(function(){
+  // ── 1) 왼쪽: 연수 대상 (group은 왼쪽 묶음 괄호 이름) ──
+  var SW_TARGETS = [
+    {id:&#x27;kinder&#x27;, name:&#x27;유치원 교사&#x27;,     group:&#x27;교원&#x27;},
+    {id:&#x27;elem&#x27;,   name:&#x27;초등 교사&#x27;,       group:&#x27;교원&#x27;},
+    {id:&#x27;sped&#x27;,   name:&#x27;특수교사&#x27;,        group:&#x27;교원&#x27;},
+    {id:&#x27;aide&#x27;,   name:&#x27;특수교육 실무사&#x27;, group:&#x27;보조인력&#x27;},
+    {id:&#x27;after&#x27;,  name:&#x27;방과후 강사&#x27;,     group:&#x27;보조인력&#x27;}
+  ];
+  // ── 2) 오른쪽: 연수 과정 (color는 위 CSS 변수 이름, hub:true가 마지막에 강조되는 공통 과정) ──
+  var SW_COURSES = [
+    {id:&#x27;deep&#x27;,    name:&#x27;직무 심화&#x27;,   sub:&#x27;학교급·발달 단계별&#x27;,      color:&#x27;--sw-deep&#x27;},
+    {id:&#x27;common&#x27;,  name:&#x27;필수 공통&#x27;,   sub:&#x27;아동학대 예방·인권·안전&#x27;, color:&#x27;--sw-common&#x27;, hub:true},
+    {id:&#x27;consult&#x27;, name:&#x27;현장 컨설팅&#x27;, sub:&#x27;학교 방문 코칭&#x27;,          color:&#x27;--sw-consult&#x27;},
+    {id:&#x27;online&#x27;,  name:&#x27;온라인 자율&#x27;, sub:&#x27;원격 연수원 선택 수강&#x27;,   color:&#x27;--sw-online&#x27;}
+  ];
+  // ── 3) 연결 목록: [대상 id, 과정 id] ──
+  var SW_LINKS = [
+    [&#x27;kinder&#x27;,&#x27;deep&#x27;],[&#x27;elem&#x27;,&#x27;deep&#x27;],[&#x27;sped&#x27;,&#x27;deep&#x27;],
+    [&#x27;sped&#x27;,&#x27;consult&#x27;],[&#x27;aide&#x27;,&#x27;consult&#x27;],
+    [&#x27;aide&#x27;,&#x27;online&#x27;],[&#x27;after&#x27;,&#x27;online&#x27;],
+    [&#x27;kinder&#x27;,&#x27;common&#x27;],[&#x27;elem&#x27;,&#x27;common&#x27;],[&#x27;sped&#x27;,&#x27;common&#x27;],[&#x27;aide&#x27;,&#x27;common&#x27;],[&#x27;after&#x27;,&#x27;common&#x27;]
+  ];
+  // ── 4) 단계 목록: 클릭 한 번 = 한 줄. course는 그 과정의 선을 그림, hub는 허브 강조 ──
+  var SW_STEPS = [
+    {course:&#x27;deep&#x27;,    text:&#x27;직무 심화 — 교원 세 직군만 연결된다&#x27;},
+    {course:&#x27;consult&#x27;, text:&#x27;현장 컨설팅 — 특수교사와 실무사가 한 짝으로&#x27;},
+    {course:&#x27;online&#x27;,  text:&#x27;온라인 자율 — 보조인력의 시간 제약을 메운다&#x27;},
+    {course:&#x27;common&#x27;,  text:&#x27;필수 공통 — 다섯 대상이 모두 같은 단자로&#x27;},
+    {hub:&#x27;common&#x27;,     text:&#x27;공통 1개가 뼈대, 맞춤 3개가 갈래&#x27;}
+  ];
+  var SW_START_TEXT = &#x27;대상 5 · 과정 4 배치 — 클릭하면 연결이 시작된다&#x27;;
+
+  // 판 좌표(viewBox 1500×660 기준)
+  var LX = 365, RX = 1135, TOP = 100, BOT = 610, PORT = 24;
+  var NS = &#x27;http://www.w3.org/2000/svg&#x27;;
+  var reduce = window.matchMedia &amp;&amp; window.matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+
+  function el(tag, attrs, parent, text){
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function ms(kit, name){ return parseFloat(getComputedStyle(kit).getPropertyValue(name)) || 0; }
+
+  function init(kit){
+    kit.setAttribute(&#x27;data-sw-ready&#x27;, &#x27;&#x27;);
+    var svg = kit.querySelector(&#x27;.sw-board&#x27;);
+    var stepno = kit.querySelector(&#x27;.sw-stepno&#x27;), captxt = kit.querySelector(&#x27;.sw-captxt&#x27;);
+    var N = SW_STEPS.length, state = N, timers = [], anims = [];
+
+    // 위치 계산: 대상은 균등 배치, 과정은 연결 수만큼 단자대 높이를 주고 남는 공간을 간격으로
+    var tY = {}, cY = {}, cTop = {}, cnt = {};
+    SW_TARGETS.forEach(function(t, i){ tY[t.id] = TOP + i * (BOT - TOP) / (SW_TARGETS.length - 1); });
+    SW_COURSES.forEach(function(c){ cnt[c.id] = SW_LINKS.filter(function(l){ return l[1] === c.id; }).length; });
+    var used = SW_COURSES.reduce(function(s, c){ return s + (cnt[c.id] - 1) * PORT; }, 0);
+    var gap = (BOT - TOP - used) / (SW_COURSES.length - 1), y = TOP;
+    SW_COURSES.forEach(function(c){ cTop[c.id] = y; cY[c.id] = y + (cnt[c.id] - 1) * PORT / 2; y += (cnt[c.id] - 1) * PORT + gap; });
+
+    // 단자 배정: 양 끝 모두 상대편 높이 순으로 정렬해 선이 엉키지 않게
+    var links = SW_LINKS.map(function(l){ return {t:l[0], c:l[1]}; });
+    SW_TARGETS.forEach(function(t){
+      var mine = links.filter(function(l){ return l.t === t.id; }).sort(function(a, b){ return cY[a.c] - cY[b.c]; });
+      mine.forEach(function(l, j){ l.y1 = tY[t.id] + (j - (mine.length - 1) / 2) * PORT; });
+    });
+    SW_COURSES.forEach(function(c){
+      links.filter(function(l){ return l.c === c.id; }).sort(function(a, b){ return a.y1 - b.y1; })
+        .forEach(function(l, j){ l.y2 = cTop[c.id] + j * PORT; });
+    });
+    var course = {}; SW_COURSES.forEach(function(c){ course[c.id] = c; });
+
+    // 그리기 순서: 머리글·괄호 → 선 → 단자판 → 플러그 → 글자
+    el(&#x27;text&#x27;, {x:LX + 15, y:36, &#x27;text-anchor&#x27;:&#x27;end&#x27;, &#x27;class&#x27;:&#x27;sw-colhead&#x27;}, svg, &#x27;연수 대상 · IN&#x27;);
+    el(&#x27;text&#x27;, {x:RX - 15, y:36, &#x27;class&#x27;:&#x27;sw-colhead&#x27;}, svg, &#x27;OUT · 연수 과정&#x27;);
+    var groups = [];
+    SW_TARGETS.forEach(function(t){ var g = groups[groups.length - 1]; if (!g || g.name !== t.group) groups.push(g = {name:t.group, ys:[]}); g.ys.push(tY[t.id]); });
+    groups.forEach(function(g){
+      var a = g.ys[0] - 26, b = g.ys[g.ys.length - 1] + 26;
+      el(&#x27;path&#x27;, {d:&#x27;M52 &#x27; + a + &#x27; H30 V&#x27; + b + &#x27; H52&#x27;, &#x27;class&#x27;:&#x27;sw-bracket&#x27;}, svg);
+      el(&#x27;text&#x27;, {x:30, y:a - 12, &#x27;class&#x27;:&#x27;sw-grp&#x27;}, svg, g.name);
+    });
+
+    var wireLayer = el(&#x27;g&#x27;, {}, svg);
+    links.forEach(function(l){
+      var k = (RX - LX) * 0.45;
+      l.path = el(&#x27;path&#x27;, {d:&#x27;M&#x27; + LX + &#x27; &#x27; + l.y1 + &#x27; C&#x27; + (LX + k) + &#x27; &#x27; + l.y1 + &#x27; &#x27; + (RX - k) + &#x27; &#x27; + l.y2 + &#x27; &#x27; + RX + &#x27; &#x27; + l.y2,
+        &#x27;class&#x27;:&#x27;sw-wire&#x27;, &#x27;data-c&#x27;:l.c, &#x27;data-t&#x27;:l.t, style:&#x27;stroke:var(&#x27; + course[l.c].color + &#x27;)&#x27;}, wireLayer);
+      l.len = l.path.getTotalLength();
+      l.path.setAttribute(&#x27;stroke-dasharray&#x27;, l.len + &#x27; &#x27; + l.len);
+    });
+
+    SW_TARGETS.forEach(function(t){
+      var ys = links.filter(function(l){ return l.t === t.id; }).map(function(l){ return l.y1; });
+      var g = el(&#x27;g&#x27;, {&#x27;class&#x27;:&#x27;sw-node&#x27;, &#x27;data-t&#x27;:t.id, tabindex:0}, svg);
+      el(&#x27;rect&#x27;, {x:LX - 15, y:Math.min.apply(null, ys) - 16, width:30, height:Math.max.apply(null, ys) - Math.min.apply(null, ys) + 32, rx:6, &#x27;class&#x27;:&#x27;sw-plate&#x27;}, g);
+      ys.forEach(function(py){ el(&#x27;circle&#x27;, {cx:LX, cy:py, r:6, &#x27;class&#x27;:&#x27;sw-hole&#x27;}, g); });
+      el(&#x27;text&#x27;, {x:LX - 32, y:tY[t.id], &#x27;text-anchor&#x27;:&#x27;end&#x27;, &#x27;dominant-baseline&#x27;:&#x27;central&#x27;, &#x27;class&#x27;:&#x27;sw-name&#x27;}, g, t.name);
+    });
+    SW_COURSES.forEach(function(c){
+      var g = el(&#x27;g&#x27;, {&#x27;class&#x27;:&#x27;sw-node&#x27;, &#x27;data-c&#x27;:c.id, tabindex:0}, svg), h = (cnt[c.id] - 1) * PORT;
+      el(&#x27;rect&#x27;, {x:RX - 15, y:cTop[c.id] - 16, width:30, height:h + 32, rx:6, &#x27;class&#x27;:&#x27;sw-strip&#x27;, &#x27;data-c&#x27;:c.id}, g);
+      for (var j = 0; j &lt; cnt[c.id]; j++) el(&#x27;circle&#x27;, {cx:RX, cy:cTop[c.id] + j * PORT, r:6, &#x27;class&#x27;:&#x27;sw-hole&#x27;}, g);
+      c.led = el(&#x27;circle&#x27;, {cx:RX + 40, cy:cY[c.id] - 10, r:7, &#x27;class&#x27;:&#x27;sw-led&#x27;, style:&#x27;--led:var(&#x27; + c.color + &#x27;)&#x27;}, g);
+      el(&#x27;text&#x27;, {x:RX + 60, y:cY[c.id] - 10, &#x27;dominant-baseline&#x27;:&#x27;central&#x27;, &#x27;class&#x27;:&#x27;sw-name&#x27;}, g, c.name);
+      el(&#x27;text&#x27;, {x:RX + 60, y:cY[c.id] + 22, &#x27;dominant-baseline&#x27;:&#x27;central&#x27;, &#x27;class&#x27;:&#x27;sw-sub&#x27;}, g, c.sub);
+      if (c.hub) el(&#x27;text&#x27;, {x:RX + 60, y:cY[c.id] + 48, &#x27;dominant-baseline&#x27;:&#x27;central&#x27;, &#x27;class&#x27;:&#x27;sw-hubnote&#x27;}, g, cnt[c.id] + &#x27;개 대상 공유&#x27;);
+    });
+    links.forEach(function(l){
+      var st = &#x27;fill:var(&#x27; + course[l.c].color + &#x27;)&#x27;;
+      l.p1 = el(&#x27;circle&#x27;, {cx:LX, cy:l.y1, r:8, &#x27;class&#x27;:&#x27;sw-plug&#x27;, &#x27;data-c&#x27;:l.c, &#x27;data-t&#x27;:l.t, style:st}, svg);
+      l.p2 = el(&#x27;circle&#x27;, {cx:RX, cy:l.y2, r:8, &#x27;class&#x27;:&#x27;sw-plug&#x27;, &#x27;data-c&#x27;:l.c, &#x27;data-t&#x27;:l.t, style:st}, svg);
+    });
+
+    // ── 상태: k단계까지 완료된 모습을 즉시 그림 ──
+    function stepOf(cid){ for (var i = 0; i &lt; N; i++) if (SW_STEPS[i].course === cid) return i + 1; return Infinity; }
+    function cancelAll(){ timers.forEach(clearTimeout); timers = []; anims.forEach(function(a){ a.cancel(); }); anims = []; }
+    function caption(k){ stepno.textContent = k + &#x27;/&#x27; + N; captxt.textContent = k === 0 ? SW_START_TEXT : SW_STEPS[k - 1].text; }
+    function apply(k){
+      cancelAll();
+      kit.classList.add(&#x27;is-snap&#x27;);
+      links.forEach(function(l){ var on = stepOf(l.c) &lt;= k; [l.path, l.p1, l.p2].forEach(function(n){ n.classList.toggle(&#x27;is-on&#x27;, on); }); });
+      SW_COURSES.forEach(function(c){ c.led.classList.toggle(&#x27;is-lit&#x27;, stepOf(c.id) &lt;= k); });
+      var hubOn = SW_STEPS.some(function(s, i){ return s.hub &amp;&amp; i &lt; k; });
+      kit.classList.toggle(&#x27;is-hub&#x27;, hubOn);
+      caption(k); state = k;
+      void kit.offsetWidth; kit.classList.remove(&#x27;is-snap&#x27;);
+    }
+    // 한 단계 재생에 걸리는 시간
+    function durOf(k){
+      var s = SW_STEPS[k - 1];
+      if (s.hub) return ms(kit, &#x27;--sw-hub&#x27;);
+      var n = links.filter(function(l){ return l.c === s.course; }).length;
+      return (n - 1) * ms(kit, &#x27;--sw-stagger&#x27;) + ms(kit, &#x27;--sw-draw&#x27;) + 220;
+    }
+    // ── k-1 → k 로 움직이며 넘어가기 ──
+    function play(k){
+      if (reduce) { apply(k); return; }
+      apply(k - 1);
+      var s = SW_STEPS[k - 1], draw = ms(kit, &#x27;--sw-draw&#x27;), stag = ms(kit, &#x27;--sw-stagger&#x27;);
+      caption(k); state = k;
+      if (s.hub) { kit.classList.add(&#x27;is-hub&#x27;); return; }
+      var mine = links.filter(function(l){ return l.c === s.course; }).sort(function(a, b){ return a.y1 - b.y1; });
+      mine.forEach(function(l, i){
+        var d = i * stag;
+        [l.path, l.p1, l.p2].forEach(function(n){ n.classList.add(&#x27;is-on&#x27;); });
+        // 선: 왼쪽 플러그 → 선이 그어짐 → 오른쪽 플러그 꽂힘
+        anims.push(l.p1.animate([{transform:&#x27;scale(0)&#x27;}, {transform:&#x27;scale(1)&#x27;}], {duration:200, delay:d, fill:&#x27;backwards&#x27;, easing:&#x27;cubic-bezier(.3,1.6,.6,1)&#x27;}));
+        anims.push(l.path.animate([{strokeDashoffset:l.len}, {strokeDashoffset:0}], {duration:draw, delay:d, fill:&#x27;backwards&#x27;, easing:&#x27;cubic-bezier(.45,0,.2,1)&#x27;}));
+        anims.push(l.p2.animate([{transform:&#x27;scale(0)&#x27;}, {transform:&#x27;scale(1)&#x27;}], {duration:220, delay:d + draw, fill:&#x27;backwards&#x27;, easing:&#x27;cubic-bezier(.3,1.6,.6,1)&#x27;}));
+      });
+      // 과정 표시등은 마지막 선이 꽂힐 때 켜짐
+      timers.push(setTimeout(function(){ course[s.course].led.classList.add(&#x27;is-lit&#x27;); }, (mine.length - 1) * stag + draw));
+    }
+    function replay(){
+      apply(0);
+      if (reduce) { apply(N); return; }
+      var t = 500, pause = ms(kit, &#x27;--sw-pause&#x27;), k;
+      for (k = 1; k &lt;= N; k++) (function(k, at){ timers.push(setTimeout(function(){ var keep = timers; timers = []; play(k); timers = keep.concat(timers); }, at)); })(k, t), t += durOf(k) + pause;
+    }
+    function step(){ if (state &gt;= N) apply(0); else play(state + 1); }
+
+    kit.querySelector(&#x27;[data-sw=&quot;replay&quot;]&#x27;).addEventListener(&#x27;click&#x27;, replay);
+    kit.querySelector(&#x27;[data-sw=&quot;step&quot;]&#x27;).addEventListener(&#x27;click&#x27;, step);
+    kit.querySelector(&#x27;.sw-slide&#x27;).addEventListener(&#x27;keydown&#x27;, function(e){
+      if (e.key === &#x27;ArrowRight&#x27; || e.key === &#x27; &#x27; || e.key === &#x27;Enter&#x27;) { e.preventDefault(); step(); }
+      if (e.key === &#x27;ArrowLeft&#x27;) { e.preventDefault(); apply(Math.max(0, state - 1)); }
+    });
+    // 대상·과정에 올리면 관련 선만 남김
+    svg.querySelectorAll(&#x27;.sw-node&#x27;).forEach(function(g){
+      var key = g.getAttribute(&#x27;data-t&#x27;) ? &#x27;data-t&#x27; : &#x27;data-c&#x27;, val = g.getAttribute(key);
+      function on(){ kit.classList.add(&#x27;is-focus&#x27;); svg.querySelectorAll(&#x27;.sw-wire,.sw-plug&#x27;).forEach(function(n){ n.classList.toggle(&#x27;is-hot&#x27;, n.getAttribute(key) === val); }); }
+      function off(){ kit.classList.remove(&#x27;is-focus&#x27;); }
+      g.addEventListener(&#x27;pointerenter&#x27;, on); g.addEventListener(&#x27;pointerleave&#x27;, off);
+      g.addEventListener(&#x27;focus&#x27;, on); g.addEventListener(&#x27;blur&#x27;, off);
+    });
+
+    // 열면 완성 상태를 먼저 보여 주고, 잠시 뒤 처음부터 한 번 재생 후 최종 상태로 멈춤
+    apply(N);
+    if (!reduce) setTimeout(replay, 1400);
+  }
+  document.querySelectorAll(&#x27;.sw-kit:not([data-sw-ready])&#x27;).forEach(init);
+})();
+&lt;/script&gt;</pre>
+      </div>
+      <div class="c5">
+        <h3>바꿀 지점</h3>
+        <ul class="swap">
+          <li><code>SW_TARGETS</code> 왼쪽 대상. <code>group</code>이 같은 것끼리 괄호로 묶입니다.</li>
+          <li><code>SW_COURSES</code> 오른쪽 과정. <code>hub:true</code>인 과정이 마지막에 굵어집니다. 단자대 높이는 연결 수로 자동 계산.</li>
+          <li><code>SW_LINKS</code> [대상, 과정] 쌍. 추가만 하면 단자 배정과 곡선은 자동입니다.</li>
+          <li><code>SW_STEPS</code> 클릭 순서. <code>course</code> 단계는 그 과정 선을 그리고, <code>hub</code> 단계는 강조만 합니다.</li>
+          <li><code>--sw-*</code> 변수: 색, 선 굵기(<code>--sw-w</code>, <code>--sw-w-hub</code>), 타이밍(<code>--sw-draw</code>, <code>--sw-stagger</code>, <code>--sw-pause</code>).</li>
+          <li>장표 제목·계획안 위치는 <code>.sw-head</code> 안의 글자를 바꿉니다.</li>
+          <li>한 페이지에 여러 개를 넣어도 됩니다. 각 <code>.sw-kit</code>이 따로 초기화됩니다(데이터 배열은 공유).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">04</span>PPT로 옮기기</h2>
+    <div class="cols">
+      <div class="c12 prose" style="max-width:none">
+        <p>선은 <b>삽입 › 도형 › 선 › 곡선 연결선</b>으로 단자(작은 원)의 연결점에 붙여 그립니다. 모든 선이 왼쪽→오른쪽으로만 진행하도록 설계했기 때문에 <b>나타내기 › 닦아내기(왼쪽에서)</b>가 선을 따라 그려 나가는 것과 거의 같게 보입니다. 클릭 1–4는 한 장 안의 애니메이션, 클릭 5(허브 강조)는 다음 장으로 넘기며 <b>모핑</b>을 씁니다.</p>
+      </div>
+      <div class="c12 tbl">
+        <table>
+          <thead><tr><th>클릭</th><th>대상 개체</th><th>애니메이션</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+          <tbody>
+            <tr><td class="k">0</td><td>제목, 대상 이름 5, 단자판, 과정 이름·단자대 4, 꺼진 표시등</td><td>없음(처음부터 배치)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr class="grp"><td class="k">1</td><td>직무 심화 선 3개(위→아래 순)</td><td>나타내기 › 닦아내기</td><td>왼쪽에서</td><td>첫 선 클릭할 때, 나머지 이전 효과와 함께</td><td class="k">0.7초</td><td class="k">0 / 0.1 / 0.2초</td></tr>
+            <tr><td class="k">1</td><td>각 선 오른쪽 끝 플러그(원) 3개</td><td>나타내기 › 확대/축소</td><td>개체 중심</td><td>이전 효과 다음에(첫 개), 나머지 함께</td><td class="k">0.25초</td><td class="k">0 / 0.1 / 0.2초</td></tr>
+            <tr><td class="k">1</td><td>직무 심화 표시등(원)</td><td>강조 › 채우기 색</td><td>#2C6E8A</td><td>이전 효과와 함께</td><td class="k">0.3초</td><td class="k">0.2초</td></tr>
+            <tr class="grp"><td class="k">2</td><td>현장 컨설팅 선 2개 · 플러그 2개 · 표시등</td><td>클릭 1과 같은 세트</td><td>표시등 #8A5BB0</td><td>첫 선 클릭할 때</td><td class="k">0.7초</td><td class="k">0 / 0.1초</td></tr>
+            <tr class="grp"><td class="k">3</td><td>온라인 자율 선 2개 · 플러그 2개 · 표시등</td><td>클릭 1과 같은 세트</td><td>표시등 #3E8E5B</td><td>첫 선 클릭할 때</td><td class="k">0.7초</td><td class="k">0 / 0.1초</td></tr>
+            <tr class="grp"><td class="k">4</td><td>필수 공통 선 5개 · 플러그 5개 · 표시등</td><td>클릭 1과 같은 세트</td><td>표시등 #E2571E</td><td>첫 선 클릭할 때</td><td class="k">0.7초</td><td class="k">0~0.4초(0.1 간격)</td></tr>
+            <tr class="grp"><td class="k">5</td><td>다음 장(허브 강조 장)</td><td>화면 전환 › 모핑</td><td>개체</td><td>클릭할 때</td><td class="k">0.65초</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c6">
+        <h3>모핑 장표 만드는 법</h3>
+        <dl class="note">
+          <dt>1. 장 복제</dt><dd>클릭 1–4가 끝난 장을 복제하고, 복제본의 애니메이션은 모두 지웁니다.</dd>
+          <dt>2. 복제본에서 바꿀 것</dt><dd>공통 선 5개 두께 4.5pt → 10pt, 맞춤 선 7개 투명도 70%, 필수 공통 단자대 너비 1.7배·주황 채우기, "5개 대상 공유" 글자 추가.</dd>
+          <dt>3. 개체 이름 맞추기</dt><dd>선택 창(Alt+F10)에서 두 장의 같은 개체에 같은 이름을 붙이고 앞에 <code>!!</code>를 붙입니다. 예: <code>!!선-공통-유치원</code>, <code>!!선-심화-초등</code>, <code>!!단자-공통</code>. 그래야 굵기·투명도 변화가 엉뚱한 개체끼리 섞이지 않습니다.</dd>
+          <dt>4. 첫 화면 완성본</dt><dd>발표 시작 전에 완성 모습을 보여 주려면 허브 장을 한 장 더 복사해 맨 앞 표지 자리에 둡니다.</dd>
+        </dl>
+      </div>
+      <div class="c6">
+        <h3>그대로 안 되는 동작과 근사법</h3>
+        <dl class="note">
+          <dt>마우스 올리면 관련 선만 남기기</dt><dd>PPT에는 마우스 오버 효과가 없습니다. 대상 이름에 <b>트리거</b>(애니메이션 창 › 타이밍 › 트리거 › 다음 개체 클릭 시)를 걸어 그 대상의 선 묶음에 강조 › 펄스를 주거나, 대상별 강조 장을 따로 만들어 하이퍼링크 + 모핑으로 오갑니다.</dd>
+          <dt>플러그가 살짝 튀며 꽂힘</dt><dd>확대/축소 뒤에 강조 › 크게/작게(110%, 자동 되감기, 0.2초)를 이전 효과 다음에 붙입니다.</dd>
+          <dt>선 굵어짐(모핑 없는 버전)</dt><dd>굵은 공통 선 5개를 미리 겹쳐 두고 나타내기 › 밝기 변화, 맞춤 선에는 강조 › 투명도 70%를 이전 효과와 함께 겁니다.</dd>
+          <dt>다시 보기</dt><dd>발표 중 이전 장으로 돌아가면 처음부터 다시 재생됩니다.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">05</span>스펙</h2>
+    <div class="cols">
+      <div class="c7">
+        <ul class="sw">
+          <li><i style="background:#F3F4EF"></i><span>배선반 바탕<br><code>#F3F4EF</code></span></li>
+          <li><i style="background:#1C2629"></i><span>글자<br><code>#1C2629</code></span></li>
+          <li><i style="background:#66716F"></i><span>보조 글자<br><code>#66716F</code></span></li>
+          <li><i style="background:#DADDD5"></i><span>단자판<br><code>#DADDD5</code></span></li>
+          <li><i style="background:#E2571E"></i><span>필수 공통(허브)<br><code>#E2571E</code></span></li>
+          <li><i style="background:#2C6E8A"></i><span>직무 심화<br><code>#2C6E8A</code></span></li>
+          <li><i style="background:#8A5BB0"></i><span>현장 컨설팅<br><code>#8A5BB0</code></span></li>
+          <li><i style="background:#3E8E5B"></i><span>온라인 자율<br><code>#3E8E5B</code></span></li>
+        </ul>
+      </div>
+      <div class="c5">
+        <dl class="spec">
+          <dt>폰트</dt><dd>IBM Plex Sans KR(제목·본문) + IBM Plex Mono(단자 번호·계획안 위치), 대체: 맑은 고딕 / Apple SD Gothic Neo</dd>
+          <dt>난이도</dt><dd>HTML 중 · PPT 중 (선마다 닦아내기 + 모핑 1회)</dd>
+          <dt>질감</dt><dd>전화 교환대·패치 베이: 단자판, 플러그, 과정별 표시등</dd>
+          <dt>반영 트렌드</dt><dd>단계적으로 드러내는 스토리형 모션(<a href="https://lomatechnology.com/blog/motion-ui-trends-2026/2911" target="_blank" rel="noopener">Loma Technology, Motion UI Trends 2026</a>), 장식보다 "쓸모 있는" 기능형 애니메이션(<a href="https://elements.envato.com/learn/web-design-trends" target="_blank" rel="noopener">Envato Elements, Web design trends for 2026</a>)</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+// 코드 복사: 실패하면 코드 영역 전체를 선택해 직접 복사하도록
+(function(){
+  var btn = document.getElementById('copyBtn'), code = document.getElementById('code');
+  function selectCode(){ var r = document.createRange(); r.selectNodeContents(code); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+  btn.addEventListener('click', function(){
+    var text = code.textContent;
+    try {
+      navigator.clipboard.writeText(text).then(function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1600); },
+        function(){ selectCode(); btn.textContent = '선택됨 — Ctrl+C'; });
+    } catch (e) { selectCode(); btn.textContent = '선택됨 — Ctrl+C'; }
+  });
+})();
+</script>
+
+</body></html>

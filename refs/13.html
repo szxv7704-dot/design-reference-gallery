@@ -1,0 +1,924 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #13 던져 채우는 오후표</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 레이아웃: 1100px 한 단, 장표를 맨 위에 크게 두고 아래로 설명→코드→PPT→스펙 */
+:root{
+  --bg:#EEF2EF; --surface:#FBFCF9; --fg:#1F2A24; --muted:#5E6B63; --line:#D3DCD5;
+  --accent:#2F7D4C; --cut:#B23B33; --code-bg:#1F2A24; --code-fg:#E6EDE8;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --f-display:"Do Hyeon","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1D2420; --surface:#26302A; --fg:#E6EDE8; --muted:#A3B0A8; --line:#3A4740;
+  --accent:#8FD0A2; --cut:#F09A92; --code-bg:#121815; --code-fg:#E6EDE8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1D2420; --surface:#26302A; --fg:#E6EDE8; --muted:#A3B0A8; --line:#3A4740;
+  --accent:#8FD0A2; --cut:#F09A92; --code-bg:#121815; --code-fg:#E6EDE8; color-scheme:dark}
+body{background:var(--bg); color:var(--fg); font-family:var(--f-body); font-size:15px; line-height:1.7}
+.wrap{max-width:1100px; margin:0 auto; padding-inline:16px; padding-block:28px 64px; display:flex; flex-direction:column; gap:44px}
+.top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 16px}
+.top h1{margin:0; font-family:var(--f-display); font-weight:400; font-size:28px; line-height:1.2}
+.top p{margin:0; color:var(--muted); font-size:13px}
+.stage{display:flex; flex-direction:column; gap:14px}
+section{display:flex; flex-direction:column; gap:14px; min-width:0}
+section > h2{margin:0; font-family:var(--f-display); font-weight:400; font-size:22px; line-height:1.3; padding-bottom:8px; border-bottom:1px solid var(--line)}
+section > h2 span{font-family:var(--f-mono); font-size:13px; color:var(--muted); margin-right:10px; vertical-align:2px}
+h3{margin:6px 0 0; font-size:15px; font-weight:700}
+p, li{max-width:68ch}
+p{margin:0}
+ul, ol{margin:0; padding-left:1.3em; display:flex; flex-direction:column; gap:6px}
+.lead{font-size:16px}
+.apps{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; padding:0; list-style:none}
+.apps li{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:12px 14px; max-width:none}
+.apps b{display:block; font-size:14px}
+.apps span{color:var(--muted); font-size:13.5px}
+code{font-family:var(--f-mono); font-size:.9em}
+.codebox{position:relative; min-width:0}
+.codebox pre{margin:0; max-height:420px; overflow:auto; background:var(--code-bg); color:var(--code-fg); border-radius:6px; padding:16px; font-family:var(--f-mono); font-size:12.5px; line-height:1.55; tab-size:2}
+.copy{position:absolute; top:10px; right:10px; font:inherit; font-size:13px; font-weight:500; padding:6px 12px; border-radius:5px; cursor:pointer; background:var(--surface); color:var(--fg); border:1px solid var(--line)}
+.copy:focus-visible, .copy:hover{outline:2px solid var(--accent); outline-offset:1px}
+.hint{font-size:13px; color:var(--muted)}
+.tbl{overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:820px; font-size:13.5px; line-height:1.5}
+th, td{padding:8px 10px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
+th{font-weight:500; color:var(--muted); font-size:12.5px; white-space:nowrap}
+td.n{font-family:var(--f-mono); white-space:nowrap; font-variant-numeric:tabular-nums}
+tr.grp td{background:color-mix(in srgb, var(--accent) 9%, transparent); font-weight:700}
+tr.grp.cut td{background:color-mix(in srgb, var(--cut) 10%, transparent)}
+tbody tr:last-child td{border-bottom:0}
+.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px 28px}
+.two > div{display:flex; flex-direction:column; gap:8px; min-width:0}
+.sw{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; padding:0; list-style:none}
+.sw li{display:flex; align-items:center; gap:10px; font-size:13px; max-width:none}
+.sw i{width:28px; height:28px; border-radius:5px; border:1px solid var(--line); flex:none}
+.sw code{display:block; color:var(--muted)}
+dl{margin:0; display:grid; grid-template-columns:max-content 1fr; gap:8px 18px}
+dt{color:var(--muted); font-size:13.5px}
+dd{margin:0; min-width:0}
+a{color:var(--accent)}
+@media (max-width:560px){ dl{grid-template-columns:1fr; gap:2px} dd{margin-bottom:8px} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>레퍼런스 #13 · 던져 채우는 오후표</h1>
+    <p>실무형 · 던지기·튕기기 · 유치원 방과후 과정</p>
+  </header>
+
+  <!-- ① 도식 장표 + 조작 버튼 -->
+  <div class="stage">
+<!-- 던져 채우는 오후표 · 감싸는 요소 .ttb 하나에 스타일·마크업·스크립트가 모두 들어 있습니다 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<div class="ttb">
+<style>
+/* ── 바꿀 지점 ①: 색·글꼴·타이밍 (모두 .ttb 안에서만 쓰입니다) ── */
+.ttb{
+  --ttb-paper:#FBFCF9;     /* 장표 바탕 */
+  --ttb-ink:#1F2A24;       /* 본문 글자 */
+  --ttb-muted:#66746B;     /* 보조 글자 */
+  --ttb-line:#DCE4DE;      /* 선 */
+  --ttb-cell:#EFF3EF;      /* 빈 칸 */
+  --ttb-care:#F6C88E;      /* 돌봄·쉼 */
+  --ttb-play:#8FD0A2;      /* 놀이 */
+  --ttb-play-ink:#2F7D4C;
+  --ttb-special:#C7B5EC;   /* 특성화 */
+  --ttb-home:#93D0CD;      /* 귀가 지원 */
+  --ttb-cut:#D9534A;       /* 덜어 냄 */
+  --ttb-cut-soft:#F6C3BE;
+  --ttb-cut-ink:#B23B33;
+  --ttb-font:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --ttb-display:"Do Hyeon","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ttb-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --ttb-hold:160ms;        /* 던지기 전 겨누는 시간 */
+  --ttb-fly:640ms;         /* 날아가는 시간 */
+  --ttb-land:440ms;        /* 튕기며 안착하는 시간 */
+  --ttb-gap:260ms;         /* 단계 사이 쉼 */
+  --ttb-radius:.45cqw;
+  container-type:inline-size;
+  width:100%; max-width:100%;
+  font-family:var(--ttb-font); color:var(--ttb-ink);
+}
+.ttb *{box-sizing:border-box}
+.ttb-slide{position:relative; aspect-ratio:16/9; width:100%; max-width:100%; overflow:hidden;
+  display:flex; flex-direction:column; gap:1.5cqw; padding:2.6cqw 3cqw 2.4cqw;
+  background:var(--ttb-paper); border:1px solid var(--ttb-line); outline:none}
+.ttb-slide:focus-visible{box-shadow:0 0 0 3px var(--ttb-play-ink)}
+/* 머리: 계획안 출처 → 결론 제목 */
+.ttb-head{display:grid; grid-template-columns:1fr auto; gap:.6cqw 2cqw; align-items:start}
+.ttb-src{margin:0; font-size:1.05cqw; line-height:1.55; color:var(--ttb-muted)}
+.ttb-src b{font-weight:500; color:var(--ttb-ink)}
+.ttb-demo{font-size:.95cqw; color:var(--ttb-muted); border:1px solid var(--ttb-line); border-radius:99px; padding:.15cqw .8cqw; white-space:nowrap}
+.ttb-title{grid-column:1/-1; margin:0; font-family:var(--ttb-display); font-weight:400; font-size:3.5cqw; line-height:1.15; letter-spacing:-.01em; text-wrap:balance}
+.ttb-title .ttb-k-fill{color:var(--ttb-play-ink)}
+.ttb-title .ttb-k-cut{color:var(--ttb-cut-ink)}
+/* 몸통: 왼쪽 던지는 자리 | 오른쪽 시간표 판 */
+.ttb-body{flex:1; min-height:0; display:grid; grid-template-columns:16cqw 1fr; gap:2.4cqw}
+.ttb-side{display:flex; flex-direction:column; gap:1.3cqw; min-height:0}
+.ttb-label{margin:0; font-size:.95cqw; letter-spacing:.06em; color:var(--ttb-muted)}
+.ttb-stack{position:relative; height:5.6cqw; margin-top:.4cqw}
+.ttb-stack i{position:absolute; inset:0; border:1px solid var(--ttb-line); border-radius:var(--ttb-radius); background:var(--ttb-paper)}
+.ttb-stack i:nth-child(1){transform:translate(.9cqw,-.9cqw)}
+.ttb-stack i:nth-child(2){transform:translate(.45cqw,-.45cqw)}
+.ttb-stack span{position:absolute; inset:0; display:grid; place-items:center; font-size:1.15cqw; font-weight:500;
+  border:1px solid var(--ttb-muted); border-radius:var(--ttb-radius); background:var(--ttb-paper)}
+.ttb-tally{display:grid; grid-template-columns:1fr 1fr; gap:1cqw}
+.ttb-tally div{display:flex; flex-direction:column; gap:.2cqw}
+.ttb-tally b{font-family:var(--ttb-display); font-weight:400; font-size:3.2cqw; line-height:1; font-variant-numeric:tabular-nums}
+.ttb-tally span{font-size:.95cqw; color:var(--ttb-muted)}
+.ttb-tally [data-ttb-count="fill"]{color:var(--ttb-play-ink)}
+.ttb-tally [data-ttb-count="cut"]{color:var(--ttb-cut-ink)}
+.ttb-tray{flex:1; min-height:0; display:flex; flex-direction:column; gap:.7cqw; padding:.9cqw; border:1px dashed var(--ttb-cut); border-radius:var(--ttb-radius)}
+/* 덜어 낸 카드: 날아갈 땐 꽉 찬 카드, 안착하면 점선 + 취소선 */
+.ttb-tag{position:relative; display:flex; align-items:baseline; gap:.5cqw; padding:.5cqw .8cqw; border:1px solid transparent; border-radius:var(--ttb-radius);
+  background:var(--ttb-cut-soft); color:var(--ttb-ink); font-size:1.2cqw; font-weight:700; transition:background-color .3s,color .3s,border-color .3s}
+.ttb-tag small{font-size:.85cqw; font-weight:500}
+.ttb-tag::after{content:""; position:absolute; left:.6cqw; right:.6cqw; top:50%; height:.16cqw; background:var(--ttb-cut); transform:scaleX(0); transform-origin:left; transition:transform .35s}
+.ttb-tag.ttb-struck{background:transparent; border-color:var(--ttb-cut); border-style:dashed; color:var(--ttb-cut-ink)}
+.ttb-tag.ttb-struck::after{transform:scaleX(1)}
+/* 시간표 판: 시간 5줄 × 요일 5칸 */
+.ttb-main{display:flex; flex-direction:column; gap:1cqw; min-height:0}
+.ttb-board{flex:1; min-height:0; display:grid; grid-template-columns:5cqw repeat(5,1fr); grid-template-rows:2.2cqw repeat(5,1fr); gap:.45cqw; border-radius:var(--ttb-radius)}
+.ttb-day{display:grid; place-items:center; font-size:1.1cqw; font-weight:500; color:var(--ttb-muted)}
+.ttb-time{display:flex; align-items:flex-start; justify-content:flex-end; padding-right:.6cqw; font-family:var(--ttb-mono); font-size:1cqw; color:var(--ttb-muted); font-variant-numeric:tabular-nums}
+.ttb-cell{background:var(--ttb-cell); border-radius:var(--ttb-radius)}
+.ttb-tile{position:relative; z-index:2; display:flex; align-items:center; justify-content:center; gap:.6cqw; min-width:0;
+  border-radius:var(--ttb-radius); font-size:1.35cqw; font-weight:700; color:var(--ttb-ink); transform-origin:50% 100%; white-space:nowrap}
+.ttb-tile small{font-size:.9cqw; font-weight:500; opacity:.78}
+.ttb-tile[data-cat="care"]{background:var(--ttb-care)}
+.ttb-tile[data-cat="play"]{background:var(--ttb-play)}
+.ttb-tile[data-cat="special"]{background:var(--ttb-special)}
+.ttb-tile[data-cat="home"]{background:var(--ttb-home)}
+.ttb-legend{display:flex; flex-wrap:wrap; align-items:center; gap:.4cqw 1.6cqw; font-size:.95cqw; color:var(--ttb-muted)}
+.ttb-legend b{font-weight:500; color:var(--ttb-ink)}
+.ttb-legend i{display:inline-block; width:1cqw; height:1cqw; margin-right:.4cqw; vertical-align:-.12cqw; border-radius:.2cqw}
+.ttb-off{visibility:hidden}
+/* 조작 버튼 (장표 밖) */
+.ttb-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin-top:12px; font-family:var(--ttb-font)}
+.ttb-btn{font:inherit; font-size:14px; font-weight:500; padding:8px 16px; border-radius:6px; cursor:pointer;
+  color:var(--ttb-ink); background:var(--ttb-paper); border:1px solid var(--ttb-muted)}
+.ttb-btn:hover{border-color:var(--ttb-ink)}
+.ttb-btn:focus-visible{outline:3px solid var(--ttb-play-ink); outline-offset:2px}
+.ttb-btn[data-ttb-act="step"]{background:var(--ttb-ink); color:var(--ttb-paper); border-color:var(--ttb-ink)}
+.ttb-status{font-size:13px; color:var(--ttb-muted); font-variant-numeric:tabular-nums}
+</style>
+
+<div class="ttb-slide" tabindex="0" aria-label="유치원 방과후 오후 시간표 편성 도식. 화살표 키나 스페이스로 한 단계씩 진행">
+  <div class="ttb-head">
+    <!-- ── 바꿀 지점 ②: 계획안 출처와 결론 제목 ── -->
+    <p class="ttb-src">○○교육청 2027 유치원 방과후 과정 운영 계획(안) › Ⅳ. 추진 내용 › 2. 오후 일과 편성<br><b>놀이·쉼 중심으로 편성하고, 교과 선행·학습지 위주 활동은 편성하지 않음</b></p>
+    <span class="ttb-demo">가상 예시</span>
+    <h2 class="ttb-title">오후는 <span class="ttb-k-fill">놀이와 쉼</span>으로 채우고, <span class="ttb-k-cut">선행학습</span>은 덜어 낸다</h2>
+  </div>
+  <div class="ttb-body">
+    <div class="ttb-side">
+      <p class="ttb-label">편성 후보</p>
+      <div class="ttb-stack" data-ttb-launch><i></i><i></i><span>후보 카드</span></div>
+      <div class="ttb-tally">
+        <div><b data-ttb-count="fill">0</b><span>채움</span></div>
+        <div><b data-ttb-count="cut">0</b><span>덜어 냄</span></div>
+      </div>
+      <div class="ttb-tray" data-ttb-tray><p class="ttb-label">덜어 낸 것</p></div>
+    </div>
+    <div class="ttb-main">
+      <div class="ttb-board" data-ttb-board></div>
+      <div class="ttb-legend">
+        <span><b>편성 기준</b> 놀이 중심 · 쉼 보장 · 교과 선행 지양</span>
+        <span><i style="background:var(--ttb-care)"></i>돌봄·쉼</span>
+        <span><i style="background:var(--ttb-play)"></i>놀이</span>
+        <span><i style="background:var(--ttb-special)"></i>특성화</span>
+        <span><i style="background:var(--ttb-home)"></i>귀가 지원</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ttb-ctrl">
+  <button type="button" class="ttb-btn" data-ttb-act="replay">다시 보기</button>
+  <button type="button" class="ttb-btn" data-ttb-act="step">한 단계씩</button>
+  <span class="ttb-status" aria-live="polite"></span>
+</div>
+
+<script>
+(function () {
+  var root = document.currentScript.closest('.ttb');
+
+  // ── 바꿀 지점 ③: 시간 줄과 요일 칸 ──
+  var TIMES = ['14:00', '15:00', '16:00', '17:00', '18:00'];
+  var DAYS = ['월', '화', '수', '목', '금'];
+
+  // ── 바꿀 지점 ④: 단계 목록 (이 배열 순서대로 한 장씩 던집니다) ──
+  // kind: 'fill' = 판에 안착 / 'cut' = 판에 맞고 튕겨 나와 '덜어 낸 것'으로
+  // row: TIMES의 몇 번째 줄(1부터), days: [시작 요일, 끝 요일] 묶음 (1=월 … 5=금)
+  var STEPS = [
+    { kind: 'fill', cat: 'care',    label: '간식·쉼',        sub: '매일',     row: 1, days: [[1, 5]] },
+    { kind: 'fill', cat: 'play',    label: '바깥 놀이',      sub: '매일',     row: 2, days: [[1, 5]] },
+    { kind: 'cut',                  label: '영어 학습지',    sub: '교과 선행' },
+    { kind: 'fill', cat: 'special', label: '특성화',         sub: '놀이형',   row: 3, days: [[2, 2], [4, 4]] },
+    { kind: 'fill', cat: 'play',    label: '프로젝트 놀이',  sub: '',         row: 3, days: [[1, 1], [3, 3], [5, 5]] },
+    { kind: 'cut',                  label: '한글 쓰기 선행', sub: '교과 선행' },
+    { kind: 'fill', cat: 'care',    label: '돌봄·휴식',      sub: '통합반',   row: 4, days: [[1, 5]] },
+    { kind: 'fill', cat: 'home',    label: '귀가 지원',      sub: '순차 귀가', row: 5, days: [[1, 5]] }
+  ];
+
+  var slide = root.querySelector('.ttb-slide');
+  var board = root.querySelector('[data-ttb-board]');
+  var tray = root.querySelector('[data-ttb-tray]');
+  var launch = root.querySelector('[data-ttb-launch]');
+  var status = root.querySelector('.ttb-status');
+  var btnStep = root.querySelector('[data-ttb-act="step"]');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var runId = 0;      // 재생이 바뀔 때마다 올려서 이전 재생을 멈춤
+  var stepIdx = -1;   // -1 = 단계 모드 아님
+
+  function make(tag, cls, html) {
+    var el = document.createElement(tag);
+    el.className = cls;
+    if (html != null) el.innerHTML = html;
+    return el;
+  }
+  function ms(name) { return parseFloat(getComputedStyle(root).getPropertyValue(name)) || 0; }
+  function wait(t) { return new Promise(function (r) { setTimeout(r, t); }); }
+  function mid(el) {
+    var r = el.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width, h: r.height };
+  }
+
+  // 1) 판 그리기: 요일 머리, 시간 줄, 빈 칸
+  DAYS.forEach(function (d, i) {
+    var el = make('div', 'ttb-day', d);
+    el.style.gridArea = '1 / ' + (i + 2);
+    board.appendChild(el);
+  });
+  TIMES.forEach(function (t, r) {
+    var el = make('div', 'ttb-time', t);
+    el.style.gridArea = (r + 2) + ' / 1';
+    board.appendChild(el);
+    DAYS.forEach(function (d, c) {
+      var cell = make('div', 'ttb-cell');
+      cell.style.gridArea = (r + 2) + ' / ' + (c + 2);
+      board.appendChild(cell);
+    });
+  });
+
+  // 2) 카드 만들기: 채울 카드는 판 위 최종 자리, 덜어 낼 카드는 트레이에
+  STEPS.forEach(function (s) {
+    var text = s.label + (s.sub ? ' <small>' + s.sub + '</small>' : '');
+    s.els = [];
+    if (s.kind === 'fill') {
+      s.days.forEach(function (seg) {
+        var el = make('div', 'ttb-tile', text);
+        el.dataset.cat = s.cat;
+        el.style.gridRow = String(s.row + 1);
+        el.style.gridColumn = (seg[0] + 1) + ' / ' + (seg[1] + 2);
+        board.appendChild(el);
+        s.els.push(el);
+      });
+    } else {
+      var tag = make('div', 'ttb-tag ttb-struck', text);
+      tray.appendChild(tag);
+      s.els.push(tag);
+    }
+  });
+
+  // 3) 상태 표시
+  function setCounts(upto) {
+    var f = 0, c = 0;
+    for (var i = 0; i < upto; i++) STEPS[i].kind === 'fill' ? f++ : c++;
+    root.querySelector('[data-ttb-count="fill"]').textContent = f;
+    root.querySelector('[data-ttb-count="cut"]').textContent = c;
+  }
+  function say(i) {
+    if (i < 0) { status.textContent = ''; return; }
+    var s = STEPS[i];
+    status.textContent = (i + 1) + ' / ' + STEPS.length + ' · ' + s.label + (s.kind === 'fill' ? ' → 채움' : ' → 덜어 냄');
+  }
+  function cancelAll() {
+    root.getAnimations({ subtree: true }).forEach(function (a) { a.cancel(); });
+  }
+  function setEmpty() {
+    cancelAll();
+    STEPS.forEach(function (s) { s.els.forEach(function (e) { e.classList.add('ttb-off'); e.classList.remove('ttb-struck'); }); });
+    setCounts(0);
+  }
+  function setFull() {
+    cancelAll();
+    STEPS.forEach(function (s) { s.els.forEach(function (e) { e.classList.remove('ttb-off'); if (s.kind === 'cut') e.classList.add('ttb-struck'); }); });
+    setCounts(STEPS.length);
+  }
+
+  // 4) 움직임: 포물선 좌표를 프레임으로 찍어 등속 수평·가속 수직 궤적을 만듭니다
+  function T(x, y, r, sx, sy) {
+    return 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + r.toFixed(1) + 'deg) scale(' + sx + ',' + sy + ')';
+  }
+  function arcFrames(frames, from, to, lift, o0, o1, r0, r1, clip) {
+    var N = 12;
+    for (var i = 1; i <= N; i++) {
+      var t = i / N;
+      var x = from.x + (to.x - from.x) * t;
+      var y = from.y + (to.y - from.y) * t - lift * 4 * t * (1 - t);
+      var f = { offset: o0 + (o1 - o0) * t, transform: T(x, y, r0 + (r1 - r0) * t, 1, 1) };
+      if (clip) f.clipPath = clip;
+      frames.push(f);
+    }
+  }
+
+  // 채움: 후보 더미 → 칸 중앙으로 포물선, 착지하며 찌그러졌다가(스쿼시) 띠가 요일 폭만큼 펼쳐짐
+  function throwTile(el, delay) {
+    var S = mid(slide), a = mid(launch), b = mid(el);
+    var hold = ms('--ttb-hold'), fly = ms('--ttb-fly'), land = ms('--ttb-land'), total = hold + fly + land;
+    var o1 = hold / total, o2 = (hold + fly) / total;
+    var cw = Math.min(b.w, S.w * 0.13), p = ((b.w - cw) / 2 / b.w * 100).toFixed(2);
+    var rad = (S.w * 0.0045).toFixed(1) + 'px';
+    var tight = 'inset(0% ' + p + '% 0% ' + p + '% round ' + rad + ')', open = 'inset(0% 0% 0% 0% round ' + rad + ')';
+    var from = { x: a.x - b.x, y: a.y - b.y }, zero = { x: 0, y: 0 };
+    var frames = [
+      { offset: 0, transform: T(from.x, from.y, -12, 1, 1), clipPath: tight },
+      { offset: o1, transform: T(from.x, from.y, -12, 1, 1), clipPath: tight }
+    ];
+    arcFrames(frames, from, zero, S.h * 0.2, o1, o2, -12, 0, tight);
+    var L = 1 - o2;
+    frames.push({ offset: o2 + L * 0.18, transform: T(0, 0, 0, 1.08, 0.78), clipPath: tight });
+    frames.push({ offset: o2 + L * 0.55, transform: T(0, 0, 0, 0.98, 1.05), clipPath: open });
+    frames.push({ offset: o2 + L * 0.8, transform: T(0, 0, 0, 1.01, 0.99), clipPath: open });
+    frames.push({ offset: 1, transform: T(0, 0, 0, 1, 1), clipPath: open });
+    return el.animate(frames, { duration: total, delay: delay, fill: 'backwards', easing: 'linear' });
+  }
+
+  // 덜어 냄: 후보 더미 → 판에 부딪혀 납작해짐 → 판이 붉게 거절 → 굴러 떨어지며 트레이로
+  function throwCut(el) {
+    var S = mid(slide), a = mid(launch), b = mid(el), bd = board.getBoundingClientRect();
+    var hold = ms('--ttb-hold'), fly = ms('--ttb-fly'), land = ms('--ttb-land');
+    var total = hold + fly * 1.9 + land;
+    var o1 = hold / total, o2 = (hold + fly) / total, o3 = o2 + 0.06, o4 = (hold + fly * 1.9) / total;
+    var from = { x: a.x - b.x, y: a.y - b.y };
+    var hit = { x: bd.left + bd.width * 0.22 - b.x, y: bd.top + bd.height * 0.5 - b.y };
+    var frames = [
+      { offset: 0, transform: T(from.x, from.y, -12, 1, 1) },
+      { offset: o1, transform: T(from.x, from.y, -12, 1, 1) }
+    ];
+    arcFrames(frames, from, hit, S.h * 0.2, o1, o2, -12, 0);
+    frames.push({ offset: o3, transform: T(hit.x, hit.y, 0, 0.72, 1.12) });
+    arcFrames(frames, hit, { x: 0, y: 0 }, S.h * 0.08, o3, o4, 0, -360);
+    var L = 1 - o4;
+    frames.push({ offset: o4 + L * 0.3, transform: T(0, 0, -360, 1.06, 0.86) });
+    frames.push({ offset: o4 + L * 0.7, transform: T(0, 0, -360, 0.99, 1.02) });
+    frames.push({ offset: 1, transform: T(0, 0, -360, 1, 1) });
+    var cut = getComputedStyle(root).getPropertyValue('--ttb-cut').trim();
+    var ring = Math.round(S.w * 0.006) + 'px';
+    board.animate([
+      { boxShadow: '0 0 0 0 transparent' },
+      { boxShadow: '0 0 0 ' + ring + ' ' + cut, offset: 0.25 },
+      { boxShadow: '0 0 0 0 transparent' }
+    ], { duration: 520, delay: hold + fly * 0.92, easing: 'ease-out' });
+    return el.animate(frames, { duration: total, fill: 'backwards', easing: 'linear' });
+  }
+
+  // 한 단계 재생: 카드가 여러 장이면 0.11초 간격으로 연달아 던짐
+  function playStep(i) {
+    var s = STEPS[i], anims = [];
+    say(i);
+    s.els.forEach(function (e, k) {
+      e.classList.remove('ttb-off');
+      if (reduce) return;
+      anims.push(s.kind === 'fill' ? throwTile(e, k * 110) : throwCut(e));
+    });
+    return Promise.all(anims.map(function (a) { return a.finished; })).then(function () {
+      if (s.kind === 'cut') s.els.forEach(function (e) { e.classList.add('ttb-struck'); });
+      setCounts(i + 1);
+    });
+  }
+
+  function playAll() {
+    var my = ++runId;
+    stepIdx = -1;
+    btnStep.textContent = '한 단계씩';
+    if (reduce) { setFull(); say(-1); return; }
+    setEmpty();
+    var chain = wait(350);
+    STEPS.forEach(function (s, i) {
+      chain = chain.then(function () {
+        if (my !== runId) throw 0;
+        return playStep(i);
+      }).then(function () { return wait(ms('--ttb-gap')); });
+    });
+    chain.then(function () { if (my === runId) say(-1); }).catch(function () {});
+  }
+
+  // 발표 클릭처럼 한 단계씩: 첫 클릭에 비우고 1단계, 이후 클릭마다 다음 단계
+  function nextStep() {
+    runId++;
+    if (stepIdx < 0 || stepIdx >= STEPS.length) { setEmpty(); stepIdx = 0; }
+    else root.getAnimations({ subtree: true }).forEach(function (a) { a.finish(); });
+    playStep(stepIdx).catch(function () {});
+    stepIdx++;
+    btnStep.textContent = stepIdx >= STEPS.length ? '한 단계씩 · 처음부터' : '한 단계씩 (' + stepIdx + '/' + STEPS.length + ')';
+  }
+
+  root.querySelector('[data-ttb-act="replay"]').addEventListener('click', playAll);
+  btnStep.addEventListener('click', nextStep);
+  slide.addEventListener('keydown', function (e) {
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) > -1) { e.preventDefault(); nextStep(); }
+  });
+
+  // 5) 시작: 완성 상태를 먼저 보여 주고, 화면에 들어오면 처음부터 한 번 재생
+  setFull();
+  if (reduce) return;
+  var started = false;
+  function start() { if (started) return; started = true; setTimeout(function () { if (stepIdx < 0 && runId === 0) playAll(); }, 1200); }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); start(); } }, { threshold: 0.5 });
+    io.observe(slide);
+  } else start();
+})();
+</script>
+</div>
+  </div>
+
+  <section>
+    <h2><span>②</span>동작 설명</h2>
+    <p class="lead">카드가 시간표 판에 <b>안착하면 채움</b>, 판에 맞고 <b>튕겨 나오면 덜어 냄</b>입니다. 같은 던지기 동작에서 결과만 갈리기 때문에, 청중은 "후보 → 기준 → 편성"이라는 판정 구조를 글 없이 읽습니다. 안착한 카드가 옆으로 펼쳐지는 폭은 요일 수(매일·주 2회·주 3회)를 뜻하고, 왼쪽 숫자는 채운 것과 덜어 낸 것의 누계입니다.</p>
+    <p>질감은 농구의 슛과 리바운드에서 빌렸습니다. 들어간 공은 그물에서 한 번 출렁이고(스쿼시·오버슈트), 림에 맞은 공은 뒤로 튀어 굴러 떨어집니다. 거절 순간 판 테두리가 잠깐 붉어지는 것이 "기준에 걸렸다"는 신호입니다.</p>
+    <h3>응용 예</h3>
+    <ul class="apps">
+      <li><b>늘봄학교 프로그램 편성</b><span>요일 × 교시 판에 프로그램을 던져 넣고, 수요조사 미달 프로그램은 튕겨 냅니다.</span></li>
+      <li><b>특수교육 지원 인력 배치</b><span>학교 × 학기 칸에 인력 카드를 안착시키고, 배치 기준에 맞지 않는 요청은 '재검토'로 보냅니다.</span></li>
+      <li><b>예산 사업 구조조정</b><span>유지 사업은 판에 안착, 일몰·통합 사업은 튕겨 나와 '정리 대상' 트레이에 쌓입니다.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span>③</span>HTML로 가져다 쓰기</h2>
+    <p>아래 코드를 통째로 복사해 HTML 파일의 <code>&lt;body&gt;</code> 안 원하는 자리에 붙이면 됩니다. 스타일·마크업·스크립트가 <code>.ttb</code> 요소 하나에 들어 있고, 클래스는 모두 <code>ttb-</code>로 시작해 다른 장표와 섞여도 충돌하지 않습니다. 한 페이지에 여러 개를 넣어도 각자 따로 움직입니다.</p>
+    <div class="codebox">
+      <button type="button" class="copy" id="copy-btn">코드 복사</button>
+      <pre id="code" tabindex="0"><code>&lt;!-- 던져 채우는 오후표 · 감싸는 요소 .ttb 하나에 스타일·마크업·스크립트가 모두 들어 있습니다 --&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&amp;family=IBM+Plex+Sans+KR:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap"&gt;
+&lt;div class="ttb"&gt;
+&lt;style&gt;
+/* ── 바꿀 지점 ①: 색·글꼴·타이밍 (모두 .ttb 안에서만 쓰입니다) ── */
+.ttb{
+  --ttb-paper:#FBFCF9;     /* 장표 바탕 */
+  --ttb-ink:#1F2A24;       /* 본문 글자 */
+  --ttb-muted:#66746B;     /* 보조 글자 */
+  --ttb-line:#DCE4DE;      /* 선 */
+  --ttb-cell:#EFF3EF;      /* 빈 칸 */
+  --ttb-care:#F6C88E;      /* 돌봄·쉼 */
+  --ttb-play:#8FD0A2;      /* 놀이 */
+  --ttb-play-ink:#2F7D4C;
+  --ttb-special:#C7B5EC;   /* 특성화 */
+  --ttb-home:#93D0CD;      /* 귀가 지원 */
+  --ttb-cut:#D9534A;       /* 덜어 냄 */
+  --ttb-cut-soft:#F6C3BE;
+  --ttb-cut-ink:#B23B33;
+  --ttb-font:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --ttb-display:"Do Hyeon","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ttb-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --ttb-hold:160ms;        /* 던지기 전 겨누는 시간 */
+  --ttb-fly:640ms;         /* 날아가는 시간 */
+  --ttb-land:440ms;        /* 튕기며 안착하는 시간 */
+  --ttb-gap:260ms;         /* 단계 사이 쉼 */
+  --ttb-radius:.45cqw;
+  container-type:inline-size;
+  width:100%; max-width:100%;
+  font-family:var(--ttb-font); color:var(--ttb-ink);
+}
+.ttb *{box-sizing:border-box}
+.ttb-slide{position:relative; aspect-ratio:16/9; width:100%; max-width:100%; overflow:hidden;
+  display:flex; flex-direction:column; gap:1.5cqw; padding:2.6cqw 3cqw 2.4cqw;
+  background:var(--ttb-paper); border:1px solid var(--ttb-line); outline:none}
+.ttb-slide:focus-visible{box-shadow:0 0 0 3px var(--ttb-play-ink)}
+/* 머리: 계획안 출처 → 결론 제목 */
+.ttb-head{display:grid; grid-template-columns:1fr auto; gap:.6cqw 2cqw; align-items:start}
+.ttb-src{margin:0; font-size:1.05cqw; line-height:1.55; color:var(--ttb-muted)}
+.ttb-src b{font-weight:500; color:var(--ttb-ink)}
+.ttb-demo{font-size:.95cqw; color:var(--ttb-muted); border:1px solid var(--ttb-line); border-radius:99px; padding:.15cqw .8cqw; white-space:nowrap}
+.ttb-title{grid-column:1/-1; margin:0; font-family:var(--ttb-display); font-weight:400; font-size:3.5cqw; line-height:1.15; letter-spacing:-.01em; text-wrap:balance}
+.ttb-title .ttb-k-fill{color:var(--ttb-play-ink)}
+.ttb-title .ttb-k-cut{color:var(--ttb-cut-ink)}
+/* 몸통: 왼쪽 던지는 자리 | 오른쪽 시간표 판 */
+.ttb-body{flex:1; min-height:0; display:grid; grid-template-columns:16cqw 1fr; gap:2.4cqw}
+.ttb-side{display:flex; flex-direction:column; gap:1.3cqw; min-height:0}
+.ttb-label{margin:0; font-size:.95cqw; letter-spacing:.06em; color:var(--ttb-muted)}
+.ttb-stack{position:relative; height:5.6cqw; margin-top:.4cqw}
+.ttb-stack i{position:absolute; inset:0; border:1px solid var(--ttb-line); border-radius:var(--ttb-radius); background:var(--ttb-paper)}
+.ttb-stack i:nth-child(1){transform:translate(.9cqw,-.9cqw)}
+.ttb-stack i:nth-child(2){transform:translate(.45cqw,-.45cqw)}
+.ttb-stack span{position:absolute; inset:0; display:grid; place-items:center; font-size:1.15cqw; font-weight:500;
+  border:1px solid var(--ttb-muted); border-radius:var(--ttb-radius); background:var(--ttb-paper)}
+.ttb-tally{display:grid; grid-template-columns:1fr 1fr; gap:1cqw}
+.ttb-tally div{display:flex; flex-direction:column; gap:.2cqw}
+.ttb-tally b{font-family:var(--ttb-display); font-weight:400; font-size:3.2cqw; line-height:1; font-variant-numeric:tabular-nums}
+.ttb-tally span{font-size:.95cqw; color:var(--ttb-muted)}
+.ttb-tally [data-ttb-count="fill"]{color:var(--ttb-play-ink)}
+.ttb-tally [data-ttb-count="cut"]{color:var(--ttb-cut-ink)}
+.ttb-tray{flex:1; min-height:0; display:flex; flex-direction:column; gap:.7cqw; padding:.9cqw; border:1px dashed var(--ttb-cut); border-radius:var(--ttb-radius)}
+/* 덜어 낸 카드: 날아갈 땐 꽉 찬 카드, 안착하면 점선 + 취소선 */
+.ttb-tag{position:relative; display:flex; align-items:baseline; gap:.5cqw; padding:.5cqw .8cqw; border:1px solid transparent; border-radius:var(--ttb-radius);
+  background:var(--ttb-cut-soft); color:var(--ttb-ink); font-size:1.2cqw; font-weight:700; transition:background-color .3s,color .3s,border-color .3s}
+.ttb-tag small{font-size:.85cqw; font-weight:500}
+.ttb-tag::after{content:""; position:absolute; left:.6cqw; right:.6cqw; top:50%; height:.16cqw; background:var(--ttb-cut); transform:scaleX(0); transform-origin:left; transition:transform .35s}
+.ttb-tag.ttb-struck{background:transparent; border-color:var(--ttb-cut); border-style:dashed; color:var(--ttb-cut-ink)}
+.ttb-tag.ttb-struck::after{transform:scaleX(1)}
+/* 시간표 판: 시간 5줄 × 요일 5칸 */
+.ttb-main{display:flex; flex-direction:column; gap:1cqw; min-height:0}
+.ttb-board{flex:1; min-height:0; display:grid; grid-template-columns:5cqw repeat(5,1fr); grid-template-rows:2.2cqw repeat(5,1fr); gap:.45cqw; border-radius:var(--ttb-radius)}
+.ttb-day{display:grid; place-items:center; font-size:1.1cqw; font-weight:500; color:var(--ttb-muted)}
+.ttb-time{display:flex; align-items:flex-start; justify-content:flex-end; padding-right:.6cqw; font-family:var(--ttb-mono); font-size:1cqw; color:var(--ttb-muted); font-variant-numeric:tabular-nums}
+.ttb-cell{background:var(--ttb-cell); border-radius:var(--ttb-radius)}
+.ttb-tile{position:relative; z-index:2; display:flex; align-items:center; justify-content:center; gap:.6cqw; min-width:0;
+  border-radius:var(--ttb-radius); font-size:1.35cqw; font-weight:700; color:var(--ttb-ink); transform-origin:50% 100%; white-space:nowrap}
+.ttb-tile small{font-size:.9cqw; font-weight:500; opacity:.78}
+.ttb-tile[data-cat="care"]{background:var(--ttb-care)}
+.ttb-tile[data-cat="play"]{background:var(--ttb-play)}
+.ttb-tile[data-cat="special"]{background:var(--ttb-special)}
+.ttb-tile[data-cat="home"]{background:var(--ttb-home)}
+.ttb-legend{display:flex; flex-wrap:wrap; align-items:center; gap:.4cqw 1.6cqw; font-size:.95cqw; color:var(--ttb-muted)}
+.ttb-legend b{font-weight:500; color:var(--ttb-ink)}
+.ttb-legend i{display:inline-block; width:1cqw; height:1cqw; margin-right:.4cqw; vertical-align:-.12cqw; border-radius:.2cqw}
+.ttb-off{visibility:hidden}
+/* 조작 버튼 (장표 밖) */
+.ttb-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin-top:12px; font-family:var(--ttb-font)}
+.ttb-btn{font:inherit; font-size:14px; font-weight:500; padding:8px 16px; border-radius:6px; cursor:pointer;
+  color:var(--ttb-ink); background:var(--ttb-paper); border:1px solid var(--ttb-muted)}
+.ttb-btn:hover{border-color:var(--ttb-ink)}
+.ttb-btn:focus-visible{outline:3px solid var(--ttb-play-ink); outline-offset:2px}
+.ttb-btn[data-ttb-act="step"]{background:var(--ttb-ink); color:var(--ttb-paper); border-color:var(--ttb-ink)}
+.ttb-status{font-size:13px; color:var(--ttb-muted); font-variant-numeric:tabular-nums}
+&lt;/style&gt;
+
+&lt;div class="ttb-slide" tabindex="0" aria-label="유치원 방과후 오후 시간표 편성 도식. 화살표 키나 스페이스로 한 단계씩 진행"&gt;
+  &lt;div class="ttb-head"&gt;
+    &lt;!-- ── 바꿀 지점 ②: 계획안 출처와 결론 제목 ── --&gt;
+    &lt;p class="ttb-src"&gt;○○교육청 2027 유치원 방과후 과정 운영 계획(안) › Ⅳ. 추진 내용 › 2. 오후 일과 편성&lt;br&gt;&lt;b&gt;놀이·쉼 중심으로 편성하고, 교과 선행·학습지 위주 활동은 편성하지 않음&lt;/b&gt;&lt;/p&gt;
+    &lt;span class="ttb-demo"&gt;가상 예시&lt;/span&gt;
+    &lt;h2 class="ttb-title"&gt;오후는 &lt;span class="ttb-k-fill"&gt;놀이와 쉼&lt;/span&gt;으로 채우고, &lt;span class="ttb-k-cut"&gt;선행학습&lt;/span&gt;은 덜어 낸다&lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;div class="ttb-body"&gt;
+    &lt;div class="ttb-side"&gt;
+      &lt;p class="ttb-label"&gt;편성 후보&lt;/p&gt;
+      &lt;div class="ttb-stack" data-ttb-launch&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;span&gt;후보 카드&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="ttb-tally"&gt;
+        &lt;div&gt;&lt;b data-ttb-count="fill"&gt;0&lt;/b&gt;&lt;span&gt;채움&lt;/span&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;b data-ttb-count="cut"&gt;0&lt;/b&gt;&lt;span&gt;덜어 냄&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="ttb-tray" data-ttb-tray&gt;&lt;p class="ttb-label"&gt;덜어 낸 것&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="ttb-main"&gt;
+      &lt;div class="ttb-board" data-ttb-board&gt;&lt;/div&gt;
+      &lt;div class="ttb-legend"&gt;
+        &lt;span&gt;&lt;b&gt;편성 기준&lt;/b&gt; 놀이 중심 · 쉼 보장 · 교과 선행 지양&lt;/span&gt;
+        &lt;span&gt;&lt;i style="background:var(--ttb-care)"&gt;&lt;/i&gt;돌봄·쉼&lt;/span&gt;
+        &lt;span&gt;&lt;i style="background:var(--ttb-play)"&gt;&lt;/i&gt;놀이&lt;/span&gt;
+        &lt;span&gt;&lt;i style="background:var(--ttb-special)"&gt;&lt;/i&gt;특성화&lt;/span&gt;
+        &lt;span&gt;&lt;i style="background:var(--ttb-home)"&gt;&lt;/i&gt;귀가 지원&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="ttb-ctrl"&gt;
+  &lt;button type="button" class="ttb-btn" data-ttb-act="replay"&gt;다시 보기&lt;/button&gt;
+  &lt;button type="button" class="ttb-btn" data-ttb-act="step"&gt;한 단계씩&lt;/button&gt;
+  &lt;span class="ttb-status" aria-live="polite"&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function () {
+  var root = document.currentScript.closest('.ttb');
+
+  // ── 바꿀 지점 ③: 시간 줄과 요일 칸 ──
+  var TIMES = ['14:00', '15:00', '16:00', '17:00', '18:00'];
+  var DAYS = ['월', '화', '수', '목', '금'];
+
+  // ── 바꿀 지점 ④: 단계 목록 (이 배열 순서대로 한 장씩 던집니다) ──
+  // kind: 'fill' = 판에 안착 / 'cut' = 판에 맞고 튕겨 나와 '덜어 낸 것'으로
+  // row: TIMES의 몇 번째 줄(1부터), days: [시작 요일, 끝 요일] 묶음 (1=월 … 5=금)
+  var STEPS = [
+    { kind: 'fill', cat: 'care',    label: '간식·쉼',        sub: '매일',     row: 1, days: [[1, 5]] },
+    { kind: 'fill', cat: 'play',    label: '바깥 놀이',      sub: '매일',     row: 2, days: [[1, 5]] },
+    { kind: 'cut',                  label: '영어 학습지',    sub: '교과 선행' },
+    { kind: 'fill', cat: 'special', label: '특성화',         sub: '놀이형',   row: 3, days: [[2, 2], [4, 4]] },
+    { kind: 'fill', cat: 'play',    label: '프로젝트 놀이',  sub: '',         row: 3, days: [[1, 1], [3, 3], [5, 5]] },
+    { kind: 'cut',                  label: '한글 쓰기 선행', sub: '교과 선행' },
+    { kind: 'fill', cat: 'care',    label: '돌봄·휴식',      sub: '통합반',   row: 4, days: [[1, 5]] },
+    { kind: 'fill', cat: 'home',    label: '귀가 지원',      sub: '순차 귀가', row: 5, days: [[1, 5]] }
+  ];
+
+  var slide = root.querySelector('.ttb-slide');
+  var board = root.querySelector('[data-ttb-board]');
+  var tray = root.querySelector('[data-ttb-tray]');
+  var launch = root.querySelector('[data-ttb-launch]');
+  var status = root.querySelector('.ttb-status');
+  var btnStep = root.querySelector('[data-ttb-act="step"]');
+  var reduce = window.matchMedia &amp;&amp; window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var runId = 0;      // 재생이 바뀔 때마다 올려서 이전 재생을 멈춤
+  var stepIdx = -1;   // -1 = 단계 모드 아님
+
+  function make(tag, cls, html) {
+    var el = document.createElement(tag);
+    el.className = cls;
+    if (html != null) el.innerHTML = html;
+    return el;
+  }
+  function ms(name) { return parseFloat(getComputedStyle(root).getPropertyValue(name)) || 0; }
+  function wait(t) { return new Promise(function (r) { setTimeout(r, t); }); }
+  function mid(el) {
+    var r = el.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2, w: r.width, h: r.height };
+  }
+
+  // 1) 판 그리기: 요일 머리, 시간 줄, 빈 칸
+  DAYS.forEach(function (d, i) {
+    var el = make('div', 'ttb-day', d);
+    el.style.gridArea = '1 / ' + (i + 2);
+    board.appendChild(el);
+  });
+  TIMES.forEach(function (t, r) {
+    var el = make('div', 'ttb-time', t);
+    el.style.gridArea = (r + 2) + ' / 1';
+    board.appendChild(el);
+    DAYS.forEach(function (d, c) {
+      var cell = make('div', 'ttb-cell');
+      cell.style.gridArea = (r + 2) + ' / ' + (c + 2);
+      board.appendChild(cell);
+    });
+  });
+
+  // 2) 카드 만들기: 채울 카드는 판 위 최종 자리, 덜어 낼 카드는 트레이에
+  STEPS.forEach(function (s) {
+    var text = s.label + (s.sub ? ' &lt;small&gt;' + s.sub + '&lt;/small&gt;' : '');
+    s.els = [];
+    if (s.kind === 'fill') {
+      s.days.forEach(function (seg) {
+        var el = make('div', 'ttb-tile', text);
+        el.dataset.cat = s.cat;
+        el.style.gridRow = String(s.row + 1);
+        el.style.gridColumn = (seg[0] + 1) + ' / ' + (seg[1] + 2);
+        board.appendChild(el);
+        s.els.push(el);
+      });
+    } else {
+      var tag = make('div', 'ttb-tag ttb-struck', text);
+      tray.appendChild(tag);
+      s.els.push(tag);
+    }
+  });
+
+  // 3) 상태 표시
+  function setCounts(upto) {
+    var f = 0, c = 0;
+    for (var i = 0; i &lt; upto; i++) STEPS[i].kind === 'fill' ? f++ : c++;
+    root.querySelector('[data-ttb-count="fill"]').textContent = f;
+    root.querySelector('[data-ttb-count="cut"]').textContent = c;
+  }
+  function say(i) {
+    if (i &lt; 0) { status.textContent = ''; return; }
+    var s = STEPS[i];
+    status.textContent = (i + 1) + ' / ' + STEPS.length + ' · ' + s.label + (s.kind === 'fill' ? ' → 채움' : ' → 덜어 냄');
+  }
+  function cancelAll() {
+    root.getAnimations({ subtree: true }).forEach(function (a) { a.cancel(); });
+  }
+  function setEmpty() {
+    cancelAll();
+    STEPS.forEach(function (s) { s.els.forEach(function (e) { e.classList.add('ttb-off'); e.classList.remove('ttb-struck'); }); });
+    setCounts(0);
+  }
+  function setFull() {
+    cancelAll();
+    STEPS.forEach(function (s) { s.els.forEach(function (e) { e.classList.remove('ttb-off'); if (s.kind === 'cut') e.classList.add('ttb-struck'); }); });
+    setCounts(STEPS.length);
+  }
+
+  // 4) 움직임: 포물선 좌표를 프레임으로 찍어 등속 수평·가속 수직 궤적을 만듭니다
+  function T(x, y, r, sx, sy) {
+    return 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + r.toFixed(1) + 'deg) scale(' + sx + ',' + sy + ')';
+  }
+  function arcFrames(frames, from, to, lift, o0, o1, r0, r1, clip) {
+    var N = 12;
+    for (var i = 1; i &lt;= N; i++) {
+      var t = i / N;
+      var x = from.x + (to.x - from.x) * t;
+      var y = from.y + (to.y - from.y) * t - lift * 4 * t * (1 - t);
+      var f = { offset: o0 + (o1 - o0) * t, transform: T(x, y, r0 + (r1 - r0) * t, 1, 1) };
+      if (clip) f.clipPath = clip;
+      frames.push(f);
+    }
+  }
+
+  // 채움: 후보 더미 → 칸 중앙으로 포물선, 착지하며 찌그러졌다가(스쿼시) 띠가 요일 폭만큼 펼쳐짐
+  function throwTile(el, delay) {
+    var S = mid(slide), a = mid(launch), b = mid(el);
+    var hold = ms('--ttb-hold'), fly = ms('--ttb-fly'), land = ms('--ttb-land'), total = hold + fly + land;
+    var o1 = hold / total, o2 = (hold + fly) / total;
+    var cw = Math.min(b.w, S.w * 0.13), p = ((b.w - cw) / 2 / b.w * 100).toFixed(2);
+    var rad = (S.w * 0.0045).toFixed(1) + 'px';
+    var tight = 'inset(0% ' + p + '% 0% ' + p + '% round ' + rad + ')', open = 'inset(0% 0% 0% 0% round ' + rad + ')';
+    var from = { x: a.x - b.x, y: a.y - b.y }, zero = { x: 0, y: 0 };
+    var frames = [
+      { offset: 0, transform: T(from.x, from.y, -12, 1, 1), clipPath: tight },
+      { offset: o1, transform: T(from.x, from.y, -12, 1, 1), clipPath: tight }
+    ];
+    arcFrames(frames, from, zero, S.h * 0.2, o1, o2, -12, 0, tight);
+    var L = 1 - o2;
+    frames.push({ offset: o2 + L * 0.18, transform: T(0, 0, 0, 1.08, 0.78), clipPath: tight });
+    frames.push({ offset: o2 + L * 0.55, transform: T(0, 0, 0, 0.98, 1.05), clipPath: open });
+    frames.push({ offset: o2 + L * 0.8, transform: T(0, 0, 0, 1.01, 0.99), clipPath: open });
+    frames.push({ offset: 1, transform: T(0, 0, 0, 1, 1), clipPath: open });
+    return el.animate(frames, { duration: total, delay: delay, fill: 'backwards', easing: 'linear' });
+  }
+
+  // 덜어 냄: 후보 더미 → 판에 부딪혀 납작해짐 → 판이 붉게 거절 → 굴러 떨어지며 트레이로
+  function throwCut(el) {
+    var S = mid(slide), a = mid(launch), b = mid(el), bd = board.getBoundingClientRect();
+    var hold = ms('--ttb-hold'), fly = ms('--ttb-fly'), land = ms('--ttb-land');
+    var total = hold + fly * 1.9 + land;
+    var o1 = hold / total, o2 = (hold + fly) / total, o3 = o2 + 0.06, o4 = (hold + fly * 1.9) / total;
+    var from = { x: a.x - b.x, y: a.y - b.y };
+    var hit = { x: bd.left + bd.width * 0.22 - b.x, y: bd.top + bd.height * 0.5 - b.y };
+    var frames = [
+      { offset: 0, transform: T(from.x, from.y, -12, 1, 1) },
+      { offset: o1, transform: T(from.x, from.y, -12, 1, 1) }
+    ];
+    arcFrames(frames, from, hit, S.h * 0.2, o1, o2, -12, 0);
+    frames.push({ offset: o3, transform: T(hit.x, hit.y, 0, 0.72, 1.12) });
+    arcFrames(frames, hit, { x: 0, y: 0 }, S.h * 0.08, o3, o4, 0, -360);
+    var L = 1 - o4;
+    frames.push({ offset: o4 + L * 0.3, transform: T(0, 0, -360, 1.06, 0.86) });
+    frames.push({ offset: o4 + L * 0.7, transform: T(0, 0, -360, 0.99, 1.02) });
+    frames.push({ offset: 1, transform: T(0, 0, -360, 1, 1) });
+    var cut = getComputedStyle(root).getPropertyValue('--ttb-cut').trim();
+    var ring = Math.round(S.w * 0.006) + 'px';
+    board.animate([
+      { boxShadow: '0 0 0 0 transparent' },
+      { boxShadow: '0 0 0 ' + ring + ' ' + cut, offset: 0.25 },
+      { boxShadow: '0 0 0 0 transparent' }
+    ], { duration: 520, delay: hold + fly * 0.92, easing: 'ease-out' });
+    return el.animate(frames, { duration: total, fill: 'backwards', easing: 'linear' });
+  }
+
+  // 한 단계 재생: 카드가 여러 장이면 0.11초 간격으로 연달아 던짐
+  function playStep(i) {
+    var s = STEPS[i], anims = [];
+    say(i);
+    s.els.forEach(function (e, k) {
+      e.classList.remove('ttb-off');
+      if (reduce) return;
+      anims.push(s.kind === 'fill' ? throwTile(e, k * 110) : throwCut(e));
+    });
+    return Promise.all(anims.map(function (a) { return a.finished; })).then(function () {
+      if (s.kind === 'cut') s.els.forEach(function (e) { e.classList.add('ttb-struck'); });
+      setCounts(i + 1);
+    });
+  }
+
+  function playAll() {
+    var my = ++runId;
+    stepIdx = -1;
+    btnStep.textContent = '한 단계씩';
+    if (reduce) { setFull(); say(-1); return; }
+    setEmpty();
+    var chain = wait(350);
+    STEPS.forEach(function (s, i) {
+      chain = chain.then(function () {
+        if (my !== runId) throw 0;
+        return playStep(i);
+      }).then(function () { return wait(ms('--ttb-gap')); });
+    });
+    chain.then(function () { if (my === runId) say(-1); }).catch(function () {});
+  }
+
+  // 발표 클릭처럼 한 단계씩: 첫 클릭에 비우고 1단계, 이후 클릭마다 다음 단계
+  function nextStep() {
+    runId++;
+    if (stepIdx &lt; 0 || stepIdx &gt;= STEPS.length) { setEmpty(); stepIdx = 0; }
+    else root.getAnimations({ subtree: true }).forEach(function (a) { a.finish(); });
+    playStep(stepIdx).catch(function () {});
+    stepIdx++;
+    btnStep.textContent = stepIdx &gt;= STEPS.length ? '한 단계씩 · 처음부터' : '한 단계씩 (' + stepIdx + '/' + STEPS.length + ')';
+  }
+
+  root.querySelector('[data-ttb-act="replay"]').addEventListener('click', playAll);
+  btnStep.addEventListener('click', nextStep);
+  slide.addEventListener('keydown', function (e) {
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) &gt; -1) { e.preventDefault(); nextStep(); }
+  });
+
+  // 5) 시작: 완성 상태를 먼저 보여 주고, 화면에 들어오면 처음부터 한 번 재생
+  setFull();
+  if (reduce) return;
+  var started = false;
+  function start() { if (started) return; started = true; setTimeout(function () { if (stepIdx &lt; 0 &amp;&amp; runId === 0) playAll(); }, 1200); }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); start(); } }, { threshold: 0.5 });
+    io.observe(slide);
+  } else start();
+})();
+&lt;/script&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <p class="hint" id="copy-hint">복사 버튼이 막힌 환경이면 코드 상자가 자동으로 전체 선택됩니다. 그때 Ctrl+C(맥은 ⌘+C)를 누르세요.</p>
+    <h3>바꿀 지점</h3>
+    <ol>
+      <li><b>색·글꼴·타이밍</b>: 맨 위 <code>.ttb { … }</code>의 CSS 변수. 카테고리 색은 <code>--ttb-care</code>·<code>--ttb-play</code>·<code>--ttb-special</code>·<code>--ttb-home</code>, 속도는 <code>--ttb-fly</code>(비행)·<code>--ttb-land</code>(안착)·<code>--ttb-gap</code>(단계 사이).</li>
+      <li><b>출처와 제목</b>: <code>.ttb-src</code>에 계획안 위치와 원문 한 줄, <code>.ttb-title</code>에 결론 한 문장.</li>
+      <li><b>판의 축</b>: 스크립트의 <code>TIMES</code>(줄)와 <code>DAYS</code>(칸). 개수를 바꾸면 CSS의 <code>repeat(5,1fr)</code> 두 곳도 같은 수로 맞춥니다.</li>
+      <li><b>단계 목록</b>: <code>STEPS</code> 배열 하나가 전부입니다. <code>kind</code>가 <code>'fill'</code>이면 <code>row</code>(줄)와 <code>days</code>(요일 묶음)에 안착, <code>'cut'</code>이면 튕겨 나와 '덜어 낸 것'에 쌓입니다. 새 카테고리는 <code>.ttb-tile[data-cat="…"]</code> 색 규칙과 범례 한 줄을 추가하세요.</li>
+      <li><b>발표 조작</b>: 장표를 한 번 클릭해 초점을 준 뒤 → · PageDown · 스페이스 · Enter로 한 단계씩 넘어갑니다. 무선 프레젠터도 대부분 이 키를 보냅니다.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span>④</span>PPT로 옮기기</h2>
+    <p>한 장에 모든 개체를 <b>최종 위치</b>에 먼저 배치한 뒤 애니메이션을 겁니다. 띠 모양 카드는 날아오는 '공 카드'(칸 하나 크기 사본)와 펼쳐지는 '띠'로 나누는 것이 요령입니다. 공 카드는 띠가 놓일 줄의 가운데에 둡니다. 덜어 낼 카드는 '덜어 낸 것' 칸 안 최종 위치에 두고 이동 경로로 판까지 갔다 돌아오게 합니다.</p>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>클릭</th><th>대상</th><th>애니메이션 (한국어판)</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+        <tbody>
+          <tr class="grp"><td class="n">1</td><td colspan="6">간식·쉼 (14시 줄, 매일)</td></tr>
+          <tr><td></td><td>공 카드 '간식'</td><td>나타내기 › 바운드</td><td>—</td><td>클릭할 때</td><td class="n">1.00초</td><td class="n">0</td></tr>
+          <tr><td></td><td>공 카드 '간식'</td><td>끝내기 › 사라지기</td><td>—</td><td>이전 효과 다음에</td><td class="n">—</td><td class="n">0</td></tr>
+          <tr><td></td><td>띠 '간식·쉼'</td><td>나타내기 › 나누기</td><td>세로 바깥쪽으로</td><td>이전 효과와 함께</td><td class="n">0.40초</td><td class="n">0</td></tr>
+          <tr><td></td><td>숫자 '채움'</td><td>0 끝내기 › 사라지기 / 1 나타내기 › 나타내기</td><td>숫자별 텍스트 상자 겹침</td><td>이전 효과와 함께</td><td class="n">—</td><td class="n">0</td></tr>
+          <tr class="grp"><td class="n">2</td><td colspan="6">바깥 놀이 (15시 줄, 매일) — 1번과 같은 세트</td></tr>
+          <tr class="grp cut"><td class="n">3</td><td colspan="6">영어 학습지 (덜어 냄)</td></tr>
+          <tr><td></td><td>카드 '영어 학습지'</td><td>이동 경로 › 사용자 지정 경로</td><td>후보 더미 → 판 왼쪽(꺾임) → 트레이 자리, 끝점을 트레이에 맞춤. 부드럽게 시작·끝내기 0</td><td>클릭할 때</td><td class="n">1.40초</td><td class="n">0</td></tr>
+          <tr><td></td><td>시간표 판 테두리(빨간 윤곽 사각형)</td><td>나타내기 › 밝기 변화 + 끝내기 › 밝기 변화</td><td>—</td><td>이전 효과와 함께</td><td class="n">0.20초씩</td><td class="n">0.60초 / 0.80초</td></tr>
+          <tr><td></td><td>취소선(선 도형)</td><td>나타내기 › 닦아내기</td><td>왼쪽에서</td><td>이전 효과 다음에</td><td class="n">0.30초</td><td class="n">0</td></tr>
+          <tr class="grp"><td class="n">4</td><td colspan="6">특성화 (16시 줄, 화·목) — 공 카드 2장만, 띠 없이</td></tr>
+          <tr><td></td><td>'특성화' 화 · 목</td><td>나타내기 › 바운드</td><td>—</td><td>클릭할 때 / 이전 효과와 함께</td><td class="n">1.00초</td><td class="n">0 / 0.10초</td></tr>
+          <tr class="grp"><td class="n">5</td><td colspan="6">프로젝트 놀이 (16시 줄, 월·수·금) — 4번처럼 3장, 지연 0 / 0.10 / 0.20초</td></tr>
+          <tr class="grp cut"><td class="n">6</td><td colspan="6">한글 쓰기 선행 (덜어 냄) — 3번과 같은 세트</td></tr>
+          <tr class="grp"><td class="n">7</td><td colspan="6">돌봄·휴식 (17시 줄, 매일) — 1번과 같은 세트</td></tr>
+          <tr class="grp"><td class="n">8</td><td colspan="6">귀가 지원 (18시 줄, 매일) — 1번과 같은 세트</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">한 세트를 만든 뒤 <b>애니메이션 복사</b>(애니메이션 탭)로 다음 카드에 옮기면 빠릅니다. 숫자 교체가 번거로우면 카운터는 최종 숫자만 두어도 정보 손실이 적습니다.</p>
+
+    <div class="two">
+      <div>
+        <h3>PPT에서 안 되는 동작과 근사법</h3>
+        <ul>
+          <li><b>후보 더미에서 날아오는 포물선</b>: 바운드는 위에서 떨어지는 동작이라 궤적이 다릅니다. 궤적까지 살리려면 공 카드를 후보 더미 위치에 두고 이동 경로 › 아치형(또는 사용자 지정 경로)으로 칸 가운데까지 그린 뒤, 효과 옵션 › 효과 탭에서 '바운드 끝내기'를 0.2~0.3초로 둡니다.</li>
+          <li><b>착지 스쿼시</b>: 같은 카드에 강조 › 크게/작게(가로 110%, 자동 반대로, 0.15초)를 '이전 효과 다음에'로 추가합니다.</li>
+          <li><b>튕겨 나올 때 한 바퀴 회전</b>: 강조 › 회전(360° 시계 반대 방향)을 이동 경로 후반부와 '이전 효과와 함께', 지연 0.70초로 겹칩니다.</li>
+          <li><b>꽉 찬 카드 → 점선 카드</b>: 점선 테두리 사본을 겹쳐 두고 나타내기 › 밝기 변화로 바꿉니다.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>모핑으로 만들 때</h3>
+        <ul>
+          <li>장표를 단계 수만큼 복제합니다(채움 6 + 덜어 냄 2×2 = 10장 + 빈 판 1장).</li>
+          <li>첫 장은 모든 카드를 후보 더미 자리에 칸 하나 크기로 겹쳐 둡니다. 다음 장마다 카드 하나를 최종 칸으로 옮기고 띠는 줄 폭까지 늘립니다. 모핑이 크기 변화를 '펼쳐짐'으로 보여 줍니다.</li>
+          <li>덜어 낼 카드는 두 장에 걸쳐 판 왼쪽 → 트레이로 옮깁니다.</li>
+          <li>모든 장에서 같은 카드는 선택 창(홈 › 정렬 › 선택 창)에서 <code>!!간식</code>, <code>!!바깥</code>, <code>!!영어</code>처럼 <code>!!</code>로 시작하는 같은 이름을 줍니다.</li>
+          <li>전환 › 모핑, 효과 옵션 › 개체, 기간 0.80초. 포물선과 튕김은 모핑으로 안 되므로 직선으로 미끄러지는 정도로 근사됩니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>⑤</span>스펙</h2>
+    <ul class="sw">
+      <li><i style="background:#FBFCF9"></i><span>장표 바탕<code>#FBFCF9</code></span></li>
+      <li><i style="background:#1F2A24"></i><span>글자<code>#1F2A24</code></span></li>
+      <li><i style="background:#EFF3EF"></i><span>빈 칸<code>#EFF3EF</code></span></li>
+      <li><i style="background:#F6C88E"></i><span>돌봄·쉼<code>#F6C88E</code></span></li>
+      <li><i style="background:#8FD0A2"></i><span>놀이<code>#8FD0A2</code></span></li>
+      <li><i style="background:#C7B5EC"></i><span>특성화<code>#C7B5EC</code></span></li>
+      <li><i style="background:#93D0CD"></i><span>귀가 지원<code>#93D0CD</code></span></li>
+      <li><i style="background:#D9534A"></i><span>덜어 냄<code>#D9534A</code></span></li>
+      <li><i style="background:#2F7D4C"></i><span>강조 글자<code>#2F7D4C</code></span></li>
+    </ul>
+    <dl>
+      <dt>글꼴</dt><dd>제목·숫자 Do Hyeon, 본문 IBM Plex Sans KR, 시각 IBM Plex Mono (대체: Apple SD Gothic Neo · 맑은 고딕). PPT에서는 제목 '배달의민족 도현'이나 굵은 고딕, 본문 맑은 고딕으로 대체해도 됩니다.</dd>
+      <dt>난이도</dt><dd>HTML 중 (포물선 좌표 계산은 이미 들어 있어 배열만 고치면 됨) · PPT 중 (세트 하나를 만들어 애니메이션 복사로 반복)</dd>
+      <dt>재생 길이</dt><dd>전체 약 14초, 단계당 1.2~1.9초</dd>
+      <dt>반영 트렌드</dt><dd>
+        <b>물리 기반 상호작용</b>: 스프링·관성·마찰로 "카드가 제자리에 튕기며 들어가는" 촉감. 포물선 궤적, 착지 스쿼시, 오버슈트에 반영 (<a href="https://lomatechnology.com/blog/motion-ui-trends-2026/2911" target="_blank" rel="noopener">Loma Technology, Motion UI Trends 2026</a>).<br>
+        <b>등장 안무로 읽는 순서 만들기</b>: 요소가 그냥 나타나지 않고 순서대로 도착해 위계를 만든다. 시간 순(14시→18시) 투척과 다중 카드 0.11초 시차에 반영 (<a href="https://thecrit.co/resources/design-trends-2026" target="_blank" rel="noopener">The Crit, Design Trends That Will Actually Matter in 2026</a>).
+      </dd>
+    </dl>
+  </section>
+</div>
+
+<script>
+// 코드 복사: 막히면 코드 상자 전체 선택
+(function () {
+  var btn = document.getElementById('copy-btn'), pre = document.getElementById('code');
+  function selectAll() {
+    var r = document.createRange(); r.selectNodeContents(pre);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); pre.focus();
+  }
+  btn.addEventListener('click', function () {
+    var text = pre.textContent;
+    var p = navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(text) : Promise.reject();
+    p.then(function () { btn.textContent = '복사됨'; setTimeout(function () { btn.textContent = '코드 복사'; }, 1600); })
+     .catch(function () { selectAll(); btn.textContent = '선택됨 · Ctrl+C'; });
+  });
+})();
+</script>
+
+</body></html>

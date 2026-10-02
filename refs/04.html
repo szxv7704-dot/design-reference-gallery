@@ -1,0 +1,404 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #4 가온 야간편 탑승권</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic+Coding:wght@400;700&family=Martian+Mono:wght@400;600;800&family=Gothic+A1:wght@400;600;800&display=swap">
+<style>
+/* Layout: 16:9 riso cover (fixed print look) on top, utilitarian memo sheets below in one column */
+:root{
+  /* inks — fixed, the cover is a print and keeps one look */
+  --ink-paper:#F3EEE2; --ink-stock:#FBF8F0; --ink-blue:#3D5588; --ink-pink:#FF48B0; --ink-yellow:#FFE800;
+  /* memo theme */
+  --bg:#F3EEE2; --sheet:#FBF8F0; --fg:#1F2433; --muted:#5B6275; --line:#D9D2C1;
+  --accent:#3D5588; --hot:#D6288A; --mark:#FFE800; --mark-fg:#1F2433;
+  --f-disp:"Do Hyeon","Black Han Sans","Malgun Gothic",sans-serif;
+  --f-field:"Nanum Gothic Coding","D2Coding",Consolas,monospace;
+  --f-code:"Martian Mono","Consolas","Courier New",monospace;
+  --f-body:"Gothic A1","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141824; --sheet:#1C2231; --fg:#ECE7DA; --muted:#A3A9B8; --line:#313a50;
+  --accent:#9DB2E6; --hot:#FF6CC0; --mark:#FFE800; --mark-fg:#141824; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141824; --sheet:#1C2231; --fg:#ECE7DA; --muted:#A3A9B8; --line:#313a50;
+  --accent:#9DB2E6; --hot:#FF6CC0; --mark:#FFE800; --mark-fg:#141824; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);line-height:1.6;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 64px}
+
+/* ================= COVER ================= */
+.slide{container-type:inline-size;position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;
+  background:var(--ink-paper);color:var(--ink-blue);isolation:isolate;box-shadow:0 1px 0 rgba(0,0,0,.08),0 12px 40px -18px rgba(20,24,36,.45)}
+.slide .sky{position:absolute;inset:0 0 auto 0;height:31cqw;background:var(--ink-blue);mix-blend-mode:multiply}
+.slide .sky-dots{position:absolute;left:0;right:0;top:30.5cqw;height:5cqw;
+  background:radial-gradient(circle,var(--ink-blue) 42%,transparent 44%) 0 0/0.8cqw 0.8cqw;
+  -webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent);mix-blend-mode:multiply}
+.slide .sun{position:absolute;left:70cqw;top:1.2cqw;width:14cqw;height:14cqw;border-radius:50%;background:var(--ink-yellow)}
+.slide .sun-pink{position:absolute;left:70.7cqw;top:1.7cqw;width:14cqw;height:14cqw;border-radius:50%;
+  background:linear-gradient(transparent 52%,var(--ink-pink) 52%);mix-blend-mode:multiply;opacity:.9}
+.slide .sun-lines{position:absolute;left:70.7cqw;top:9cqw;width:14cqw;height:6.8cqw;border-radius:0 0 7cqw 7cqw;
+  background:repeating-linear-gradient(var(--ink-paper) 0 .35cqw,transparent .35cqw 1.1cqw);mix-blend-mode:screen;opacity:.55}
+.reg{position:absolute;width:2.2cqw;height:2.2cqw;border:.12cqw solid var(--ink-blue);border-radius:50%}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--ink-blue)}
+.reg::before{left:50%;top:-.6cqw;bottom:-.6cqw;width:.12cqw;transform:translateX(-50%)}
+.reg::after{top:50%;left:-.6cqw;right:-.6cqw;height:.12cqw;transform:translateY(-50%)}
+.reg.p{border-color:var(--ink-pink);transform:translate(.25cqw,.18cqw)}
+.reg.p::before,.reg.p::after{background:var(--ink-pink)}
+.reg.bl{left:2cqw;bottom:2cqw}.reg.br{right:2cqw;bottom:2cqw}
+.foot{position:absolute;left:5.2cqw;bottom:2.1cqw;font:400 1.02cqw/1.3 var(--f-field);color:var(--ink-blue);letter-spacing:.02em}
+.foot b{background:var(--ink-pink);color:var(--ink-stock);padding:.1cqw .5cqw;margin-right:.6cqw;font-weight:700}
+.foot-r{position:absolute;right:5.4cqw;bottom:2.1cqw;font:400 .95cqw/1.3 var(--f-code);color:var(--ink-blue);letter-spacing:.06em}
+
+.pass-wrap{position:absolute;left:4.6cqw;top:6.6cqw;width:90cqw;height:41cqw;transform:rotate(-1.4deg)}
+.cut{-webkit-mask-image:radial-gradient(circle at 66cqw 0,transparent 1.35cqw,#000 1.42cqw),radial-gradient(circle at 66cqw 100%,transparent 1.35cqw,#000 1.42cqw);
+  -webkit-mask-composite:source-in;
+  mask-image:radial-gradient(circle at 66cqw 0,transparent 1.35cqw,#000 1.42cqw),radial-gradient(circle at 66cqw 100%,transparent 1.35cqw,#000 1.42cqw);
+  mask-composite:intersect;border-radius:.7cqw}
+.pass-shadow{position:absolute;inset:0;background:var(--ink-pink);transform:translate(.9cqw,1cqw);mix-blend-mode:multiply;opacity:.85}
+.pass{position:absolute;inset:0;background:var(--ink-stock);display:grid;grid-template-columns:66cqw 24cqw;overflow:hidden}
+.perf{position:absolute;left:66cqw;top:1.6cqw;bottom:1.6cqw;width:.5cqw;transform:translateX(-50%);
+  background:radial-gradient(circle,var(--ink-paper) 0 .16cqw,rgba(61,85,136,.35) .17cqw .2cqw,transparent .21cqw) 50% 0/.5cqw .62cqw repeat-y}
+.main,.stub{position:relative;display:flex;flex-direction:column;min-width:0}
+.band{position:relative;height:4.2cqw;flex:none}
+.band .ink{position:absolute;inset:0;background:var(--ink-pink);transform:translate(.28cqw,-.16cqw);mix-blend-mode:multiply}
+.band .txt{position:relative;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 1.8cqw;color:var(--ink-blue)}
+.carrier{display:flex;align-items:center;gap:.8cqw;font:400 1.9cqw/1 var(--f-disp);letter-spacing:.02em}
+.carrier svg{width:2.3cqw;height:2.3cqw}
+.carrier small{font:600 .9cqw/1 var(--f-code);letter-spacing:.18em;margin-left:.3cqw}
+.bp{text-align:right;font:800 1.25cqw/1.05 var(--f-code);letter-spacing:.2em}
+.bp span{display:block;font:400 1.1cqw/1.2 var(--f-field);letter-spacing:.3em}
+.body{flex:1;padding:1.2cqw 1.9cqw 1.1cqw;display:flex;flex-direction:column;gap:.95cqw;font-family:var(--f-field)}
+.lbl{display:block;font:400 .82cqw/1.15 var(--f-field);letter-spacing:.05em;color:var(--ink-blue);opacity:.8;white-space:nowrap}
+.lbl i{font:600 .7cqw/1 var(--f-code);font-style:normal;letter-spacing:.14em;margin-left:.35cqw}
+.val{display:block;font:700 1.6cqw/1.2 var(--f-field);color:var(--ink-blue);white-space:nowrap}
+.val.code{font:600 1.65cqw/1.2 var(--f-code);letter-spacing:.04em}
+.row1{display:grid;grid-template-columns:1fr auto auto;gap:2.4cqw;align-items:end}
+.sub{display:block;font:400 .85cqw/1.25 var(--f-field);color:var(--ink-blue)}
+.title-f{border-top:.14cqw solid var(--ink-blue);border-bottom:.14cqw dashed var(--ink-blue);padding:.55cqw 0 .6cqw;display:flex;align-items:baseline;gap:1.4cqw}
+.title-f .t{font:400 3.35cqw/1.05 var(--f-disp);color:var(--ink-blue);position:relative;z-index:0;display:inline-block;letter-spacing:-.01em;white-space:nowrap}
+.title-f .t::before{content:attr(data-t);position:absolute;left:.26cqw;top:.18cqw;color:var(--ink-pink);mix-blend-mode:multiply;z-index:-1}
+.title-f .t-sub{font:400 1.1cqw/1.3 var(--f-field);color:var(--ink-blue);white-space:nowrap}
+.route{display:grid;grid-template-columns:auto 1fr auto;gap:1.2cqw;align-items:center}
+.port .iata{font:800 5.6cqw/.9 var(--f-code);letter-spacing:-.02em;color:var(--ink-blue);position:relative;z-index:0;display:inline-block}
+.port .iata::before{content:attr(data-c);position:absolute;left:.3cqw;top:.2cqw;color:var(--ink-pink);mix-blend-mode:multiply;z-index:-1}
+.port .city{display:block;font:700 1.12cqw/1.3 var(--f-field);color:var(--ink-blue);margin-top:.35cqw}
+.port .kpi{display:inline-block;font:400 .95cqw/1.3 var(--f-field);color:var(--ink-blue);background:var(--ink-yellow);mix-blend-mode:multiply;padding:.05cqw .4cqw;margin-top:.25cqw}
+.port.to{text-align:right}
+.port .lbl,.port .city{display:block}
+.via{position:relative;height:6.2cqw}
+.via::before{content:"";position:absolute;left:0;right:2.4cqw;top:2.1cqw;border-top:.2cqw dashed var(--ink-blue)}
+.via .plane{position:absolute;right:0;top:1.05cqw;width:2.3cqw;height:2.3cqw}
+.stops{position:absolute;left:1.5cqw;right:4cqw;top:0;display:flex;justify-content:space-between}
+.stop{display:flex;flex-direction:column;align-items:center;gap:.25cqw}
+.stop .n{font:600 .72cqw/1 var(--f-code);letter-spacing:.14em;color:var(--ink-blue)}
+.stop .dot{width:1.3cqw;height:1.3cqw;border-radius:50%;background:var(--ink-stock);border:.22cqw solid var(--ink-blue);position:relative}
+.stop .dot::after{content:"";position:absolute;inset:.12cqw;border-radius:50%;background:var(--ink-pink);transform:translate(.14cqw,.08cqw);mix-blend-mode:multiply}
+.stop .c{font:600 1.05cqw/1 var(--f-code);color:var(--ink-blue);letter-spacing:.06em}
+.stop .k{font:400 .85cqw/1.1 var(--f-field);color:var(--ink-blue);white-space:nowrap}
+.strip{display:grid;grid-template-columns:1.25fr 1.25fr 1.25fr 1fr 1.35fr;border:.14cqw solid var(--ink-blue)}
+.strip>div{padding:.45cqw .75cqw .5cqw;border-left:.14cqw solid var(--ink-blue);min-width:0;position:relative}
+.strip>div:first-child{border-left:0}
+.strip .hl{position:absolute;inset:.35cqw;background:var(--ink-yellow);mix-blend-mode:multiply;transform:translate(.18cqw,.12cqw);z-index:0}
+.strip>div>*:not(.hl){position:relative;z-index:1}
+.strip .big{font:800 2.05cqw/1.1 var(--f-code);color:var(--ink-blue);display:block}
+.lower{display:grid;grid-template-columns:auto 1fr;gap:1.4cqw;align-items:center}
+.pdf{width:25cqw;color:var(--ink-blue)}
+.pdf svg{display:block;width:100%;height:4.6cqw}
+.pdf svg path{fill:currentColor}
+.pdf .hr{font:400 .62cqw/1.3 var(--f-code);letter-spacing:.06em;margin-top:.25cqw;white-space:nowrap}
+.warn{font:400 .88cqw/1.45 var(--f-field);color:var(--ink-blue);border-left:.5cqw solid var(--ink-pink);padding-left:.8cqw}
+.warn b{font-weight:700;display:block;font-size:.95cqw}
+
+.stub .band .txt{justify-content:flex-start;gap:.8cqw;padding:0 1.5cqw 0 2cqw}
+.stub .band .txt .bp{text-align:left}
+.stub .body{padding:1.1cqw 1.4cqw 1.1cqw 2.1cqw;gap:.8cqw}
+.s-route{display:flex;align-items:center;gap:.7cqw;font:800 2.6cqw/1 var(--f-code);color:var(--ink-blue)}
+.s-route span{font:400 1.2cqw/1 var(--f-code)}
+.s-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6cqw 1cqw}
+.s-grid .val{font-size:1.35cqw}
+.s-foot{display:flex;align-items:flex-end;gap:1.1cqw;margin-top:auto}
+.aztec{width:7.2cqw;height:7.2cqw;color:var(--ink-blue);flex:none}
+.aztec svg{width:100%;height:100%;display:block}.aztec svg path{fill:currentColor}
+.seq{font:800 1.6cqw/1 var(--f-code);color:var(--ink-blue)}
+.grain{position:absolute;inset:0;pointer-events:none;z-index:5;mix-blend-mode:multiply;opacity:.4;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .15  0 0 0 0 .16  0 0 0 0 .25  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.speck{position:absolute;inset:0;pointer-events:none;z-index:6;opacity:.7;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .98  0 0 0 0 .97  0 0 0 0 .94  4 0 0 0 -2.75'/></filter><rect width='100%' height='100%' filter='url(%23s)'/></svg>")}
+
+/* ================= MEMO ================= */
+.memo-head{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;justify-content:space-between;margin:40px 0 8px}
+h1{font:400 clamp(26px,3.4vw,38px)/1.15 var(--f-disp);margin:0;text-wrap:balance}
+.meta{font:400 13px/1.5 var(--f-field);color:var(--muted)}
+.lede{max-width:68ch;color:var(--muted);margin:4px 0 0}
+section{margin-top:44px}
+h2{font:400 24px/1.2 var(--f-disp);margin:0 0 6px;display:flex;gap:12px;align-items:baseline}
+h2 .tag{font:600 11px/1 var(--f-code);letter-spacing:.16em;color:var(--hot);text-transform:uppercase}
+.note{color:var(--muted);font-size:14px;max-width:72ch;margin:0 0 16px}
+.tbl-wrap{overflow-x:auto;border-top:2px solid var(--fg);border-bottom:2px solid var(--fg)}
+table{border-collapse:collapse;width:100%;min-width:860px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:600 11px/1.3 var(--f-code);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:var(--sheet)}
+tr:last-child td{border-bottom:0}
+td.stage{font-weight:800;white-space:nowrap}
+td.el{font-family:var(--f-field);white-space:nowrap}
+td.el b{font-family:var(--f-code);color:var(--accent)}
+td .num{font-variant-numeric:tabular-nums}
+.flow{overflow-x:auto;background:var(--sheet);border:1px solid var(--line);padding:18px 12px}
+.flow svg{display:block;min-width:900px;width:100%;height:auto}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+.cols>div{min-width:0}
+ol.check{margin:0;padding-left:22px;font-size:14px}
+ol.check li{padding:3px 0}
+ol.check li b{font-family:var(--f-field)}
+ol.check li span{color:var(--muted)}
+.src{font-size:13px;padding-left:18px;margin:0}
+.src li{padding:2px 0;overflow-wrap:anywhere}
+a{color:var(--accent)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.sw{border:1px solid var(--line);background:var(--sheet)}
+.sw i{display:block;height:56px}
+.sw div{padding:8px 10px;font-size:13px}
+.sw code{font-family:var(--f-code);font-size:12px;display:block}
+dl.spec{display:grid;grid-template-columns:max-content 1fr;gap:10px 20px;margin:0;font-size:14px}
+dl.spec dt{font:600 12px/1.6 var(--f-code);letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+dl.spec dd{margin:0;min-width:0}
+ul.ppt{margin:0;padding-left:20px;font-size:14px}
+ul.ppt li{padding:3px 0}
+.pill{display:inline-block;font:700 12px/1 var(--f-code);letter-spacing:.1em;padding:5px 9px;background:var(--mark);color:var(--mark-fg)}
+.review{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;font-size:13px}
+.review div{border:1px solid var(--line);padding:10px 12px;background:var(--sheet)}
+.review b{display:block;font-family:var(--f-code);color:var(--accent);font-size:12px;letter-spacing:.08em}
+@media (max-width:560px){dl.spec{grid-template-columns:1fr}dl.spec dt{margin-top:6px}}
+</style>
+
+<div class="wrap">
+
+<!-- ============ COVER 16:9 ============ -->
+<div class="slide" role="img" aria-label="표지: 가온 나이트라인 탑승권 형식. 편명 GN 2027, 출발 DAY(2025 야간 방문객 42만 명)에서 야시장·수변 야경·체류 숙박을 경유해 도착 NGT(2029 목표 100만 명). 탑승 18:20, 출발 19:00, 탑승구 W3, 그룹 1, 운임 120억 원.">
+  <div class="sky"></div><div class="sky-dots"></div>
+  <div class="sun"></div><div class="sun-pink"></div><div class="sun-lines"></div>
+
+  <div class="pass-wrap">
+    <div class="pass-shadow cut"></div>
+    <div class="pass cut">
+      <div class="main">
+        <div class="band"><div class="ink"></div><div class="txt">
+          <div class="carrier"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 2.5a9.5 9.5 0 1 0 6 16.9A8 8 0 0 1 15.5 2.5Z" fill="#3D5588"/><circle cx="17.5" cy="7" r="1.4" fill="#3D5588"/></svg>가온 나이트라인<small>GAON NIGHTLINE</small></div>
+          <div class="bp">BOARDING PASS<span>탑승권</span></div>
+        </div></div>
+        <div class="body">
+          <div class="row1">
+            <div><span class="lbl">승객 성명<i>NAME OF PASSENGER</i></span><span class="val">가온시 문화관광국 관광진흥과</span></div>
+            <div><span class="lbl">편명<i>FLIGHT</i></span><span class="val code">GN 2027</span></div>
+            <div><span class="lbl">날짜<i>DATE</i></span><span class="val code">30SEP26</span></div>
+          </div>
+          <div class="title-f">
+            <div><span class="lbl">여정<i>ITINERARY</i></span><span class="t" data-t="가온시 야간관광 활성화 사업">가온시 야간관광 활성화 사업</span></div>
+            <span class="t-sub">2027–2029 사업계획 보고<br>보고일 2026. 9. 30.</span>
+          </div>
+          <div class="route">
+            <div class="port"><span class="lbl">출발<i>FROM</i></span><span class="iata" data-c="DAY">DAY</span><span class="city">낮에만 머무는 도시</span><span class="kpi">2025 야간 방문객 42만 명</span></div>
+            <div class="via">
+              <div class="stops">
+                <div class="stop"><span class="n">VIA 1</span><span class="dot"></span><span class="c">MKT</span><span class="k">야시장 상설화</span></div>
+                <div class="stop"><span class="n">VIA 2</span><span class="dot"></span><span class="c">RVR</span><span class="k">수변 야경</span></div>
+                <div class="stop"><span class="n">VIA 3</span><span class="dot"></span><span class="c">STY</span><span class="k">체류형 숙박 연계</span></div>
+              </div>
+              <svg class="plane" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 13.2 5 12l3 1.6 3.2-.4L7.6 4.6 10 4l6.3 8.4 4.4-.5c1.2-.1 1.9.6 1.9 1.2s-.7 1.2-1.9 1.2l-4.4-.3L10 22l-2.4-.6 3.6-8.6-3.2-.4L5 14 2 13.2Z" fill="#3D5588"/></svg>
+            </div>
+            <div class="port to"><span class="lbl">도착<i>TO</i></span><span class="iata" data-c="NGT">NGT</span><span class="city">밤까지 머무는 도시</span><span class="kpi">2029 목표 연 100만 명</span></div>
+          </div>
+          <div class="strip">
+            <div><span class="hl"></span><span class="lbl">탑승 시각<i>BOARDING</i></span><span class="big">18:20</span><span class="sub">9월 말 일몰 무렵</span></div>
+            <div><span class="lbl">출발 시각<i>DEPARTS</i></span><span class="big">19:00</span><span class="sub">야시장 개장</span></div>
+            <div><span class="lbl">탑승구<i>GATE</i></span><span class="big">W3</span><span class="sub">가온천 수변광장</span></div>
+            <div><span class="lbl">그룹<i>GROUP</i></span><span class="big">1</span><span class="sub">1단계 · 2027</span></div>
+            <div><span class="lbl">운임<i>FARE</i></span><span class="big">120억</span><span class="sub">국비 60 · 시비 60</span></div>
+          </div>
+          <div class="lower">
+            <div class="pdf" aria-label="PDF417 바코드: 사업 핵심 수치"><svg preserveAspectRatio="none" aria-hidden="true" viewBox="0 0 342 76" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 76L16 76L16 0L0 0ZM18 76L20 76L20 0L18 0ZM22 76L24 76L24 0L22 0ZM26 76L28 76L28 0L26 0ZM34 76L40 76L40 72L42 72L42 68L40 68L40 56L42 56L42 52L40 52L40 48L42 48L42 52L44 52L44 48L46 48L46 44L44 44L44 40L42 40L42 44L40 44L40 36L46 36L46 28L44 28L44 32L42 32L42 20L40 20L40 16L42 16L42 12L40 12L40 8L42 8L42 12L44 12L44 4L42 4L42 0L40 0L40 4L38 4L38 0L34 0ZM42 76L46 76L46 72L42 72ZM48 76L50 76L50 72L48 72ZM58 76L62 76L62 68L64 68L64 64L62 64L62 60L66 60L66 52L64 52L64 56L58 56L58 60L54 60L54 64L52 64L52 56L50 56L50 60L48 60L48 64L46 64L46 72L48 72L48 68L50 68L50 72L58 72L58 68L56 68L56 64L60 64L60 72L58 72ZM68 76L70 76L70 60L72 60L72 56L70 56L70 44L72 44L72 40L74 40L74 36L72 36L72 32L74 32L74 20L76 20L76 16L72 16L72 12L70 12L70 0L68 0ZM80 76L82 76L82 68L84 68L84 64L86 64L86 68L84 68L84 76L88 76L88 72L90 72L90 68L88 68L88 64L90 64L90 56L92 56L92 64L90 64L90 68L94 68L94 64L100 64L100 56L98 56L98 52L96 52L96 48L100 48L100 44L96 44L96 40L94 40L94 52L92 52L92 48L88 48L88 60L80 60L80 64L78 64L78 52L80 52L80 48L82 48L82 44L84 44L84 40L82 40L82 36L84 36L84 40L90 40L90 36L86 36L86 32L84 32L84 28L86 28L86 24L80 24L80 32L76 32L76 40L78 40L78 36L80 36L80 40L78 40L78 48L76 48L76 52L72 52L72 56L74 56L74 64L72 64L72 72L80 72ZM92 76L96 76L96 72L92 72ZM102 76L108 76L108 72L110 72L110 68L112 68L112 72L110 72L110 76L116 76L116 68L118 68L118 64L112 64L112 60L110 60L110 64L108 64L108 60L106 60L106 68L104 68L104 60L106 60L106 56L108 56L108 60L110 60L110 52L112 52L112 48L110 48L110 44L112 44L112 48L114 48L114 44L116 44L116 40L118 40L118 36L120 36L120 32L118 32L118 28L116 28L116 12L120 12L120 8L116 8L116 4L114 4L114 8L112 8L112 12L110 12L110 16L114 16L114 28L112 28L112 32L114 32L114 36L112 36L112 40L106 40L106 44L104 44L104 40L106 40L106 36L104 36L104 28L108 28L108 24L112 24L112 20L110 20L110 16L108 16L108 12L106 12L106 16L104 16L104 12L106 12L106 8L110 8L110 4L106 4L106 0L102 0ZM120 76L122 76L122 72L128 72L128 64L126 64L126 60L132 60L132 56L134 56L134 52L132 52L132 48L126 48L126 44L122 44L122 40L124 40L124 32L122 32L122 36L120 36L120 44L118 44L118 52L120 52L120 48L122 48L122 52L120 52L120 56L122 56L122 60L124 60L124 68L122 68L122 64L120 64L120 68L118 68L118 72L120 72ZM128 76L130 76L130 72L128 72ZM136 76L138 76L138 64L140 64L140 60L138 60L138 52L140 52L140 48L142 48L142 52L140 52L140 56L148 56L148 60L144 60L144 64L140 64L140 72L142 72L142 76L146 76L146 64L150 64L150 60L154 60L154 56L156 56L156 48L158 48L158 40L152 40L152 48L150 48L150 44L148 44L148 52L146 52L146 44L144 44L144 40L140 40L140 36L148 36L148 32L150 32L150 36L148 36L148 40L152 40L152 32L156 32L156 28L154 28L154 24L160 24L160 20L162 20L162 16L158 16L158 20L156 20L156 16L154 16L154 20L150 20L150 24L152 24L152 28L150 28L150 24L148 24L148 28L146 28L146 32L144 32L144 28L142 28L142 32L140 32L140 20L142 20L142 24L144 24L144 20L146 20L146 16L148 16L148 12L144 12L144 16L140 16L140 12L138 12L138 0L136 0ZM148 76L158 76L158 68L162 68L162 60L158 60L158 64L150 64L150 68L156 68L156 72L148 72ZM160 76L168 76L168 64L166 64L166 68L164 68L164 72L160 72ZM170 76L172 76L172 64L174 64L174 60L172 60L172 56L174 56L174 52L172 52L172 40L176 40L176 28L178 28L178 36L180 36L180 32L184 32L184 36L192 36L192 32L190 32L190 24L194 24L194 28L196 28L196 24L198 24L198 20L190 20L190 16L192 16L192 12L186 12L186 16L180 16L180 20L182 20L182 24L184 24L184 20L186 20L186 24L184 24L184 28L180 28L180 20L178 20L178 24L176 24L176 16L180 16L180 12L174 12L174 20L172 20L172 8L176 8L176 4L178 4L178 0L170 0ZM178 76L182 76L182 68L180 68L180 64L178 64ZM184 76L192 76L192 72L196 72L196 68L194 68L194 64L192 64L192 68L190 68L190 72L188 72L188 68L190 68L190 64L192 64L192 60L190 60L190 52L194 52L194 48L198 48L198 44L200 44L200 40L202 40L202 36L198 36L198 40L194 40L194 36L192 36L192 44L190 44L190 48L188 48L188 52L186 52L186 48L182 48L182 44L184 44L184 36L180 36L180 40L176 40L176 44L180 44L180 64L182 64L182 68L186 68L186 72L184 72ZM196 76L202 76L202 72L196 72ZM204 76L208 76L208 68L206 68L206 56L210 56L210 60L212 60L212 52L210 52L210 48L208 48L208 52L206 52L206 44L210 44L210 48L214 48L214 44L212 44L212 40L210 40L210 36L208 36L208 40L206 40L206 32L210 32L210 28L206 28L206 20L210 20L210 16L206 16L206 8L208 8L208 4L206 4L206 0L204 0ZM212 76L214 76L214 72L218 72L218 68L220 68L220 72L222 72L222 68L226 68L226 60L224 60L224 64L222 64L222 60L220 60L220 64L216 64L216 68L214 68L214 60L212 60L212 64L210 64L210 68L212 68ZM222 76L226 76L226 72L222 72ZM230 76L236 76L236 72L232 72L232 64L230 64L230 68L226 68L226 72L230 72ZM238 76L244 76L244 72L248 72L248 76L250 76L250 68L248 68L248 60L250 60L250 52L252 52L252 48L254 48L254 44L252 44L252 32L254 32L254 36L256 36L256 52L252 52L252 56L256 56L256 60L258 60L258 52L260 52L260 48L258 48L258 40L260 40L260 32L258 32L258 28L252 28L252 24L256 24L256 16L254 16L254 20L252 20L252 16L250 16L250 24L248 24L248 32L250 32L250 36L248 36L248 40L242 40L242 44L244 44L244 48L248 48L248 56L244 56L244 60L246 60L246 68L244 68L244 64L242 64L242 60L240 60L240 56L242 56L242 52L240 52L240 48L242 48L242 44L240 44L240 36L248 36L248 32L246 32L246 28L244 28L244 32L242 32L242 28L244 28L244 20L248 20L248 16L250 16L250 12L248 12L248 8L246 8L246 16L240 16L240 12L242 12L242 8L246 8L246 4L248 4L248 0L242 0L242 4L240 4L240 0L238 0ZM256 76L258 76L258 72L260 72L260 64L262 64L262 60L258 60L258 64L256 64L256 68L254 68L254 72L256 72ZM264 76L270 76L270 68L264 68ZM272 76L276 76L276 72L278 72L278 64L276 64L276 68L274 68L274 64L276 64L276 60L274 60L274 56L278 56L278 60L280 60L280 48L278 48L278 52L276 52L276 48L274 48L274 44L276 44L276 36L278 36L278 44L280 44L280 36L284 36L284 28L288 28L288 24L294 24L294 20L288 20L288 12L286 12L286 16L282 16L282 20L284 20L284 24L282 24L282 32L280 32L280 28L278 28L278 20L276 20L276 16L278 16L278 12L276 12L276 8L278 8L278 12L280 12L280 8L282 8L282 0L272 0ZM278 76L282 76L282 72L278 72ZM284 76L286 76L286 72L284 72ZM294 76L296 76L296 68L292 68L292 64L296 64L296 60L294 60L294 56L292 56L292 48L290 48L290 56L286 56L286 60L284 60L284 68L286 68L286 72L294 72ZM306 76L320 76L320 0L306 0ZM322 76L324 76L324 0L322 0ZM330 76L332 76L332 0L330 0ZM334 76L336 76L336 0L334 0ZM340 76L342 76L342 0L340 0ZM96 72L100 72L100 68L96 68ZM132 72L134 72L134 68L132 68ZM240 72L240 68L242 68L242 72ZM282 72L284 72L284 68L282 68ZM298 72L300 72L300 68L298 68ZM36 68L36 64L38 64L38 68ZM262 68L264 68L264 64L262 64ZM302 68L304 68L304 64L302 64ZM44 64L46 64L46 60L44 60ZM164 64L166 64L166 60L168 60L168 56L166 56L166 52L168 52L168 48L166 48L166 44L168 44L168 36L166 36L166 40L162 40L162 44L164 44L164 48L160 48L160 52L158 52L158 56L164 56ZM176 64L178 64L178 60L176 60ZM184 64L184 56L186 56L186 64ZM250 64L252 64L252 60L250 60ZM280 64L282 64L282 60L280 60ZM288 64L288 60L290 60L290 64ZM36 60L36 56L38 56L38 60ZM116 60L118 60L118 52L116 52ZM156 60L158 60L158 56L156 56ZM194 60L202 60L202 52L196 52L196 56L194 56ZM218 60L220 60L220 56L218 56ZM228 60L236 60L236 56L228 56ZM266 60L270 60L270 48L268 48L268 56L266 56ZM282 60L284 60L284 52L282 52ZM44 56L46 56L46 52L44 52ZM52 56L54 56L54 52L52 52ZM84 56L86 56L86 52L84 52ZM124 56L124 52L130 52L130 56ZM150 56L150 52L152 52L152 56ZM176 56L178 56L178 52L176 52ZM214 56L216 56L216 52L220 52L220 56L222 56L222 48L226 48L226 44L224 44L224 40L226 40L226 44L230 44L230 40L228 40L228 36L230 36L230 32L232 32L232 28L224 28L224 24L222 24L222 40L220 40L220 48L218 48L218 44L216 44L216 48L214 48ZM224 56L226 56L226 52L224 52ZM298 56L300 56L300 52L298 52ZM54 52L56 52L56 48L54 48ZM58 52L64 52L64 44L66 44L66 40L62 40L62 48L60 48L60 44L56 44L56 48L58 48ZM114 52L116 52L116 48L114 48ZM174 52L176 52L176 44L174 44ZM226 52L234 52L234 48L226 48ZM294 52L298 52L298 48L302 48L302 44L298 44L298 40L302 40L302 36L304 36L304 32L300 32L300 36L298 36L298 32L294 32L294 28L292 28L292 36L294 36L294 40L296 40L296 44L292 44L292 48L294 48ZM48 48L50 48L50 44L54 44L54 40L52 40L52 36L50 36L50 32L48 32L48 36L46 36L46 40L48 40ZM84 48L86 48L86 44L84 44ZM132 48L134 48L134 40L128 40L128 44L132 44ZM264 48L266 48L266 40L260 40L260 44L264 44ZM276 48L278 48L278 44L276 44ZM284 48L288 48L288 44L290 44L290 40L292 40L292 36L288 36L288 32L286 32L286 40L284 40ZM74 44L76 44L76 40L74 40ZM146 44L148 44L148 40L146 40ZM186 44L188 44L188 40L186 40ZM214 44L216 44L216 40L218 40L218 32L220 32L220 28L214 28L214 24L212 24L212 40L214 40ZM36 40L36 36L38 36L38 40ZM56 40L62 40L62 36L58 36L58 28L56 28L56 32L54 32L54 36L56 36ZM126 40L128 40L128 36L126 36ZM158 40L160 40L160 32L156 32L156 36L158 36ZM266 40L268 40L268 36L266 36ZM64 36L66 36L66 32L64 32ZM92 36L94 36L94 28L98 28L98 36L100 36L100 24L98 24L98 20L90 20L90 28L88 28L88 32L92 32ZM130 36L134 36L134 28L132 28L132 16L126 16L126 20L130 20L130 24L124 24L124 32L130 32ZM164 36L166 36L166 32L168 32L168 28L164 28L164 24L160 24L160 28L162 28L162 32L164 32ZM172 36L172 24L174 24L174 36ZM214 36L214 32L216 32L216 36ZM268 36L270 36L270 20L262 20L262 24L266 24L266 28L264 28L264 32L268 32ZM50 32L52 32L52 24L56 24L56 20L52 20L52 12L54 12L54 16L62 16L62 12L58 12L58 8L52 8L52 4L50 4L50 16L46 16L46 20L48 20L48 24L46 24L46 28L50 28ZM120 32L122 32L122 24L124 24L124 16L126 16L126 12L124 12L124 8L122 8L122 12L120 12L120 16L118 16L118 28L120 28ZM196 32L202 32L202 28L196 28ZM234 32L236 32L236 24L234 24ZM288 32L290 32L290 28L288 28ZM38 28L38 24L40 24L40 28ZM58 28L66 28L66 24L64 24L64 20L66 20L66 16L62 16L62 24L58 24ZM76 28L78 28L78 24L76 24ZM260 28L262 28L262 24L260 24ZM274 28L274 24L276 24L276 28ZM294 28L300 28L300 20L298 20L298 24L294 24ZM44 24L46 24L46 20L44 20ZM70 24L70 20L72 20L72 24ZM78 24L80 24L80 16L82 16L82 12L80 12L80 8L74 8L74 12L78 12ZM146 24L148 24L148 20L146 20ZM216 24L222 24L222 20L220 20L220 16L222 16L222 12L226 12L226 8L230 8L230 4L232 4L232 8L234 8L234 4L236 4L236 0L228 0L228 4L226 4L226 0L216 0L216 4L222 4L222 8L218 8L218 16L216 16ZM224 24L226 24L226 20L228 20L228 24L232 24L232 20L230 20L230 12L226 12L226 16L224 16ZM258 24L260 24L260 20L262 20L262 12L264 12L264 16L266 16L266 12L270 12L270 0L264 0L264 4L266 4L266 8L262 8L262 0L252 0L252 8L254 8L254 4L258 4L258 8L260 8L260 12L258 12ZM280 24L282 24L282 20L280 20ZM42 20L44 20L44 16L42 16ZM82 20L84 20L84 16L82 16ZM88 20L90 20L90 16L88 16ZM148 20L150 20L150 16L148 16ZM198 20L202 20L202 16L200 16L200 12L202 12L202 4L198 4ZM234 20L236 20L236 16L234 16ZM278 20L280 20L280 16L278 16ZM296 20L298 20L298 16L296 16ZM44 16L46 16L46 12L44 12ZM90 16L94 16L94 12L90 12ZM96 16L100 16L100 4L98 4L98 8L96 8L96 4L98 4L98 0L92 0L92 4L88 4L88 8L94 8L94 12L96 12ZM150 16L152 16L152 12L150 12ZM162 16L164 16L164 12L168 12L168 4L164 4L164 8L160 8L160 12L162 12ZM212 16L214 16L214 0L210 0L210 8L212 8ZM280 16L282 16L282 12L280 12ZM290 16L296 16L296 12L302 12L302 8L300 8L300 4L304 4L304 0L294 0L294 4L296 4L296 8L292 8L292 12L290 12ZM36 12L36 8L38 8L38 12ZM84 12L88 12L88 8L84 8ZM128 12L132 12L132 8L130 8L130 4L128 4ZM142 12L144 12L144 8L142 8ZM148 12L150 12L150 8L148 8ZM180 12L186 12L186 8L184 8L184 0L180 0L180 4L182 4L182 8L180 8ZM194 12L196 12L196 4L198 4L198 0L192 0L192 4L190 4L190 8L194 8ZM208 12L210 12L210 8L208 8ZM254 12L256 12L256 8L254 8ZM282 12L284 12L284 8L282 8ZM46 8L48 8L48 4L46 4ZM60 8L64 8L64 4L60 4ZM82 8L84 8L84 4L86 4L86 0L80 0L80 4L82 4ZM124 8L126 8L126 4L124 4ZM140 8L142 8L142 0L140 0ZM150 8L160 8L160 4L162 4L162 0L158 0L158 4L150 4ZM284 8L286 8L286 0L284 0ZM288 8L290 8L290 0L288 0ZM44 4L46 4L46 0L44 0ZM52 4L56 4L56 0L52 0ZM72 4L74 4L74 0L72 0ZM110 4L114 4L114 0L110 0ZM116 4L118 4L118 0L116 0ZM122 4L124 4L124 0L122 0ZM146 4L150 4L150 0L146 0ZM186 4L188 4L188 0L186 0Z" fill-rule="evenodd" />
+</svg><div class="hr">GN2027 DAY&gt;NGT · 420K&gt;1000K · STAY 18&gt;35% · 12.0B KRW</div></div>
+            <div class="warn"><b>탑승구는 출발 15분 전(18:45)에 닫힙니다.</b>주민 소음·안전 협의를 마치지 않은 구간은 운항하지 않습니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stub">
+        <div class="band"><div class="ink"></div><div class="txt"><div class="bp">BOARDING PASS<span>보관용</span></div></div></div>
+        <div class="body">
+          <div><span class="lbl">승객<i>NAME</i></span><span class="val" style="font-size:1.35cqw">관광진흥과</span></div>
+          <div class="s-grid">
+            <div><span class="lbl">편명<i>FLT</i></span><span class="val code" style="font-size:1.35cqw">GN 2027</span></div>
+            <div><span class="lbl">날짜<i>DATE</i></span><span class="val code" style="font-size:1.35cqw">30SEP26</span></div>
+          </div>
+          <div class="s-route">DAY<span>→</span>NGT</div>
+          <div class="s-grid">
+            <div><span class="lbl">탑승<i>BRD</i></span><span class="val code">18:20</span></div>
+            <div><span class="lbl">탑승구<i>GATE</i></span><span class="val code">W3</span></div>
+            <div><span class="lbl">그룹<i>GRP</i></span><span class="val code">1</span></div>
+            <div><span class="lbl">경유<i>VIA</i></span><span class="val code" style="font-size:1.05cqw">MKT·RVR·STY</span></div>
+          </div>
+          <div class="s-foot">
+            <div class="aztec" aria-label="Aztec 코드"><svg aria-hidden="true" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 108L12 108L12 104L4 104ZM24 108L28 108L28 104L24 104ZM36 108L48 108L48 104L40 104L40 100L28 100L28 104L36 104ZM56 108L68 108L68 104L56 104ZM76 108L80 108L80 100L84 100L84 104L88 104L88 108L96 108L96 104L92 104L92 96L96 96L96 88L104 88L104 84L96 84L96 72L92 72L92 76L88 76L88 68L84 68L84 56L80 56L80 36L84 36L84 40L88 40L88 44L92 44L92 40L96 40L96 32L92 32L92 36L88 36L88 32L92 32L92 28L88 28L88 24L92 24L92 20L96 20L96 24L100 24L100 12L92 12L92 16L76 16L76 20L84 20L84 24L80 24L80 28L48 28L48 24L44 24L44 28L32 28L32 24L40 24L40 20L36 20L36 16L24 16L24 12L20 12L20 16L16 16L16 24L8 24L8 20L12 20L12 12L0 12L0 28L8 28L8 36L12 36L12 32L16 32L16 28L20 28L20 20L24 20L24 28L20 28L20 32L24 32L24 36L20 36L20 44L16 44L16 48L24 48L24 40L28 40L28 64L20 64L20 56L16 56L16 60L12 60L12 64L8 64L8 72L12 72L12 68L16 68L16 76L8 76L8 72L0 72L0 80L8 80L8 84L4 84L4 92L12 92L12 80L16 80L16 88L28 88L28 84L20 84L20 80L24 80L24 76L20 76L20 72L24 72L24 68L28 68L28 72L24 72L24 76L28 76L28 80L36 80L36 88L40 88L40 92L44 92L44 88L48 88L48 84L40 84L40 80L56 80L56 84L52 84L52 88L56 88L56 92L48 92L48 96L56 96L56 100L64 100L64 96L60 96L60 88L64 88L64 84L68 84L68 80L84 80L84 84L88 84L88 80L92 80L92 88L88 88L88 92L80 92L80 96L76 96L76 100L72 100L72 104L76 104ZM100 108L104 108L104 104L100 104ZM0 104L4 104L4 100L0 100ZM20 104L24 104L24 100L20 100ZM52 104L56 104L56 100L52 100ZM96 104L100 104L100 100L104 100L104 96L108 96L108 88L104 88L104 92L100 92L100 96L96 96ZM4 100L8 100L8 96L4 96ZM12 100L16 100L16 96L12 96ZM68 100L72 100L72 96L68 96ZM16 96L40 96L40 92L36 92L36 88L28 88L28 92L16 92ZM72 96L76 96L76 88L84 88L84 84L72 84ZM100 80L104 80L104 76L100 76ZM32 76L32 32L76 32L76 76ZM36 72L72 72L72 36L36 36ZM100 72L108 72L108 64L104 64L104 68L100 68ZM0 68L4 68L4 64L0 64ZM40 68L40 40L68 40L68 68ZM92 68L100 68L100 60L96 60L96 64L92 64ZM44 64L64 64L64 44L44 44ZM88 64L92 64L92 60L88 60ZM4 60L8 60L8 52L4 52ZM48 60L48 48L60 48L60 60ZM100 60L108 60L108 56L104 56L104 52L108 52L108 44L104 44L104 48L88 48L88 52L92 52L92 56L96 56L96 52L100 52ZM12 56L16 56L16 52L12 52ZM20 56L24 56L24 52L20 52ZM52 56L56 56L56 52L52 52ZM84 56L88 56L88 52L84 52ZM0 52L4 52L4 48L0 48ZM8 48L12 48L12 44L8 44ZM4 44L8 44L8 40L4 40ZM12 40L16 40L16 36L12 36ZM100 40L108 40L108 36L100 36ZM0 36L4 36L4 32L0 32ZM100 32L104 32L104 28L108 28L108 12L104 12L104 24L100 24ZM52 24L56 24L56 20L52 20ZM60 24L64 24L64 20L60 20ZM68 24L72 24L72 16L64 16L64 20L68 20ZM40 20L44 20L44 16L48 16L48 12L44 12L44 8L48 8L48 4L36 4L36 8L32 8L32 12L40 12ZM48 20L52 20L52 16L48 16ZM56 20L60 20L60 16L56 16ZM52 16L56 16L56 12L52 12ZM12 12L16 12L16 8L12 8ZM24 12L28 12L28 4L32 4L32 0L12 0L12 4L24 4ZM56 12L60 12L60 0L56 0L56 4L52 4L52 8L56 8ZM72 12L76 12L76 8L72 8ZM88 12L92 12L92 8L96 8L96 4L88 4L88 0L80 0L80 4L84 4L84 8L88 8ZM104 8L108 8L108 4L104 4ZM4 4L8 4L8 0L4 0ZM64 4L68 4L68 0L64 0ZM72 4L76 4L76 0L72 0ZM96 4L104 4L104 0L96 0Z" fill-rule="evenodd" />
+</svg></div>
+            <div><span class="lbl">순번<i>SEQ</i></span><span class="seq">001</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="perf"></div>
+    </div>
+  </div>
+
+  <div class="foot"><b>가상 예시</b>가온시·가온 나이트라인은 실재하지 않습니다. 수치는 설계용 가정값입니다.</div>
+  <div class="foot-r">RISO 3C · FEDERAL BLUE / FLUO PINK / YELLOW</div>
+  <div class="reg bl"></div><div class="reg bl p"></div><div class="reg br"></div><div class="reg br p"></div>
+  <div class="grain"></div><div class="speck"></div>
+</div>
+
+<!-- ============ MEMO ============ -->
+<div class="memo-head">
+  <h1>레퍼런스 #4 가온 야간편 탑승권</h1>
+  <div class="meta">실험형 · 문화·관광 · 2026-09-30 · 재작업(#2 대체)</div>
+</div>
+<p class="lede">#2는 형광 2도와 바코드 하나로 탑승권을 암시하는 데 그쳤습니다. 이번에는 실제 탑승권의 필드 배치(본권·보관용 쪽·절취선·항공사 띠·필드 라벨)를 먼저 세우고, 리소그래프는 그 위에 찍히는 인쇄 방식으로만 썼습니다. 색과 글꼴을 빼도 필드 구조만으로 탑승권으로 읽힙니다. 바코드 두 개는 실제 PDF417·Aztec 인코딩이라 스캔하면 사업 요약이 나옵니다.</p>
+
+<section>
+  <h2><span class="tag">Flow</span>사업 단계와 탑승권 요소 매핑</h2>
+  <p class="note">출발 = 현재, 경유 = 연차별 핵심 프로그램, 도착 = 목표. 경유 순서와 탑승 그룹 번호가 사업 단계(1·2·3단계)와 같습니다. 모든 수치는 가상 사업의 설계용 가정값입니다.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>발표 단계</th><th>탑승권 요소</th><th>사업 내용</th><th>안쪽 장표 레이아웃 아이디어</th></tr></thead>
+    <tbody>
+      <tr><td class="stage">표지</td><td class="el"><b>GN 2027</b> 편명 · 승객 성명 · 날짜</td><td>사업 코드(2027 착수), 보고 기관, 보고일 2026. 9. 30.</td><td>이 표지. 발표 제목은 '여정' 필드, 기관명은 '승객 성명' 필드에 둡니다.</td></tr>
+      <tr><td class="stage">현황</td><td class="el"><b>FROM DAY</b> 출발</td><td class="num">2025 야간 방문객 연 42만 명, 1박 이상 체류 18%. 저녁 식사 후 귀가하는 당일형 방문이 대부분.</td><td>출발 안내 전광판. 지표 하나가 한 행(편명·행선지·상태)이고, 상태 칸에 '지연·결항' 같은 진단어를 씁니다.</td></tr>
+      <tr><td class="stage">1단계</td><td class="el"><b>VIA 1 MKT</b> · 그룹 1</td><td class="num">2027 가온천 야시장 상설화, 30억 원</td><td>환승 안내 카드. 위쪽에 'TRANSFER MKT' 띠, 왼쪽에 운영 내용, 오른쪽 아래에 다음 연결편(RVR) 안내를 둡니다.</td></tr>
+      <tr><td class="stage">2단계</td><td class="el"><b>VIA 2 RVR</b> · 그룹 2</td><td class="num">2028 수변 경관조명·야간 산책로, 45억 원</td><td>같은 환승 카드 틀에 야경 사진 한 장을 리소 2도(블루+핑크)로 분판해 넣습니다. 틀이 반복돼 단계 이동이 보입니다.</td></tr>
+      <tr><td class="stage">3단계</td><td class="el"><b>VIA 3 STY</b> · 그룹 3</td><td class="num">2029 야간 체류형 숙박 연계 패키지, 45억 원</td><td>환승 카드 + 숙박 바우처 절취권. 연계 숙소 수와 할인 조건을 절취선 오른쪽에 둡니다.</td></tr>
+      <tr><td class="stage">운영</td><td class="el"><b>BOARDING 18:20</b> · DEPARTS 19:00 · <b>GATE W3</b></td><td>일몰 무렵 점등, 19:00 야시장 개장, 거점은 가온천 수변광장</td><td>터미널 안내도. 거점 지도 위에 시설을 게이트 번호(W1~W3)로 표시하고, 아래에 저녁 시간표를 출발편 목록처럼 붙입니다.</td></tr>
+      <tr><td class="stage">예산</td><td class="el"><b>FARE</b> 운임</td><td class="num">총 120억 원(국비 60 · 시비 60), 연차별 30 · 45 · 45</td><td>감열지 영수증. 항목과 금액을 고정폭 글꼴로 세로 나열하고 합계만 굵게, 아래에 재원 비율 막대 하나.</td></tr>
+      <tr><td class="stage">전제</td><td class="el"><b>경고 문구</b> 탑승구 마감</td><td>주민 소음·안전 협의 선행, 협의 미완 구간은 운영하지 않음</td><td>핑크 경고 띠 한 줄 + 협의 대상·일정 표. 한 장에 전제 하나만 둡니다.</td></tr>
+      <tr><td class="stage">목표</td><td class="el"><b>TO NGT</b> 도착</td><td class="num">2029 야간 방문객 연 100만 명, 체류 35%</td><td>도착 안내 전광판. 현황 장표와 같은 틀에 현재 → 목표를 나란히 두어 차이를 읽게 합니다.</td></tr>
+      <tr><td class="stage">근거</td><td class="el"><b>PDF417</b> 바코드</td><td>목표 산정 근거 통계와 산식</td><td>부록. 바코드 아래 사람이 읽는 줄처럼 출처를 한 줄씩 고정폭으로 적습니다.</td></tr>
+      <tr><td class="stage">맺음</td><td class="el"><b>절취선 · 보관용 쪽</b></td><td>핵심 요약 3줄(무엇을·얼마로·언제까지)</td><td>마지막 장표 오른쪽 1/4에 절취선을 긋고, 보관용 쪽에만 요약을 둡니다. '떼어 가는 결론'입니다.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="tag">Route</span>발표 흐름</h2>
+  <p class="note">장표 순서를 하나의 항로로 그렸습니다. 굵은 구간이 사업 단계(그룹 1→3), 가는 구간이 보고 구성입니다.</p>
+  <div class="flow">
+    <svg viewBox="0 0 1000 230" role="img" aria-label="발표 흐름: 표지, 현황 DAY, 경유 MKT, RVR, STY, 운영 GATE, 예산 FARE, 목표 NGT, 보관용 요약">
+      <g font-family="Martian Mono, Consolas, monospace">
+        <line x1="50" y1="92" x2="950" y2="92" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 6"/>
+        <line x1="270" y1="92" x2="490" y2="92" stroke="var(--hot)" stroke-width="7"/>
+        <text x="380" y="38" text-anchor="middle" font-size="12" fill="var(--hot)" letter-spacing="1.5">GROUP 1 → 2 → 3 · 2027–2029</text>
+        <path d="M270 50 v10 M490 50 v10 M270 55 H490" stroke="var(--hot)" stroke-width="1.5" fill="none"/>
+      </g>
+      <g font-family="Gothic A1, Malgun Gothic, sans-serif" text-anchor="middle">
+        <!-- nodes: x positions -->
+        <g><rect x="28" y="72" width="44" height="40" rx="3" fill="var(--sheet)" stroke="var(--accent)" stroke-width="2.5"/><text x="50" y="97" font-size="12" font-weight="800" fill="var(--accent)">BP</text>
+          <text x="50" y="138" font-size="13" font-weight="800" fill="var(--fg)">표지</text><text x="50" y="157" font-size="11.5" fill="var(--muted)">탑승권</text><text x="50" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">00</text></g>
+        <g><circle cx="160" cy="92" r="16" fill="var(--accent)"/><text x="160" y="96.5" font-size="10.5" font-weight="700" fill="var(--sheet)" font-family="Martian Mono, monospace">DAY</text>
+          <text x="160" y="138" font-size="13" font-weight="800" fill="var(--fg)">현황</text><text x="160" y="157" font-size="11.5" fill="var(--muted)">출발 전광판</text><text x="160" y="174" font-size="11.5" fill="var(--muted)">42만 명</text><text x="160" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">01</text></g>
+        <g><circle cx="270" cy="92" r="13" fill="var(--sheet)" stroke="var(--hot)" stroke-width="4"/>
+          <text x="270" y="138" font-size="13" font-weight="800" fill="var(--fg)">MKT</text><text x="270" y="157" font-size="11.5" fill="var(--muted)">야시장</text><text x="270" y="174" font-size="11.5" fill="var(--muted)">2027 · 30억</text><text x="270" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">02</text></g>
+        <g><circle cx="380" cy="92" r="13" fill="var(--sheet)" stroke="var(--hot)" stroke-width="4"/>
+          <text x="380" y="138" font-size="13" font-weight="800" fill="var(--fg)">RVR</text><text x="380" y="157" font-size="11.5" fill="var(--muted)">수변 야경</text><text x="380" y="174" font-size="11.5" fill="var(--muted)">2028 · 45억</text><text x="380" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">03</text></g>
+        <g><circle cx="490" cy="92" r="13" fill="var(--sheet)" stroke="var(--hot)" stroke-width="4"/>
+          <text x="490" y="138" font-size="13" font-weight="800" fill="var(--fg)">STY</text><text x="490" y="157" font-size="11.5" fill="var(--muted)">체류 숙박</text><text x="490" y="174" font-size="11.5" fill="var(--muted)">2029 · 45억</text><text x="490" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">04</text></g>
+        <g><rect x="585" y="78" width="30" height="28" fill="var(--sheet)" stroke="var(--accent)" stroke-width="2"/><text x="600" y="96" font-size="10" font-weight="700" fill="var(--accent)" font-family="Martian Mono, monospace">W3</text>
+          <text x="600" y="138" font-size="13" font-weight="800" fill="var(--fg)">운영</text><text x="600" y="157" font-size="11.5" fill="var(--muted)">터미널 안내도</text><text x="600" y="174" font-size="11.5" fill="var(--muted)">18:20 / 19:00</text><text x="600" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">05</text></g>
+        <g><rect x="695" y="78" width="30" height="28" fill="var(--sheet)" stroke="var(--accent)" stroke-width="2"/><text x="710" y="96" font-size="10" font-weight="700" fill="var(--accent)">₩</text>
+          <text x="710" y="138" font-size="13" font-weight="800" fill="var(--fg)">예산·전제</text><text x="710" y="157" font-size="11.5" fill="var(--muted)">운임 영수증</text><text x="710" y="174" font-size="11.5" fill="var(--muted)">120억 · 경고 띠</text><text x="710" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">06–07</text></g>
+        <g><circle cx="820" cy="92" r="16" fill="var(--accent)"/><text x="820" y="96.5" font-size="10.5" font-weight="700" fill="var(--sheet)" font-family="Martian Mono, monospace">NGT</text>
+          <text x="820" y="138" font-size="13" font-weight="800" fill="var(--fg)">목표</text><text x="820" y="157" font-size="11.5" fill="var(--muted)">도착 전광판</text><text x="820" y="174" font-size="11.5" fill="var(--muted)">100만 명</text><text x="820" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">08</text></g>
+        <g><line x1="906" y1="66" x2="906" y2="118" stroke="var(--fg)" stroke-width="1.5" stroke-dasharray="3 4"/><rect x="912" y="72" width="40" height="40" rx="3" fill="var(--sheet)" stroke="var(--fg)" stroke-width="2"/><text x="932" y="97" font-size="10" font-weight="700" fill="var(--fg)" font-family="Martian Mono, monospace">SUM</text>
+          <text x="932" y="138" font-size="13" font-weight="800" fill="var(--fg)">맺음</text><text x="932" y="157" font-size="11.5" fill="var(--muted)">보관용 쪽</text><text x="932" y="174" font-size="11.5" fill="var(--muted)">요약 3줄</text><text x="932" y="200" font-size="11" fill="var(--muted)" font-family="Martian Mono, monospace">09</text></g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="cols">
+  <div>
+    <h2><span class="tag">Check</span>재현한 실물 요소 16개</h2>
+    <ol class="check">
+      <li><b>본권 + 보관용 쪽</b> <span>— 2단 구조, 보관용 쪽에 핵심 필드 반복</span></li>
+      <li><b>절취선(천공) · 양끝 노치</b> <span>— 맺음 장표의 '떼어 가는 요약'</span></li>
+      <li><b>항공사 띠</b> <span>— 가상 항공사 '가온 나이트라인'</span></li>
+      <li><b>승객 성명</b> <span>— 보고 기관(관광진흥과)</span></li>
+      <li><b>편명 GN 2027</b> <span>— 사업 코드·착수 연도</span></li>
+      <li><b>날짜 30SEP26</b> <span>— 보고일(DDMMMYY 표기)</span></li>
+      <li><b>출발·도착 3자 코드 + 도시명</b> <span>— DAY(현재) → NGT(목표)</span></li>
+      <li><b>경유 VIA</b> <span>— MKT·RVR·STY 세 프로그램</span></li>
+      <li><b>탑승 시각 ≠ 출발 시각</b> <span>— 18:20 일몰 무렵 / 19:00 개장</span></li>
+      <li><b>탑승구 GATE</b> <span>— 거점 가온천 수변광장 W3</span></li>
+      <li><b>탑승 그룹 GROUP</b> <span>— 사업 단계(1단계 2027)</span></li>
+      <li><b>순번 SEQ</b> <span>— 자유석 항공편 방식, 보고 1회차</span></li>
+      <li><b>PDF417 2D 바코드</b> <span>— 실제 인코딩, 사업 핵심 수치</span></li>
+      <li><b>Aztec 코드</b> <span>— 보관용 쪽, 실제 인코딩</span></li>
+      <li><b>탑승구 마감 경고 문구</b> <span>— 추진 전제(주민 협의)</span></li>
+      <li><b>필드 라벨 이중 표기 + 고정폭 감열 인쇄 글씨</b> <span>— 한글/영문 라벨, 값은 고정폭</span></li>
+    </ol>
+    <p class="note" style="margin-top:12px">'운임 FARE'는 탑승권이 아니라 항공권(e-티켓 확인서) 요소라서 개수에서 뺐습니다. 예산을 보여 주려고 빌려 온 필드입니다.</p>
+  </div>
+  <div>
+    <h2><span class="tag">Sources</span>조사 출처</h2>
+    <p class="note">원문 열람(WebFetch)이 네트워크 정책으로 막혀 검색 결과 요약을 근거로 삼았습니다.</p>
+    <ul class="src">
+      <li>탑승권: <a href="https://Www.Iata.org/contentassets/1dccc9ed041b4f3bbdcf8ee8682e75c4/2021_03_02-bcbp-implementation-guide-version-7-.pdf">IATA BCBP Implementation Guide v7</a></li>
+      <li><a href="https://planefyi.com/guides/first-time-flyer/understanding-boarding-pass/">PlaneFYI — Understanding Your Boarding Pass</a> (그룹·존, SEQ, PDF417)</li>
+      <li><a href="https://myflight.life/journal/what-every-code-on-boarding-pass-means">What every code on a boarding pass means</a></li>
+      <li><a href="https://developer.samsung.com/wallet/addtosamsungwallet/walletcards/boardingpass.html">Samsung Wallet — Boarding Pass 필드 정의</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Boarding_pass">Wikipedia — Boarding pass</a> (감열지, ATB2, 2색 감열 인쇄)</li>
+      <li><a href="https://www.cathaypacific.com/cx/en_KR/latest-news/security-and-operational-changes/changes-to-our-boarding-and-gate-closure-times.html">Cathay Pacific — 탑승구 마감 시각 변경(2026. 6. 1.)</a></li>
+      <li><a href="https://docs.strich.io/aztec-code.html">STRICH — Aztec Code</a> (BCBP 채택)</li>
+      <li>리소그래프: <a href="https://web.faa.illinois.edu/app/uploads/sites/6/2021/05/riso_print_guide.pdf">Illinois FAA — Riso Print Guide</a>, <a href="https://sites.saic.edu/servicebureau/wp-content/uploads/sites/20/2025/03/EverythingRiso_2024.pdf">SAIC — Everything Riso 2024</a>, <a href="https://campus.collegeforcreativestudies.edu/imaging-center/author/mpeck/page/3/">CCS — Registration &amp; Trapping</a>, <a href="https://tyler.temple.edu/tyler-risograph">Tyler Risograph</a></li>
+      <li>트렌드: <a href="https://learn.g2.com/graphic-design-trends">G2 — Graphic Design Trends 2026</a>, <a href="https://www.jukeboxprint.com/blog/20-of-the-biggest-graphic-design-trends-for-2026">Jukebox — 20 trends for 2026</a>, <a href="https://www.adobe.com/express/learn/blog/graphic-design-trends-2026">Adobe Express — 2026 trends</a></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><span class="tag">Spec</span>스펙</h2>
+  <div class="swatches">
+    <div class="sw"><i style="background:#F3EEE2"></i><div>종이<code>#F3EEE2</code></div></div>
+    <div class="sw"><i style="background:#FBF8F0"></i><div>탑승권 용지<code>#FBF8F0</code></div></div>
+    <div class="sw"><i style="background:#3D5588"></i><div>페더럴 블루 (주판)<code>#3D5588</code></div></div>
+    <div class="sw"><i style="background:#FF48B0"></i><div>형광 핑크 (띠·판 어긋남)<code>#FF48B0</code></div></div>
+    <div class="sw"><i style="background:#FFE800"></i><div>옐로 (강조·겹침)<code>#FFE800</code></div></div>
+  </div>
+  <dl class="spec">
+    <dt>폰트</dt><dd><b>Do Hyeon</b> 제목·항공사명 (대체: Black Han Sans → 맑은 고딕 Bold)<br><b>Nanum Gothic Coding</b> 필드 라벨·값, 감열 인쇄 글씨 (대체: D2Coding → Consolas)<br><b>Martian Mono</b> 공항 코드·편명·시각 (대체: Consolas → Courier New)</dd>
+    <dt>리소 규칙</dt><dd>3도 별색. 블루가 주판(모든 글자·선), 핑크는 항공사 띠와 판 어긋남 그림자, 옐로는 강조 한 칸. 겹치는 곳은 곱하기로 섞여 보라·초록이 새로 생깁니다. 핑크 판은 0.2~0.3cqw 어긋나게 둡니다.</dd>
+    <dt>난이도</dt><dd><span class="pill">중</span> 필드 구조는 표·텍스트 상자로 쉽게 되지만, 노치·판 어긋남·바코드 삽입에 손이 갑니다.</dd>
+    <dt>반영 트렌드</dt><dd>AI의 매끈한 결과물에 대한 반작용으로 나온 아날로그·손맛 질감(입자, 판 어긋남)과, 진(zine)식으로 요소를 겹치는 '통제된 혼돈' 레이아웃. 탑승권이 해 위에 비스듬히 얹힌 구성이 여기에 해당합니다. (G2·Jukebox, 2026 그래픽 디자인 트렌드)</dd>
+  </dl>
+  <h2 style="margin-top:26px;font-size:19px">PPT 재현 방법과 주의점</h2>
+  <ul class="ppt">
+    <li><b>크기 환산</b>: 슬라이드 13.333in 기준 1cqw = 0.133in ≈ 9.6pt. 필드 라벨 0.82cqw ≈ 8pt, 값 1.6cqw ≈ 15pt, 공항 코드 5.6cqw ≈ 54pt.</li>
+    <li><b>필드</b>: 필드마다 텍스트 상자 두 개(라벨 8pt / 값). 탑승·출발·탑승구·그룹·운임 줄은 1행 5열 표로 만들고 테두리만 블루 1pt.</li>
+    <li><b>노치와 절취선</b>: 사각형에서 원 두 개를 '도형 병합 → 빼기'로 파냅니다. 절취선은 '둥근 점' 점선.</li>
+    <li><b>판 어긋남</b>: 제목·공항 코드 텍스트를 복제해 핑크로 바꾸고 오른쪽 아래로 1~2pt 옮긴 뒤 뒤로 보냅니다. PPT에는 곱하기 혼합이 없으니 핑크에 투명도 15~25%를 줍니다.</li>
+    <li><b>입자</b>: 투명 배경 노이즈 PNG를 맨 위에 한 장 덮습니다(투명도 60~70%). 발표 화면이 흐려 보이면 빼도 됩니다.</li>
+    <li><b>바코드</b>: bwip-js 같은 생성기로 PDF417·Aztec을 SVG로 뽑아 삽입하고 '도형으로 변환' 후 블루로 칠합니다. 가짜 막대 무늬 대신 실제 코드를 쓰세요.</li>
+    <li><b>주의</b>: 형광 핑크는 화면(RGB)에서만 형광으로 보이고 CMYK 인쇄에서는 탁해집니다. 폰트 3종은 설치·포함해야 하며, 없으면 맑은 고딕으로 바뀌어 감열 인쇄 느낌이 사라집니다.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="tag">Review</span>자기 검토</h2>
+  <div class="review">
+    <div><b>① 3초 판별</b>본권·보관용 쪽, 절취선 노치, BOARDING PASS 띠, 출발·도착 코드 → 예</div>
+    <div><b>② 실물 요소 6개 이상</b>16개 → 예</div>
+    <div><b>③ 사업 식별</b>여정 필드의 사업명, 경유지 세 프로그램 → 예</div>
+    <div><b>④ 기본 색·글꼴</b>필드 라벨·배치·노치·바코드만으로 성립 → 예</div>
+    <div><b>⑤ 수치·기간</b>42만→100만(2025→2029), 120억 = 30+45+45 = 국비 60+시비 60, 2027–2029 3년 → 예</div>
+  </div>
+</section>
+
+</div>
+
+</body></html>

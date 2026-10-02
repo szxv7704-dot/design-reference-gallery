@@ -1,0 +1,496 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #21 세 겹의 체</title>
+<style>
+/* 레이아웃: 장표를 맨 위에 크게, 아래로 설명·코드·PPT 표·스펙을 한 단으로 */
+:root{
+  --bg:#EEF0F1; --surface:#F9F9F7; --fg:#1B2130; --muted:#5A6272; --line:#D2D6DB; --accent:#3F8F83; --code-bg:#1B2130; --code-fg:#E6E9EE;
+  --display:"Gowun Dodum","Noto Sans KR",sans-serif; --body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --mono:"JetBrains Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#14171D; --surface:#1C2028; --fg:#E7E9ED; --muted:#A1A8B5; --line:#30363F; --accent:#8FCFC4; --code-bg:#0D1015; --code-fg:#DCE1E8; color-scheme:dark } }
+:root[data-theme="dark"]{ --bg:#14171D; --surface:#1C2028; --fg:#E7E9ED; --muted:#A1A8B5; --line:#30363F; --accent:#8FCFC4; --code-bg:#0D1015; --code-fg:#DCE1E8; color-scheme:dark }
+body{background:var(--bg); color:var(--fg); font-family:var(--body); font-size:15px; line-height:1.65}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:16px; padding-block:24px 64px; display:flex; flex-direction:column; gap:40px}
+.top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:4px 16px}
+.top h1{margin:0; font:700 22px/1.3 var(--display); letter-spacing:-.01em}
+.top span{font:500 12px var(--mono); color:var(--muted); letter-spacing:.04em}
+section{display:flex; flex-direction:column; gap:14px; min-width:0}
+h2.sec{margin:0; font:700 19px/1.35 var(--display); display:flex; gap:10px; align-items:baseline}
+h2.sec small{font:500 12px var(--mono); color:var(--accent); letter-spacing:.06em}
+p{margin:0; max-width:68ch}
+.apps{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+.apps div{border-top:2px solid var(--fg); padding-top:8px; min-width:0}
+.apps b{display:block; font-size:14px}
+.apps span{font-size:13.5px; color:var(--muted)}
+.codebox{position:relative; min-width:0}
+.codebox pre{margin:0; max-height:420px; overflow:auto; background:var(--code-bg); color:var(--code-fg); padding:16px; border-radius:6px; font:12.5px/1.55 var(--mono); white-space:pre}
+.copy{position:absolute; top:10px; right:10px; appearance:none; border:1px solid var(--code-fg); background:var(--code-bg); color:var(--code-fg); font:700 13px var(--body); padding:7px 12px; border-radius:4px; cursor:pointer}
+.copy:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+ol.hint{margin:0; padding-left:20px; max-width:72ch} ol.hint li{margin:2px 0}
+code{font-family:var(--mono); font-size:.9em; background:var(--surface); border:1px solid var(--line); padding:0 4px; border-radius:3px}
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:820px; font-size:13.5px}
+th,td{text-align:left; vertical-align:top; padding:9px 12px; border-bottom:1px solid var(--line)}
+th{font-weight:700; font-size:12.5px; color:var(--muted); white-space:nowrap}
+td:first-child{font:700 13px var(--mono); white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.note{border-left:3px solid var(--accent); padding:4px 0 4px 14px; max-width:76ch}
+.note p+p{margin-top:6px}
+.spec{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px}
+.spec h3{margin:0 0 6px; font:700 14px var(--body)}
+.sw{display:grid; grid-template-columns:repeat(3,1fr); gap:6px}
+.sw div{font:500 11.5px var(--mono); color:var(--muted)}
+.sw i{display:block; height:30px; border-radius:3px; border:1px solid var(--line); margin-bottom:3px}
+.spec ul{margin:0; padding-left:18px; font-size:14px}
+a{color:var(--accent)}
+</style>
+<div class="wrap">
+<div class="top"><h1>레퍼런스 #21 · 세 겹의 체</h1><span>실무형 · 거르기 · 2026-10-02</span></div>
+<section>
+<!-- ===== 3단계 선별 체 도식 (sv- 접두어) : 이 블록 전체를 복사해 붙이면 동작합니다 ===== -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+.sv-root{
+  /* 색: 바탕·잉크, 단계별 색(t1 일반군 → t3 우선관리군), 관심 신호 색 */
+  --sv-desk:#EAF1EF; --sv-paper:#FBFCFB; --sv-ink:#17302E; --sv-sub:#557471; --sv-line:#C5D4D1;
+  --sv-dot:#A9BDB9; --sv-t1:#9CC9C0; --sv-t2:#3F8F83; --sv-t3:#1D5A52; --sv-flag:#E07A5F;
+  /* 타이밍(ms): 떨어짐·미끄러짐 시간, 점 사이 시차, 자동 재생 때 단계 사이 쉼 */
+  --sv-move-ms:900; --sv-stagger-ms:3; --sv-gap-ms:450;
+  --sv-font-display:"Gowun Dodum","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --sv-font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --sv-font-mono:"JetBrains Mono","D2Coding",Consolas,monospace;
+  display:flex; flex-direction:column; gap:12px; width:100%; max-width:100%;
+}
+.sv-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--sv-desk); border-radius:4px}
+.sv-slide svg{display:block; width:100%; height:100%}
+.sv-slide text{font-family:var(--sv-font-body)}
+.sv-slide .sv-disp{font-family:var(--sv-font-display)}
+.sv-slide .sv-mono{font-family:var(--sv-font-mono); font-variant-numeric:tabular-nums}
+.sv-fade{transition:opacity .5s ease}
+.sv-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--sv-font-body)}
+.sv-btn{appearance:none; border:1.5px solid var(--sv-ink); background:var(--sv-paper); color:var(--sv-ink); font:700 14px/1 var(--sv-font-body); padding:10px 16px; border-radius:4px; cursor:pointer}
+.sv-btn:hover{background:var(--sv-ink); color:var(--sv-paper)}
+.sv-btn:focus-visible{outline:3px solid var(--sv-t2); outline-offset:2px}
+.sv-status{font:500 13px/1.4 var(--sv-font-mono); color:var(--sv-sub); padding-left:4px}
+@media (prefers-reduced-motion: reduce){.sv-fade{transition:none}}
+</style>
+
+<div class="sv-root" data-sv-root>
+  <div class="sv-slide">
+    <svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="학생 마음건강 3단계 선별: 전수 검사 12,400명 중 일반군 11,220명은 학급 예방교육, 관심군 970명은 학교 상담, 우선관리군 210명은 전문기관으로 연계되는 체 도식">
+      <rect width="1600" height="900" fill="var(--sv-desk)"/>
+      <text x="80" y="70" class="sv-mono" font-size="15" fill="var(--sv-sub)" letter-spacing=".5"><tspan fill="var(--sv-ink)" font-weight="700">○○교육청 2027 학생 마음건강 지원 계획(안)</tspan> · Ⅲ. 세부 추진 과제 2 — 3단계 선별·연계</text>
+      <text x="80" y="128" class="sv-disp" font-size="44" fill="var(--sv-ink)">모두 살피고, <tspan fill="var(--sv-t2)">필요한 만큼 더 깊이</tspan> 돕는다</text>
+      <g transform="translate(1452 50)"><rect width="78" height="28" rx="14" fill="var(--sv-paper)" stroke="var(--sv-line)"/><text x="39" y="19" text-anchor="middle" font-size="13" fill="var(--sv-sub)">가상 예시</text></g>
+
+      <!-- source label -->
+      <text x="966" y="186" text-anchor="end" font-size="17" font-weight="700" fill="var(--sv-ink)">전수 검사 대상 12,400명</text>
+      <text x="966" y="210" text-anchor="end" class="sv-mono" font-size="14" fill="var(--sv-sub)">초1·초4·중1·고1 · 점 1개 = 50명</text>
+
+      <!-- sieves -->
+      <g data-sv-g="mesh">
+        <g id="sv-meshes"></g>
+      </g>
+      <!-- trays -->
+      <g id="sv-trays"></g>
+      <g id="sv-dots"></g>
+      <!-- summary band -->
+      <g data-sv-g="sum" class="sv-fade">
+        <rect x="80" y="822" width="1440" height="50" rx="4" fill="var(--sv-paper)" stroke="var(--sv-line)"/>
+        <text x="104" y="854" font-size="18" fill="var(--sv-ink)"><tspan font-weight="700">체가 촘촘해질수록 지원은 깊어지고 대상은 좁아진다</tspan><tspan fill="var(--sv-sub)" dx="18">검사 12,400 → 관심군 1,180 (9.5%) → 우선관리군 210 (1.7%)</tspan></text>
+      </g>
+    </svg>
+  </div>
+  <div class="sv-controls">
+    <button type="button" class="sv-btn" data-sv-replay>다시 보기</button>
+    <button type="button" class="sv-btn" data-sv-step>한 단계씩</button>
+    <span class="sv-status" data-sv-status aria-live="polite">완성 상태</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.querySelector('[data-sv-root]');
+  if (!root) return;
+  var NS = 'http://www.w3.org/2000/svg';
+
+  // 체 3단과 받침 3개: 이름·설명·인원만 바꾸면 됩니다. n = 점 개수(점 1개 = 50명)
+  var SV_SIEVES = [
+    { y: 380, name: '1차 · 정서·행동특성검사', who: '담임 · 전 학생 온라인 검사' },
+    { y: 580, name: '2차 · 심층 평가·면담',     who: '전문상담교사' },
+    { y: 760, name: '3차 · 전문 진단',          who: 'Wee센터 임상심리사' }
+  ];
+  var SV_TRAYS = [
+    { y: 290, h: 168, n: 224, people: '11,220', name: '일반군', act: '학급 단위 마음건강 예방교육', tone: '--sv-t1' },
+    { y: 530, h: 92,  n: 20,  people: '970',    name: '관심군', act: '학교 상담(Wee클래스) · 담임 협력', tone: '--sv-t2' },
+    { y: 712, h: 92,  n: 4,   people: '210',    name: '우선관리군', act: 'Wee센터 · 정신건강 전문기관 연계', tone: '--sv-t3' }
+  ];
+
+  // 단계 목록: 순서를 바꾸거나 줄을 지우면 재생·클릭 순서가 바뀝니다. at = 이 단계가 끝났을 때 점들의 자리
+  var SV_STEPS = [
+    { label: '전수 검사 — 모든 학생이 첫 체에 모인다', at: 'pile1' },
+    { label: '1차 선별 — 일반군은 학급 예방교육으로', at: 'sortA' },
+    { label: '관심군이 2차 체로 내려간다',             at: 'pile2' },
+    { label: '2차 선별 — 관심군은 학교 상담으로',     at: 'sortB' },
+    { label: '3차 진단 — 우선관리군은 전문기관으로',  at: 'sortC' },
+    { label: '요약 — 깊이는 늘고 대상은 좁아진다',    at: 'sum' }
+  ];
+
+  var css = getComputedStyle(root);
+  function ms(v){ var n = parseFloat(css.getPropertyValue(v)); return isNaN(n) ? 600 : n; }
+  function el(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+  var reduced = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var status = root.querySelector('[data-sv-status]');
+
+  // draw sieves (mesh lines with gaps) and trays
+  var meshG = root.querySelector('#sv-meshes'), trayG = root.querySelector('#sv-trays'), dotG = root.querySelector('#sv-dots');
+  SV_SIEVES.forEach(function(s, i){
+    var g = el('g', {'data-sv-g': 'mesh' + i, 'class': 'sv-fade'}, meshG);
+    var w = [1.6, 2.4, 3.2][i];
+    var per = 30 - i * 6;
+    for (var x = 110; x < 960; x += per){ el('line', {x1: x, y1: s.y, x2: x + per * .66, y2: s.y, stroke: 'var(--sv-ink)', 'stroke-width': w, 'stroke-linecap': 'round'}, g); el('line', {x1: x + per / 2, y1: s.y + 6, x2: Math.min(960, x + per / 2 + per * .66), y2: s.y + 6, stroke: 'var(--sv-ink)', 'stroke-opacity': .45, 'stroke-width': w * .8, 'stroke-linecap': 'round'}, g); }
+    el('line', {x1: 104, y1: s.y - 12, x2: 104, y2: s.y + 12, stroke: 'var(--sv-ink)', 'stroke-width': 3}, g);
+    el('line', {x1: 966, y1: s.y - 12, x2: 966, y2: s.y + 12, stroke: 'var(--sv-ink)', 'stroke-width': 3}, g);
+    var t = el('text', {x: 110, y: s.y + 38, 'font-size': 17, 'font-weight': 700, fill: 'var(--sv-ink)'}, g); t.textContent = s.name;
+    var t2 = el('text', {x: 110, y: s.y + 60, 'font-size': 14, fill: 'var(--sv-sub)'}, g); t2.textContent = s.who;
+    var tag = el('text', {x: 960, y: s.y + 38, 'text-anchor': 'end', 'font-size': 13, fill: 'var(--sv-sub)', 'class': 'sv-mono'}, g); tag.textContent = ['그물 굵게', '그물 더 촘촘', '가장 촘촘'][i];
+  });
+  SV_TRAYS.forEach(function(t, i){
+    var g = el('g', {'data-sv-g': 'tray' + i, 'class': 'sv-fade'}, trayG);
+    el('rect', {x: 1040, y: t.y, width: 480, height: t.h, rx: 6, fill: 'var(--sv-paper)', stroke: 'var(--sv-line)'}, g);
+    el('rect', {x: 1040, y: t.y, width: 8, height: t.h, rx: 2, fill: 'var(' + t.tone + ')'}, g);
+    var a = el('text', {x: 1064, y: t.y + 30, 'font-size': 19, 'font-weight': 700, fill: 'var(--sv-ink)'}, g); a.textContent = t.name;
+    var b = el('text', {x: 1064, y: t.y + 52, 'font-size': 14, fill: 'var(--sv-sub)'}, g); b.textContent = t.act;
+    var c = el('text', {x: 1500, y: t.y + 34, 'text-anchor': 'end', 'font-size': 26, 'font-weight': 700, fill: 'var(--sv-ink)', 'class': 'sv-mono'}, g); c.textContent = t.people;
+    var d = el('text', {x: 1500, y: t.y + 52, 'text-anchor': 'end', 'font-size': 12, fill: 'var(--sv-sub)'}, g); d.textContent = '명';
+    // chute arrow from sieve to tray
+    var sy = SV_SIEVES[i].y;
+    el('path', {d: 'M975 ' + sy + ' C1005 ' + sy + ' 1010 ' + (t.y + t.h / 2) + ' 1032 ' + (t.y + t.h / 2), fill: 'none', stroke: 'var(--sv-sub)', 'stroke-width': 1.6, 'stroke-dasharray': '4 4'}, g);
+  });
+
+  // dots: role 0 = 일반군, 1 = 관심군(학교), 2 = 우선관리군
+  var N = SV_TRAYS[0].n + SV_TRAYS[1].n + SV_TRAYS[2].n, dots = [];
+  var seed = 3; function rnd(){ seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+  var roles = []; for (var i = 0; i < N; i++) roles.push(i < SV_TRAYS[0].n ? 0 : i < SV_TRAYS[0].n + SV_TRAYS[1].n ? 1 : 2);
+  for (var i = roles.length - 1; i > 0; i--){ var j = Math.floor(rnd() * (i + 1)); var tmp = roles[i]; roles[i] = roles[j]; roles[j] = tmp; }
+  function pileXY(k, total, y, cols){ var c = k % cols, r = Math.floor(k / cols); var w = (cols - 1) * 27; return [535 - w / 2 + c * 27 + (rnd() - .5) * 5, y - 12 - r * 17 + (rnd() - .5) * 3]; }
+  function trayXY(k, t){ var cols = t.n > 40 ? 32 : 12; var c = k % cols, r = Math.floor(k / cols); return [1066 + c * 13.2, t.y + 72 + r * 12.5 - (t.n > 40 ? 0 : 6)]; }
+  var cnt = [0, 0, 0], fl = 0, fl2 = 0;
+  roles.forEach(function(role, k){
+    var d = { role: role, el: el('circle', {r: 6.2, cx: 0, cy: 0}, dotG), pos: {} };
+    var p1 = pileXY(k, N, SV_SIEVES[0].y, 31);
+    d.pos.pre = [p1[0], -30];
+    d.pos.pile1 = p1;
+    var tr = trayXY(cnt[role]++, SV_TRAYS[role]);
+    if (role === 0){ d.pos.sortA = tr; d.pos.pile2 = tr; d.pos.sortB = tr; d.pos.sortC = tr; }
+    else {
+      d.pos.sortA = p1;
+      var p2 = pileXY(fl++, 24, SV_SIEVES[1].y, 12);
+      d.pos.pile2 = p2;
+      if (role === 1){ d.pos.sortB = tr; d.pos.sortC = tr; }
+      else { var p3 = pileXY(fl2++, 4, SV_SIEVES[2].y, 4); d.pos.sortB = p3; d.pos.sortC = tr; }
+    }
+    d.pos.sum = d.pos.sortC;
+    dots.push(d);
+  });
+  var ORDER = ['pre', 'pile1', 'sortA', 'pile2', 'sortB', 'sortC', 'sum'];
+  function colorAt(d, n){
+    if (n <= 1) return 'var(--sv-dot)';
+    if (d.role === 0) return 'var(--sv-t1)';
+    if (n < 4) return 'var(--sv-flag)';
+    if (d.role === 1) return 'var(--sv-t2)';
+    return n < 5 ? 'var(--sv-flag)' : 'var(--sv-t3)';
+  }
+  // which groups are visible after n steps
+  function groupsAt(n){ return { mesh0: n >= 0, mesh1: n >= 2, mesh2: n >= 4, tray0: n >= 2, tray1: n >= 4, tray2: n >= 5, sum: n >= 6 }; }
+  function setGroups(n){ var g = groupsAt(n); for (var k in g){ var node = root.querySelector('[data-sv-g="' + k + '"]'); if (node) node.style.opacity = g[k] ? 1 : 0; } }
+  function place(d, p, n){ d.el.setAttribute('cx', p[0].toFixed(1)); d.el.setAttribute('cy', p[1].toFixed(1)); d.el.setAttribute('fill', colorAt(d, n)); d.el.style.opacity = n === 0 ? 0 : 1; }
+  var cur = SV_STEPS.length, token = 0, raf = 0;
+  function applyState(n){ cancelAnimationFrame(raf); cur = n; dots.forEach(function(d){ place(d, d.pos[ORDER[n]], n); }); setGroups(n); show(); }
+  function show(){ if (!status) return; status.textContent = cur >= SV_STEPS.length ? '완성 상태 · ' + SV_STEPS.length + '단계' : cur === 0 ? '시작 전 · 0/' + SV_STEPS.length : cur + '/' + SV_STEPS.length + ' · ' + SV_STEPS[cur - 1].label; }
+  function ease(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function playStep(i){
+    return new Promise(function(done){
+      cur = i + 1; show(); setGroups(cur);
+      var from = ORDER[i], to = ORDER[i + 1], dur = ms('--sv-move-ms'), st = ms('--sv-stagger-ms'), t0 = performance.now();
+      var movers = dots.filter(function(d){ var a = d.pos[from], b = d.pos[to]; return a[0] !== b[0] || a[1] !== b[1]; });
+      var total = dur + movers.length * st;
+      dots.forEach(function(d){ d.el.setAttribute('fill', colorAt(d, cur)); d.el.style.opacity = 1; });
+      function frame(now){
+        movers.forEach(function(d, k){ var t = Math.min(1, Math.max(0, (now - t0 - k * st) / dur)); var e = ease(t), a = d.pos[from], b = d.pos[to];
+          var lift = (b[1] > a[1] + 40) ? 0 : Math.sin(Math.PI * e) * -18;
+          d.el.setAttribute('cx', (a[0] + (b[0] - a[0]) * e).toFixed(1)); d.el.setAttribute('cy', (a[1] + (b[1] - a[1]) * e + lift).toFixed(1)); });
+        if (now - t0 < total) raf = requestAnimationFrame(frame); else done();
+      }
+      raf = requestAnimationFrame(frame);
+    });
+  }
+  function wait(t){ return new Promise(function(r){ setTimeout(r, t); }); }
+  // 다시 보기: 처음부터 끝까지 한 번 재생하고 완성 상태에서 멈춤
+  function replay(){
+    var my = ++token;
+    if (reduced){ applyState(SV_STEPS.length); return; }
+    applyState(0);
+    var chain = wait(400);
+    SV_STEPS.forEach(function(_, i){ chain = chain.then(function(){ if (my === token) return playStep(i).then(function(){ return wait(ms('--sv-gap-ms')); }); }); });
+  }
+  // 한 단계씩: 클릭할 때마다 다음 동작 하나 (끝까지 가면 처음부터)
+  function stepOnce(){
+    ++token;
+    var next = cur >= SV_STEPS.length ? 0 : cur;
+    applyState(next);
+    if (reduced){ applyState(next + 1); return; }
+    playStep(next);
+  }
+  root.querySelector('[data-sv-replay]').addEventListener('click', replay);
+  root.querySelector('[data-sv-step]').addEventListener('click', stepOnce);
+  applyState(SV_STEPS.length);            // 첫 화면은 완성된 도식
+  if (!reduced) setTimeout(replay, 1200); // 잠시 뒤 한 번 재생
+})();
+</script>
+<!-- ===== 3단계 선별 체 도식 끝 ===== -->
+
+</section>
+
+<section>
+<h2 class="sec"><small>01</small>동작 설명</h2>
+<p>학생 한 명 한 명을 점으로 놓고, 점들이 세 겹의 체를 차례로 통과하는 모습으로 선별·연계 체계를 보여 줍니다. 위에서 모든 점이 첫 체에 모이고(전수 검사), 대부분은 옆 받침으로 미끄러져 학급 예방교육으로 갑니다. 관심 신호가 있는 점만 주황으로 바뀌어 아래 체로 떨어집니다. 체가 아래로 갈수록 그물이 촘촘해지고 받침의 지원은 깊어집니다. 점 개수가 실제 인원 비율(점 1개 = 50명)과 같아서, 그림만 봐도 '대상은 좁아지고 지원은 깊어진다'가 읽힙니다.</p>
+<div class="apps"><div><b>기초학력 진단·지원</b><span>1차 진단 → 학습지원팀 → 클리닉센터. 받침 이름과 인원만 바꾸면 됩니다.</span></div><div><b>학교폭력 사안 처리</b><span>신고 접수 → 학교장 자체 해결 → 심의위원회. 체마다 처리 기준을 아래 설명 줄에 씁니다.</span></div><div><b>공모 사업 심사</b><span>신청 → 서류 → 현장 → 최종 선정. 체를 4단으로 늘려 탈락·보완·선정 받침을 나눕니다.</span></div></div>
+</section>
+
+<section>
+<h2 class="sec"><small>02</small>HTML로 가져다 쓰기</h2>
+<div class="codebox"><button type="button" class="copy" id="copyBtn">코드 복사</button><pre id="code" tabindex="0">&lt;!-- ===== 3단계 선별 체 도식 (sv- 접두어) : 이 블록 전체를 복사해 붙이면 동작합니다 ===== --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gowun+Dodum&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap&quot;&gt;
+&lt;style&gt;
+.sv-root{
+  /* 색: 바탕·잉크, 단계별 색(t1 일반군 → t3 우선관리군), 관심 신호 색 */
+  --sv-desk:#EAF1EF; --sv-paper:#FBFCFB; --sv-ink:#17302E; --sv-sub:#557471; --sv-line:#C5D4D1;
+  --sv-dot:#A9BDB9; --sv-t1:#9CC9C0; --sv-t2:#3F8F83; --sv-t3:#1D5A52; --sv-flag:#E07A5F;
+  /* 타이밍(ms): 떨어짐·미끄러짐 시간, 점 사이 시차, 자동 재생 때 단계 사이 쉼 */
+  --sv-move-ms:900; --sv-stagger-ms:3; --sv-gap-ms:450;
+  --sv-font-display:&quot;Gowun Dodum&quot;,&quot;Noto Sans KR&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --sv-font-body:&quot;Noto Sans KR&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --sv-font-mono:&quot;JetBrains Mono&quot;,&quot;D2Coding&quot;,Consolas,monospace;
+  display:flex; flex-direction:column; gap:12px; width:100%; max-width:100%;
+}
+.sv-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden; background:var(--sv-desk); border-radius:4px}
+.sv-slide svg{display:block; width:100%; height:100%}
+.sv-slide text{font-family:var(--sv-font-body)}
+.sv-slide .sv-disp{font-family:var(--sv-font-display)}
+.sv-slide .sv-mono{font-family:var(--sv-font-mono); font-variant-numeric:tabular-nums}
+.sv-fade{transition:opacity .5s ease}
+.sv-controls{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-family:var(--sv-font-body)}
+.sv-btn{appearance:none; border:1.5px solid var(--sv-ink); background:var(--sv-paper); color:var(--sv-ink); font:700 14px/1 var(--sv-font-body); padding:10px 16px; border-radius:4px; cursor:pointer}
+.sv-btn:hover{background:var(--sv-ink); color:var(--sv-paper)}
+.sv-btn:focus-visible{outline:3px solid var(--sv-t2); outline-offset:2px}
+.sv-status{font:500 13px/1.4 var(--sv-font-mono); color:var(--sv-sub); padding-left:4px}
+@media (prefers-reduced-motion: reduce){.sv-fade{transition:none}}
+&lt;/style&gt;
+
+&lt;div class=&quot;sv-root&quot; data-sv-root&gt;
+  &lt;div class=&quot;sv-slide&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 1600 900&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; role=&quot;img&quot; aria-label=&quot;학생 마음건강 3단계 선별: 전수 검사 12,400명 중 일반군 11,220명은 학급 예방교육, 관심군 970명은 학교 상담, 우선관리군 210명은 전문기관으로 연계되는 체 도식&quot;&gt;
+      &lt;rect width=&quot;1600&quot; height=&quot;900&quot; fill=&quot;var(--sv-desk)&quot;/&gt;
+      &lt;text x=&quot;80&quot; y=&quot;70&quot; class=&quot;sv-mono&quot; font-size=&quot;15&quot; fill=&quot;var(--sv-sub)&quot; letter-spacing=&quot;.5&quot;&gt;&lt;tspan fill=&quot;var(--sv-ink)&quot; font-weight=&quot;700&quot;&gt;○○교육청 2027 학생 마음건강 지원 계획(안)&lt;/tspan&gt; · Ⅲ. 세부 추진 과제 2 — 3단계 선별·연계&lt;/text&gt;
+      &lt;text x=&quot;80&quot; y=&quot;128&quot; class=&quot;sv-disp&quot; font-size=&quot;44&quot; fill=&quot;var(--sv-ink)&quot;&gt;모두 살피고, &lt;tspan fill=&quot;var(--sv-t2)&quot;&gt;필요한 만큼 더 깊이&lt;/tspan&gt; 돕는다&lt;/text&gt;
+      &lt;g transform=&quot;translate(1452 50)&quot;&gt;&lt;rect width=&quot;78&quot; height=&quot;28&quot; rx=&quot;14&quot; fill=&quot;var(--sv-paper)&quot; stroke=&quot;var(--sv-line)&quot;/&gt;&lt;text x=&quot;39&quot; y=&quot;19&quot; text-anchor=&quot;middle&quot; font-size=&quot;13&quot; fill=&quot;var(--sv-sub)&quot;&gt;가상 예시&lt;/text&gt;&lt;/g&gt;
+
+      &lt;!-- source label --&gt;
+      &lt;text x=&quot;966&quot; y=&quot;186&quot; text-anchor=&quot;end&quot; font-size=&quot;17&quot; font-weight=&quot;700&quot; fill=&quot;var(--sv-ink)&quot;&gt;전수 검사 대상 12,400명&lt;/text&gt;
+      &lt;text x=&quot;966&quot; y=&quot;210&quot; text-anchor=&quot;end&quot; class=&quot;sv-mono&quot; font-size=&quot;14&quot; fill=&quot;var(--sv-sub)&quot;&gt;초1·초4·중1·고1 · 점 1개 = 50명&lt;/text&gt;
+
+      &lt;!-- sieves --&gt;
+      &lt;g data-sv-g=&quot;mesh&quot;&gt;
+        &lt;g id=&quot;sv-meshes&quot;&gt;&lt;/g&gt;
+      &lt;/g&gt;
+      &lt;!-- trays --&gt;
+      &lt;g id=&quot;sv-trays&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;sv-dots&quot;&gt;&lt;/g&gt;
+      &lt;!-- summary band --&gt;
+      &lt;g data-sv-g=&quot;sum&quot; class=&quot;sv-fade&quot;&gt;
+        &lt;rect x=&quot;80&quot; y=&quot;822&quot; width=&quot;1440&quot; height=&quot;50&quot; rx=&quot;4&quot; fill=&quot;var(--sv-paper)&quot; stroke=&quot;var(--sv-line)&quot;/&gt;
+        &lt;text x=&quot;104&quot; y=&quot;854&quot; font-size=&quot;18&quot; fill=&quot;var(--sv-ink)&quot;&gt;&lt;tspan font-weight=&quot;700&quot;&gt;체가 촘촘해질수록 지원은 깊어지고 대상은 좁아진다&lt;/tspan&gt;&lt;tspan fill=&quot;var(--sv-sub)&quot; dx=&quot;18&quot;&gt;검사 12,400 → 관심군 1,180 (9.5%) → 우선관리군 210 (1.7%)&lt;/tspan&gt;&lt;/text&gt;
+      &lt;/g&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;sv-controls&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;sv-btn&quot; data-sv-replay&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; class=&quot;sv-btn&quot; data-sv-step&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;sv-status&quot; data-sv-status aria-live=&quot;polite&quot;&gt;완성 상태&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  var root = document.querySelector(&#x27;[data-sv-root]&#x27;);
+  if (!root) return;
+  var NS = &#x27;http://www.w3.org/2000/svg&#x27;;
+
+  // 체 3단과 받침 3개: 이름·설명·인원만 바꾸면 됩니다. n = 점 개수(점 1개 = 50명)
+  var SV_SIEVES = [
+    { y: 380, name: &#x27;1차 · 정서·행동특성검사&#x27;, who: &#x27;담임 · 전 학생 온라인 검사&#x27; },
+    { y: 580, name: &#x27;2차 · 심층 평가·면담&#x27;,     who: &#x27;전문상담교사&#x27; },
+    { y: 760, name: &#x27;3차 · 전문 진단&#x27;,          who: &#x27;Wee센터 임상심리사&#x27; }
+  ];
+  var SV_TRAYS = [
+    { y: 290, h: 168, n: 224, people: &#x27;11,220&#x27;, name: &#x27;일반군&#x27;, act: &#x27;학급 단위 마음건강 예방교육&#x27;, tone: &#x27;--sv-t1&#x27; },
+    { y: 530, h: 92,  n: 20,  people: &#x27;970&#x27;,    name: &#x27;관심군&#x27;, act: &#x27;학교 상담(Wee클래스) · 담임 협력&#x27;, tone: &#x27;--sv-t2&#x27; },
+    { y: 712, h: 92,  n: 4,   people: &#x27;210&#x27;,    name: &#x27;우선관리군&#x27;, act: &#x27;Wee센터 · 정신건강 전문기관 연계&#x27;, tone: &#x27;--sv-t3&#x27; }
+  ];
+
+  // 단계 목록: 순서를 바꾸거나 줄을 지우면 재생·클릭 순서가 바뀝니다. at = 이 단계가 끝났을 때 점들의 자리
+  var SV_STEPS = [
+    { label: &#x27;전수 검사 — 모든 학생이 첫 체에 모인다&#x27;, at: &#x27;pile1&#x27; },
+    { label: &#x27;1차 선별 — 일반군은 학급 예방교육으로&#x27;, at: &#x27;sortA&#x27; },
+    { label: &#x27;관심군이 2차 체로 내려간다&#x27;,             at: &#x27;pile2&#x27; },
+    { label: &#x27;2차 선별 — 관심군은 학교 상담으로&#x27;,     at: &#x27;sortB&#x27; },
+    { label: &#x27;3차 진단 — 우선관리군은 전문기관으로&#x27;,  at: &#x27;sortC&#x27; },
+    { label: &#x27;요약 — 깊이는 늘고 대상은 좁아진다&#x27;,    at: &#x27;sum&#x27; }
+  ];
+
+  var css = getComputedStyle(root);
+  function ms(v){ var n = parseFloat(css.getPropertyValue(v)); return isNaN(n) ? 600 : n; }
+  function el(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+  var reduced = window.matchMedia &amp;&amp; matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  var status = root.querySelector(&#x27;[data-sv-status]&#x27;);
+
+  // draw sieves (mesh lines with gaps) and trays
+  var meshG = root.querySelector(&#x27;#sv-meshes&#x27;), trayG = root.querySelector(&#x27;#sv-trays&#x27;), dotG = root.querySelector(&#x27;#sv-dots&#x27;);
+  SV_SIEVES.forEach(function(s, i){
+    var g = el(&#x27;g&#x27;, {&#x27;data-sv-g&#x27;: &#x27;mesh&#x27; + i, &#x27;class&#x27;: &#x27;sv-fade&#x27;}, meshG);
+    var w = [1.6, 2.4, 3.2][i];
+    var per = 30 - i * 6;
+    for (var x = 110; x &lt; 960; x += per){ el(&#x27;line&#x27;, {x1: x, y1: s.y, x2: x + per * .66, y2: s.y, stroke: &#x27;var(--sv-ink)&#x27;, &#x27;stroke-width&#x27;: w, &#x27;stroke-linecap&#x27;: &#x27;round&#x27;}, g); el(&#x27;line&#x27;, {x1: x + per / 2, y1: s.y + 6, x2: Math.min(960, x + per / 2 + per * .66), y2: s.y + 6, stroke: &#x27;var(--sv-ink)&#x27;, &#x27;stroke-opacity&#x27;: .45, &#x27;stroke-width&#x27;: w * .8, &#x27;stroke-linecap&#x27;: &#x27;round&#x27;}, g); }
+    el(&#x27;line&#x27;, {x1: 104, y1: s.y - 12, x2: 104, y2: s.y + 12, stroke: &#x27;var(--sv-ink)&#x27;, &#x27;stroke-width&#x27;: 3}, g);
+    el(&#x27;line&#x27;, {x1: 966, y1: s.y - 12, x2: 966, y2: s.y + 12, stroke: &#x27;var(--sv-ink)&#x27;, &#x27;stroke-width&#x27;: 3}, g);
+    var t = el(&#x27;text&#x27;, {x: 110, y: s.y + 38, &#x27;font-size&#x27;: 17, &#x27;font-weight&#x27;: 700, fill: &#x27;var(--sv-ink)&#x27;}, g); t.textContent = s.name;
+    var t2 = el(&#x27;text&#x27;, {x: 110, y: s.y + 60, &#x27;font-size&#x27;: 14, fill: &#x27;var(--sv-sub)&#x27;}, g); t2.textContent = s.who;
+    var tag = el(&#x27;text&#x27;, {x: 960, y: s.y + 38, &#x27;text-anchor&#x27;: &#x27;end&#x27;, &#x27;font-size&#x27;: 13, fill: &#x27;var(--sv-sub)&#x27;, &#x27;class&#x27;: &#x27;sv-mono&#x27;}, g); tag.textContent = [&#x27;그물 굵게&#x27;, &#x27;그물 더 촘촘&#x27;, &#x27;가장 촘촘&#x27;][i];
+  });
+  SV_TRAYS.forEach(function(t, i){
+    var g = el(&#x27;g&#x27;, {&#x27;data-sv-g&#x27;: &#x27;tray&#x27; + i, &#x27;class&#x27;: &#x27;sv-fade&#x27;}, trayG);
+    el(&#x27;rect&#x27;, {x: 1040, y: t.y, width: 480, height: t.h, rx: 6, fill: &#x27;var(--sv-paper)&#x27;, stroke: &#x27;var(--sv-line)&#x27;}, g);
+    el(&#x27;rect&#x27;, {x: 1040, y: t.y, width: 8, height: t.h, rx: 2, fill: &#x27;var(&#x27; + t.tone + &#x27;)&#x27;}, g);
+    var a = el(&#x27;text&#x27;, {x: 1064, y: t.y + 30, &#x27;font-size&#x27;: 19, &#x27;font-weight&#x27;: 700, fill: &#x27;var(--sv-ink)&#x27;}, g); a.textContent = t.name;
+    var b = el(&#x27;text&#x27;, {x: 1064, y: t.y + 52, &#x27;font-size&#x27;: 14, fill: &#x27;var(--sv-sub)&#x27;}, g); b.textContent = t.act;
+    var c = el(&#x27;text&#x27;, {x: 1500, y: t.y + 34, &#x27;text-anchor&#x27;: &#x27;end&#x27;, &#x27;font-size&#x27;: 26, &#x27;font-weight&#x27;: 700, fill: &#x27;var(--sv-ink)&#x27;, &#x27;class&#x27;: &#x27;sv-mono&#x27;}, g); c.textContent = t.people;
+    var d = el(&#x27;text&#x27;, {x: 1500, y: t.y + 52, &#x27;text-anchor&#x27;: &#x27;end&#x27;, &#x27;font-size&#x27;: 12, fill: &#x27;var(--sv-sub)&#x27;}, g); d.textContent = &#x27;명&#x27;;
+    // chute arrow from sieve to tray
+    var sy = SV_SIEVES[i].y;
+    el(&#x27;path&#x27;, {d: &#x27;M975 &#x27; + sy + &#x27; C1005 &#x27; + sy + &#x27; 1010 &#x27; + (t.y + t.h / 2) + &#x27; 1032 &#x27; + (t.y + t.h / 2), fill: &#x27;none&#x27;, stroke: &#x27;var(--sv-sub)&#x27;, &#x27;stroke-width&#x27;: 1.6, &#x27;stroke-dasharray&#x27;: &#x27;4 4&#x27;}, g);
+  });
+
+  // dots: role 0 = 일반군, 1 = 관심군(학교), 2 = 우선관리군
+  var N = SV_TRAYS[0].n + SV_TRAYS[1].n + SV_TRAYS[2].n, dots = [];
+  var seed = 3; function rnd(){ seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+  var roles = []; for (var i = 0; i &lt; N; i++) roles.push(i &lt; SV_TRAYS[0].n ? 0 : i &lt; SV_TRAYS[0].n + SV_TRAYS[1].n ? 1 : 2);
+  for (var i = roles.length - 1; i &gt; 0; i--){ var j = Math.floor(rnd() * (i + 1)); var tmp = roles[i]; roles[i] = roles[j]; roles[j] = tmp; }
+  function pileXY(k, total, y, cols){ var c = k % cols, r = Math.floor(k / cols); var w = (cols - 1) * 27; return [535 - w / 2 + c * 27 + (rnd() - .5) * 5, y - 12 - r * 17 + (rnd() - .5) * 3]; }
+  function trayXY(k, t){ var cols = t.n &gt; 40 ? 32 : 12; var c = k % cols, r = Math.floor(k / cols); return [1066 + c * 13.2, t.y + 72 + r * 12.5 - (t.n &gt; 40 ? 0 : 6)]; }
+  var cnt = [0, 0, 0], fl = 0, fl2 = 0;
+  roles.forEach(function(role, k){
+    var d = { role: role, el: el(&#x27;circle&#x27;, {r: 6.2, cx: 0, cy: 0}, dotG), pos: {} };
+    var p1 = pileXY(k, N, SV_SIEVES[0].y, 31);
+    d.pos.pre = [p1[0], -30];
+    d.pos.pile1 = p1;
+    var tr = trayXY(cnt[role]++, SV_TRAYS[role]);
+    if (role === 0){ d.pos.sortA = tr; d.pos.pile2 = tr; d.pos.sortB = tr; d.pos.sortC = tr; }
+    else {
+      d.pos.sortA = p1;
+      var p2 = pileXY(fl++, 24, SV_SIEVES[1].y, 12);
+      d.pos.pile2 = p2;
+      if (role === 1){ d.pos.sortB = tr; d.pos.sortC = tr; }
+      else { var p3 = pileXY(fl2++, 4, SV_SIEVES[2].y, 4); d.pos.sortB = p3; d.pos.sortC = tr; }
+    }
+    d.pos.sum = d.pos.sortC;
+    dots.push(d);
+  });
+  var ORDER = [&#x27;pre&#x27;, &#x27;pile1&#x27;, &#x27;sortA&#x27;, &#x27;pile2&#x27;, &#x27;sortB&#x27;, &#x27;sortC&#x27;, &#x27;sum&#x27;];
+  function colorAt(d, n){
+    if (n &lt;= 1) return &#x27;var(--sv-dot)&#x27;;
+    if (d.role === 0) return &#x27;var(--sv-t1)&#x27;;
+    if (n &lt; 4) return &#x27;var(--sv-flag)&#x27;;
+    if (d.role === 1) return &#x27;var(--sv-t2)&#x27;;
+    return n &lt; 5 ? &#x27;var(--sv-flag)&#x27; : &#x27;var(--sv-t3)&#x27;;
+  }
+  // which groups are visible after n steps
+  function groupsAt(n){ return { mesh0: n &gt;= 0, mesh1: n &gt;= 2, mesh2: n &gt;= 4, tray0: n &gt;= 2, tray1: n &gt;= 4, tray2: n &gt;= 5, sum: n &gt;= 6 }; }
+  function setGroups(n){ var g = groupsAt(n); for (var k in g){ var node = root.querySelector(&#x27;[data-sv-g=&quot;&#x27; + k + &#x27;&quot;]&#x27;); if (node) node.style.opacity = g[k] ? 1 : 0; } }
+  function place(d, p, n){ d.el.setAttribute(&#x27;cx&#x27;, p[0].toFixed(1)); d.el.setAttribute(&#x27;cy&#x27;, p[1].toFixed(1)); d.el.setAttribute(&#x27;fill&#x27;, colorAt(d, n)); d.el.style.opacity = n === 0 ? 0 : 1; }
+  var cur = SV_STEPS.length, token = 0, raf = 0;
+  function applyState(n){ cancelAnimationFrame(raf); cur = n; dots.forEach(function(d){ place(d, d.pos[ORDER[n]], n); }); setGroups(n); show(); }
+  function show(){ if (!status) return; status.textContent = cur &gt;= SV_STEPS.length ? &#x27;완성 상태 · &#x27; + SV_STEPS.length + &#x27;단계&#x27; : cur === 0 ? &#x27;시작 전 · 0/&#x27; + SV_STEPS.length : cur + &#x27;/&#x27; + SV_STEPS.length + &#x27; · &#x27; + SV_STEPS[cur - 1].label; }
+  function ease(t){ return t &lt; .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function playStep(i){
+    return new Promise(function(done){
+      cur = i + 1; show(); setGroups(cur);
+      var from = ORDER[i], to = ORDER[i + 1], dur = ms(&#x27;--sv-move-ms&#x27;), st = ms(&#x27;--sv-stagger-ms&#x27;), t0 = performance.now();
+      var movers = dots.filter(function(d){ var a = d.pos[from], b = d.pos[to]; return a[0] !== b[0] || a[1] !== b[1]; });
+      var total = dur + movers.length * st;
+      dots.forEach(function(d){ d.el.setAttribute(&#x27;fill&#x27;, colorAt(d, cur)); d.el.style.opacity = 1; });
+      function frame(now){
+        movers.forEach(function(d, k){ var t = Math.min(1, Math.max(0, (now - t0 - k * st) / dur)); var e = ease(t), a = d.pos[from], b = d.pos[to];
+          var lift = (b[1] &gt; a[1] + 40) ? 0 : Math.sin(Math.PI * e) * -18;
+          d.el.setAttribute(&#x27;cx&#x27;, (a[0] + (b[0] - a[0]) * e).toFixed(1)); d.el.setAttribute(&#x27;cy&#x27;, (a[1] + (b[1] - a[1]) * e + lift).toFixed(1)); });
+        if (now - t0 &lt; total) raf = requestAnimationFrame(frame); else done();
+      }
+      raf = requestAnimationFrame(frame);
+    });
+  }
+  function wait(t){ return new Promise(function(r){ setTimeout(r, t); }); }
+  // 다시 보기: 처음부터 끝까지 한 번 재생하고 완성 상태에서 멈춤
+  function replay(){
+    var my = ++token;
+    if (reduced){ applyState(SV_STEPS.length); return; }
+    applyState(0);
+    var chain = wait(400);
+    SV_STEPS.forEach(function(_, i){ chain = chain.then(function(){ if (my === token) return playStep(i).then(function(){ return wait(ms(&#x27;--sv-gap-ms&#x27;)); }); }); });
+  }
+  // 한 단계씩: 클릭할 때마다 다음 동작 하나 (끝까지 가면 처음부터)
+  function stepOnce(){
+    ++token;
+    var next = cur &gt;= SV_STEPS.length ? 0 : cur;
+    applyState(next);
+    if (reduced){ applyState(next + 1); return; }
+    playStep(next);
+  }
+  root.querySelector(&#x27;[data-sv-replay]&#x27;).addEventListener(&#x27;click&#x27;, replay);
+  root.querySelector(&#x27;[data-sv-step]&#x27;).addEventListener(&#x27;click&#x27;, stepOnce);
+  applyState(SV_STEPS.length);            // 첫 화면은 완성된 도식
+  if (!reduced) setTimeout(replay, 1200); // 잠시 뒤 한 번 재생
+})();
+&lt;/script&gt;
+&lt;!-- ===== 3단계 선별 체 도식 끝 ===== --&gt;
+</pre></div>
+<ol class="hint"><li>색은 <code>.sv-root</code>의 <code>--sv-t1</code>~<code>--sv-t3</code>(받침별 색)와 <code>--sv-flag</code>(관심 신호)만 바꾸면 됩니다.</li><li>체 이름·담당은 <code>SV_SIEVES</code>, 받침 이름·인원·점 개수는 <code>SV_TRAYS</code>에서 바꿉니다. 점 개수(<code>n</code>)는 인원 비율에 맞춰 정하세요(예: 1개 = 50명).</li><li>속도는 <code>--sv-move-ms</code>(이동 시간)와 <code>--sv-stagger-ms</code>(점 사이 시차)로 조정합니다. 점이 300개를 넘으면 시차를 2ms 이하로 줄이세요.</li><li>단계 문구와 순서는 <code>SV_STEPS</code> 배열 한 곳에서 정합니다. 한 페이지에 한 번만 넣는 것을 전제로 합니다.</li></ol>
+</section>
+
+<section>
+<h2 class="sec"><small>03</small>PPT로 옮기기</h2>
+<p>점 수백 개를 하나씩 움직이는 대신, 받침별로 점 묶음 그룹 3개(일반군·관심군·우선관리군)를 만들어 그룹 단위로 움직입니다. 한국어판 PowerPoint 기준입니다.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>순서</th><th>대상 개체</th><th>애니메이션</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+<tbody><tr><td>0</td><td>제목·체 1단·전수 검사 문구</td><td>(애니메이션 없음)</td><td>–</td><td>–</td><td>–</td><td>–</td></tr><tr><td>1</td><td>점 전체 그룹</td><td>나타내기 - 날아오기</td><td>위에서, 부드럽게 끝내기</td><td>클릭할 때</td><td>0.90초</td><td>0</td></tr><tr><td>2</td><td>일반군 점 그룹</td><td>이동 경로 - 사용자 지정(곡선)</td><td>체 1단 → 받침 1</td><td>클릭할 때</td><td>0.90초</td><td>0</td></tr><tr><td>2</td><td>받침 1 카드</td><td>나타내기 - 밝기 변화</td><td>–</td><td>이전 효과와 함께</td><td>0.50초</td><td>0.40초</td></tr><tr><td>2</td><td>관심군·우선관리군 점</td><td>강조 - 채우기 색</td><td>주황 #E07A5F</td><td>이전 효과와 함께</td><td>0.30초</td><td>0</td></tr><tr><td>3</td><td>체 2단 + 관심군·우선 점</td><td>나타내기 - 밝기 변화 / 이동 경로 - 아래로</td><td>–</td><td>클릭할 때</td><td>0.90초</td><td>0</td></tr><tr><td>4</td><td>관심군 점 그룹 + 받침 2</td><td>이동 경로 - 사용자 지정 / 밝기 변화</td><td>체 2단 → 받침 2</td><td>클릭할 때</td><td>0.90초</td><td>0</td></tr><tr><td>5</td><td>우선관리군 점 + 체 3단 + 받침 3</td><td>이동 경로 - 아래로 → 오른쪽</td><td>체 3단 → 받침 3</td><td>클릭할 때</td><td>0.90초</td><td>0</td></tr><tr><td>6</td><td>요약 띠</td><td>나타내기 - 닦아내기</td><td>왼쪽에서</td><td>클릭할 때</td><td>0.80초</td><td>0</td></tr></tbody></table></div>
+<div class="note"><p><b>모핑으로 더 비슷하게:</b> 장표 7장을 복제하고 화면 전환을 모두 <b>모핑(효과 옵션: 개체)</b>으로 둡니다. 점 그룹 이름을 <code>!!일반군</code>, <code>!!관심군</code>, <code>!!우선</code>으로 모든 장표에서 똑같이 지으면, 장표마다 그룹 위치만 옮겨도 점들이 미끄러져 이동합니다.</p><p><b>PPT에서 근사하는 부분:</b> 점마다 다른 시차(쏟아지는 느낌)는 그룹을 2~3개로 쪼개 지연을 0.1초씩 주는 것으로 대신합니다. 점 개수는 그대로 두어야 비율이 맞습니다.</p></div>
+</section>
+
+<section>
+<h2 class="sec"><small>04</small>스펙</h2>
+<div class="spec">
+  <div><h3>팔레트</h3><div class="sw"><div><i style="background:#EAF1EF"></i>#EAF1EF 바탕</div><div><i style="background:#FBFCFB"></i>#FBFCFB 카드</div><div><i style="background:#17302E"></i>#17302E 잉크</div><div><i style="background:#9CC9C0"></i>#9CC9C0 일반군</div><div><i style="background:#3F8F83"></i>#3F8F83 관심군</div><div><i style="background:#1D5A52"></i>#1D5A52 우선관리군</div><div><i style="background:#E07A5F"></i>#E07A5F 관심 신호</div><div><i style="background:#A9BDB9"></i>#A9BDB9 검사 전 점</div></div></div>
+  <div><h3>폰트</h3><ul><li>제목: Gowun Dodum (대체: 나눔고딕, 맑은 고딕). 마음건강 주제라 둥글고 부드러운 획</li><li>본문: Noto Sans KR 700/400</li><li>인원·라벨: JetBrains Mono (대체: D2Coding, Consolas)</li><li>PPT: 고운돋움이 없으면 제목은 '나눔스퀘어라운드'</li></ul></div>
+  <div><h3>난이도 · 트렌드</h3><ul><li>HTML: 중 (점 위치를 단계별로 계산하는 구조)</li><li>PPT: 중 (그룹 3개 + 모핑 7장)</li><li>반영 트렌드: 물리 기반으로 떨어지고 미끄러지는 움직임이 분류 결과를 직접 보여 주는 기능형 모션 (<a href="https://lomatechnology.com/blog/motion-ui-trends-2026/2911">Loma Technology, Motion UI Trends 2026</a>)</li><li>인원 비율과 점 개수를 일치시켜 장식이 아니라 데이터로 읽히게 함</li><li>인원 수치·계획안 제목은 가상 예시</li></ul></div>
+</div>
+</section>
+</div>
+<script>
+document.getElementById('copyBtn').addEventListener('click', function(){
+  var btn = this, pre = document.getElementById('code');
+  function selectIt(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨 · Ctrl+C로 복사'; }
+  try {
+    navigator.clipboard.writeText(pre.textContent).then(function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1800); }, selectIt);
+  } catch (e) { selectIt(); }
+});
+</script>
+
+</body></html>

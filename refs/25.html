@@ -1,0 +1,374 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #25 늘봄 수요 일기도</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Gothic+Coding:wght@400;700&display=swap">
+<style>
+/* 레이아웃: 16:9 표지 한 장(가상 지형 위 레이더 합성도 + 일기도 기호) 아래로 설계 메모·재현 체크·스펙을 문서처럼 이어 붙인다 */
+:root{
+  --sea:#DCE8EF; --land:#F3F5F0; --ink:#1E2A33; --coast:#56636B;
+  --hi:#1F57C3; --lo:#D3322B;
+  --r1:#B4E2A6; --r2:#5CBF5E; --r3:#2E9446; --r4:#F2D33B; --r5:#F39A2B; --r6:#E04A2E;
+  --bg:#F5F7F8; --fg:#1E2A33; --muted:#5E6C76; --line:#D5DDE2; --panel:#FFFFFF; --accent:#1F57C3;
+  --f-sans:"Nanum Gothic","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"Nanum Gothic Coding","D2Coding",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#151B20;--fg:#E6ECEF;--muted:#9AA8B1;--line:#2E3A42;--panel:#1C242A;--accent:#7FA6F0;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#151B20;--fg:#E6ECEF;--muted:#9AA8B1;--line:#2E3A42;--panel:#1C242A;--accent:#7FA6F0;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-sans);line-height:1.6;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+
+/* ---------- 표지 ---------- */
+.cover{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;background:var(--sea);color:var(--ink);border:1px solid #B9C6CE;box-shadow:0 1px 2px rgba(30,42,51,.08),0 12px 32px -18px rgba(30,42,51,.35)}
+.cover canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hdr{position:absolute;left:0;right:0;top:0;height:5.2cqw;display:flex;align-items:center;justify-content:space-between;gap:2cqw;padding-inline:2.2cqw;background:rgba(255,255,255,.9);border-bottom:.12cqw solid var(--ink);font-family:var(--f-mono);font-size:1.12cqw;letter-spacing:.02em;white-space:nowrap}
+.hdr b{font-weight:700}
+.hdr .no{display:flex;align-items:center;gap:.8cqw}
+.hdr .no i{font-style:normal;border:.1cqw solid var(--ink);padding:.15cqw .6cqw;font-size:1cqw}
+.hdr .t{font-variant-numeric:tabular-nums}
+.titlebox{position:absolute;left:2.6cqw;bottom:3cqw;width:40.5cqw;background:rgba(255,255,255,.93);border:.12cqw solid var(--ink);padding:1.7cqw 2cqw 1.4cqw;display:flex;flex-direction:column;gap:.9cqw}
+.titlebox .eb{font-family:var(--f-mono);font-size:1.05cqw;letter-spacing:.08em;color:var(--coast);display:flex;justify-content:space-between}
+.titlebox h1{margin:0;font-weight:800;font-size:4.5cqw;line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
+.titlebox h1 span{color:var(--lo)}
+.titlebox .sub{font-size:1.45cqw;font-weight:700;color:#33424C;margin:0}
+.titlebox .meta{display:flex;justify-content:space-between;align-items:flex-end;gap:1cqw;border-top:.08cqw solid #9AA6AD;padding-top:.8cqw;font-family:var(--f-mono);font-size:.95cqw;color:#44535C}
+.scalebar{display:flex;flex-direction:column;gap:.25cqw;align-items:flex-start}
+.scalebar .bar{display:flex;height:.5cqw;width:9cqw;border:.08cqw solid var(--ink)}
+.scalebar .bar i{flex:1}.scalebar .bar i:nth-child(odd){background:var(--ink)}
+.frames{position:absolute;right:2.2cqw;top:6.4cqw;display:flex;flex-direction:column;align-items:flex-end;gap:.6cqw}
+.frames .lab{font-family:var(--f-mono);font-size:.95cqw;background:rgba(255,255,255,.85);padding:.1cqw .5cqw;color:#33424C}
+.frames .row{display:flex;gap:0;border:.12cqw solid var(--ink);background:#fff}
+.frames button{font-family:var(--f-mono);font-size:1.05cqw;border:0;border-right:.08cqw solid var(--ink);background:#fff;color:var(--ink);padding:.55cqw 1cqw;cursor:pointer;display:flex;flex-direction:column;align-items:center;line-height:1.25;font-variant-numeric:tabular-nums}
+.frames button:last-child{border-right:0}
+.frames button small{font-family:var(--f-sans);font-size:.85cqw;font-weight:700}
+.frames button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.frames button:focus-visible{outline:.25cqw solid var(--r5);outline-offset:.1cqw}
+.legend{position:absolute;right:2.2cqw;bottom:3cqw;width:25cqw;background:rgba(255,255,255,.93);border:.12cqw solid var(--ink);padding:1cqw 1.2cqw;display:flex;flex-direction:column;gap:.7cqw;font-size:.92cqw}
+.legend h2{margin:0;font-size:.95cqw;font-family:var(--f-mono);font-weight:700;letter-spacing:.04em;display:flex;justify-content:space-between}
+.legend h2 em{font-style:normal;font-weight:400;color:#5E6C76}
+.scale{display:grid;grid-template-columns:repeat(6,1fr);gap:0}
+.scale i{height:1.1cqw;border-right:.06cqw solid rgba(30,42,51,.25)}
+.scale span{font-family:var(--f-mono);font-size:.8cqw;color:#44535C;font-variant-numeric:tabular-nums}
+.syms{display:grid;grid-template-columns:1fr 1fr;gap:.35cqw 1cqw}
+.syms div{display:flex;align-items:center;gap:.5cqw;white-space:nowrap}
+.syms svg{width:2.2cqw;height:1.4cqw;flex:none}
+.tag{position:absolute;right:2.2cqw;bottom:.8cqw;font-size:.85cqw;font-family:var(--f-mono);color:#44535C;background:rgba(255,255,255,.8);padding:0 .5cqw}
+.cap{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* ---------- 문서 ---------- */
+section{display:flex;flex-direction:column;gap:16px;min-width:0}
+section>h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em;text-wrap:balance;display:flex;align-items:baseline;gap:12px}
+section>h2 small{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:400;letter-spacing:.06em}
+p.lead{margin:0;max-width:68ch;color:var(--muted)}
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;color:var(--muted);font-weight:700;background:color-mix(in srgb,var(--panel) 88%,var(--accent))}
+td:first-child{font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.flow .n{flex:1 1 150px;min-width:0;border:1px solid var(--line);background:var(--panel);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.flow .n b{font-size:15px}
+.flow .n span{font-size:13px;color:var(--muted)}
+.flow .n code{font-family:var(--f-mono);font-size:11px;color:var(--accent);letter-spacing:.05em}
+.flow .n.key{border-color:var(--accent);border-width:2px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px}
+.card{border:1px solid var(--line);background:var(--panel);padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card h3{margin:0;font-size:16px}
+ol.chk,ul.plain{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+ol.chk li::marker{font-family:var(--f-mono);color:var(--accent)}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.sw div{display:flex;flex-direction:column;gap:4px;font-size:12px}
+.sw i{height:44px;border:1px solid var(--line)}
+.sw code{font-family:var(--f-mono)}
+dl.spec{display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;margin:0;font-size:14px}
+dl.spec dt{font-family:var(--f-mono);font-size:12px;color:var(--muted);padding-top:2px}
+dl.spec dd{margin:0;min-width:0}
+a{color:var(--accent)}
+@media (max-width:560px){dl.spec{grid-template-columns:1fr}dl.spec dt{padding-top:6px}}
+</style>
+
+<div class="wrap">
+
+<figure style="margin:0">
+<div class="cover" id="cover">
+  <canvas id="cBase" aria-hidden="true"></canvas>
+  <canvas id="cRadar" aria-hidden="true"></canvas>
+  <canvas id="cTop" role="img" aria-label="가상 지형 위에 늘봄 수요를 레이더 색 단계로 표시하고 거점센터를 고기압, 수요 공백을 저기압, 운영 확대 경계를 전선으로 표시한 합성도"></canvas>
+
+  <div class="hdr">
+    <div class="no"><i>제25호</i><b>늘봄 수요 합성 분석도</b><span>지상 분석 + 수요 레이더</span></div>
+    <div class="t" id="hdrTime">분석 2026.10.02(금) 13:00 KST</div>
+    <div>예보관 ○○○ · ○○교육청 늘봄지원센터</div>
+  </div>
+
+  <div class="frames">
+    <span class="lab" id="frameLab">합성 시각 · 오후늘봄</span>
+    <div class="row" role="group" aria-label="돌봄 시간대">
+      <button type="button" id="fr0" data-f="0" aria-pressed="false">07:30<small>아침늘봄</small></button>
+      <button type="button" id="fr1" data-f="1" aria-pressed="true">13:00<small>오후늘봄</small></button>
+      <button type="button" id="fr2" data-f="2" aria-pressed="false">18:30<small>저녁늘봄</small></button>
+      <button type="button" id="frLoop" aria-pressed="false">▶<small>루프</small></button>
+    </div>
+  </div>
+
+  <div class="titlebox">
+    <div class="eb"><span>PLAN 2027 · 유아·초등교육과</span><span>N 36°40′ / E 127°30′</span></div>
+    <h1>2027 늘봄학교<br>운영 계획<span>(안)</span></h1>
+    <p class="sub">수요가 몰리는 곳, 거점이 닿지 않는 곳을 한 장에</p>
+    <div class="meta">
+      <span>○○교육청 · 2026. 10.</span>
+      <div class="scalebar"><div class="bar"><i></i><i></i><i></i><i></i></div><span>0 — 10 km · 가상 지형</span></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <h2>늘봄 수요 지수 <em>신청 ÷ 정원, %</em></h2>
+    <div>
+      <div class="scale"><i style="background:var(--r1)"></i><i style="background:var(--r2)"></i><i style="background:var(--r3)"></i><i style="background:var(--r4)"></i><i style="background:var(--r5)"></i><i style="background:var(--r6)"></i></div>
+      <div class="scale"><span>40</span><span>60</span><span>80</span><span>100</span><span>120</span><span>140+</span></div>
+    </div>
+    <div class="syms">
+      <div><svg viewBox="0 0 22 14"><text x="11" y="12" text-anchor="middle" font-size="13" font-weight="800" fill="#1F57C3" font-family="Nanum Gothic,sans-serif">H</text></svg>거점 늘봄센터</div>
+      <div><svg viewBox="0 0 22 14"><text x="11" y="12" text-anchor="middle" font-size="13" font-weight="800" fill="#D3322B" font-family="Nanum Gothic,sans-serif">L</text></svg>수요 과밀·공백</div>
+      <div><svg viewBox="0 0 22 14"><path d="M1 10H21" stroke="#D3322B" stroke-width="1.6" fill="none"/><path d="M4 10a3 3 0 0 1 6 0zM13 10a3 3 0 0 1 6 0z" fill="#D3322B"/></svg>2027 확대 경계</div>
+      <div><svg viewBox="0 0 22 14"><path d="M1 10H21" stroke="#1F57C3" stroke-width="1.6" fill="none"/><path d="M3 10l3-6 3 6zM12 10l3-6 3 6z" fill="#1F57C3"/></svg>2028 확대 예정</div>
+      <div><svg viewBox="0 0 22 14"><path d="M5 2 13 7" stroke="#1E2A33" stroke-width="1"/><circle cx="14" cy="7" r="4" fill="#fff" stroke="#1E2A33"/><path d="M14 3a4 4 0 0 1 0 8z" fill="#1E2A33"/></svg>학교 관측소</div>
+      <div><svg viewBox="0 0 22 14"><path d="M1 7c5-6 9 6 20 0" stroke="#1E2A33" stroke-width="1" fill="none"/></svg>공급 등치선</div>
+    </div>
+  </div>
+  <div class="tag">가상 예시 · 지형·수치 모두 가상</div>
+</div>
+<figcaption class="cap">표지 16:9 · 시간대 단추를 누르면 레이더 합성이 아침·오후·저녁 늘봄 수요로 바뀝니다. 지형·학교·수치는 모두 가상입니다.</figcaption>
+</figure>
+
+<section>
+  <h2>흐름 설계 메모 <small>PLAN ↔ WEATHER CHART</small></h2>
+  <p class="lead">표지의 일기도 문법을 안쪽 장표까지 그대로 이어 씁니다. 같은 지도를 계속 깔고 겹(레이어)만 바꿔 보여 주면 청중이 위치 감각을 잃지 않습니다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>계획안 구성</th><th>일기도 요소</th><th>안쪽 장표 아이디어</th></tr></thead>
+    <tbody>
+      <tr><td>Ⅰ. 추진 배경</td><td>발표 시각 · 예보관 · 호수</td><td>머리띠에 기준일(○년 ○월 ○일 기준), 작성 부서를 일기도 머리글처럼 고정. 장마다 호수만 바뀜</td></tr>
+      <tr><td>Ⅱ. 수요 현황</td><td>레이더 반사도 색 단계</td><td>지역별 신청 ÷ 정원 비율을 6단 색으로. 100%(노랑) 이상이 과밀이라는 기준선을 범례에 굵게</td></tr>
+      <tr><td>Ⅲ. 거점 배치</td><td>고기압 H · 중심 기압</td><td>거점 늘봄센터 위치와 정원을 H와 숫자로. 등치선 간격이 넓으면 공급이 고르게 퍼진 지역</td></tr>
+      <tr><td>Ⅳ. 공백 지역</td><td>저기압 L · 조밀한 등압선</td><td>수요가 공급을 넘는 곳을 L로 표시. 등치선이 촘촘할수록 거점과의 격차가 큰 곳</td></tr>
+      <tr><td>Ⅴ. 운영 확대</td><td>온난전선 · 한랭전선</td><td>2027 확대 경계(빨강 반원), 2028 예정선(파랑 삼각). 기호가 향한 쪽이 확대 방향</td></tr>
+      <tr><td>Ⅵ. 학교별 운영</td><td>관측소 기입 모형</td><td>운량 원 = 참여율, 왼쪽 위 = 참여 학생, 왼쪽 아래 = 프로그램 수, 바람깃 = 대기 인원(긴 깃 10명)</td></tr>
+      <tr><td>Ⅶ. 시간대별 운영</td><td>레이더 루프(시각별 합성)</td><td>아침·오후·저녁 늘봄을 같은 지도에 세 장으로. 저녁 수요가 산단 주변에 남는 것을 보여 줌</td></tr>
+      <tr><td>Ⅷ. 예산·전망</td><td>예상 일기도(+24h, +48h)</td><td>2027 상반기·하반기 예상 분포. 확대 후 L이 약해지는 모습을 예보도로</td></tr>
+    </tbody>
+  </table></div>
+  <div class="flow" aria-label="발표 흐름">
+    <div class="n"><code>00 표지</code><b>오늘의 합성도</b><span>전체 분포를 한 장으로</span></div>
+    <div class="n"><code>02 현황</code><b>레이더만 켜기</b><span>어디가 붉은가</span></div>
+    <div class="n"><code>03 거점</code><b>H 겹 추가</b><span>공급이 닿는 범위</span></div>
+    <div class="n key"><code>04 공백</code><b>L 확대 보기</b><span>핵심 문제 지점</span></div>
+    <div class="n"><code>05 확대</code><b>전선 겹 추가</b><span>어디까지 넓히나</span></div>
+    <div class="n"><code>07~08</code><b>루프 · 예상도</b><span>시간대와 내년 모습</span></div>
+  </div>
+  <p class="cap">흐름은 같은 지도 위에 겹을 하나씩 더하는 방식입니다. 표지 구조는 분포 한 장이고, 순서는 발표할 때만 생깁니다.</p>
+</section>
+
+<section>
+  <h2>재현 체크 <small>REAL-WORLD GRAMMAR</small></h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>실물 일기도 요소 9개</h3>
+      <ol class="chk">
+        <li>레이더 반사도 6단 색(연두→초록→노랑→주황→빨강), 격자 픽셀 질감</li>
+        <li>등압선 4단위 간격과 선 위 숫자 표기(996~1024)</li>
+        <li>고기압 H(파랑)·저기압 L(빨강) + 중심 수치, 중심 × 표시</li>
+        <li>온난전선 반원·한랭전선 삼각, 진행 방향 쪽에 기호</li>
+        <li>관측소 기입 모형: 운량 원, 왼쪽 위·아래 수치, 바람깃</li>
+        <li>머리띠: 호수, 분석 시각(KST), 예보관</li>
+        <li>경위도 격자와 테두리 좌표 표기</li>
+        <li>해안선·섬·행정 경계 점선·수심 단계(가상 지형)</li>
+        <li>시각별 레이더 합성 전환(루프)과 축척 막대</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>조사 출처</h3>
+      <ul class="plain">
+        <li><a href="https://research.atmos.ucla.edu/weather/C110/Documents/tmp/basic_wxradar/navmenu.php_tab_1_page_2.4.0_type_text.htm" target="_blank" rel="noopener">UCLA Atmospheric Sciences — Reflectivity Scales</a> (dBZ 색 단계)</li>
+        <li><a href="https://opensnow.com/news/post/reading-radar-explained" target="_blank" rel="noopener">OpenSnow — Reading Radar Explained</a> (색과 강수 강도)</li>
+        <li><a href="https://www.metlink.org/?p=10387" target="_blank" rel="noopener">MetLink — Interpreting weather charts</a> (등압선·전선 기호)</li>
+        <li><a href="https://archive.bigelow.org/virtual/handson/create_weather_map.html" target="_blank" rel="noopener">Bigelow Lab — Reading &amp; Creating a Weather Map</a> (관측소 기입 모형)</li>
+      </ul>
+      <h3>이미지 크레딧</h3>
+      <p style="margin:0;font-size:14px">사진 없음. 지형·레이더·기호는 모두 페이지 안에서 코드로 그렸습니다(값 잡음 기반 가상 지형, 실존 지자체 경계 미사용).</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>스펙 <small>SPEC</small></h2>
+  <div class="sw">
+    <div><i style="background:#DCE8EF"></i><b>바다</b><code>#DCE8EF</code></div>
+    <div><i style="background:#F3F5F0"></i><b>육지</b><code>#F3F5F0</code></div>
+    <div><i style="background:#1E2A33"></i><b>먹선</b><code>#1E2A33</code></div>
+    <div><i style="background:#1F57C3"></i><b>고기압·한랭</b><code>#1F57C3</code></div>
+    <div><i style="background:#D3322B"></i><b>저기압·온난</b><code>#D3322B</code></div>
+    <div><i style="background:linear-gradient(90deg,#B4E2A6,#5CBF5E,#2E9446,#F2D33B,#F39A2B,#E04A2E)"></i><b>레이더 6단</b><code>#B4E2A6 → #E04A2E</code></div>
+  </div>
+  <dl class="spec">
+    <dt>폰트</dt><dd>나눔고딕 800(제목·범례) + 나눔고딕코딩 400/700(머리띠·수치·좌표). 대체: 맑은 고딕 / D2Coding·Consolas</dd>
+    <dt>PPT 이식</dt><dd>① 표지를 시간대별로 3번 화면 캡처해 PNG 3장을 배경으로 깔고 제목 상자·범례·머리띠는 PPT 텍스트 상자로 다시 만든다. ② 레이더 겹만 따로 쓰려면 지형 없이 저장한 PNG를 같은 위치에 겹쳐 ‘밝기 변화’ 전환 0.6초로 루프처럼 넘긴다. ③ 전선 기호는 선 + 반원/삼각 도형을 그룹으로 묶어 재사용. ④ 실제 지역 지도가 필요하면 공공 행정경계(SHP)를 단순화해 같은 색 규칙만 입힌다.</dd>
+    <dt>난이도</dt><dd>중상. 지도 바탕 확보가 가장 손이 많이 가고, 색 6단·기호 규칙은 한 번 정하면 반복 사용</dd>
+    <dt>반영 트렌드</dt><dd>숫자를 맥락(장소) 안에 넣는 데이터 스토리텔링, 깊이감 있는 겹 구성 — <a href="https://www.chatslide.ai/articles/presentation-design-trends-2026" target="_blank" rel="noopener">ChatSlide ‘Presentation Design Trends 2026’</a>; <a href="https://www.slidesai.io/blog/presentation-design-trends" target="_blank" rel="noopener">SlidesAI ‘35 Presentation Design Trends 2026’</a></dd>
+  </dl>
+</section>
+</div>
+
+<script>
+(function(){
+const W=16,H=9,SEED=25;
+function hash(i,j,s){let h=Math.imul(i,374761393)^Math.imul(j,668265263)^Math.imul(s,1442695041);h=Math.imul(h^(h>>>13),1274126177);h^=h>>>16;return (h>>>0)/4294967296;}
+function vn(x,y,s){const i=Math.floor(x),j=Math.floor(y),fx=x-i,fy=y-j,u=fx*fx*(3-2*fx),v=fy*fy*(3-2*fy);const a=hash(i,j,s),b=hash(i+1,j,s),c=hash(i,j+1,s),d=hash(i+1,j+1,s);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;}
+function fbm(x,y,s,o){o=o||5;let t=0,a=.5,f=1;for(let k=0;k<o;k++){t+=a*vn(x*f,y*f,s+k*17);f*=2.03;a*=.5;}return t;}
+const g=(x,y,cx,cy,s)=>Math.exp(-((x-cx)**2+(y-cy)**2)/(2*s*s));
+const sig=t=>1/(1+Math.exp(-t));
+function landV(x,y){
+  return (fbm(x*.42,y*.42,SEED,5)-.48)*3.4 + (fbm(x*1.4,y*1.4,SEED+90,3)-.5)*1.1
+    + (x-6.9)*.55 + 1.9*g(x,y,4.6,2.1,1.0) - 1.5*g(x,y,12.9,6.3,.75)
+    - 3*sig((7.2-x)*2.2)*sig((y-4.2)*2.4) - 2*sig((x-15.2)*3)*sig((2.2-y)*3);
+}
+function pressure(x,y){
+  return 1012 + 14*g(x,y,14.1,5.8,2.1) + 11*g(x,y,7.9,1.6,1.7) - 17*g(x,y,11.3,3.5,1.45) - 4*g(x,y,9.4,5.1,1)
+    + (fbm(x*.5,y*.5,SEED+300,3)-.5)*3 - (y-4.5)*.25;
+}
+// demand blobs per frame: x,y,amp,sigma
+const FR=[
+  {t:"07:30",n:"아침늘봄",b:[[11.3,3.5,.78,.75],[9.6,4.9,.62,.6],[12.6,4.6,.38,.6],[13.7,2.5,.3,.5],[8.1,3.1,.28,.4]]},
+  {t:"13:00",n:"오후늘봄",b:[[11.3,3.5,.86,.85],[12.6,4.6,.74,.75],[9.6,4.9,.8,.7],[13.7,2.4,.6,.6],[10.4,7.4,.55,.6],[8.0,3.1,.5,.55],[15.0,3.9,.48,.5],[14.5,7.6,.35,.5]]},
+  {t:"18:30",n:"저녁늘봄",b:[[12.6,4.6,.92,.75],[11.3,3.5,.55,.65],[10.4,7.4,.36,.5],[9.6,4.9,.3,.5]]}
+];
+const RC=["#B4E2A6","#5CBF5E","#2E9446","#F2D33B","#F39A2B","#E04A2E"],RT=[.16,.28,.42,.57,.72,.88];
+const ST=[ // x,y,name, [students,programs,rate,wait] per frame
+  [9.2,2.6,"가람초",[[48,3,.4,0],[212,11,.75,7],[22,2,.25,0]]],
+  [12.2,2.0,"누리초",[[66,4,.5,5],[286,14,.88,15],[41,2,.4,0]]],
+  [10.6,5.6,"다온초",[[92,5,.62,10],[334,16,1,25],[37,2,.38,5]]],
+  [13.6,4.0,"새봄초",[[40,3,.38,0],[241,12,.75,10],[118,6,.88,20]]],
+  [15.1,2.8,"솔내초",[[18,2,.25,0],[96,7,.5,0],[12,1,.12,0]]],
+  [8.6,6.0,"한울초",[[26,2,.25,0],[150,9,.62,5],[19,1,.25,0]]],
+  [10.5,7.95,"이음초",[[30,2,.38,0],[188,10,.62,5],[44,3,.5,5]]]
+];
+const DN=["가람시","누리군","다온시","별빛군","새봄시","한울군","솔내시","이음군","바다군","온빛시","들꽃군","해솔시","고운군"];
+const cover=document.getElementById('cover'),cB=document.getElementById('cBase'),cR=document.getElementById('cRadar'),cT=document.getElementById('cTop');
+const MONO='"Nanum Gothic Coding",ui-monospace,monospace',SANS='"Nanum Gothic",sans-serif';
+let frame=1,terrain=null,dlabels=[];
+
+function buildTerrain(){
+  const TW=1920,TH=1080,sc=TW/W;
+  const cv=document.createElement('canvas');cv.width=TW;cv.height=TH;
+  const ctx=cv.getContext('2d'),img=ctx.createImageData(TW,TH),d=img.data;
+  const lv=new Float32Array(TW*TH),dist=new Int8Array(TW*TH);
+  // district seeds on land
+  const seeds=[];let k=0;
+  while(seeds.length<13&&k<4000){const x=5+hash(k,1,77)*11,y=.6+hash(k,2,77)*8.2;k++;if(landV(x,y)>.6&&seeds.every(s=>Math.hypot(s[0]-x,s[1]-y)>1.65))seeds.push([x,y]);}
+  const acc=seeds.map(()=>[0,0,0]);
+  for(let py=0;py<TH;py++){const y=py/sc;for(let px=0;px<TW;px++){const x=px/sc,i=py*TW+px;const v=landV(x,y);lv[i]=v;
+    if(v>0){const wx=x+(fbm(x*.9,y*.9,SEED+31,3)-.5)*1.3,wy=y+(fbm(x*.9,y*.9,SEED+57,3)-.5)*1.3;let bi=0,bd=1e9;for(let s=0;s<seeds.length;s++){const dd=(seeds[s][0]-wx)**2+(seeds[s][1]-wy)**2;if(dd<bd){bd=dd;bi=s;}}dist[i]=bi;if((px&7)==0&&(py&7)==0){acc[bi][0]+=x;acc[bi][1]+=y;acc[bi][2]++;}}else dist[i]=-1;}}
+  for(let py=0;py<TH;py++){for(let px=0;px<TW;px++){const i=py*TW+px,v=lv[i],o=i*4;let r,gg,b;const gr=(hash(px,py,5)-.5)*7;
+    if(v>0){let coast=false;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[2,0],[0,2],[-2,0],[0,-2]]){const qx=px+dx,qy=py+dy;if(qx>=0&&qy>=0&&qx<TW&&qy<TH&&lv[qy*TW+qx]<=0){coast=true;break;}}
+      if(coast){r=86;gg=99;b=107;}
+      else{const di=dist[i];const nb=(px+1<TW?dist[i+1]:di),nd=(py+1<TH?dist[i+TW]:di);
+        if(((nb!==di&&nb>=0)||(nd!==di&&nd>=0))&&((px+py)%9<5)){r=138;gg=150;b=158;}
+        else{const e=fbm(px/sc*.8,py/sc*.8,SEED+500,3);r=243-e*10;gg=245-e*6;b=240-e*12;}}}
+    else{const dep=Math.min(1,-v/2.2);const band=dep<.18?0:dep<.5?1:2;const base=[[228,239,244],[220,232,239],[210,225,234]][band];r=base[0];gg=base[1];b=base[2];}
+    d[o]=r+gr;d[o+1]=gg+gr;d[o+2]=b+gr;d[o+3]=255;}}
+  ctx.putImageData(img,0,0);
+  dlabels=acc.map((a,i)=>a[2]>40?[a[0]/a[2],a[1]/a[2],DN[i]]:null).filter(Boolean);
+  terrain=cv;
+}
+function sizeCanvas(c,ctx){const r=cover.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1);c.width=Math.round(r.width*dpr);c.height=Math.round(r.height*dpr);return c.width/W;}
+function halo(ctx,txt,x,y,lw){ctx.lineWidth=lw;ctx.strokeStyle='rgba(255,255,255,.92)';ctx.lineJoin='round';ctx.strokeText(txt,x,y);ctx.fillText(txt,x,y);}
+function blocked(x,y){return (x<7.6&&y>4.75)||(x>12.0&&y>6.55)||(y<.95)||(x>11.3&&y<1.75);} // title box, legend, header, frame buttons
+
+function drawBase(){
+  const ctx=cB.getContext('2d'),k=sizeCanvas(cB);ctx.imageSmoothingQuality='high';ctx.drawImage(terrain,0,0,cB.width,cB.height);
+  // graticule
+  ctx.save();ctx.strokeStyle='rgba(70,100,120,.32)';ctx.lineWidth=Math.max(1,k*.008);ctx.setLineDash([k*.06,k*.06]);
+  ctx.font=`${k*.14}px ${MONO}`;ctx.fillStyle='#4E6271';
+  for(let i=0;i<=5;i++){const x=1.1+i*2.9;ctx.beginPath();ctx.moveTo(x*k,0);ctx.lineTo(x*k,H*k);ctx.stroke();if(!blocked(x,8.85))halo(ctx,`${126+i*.5}°E`.replace('.5°','°30′'),x*k+k*.05,H*k-k*.08,k*.04);}
+  for(let j=0;j<=3;j++){const y=1.9+j*2.25;ctx.beginPath();ctx.moveTo(0,y*k);ctx.lineTo(W*k,y*k);ctx.stroke();if(!blocked(.2,y))halo(ctx,`${37.5-j*.5}°N`.replace('.5°','°30′'),k*.12,y*k-k*.06,k*.04);}
+  ctx.restore();
+  ctx.font=`700 ${k*.15}px ${SANS}`;ctx.fillStyle='#7C8A93';ctx.textAlign='center';
+  for(const [x,y,n] of dlabels){if(!blocked(x,y))halo(ctx,n,x*k,y*k+k*.32,k*.04);}
+  ctx.font=`italic ${k*.17}px ${SANS}`;ctx.fillStyle='#6E8DA2';halo(ctx,'서 해 (가상)',3.2*k,3.9*k,k*.04);ctx.textAlign='left';
+}
+function drawRadar(){
+  const ctx=cR.getContext('2d'),k=sizeCanvas(cR),cs=.07,bl=FR[frame].b;ctx.globalAlpha=.86;
+  for(let y=cs/2;y<H;y+=cs){for(let x=cs/2;x<W;x+=cs){
+    const wx=x+(fbm(x*.8,y*.8,SEED+700,3)-.5)*.9,wy=y+(fbm(x*.8,y*.8,SEED+800,3)-.5)*.9;let f=0;for(const b of bl)f+=b[2]*g(wx,wy,b[0],b[1],b[3]);
+    f*=.5+.95*fbm(x*2.4,y*2.4,SEED+900+frame*3,4);f*=Math.min(1,Math.max(0,landV(x,y)*1.1+.55));
+    let lvl=-1;for(let i=0;i<6;i++)if(f>RT[i])lvl=i;if(lvl<0)continue;
+    ctx.fillStyle=RC[lvl];const px=Math.floor((x-cs/2)*k),py=Math.floor((y-cs/2)*k);ctx.fillRect(px,py,Math.ceil(cs*k)+1,Math.ceil(cs*k)+1);}}
+  ctx.globalAlpha=1;
+}
+function catmull(pts,n){const out=[];for(let i=0;i<pts.length-1;i++){const p0=pts[Math.max(0,i-1)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(pts.length-1,i+2)];for(let t=0;t<n;t++){const s=t/n,s2=s*s,s3=s2*s;out.push([0.5*((2*p1[0])+(-p0[0]+p2[0])*s+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*s2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*s3),0.5*((2*p1[1])+(-p0[1]+p2[1])*s+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*s2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*s3)]);}}out.push(pts[pts.length-1]);return out;}
+function front(ctx,k,pts,type){
+  const P=catmull(pts,24),col=type==='warm'?'#D3322B':'#1F57C3';
+  ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=k*.045;ctx.lineCap='round';ctx.lineJoin='round';
+  ctx.beginPath();P.forEach((p,i)=>i?ctx.lineTo(p[0]*k,p[1]*k):ctx.moveTo(p[0]*k,p[1]*k));ctx.stroke();
+  let acc=0,next=.35;const step=.52,sz=.13;
+  for(let i=1;i<P.length;i++){const dx=P[i][0]-P[i-1][0],dy=P[i][1]-P[i-1][1],L=Math.hypot(dx,dy);acc+=L;
+    if(acc>=next){next+=step;const ux=dx/L,uy=dy/L,nx=uy,ny=-ux,cx=P[i][0],cy=P[i][1];
+      if(type==='warm'){const a=Math.atan2(uy,ux);ctx.beginPath();ctx.arc(cx*k,cy*k,sz*k,a+Math.PI,a,false);ctx.closePath();ctx.fill();}
+      else{ctx.beginPath();ctx.moveTo((cx-ux*sz)*k,(cy-uy*sz)*k);ctx.lineTo((cx+nx*sz*1.7)*k,(cy+ny*sz*1.7)*k);ctx.lineTo((cx+ux*sz)*k,(cy+uy*sz)*k);ctx.closePath();ctx.fill();}}}
+}
+function station(ctx,k,s){
+  const [x,y,name,data]=s,[stu,prog,rate,wait]=data[frame],r=k*.1,X=x*k,Y=y*k;
+  // wind barb staff toward upper-left
+  ctx.strokeStyle='#1E2A33';ctx.lineWidth=Math.max(1,k*.012);const ang=-2.35+((x*7)%1)*.5,len=k*.55,ex=X+Math.cos(ang)*len,ey=Y+Math.sin(ang)*len;
+  if(wait>0){ctx.beginPath();ctx.moveTo(X+Math.cos(ang)*r,Y+Math.sin(ang)*r);ctx.lineTo(ex,ey);ctx.stroke();
+    let w=wait,pos=0;const pa=ang-Math.PI/2.6;while(w>=5){const full=w>=10,bl=full?k*.2:k*.11,bx=ex-Math.cos(ang)*pos*k*.09,by=ey-Math.sin(ang)*pos*k*.09;ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+Math.cos(pa)*bl,by+Math.sin(pa)*bl);ctx.stroke();w-=full?10:5;pos++;}}
+  ctx.beginPath();ctx.arc(X,Y,r,0,7);ctx.fillStyle='#fff';ctx.fill();ctx.stroke();
+  const oct=Math.round(rate*8)/8;if(oct>0){ctx.beginPath();ctx.moveTo(X,Y);ctx.arc(X,Y,r,-Math.PI/2,-Math.PI/2+oct*Math.PI*2);ctx.closePath();ctx.fillStyle='#1E2A33';ctx.fill();}
+  ctx.font=`700 ${k*.15}px ${MONO}`;ctx.fillStyle=stu>=250?'#D3322B':'#1E2A33';ctx.textAlign='right';halo(ctx,String(stu),X-r*1.4,Y-r*.4,k*.04);
+  ctx.fillStyle='#1E2A33';ctx.font=`${k*.13}px ${MONO}`;halo(ctx,'P'+prog,X-r*1.4,Y+r*1.5,k*.04);
+  ctx.textAlign='left';ctx.font=`700 ${k*.14}px ${SANS}`;halo(ctx,name,X+r*1.5,Y+r*.5,k*.04);
+}
+function drawTop(){
+  const ctx=cT.getContext('2d'),k=sizeCanvas(cT),gs=.1,nx=Math.round(W/gs)+1,ny=Math.round(H/gs)+1,P=new Float32Array(nx*ny);
+  for(let j=0;j<ny;j++)for(let i=0;i<nx;i++)P[j*nx+i]=pressure(i*gs,j*gs);
+  ctx.strokeStyle='rgba(30,42,51,.78)';ctx.lineWidth=Math.max(1,k*.014);ctx.lineCap='round';
+  const labels=[];
+  for(let lev=992;lev<=1028;lev+=4){const segs=[];ctx.beginPath();
+    for(let j=0;j<ny-1;j++)for(let i=0;i<nx-1;i++){const a=P[j*nx+i],b=P[j*nx+i+1],c=P[(j+1)*nx+i+1],d=P[(j+1)*nx+i];
+      const pts=[];const ed=(p,q,x1,y1,x2,y2)=>{if((p<lev)!==(q<lev)){const t=(lev-p)/(q-p);pts.push([(x1+(x2-x1)*t)*gs,(y1+(y2-y1)*t)*gs]);}};
+      ed(a,b,i,j,i+1,j);ed(b,c,i+1,j,i+1,j+1);ed(d,c,i,j+1,i+1,j+1);ed(a,d,i,j,i,j+1);
+      for(let m=0;m+1<pts.length;m+=2){const [p,q]=[pts[m],pts[m+1]];const mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2;if(blocked(mx,my)&&!(mx>12&&my>6.55))continue;ctx.moveTo(p[0]*k,p[1]*k);ctx.lineTo(q[0]*k,q[1]*k);segs.push([mx,my]);}}
+    ctx.stroke();
+    const cand=segs.filter(s=>!blocked(s[0],s[1])&&s[0]>6&&s[0]<15.6&&s[1]>1.2&&s[1]<8.4&&Math.hypot(s[0]-11.3,s[1]-3.5)>.9&&ST.every(t=>Math.hypot(s[0]-t[0],s[1]-t[1])>.75)&&Math.hypot(s[0]-9.6,s[1]-3.4)>1.1);
+    if(cand.length){cand.sort((p,q)=>(q[0]-q[1]*.6)-(p[0]-p[1]*.6));const pick=cand[Math.floor(cand.length*((lev/4)%3)*.12)];labels.push([pick,lev]);}}
+  ctx.font=`700 ${k*.13}px ${MONO}`;ctx.textAlign='center';ctx.textBaseline='middle';
+  for(const [[x,y],lev] of labels){const w=ctx.measureText(lev).width+k*.08;ctx.fillStyle='rgba(255,255,255,.95)';ctx.fillRect(x*k-w/2,y*k-k*.09,w,k*.18);ctx.fillStyle='#1E2A33';ctx.fillText(lev,x*k,y*k);}
+  ctx.textBaseline='alphabetic';
+  front(ctx,k,[[11.3,3.5],[12.4,3.15],[13.5,3.3],[14.5,3.55],[15.9,3.7]],'warm');
+  front(ctx,k,[[11.3,3.5],[11.0,4.5],[10.2,5.5],[9.1,6.3],[7.9,6.9]],'cold');
+  ctx.font=`700 ${k*.15}px ${SANS}`;ctx.fillStyle='#B0261F';ctx.textAlign='left';halo(ctx,'2027 확대 경계',13.0*k,2.85*k,k*.05);
+  ctx.fillStyle='#17459E';halo(ctx,'2028 확대 예정선',8.2*k,7.45*k,k*.05);
+  const center=(x,y,ch,col,val,lab,dx=0)=>{ctx.textAlign='center';ctx.fillStyle=col;ctx.font=`800 ${k*.62}px ${SANS}`;halo(ctx,ch,x*k,y*k-k*.08,k*.08);
+    ctx.strokeStyle=col;ctx.lineWidth=k*.025;const c=k*.07;ctx.beginPath();ctx.moveTo(x*k-c,y*k+k*.1-c);ctx.lineTo(x*k+c,y*k+k*.1+c);ctx.moveTo(x*k+c,y*k+k*.1-c);ctx.lineTo(x*k-c,y*k+k*.1+c);ctx.stroke();
+    if(dx){ctx.textAlign='left';ctx.font=`700 ${k*.19}px ${MONO}`;halo(ctx,val,(x+dx)*k,y*k-k*.18,k*.05);ctx.font=`700 ${k*.15}px ${SANS}`;ctx.fillStyle='#1E2A33';halo(ctx,lab,(x+dx)*k,y*k+k*.04,k*.05);return;}
+    ctx.font=`700 ${k*.19}px ${MONO}`;halo(ctx,val,x*k,y*k+k*.42,k*.05);ctx.font=`700 ${k*.15}px ${SANS}`;ctx.fillStyle='#1E2A33';halo(ctx,lab,x*k,y*k+k*.64,k*.05);};
+  center(14.1,5.75,'H','#1F57C3','1026','거점센터 · 정원 420');
+  center(7.9,1.75,'H','#1F57C3','1023','거점센터 · 정원 360');
+  center(11.3,3.5,'L','#D3322B','996','수요 과밀 · 대기 64',-1.95);
+  for(const s of ST)station(ctx,k,s);
+}
+function render(all){if(all)drawBase();drawRadar();drawTop();}
+const btns=[0,1,2].map(i=>document.getElementById('fr'+i)),loopB=document.getElementById('frLoop');
+function setFrame(f){frame=f;btns.forEach((b,i)=>b.setAttribute('aria-pressed',i===f?'true':'false'));document.getElementById('hdrTime').textContent=`분석 2026.10.02(금) ${FR[f].t} KST`;document.getElementById('frameLab').textContent=`합성 시각 · ${FR[f].n}`;render(false);}
+btns.forEach((b,i)=>b.addEventListener('click',()=>{stopLoop();setFrame(i);}));
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');let timer=null;
+function stopLoop(){if(timer){clearInterval(timer);timer=null;}loopB.setAttribute('aria-pressed','false');}
+loopB.addEventListener('click',()=>{if(timer){stopLoop();return;}loopB.setAttribute('aria-pressed','true');timer=setInterval(()=>setFrame((frame+1)%3),reduce.matches?3200:1500);});
+let rt;new ResizeObserver(()=>{clearTimeout(rt);rt=setTimeout(()=>terrain&&render(true),120);}).observe(cover);
+buildTerrain();render(true);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>render(true));
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,848 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #14 상세도 호출</title>
+<style>
+/* 레이아웃: 도면 한 장(장표)을 맨 위에 크게, 아래는 설명 문서가 한 줄 단으로 이어짐 */
+:root {
+  color-scheme: light;
+  --bg: #EEF1EE;      /* 페이지 바탕: 녹색 기운의 도면지 회색 */
+  --fg: #1E2A36;      /* 본문 잉크 */
+  --sub: #5B6873;     /* 보조 */
+  --rule: #C6D0CC;    /* 구분선 */
+  --panel: #FFFFFF;   /* 표·코드 바탕 */
+  --accent: #0E7C86;  /* 카메라 틀과 같은 청록 */
+  --code-bg: #1E2A36; --code-fg: #E9EFEC;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.7 var(--f-body); }
+.pg { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 56px; }
+.pg-top { display: grid; gap: 14px; }
+.pg-eyebrow { font: 500 12px/1.4 var(--f-mono); letter-spacing: .1em; color: var(--sub); text-transform: uppercase; margin: 0; }
+.pg-h1 { font-size: clamp(24px, 3.4vw, 34px); line-height: 1.25; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+section.doc { display: grid; gap: 16px; min-width: 0; }
+.doc h2 { font-size: 22px; margin: 0; padding-top: 14px; border-top: 2px solid var(--fg); display: flex; gap: 12px; align-items: baseline; text-wrap: balance; }
+.doc h2 small { font: 500 12px/1 var(--f-mono); color: var(--sub); letter-spacing: .08em; }
+.doc h3 { font-size: 17px; margin: 8px 0 0; }
+.doc p, .doc li { max-width: 68ch; margin: 0; }
+.doc ul, .doc ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px 40px; }
+.two > * { min-width: 0; }
+.apps { list-style: none; padding: 0 !important; }
+.apps li { border-left: 3px solid var(--accent); padding-left: 12px; }
+.apps b { display: block; }
+code { font-family: var(--f-mono); font-size: .9em; background: var(--panel); border: 1px solid var(--rule); padding: 0 4px; }
+.codewrap { position: relative; min-width: 0; }
+.codewrap pre { margin: 0; max-height: 420px; overflow: auto; background: var(--code-bg); color: var(--code-fg); padding: 16px; font: 400 12.5px/1.55 var(--f-mono); tab-size: 2; }
+.copy { position: absolute; top: 8px; right: 8px; font: 600 13px/1 var(--f-body); padding: 9px 12px; background: var(--panel); color: var(--fg); border: 1px solid var(--fg); cursor: pointer; }
+.copy:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.copy-msg { font-size: 14px; color: var(--sub); min-height: 1.4em; }
+.tbl { overflow-x: auto; background: var(--panel); border: 1px solid var(--rule); }
+table { border-collapse: collapse; width: 100%; min-width: 860px; font-size: 14px; line-height: 1.5; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; background: var(--bg); white-space: nowrap; }
+td.n { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.steps { counter-reset: s; list-style: none; padding: 0 !important; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 28px 1fr; gap: 8px; }
+.steps li::before { content: counter(s); font: 500 13px/1.9 var(--f-mono); color: var(--accent); }
+.note { background: var(--panel); border: 1px solid var(--rule); padding: 14px 16px; font-size: 15px; }
+.note b { color: var(--accent); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; list-style: none; padding: 0 !important; }
+.swatches li { display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: center; font-size: 13px; line-height: 1.3; }
+.swatches i { width: 28px; height: 28px; border: 1px solid var(--rule); }
+.swatches span { font-family: var(--f-mono); }
+dl.spec { display: grid; grid-template-columns: max-content 1fr; gap: 8px 20px; margin: 0; }
+dl.spec dt { font-weight: 600; }
+dl.spec dd { margin: 0; min-width: 0; }
+@media (max-width: 560px) { dl.spec { grid-template-columns: 1fr; gap: 2px; } dl.spec dd { margin-bottom: 10px; } }
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <p class="pg-eyebrow">발표자료 디자인 레퍼런스 · #14 · 실무형 · 확대·드릴다운</p>
+    <h1 class="pg-h1">상세도 호출: 전체 도면에서 한 영역으로 들어갔다 나오기</h1>
+<!-- ===== 상세도 호출(확대·드릴다운) 장표 · 접두어 zm- ===== -->
+<!-- 한글 웹폰트: 이미 페이지에 있으면 이 줄은 지워도 됩니다 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap">
+<style>
+/* 1) 바꿀 지점: 색·크기·타이밍은 모두 아래 변수에서 */
+.zm {
+  --zm-paper: #F5F7F4;   /* 장표 바탕 */
+  --zm-sheet: #FFFFFF;   /* 영역 상자 */
+  --zm-ink:   #1E2A36;   /* 본문 글자 */
+  --zm-sub:   #5B6873;   /* 보조 글자 */
+  --zm-line:  #A9B6BE;   /* 선 */
+  --zm-grid:  #E3E9E6;   /* 모눈 */
+  --zm-focus: #0E7C86;   /* 카메라 틀·키플랜 표시 */
+  --zm-a: #C27A1E; --zm-b: #3F74B5; --zm-c: #8A5BA8; --zm-d: #4E8F55; /* 영역 색 */
+  --zm-cam: 1100ms;      /* 카메라 이동 시간 */
+  --zm-unfold: 450ms;    /* 세부 펼침 시간 */
+  --zm-hold: 2600ms;     /* 자동 재생 시 한 단계 머무는 시간 */
+  --zm-font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --zm-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  display: grid; gap: 12px; font-family: var(--zm-font); color: var(--zm-ink);
+}
+.zm *, .zm *::before, .zm *::after { box-sizing: border-box; }
+
+/* 2) 16:9 장표. 글자·간격은 cqw(장표 너비 기준)라 어떤 크기에서도 비율 유지 */
+.zm-slide {
+  position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9;
+  container-type: inline-size; background: var(--zm-paper); color: var(--zm-ink);
+  border: 1px solid var(--zm-line); overflow: hidden; cursor: pointer;
+  display: grid; grid-template-rows: 10cqw 1fr;
+}
+.zm-head {
+  display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2cqw;
+  padding: 1.6cqw 2.4cqw 1.2cqw; border-bottom: 1px solid var(--zm-line); background: var(--zm-paper);
+  position: relative; z-index: 3;
+}
+.zm-src { font-size: 1.05cqw; color: var(--zm-sub); letter-spacing: .02em; margin: 0 0 .5cqw; }
+.zm-src b { font-weight: 600; color: var(--zm-ink); }
+.zm-tag { display: inline-block; font-family: var(--zm-mono); font-size: .85cqw; border: 1px solid var(--zm-sub); padding: .05cqw .5cqw; margin-right: .6cqw; letter-spacing: .06em; }
+.zm-title { font-size: 2.55cqw; font-weight: 700; line-height: 1.25; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.zm-meter { text-align: right; font-family: var(--zm-mono); }
+.zm-meter__x { font-size: 2.4cqw; line-height: 1; color: var(--zm-focus); font-variant-numeric: tabular-nums; }
+.zm-meter__lb { font-family: var(--zm-font); font-size: 1.05cqw; color: var(--zm-sub); margin-top: .4cqw; white-space: nowrap; }
+
+/* 3) 뷰포트(카메라 창)와 월드(전체 도면). 월드에 transform을 걸어 확대 */
+.zm-view { position: relative; overflow: hidden; }
+.zm-world {
+  position: absolute; inset: 0; transform-origin: 0 0;
+  background-color: var(--zm-paper);
+  background-image: linear-gradient(var(--zm-grid) 1px, transparent 1px), linear-gradient(90deg, var(--zm-grid) 1px, transparent 1px);
+  background-size: 2cqw 2cqw;
+}
+.zm-wires { position: absolute; inset: 0; width: 100%; height: 100%; }
+.zm-wires path { fill: none; stroke: var(--zm-line); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.zm-wires circle { fill: var(--zm-ink); }
+
+.zm-hub {
+  position: absolute; left: 43%; top: 41%; width: 14%; height: 18%;
+  display: grid; place-content: center; text-align: center; gap: .2cqw;
+  background: var(--zm-ink); color: var(--zm-paper);
+  transition: opacity var(--zm-unfold), filter var(--zm-unfold);
+}
+.zm-hub b { font-size: 1.35cqw; }
+.zm-hub span { font-size: .9cqw; opacity: .85; }
+
+/* 영역 상자: 위치(left/top/width/height %)만 바꾸면 카메라·키플랜이 자동으로 따라감 */
+.zm-zone {
+  position: absolute; background: var(--zm-sheet); border: 1px solid var(--zm-line);
+  padding: 1.1cqw 1.2cqw; display: grid; grid-template-rows: auto 1fr; gap: .9cqw;
+  transition: opacity var(--zm-unfold), filter var(--zm-unfold), border-color var(--zm-unfold);
+}
+.zm-zone[data-key="A"] { --c: var(--zm-a); left: 3%;  top: 9%;  width: 40%; height: 32%; }
+.zm-zone[data-key="B"] { --c: var(--zm-b); left: 57%; top: 9%;  width: 40%; height: 32%; }
+.zm-zone[data-key="C"] { --c: var(--zm-c); left: 3%;  top: 59%; width: 40%; height: 32%; }
+.zm-zone[data-key="D"] { --c: var(--zm-d); left: 57%; top: 59%; width: 40%; height: 32%; }
+.zm-zone__hd { display: grid; grid-template-columns: auto 1fr; gap: .9cqw; align-items: center; }
+/* 건축 도면의 상세 기호: 원을 가로로 나눠 위는 기호, 아래는 '상세' */
+.zm-call { width: 3cqw; aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--c); display: grid; grid-template-rows: 1fr 1fr; overflow: hidden; text-align: center; }
+.zm-call b { background: var(--c); color: #FFFFFF; font-family: var(--zm-mono); font-size: 1.05cqw; line-height: 1.55cqw; }
+.zm-call i { font-style: normal; font-size: .6cqw; line-height: 1.3cqw; color: var(--c); font-weight: 600; }
+.zm-zone__nm { font-size: 1.45cqw; font-weight: 700; margin: 0; line-height: 1.2; }
+.zm-zone__rl { font-size: .9cqw; color: var(--zm-sub); margin: .15cqw 0 0; }
+.zm-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7cqw; align-content: start; margin: 0; padding: 0; list-style: none; }
+.zm-chip { border-top: 2px solid var(--c); padding-top: .45cqw; min-width: 0; }
+.zm-chip__cd { font-family: var(--zm-mono); font-size: .72cqw; color: var(--c); letter-spacing: .04em; }
+.zm-chip__tt { font-size: 1cqw; font-weight: 600; line-height: 1.35; margin: .1cqw 0 0; }
+/* 접힌 세부: grid-template-rows 0fr → 1fr 로 펼침 */
+.zm-chip__more { display: grid; grid-template-rows: 0fr; opacity: 0;
+  transition: grid-template-rows var(--zm-unfold) ease, opacity var(--zm-unfold) ease; }
+.zm-chip__more > p { overflow: hidden; margin: 0; font-size: .82cqw; line-height: 1.5; color: var(--zm-sub); }
+
+/* 4) 확대 상태: 초점 영역만 또렷, 나머지는 흐리게(위치 감각은 남김) */
+.zm.is-zoomed .zm-zone:not(.is-on), .zm.is-zoomed .zm-hub { opacity: .28; filter: blur(.12cqw); }
+.zm-zone.is-on { border-color: var(--c); }
+.zm-zone.is-on .zm-chip__more { grid-template-rows: 1fr; opacity: 1;
+  transition-delay: calc(var(--zm-cam) * .65 + var(--i, 0) * 120ms); }
+.zm-zone.is-on .zm-chip__more > p { padding-top: .3cqw; }
+
+/* 5) 키플랜(미니맵): 확대 중에만 오른쪽 아래에 나타나 현재 위치를 표시 */
+.zm-key {
+  position: absolute; right: .9cqw; bottom: .7cqw; width: 8cqw; aspect-ratio: 100 / 46;
+  background: var(--zm-sheet); border: 1px solid var(--zm-line); opacity: 0;
+  transition: opacity 300ms; z-index: 2; pointer-events: none;
+}
+.zm.is-zoomed .zm-key { opacity: 1; transition-delay: calc(var(--zm-cam) * .5); }
+.zm-key__z { position: absolute; background: var(--zm-grid); }
+.zm-key__z.is-on { background: var(--c); }
+.zm-key__h { position: absolute; left: 43%; top: 41%; width: 14%; height: 18%; background: var(--zm-line); }
+.zm-key__f { position: absolute; border: 1.5px solid var(--zm-focus); transition: all var(--zm-cam) cubic-bezier(.6,0,.25,1); }
+.zm-key__lb { position: absolute; left: 0; bottom: 100%; font-family: var(--zm-mono); font-size: .6cqw; color: var(--zm-sub); padding-bottom: .15cqw; }
+
+/* 6) 조작 버튼 */
+.zm-ctrl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.zm-ctrl button {
+  font: 600 14px/1 var(--zm-font); padding: 10px 14px; cursor: pointer;
+  background: var(--zm-sheet); color: var(--zm-ink); border: 1px solid var(--zm-ink);
+}
+.zm-ctrl button:hover { background: var(--zm-ink); color: var(--zm-sheet); }
+.zm-ctrl button:focus-visible { outline: 3px solid var(--zm-focus); outline-offset: 2px; }
+.zm-ctrl__st { font: 500 13px/1.3 var(--zm-mono); color: var(--zm-sub); }
+
+@media (prefers-reduced-motion: reduce) {
+  .zm { --zm-cam: 0ms; --zm-unfold: 0ms; }
+}
+</style>
+
+<div class="zm" data-zm>
+  <div class="zm-slide" role="img" aria-label="지원 체계 전체 도면에서 네 영역을 차례로 확대해 세부 과제를 보여 주는 도식">
+    <header class="zm-head">
+      <div>
+        <p class="zm-src"><span class="zm-tag">가상 예시</span>○○교육청 2027 유치원 놀이중심 교육과정 지원 계획(안) › <b>Ⅲ. 추진 체계</b></p>
+        <h2 class="zm-title">교육청 지원은 4개 영역 12개 과제로 유치원의 놀이를 받친다</h2>
+      </div>
+      <div class="zm-meter" aria-live="polite">
+        <div class="zm-meter__x">×1.0</div>
+        <div class="zm-meter__lb">전체 도면</div>
+      </div>
+    </header>
+
+    <div class="zm-view">
+      <div class="zm-world">
+        <!-- 연결선: 좌표는 월드 % 기준(0~100) -->
+        <svg class="zm-wires" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M43 50 H23 M23 41 V59 M57 50 H77 M77 41 V59"/>
+          <circle cx="23" cy="50" r=".5"/><circle cx="77" cy="50" r=".5"/>
+        </svg>
+
+        <div class="zm-hub"><b>○○교육청</b><span>유아교육지원센터</span></div>
+
+        <!-- 영역 4개. 세부 과제는 li 하나씩, --i는 펼침 순서 -->
+        <section class="zm-zone" data-key="A">
+          <div class="zm-zone__hd">
+            <div class="zm-call"><b>A</b><i>상세</i></div>
+            <div><h3 class="zm-zone__nm">놀이 환경</h3><p class="zm-zone__rl">공간과 자료를 놀이에 맞게</p></div>
+          </div>
+          <ul class="zm-chips">
+            <li class="zm-chip" style="--i:0"><span class="zm-chip__cd">A-1</span><p class="zm-chip__tt">놀이공간 재구조화</p><div class="zm-chip__more"><p>교실·복도·바깥 공간을 유아 동선 중심으로 다시 나눔</p></div></li>
+            <li class="zm-chip" style="--i:1"><span class="zm-chip__cd">A-2</span><p class="zm-chip__tt">비구조적 놀이자료</p><div class="zm-chip__more"><p>자연물·재활용 자료 꾸러미를 기관별로 지원</p></div></li>
+            <li class="zm-chip" style="--i:2"><span class="zm-chip__cd">A-3</span><p class="zm-chip__tt">바깥놀이 안전 점검</p><div class="zm-chip__more"><p>분기별 놀이터 점검표와 현장 확인</p></div></li>
+          </ul>
+        </section>
+
+        <section class="zm-zone" data-key="B">
+          <div class="zm-zone__hd">
+            <div class="zm-call"><b>B</b><i>상세</i></div>
+            <div><h3 class="zm-zone__nm">교사 역량</h3><p class="zm-zone__rl">놀이를 읽는 눈 기르기</p></div>
+          </div>
+          <ul class="zm-chips">
+            <li class="zm-chip" style="--i:0"><span class="zm-chip__cd">B-1</span><p class="zm-chip__tt">놀이 관찰 연수</p><div class="zm-chip__more"><p>사례 영상으로 관찰·지원 방법 실습</p></div></li>
+            <li class="zm-chip" style="--i:1"><span class="zm-chip__cd">B-2</span><p class="zm-chip__tt">교사학습공동체</p><div class="zm-chip__more"><p>권역별 모임 운영과 사례 나눔 지원</p></div></li>
+            <li class="zm-chip" style="--i:2"><span class="zm-chip__cd">B-3</span><p class="zm-chip__tt">현장 컨설팅</p><div class="zm-chip__more"><p>희망 기관에 수석교사·장학사 방문</p></div></li>
+          </ul>
+        </section>
+
+        <section class="zm-zone" data-key="C">
+          <div class="zm-zone__hd">
+            <div class="zm-call"><b>C</b><i>상세</i></div>
+            <div><h3 class="zm-zone__nm">기록·평가</h3><p class="zm-zone__rl">놀이에서 배움을 찾기</p></div>
+          </div>
+          <ul class="zm-chips">
+            <li class="zm-chip" style="--i:0"><span class="zm-chip__cd">C-1</span><p class="zm-chip__tt">놀이 기록 사례집</p><div class="zm-chip__more"><p>관찰 기록 우수 사례를 모아 배포</p></div></li>
+            <li class="zm-chip" style="--i:1"><span class="zm-chip__cd">C-2</span><p class="zm-chip__tt">유아 관찰 도구</p><div class="zm-chip__more"><p>누리과정 5개 영역 관찰 양식 보급</p></div></li>
+            <li class="zm-chip" style="--i:2"><span class="zm-chip__cd">C-3</span><p class="zm-chip__tt">운영 자문단</p><div class="zm-chip__more"><p>교육과정 편성·평가에 대한 상시 자문</p></div></li>
+          </ul>
+        </section>
+
+        <section class="zm-zone" data-key="D">
+          <div class="zm-zone__hd">
+            <div class="zm-call"><b>D</b><i>상세</i></div>
+            <div><h3 class="zm-zone__nm">가정·지역 연계</h3><p class="zm-zone__rl">놀이를 유치원 밖으로</p></div>
+          </div>
+          <ul class="zm-chips">
+            <li class="zm-chip" style="--i:0"><span class="zm-chip__cd">D-1</span><p class="zm-chip__tt">부모 놀이 이해 교육</p><div class="zm-chip__more"><p>학부모 대상 놀이의 가치 안내 과정</p></div></li>
+            <li class="zm-chip" style="--i:1"><span class="zm-chip__cd">D-2</span><p class="zm-chip__tt">지역 놀이터 연계</p><div class="zm-chip__more"><p>공원·도서관 등 마을 놀이 자원 목록화</p></div></li>
+            <li class="zm-chip" style="--i:2"><span class="zm-chip__cd">D-3</span><p class="zm-chip__tt">놀이 꾸러미 대여</p><div class="zm-chip__more"><p>가정에서 이어 노는 꾸러미 순환 대여</p></div></li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- 키플랜: 내용은 스크립트가 영역 위치를 읽어 자동으로 그림 -->
+      <div class="zm-key" aria-hidden="true"><span class="zm-key__lb">KEY PLAN</span></div>
+    </div>
+  </div>
+
+  <div class="zm-ctrl">
+    <button type="button" class="zm-replay">다시 보기</button>
+    <button type="button" class="zm-next">한 단계씩</button>
+    <span class="zm-ctrl__st" aria-live="polite">완성 상태</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  // 단계 목록: 이 배열만 고치면 순서·라벨이 바뀝니다. zone은 data-key 값, null이면 전체 도면
+  const ZM_STEPS = [
+    { zone: null, label: '전체 도면' },
+    { zone: 'A',  label: '상세 A · 놀이 환경' },
+    { zone: 'B',  label: '상세 B · 교사 역량' },
+    { zone: 'C',  label: '상세 C · 기록·평가' },
+    { zone: 'D',  label: '상세 D · 가정·지역 연계' },
+    { zone: null, label: '전체 도면 · 네 영역 위치 확인' }
+  ];
+  const FIT = 0.84; // 확대 시 영역이 화면을 채우는 비율(0~1)
+
+  document.querySelectorAll('[data-zm]').forEach(function (root) {
+    if (root.dataset.zmReady) return;
+    root.dataset.zmReady = '1';
+
+    const slide = root.querySelector('.zm-slide');
+    const view  = root.querySelector('.zm-view');
+    const world = root.querySelector('.zm-world');
+    const zones = Array.from(root.querySelectorAll('.zm-zone'));
+    const key   = root.querySelector('.zm-key');
+    const meterX  = root.querySelector('.zm-meter__x');
+    const meterLb = root.querySelector('.zm-meter__lb');
+    const status  = root.querySelector('.zm-ctrl__st');
+    const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ms = function (name) { return reduce ? 0 : parseFloat(getComputedStyle(root).getPropertyValue(name)) || 0; };
+
+    // 영역 위치(월드 % 기준)를 읽어 키플랜을 그림
+    function rectOf(el) {
+      return { x: el.offsetLeft / world.offsetWidth * 100, y: el.offsetTop / world.offsetHeight * 100,
+               w: el.offsetWidth / world.offsetWidth * 100, h: el.offsetHeight / world.offsetHeight * 100 };
+    }
+    key.insertAdjacentHTML('beforeend', '<div class="zm-key__h"></div>');
+    const keyZones = {};
+    zones.forEach(function (z) {
+      const d = document.createElement('div');
+      d.className = 'zm-key__z';
+      d.style.setProperty('--c', getComputedStyle(z).getPropertyValue('--c'));
+      key.appendChild(d); keyZones[z.dataset.key] = d;
+    });
+    const frame = document.createElement('div');
+    frame.className = 'zm-key__f'; key.appendChild(frame);
+    function layoutKey() {
+      zones.forEach(function (z) {
+        const r = rectOf(z), d = keyZones[z.dataset.key];
+        d.style.left = r.x + '%'; d.style.top = r.y + '%'; d.style.width = r.w + '%'; d.style.height = r.h + '%';
+      });
+    }
+
+    // 카메라 계산: 영역을 화면 가운데 놓는 scale·translate(% 단위라 크기와 무관)
+    function camFor(zoneKey) {
+      if (!zoneKey) return { s: 1, tx: 0, ty: 0 };
+      const z = zones.find(function (el) { return el.dataset.key === zoneKey; });
+      const r = rectOf(z);
+      const s = Math.min(FIT * 100 / r.w, FIT * 100 / r.h);
+      return { s: s, tx: 50 - s * (r.x + r.w / 2), ty: 50 - s * (r.y + r.h / 2) };
+    }
+    const tf = function (c) { return 'translate(' + c.tx + '%,' + c.ty + '%) scale(' + c.s + ')'; };
+
+    let idx = ZM_STEPS.length - 1;          // 처음엔 완성 상태(마지막 단계 = 전체 도면)
+    let cam = camFor(null);
+    let timers = [];
+    const clearTimers = function () { timers.forEach(clearTimeout); timers = []; };
+
+    function go(i) {
+      idx = i;
+      const step = ZM_STEPS[i];
+      const next = camFor(step.zone);
+      const dur = ms('--zm-cam');
+      // 영역→영역 이동은 중간에 전체로 한 번 빠져나왔다 들어감(지도 앱의 이동 방식)
+      let frames = [{ transform: tf(cam) }, { transform: tf(next) }];
+      if (cam.s > 1 && next.s > 1) {
+        const mid = 1.1; // 중간 배율: 두 영역의 가운데를 보며 거의 전체로
+        const cx = ((50 - cam.tx) / cam.s + (50 - next.tx) / next.s) / 2;
+        const cy = ((50 - cam.ty) / cam.s + (50 - next.ty) / next.s) / 2;
+        frames.splice(1, 0, { transform: tf({ s: mid, tx: 50 - mid * cx, ty: 50 - mid * cy }), offset: .5 });
+      }
+      world.getAnimations().forEach(function (a) { a.cancel(); });
+      world.style.transform = tf(next);
+      if (dur) world.animate(frames, { duration: dur, easing: 'cubic-bezier(.6,0,.25,1)' });
+      cam = next;
+
+      root.classList.toggle('is-zoomed', !!step.zone);
+      zones.forEach(function (z) {
+        const on = z.dataset.key === step.zone;
+        z.classList.toggle('is-on', on);
+        keyZones[z.dataset.key].classList.toggle('is-on', on);
+      });
+      // 키플랜의 카메라 틀 = 지금 화면에 보이는 범위
+      frame.style.left = (-next.tx / next.s) + '%'; frame.style.top = (-next.ty / next.s) + '%';
+      frame.style.width = (100 / next.s) + '%'; frame.style.height = (100 / next.s) + '%';
+
+      meterX.textContent = '×' + next.s.toFixed(1);
+      meterLb.textContent = step.label;
+      status.textContent = '단계 ' + i + ' / ' + (ZM_STEPS.length - 1) + ' · ' + step.label;
+    }
+
+    function play() {
+      clearTimers();
+      if (reduce) { go(ZM_STEPS.length - 1); return; }
+      go(0);
+      const hold = ms('--zm-hold');
+      for (let i = 1; i < ZM_STEPS.length; i++) timers.push(setTimeout(function () { go(i); }, hold * i - hold * .6));
+    }
+    function stepOnce() {
+      clearTimers();
+      go(idx >= ZM_STEPS.length - 1 ? 1 : idx + 1); // 끝에서 누르면 첫 확대부터
+    }
+
+    layoutKey();
+    go(idx);
+    root.querySelector('.zm-replay').addEventListener('click', play);
+    root.querySelector('.zm-next').addEventListener('click', stepOnce);
+    slide.addEventListener('click', stepOnce); // 발표처럼 장표를 눌러도 다음 단계
+    window.addEventListener('resize', layoutKey);
+    // 완성 상태를 먼저 보여 준 뒤 한 번 재생
+    if (!reduce) timers.push(setTimeout(play, 1200));
+  });
+})();
+</script>
+<!-- ===== 끝 ===== -->
+
+  </header>
+
+  <section class="doc" id="how">
+    <h2><small>01</small>동작이 설명하는 정보 구조</h2>
+    <div class="two">
+      <div style="display:grid;gap:12px">
+        <p>계획안의 추진 체계는 <b>교육청 → 지원 영역 4개 → 영역별 세부 과제 3개</b>의 3단 구조입니다. 장표는 전체 도면을 먼저 보여 주고, 클릭마다 한 영역으로 카메라가 들어가 접혀 있던 세부 설명을 펼칩니다.</p>
+        <p>확대 중에도 나머지 영역은 흐릿하게 남고, 오른쪽 아래 키플랜(건축 도면의 위치 안내도)에 지금 보는 범위가 표시됩니다. 영역에서 영역으로 옮길 때는 한 번 전체로 빠졌다가 들어가므로 두 영역의 상대 위치가 움직임으로 읽힙니다. 마지막엔 전체 도면으로 돌아와 멈춥니다.</p>
+        <p>오른쪽 위 배율 표시(×1.0 → ×2.1)와 영역 기호(A~D, 세부 A-1~D-3)는 장식이 아니라 지금 어느 깊이, 어느 위치에 있는지를 알려 주는 정보입니다.</p>
+      </div>
+      <ul class="apps">
+        <li><b>조직도·업무 분장</b>과 → 팀 → 담당자. 팀 단위로 들어가 담당 업무를 펼침</li>
+        <li><b>예산 편성 구조</b>정책사업 → 단위사업 → 세부사업. 금액표 대신 위치로 설명</li>
+        <li><b>권역별 현황</b>시·군 지도 → 권역 → 기관 목록. 키플랜이 그대로 지도가 됨</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="doc" id="html">
+    <h2><small>02</small>HTML로 가져다 쓰기</h2>
+    <p>아래 코드 한 덩어리가 위 장표 전체입니다(글꼴 링크, 스타일, 마크업, 스크립트 포함). 원하는 위치에 그대로 붙이면 동작합니다. 모든 클래스는 <code>zm-</code>로 시작해 다른 스타일과 섞이지 않습니다.</p>
+    <div class="codewrap">
+      <button type="button" class="copy" id="copy-btn">코드 복사</button>
+      <pre id="code" tabindex="0"><code>&lt;!-- ===== 상세도 호출(확대·드릴다운) 장표 · 접두어 zm- ===== --&gt;
+&lt;!-- 한글 웹폰트: 이미 페이지에 있으면 이 줄은 지워도 됩니다 --&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=IBM+Plex+Sans+KR:wght@400;600;700&amp;display=swap"&gt;
+&lt;style&gt;
+/* 1) 바꿀 지점: 색·크기·타이밍은 모두 아래 변수에서 */
+.zm {
+  --zm-paper: #F5F7F4;   /* 장표 바탕 */
+  --zm-sheet: #FFFFFF;   /* 영역 상자 */
+  --zm-ink:   #1E2A36;   /* 본문 글자 */
+  --zm-sub:   #5B6873;   /* 보조 글자 */
+  --zm-line:  #A9B6BE;   /* 선 */
+  --zm-grid:  #E3E9E6;   /* 모눈 */
+  --zm-focus: #0E7C86;   /* 카메라 틀·키플랜 표시 */
+  --zm-a: #C27A1E; --zm-b: #3F74B5; --zm-c: #8A5BA8; --zm-d: #4E8F55; /* 영역 색 */
+  --zm-cam: 1100ms;      /* 카메라 이동 시간 */
+  --zm-unfold: 450ms;    /* 세부 펼침 시간 */
+  --zm-hold: 2600ms;     /* 자동 재생 시 한 단계 머무는 시간 */
+  --zm-font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --zm-mono: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  display: grid; gap: 12px; font-family: var(--zm-font); color: var(--zm-ink);
+}
+.zm *, .zm *::before, .zm *::after { box-sizing: border-box; }
+
+/* 2) 16:9 장표. 글자·간격은 cqw(장표 너비 기준)라 어떤 크기에서도 비율 유지 */
+.zm-slide {
+  position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9;
+  container-type: inline-size; background: var(--zm-paper); color: var(--zm-ink);
+  border: 1px solid var(--zm-line); overflow: hidden; cursor: pointer;
+  display: grid; grid-template-rows: 10cqw 1fr;
+}
+.zm-head {
+  display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2cqw;
+  padding: 1.6cqw 2.4cqw 1.2cqw; border-bottom: 1px solid var(--zm-line); background: var(--zm-paper);
+  position: relative; z-index: 3;
+}
+.zm-src { font-size: 1.05cqw; color: var(--zm-sub); letter-spacing: .02em; margin: 0 0 .5cqw; }
+.zm-src b { font-weight: 600; color: var(--zm-ink); }
+.zm-tag { display: inline-block; font-family: var(--zm-mono); font-size: .85cqw; border: 1px solid var(--zm-sub); padding: .05cqw .5cqw; margin-right: .6cqw; letter-spacing: .06em; }
+.zm-title { font-size: 2.55cqw; font-weight: 700; line-height: 1.25; margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.zm-meter { text-align: right; font-family: var(--zm-mono); }
+.zm-meter__x { font-size: 2.4cqw; line-height: 1; color: var(--zm-focus); font-variant-numeric: tabular-nums; }
+.zm-meter__lb { font-family: var(--zm-font); font-size: 1.05cqw; color: var(--zm-sub); margin-top: .4cqw; white-space: nowrap; }
+
+/* 3) 뷰포트(카메라 창)와 월드(전체 도면). 월드에 transform을 걸어 확대 */
+.zm-view { position: relative; overflow: hidden; }
+.zm-world {
+  position: absolute; inset: 0; transform-origin: 0 0;
+  background-color: var(--zm-paper);
+  background-image: linear-gradient(var(--zm-grid) 1px, transparent 1px), linear-gradient(90deg, var(--zm-grid) 1px, transparent 1px);
+  background-size: 2cqw 2cqw;
+}
+.zm-wires { position: absolute; inset: 0; width: 100%; height: 100%; }
+.zm-wires path { fill: none; stroke: var(--zm-line); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.zm-wires circle { fill: var(--zm-ink); }
+
+.zm-hub {
+  position: absolute; left: 43%; top: 41%; width: 14%; height: 18%;
+  display: grid; place-content: center; text-align: center; gap: .2cqw;
+  background: var(--zm-ink); color: var(--zm-paper);
+  transition: opacity var(--zm-unfold), filter var(--zm-unfold);
+}
+.zm-hub b { font-size: 1.35cqw; }
+.zm-hub span { font-size: .9cqw; opacity: .85; }
+
+/* 영역 상자: 위치(left/top/width/height %)만 바꾸면 카메라·키플랜이 자동으로 따라감 */
+.zm-zone {
+  position: absolute; background: var(--zm-sheet); border: 1px solid var(--zm-line);
+  padding: 1.1cqw 1.2cqw; display: grid; grid-template-rows: auto 1fr; gap: .9cqw;
+  transition: opacity var(--zm-unfold), filter var(--zm-unfold), border-color var(--zm-unfold);
+}
+.zm-zone[data-key="A"] { --c: var(--zm-a); left: 3%;  top: 9%;  width: 40%; height: 32%; }
+.zm-zone[data-key="B"] { --c: var(--zm-b); left: 57%; top: 9%;  width: 40%; height: 32%; }
+.zm-zone[data-key="C"] { --c: var(--zm-c); left: 3%;  top: 59%; width: 40%; height: 32%; }
+.zm-zone[data-key="D"] { --c: var(--zm-d); left: 57%; top: 59%; width: 40%; height: 32%; }
+.zm-zone__hd { display: grid; grid-template-columns: auto 1fr; gap: .9cqw; align-items: center; }
+/* 건축 도면의 상세 기호: 원을 가로로 나눠 위는 기호, 아래는 '상세' */
+.zm-call { width: 3cqw; aspect-ratio: 1; border-radius: 50%; border: 1.5px solid var(--c); display: grid; grid-template-rows: 1fr 1fr; overflow: hidden; text-align: center; }
+.zm-call b { background: var(--c); color: #FFFFFF; font-family: var(--zm-mono); font-size: 1.05cqw; line-height: 1.55cqw; }
+.zm-call i { font-style: normal; font-size: .6cqw; line-height: 1.3cqw; color: var(--c); font-weight: 600; }
+.zm-zone__nm { font-size: 1.45cqw; font-weight: 700; margin: 0; line-height: 1.2; }
+.zm-zone__rl { font-size: .9cqw; color: var(--zm-sub); margin: .15cqw 0 0; }
+.zm-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7cqw; align-content: start; margin: 0; padding: 0; list-style: none; }
+.zm-chip { border-top: 2px solid var(--c); padding-top: .45cqw; min-width: 0; }
+.zm-chip__cd { font-family: var(--zm-mono); font-size: .72cqw; color: var(--c); letter-spacing: .04em; }
+.zm-chip__tt { font-size: 1cqw; font-weight: 600; line-height: 1.35; margin: .1cqw 0 0; }
+/* 접힌 세부: grid-template-rows 0fr → 1fr 로 펼침 */
+.zm-chip__more { display: grid; grid-template-rows: 0fr; opacity: 0;
+  transition: grid-template-rows var(--zm-unfold) ease, opacity var(--zm-unfold) ease; }
+.zm-chip__more &gt; p { overflow: hidden; margin: 0; font-size: .82cqw; line-height: 1.5; color: var(--zm-sub); }
+
+/* 4) 확대 상태: 초점 영역만 또렷, 나머지는 흐리게(위치 감각은 남김) */
+.zm.is-zoomed .zm-zone:not(.is-on), .zm.is-zoomed .zm-hub { opacity: .28; filter: blur(.12cqw); }
+.zm-zone.is-on { border-color: var(--c); }
+.zm-zone.is-on .zm-chip__more { grid-template-rows: 1fr; opacity: 1;
+  transition-delay: calc(var(--zm-cam) * .65 + var(--i, 0) * 120ms); }
+.zm-zone.is-on .zm-chip__more &gt; p { padding-top: .3cqw; }
+
+/* 5) 키플랜(미니맵): 확대 중에만 오른쪽 아래에 나타나 현재 위치를 표시 */
+.zm-key {
+  position: absolute; right: .9cqw; bottom: .7cqw; width: 8cqw; aspect-ratio: 100 / 46;
+  background: var(--zm-sheet); border: 1px solid var(--zm-line); opacity: 0;
+  transition: opacity 300ms; z-index: 2; pointer-events: none;
+}
+.zm.is-zoomed .zm-key { opacity: 1; transition-delay: calc(var(--zm-cam) * .5); }
+.zm-key__z { position: absolute; background: var(--zm-grid); }
+.zm-key__z.is-on { background: var(--c); }
+.zm-key__h { position: absolute; left: 43%; top: 41%; width: 14%; height: 18%; background: var(--zm-line); }
+.zm-key__f { position: absolute; border: 1.5px solid var(--zm-focus); transition: all var(--zm-cam) cubic-bezier(.6,0,.25,1); }
+.zm-key__lb { position: absolute; left: 0; bottom: 100%; font-family: var(--zm-mono); font-size: .6cqw; color: var(--zm-sub); padding-bottom: .15cqw; }
+
+/* 6) 조작 버튼 */
+.zm-ctrl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.zm-ctrl button {
+  font: 600 14px/1 var(--zm-font); padding: 10px 14px; cursor: pointer;
+  background: var(--zm-sheet); color: var(--zm-ink); border: 1px solid var(--zm-ink);
+}
+.zm-ctrl button:hover { background: var(--zm-ink); color: var(--zm-sheet); }
+.zm-ctrl button:focus-visible { outline: 3px solid var(--zm-focus); outline-offset: 2px; }
+.zm-ctrl__st { font: 500 13px/1.3 var(--zm-mono); color: var(--zm-sub); }
+
+@media (prefers-reduced-motion: reduce) {
+  .zm { --zm-cam: 0ms; --zm-unfold: 0ms; }
+}
+&lt;/style&gt;
+
+&lt;div class="zm" data-zm&gt;
+  &lt;div class="zm-slide" role="img" aria-label="지원 체계 전체 도면에서 네 영역을 차례로 확대해 세부 과제를 보여 주는 도식"&gt;
+    &lt;header class="zm-head"&gt;
+      &lt;div&gt;
+        &lt;p class="zm-src"&gt;&lt;span class="zm-tag"&gt;가상 예시&lt;/span&gt;○○교육청 2027 유치원 놀이중심 교육과정 지원 계획(안) › &lt;b&gt;Ⅲ. 추진 체계&lt;/b&gt;&lt;/p&gt;
+        &lt;h2 class="zm-title"&gt;교육청 지원은 4개 영역 12개 과제로 유치원의 놀이를 받친다&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class="zm-meter" aria-live="polite"&gt;
+        &lt;div class="zm-meter__x"&gt;×1.0&lt;/div&gt;
+        &lt;div class="zm-meter__lb"&gt;전체 도면&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;div class="zm-view"&gt;
+      &lt;div class="zm-world"&gt;
+        &lt;!-- 연결선: 좌표는 월드 % 기준(0~100) --&gt;
+        &lt;svg class="zm-wires" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"&gt;
+          &lt;path d="M43 50 H23 M23 41 V59 M57 50 H77 M77 41 V59"/&gt;
+          &lt;circle cx="23" cy="50" r=".5"/&gt;&lt;circle cx="77" cy="50" r=".5"/&gt;
+        &lt;/svg&gt;
+
+        &lt;div class="zm-hub"&gt;&lt;b&gt;○○교육청&lt;/b&gt;&lt;span&gt;유아교육지원센터&lt;/span&gt;&lt;/div&gt;
+
+        &lt;!-- 영역 4개. 세부 과제는 li 하나씩, --i는 펼침 순서 --&gt;
+        &lt;section class="zm-zone" data-key="A"&gt;
+          &lt;div class="zm-zone__hd"&gt;
+            &lt;div class="zm-call"&gt;&lt;b&gt;A&lt;/b&gt;&lt;i&gt;상세&lt;/i&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;h3 class="zm-zone__nm"&gt;놀이 환경&lt;/h3&gt;&lt;p class="zm-zone__rl"&gt;공간과 자료를 놀이에 맞게&lt;/p&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;ul class="zm-chips"&gt;
+            &lt;li class="zm-chip" style="--i:0"&gt;&lt;span class="zm-chip__cd"&gt;A-1&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;놀이공간 재구조화&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;교실·복도·바깥 공간을 유아 동선 중심으로 다시 나눔&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+            &lt;li class="zm-chip" style="--i:1"&gt;&lt;span class="zm-chip__cd"&gt;A-2&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;비구조적 놀이자료&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;자연물·재활용 자료 꾸러미를 기관별로 지원&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+            &lt;li class="zm-chip" style="--i:2"&gt;&lt;span class="zm-chip__cd"&gt;A-3&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;바깥놀이 안전 점검&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;분기별 놀이터 점검표와 현장 확인&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/section&gt;
+
+        &lt;section class="zm-zone" data-key="B"&gt;
+          &lt;div class="zm-zone__hd"&gt;
+            &lt;div class="zm-call"&gt;&lt;b&gt;B&lt;/b&gt;&lt;i&gt;상세&lt;/i&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;h3 class="zm-zone__nm"&gt;교사 역량&lt;/h3&gt;&lt;p class="zm-zone__rl"&gt;놀이를 읽는 눈 기르기&lt;/p&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;ul class="zm-chips"&gt;
+            &lt;li class="zm-chip" style="--i:0"&gt;&lt;span class="zm-chip__cd"&gt;B-1&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;놀이 관찰 연수&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;사례 영상으로 관찰·지원 방법 실습&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+            &lt;li class="zm-chip" style="--i:1"&gt;&lt;span class="zm-chip__cd"&gt;B-2&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;교사학습공동체&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;권역별 모임 운영과 사례 나눔 지원&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+            &lt;li class="zm-chip" style="--i:2"&gt;&lt;span class="zm-chip__cd"&gt;B-3&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;현장 컨설팅&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;희망 기관에 수석교사·장학사 방문&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/section&gt;
+
+        &lt;section class="zm-zone" data-key="C"&gt;
+          &lt;div class="zm-zone__hd"&gt;
+            &lt;div class="zm-call"&gt;&lt;b&gt;C&lt;/b&gt;&lt;i&gt;상세&lt;/i&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;h3 class="zm-zone__nm"&gt;기록·평가&lt;/h3&gt;&lt;p class="zm-zone__rl"&gt;놀이에서 배움을 찾기&lt;/p&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;ul class="zm-chips"&gt;
+            &lt;li class="zm-chip" style="--i:0"&gt;&lt;span class="zm-chip__cd"&gt;C-1&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;놀이 기록 사례집&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;관찰 기록 우수 사례를 모아 배포&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+            &lt;li class="zm-chip" style="--i:1"&gt;&lt;span class="zm-chip__cd"&gt;C-2&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;유아 관찰 도구&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;누리과정 5개 영역 관찰 양식 보급&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+            &lt;li class="zm-chip" style="--i:2"&gt;&lt;span class="zm-chip__cd"&gt;C-3&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;운영 자문단&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;교육과정 편성·평가에 대한 상시 자문&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/section&gt;
+
+        &lt;section class="zm-zone" data-key="D"&gt;
+          &lt;div class="zm-zone__hd"&gt;
+            &lt;div class="zm-call"&gt;&lt;b&gt;D&lt;/b&gt;&lt;i&gt;상세&lt;/i&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;h3 class="zm-zone__nm"&gt;가정·지역 연계&lt;/h3&gt;&lt;p class="zm-zone__rl"&gt;놀이를 유치원 밖으로&lt;/p&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;ul class="zm-chips"&gt;
+            &lt;li class="zm-chip" style="--i:0"&gt;&lt;span class="zm-chip__cd"&gt;D-1&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;부모 놀이 이해 교육&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;학부모 대상 놀이의 가치 안내 과정&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+            &lt;li class="zm-chip" style="--i:1"&gt;&lt;span class="zm-chip__cd"&gt;D-2&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;지역 놀이터 연계&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;공원·도서관 등 마을 놀이 자원 목록화&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+            &lt;li class="zm-chip" style="--i:2"&gt;&lt;span class="zm-chip__cd"&gt;D-3&lt;/span&gt;&lt;p class="zm-chip__tt"&gt;놀이 꾸러미 대여&lt;/p&gt;&lt;div class="zm-chip__more"&gt;&lt;p&gt;가정에서 이어 노는 꾸러미 순환 대여&lt;/p&gt;&lt;/div&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/section&gt;
+      &lt;/div&gt;
+
+      &lt;!-- 키플랜: 내용은 스크립트가 영역 위치를 읽어 자동으로 그림 --&gt;
+      &lt;div class="zm-key" aria-hidden="true"&gt;&lt;span class="zm-key__lb"&gt;KEY PLAN&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="zm-ctrl"&gt;
+    &lt;button type="button" class="zm-replay"&gt;다시 보기&lt;/button&gt;
+    &lt;button type="button" class="zm-next"&gt;한 단계씩&lt;/button&gt;
+    &lt;span class="zm-ctrl__st" aria-live="polite"&gt;완성 상태&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function () {
+  // 단계 목록: 이 배열만 고치면 순서·라벨이 바뀝니다. zone은 data-key 값, null이면 전체 도면
+  const ZM_STEPS = [
+    { zone: null, label: '전체 도면' },
+    { zone: 'A',  label: '상세 A · 놀이 환경' },
+    { zone: 'B',  label: '상세 B · 교사 역량' },
+    { zone: 'C',  label: '상세 C · 기록·평가' },
+    { zone: 'D',  label: '상세 D · 가정·지역 연계' },
+    { zone: null, label: '전체 도면 · 네 영역 위치 확인' }
+  ];
+  const FIT = 0.84; // 확대 시 영역이 화면을 채우는 비율(0~1)
+
+  document.querySelectorAll('[data-zm]').forEach(function (root) {
+    if (root.dataset.zmReady) return;
+    root.dataset.zmReady = '1';
+
+    const slide = root.querySelector('.zm-slide');
+    const view  = root.querySelector('.zm-view');
+    const world = root.querySelector('.zm-world');
+    const zones = Array.from(root.querySelectorAll('.zm-zone'));
+    const key   = root.querySelector('.zm-key');
+    const meterX  = root.querySelector('.zm-meter__x');
+    const meterLb = root.querySelector('.zm-meter__lb');
+    const status  = root.querySelector('.zm-ctrl__st');
+    const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ms = function (name) { return reduce ? 0 : parseFloat(getComputedStyle(root).getPropertyValue(name)) || 0; };
+
+    // 영역 위치(월드 % 기준)를 읽어 키플랜을 그림
+    function rectOf(el) {
+      return { x: el.offsetLeft / world.offsetWidth * 100, y: el.offsetTop / world.offsetHeight * 100,
+               w: el.offsetWidth / world.offsetWidth * 100, h: el.offsetHeight / world.offsetHeight * 100 };
+    }
+    key.insertAdjacentHTML('beforeend', '&lt;div class="zm-key__h"&gt;&lt;/div&gt;');
+    const keyZones = {};
+    zones.forEach(function (z) {
+      const d = document.createElement('div');
+      d.className = 'zm-key__z';
+      d.style.setProperty('--c', getComputedStyle(z).getPropertyValue('--c'));
+      key.appendChild(d); keyZones[z.dataset.key] = d;
+    });
+    const frame = document.createElement('div');
+    frame.className = 'zm-key__f'; key.appendChild(frame);
+    function layoutKey() {
+      zones.forEach(function (z) {
+        const r = rectOf(z), d = keyZones[z.dataset.key];
+        d.style.left = r.x + '%'; d.style.top = r.y + '%'; d.style.width = r.w + '%'; d.style.height = r.h + '%';
+      });
+    }
+
+    // 카메라 계산: 영역을 화면 가운데 놓는 scale·translate(% 단위라 크기와 무관)
+    function camFor(zoneKey) {
+      if (!zoneKey) return { s: 1, tx: 0, ty: 0 };
+      const z = zones.find(function (el) { return el.dataset.key === zoneKey; });
+      const r = rectOf(z);
+      const s = Math.min(FIT * 100 / r.w, FIT * 100 / r.h);
+      return { s: s, tx: 50 - s * (r.x + r.w / 2), ty: 50 - s * (r.y + r.h / 2) };
+    }
+    const tf = function (c) { return 'translate(' + c.tx + '%,' + c.ty + '%) scale(' + c.s + ')'; };
+
+    let idx = ZM_STEPS.length - 1;          // 처음엔 완성 상태(마지막 단계 = 전체 도면)
+    let cam = camFor(null);
+    let timers = [];
+    const clearTimers = function () { timers.forEach(clearTimeout); timers = []; };
+
+    function go(i) {
+      idx = i;
+      const step = ZM_STEPS[i];
+      const next = camFor(step.zone);
+      const dur = ms('--zm-cam');
+      // 영역→영역 이동은 중간에 전체로 한 번 빠져나왔다 들어감(지도 앱의 이동 방식)
+      let frames = [{ transform: tf(cam) }, { transform: tf(next) }];
+      if (cam.s &gt; 1 &amp;&amp; next.s &gt; 1) {
+        const mid = 1.1; // 중간 배율: 두 영역의 가운데를 보며 거의 전체로
+        const cx = ((50 - cam.tx) / cam.s + (50 - next.tx) / next.s) / 2;
+        const cy = ((50 - cam.ty) / cam.s + (50 - next.ty) / next.s) / 2;
+        frames.splice(1, 0, { transform: tf({ s: mid, tx: 50 - mid * cx, ty: 50 - mid * cy }), offset: .5 });
+      }
+      world.getAnimations().forEach(function (a) { a.cancel(); });
+      world.style.transform = tf(next);
+      if (dur) world.animate(frames, { duration: dur, easing: 'cubic-bezier(.6,0,.25,1)' });
+      cam = next;
+
+      root.classList.toggle('is-zoomed', !!step.zone);
+      zones.forEach(function (z) {
+        const on = z.dataset.key === step.zone;
+        z.classList.toggle('is-on', on);
+        keyZones[z.dataset.key].classList.toggle('is-on', on);
+      });
+      // 키플랜의 카메라 틀 = 지금 화면에 보이는 범위
+      frame.style.left = (-next.tx / next.s) + '%'; frame.style.top = (-next.ty / next.s) + '%';
+      frame.style.width = (100 / next.s) + '%'; frame.style.height = (100 / next.s) + '%';
+
+      meterX.textContent = '×' + next.s.toFixed(1);
+      meterLb.textContent = step.label;
+      status.textContent = '단계 ' + i + ' / ' + (ZM_STEPS.length - 1) + ' · ' + step.label;
+    }
+
+    function play() {
+      clearTimers();
+      if (reduce) { go(ZM_STEPS.length - 1); return; }
+      go(0);
+      const hold = ms('--zm-hold');
+      for (let i = 1; i &lt; ZM_STEPS.length; i++) timers.push(setTimeout(function () { go(i); }, hold * i - hold * .6));
+    }
+    function stepOnce() {
+      clearTimers();
+      go(idx &gt;= ZM_STEPS.length - 1 ? 1 : idx + 1); // 끝에서 누르면 첫 확대부터
+    }
+
+    layoutKey();
+    go(idx);
+    root.querySelector('.zm-replay').addEventListener('click', play);
+    root.querySelector('.zm-next').addEventListener('click', stepOnce);
+    slide.addEventListener('click', stepOnce); // 발표처럼 장표를 눌러도 다음 단계
+    window.addEventListener('resize', layoutKey);
+    // 완성 상태를 먼저 보여 준 뒤 한 번 재생
+    if (!reduce) timers.push(setTimeout(play, 1200));
+  });
+})();
+&lt;/script&gt;
+&lt;!-- ===== 끝 ===== --&gt;
+</code></pre>
+    </div>
+    <p class="copy-msg" id="copy-msg" aria-live="polite"></p>
+    <h3>바꿀 지점</h3>
+    <ol class="steps">
+      <li><span><b>색·시간</b> — <code>.zm</code>의 CSS 변수. 영역 색은 <code>--zm-a</code>~<code>--zm-d</code>, 카메라 이동은 <code>--zm-cam</code>, 자동 재생 간격은 <code>--zm-hold</code>.</span></li>
+      <li><span><b>영역 내용</b> — <code>&lt;section class="zm-zone" data-key="A"&gt;</code> 안의 이름·세부 과제. 세부 과제를 4개로 늘리면 <code>.zm-chips</code>의 <code>repeat(3, 1fr)</code>을 4로.</span></li>
+      <li><span><b>영역 위치</b> — <code>.zm-zone[data-key="A"]</code>의 left/top/width/height(%). 카메라와 키플랜은 위치를 읽어 자동 계산하므로 따로 고칠 곳이 없습니다. 연결선만 <code>&lt;svg&gt;</code>의 path 좌표를 맞춥니다.</span></li>
+      <li><span><b>순서</b> — 스크립트 맨 위 <code>ZM_STEPS</code> 배열. 순서를 바꾸거나 영역을 빼면 그대로 반영됩니다. <code>FIT</code>은 확대 시 화면을 채우는 비율입니다.</span></li>
+    </ol>
+  </section>
+
+  <section class="doc" id="ppt">
+    <h2><small>03</small>PowerPoint로 옮기기</h2>
+    <p>PowerPoint에는 "카메라"가 없으므로 <b>도면 전체를 그룹으로 묶어 슬라이드마다 크기·위치를 바꾸고, 화면 전환 – 모핑</b>으로 잇는 방식이 가장 가깝습니다. 슬라이드 6장(전체 → A → B → C → D → 전체)을 만듭니다.</p>
+    <h3>모핑으로 만드는 법(권장, Microsoft 365·2019 이상)</h3>
+    <ol class="steps">
+      <li><span>1번 슬라이드에 전체 도면을 그립니다. 영역 상자 4개, 교육청 상자, 연결선, 세부 과제 제목 12개.</span></li>
+      <li><span><b>홈 – 정렬 – 선택 창</b>에서 개체 이름을 바꿉니다. 이름 앞에 <code>!!</code>를 붙이면 모핑이 같은 이름끼리 반드시 짝을 짓습니다: <code>!!도면</code>(전체 그룹), <code>!!영역A</code>~<code>!!영역D</code>, <code>!!키플랜</code>, <code>!!키플랜_틀</code>, <code>!!배율</code>.</span></li>
+      <li><span>슬라이드를 복제(Ctrl+D)해 2번을 만들고, <code>!!도면</code> 그룹을 Shift를 누른 채 모서리로 약 210% 키운 뒤 A 영역이 화면 가운데 오도록 옮깁니다. 슬라이드 밖으로 나간 부분은 잘려 보이므로 그대로 둡니다.</span></li>
+      <li><span>2번에서 A 외 영역·교육청 상자는 <b>도형 서식 – 채우기·선 투명도 70%</b>, 글자 투명도 70%로 흐리게. 세부 설명 텍스트 상자 3개를 A 안에 추가합니다(1번에는 없음).</span></li>
+      <li><span>오른쪽 아래에 작은 <code>!!키플랜</code>(전체 도면 축소 사본을 그림으로 붙여넣기)과 청록 테두리 사각형 <code>!!키플랜_틀</code>을 놓습니다. 1번 슬라이드엔 같은 이름으로 두되 투명도 100%.</span></li>
+      <li><span>3~5번도 같은 방식으로 B·C·D를 가운데로, 6번은 1번을 복제합니다. 2~6번 모두 <b>전환 – 모핑</b>, 효과 옵션 <b>개체</b>, 기간 <b>01.20</b>.</span></li>
+    </ol>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>클릭</th><th>슬라이드·대상</th><th>애니메이션(한국어판)</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+        <tbody>
+          <tr><td class="n">0</td><td>1 · 전체 도면</td><td>없음(완성 상태로 시작)</td><td>—</td><td>—</td><td class="n">—</td><td class="n">—</td></tr>
+          <tr><td class="n">1</td><td>2 · <code>!!도면</code> 확대·이동, 키플랜 틀 이동</td><td>전환: 모핑</td><td>개체</td><td>마우스를 클릭할 때</td><td class="n">01.20</td><td class="n">—</td></tr>
+          <tr><td class="n">1</td><td>2 · A 세부 설명 3개(A-1~A-3)</td><td>나타내기: 닦아내기</td><td>위에서</td><td>이전 효과와 함께</td><td class="n">00.45</td><td class="n">00.80 / 00.92 / 01.04</td></tr>
+          <tr><td class="n">2</td><td>3 · B로 이동</td><td>전환: 모핑</td><td>개체</td><td>마우스를 클릭할 때</td><td class="n">01.20</td><td class="n">—</td></tr>
+          <tr><td class="n">2</td><td>3 · B 세부 설명 3개</td><td>나타내기: 닦아내기</td><td>위에서</td><td>이전 효과와 함께</td><td class="n">00.45</td><td class="n">00.80 / 00.92 / 01.04</td></tr>
+          <tr><td class="n">3–4</td><td>4·5 · C, D</td><td>위 두 줄과 같음</td><td>—</td><td>—</td><td class="n">—</td><td class="n">—</td></tr>
+          <tr><td class="n">5</td><td>6 · 전체 도면 복귀</td><td>전환: 모핑</td><td>개체</td><td>마우스를 클릭할 때</td><td class="n">01.00</td><td class="n">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--sub)">닦아내기의 "이전 효과와 함께 + 지연"은 모핑이 끝나 갈 무렵 세부가 펼쳐지게 하는 설정입니다. 모핑 전환이 끝난 뒤 슬라이드 애니메이션이 시작되므로 실제로는 지연을 00.00 / 00.12 / 00.24로 줄여도 됩니다. 버전에 따라 체감이 다르니 슬라이드 쇼에서 확인하세요.</p>
+
+    <h3>확대/축소 기능으로 만드는 법(대안)</h3>
+    <ol class="steps">
+      <li><span>A~D 영역마다 상세 슬라이드를 1장씩 만들고 각각 <b>구역 추가</b>로 구역을 나눕니다(구역 이름: A 놀이 환경 등).</span></li>
+      <li><span>전체 도면 슬라이드에서 <b>삽입 – 확대/축소 – 구역 확대/축소</b>로 4개 구역을 고른 뒤, 생긴 썸네일을 각 영역 상자 위에 크기를 맞춰 겹칩니다.</span></li>
+      <li><span>썸네일 선택 후 <b>확대/축소 탭 – 확대/축소로 돌아가기</b>를 켜고, <b>확대/축소 전환</b> 기간 01.00. 이렇게 하면 상세를 보고 나서 자동으로 전체 도면으로 빠져나옵니다.</span></li>
+      <li><span>발표 중엔 순서와 관계없이 원하는 영역을 클릭해 들어갈 수 있습니다(질의응답에 유리). 한 장만 부르려면 <b>슬라이드 확대/축소</b>를 씁니다.</span></li>
+    </ol>
+    <div class="note"><b>안 되는 동작과 근사법.</b> ① 확대 중 다른 영역 <b>흐림(blur)</b>: 도형엔 흐리게 효과가 없으므로 투명도 70%로 대신합니다. 꼭 흐림이 필요하면 해당 영역을 그림(PNG)으로 붙여넣고 <b>그림 서식 – 꾸밈 효과 – 흐리게</b>를 쓰되, 모핑 짝은 그림끼리만 맞춥니다. ② 영역→영역 이동 중간에 <b>전체로 빠졌다 들어가는 궤적</b>: 모핑은 직선 이동만 하므로 A와 B 사이에 전체 도면 슬라이드를 끼우고 두 전환을 각 00.60으로 둡니다. 확대/축소 기능의 "돌아가기"를 쓰면 자연스럽게 이 궤적이 됩니다. ③ <b>배율 숫자</b>(×1.0→×2.1): <code>!!배율</code> 텍스트를 슬라이드마다 직접 고치면 모핑이 글자 단위로 바꿔 줍니다(효과 옵션 <b>문자</b>).</div>
+  </section>
+
+  <section class="doc" id="spec">
+    <h2><small>04</small>스펙</h2>
+    <ul class="swatches">
+      <li><i style="background:#F5F7F4"></i><div>장표 바탕<br><span>#F5F7F4</span></div></li>
+      <li><i style="background:#FFFFFF"></i><div>영역 상자<br><span>#FFFFFF</span></div></li>
+      <li><i style="background:#1E2A36"></i><div>잉크<br><span>#1E2A36</span></div></li>
+      <li><i style="background:#5B6873"></i><div>보조 글자<br><span>#5B6873</span></div></li>
+      <li><i style="background:#A9B6BE"></i><div>선<br><span>#A9B6BE</span></div></li>
+      <li><i style="background:#E3E9E6"></i><div>모눈<br><span>#E3E9E6</span></div></li>
+      <li><i style="background:#0E7C86"></i><div>카메라 틀<br><span>#0E7C86</span></div></li>
+      <li><i style="background:#C27A1E"></i><div>A 놀이 환경<br><span>#C27A1E</span></div></li>
+      <li><i style="background:#3F74B5"></i><div>B 교사 역량<br><span>#3F74B5</span></div></li>
+      <li><i style="background:#8A5BA8"></i><div>C 기록·평가<br><span>#8A5BA8</span></div></li>
+      <li><i style="background:#4E8F55"></i><div>D 가정·지역<br><span>#4E8F55</span></div></li>
+    </ul>
+    <dl class="spec">
+      <dt>폰트</dt><dd>IBM Plex Sans KR(제목·본문, 400/600/700), IBM Plex Mono(배율·기호, 500). 대체: Apple SD Gothic Neo, 맑은 고딕</dd>
+      <dt>난이도</dt><dd>HTML 하(붙여넣고 내용만 교체) · PPT 중(모핑 + <code>!!</code> 이름 규칙, 슬라이드 6장)</dd>
+      <dt>반영 트렌드</dt><dd>
+        ① 비선형 탐색과 줌 효과: 직선형 슬라이드 대신 줌으로 섹션을 오가는 구성 — <a href="https://elements.envato.com/learn/presentation-design-trends-ppt">Envato Elements, 2026 프레젠테이션 디자인 트렌드</a><br>
+        ② 공간 연속성(spatial continuity): 화면이 바뀌어도 지금 어디 있는지 알게 하는 전환 → 키플랜과 전체 경유 이동 — <a href="https://lomatechnology.com/blog/motion-ui-trends-2026/2911">Loma Technology, Motion UI Trends 2026</a>
+      </dd>
+      <dt>재생</dt><dd>열면 완성된 전체 도면 → 1.2초 뒤 한 번 재생(약 13초) → 전체 도면에서 정지. 동작 줄이기 설정이면 재생 없이 전체 도면만.</dd>
+    </dl>
+  </section>
+</main>
+
+<script>
+// 코드 복사: 클립보드가 막히면 코드 전체를 선택해 두고 안내
+(function () {
+  const btn = document.getElementById('copy-btn');
+  const pre = document.getElementById('code');
+  const msg = document.getElementById('copy-msg');
+  function selectAll() {
+    const r = document.createRange(); r.selectNodeContents(pre);
+    const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  btn.addEventListener('click', function () {
+    const text = pre.textContent;
+    const fail = function () { selectAll(); msg.textContent = '자동 복사가 막혀 코드 전체를 선택해 두었습니다. Ctrl+C(⌘+C)로 복사하세요.'; };
+    try {
+      navigator.clipboard.writeText(text).then(function () { msg.textContent = '복사했습니다. 붙여넣을 HTML 위치에 그대로 넣으세요.'; }, fail);
+    } catch (e) { fail(); }
+  });
+})();
+</script>
+
+</body></html>
