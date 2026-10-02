@@ -1,463 +1,685 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>레퍼런스 #20 페이스 라이트 판정</title>
+<title>레퍼런스 #20 예산집행 레이스</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800;900&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
 <style>
-/* Layout: 16:9 표지 = 레인 표면 클로즈업 canvas(위 77%) + 포토 피니시 라인스캔 띠(아래 23%), 그 위에 반투명 제목 판과 방송형 페이스 보드. 아래는 메모(테마 대응). */
+/* Layout: 16:9 장표(위 1/3 결론 제목 + 기록판 그리드, 아래 2/3 옆에서 본 트랙 canvas) → 아래는 메모 섹션(테마 대응). */
 :root{
-  --track:#B4523E; --track-deep:#7A3427; --paint:#F2EFEA; --ink:#121C30;
-  --l1:#FFE45A; --l2:#8DFF6E; --l3:#5BE3FF; --l4:#E7B9FF;
-  --bg:#EEEBE8; --paper:#FFFFFF; --fg:#1A1F2B; --muted:#5E6472; --hair:#D9D4CF; --hair2:#E8E4E0; --accent:#B4523E; --chipbg:#F6F3F0;
+  --bg:#EEF1F5; --paper:#FFFFFF; --fg:#18202E; --muted:#5A6474; --hair:#D6DCE5; --hair2:#E6EAF0;
+  --accent:#2B62AE; --alert:#C83C2E; --chip:#F4F6F9;
   --disp:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --num:"Saira Semi Condensed","Arial Narrow",sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Consolas,"D2Coding",monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#14161B; --paper:#1C1F26; --fg:#E9E7E4; --muted:#A3A6AF; --hair:#343842; --hair2:#2A2D35; --accent:#E8846E; --chipbg:#23262E; color-scheme:dark}}
+  --bg:#11151C; --paper:#1A2029; --fg:#E6EAF0; --muted:#9AA4B3; --hair:#2E3644; --hair2:#252C37;
+  --accent:#86B4F2; --alert:#FF8C7C; --chip:#212833; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#14161B; --paper:#1C1F26; --fg:#E9E7E4; --muted:#A3A6AF; --hair:#343842; --hair2:#2A2D35; --accent:#E8846E; --chipbg:#23262E; color-scheme:dark}
+  --bg:#11151C; --paper:#1A2029; --fg:#E6EAF0; --muted:#9AA4B3; --hair:#2E3644; --hair2:#252C37;
+  --accent:#86B4F2; --alert:#FF8C7C; --chip:#212833; color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--disp);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1280px;margin:0 auto;padding-inline:16px;padding-block:20px 64px}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:16px;padding-block:18px 64px}
 .kicker{font:600 13px/1.4 var(--disp);color:var(--muted);margin:0 0 10px;letter-spacing:.02em}
-.kicker b{color:var(--fg)}
+.kicker b{color:var(--fg);font-weight:800}
+a{color:var(--accent)}
 
-/* ---------- cover ---------- */
-.cover{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;margin:0;overflow:hidden;border-radius:3px;background:#7A3427;container-type:inline-size;box-shadow:0 12px 34px rgba(40,20,10,.22)}
-.cover canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.plate{position:absolute;left:3cqw;top:2.8cqw;width:39cqw;padding:2cqw 2.4cqw 1.8cqw;background:rgba(246,243,239,.74);-webkit-backdrop-filter:blur(.9cqw) saturate(1.1);backdrop-filter:blur(.9cqw) saturate(1.1);border-radius:.25cqw;color:var(--ink);box-shadow:0 .4cqw 1.6cqw rgba(60,20,10,.18)}
-.plate .eb{margin:0 0 .9cqw;font:800 1.05cqw/1 var(--disp);letter-spacing:.14em;color:#7A3427}
-.plate h1{margin:0;font:900 2.85cqw/1.24 var(--disp);letter-spacing:-.02em;text-wrap:balance}
-.plate .sub{margin:1.1cqw 0 0;font:600 1.45cqw/1.4 var(--disp);color:#2C3448}
-.plate .meta{margin:1.5cqw 0 0;padding-top:1cqw;border-top:.08cqw solid rgba(18,28,48,.25);display:flex;gap:1.6cqw;align-items:center;font:600 1cqw/1 var(--disp);color:#2C3448}
-.plate .meta .fake{margin-left:auto;font:600 .82cqw/1 var(--disp);color:#6A6F7C;border:.07cqw solid #9A9EA8;padding:.3cqw .55cqw;border-radius:.2cqw}
-.board{position:absolute;left:3cqw;bottom:14.9cqw;width:26cqw;background:rgba(14,22,38,.82);color:#fff;border-radius:.25cqw;overflow:hidden;font-family:var(--disp)}
-.board .bh{display:flex;align-items:baseline;justify-content:space-between;padding:.75cqw 1.1cqw .6cqw;border-bottom:.07cqw solid rgba(255,255,255,.16)}
-.board .bh span{font:600 .82cqw/1 var(--num);letter-spacing:.18em;color:#AEB7C9}
-.board .bh b{font:700 1.7cqw/1 var(--num);font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.board table{width:100%;border-collapse:collapse}
-.board th{font:600 .72cqw/1 var(--disp);color:#8F99AD;text-align:left;padding:.55cqw 1.1cqw .35cqw;letter-spacing:.04em}
-.board td{padding:.48cqw 1.1cqw;font:600 1.02cqw/1.15 var(--disp);border-top:.07cqw solid rgba(255,255,255,.08);vertical-align:middle}
-.board td.ln{width:3.2cqw}
-.board td.ln i{display:inline-grid;place-items:center;width:1.7cqw;height:1.7cqw;border-radius:.15cqw;font:700 1.1cqw/1 var(--num);font-style:normal;color:#0E1626}
-.board td.pc,.board td.fx{font:600 1.1cqw/1 var(--num);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
-.board th.r{text-align:right}
-.board td.fx{color:#5F6A80}
-.board tr.done td.fx{color:#fff}
-.board .bf{padding:.5cqw 1.1cqw .65cqw;font:600 .72cqw/1.3 var(--disp);color:#8F99AD;border-top:.07cqw solid rgba(255,255,255,.12)}
+/* mobile readout of the board */
+.readout{display:none;margin-top:12px;background:var(--paper);border:1px solid var(--hair);border-radius:4px;padding:10px 12px}
+.readout p{margin:0 0 6px;font-size:12.5px;color:var(--muted)}
+.readout ol{list-style:none;margin:0;padding:0}
+.readout li{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--hair2);font-size:14px}
+.readout li .r{font:700 15px/1 var(--num)}
+.readout li .n{display:flex;gap:6px;align-items:center;min-width:0}
+.readout li .n i{flex:none;width:16px;height:16px;border-radius:3px;display:grid;place-items:center;font:700 11px/1 var(--num);font-style:normal;color:#0E1626}
+.readout li .n span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.readout li .v{font:700 15px/1 var(--num);font-variant-numeric:tabular-nums;text-align:right}
+.readout li.short .r,.readout li.short .v{color:var(--alert)}
+.readout li.wait{color:var(--muted)}
+@media (max-width:700px){.readout{display:block}}
 
-/* ---------- controls ---------- */
-.ctrl{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--paper);border:1px solid var(--hair);border-radius:4px;padding:10px 12px}
-.ctrl button{font:700 13px/1 var(--disp);color:var(--fg);background:var(--paper);border:1px solid var(--hair);border-radius:3px;padding:9px 12px;cursor:pointer}
-.ctrl button:hover{border-color:var(--muted)}
-.ctrl button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.ctrl button[aria-pressed="true"]{background:var(--fg);color:var(--paper);border-color:var(--fg)}
-.ctrl .play{border-color:var(--accent);color:var(--accent)}
-.ctrl .stat{margin-left:auto;font-size:12.5px;color:var(--muted)}
-.ctrl .stat kbd{font:600 11px/1 var(--num);border:1px solid var(--hair);border-radius:3px;padding:2px 5px;background:var(--chipbg)}
-@media (max-width:640px){.ctrl .stat{margin-left:0;width:100%}}
-
-/* ---------- memo ---------- */
-.memo{margin-top:44px;display:grid;gap:40px}
+/* memo */
+.memo{margin-top:44px;display:grid;gap:44px}
 .memo>section{min-width:0}
 .memo h2{font:800 21px/1.3 var(--disp);margin:0 0 4px;text-wrap:balance}
-.memo h2 .no{font:600 13px var(--num);color:var(--accent);margin-right:10px;letter-spacing:.1em}
 .lede{color:var(--muted);margin:0 0 16px;max-width:70ch}
 .card{background:var(--paper);border:1px solid var(--hair);border-radius:4px;padding:18px 20px;min-width:0}
 @media (max-width:560px){.card{padding:14px 12px}}
+.dev{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));gap:0 28px;margin:0}
+.dev>div{display:grid;grid-template-columns:30px minmax(0,1fr);gap:4px 10px;padding:13px 0;border-bottom:1px solid var(--hair2);min-width:0}
+.dev dt{grid-column:2;font-weight:800;font-size:15px;line-height:1.4}
+.dev dd{grid-column:2;margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.dev .ic{grid-row:1/3;grid-column:1;width:26px;height:26px;margin-top:1px}
 .tbl{overflow-x:auto}
-table.map{border-collapse:collapse;width:100%;min-width:780px;font-size:14px}
+table.map{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
 table.map th,table.map td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--hair2)}
-table.map th{font-size:12px;color:var(--muted);border-bottom:1px solid var(--hair)}
-table.map td:first-child{font-weight:800;white-space:nowrap}
+table.map th{font-size:12px;color:var(--muted);border-bottom:1px solid var(--hair);font-weight:600}
+table.map td:first-child{font-weight:800}
 table.map td .s{display:block;font-size:12.5px;color:var(--muted)}
-.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin-top:18px;padding:0;list-style:none}
-.flow li{flex:1 1 140px;min-width:0;background:var(--chipbg);border:1px solid var(--hair);border-radius:3px;padding:10px 12px;position:relative}
-.flow li b{display:block;font-size:14px}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(170px,100%),1fr));gap:8px;margin:18px 0 0;padding:0;list-style:none;counter-reset:f}
+.flow li{background:var(--chip);border:1px solid var(--hair);border-radius:3px;padding:10px 12px;min-width:0;counter-increment:f}
+.flow li::before{content:"클릭 " counter(f);display:block;font:600 11.5px/1 var(--disp);color:var(--accent);margin-bottom:6px;letter-spacing:.04em}
+.flow li:first-child::before{content:"화면 열기"}
+.flow li b{display:block;font-size:14px;line-height:1.4}
 .flow li span{display:block;font-size:12.5px;color:var(--muted);line-height:1.5}
-.flow li em{font:600 11px/1 var(--num);font-style:normal;color:var(--accent);letter-spacing:.1em;display:block;margin-bottom:5px}
-.check{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:0 26px}
-.check li{display:grid;grid-template-columns:26px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid var(--hair2);font-size:14px;min-width:0}
-.check li .k{font:600 12px/22px var(--num);color:var(--accent)}
-.check li .w{display:block;color:var(--muted);font-size:13px}
-.check li .w a{word-break:break-all}
-.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.codehead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.codehead p{margin:0;font-size:13.5px;color:var(--muted);min-width:0}
+.codehead code,.lede code,.card code{font:600 12.5px var(--mono);background:var(--chip);border:1px solid var(--hair2);border-radius:3px;padding:1px 5px}
+.btn{font:700 13px/1 var(--disp);color:var(--paper);background:var(--fg);border:1px solid var(--fg);border-radius:3px;padding:9px 14px;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+textarea.code{display:block;width:100%;height:420px;resize:vertical;font:12.5px/1.55 var(--mono);color:var(--fg);background:var(--chip);border:1px solid var(--hair);border-radius:3px;padding:12px;white-space:pre;overflow:auto;tab-size:2}
+textarea.code:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ol.ppt{margin:0;padding:0;list-style:none;display:grid;gap:0}
+ol.ppt>li{display:grid;grid-template-columns:86px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--hair2);font-size:14px}
+ol.ppt>li>b{font-size:13px;color:var(--accent)}
+ol.ppt ul{margin:4px 0 0;padding-left:18px;color:var(--muted)}
+ol.ppt ul li{margin:2px 0}
+@media (max-width:560px){ol.ppt>li{grid-template-columns:1fr;gap:2px}}
+.delay{border-collapse:collapse;font-size:13.5px;margin-top:8px}
+.delay th,.delay td{padding:5px 12px 5px 0;text-align:left;border-bottom:1px solid var(--hair2);font-variant-numeric:tabular-nums}
+.delay th{font-size:12px;color:var(--muted);font-weight:600}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
 .sw div{border:1px solid var(--hair);border-radius:3px;overflow:hidden;font-size:12px;background:var(--paper)}
-.sw i{display:block;height:38px}
+.sw i{display:block;height:36px}
 .sw p{margin:0;padding:6px 8px;line-height:1.35}
 .sw code{font:600 12px var(--num);letter-spacing:.03em}
-dl.spec{display:grid;grid-template-columns:118px 1fr;gap:12px 18px;margin:18px 0 0;font-size:14px}
+dl.spec{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px 18px;margin:18px 0 0;font-size:14px}
 dl.spec dt{font-weight:800;color:var(--muted);font-size:13px}
 dl.spec dd{margin:0;min-width:0}
-dl.spec ol{margin:0;padding-left:20px}
 @media (max-width:560px){dl.spec{grid-template-columns:1fr;gap:4px}dl.spec dd{margin-bottom:10px}}
-a{color:var(--accent)}
 .foot{font-size:13px;color:var(--muted)}
 </style>
 
+<style id="race-css">
+.race{font-family:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.race-slide{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;background:#F6F8FB;border-radius:4px;box-shadow:0 10px 30px rgba(18,32,58,.18)}
+.race-stage{position:absolute;inset:0;display:grid;grid-template-rows:19cqw minmax(0,1fr)}
+.race-top{display:grid;grid-template-columns:minmax(0,1fr) 38cqw;gap:2.4cqw;padding:1.6cqw 2.6cqw 1.4cqw;min-height:0;background:linear-gradient(180deg,#FFFFFF,#F1F4F8)}
+.race-title{min-width:0;display:flex;flex-direction:column;justify-content:center;gap:.9cqw}
+.race-eb{margin:0;font:800 .98cqw/1.35 "Gothic A1",sans-serif;letter-spacing:.04em;color:#2B62AE}
+.race-h{margin:0;font:900 3.05cqw/1.2 "Gothic A1","Malgun Gothic",sans-serif;letter-spacing:-.03em;color:#101A2E;text-wrap:balance}
+.race-h span{display:block}
+.race-h span+span{color:#C83C2E}
+.race-meta{margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:.4cqw 1.3cqw;font:600 .98cqw/1.3 "Gothic A1",sans-serif;color:#3B4660}
+.race-fake{border:.08cqw solid #9AA3B3;color:#6A7385;border-radius:.2cqw;padding:.25cqw .5cqw;font-size:.82cqw}
+.race-board{min-width:0;min-height:0;display:flex;flex-direction:column;background:#12203A;color:#fff;border-radius:.35cqw;overflow:hidden}
+.race-bh{display:flex;justify-content:space-between;align-items:baseline;gap:1cqw;padding:.7cqw 1.1cqw .5cqw;border-bottom:.08cqw solid rgba(255,255,255,.16)}
+.race-bh span{font:800 .9cqw/1 "Gothic A1",sans-serif;letter-spacing:.06em;color:#B9C3D6}
+.race-bh b{font:700 1.5cqw/1 "Saira Semi Condensed","Arial Narrow",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.race-cols,.race-row{display:grid;grid-template-columns:4.2cqw minmax(0,1fr) 6.4cqw 6.2cqw;gap:.8cqw;align-items:center;padding:0 1.1cqw}
+.race-cols{padding-block:.45cqw .3cqw;font:600 .74cqw/1 "Gothic A1",sans-serif;color:#8E9AB2}
+.race-cols span:nth-child(n+3){text-align:right}
+.race-rows{flex:1;display:grid;grid-template-rows:repeat(var(--n,5),minmax(0,1fr));min-height:0}
+.race-row{border-top:.07cqw solid rgba(255,255,255,.09);font:600 1.1cqw/1.1 "Gothic A1",sans-serif;min-height:0;overflow:hidden}
+.race-rk{font:700 1.3cqw/1 "Saira Semi Condensed","Arial Narrow",sans-serif;white-space:nowrap}
+.race-rk small{font:600 .8cqw/1 "Gothic A1",sans-serif;margin-left:.1cqw}
+.race-nm{display:flex;align-items:center;gap:.55cqw;min-width:0}
+.race-nm i{flex:none;width:1.45cqw;height:1.45cqw;display:grid;place-items:center;border-radius:.2cqw;font:700 .95cqw/1 "Saira Semi Condensed",sans-serif;font-style:normal;color:#0E1626}
+.race-nm b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.race-dt{font:600 .9cqw/1 "Gothic A1",sans-serif;color:#AEB9CE;text-align:right;white-space:nowrap}
+.race-dt em{font:600 1cqw/1 "Saira Semi Condensed",sans-serif;font-style:normal;color:#fff;margin-right:.25cqw}
+.race-rt{font:700 1.3cqw/1 "Saira Semi Condensed","Arial Narrow",sans-serif;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.race-row.wait{color:#5D6982}
+.race-row.wait .race-nm i{background:transparent;border:.08cqw dashed #5D6982;color:#5D6982}
+.race-row.short .race-rk span{display:inline-block;background:#E5483A;color:#fff;font:800 .82cqw/1 "Gothic A1",sans-serif;padding:.3cqw .45cqw;border-radius:.2cqw}
+.race-row.short .race-dt{color:#FF9C8F}
+.race-row.short .race-rt{color:#FFB3A8}
+.race-row.in{animation:raceIn .8s ease-out}
+@keyframes raceIn{from{background:rgba(255,255,255,.24);transform:translateX(-1.2cqw)}to{background:rgba(255,255,255,0);transform:none}}
+.race-track{position:relative;min-height:0;background:#2E5F9E}
+.race-track canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.race-ctrl{margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.race-ctrl button{font:700 13px/1 "Gothic A1",sans-serif;color:var(--fg,#18202E);background:var(--paper,#fff);border:1px solid var(--hair,#D6DCE5);border-radius:3px;padding:9px 13px;cursor:pointer}
+.race-ctrl button:hover{border-color:var(--muted,#5A6474)}
+.race-ctrl button:focus-visible{outline:2px solid var(--accent,#2B62AE);outline-offset:2px}
+.race-ctrl .race-stat{font-size:13px;color:var(--muted,#5A6474);min-width:0}
+@media (prefers-reduced-motion:reduce){.race-row.in{animation:none}}
+</style>
+
 <main class="wrap">
-  <p class="kicker"><b>디자인 레퍼런스 #20</b> · 실험형 · 장애학생 진로·직업교육 · 비교·대조</p>
+  <p class="kicker"><b>디자인 레퍼런스 #20 · 예산집행 레이스</b> · 실험형 · 스포츠(육상 페이스 라이트) · 비교·대조</p>
 
-  <figure class="cover" id="cover" aria-label="표지: 고무 트랙 레인 표면을 낮게 클로즈업한 장면. 레인 1~4를 각기 다른 색의 페이스 라이트가 서로 다른 속도로 달려 결승선을 지나고, 아래 포토 피니시 띠에 네 도착 시각이 기록된다.">
-    <canvas id="cv" role="img" aria-label="레인 표면 클로즈업과 포토 피니시 라인스캔 띠"></canvas>
-    <div class="plate">
-      <p class="eb">○○교육청 · 특수교육</p>
-      <h1>2027 장애학생 진로·직업교육<br>내실화 계획(안)</h1>
-      <p class="sub">각자의 페이스로, 모두 결승선까지</p>
-      <p class="meta"><span>2026. 10.</span><span>○○교육청 특수교육과</span><span class="fake">가상 예시</span></p>
-    </div>
-    <div class="board" aria-label="페이스 보드">
-      <div class="bh"><span>PACE LIGHTS</span><b id="clock">57.00</b></div>
-      <table>
-        <thead><tr><th>레인</th><th>진로 경로</th><th class="r">목표</th><th class="r">판정</th></tr></thead>
-        <tbody id="rows"></tbody>
-      </table>
-      <div class="bf">빛 = 개별화 목표 속도 · 결승선 = 자립</div>
-    </div>
-  </figure>
+  <div id="race" aria-label="장표: 세부 사업별 예산 집행 레이스"></div>
 
-  <div class="ctrl" role="group" aria-label="장면 단계">
-    <button class="play" id="play" type="button">▶ 출발부터 재생</button>
-    <button type="button" data-step="0" aria-pressed="false">출발</button>
-    <button type="button" data-step="1" aria-pressed="false">질주</button>
-    <button type="button" data-step="2" aria-pressed="false">첫 도착</button>
-    <button type="button" data-step="3" aria-pressed="true">판정 완료</button>
-    <span class="stat" id="stat" aria-live="polite"><kbd>←</kbd> <kbd>→</kbd> 단계 이동 · 판정 완료</span>
-  </div>
+  <div class="readout" id="readout" aria-label="기록판(모바일 읽기용)"><p>기록판 크게 보기 · 결승선 = 목표 집행률</p><ol id="readoutList"></ol></div>
 
   <div class="memo">
     <section>
-      <h2><span class="no">02</span>흐름 설계 메모</h2>
-      <p class="lede">레인이 넷이고 빛마다 목표 속도가 다릅니다. 같은 결승선에 다른 시각에 닿는 장면이라 진로 경로를 나란히 놓고 견주는 "비교·대조" 구조와 맞습니다. 판정 띠에는 순위가 아니라 각자의 도착 시각만 남깁니다.</p>
+      <h2>가져갈 장치</h2>
+      <p class="lede">이 장표에서 떼어 다른 발표에 붙일 수 있는 장치입니다. 이름과 응용법만 적었습니다.</p>
+      <div class="card">
+        <dl class="dev">
+          <div>
+            <svg class="ic" viewBox="0 0 26 26" aria-hidden="true"><rect x="2" y="3" width="22" height="20" rx="2" fill="#12203A"/><rect x="5" y="7" width="16" height="2.4" fill="#FFE45A"/><rect x="5" y="12" width="12" height="2.4" fill="#FF9D4D"/><rect x="5" y="17" width="9" height="2.4" fill="#5D6982"/></svg>
+            <dt>통과 순 기록판</dt>
+            <dd>목표선을 넘는 순간 한 줄씩 채워지는 순위표. 성과지표 달성 순, 학교별 제출 완료 순에 그대로 씁니다.</dd>
+          </div>
+          <div>
+            <svg class="ic" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="9" width="24" height="8" fill="#346CB2"/><circle cx="8" cy="13" r="3" fill="#FFE45A"/><path d="M11 10h10v6H11z" fill="none" stroke="#E5483A" stroke-width="1.2" stroke-dasharray="2 1.5"/><rect x="21" y="7" width="1.6" height="12" fill="#F4F6F8"/></svg>
+            <dt>미달 정지 + 간극 빗금</dt>
+            <dd>목표선 앞에 멈춘 빛과 남은 거리를 빗금으로 칠하고 부족분 %p를 적습니다. 부족분을 말로 풀지 않아도 보입니다.</dd>
+          </div>
+          <div>
+            <svg class="ic" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="6" width="24" height="10" fill="#346CB2"/><rect x="1" y="17" width="24" height="5" fill="#12203A"/><g fill="#F4F6F8"><rect x="2" y="17" width=".9" height="3"/><rect x="8" y="17" width=".9" height="3"/><rect x="14" y="17" width=".9" height="3"/><rect x="25" y="17" width=".9" height="3"/></g><rect x="19.5" y="6" width="1.4" height="14" fill="#FFE45A"/></svg>
+            <dt>트랙 = 눈금축</dt>
+            <dd>레인 길이를 0~100% 축으로 쓰고 결승선을 목표값에 둡니다. 진척률, 달성률, 참여율 어디에나 맞습니다.</dd>
+          </div>
+          <div>
+            <svg class="ic" viewBox="0 0 26 26" aria-hidden="true"><path d="M2 21C8 21 10 20 13 14s5-9 11-10" fill="none" stroke="#FF82C6" stroke-width="2"/><path d="M2 21c7-1 13-4 22-10" fill="none" stroke="#A6FF6E" stroke-width="2" opacity=".9"/></svg>
+            <dt>월별 누계로 달리기(추월)</dt>
+            <dd>레인마다 월별 누계를 넣으면 몰아치기 집행이 추월 장면으로 보입니다. 6월 기자재 일괄 구매처럼 설명할 거리가 생깁니다.</dd>
+          </div>
+          <div>
+            <svg class="ic" viewBox="0 0 26 26" aria-hidden="true"><rect x="12" y="2" width="1.6" height="22" fill="#9AA3B3"/><rect x="14.5" y="14" width="10" height="7" rx="1.2" fill="#12203A"/><rect x="16" y="16.6" width="7" height="1.8" fill="#fff"/></svg>
+            <dt>통과일 도장</dt>
+            <dd>결승선 옆에 목표 도달 날짜를 찍습니다. 순위와 따로 "언제 달성했나"를 묻는 질문에 바로 답합니다.</dd>
+          </div>
+          <div>
+            <svg class="ic" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="3" width="24" height="20" rx="1.5" fill="#F6F8FB" stroke="#9AA3B3"/><rect x="3" y="5.5" width="11" height="2" fill="#101A2E"/><rect x="3" y="9" width="8" height="2" fill="#C83C2E"/><rect x="16" y="5" width="7.5" height="6.5" fill="#12203A"/><rect x="1.5" y="13" width="23" height="9.5" fill="#346CB2"/></svg>
+            <dt>위 1/3 결론, 아래 2/3 장면</dt>
+            <dd>제목 칸과 기록판을 그리드로 나눠 위에 고정합니다. 청중이 움직임을 놓쳐도 위에서 결론과 순위를 읽습니다.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section>
+      <h2>흐름 설계 메모</h2>
+      <p class="lede">계획안의 "Ⅲ-2. 세부 사업별 예산 집행 현황" 한 장을 레이스로 바꿨습니다. 사업을 나란히 놓고 견주는 비교·대조 장표라서 레인 구조가 맞습니다. 순위는 칭찬보다 하위 사업을 짚기 위한 장치로 씁니다.</p>
       <div class="card">
         <div class="tbl">
           <table class="map">
-            <thead><tr><th>레이스 요소</th><th>계획안 구성</th><th>안쪽 장표 아이디어</th></tr></thead>
+            <thead><tr><th>계획안 구성</th><th>레이스 요소</th><th>장표에서 보이는 것</th></tr></thead>
             <tbody>
-              <tr><td>출발선</td><td>Ⅰ. 추진 배경<span class="s">고3·전공과 학생 진로 현황, 현장 의견</span></td><td>출발선 위 레인별 현황 수치 네 개를 같은 높이에 배치</td></tr>
-              <tr><td>레인 1~4</td><td>Ⅱ. 진로 경로 유형<span class="s">지원고용 · 취업 · 전공과 진학 · 평생교육</span></td><td>레인 번호 노면 표시를 장 표지로 반복(레인 = 장 번호)</td></tr>
-              <tr><td>페이스 라이트 속도</td><td>개별화교육계획(IEP) 기반 개인별 목표<span class="s">학생마다 다른 준비 기간 인정</span></td><td>페이스 보드 형식 표: 경로 · 목표 시점 · 지원 담당</td></tr>
-              <tr><td>질주 구간</td><td>Ⅲ. 추진 과제<span class="s">현장실습, 직무 훈련, 전환교육, 가족 상담</span></td><td>레인 표면 위 빛줄기 길이로 과제 기간 표시</td></tr>
-              <tr><td>결승선(흰 선 50mm)</td><td>Ⅳ. 성과 지표<span class="s">지역사회 자립·정착</span></td><td>결승선 한 줄을 지표 기준선으로, 위아래에 목표·실적</td></tr>
-              <tr><td>포토 피니시 띠</td><td>Ⅴ. 사후 관리<span class="s">졸업생 추적 기록, 재지원 연계</span></td><td>가로축 시간 띠에 도착 시점별 기록 칩, 미도착 구간은 회색</td></tr>
-              <tr><td>1/1000초 계측</td><td>Ⅵ. 행정 사항<span class="s">점검 일정, 예산, 협력 기관</span></td><td>타임스탬프 표기를 일정표 날짜 칸 서체로 재사용</td></tr>
+              <tr><td>세부 사업 5개<span class="s">진로상담 인력, 현장실습 지원, 전공과 운영, 통합고용 연계, 직업훈련 기자재</span></td><td>레인 1~5</td><td>출발 구역에 칠한 레인 번호 = 세부 사업 번호</td></tr>
+              <tr><td>누계 집행률(%)</td><td>트랙 길이</td><td>아래 남색 띠가 0~100% 눈금, 빛의 최종 위치 = 9월 말 집행률</td></tr>
+              <tr><td>3분기 목표 집행률 75%</td><td>결승선</td><td>흰 결승선을 75% 눈금에 둠. 사업마다 목표가 다르면 레인마다 결승선 위치가 달라짐</td></tr>
+              <tr><td>월별 집행 누계</td><td>빛의 속도, 추월</td><td>6월 기자재 일괄 구매로 직업훈련 기자재가 두 사업을 추월</td></tr>
+              <tr><td>목표 도달 시점</td><td>통과일 도장</td><td>결승선 옆 "8.09 통과" 같은 날짜 칩</td></tr>
+              <tr><td>집행 실적 비교</td><td>기록판 순위</td><td>통과 순서대로 1위부터 한 줄씩 채움</td></tr>
+              <tr><td>미달 사업<span class="s">진로상담 인력(채용 지연), 전공과 운영</span></td><td>결승선 앞 정지</td><td>빗금 간극과 −33.1%p, −15.0%p 표기, 기록판에 빨간 "미달"</td></tr>
+              <tr><td>Ⅳ. 4분기 집중 관리 방안</td><td>다음 장표</td><td>미달 레인 2개만 확대해 원인·조치·월별 목표로 이어 감</td></tr>
             </tbody>
           </table>
         </div>
         <ol class="flow" aria-label="발표 흐름">
-          <li><em>START</em><b>현황</b><span>출발선에 선 네 경로</span></li>
-          <li><em>LANE</em><b>경로 배정</b><span>학생별 레인 정하기</span></li>
-          <li><em>PACE</em><b>목표 속도</b><span>IEP로 개인 페이스 설정</span></li>
-          <li><em>RUN</em><b>추진 과제</b><span>구간별 지원</span></li>
-          <li><em>FINISH</em><b>자립 지표</b><span>결승선 통과 기준</span></li>
-          <li><em>PHOTO</em><b>기록·추적</b><span>도착 시각 모두 기록</span></li>
+          <li><b>결론부터 읽기</b><span>완료 상태로 열어 제목 두 줄과 기록판을 먼저 보여 줌</span></li>
+          <li><b>출발</b><span>1월 1일, 다섯 사업이 같은 선에서 출발</span></li>
+          <li><b>6월 추월</b><span>기자재 일괄 구매로 순위가 바뀌는 구간을 짚음</span></li>
+          <li><b>통과 순 기록</b><span>8월 9일 현장실습 지원이 1위로 통과, 이어 2·3위</span></li>
+          <li><b>미달 2개 정지</b><span>결승선 앞 빗금과 부족분 %p, 원인 한 줄씩</span></li>
+          <li><b>다음 장으로</b><span>하위 2개 사업 4분기 관리 방안</span></li>
         </ol>
       </div>
     </section>
 
     <section>
-      <h2><span class="no">03</span>재현 체크</h2>
-      <p class="lede">실물에서 가져온 요소입니다. 표지에서 바꾼 부분은 따로 적었습니다.</p>
+      <h2>HTML로 가져다 쓰기</h2>
+      <p class="lede">위 장표와 똑같은 코드입니다. 파일 하나로 저장해 브라우저에서 열면 동작합니다. 사업명·집행률·목표는 <code>LANES</code> 배열에만 있습니다.</p>
       <div class="card">
-        <ul class="check">
-          <li><span class="k">01</span><div>페이스 라이트는 트랙 안쪽 가장자리를 따라 LED 묶음이 정해진 기록 페이스로 이동하고, 목표마다 색을 달리합니다.<span class="w">World Athletics, <a href="https://www.worldathletics.org/news/feature/wavelight-technology-athletics">Wavelight technology</a>(2020)</span></div></li>
-          <li><span class="k">02</span><div>세계육상연맹 기술규칙 6.4.8은 진행 시간을 보여 주는 전자 조명을 허용된 보조로 둡니다. 2020년부터 경기 사용이 허용됐습니다.<span class="w"><a href="https://en.wikipedia.org/wiki/Wavelight">Wikipedia: Wavelight</a></span></div></li>
-          <li><span class="k">03</span><div>각색: 실물은 안쪽 연석 한 줄에만 설치합니다. 표지는 경로를 구분하려고 레인마다 빛 하나를 두었습니다. 발표에서 실물처럼 보여야 하면 빛 네 개를 연석 한 줄에 색만 달리해 놓으면 됩니다.<span class="w">위 두 출처 기준</span></div></li>
-          <li><span class="k">04</span><div>포토 피니시는 결승선만 보는 폭 몇 픽셀짜리 라인스캔 카메라가 찍은 세로줄을 가로로 이어 붙인 이미지라 가로축이 시간입니다. 그래서 움직이지 않는 레인 선은 가로 줄무늬로 늘어납니다.<span class="w"><a href="https://en.wikipedia.org/wiki/Fully_automatic_time">Wikipedia: Fully automatic time</a></span></div></li>
-          <li><span class="k">05</span><div>판정 기록은 1/1000초 단위로 표기합니다(띠의 45.120 같은 세 자리 소수).<span class="w">FinishLynx, <a href="https://finishlynx.com/about-us/what-is-fully-automatic-timing/">What is Fully Automatic Timing</a></span></div></li>
-          <li><span class="k">06</span><div>레인 폭 1.22m, 레인 선·결승선은 폭 50mm 흰 선. 표지의 원근 계산에 이 치수를 그대로 썼습니다.<span class="w">World Athletics <a href="https://worldathletics.org/about-iaaf/documents/book-of-rules">Book of Rules</a>, Technical Rules 14</span></div></li>
-          <li><span class="k">07</span><div>트랙 표면은 고무 입자가 드러난 합성 포장이고 흰 선은 그 위에 칠한 도료라 입자가 비쳐 보입니다. canvas에서 입자 노이즈 위에 도료를 덮고 일부 입자가 튀어나오게 그렸습니다.<span class="w">실물 관찰 기준(별도 출처 없음)</span></div></li>
-        </ul>
+        <div class="codehead">
+          <p><code>rate</code> 9월 말 누계 집행률 · <code>target</code> 결승선(생략하면 75) · <code>monthly</code> 월별 누계(선택, 없으면 일정한 속도). 레인 4~6개를 권합니다.</p>
+          <button class="btn" type="button" id="copyBtn">코드 복사</button>
+        </div>
+        <label for="snippet" class="foot" style="display:block;margin-bottom:6px">자기 완결 HTML 코드</label>
+        <textarea class="code" id="snippet" readonly spellcheck="false"></textarea>
       </div>
     </section>
 
     <section>
-      <h2><span class="no">04</span>스펙</h2>
-      <p class="lede">밝은 낮 트랙 톤입니다. 빛 네 색은 붉은 트랙 위에서 서로 구분되도록 노랑·연두·하늘·연보라로 골랐습니다.</p>
+      <h2>PPT로 옮기기</h2>
+      <p class="lede">배경은 캡처하고, 빛·기록판 행·칩만 PPT 도형으로 다시 만들어 애니메이션을 겁니다. 아래는 클릭 순서입니다(한국어판 메뉴 이름).</p>
+      <div class="card">
+        <ol class="ppt">
+          <li><b>준비</b><div>"다시 보기" 직후 출발 상태에서 장표 아래 2/3를 캡처해 배경 그림으로 넣습니다. 빛은 원(흰색→레인 색 그라데이션) + 꼬리(투명도 그라데이션 직사각형)를 그룹으로 묶고 서식 › 효과 › 부드러운 가장자리 5pt, 네온 8pt를 줍니다.
+            <ul><li>기록판: 남색 표 5행, 행마다 별도 텍스트 상자로 만들어야 행 단위 애니메이션이 됩니다.</li><li>경로 끝점 = 시작선 x + 트랙 길이 × 집행률. 예: 트랙 길이 22cm면 91.9% → 20.2cm.</li></ul></div></li>
+          <li><b>클릭 1 · 출발</b><div>빛 그룹 5개: 애니메이션 › 이동 경로 › 선, 효과 옵션 오른쪽. 시작 "이전 효과와 함께", 재생 시간 9.00초(전부 같게), 효과 옵션에서 부드럽게 시작·끝 0초. 거리가 달라 속도가 저절로 달라집니다.</div></li>
+          <li><b>같은 클릭 · 기록판</b><div>기록판 1~3행: 나타내기 › 닦아내기(왼쪽에서) 0.40초, "이전 효과와 함께" + 지연. 통과일 칩은 확대/축소 0.30초, 같은 지연. 지연 = 9초 × 목표 ÷ 집행률.
+            <table class="delay"><thead><tr><th>행</th><th>사업</th><th>집행률</th><th>지연</th></tr></thead><tbody>
+              <tr><td>1위</td><td>현장실습 지원</td><td>91.9%</td><td>7.35초</td></tr>
+              <tr><td>2위</td><td>직업훈련 기자재</td><td>84.0%</td><td>8.04초</td></tr>
+              <tr><td>3위</td><td>통합고용 연계</td><td>79.0%</td><td>8.54초</td></tr></tbody></table></div></li>
+          <li><b>클릭 2 · 미달</b><div>빗금 간극 직사각형 2개: 닦아내기(왼쪽에서) 0.50초. "미달" 칩과 기록판 4·5행: 나타내기 0.50초, "이전 효과 다음에".</div></li>
+          <li><b>클릭 3 · 짚기</b><div>미달 레인 빛 그룹 2개: 강조 › 펄스, 반복 2회. 다음 장표(4분기 관리 방안)로 넘어갑니다.</div></li>
+          <li><b>모핑 근사</b><div>PPT 2019 이상이면 슬라이드를 4장(출발, 1위 통과, 3위 통과, 완료)으로 복제하고 장마다 빛 위치와 기록판 행을 그 시점으로 맞춘 뒤 전환 › 모핑 1.5초를 겁니다. 빛 그룹 이름을 선택 창에서 "!!L1"~"!!L5"로 똑같이 맞춰야 짝이 맞습니다. 모핑은 모든 개체가 같은 시간에 움직여서 통과 순서는 지켜지지만 추월 장면은 빠집니다.</div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <h2>스펙</h2>
+      <p class="lede">밝은 낮 경기장의 파란 트랙입니다. 빛 다섯 색은 파란 고무 위에서 서로 구분되도록 노랑·주황·연두·분홍·하늘로 골랐고, 미달만 빨강으로 따로 씁니다.</p>
       <div class="card">
         <div class="sw">
-          <div><i style="background:#B4523E"></i><p>트랙 고무<br><code>#B4523E</code></p></div>
-          <div><i style="background:#7A3427"></i><p>트랙 그늘<br><code>#7A3427</code></p></div>
-          <div><i style="background:#F2EFEA"></i><p>레인 도료<br><code>#F2EFEA</code></p></div>
-          <div><i style="background:#121C30"></i><p>방송 남색<br><code>#121C30</code></p></div>
-          <div><i style="background:#FFE45A"></i><p>L1 지원고용<br><code>#FFE45A</code></p></div>
-          <div><i style="background:#8DFF6E"></i><p>L2 취업<br><code>#8DFF6E</code></p></div>
-          <div><i style="background:#5BE3FF"></i><p>L3 전공과<br><code>#5BE3FF</code></p></div>
-          <div><i style="background:#E7B9FF"></i><p>L4 평생교육<br><code>#E7B9FF</code></p></div>
+          <div><i style="background:#346CB2"></i><p>트랙 고무<br><code>#346CB2</code></p></div>
+          <div><i style="background:#F4F6F8"></i><p>레인 도료<br><code>#F4F6F8</code></p></div>
+          <div><i style="background:#12203A"></i><p>기록판 남색<br><code>#12203A</code></p></div>
+          <div><i style="background:#F6F8FB"></i><p>제목 칸 바탕<br><code>#F6F8FB</code></p></div>
+          <div><i style="background:#E5483A"></i><p>미달<br><code>#E5483A</code></p></div>
+          <div><i style="background:#FFE45A"></i><p>L1 진로상담 인력<br><code>#FFE45A</code></p></div>
+          <div><i style="background:#FF9D4D"></i><p>L2 현장실습 지원<br><code>#FF9D4D</code></p></div>
+          <div><i style="background:#A6FF6E"></i><p>L3 전공과 운영<br><code>#A6FF6E</code></p></div>
+          <div><i style="background:#FF82C6"></i><p>L4 통합고용 연계<br><code>#FF82C6</code></p></div>
+          <div><i style="background:#7CF7FF"></i><p>L5 직업훈련 기자재<br><code>#7CF7FF</code></p></div>
         </div>
         <dl class="spec">
-          <dt>폰트</dt><dd>Gothic A1 900/800(제목), 600(본문·보드) + Saira Semi Condensed 600/700(기록·레인 번호). 대체: 맑은 고딕 / Arial Narrow.</dd>
-          <dt>표현</dt><dd>사진 없이 canvas로 그렸습니다. 레인 1.22m·선 50mm로 원근을 계산하고, 픽셀마다 고무 입자·얼룩·도료 질감을 칠한 뒤 위아래를 흐려 얕은 피사계 심도를 냈습니다. 빛은 가산 합성으로 LED 알갱이, 번짐, 바닥 반사, 잔광 꼬리를 겹쳤고 필름 그레인을 전체에 덮었습니다.</dd>
-          <dt>PPT 이식</dt><dd><ol>
-            <li>'판정 완료' 단계에서 표지를 화면 캡처해 배경 이미지로 씁니다(제목 판·보드는 캡처 후 지우거나 가린 뒤 PPT에서 다시 만듭니다).</li>
-            <li>제목 판: 흰색 투명도 25% 사각형 + Gothic A1. 보드는 남색 투명도 18% 표.</li>
-            <li>포토 피니시 띠: 남색 바탕 위 4행 표, 행마다 색 그라데이션 막대(왼쪽 흰색 → 레인 색 → 투명)와 시각 칩.</li>
-            <li>애니메이션: 빛은 '이동 경로', 띠는 '닦아내기(왼쪽에서)'를 도착 순서대로 지연을 두어 재생.</li>
-          </ol></dd>
-          <dt>난이도</dt><dd>상 (★★★★☆) — 배경 질감은 캡처로 대신하면 중.</dd>
-          <dt>반영 트렌드</dt><dd>그레인과 의도된 흐림, 부드러운 빛 번짐으로 손맛 있는 질감을 내는 흐름 — Blend <a href="https://www.blendnow.com/blog/design-trends-2026-you-need-to-know">Design Trends 2026</a>, Videobolt <a href="https://blog.videobolt.net/post/top-motion-graphics-trends-2026">Top Motion Graphics Trends for 2026</a></dd>
+          <dt>폰트</dt><dd>Gothic A1 900(결론 제목), 800(머리말), 600(본문·기록판) + Saira Semi Condensed 700(순위·집행률·날짜). 대체: 맑은 고딕 / Arial Narrow. PPT에서는 Gothic A1을 설치하거나 맑은 고딕 굵게로 바꿉니다.</dd>
+          <dt>표현</dt><dd>사진 없이 canvas로 그렸습니다. 픽셀마다 고무 입자·얼룩·마모를 칠하고 레인 선(50mm 비율)·출발선·결승선·눈금 표시를 도료처럼 덮어 입자가 비치게 했습니다. 빛은 가산 합성으로 LED 알갱이, 바닥 번짐, 레인 선 반사, 속도에 비례하는 잔광 꼬리를 겹쳤습니다.</dd>
+          <dt>난이도</dt><dd>HTML 하(★☆☆) — 배열만 바꾸면 됩니다. PPT 중(★★☆) — 경로 길이와 지연 계산이 필요하고, 추월까지 살리려면 상.</dd>
+          <dt>반영 트렌드</dt><dd>순위가 바뀌는 막대 레이스(bar chart race) 같은 데이터 모션을 물리적 질감이 있는 장면으로 옮기는 흐름.</dd>
         </dl>
       </div>
-      <p class="foot">가상 예시입니다. 기관명·계획명·기록 수치는 모두 지어낸 값이고 실존 대회나 장비 브랜드를 표시하지 않습니다.</p>
+      <p class="foot">가상 예시입니다. 기관명·계획명·집행률·날짜는 모두 지어낸 값이고 실존 기관이나 장비 브랜드를 표시하지 않습니다.</p>
     </section>
   </div>
 </main>
 
-<script>
-(function(){
-const LANES=[
-  {n:1,path:'지원고용',A:50.85,col:'#FFE45A',rgb:[255,228,90]},
-  {n:2,path:'취업',A:47.40,col:'#8DFF6E',rgb:[141,255,110]},
-  {n:3,path:'전공과 진학',A:44.20,col:'#5BE3FF',rgb:[91,227,255]},
-  {n:4,path:'평생교육',A:55.90,col:'#E7B9FF',rgb:[231,185,255]}];
-const W=1600,H=900,SH=690,LW=1.22,ZF=2.0,ZS=0.3,PARK=0.7,TEND=57.0;
-const STEPS=[0,30,44.2,TEND],STEPNAME=['출발','질주','첫 도착','판정 완료'];
-const D=Math.PI/180;
-const cam={x:0.2,h:1.1,pitch:33*D,yaw:15*D,F:640,cx:800,cy:345};
-const st=Math.sin(cam.pitch),ct=Math.cos(cam.pitch),sy=Math.sin(cam.yaw),cy_=Math.cos(cam.yaw);
-const f=[sy*ct,-st,cy_*ct],r=[cy_,0,-sy],u=[sy*st,ct,cy_*st];
-function proj(x,z){const p0=x-cam.x,p1=-cam.h,p2=z;const d=f[0]*p0+f[1]*p1+f[2]*p2;
-  return {x:cam.cx+cam.F*(r[0]*p0+r[2]*p2)/d,y:cam.cy-cam.F*(u[0]*p0+u[1]*p1+u[2]*p2)/d,d:d};}
-function zAt(L,t){if(t<=0)return ZS;if(t<=L.A)return ZS+(ZF-ZS)*t/L.A;return ZF+PARK*(1-Math.exp(-(t-L.A)/0.9));}
-function vAt(L,t){if(t<=0)return 0;if(t<=L.A)return (ZF-ZS)/L.A;return PARK/0.9*Math.exp(-(t-L.A)/0.9);}
-const VMEAN=(ZF-ZS)/48;
-// strip mapping
-const SX0=96,SX1=1588,T0=43.4,T1=57.2,SY0=718,ROWH=38;
-const tx=t=>SX0+(t-T0)/(T1-T0)*(SX1-SX0);
+<script id="race-js">
+function mountRace(root, cfg) {
+  var COLORS = ['#FFE45A', '#FF9D4D', '#A6FF6E', '#FF82C6', '#7CF7FF', '#FFFFFF'];
+  var M = cfg.months || 9, YEAR = cfg.year || 2027, DEF_T = cfg.target != null ? cfg.target : 100;
+  var W = 1600, H = 596, KERB = 24, TOP = 34, BOT = 56, X0 = 170, X1 = 1556;
+  var esc = function (s) { return String(s).replace(/[<>"]/g, function (c) { return c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&quot;'; }); };
+  var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
+  var hex2rgb = function (h) { h = h.replace('#', ''); return [0, 2, 4].map(function (i) { return parseInt(h.substr(i, 2), 16); }); };
+  var XP = function (p) { return X0 + (X1 - X0) * clamp(p, 0, 104) / 100; };
 
-function hash(i,j){let h=(Math.imul(i,374761393)+Math.imul(j,668265263))|0;h=Math.imul(h^(h>>>13),1274126177);return ((h^(h>>>16))>>>0)/4294967296;}
-function vnoise(x,y){const i=Math.floor(x),j=Math.floor(y),fx=x-i,fy=y-j,sx=fx*fx*(3-2*fx),sy2=fy*fy*(3-2*fy);
-  const a=hash(i,j),b=hash(i+1,j),c=hash(i,j+1),d=hash(i+1,j+1);return a+(b-a)*sx+(c-a)*sy2+(a-b-c+d)*sx*sy2;}
-const clamp=(v,a,b)=>v<a?a:v>b?b:v;
-
-const cover=document.getElementById('cover'),cv=document.getElementById('cv'),ctx=cv.getContext('2d');
-let S=1,bg=null,stripBg=null,glyph=null,t=TEND,step=3,playing=false,raf=0;
-
-function makeGlyphs(){const gw=100,gh=150,c=document.createElement('canvas');c.width=gw*4;c.height=gh;const g=c.getContext('2d');
-  g.fillStyle='#fff';g.textAlign='center';g.textBaseline='alphabetic';g.font='700 168px "Saira Semi Condensed","Arial Narrow",sans-serif';
-  for(let k=0;k<4;k++){g.save();g.translate(gw*k+gw/2,0);g.scale(0.8,1);g.fillText(String(k+1),0,gh-8);g.restore();}
-  const id=g.getImageData(0,0,c.width,gh);return {gw,gh,w:c.width,data:id.data};}
-
-function renderScene(){
-  const cw=cv.width,sh=Math.round(SH*S);
-  const sharp=document.createElement('canvas');sharp.width=cw;sharp.height=sh;const sc=sharp.getContext('2d');
-  const img=sc.createImageData(cw,sh),px=img.data;
-  const F=cam.F;
-  for(let py=0;py<sh;py++){
-    const Y=py/S,b=(cam.cy-Y)/F;
-    for(let pxi=0;pxi<cw;pxi++){
-      const X=pxi/S,a=(X-cam.cx)/F;
-      const dx=f[0]+r[0]*a+u[0]*b,dyv=f[1]+u[1]*b,dz=f[2]+r[2]*a+u[2]*b;
-      const o=(py*cw+pxi)*4;
-      if(dyv>-0.002){px[o]=200;px[o+1]=150;px[o+2]=135;px[o+3]=255;continue;}
-      const tt=cam.h/(-dyv),gx=cam.x+tt*dx,gz=tt*dz;
-      const len=Math.sqrt(dx*dx+dyv*dyv+dz*dz);
-      const fp=tt*len/(F*S)/Math.max(0.12,-dyv/len);
-      let R,G,B;
-      // rubber base
-      const gs=0.0042,gi=Math.floor(gx/gs),gj=Math.floor(gz/gs),h1=hash(gi,gj),h2=hash(gi+7,gj-3);
-      const gf=clamp(gs*1.4/fp,0,1);
-      const mott=vnoise(gx/0.045,gz/0.045)-0.5,wear=vnoise(gx/0.7+20,gz/0.7)-0.5,big=vnoise(gx/3,gz/3+9)-0.5;
-      let k=1+0.10*mott*clamp(0.03/fp,0,1)+0.08*wear+0.05*big;
-      let gran=(h1-0.5)*0.34;if(h2>0.9)gran-=0.32;if(h2<0.05)gran+=0.18;
-      k+=gran*gf;
-      if(gx<-0.06){ // infield turf
-        const tn=vnoise(gx/0.01,gz/0.01)*gf+(1-gf)*0.5;R=70+40*tn;G=98+46*tn;B=62+26*tn;
-      }else if(gx<0){ // aluminium kerb
-        const sh2=0.85+0.15*Math.sin(gx/0.06*Math.PI);R=206*sh2;G=210*sh2;B=214*sh2;
-      }else{
-        R=180*k;G=82*k;B=62*k;
-        // paint coverage
-        let cov=0;const jit=(vnoise(gx*90,gz*9)-0.5)*0.006;
-        const ln=Math.round(gx/LW),dl=Math.abs(gx-ln*LW);   // lane lines (50mm, centred on boundary)
-        if(ln>=0&&ln<=8){const hw=0.025+jit;cov=Math.max(cov,clamp((hw-dl)/fp+0.5,0,1));}
-        if(gx>0){const dfz=Math.abs(gz-(ZF-0.025)),hw=0.025+jit;cov=Math.max(cov,clamp((hw-dfz)/fp+0.5,0,1));} // finish line
-        // start line
-        {const dsz=Math.abs(gz-(ZS-0.025));cov=Math.max(cov,clamp((0.025+jit-dsz)/fp+0.5,0,1)*0.92);}
-        // lane numbers painted beyond finish
-        const lane=Math.floor(gx/LW);
-        if(lane>=0&&lane<4&&glyph){const lc=(lane+0.5)*LW,uu=(gx-lc)/0.62+0.5,vv=1-(gz-(ZF+0.42))/0.95;
-          if(uu>0&&uu<1&&vv>0&&vv<1){const gxp=Math.floor(uu*glyph.gw)+lane*glyph.gw,gyp=Math.floor(vv*glyph.gh);
-            cov=Math.max(cov,glyph.data[(gyp*glyph.w+gxp)*4+3]/255*0.95);}}
-        if(cov>0){cov*=1-0.35*Math.max(0,gran)*gf-(h2>0.93?0.4*gf:0);cov=clamp(cov,0,1);
-          const pk=0.94+0.06*mott;R=R+(242*pk-R)*cov;G=G+(239*pk-G)*cov;B=B+(234*pk-B)*cov;}
-      }
-      // daylight: sky sheen toward the far end, gentle vignette
-      const far=clamp(1-Y/SH,0,1),vx=(X-800)/800;
-      let li=1.0+0.16*far*far-0.10*vx*vx-0.06*clamp((Y-520)/170,0,1);
-      R=R*li+18*far;G=G*li+16*far;B=B*li+18*far;
-      px[o]=R;px[o+1]=G;px[o+2]=B;px[o+3]=255;
+  var lanes = cfg.lanes.map(function (L, i) {
+    var o = Object.assign({}, L);
+    o.n = i + 1; o.target = L.target != null ? L.target : DEF_T;
+    o.col = L.color || COLORS[i % COLORS.length]; o.rgb = hex2rgb(o.col);
+    if (L.monthly && L.monthly.length) {
+      var last = L.monthly[L.monthly.length - 1] || 1;
+      o.pts = [0].concat(L.monthly.map(function (v) { return v * L.rate / last; }));
     }
-  }
-  sc.putImageData(img,0,0);
-  // depth of field: two blur levels by down/up scaling
-  function blurred(div){const s1=document.createElement('canvas');s1.width=Math.max(1,cw/div|0);s1.height=Math.max(1,sh/div|0);
-    const a=s1.getContext('2d');a.imageSmoothingQuality='high';a.drawImage(sharp,0,0,s1.width,s1.height);
-    const s2=document.createElement('canvas');s2.width=Math.max(1,s1.width/2|0);s2.height=Math.max(1,s1.height/2|0);
-    s2.getContext('2d').drawImage(s1,0,0,s2.width,s2.height);
-    const o=document.createElement('canvas');o.width=cw;o.height=sh;const oc=o.getContext('2d');oc.imageSmoothingQuality='high';oc.drawImage(s2,0,0,cw,sh);return o;}
-  const bA=blurred(3),bB=blurred(8);
-  const fy=proj(2.44,ZF).y*S;
-  function masked(src,stops){const m=document.createElement('canvas');m.width=cw;m.height=sh;const mc=m.getContext('2d');mc.drawImage(src,0,0);
-    mc.globalCompositeOperation='destination-in';const g=mc.createLinearGradient(0,0,0,sh);
-    stops.forEach(([y,al])=>g.addColorStop(clamp(y/sh,0,1),'rgba(0,0,0,'+al+')'));mc.fillStyle=g;mc.fillRect(0,0,cw,sh);return m;}
-  const out=document.createElement('canvas');out.width=cw;out.height=sh;const oc=out.getContext('2d');
-  oc.drawImage(bB,0,0);
-  oc.drawImage(masked(bA,[[0,0],[fy-230*S,0],[fy-120*S,1],[sh-80*S,1],[sh,0.5]]),0,0);
-  oc.drawImage(masked(sharp,[[0,0],[fy-170*S,0],[fy-80*S,1],[fy+170*S,1],[sh-60*S,0.15],[sh,0]]),0,0);
-  // film grain
-  const n=document.createElement('canvas');n.width=n.height=256;const nc=n.getContext('2d'),nd=nc.createImageData(256,256);
-  for(let i=0;i<nd.data.length;i+=4){const v=Math.random()*255;nd.data[i]=nd.data[i+1]=nd.data[i+2]=v;nd.data[i+3]=255;}
-  nc.putImageData(nd,0,0);oc.globalAlpha=0.09;oc.globalCompositeOperation='overlay';oc.fillStyle=oc.createPattern(n,'repeat');oc.fillRect(0,0,cw,sh);
-  oc.globalAlpha=1;oc.globalCompositeOperation='source-over';
-  return out;
-}
-
-function renderStripBg(){
-  const cw=cv.width,c=document.createElement('canvas');c.width=cw;c.height=Math.round((H-SH)*S)+1;const g=c.getContext('2d');
-  g.setTransform(S,0,0,S,0,-SH*S);
-  g.fillStyle='#0F1828';g.fillRect(0,SH,W,H-SH);
-  // header
-  g.fillStyle='#E9ECF2';g.font='700 15px "Saira Semi Condensed","Arial Narrow",sans-serif';g.textBaseline='middle';
-  if(g.letterSpacing!==undefined)g.letterSpacing='3px';g.fillText('PHOTO FINISH',SX0,SH+15);if(g.letterSpacing!==undefined)g.letterSpacing='0px';
-  g.fillStyle='#9AA4B8';g.font='600 13px "Gothic A1",sans-serif';g.fillText('결승선 라인스캔 · 가로축 = 시간(초) · 도착 시각은 달라도 모두 기록',SX0+150,SH+15);
-  g.textAlign='right';g.fillText('1/1000초 판정',W-14,SH+15);g.textAlign='left';
-  // scan image background: static scene becomes horizontal streaks
-  const ih=ROWH*4;
-  for(let y=0;y<ih;y++){const row=y%ROWH;const base=0.80+0.30*hash(y,11)+0.1*Math.sin(y*0.7);
-    let R=150*base,G=66*base,B=50*base;
-    if(row<3){const w=row===1?1:0.55;R=R+(232-R)*w;G=G+(228-G)*w;B=B+(222-B)*w;}
-    g.fillStyle='rgb('+(R|0)+','+(G|0)+','+(B|0)+')';g.fillRect(SX0,SY0+y,SX1-SX0+12,1);}
-  g.fillStyle='rgba(232,228,222,.85)';g.fillRect(SX0,SY0+ih,SX1-SX0+12,2);
-  // time ticks
-  const ty=SY0+ih+4;
-  for(let tt=Math.ceil(T0*10)/10;tt<=T1+1e-6;tt+=0.1){const x=tx(tt),whole=Math.abs(tt-Math.round(tt))<1e-6;
-    g.fillStyle=whole?'#C9D0DC':'#5A6680';g.fillRect(x,ty,1,whole?9:4);
-    if(whole){g.fillStyle='#C9D0DC';g.font='600 12px "Saira Semi Condensed","Arial Narrow",sans-serif';g.textAlign='center';g.fillText(String(Math.round(tt)),x,ty+18);}}
-  g.textAlign='left';
-  // lane labels
-  LANES.forEach((L,i)=>{const y=SY0+i*ROWH;g.fillStyle=L.col;g.fillRect(14,y+9,20,20);
-    g.fillStyle='#0E1626';g.font='700 15px "Saira Semi Condensed",sans-serif';g.textAlign='center';g.fillText(String(L.n),24,y+20);
-    g.textAlign='left';g.fillStyle='#C9D0DC';g.font='600 11.5px "Gothic A1",sans-serif';g.fillText(L.path.length>4?L.path.slice(0,3):L.path,40,y+20);});
-  return c;
-}
-
-function drawLights(){
-  ctx.save();ctx.beginPath();ctx.rect(0,0,W,SH);ctx.clip();
-  ctx.globalCompositeOperation='lighter';
-  const focusD=proj(2.44,ZF).d;
-  LANES.forEach((L,i)=>{
-    const lx=(i+0.5)*LW,zh=zAt(L,t),v=vAt(L,t),[cr,cg,cb]=L.rgb;
-    const trail=Math.min(zh-ZS+0.02,0.62*Math.min(1.6,v/VMEAN)+0.05);
-    const N=48;
-    // floor bloom / reflection under the head
-    const hp=proj(lx,zh);if(hp.d<0.2)return;
-    const sc=cam.F/hp.d,blurA=clamp(Math.abs(hp.d-focusD)/focusD*1.3,0,1.4);
-    ctx.save();ctx.translate(hp.x,hp.y);ctx.scale(1,0.42);
-    let g=ctx.createRadialGradient(0,0,0,0,0,sc*0.75*(1+blurA*0.5));
-    g.addColorStop(0,'rgba('+cr+','+cg+','+cb+',0.42)');g.addColorStop(0.4,'rgba('+cr+','+cg+','+cb+',0.14)');g.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,sc*0.75*(1+blurA*0.5),0,7);ctx.fill();ctx.restore();
-    // trail (motion blur + afterglow)
-    for(let k=N;k>=1;k--){const s=k/N,z=zh-trail*s;if(z<ZS-0.01)continue;const p=proj(lx,z);if(p.d<0.2)continue;
-      const scl=cam.F/p.d,bl=clamp(Math.abs(p.d-focusD)/focusD*1.3,0,1.4);
-      const rad=scl*0.10*(1+bl*1.6),al=0.26*Math.pow(1-s,1.6)/(1+bl);
-      ctx.save();ctx.translate(p.x,p.y);ctx.scale(1,0.55);
-      const gg=ctx.createRadialGradient(0,0,0,0,0,rad);gg.addColorStop(0,'rgba('+cr+','+cg+','+cb+','+al+')');gg.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
-      ctx.fillStyle=gg;ctx.beginPath();ctx.arc(0,0,rad,0,7);ctx.fill();ctx.restore();}
-    // LED pips at the head
-    for(let k=0;k<7;k++){const z=zh-k*0.055;if(z<ZS-0.01)break;const p=proj(lx+(k%2?0.004:-0.004)*0,z);
-      const scl=cam.F/p.d,bl=clamp(Math.abs(p.d-focusD)/focusD*1.3,0,1.4),fade=1-k/8;
-      const rad=scl*0.042*(1+bl*1.8);
-      ctx.save();ctx.translate(p.x,p.y);ctx.scale(1,0.6);
-      const gg=ctx.createRadialGradient(0,0,0,0,0,rad*3.2);
-      gg.addColorStop(0,'rgba(255,255,255,'+(0.95*fade/(1+bl))+')');gg.addColorStop(0.18,'rgba('+cr+','+cg+','+cb+','+(0.85*fade/(1+bl))+')');
-      gg.addColorStop(0.45,'rgba('+cr+','+cg+','+cb+','+(0.22*fade/(1+bl))+')');gg.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
-      ctx.fillStyle=gg;ctx.beginPath();ctx.arc(0,0,rad*3.2,0,7);ctx.fill();ctx.restore();}
-    // light spill on the lane lines either side
-    [i*LW,(i+1)*LW].forEach(ex=>{const p=proj(ex,zh);const scl=cam.F/p.d;ctx.save();ctx.translate(p.x,p.y);ctx.scale(1,0.4);
-      const gg=ctx.createRadialGradient(0,0,0,0,0,scl*0.22);gg.addColorStop(0,'rgba('+cr+','+cg+','+cb+',0.22)');gg.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
-      ctx.fillStyle=gg;ctx.beginPath();ctx.arc(0,0,scl*0.22,0,7);ctx.fill();ctx.restore();});
+    return o;
   });
-  ctx.restore();
-  // broadcast lane tags just past the finish line (only once a lane has finished)
-  ctx.save();ctx.font='700 13px "Saira Semi Condensed","Arial Narrow",sans-serif';ctx.textBaseline='middle';
-  LANES.forEach((L,i)=>{if(t<L.A)return;const p=proj((i+0.5)*LW,ZF);const txt=L.A.toFixed(3);const w=ctx.measureText(txt).width+26;
-    const x=p.x-w/2,y=p.y-46;ctx.fillStyle='rgba(14,22,38,.86)';ctx.fillRect(x,y,w,22);ctx.fillStyle=L.col;ctx.fillRect(x,y,5,22);
-    ctx.fillStyle='#fff';ctx.textAlign='left';ctx.fillText(txt,x+14,y+11.5);});
-  ctx.restore();
+  var N = lanes.length;
+  function pos(L, t) {
+    t = clamp(t, 0, M);
+    if (!L.pts) return L.rate * t / M;
+    var k = t / M * (L.pts.length - 1), i = Math.min(L.pts.length - 2, Math.floor(k)), f = k - i;
+    return L.pts[i] + (L.pts[i + 1] - L.pts[i]) * f;
+  }
+  lanes.forEach(function (L) {
+    L.cross = null;
+    for (var s = 1, SN = 2000; s <= SN; s++) {
+      var t = M * s / SN, p = pos(L, t);
+      if (p >= L.target) { var p0 = pos(L, M * (s - 1) / SN); L.cross = M * (s - 1) / SN + M / SN * (L.target - p0) / Math.max(1e-9, p - p0); break; }
+    }
+  });
+  var fins = lanes.filter(function (L) { return L.cross != null; }).sort(function (a, b) { return a.cross - b.cross; });
+  var shorts = lanes.filter(function (L) { return L.cross == null; }).sort(function (a, b) { return b.rate - a.rate; });
+  fins.forEach(function (L, i) { L.rank = i + 1; });
+  var steps = [0].concat(fins.map(function (L) { return L.cross; })).concat([M]);
+  var D0 = new Date(YEAR, 0, 1).getTime(), D1 = new Date(YEAR, M, 1).getTime();
+  function dateAt(t) { return new Date(D0 + (D1 - D0) * Math.min(t, M - 1e-7) / M); }
+  function md(t) { var d = dateAt(t); return (d.getMonth() + 1) + '.' + String(d.getDate()).padStart(2, '0'); }
+  function mdKo(t) { var d = dateAt(t); return (d.getMonth() + 1) + '월 ' + d.getDate() + '일'; }
+  function ymd(t) { var d = dateAt(t); return d.getFullYear() + '.' + String(d.getMonth() + 1).padStart(2, '0') + '.' + String(d.getDate()).padStart(2, '0'); }
+  var uniT = lanes.every(function (L) { return L.target === lanes[0].target; }) ? lanes[0].target : null;
+
+  // ---------- DOM ----------
+  root.classList.add('race');
+  var title = [].concat(cfg.title || []);
+  root.innerHTML =
+    '<div class="race-slide"><div class="race-stage">' +
+      '<div class="race-top">' +
+        '<div class="race-title">' +
+          '<p class="race-eb">' + esc(cfg.eyebrow || '') + '</p>' +
+          '<h2 class="race-h">' + title.map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '</h2>' +
+          '<p class="race-meta">' + (cfg.meta || []).map(function (s) { return '<span>' + esc(s) + '</span>'; }).join('') + '<span class="race-fake">가상 예시</span></p>' +
+        '</div>' +
+        '<div class="race-board" role="region" aria-label="집행 레이스 기록판">' +
+          '<div class="race-bh"><span>집행 레이스 기록판</span><b class="race-clock"></b></div>' +
+          '<div class="race-cols"><span>순위</span><span>세부 사업</span><span>통과</span><span>집행률</span></div>' +
+          '<div class="race-rows" style="--n:' + N + '"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="race-track"><canvas role="img" aria-label="옆에서 본 트랙. 레인마다 빛이 왼쪽 출발선에서 오른쪽 결승선(목표 집행률)으로 달린다."></canvas></div>' +
+    '</div></div>' +
+    '<div class="race-ctrl"><button type="button" data-a="replay">↺ 다시 보기</button><button type="button" data-a="step">한 단계씩 ▸</button><span class="race-stat" aria-live="polite"></span></div>';
+  var slide = root.querySelector('.race-slide'), cv = root.querySelector('canvas'), ctx = cv.getContext('2d');
+  var rowsEl = root.querySelector('.race-rows'), clockEl = root.querySelector('.race-clock'), statEl = root.querySelector('.race-stat');
+  for (var r = 0; r < N; r++) { var d = document.createElement('div'); d.className = 'race-row wait'; rowsEl.appendChild(d); }
+
+  // lane bands (slightly wider toward the viewer)
+  var yb = [TOP], wsum = 0, ws = [];
+  for (var i = 0; i < N; i++) { ws.push(1 + 0.06 * i); wsum += ws[i]; }
+  for (i = 0; i < N; i++) yb.push(yb[i] + (H - BOT - TOP) * ws[i] / wsum);
+
+  // ---------- noise ----------
+  function hash(a, b) { var h = (Math.imul(a, 374761393) + Math.imul(b, 668265263)) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+  function vnoise(x, y) {
+    var i = Math.floor(x), j = Math.floor(y), fx = x - i, fy = y - j, sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+    var a = hash(i, j), b = hash(i + 1, j), c = hash(i, j + 1), e = hash(i + 1, j + 1);
+    return a + (b - a) * sx + (c - a) * sy + (a - b - c + e) * sx * sy;
+  }
+
+  var S = 1, TS = 1, bg = null, glyph = null, hatch = null;
+  function makeGlyphs() {
+    var gw = 100, gh = 150, c = document.createElement('canvas'); c.width = gw * N; c.height = gh;
+    var g = c.getContext('2d'); g.fillStyle = '#fff'; g.textAlign = 'center';
+    g.font = '700 168px "Saira Semi Condensed","Arial Narrow",sans-serif';
+    for (var k = 0; k < N; k++) { g.save(); g.translate(gw * k + gw / 2, 0); g.scale(0.8, 1); g.fillText(String(k + 1), 0, gh - 8); g.restore(); }
+    return { gw: gw, gh: gh, w: c.width, data: g.getImageData(0, 0, c.width, gh).data };
+  }
+
+  function renderBg() {
+    var cw = cv.width, ch = cv.height, out = document.createElement('canvas'); out.width = cw; out.height = ch;
+    var oc = out.getContext('2d'), img = oc.createImageData(cw, ch), px = img.data;
+    var gs = 2.2, gf = clamp(gs * S / 1.3, 0, 1), XF = lanes.map(function (L) { return XP(L.target); }), TK = [25, 50, 100].map(XP);
+    for (var py = 0; py < ch; py++) {
+      var Y = (py + 0.5) / S, li = -1, yT = 0, yB = 0, h = 1, dB = 0, reg;
+      if (Y < KERB) reg = 0; else if (Y < TOP) reg = 1; else if (Y < H - BOT) {
+        reg = 2; li = 0; while (li < N - 1 && Y >= yb[li + 1]) li++;
+        yT = yb[li]; yB = yb[li + 1]; h = yB - yT; dB = Math.min(Y - yT, yB - Y);
+      } else reg = 3;
+      for (var pxi = 0; pxi < cw; pxi++) {
+        var X = (pxi + 0.5) / S, o = (py * cw + pxi) * 4, R, G, B;
+        if (reg === 0) { var tn = vnoise(X / 2.5, Y / 2.5) * 0.6 + vnoise(X / 40, Y / 12) * 0.4; R = 92 + 40 * tn; G = 150 + 42 * tn; B = 84 + 22 * tn; }
+        else if (reg === 1) { var sh = 0.86 + 0.14 * Math.sin((Y - KERB) / (TOP - KERB) * Math.PI); R = 212 * sh; G = 218 * sh; B = 226 * sh; }
+        else if (reg === 3) { R = 18; G = 32; B = 58; }
+        else {
+          var gi = Math.floor(X / gs), gj = Math.floor(Y / gs), h1 = hash(gi, gj), h2 = hash(gi + 7, gj - 3);
+          var mott = vnoise(X / 26, Y / 26) - 0.5, wear = vnoise(X / 260 + 20, Y / 70) - 0.5;
+          var lc = Math.abs((Y - yT) / h - 0.5); // runners' wear along lane middle
+          var k = 1 + 0.09 * mott + 0.07 * wear + 0.035 * clamp(1 - lc * 3, 0, 1);
+          var gran = (h1 - 0.5) * 0.16; if (h2 > 0.92) gran -= 0.16; if (h2 < 0.04) gran += 0.12;
+          k += gran * gf;
+          R = 52 * k; G = 108 * k; B = 178 * k;
+          var jit = (vnoise(X / 3, Y / 40) - 0.5) * 0.8, cov = 0, covY = 0;
+          cov = Math.max(cov, clamp((2.1 + jit * 0.3 - dB) * S + 0.5, 0, 1));
+          cov = Math.max(cov, clamp((3 + jit * 0.3 - Math.abs(X - X0)) * S + 0.5, 0, 1));
+          cov = Math.max(cov, clamp((3 + jit * 0.3 - Math.abs(X - XF[li])) * S + 0.5, 0, 1));
+          if (dB < 0.15 * h) for (var q = 0; q < 3; q++) covY = Math.max(covY, clamp((2.6 - Math.abs(X - TK[q])) * S + 0.5, 0, 1));
+          if (glyph && X > 30 && X < 160) {
+            var gh2 = 0.6 * h, gw2 = gh2 * glyph.gw / glyph.gh, uu = (X - 92) / gw2 + 0.5, vv = (Y - (yT + h / 2 - gh2 / 2)) / gh2;
+            if (uu > 0 && uu < 1 && vv > 0 && vv < 1) cov = Math.max(cov, glyph.data[(Math.floor(vv * glyph.gh) * glyph.w + Math.floor(uu * glyph.gw) + li * glyph.gw) * 4 + 3] / 255 * 0.95);
+          }
+          var poke = 1 - 0.35 * Math.max(0, gran) * gf - (h2 > 0.93 ? 0.45 * gf : 0);
+          if (cov > 0) { cov = clamp(cov * poke, 0, 1); var pk = 0.95 + 0.05 * mott; R += (244 * pk - R) * cov; G += (246 * pk - G) * cov; B += (248 * pk - B) * cov; }
+          if (covY > 0) { covY = clamp(covY * poke, 0, 1); R += (244 - R) * covY; G += (204 - G) * covY; B += (62 - B) * covY; }
+        }
+        if (reg !== 3) { var vx = (X - 800) / 800, lit = 1 + 0.09 * (1 - Y / H) - 0.07 * vx * vx; R *= lit; G *= lit; B *= lit; }
+        px[o] = R; px[o + 1] = G; px[o + 2] = B; px[o + 3] = 255;
+      }
+    }
+    oc.putImageData(img, 0, 0);
+    // film grain
+    var n = document.createElement('canvas'); n.width = n.height = 256; var nc = n.getContext('2d'), nd = nc.createImageData(256, 256);
+    for (var z = 0; z < nd.data.length; z += 4) { var v = Math.random() * 255; nd.data[z] = nd.data[z + 1] = nd.data[z + 2] = v; nd.data[z + 3] = 255; }
+    nc.putImageData(nd, 0, 0);
+    oc.save(); oc.beginPath(); oc.rect(0, 0, cw, (H - BOT) * S); oc.clip();
+    oc.globalAlpha = 0.07; oc.globalCompositeOperation = 'overlay'; oc.fillStyle = oc.createPattern(n, 'repeat'); oc.fillRect(0, 0, cw, ch); oc.restore();
+    // axis strip
+    oc.setTransform(S, 0, 0, S, 0, 0);
+    var fs = Math.min(15 * TS, 32), sy = H - BOT;
+    oc.fillStyle = 'rgba(244,246,248,.9)'; oc.fillRect(X0, sy, X1 - X0, 2);
+    for (var p = 0; p <= 100; p += 5) { var x = XP(p), major = p % 25 === 0; oc.fillStyle = major ? '#DDE3EE' : '#56627A'; oc.fillRect(x - 0.75, sy + 2, 1.5, major ? 10 : 5); }
+    oc.textBaseline = 'middle'; oc.textAlign = 'center';
+    [0, 25, 50, 75, 100].forEach(function (p) {
+      if (uniT != null && Math.abs(p - uniT) < 8) return;
+      oc.font = '600 ' + fs + 'px "Saira Semi Condensed","Arial Narrow",sans-serif'; oc.fillStyle = '#C9D2E2'; oc.fillText(p + '%', XP(p), sy + 12 + (BOT - 12) / 2);
+    });
+    if (uniT != null) {
+      var lab = '목표 ' + uniT + '%'; oc.font = '800 ' + fs + 'px "Gothic A1",sans-serif';
+      var lw = oc.measureText(lab).width + 16, lx = XP(uniT);
+      oc.fillStyle = '#F4F6F8'; oc.fillRect(lx - lw / 2, sy + 12 + (BOT - 12) / 2 - fs * 0.75, lw, fs * 1.5);
+      oc.fillStyle = '#12203A'; oc.fillText(lab, lx, sy + 12 + (BOT - 12) / 2 + 1);
+    }
+    oc.textAlign = 'left'; oc.font = '600 ' + Math.min(13 * TS, 26) + 'px "Gothic A1",sans-serif'; oc.fillStyle = '#8E9AB2';
+    oc.fillText('누계 집행률', 14, sy + 12 + (BOT - 12) / 2);
+    // business names on the lanes (desktop sizes only; the board carries them on phones)
+    if (TS < 1.5) {
+      lanes.forEach(function (L, i) {
+        oc.font = '600 ' + (15 * TS) + 'px "Gothic A1",sans-serif';
+        var tw = oc.measureText(L.name).width, y = yb[i] + 8;
+        oc.fillStyle = 'rgba(12,22,44,.58)'; rr(oc, X0 + 12, y, tw + 18, 15 * TS + 10, 3); oc.fill();
+        oc.fillStyle = '#F4F6F8'; oc.textBaseline = 'middle'; oc.fillText(L.name, X0 + 21, y + (15 * TS + 10) / 2 + 1);
+      });
+    }
+    return out;
+  }
+  function rr(c, x, y, w, h, r) { c.beginPath(); c.moveTo(x + r, y); c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r); c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r); c.closePath(); }
+  function makeHatch() {
+    var c = document.createElement('canvas'); c.width = c.height = 14; var g = c.getContext('2d');
+    g.fillStyle = 'rgba(229,72,58,.16)'; g.fillRect(0, 0, 14, 14);
+    g.strokeStyle = 'rgba(255,120,100,.85)'; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(-2, 16); g.lineTo(16, -2); g.moveTo(-2, 2); g.lineTo(2, -2); g.moveTo(12, 16); g.lineTo(16, 12); g.stroke();
+    return c;
+  }
+
+  // ---------- state ----------
+  var t = M, fin = 1, raf = 0, playing = false, lastSig = '';
+  var reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+
+  function chip(x, y, text, o) {
+    var fs = o.fs, padX = fs * 0.55, hh = fs * 1.6;
+    ctx.font = (o.weight || 700) + ' ' + fs + 'px ' + (o.font || '"Saira Semi Condensed","Arial Narrow",sans-serif');
+    var w = ctx.measureText(text).width + padX * 2 + (o.stripe ? fs * 0.35 : 0);
+    if (o.align === 'right') x -= w; if (o.align === 'center') x -= w / 2;
+    x = clamp(x, 4, W - 4 - w);
+    ctx.fillStyle = o.bg; rr(ctx, x, y - hh / 2, w, hh, fs * 0.22); ctx.fill();
+    if (o.stripe) { ctx.fillStyle = o.stripe; ctx.fillRect(x, y - hh / 2, fs * 0.3, hh); }
+    ctx.fillStyle = o.fg; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+    ctx.fillText(text, x + padX + (o.stripe ? fs * 0.35 : 0), y + fs * 0.05);
+    return w;
+  }
+
+  function drawLight(L, i) {
+    var yT = yb[i], h = yb[i + 1] - yT, yc = yT + h / 2, p = pos(L, t), xh = XP(p);
+    var v = Math.max(0, (pos(L, t + 0.05) - pos(L, t - 0.05)) / 0.1) * (t >= M ? 1 - fin : 1);
+    var c = L.rgb, A = function (a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; };
+    var len = Math.min(xh - X0 + 4, 14 + v * (X1 - X0) / 100 * 0.6);
+    ctx.save(); ctx.translate(xh, yc); ctx.scale(1, 0.5);
+    var g = ctx.createRadialGradient(0, 0, 0, 0, 0, h * 0.95);
+    g.addColorStop(0, A(0.5)); g.addColorStop(0.45, A(0.17)); g.addColorStop(1, A(0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, h * 0.95, 0, 7); ctx.fill(); ctx.restore();
+    [[0.42, 0.10], [0.22, 0.22], [0.10, 0.5]].forEach(function (s) {
+      var lg = ctx.createLinearGradient(xh - len * (1 + s[0]), 0, xh, 0);
+      lg.addColorStop(0, A(0)); lg.addColorStop(0.75, A(s[1] * 0.8)); lg.addColorStop(1, A(s[1]));
+      ctx.fillStyle = lg; ctx.fillRect(xh - len * (1 + s[0]), yc - h * s[0] / 2, len * (1 + s[0]), h * s[0]);
+    });
+    for (var k = 0; k < 9; k++) {
+      var x = xh - k * 9; if (x < X0 - 2) break;
+      var f = 1 - k / 9, rad = 8.5;
+      var gg = ctx.createRadialGradient(x, yc, 0, x, yc, rad);
+      gg.addColorStop(0, 'rgba(255,255,255,' + 0.95 * f + ')'); gg.addColorStop(0.35, A(0.85 * f)); gg.addColorStop(1, A(0));
+      ctx.fillStyle = gg; ctx.fillRect(x - rad, yc - rad, rad * 2, rad * 2);
+    }
+    [yT, yb[i + 1]].forEach(function (ey) {
+      ctx.save(); ctx.translate(xh, ey); ctx.scale(1, 0.35);
+      var sg = ctx.createRadialGradient(0, 0, 0, 0, 0, h * 0.5); sg.addColorStop(0, A(0.26)); sg.addColorStop(1, A(0));
+      ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(0, 0, h * 0.5, 0, 7); ctx.fill(); ctx.restore();
+    });
+  }
+
+  function frame() {
+    if (!bg) return;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(bg, 0, 0);
+    ctx.setTransform(S, 0, 0, S, 0, 0);
+    // shortfall bands (behind the lights)
+    if (t >= M && fin > 0) lanes.forEach(function (L, i) {
+      if (L.cross != null) return;
+      var yT = yb[i], h = yb[i + 1] - yT, x0 = XP(L.rate), x1 = XP(L.target), w = (x1 - x0) * Math.min(1, fin * 1.4);
+      ctx.save(); ctx.fillStyle = ctx.createPattern(hatch, 'repeat'); ctx.fillRect(x0, yT + h * 0.3, w, h * 0.4);
+      ctx.strokeStyle = 'rgba(255,140,124,.9)'; ctx.lineWidth = 1.5; ctx.setLineDash([6, 4]); ctx.strokeRect(x0, yT + h * 0.3, w, h * 0.4); ctx.restore();
+    });
+    ctx.save(); ctx.beginPath(); ctx.rect(X0 - 30, TOP, W, H - BOT - TOP); ctx.clip();
+    ctx.globalCompositeOperation = 'lighter';
+    lanes.forEach(drawLight);
+    // finish flash at the moment of crossing
+    lanes.forEach(function (L, i) {
+      if (L.cross == null) return; var dt = t - L.cross; if (dt < 0 || dt > 0.45) return;
+      var a = 1 - dt / 0.45, x = XP(L.target), yT = yb[i], h = yb[i + 1] - yT;
+      var g = ctx.createLinearGradient(x - 40, 0, x + 40, 0); g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, 'rgba(255,255,255,' + 0.8 * a + ')'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = g; ctx.fillRect(x - 40, yT, 80, h);
+    });
+    ctx.restore();
+    // tags
+    var fs = 16 * Math.min(TS, 2.1);
+    lanes.forEach(function (L, i) {
+      var yT = yb[i], h = yb[i + 1] - yT, yc = yT + h / 2, p = pos(L, t), xh = XP(p);
+      if (L.cross != null && t >= L.cross && TS < 1.5)
+        chip(XP(L.target) + 7, yb[i + 1] - 8 - fs * 0.6, md(L.cross) + ' 통과', { fs: fs * 0.82, bg: 'rgba(12,22,44,.85)', fg: '#E6EBF3', weight: 600, font: '"Gothic A1",sans-serif' });
+      if (L.cross == null && t >= M && fin > 0) {
+        ctx.globalAlpha = Math.min(1, fin * 1.4);
+        chip((XP(L.rate) + XP(L.target)) / 2, yT + h * 0.3 - fs * 0.95, '−' + (L.target - L.rate).toFixed(1) + '%p', { fs: fs * 0.9, bg: '#E5483A', fg: '#fff', align: 'center' });
+        ctx.globalAlpha = 1;
+        chip(xh - 14, yc, '미달 ' + p.toFixed(1) + '%', { fs: fs, bg: '#FFFFFF', fg: '#C83C2E', stripe: '#E5483A', weight: 800, font: '"Gothic A1",sans-serif', align: 'right' });
+      } else if (L.cross != null && t >= L.cross) {
+        var txt = L.rank + '위 ' + p.toFixed(1) + '%';
+        ctx.font = '700 ' + fs + 'px "Saira Semi Condensed",sans-serif';
+        var room = W - 6 - (xh + 16) > ctx.measureText(txt).width + fs * 1.6;
+        chip(room ? xh + 16 : xh - 16, yc, txt, { fs: fs, bg: '#FFFFFF', fg: '#101A2E', stripe: L.col, align: room ? 'left' : 'right' });
+      } else {
+        chip(xh + 16, yc, p.toFixed(1) + '%', { fs: fs, bg: 'rgba(12,22,44,.82)', fg: '#FFFFFF', stripe: L.col });
+      }
+    });
+    board();
+  }
+
+  function entries() {
+    var list = fins.filter(function (L) { return t >= L.cross; }).map(function (L) { return { L: L, kind: 'fin' }; });
+    if (t >= M && fin > 0) shorts.forEach(function (L) { list.push({ L: L, kind: 'short' }); });
+    return list;
+  }
+  function board() {
+    clockEl.textContent = ymd(t);
+    var list = entries(), sig = list.map(function (e) { return e.L.n; }).join(',');
+    var rows = rowsEl.children, changed = sig !== lastSig, prevN = lastSig && lastSig !== 'x' ? lastSig.split(',').length : 0;
+    for (var k = 0; k < N; k++) {
+      var row = rows[k], e = list[k];
+      if (changed) {
+        if (!e) { row.className = 'race-row wait'; row.innerHTML = '<span class="race-rk">—</span><span class="race-nm"><i>' + (k + 1) + '</i><b>결승선 대기</b></span><span class="race-dt"></span><span class="race-rt"></span>'; }
+        else {
+          var L = e.L, isS = e.kind === 'short';
+          row.className = 'race-row ' + (isS ? 'short' : 'done') + (k >= prevN && playing ? ' in' : '');
+          row.innerHTML = '<span class="race-rk">' + (isS ? '<span>미달</span>' : L.rank + '<small>위</small>') + '</span>' +
+            '<span class="race-nm"><i style="background:' + L.col + '">' + L.n + '</i><b>' + esc(L.name) + '</b></span>' +
+            '<span class="race-dt">' + (isS ? '−' + (L.target - L.rate).toFixed(1) + '%p' : '<em>' + md(L.cross) + '</em>통과') + '</span><span class="race-rt"></span>';
+        }
+      }
+      if (e) row.lastElementChild.textContent = pos(e.L, t).toFixed(1) + '%';
+    }
+    lastSig = sig;
+    if (cfg.onUpdate) cfg.onUpdate({ t: t, done: t >= M && fin > 0, lanes: lanes, list: list.map(function (e) { return { lane: e.L, kind: e.kind, rate: pos(e.L, t) }; }) });
+  }
+
+  function say(s) { statEl.textContent = s; }
+  function describe() {
+    if (t <= 0) return '출발 · 1월 1일, ' + N + '개 사업이 같은 선에서 출발';
+    if (t >= M) return '완료 · ' + mdKo(M) + ' 기준, ' + fins.length + '개 사업 목표 도달' + (shorts.length ? ', 미달 ' + shorts.length + '개 사업' : '');
+    var last = fins.filter(function (L) { return L.cross <= t + 1e-6; }).pop();
+    return last ? last.rank + '위 통과 · ' + last.name + ', ' + mdKo(last.cross) : '진행 중 · ' + mdKo(t);
+  }
+  function stop() { playing = false; cancelAnimationFrame(raf); }
+  function finish() {
+    if (reduce.matches) { fin = 1; frame(); say(describe()); return; }
+    var s0 = performance.now(); playing = true;
+    (function tick(now) { fin = clamp((now - s0) / 650, 0, 1); frame(); if (fin < 1 && playing) raf = requestAnimationFrame(tick); else { playing = false; say(describe()); } })(s0);
+  }
+  function runTo(to, dur) {
+    stop(); var from = t, s0 = performance.now(); playing = true; fin = 0;
+    var seen = fins.filter(function (L) { return L.cross <= from + 1e-6; }).length;
+    (function tick(now) {
+      var k = clamp((now - s0) / dur, 0, 1); t = from + (to - from) * k; frame();
+      var c = fins.filter(function (L) { return L.cross <= t + 1e-6; }).length;
+      if (c > seen) { seen = c; say(describe()); }
+      if (k < 1 && playing) raf = requestAnimationFrame(tick);
+      else { playing = false; if (to >= M) finish(); else say(describe()); }
+    })(s0);
+  }
+  function replay() {
+    stop(); t = 0; fin = 0; lastSig = 'x'; frame();
+    if (reduce.matches) { t = M; fin = 1; frame(); say(describe() + ' (움직임 줄이기 설정: 바로 표시)'); return; }
+    say(describe()); runTo(M, M * 1000);
+  }
+  function step() {
+    stop();
+    if (t >= M) { t = 0; fin = 0; frame(); say(describe()); return; }
+    var next = steps.filter(function (s) { return s > t + 1e-6; })[0]; if (next == null) next = M;
+    if (reduce.matches) { t = next; fin = next >= M ? 1 : 0; frame(); say(describe()); return; }
+    runTo(next, Math.min(2600, (next - t) * 650 + 350));
+  }
+  root.querySelector('[data-a="replay"]').addEventListener('click', replay);
+  root.querySelector('[data-a="step"]').addEventListener('click', step);
+
+  function build() {
+    var w = slide.clientWidth; if (!w) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), cw = Math.min(2400, Math.round(w * dpr));
+    cv.width = cw; cv.height = Math.round(cw * H / W); S = cw / W;
+    TS = clamp(0.62 / (w / W), 1, 2.4);
+    if (!glyph) glyph = makeGlyphs(); if (!hatch) hatch = makeHatch();
+    bg = renderBg(); lastSig = 'x'; frame();
+  }
+  var rT = 0, lastW = 0;
+  new ResizeObserver(function () { clearTimeout(rT); rT = setTimeout(function () { var w = slide.clientWidth; if (Math.abs(w - lastW) > 24) { lastW = w; build(); } }, 160); }).observe(slide);
+
+  var fontsReady = document.fonts && document.fonts.load ? Promise.all([document.fonts.load('700 40px "Saira Semi Condensed"'), document.fonts.load('600 15px "Gothic A1"'), document.fonts.load('800 15px "Gothic A1"')]).catch(function () {}) : Promise.resolve();
+  Promise.race([fontsReady, new Promise(function (res) { setTimeout(res, 1500); })]).then(function () {
+    lastW = slide.clientWidth; build(); say(describe());
+    if (!reduce.matches && cfg.autoplay !== false) setTimeout(replay, 1400);
+  });
+  return { replay: replay, step: step };
 }
+</script>
 
-function drawStrip(){
-  ctx.drawImage(stripBg,0,SH,stripBg.width/S,stripBg.height/S);
-  const xc=tx(clamp(t,T0,T1));
-  ctx.save();ctx.beginPath();ctx.rect(SX0,SY0,Math.max(0,xc-SX0),ROWH*4);ctx.clip();
-  ctx.globalCompositeOperation='lighter';
-  LANES.forEach((L,i)=>{const x=tx(L.A),y=SY0+i*ROWH+ROWH/2,[cr,cg,cb]=L.rgb,len=tx(L.A+0.85)-x;
-    ctx.save();ctx.shadowColor=L.col;ctx.shadowBlur=14;
-    const g=ctx.createLinearGradient(x,0,x+len,0);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(0.03,'rgba('+cr+','+cg+','+cb+',1)');
-    g.addColorStop(0.4,'rgba('+cr+','+cg+','+cb+',.45)');g.addColorStop(1,'rgba('+cr+','+cg+','+cb+',0)');
-    ctx.fillStyle=g;ctx.fillRect(x,y-8,len,16);ctx.restore();
-    for(let k=0;k<7;k++){const px=x+k*7.5;ctx.fillStyle='rgba(255,255,255,'+(0.75*(1-k/7))+')';ctx.fillRect(px,y-5,2.4,10);}
-    ctx.fillStyle='rgba('+cr+','+cg+','+cb+',.55)';ctx.fillRect(x,SY0+i*ROWH+3,1,ROWH-3);});
-  ctx.restore();
-  // time tags
-  ctx.save();ctx.font='700 13px "Saira Semi Condensed","Arial Narrow",sans-serif';ctx.textBaseline='middle';
-  LANES.forEach((L,i)=>{if(t<L.A)return;const x=tx(L.A),y=SY0+i*ROWH+ROWH/2;const txt=L.n+'  '+L.A.toFixed(3);const w=ctx.measureText(txt).width+16;
-    ctx.fillStyle='rgba(12,18,32,.88)';ctx.fillRect(x-w-8,y-11,w,22);ctx.fillStyle=L.col;ctx.fillRect(x-10,y-11,2,22);
-    ctx.fillStyle='#fff';ctx.textAlign='left';ctx.fillText(txt,x-w,y+0.5);
-    ctx.fillStyle=L.col;ctx.beginPath();ctx.moveTo(x-4,SY0+ROWH*4+2);ctx.lineTo(x+4,SY0+ROWH*4+2);ctx.lineTo(x,SY0+ROWH*4+8);ctx.fill();});
-  ctx.restore();
-  // pending part of the scan and cursor
-  if(t<T1-0.3){ctx.fillStyle='rgba(15,24,40,.72)';ctx.fillRect(Math.max(SX0,xc),SY0,SX1+12-Math.max(SX0,xc),ROWH*4);
-    if(t>=T0){ctx.fillStyle='#fff';ctx.fillRect(xc-1,SY0-3,2,ROWH*4+6);}}
-}
+<script id="race-data">
+const SLIDE = {
+  eyebrow: '○○교육청 · 2027 장애학생 진로·직업교육 내실화 계획(안) · Ⅲ-2. 세부 사업별 예산 집행',
+  title: ['집행 속도는 사업마다 다르다', '하위 2개 사업, 4분기 집중 관리'],
+  meta: ['2027. 9. 30. 기준', '3분기 목표 집행률 75%', '세부 사업 5개'],
+  year: 2027, months: 9, target: 75
+};
+// 레인 = 세부 사업(위에서부터 1, 2, 3…). 이 배열만 바꾸면 됩니다.
+// rate: 9월 말 누계 집행률(%) · target: 결승선(%), 생략하면 SLIDE.target
+// monthly(선택): 1월~9월 말 누계 집행률. 없으면 일정한 속도로 달립니다.
+const LANES = [
+  { name: '진로상담 인력',   rate: 41.9, monthly: [0, 2, 5, 9, 14, 20, 27, 34, 41.9] },
+  { name: '현장실습 지원',   rate: 91.9, monthly: [4, 12, 22, 35, 48, 60, 72, 83, 91.9] },
+  { name: '전공과 운영',     rate: 60.0, monthly: [5, 11, 18, 25, 32, 39, 46, 53, 60] },
+  { name: '통합고용 연계',   rate: 79.0, monthly: [2, 6, 12, 20, 30, 42, 55, 68, 79] },
+  { name: '직업훈련 기자재', rate: 84.0, monthly: [0, 1, 3, 5, 8, 40, 58, 72, 84] }
+];
+</script>
 
-function frame(){
-  if(!bg)return;
-  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);
-  ctx.drawImage(bg,0,0);
-  ctx.setTransform(S,0,0,S,0,0);
-  drawLights();drawStrip();
-  document.getElementById('clock').textContent=t.toFixed(2);
-  LANES.forEach((L,i)=>{const tr=rowsEl.children[i],done=t>=L.A;tr.classList.toggle('done',done);tr.lastElementChild.textContent=done?L.A.toFixed(3):'—';});
-}
+<script>
+(function () {
+  var listEl = document.getElementById('readoutList');
+  function readout(s) {
+    var rows = s.list.map(function (e) {
+      var L = e.lane, isS = e.kind === 'short';
+      return '<li class="' + (isS ? 'short' : '') + '"><span class="r">' + (isS ? '미달' : L.rank + '위') + '</span><span class="n"><i style="background:' + L.col + '">' + L.n + '</i><span>' + L.name + '</span></span><span class="v">' + e.rate.toFixed(1) + '%</span></li>';
+    });
+    for (var k = s.list.length; k < s.lanes.length; k++) rows.push('<li class="wait"><span class="r">—</span><span class="n"><span>결승선 대기</span></span><span class="v"></span></li>');
+    listEl.innerHTML = rows.join('');
+  }
+  mountRace(document.getElementById('race'), Object.assign({}, SLIDE, { lanes: LANES, onUpdate: readout }));
 
-const rowsEl=document.getElementById('rows');
-rowsEl.innerHTML=LANES.map(L=>'<tr><td class="ln"><i style="background:'+L.col+'">'+L.n+'</i></td><td>'+L.path+'</td><td class="pc">'+L.A.toFixed(2)+'</td><td class="fx">—</td></tr>').join('');
-
-let rTimer=0;
-function build(){
-  const w=cover.clientWidth;if(!w)return;
-  const dpr=Math.min(window.devicePixelRatio||1,2);
-  const cw=Math.min(2200,Math.round(w*dpr));
-  cv.width=cw;cv.height=Math.round(cw*9/16);S=cw/W;
-  glyph=makeGlyphs();bg=renderScene();stripBg=renderStripBg();frame();
-}
-const ro=new ResizeObserver(()=>{clearTimeout(rTimer);rTimer=setTimeout(()=>{if(!bg||Math.abs(cover.clientWidth*Math.min(devicePixelRatio||1,2)-cv.width)>40)build();},180);});
-ro.observe(cover);
-
-const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
-const stepBtns=[...document.querySelectorAll('[data-step]')],stat=document.getElementById('stat'),playBtn=document.getElementById('play');
-function setStatus(txt){stat.innerHTML='<kbd>←</kbd> <kbd>→</kbd> 단계 이동 · '+txt;}
-function mark(){stepBtns.forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.step===step)));}
-function stop(){playing=false;cancelAnimationFrame(raf);playBtn.textContent='▶ 출발부터 재생';}
-function goStep(n,animate){stop();const from=t;step=clamp(n,0,3);const to=STEPS[step];mark();setStatus(STEPNAME[step]);
-  if(!animate||reduce.matches||to<=from){t=to;frame();return;}
-  const dur=Math.min(3200,(to-from)/TEND*7000+300),t0=performance.now();playing=true;
-  const tick=now=>{const k=clamp((now-t0)/dur,0,1);t=from+(to-from)*k;frame();if(k<1&&playing)raf=requestAnimationFrame(tick);else playing=false;};raf=requestAnimationFrame(tick);}
-function play(){if(playing){stop();return;}
-  if(reduce.matches){step=3;t=TEND;mark();setStatus('판정 완료 (움직임 줄이기 설정: 바로 표시)');frame();return;}
-  t=0;step=0;mark();frame();playing=true;playBtn.textContent='❚❚ 멈춤';const t0=performance.now(),dur=8000;
-  const tick=now=>{if(!playing)return;const k=clamp((now-t0)/dur,0,1);t=TEND*k;
-    const s=t>=TEND-1e-6?3:t>=STEPS[2]?2:t>=STEPS[1]?1:0;if(s!==step){step=s;mark();setStatus(STEPNAME[s]);}
-    frame();if(k<1)raf=requestAnimationFrame(tick);else stop();};raf=requestAnimationFrame(tick);}
-playBtn.addEventListener('click',play);
-stepBtns.forEach(b=>b.addEventListener('click',()=>goStep(+b.dataset.step,true)));
-document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea,select'))return;
-  if(e.key==='ArrowRight'){e.preventDefault();goStep(step+1,true);}else if(e.key==='ArrowLeft'){e.preventDefault();goStep(step-1,true);}});
-
-const fontsReady=document.fonts&&document.fonts.load?Promise.all([document.fonts.load('700 40px "Saira Semi Condensed"'),document.fonts.load('600 13px "Gothic A1"')]).catch(()=>{}):Promise.resolve();
-Promise.race([fontsReady,new Promise(r=>setTimeout(r,1500))]).then(build);
+  // self-contained snippet = the exact CSS + engine + data running above
+  var css = document.getElementById('race-css').textContent.trim();
+  var js = document.getElementById('race-js').textContent.trim();
+  var data = document.getElementById('race-data').textContent.trim();
+  var SC = '<' + '/script>';
+  var snippet = [
+    '<!doctype html>', '<html lang="ko">', '<head>', '<meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width,initial-scale=1">', '<title>예산 집행 레이스</title>',
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@600;800;900&family=Saira+Semi+Condensed:wght@600;700&display=swap">',
+    '<style>', 'body{margin:0;padding:24px 16px;background:#EEF1F5}', '#race{max-width:1280px;margin:0 auto}', css, '</style>',
+    '</head>', '<body>', '<div id="race"></div>',
+    '<script>', js, '', data, '',
+    "mountRace(document.getElementById('race'), Object.assign({}, SLIDE, { lanes: LANES }));", SC,
+    '</body>', '</html>'
+  ].join('\n');
+  var ta = document.getElementById('snippet'); ta.value = snippet;
+  var btn = document.getElementById('copyBtn');
+  btn.addEventListener('click', function () {
+    var done = function () { btn.textContent = '복사됨'; setTimeout(function () { btn.textContent = '코드 복사'; }, 1600); };
+    var fallback = function () { ta.focus(); ta.select(); btn.textContent = '선택됨 · Ctrl+C'; };
+    try { navigator.clipboard.writeText(snippet).then(done, fallback); } catch (e) { fallback(); }
+  });
 })();
 </script>
 
