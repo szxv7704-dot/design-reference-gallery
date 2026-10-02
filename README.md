@@ -17,3 +17,5 @@
 
 claude.ai 루틴이 새 레퍼런스를 만들 때마다 `refs/`, `thumbs/`, `data/rounds.json`을 갱신해 `main`에 푸시합니다.
 푸시되면 GitHub Pages가 자동으로 다시 배포합니다.
+
+`data/rounds.json`의 각 항목에는 `v`(HTML·썸네일 내용의 sha1 앞 8자리)가 있습니다. 갤러리는 링크와 썸네일 주소 뒤에 `?v=`를 붙여, 같은 번호를 재작업해도 브라우저 캐시 때문에 옛 버전이 보이지 않게 합니다.

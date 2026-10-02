@@ -89,8 +89,8 @@ function render(){
     (!type || r.type === type) && (!topic || r.topic === topic) &&
     (!q || [r.title, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)));
   $('#grid').innerHTML = rows.length ? rows.map(r => `
-    <a class="card" href="${esc(r.file)}" target="_blank" rel="noopener">
-      <img class="thumb" src="${esc(r.thumb)}" alt="" loading="lazy">
+    <a class="card" href="${esc(r.file)}${r.v ? '?v=' + esc(r.v) : ''}" target="_blank" rel="noopener">
+      <img class="thumb" src="${esc(r.thumb)}${r.v ? '?v=' + esc(r.v) : ''}" alt="" loading="lazy">
       <div class="body">
         <div class="meta">
           <span class="type ${r.type === '실험형' ? 'exp' : 'prac'}">${esc(r.type)}</span>
