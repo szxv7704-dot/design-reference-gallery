@@ -52,9 +52,20 @@ body{background:var(--bg);color:var(--fg);font-family:var(--f-sans);line-height:
 .scale span{font-family:var(--f-mono);font-size:.8cqw;color:#44535C;font-variant-numeric:tabular-nums}
 .syms{display:grid;grid-template-columns:1fr 1fr;gap:.35cqw 1cqw}
 .syms div{display:flex;align-items:center;gap:.5cqw;white-space:nowrap}
+.syms div.wide{grid-column:1/-1}
 .syms svg{width:2.2cqw;height:1.4cqw;flex:none}
 .tag{position:absolute;right:2.2cqw;bottom:.8cqw;font-size:.85cqw;font-family:var(--f-mono);color:#44535C;background:rgba(255,255,255,.8);padding:0 .5cqw}
 .cap{font-size:13px;color:var(--muted);margin-top:8px}
+/* 좁은 화면: 표지 안 범례가 너무 작아지므로 표지 바로 아래에 같은 기호를 읽을 수 있는 크기로 한 번 더 */
+.mkey{display:none}
+@media (max-width:640px){
+  .mkey{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin-top:10px;padding:12px 14px;border:1px solid var(--line);background:var(--panel);font-size:13px;line-height:1.35}
+  .mkey div{display:flex;align-items:center;gap:8px;min-width:0}
+  .mkey .wide{grid-column:1/-1}
+  .mkey svg{width:28px;height:16px;flex:none}
+  .mkey .ramp{width:56px;height:10px;flex:none;background:linear-gradient(90deg,#B4E2A6,#5CBF5E,#2E9446,#F2D33B,#F39A2B,#E04A2E);border:1px solid var(--line)}
+  .mkey .hl{font-weight:800;font-size:16px;width:28px;text-align:center;flex:none}
+}
 
 /* ---------- 문서 ---------- */
 section{display:flex;flex-direction:column;gap:16px;min-width:0}
@@ -95,7 +106,7 @@ a{color:var(--accent)}
 <div class="cover" id="cover">
   <canvas id="cBase" aria-hidden="true"></canvas>
   <canvas id="cRadar" aria-hidden="true"></canvas>
-  <canvas id="cTop" role="img" aria-label="가상 지형 위에 늘봄 수요를 레이더 색 단계로 표시하고 거점센터를 고기압, 수요 공백을 저기압, 운영 확대 경계를 전선으로 표시한 합성도"></canvas>
+  <canvas id="cTop" role="img" aria-label="가상 지형 위에 늘봄 수요를 레이더 색 단계로 표시하고 거점센터를 고기압, 수요 공백을 저기압으로, 수요가 공급을 넘는 경계를 파란 삼각 전선 하나로 표시한 합성도"></canvas>
 
   <div class="hdr">
     <div class="no"><i>제25호</i><b>늘봄 수요 합성 분석도</b><span>지상 분석 + 수요 레이더</span></div>
@@ -132,15 +143,20 @@ a{color:var(--accent)}
     <div class="syms">
       <div><svg viewBox="0 0 22 14"><text x="11" y="12" text-anchor="middle" font-size="13" font-weight="800" fill="#1F57C3" font-family="Nanum Gothic,sans-serif">H</text></svg>거점 늘봄센터</div>
       <div><svg viewBox="0 0 22 14"><text x="11" y="12" text-anchor="middle" font-size="13" font-weight="800" fill="#D3322B" font-family="Nanum Gothic,sans-serif">L</text></svg>수요 과밀·공백</div>
-      <div><svg viewBox="0 0 22 14"><path d="M1 10H21" stroke="#D3322B" stroke-width="1.6" fill="none"/><path d="M4 10a3 3 0 0 1 6 0zM13 10a3 3 0 0 1 6 0z" fill="#D3322B"/></svg>2027 확대 경계</div>
-      <div><svg viewBox="0 0 22 14"><path d="M1 10H21" stroke="#1F57C3" stroke-width="1.6" fill="none"/><path d="M3 10l3-6 3 6zM12 10l3-6 3 6z" fill="#1F57C3"/></svg>2028 확대 예정</div>
+      <div class="wide"><svg viewBox="0 0 22 14"><path d="M1 4H21" stroke="#1F57C3" stroke-width="1.6" fill="none"/><path d="M3 4l3 6 3-6zM12 4l3 6 3-6z" fill="#1F57C3"/></svg>공백 전선 · 수요가 공급을 넘는 경계</div>
       <div><svg viewBox="0 0 22 14"><path d="M5 2 13 7" stroke="#1E2A33" stroke-width="1"/><circle cx="14" cy="7" r="4" fill="#fff" stroke="#1E2A33"/><path d="M14 3a4 4 0 0 1 0 8z" fill="#1E2A33"/></svg>학교 관측소</div>
       <div><svg viewBox="0 0 22 14"><path d="M1 7c5-6 9 6 20 0" stroke="#1E2A33" stroke-width="1" fill="none"/></svg>공급 등치선</div>
     </div>
   </div>
   <div class="tag">가상 예시 · 지형·수치 모두 가상</div>
 </div>
-<figcaption class="cap">표지 16:9 · 시간대 단추를 누르면 레이더 합성이 아침·오후·저녁 늘봄 수요로 바뀝니다. 지형·학교·수치는 모두 가상입니다.</figcaption>
+<div class="mkey" aria-label="표지 기호 풀이">
+  <div class="wide"><span class="ramp"></span>늘봄 수요 지수(신청÷정원) 40 → 140%+</div>
+  <div><span class="hl" style="color:#1F57C3">H</span>거점 늘봄센터</div>
+  <div><span class="hl" style="color:#D3322B">L</span>수요 과밀·공백</div>
+  <div class="wide"><svg viewBox="0 0 22 14"><path d="M1 4H21" stroke="#1F57C3" stroke-width="1.6" fill="none"/><path d="M3 4l3 6 3-6zM12 4l3 6 3-6z" fill="#1F57C3"/></svg>공백 전선 · 거점이 닿지 않는 곳(삼각 쪽)</div>
+</div>
+<figcaption class="cap">표지 16:9 · 시간대 단추를 누르면 레이더 합성과 공백 전선 위치가 아침·오후·저녁 늘봄 수요에 맞춰 바뀝니다. 지형·학교·수치는 모두 가상입니다.</figcaption>
 </figure>
 
 <section>
@@ -152,19 +168,19 @@ a{color:var(--accent)}
       <tr><td>Ⅰ. 추진 배경</td><td>발표 시각 · 예보관 · 호수</td><td>머리띠에 기준일(○년 ○월 ○일 기준), 작성 부서를 일기도 머리글처럼 고정. 장마다 호수만 바뀜</td></tr>
       <tr><td>Ⅱ. 수요 현황</td><td>레이더 반사도 색 단계</td><td>지역별 신청 ÷ 정원 비율을 6단 색으로. 100%(노랑) 이상이 과밀이라는 기준선을 범례에 굵게</td></tr>
       <tr><td>Ⅲ. 거점 배치</td><td>고기압 H · 중심 기압</td><td>거점 늘봄센터 위치와 정원을 H와 숫자로. 등치선 간격이 넓으면 공급이 고르게 퍼진 지역</td></tr>
-      <tr><td>Ⅳ. 공백 지역</td><td>저기압 L · 조밀한 등압선</td><td>수요가 공급을 넘는 곳을 L로 표시. 등치선이 촘촘할수록 거점과의 격차가 큰 곳</td></tr>
-      <tr><td>Ⅴ. 운영 확대</td><td>온난전선 · 한랭전선</td><td>2027 확대 경계(빨강 반원), 2028 예정선(파랑 삼각). 기호가 향한 쪽이 확대 방향</td></tr>
+      <tr><td>Ⅳ. 공백 지역</td><td>저기압 L · 공백 전선</td><td>수요가 공급을 넘는 곳을 L로, 그 경계를 파란 삼각 전선 하나로 긋고 선 위에 “거점이 닿지 않는 곳”이라고 바로 적음. 삼각이 향한 쪽이 공백</td></tr>
+      <tr><td>Ⅴ. 운영 확대</td><td>전선 이동</td><td>거점을 늘리면 공백 전선이 L 쪽으로 물러나는 모습을 전후 두 장으로. 선 하나의 위치 변화로 확대 효과를 설명</td></tr>
       <tr><td>Ⅵ. 학교별 운영</td><td>관측소 기입 모형</td><td>운량 원 = 참여율, 왼쪽 위 = 참여 학생, 왼쪽 아래 = 프로그램 수, 바람깃 = 대기 인원(긴 깃 10명)</td></tr>
-      <tr><td>Ⅶ. 시간대별 운영</td><td>레이더 루프(시각별 합성)</td><td>아침·오후·저녁 늘봄을 같은 지도에 세 장으로. 저녁 수요가 산단 주변에 남는 것을 보여 줌</td></tr>
-      <tr><td>Ⅷ. 예산·전망</td><td>예상 일기도(+24h, +48h)</td><td>2027 상반기·하반기 예상 분포. 확대 후 L이 약해지는 모습을 예보도로</td></tr>
+      <tr><td>Ⅶ. 시간대별 운영</td><td>레이더 루프(시각별 합성)</td><td>아침·오후·저녁 늘봄을 같은 지도에 세 장으로. 공백 전선이 오후에 가장 넓게 퍼지고 저녁엔 산단 주변으로 좁아지는 것을 보여 줌</td></tr>
+      <tr><td>Ⅷ. 예산·전망</td><td>예상 일기도(+24h, +48h)</td><td>2027 상반기·하반기 예상 분포. 확대 후 L이 약해지고 전선이 짧아지는 모습을 예보도로</td></tr>
     </tbody>
   </table></div>
   <div class="flow" aria-label="발표 흐름">
     <div class="n"><code>00 표지</code><b>오늘의 합성도</b><span>전체 분포를 한 장으로</span></div>
     <div class="n"><code>02 현황</code><b>레이더만 켜기</b><span>어디가 붉은가</span></div>
     <div class="n"><code>03 거점</code><b>H 겹 추가</b><span>공급이 닿는 범위</span></div>
-    <div class="n key"><code>04 공백</code><b>L 확대 보기</b><span>핵심 문제 지점</span></div>
-    <div class="n"><code>05 확대</code><b>전선 겹 추가</b><span>어디까지 넓히나</span></div>
+    <div class="n key"><code>04 공백</code><b>L + 공백 전선</b><span>거점이 닿지 않는 경계</span></div>
+    <div class="n"><code>05 확대</code><b>전선 이동</b><span>확대 후 선이 물러남</span></div>
     <div class="n"><code>07~08</code><b>루프 · 예상도</b><span>시간대와 내년 모습</span></div>
   </div>
   <p class="cap">흐름은 같은 지도 위에 겹을 하나씩 더하는 방식입니다. 표지 구조는 분포 한 장이고, 순서는 발표할 때만 생깁니다.</p>
@@ -179,12 +195,12 @@ a{color:var(--accent)}
         <li>레이더 반사도 6단 색(연두→초록→노랑→주황→빨강), 격자 픽셀 질감</li>
         <li>등압선 4단위 간격과 선 위 숫자 표기(996~1024)</li>
         <li>고기압 H(파랑)·저기압 L(빨강) + 중심 수치, 중심 × 표시</li>
-        <li>온난전선 반원·한랭전선 삼각, 진행 방향 쪽에 기호</li>
+        <li>한랭전선 삼각 기호 하나만 사용, 선 위에 직접 이름 표기(전선 이름을 선에 적는 실물 분석도 관례)</li>
         <li>관측소 기입 모형: 운량 원, 왼쪽 위·아래 수치, 바람깃</li>
         <li>머리띠: 호수, 분석 시각(KST), 예보관</li>
         <li>경위도 격자와 테두리 좌표 표기</li>
         <li>해안선·섬·행정 경계 점선·수심 단계(가상 지형)</li>
-        <li>시각별 레이더 합성 전환(루프)과 축척 막대</li>
+        <li>시각별 레이더 합성 전환(루프)과 축척 막대, 전선 위치도 시각마다 갱신</li>
       </ol>
     </div>
     <div class="card">
@@ -207,13 +223,13 @@ a{color:var(--accent)}
     <div><i style="background:#DCE8EF"></i><b>바다</b><code>#DCE8EF</code></div>
     <div><i style="background:#F3F5F0"></i><b>육지</b><code>#F3F5F0</code></div>
     <div><i style="background:#1E2A33"></i><b>먹선</b><code>#1E2A33</code></div>
-    <div><i style="background:#1F57C3"></i><b>고기압·한랭</b><code>#1F57C3</code></div>
-    <div><i style="background:#D3322B"></i><b>저기압·온난</b><code>#D3322B</code></div>
+    <div><i style="background:#1F57C3"></i><b>고기압·공백 전선</b><code>#1F57C3</code></div>
+    <div><i style="background:#D3322B"></i><b>저기압</b><code>#D3322B</code></div>
     <div><i style="background:linear-gradient(90deg,#B4E2A6,#5CBF5E,#2E9446,#F2D33B,#F39A2B,#E04A2E)"></i><b>레이더 6단</b><code>#B4E2A6 → #E04A2E</code></div>
   </div>
   <dl class="spec">
     <dt>폰트</dt><dd>나눔고딕 800(제목·범례) + 나눔고딕코딩 400/700(머리띠·수치·좌표). 대체: 맑은 고딕 / D2Coding·Consolas</dd>
-    <dt>PPT 이식</dt><dd>① 표지를 시간대별로 3번 화면 캡처해 PNG 3장을 배경으로 깔고 제목 상자·범례·머리띠는 PPT 텍스트 상자로 다시 만든다. ② 레이더 겹만 따로 쓰려면 지형 없이 저장한 PNG를 같은 위치에 겹쳐 ‘밝기 변화’ 전환 0.6초로 루프처럼 넘긴다. ③ 전선 기호는 선 + 반원/삼각 도형을 그룹으로 묶어 재사용. ④ 실제 지역 지도가 필요하면 공공 행정경계(SHP)를 단순화해 같은 색 규칙만 입힌다.</dd>
+    <dt>PPT 이식</dt><dd>① 표지를 시간대별로 3번 화면 캡처해 PNG 3장을 배경으로 깔고 제목 상자·범례·머리띠는 PPT 텍스트 상자로 다시 만든다. ② 레이더 겹만 따로 쓰려면 지형 없이 저장한 PNG를 같은 위치에 겹쳐 ‘밝기 변화’ 전환 0.6초로 루프처럼 넘긴다. ③ 공백 전선은 곡선 + 삼각 도형을 그룹으로 묶고, 이름 텍스트 상자를 선 바로 옆에 붙여 함께 그룹. 시간대마다 그룹 위치만 옮기면 ‘모핑’ 전환으로 선이 움직인다. ④ 실제 지역 지도가 필요하면 공공 행정경계(SHP)를 단순화해 같은 색 규칙만 입힌다.</dd>
     <dt>난이도</dt><dd>중상. 지도 바탕 확보가 가장 손이 많이 가고, 색 6단·기호 규칙은 한 번 정하면 반복 사용</dd>
     <dt>반영 트렌드</dt><dd>숫자를 맥락(장소) 안에 넣는 데이터 스토리텔링, 깊이감 있는 겹 구성 — <a href="https://www.chatslide.ai/articles/presentation-design-trends-2026" target="_blank" rel="noopener">ChatSlide ‘Presentation Design Trends 2026’</a>; <a href="https://www.slidesai.io/blog/presentation-design-trends" target="_blank" rel="noopener">SlidesAI ‘35 Presentation Design Trends 2026’</a></dd>
   </dl>
@@ -238,10 +254,14 @@ function pressure(x,y){
     + (fbm(x*.5,y*.5,SEED+300,3)-.5)*3 - (y-4.5)*.25;
 }
 // demand blobs per frame: x,y,amp,sigma
+// gap front per frame: path (north → south, triangles point west toward L) + label anchor [x,y]
 const FR=[
-  {t:"07:30",n:"아침늘봄",b:[[11.3,3.5,.78,.75],[9.6,4.9,.62,.6],[12.6,4.6,.38,.6],[13.7,2.5,.3,.5],[8.1,3.1,.28,.4]]},
-  {t:"13:00",n:"오후늘봄",b:[[11.3,3.5,.86,.85],[12.6,4.6,.74,.75],[9.6,4.9,.8,.7],[13.7,2.4,.6,.6],[10.4,7.4,.55,.6],[8.0,3.1,.5,.55],[15.0,3.9,.48,.5],[14.5,7.6,.35,.5]]},
-  {t:"18:30",n:"저녁늘봄",b:[[12.6,4.6,.92,.75],[11.3,3.5,.55,.65],[10.4,7.4,.36,.5],[9.6,4.9,.3,.5]]}
+  {t:"07:30",n:"아침늘봄",b:[[11.3,3.5,.78,.75],[9.6,4.9,.62,.6],[12.6,4.6,.38,.6],[13.7,2.5,.3,.5],[8.1,3.1,.28,.4]],
+   front:[[12.55,2.45],[12.55,3.5],[12.05,4.55],[11.35,5.2],[10.35,5.15]],lab:[12.75,3.6]},
+  {t:"13:00",n:"오후늘봄",b:[[11.3,3.5,.86,.85],[12.6,4.6,.74,.75],[9.6,4.9,.8,.7],[13.7,2.4,.6,.6],[10.4,7.4,.55,.6],[8.0,3.1,.5,.55],[15.0,3.9,.48,.5],[14.5,7.6,.35,.5]],
+   front:[[13.25,2.25],[13.0,3.35],[13.05,4.55],[12.45,5.6],[11.35,6.3],[10.0,6.55],[8.7,6.75]],lab:[9.15,7.05]},
+  {t:"18:30",n:"저녁늘봄",b:[[12.6,4.6,.92,.75],[11.3,3.5,.55,.65],[10.4,7.4,.36,.5],[9.6,4.9,.3,.5]],
+   front:[[12.75,2.5],[12.95,3.35],[13.05,4.45],[12.95,5.35],[12.15,5.95],[10.95,6.2]],lab:[8.85,6.62]}
 ];
 const RC=["#B4E2A6","#5CBF5E","#2E9446","#F2D33B","#F39A2B","#E04A2E"],RT=[.16,.28,.42,.57,.72,.88];
 const ST=[ // x,y,name, [students,programs,rate,wait] per frame
@@ -263,7 +283,6 @@ function buildTerrain(){
   const cv=document.createElement('canvas');cv.width=TW;cv.height=TH;
   const ctx=cv.getContext('2d'),img=ctx.createImageData(TW,TH),d=img.data;
   const lv=new Float32Array(TW*TH),dist=new Int8Array(TW*TH);
-  // district seeds on land
   const seeds=[];let k=0;
   while(seeds.length<13&&k<4000){const x=5+hash(k,1,77)*11,y=.6+hash(k,2,77)*8.2;k++;if(landV(x,y)>.6&&seeds.every(s=>Math.hypot(s[0]-x,s[1]-y)>1.65))seeds.push([x,y]);}
   const acc=seeds.map(()=>[0,0,0]);
@@ -287,7 +306,6 @@ function blocked(x,y){return (x<7.6&&y>4.75)||(x>12.0&&y>6.55)||(y<.95)||(x>11.3
 
 function drawBase(){
   const ctx=cB.getContext('2d'),k=sizeCanvas(cB);ctx.imageSmoothingQuality='high';ctx.drawImage(terrain,0,0,cB.width,cB.height);
-  // graticule
   ctx.save();ctx.strokeStyle='rgba(70,100,120,.32)';ctx.lineWidth=Math.max(1,k*.008);ctx.setLineDash([k*.06,k*.06]);
   ctx.font=`${k*.14}px ${MONO}`;ctx.fillStyle='#4E6271';
   for(let i=0;i<=5;i++){const x=1.1+i*2.9;ctx.beginPath();ctx.moveTo(x*k,0);ctx.lineTo(x*k,H*k);ctx.stroke();if(!blocked(x,8.85))halo(ctx,`${126+i*.5}°E`.replace('.5°','°30′'),x*k+k*.05,H*k-k*.08,k*.04);}
@@ -307,19 +325,32 @@ function drawRadar(){
   ctx.globalAlpha=1;
 }
 function catmull(pts,n){const out=[];for(let i=0;i<pts.length-1;i++){const p0=pts[Math.max(0,i-1)],p1=pts[i],p2=pts[i+1],p3=pts[Math.min(pts.length-1,i+2)];for(let t=0;t<n;t++){const s=t/n,s2=s*s,s3=s2*s;out.push([0.5*((2*p1[0])+(-p0[0]+p2[0])*s+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*s2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*s3),0.5*((2*p1[1])+(-p0[1]+p2[1])*s+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*s2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*s3)]);}}out.push(pts[pts.length-1]);return out;}
-function front(ctx,k,pts,type){
-  const P=catmull(pts,24),col=type==='warm'?'#D3322B':'#1F57C3';
-  ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=k*.045;ctx.lineCap='round';ctx.lineJoin='round';
+// cold-front style line; triangles sit on the side facing the gap (west/north of a north→south path)
+function gapFront(ctx,k,pts){
+  const P=catmull(pts,24),col='#1F57C3';
+  ctx.save();ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=k*.1;ctx.lineCap='round';ctx.lineJoin='round';
+  ctx.beginPath();P.forEach((p,i)=>i?ctx.lineTo(p[0]*k,p[1]*k):ctx.moveTo(p[0]*k,p[1]*k));ctx.stroke();ctx.restore();
+  ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=k*.05;ctx.lineCap='round';ctx.lineJoin='round';
   ctx.beginPath();P.forEach((p,i)=>i?ctx.lineTo(p[0]*k,p[1]*k):ctx.moveTo(p[0]*k,p[1]*k));ctx.stroke();
-  let acc=0,next=.35;const step=.52,sz=.13;
+  let acc=0,next=.3;const step=.46,sz=.13;
   for(let i=1;i<P.length;i++){const dx=P[i][0]-P[i-1][0],dy=P[i][1]-P[i-1][1],L=Math.hypot(dx,dy);acc+=L;
-    if(acc>=next){next+=step;const ux=dx/L,uy=dy/L,nx=uy,ny=-ux,cx=P[i][0],cy=P[i][1];
-      if(type==='warm'){const a=Math.atan2(uy,ux);ctx.beginPath();ctx.arc(cx*k,cy*k,sz*k,a+Math.PI,a,false);ctx.closePath();ctx.fill();}
-      else{ctx.beginPath();ctx.moveTo((cx-ux*sz)*k,(cy-uy*sz)*k);ctx.lineTo((cx+nx*sz*1.7)*k,(cy+ny*sz*1.7)*k);ctx.lineTo((cx+ux*sz)*k,(cy+uy*sz)*k);ctx.closePath();ctx.fill();}}}
+    if(acc>=next){next+=step;const ux=dx/L,uy=dy/L,nx=-uy,ny=ux,cx=P[i][0],cy=P[i][1];
+      ctx.beginPath();ctx.moveTo((cx-ux*sz)*k,(cy-uy*sz)*k);ctx.lineTo((cx+nx*sz*1.7)*k,(cy+ny*sz*1.7)*k);ctx.lineTo((cx+ux*sz)*k,(cy+uy*sz)*k);ctx.closePath();ctx.fill();}}
+}
+function frontLabel(ctx,k,x,y){
+  const t1='공백 전선',t2=' · 거점이 닿지 않는 곳';
+  ctx.textAlign='left';ctx.textBaseline='middle';
+  ctx.font=`800 ${k*.19}px ${SANS}`;const w1=ctx.measureText(t1).width;
+  ctx.font=`700 ${k*.16}px ${SANS}`;const w2=ctx.measureText(t2).width;
+  const pad=k*.07,h=k*.3;
+  ctx.fillStyle='rgba(255,255,255,.94)';ctx.fillRect(x*k-pad,y*k-h/2,w1+w2+pad*2,h);
+  ctx.strokeStyle='#1F57C3';ctx.lineWidth=Math.max(1,k*.012);ctx.strokeRect(x*k-pad,y*k-h/2,w1+w2+pad*2,h);
+  ctx.fillStyle='#17459E';ctx.font=`800 ${k*.19}px ${SANS}`;ctx.fillText(t1,x*k,y*k);
+  ctx.fillStyle='#1E2A33';ctx.font=`700 ${k*.16}px ${SANS}`;ctx.fillText(t2,x*k+w1,y*k);
+  ctx.textBaseline='alphabetic';
 }
 function station(ctx,k,s){
   const [x,y,name,data]=s,[stu,prog,rate,wait]=data[frame],r=k*.1,X=x*k,Y=y*k;
-  // wind barb staff toward upper-left
   ctx.strokeStyle='#1E2A33';ctx.lineWidth=Math.max(1,k*.012);const ang=-2.35+((x*7)%1)*.5,len=k*.55,ex=X+Math.cos(ang)*len,ey=Y+Math.sin(ang)*len;
   if(wait>0){ctx.beginPath();ctx.moveTo(X+Math.cos(ang)*r,Y+Math.sin(ang)*r);ctx.lineTo(ex,ey);ctx.stroke();
     let w=wait,pos=0;const pa=ang-Math.PI/2.6;while(w>=5){const full=w>=10,bl=full?k*.2:k*.11,bx=ex-Math.cos(ang)*pos*k*.09,by=ey-Math.sin(ang)*pos*k*.09;ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+Math.cos(pa)*bl,by+Math.sin(pa)*bl);ctx.stroke();w-=full?10:5;pos++;}}
@@ -340,15 +371,13 @@ function drawTop(){
       ed(a,b,i,j,i+1,j);ed(b,c,i+1,j,i+1,j+1);ed(d,c,i,j+1,i+1,j+1);ed(a,d,i,j,i,j+1);
       for(let m=0;m+1<pts.length;m+=2){const [p,q]=[pts[m],pts[m+1]];const mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2;if(blocked(mx,my)&&!(mx>12&&my>6.55))continue;ctx.moveTo(p[0]*k,p[1]*k);ctx.lineTo(q[0]*k,q[1]*k);segs.push([mx,my]);}}
     ctx.stroke();
-    const cand=segs.filter(s=>!blocked(s[0],s[1])&&s[0]>6&&s[0]<15.6&&s[1]>1.2&&s[1]<8.4&&Math.hypot(s[0]-11.3,s[1]-3.5)>.9&&ST.every(t=>Math.hypot(s[0]-t[0],s[1]-t[1])>.75)&&Math.hypot(s[0]-9.6,s[1]-3.4)>1.1);
+    const F=FR[frame],near=(s)=>F.front.some(p=>Math.hypot(s[0]-p[0],s[1]-p[1])<.55)||(s[0]>F.lab[0]-.3&&s[0]<F.lab[0]+3&&Math.abs(s[1]-F.lab[1])<.35);
+    const cand=segs.filter(s=>!blocked(s[0],s[1])&&s[0]>6&&s[0]<15.6&&s[1]>1.2&&s[1]<8.4&&Math.hypot(s[0]-11.3,s[1]-3.5)>.9&&ST.every(t=>Math.hypot(s[0]-t[0],s[1]-t[1])>.75)&&Math.hypot(s[0]-9.6,s[1]-3.4)>1.1&&!near(s));
     if(cand.length){cand.sort((p,q)=>(q[0]-q[1]*.6)-(p[0]-p[1]*.6));const pick=cand[Math.floor(cand.length*((lev/4)%3)*.12)];labels.push([pick,lev]);}}
   ctx.font=`700 ${k*.13}px ${MONO}`;ctx.textAlign='center';ctx.textBaseline='middle';
   for(const [[x,y],lev] of labels){const w=ctx.measureText(lev).width+k*.08;ctx.fillStyle='rgba(255,255,255,.95)';ctx.fillRect(x*k-w/2,y*k-k*.09,w,k*.18);ctx.fillStyle='#1E2A33';ctx.fillText(lev,x*k,y*k);}
   ctx.textBaseline='alphabetic';
-  front(ctx,k,[[11.3,3.5],[12.4,3.15],[13.5,3.3],[14.5,3.55],[15.9,3.7]],'warm');
-  front(ctx,k,[[11.3,3.5],[11.0,4.5],[10.2,5.5],[9.1,6.3],[7.9,6.9]],'cold');
-  ctx.font=`700 ${k*.15}px ${SANS}`;ctx.fillStyle='#B0261F';ctx.textAlign='left';halo(ctx,'2027 확대 경계',13.0*k,2.85*k,k*.05);
-  ctx.fillStyle='#17459E';halo(ctx,'2028 확대 예정선',8.2*k,7.45*k,k*.05);
+  gapFront(ctx,k,FR[frame].front);
   const center=(x,y,ch,col,val,lab,dx=0)=>{ctx.textAlign='center';ctx.fillStyle=col;ctx.font=`800 ${k*.62}px ${SANS}`;halo(ctx,ch,x*k,y*k-k*.08,k*.08);
     ctx.strokeStyle=col;ctx.lineWidth=k*.025;const c=k*.07;ctx.beginPath();ctx.moveTo(x*k-c,y*k+k*.1-c);ctx.lineTo(x*k+c,y*k+k*.1+c);ctx.moveTo(x*k+c,y*k+k*.1-c);ctx.lineTo(x*k-c,y*k+k*.1+c);ctx.stroke();
     if(dx){ctx.textAlign='left';ctx.font=`700 ${k*.19}px ${MONO}`;halo(ctx,val,(x+dx)*k,y*k-k*.18,k*.05);ctx.font=`700 ${k*.15}px ${SANS}`;ctx.fillStyle='#1E2A33';halo(ctx,lab,(x+dx)*k,y*k+k*.04,k*.05);return;}
@@ -357,6 +386,7 @@ function drawTop(){
   center(7.9,1.75,'H','#1F57C3','1023','거점센터 · 정원 360');
   center(11.3,3.5,'L','#D3322B','996','수요 과밀 · 대기 64',-1.95);
   for(const s of ST)station(ctx,k,s);
+  frontLabel(ctx,k,FR[frame].lab[0],FR[frame].lab[1]);
 }
 function render(all){if(all)drawBase();drawRadar();drawTop();}
 const btns=[0,1,2].map(i=>document.getElementById('fr'+i)),loopB=document.getElementById('frLoop');

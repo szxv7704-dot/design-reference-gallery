@@ -1,82 +1,88 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>레퍼런스 #17 얽힌 숲</title>
+<title>레퍼런스 #17 두 개의 심</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Song+Myung&family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
 <style>
-/* Layout: 맨 위 16:9 표지(캔버스 4레이어 멀티플레인 + HTML 글자), 아래 메모 4개 구획. 표지는 밝은 단일 화풍, 메모는 라이트/다크 토큰. */
+/* Layout: 맨 위 16:9 표지(왼쪽 제목, 오른쪽 연리지 나이테 단면 canvas), 휴대폰에서는 세로 포스터(단면 위, 제목 아래). 아래 메모 3구획. 표지는 밝은 단일 화풍, 메모는 라이트/다크 토큰. */
 :root{
-  --bg:#F2F4EC; --surface:#FBFCF7; --fg:#22302A; --muted:#5B6A5F; --line:#D5DDD0;
-  --teal:#2F8E8C; --gold:#B9801F; --green:#3E8B3B;
-  --title:"Song Myung","Gowun Batang","Nanum Myeongjo","Batang",serif;
-  --serif:"Gowun Batang","Nanum Myeongjo","AppleMyungjo","Batang",serif;
-  --sans:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --bg:#EEF0EC; --surface:#F8F9F6; --fg:#25302D; --muted:#5D6965; --line:#D3D9D4;
+  --teal:#2C8780; --gold:#A8741E; --wood:#C8935A;
+  --display:"Hahmlet","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#141B17; --surface:#1B241F; --fg:#E4EADF; --muted:#9FAEA2; --line:#2E3B33;
-  --teal:#5EC3BC; --gold:#E9B95A; --green:#7CC66E; color-scheme:dark}}
+  --bg:#171C1A; --surface:#1F2522; --fg:#E6EAE5; --muted:#A1ACA6; --line:#323B37;
+  --teal:#62C1B7; --gold:#E2B15A; --wood:#D9A86E; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#141B17; --surface:#1B241F; --fg:#E4EADF; --muted:#9FAEA2; --line:#2E3B33;
-  --teal:#5EC3BC; --gold:#E9B95A; --green:#7CC66E; color-scheme:dark}
+  --bg:#171C1A; --surface:#1F2522; --fg:#E6EAE5; --muted:#A1ACA6; --line:#323B37;
+  --teal:#62C1B7; --gold:#E2B15A; --wood:#D9A86E; color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15.5px;line-height:1.7;word-break:keep-all;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 72px}
 
-/* ── cover ── */
-.cover{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;overflow:hidden;container-type:inline-size;background:#F4EDCC;border-radius:4px;box-shadow:0 1px 2px rgba(34,48,42,.12),0 10px 32px rgba(34,48,42,.14);margin:0}
-.layer{position:absolute;left:-4%;top:-4%;width:108%;height:108%;will-change:transform}
-.layer canvas{display:block;width:100%;height:100%}
-.paper{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.55;background-size:220px}
-.vign{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 6cqw rgba(120,90,30,.18)}
-.ctext{position:absolute;inset:0;will-change:transform;color:#22332A}
-.stack{position:absolute;left:18%;right:18%;top:26%;bottom:35%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.1cqw}
-.yr{font-family:var(--serif);font-weight:700;font-size:max(9px,1.75cqw);letter-spacing:.42em;padding-left:.42em;color:#1F5E5B;line-height:1}
-.cover h1{margin:0;font-family:var(--title);font-weight:400;font-size:max(17px,5.5cqw);line-height:1.16;letter-spacing:-.01em;text-wrap:balance;
-  text-shadow:0 0 .5cqw #FFF7DC,0 0 1.4cqw #FFF4D2,0 0 2.6cqw rgba(255,244,210,.9)}
-.cover h1 span{display:block}
-.csub{margin:0;font-family:var(--serif);font-weight:700;font-size:max(10px,1.85cqw);line-height:1.4;color:#4A5A34;text-shadow:0 0 1cqw #FFF6DA}
-.corg{position:absolute;left:0;right:0;bottom:5.2%;text-align:center;font-family:var(--sans);font-size:max(9px,1.45cqw);color:#3F4A2E;letter-spacing:.04em}
-.corg b{font-weight:400;font-family:var(--serif);font-weight:700;margin-right:.8em;color:#22332A}
-.lab{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:.45em;padding:.32em .8em .3em;font-family:var(--sans);font-size:max(8px,1.3cqw);line-height:1.15;white-space:nowrap;
-  color:#22332A;background:rgba(255,250,232,.92);border:max(1px,.14cqw) solid #2A3A2F;border-radius:.35em .9em .35em .9em}
-.lab i{display:block;width:.7em;height:.7em;border-radius:50% 0;border:1px solid #2A3A2F}
-.l-a{left:24.5%;top:79%} .l-a i{background:#2F8E8C}
-.l-b{left:75.5%;top:79%} .l-b i{background:#E2A43C}
-.l-c{left:50%;top:21.6%} .l-c i{background:#4E9E46}
-.virt{position:absolute;left:1.4%;top:2.2%;font-family:var(--sans);font-size:max(8px,.95cqw);color:#3F4A2E;background:rgba(255,250,232,.8);padding:.2em .6em;border-radius:.3em}
+/* ── cover (단일 화풍: 밝은 종이 위 목재 단면) ── */
+.cover{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;overflow:hidden;container-type:inline-size;margin:0;border-radius:4px;
+  background:radial-gradient(120% 90% at 72% 46%,#F7F6F0 0%,#ECEEE8 55%,#E2E6E1 100%);
+  box-shadow:0 1px 2px rgba(37,48,45,.10),0 10px 32px rgba(37,48,45,.12)}
+.cover .grain{position:absolute;inset:0;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-size:200px}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.slabbox{position:absolute;left:46%;top:6%;width:52%;height:88%;pointer-events:none}
+.ctext{position:absolute;left:6%;width:41%;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:2.2cqw;color:#24302C}
+.cover h1{margin:0;font-family:var(--display);font-weight:700;font-size:max(16px,4.25cqw);line-height:1.2;letter-spacing:-.025em;text-wrap:balance}
+.cover h1 .yr{display:block;font-family:var(--sans);font-weight:600;font-size:.42em;letter-spacing:.3em;color:#2C8780;margin-bottom:.55em}
+.cover h1 .ln{display:block}
+.csub{margin:0;font-family:var(--display);font-weight:600;font-size:max(11px,1.85cqw);line-height:1.4;color:#8A5E22;display:flex;align-items:center;gap:.7em}
+.csub::before{content:"";width:2.2em;height:max(1px,.12cqw);background:#C8935A}
+.corg{position:absolute;left:6%;bottom:7%;font-family:var(--sans);font-size:max(10px,1.3cqw);color:#4B5753;letter-spacing:.02em}
+.corg b{font-weight:600;color:#24302C;margin-right:.7em}
+.virt{position:absolute;left:1.6%;top:2.6%;font-size:max(9px,.95cqw);color:#5D6965;background:rgba(255,255,255,.6);padding:.15em .6em;border-radius:.3em}
+.lab{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:.45em;padding:.3em .75em .28em;white-space:nowrap;
+  font-family:var(--sans);font-weight:500;font-size:max(10px,1.2cqw);line-height:1.2;color:#2A2A22;background:rgba(255,252,244,.9);
+  border:1px solid rgba(80,58,30,.28);border-radius:99px;box-shadow:0 1px 3px rgba(80,58,30,.18);transition:opacity .6s}
+.lab i{display:block;width:.62em;height:.62em;border-radius:50%}
+.lab.a i{background:#2C8780}.lab.b i{background:#D9A23A}.lab.c i{background:#C8935A;border:1px solid #8A5E22}
+.lab.c.wait{opacity:0}
+@media (max-width:600px){
+  .cover{aspect-ratio:4/5}
+  .slabbox{left:3%;top:3%;width:94%;height:54%}
+  .ctext{left:7%;right:7%;width:auto;top:58%;bottom:13%;gap:3cqw;justify-content:center}
+  .cover h1{font-size:max(18px,6.9cqw)}
+  .csub{font-size:max(12px,3.6cqw)}
+  .corg{left:7%;bottom:5%;font-size:max(11px,3.1cqw)}
+  .lab{font-size:max(10.5px,2.9cqw)}
+  .virt{font-size:10px}
+}
 
-@container (max-width:560px){.stack{top:30%;bottom:33%;gap:3px}.l-c{top:20%}.lab{padding:.25em .6em}}
 .ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin:14px 0 0;font-size:13.5px;color:var(--muted)}
-.ctrl .chips{display:flex;flex-wrap:wrap;gap:6px}
 .ctrl button{font:inherit;font-size:13px;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:4px 12px;cursor:pointer}
-.ctrl button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .ctrl button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 .cap{margin:10px 0 0;font-size:14px;color:var(--muted);max-width:68ch}
 
 /* ── memo ── */
 .memo{margin-top:52px;display:grid;gap:52px}
 .memo>section{min-width:0}
-h2{font-family:var(--serif);font-weight:700;font-size:22px;line-height:1.35;margin:0 0 6px;letter-spacing:-.01em}
+h2{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.35;margin:0 0 6px;letter-spacing:-.01em}
 .lead{margin:0 0 18px;color:var(--muted);max-width:66ch}
 .dev{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px 28px}
 .dev div{min-width:0;border-top:2px solid var(--fg);padding-top:10px}
-.dev h3{margin:0 0 4px;font-family:var(--serif);font-size:17px}
-.dev h3 small{font-family:var(--sans);font-weight:400;font-size:12px;color:var(--teal);margin-left:6px}
+.dev h3{margin:0 0 4px;font-family:var(--display);font-weight:600;font-size:17px;line-height:1.4}
+.dev h3 small{font-family:var(--sans);font-weight:500;font-size:12px;color:var(--teal);margin-left:6px}
 .dev p{margin:0;font-size:14.5px}
 .tw{overflow-x:auto;border-top:2px solid var(--fg)}
-table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+table{border-collapse:collapse;width:100%;min-width:660px;font-size:14.5px}
 th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
 th{font-size:12.5px;color:var(--muted);font-weight:400}
-td:first-child{font-family:var(--serif);font-weight:700;white-space:nowrap}
-td.g{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--muted)}
-.bar{display:inline-block;vertical-align:middle;width:56px;height:6px;border-radius:3px;background:var(--line);margin-right:6px;overflow:hidden}
-.bar b{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--green))}
-.flow{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;font-size:14px}
-.flow li{padding:5px 12px;border:1px solid var(--line);border-radius:99px;background:var(--surface)}
-.flow li+li::before{content:"→";margin-right:8px;color:var(--muted)}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px 32px}
+td:first-child{font-family:var(--display);font-weight:600;white-space:nowrap}
+td.r{white-space:nowrap;color:var(--muted);font-variant-numeric:tabular-nums}
+.ring{display:inline-block;vertical-align:-3px;width:16px;height:16px;border-radius:50%;margin-right:6px;border:2px solid var(--line)}
+.ring.in{border-color:var(--teal)} .ring.in2{border-color:var(--gold)} .ring.sh{border-color:var(--wood)} .ring.bk{border-color:var(--muted);border-width:4px}
+.years{margin:22px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.years div{min-width:0;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:6px;font-size:14px;line-height:1.5}
+.years b{display:block;font-family:var(--display);font-size:16px;color:var(--wood);font-variant-numeric:tabular-nums}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px 32px;margin-top:26px}
 .two>div{min-width:0}
-.two h3{margin:0 0 6px;font-size:14px;color:var(--muted);font-weight:400;letter-spacing:.04em}
+.two h3{margin:0 0 6px;font-size:14px;color:var(--muted);font-weight:500;letter-spacing:.04em}
 .two ul{margin:0;padding-left:18px}
 .two li{margin:0 0 6px}
 .pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:0 0 22px}
@@ -89,127 +95,104 @@ dt{color:var(--muted)}
 dd{margin:0;min-width:0}
 dd ol{margin:0;padding-left:18px}
 dd li{margin-bottom:4px}
+.png{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:22px 0 0}
+.png figure{margin:0;min-width:0;background:#ECEEE8;border:1px solid var(--line);border-radius:6px;padding:10px}
+.png img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:contain}
+.png figcaption{font-size:13px;color:#4B5753;margin-top:6px}
 @media (max-width:560px){dl{grid-template-columns:1fr;gap:2px}dt{margin-top:12px}}
 .small{font-size:13px;color:var(--muted)}
-a{color:var(--teal)}
 </style>
 
 <div class="wrap">
-<figure class="cover" id="cover" aria-label="발표 표지 가상 예시. 밝은 아침 숲의 빈터. 왼쪽 청록색 나무와 오른쪽 황금색 나무의 가지가 위로 휘어 올라 화면 위쪽 가운데에서 켈트 매듭처럼 서로 엮이고, 엮인 곳부터 초록으로 바뀌며 제목을 아치처럼 감싼다.">
-  <div class="layer" data-d="0.004"><canvas id="c0"></canvas></div>
-  <div class="layer" data-d="0.009"><canvas id="c1"></canvas></div>
-  <div class="layer" data-d="0.016"><canvas id="c2"></canvas></div>
-  <div class="ctext layer-t" data-d="0.016">
-    <div class="stack">
-      <div class="yr">2027</div>
-      <h1><span>유보통합 준비 및</span><span>선도 운영 계획(안)</span></h1>
-      <p class="csub">두 줄기가 만나 한 숲이 되기까지</p>
-    </div>
-    <span class="lab l-a"><i></i>유치원</span>
-    <span class="lab l-b"><i></i>어린이집</span>
-    <span class="lab l-c"><i></i>하나의 수관</span>
-    <div class="corg"><b>○○교육청</b>유아교육과 · 2026. 12.</div>
+<figure class="cover" id="cover" aria-label="발표 표지 가상 예시. 왼쪽에 제목, 오른쪽에 맞붙어 자란 두 나무를 가로로 자른 밝은 목재 단면. 심이 두 개이고 각 심을 따로 감싼 안쪽 나이테 바깥을 공유 나이테가 하나로 감싼다.">
+  <div class="grain" id="grain"></div>
+  <canvas id="cv"></canvas>
+  <div class="slabbox" id="slabbox"></div>
+  <div class="ctext">
+    <h1><span class="yr">2027</span><span class="ln">유보통합 준비 및</span><span class="ln">선도 운영 계획(안)</span></h1>
+    <p class="csub">두 개의 심, 하나의 나이테</p>
   </div>
-  <div class="layer" data-d="0.03"><canvas id="c3"></canvas></div>
-  <div class="paper" id="paper"></div>
-  <div class="vign"></div>
+  <div class="corg"><b>○○교육청</b>유아교육과 · 2026. 12.</div>
+  <span class="lab a" id="labA"><i></i>유치원</span>
+  <span class="lab b" id="labB"><i></i>어린이집</span>
+  <span class="lab c wait" id="labC"><i></i>함께 자랄 나이테</span>
   <span class="virt">가상 예시</span>
 </figure>
 
 <div class="ctrl">
-  <button type="button" id="replay">등장 다시 보기</button>
-  <span>얽힘 단계 미리보기</span>
-  <div class="chips" id="chips">
-    <button type="button" data-g="0.2" aria-pressed="false">배경</button>
-    <button type="button" data-g="0.4" aria-pressed="false">진단</button>
-    <button type="button" data-g="0.55" aria-pressed="false">목표</button>
-    <button type="button" data-g="0.76" aria-pressed="false">과제</button>
-    <button type="button" data-g="0.9" aria-pressed="false">선도 운영</button>
-    <button type="button" data-g="1" aria-pressed="true">표지(완성)</button>
-  </div>
+  <button type="button" id="replay">나이테 다시 그리기</button>
 </div>
-<p class="cap">마우스를 표지 위에서 움직이면 배경 숲, 중경 숲, 두 나무, 전경 잎이 서로 다른 속도로 움직입니다. 휴대폰에서는 저절로 천천히 흔들립니다. 단계 버튼은 안쪽 장표마다 가지가 얼마나 얽혀 있을지를 보여 줍니다.</p>
+<p class="cap">처음 열면 두 심의 안쪽 나이테는 이미 있고, 그 바깥 공유 나이테만 한 겹씩 그려집니다(한 번만). 휴대폰에서는 단면이 위, 제목이 아래인 세로 배치로 바뀝니다.</p>
 
 <div class="memo">
 
 <section>
   <h2>가져갈 장치</h2>
-  <p class="lead">이 표지에서 떼어 다른 발표에 쓸 수 있는 것들입니다.</p>
+  <p class="lead">과정을 펼치지 않고 단면 한 장으로 말하는 표지입니다. 다른 발표에도 옮겨 쓸 수 있는 장치만 골랐습니다.</p>
   <div class="dev">
-    <div><h3>은유가 곧 제목 틀<small>필수</small></h3><p>제목 상자 대신 주제의 상징물이 제목을 감쌉니다. 응용: 협력 사업은 맞잡은 손, 연계 사업은 이어진 길, 안전 사업은 지붕선으로 제목을 감싸기.</p></div>
-    <div><h3>멀티플레인 깊이<small>필수</small></h3><p>배경·중경·주인공·전경을 따로 그려 속도만 다르게 움직입니다. 응용: 학교 배치도, 지역 지도 표지를 3층으로 나눠 HTML은 마우스, PPT는 모핑으로.</p></div>
-    <div><h3>얽힘 진척도</h3><p>장표가 넘어갈수록 가지가 더 얽혀, 목차 표시 없이도 발표가 어디쯤인지 보입니다. 응용: 다리 놓기, 퍼즐 맞추기, 길 잇기처럼 완성되어 가는 그림.</p></div>
-    <div><h3>합류하는 색</h3><p>두 기관의 색이 만나는 지점부터 한 색이 됩니다. 응용: 기관 간 공동 사업, 통합 전후 비교 장표의 색 규칙.</p></div>
+    <div><h3>단면 한 장으로 말하는 표지<small>필수</small></h3><p>둘이 하나가 되는 이야기를 단계별 그림 대신 잘린 면 하나로 보여 줍니다. 안쪽에는 따로 지낸 시간, 바깥에는 함께 지낼 시간이 겹쳐 있습니다. 응용: 두 학교 통합, 부서 통폐합, 지역 연계 사업.</p></div>
+    <div><h3>나이테 = 연차별 성과 누적<small>필수</small></h3><p>바깥 공유 나이테 한 겹이 한 해입니다. 안쪽 장표에서는 나이테마다 연도와 성과를 붙여, 해가 갈수록 단면이 굵어지는 모습으로 누적을 보여 줍니다.</p></div>
+    <div><h3>은은한 기관 색이 자연색으로 합쳐짐</h3><p>심 가까이만 청록·황금 기운이 돌고 공유 나이테로 갈수록 같은 나무색이 됩니다. 기관 색을 범례 없이 쓰는 방법입니다.</p></div>
   </div>
 </section>
 
 <section>
   <h2>흐름 설계 메모</h2>
-  <p class="lead">계획안 순서와 나무의 자람을 맞춥니다. 안쪽 장표에서는 얽힌 아치를 위쪽 띠로 줄여 머리글로 쓰고, 장표마다 매듭이 하나씩 늘어납니다.</p>
+  <p class="lead">계획안 순서를 단면의 안에서 바깥으로 읽히게 맞춥니다. 안쪽 장표에서는 단면을 화면 오른쪽 끝에 크게 반만 걸쳐 두고, 그 장표가 다루는 고리만 진하게 남깁니다.</p>
   <div class="tw"><table>
-    <thead><tr><th>계획안 구성</th><th>연리지 은유</th><th>얽힘 정도</th><th>안쪽 장표 아이디어</th></tr></thead>
+    <thead><tr><th>계획안 구성</th><th>단면의 자리</th><th>안쪽 장표 아이디어</th></tr></thead>
     <tbody>
-      <tr><td>추진 배경</td><td>따로 선 두 줄기</td><td class="g"><span class="bar"><b style="width:20%"></b></span>20%</td><td>청록·황금 줄기만 양쪽 가장자리에. 가운데에 유치원·어린이집 현황 두 단</td></tr>
-      <tr><td>현황 진단</td><td>가지 끝이 닿을락 말락</td><td class="g"><span class="bar"><b style="width:40%"></b></span>40%</td><td>가지 사이 빈 틈에 격차 4가지(연령·교사 자격·시설 기준·재정)를 끼워 넣기</td></tr>
-      <tr><td>추진 목표</td><td>첫 매듭</td><td class="g"><span class="bar"><b style="width:55%"></b></span>55%</td><td>꼭대기 매듭 아래에 비전 문장 하나. 매듭 자리만 초록</td></tr>
-      <tr><td>세부 과제</td><td>매듭이 늘어남</td><td class="g"><span class="bar"><b style="width:76%"></b></span>76%</td><td>과제 하나에 매듭 하나. 매듭 아래 과제명 라벨</td></tr>
-      <tr><td>선도 운영</td><td>초록으로 물든 구간</td><td class="g"><span class="bar"><b style="width:90%"></b></span>90%</td><td>선도기관 수만큼 잎이 돋은 가지. 잎 하나에 기관 하나</td></tr>
-      <tr><td>기대 효과·일정</td><td>한 그루의 그늘</td><td class="g"><span class="bar"><b style="width:100%"></b></span>100%</td><td>표지 그림으로 돌아와 아래 빈터에 기대 효과를 놓기</td></tr>
+      <tr><td>추진 배경</td><td class="r"><span class="ring bk" style="width:8px;height:8px;border-width:2px"></span>두 개의 심</td><td>두 심만 확대해 나란히. 심 옆에 각 기관의 근거 법령과 소관을 한 줄씩</td></tr>
+      <tr><td>현황 진단</td><td class="r"><span class="ring in"></span><span class="ring in2"></span>따로 자란 안쪽 나이테</td><td>두 나이테 다발의 굵기·간격을 비교 막대처럼 읽게 함. 격차 항목(교사 자격, 운영 시간, 시설 기준, 재정)을 다발 바깥에 하나씩</td></tr>
+      <tr><td>추진 목표</td><td class="r"><span class="ring sh"></span>처음 둘을 감싼 나이테</td><td>첫 공유 나이테 한 줄만 진하게, 그 위에 비전 문장 하나</td></tr>
+      <tr><td>세부 과제·선도 운영</td><td class="r"><span class="ring sh"></span>바깥 공유 나이테</td><td>나이테 한 겹 = 한 해. 겹마다 연도와 그해 성과 지표(아래 예시)</td></tr>
+      <tr><td>기대 효과·지원 체계</td><td class="r"><span class="ring bk"></span>수피</td><td>단면을 감싼 껍질에 지원 체계(예산, 인력, 협의체)를 둘러 적어 바깥에서 지켜 주는 장치로</td></tr>
     </tbody>
   </table></div>
-  <ol class="flow" aria-label="발표 흐름">
-    <li>표지: 매듭이 엮이며 등장</li>
-    <li>두 줄기</li>
-    <li>닿는 자리</li>
-    <li>첫 매듭</li>
-    <li>매듭 늘리기</li>
-    <li>초록 구간</li>
-    <li>빈터에서 마무리</li>
-  </ol>
-</section>
-
-<section>
-  <h2>화풍 참고 메모</h2>
-  <p class="lead">Cartoon Saloon(『켈스의 비밀』, 『울프워커스』)의 조형 원리만 빌렸습니다. 캐릭터, 로고, 특정 장면은 쓰지 않았습니다.</p>
+  <div class="years" aria-label="공유 나이테 연도 예시">
+    <div><b>2027</b>선도기관 운영, 공통 지침 시범 적용</div>
+    <div><b>2028</b>선도기관 확대, 교사 공동 연수</div>
+    <div><b>2029</b>통합 기준 전면 적용 준비</div>
+    <div><b>2030</b>성과 점검, 다음 나이테 계획</div>
+  </div>
+  <p class="small">연도별 내용은 흐름을 보여 주기 위한 가상 예시입니다.</p>
   <div class="two">
-    <div><h3>빌린 것</h3><ul>
-      <li>덩굴과 가지가 위아래로 번갈아 지나가는 켈트 매듭식 엮기. 매듭이 장식이 아니라 연리지 이야기 자체</li>
-      <li>한쪽이 두꺼워지는 윤곽선. 빛 반대편(오른쪽 아래)으로 선이 굵어지게 그림</li>
-      <li>평평한 색면 + 목판 질감. 판화처럼 색이 고르게 먹지 않은 흰 반점과 결</li>
-      <li>소용돌이로 말리는 가지 끝, 안쪽에 나선을 넣은 둥근 수관</li>
-      <li>평면 레이어를 겹쳐 만드는 깊이(멀티플레인)</li>
+    <div><h3>이렇게 쓰면 살아남</h3><ul>
+      <li>표지와 안쪽 장표가 같은 단면을 공유하고 확대 위치만 바뀜</li>
+      <li>마지막 장표는 다시 표지 단면으로 돌아와, 아직 비어 있는 바깥 테 자리를 "다음 해"로 남김</li>
     </ul></div>
-    <div><h3>피한 것</h3><ul>
-      <li>늑대·소녀·수도사 같은 작품 고유 캐릭터와 장면 구도</li>
-      <li>숲 장면의 어둡고 위협적인 색. 이 표지는 아침 빛의 밝은 숲</li>
-      <li>마을 장면의 각진 목판 선. 교육 표지에는 숲 쪽의 둥근 선이 정서에 맞음</li>
-      <li>원·타원만 겹친 납작한 나무. 잎·수피 결·말린 가지 끝까지 그림</li>
+    <div><h3>피할 것</h3><ul>
+      <li>고리마다 지시선을 그어 설명하는 도감식 장표</li>
+      <li>동심원 도형만 겹친 납작한 나이테. 결과 색 변화가 있어야 나무로 읽힘</li>
     </ul></div>
   </div>
-  <p class="small">참고: 『울프워커스』는 마을을 16~17세기 목판화풍(단단한 가장자리, 안료가 덜 먹은 질감)으로, 숲은 더 거친 선으로 구분해 그렸다. <a href="https://mande.net/ko/btl/crafts/visual-fx/wolfwalkers-animation" target="_blank" rel="noopener">The Myriad Animation Styles Within Wolfwalkers</a></p>
 </section>
 
 <section>
   <h2>스펙</h2>
   <div class="pal">
-    <div><i style="background:#2F8E8C"></i><p>유치원 나무<br><code>#2F8E8C</code></p></div>
-    <div><i style="background:#E2A43C"></i><p>어린이집 나무<br><code>#E2A43C</code></p></div>
-    <div><i style="background:#4E9E46"></i><p>합쳐진 초록<br><code>#4E9E46</code></p></div>
-    <div><i style="background:#F6EBC2"></i><p>아침 하늘<br><code>#F6EBC2</code></p></div>
-    <div><i style="background:#E9D79A"></i><p>빈터<br><code>#E9D79A</code></p></div>
-    <div><i style="background:#2A3A2F"></i><p>윤곽선·글자<br><code>#2A3A2F</code></p></div>
+    <div><i style="background:#EED6A8"></i><p>이른 나무(밝은 테)<br><code>#EED6A8</code></p></div>
+    <div><i style="background:#C38B55"></i><p>늦은 나무(진한 테)<br><code>#C38B55</code></p></div>
+    <div><i style="background:#8A6443"></i><p>수피<br><code>#8A6443</code></p></div>
+    <div><i style="background:#2C8780"></i><p>유치원 기운<br><code>#2C8780</code></p></div>
+    <div><i style="background:#D9A23A"></i><p>어린이집 기운<br><code>#D9A23A</code></p></div>
+    <div><i style="background:#ECEEE8"></i><p>바탕<br><code>#ECEEE8</code></p></div>
   </div>
   <dl>
-    <dt>폰트</dt><dd>제목 Song Myung(붓맛 있는 명조, 대체: 궁서체·HY견명조). 부제·기관 Gowun Batang 700(대체: 나눔명조, 바탕). 라벨 Gowun Dodum(대체: 맑은 고딕). 모두 Google Fonts 무료.</dd>
+    <dt>폰트</dt><dd>제목 Hahmlet 700(대체: 나눔명조 ExtraBold, HY견명조). 연도·라벨·기관 IBM Plex Sans KR(대체: 맑은 고딕). 모두 Google Fonts 무료.</dd>
     <dt>PPT 이식</dt><dd><ol>
-      <li>레이어를 PNG 4장으로 따로 저장: 하늘·먼 숲 / 중경 숲·빈터 / 두 나무와 매듭 / 전경 잎. 각 장을 슬라이드보다 8% 크게.</li>
-      <li>네 장을 같은 위치에 겹치고 제목은 텍스트 상자로 그 위에.</li>
-      <li>슬라이드를 복제해 두 번째 장에서 레이어를 서로 다른 거리만큼 옮김: 전경 3%, 나무 1.6%, 중경 0.9%, 하늘 0.4%. 전환을 모핑(3~4초)으로 하면 패럴랙스처럼 보임.</li>
-      <li>등장: 매듭 레이어에 '닦아내기(아래에서)' 2초, 또는 성장 단계 PNG 5장을 모핑으로 이어 붙이기.</li>
-      <li>안쪽 장표용으로 위 표의 단계별 PNG를 미리 뽑아 두고 머리글 띠로 잘라 씀.</li>
+      <li>아래 두 단면 그림을 저장합니다(그림 위에서 오른쪽 클릭 → 다른 이름으로 저장, 휴대폰은 길게 누르기). 배경이 투명한 PNG입니다.</li>
+      <li>슬라이드 오른쪽 절반에 '통합 전'과 '완성' 두 장을 같은 크기·위치로 겹칩니다. 그림자는 그림에 들어 있습니다.</li>
+      <li>'완성'에 나타내기 → '도형', 효과 옵션 '원형·바깥쪽', 1.5~2초. 공유 나이테가 바깥으로 퍼지듯 보입니다.</li>
+      <li>제목·라벨은 텍스트 상자로. 라벨은 둘 또는 셋까지만.</li>
+      <li>안쪽 장표: '완성'을 200~300%로 키워 오른쪽 끝에 반만 걸치고, 나머지 면에 내용을 놓습니다.</li>
     </ol></dd>
-    <dt>난이도</dt><dd>HTML 중상(캔버스 그리기 + 레이어 이동). PPT 중: 그림만 준비되면 겹치기와 모핑뿐이고, 그림 4장을 마련하는 데 손이 가장 많이 감.</dd>
+    <dt>난이도</dt><dd>HTML 중상(픽셀 단위 나뭇결 계산). PPT 하: 그림 두 장만 있으면 겹치기와 애니메이션 하나.</dd>
   </dl>
+  <div class="png">
+    <figure><img id="pngBefore" alt="통합 전 단면: 각자 수피를 두른 두 개의 작은 원목이 맞닿아 있는 모습"><figcaption>통합 전(두 심과 안쪽 나이테)</figcaption></figure>
+    <figure><img id="pngAfter" alt="완성 단면: 두 심을 공유 나이테가 하나로 감싼 연리지 단면"><figcaption>완성(공유 나이테와 수피까지)</figcaption></figure>
+  </div>
   <p class="small">가상 예시입니다. 실제 기관·계획과 무관합니다.</p>
 </section>
 
@@ -218,252 +201,179 @@ a{color:var(--teal)}
 
 <script>
 (function(){
-const W=1600,H=900,INK='#2A3A2F';
-const cover=document.getElementById('cover');
-const cv=[0,1,2,3].map(i=>document.getElementById('c'+i));
-const ctxs=cv.map(c=>c.getContext('2d'));
+const cover=document.getElementById('cover'),cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const box=document.getElementById('slabbox');
+const labs={a:document.getElementById('labA'),b:document.getElementById('labB'),c:document.getElementById('labC')};
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const coarse=matchMedia('(pointer: coarse)').matches;
 
-/* utils */
+/* ── noise ── */
 function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-const cl=(x,a,b)=>Math.max(a,Math.min(b,x));
-function sm(e0,e1,x){const t=cl((x-e0)/(e1-e0),0,1);return t*t*(3-2*t)}
-function hx(h){return [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
-const mcache={};
-function mix(a,b,t,al){t=Math.round(t*20)/20;const k=a+b+t+(al||1);if(mcache[k])return mcache[k];const A=hx(a),B=hx(b);
-  const c=A.map((v,i)=>Math.round(v+(B[i]-v)*t));return mcache[k]=al!=null&&al<1?`rgba(${c},${al})`:`rgb(${c})`}
-function nz(i){return .5+.25*Math.sin(i*.37)+.15*Math.sin(i*.113+1.3)+.1*Math.sin(i*1.7)}
-function bez(p0,p1,p2,p3,t){const u=1-t;return[u*u*u*p0[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*p3[0],u*u*u*p0[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*p3[1]]}
-const LIGHT=[-.55,-.83];
-function normals(P){for(let i=0;i<P.length;i++){const a=P[Math.max(0,i-1)],b=P[Math.min(P.length-1,i+1)];let tx=b.x-a.x,ty=b.y-a.y;const l=Math.hypot(tx,ty)||1;tx/=l;ty/=l;let nx=-ty,ny=tx;if(nx*LIGHT[0]+ny*LIGHT[1]<0){nx=-nx;ny=-ny}P[i].nx=nx;P[i].ny=ny;P[i].tx=tx;P[i].ty=ty}}
-function lengths(P){let L=0;P[0].L=0;for(let i=1;i<P.length;i++){L+=Math.hypot(P[i].x-P[i-1].x,P[i].y-P[i-1].y);P[i].L=L}P.forEach(p=>p.u=p.L/L);return L}
-function turtle(x,y,h,n,step,dir,k0,k1){const out=[];for(let i=1;i<=n;i++){const f=i/n;h+=dir*(k0+k1*Math.pow(f,2.4));const st=step*(1-.55*f);x+=Math.cos(h)*st;y+=Math.sin(h)*st;out.push([x,y,f])}return out}
+const R0=rng(17),perm=new Uint8Array(512),val=new Float32Array(256);
+for(let i=0;i<256;i++){perm[i]=i;val[i]=R0()}
+for(let i=255;i>0;i--){const j=Math.floor(R0()*(i+1));[perm[i],perm[j]]=[perm[j],perm[i]]}
+for(let i=0;i<256;i++)perm[i+256]=perm[i];
+function vn(x,y){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,X=xi&255,Y=yi&255;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=val[perm[X+perm[Y]]],b=val[perm[X+1+perm[Y]]],c=val[perm[X+perm[Y+1]]],d=val[perm[X+1+perm[Y+1]]];
+  return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v}
+function fbm(x,y,o){let s=0,a=.5,f=1,n=0;for(let i=0;i<o;i++){s+=a*vn(x*f,y*f);n+=a;a*=.5;f*=2.03}return s/n}
+const sst=(e0,e1,x)=>{const t=Math.max(0,Math.min(1,(x-e0)/(e1-e0)));return t*t*(3-2*t)};
 
-/* palettes */
-const TEAL='#2F8E8C',GOLD='#E2A43C',GREEN='#4E9E46',CREAM='#FFF6D8';
-const FAM={teal:['#2F8E8C','#47A697','#6CBFAA','#3B9A86'],gold:['#E2A43C','#EDBA55','#F3CF79','#D8962F'],green:['#4E9E46','#67B256','#8CC771','#5AA84A']};
+/* ── geometry (slab units) ── */
+const P1=[-.305,.035],P2=[.31,-.03],K=.12,ROT=-.13;
+const RMERGE=.272, REDGE=.612;
+// ring boundaries: inner (separate) then shared
+const rr=rng(5),RINGS=[0],DARK=[];
+(function(){let r=.022;while(r<RMERGE-.012){RINGS.push(r);r+=.026*(.65+rr()*.7)}
+  RINGS.push(RMERGE);const nIn=RINGS.length;
+  const nSh=8,step=(REDGE-RMERGE)/nSh;for(let i=1;i<=nSh;i++)RINGS.push(RMERGE+step*i+(i<nSh?(rr()-.5)*step*.35:0));
+  RINGS.push(9);for(let i=0;i<RINGS.length;i++)DARK.push(.75+rr()*.45);RINGS.nIn=nIn})();
+const SHARED=RINGS.slice(RINGS.nIn-1,RINGS.length-1); // RMERGE ... REDGE
+const CRACKS=[[-2.55,.20],[.62,.15],[2.25,.11],[-.95,.08]];
+const EARLY=[238,214,168],LATE=[195,139,85],HEART=[226,190,140],TEALT=[118,176,165],GOLDT=[234,176,78];
+const BARK_HI=[150,112,78],BARK_LO=[96,68,44],CAMB=[232,200,146];
 
-/* geometry: arc frame */
-const CX=800,CY=470,RX=560,RY=360,TH0=Math.PI+.25,TH1=-.25,K=12,NA=520;
-function arcP(s){const th=TH0+(TH1-TH0)*s;return[CX+RX*Math.cos(th),CY-RY*Math.sin(th)]}
-function arcN(s){const th=TH0+(TH1-TH0)*s;let nx=Math.cos(th)/RX,ny=-Math.sin(th)/RY;const l=Math.hypot(nx,ny);return[nx/l,ny/l]}
-function amp(s){return 23*sm(0,.07,s)*sm(1,.93,s)+30*Math.exp(-Math.pow((s-.5)/.08,2))}
+function smin(a,b,k){const h=Math.max(k-Math.abs(a-b),0)/k;return Math.min(a,b)-h*h*k*.25}
 
-function buildA(){
-  const P=[];const p0=[215,925],p1=[226,800],p2=[302,690],p3=arcP(0);
-  for(let i=0;i<=90;i++){const t=i/90,[x,y]=bez(p0,p1,p2,p3,t);P.push({x,y,w:64-24*t+24*Math.exp(-t*9),z:1,s:-1,m:0})}
-  for(let i=1;i<=NA;i++){const s=i/NA,[x,y]=arcP(s),[nx,ny]=arcN(s),o=amp(s)*Math.sin(K*Math.PI*s);
-    P.push({x:x+nx*o,y:y+ny*o,w:7+33*Math.pow(1-s,.85),z:Math.cos(K*Math.PI*s),s,m:sm(.36,.53,s)})}
-  const a=P[P.length-2],b=P[P.length-1];
-  turtle(b.x,b.y,Math.atan2(b.y-a.y,b.x-a.x),56,4.4,-1,.01,.22).forEach(([x,y,f])=>P.push({x,y,w:7-5*f,z:1,s:2,m:1}));
-  lengths(P);normals(P);return P;
-}
-const A=buildA();
-const B=A.map(p=>({x:W-p.x,y:p.y,w:p.w,z:-p.z,s:p.s<0||p.s>1?p.s:1-p.s,m:p.m,u:p.u,L:p.L}));normals(B);
-function uAt(s){return A[90+Math.max(1,Math.round(s*NA))].u}
-
-/* branches */
-function mkBranch(pts,curlDir,w0,fam,attachU,seed){
-  const P=[];for(let i=0;i<=40;i++){const t=i/40,[x,y]=bez(pts[0],pts[1],pts[2],pts[3],t);P.push({x,y})}
-  const a=P[P.length-2],b=P[P.length-1];
-  turtle(b.x,b.y,Math.atan2(b.y-a.y,b.x-a.x),34,4,curlDir,.02,.3).forEach(([x,y])=>P.push({x,y}));
-  lengths(P);normals(P);P.forEach(p=>{p.w=1.6+(w0-1.6)*Math.pow(1-p.u,1.1)});
-  const r=rng(seed),leaves=[];
-  for(let i=10;i<P.length-14;i+=5){const p=P[i],side=(i/5)%2?1:-1,ang=Math.atan2(p.ty,p.tx)+side*(.8+r()*.5);
-    leaves.push({x:p.x,y:p.y,ang,len:26+r()*16,col:FAM[fam][Math.floor(r()*4)],u:p.u})}
-  return{P,fam,attachU,leaves,dur:.28};
-}
-const brDefsA=[
-  {pts:[[232,760],[170,700],[90,690],[48,600]],dir:1,w:15,u:.09},
-  {pts:[arcP(.1),[160,360],[70,300],[100,190]],dir:1,w:13,u:.24},
-  {pts:[arcP(.23),[270,170],[290,80],[390,46]],dir:1,w:11,u:.32},
-];
-const branches=[];
-brDefsA.forEach((d,i)=>{
-  branches.push(mkBranch(d.pts,d.dir,d.w,'teal',d.u,11+i));
-  branches.push(mkBranch(d.pts.map(([x,y])=>[W-x,y]),-d.dir,d.w,'gold',d.u,31+i));
-});
-/* apex tendrils */
-function mkTendril(x,y,h,dir){const P=[{x,y}];turtle(x,y,h,30,3.6,dir,.02,.34).forEach(([a,b])=>P.push({x:a,y:b}));lengths(P);normals(P);P.forEach(p=>p.w=5.5-4*p.u);return P}
-const tendrils=[mkTendril(778,150,2.05,1),mkTendril(822,150,1.09,-1)];
-
-/* canopy leaves */
-const canopy=[];(function(){const r=rng(7);
-  for(let i=0;i<190;i++){const s=.12+r()*.76,[bx,by]=arcP(s),[nx,ny]=arcN(s);const d=16+r()*140*(1-Math.abs(s-.5)*1.05);
-    const tj=(r()-.5)*40;const x=bx+nx*d-ny*tj,y=by+ny*d+nx*tj;
-    const sv=s+(r()-.5)*.1;const fam=sv<.35?'teal':sv>.65?'gold':'green';
-    canopy.push({x,y,ang:Math.atan2(ny,nx)+(r()-.5)*1.9,len:26+r()*24,col:FAM[fam][Math.floor(r()*4)],u:uAt(Math.min(s,1-s))+.02,front:r()<.22})}
-  canopy.sort((a,b)=>b.y-a.y);
-})();
-
-/* drawing primitives */
-function strokeRun(c,P,a,b,wf,cf,off){
-  let cw=null,cc=null;
-  for(let i=a;i<b;i++){const w=Math.round(wf(i)*2)/2,col=cf(i);
-    if(w!==cw||col!==cc){if(cw!==null)c.stroke();c.beginPath();c.lineWidth=Math.max(.5,w);c.strokeStyle=col;cw=w;cc=col;const[o1,o2]=off(i);c.moveTo(P[i].x+o1,P[i].y+o2)}
-    const[o1,o2]=off(i+1);c.lineTo(P[i+1].x+o1,P[i+1].y+o2)}
-  if(cw!==null)c.stroke();
-}
-function drawStrand(c,P,a,b,W_,base){
-  if(b-a<1)return;
-  c.lineCap='round';c.lineJoin='round';
-  const col=i=>mix(base,GREEN,P[i].m);
-  strokeRun(c,P,a,b,i=>W_[i]+3.4+2.6*nz(i),()=>INK,()=>[2.2,3]);
-  strokeRun(c,P,a,b,i=>W_[i]+2.6,()=>INK,()=>[0,0]);
-  strokeRun(c,P,a,b,i=>W_[i],col,()=>[0,0]);
-  strokeRun(c,P,a,b,i=>W_[i]*.32,i=>mix(base==='#fff'?base:mix2(base,P[i].m),INK,.4,.55),i=>[-P[i].nx*W_[i]*.27,-P[i].ny*W_[i]*.27]);
-  strokeRun(c,P,a,b,i=>W_[i]*.16,i=>mix(mix2(base,P[i].m),CREAM,.5,.7),i=>[P[i].nx*W_[i]*.24,P[i].ny*W_[i]*.24]);
-  // bark grain
-  c.save();c.setLineDash([16,11]);
-  strokeRun(c,P,a,b,i=>W_[i]>15?1.3:0,i=>mix(mix2(base,P[i].m),INK,.55,.5),i=>[P[i].nx*W_[i]*.05,P[i].ny*W_[i]*.05]);
-  c.lineDashOffset=7;
-  strokeRun(c,P,a,b,i=>W_[i]>22?1.1:0,i=>mix(mix2(base,P[i].m),INK,.55,.45),i=>[-P[i].nx*W_[i]*.1,-P[i].ny*W_[i]*.1]);
-  c.restore();
-}
-const m2c={};function mix2(base,m){const k=base+Math.round(m*20);return m2c[k]||(m2c[k]=(()=>{const t=Math.round(m*20)/20;const A_=hx(base),B_=hx(GREEN);return'#'+A_.map((v,i)=>Math.round(v+(B_[i]-v)*t).toString(16).padStart(2,'0')).join('')})())}
-
-function leaf(c,x,y,ang,len,col,sc){
-  if(sc<=.01)return;const L=len*sc,w=L*.4;
-  const shape=()=>{c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(L*.42,-w,L,0);c.quadraticCurveTo(L*.5,w*.85,0,0);c.closePath()};
-  c.save();c.translate(x+1.8,y+2.4);c.rotate(ang);shape();c.fillStyle=INK;c.fill();c.restore();
-  c.save();c.translate(x,y);c.rotate(ang);shape();c.fillStyle=col;c.fill();c.lineWidth=1.5;c.strokeStyle=INK;c.stroke();
-  c.beginPath();c.moveTo(0,0);c.quadraticCurveTo(L*.42,-w,L,0);c.quadraticCurveTo(L*.5,-w*.12,0,0);c.fillStyle='rgba(255,246,216,.32)';c.fill();
-  c.beginPath();c.moveTo(-L*.12,0);c.quadraticCurveTo(L*.45,-w*.1,L*.8,0);c.lineWidth=1.3;c.strokeStyle=mix(col,INK,.5);c.stroke();
-  c.restore();
-}
-const pop=t=>{t=cl(t,0,1);const s=1.7;return 1+(s+1)*Math.pow(t-1,3)+s*Math.pow(t-1,2)};
-function blob(c,x,y,r,seed,sx,sy){const rr=rng(seed),p1=rr()*6,p2=rr()*6;c.beginPath();
-  for(let i=0;i<=72;i++){const a=i/72*Math.PI*2,k=1+.09*Math.sin(5*a+p1)+.05*Math.sin(11*a+p2);const X=x+Math.cos(a)*r*k*(sx||1),Y=y+Math.sin(a)*r*k*(sy||1);i?c.lineTo(X,Y):c.moveTo(X,Y)}c.closePath()}
-function spiral(c,x,y,r,turns,ang){c.beginPath();const n=60;for(let i=0;i<=n;i++){const f=i/n,a=ang+f*turns*Math.PI*2,R=r*f;const X=x+Math.cos(a)*R,Y=y+Math.sin(a)*R;i?c.lineTo(X,Y):c.moveTo(X,Y)}c.stroke()}
-
-/* textures */
-function makeGrain(sz,seed,mode){const g=document.createElement('canvas');g.width=g.height=sz;const x=g.getContext('2d');const d=x.createImageData(sz,sz),r=rng(seed);
-  for(let i=0;i<sz*sz;i++){const v=r();let c=null;
-    if(mode==='wood'){if(v<.03)c=[255,249,230,90];else if(v<.045)c=[40,35,25,45]}
-    else{if(v<.22)c=[90,70,40,Math.floor(r()*26)];else if(v<.25)c=[255,255,255,60]}
-    if(c){d.data.set(c,i*4)}}
-  x.putImageData(d,0,0);
-  if(mode==='wood'){for(let i=0;i<34;i++){x.fillStyle='rgba(255,249,230,.32)';x.beginPath();x.ellipse(r()*sz,r()*sz,.8+r()*2.6,.6+r()*1.4,r()*3,0,7);x.fill()}
-    x.strokeStyle='rgba(255,249,230,.18)';x.lineWidth=.8;for(let i=0;i<14;i++){const y=r()*sz,xx=r()*sz;x.beginPath();x.moveTo(xx,y);x.lineTo(xx+10+r()*30,y+(r()-.5)*3);x.stroke()}}
-  return g}
-const woodG=makeGrain(160,3,'wood');
-document.getElementById('paper').style.backgroundImage='url('+makeGrain(220,5,'paper').toDataURL()+')';
-function texture(c,alpha){c.save();c.globalCompositeOperation='source-atop';c.globalAlpha=alpha;c.fillStyle=c.createPattern(woodG,'repeat');c.fillRect(-200,-200,W+400,H+400);c.restore()}
-
-/* layers */
-let sc=1,cwid=0;
-function prep(i){const c=ctxs[i],can=cv[i];const dpr=Math.min(2,devicePixelRatio||1);const r=cover.getBoundingClientRect();cwid=r.width;
-  can.width=Math.round(r.width*1.08*dpr);can.height=Math.round(r.height*1.08*dpr);sc=r.width*dpr/W;
-  c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,can.width,can.height);c.setTransform(sc,0,0,sc,r.width*.04*dpr,r.height*.04*dpr);return c}
-
-function drawSky(){const c=prep(0);
-  const g=c.createLinearGradient(0,-60,0,H);g.addColorStop(0,'#CFE6D8');g.addColorStop(.42,'#F6EBC2');g.addColorStop(.72,'#FBE2A8');g.addColorStop(1,'#F3D58E');
-  c.fillStyle=g;c.fillRect(-100,-100,W+200,H+200);
-  // concentric morning sun
-  [[420,'rgba(255,249,226,.28)'],[320,'rgba(255,249,226,.32)'],[235,'rgba(255,250,232,.38)'],[160,'rgba(255,251,238,.45)'],[95,'rgba(255,252,242,.6)']].forEach(([r,col],i)=>{blob(c,800,430,r,40+i,1.15,1);c.fillStyle=col;c.fill()});
-  // far forest bands
-  const band=(base,amp,per,col,line,seed)=>{const r=rng(seed);c.beginPath();c.moveTo(-100,H+100);c.lineTo(-100,base);
-    for(let x=-100;x<=W+100;x+=per){const h=amp*(.5+r()*.8);c.quadraticCurveTo(x+per*.5,base-h*2,x+per,base-r()*10)}
-    c.lineTo(W+100,H+100);c.closePath();c.fillStyle=col;c.fill();c.lineWidth=2;c.strokeStyle=line;c.stroke()};
-  band(560,46,74,'#CFE0C6','#B5CDB0',2);
-  c.strokeStyle='rgba(150,180,150,.5)';c.lineWidth=5;const rr=rng(9);for(let i=0;i<26;i++){const x=rr()*W;c.beginPath();c.moveTo(x,540);c.lineTo(x+(rr()-.5)*8,680);c.stroke()}
-  band(630,40,60,'#BCD6B6','#9FC19C',4);
-  texture(c,.5);
-}
-function drawMid(){const c=prep(1);const r=rng(21);
-  const trees=[[60,250,150,1],[150,300,120,0],[420,230,105,0],[1180,240,110,0],[1450,290,125,1],[1555,230,145,1],[300,190,95,0],[1300,180,95,0]];
-  trees.forEach(([x,y,R,dark],i)=>{
-    const tc=dark?'#93B596':'#AFCBA8',cc=dark?'#AFD0A4':'#C7DDB6',lc=dark?'#7FA584':'#9CBF98';
-    c.lineCap='round';c.strokeStyle=lc;c.lineWidth=(dark?26:18)+4;c.beginPath();c.moveTo(x,720);c.quadraticCurveTo(x+(r()-.5)*40,(720+y)/2,x+(r()-.5)*20,y);c.stroke();
-    c.strokeStyle=tc;c.lineWidth=dark?26:18;c.stroke();
-    blob(c,x,y,R,100+i,1,1.12);c.fillStyle=cc;c.fill();c.lineWidth=3;c.strokeStyle=lc;c.stroke();
-    blob(c,x-R*.18,y-R*.2,R*.62,200+i,1,1.1);c.fillStyle=dark?'#BCDAB0':'#D3E6C2';c.fill();
-    c.strokeStyle=lc;c.lineWidth=2.4;spiral(c,x+R*.05,y+R*.05,R*.55,2.2,r()*6);
-  });
-  // light shafts
-  c.save();c.globalCompositeOperation='screen';
-  [[180,120],[470,90],[760,70]].forEach(([x,w])=>{c.beginPath();c.moveTo(x,-60);c.lineTo(x+w,-60);c.lineTo(x+w+520,H);c.lineTo(x+520,H);c.closePath();c.fillStyle='rgba(255,248,215,.20)';c.fill()});
-  c.restore();
-  // clearing
-  c.beginPath();c.moveTo(-100,H+100);c.lineTo(-100,710);for(let x=-100;x<=W+100;x+=20)c.lineTo(x,700+16*Math.sin(x/210)+7*Math.sin(x/53));c.lineTo(W+100,H+100);c.closePath();
-  const g=c.createLinearGradient(0,700,0,H);g.addColorStop(0,'#E9D79A');g.addColorStop(1,'#D8BE78');c.fillStyle=g;c.fill();c.lineWidth=3;c.strokeStyle='#B9A266';c.stroke();
-  blob(c,800,800,250,77,2.1,.42);c.fillStyle='#F6E8B8';c.fill();
-  blob(c,800,805,150,78,2.2,.36);c.fillStyle='#FBF0C9';c.fill();
-  // grass tufts & flowers
-  for(let i=0;i<70;i++){const x=r()*W,y=716+r()*190;if(Math.abs(x-800)<300&&y>760&&y<850)continue;const n=3+Math.floor(r()*3);
-    c.strokeStyle=r()<.5?'#8EAE5E':'#A6BF6A';c.lineWidth=2.4;c.lineCap='round';
-    for(let k=0;k<n;k++){const a=-Math.PI/2+(k-(n-1)/2)*.32;c.beginPath();c.moveTo(x,y);c.quadraticCurveTo(x+Math.cos(a)*9,y+Math.sin(a)*10,x+Math.cos(a)*16+(r()-.5)*4,y+Math.sin(a)*20);c.stroke()}}
-  for(let i=0;i<34;i++){const x=120+r()*(W-240),y=730+r()*160;const pc=r()<.6?'#FFFBEF':'#F7D26A';
-    for(let k=0;k<5;k++){const a=k/5*Math.PI*2;c.beginPath();c.ellipse(x+Math.cos(a)*4,y+Math.sin(a)*3,3.4,2.4,a,0,7);c.fillStyle=pc;c.fill();c.lineWidth=.8;c.strokeStyle='#B59A58';c.stroke()}
-    c.beginPath();c.arc(x,y,1.8,0,7);c.fillStyle='#E0A43C';c.fill()}
-  texture(c,.55);
-}
-function drawFront(){const c=prep(3);const r=rng(55);
-  const cluster=(ox,oy,ang,spread,n,l0,l1,cols)=>{const L=[];for(let i=0;i<n;i++){const a=ang+(r()-.5)*spread,d=r()*l0*1.1;L.push({x:ox+Math.cos(a)*d,y:oy+Math.sin(a)*d,a:a+(r()-.5)*.5,len:l0+r()*(l1-l0),col:cols[Math.floor(r()*cols.length)]})}
-    L.sort((p,q)=>p.len-q.len).forEach(p=>leaf(c,p.x,p.y,p.a,p.len,p.col,1))};
-  // grass blades along bottom edges
-  c.lineCap='round';
-  for(let i=0;i<40;i++){const x=i<20?-40+r()*330:W-290+r()*330,h=40+r()*90,lean=(r()-.5)*40;
-    c.beginPath();c.moveTo(x,H+40);c.quadraticCurveTo(x+lean*.3,H-h*.5,x+lean,H-h);c.lineWidth=9;c.strokeStyle=INK;c.stroke();c.lineWidth=6;c.strokeStyle=r()<.5?'#3E7D52':'#4F9258';c.stroke()}
-  cluster(-50,950,-.85,1.2,20,95,170,['#2E6B5A','#3B806A','#26594E','#4A8E6E']);
-  cluster(W+50,950,-Math.PI+.85,1.2,20,95,170,['#5E7A2E','#6E8C34','#4E6A2A','#8A8F3A']);
-  cluster(-50,-40,.75,.9,10,70,120,['#2E6B5A','#3B806A','#4A8E6E']);
-  cluster(W+50,-40,Math.PI-.75,.9,10,70,120,['#6E8C34','#7E9A3C','#5E7A2E']);
-  texture(c,.55);
-}
-function drawMain(g){const c=prep(2);
-  // branches (behind)
-  branches.forEach(br=>{const f=cl((g-br.attachU)/br.dur,0,1);if(f<=0)return;const n=br.P.findIndex(p=>p.u>f);const end=n<0?br.P.length-1:Math.max(1,n);
-    const Wb=br.P.map((p,i)=>p.w*(f<1?cl((end-i)/14,.15,1):1));
-    br.leaves.forEach(l=>{const s=(f-l.u)/.12;if(s>0)leaf(c,l.x,l.y,l.ang,l.len,l.col,pop(s))});
-    drawStrand(c,br.P,0,end,Wb,br.fam==='teal'?TEAL:GOLD);
-  });
-  canopy.forEach(l=>{if(!l.front){const s=(g-l.u)/.07;if(s>0)leaf(c,l.x,l.y,l.ang,l.len,l.col,pop(s))}});
-  // strands: bottom pass then top pass
-  const vis=P=>{let n=P.findIndex(p=>p.u>g);return n<0?P.length-1:n};
-  const prepS=(P,n)=>P.map((p,i)=>p.w*(g<1?cl((n-i)/34*.9+.1,.1,1):1));
-  const nA=vis(A),nB=vis(B),WA=prepS(A,nA),WB=prepS(B,nB);
-  const runs=(P,n,top)=>{const R=[];let st=null;for(let i=0;i<=n;i++){const t=P[i].z>=0;if(t===top&&st===null)st=Math.max(0,i-1);if((t!==top||i===n)&&st!==null){R.push([st,Math.min(n,i)]);st=null}}return R};
-  [false,true].forEach(top=>{
-    runs(A,nA,top).forEach(([a,b])=>drawStrand(c,A,a,b,WA,TEAL));
-    runs(B,nB,top).forEach(([a,b])=>drawStrand(c,B,a,b,WB,GOLD));
-  });
-  // apex tendrils
-  const tf=cl((g-.56)/.16,0,1);
-  if(tf>0)tendrils.forEach(P=>{const n=Math.max(1,Math.round(tf*(P.length-1)));drawStrand(c,P.map(p=>({...p,m:1})),0,n,P.map(p=>p.w),GREEN)});
-  canopy.forEach(l=>{if(l.front){const s=(g-l.u)/.07;if(s>0)leaf(c,l.x,l.y,l.ang,l.len,l.col,pop(s))}});
-  texture(c,.6);
+let G=null; // precomputed fields
+function precompute(w,h,S,cx,cy){
+  const n=w*h,F=new Float32Array(n),C=new Uint8ClampedArray(n*3),BN=new Uint8ClampedArray(n),BL=new Float32Array(n);
+  const cr=Math.cos(ROT),sr=Math.sin(ROT);
+  for(let j=0;j<h;j++){const Y=(j-cy)/S;
+    for(let i=0;i<w;i++){const X=(i-cx)/S,k=j*w+i;
+      const x=X*cr-Y*sr,y=X*sr+Y*cr;
+      const dx1=x-P1[0],dy1=y-P1[1],dx2=x-P2[0],dy2=y-P2[1];
+      const r1=Math.hypot(dx1,dy1),r2=Math.hypot(dx2,dy2);
+      if(Math.min(r1,r2)>.75){F[k]=9;continue}
+      const a1=Math.atan2(dy1,dx1),a2=Math.atan2(dy2,dx2);
+      const d1=r1*(1+.06*Math.sin(a1+.8)+.03*Math.sin(2*a1+2.1)+.018*Math.sin(3*a1+.3));
+      const d2=r2*(1+.06*Math.sin(a2+2.6)+.03*Math.sin(2*a2+.4)+.018*Math.sin(3*a2+1.7));
+      let f=smin(d1,d2,K);
+      const warp=(fbm(x*3.1+7,y*3.1,3)-.5)*.05+(vn(x*16,y*16)-.5)*.008;
+      f+=warp*Math.min(1,f/.08);
+      F[k]=f;
+      if(f>REDGE+.06)continue;
+      // ring lookup
+      let lo=0,hi=RINGS.length-1;while(hi-lo>1){const m=(lo+hi)>>1;if(RINGS[m]<=f)lo=m;else hi=m}
+      const q=(f-RINGS[lo])/(RINGS[hi]-RINGS[lo]);
+      const heart=1-sst(.18,.5,f);
+      const e0=EARLY[0]+(HEART[0]-EARLY[0])*heart*.5,e1=EARLY[1]+(HEART[1]-EARLY[1])*heart*.5,e2=EARLY[2]+(HEART[2]-EARLY[2])*heart*.5;
+      const lw=sst(.5,.93,q)*DARK[lo],bl=sst(.93,.995,q);
+      let R=e0+(LATE[0]-e0)*lw,Gc=e1+(LATE[1]-e1)*lw,B=e2+(LATE[2]-e2)*lw;
+      const dk=1-.13*bl*DARK[lo];R*=dk;Gc*=dk;B*=dk;
+      // institution tint near piths
+      const sel=sst(-.025,.025,d2-d1),fade=(1-sst(.12,.3,f))*.2;
+      const t1=fade*sel,t2=fade*(1-sel);
+      R+=(TEALT[0]-R)*t1+(GOLDT[0]-R)*t2;Gc+=(TEALT[1]-Gc)*t1+(GOLDT[1]-Gc)*t2;B+=(TEALT[2]-B)*t1+(GOLDT[2]-B)*t2;
+      // medullary rays
+      const ang=sel>.5?a1:a2;
+      const ray=Math.pow(.5+.5*Math.sin(ang*150+fbm(x*6,y*6,2)*9),36)*sst(.03,.12,f);
+      // fine grain + saw marks
+      const g=.965+.07*vn(x*95,y*95)+.025*(vn(x*300,y*300)-.5);
+      const saw=1+.016*Math.sin(Math.hypot(x-3.4,y+2.6)*90+vn(x*4,y*4)*3);
+      // light: top-left, soft sheen
+      const L=1+.05*(-x*.35-y*.6)+.075*Math.exp(-((x+.45)*(x+.45)+(y+.32)*(y+.32))/.1);
+      let m=g*saw*L*(1+.05*ray);
+      // pith
+      const dp=Math.min(r1,r2);
+      if(dp<.03){const pv=1-sst(.008,.022,dp);m*=1-.35*pv;R+=(150-R)*pv*.5;Gc+=(100-Gc)*pv*.5;B+=(60-B)*pv*.5}
+      // pith checks
+      [[P1,1.1],[P2,-.5]].forEach(([p,phi])=>{const ddx=x-p[0],ddy=y-p[1],rr_=Math.hypot(ddx,ddy);if(rr_<.07){const pd=Math.abs(-Math.sin(phi)*ddx+Math.cos(phi)*ddy);const wv=.0026*(1-rr_/.07);if(pd<wv)m*=.55+.3*pd/wv}});
+      // included-bark seam where the trees met
+      const seam=Math.abs(d1-d2);if(seam<.007&&f<.35)m*=1-.28*(1-seam/.007)*(1-sst(.27,.35,f));
+      // radial checks from the edge
+      const th=Math.atan2(y,x);
+      for(const [ck,len] of CRACKS){const fs=REDGE-len;if(f>fs){let dt=th-ck-.006*Math.sin(f*40);dt=Math.atan2(Math.sin(dt),Math.cos(dt));
+        const wid=.016*Math.pow((f-fs)/len,1.6)+.0006;const ad=Math.abs(dt);
+        if(ad<wid){const c=1-ad/wid;m*=1-.5*Math.min(1,c*2.2);R+=(110-R)*c*.4;Gc+=(74-Gc)*c*.4;B+=(44-B)*c*.4}
+        else if(dt>0&&ad<wid*1.9)m*=1+.05}}
+      C[k*3]=R*m;C[k*3+1]=Gc*m;C[k*3+2]=B*m;
+      // bark noise + light
+      if(f>.2){const rid=1-Math.abs(2*vn(x*34+3,y*34)-1);const n2=.55*sst(.35,.85,rid)+.45*fbm(x*12,y*12,2);BN[k]=n2*255;
+        const nx=x-(sel>.5?P1[0]:P2[0])*.6,ny=y;const nl=Math.hypot(nx,ny)||1;BL[k]=(-nx*.45-ny*.85)/nl}
+    }}
+  return{w,h,S,cx,cy,F,C,BN,BL};
 }
 
-/* growth + stages */
-let G=reduce?1:0,anim=null;
-function tweenTo(target,ms){if(reduce||ms===0){G=target;drawMain(G);return}
-  const from=G,t0=performance.now();cancelAnimationFrame(anim);
-  const step=t=>{const f=cl((t-t0)/ms,0,1),e=f<.5?4*f*f*f:1-Math.pow(-2*f+2,3)/2;G=from+(target-from)*e;drawMain(G);if(f<1)anim=requestAnimationFrame(step)};anim=requestAnimationFrame(step)}
-function all(){drawSky();drawMid();drawFront();drawMain(G)}
-all();
-if(!reduce){G=0;tweenTo(1,2800)}
-const chips=[...document.querySelectorAll('#chips button')];
-chips.forEach(b=>b.addEventListener('click',()=>{chips.forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));tweenTo(+b.dataset.g,reduce?0:900)}));
-document.getElementById('replay').addEventListener('click',()=>{chips.forEach(x=>x.setAttribute('aria-pressed',x.dataset.g==='1'?'true':'false'));G=0;tweenTo(1,2800)});
-let rt;new ResizeObserver(()=>{clearTimeout(rt);rt=setTimeout(()=>{if(Math.abs(cover.getBoundingClientRect().width-cwid)>1)all()},120)}).observe(cover);
+let face,faceX,side,img;
+function renderFace(Rc){
+  const {w,h,S,F,C,BN,BL}=G,d=img.data,px=1.3/S,bw=.006+.05*Rc;
+  for(let k=0,n=w*h;k<n;k++){const f=F[k],o=k*4;const dd=Rc-f;
+    if(dd<-px){d[o+3]=0;continue}
+    let R,Gc,B,a=dd<0?1+dd/px:1;
+    if(dd<bw){const n2=BN[k]/255,t=dd/bw;const lgt=1+.22*BL[k]*(1-t*.4);
+      const sh=.82+.18*sst(0,.35,t);
+      R=(BARK_HI[0]+(BARK_LO[0]-BARK_HI[0])*n2)*lgt*sh;Gc=(BARK_HI[1]+(BARK_LO[1]-BARK_HI[1])*n2)*lgt*sh;B=(BARK_HI[2]+(BARK_LO[2]-BARK_HI[2])*n2)*lgt*sh;
+      if(dd>bw-px*1.5){const c=.55;R+=(CAMB[0]-R)*c;Gc+=(CAMB[1]-Gc)*c;B+=(CAMB[2]-B)*c}}
+    else if(dd<bw+.008){R=CAMB[0]*.98;Gc=CAMB[1]*.97;B=CAMB[2]*.95}
+    else{const ao=1-.1*Math.exp(-(dd-bw-.008)/.018);R=C[k*3]*ao;Gc=C[k*3+1]*ao;B=C[k*3+2]*ao}
+    d[o]=R;d[o+1]=Gc;d[o+2]=B;d[o+3]=a*255}
+  face.getContext('2d').putImageData(img,0,0);
+  const sc=side.getContext('2d');sc.globalCompositeOperation='source-over';sc.clearRect(0,0,w,h);sc.drawImage(face,0,0);
+  sc.globalCompositeOperation='source-in';const gr=sc.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#8A6443');gr.addColorStop(1,'#6A4A30');sc.fillStyle=gr;sc.fillRect(0,0,w,h);
+}
+function compose(c,ox,oy,S,scale){
+  const th=S*.045;
+  c.save();c.shadowColor='rgba(70,52,32,.26)';c.shadowBlur=S*.16*scale;c.shadowOffsetX=S*.04*scale;c.shadowOffsetY=S*.09*scale;
+  c.drawImage(side,ox,oy+th);c.restore();
+  c.save();c.shadowColor='rgba(60,42,24,.32)';c.shadowBlur=S*.025*scale;c.shadowOffsetY=S*.012*scale;c.drawImage(side,ox,oy+th);c.restore();
+  for(let i=1;i<=3;i++)c.drawImage(side,ox,oy+th*i/4);
+  c.drawImage(face,ox,oy);
+}
 
-/* multiplane parallax */
-const layers=[...cover.querySelectorAll('[data-d]')];
-let tx=0,ty=0,px=0,py=0,inside=false,visible=true;
-cover.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const r=cover.getBoundingClientRect();inside=true;tx=(e.clientX-r.left)/r.width*2-1;ty=(e.clientY-r.top)/r.height*2-1});
-cover.addEventListener('pointerleave',()=>{inside=false;tx=0;ty=0});
-new IntersectionObserver(es=>{visible=es[0].isIntersecting;if(visible&&!reduce)requestAnimationFrame(loop)}).observe(cover);
-function loop(t){if(!visible||reduce)return;
-  const r=cover.getBoundingClientRect();
-  let X=tx,Y=ty;
-  if(coarse||!inside){X=coarse?Math.sin(t*.00032)*.85:tx;Y=(coarse?Math.sin(t*.00021)*.35:ty)}
-  Y=cl(Y+cl((r.top+r.height/2-innerHeight/2)/innerHeight,-1,1)*.7,-1.2,1.2);
-  px+=(X-px)*.06;py+=(Y-py)*.06;
-  const w=r.width;layers.forEach(l=>{const d=+l.dataset.d;l.style.transform=`translate3d(${(-px*d*w).toFixed(2)}px,${(-py*d*w*.6).toFixed(2)}px,0)`});
-  requestAnimationFrame(loop)}
-if(!reduce)requestAnimationFrame(loop);
+let L=null,dpr=1,cw=0;
+function layout(){
+  dpr=Math.min(2,devicePixelRatio||1);
+  const cr=cover.getBoundingClientRect(),br=box.getBoundingClientRect();cw=cr.width;
+  cv.width=Math.round(cr.width*dpr);cv.height=Math.round(cr.height*dpr);
+  const bx=(br.left-cr.left)*dpr,by=(br.top-cr.top)*dpr,bwid=br.width*dpr,bh=br.height*dpr;
+  const S=Math.min(bwid/2.08,bh/1.5);
+  const w=Math.ceil(S*2.1),h=Math.ceil(S*1.6);
+  const ox=Math.round(bx+bwid/2-w/2),oy=Math.round(by+bh/2-h/2-S*.04);
+  face=document.createElement('canvas');face.width=w;face.height=h;side=document.createElement('canvas');side.width=w;side.height=h;
+  img=face.getContext('2d').createImageData(w,h);
+  G=precompute(w,h,S,w/2,h/2);
+  L={ox,oy,S,w,h};
+  // labels
+  const cr2=Math.cos(ROT),sr2=Math.sin(ROT);
+  const toScr=(x,y)=>{const X=x*cr2+y*sr2,Y=-x*sr2+y*cr2;return[(ox+w/2+X*S)/dpr,(oy+h/2+Y*S)/dpr]};
+  const put=(el,[x,y])=>{el.style.left=x+'px';el.style.top=y+'px'};
+  put(labs.a,toScr(P1[0]-.01,P1[1]+.125));put(labs.b,toScr(P2[0]+.01,P2[1]+.125));put(labs.c,toScr(.0,.47));
+}
+function draw(Rc){renderFace(Rc);ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);compose(ctx,L.ox,L.oy,L.S,1)}
+
+/* one-time outward growth, ring by ring */
+let anim=0;
+function grow(){
+  cancelAnimationFrame(anim);labs.c.classList.add('wait');
+  if(reduce){draw(REDGE);labs.c.classList.remove('wait');return}
+  const steps=SHARED.length-1,per=300,t0=performance.now()+250;
+  draw(RMERGE-.004);
+  const tick=t=>{const e=Math.max(0,(t-t0)/per);const i=Math.min(steps,Math.floor(e)),fr=e-i;
+    let Rc;if(i>=steps)Rc=REDGE;else{const s=Math.min(1,fr/.7),es=1-Math.pow(1-s,3);Rc=SHARED[i]+(SHARED[i+1]-SHARED[i])*es}
+    if(e<=0)Rc=RMERGE-.004;
+    draw(Rc);
+    if(i<steps)anim=requestAnimationFrame(tick);else{labs.c.classList.remove('wait');makePNGs()}};
+  anim=requestAnimationFrame(tick);
+}
+
+/* PNG exports for PPT */
+let pngDone=false;
+function makePNGs(){if(pngDone)return;pngDone=true;
+  setTimeout(()=>{const {S,w,h}=L,pad=Math.round(S*.22),ex=document.createElement('canvas');ex.width=w+pad*2;ex.height=h+pad*2;const c=ex.getContext('2d');
+    renderFace(RMERGE-.004);compose(c,pad,pad-S*.06,S,1);document.getElementById('pngBefore').src=ex.toDataURL('image/png');
+    c.clearRect(0,0,ex.width,ex.height);renderFace(REDGE);compose(c,pad,pad-S*.06,S,1);document.getElementById('pngAfter').src=ex.toDataURL('image/png');
+  },60)}
+
+/* paper grain */
+(function(){const s=200,g=document.createElement('canvas');g.width=g.height=s;const x=g.getContext('2d'),d=x.createImageData(s,s),r=rng(3);
+  for(let i=0;i<s*s;i++){const v=r();if(v<.18)d.data.set([110,100,80,Math.floor(r()*22)],i*4);else if(v<.2)d.data.set([255,255,255,70],i*4)}
+  x.putImageData(d,0,0);document.getElementById('grain').style.backgroundImage='url('+g.toDataURL()+')'})();
+
+function start(){layout();grow();if(reduce)makePNGs()}
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);
+document.getElementById('replay').addEventListener('click',grow);
+let rt;new ResizeObserver(()=>{clearTimeout(rt);rt=setTimeout(()=>{if(!L||Math.abs(cover.getBoundingClientRect().width-cw)<2)return;cancelAnimationFrame(anim);layout();draw(REDGE);labs.c.classList.remove('wait')},150)}).observe(cover);
 })();
 </script>
 

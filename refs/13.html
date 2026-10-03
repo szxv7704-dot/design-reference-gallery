@@ -106,9 +106,11 @@ a{color:var(--accent)}
   background:var(--ttb-paper); border:1px solid var(--ttb-line); outline:none}
 .ttb-slide:focus-visible{box-shadow:0 0 0 3px var(--ttb-play-ink)}
 /* 머리: 계획안 출처 → 결론 제목 */
-.ttb-head{display:grid; grid-template-columns:1fr auto; gap:.6cqw 2cqw; align-items:start}
-.ttb-src{margin:0; font-size:1.05cqw; line-height:1.55; color:var(--ttb-muted)}
-.ttb-src b{font-weight:500; color:var(--ttb-ink)}
+.ttb-head{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.1cqw 2cqw; align-items:start}
+/* 출처 두 줄: 경로는 항상 한 줄(넘치면 말줄임), 원문 줄과 간격 고정 */
+.ttb-src{margin:0; max-width:none; min-width:0; display:flex; flex-direction:column; gap:max(.5cqw,3px); font-size:max(1.05cqw,8px); line-height:1.35; color:var(--ttb-muted)}
+.ttb-path{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ttb-src b{display:block; font-weight:500; color:var(--ttb-ink)}
 .ttb-demo{font-size:.95cqw; color:var(--ttb-muted); border:1px solid var(--ttb-line); border-radius:99px; padding:.15cqw .8cqw; white-space:nowrap}
 .ttb-title{grid-column:1/-1; margin:0; font-family:var(--ttb-display); font-weight:400; font-size:3.5cqw; line-height:1.15; letter-spacing:-.01em; text-wrap:balance}
 .ttb-title .ttb-k-fill{color:var(--ttb-play-ink)}
@@ -167,7 +169,7 @@ a{color:var(--accent)}
 <div class="ttb-slide" tabindex="0" aria-label="유치원 방과후 오후 시간표 편성 도식. 화살표 키나 스페이스로 한 단계씩 진행">
   <div class="ttb-head">
     <!-- ── 바꿀 지점 ②: 계획안 출처와 결론 제목 ── -->
-    <p class="ttb-src">○○교육청 2027 유치원 방과후 과정 운영 계획(안) › Ⅳ. 추진 내용 › 2. 오후 일과 편성<br><b>놀이·쉼 중심으로 편성하고, 교과 선행·학습지 위주 활동은 편성하지 않음</b></p>
+    <p class="ttb-src"><span class="ttb-path" title="○○교육청 2027 유치원 방과후 과정 운영 계획(안) › Ⅳ. 추진 내용 › 2. 오후 일과 편성">○○교육청 2027 유치원 방과후 과정 운영 계획(안) › Ⅳ. 추진 내용 › 2. 오후 일과 편성</span><b>놀이·쉼 중심으로 편성하고, 교과 선행·학습지 위주 활동은 편성하지 않음</b></p>
     <span class="ttb-demo">가상 예시</span>
     <h2 class="ttb-title">오후는 <span class="ttb-k-fill">놀이와 쉼</span>으로 채우고, <span class="ttb-k-cut">선행학습</span>은 덜어 낸다</h2>
   </div>
@@ -489,9 +491,11 @@ a{color:var(--accent)}
   background:var(--ttb-paper); border:1px solid var(--ttb-line); outline:none}
 .ttb-slide:focus-visible{box-shadow:0 0 0 3px var(--ttb-play-ink)}
 /* 머리: 계획안 출처 → 결론 제목 */
-.ttb-head{display:grid; grid-template-columns:1fr auto; gap:.6cqw 2cqw; align-items:start}
-.ttb-src{margin:0; font-size:1.05cqw; line-height:1.55; color:var(--ttb-muted)}
-.ttb-src b{font-weight:500; color:var(--ttb-ink)}
+.ttb-head{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.1cqw 2cqw; align-items:start}
+/* 출처 두 줄: 경로는 항상 한 줄(넘치면 말줄임), 원문 줄과 간격 고정 */
+.ttb-src{margin:0; max-width:none; min-width:0; display:flex; flex-direction:column; gap:max(.5cqw,3px); font-size:max(1.05cqw,8px); line-height:1.35; color:var(--ttb-muted)}
+.ttb-path{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ttb-src b{display:block; font-weight:500; color:var(--ttb-ink)}
 .ttb-demo{font-size:.95cqw; color:var(--ttb-muted); border:1px solid var(--ttb-line); border-radius:99px; padding:.15cqw .8cqw; white-space:nowrap}
 .ttb-title{grid-column:1/-1; margin:0; font-family:var(--ttb-display); font-weight:400; font-size:3.5cqw; line-height:1.15; letter-spacing:-.01em; text-wrap:balance}
 .ttb-title .ttb-k-fill{color:var(--ttb-play-ink)}
@@ -550,7 +554,7 @@ a{color:var(--accent)}
 &lt;div class="ttb-slide" tabindex="0" aria-label="유치원 방과후 오후 시간표 편성 도식. 화살표 키나 스페이스로 한 단계씩 진행"&gt;
   &lt;div class="ttb-head"&gt;
     &lt;!-- ── 바꿀 지점 ②: 계획안 출처와 결론 제목 ── --&gt;
-    &lt;p class="ttb-src"&gt;○○교육청 2027 유치원 방과후 과정 운영 계획(안) › Ⅳ. 추진 내용 › 2. 오후 일과 편성&lt;br&gt;&lt;b&gt;놀이·쉼 중심으로 편성하고, 교과 선행·학습지 위주 활동은 편성하지 않음&lt;/b&gt;&lt;/p&gt;
+    &lt;p class="ttb-src"&gt;&lt;span class="ttb-path" title="○○교육청 2027 유치원 방과후 과정 운영 계획(안) › Ⅳ. 추진 내용 › 2. 오후 일과 편성"&gt;○○교육청 2027 유치원 방과후 과정 운영 계획(안) › Ⅳ. 추진 내용 › 2. 오후 일과 편성&lt;/span&gt;&lt;b&gt;놀이·쉼 중심으로 편성하고, 교과 선행·학습지 위주 활동은 편성하지 않음&lt;/b&gt;&lt;/p&gt;
     &lt;span class="ttb-demo"&gt;가상 예시&lt;/span&gt;
     &lt;h2 class="ttb-title"&gt;오후는 &lt;span class="ttb-k-fill"&gt;놀이와 쉼&lt;/span&gt;으로 채우고, &lt;span class="ttb-k-cut"&gt;선행학습&lt;/span&gt;은 덜어 낸다&lt;/h2&gt;
   &lt;/div&gt;
@@ -821,7 +825,7 @@ a{color:var(--accent)}
     <h3>바꿀 지점</h3>
     <ol>
       <li><b>색·글꼴·타이밍</b>: 맨 위 <code>.ttb { … }</code>의 CSS 변수. 카테고리 색은 <code>--ttb-care</code>·<code>--ttb-play</code>·<code>--ttb-special</code>·<code>--ttb-home</code>, 속도는 <code>--ttb-fly</code>(비행)·<code>--ttb-land</code>(안착)·<code>--ttb-gap</code>(단계 사이).</li>
-      <li><b>출처와 제목</b>: <code>.ttb-src</code>에 계획안 위치와 원문 한 줄, <code>.ttb-title</code>에 결론 한 문장.</li>
+      <li><b>출처와 제목</b>: <code>.ttb-path</code>에 계획안 위치(한 줄, 길면 말줄임), <code>.ttb-src b</code>에 원문 한 줄, <code>.ttb-title</code>에 결론 한 문장.</li>
       <li><b>판의 축</b>: 스크립트의 <code>TIMES</code>(줄)와 <code>DAYS</code>(칸). 개수를 바꾸면 CSS의 <code>repeat(5,1fr)</code> 두 곳도 같은 수로 맞춥니다.</li>
       <li><b>단계 목록</b>: <code>STEPS</code> 배열 하나가 전부입니다. <code>kind</code>가 <code>'fill'</code>이면 <code>row</code>(줄)와 <code>days</code>(요일 묶음)에 안착, <code>'cut'</code>이면 튕겨 나와 '덜어 낸 것'에 쌓입니다. 새 카테고리는 <code>.ttb-tile[data-cat="…"]</code> 색 규칙과 범례 한 줄을 추가하세요.</li>
       <li><b>발표 조작</b>: 장표를 한 번 클릭해 초점을 준 뒤 → · PageDown · 스페이스 · Enter로 한 단계씩 넘어갑니다. 무선 프레젠터도 대부분 이 키를 보냅니다.</li>
@@ -920,5 +924,6 @@ a{color:var(--accent)}
   });
 })();
 </script>
+
 
 </body></html>
