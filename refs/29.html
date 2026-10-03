@@ -1,0 +1,456 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #29 회전 레일</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Orbit&family=Nanum+Gothic+Coding:wght@400;700&display=swap">
+<style>
+/* 레이아웃: 위에 16:9 표지(캔버스 회전 레일 + HTML 글자층), 아래로 장치·흐름·체크·스펙을 한 열로 */
+:root{
+  --bg:#FBFAF7;        /* 바탕: 살짝 따뜻한 흰색 */
+  --paper:#FFFFFF;
+  --ink:#1D2733;       /* 글자 먹색 */
+  --ink-2:#55606C;
+  --line:#E3E0D8;
+  --wood:#EAD7B5;      /* 레일 안쪽 조리대 원목 */
+  --steel:#C7CED6;
+  --c-play:#2E9E62;    /* 접시 색: 놀이 */
+  --c-snack:#F08A24;   /* 간식 */
+  --c-rest:#2F7FD8;    /* 쉼 */
+  --c-special:#E04F78; /* 특성화 활동 */
+  --led-bg:#1E242B; --led:#FFB547;
+  --f-display:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-led:"Orbit","Nanum Gothic Coding",Consolas,monospace;
+  --f-mono:"Nanum Gothic Coding",Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 64px;display:grid;gap:44px}
+
+/* ===== 표지 ===== */
+.cover{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:#FFFFFF;border-radius:6px;box-shadow:0 1px 0 var(--line),0 18px 40px -24px rgba(40,50,60,.35)}
+.cover canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cv-top{position:absolute;left:5.6cqw;right:4cqw;top:3.6cqw;display:flex;justify-content:space-between;align-items:center;
+  font-size:max(1.3cqw,8px);color:var(--ink-2);letter-spacing:.04em;font-weight:500}
+.cv-top .tag{font-size:max(1cqw,7px);border:1px solid var(--line);padding:.15em .6em;border-radius:99px;background:#fff}
+.cv-title{position:absolute;left:5.6cqw;top:8.4cqw;margin:0;font-family:var(--f-display);font-weight:900;
+  font-size:6.3cqw;line-height:1.12;letter-spacing:-.035em;color:var(--ink)}
+.cv-title small{display:block;font-size:max(1.75cqw,8.5px);font-weight:700;letter-spacing:.02em;color:var(--ink-2);margin-bottom:.5cqw}
+.cv-sub{position:absolute;left:5.75cqw;top:26.6cqw;margin:0;font-size:max(2.05cqw,10px);font-weight:500;color:var(--ink);letter-spacing:-.01em}
+.cv-sub b{font-weight:700;background:linear-gradient(transparent 62%,rgba(240,138,36,.28) 62%)}
+/* 운행 시간 전광판 */
+.cv-led{position:absolute;right:5cqw;top:9.2cqw;background:var(--led-bg);color:var(--led);border-radius:.8cqw;
+  padding:1cqw 1.6cqw;font-family:var(--f-led);text-align:right;box-shadow:inset 0 0 0 .25cqw #3A434D,0 1cqw 2cqw -1cqw rgba(0,0,0,.35)}
+.cv-led .t{font-size:2.6cqw;letter-spacing:.06em;text-shadow:0 0 .6cqw rgba(255,181,71,.55);line-height:1.15}
+.cv-led .l{font-size:max(1.05cqw,7px);color:#F7E2BC;font-family:var(--f-body);letter-spacing:.08em}
+/* 레일 안쪽 범례(접시 색 = 활동 영역) */
+.cv-legend{position:absolute;left:50%;top:77.5%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:1.1cqw;
+  background:rgba(255,255,255,.86);border-radius:99px;padding:.7cqw 1.4cqw;box-shadow:0 .3cqw 1cqw -.4cqw rgba(60,40,10,.35)}
+.cv-legend span.k{font-size:max(1.05cqw,7px);color:var(--ink-2);letter-spacing:.04em;white-space:nowrap}
+.chip{all:unset;cursor:pointer;display:flex;align-items:center;gap:.5cqw;font-size:max(1.45cqw,9px);font-weight:700;color:var(--ink);white-space:nowrap;
+  padding:.15cqw .3cqw;border-radius:.6cqw}
+.chip i{width:1.7cqw;height:1.7cqw;min-width:9px;min-height:9px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 .38cqw var(--c),0 .1cqw .3cqw rgba(0,0,0,.25)}
+.chip:hover,.chip:focus-visible{background:rgba(29,39,51,.07)}
+.chip:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.cv-credit{position:absolute;left:1.6cqw;bottom:1.1cqw;font-size:max(.8cqw,6px);color:#8A95A1}
+.hint{font-size:13px;color:var(--ink-2);margin:10px 2px 0}
+
+/* ===== 본문 ===== */
+h2{font-size:22px;letter-spacing:-.02em;margin:0 0 6px;text-wrap:balance}
+.lede{color:var(--ink-2);margin:0 0 18px;max-width:66ch}
+section{min-width:0}
+.devices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.dev{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 18px 16px;display:grid;gap:6px;align-content:start}
+.dev .nm{font-weight:900;font-size:17px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.dev .nm i{width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 3px var(--c)}
+.dev p{margin:0}
+.dev .use{font-size:13.5px;color:var(--ink-2);border-top:1px dashed var(--line);padding-top:8px;margin-top:4px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12.5px;color:var(--ink-2);font-weight:700;letter-spacing:.04em;background:#F6F4EF}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:700;white-space:nowrap}
+td .dot{display:inline-block;width:10px;height:10px;border-radius:50%;box-shadow:inset 0 0 0 2.5px var(--c);margin-right:6px;vertical-align:-1px}
+.flow{margin-top:18px;overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:10px}
+.flow svg{display:block;width:100%;min-width:620px;height:auto}
+.check{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.check ul,.spec ul{margin:0;padding-left:1.1em}
+.check li,.spec li{margin:.2em 0}
+.spec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px 18px;min-width:0}
+.box h3{margin:0 0 8px;font-size:15px}
+.sw{display:flex;flex-wrap:wrap;gap:8px}
+.sw span{display:flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12.5px}
+.sw span i{width:22px;height:22px;border-radius:4px;border:1px solid rgba(0,0,0,.12)}
+a{color:#1F5FAE}
+@media (max-width:760px){
+  .devices,.check,.spec{grid-template-columns:minmax(0,1fr)}
+  h2{font-size:19px}
+}
+</style>
+
+<main class="wrap">
+  <div>
+    <div class="cover" id="cover">
+      <canvas id="rail" width="1920" height="1080" aria-hidden="true"></canvas>
+      <div class="cv-top"><span>○○교육청 유아교육과 · 2026. 10.</span><span class="tag">가상 예시</span></div>
+      <h1 class="cv-title"><small>2027학년도</small>유치원 방과후 과정<br>운영 계획(안)</h1>
+      <p class="cv-sub">매일 같은 레일 위로, <b>날마다 고르는 오후</b></p>
+      <div class="cv-led" aria-label="운행 시간 14시부터 19시"><div class="t">14:00 → 19:00</div><div class="l">매일 운행</div></div>
+      <div class="cv-legend" role="group" aria-label="접시 색 범례: 누르면 해당 접시가 앞으로 옵니다">
+        <span class="k">접시 색</span>
+        <button class="chip" data-cat="0" style="--c:var(--c-play)"><i></i>놀이</button>
+        <button class="chip" data-cat="1" style="--c:var(--c-snack)"><i></i>간식</button>
+        <button class="chip" data-cat="2" style="--c:var(--c-rest)"><i></i>쉼</button>
+        <button class="chip" data-cat="3" style="--c:var(--c-special)"><i></i>특성화 활동</button>
+      </div>
+    </div>
+    <p class="hint">표지 안 범례 칩을 누르면 레일이 돌아 그 색 접시가 맨 앞에 와서 멈춥니다. 이 동작이 아래 ‘회전 레일 목차’ 장치입니다.</p>
+  </div>
+
+  <section>
+    <h2>가져갈 장치</h2>
+    <p class="lede">회전초밥 가게의 레일과 접시 색 규칙을 빌렸습니다. 사물을 그대로 옮기지 않고, 순환하는 레일과 색 코드 두 가지만 발표 문법으로 씁니다.</p>
+    <div class="devices">
+      <div class="dev" style="--c:var(--c-play)">
+        <div class="nm"><i></i>회전 레일 목차</div>
+        <p>목차 항목을 순환 레일 위 접시로 올려 둡니다. 섹션이 바뀔 때마다 레일이 돌아 다음 접시가 앞자리로 와서 멈춥니다. 순서가 있으면서도 해마다 다시 도는 사업을 보여 주기 좋습니다.</p>
+        <p class="use">응용: 분기별 점검 회의 목차, 연간 순환 행사, 반복 운영되는 연수 과정 소개</p>
+      </div>
+      <div class="dev" style="--c:var(--c-snack)">
+        <div class="nm"><i></i>접시 색 범례</div>
+        <p>가게에서 접시 색이 가격을 뜻하듯 색 하나가 영역 하나를 뜻하게 정합니다. 표지에서 정한 4색을 안쪽 장표의 표·도표·아이콘 테두리까지 그대로 이어 써서 범례를 다시 읽지 않게 합니다.</p>
+        <p class="use">응용: 대상 학교급 구분, 예산 구간, 사업 유형별 색 코딩</p>
+      </div>
+      <div class="dev" style="--c:var(--c-rest)">
+        <div class="nm"><i></i>접시 계산 결산</div>
+        <p>식사를 마치면 쌓인 접시를 색별로 세어 계산합니다. 평가 장표에서 영역별 참여 실적을 접시 더미 높이로 보여 주면 막대그래프보다 장면이 남습니다.</p>
+        <p class="use">응용: 프로그램별 참여 인원, 영역별 집행 실적, 만족도 응답 수 비교</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>흐름 설계 메모</h2>
+    <p class="lede">계획안 목차를 레일 한 바퀴로 짭니다. 마지막 평가가 다음 해 운영으로 다시 이어지는 순환 구조라서 회전 레일과 뜻이 맞습니다.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>계획안 구성</th><th>은유</th><th>안쪽 장표 아이디어</th></tr></thead>
+        <tbody>
+          <tr><td>Ⅰ. 추진 배경</td><td>레일을 까는 이유</td><td>오후 돌봄 수요가 몰리는 시간대를 가게 앞 대기 줄 길이로 표현</td></tr>
+          <tr><td>Ⅱ. 운영 방침</td><td>레일 운행 규칙</td><td>같은 시간·같은 교실·담임과 연계라는 세 원칙을 레일 위 표지판 3개로</td></tr>
+          <tr><td><span class="dot" style="--c:var(--c-play)"></span>Ⅲ. 프로그램 구성</td><td>접시 색 4가지</td><td>놀이·간식·쉼·특성화 활동 비율을 레일 위 접시 개수로 보여 주는 구성비 장표</td></tr>
+          <tr><td><span class="dot" style="--c:var(--c-snack)"></span>Ⅳ. 하루 운영</td><td>레일 한 바퀴</td><td>14시~19시 일과를 레일 둘레에 시각 눈금으로 두고 접시가 시간 순으로 지나가게</td></tr>
+          <tr><td><span class="dot" style="--c:var(--c-rest)"></span>Ⅴ. 인력·공간</td><td>레일 안쪽 조리대</td><td>방과후 전담사·강사·담임이 조리대 안에서 접시를 올리는 역할 분담도</td></tr>
+          <tr><td><span class="dot" style="--c:var(--c-special)"></span>Ⅵ. 안전·위생</td><td>접시 덮개와 위생 기준</td><td>급간식 위생·귀가 안전 점검표를 투명 덮개 아래 체크리스트로</td></tr>
+          <tr><td>Ⅶ. 평가·환류</td><td>접시 계산</td><td>영역별 참여 실적을 색별 접시 더미로, 다음 해 메뉴 개선안으로 연결</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flow">
+      <svg viewBox="0 0 900 300" role="img" aria-label="발표 흐름: 레일 한 바퀴로 도는 7개 섹션">
+        <rect x="0" y="0" width="900" height="300" fill="#FFFFFF"/>
+        <path d="M200 70 H700 A80 80 0 0 1 700 230 H200 A80 80 0 0 1 200 70 Z" fill="none" stroke="#D5DAE0" stroke-width="34"/>
+        <path d="M200 70 H700 A80 80 0 0 1 700 230 H200 A80 80 0 0 1 200 70 Z" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="3 11"/>
+        <rect x="235" y="118" width="430" height="64" rx="32" fill="#EAD7B5"/>
+        <text x="450" y="146" text-anchor="middle" font-size="15" font-weight="700" fill="#1D2733" font-family="Noto Sans KR, sans-serif">발표 = 레일 한 바퀴</text>
+        <text x="450" y="167" text-anchor="middle" font-size="12" fill="#55606C" font-family="Noto Sans KR, sans-serif">Ⅶ 평가가 다음 해 Ⅰ로 다시 들어갑니다</text>
+        <g font-family="Noto Sans KR, sans-serif" font-size="13" fill="#1D2733" text-anchor="middle">
+          <!-- 위쪽(먼 쪽) 직선: 왼쪽→오른쪽 -->
+          <g><circle cx="230" cy="70" r="14" fill="#fff" stroke="#9AA4AE" stroke-width="5"/><text x="230" y="38">Ⅰ 추진 배경</text></g>
+          <g><circle cx="410" cy="70" r="14" fill="#fff" stroke="#9AA4AE" stroke-width="5"/><text x="410" y="38">Ⅱ 운영 방침</text></g>
+          <g><circle cx="590" cy="70" r="14" fill="#fff" stroke="#2E9E62" stroke-width="5"/><text x="590" y="38">Ⅲ 프로그램</text></g>
+          <g><circle cx="780" cy="150" r="14" fill="#fff" stroke="#F08A24" stroke-width="5"/><text x="842" y="155">Ⅳ 하루 운영</text></g>
+          <g><circle cx="590" cy="230" r="14" fill="#fff" stroke="#2F7FD8" stroke-width="5"/><text x="590" y="275">Ⅴ 인력·공간</text></g>
+          <g><circle cx="410" cy="230" r="14" fill="#fff" stroke="#E04F78" stroke-width="5"/><text x="410" y="275">Ⅵ 안전·위생</text></g>
+          <g><circle cx="230" cy="230" r="14" fill="#fff" stroke="#1D2733" stroke-width="5"/><text x="230" y="275">Ⅶ 평가·환류</text></g>
+          <g><text x="70" y="155" fill="#55606C" font-size="12">다음 해로</text></g>
+        </g>
+        <g fill="#55606C">
+          <path d="M318 62 l12 8 -12 8z"/><path d="M498 62 l12 8 -12 8z"/><path d="M676 62 l12 8 -12 8z"/>
+          <path d="M508 222 l-12 8 12 8z"/><path d="M328 222 l-12 8 12 8z"/><path d="M128 158 l-8 -12 -8 12z"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="check">
+    <div class="box">
+      <h3>재현 체크</h3>
+      <ul>
+        <li>빌린 대표 장치: ① 조리대를 감싸고 도는 스테인리스 타원 레일과 초승달 판 컨베이어 ② 색이 곧 구분인 접시 ③ 쌓인 접시로 하는 계산 ④ 매장 안 운행 전광판</li>
+        <li>표지에서는 ①·②만 쓰고 ③은 안쪽 장표 아이디어로, ④는 운행 시간 한 줄로만 남김</li>
+        <li>조사 출처: <a href="https://nippon.com/en/features/jg00076" target="_blank" rel="noopener">nippon.com “Kaiten-zushi”</a>, <a href="https://en.japantravel.com/guide/guide-to-conveyor-belt-sushi-in-japan/59037" target="_blank" rel="noopener">Japan Travel, Guide to Conveyor Belt Sushi</a></li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>이미지 저작자·라이선스</h3>
+      <ul>
+        <li>사진 사용 없음. 레일·접시·놀잇감은 모두 canvas로 그린 자체 렌더링(좌상단 광원, 금속 측면 음영, 도자기 접시 하이라이트)</li>
+        <li>실존 매장·브랜드의 로고·명칭 사용 없음</li>
+        <li>계획안 내용은 가상 예시</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="spec">
+    <div class="box">
+      <h3>팔레트</h3>
+      <div class="sw">
+        <span><i style="background:#FBFAF7"></i>#FBFAF7</span>
+        <span><i style="background:#1D2733"></i>#1D2733</span>
+        <span><i style="background:#EAD7B5"></i>#EAD7B5</span>
+        <span><i style="background:#2E9E62"></i>#2E9E62</span>
+        <span><i style="background:#F08A24"></i>#F08A24</span>
+        <span><i style="background:#2F7FD8"></i>#2F7FD8</span>
+        <span><i style="background:#E04F78"></i>#E04F78</span>
+      </div>
+      <h3 style="margin-top:14px">폰트</h3>
+      <ul>
+        <li>제목·본문: Noto Sans KR 900/700/400 (대체: Apple SD Gothic Neo, 맑은 고딕)</li>
+        <li>전광판 숫자: Orbit (대체: Nanum Gothic Coding, Consolas)</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>PPT 이식</h3>
+      <ul>
+        <li>레일: 둥근 사각형(모서리 최대)을 ‘3차원 회전 → 원근감 위’로 눕히고 테두리 굵게 + 금속 그라데이션. 안쪽에 원목 색 둥근 사각형</li>
+        <li>접시: 흰 타원 + 색 테두리 타원 두 겹 + 아래 회색 타원(두께), 그림자 ‘오프셋 아래’. 놀잇감은 3D 아이콘이나 실물 누끼 사진으로 통일</li>
+        <li>회전 레일 목차: 접시 위치만 바꾼 슬라이드를 복제해 ‘모핑’ 전환 → 접시 이름을 !!plate1 식으로 맞추면 레일을 따라 미끄러지듯 이동</li>
+        <li>계속 도는 움직임: ‘이동 경로 → 사용자 지정 경로’로 레일 둘레를 그리고 ‘반복: 슬라이드 끝까지’</li>
+      </ul>
+      <h3 style="margin-top:14px">난이도 · 반영 트렌드</h3>
+      <ul>
+        <li>난이도: 중 (HTML은 canvas 렌더링이라 상, PPT 근사는 중)</li>
+        <li>트렌드: 끊김 없는 짧은 반복 애니메이션(seamless loop)과 손으로 만든 질감 — <a href="https://graphicdesignjunction.com/2026/01/video-and-motion-creative-trends-2026/" target="_blank" rel="noopener">Graphic Design Junction, Video and Motion Creative Trends 2026</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script>
+// ===== 회전 레일 표지: canvas 렌더링 =====
+// 평면 좌표(x: 좌우, z: 앞(+)·뒤(-))로 경기장형 레일을 정의하고 간단한 원근 투영으로 그린다.
+(function(){
+  const cv=document.getElementById('rail'); let g=cv.getContext('2d'); const realG=g;
+  const W=1920,H=1080, CX=1180, CY=800;
+  const L=1100, R=330, BAND=72, GUARD=16, SKIRT=48;
+  const P=2*L+2*Math.PI*R;
+  const CAT=['#2E9E62','#F08A24','#2F7FD8','#E04F78']; // 놀이·간식·쉼·특성화
+  const ORDER=[0,1,3,2,0,3,1,2,0,1,2,3,1,0];          // 레일 위 접시 순서(색 섞기)
+  const N=ORDER.length, GAP=P/N;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const k=z=>1+z*0.00045;                // 앞일수록 크게
+  function proj(x,z,h){const s=k(z);return [CX+x*s, CY+z*0.40*s-(h||0)*s*0.92, s];}
+  // 중심선 위 s 위치의 점과 바깥 법선
+  function pt(s){
+    s=((s%P)+P)%P;
+    if(s<L) return {x:-L/2+s,z:R,nx:0,nz:1};
+    s-=L; if(s<Math.PI*R){const a=s/R;return {x:L/2+R*Math.sin(a),z:R*Math.cos(a),nx:Math.sin(a),nz:Math.cos(a)};}
+    s-=Math.PI*R; if(s<L) return {x:L/2-s,z:-R,nx:0,nz:-1};
+    s-=L; const a=s/R; return {x:-L/2-R*Math.sin(a),z:-R*Math.cos(a),nx:-Math.sin(a),nz:-Math.cos(a)};
+  }
+  const STEPS=360;
+  function ring(d,h){const out=[];for(let i=0;i<=STEPS;i++){const p=pt(i/STEPS*P);out.push(proj(p.x+p.nx*d,p.z+p.nz*d,h));}return out;}
+  function pathRing(a,b){g.beginPath();a.forEach((q,i)=>i?g.lineTo(q[0],q[1]):g.moveTo(q[0],q[1]));
+    if(b){for(let i=b.length-1;i>=0;i--)g.lineTo(b[i][0],b[i][1]);} g.closePath();}
+
+  // 정적인 부분(조리대·레일 몸통)을 미리 그려 둔다
+  const base=document.createElement('canvas');base.width=W;base.height=H;
+  function paintBase(ctx){
+    // 바탕: 아주 옅은 바닥 그라데이션
+    const bgG=g.createLinearGradient(0,0,0,H);bgG.addColorStop(0,'#FFFFFF');bgG.addColorStop(.55,'#FBFAF7');bgG.addColorStop(1,'#F1EEE8');
+    g.fillStyle=bgG;g.fillRect(0,0,W,H);
+    // 바닥 그림자
+    const so=ring(BAND+GUARD+40,-SKIRT);
+    g.save();g.filter='blur(28px)';g.fillStyle='rgba(60,50,40,.22)';pathRing(so.map(q=>[q[0]+18,q[1]+26]));g.fill();g.restore();
+    // 바깥 스테인리스 치마(옆면): 앞쪽을 향한 면만
+    const dO=BAND+GUARD, top=ring(dO,0), bot=ring(dO,-SKIRT);
+    for(let i=0;i<STEPS;i++){
+      const p=pt((i+.5)/STEPS*P); if(p.nz<-0.05) continue;
+      const lum=0.72+0.18*(-p.nx)+0.08*p.nz; // 좌상단 광원
+      const t=top[i],t2=top[i+1],b=bot[i],b2=bot[i+1];
+      const gr=g.createLinearGradient(0,t[1],0,b[1]);
+      const v=Math.round(255*Math.min(1,lum));
+      gr.addColorStop(0,`rgb(${v},${v+2>255?255:v+2},${v+5>255?255:v+5})`);
+      gr.addColorStop(.18,`rgb(${v-38},${v-34},${v-30})`);
+      gr.addColorStop(1,`rgb(${v-70},${v-66},${v-60})`);
+      g.fillStyle=gr;g.beginPath();g.moveTo(t[0],t[1]);g.lineTo(t2[0],t2[1]);g.lineTo(b2[0],b2[1]+.5);g.lineTo(b[0]-.5,b[1]+.5);g.closePath();g.fill();
+    }
+    // 바닥 경계선
+    g.strokeStyle='rgba(40,46,54,.35)';g.lineWidth=2;g.beginPath();
+    for(let i=0;i<=STEPS;i++){const p=pt(i/STEPS*P);const q=bot[i];if(p.nz<-0.05){g.moveTo(q[0],q[1]);continue;}g.lineTo(q[0],q[1]);}g.stroke();
+    // 바깥 가드 윗면(금속)
+    const oG=ring(BAND+GUARD,0), oB=ring(BAND,0), iB=ring(-BAND,0), iG=ring(-BAND-GUARD,0);
+    let mg=g.createLinearGradient(0,600,0,1000);mg.addColorStop(0,'#E9EDF1');mg.addColorStop(.5,'#D3D9DF');mg.addColorStop(1,'#F4F6F8');
+    g.fillStyle=mg;pathRing(oG,oB);g.fill();
+    // 컨베이어 판(밝은 회백)
+    const bG=g.createLinearGradient(0,620,0,1000);bG.addColorStop(0,'#E6EAEE');bG.addColorStop(1,'#F5F7F9');
+    g.fillStyle=bG;pathRing(oB,iB);g.fill();
+    // 안쪽 가드
+    g.fillStyle=mg;pathRing(iB,iG);g.fill();
+    // 안쪽 조리대(원목)
+    const wG=g.createLinearGradient(CX-700,700,CX+700,900);wG.addColorStop(0,'#F0E0C3');wG.addColorStop(.5,'#E8D3AE');wG.addColorStop(1,'#EBD8B6');
+    g.fillStyle=wG;pathRing(iG);g.fill();
+    // 원목 결: 옅은 가로 결선
+    g.save();pathRing(iG);g.clip();
+    for(let i=0;i<46;i++){const y=700+i*5.2+Math.sin(i*1.7)*2;g.strokeStyle=`rgba(150,105,55,${0.05+0.05*((i*7)%3)/2})`;g.lineWidth=1+((i*5)%3)*.5;
+      g.beginPath();for(let x=CX-760;x<=CX+760;x+=40){g.lineTo(x,y+Math.sin(x*.004+i)*3);}g.stroke();}
+    g.restore();
+    // 가장자리 하이라이트·그늘선
+    g.lineWidth=2.2;
+    g.strokeStyle='rgba(255,255,255,.95)';pathRing(oG);g.stroke();
+    g.strokeStyle='rgba(90,100,112,.45)';g.lineWidth=1.6;pathRing(oB);g.stroke();
+    g.strokeStyle='rgba(90,100,112,.45)';pathRing(iB);g.stroke();
+    g.strokeStyle='rgba(255,255,255,.9)';g.lineWidth=1.6;pathRing(iG);g.stroke();
+    g.strokeStyle='rgba(120,90,50,.35)';g.lineWidth=1.2;pathRing(ring(-BAND-GUARD-2,0));g.stroke();
+  }
+  // ---- 접시와 놀잇감 ----
+  function plate(x,y,s,col,lift,glow){
+    const c=g, r=58*s, ry=r*0.40, th=9*s;
+    y-=lift*s;
+    // 벨트 위 그림자
+    c.save();c.globalAlpha=Math.max(.25,1-lift/40);
+    const sg=c.createRadialGradient(x+10*s,y+lift*s+th+6*s,4,x+10*s,y+lift*s+th+6*s,r*1.15);
+    sg.addColorStop(0,'rgba(40,50,60,.32)');sg.addColorStop(1,'rgba(40,50,60,0)');
+    c.fillStyle=sg;c.beginPath();c.ellipse(x+10*s,y+lift*s+th+6*s,r*1.15,ry*1.25,0,0,7);c.fill();c.restore();
+    if(glow){c.save();c.strokeStyle=col;c.globalAlpha=.35;c.lineWidth=10*s;c.beginPath();c.ellipse(x,y+th/2,r*1.18,ry*1.22,0,0,7);c.stroke();c.restore();}
+    // 굽(아래 두께)
+    const side=c.createLinearGradient(x-r,0,x+r,0);side.addColorStop(0,'#F4F5F6');side.addColorStop(.6,'#D9DDE1');side.addColorStop(1,'#BFC5CB');
+    c.fillStyle=side;c.beginPath();c.ellipse(x,y+th,r*.98,ry*.98,0,0,Math.PI);c.lineTo(x-r,y);c.ellipse(x,y,r,ry,0,Math.PI,0,true);c.closePath();c.fill();
+    // 윗면(도자기)
+    const tg=c.createRadialGradient(x-r*.4,y-ry*.6,2,x,y,r*1.05);tg.addColorStop(0,'#FFFFFF');tg.addColorStop(.7,'#F6F7F8');tg.addColorStop(1,'#E2E6EA');
+    c.fillStyle=tg;c.beginPath();c.ellipse(x,y,r,ry,0,0,7);c.fill();
+    // 색 테두리 띠
+    c.strokeStyle=col;c.lineWidth=r*.13;c.beginPath();c.ellipse(x,y,r*.86,ry*.86,0,0,7);c.stroke();
+    // 띠 위 광택
+    c.strokeStyle='rgba(255,255,255,.55)';c.lineWidth=r*.035;c.beginPath();c.ellipse(x,y,r*.86,ry*.86,0,Math.PI*1.05,Math.PI*1.55);c.stroke();
+    // 안쪽 오목
+    const wg=c.createRadialGradient(x+r*.1,y+ry*.15,2,x,y,r*.62);wg.addColorStop(0,'rgba(255,255,255,0)');wg.addColorStop(1,'rgba(150,160,170,.18)');
+    c.fillStyle=wg;c.beginPath();c.ellipse(x,y,r*.62,ry*.62,0,0,7);c.fill();
+    return y; // 윗면 중심 y
+  }
+  function cube(c,x,y,a,top,left,right){ // x,y: 윗면 중심, a: 한 변
+    const hx=a*.62,hy=a*.25,h=a*.72;
+    c.fillStyle=top;c.beginPath();c.moveTo(x,y-hy);c.lineTo(x+hx,y);c.lineTo(x,y+hy);c.lineTo(x-hx,y);c.closePath();c.fill();
+    c.fillStyle=left;c.beginPath();c.moveTo(x-hx,y);c.lineTo(x,y+hy);c.lineTo(x,y+hy+h);c.lineTo(x-hx,y+h);c.closePath();c.fill();
+    c.fillStyle=right;c.beginPath();c.moveTo(x+hx,y);c.lineTo(x,y+hy);c.lineTo(x,y+hy+h);c.lineTo(x+hx,y+h);c.closePath();c.fill();
+    c.strokeStyle='rgba(255,255,255,.55)';c.lineWidth=1;c.beginPath();c.moveTo(x-hx,y);c.lineTo(x,y-hy);c.lineTo(x+hx,y);c.stroke();
+  }
+  function item(cat,x,y,s){
+    const c=g;
+    if(cat===0){ // 놀이: 원목 블록 쌓기
+      const a=30*s;
+      cube(c,x-a*.55,y-a*.55,a,'#F3D9A8','#D9B57A','#BF955A');
+      cube(c,x+a*.55,y-a*.55,a,'#9FD3B4','#5DB283','#3F8E64');
+      cube(c,x,y-a*1.45,a,'#F7CFA0','#E3A464','#C98647');
+    } else if(cat===1){ // 간식: 귤
+      const rr=24*s, cy=y-rr*.85;
+      const og=c.createRadialGradient(x-rr*.4,cy-rr*.45,rr*.1,x,cy,rr*1.1);
+      og.addColorStop(0,'#FFC46B');og.addColorStop(.55,'#F59324');og.addColorStop(1,'#C9640E');
+      c.fillStyle=og;c.beginPath();c.ellipse(x,cy,rr*1.05,rr*.95,0,0,7);c.fill();
+      c.fillStyle='rgba(255,255,255,.55)';c.beginPath();c.ellipse(x-rr*.42,cy-rr*.42,rr*.2,rr*.12,-.6,0,7);c.fill();
+      c.fillStyle='#7A5A2A';c.beginPath();c.arc(x+rr*.05,cy-rr*.9,rr*.08,0,7);c.fill();
+      const lg=c.createLinearGradient(x,cy-rr*1.3,x+rr*.9,cy-rr*.8);lg.addColorStop(0,'#6CC17A');lg.addColorStop(1,'#2F8A49');
+      c.fillStyle=lg;c.beginPath();c.ellipse(x+rr*.45,cy-rr*1.02,rr*.48,rr*.17,-.35,0,7);c.fill();
+    } else if(cat===2){ // 쉼: 작은 베개
+      const w=46*s,h=22*s,cy=y-h*.75;
+      const pg=c.createLinearGradient(x-w,cy-h,x+w*.6,cy+h);pg.addColorStop(0,'#E4F0FD');pg.addColorStop(.5,'#9CC5F0');pg.addColorStop(1,'#4F8FD6');
+      c.fillStyle=pg;c.beginPath();
+      c.moveTo(x-w*.8,cy-h*.6);
+      c.quadraticCurveTo(x,cy-h*1.25,x+w*.8,cy-h*.6);
+      c.quadraticCurveTo(x+w*.98,cy,x+w*.8,cy+h*.6);
+      c.quadraticCurveTo(x,cy+h*1.15,x-w*.8,cy+h*.6);
+      c.quadraticCurveTo(x-w*.98,cy,x-w*.8,cy-h*.6);c.fill();
+      c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=1.5*s;c.beginPath();c.moveTo(x-w*.55,cy-h*.62);c.quadraticCurveTo(x-w*.1,cy-h*.9,x+w*.35,cy-h*.72);c.stroke();
+      c.fillStyle='#3E78BD';c.beginPath();c.arc(x+w*.05,cy+h*.05,2.6*s,0,7);c.fill();
+    } else { // 특성화 활동: 작은 북
+      const rx=24*s, ry=rx*.38, h=24*s, top=y-h-ry*.3;
+      const sg=c.createLinearGradient(x-rx,0,x+rx,0);sg.addColorStop(0,'#F58AA6');sg.addColorStop(.45,'#E04F78');sg.addColorStop(1,'#A52E52');
+      c.fillStyle=sg;c.beginPath();c.ellipse(x,top+h,rx,ry,0,0,Math.PI);c.lineTo(x-rx,top);c.ellipse(x,top,rx,ry,0,Math.PI,0,true);c.closePath();c.fill();
+      // 줄 매듭(지그재그)
+      c.strokeStyle='rgba(255,236,200,.95)';c.lineWidth=1.6*s;c.beginPath();
+      for(let i=0;i<=8;i++){const a=Math.PI-i*Math.PI/8;const xx=x+Math.cos(a)*rx*.98;const yy=(i%2?top+h-ry*.2:top+ry*.5)+Math.sin(a)*ry*.95;i?c.lineTo(xx,yy):c.moveTo(xx,yy);}c.stroke();
+      // 금색 테
+      c.strokeStyle='#E8B64C';c.lineWidth=2.4*s;c.beginPath();c.ellipse(x,top+h,rx,ry,0,0,Math.PI);c.stroke();
+      const hg=c.createRadialGradient(x-rx*.3,top-ry*.3,1,x,top,rx);hg.addColorStop(0,'#FFFFFF');hg.addColorStop(1,'#E9E4DA');
+      c.fillStyle=hg;c.beginPath();c.ellipse(x,top,rx,ry,0,0,7);c.fill();
+      c.strokeStyle='#E8B64C';c.lineWidth=2.4*s;c.stroke();
+    }
+  }
+
+  // 정적인 바탕을 오프스크린 캔버스에 한 번만 그린다
+  function runBase(){
+    const bctx=base.getContext('2d');
+    g = bctx; paintBase(bctx); g = realG;
+  }
+
+  // ---- 상태 ----
+  let off=0, last=performance.now(), speed=reduce?0:36; // px/초
+  let target=null, sel=-1, selUntil=0, lift=[];
+  for(let i=0;i<N;i++) lift[i]=0;
+  const FRONT=L/2; // 앞쪽 직선 한가운데
+
+  function frame(now){
+    const dt=Math.min(.05,(now-last)/1000); last=now;
+    if(target){
+      const d=target.to-off, step=Math.sign(d)*Math.max(Math.min(Math.abs(d),Math.abs(d)*dt*3.2),Math.min(Math.abs(d),40*dt));
+      off+=step; if(Math.abs(target.to-off)<.5){off=target.to;target=null;selUntil=now+(reduce?1e9:2600);}
+    } else if(now>selUntil){ sel=-1; off+=speed*dt; }
+    for(let i=0;i<N;i++){const want=(i===sel&&!target)?22:0; lift[i]+= (want-lift[i])*Math.min(1,dt*8); if(reduce) lift[i]=want;}
+    draw();
+    if(!reduce||target) requestAnimationFrame(frame); else running=false;
+  }
+  let running=true;
+  function kick(){ if(!running){running=true;last=performance.now();requestAnimationFrame(frame);} }
+
+  function draw(){
+    const c=g;
+    c.drawImage(base,0,0);
+    // 컨베이어 판 이음매(초승달 판): 레일과 함께 이동
+    const SL=40;
+    c.save();
+    for(let s=(off%SL);s<P;s+=SL){
+      const p=pt(s);
+      const a=proj(p.x+p.nx*(BAND-2),p.z+p.nz*(BAND-2),0), b=proj(p.x-p.nx*(BAND-2),p.z-p.nz*(BAND-2),0);
+      // 바깥쪽으로 휘는 초승달 선
+      const p2=pt(s+9), m=proj(p2.x,p2.z,0);
+      c.strokeStyle='rgba(120,132,146,.38)';c.lineWidth=1.6*a[2];
+      c.beginPath();c.moveTo(a[0],a[1]);c.quadraticCurveTo(m[0],m[1],b[0],b[1]);c.stroke();
+      c.strokeStyle='rgba(255,255,255,.8)';c.lineWidth=1*a[2];
+      c.beginPath();c.moveTo(a[0]+1.5,a[1]+1);c.quadraticCurveTo(m[0]+1.5,m[1]+1,b[0]+1.5,b[1]+1);c.stroke();
+    }
+    c.restore();
+    // 접시: 먼 것부터
+    const list=[];
+    for(let i=0;i<N;i++){const p=pt(off+i*GAP);list.push({i,p});}
+    list.sort((A,B)=>A.p.z-B.p.z);
+    for(const o of list){
+      const q=proj(o.p.x,o.p.z,6);
+      const cat=ORDER[o.i];
+      const top=plate(q[0],q[1],q[2],CAT[cat],lift[o.i],o.i===sel);
+      item(cat,q[0],top,q[2]);
+    }
+  }
+
+  // 범례 칩: 누르면 그 색 접시 중 가장 가까운 것이 앞자리로
+  document.querySelectorAll('.chip').forEach(btn=>btn.addEventListener('click',()=>{
+    const cat=+btn.dataset.cat; let best=null;
+    for(let i=0;i<N;i++){ if(ORDER[i]!==cat) continue;
+      const cur=((off+i*GAP)%P+P)%P; let d=FRONT-cur; d=((d%P)+P)%P; // 앞으로만 돈다
+      if(!best||d<best.d) best={i,d}; }
+    sel=best.i; target={to:off+best.d};
+    if(reduce){off=target.to;target=null;}
+    selUntil=Infinity; kick(); if(reduce){draw();}
+  }));
+
+  function start(){ runBase(); draw(); requestAnimationFrame(t=>{last=t;frame(t);}); }
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(start); else start();
+})();
+</script>
+
+</body></html>
