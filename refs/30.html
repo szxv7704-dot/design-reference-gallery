@@ -1,0 +1,308 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #30 꺼지지 않는 창구</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;600&family=IBM+Plex+Sans+KR:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+/* 레이아웃: 16:9 밤 벽 장표 하나를 맨 위에 크게, 그 아래 좁은 읽기 칼럼. 네온 세계 하나로 고정한 단일 다크 테마 */
+:root{
+  --night:#05060a;      /* 가장 깊은 밤 */
+  --wall:#11131b;       /* 벽 먹색 */
+  --core:#fff4f9;       /* 제목 네온 심(가장 밝은 광원) */
+  --pink:#ff2d8a;       /* 제목 네온 색 */
+  --cyan:#25e2ff;       /* 보조 간판 1 */
+  --amber:#ffb01f;      /* 보조 간판 2 */
+  --lime:#7cff5c;       /* 보조 간판 3 */
+  --ink:#e9eaf2;        /* 페이지 본문 */
+  --mute:#9a9eb2;       /* 보조 글 */
+  --line:#262936;       /* 구분선 */
+  --panel:#0d0f16;
+  --f-neon:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--night);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:24px 64px}
+
+/* ───────── 장표 ───────── */
+.stage{container-type:inline-size;container-name:stage;width:100%}
+.slide{
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:6px;
+  background:
+    radial-gradient(60% 55% at 30% 42%, rgba(255,45,138,.20), transparent 70%),
+    radial-gradient(30% 45% at 82% 45%, rgba(37,226,255,.10), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='48'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.035' stroke-width='1.2'%3E%3Cpath d='M0 .6h120M0 24.6h120M60 0v24M0 24v24M120 24v24'/%3E%3C/g%3E%3C/svg%3E") 0 0/9cqw auto,
+    linear-gradient(180deg,#0a0b11 0%,var(--wall) 55%,#08090d 82%);
+  display:grid;
+  grid-template-columns:1fr 27cqw;
+  grid-template-rows:auto 1fr auto;
+  grid-template-areas:"eye eye" "title signs" "foot foot";
+  column-gap:5cqw;padding:4.2cqw 5.2cqw 3.2cqw;
+  font-family:var(--f-neon);
+}
+.slide::before{ /* 비네팅 */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 45% 40%, transparent 55%, rgba(0,0,0,.55) 100%);
+}
+.floor{ /* 젖은 바닥 */
+  position:absolute;left:0;right:0;bottom:0;height:17%;pointer-events:none;
+  background:
+    radial-gradient(28% 70% at 30% 0%, rgba(255,45,138,.16), transparent 70%),
+    radial-gradient(14% 60% at 80% 0%, rgba(255,176,31,.10), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.018) 0 .15cqw, transparent .15cqw 1.4cqw),
+    linear-gradient(180deg,#0b0c12,#030305);
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.floor::after{ /* 바닥에 번지는 세로 반사 줄 */
+  content:"";position:absolute;left:12%;width:36%;top:0;height:100%;
+  background:repeating-linear-gradient(90deg, rgba(255,45,138,.10) 0 .35cqw, transparent .35cqw 1.6cqw);
+  -webkit-mask:linear-gradient(180deg,#000,transparent 85%);mask:linear-gradient(180deg,#000,transparent 85%);
+  filter:blur(.25cqw);transition:opacity .4s;
+}
+
+.eye{grid-area:eye;position:relative;z-index:1;display:flex;gap:1.4cqw;align-items:center;
+  font-family:var(--f-body);font-size:1.45cqw;letter-spacing:.14em;color:#b9bccb}
+.eye b{font-weight:500;color:#e6e7ef}
+.eye i{font-style:normal;width:3.2cqw;height:1px;background:#4a4d5c}
+
+.titlebox{grid-area:title;position:relative;z-index:1;align-self:center;display:grid;gap:2.6cqw}
+.neon{margin:0;font-weight:300;font-size:10.4cqw;line-height:1.16;letter-spacing:.02em;display:grid;justify-items:start}
+.ln{position:relative;display:block;white-space:nowrap;padding-bottom:.9cqw}
+.ln::after{ /* 글자 뒤를 지나는 전선 */
+  content:"";position:absolute;left:.1em;right:.3em;bottom:.2cqw;height:.18cqw;border-radius:1px;
+  background:linear-gradient(90deg,#1b1d26,#2d303c 40%,#1b1d26);
+}
+.ch{
+  --glow:
+    0 0 .12cqw #fff,
+    0 0 .45cqw var(--pink),
+    0 0 1.3cqw var(--pink),
+    0 0 3.2cqw rgba(255,45,138,.85),
+    0 0 7cqw rgba(255,45,138,.45);
+  position:relative;display:inline-block;color:var(--core);
+  -webkit-text-stroke:.13cqw #ff8cbd;
+  text-shadow:var(--glow);
+}
+.ch::after{ /* 브래킷(유리관 고정 클립) */
+  content:"";position:absolute;left:50%;bottom:-.95cqw;width:.55cqw;height:1.1cqw;transform:translateX(-50%);
+  border-radius:.15cqw;background:linear-gradient(90deg,#3a3d4a,#8d91a3 45%,#2b2d37);
+  box-shadow:0 .2cqw .3cqw rgba(0,0,0,.7);
+}
+.ch.sp{width:.32em}.ch.sp::after{display:none}
+.sub{font-family:var(--f-body);font-size:1.85cqw;line-height:1.5;color:#c8cad6;max-width:40cqw;margin:0;text-wrap:balance}
+.sub b{font-weight:500;color:#fff}
+
+.signs{grid-area:signs;position:relative;z-index:1;align-self:center;display:grid;gap:3.1cqw;padding-top:1.6cqw}
+.sign{
+  --c:var(--cyan);--tint:#d6fbff;
+  position:relative;display:flex;justify-content:center;align-items:center;
+  padding:1.4cqw 1.6cqw;border-radius:1.2cqw;
+  border:.26cqw solid var(--tint);
+  box-shadow:0 0 .4cqw var(--c),0 0 1.4cqw var(--c),inset 0 0 .4cqw var(--c),inset 0 0 1.6cqw color-mix(in srgb,var(--c) 40%,transparent);
+  background:color-mix(in srgb,var(--c) 6%,transparent);
+  font-size:2.55cqw;font-weight:400;letter-spacing:.06em;color:var(--tint);
+  text-shadow:0 0 .3cqw var(--c),0 0 1cqw var(--c),0 0 2.2cqw color-mix(in srgb,var(--c) 60%,transparent);
+}
+.sign::before,.sign::after{ /* 매다는 와이어 */
+  content:"";position:absolute;top:-2.6cqw;width:.12cqw;height:2.3cqw;background:#3b3e4b;
+}
+.sign::before{left:16%}.sign::after{right:16%}
+.sign.a{--c:var(--cyan);--tint:#d4faff}
+.sign.b{--c:var(--amber);--tint:#ffe9bf}
+.sign.c{--c:var(--lime);--tint:#dcffd2}
+
+.foot{grid-area:foot;position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:2cqw;
+  font-family:var(--f-body);font-size:1.4cqw;color:#c3c5d2;padding-top:2cqw}
+.foot .org{display:flex;gap:2cqw;align-items:baseline}
+.foot .org b{font-weight:500;color:#eceef5;font-size:1.6cqw}
+.foot .date{font-family:var(--f-mono);letter-spacing:.06em}
+.foot .fake{font-size:1.15cqw;color:#7d8194;letter-spacing:.08em;border:1px solid #3a3d4b;border-radius:99px;padding:.2cqw 1cqw}
+
+/* 꺼진 유리관 */
+.ch.off{color:#3b2c35;-webkit-text-stroke-color:#5b4652;text-shadow:0 .15cqw .2cqw rgba(0,0,0,.6)}
+.sign.off{color:#3a3d47;border-color:#353844;box-shadow:none;background:transparent;text-shadow:none}
+.slide::before{transition:background-color .5s}
+.slide.dim::before{background-color:rgba(5,6,10,.55)}
+.slide.dim .floor::after{opacity:0}
+.ch.flick{animation:flick .42s steps(1,end) both}
+.sign.flick{animation:sflick .5s steps(1,end) both}
+@keyframes flick{
+  0%{color:#3b2c35;-webkit-text-stroke-color:#5b4652;text-shadow:none}
+  20%{color:var(--core);-webkit-text-stroke-color:#ff8cbd;text-shadow:var(--glow)}
+  35%{color:#3b2c35;-webkit-text-stroke-color:#5b4652;text-shadow:none}
+  55%,100%{color:var(--core);-webkit-text-stroke-color:#ff8cbd;text-shadow:var(--glow)}
+}
+@keyframes sflick{
+  0%{opacity:.25}20%{opacity:1}34%{opacity:.25}52%,100%{opacity:1}
+}
+
+/* 모바일: 4:5 세로 장표로 재배치 */
+@container stage (max-width:620px){
+  .slide{aspect-ratio:4/5;grid-template-columns:1fr;grid-template-rows:auto auto 1fr auto;
+    grid-template-areas:"eye" "title" "signs" "foot";padding:7cqw 6.5cqw 5cqw;row-gap:5cqw}
+  .eye{font-size:3.2cqw;gap:2.4cqw}.eye i{width:5cqw}
+  .titlebox{gap:4cqw;align-self:start;padding-top:2cqw}
+  .neon{font-size:17cqw}
+  .ln{padding-bottom:1.6cqw}.ln::after{height:.4cqw}
+  .ch{-webkit-text-stroke-width:.25cqw;--glow:0 0 .25cqw #fff,0 0 .9cqw var(--pink),0 0 2.4cqw var(--pink),0 0 6cqw rgba(255,45,138,.8),0 0 12cqw rgba(255,45,138,.4)}
+  .ch::after{width:1cqw;height:2cqw;bottom:-1.8cqw}
+  .sub{font-size:3.7cqw;max-width:none}
+  .signs{grid-template-columns:repeat(3,1fr);gap:2.6cqw;align-self:center;padding-top:4cqw}
+  .sign{font-size:3.6cqw;padding:2.6cqw 1cqw;border-width:.45cqw;border-radius:2cqw;letter-spacing:0;white-space:nowrap}
+  .sign::before,.sign::after{top:-4cqw;height:3.6cqw;width:.25cqw}
+  .foot{font-size:3cqw;flex-wrap:wrap;row-gap:1.5cqw}
+  .foot .org{gap:3cqw}.foot .org b{font-size:3.4cqw}
+  .foot .fake{font-size:2.6cqw;padding:.3cqw 2cqw}
+  .floor{height:13%}
+}
+
+/* ───────── 아래 설명 ───────── */
+.ctrl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px;color:var(--mute);font-size:13px}
+button{font:inherit;font-size:13px;color:var(--ink);background:#171a24;border:1px solid #343849;border-radius:6px;padding:7px 14px;cursor:pointer}
+button:hover{border-color:var(--pink)}
+button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.doc{max-width:760px;margin:56px auto 0;display:grid;gap:56px}
+h2{font-family:var(--f-neon);font-weight:600;font-size:22px;margin:0 0 18px;letter-spacing:.01em;text-wrap:balance}
+h2 small{display:block;font-family:var(--f-mono);font-weight:400;font-size:11px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase;margin-bottom:6px}
+p{margin:0}
+.devices{display:grid;gap:0;border-top:1px solid var(--line)}
+.dev{display:grid;grid-template-columns:minmax(0,15em) minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.dev h3{margin:0;font-size:16px;font-weight:500;color:#fff}
+.dev p{color:#c9cbd7}
+.seq{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.seq li{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:14px;align-items:baseline}
+.seq time{font-family:var(--f-mono);font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.note{margin-top:16px;color:var(--mute);font-size:14px}
+.ppt{margin-top:18px;padding:16px 18px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.ppt h3{margin:0 0 8px;font-size:14px;font-weight:500}
+.ppt ol{margin:0;padding-left:1.3em;color:#c9cbd7;font-size:14px;display:grid;gap:4px}
+.spec{display:grid;gap:0;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--line)}
+.row dt{color:var(--mute);font-size:13px}
+.row dd{margin:0;min-width:0}
+.why{color:#fff}
+.sw{display:flex;flex-wrap:wrap;gap:10px}
+.sw span{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:12px;color:#c9cbd7}
+.sw i{width:18px;height:18px;border-radius:4px;border:1px solid #ffffff22}
+a{color:#8eeeff}
+@media (max-width:560px){
+  .dev{grid-template-columns:1fr;gap:4px}
+  .row{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ch.flick,.sign.flick{animation:none}
+}
+</style>
+
+<div class="wrap">
+  <div class="stage">
+    <section class="slide" id="slide" aria-label="발표 표지: 민원 서비스 혁신">
+      <div class="floor" aria-hidden="true"></div>
+      <div class="eye"><b>○○교육청</b><i></i><span>2027 계획(안)</span></div>
+
+      <div class="titlebox">
+        <h1 class="neon" aria-label="민원 서비스 혁신">
+          <span class="ln" aria-hidden="true"><span class="ch">민</span><span class="ch">원</span><span class="ch sp"> </span><span class="ch">서</span><span class="ch">비</span><span class="ch">스</span></span>
+          <span class="ln" aria-hidden="true"><span class="ch">혁</span><span class="ch">신</span></span>
+        </h1>
+        <p class="sub">불이 꺼지지 않는 창구,<br><b>○○교육청 2027 민원 서비스 혁신 계획(안)</b></p>
+      </div>
+
+      <div class="signs" aria-label="핵심 약속">
+        <div class="sign a">언제나 열림</div>
+        <div class="sign b">한 번에 처리</div>
+        <div class="sign c">기다림 없이</div>
+      </div>
+
+      <div class="foot">
+        <div class="org"><b>○○교육청 민원담당관</b><span class="date">2026. 10.</span></div>
+        <span class="fake">가상 예시</span>
+      </div>
+    </section>
+  </div>
+  <div class="ctrl">
+    <button type="button" id="replay">점등 다시 보기</button>
+    <span>페이지를 열면 제목이 한 글자씩, 이어서 약속 간판이 차례로 한 번 켜지고 멈춥니다.</span>
+  </div>
+
+  <div class="doc">
+    <section>
+      <h2><small>Takeaway</small>가져갈 장치</h2>
+      <div class="devices">
+        <div class="dev"><h3>점등 순서로 약속을 하나씩 켜기</h3><p>핵심 약속 3개를 간판처럼 따로 두고 말하는 순서대로 켭니다. 정책 3대 방향, 단계별 일정, 개선 전후 비교에도 그대로 씁니다.</p></div>
+        <div class="dev"><h3>제목이 가장 밝은 광원</h3><p>어두운 바탕에서는 밝기가 곧 위계입니다. 제목만 흰 심에 넓은 번짐을 주고, 보조 간판은 색 심에 번짐을 줄여 한 단계 낮춥니다.</p></div>
+        <div class="dev"><h3>꺼진 유리관을 남겨 두기</h3><p>꺼진 글자도 어두운 관으로 보이게 두면, 아직 켜지 않은 항목이 무엇인지 청중이 미리 압니다. 발표 중 "다음 약속"을 예고하는 장치가 됩니다.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2><small>Motion</small>동작 설명</h2>
+      <ol class="seq">
+        <li><time>0.0초</time><span>켜진 완성 화면으로 시작합니다. 썸네일과 공유 미리보기도 이 상태입니다.</span></li>
+        <li><time>1.4초</time><span>모든 네온이 한꺼번에 꺼지고 어두운 유리관만 남습니다.</span></li>
+        <li><time>1.7~2.9초</time><span>제목이 한 글자씩 "탁" 하고 두 번 깜빡인 뒤 켜집니다.</span></li>
+        <li><time>3.2~4.2초</time><span>언제나 열림 → 한 번에 처리 → 기다림 없이 순서로 간판이 켜집니다.</span></li>
+        <li><time>이후</time><span>모두 켜진 채로 멈춥니다. 반복 깜빡임은 없습니다. 동작 줄이기 설정이면 처음부터 정지 화면만 보입니다.</span></li>
+      </ol>
+      <div class="ppt">
+        <h3>PPT로 옮길 때</h3>
+        <ol>
+          <li>제목 글자에 [도형 서식 → 텍스트 옵션 → 텍스트 효과 → 네온] 18pt 분홍, 글자 채우기는 흰색에 가까운 분홍.</li>
+          <li>글자별로 텍스트 상자를 나누거나, 애니메이션 [효과 옵션 → 텍스트 애니메이션: 문자 단위]로 <b>나타내기</b>를 겁니다(문자 사이 지연 20%).</li>
+          <li>깜빡임은 <b>강조 → 깜박이기</b>를 0.2초로 한 번만, [이전 효과 다음에]로 이어 붙입니다.</li>
+          <li>간판 3개는 각각 <b>클릭할 때 나타내기</b>로 두어 말하는 순서에 맞춰 켭니다.</li>
+          <li>꺼진 관은 같은 글자를 짙은 회분홍으로 복제해 뒤에 깔면 됩니다. 모핑은 "꺼진 장표 → 켜진 장표" 두 장으로 근사합니다.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <h2><small>Spec</small>스펙</h2>
+      <dl class="spec">
+        <div class="row"><dt>왜 어두운 배경</dt><dd class="why">네온은 주변이 어두워야 빛으로 읽히고, 밤에도 켜진 간판이 "24시간 열린 창구"라는 약속을 직접 보여 주기 때문입니다.</dd></div>
+        <div class="row"><dt>팔레트</dt><dd><div class="sw">
+          <span><i style="background:#05060a"></i>#05060A 밤</span>
+          <span><i style="background:#11131b"></i>#11131B 벽</span>
+          <span><i style="background:#fff4f9"></i>#FFF4F9 제목 심</span>
+          <span><i style="background:#ff2d8a"></i>#FF2D8A 분홍 네온</span>
+          <span><i style="background:#25e2ff"></i>#25E2FF 청록</span>
+          <span><i style="background:#ffb01f"></i>#FFB01F 호박</span>
+          <span><i style="background:#7cff5c"></i>#7CFF5C 연두</span>
+        </div></dd></div>
+        <div class="row"><dt>폰트</dt><dd>제목·간판 Gothic A1 Light(대체: 맑은 고딕 / 애플 SD 산돌고딕 Neo), 본문 IBM Plex Sans KR(대체: 맑은 고딕), 날짜 IBM Plex Mono(대체: Consolas)</dd></div>
+        <div class="row"><dt>난이도</dt><dd>중 — HTML은 text-shadow 5겹과 점등 스크립트 30줄, PPT는 기본 네온 효과와 나타내기·깜박이기로 근사 가능</dd></div>
+        <div class="row"><dt>반영 트렌드</dt><dd>채도 부활과 하이 콘트라스트, 어두운 바탕 위 네온 강조의 귀환. 출처: <a href="https://www.designrush.com/trends/state-of-design" target="_blank" rel="noopener">DesignRush, Graphic Design Trends 2026</a>, <a href="https://learn.g2.com/graphic-design-trends" target="_blank" rel="noopener">G2 Learn, Top 9 Graphic Design Trends 2026</a></dd></div>
+        <div class="row"><dt>정보 구조</dt><dd>선언 — 제목 하나와 약속 셋. 분야: 공연·도시 야경</dd></div>
+      </dl>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  var slide=document.getElementById('slide');
+  var chars=[].slice.call(slide.querySelectorAll('.ch:not(.sp)'));
+  var signs=[].slice.call(slide.querySelectorAll('.sign'));
+  var timers=[];
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clear(){timers.forEach(clearTimeout);timers=[];}
+  function on(el,t){timers.push(setTimeout(function(){el.classList.remove('off');el.classList.add('flick');},t));}
+  function run(){
+    if(reduce)return;
+    clear();
+    chars.concat(signs).forEach(function(el){el.classList.remove('flick');el.classList.add('off');});
+    slide.classList.add('dim');
+    var t=300;
+    chars.forEach(function(el){on(el,t);t+=170;});
+    timers.push(setTimeout(function(){slide.classList.remove('dim');},t));
+    t+=250;
+    signs.forEach(function(el){on(el,t);t+=480;});
+  }
+  document.getElementById('replay').addEventListener('click',run);
+  timers.push(setTimeout(run,1400));
+})();
+</script>
+
+</body></html>

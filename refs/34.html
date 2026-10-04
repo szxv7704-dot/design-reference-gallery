@@ -1,0 +1,673 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #34 허브 내비게이션 업무보고</title>
+<style>
+  /* 레이아웃: 장표를 맨 위에 두고, 아래로 가져갈 장치 → 동작 → 코드 → PPT → 스펙의 단일 열 */
+  :root {
+    --bg: #F1F2EC; --fg: #1B2326; --mute: #5A6462; --line: #D9DBD2; --card: #FFFFFF; --accent: #6A55D9; --code-bg: #1B2326; --code-fg: #EDEDE6;
+    --f-title: "Black Han Sans", "Gothic A1", "Malgun Gothic", sans-serif;
+    --f-body: "Gothic A1", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    --f-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #151B1D; --fg: #E9ECE6; --mute: #A3ADA9; --line: #2D3739; --card: #1E2628; --accent: #B3A6FF; --code-bg: #0E1314; --code-fg: #E9ECE6; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #151B1D; --fg: #E9ECE6; --mute: #A3ADA9; --line: #2D3739; --card: #1E2628; --accent: #B3A6FF; --code-bg: #0E1314; --code-fg: #E9ECE6; color-scheme: dark }
+  body { background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 15px; line-height: 1.7; }
+  .pg { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; display: grid; gap: 40px; }
+  .pg-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; }
+  .pg-meta h1 { font-family: var(--f-title); font-weight: 400; font-size: clamp(22px, 3.2vw, 30px); margin: 0; line-height: 1.2; text-wrap: balance; }
+  .pg-meta p { margin: 0; color: var(--mute); font-size: 13px; letter-spacing: .02em; }
+  .pg-ctl { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--mute); align-items: center; }
+  .btn { font: inherit; font-weight: 700; font-size: 13px; padding: 6px 14px; border-radius: 99px; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  section.blk { display: grid; gap: 14px; min-width: 0; }
+  .blk h2 { font-family: var(--f-title); font-weight: 400; font-size: 22px; margin: 0; }
+  .blk p, .blk li { max-width: 68ch; }
+  .take { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .take div { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; min-width: 0; }
+  .take b { display: block; font-size: 17px; margin-bottom: 4px; }
+  .take span { color: var(--mute); font-size: 14px; }
+  .codebar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .codebar small { color: var(--mute); }
+  pre.code { margin: 0; background: var(--code-bg); color: var(--code-fg); border-radius: 12px; padding: 16px; overflow: auto; max-height: 420px; font: 12.5px/1.55 var(--f-mono); }
+  ol.steps { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
+  ol.steps b { font-weight: 800; }
+  kbd { font: 12px var(--f-mono); padding: 1px 6px; border: 1px solid var(--line); border-radius: 5px; background: var(--card); }
+  .spec { display: grid; grid-template-columns: 140px 1fr; gap: 10px 20px; margin: 0; }
+  .spec dt { color: var(--mute); font-weight: 700; font-size: 13px; }
+  .spec dd { margin: 0; min-width: 0; }
+  .sw { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+  .sw span { display: inline-flex; align-items: center; gap: 6px; font: 13px var(--f-mono); }
+  .sw i { width: 18px; height: 18px; border-radius: 5px; border: 1px solid var(--line); display: inline-block; }
+  a { color: var(--accent); }
+  @media (max-width: 560px) { .spec { grid-template-columns: 1fr; gap: 2px; } .spec dd { margin-bottom: 10px; } }
+</style>
+
+<main class="pg">
+  <div>
+    <div class="pg-meta">
+      <h1>레퍼런스 #34 · 허브 내비게이션 업무보고</h1>
+      <p>실무형 · 기관 주요업무 보고 · 가상 예시</p>
+    </div>
+  </div>
+
+  <div>
+    <!-- ===== 허브 내비게이션 장표 (자기 완결형) =====
+     붙여 넣을 곳: HTML 문서의 <body> 안 어디든.
+     바꿔 쓸 지점: ① --hub-* 색 변수 ② HUB_SECTIONS 배열 ③ 머리말 문구 ④ 데모 재생(HUB_DEMO) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;600;800&family=Archivo:wght@800;900&display=swap">
+<style>
+  .hub-wrap {
+    /* ① 색: 종이·먹·회색 + 섹션별 타일색(HUB_SECTIONS의 color에서 지정) */
+    --hub-paper: #FAFAF6;
+    --hub-ink: #1B2326;
+    --hub-mute: #5D6765;
+    --hub-line: #E2E3DC;
+    --hub-font-title: "Black Han Sans", "Gothic A1", "Malgun Gothic", sans-serif;
+    --hub-font-body: "Gothic A1", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    --hub-font-num: "Archivo", "Arial Black", "Gothic A1", sans-serif;
+    /* 글자 크기(장표 폭 기준 cqw) */
+    --hub-fs-xs: 1.15cqw; --hub-fs-s: 1.45cqw; --hub-fs-m: 2cqw;
+    --hub-fs-l: 3cqw; --hub-fs-xl: 5.4cqw; --hub-fs-xxl: 11cqw;
+    --hub-gap: 1.1cqw; --hub-pad: 2.6cqw;
+    container: hub / inline-size;
+    width: 100%;
+  }
+  .hub-stage {
+    position: relative; aspect-ratio: 16 / 9; max-width: 100%;
+    background: var(--hub-paper); color: var(--hub-ink);
+    border-radius: 1.4cqw; overflow: hidden;
+    display: grid; grid-template-rows: auto 1fr auto;
+    padding: var(--hub-pad); gap: 1.4cqw;
+    font-family: var(--hub-font-body); box-sizing: border-box;
+    box-shadow: 0 0 0 1px var(--hub-line);
+  }
+  .hub-stage *, .hub-stage *::before { box-sizing: border-box; }
+  .hub-head { display: flex; justify-content: space-between; align-items: end; gap: 2cqw; }
+  .hub-kicker { font-size: var(--hub-fs-s); color: var(--hub-mute); font-weight: 600; letter-spacing: .02em; margin: 0 0 .5cqw; }
+  .hub-title { font-family: var(--hub-font-title); font-weight: 400; font-size: var(--hub-fs-l); line-height: 1.1; margin: 0; }
+  .hub-prog { text-align: right; font-size: var(--hub-fs-s); font-weight: 600; color: var(--hub-mute); }
+  .hub-prog b { color: var(--hub-ink); font-family: var(--hub-font-num); font-size: var(--hub-fs-m); }
+  .hub-bar { display: flex; gap: .4cqw; margin-top: .6cqw; justify-content: flex-end; }
+  .hub-bar i { width: 2.6cqw; height: .7cqw; border-radius: 1cqw; background: var(--hub-line); }
+  .hub-bar i.on { background: var(--hub-ink); }
+
+  /* 타일 그리드: 큰 타일(예산)·넓은 타일(디지털)로 위계를 준다 */
+  .hub-grid {
+    display: grid; gap: var(--hub-gap); min-height: 0;
+    grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "a a b b c" "a a d e f";
+  }
+  .hub-tile {
+    all: unset; box-sizing: border-box; cursor: pointer; position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 1.4cqw 1.6cqw; min-width: 0; min-height: 0;
+    background: var(--c); color: var(--fg, var(--hub-ink));
+    border-radius: var(--r); transition: transform .18s ease;
+  }
+  .hub-tile:hover { transform: translateY(-.3cqw); }
+  .hub-tile:focus-visible { outline: .35cqw solid var(--hub-ink); outline-offset: .3cqw; }
+  .hub-top { display: flex; justify-content: space-between; align-items: center; gap: 1cqw; font-size: var(--hub-fs-s); font-weight: 800; }
+  .hub-key { font-family: var(--hub-font-num); opacity: .6; font-size: var(--hub-fs-xs); }
+  .hub-seen { font-size: var(--hub-fs-xs); font-weight: 800; padding: .25cqw .7cqw; border-radius: 2cqw; background: var(--fg, var(--hub-ink)); color: var(--c); visibility: hidden; }
+  .hub-tile.is-seen .hub-seen { visibility: visible; }
+  .hub-num { font-family: var(--hub-font-num); font-weight: 900; font-size: var(--hub-fs-xl); line-height: .95; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .hub-num small { font-family: var(--hub-font-body); font-size: .4em; font-weight: 800; margin-left: .15em; letter-spacing: 0; }
+  .hub-tile[data-big] .hub-num { font-size: var(--hub-fs-xxl); }
+  .hub-cap { font-size: var(--hub-fs-s); font-weight: 600; margin-top: .5cqw; line-height: 1.35; }
+
+  .hub-foot { display: flex; justify-content: space-between; gap: 2cqw; font-size: var(--hub-fs-xs); color: var(--hub-mute); }
+
+  /* 상세 화면: 타일 위치에서 clip-path로 펼쳐진다 */
+  .hub-detail {
+    position: absolute; inset: 0; background: var(--c); color: var(--fg, var(--hub-ink));
+    padding: var(--hub-pad); display: grid; grid-template-rows: auto 1fr auto; gap: 1.6cqw;
+  }
+  .hub-detail[hidden] { display: none; }
+  .hub-dhead { display: flex; justify-content: space-between; align-items: center; gap: 2cqw; }
+  .hub-where { display: flex; align-items: center; gap: 1.2cqw; font-size: var(--hub-fs-s); font-weight: 800; }
+  /* 미니맵: 지금 보는 섹션이 허브의 어느 타일인지 */
+  .hub-mini { display: grid; grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr;
+    grid-template-areas: "a a b b c" "a a d e f"; gap: .2cqw; width: 6.4cqw; height: 2.6cqw; }
+  .hub-mini i { border-radius: .2cqw; background: currentColor; opacity: .22; }
+  .hub-mini i.on { opacity: 1; }
+  .hub-back { all: unset; cursor: pointer; font-size: var(--hub-fs-s); font-weight: 800; padding: .7cqw 1.4cqw; border-radius: 3cqw;
+    background: var(--fg, var(--hub-ink)); color: var(--c); }
+  .hub-back:focus-visible { outline: .3cqw solid var(--fg, var(--hub-ink)); outline-offset: .3cqw; }
+  .hub-dbody { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3cqw; align-items: center; min-height: 0; }
+  .hub-dname { font-family: var(--hub-font-title); font-size: var(--hub-fs-l); margin: 0 0 1cqw; font-weight: 400; }
+  .hub-dbody .hub-num { font-size: 13cqw; }
+  .hub-dbody .hub-cap { font-size: var(--hub-fs-m); }
+  .hub-metrics { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.2cqw; }
+  .hub-metrics li { display: grid; grid-template-columns: 11cqw 1fr; align-items: baseline; gap: 1.2cqw; padding-top: 1.1cqw; border-top: .18cqw solid currentColor; }
+  .hub-metrics b { font-family: var(--hub-font-num); font-size: var(--hub-fs-l); font-weight: 900; font-variant-numeric: tabular-nums; }
+  .hub-metrics span { font-size: var(--hub-fs-s); font-weight: 600; line-height: 1.35; }
+  .hub-say { font-size: var(--hub-fs-m); font-weight: 800; margin: 0; line-height: 1.4; text-wrap: balance; }
+  .hub-dhead, .hub-dbody, .hub-say { transition: opacity .2s ease; }
+  .hub-detail.is-veiled .hub-dhead, .hub-detail.is-veiled .hub-dbody, .hub-detail.is-veiled .hub-say { opacity: 0; }
+
+  /* 모바일: 세로형 장표로 재배치하고 글자를 키운다 */
+  @container hub (max-width: 600px) {
+    .hub-wrap, .hub-stage {
+      --hub-fs-xs: 3cqw; --hub-fs-s: 3.4cqw; --hub-fs-m: 4.2cqw;
+      --hub-fs-l: 6cqw; --hub-fs-xl: 8cqw; --hub-fs-xxl: 12.5cqw;
+      --hub-gap: 2cqw; --hub-pad: 4.4cqw;
+    }
+    .hub-stage { aspect-ratio: 3 / 5.3; border-radius: 4cqw; gap: 3cqw; }
+    .hub-head { flex-direction: column; align-items: start; }
+    .hub-prog { text-align: left; }
+    .hub-bar { justify-content: flex-start; }
+    .hub-bar i { width: 7cqw; height: 1.6cqw; }
+    .hub-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr 1fr 1fr;
+      grid-template-areas: "a a" "b b" "c d" "e f"; }
+    .hub-tile { padding: 3cqw 3.6cqw; }
+    .hub-foot { flex-direction: column; gap: 1cqw; }
+    .hub-detail { gap: 3cqw; }
+    .hub-mini { display: none; }
+    .hub-back { padding: 1.8cqw 3.4cqw; }
+    .hub-dbody { grid-template-columns: 1fr; gap: 4cqw; align-content: start; }
+    .hub-dbody .hub-num { font-size: 19cqw; }
+    .hub-metrics { gap: 2.4cqw; }
+    .hub-metrics li { grid-template-columns: 24cqw 1fr; padding-top: 2cqw; border-top-width: .5cqw; }
+  }
+  @media (prefers-reduced-motion: reduce) { .hub-tile, .hub-dhead, .hub-dbody, .hub-say { transition: none; } }
+</style>
+
+<div class="hub-wrap">
+  <section class="hub-stage" aria-label="주요업무 보고 허브">
+    <header class="hub-head">
+      <div>
+        <p class="hub-kicker">○○교육청 · 2027 주요업무 보고</p>
+        <h2 class="hub-title">어느 분야부터 보실까요?</h2>
+      </div>
+      <div class="hub-prog"><span>확인한 분야 <b class="hub-count">0</b> / 6</span><div class="hub-bar" aria-hidden="true"></div></div>
+    </header>
+    <div class="hub-grid"></div>
+    <footer class="hub-foot"><span>타일을 누르거나 숫자 키 1–6 · Esc는 허브로</span><span>가상 예시 · 실제 기관·수치 아님</span></footer>
+    <div class="hub-detail" hidden role="region" aria-live="polite"></div>
+  </section>
+</div>
+
+<script>
+(() => {
+  // ② 섹션 데이터: 이 배열만 바꾸면 장표가 바뀐다 (area는 그리드 칸 a~f, 앞의 것이 큰 타일)
+  const HUB_SECTIONS = [
+    { key: "1", name: "예산", area: "a", big: true, color: "#F5C842", r: "1.4cqw 1.4cqw 1.4cqw 9cqw",
+      num: "4.82", unit: "조 원", cap: "2027 본예산 총액",
+      metrics: [["+3.1%", "전년 대비 증가율"], ["11.4%", "교육환경개선 사업 비중"], ["1,960억", "재정안정화기금 적립 잔액"]],
+      say: "늘어난 재원은 노후 시설과 업무 디지털 전환에 먼저 씁니다." },
+    { key: "2", name: "디지털", area: "b", color: "#A897F5", r: "1.4cqw 7cqw 1.4cqw 1.4cqw",
+      num: "62", unit: "%", cap: "업무 시스템 클라우드 전환",
+      metrics: [["18/29", "전환 완료 시스템"], ["1.9일", "민원 평균 처리 (전년 3.2일)"], ["연 4회", "정보보안 정기 점검"]],
+      say: "남은 11개 시스템은 2027년 말까지 단계적으로 옮깁니다." },
+    { key: "3", name: "안전", area: "c", color: "#FF8E6B", r: "6cqw 1.4cqw 1.4cqw 1.4cqw",
+      num: "0", unit: "건", cap: "중대재해 목표",
+      metrics: [["100%", "기관 위험성 평가 실시"], ["1,240곳", "합동 안전점검 대상"], ["36대", "노후 승강기 교체"]],
+      say: "점검 대상을 넓히고 고위험 설비부터 바꿉니다." },
+    { key: "4", name: "인사", area: "d", color: "#82D6B4", r: "1.4cqw 1.4cqw 5cqw 1.4cqw",
+      num: "312", unit: "명", cap: "지방공무원 신규 임용",
+      metrics: [["2.1%", "정원 대비 결원율"], ["94%", "육아휴직 대체 충원율"], ["18시간", "1인당 직무교육"]],
+      say: "결원이 잦은 행정실부터 우선 배치합니다." },
+    { key: "5", name: "시설", area: "e", color: "#EDE3CF", r: "1.4cqw 1.4cqw 1.4cqw 1.4cqw",
+      num: "148", unit: "곳", cap: "노후 시설 개선",
+      metrics: [["97%", "석면 제거 완료율"], ["41동", "내진 보강"], ["12곳", "그린리모델링 착수"]],
+      say: "석면은 2027년 안에 남은 3%를 마무리합니다." },
+    { key: "6", name: "청렴", area: "f", color: "#1B2326", fg: "#FAFAF6", r: "1.4cqw 1.4cqw 1.4cqw 5cqw",
+      num: "2", unit: "등급", cap: "종합청렴도 목표",
+      metrics: [["3등급", "2026 종합청렴도 (현재)"], ["100%", "갑질 신고 기한 내 처리"], ["월 1회", "계약 정보 공개 점검"]],
+      say: "계약·인사 분야 공개를 늘려 한 등급 올립니다." }
+  ];
+  const HUB_DEMO = true;          // ④ 첫 화면에서 한 번 열렸다 닫히는 데모 (false면 끔)
+  const DUR_OPEN = 520, DUR_CLOSE = 420;
+
+  const stage = document.querySelector(".hub-stage");
+  const grid = stage.querySelector(".hub-grid");
+  const detail = stage.querySelector(".hub-detail");
+  const countEl = stage.querySelector(".hub-count");
+  const bar = stage.querySelector(".hub-bar");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const seen = new Set();
+  let current = -1, busy = false, demoTimers = [];
+
+  // 타일 만들기
+  const tiles = HUB_SECTIONS.map((s, i) => {
+    const b = document.createElement("button");
+    b.className = "hub-tile"; b.type = "button";
+    if (s.big) b.dataset.big = "";
+    b.style.cssText = `grid-area:${s.area};--c:${s.color};--r:${s.r};${s.fg ? `--fg:${s.fg};` : ""}`;
+    b.setAttribute("aria-label", `${s.key}번 ${s.name}: ${s.num}${s.unit}, ${s.cap}`);
+    b.innerHTML = `<span class="hub-top"><span>${s.name} <span class="hub-key">${s.key}</span></span><span class="hub-seen">✓ 봄</span></span>
+      <span><span class="hub-num">${s.num}<small>${s.unit}</small></span><span class="hub-cap" style="display:block">${s.cap}</span></span>`;
+    b.addEventListener("click", () => { stopDemo(); open(i); });
+    grid.appendChild(b);
+    bar.appendChild(document.createElement("i"));
+    return b;
+  });
+
+  // 타일의 위치·모서리를 장표 기준 clip-path로 변환
+  function tileClip(i) {
+    const sr = stage.getBoundingClientRect(), tr = tiles[i].getBoundingClientRect();
+    const cs = getComputedStyle(tiles[i]);
+    const rad = ["borderTopLeftRadius", "borderTopRightRadius", "borderBottomRightRadius", "borderBottomLeftRadius"]
+      .map(k => parseFloat(cs[k]) + "px").join(" ");
+    return `inset(${tr.top - sr.top}px ${sr.right - tr.right}px ${sr.bottom - tr.bottom}px ${tr.left - sr.left}px round ${rad})`;
+  }
+  const FULL = "inset(0px 0px 0px 0px round 0px 0px 0px 0px)";
+
+  function fillDetail(s, i) {
+    detail.style.setProperty("--c", s.color);
+    detail.style.setProperty("--fg", s.fg || "var(--hub-ink)");
+    detail.innerHTML = `
+      <div class="hub-dhead">
+        <div class="hub-where"><span class="hub-mini" aria-hidden="true">${HUB_SECTIONS.map((x, j) => `<i style="grid-area:${x.area}" class="${j === i ? "on" : ""}"></i>`).join("")}</span>
+          <span>${s.key} · ${s.name}</span></div>
+        <button class="hub-back" type="button">← 허브로 <span class="hub-key">Esc</span></button>
+      </div>
+      <div class="hub-dbody">
+        <div><h3 class="hub-dname">${s.name}</h3><div class="hub-num">${s.num}<small>${s.unit}</small></div><p class="hub-cap">${s.cap}</p></div>
+        <ul class="hub-metrics">${s.metrics.map(m => `<li><b>${m[0]}</b><span>${m[1]}</span></li>`).join("")}</ul>
+      </div>
+      <p class="hub-say">${s.say}</p>`;
+    detail.querySelector(".hub-back").addEventListener("click", () => { stopDemo(); close(); });
+  }
+
+  async function open(i, demo = false) {
+    if (busy || current === i) return;
+    if (current >= 0) await close(true);
+    busy = true; current = i;
+    fillDetail(HUB_SECTIONS[i], i);
+    detail.classList.add("is-veiled");
+    detail.hidden = false;
+    if (!reduce) {
+      await detail.animate([{ clipPath: tileClip(i) }, { clipPath: FULL }],
+        { duration: DUR_OPEN, easing: "cubic-bezier(.2,.75,.15,1)" }).finished;
+    }
+    detail.classList.remove("is-veiled");
+    if (!demo) { seen.add(i); detail.querySelector(".hub-back").focus({ preventScroll: true }); }
+    busy = false;
+  }
+
+  async function close(chain = false) {
+    if (current < 0 || (busy && !chain)) return;
+    busy = true;
+    const i = current;
+    if (!reduce) {
+      detail.classList.add("is-veiled");
+      await new Promise(r => setTimeout(r, 140));
+      const a = detail.animate([{ clipPath: FULL }, { clipPath: tileClip(i) }],
+        { duration: DUR_CLOSE, easing: "cubic-bezier(.5,0,.2,1)", fill: "forwards" });
+      await a.finished;
+      detail.hidden = true; a.cancel();
+    }
+    detail.hidden = true; current = -1;
+    paintSeen();
+    if (!chain) tiles[i].focus({ preventScroll: true });
+    busy = false;
+  }
+
+  function paintSeen() {
+    tiles.forEach((t, j) => t.classList.toggle("is-seen", seen.has(j)));
+    [...bar.children].forEach((b, j) => b.classList.toggle("on", j < seen.size));
+    countEl.textContent = seen.size;
+  }
+
+  // 키보드: 1~6 섹션, Esc 허브
+  document.addEventListener("keydown", e => {
+    if (e.target.closest("input, textarea, [contenteditable]")) return;
+    const i = HUB_SECTIONS.findIndex(s => s.key === e.key);
+    if (i >= 0) { stopDemo(); open(i); }
+    else if (e.key === "Escape" && current >= 0) { stopDemo(); close(); }
+  });
+
+  // 데모: 한 번 열렸다 닫히고 허브에서 멈춤 (본 섹션으로 세지 않음)
+  function stopDemo() { demoTimers.forEach(clearTimeout); demoTimers = []; }
+  if (HUB_DEMO) {
+    demoTimers.push(setTimeout(() => open(0, true), 1400));
+    demoTimers.push(setTimeout(() => close(true), 4400));
+  }
+})();
+</script>
+<!-- ===== 허브 내비게이션 장표 끝 ===== -->
+
+    <div class="pg-ctl"><span>타일을 눌러 보세요. 숫자 키 <kbd>1</kbd>–<kbd>6</kbd>, <kbd>Esc</kbd></span></div>
+  </div>
+
+  <section class="blk">
+    <h2>가져갈 장치</h2>
+    <div class="take">
+      <div><b>질문이 오면 그 타일로 바로 점프</b><span>보고 순서를 미리 정하지 않습니다. "인사는요?"라는 질문에 4번만 누르면 됩니다. 발표가 질의응답 중심의 대화가 됩니다.</span></div>
+      <div><b>타일이 화면 전체로 펼쳐지는 전환</b><span>상세 화면이 눌린 타일 자리에서 펼쳐지고 같은 자리로 접힙니다. 청중이 지금 어느 분야를 보는지 놓치지 않습니다.</span></div>
+      <div><b>본 분야 체크와 미니맵</b><span>허브에는 이미 설명한 분야에 ✓가 남고, 상세 화면 왼쪽 위 미니맵은 현재 타일 위치를 보여 줍니다. 남은 분야가 한눈에 보입니다.</span></div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>동작 설명</h2>
+    <p>첫 화면은 6개 분야의 대표 숫자를 크기 위계(예산 대형, 디지털 가로형, 나머지 소형)로 보여 주는 허브입니다. 타일을 누르면 그 타일의 위치와 모서리 모양에서 시작해 장표 전체로 펼쳐지며 핵심 수치 3개와 한 문장 결론이 나타나고, "허브로"를 누르면 원래 타일 자리로 접히면서 ✓ 표시가 붙습니다. 처음 열면 예산 타일이 한 번 열렸다 닫히는 데모가 돌고 허브에서 멈추며, 동작 줄이기 설정에서는 전환 없이 바로 바뀝니다.</p>
+    <p><b>응용 예</b> · 국정감사·도의회 업무보고 예상질의 대응, 부서 연간 성과 공유회, 신규 직원 업무 안내(분야 = 팀), 예산 설명회의 사업군별 질의응답.</p>
+  </section>
+
+  <section class="blk">
+    <div class="codebar"><h2>HTML로 가져다 쓰기</h2><button class="btn" id="copy" type="button">코드 복사</button></div>
+    <p>아래 코드 한 덩어리가 자기 완결형입니다. 클래스는 모두 <code>hub-</code>로 시작하고, 바꿔 쓸 곳은 ① 색 변수 <code>--hub-*</code> ② <code>HUB_SECTIONS</code> 배열(이름·숫자·단위·수치 3개·결론·타일 칸) ③ 머리말 문구 ④ <code>HUB_DEMO</code> 데모 켜고 끄기입니다. 타일 크기 위계는 <code>grid-template-areas</code>에서 정합니다.</p>
+    <pre class="code" id="snippet" tabindex="0">&lt;!-- ===== 허브 내비게이션 장표 (자기 완결형) =====
+     붙여 넣을 곳: HTML 문서의 &lt;body&gt; 안 어디든.
+     바꿔 쓸 지점: ① --hub-* 색 변수 ② HUB_SECTIONS 배열 ③ 머리말 문구 ④ 데모 재생(HUB_DEMO) --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Black+Han+Sans&amp;family=Gothic+A1:wght@400;600;800&amp;family=Archivo:wght@800;900&amp;display=swap&quot;&gt;
+&lt;style&gt;
+  .hub-wrap {
+    /* ① 색: 종이·먹·회색 + 섹션별 타일색(HUB_SECTIONS의 color에서 지정) */
+    --hub-paper: #FAFAF6;
+    --hub-ink: #1B2326;
+    --hub-mute: #5D6765;
+    --hub-line: #E2E3DC;
+    --hub-font-title: &quot;Black Han Sans&quot;, &quot;Gothic A1&quot;, &quot;Malgun Gothic&quot;, sans-serif;
+    --hub-font-body: &quot;Gothic A1&quot;, &quot;Malgun Gothic&quot;, &quot;Apple SD Gothic Neo&quot;, sans-serif;
+    --hub-font-num: &quot;Archivo&quot;, &quot;Arial Black&quot;, &quot;Gothic A1&quot;, sans-serif;
+    /* 글자 크기(장표 폭 기준 cqw) */
+    --hub-fs-xs: 1.15cqw; --hub-fs-s: 1.45cqw; --hub-fs-m: 2cqw;
+    --hub-fs-l: 3cqw; --hub-fs-xl: 5.4cqw; --hub-fs-xxl: 11cqw;
+    --hub-gap: 1.1cqw; --hub-pad: 2.6cqw;
+    container: hub / inline-size;
+    width: 100%;
+  }
+  .hub-stage {
+    position: relative; aspect-ratio: 16 / 9; max-width: 100%;
+    background: var(--hub-paper); color: var(--hub-ink);
+    border-radius: 1.4cqw; overflow: hidden;
+    display: grid; grid-template-rows: auto 1fr auto;
+    padding: var(--hub-pad); gap: 1.4cqw;
+    font-family: var(--hub-font-body); box-sizing: border-box;
+    box-shadow: 0 0 0 1px var(--hub-line);
+  }
+  .hub-stage *, .hub-stage *::before { box-sizing: border-box; }
+  .hub-head { display: flex; justify-content: space-between; align-items: end; gap: 2cqw; }
+  .hub-kicker { font-size: var(--hub-fs-s); color: var(--hub-mute); font-weight: 600; letter-spacing: .02em; margin: 0 0 .5cqw; }
+  .hub-title { font-family: var(--hub-font-title); font-weight: 400; font-size: var(--hub-fs-l); line-height: 1.1; margin: 0; }
+  .hub-prog { text-align: right; font-size: var(--hub-fs-s); font-weight: 600; color: var(--hub-mute); }
+  .hub-prog b { color: var(--hub-ink); font-family: var(--hub-font-num); font-size: var(--hub-fs-m); }
+  .hub-bar { display: flex; gap: .4cqw; margin-top: .6cqw; justify-content: flex-end; }
+  .hub-bar i { width: 2.6cqw; height: .7cqw; border-radius: 1cqw; background: var(--hub-line); }
+  .hub-bar i.on { background: var(--hub-ink); }
+
+  /* 타일 그리드: 큰 타일(예산)·넓은 타일(디지털)로 위계를 준다 */
+  .hub-grid {
+    display: grid; gap: var(--hub-gap); min-height: 0;
+    grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: &quot;a a b b c&quot; &quot;a a d e f&quot;;
+  }
+  .hub-tile {
+    all: unset; box-sizing: border-box; cursor: pointer; position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 1.4cqw 1.6cqw; min-width: 0; min-height: 0;
+    background: var(--c); color: var(--fg, var(--hub-ink));
+    border-radius: var(--r); transition: transform .18s ease;
+  }
+  .hub-tile:hover { transform: translateY(-.3cqw); }
+  .hub-tile:focus-visible { outline: .35cqw solid var(--hub-ink); outline-offset: .3cqw; }
+  .hub-top { display: flex; justify-content: space-between; align-items: center; gap: 1cqw; font-size: var(--hub-fs-s); font-weight: 800; }
+  .hub-key { font-family: var(--hub-font-num); opacity: .6; font-size: var(--hub-fs-xs); }
+  .hub-seen { font-size: var(--hub-fs-xs); font-weight: 800; padding: .25cqw .7cqw; border-radius: 2cqw; background: var(--fg, var(--hub-ink)); color: var(--c); visibility: hidden; }
+  .hub-tile.is-seen .hub-seen { visibility: visible; }
+  .hub-num { font-family: var(--hub-font-num); font-weight: 900; font-size: var(--hub-fs-xl); line-height: .95; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .hub-num small { font-family: var(--hub-font-body); font-size: .4em; font-weight: 800; margin-left: .15em; letter-spacing: 0; }
+  .hub-tile[data-big] .hub-num { font-size: var(--hub-fs-xxl); }
+  .hub-cap { font-size: var(--hub-fs-s); font-weight: 600; margin-top: .5cqw; line-height: 1.35; }
+
+  .hub-foot { display: flex; justify-content: space-between; gap: 2cqw; font-size: var(--hub-fs-xs); color: var(--hub-mute); }
+
+  /* 상세 화면: 타일 위치에서 clip-path로 펼쳐진다 */
+  .hub-detail {
+    position: absolute; inset: 0; background: var(--c); color: var(--fg, var(--hub-ink));
+    padding: var(--hub-pad); display: grid; grid-template-rows: auto 1fr auto; gap: 1.6cqw;
+  }
+  .hub-detail[hidden] { display: none; }
+  .hub-dhead { display: flex; justify-content: space-between; align-items: center; gap: 2cqw; }
+  .hub-where { display: flex; align-items: center; gap: 1.2cqw; font-size: var(--hub-fs-s); font-weight: 800; }
+  /* 미니맵: 지금 보는 섹션이 허브의 어느 타일인지 */
+  .hub-mini { display: grid; grid-template-columns: 1.25fr 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr;
+    grid-template-areas: &quot;a a b b c&quot; &quot;a a d e f&quot;; gap: .2cqw; width: 6.4cqw; height: 2.6cqw; }
+  .hub-mini i { border-radius: .2cqw; background: currentColor; opacity: .22; }
+  .hub-mini i.on { opacity: 1; }
+  .hub-back { all: unset; cursor: pointer; font-size: var(--hub-fs-s); font-weight: 800; padding: .7cqw 1.4cqw; border-radius: 3cqw;
+    background: var(--fg, var(--hub-ink)); color: var(--c); }
+  .hub-back:focus-visible { outline: .3cqw solid var(--fg, var(--hub-ink)); outline-offset: .3cqw; }
+  .hub-dbody { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3cqw; align-items: center; min-height: 0; }
+  .hub-dname { font-family: var(--hub-font-title); font-size: var(--hub-fs-l); margin: 0 0 1cqw; font-weight: 400; }
+  .hub-dbody .hub-num { font-size: 13cqw; }
+  .hub-dbody .hub-cap { font-size: var(--hub-fs-m); }
+  .hub-metrics { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.2cqw; }
+  .hub-metrics li { display: grid; grid-template-columns: 11cqw 1fr; align-items: baseline; gap: 1.2cqw; padding-top: 1.1cqw; border-top: .18cqw solid currentColor; }
+  .hub-metrics b { font-family: var(--hub-font-num); font-size: var(--hub-fs-l); font-weight: 900; font-variant-numeric: tabular-nums; }
+  .hub-metrics span { font-size: var(--hub-fs-s); font-weight: 600; line-height: 1.35; }
+  .hub-say { font-size: var(--hub-fs-m); font-weight: 800; margin: 0; line-height: 1.4; text-wrap: balance; }
+  .hub-dhead, .hub-dbody, .hub-say { transition: opacity .2s ease; }
+  .hub-detail.is-veiled .hub-dhead, .hub-detail.is-veiled .hub-dbody, .hub-detail.is-veiled .hub-say { opacity: 0; }
+
+  /* 모바일: 세로형 장표로 재배치하고 글자를 키운다 */
+  @container hub (max-width: 600px) {
+    .hub-wrap, .hub-stage {
+      --hub-fs-xs: 3cqw; --hub-fs-s: 3.4cqw; --hub-fs-m: 4.2cqw;
+      --hub-fs-l: 6cqw; --hub-fs-xl: 8cqw; --hub-fs-xxl: 12.5cqw;
+      --hub-gap: 2cqw; --hub-pad: 4.4cqw;
+    }
+    .hub-stage { aspect-ratio: 3 / 5.3; border-radius: 4cqw; gap: 3cqw; }
+    .hub-head { flex-direction: column; align-items: start; }
+    .hub-prog { text-align: left; }
+    .hub-bar { justify-content: flex-start; }
+    .hub-bar i { width: 7cqw; height: 1.6cqw; }
+    .hub-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 1.2fr 1fr 1fr 1fr;
+      grid-template-areas: &quot;a a&quot; &quot;b b&quot; &quot;c d&quot; &quot;e f&quot;; }
+    .hub-tile { padding: 3cqw 3.6cqw; }
+    .hub-foot { flex-direction: column; gap: 1cqw; }
+    .hub-detail { gap: 3cqw; }
+    .hub-mini { display: none; }
+    .hub-back { padding: 1.8cqw 3.4cqw; }
+    .hub-dbody { grid-template-columns: 1fr; gap: 4cqw; align-content: start; }
+    .hub-dbody .hub-num { font-size: 19cqw; }
+    .hub-metrics { gap: 2.4cqw; }
+    .hub-metrics li { grid-template-columns: 24cqw 1fr; padding-top: 2cqw; border-top-width: .5cqw; }
+  }
+  @media (prefers-reduced-motion: reduce) { .hub-tile, .hub-dhead, .hub-dbody, .hub-say { transition: none; } }
+&lt;/style&gt;
+
+&lt;div class=&quot;hub-wrap&quot;&gt;
+  &lt;section class=&quot;hub-stage&quot; aria-label=&quot;주요업무 보고 허브&quot;&gt;
+    &lt;header class=&quot;hub-head&quot;&gt;
+      &lt;div&gt;
+        &lt;p class=&quot;hub-kicker&quot;&gt;○○교육청 · 2027 주요업무 보고&lt;/p&gt;
+        &lt;h2 class=&quot;hub-title&quot;&gt;어느 분야부터 보실까요?&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;hub-prog&quot;&gt;&lt;span&gt;확인한 분야 &lt;b class=&quot;hub-count&quot;&gt;0&lt;/b&gt; / 6&lt;/span&gt;&lt;div class=&quot;hub-bar&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/header&gt;
+    &lt;div class=&quot;hub-grid&quot;&gt;&lt;/div&gt;
+    &lt;footer class=&quot;hub-foot&quot;&gt;&lt;span&gt;타일을 누르거나 숫자 키 1–6 · Esc는 허브로&lt;/span&gt;&lt;span&gt;가상 예시 · 실제 기관·수치 아님&lt;/span&gt;&lt;/footer&gt;
+    &lt;div class=&quot;hub-detail&quot; hidden role=&quot;region&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(() =&gt; {
+  // ② 섹션 데이터: 이 배열만 바꾸면 장표가 바뀐다 (area는 그리드 칸 a~f, 앞의 것이 큰 타일)
+  const HUB_SECTIONS = [
+    { key: &quot;1&quot;, name: &quot;예산&quot;, area: &quot;a&quot;, big: true, color: &quot;#F5C842&quot;, r: &quot;1.4cqw 1.4cqw 1.4cqw 9cqw&quot;,
+      num: &quot;4.82&quot;, unit: &quot;조 원&quot;, cap: &quot;2027 본예산 총액&quot;,
+      metrics: [[&quot;+3.1%&quot;, &quot;전년 대비 증가율&quot;], [&quot;11.4%&quot;, &quot;교육환경개선 사업 비중&quot;], [&quot;1,960억&quot;, &quot;재정안정화기금 적립 잔액&quot;]],
+      say: &quot;늘어난 재원은 노후 시설과 업무 디지털 전환에 먼저 씁니다.&quot; },
+    { key: &quot;2&quot;, name: &quot;디지털&quot;, area: &quot;b&quot;, color: &quot;#A897F5&quot;, r: &quot;1.4cqw 7cqw 1.4cqw 1.4cqw&quot;,
+      num: &quot;62&quot;, unit: &quot;%&quot;, cap: &quot;업무 시스템 클라우드 전환&quot;,
+      metrics: [[&quot;18/29&quot;, &quot;전환 완료 시스템&quot;], [&quot;1.9일&quot;, &quot;민원 평균 처리 (전년 3.2일)&quot;], [&quot;연 4회&quot;, &quot;정보보안 정기 점검&quot;]],
+      say: &quot;남은 11개 시스템은 2027년 말까지 단계적으로 옮깁니다.&quot; },
+    { key: &quot;3&quot;, name: &quot;안전&quot;, area: &quot;c&quot;, color: &quot;#FF8E6B&quot;, r: &quot;6cqw 1.4cqw 1.4cqw 1.4cqw&quot;,
+      num: &quot;0&quot;, unit: &quot;건&quot;, cap: &quot;중대재해 목표&quot;,
+      metrics: [[&quot;100%&quot;, &quot;기관 위험성 평가 실시&quot;], [&quot;1,240곳&quot;, &quot;합동 안전점검 대상&quot;], [&quot;36대&quot;, &quot;노후 승강기 교체&quot;]],
+      say: &quot;점검 대상을 넓히고 고위험 설비부터 바꿉니다.&quot; },
+    { key: &quot;4&quot;, name: &quot;인사&quot;, area: &quot;d&quot;, color: &quot;#82D6B4&quot;, r: &quot;1.4cqw 1.4cqw 5cqw 1.4cqw&quot;,
+      num: &quot;312&quot;, unit: &quot;명&quot;, cap: &quot;지방공무원 신규 임용&quot;,
+      metrics: [[&quot;2.1%&quot;, &quot;정원 대비 결원율&quot;], [&quot;94%&quot;, &quot;육아휴직 대체 충원율&quot;], [&quot;18시간&quot;, &quot;1인당 직무교육&quot;]],
+      say: &quot;결원이 잦은 행정실부터 우선 배치합니다.&quot; },
+    { key: &quot;5&quot;, name: &quot;시설&quot;, area: &quot;e&quot;, color: &quot;#EDE3CF&quot;, r: &quot;1.4cqw 1.4cqw 1.4cqw 1.4cqw&quot;,
+      num: &quot;148&quot;, unit: &quot;곳&quot;, cap: &quot;노후 시설 개선&quot;,
+      metrics: [[&quot;97%&quot;, &quot;석면 제거 완료율&quot;], [&quot;41동&quot;, &quot;내진 보강&quot;], [&quot;12곳&quot;, &quot;그린리모델링 착수&quot;]],
+      say: &quot;석면은 2027년 안에 남은 3%를 마무리합니다.&quot; },
+    { key: &quot;6&quot;, name: &quot;청렴&quot;, area: &quot;f&quot;, color: &quot;#1B2326&quot;, fg: &quot;#FAFAF6&quot;, r: &quot;1.4cqw 1.4cqw 1.4cqw 5cqw&quot;,
+      num: &quot;2&quot;, unit: &quot;등급&quot;, cap: &quot;종합청렴도 목표&quot;,
+      metrics: [[&quot;3등급&quot;, &quot;2026 종합청렴도 (현재)&quot;], [&quot;100%&quot;, &quot;갑질 신고 기한 내 처리&quot;], [&quot;월 1회&quot;, &quot;계약 정보 공개 점검&quot;]],
+      say: &quot;계약·인사 분야 공개를 늘려 한 등급 올립니다.&quot; }
+  ];
+  const HUB_DEMO = true;          // ④ 첫 화면에서 한 번 열렸다 닫히는 데모 (false면 끔)
+  const DUR_OPEN = 520, DUR_CLOSE = 420;
+
+  const stage = document.querySelector(&quot;.hub-stage&quot;);
+  const grid = stage.querySelector(&quot;.hub-grid&quot;);
+  const detail = stage.querySelector(&quot;.hub-detail&quot;);
+  const countEl = stage.querySelector(&quot;.hub-count&quot;);
+  const bar = stage.querySelector(&quot;.hub-bar&quot;);
+  const reduce = matchMedia(&quot;(prefers-reduced-motion: reduce)&quot;).matches;
+  const seen = new Set();
+  let current = -1, busy = false, demoTimers = [];
+
+  // 타일 만들기
+  const tiles = HUB_SECTIONS.map((s, i) =&gt; {
+    const b = document.createElement(&quot;button&quot;);
+    b.className = &quot;hub-tile&quot;; b.type = &quot;button&quot;;
+    if (s.big) b.dataset.big = &quot;&quot;;
+    b.style.cssText = `grid-area:${s.area};--c:${s.color};--r:${s.r};${s.fg ? `--fg:${s.fg};` : &quot;&quot;}`;
+    b.setAttribute(&quot;aria-label&quot;, `${s.key}번 ${s.name}: ${s.num}${s.unit}, ${s.cap}`);
+    b.innerHTML = `&lt;span class=&quot;hub-top&quot;&gt;&lt;span&gt;${s.name} &lt;span class=&quot;hub-key&quot;&gt;${s.key}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;hub-seen&quot;&gt;✓ 봄&lt;/span&gt;&lt;/span&gt;
+      &lt;span&gt;&lt;span class=&quot;hub-num&quot;&gt;${s.num}&lt;small&gt;${s.unit}&lt;/small&gt;&lt;/span&gt;&lt;span class=&quot;hub-cap&quot; style=&quot;display:block&quot;&gt;${s.cap}&lt;/span&gt;&lt;/span&gt;`;
+    b.addEventListener(&quot;click&quot;, () =&gt; { stopDemo(); open(i); });
+    grid.appendChild(b);
+    bar.appendChild(document.createElement(&quot;i&quot;));
+    return b;
+  });
+
+  // 타일의 위치·모서리를 장표 기준 clip-path로 변환
+  function tileClip(i) {
+    const sr = stage.getBoundingClientRect(), tr = tiles[i].getBoundingClientRect();
+    const cs = getComputedStyle(tiles[i]);
+    const rad = [&quot;borderTopLeftRadius&quot;, &quot;borderTopRightRadius&quot;, &quot;borderBottomRightRadius&quot;, &quot;borderBottomLeftRadius&quot;]
+      .map(k =&gt; parseFloat(cs[k]) + &quot;px&quot;).join(&quot; &quot;);
+    return `inset(${tr.top - sr.top}px ${sr.right - tr.right}px ${sr.bottom - tr.bottom}px ${tr.left - sr.left}px round ${rad})`;
+  }
+  const FULL = &quot;inset(0px 0px 0px 0px round 0px 0px 0px 0px)&quot;;
+
+  function fillDetail(s, i) {
+    detail.style.setProperty(&quot;--c&quot;, s.color);
+    detail.style.setProperty(&quot;--fg&quot;, s.fg || &quot;var(--hub-ink)&quot;);
+    detail.innerHTML = `
+      &lt;div class=&quot;hub-dhead&quot;&gt;
+        &lt;div class=&quot;hub-where&quot;&gt;&lt;span class=&quot;hub-mini&quot; aria-hidden=&quot;true&quot;&gt;${HUB_SECTIONS.map((x, j) =&gt; `&lt;i style=&quot;grid-area:${x.area}&quot; class=&quot;${j === i ? &quot;on&quot; : &quot;&quot;}&quot;&gt;&lt;/i&gt;`).join(&quot;&quot;)}&lt;/span&gt;
+          &lt;span&gt;${s.key} · ${s.name}&lt;/span&gt;&lt;/div&gt;
+        &lt;button class=&quot;hub-back&quot; type=&quot;button&quot;&gt;← 허브로 &lt;span class=&quot;hub-key&quot;&gt;Esc&lt;/span&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;hub-dbody&quot;&gt;
+        &lt;div&gt;&lt;h3 class=&quot;hub-dname&quot;&gt;${s.name}&lt;/h3&gt;&lt;div class=&quot;hub-num&quot;&gt;${s.num}&lt;small&gt;${s.unit}&lt;/small&gt;&lt;/div&gt;&lt;p class=&quot;hub-cap&quot;&gt;${s.cap}&lt;/p&gt;&lt;/div&gt;
+        &lt;ul class=&quot;hub-metrics&quot;&gt;${s.metrics.map(m =&gt; `&lt;li&gt;&lt;b&gt;${m[0]}&lt;/b&gt;&lt;span&gt;${m[1]}&lt;/span&gt;&lt;/li&gt;`).join(&quot;&quot;)}&lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;p class=&quot;hub-say&quot;&gt;${s.say}&lt;/p&gt;`;
+    detail.querySelector(&quot;.hub-back&quot;).addEventListener(&quot;click&quot;, () =&gt; { stopDemo(); close(); });
+  }
+
+  async function open(i, demo = false) {
+    if (busy || current === i) return;
+    if (current &gt;= 0) await close(true);
+    busy = true; current = i;
+    fillDetail(HUB_SECTIONS[i], i);
+    detail.classList.add(&quot;is-veiled&quot;);
+    detail.hidden = false;
+    if (!reduce) {
+      await detail.animate([{ clipPath: tileClip(i) }, { clipPath: FULL }],
+        { duration: DUR_OPEN, easing: &quot;cubic-bezier(.2,.75,.15,1)&quot; }).finished;
+    }
+    detail.classList.remove(&quot;is-veiled&quot;);
+    if (!demo) { seen.add(i); detail.querySelector(&quot;.hub-back&quot;).focus({ preventScroll: true }); }
+    busy = false;
+  }
+
+  async function close(chain = false) {
+    if (current &lt; 0 || (busy &amp;&amp; !chain)) return;
+    busy = true;
+    const i = current;
+    if (!reduce) {
+      detail.classList.add(&quot;is-veiled&quot;);
+      await new Promise(r =&gt; setTimeout(r, 140));
+      const a = detail.animate([{ clipPath: FULL }, { clipPath: tileClip(i) }],
+        { duration: DUR_CLOSE, easing: &quot;cubic-bezier(.5,0,.2,1)&quot;, fill: &quot;forwards&quot; });
+      await a.finished;
+      detail.hidden = true; a.cancel();
+    }
+    detail.hidden = true; current = -1;
+    paintSeen();
+    if (!chain) tiles[i].focus({ preventScroll: true });
+    busy = false;
+  }
+
+  function paintSeen() {
+    tiles.forEach((t, j) =&gt; t.classList.toggle(&quot;is-seen&quot;, seen.has(j)));
+    [...bar.children].forEach((b, j) =&gt; b.classList.toggle(&quot;on&quot;, j &lt; seen.size));
+    countEl.textContent = seen.size;
+  }
+
+  // 키보드: 1~6 섹션, Esc 허브
+  document.addEventListener(&quot;keydown&quot;, e =&gt; {
+    if (e.target.closest(&quot;input, textarea, [contenteditable]&quot;)) return;
+    const i = HUB_SECTIONS.findIndex(s =&gt; s.key === e.key);
+    if (i &gt;= 0) { stopDemo(); open(i); }
+    else if (e.key === &quot;Escape&quot; &amp;&amp; current &gt;= 0) { stopDemo(); close(); }
+  });
+
+  // 데모: 한 번 열렸다 닫히고 허브에서 멈춤 (본 섹션으로 세지 않음)
+  function stopDemo() { demoTimers.forEach(clearTimeout); demoTimers = []; }
+  if (HUB_DEMO) {
+    demoTimers.push(setTimeout(() =&gt; open(0, true), 1400));
+    demoTimers.push(setTimeout(() =&gt; close(true), 4400));
+  }
+})();
+&lt;/script&gt;
+&lt;!-- ===== 허브 내비게이션 장표 끝 ===== --&gt;
+</pre>
+  </section>
+
+  <section class="blk">
+    <h2>PPT로 옮기기</h2>
+    <ol class="steps">
+      <li><b>슬라이드 구성</b> · 1번 허브 슬라이드, 2~7번에 분야별 상세 슬라이드를 둡니다. 허브의 타일은 도형(둥근 사각형, 모서리 하나를 크게 둥글린 '한쪽 모서리 둥근 사각형')으로 그리고 크기 위계를 그대로 살립니다.</li>
+      <li><b>방법 A · 확대/축소(줌)</b> · 분야별로 구역을 나눈 뒤 <b>삽입 › 확대/축소 › 구역 확대/축소</b>로 허브에 구역 썸네일을 넣습니다(구역이 없으면 <b>요약 확대/축소</b>가 요약 슬라이드와 구역을 함께 만들어 줍니다). 썸네일을 선택하고 <b>확대/축소 탭 › 이미지 변경</b>으로 직접 만든 타일 그림을 씌우고, <b>확대/축소로 돌아가기</b>를 체크하면 상세를 다 본 뒤 허브로 돌아옵니다. 슬라이드쇼에서 썸네일을 누르는 순서는 자유입니다.</li>
+      <li><b>방법 B · 모핑으로 타일 확장 재현</b> · 허브 슬라이드를 복제해 상세 슬라이드로 만들고, 복제본에서 해당 타일 도형을 슬라이드 전체 크기로 키운 뒤 나머지 타일은 지우고 수치·결론을 얹습니다. 상세 슬라이드에 <b>전환 › 모핑</b>(1.0초 안팎)을 걸면 타일이 화면 전체로 펼쳐집니다. 도형 이름을 <b>선택 창</b>에서 허브·상세 양쪽 모두 <code>!!예산</code>처럼 같게 지정하면 모핑이 정확히 짝을 찾습니다.</li>
+      <li><b>점프와 복귀</b> · 허브의 각 타일 도형에 <b>링크 › 이 문서 › 해당 상세 슬라이드</b> 하이퍼링크를 걸고, 상세 슬라이드의 "허브로" 도형에는 1번 슬라이드 링크를 겁니다. 허브 슬라이드에도 모핑 전환을 걸어 두면 돌아갈 때 타일이 제자리로 접힙니다. 숫자 키 대신 발표자 보기에서 슬라이드 번호 입력 후 <kbd>Enter</kbd>로도 바로 이동합니다.</li>
+      <li><b>본 분야 체크</b> · PPT에는 방문 표시 기능이 없으므로, 타일 제목 글자에 하이퍼링크를 걸고 <b>디자인 › 적용 › 색 › 색 사용자 지정</b>에서 '열어 본 하이퍼링크' 색을 회색 등으로 지정하면 본 분야 제목 색이 바뀝니다.</li>
+    </ol>
+  </section>
+
+  <section class="blk">
+    <h2>스펙</h2>
+    <dl class="spec">
+      <dt>팔레트</dt>
+      <dd><div class="sw">
+        <span><i style="background:#FAFAF6"></i>#FAFAF6 종이</span><span><i style="background:#1B2326"></i>#1B2326 먹·청렴</span>
+        <span><i style="background:#F5C842"></i>#F5C842 예산</span><span><i style="background:#A897F5"></i>#A897F5 디지털</span>
+        <span><i style="background:#FF8E6B"></i>#FF8E6B 안전</span><span><i style="background:#82D6B4"></i>#82D6B4 인사</span>
+        <span><i style="background:#EDE3CF"></i>#EDE3CF 시설</span></div></dd>
+      <dt>폰트</dt>
+      <dd>제목 Black Han Sans · 본문 Gothic A1 · 숫자 Archivo 900 (대체: 맑은 고딕, Arial Black). PPT에서는 제목 '맑은 고딕 굵게' 또는 Pretendard ExtraBold, 숫자 Arial Black으로 대체 가능합니다.</dd>
+      <dt>난이도</dt>
+      <dd>HTML ★★★☆☆ (배열만 바꾸면 됨, 전환 로직은 그대로) · PPT ★★★☆☆ (줌은 쉬움, 모핑 확장은 도형 이름 맞추기 필요)</dd>
+      <dt>반영 트렌드</dt>
+      <dd>비선형·대화형 발표(청중 질문에 따라 섹션을 고르는 허브형 진행), 볼드 숫자 타이포 + 소프트 지오메트리(모서리 하나만 크게 둥근 타일), 공유 요소 전환. 출처: <a href="https://support.microsoft.com/PowerPoint/use-zoom-for-powerpoint-to-bring-your-presentation-to-life" target="_blank" rel="noopener">Microsoft 지원 · PowerPoint 확대/축소</a>, <a href="https://www.brightcarbon.com/blog/powerpoint-zoom-links/" target="_blank" rel="noopener">BrightCarbon · PowerPoint zoom links</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API" target="_blank" rel="noopener">MDN · View Transition API</a></dd>
+    </dl>
+  </section>
+</main>
+
+<script>
+  document.getElementById("copy").addEventListener("click", async e => {
+    const text = document.getElementById("snippet").textContent;
+    try { await navigator.clipboard.writeText(text); e.target.textContent = "복사됨"; }
+    catch { const r = document.createRange(); r.selectNodeContents(document.getElementById("snippet")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent = "선택됨 · Ctrl+C"; }
+    setTimeout(() => e.target.textContent = "코드 복사", 1800);
+  });
+</script>
+
+</body></html>

@@ -1,0 +1,263 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #32 재생지 콜라주</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gaegu:wght@700&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: 16:9 종이 콜라주 표지가 맨 위, 그 아래 한 단 읽기 칼럼(장치 → 흐름 → 스펙) */
+:root{
+  /* 표지 종이 (표지는 실물 종이라 테마와 무관하게 고정) */
+  --p-recycled:#F1ECE2; --p-kraft:#C9A574; --p-card:#C39A64; --p-news:#E3E0D6;
+  --p-green:#3F8A4C; --p-sky:#7FB2DB; --p-sun:#F2C94C; --p-receipt:#FBFAF5; --p-tape:rgba(236,226,190,.82);
+  --ink:#23261F; --ink-soft:#4A4A3E;
+  /* 페이지 토큰 */
+  --bg:#F4F0E8; --fg:#24261F; --muted:#64655A; --line:#D9D1C2; --card:#FBF8F2; --accent:#3F8A4C;
+  --f-display:"Black Han Sans","Noto Sans KR","Malgun Gothic",sans-serif;
+  --f-hand:"Gaegu","Nanum Pen Script","Malgun Gothic",cursive;
+  --f-body:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .26 0 0 0 0 .18 .6 0 0 0 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --fleck:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05 .9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .3 0 0 1.6 0 -1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1E1F1A;--fg:#ECE8DE;--muted:#A7A796;--line:#3A3B33;--card:#272821;--accent:#7CC487;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1E1F1A;--fg:#ECE8DE;--muted:#A7A796;--line:#3A3B33;--card:#272821;--accent:#7CC487;color-scheme:dark}
+
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.65}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:24px 64px;display:grid;gap:40px}
+
+/* ───────── 표지 ───────── */
+.cover-box{display:grid;gap:10px}
+.cover{container-type:inline-size;position:relative;aspect-ratio:16/9;width:100%;max-width:100%;overflow:hidden;border-radius:4px;
+  background:var(--fleck),var(--grain),var(--p-recycled);color:var(--ink);
+  box-shadow:0 1px 2px rgba(40,30,10,.12),0 10px 30px -12px rgba(40,30,10,.35)}
+.cover svg.defs{position:absolute;width:0;height:0}
+
+.pc{position:absolute;left:calc(var(--x)*1cqw);top:calc(var(--y)*1cqw);transform:rotate(var(--r,0deg));
+  animation:stick .5s cubic-bezier(.2,.8,.3,1) both;animation-delay:calc(var(--i,0)*.14s)}
+.pc.fix{width:calc(var(--w)*1cqw);height:calc(var(--h)*1cqw)}
+.pc{isolation:isolate}
+.pc::before,.pc::after{content:"";position:absolute;pointer-events:none;z-index:-1}
+/* 찢긴 가장자리의 흰 섬유층 */
+.pc::before{inset:-.45cqw;background:#FFFDF7;filter:url(#tornA) drop-shadow(0 .28cqw .32cqw rgba(70,50,20,.30))}
+/* 색 종이 본체 */
+.pc::after{inset:0;background:var(--grain),var(--paper);filter:url(#tornB)}
+.pc.t2::before{filter:url(#tornC) drop-shadow(0 .28cqw .32cqw rgba(70,50,20,.30))}
+.pc>*{position:relative;z-index:1}
+@keyframes stick{
+  from{transform:translate(.6cqw,-1.6cqw) rotate(calc(var(--r,0deg) + 4deg)) scale(1.05)}
+  to{transform:rotate(var(--r,0deg))}
+}
+.cover.replay .pc{animation:none}
+
+.kraft{--paper:var(--p-kraft)}
+.news{--paper:repeating-linear-gradient(0deg,transparent 0 .9cqw,rgba(60,60,50,.07) .9cqw 1.05cqw),var(--p-news)}
+.green{--paper:var(--p-green)}
+.sun{--paper:var(--p-sun)}
+.receipt{--paper:var(--p-receipt)}
+.card{--paper:repeating-linear-gradient(90deg,rgba(255,240,210,.14) 0 .45cqw,rgba(90,60,25,.09) .45cqw .9cqw),var(--p-card)}
+.sky{--paper:var(--p-sky)}
+
+/* 제목 줄 */
+.tl{padding:.35em .55em .3em;font-family:var(--f-display);line-height:1;white-space:nowrap;letter-spacing:.01em}
+.tl.l1{font-size:5.2cqw}
+.tl.l2{font-size:10.4cqw;color:#FFFCF2;padding:.22em .38em .16em;letter-spacing:.02em}
+.tl.l3{font-size:5.2cqw}
+.sub{font-size:max(10px,1.75cqw);font-weight:500;padding:.7em 1.1em .7em 1.4em;white-space:nowrap;letter-spacing:-.01em}
+.sub small{display:block;font-size:.72em;color:var(--ink-soft);font-weight:400;border-top:1px dashed rgba(40,40,30,.35);margin-top:.35em;padding-top:.3em;letter-spacing:.04em}
+.tag{font-family:var(--f-hand);font-weight:700;font-size:max(11px,2cqw);padding:.25em .8em;white-space:nowrap}
+
+/* 테이프·스테이플 */
+.tape{position:absolute;z-index:3;width:calc(var(--w,7)*1cqw);height:1.9cqw;background:var(--grain),var(--p-tape);
+  left:calc(var(--x)*1cqw);top:calc(var(--y)*1cqw);transform:rotate(var(--r,0deg));
+  clip-path:polygon(0 8%,4% 0,8% 10%,12% 0,100% 0,97% 14%,100% 30%,96% 48%,100% 66%,97% 84%,100% 100%,9% 100%,5% 90%,0 100%,3% 70%,0 52%,4% 34%);
+  box-shadow:0 .1cqw .2cqw rgba(60,40,10,.15);
+  animation:stick .5s cubic-bezier(.2,.8,.3,1) both;animation-delay:calc(var(--i,0)*.14s + .12s)}
+.staple{position:absolute;z-index:3;width:2.4cqw;height:.42cqw;border-radius:.1cqw;left:calc(var(--x)*1cqw);top:calc(var(--y)*1cqw);transform:rotate(var(--r,0deg));
+  background:linear-gradient(180deg,#F4F4F0,#A9AAA5 55%,#7C7D78);box-shadow:0 .12cqw .12cqw rgba(30,30,20,.35),0 -.05cqw 0 rgba(255,255,255,.6) inset;
+  animation:stick .5s both;animation-delay:calc(var(--i,0)*.14s + .12s)}
+.staple::before,.staple::after{content:"";position:absolute;top:.42cqw;width:.24cqw;height:.18cqw;background:rgba(40,35,25,.35);border-radius:50%}
+.staple::before{left:.05cqw}.staple::after{right:.05cqw}
+
+/* 차트 조각 */
+.chart-h{font-family:var(--f-hand);font-weight:700;font-size:max(11px,2cqw);line-height:1;white-space:nowrap}
+.cell{display:flex;flex-direction:column;justify-content:flex-end;gap:.35cqw;padding:1cqw 1.2cqw 1.5cqw;font-family:var(--f-body);font-weight:700;line-height:1.1}
+.cell .lb{font-size:max(10px,1.6cqw);letter-spacing:-.01em}
+.cell .num{font-family:var(--f-display);font-weight:400;font-size:var(--n,4cqw);line-height:.95}
+.cell .num i{font-style:normal;font-size:.45em;margin-left:.08em}
+.cell.row{flex-direction:row;align-items:center;justify-content:space-between;padding-block:0}
+.cell.row .num{font-size:max(11px,2.4cqw)}
+.green.cell,.green .lb{color:#FFFCF2}
+
+/* 상징 */
+.earth{border-radius:50%}
+.earth::before{border-radius:50%;inset:-.4cqw}
+.earth::after{border-radius:50%;
+  background:radial-gradient(ellipse 30% 22% at 34% 34%,#5E9E57 0 96%,transparent 100%),radial-gradient(ellipse 22% 30% at 66% 66%,#5E9E57 0 96%,transparent 100%),radial-gradient(ellipse 14% 10% at 72% 28%,#5E9E57 0 95%,transparent 100%),var(--grain),var(--p-sky)}
+.leaf::before,.leaf::after{border-radius:0 100% 0 100%}
+.leaf .vein{position:absolute;inset:0;z-index:2;background:linear-gradient(135deg,transparent calc(50% - .1cqw),rgba(255,250,230,.75) calc(50% - .1cqw) calc(50% + .1cqw),transparent calc(50% + .1cqw))}
+
+.foot{position:absolute;left:6.4cqw;bottom:2.1cqw;font-size:max(9.5px,1.35cqw);color:var(--ink-soft);display:flex;gap:1.4cqw;align-items:center;font-weight:500;white-space:nowrap}
+.foot b{color:var(--ink);font-weight:700}
+.foot .vx{font-size:.85em;border:1px solid rgba(60,60,50,.4);padding:.05em .55em;border-radius:99px}
+
+.cover-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.cover-tools button{font:inherit;font-weight:500;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+.cover-tools button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+@container (max-width:620px){.sub small{display:none}.sub{padding:.5em .9em .5em 1.3em}.cell{padding:.7cqw .9cqw}.cell .lb{font-size:max(9.5px,1.75cqw)}}
+@media (prefers-reduced-motion: reduce){.pc,.tape,.staple{animation:none!important}}
+
+/* ───────── 아래 문서 ───────── */
+h1.page{font-family:var(--f-display);font-weight:400;font-size:clamp(24px,4vw,34px);line-height:1.2;margin:0;text-wrap:balance}
+.lead{margin:6px 0 0;color:var(--muted);max-width:65ch}
+section{display:grid;gap:16px}
+h2{font-family:var(--f-display);font-weight:400;font-size:22px;margin:0;display:flex;align-items:baseline;gap:10px}
+h2 span{font-family:var(--f-body);font-size:12px;letter-spacing:.08em;color:var(--muted);font-weight:500}
+.devices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.device{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px 20px;display:grid;gap:6px;align-content:start;min-width:0}
+.device h3{margin:0;font-size:16px;line-height:1.4}
+.device p{margin:0;color:var(--muted)}
+.device .use{font-size:13px;color:var(--fg);border-top:1px dashed var(--line);padding-top:8px;margin-top:4px}
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:0;max-width:760px}
+.flow li{display:grid;grid-template-columns:72px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.flow li:first-child{border-top:1px solid var(--line)}
+.flow .t{font-family:var(--f-hand);font-weight:700;font-size:18px;color:var(--accent);line-height:1.3}
+.flow b{display:block}
+.flow p{margin:2px 0 0;color:var(--muted)}
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px 32px}
+.spec>div{min-width:0;display:grid;gap:8px;align-content:start}
+.spec h3{margin:0;font-size:13px;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.sw{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sw div{border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--card);font-size:12px}
+.sw i{display:block;height:38px;background:var(--c)}
+.sw span{display:block;padding:5px 8px;line-height:1.35}
+.sw code{font-size:11.5px;color:var(--muted)}
+.spec ul,.spec ol{margin:0;padding-left:1.2em;display:grid;gap:4px}
+.spec p{margin:0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px}
+.kv dt{color:var(--muted)}.kv dd{margin:0}
+a{color:var(--accent)}
+.meter{display:inline-flex;gap:3px;vertical-align:middle;margin-left:6px}
+.meter i{width:14px;height:6px;border-radius:1px;background:var(--line)}
+.meter i.on{background:var(--accent)}
+.note{font-size:12.5px;color:var(--muted)}
+</style>
+
+<div class="wrap">
+
+<div class="cover-box">
+<div class="cover" id="cover" role="img" aria-label="발표 표지: ○○교육청 2027 학교 탄소중립 실천 계획(안). 재생지 조각을 찢어 붙인 콜라주로, 오른쪽에 감축 목표 구성(에너지 45, 급식·자원순환 25, 통학·이동 20, 녹지 10)을 종이 조각 크기로 표현">
+  <svg class="defs" aria-hidden="true">
+    <filter id="tornA" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="4" seed="3"/><feDisplacementMap in="SourceGraphic" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="tornC" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".06" numOctaves="4" seed="11"/><feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"/></filter>
+    <filter id="tornB" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="8"/><feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="G" yChannelSelector="R"/></filter>
+  </svg>
+
+  <!-- 상단 꼬리표 -->
+  <div class="pc kraft tag" style="--x:5;--y:3.6;--r:-1.5deg;--i:0">기후·환경 정책 보고</div>
+
+  <!-- 제목 -->
+  <div class="pc kraft tl l1" style="--x:5.4;--y:10;--r:-1.2deg;--i:1">2027 학교</div>
+  <div class="pc green tl l2 t2" style="--x:4.2;--y:17.8;--r:.8deg;--i:2">탄소중립</div>
+  <span class="tape" style="--x:2.6;--y:17.4;--w:6.5;--r:-38deg;--i:2"></span>
+  <div class="pc news tl l3" style="--x:6.6;--y:33.2;--r:-.6deg;--i:3">실천 계획(안)</div>
+  <div class="pc receipt sub t2" style="--x:6.2;--y:41.6;--r:.9deg;--i:4">다시 쓰는 학교의 1년<small>No.2027-01 · 감축 목표 대비 실천 과제 12개</small></div>
+  <span class="staple" style="--x:7;--y:42.5;--r:-8deg;--i:4"></span>
+
+  <!-- 상징: 잎, 지구 -->
+  <div class="pc leaf fix green" style="--x:37.5;--y:7.6;--w:6;--h:6;--r:-14deg;--i:1;--paper:#6FAE5E"><span class="vein"></span></div>
+  <div class="pc earth fix t2" style="--x:43.5;--y:41.5;--w:8.6;--h:8.6;--r:0deg;--i:5"></div>
+
+  <!-- 차트 -->
+  <div class="pc receipt tag chart-h" style="--x:54;--y:3.8;--r:1deg;--i:5">감축 목표 구성 (%)</div>
+  <div class="pc card cell fix" style="--x:54;--y:10.5;--w:18.5;--h:36;--r:-.7deg;--i:6;--n:9cqw"><span class="num">45<i>%</i></span><span class="lb">에너지</span><span class="lb" style="font-weight:500">전기·냉난방</span></div>
+  <span class="tape" style="--x:59;--y:9.2;--w:8;--r:-4deg;--i:6"></span>
+  <div class="pc kraft cell fix t2" style="--x:73.4;--y:10.5;--w:22.6;--h:15.5;--r:.8deg;--i:7;--n:5.4cqw"><span class="num">25<i>%</i></span><span class="lb">급식·자원순환</span></div>
+  <span class="staple" style="--x:91.5;--y:11.6;--r:12deg;--i:7"></span>
+  <div class="pc sun cell fix" style="--x:73.4;--y:26.9;--w:22.6;--h:12.4;--r:-.5deg;--i:8;--n:4.4cqw"><span class="num">20<i>%</i></span><span class="lb">통학·이동</span></div>
+  <div class="pc green cell row fix t2" style="--x:73.4;--y:40.3;--w:22.6;--h:6.2;--r:.6deg;--i:9"><span class="lb">녹지</span><span class="num">10<i>%</i></span></div>
+
+  <div class="foot"><b>○○교육청</b><span>2026. 10.</span><span class="vx">가상 예시</span></div>
+</div>
+<div class="cover-tools"><span>표지는 종이 조각이 한 장씩 붙는 연출을 한 번 재생하고 멈춥니다.</span><button type="button" id="replay">다시 붙이기</button></div>
+</div>
+
+<header>
+  <h1 class="page">레퍼런스 #32 · 재생지 콜라주 표지</h1>
+  <p class="lead">주제 ‘학교 탄소중립 실천’을 다시 쓴 종이(골판지, 크라프트지, 신문지, 색종이, 영수증)로 찢어 붙였습니다. 재료가 곧 메시지라서, 표지를 보는 순간 ‘다시 쓰기’가 먼저 전달됩니다.</p>
+</header>
+
+<section>
+  <h2>가져갈 장치 <span>TAKEAWAY</span></h2>
+  <div class="devices">
+    <div class="device"><h3>재료가 주제를 말하는 표지</h3><p>재활용을 말할 때 재생지로 만들고, 물을 말할 때 젖은 종이로 만드는 식입니다. 설명 문장 없이 재료가 첫 메시지를 맡습니다.</p><p class="use">다른 발표: 예산 절감 보고는 영수증 뒷면, 기록물 정리는 서류철 표지 질감.</p></div>
+    <div class="device"><h3>종이 조각 크기로 비율 보여 주기</h3><p>감축 목표 4개 영역을 면적이 비율과 같은 종이 조각(트리맵)으로 붙였습니다. 축과 눈금이 없어도 크기 차이가 바로 보입니다.</p><p class="use">다른 발표: 예산 구성, 업무 비중, 민원 유형 비율. 영역은 3~5개까지가 읽기 좋습니다.</p></div>
+    <div class="device"><h3>한 줄에 한 장, 제목 조각</h3><p>제목을 줄마다 다른 종이에 올리면 줄 사이 위계가 자연스럽게 생깁니다. 핵심어 한 줄만 진한 색종이로 키웁니다.</p><p class="use">다른 발표: “2027 / 핵심어 / 계획(안)” 세 줄 구조에 그대로 적용.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>흐름 설계 메모 <span>READING ORDER</span></h2>
+  <ol class="flow">
+    <li><span class="t">0~1초</span><div><b>“탄소중립” 녹색 조각</b><p>가장 크고 유일하게 진한 색이라 눈이 먼저 갑니다. 위아래 줄이 연도와 문서 성격(계획안)을 붙여 줍니다.</p></div></li>
+    <li><span class="t">1~3초</span><div><b>종이 재료 알아차리기</b><p>찢긴 흰 섬유 가장자리, 테이프, 스테이플이 ‘손으로 붙였다’는 신호를 줍니다. 여기서 재생지 은유가 읽힙니다.</p></div></li>
+    <li><span class="t">3초 뒤</span><div><b>오른쪽 콜라주 차트</b><p>골판지 조각이 절반 가까이를 차지해 “에너지가 제일 크다”는 결론이 숫자보다 먼저 보입니다.</p></div></li>
+    <li><span class="t">마지막</span><div><b>기관·날짜</b><p>왼쪽 아래 작게. 장식 없이 바탕에 바로 씁니다.</p></div></li>
+  </ol>
+  <p class="note">표현 수준은 ‘종이’ 하나로 통일했습니다. 사진, 벡터 아이콘, 그라데이션 광택은 넣지 않았습니다. 지구와 잎도 색종이를 오린 모양입니다.</p>
+</section>
+
+<section>
+  <h2>스펙 <span>SPEC</span></h2>
+  <div class="spec">
+    <div>
+      <h3>팔레트</h3>
+      <div class="sw">
+        <div><i style="--c:#F1ECE2"></i><span>재생지 바탕<br><code>#F1ECE2</code></span></div>
+        <div><i style="--c:#C9A574"></i><span>크라프트지<br><code>#C9A574</code></span></div>
+        <div><i style="--c:#C39A64"></i><span>골판지<br><code>#C39A64</code></span></div>
+        <div><i style="--c:#3F8A4C"></i><span>녹색 색종이<br><code>#3F8A4C</code></span></div>
+        <div><i style="--c:#F2C94C"></i><span>노랑 색종이<br><code>#F2C94C</code></span></div>
+        <div><i style="--c:#23261F"></i><span>먹색 글자<br><code>#23261F</code></span></div>
+      </div>
+    </div>
+    <div>
+      <h3>폰트</h3>
+      <dl class="kv">
+        <dt>제목</dt><dd>Black Han Sans → 대체: 배민 도현체, 맑은 고딕 Bold</dd>
+        <dt>라벨</dt><dd>Gaegu Bold → 대체: 나눔손글씨 펜</dd>
+        <dt>본문</dt><dd>IBM Plex Sans KR → 대체: 맑은 고딕</dd>
+      </dl>
+      <p class="note">제목 글꼴은 굵고 획이 단순해 ‘오려 붙인 글자’처럼 보입니다. 손글씨체는 짧은 라벨에만 씁니다.</p>
+    </div>
+    <div>
+      <h3>PPT 이식: 종이 조각 PNG 레이어</h3>
+      <ol>
+        <li>종이 재료를 실제로 찢어 스캔하거나, 무료 종이 텍스처 위에 찢긴 모양 마스크를 씌워 투명 PNG 6~8장을 만듭니다.</li>
+        <li>PNG를 슬라이드에 놓고 그림 효과 → 그림자(바깥쪽, 아래, 흐리게 4pt, 투명도 70%)로 두께를 줍니다.</li>
+        <li>제목·라벨은 PNG 위에 텍스트 상자로 따로 얹어 수정 가능하게 둡니다. 회전은 ±2도 이내.</li>
+        <li>차트 조각은 표 비율대로 사각형을 먼저 그리고, 같은 크기로 PNG를 잘라 맞춥니다.</li>
+        <li>연출: 조각마다 ‘나타내기 → 확대/축소’ 0.4초, 이전 효과 다음에.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>난이도 · 트렌드</h3>
+      <p>난이도 <b>중</b><span class="meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span> · 종이 PNG만 한 번 만들어 두면 다음 발표에 재사용할 수 있습니다.</p>
+      <p>반영 트렌드: Imperfect by design(매끈한 AI 이미지에 대한 반작용), 촉감 있는 텍스처, 혼합 매체 콜라주.</p>
+      <ul class="note">
+        <li><a href="https://www.campaignindia.in/article/2026-is-the-year-of-imperfect-by-design/506629" target="_blank" rel="noopener">Campaign India, “2026 is the year of ‘Imperfect by Design’”</a></li>
+        <li><a href="https://creativebloq.com/design/graphic-design/texture-warmth-and-tactile-rebellion-the-big-graphic-design-trends-for-2026" target="_blank" rel="noopener">Creative Bloq, “Texture, warmth and tactile rebellion”</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">가상 예시입니다. ○○교육청과 감축 목표 수치는 표현을 보여 주기 위해 지어낸 것입니다.</p>
+</section>
+
+</div>
+<script>
+document.getElementById('replay').addEventListener('click',function(){
+  var c=document.getElementById('cover');
+  c.classList.add('replay');void c.offsetWidth;c.classList.remove('replay');
+});
+</script>
+
+</body></html>

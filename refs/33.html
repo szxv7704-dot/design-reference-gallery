@@ -1,0 +1,772 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #33 쪼개지는 예산 사각형</title>
+<style>
+/* 레이아웃: 맨 위 16:9 장표가 sticky로 고정되고, 아래 4개 스크롤 구간이 단계를 넘긴다. 이후 설명 문서 */
+:root{
+  --paper:#EEF1EE; --card:#FFFFFF; --ink:#1D2B2A; --sub:#5E6B69; --line:#D6DCD8;
+  --teal:#2E9C8A; --orange:#E07A3F; --slate:#5B6B8C; --mustard:#C9A227;
+  --f-body:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--paper); color:var(--ink); font-family:var(--f-body); font-size:15px; line-height:1.65}
+.wrap{max-width:1080px; margin-inline:auto; padding-inline:16px}
+.scrolly{position:relative}
+.stick{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--paper); padding-block:12px 6px; border-bottom:1px solid var(--line)}
+.stick .bm-deck{width:min(100%, calc((100svh - 260px) * 16 / 9))}
+.steps{display:grid}
+.step{min-height:64vh; display:flex; align-items:center; padding-block:24px}
+.step:last-child{min-height:56vh}
+.step-card{max-width:520px; background:var(--card); border:1px solid var(--line); border-radius:4px; padding:18px 20px}
+.step-card h3{margin:0 0 6px; font-size:15px; letter-spacing:.02em}
+.step-card p{margin:0; color:var(--ink)}
+.step-card .say{margin-top:10px; font-size:13.5px; color:var(--sub)}
+.k0{color:var(--ink)} .k1{color:var(--slate)} .k2{color:#1F7A6C} .k3{color:#B95A22}
+.doc{padding-block:40px 64px; display:grid; gap:44px}
+.doc > *{min-width:0}
+.doc header h1{margin:0; font-size:clamp(24px,4vw,34px); line-height:1.25; letter-spacing:-.02em; text-wrap:balance}
+.doc header p{margin:8px 0 0; color:var(--sub); max-width:65ch}
+.tagline{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:13px; color:var(--sub); margin:0 0 6px}
+section.part h2{margin:0 0 12px; font-size:19px; letter-spacing:-.01em; text-wrap:balance}
+section.part p, section.part li{max-width:68ch}
+.devices{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.device{background:var(--card); border:1px solid var(--line); border-radius:4px; padding:16px 18px; min-width:0}
+.device h3{margin:0 0 4px; font-size:16px}
+.device p{margin:0; color:var(--sub); font-size:14px}
+.swatch-row{display:flex; gap:4px; margin-top:12px}
+.swatch-row i{flex:1; height:10px; border-radius:2px}
+ul.plain{margin:8px 0 0; padding-left:1.2em}
+ul.plain li{margin:4px 0}
+.codebox{position:relative; background:#16211F; color:#E3EAE6; border-radius:4px; min-width:0}
+.codebox pre{margin:0; padding:16px; overflow:auto; max-height:460px; font:12.5px/1.6 var(--f-mono); tab-size:2}
+.copy{position:absolute; top:10px; right:10px; font:500 13px var(--f-body); padding:6px 12px; border-radius:4px; border:1px solid #3B4C49; background:#22302D; color:#fff; cursor:pointer}
+.copy:focus-visible{outline:2px solid #fff; outline-offset:2px}
+.swap{margin-top:14px; background:var(--card); border:1px solid var(--line); border-radius:4px; padding:12px 16px}
+.swap code, p code, li code{font-family:var(--f-mono); font-size:.9em; background:#E2E7E3; padding:1px 5px; border-radius:3px}
+.swap ol{margin:6px 0 0; padding-left:1.3em}
+ol.seq{margin:8px 0 0; padding-left:1.3em}
+ol.seq li{margin:6px 0; max-width:70ch}
+.morphgrid{overflow-x:auto; margin-top:14px}
+table{border-collapse:collapse; width:100%; min-width:560px; background:var(--card); font-size:13.5px}
+th,td{border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+th{background:#E4E9E5; font-weight:500}
+td code{white-space:nowrap}
+.spec{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px}
+.spec > div{background:var(--card); border:1px solid var(--line); border-radius:4px; padding:14px 16px; min-width:0}
+.spec h3{margin:0 0 8px; font-size:14px; color:var(--sub); font-weight:500; letter-spacing:.03em}
+.pal{display:grid; gap:6px; margin:0; padding:0; list-style:none}
+.pal li{display:flex; align-items:center; gap:10px; font-size:13.5px}
+.pal i{width:22px; height:22px; border-radius:3px; border:1px solid rgba(0,0,0,.08); flex:none}
+.pal code{font-family:var(--f-mono); font-size:12.5px; color:var(--sub)}
+a{color:#1F6F62}
+footer.fine{font-size:12.5px; color:var(--sub); border-top:1px solid var(--line); padding-top:14px}
+@media (max-width:600px){ .step{min-height:46vh} body{font-size:14.5px} }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<div class="scrolly">
+  <div class="stick"><div class="wrap">
+<!-- ▣ 쪼개지는 예산 사각형 (스크롤 서사형 트리맵) · 클래스 접두어 bm- · 가상 예시 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 색·글꼴·속도는 아래 CSS 변수만 바꾸면 전체에 반영됩니다 */
+.bm-deck{
+  --bm-bg:#F6F7F4;    /* 장표 바탕 */
+  --bm-ink:#1D2B2A;   /* 본문 글자·1단계 총액 덩어리 */
+  --bm-sub:#5E6B69;   /* 보조 글자 */
+  --bm-line:#DCE1DD;  /* 테두리 */
+  --bm-mark:#F9CBA7;  /* 4단계 결론 형광 표시 */
+  --bm-font:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --bm-dur:.75s;      /* 도형이 변하는 시간 */
+  container-type:inline-size;
+  width:100%; max-width:100%; margin-inline:auto;
+  font-family:var(--bm-font); color:var(--bm-ink);
+}
+.bm-deck *{box-sizing:border-box}
+.bm-slide{position:relative; aspect-ratio:16/9; width:100%; max-width:100%; background:var(--bm-bg);
+  border:1px solid var(--bm-line); border-radius:4px; padding:2.6cqw 3.4cqw 3cqw;
+  display:grid; grid-template-rows:auto minmax(0,1fr); gap:2cqw; overflow:hidden}
+.bm-meta{margin:0; display:flex; justify-content:space-between; gap:1cqw; font-size:max(9px,1.15cqw); color:var(--bm-sub); letter-spacing:.03em}
+.bm-meta b{font-weight:500; color:var(--bm-ink)}
+.bm-title{margin:.5cqw 0 0; font-size:max(13px,3cqw); line-height:1.25; font-weight:700; letter-spacing:-.02em; text-wrap:balance; word-break:keep-all}
+.bm-mk{background:linear-gradient(var(--bm-mark),var(--bm-mark)) no-repeat 0 90%/0% 40%; transition:background-size var(--bm-dur) ease}
+.bm-deck[data-step="3"] .bm-mk{background-size:100% 40%}
+.bm-body{display:grid; grid-template-columns:25cqw minmax(0,1fr); gap:2.6cqw; min-height:0}
+.bm-side{display:flex; flex-direction:column; min-width:0; min-height:0}
+.bm-kicker{margin:0; font-size:max(10px,1.3cqw); font-weight:500; color:var(--bm-sub)}
+.bm-big{margin:.5cqw 0 0; font-size:6.6cqw; line-height:1; font-weight:700; letter-spacing:-.04em; font-variant-numeric:tabular-nums; white-space:nowrap}
+.bm-cap{margin:1.2cqw 0 0; font-size:max(10px,1.5cqw); line-height:1.45; word-break:keep-all}
+.bm-note{margin:auto 0 0; font-size:max(8px,1cqw); color:var(--bm-sub)}
+.bm-stage{position:relative; min-height:0; cursor:pointer}
+.bm-cell{position:absolute; overflow:hidden; border-radius:max(2px,.3cqw);
+  transition:left var(--bm-dur) cubic-bezier(.6,0,.2,1), top var(--bm-dur) cubic-bezier(.6,0,.2,1),
+    width var(--bm-dur) cubic-bezier(.6,0,.2,1), height var(--bm-dur) cubic-bezier(.6,0,.2,1),
+    background-color var(--bm-dur), color var(--bm-dur), opacity var(--bm-dur)}
+.bm-deck[data-step="0"] .bm-cell{border-radius:0}  /* 1단계: 이음매 없이 한 덩어리 */
+.bm-lab{position:absolute; inset:0 0 auto 0; padding:.55em .7em; font-size:max(9px,1.15cqw); line-height:1.25; word-break:keep-all; transition:opacity .25s}
+.bm-lab b{display:block; font-weight:700}
+.bm-lab span{display:block; font-variant-numeric:tabular-nums}
+.bm-total{position:absolute; inset:0; display:grid; place-content:center; text-align:center; gap:.4em;
+  color:#fff; font-size:max(11px,1.8cqw); font-weight:500; pointer-events:none; z-index:3; transition:opacity .3s}
+.bm-total small{font-size:.7em; opacity:.75; font-weight:400}
+.bm-grp{position:absolute; display:flex; align-items:center; padding:0 .8em; font-size:max(9px,1.3cqw); font-weight:700;
+  white-space:nowrap; overflow:hidden; border-radius:max(2px,.3cqw); color:var(--bm-sub); opacity:0; z-index:3; transition:opacity var(--bm-dur)}
+.bm-grp.bm-on{background:var(--bm-ink); color:#fff}
+.bm-deck[data-step="3"] .bm-grp{opacity:1}
+.bm-ctrl{display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:10px; font-size:13px}
+.bm-btn{font:inherit; font-weight:500; min-height:36px; padding:0 14px; border:1px solid var(--bm-line); border-radius:4px; background:#fff; color:var(--bm-ink); cursor:pointer}
+.bm-btn:disabled{opacity:.4; cursor:default}
+.bm-dots{display:flex; gap:4px; flex-wrap:wrap; justify-content:center}
+.bm-dot{font:inherit; display:flex; align-items:center; gap:6px; min-height:36px; padding:0 8px; border:0; background:none; color:var(--bm-sub); cursor:pointer}
+.bm-dot::before{content:""; width:8px; height:8px; border-radius:50%; border:1.5px solid currentColor}
+.bm-dot[aria-current="step"]{color:var(--bm-ink); font-weight:700}
+.bm-dot[aria-current="step"]::before{background:currentColor}
+.bm-deck button:focus-visible{outline:2px solid var(--bm-ink); outline-offset:2px}
+.bm-deck.bm-instant *{transition:none !important}
+@media (prefers-reduced-motion:reduce){ .bm-deck *{transition:none !important} }  /* 움직임 줄이기: 즉시 전환 */
+@media (max-width:480px){ .bm-dot{padding:0 4px; font-size:12px} .bm-btn{padding:0 10px} }
+</style>
+
+<div class="bm-deck" data-step="0">
+  <div class="bm-slide">
+    <header>
+      <p class="bm-meta"><b class="bm-org"></b><span class="bm-step-label"></span></p>
+      <h2 class="bm-title"><span class="bm-mk"></span></h2>
+    </header>
+    <div class="bm-body">
+      <div class="bm-side" aria-live="polite">
+        <p class="bm-kicker"></p>
+        <p class="bm-big"></p>
+        <p class="bm-cap"></p>
+        <p class="bm-note">가상 예시 · 단위 억 원</p>
+      </div>
+      <div class="bm-stage" role="img"></div>
+    </div>
+  </div>
+  <div class="bm-ctrl">
+    <button class="bm-btn bm-prev" type="button">← 이전</button>
+    <div class="bm-dots"></div>
+    <button class="bm-btn bm-next" type="button">다음 →</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ▼ 바꿔 쓸 지점 ①: 예산 데이터 한 배열 (단위 억 원)
+  //   amount=편성액, inc=전년 대비 증액, direct=학교로 직접 가는 돈, zoom=3단계에서 확대할 분야
+  const BM_ITEMS = [
+    {name:'인건비',     amount:31200, inc:480, color:'#5B6B8C', direct:false},
+    {name:'학교운영비', amount:7800,  inc:760, color:'#E07A3F', direct:true},
+    {name:'교육사업비', amount:6760,  inc:164, color:'#2E9C8A', direct:false, zoom:true, children:[
+      {name:'기초학력·맞춤 학습', amount:1900, color:'#1F7A6C'},
+      {name:'디지털 교육환경',    amount:1520, color:'#2E9C8A'},
+      {name:'교육복지(급식·통학)', amount:1460, color:'#4FB3A1'},
+      {name:'진로·직업교육',      amount:1050, color:'#8BCFC0'},
+      {name:'교원 연수',          amount:830,  color:'#B9E2D8'}]},
+    {name:'시설비',     amount:4160,  inc:356, color:'#C9A227', direct:true},
+    {name:'기타·예비비', amount:2080, inc:40,  color:'#A8A398', direct:false}
+  ];
+  // ▼ 바꿔 쓸 지점 ②: 기관·연도·묶음 이름 (실존 기관명 대신 가상 명칭 권장)
+  const BM_TEXT = {org:'○○교육청', year:'2027', directLabel:'학교로 직접', otherLabel:'교육청 집행'};
+
+  const root = document.querySelector('.bm-deck');
+  const stage = root.querySelector('.bm-stage');
+  const $ = s => root.querySelector(s);
+  const sum = (a,k) => a.reduce((t,d)=>t+(d[k]||0),0);
+  const zoom = BM_ITEMS.find(d=>d.zoom) || BM_ITEMS[0];
+  const kids = zoom.children || [];
+  const total = sum(BM_ITEMS,'amount'), incTotal = sum(BM_ITEMS,'inc');
+  const directInc = sum(BM_ITEMS.filter(d=>d.direct),'inc');
+  const top1 = BM_ITEMS.slice().sort((a,b)=>b.amount-a.amount)[0];
+  const pct = v => Math.round(v*100)+'%';
+  const fmt = v => v>=10000 ? (Math.round(v/1000)/10)+'조' : v.toLocaleString('ko-KR')+'억';
+  const fmtLong = v => { const j=Math.floor(v/10000), e=v%10000; return (j?j+'조 ':'')+(e?e.toLocaleString('ko-KR')+'억':''); };
+
+  // ▼ 바꿔 쓸 지점 ③: 단계별 문구 (숫자는 데이터에서 자동 계산)
+  const STEPS = [
+    {dot:'총액', kicker:BM_TEXT.year+' 본예산 총액', big:fmt(total), cap:'한 해 동안 쓰는 돈 전체를 한 덩어리로 먼저 본다'},
+    {dot:'분야', kicker:'분야별 비중', big:pct(top1.amount/total), cap:top1.name+'. 정해진 지출이 가장 큰 칸을 차지한다'},
+    {dot:'사업', kicker:zoom.name+' 확대', big:fmt(zoom.amount), cap:zoom.name+' 안의 주요 사업 '+kids.length+'개. 면적이 곧 금액이다'},
+    {dot:'결론', kicker:'증액분의 행방', big:pct(directInc/incTotal), cap:'늘어난 '+fmt(incTotal)+' 중 학교 계좌로 바로 가는 몫'}
+  ];
+  const HEADLINE = '늘어난 '+fmt(incTotal)+' 중 '+pct(directInc/incTotal)+'는 '+BM_TEXT.directLabel+' 간다';
+
+  $('.bm-org').textContent = BM_TEXT.org+' · '+BM_TEXT.year+' 본예산 편성 브리핑';
+  $('.bm-mk').textContent = HEADLINE;
+
+  // 색 계산: 바탕색 밝기에 따라 글자색 결정, 흐리게 할 때는 바탕색과 섞기
+  const hex = c => { c=c.trim().replace('#',''); return [0,2,4].map(i=>parseInt(c.substr(i,2),16)); };
+  const toHex = a => '#'+a.map(v=>Math.round(v).toString(16).padStart(2,'0')).join('');
+  const mix = (a,b,t) => { const x=hex(a), y=hex(b); return toHex(x.map((v,i)=>v+(y[i]-v)*t)); };
+  const textOn = c => { const [r,g,b]=hex(c); return (0.299*r+0.587*g+0.114*b)>150 ? cssVar('--bm-ink') : '#FFFFFF'; };
+  const cssVar = n => getComputedStyle(root).getPropertyValue(n).trim();
+
+  // 도형 만들기: 분야 칸 + 확대 분야의 하위 사업 칸 (같은 도형을 계속 재배치)
+  const cells = [];
+  const make = (d,kind) => {
+    const el = document.createElement('div');
+    el.className = 'bm-cell';
+    el.innerHTML = '<div class="bm-lab"><b></b><span></span></div>';
+    el.querySelector('b').textContent = d.name;
+    stage.appendChild(el);
+    cells.push({d, kind, el, lab:el.firstChild, val:el.querySelector('span')});
+  };
+  BM_ITEMS.forEach(d=>make(d,'sec'));
+  kids.forEach(d=>make(d,'kid'));
+  const secs = cells.filter(c=>c.kind==='sec'), kidCells = cells.filter(c=>c.kind==='kid');
+  const zc = secs.find(c=>c.d===zoom);
+  const grpA = document.createElement('div'), grpB = document.createElement('div');
+  grpA.className='bm-grp bm-on'; grpB.className='bm-grp';
+  grpA.textContent = BM_TEXT.directLabel+' '+fmt(directInc);
+  grpB.textContent = BM_TEXT.otherLabel+' '+fmt(incTotal-directInc);
+  const totalLab = document.createElement('div');
+  totalLab.className='bm-total';
+  totalLab.innerHTML = '<span></span><small></small>';
+  totalLab.firstChild.textContent = BM_TEXT.year+' 본예산 총액';
+  totalLab.lastChild.textContent = fmtLong(total);
+  stage.append(grpA, grpB, totalLab);
+
+  // 스퀘어리파이 트리맵 (면적 = 금액)
+  function squarify(items, x, y, w, h){
+    const out = [], live = items.filter(i=>i.v>0), tot = live.reduce((t,i)=>t+i.v,0);
+    items.filter(i=>!(i.v>0)).forEach(i=>out.push({ref:i.ref,x,y,w:0,h:0}));
+    if(!tot || w<=0 || h<=0) return out;
+    const sc = w*h/tot;
+    let rest = live.map(i=>({ref:i.ref,a:i.v*sc})).sort((p,q)=>q.a-p.a), row = [];
+    const worst = (r,side) => { const s=r.reduce((t,q)=>t+q.a,0); let mx=0,mn=Infinity; r.forEach(q=>{mx=Math.max(mx,q.a);mn=Math.min(mn,q.a);}); return Math.max(side*side*mx/(s*s), s*s/(side*side*mn)); };
+    const lay = r => { const s=r.reduce((t,q)=>t+q.a,0);
+      if(w>=h){ const cw=s/h; let cy=y; r.forEach(q=>{out.push({ref:q.ref,x,y:cy,w:cw,h:q.a/cw}); cy+=q.a/cw;}); x+=cw; w-=cw; }
+      else { const rh=s/w; let cx=x; r.forEach(q=>{out.push({ref:q.ref,x:cx,y,w:q.a/rh,h:rh}); cx+=q.a/rh;}); y+=rh; h-=rh; } };
+    while(rest.length){
+      const side = Math.min(w,h);
+      if(!row.length || worst(row,side) >= worst(row.concat(rest[0]),side)) row.push(rest.shift());
+      else { lay(row); row = []; }
+    }
+    if(row.length) lay(row);
+    return out;
+  }
+  const inset = (r,g) => ({x:r.x+g/2, y:r.y+g/2, w:Math.max(0,r.w-g), h:Math.max(0,r.h-g)});
+
+  // 단계별 배치: 같은 칸들이 위치·크기·색만 바꾼다
+  function layout(step){
+    const W = stage.clientWidth, H = stage.clientHeight, g = Math.max(2, W*0.008);
+    const ink = cssVar('--bm-ink'), bg = cssVar('--bm-bg');
+    const L = new Map();
+    const put = (c,r,o) => L.set(c, Object.assign({x:r.x,y:r.y,w:r.w,h:r.h,op:1,val:'',lab:true}, o));
+    const kidsIn = (r,op) => squarify(kidCells.map(c=>({v:c.d.amount,ref:c})), r.x,r.y,r.w,r.h)
+      .forEach(q=>put(q.ref, op? inset(q,g) : q, {bg:q.ref.d.color, op, val:fmt(q.ref.d.amount)}));
+    const bySec = squarify(secs.map(c=>({v:c.d.amount,ref:c})), 0,0,W,H);
+    let zr;
+    if(step===0){ // ① 하나의 덩어리: 간격 0, 같은 색
+      bySec.forEach(q=>{ const r={x:q.x,y:q.y,w:q.w+.6,h:q.h+.6}; put(q.ref,r,{bg:ink,lab:false}); if(q.ref===zc) zr=r; });
+      kidsIn(zr,0);
+    } else if(step===1){ // ② 분야별로 갈라짐
+      bySec.forEach(q=>{ const r=inset(q,g); put(q.ref,r,{bg:q.ref.d.color, val:fmt(q.ref.d.amount)+' · '+pct(q.ref.d.amount/total)}); if(q.ref===zc) zr=r; });
+      kidsIn(zr,0);
+    } else if(step===2){ // ③ 확대 분야가 화면을 채우고 나머지는 왼쪽 띠로
+      const sW = W*0.17, others = secs.filter(c=>c!==zc), ot = sum(others.map(c=>c.d),'amount');
+      let cy = 0;
+      others.forEach(c=>{ const h=H*c.d.amount/ot; put(c, inset({x:0,y:cy,w:sW,h},g), {bg:mix(c.d.color,bg,.62), fg:cssVar('--bm-sub')}); cy+=h; });
+      zr = inset({x:sW,y:0,w:W-sW,h:H},g);
+      put(zc, zr, {bg:zoom.color, lab:false});
+      kidsIn({x:zr.x-g/2,y:zr.y-g/2,w:zr.w+g,h:zr.h+g},1);
+    } else { // ④ 면적 기준을 증액분으로 바꾸고 학교 직접분을 왼쪽에 묶음
+      const hh = Math.max(26, H*0.13), dW = W*directInc/incTotal;
+      const A = secs.filter(c=>c.d.direct), B = secs.filter(c=>!c.d.direct);
+      squarify(A.map(c=>({v:c.d.inc,ref:c})), 0,hh,dW,H-hh).forEach(q=>put(q.ref, inset(q,g), {bg:q.ref.d.color, val:'+'+fmt(q.ref.d.inc)}));
+      squarify(B.map(c=>({v:c.d.inc,ref:c})), dW,hh,W-dW,H-hh).forEach(q=>{ const r=inset(q,g); put(q.ref, r, {bg:mix(q.ref.d.color,bg,.62), fg:cssVar('--bm-sub'), val:'+'+fmt(q.ref.d.inc)}); if(q.ref===zc) zr=r; });
+      kidsIn(zr,0);
+      const ga = inset({x:0,y:0,w:dW,h:hh},g), gb = inset({x:dW,y:0,w:W-dW,h:hh},g);
+      Object.assign(grpA.style,{left:ga.x+'px',top:ga.y+'px',width:ga.w+'px',height:ga.h+'px'});
+      Object.assign(grpB.style,{left:gb.x+'px',top:gb.y+'px',width:gb.w+'px',height:gb.h+'px'});
+    }
+    if(step!==3){ [grpA,grpB].forEach(e=>Object.assign(e.style,{left:'0px',top:'0px',width:W+'px',height:'0px'})); }
+    totalLab.style.opacity = step===0 ? 1 : 0;
+    return L;
+  }
+
+  let step = 0;
+  function render(instant){
+    if(instant) root.classList.add('bm-instant');
+    const L = layout(step);
+    const fs = parseFloat(getComputedStyle(cells[0].lab).fontSize) || 12;
+    L.forEach((o,c)=>{
+      const s = c.el.style;
+      s.left=o.x+'px'; s.top=o.y+'px'; s.width=o.w+'px'; s.height=o.h+'px';
+      s.backgroundColor=o.bg; s.opacity=o.op; s.color=o.fg || textOn(o.bg);
+      s.zIndex = c.kind==='kid' ? 2 : 1;
+      c.val.textContent = o.val;
+      const fits = o.lab && o.op>0 && o.w>=fs*4.2 && o.h>=fs*2;   // 칸이 작으면 이름표를 숨겨 겹침 방지
+      c.lab.style.opacity = fits ? 1 : 0;
+      c.val.style.display = (o.val && o.h>=fs*3.4) ? 'block' : 'none';
+    });
+    const S = STEPS[step];
+    $('.bm-kicker').textContent = S.kicker;
+    $('.bm-big').textContent = S.big;
+    $('.bm-cap').textContent = S.cap;
+    $('.bm-step-label').textContent = (step+1)+'/'+STEPS.length+' · '+S.dot;
+    stage.setAttribute('aria-label', S.kicker+' '+S.big+'. '+S.cap);
+    root.dataset.step = step;
+    $('.bm-prev').disabled = step===0;
+    $('.bm-next').disabled = step===STEPS.length-1;
+    dots.forEach((d,i)=> i===step ? d.setAttribute('aria-current','step') : d.removeAttribute('aria-current'));
+    if(instant){ void root.offsetWidth; requestAnimationFrame(()=>root.classList.remove('bm-instant')); }
+  }
+
+  const dots = STEPS.map((S,i)=>{ const b=document.createElement('button'); b.type='button'; b.className='bm-dot'; b.textContent=S.dot; b.addEventListener('click',()=>go(i)); $('.bm-dots').appendChild(b); return b; });
+  function go(n, source){
+    n = Math.max(0, Math.min(STEPS.length-1, n));
+    if(n===step) return;
+    step = n; render(false);
+    root.dispatchEvent(new CustomEvent('bm:step',{detail:{step:n, source:source||'control'}}));
+  }
+  root.bmGo = go;   // 스크롤 연동 등 바깥에서 root.bmGo(단계번호) 로 호출
+  $('.bm-prev').addEventListener('click',()=>go(step-1));
+  $('.bm-next').addEventListener('click',()=>go(step+1));
+  stage.addEventListener('click',()=>go(step+1));
+  document.addEventListener('keydown',e=>{   // 발표 중 → ← 키 (장표가 화면에 보일 때만)
+    if(e.target.closest && e.target.closest('input,textarea,select,[contenteditable]')) return;
+    const r = root.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;
+    if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); go(step+1); }
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); go(step-1); }
+  });
+  render(true);
+  new ResizeObserver(()=>render(true)).observe(stage);
+  if(document.fonts) document.fonts.ready.then(()=>render(true));
+})();
+</script>
+
+  </div></div>
+  <div class="wrap steps">
+    <article class="step" data-step="0"><div class="step-card">
+      <h3 class="k0">1 · 총액 — 큰 사각형 하나</h3>
+      <p>2027 본예산 전체를 칸 구분 없는 한 덩어리로 보여 준다. 화면에 큰 숫자는 5.2조 하나뿐이다.</p>
+      <p class="say">말할 문장: “올해 우리 청이 쓰는 돈은 이 사각형 하나입니다.”</p>
+    </div></article>
+    <article class="step" data-step="1"><div class="step-card">
+      <h3 class="k1">2 · 분야 — 같은 사각형이 갈라진다</h3>
+      <p>덩어리에 틈이 벌어지며 분야별 색이 들어온다. 면적이 곧 금액이라 인건비 60%가 한눈에 보인다.</p>
+      <p class="say">말할 문장: “이 중 60%는 이미 정해진 인건비입니다.”</p>
+    </div></article>
+    <article class="step" data-step="2"><div class="step-card">
+      <h3 class="k2">3 · 사업 — 교육사업비만 확대</h3>
+      <p>교육사업비 칸이 화면을 채우도록 커지고, 나머지 분야는 왼쪽 띠로 물러나 맥락만 남긴다. 그 안에서 주요 사업 다섯 개가 나뉜다.</p>
+      <p class="say">말할 문장: “정책으로 움직일 수 있는 6,760억은 이렇게 나뉩니다.”</p>
+    </div></article>
+    <article class="step" data-step="3"><div class="step-card">
+      <h3 class="k3">4 · 결론 — 증액분으로 다시 쪼갠다</h3>
+      <p>면적 기준을 편성액에서 전년 대비 증액분으로 바꾼다. 학교로 직접 가는 칸이 왼쪽에 모여 검은 머리글 아래 묶이고, 제목 문장에 형광 표시가 칠해진다.</p>
+      <p class="say">말할 문장: “늘어난 1,800억 중 62%는 학교로 바로 갑니다.”</p>
+    </div></article>
+  </div>
+</div>
+
+<main class="wrap doc">
+  <header>
+    <p class="tagline"><span>레퍼런스 #33</span><span>실무형 도식</span><span>패턴: 스크롤 서사</span><span>주제: 교육청 본예산 편성</span></p>
+    <h1>쪼개지는 예산 사각형</h1>
+    <p>장표는 그대로 두고 도형 하나가 총액 → 분야 → 사업 → 결론 순으로 모양을 바꾼다. 위 장표를 스크롤하거나 → 키, 장표 클릭, 아래 단계 버튼으로 넘겨 볼 수 있다. 기관명과 모든 수치는 가상 예시다.</p>
+  </header>
+
+  <section class="part">
+    <h2>가져갈 장치</h2>
+    <div class="devices">
+      <div class="device">
+        <h3>계속 쪼개지는 한 도형</h3>
+        <p>새 차트로 갈아끼우지 않고 같은 사각형을 총액 → 분야 → 사업으로 쪼갠다. 청중은 방금 본 칸이 어디로 갔는지 따라가므로 “이 돈이 저 돈의 일부”라는 포함 관계를 설명 없이 이해한다.</p>
+        <div class="swatch-row" aria-hidden="true"><i style="background:#1D2B2A"></i><i style="background:#5B6B8C"></i><i style="background:#E07A3F"></i><i style="background:#2E9C8A"></i><i style="background:#C9A227"></i></div>
+      </div>
+      <div class="device">
+        <h3>단계마다 큰 숫자 하나</h3>
+        <p>왼쪽 큰 숫자 자리는 하나만 둔다. 5.2조 → 60% → 6,760억 → 62%. 칸 안의 금액은 작게 두고, 발표자가 말할 숫자만 크게 남긴다.</p>
+      </div>
+      <div class="device">
+        <h3>기준을 바꿔 다시 쪼개기</h3>
+        <p>마지막 단계는 같은 칸들의 면적 기준을 편성액에서 증액분으로 바꾼다. 크던 인건비 칸이 작아지고 학교운영비가 커지는 변화 자체가 결론의 근거가 된다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="part">
+    <h2>동작 설명</h2>
+    <p>장표 안 도형은 분야 5칸과 교육사업비 하위 사업 5칸, 모두 10개다. 단계가 바뀔 때 이 10개는 새로 만들어지지 않고 위치·크기·색만 바뀐다. 1단계에서는 간격 0, 같은 색이라 하나로 보이고, 하위 사업 칸은 교육사업비 칸 안에 투명하게 숨어 있다가 3단계에서 드러난다. 그래서 확대가 “안을 들여다보는” 동작으로 읽힌다.</p>
+    <p>제목은 처음부터 결론 문장이다. 청중은 결론을 먼저 읽고, 이어지는 세 번의 쪼개짐을 그 근거로 본다.</p>
+    <ul class="plain">
+      <li><b>세입 구성 설명</b>: 총세입 → 교부금·전입금·자체수입 → 교부금 내 보통/특별 교부금.</li>
+      <li><b>학교 기본운영비 배분</b>: 전체 학교운영비 → 학교급별 → 한 학교의 항목별 사용처.</li>
+      <li><b>정원·인력 현황</b>: 전체 정원 → 직렬별 → 결원이 몰린 직렬 확대 → “충원 필요 인원” 결론.</li>
+    </ul>
+  </section>
+
+  <section class="part">
+    <h2>HTML로 가져다 쓰기</h2>
+    <p>아래 코드 한 덩어리가 위 장표 전체다. 다른 HTML 파일 본문에 그대로 붙이면 동작한다. 클래스는 모두 <code>bm-</code>로 시작해 기존 스타일과 섞이지 않는다.</p>
+    <div class="codebox">
+      <button class="copy" type="button" id="copyBtn">코드 복사</button>
+      <pre><code id="code">&lt;!-- ▣ 쪼개지는 예산 사각형 (스크롤 서사형 트리맵) · 클래스 접두어 bm- · 가상 예시 --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* 색·글꼴·속도는 아래 CSS 변수만 바꾸면 전체에 반영됩니다 */
+.bm-deck{
+  --bm-bg:#F6F7F4;    /* 장표 바탕 */
+  --bm-ink:#1D2B2A;   /* 본문 글자·1단계 총액 덩어리 */
+  --bm-sub:#5E6B69;   /* 보조 글자 */
+  --bm-line:#DCE1DD;  /* 테두리 */
+  --bm-mark:#F9CBA7;  /* 4단계 결론 형광 표시 */
+  --bm-font:&quot;IBM Plex Sans KR&quot;,&quot;Malgun Gothic&quot;,&quot;Apple SD Gothic Neo&quot;,sans-serif;
+  --bm-dur:.75s;      /* 도형이 변하는 시간 */
+  container-type:inline-size;
+  width:100%; max-width:100%; margin-inline:auto;
+  font-family:var(--bm-font); color:var(--bm-ink);
+}
+.bm-deck *{box-sizing:border-box}
+.bm-slide{position:relative; aspect-ratio:16/9; width:100%; max-width:100%; background:var(--bm-bg);
+  border:1px solid var(--bm-line); border-radius:4px; padding:2.6cqw 3.4cqw 3cqw;
+  display:grid; grid-template-rows:auto minmax(0,1fr); gap:2cqw; overflow:hidden}
+.bm-meta{margin:0; display:flex; justify-content:space-between; gap:1cqw; font-size:max(9px,1.15cqw); color:var(--bm-sub); letter-spacing:.03em}
+.bm-meta b{font-weight:500; color:var(--bm-ink)}
+.bm-title{margin:.5cqw 0 0; font-size:max(13px,3cqw); line-height:1.25; font-weight:700; letter-spacing:-.02em; text-wrap:balance; word-break:keep-all}
+.bm-mk{background:linear-gradient(var(--bm-mark),var(--bm-mark)) no-repeat 0 90%/0% 40%; transition:background-size var(--bm-dur) ease}
+.bm-deck[data-step=&quot;3&quot;] .bm-mk{background-size:100% 40%}
+.bm-body{display:grid; grid-template-columns:25cqw minmax(0,1fr); gap:2.6cqw; min-height:0}
+.bm-side{display:flex; flex-direction:column; min-width:0; min-height:0}
+.bm-kicker{margin:0; font-size:max(10px,1.3cqw); font-weight:500; color:var(--bm-sub)}
+.bm-big{margin:.5cqw 0 0; font-size:6.6cqw; line-height:1; font-weight:700; letter-spacing:-.04em; font-variant-numeric:tabular-nums; white-space:nowrap}
+.bm-cap{margin:1.2cqw 0 0; font-size:max(10px,1.5cqw); line-height:1.45; word-break:keep-all}
+.bm-note{margin:auto 0 0; font-size:max(8px,1cqw); color:var(--bm-sub)}
+.bm-stage{position:relative; min-height:0; cursor:pointer}
+.bm-cell{position:absolute; overflow:hidden; border-radius:max(2px,.3cqw);
+  transition:left var(--bm-dur) cubic-bezier(.6,0,.2,1), top var(--bm-dur) cubic-bezier(.6,0,.2,1),
+    width var(--bm-dur) cubic-bezier(.6,0,.2,1), height var(--bm-dur) cubic-bezier(.6,0,.2,1),
+    background-color var(--bm-dur), color var(--bm-dur), opacity var(--bm-dur)}
+.bm-deck[data-step=&quot;0&quot;] .bm-cell{border-radius:0}  /* 1단계: 이음매 없이 한 덩어리 */
+.bm-lab{position:absolute; inset:0 0 auto 0; padding:.55em .7em; font-size:max(9px,1.15cqw); line-height:1.25; word-break:keep-all; transition:opacity .25s}
+.bm-lab b{display:block; font-weight:700}
+.bm-lab span{display:block; font-variant-numeric:tabular-nums}
+.bm-total{position:absolute; inset:0; display:grid; place-content:center; text-align:center; gap:.4em;
+  color:#fff; font-size:max(11px,1.8cqw); font-weight:500; pointer-events:none; z-index:3; transition:opacity .3s}
+.bm-total small{font-size:.7em; opacity:.75; font-weight:400}
+.bm-grp{position:absolute; display:flex; align-items:center; padding:0 .8em; font-size:max(9px,1.3cqw); font-weight:700;
+  white-space:nowrap; overflow:hidden; border-radius:max(2px,.3cqw); color:var(--bm-sub); opacity:0; z-index:3; transition:opacity var(--bm-dur)}
+.bm-grp.bm-on{background:var(--bm-ink); color:#fff}
+.bm-deck[data-step=&quot;3&quot;] .bm-grp{opacity:1}
+.bm-ctrl{display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:10px; font-size:13px}
+.bm-btn{font:inherit; font-weight:500; min-height:36px; padding:0 14px; border:1px solid var(--bm-line); border-radius:4px; background:#fff; color:var(--bm-ink); cursor:pointer}
+.bm-btn:disabled{opacity:.4; cursor:default}
+.bm-dots{display:flex; gap:4px; flex-wrap:wrap; justify-content:center}
+.bm-dot{font:inherit; display:flex; align-items:center; gap:6px; min-height:36px; padding:0 8px; border:0; background:none; color:var(--bm-sub); cursor:pointer}
+.bm-dot::before{content:&quot;&quot;; width:8px; height:8px; border-radius:50%; border:1.5px solid currentColor}
+.bm-dot[aria-current=&quot;step&quot;]{color:var(--bm-ink); font-weight:700}
+.bm-dot[aria-current=&quot;step&quot;]::before{background:currentColor}
+.bm-deck button:focus-visible{outline:2px solid var(--bm-ink); outline-offset:2px}
+.bm-deck.bm-instant *{transition:none !important}
+@media (prefers-reduced-motion:reduce){ .bm-deck *{transition:none !important} }  /* 움직임 줄이기: 즉시 전환 */
+@media (max-width:480px){ .bm-dot{padding:0 4px; font-size:12px} .bm-btn{padding:0 10px} }
+&lt;/style&gt;
+
+&lt;div class=&quot;bm-deck&quot; data-step=&quot;0&quot;&gt;
+  &lt;div class=&quot;bm-slide&quot;&gt;
+    &lt;header&gt;
+      &lt;p class=&quot;bm-meta&quot;&gt;&lt;b class=&quot;bm-org&quot;&gt;&lt;/b&gt;&lt;span class=&quot;bm-step-label&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;h2 class=&quot;bm-title&quot;&gt;&lt;span class=&quot;bm-mk&quot;&gt;&lt;/span&gt;&lt;/h2&gt;
+    &lt;/header&gt;
+    &lt;div class=&quot;bm-body&quot;&gt;
+      &lt;div class=&quot;bm-side&quot; aria-live=&quot;polite&quot;&gt;
+        &lt;p class=&quot;bm-kicker&quot;&gt;&lt;/p&gt;
+        &lt;p class=&quot;bm-big&quot;&gt;&lt;/p&gt;
+        &lt;p class=&quot;bm-cap&quot;&gt;&lt;/p&gt;
+        &lt;p class=&quot;bm-note&quot;&gt;가상 예시 · 단위 억 원&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;bm-stage&quot; role=&quot;img&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;bm-ctrl&quot;&gt;
+    &lt;button class=&quot;bm-btn bm-prev&quot; type=&quot;button&quot;&gt;← 이전&lt;/button&gt;
+    &lt;div class=&quot;bm-dots&quot;&gt;&lt;/div&gt;
+    &lt;button class=&quot;bm-btn bm-next&quot; type=&quot;button&quot;&gt;다음 →&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  // ▼ 바꿔 쓸 지점 ①: 예산 데이터 한 배열 (단위 억 원)
+  //   amount=편성액, inc=전년 대비 증액, direct=학교로 직접 가는 돈, zoom=3단계에서 확대할 분야
+  const BM_ITEMS = [
+    {name:&#x27;인건비&#x27;,     amount:31200, inc:480, color:&#x27;#5B6B8C&#x27;, direct:false},
+    {name:&#x27;학교운영비&#x27;, amount:7800,  inc:760, color:&#x27;#E07A3F&#x27;, direct:true},
+    {name:&#x27;교육사업비&#x27;, amount:6760,  inc:164, color:&#x27;#2E9C8A&#x27;, direct:false, zoom:true, children:[
+      {name:&#x27;기초학력·맞춤 학습&#x27;, amount:1900, color:&#x27;#1F7A6C&#x27;},
+      {name:&#x27;디지털 교육환경&#x27;,    amount:1520, color:&#x27;#2E9C8A&#x27;},
+      {name:&#x27;교육복지(급식·통학)&#x27;, amount:1460, color:&#x27;#4FB3A1&#x27;},
+      {name:&#x27;진로·직업교육&#x27;,      amount:1050, color:&#x27;#8BCFC0&#x27;},
+      {name:&#x27;교원 연수&#x27;,          amount:830,  color:&#x27;#B9E2D8&#x27;}]},
+    {name:&#x27;시설비&#x27;,     amount:4160,  inc:356, color:&#x27;#C9A227&#x27;, direct:true},
+    {name:&#x27;기타·예비비&#x27;, amount:2080, inc:40,  color:&#x27;#A8A398&#x27;, direct:false}
+  ];
+  // ▼ 바꿔 쓸 지점 ②: 기관·연도·묶음 이름 (실존 기관명 대신 가상 명칭 권장)
+  const BM_TEXT = {org:&#x27;○○교육청&#x27;, year:&#x27;2027&#x27;, directLabel:&#x27;학교로 직접&#x27;, otherLabel:&#x27;교육청 집행&#x27;};
+
+  const root = document.querySelector(&#x27;.bm-deck&#x27;);
+  const stage = root.querySelector(&#x27;.bm-stage&#x27;);
+  const $ = s =&gt; root.querySelector(s);
+  const sum = (a,k) =&gt; a.reduce((t,d)=&gt;t+(d[k]||0),0);
+  const zoom = BM_ITEMS.find(d=&gt;d.zoom) || BM_ITEMS[0];
+  const kids = zoom.children || [];
+  const total = sum(BM_ITEMS,&#x27;amount&#x27;), incTotal = sum(BM_ITEMS,&#x27;inc&#x27;);
+  const directInc = sum(BM_ITEMS.filter(d=&gt;d.direct),&#x27;inc&#x27;);
+  const top1 = BM_ITEMS.slice().sort((a,b)=&gt;b.amount-a.amount)[0];
+  const pct = v =&gt; Math.round(v*100)+&#x27;%&#x27;;
+  const fmt = v =&gt; v&gt;=10000 ? (Math.round(v/1000)/10)+&#x27;조&#x27; : v.toLocaleString(&#x27;ko-KR&#x27;)+&#x27;억&#x27;;
+  const fmtLong = v =&gt; { const j=Math.floor(v/10000), e=v%10000; return (j?j+&#x27;조 &#x27;:&#x27;&#x27;)+(e?e.toLocaleString(&#x27;ko-KR&#x27;)+&#x27;억&#x27;:&#x27;&#x27;); };
+
+  // ▼ 바꿔 쓸 지점 ③: 단계별 문구 (숫자는 데이터에서 자동 계산)
+  const STEPS = [
+    {dot:&#x27;총액&#x27;, kicker:BM_TEXT.year+&#x27; 본예산 총액&#x27;, big:fmt(total), cap:&#x27;한 해 동안 쓰는 돈 전체를 한 덩어리로 먼저 본다&#x27;},
+    {dot:&#x27;분야&#x27;, kicker:&#x27;분야별 비중&#x27;, big:pct(top1.amount/total), cap:top1.name+&#x27;. 정해진 지출이 가장 큰 칸을 차지한다&#x27;},
+    {dot:&#x27;사업&#x27;, kicker:zoom.name+&#x27; 확대&#x27;, big:fmt(zoom.amount), cap:zoom.name+&#x27; 안의 주요 사업 &#x27;+kids.length+&#x27;개. 면적이 곧 금액이다&#x27;},
+    {dot:&#x27;결론&#x27;, kicker:&#x27;증액분의 행방&#x27;, big:pct(directInc/incTotal), cap:&#x27;늘어난 &#x27;+fmt(incTotal)+&#x27; 중 학교 계좌로 바로 가는 몫&#x27;}
+  ];
+  const HEADLINE = &#x27;늘어난 &#x27;+fmt(incTotal)+&#x27; 중 &#x27;+pct(directInc/incTotal)+&#x27;는 &#x27;+BM_TEXT.directLabel+&#x27; 간다&#x27;;
+
+  $(&#x27;.bm-org&#x27;).textContent = BM_TEXT.org+&#x27; · &#x27;+BM_TEXT.year+&#x27; 본예산 편성 브리핑&#x27;;
+  $(&#x27;.bm-mk&#x27;).textContent = HEADLINE;
+
+  // 색 계산: 바탕색 밝기에 따라 글자색 결정, 흐리게 할 때는 바탕색과 섞기
+  const hex = c =&gt; { c=c.trim().replace(&#x27;#&#x27;,&#x27;&#x27;); return [0,2,4].map(i=&gt;parseInt(c.substr(i,2),16)); };
+  const toHex = a =&gt; &#x27;#&#x27;+a.map(v=&gt;Math.round(v).toString(16).padStart(2,&#x27;0&#x27;)).join(&#x27;&#x27;);
+  const mix = (a,b,t) =&gt; { const x=hex(a), y=hex(b); return toHex(x.map((v,i)=&gt;v+(y[i]-v)*t)); };
+  const textOn = c =&gt; { const [r,g,b]=hex(c); return (0.299*r+0.587*g+0.114*b)&gt;150 ? cssVar(&#x27;--bm-ink&#x27;) : &#x27;#FFFFFF&#x27;; };
+  const cssVar = n =&gt; getComputedStyle(root).getPropertyValue(n).trim();
+
+  // 도형 만들기: 분야 칸 + 확대 분야의 하위 사업 칸 (같은 도형을 계속 재배치)
+  const cells = [];
+  const make = (d,kind) =&gt; {
+    const el = document.createElement(&#x27;div&#x27;);
+    el.className = &#x27;bm-cell&#x27;;
+    el.innerHTML = &#x27;&lt;div class=&quot;bm-lab&quot;&gt;&lt;b&gt;&lt;/b&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;&#x27;;
+    el.querySelector(&#x27;b&#x27;).textContent = d.name;
+    stage.appendChild(el);
+    cells.push({d, kind, el, lab:el.firstChild, val:el.querySelector(&#x27;span&#x27;)});
+  };
+  BM_ITEMS.forEach(d=&gt;make(d,&#x27;sec&#x27;));
+  kids.forEach(d=&gt;make(d,&#x27;kid&#x27;));
+  const secs = cells.filter(c=&gt;c.kind===&#x27;sec&#x27;), kidCells = cells.filter(c=&gt;c.kind===&#x27;kid&#x27;);
+  const zc = secs.find(c=&gt;c.d===zoom);
+  const grpA = document.createElement(&#x27;div&#x27;), grpB = document.createElement(&#x27;div&#x27;);
+  grpA.className=&#x27;bm-grp bm-on&#x27;; grpB.className=&#x27;bm-grp&#x27;;
+  grpA.textContent = BM_TEXT.directLabel+&#x27; &#x27;+fmt(directInc);
+  grpB.textContent = BM_TEXT.otherLabel+&#x27; &#x27;+fmt(incTotal-directInc);
+  const totalLab = document.createElement(&#x27;div&#x27;);
+  totalLab.className=&#x27;bm-total&#x27;;
+  totalLab.innerHTML = &#x27;&lt;span&gt;&lt;/span&gt;&lt;small&gt;&lt;/small&gt;&#x27;;
+  totalLab.firstChild.textContent = BM_TEXT.year+&#x27; 본예산 총액&#x27;;
+  totalLab.lastChild.textContent = fmtLong(total);
+  stage.append(grpA, grpB, totalLab);
+
+  // 스퀘어리파이 트리맵 (면적 = 금액)
+  function squarify(items, x, y, w, h){
+    const out = [], live = items.filter(i=&gt;i.v&gt;0), tot = live.reduce((t,i)=&gt;t+i.v,0);
+    items.filter(i=&gt;!(i.v&gt;0)).forEach(i=&gt;out.push({ref:i.ref,x,y,w:0,h:0}));
+    if(!tot || w&lt;=0 || h&lt;=0) return out;
+    const sc = w*h/tot;
+    let rest = live.map(i=&gt;({ref:i.ref,a:i.v*sc})).sort((p,q)=&gt;q.a-p.a), row = [];
+    const worst = (r,side) =&gt; { const s=r.reduce((t,q)=&gt;t+q.a,0); let mx=0,mn=Infinity; r.forEach(q=&gt;{mx=Math.max(mx,q.a);mn=Math.min(mn,q.a);}); return Math.max(side*side*mx/(s*s), s*s/(side*side*mn)); };
+    const lay = r =&gt; { const s=r.reduce((t,q)=&gt;t+q.a,0);
+      if(w&gt;=h){ const cw=s/h; let cy=y; r.forEach(q=&gt;{out.push({ref:q.ref,x,y:cy,w:cw,h:q.a/cw}); cy+=q.a/cw;}); x+=cw; w-=cw; }
+      else { const rh=s/w; let cx=x; r.forEach(q=&gt;{out.push({ref:q.ref,x:cx,y,w:q.a/rh,h:rh}); cx+=q.a/rh;}); y+=rh; h-=rh; } };
+    while(rest.length){
+      const side = Math.min(w,h);
+      if(!row.length || worst(row,side) &gt;= worst(row.concat(rest[0]),side)) row.push(rest.shift());
+      else { lay(row); row = []; }
+    }
+    if(row.length) lay(row);
+    return out;
+  }
+  const inset = (r,g) =&gt; ({x:r.x+g/2, y:r.y+g/2, w:Math.max(0,r.w-g), h:Math.max(0,r.h-g)});
+
+  // 단계별 배치: 같은 칸들이 위치·크기·색만 바꾼다
+  function layout(step){
+    const W = stage.clientWidth, H = stage.clientHeight, g = Math.max(2, W*0.008);
+    const ink = cssVar(&#x27;--bm-ink&#x27;), bg = cssVar(&#x27;--bm-bg&#x27;);
+    const L = new Map();
+    const put = (c,r,o) =&gt; L.set(c, Object.assign({x:r.x,y:r.y,w:r.w,h:r.h,op:1,val:&#x27;&#x27;,lab:true}, o));
+    const kidsIn = (r,op) =&gt; squarify(kidCells.map(c=&gt;({v:c.d.amount,ref:c})), r.x,r.y,r.w,r.h)
+      .forEach(q=&gt;put(q.ref, op? inset(q,g) : q, {bg:q.ref.d.color, op, val:fmt(q.ref.d.amount)}));
+    const bySec = squarify(secs.map(c=&gt;({v:c.d.amount,ref:c})), 0,0,W,H);
+    let zr;
+    if(step===0){ // ① 하나의 덩어리: 간격 0, 같은 색
+      bySec.forEach(q=&gt;{ const r={x:q.x,y:q.y,w:q.w+.6,h:q.h+.6}; put(q.ref,r,{bg:ink,lab:false}); if(q.ref===zc) zr=r; });
+      kidsIn(zr,0);
+    } else if(step===1){ // ② 분야별로 갈라짐
+      bySec.forEach(q=&gt;{ const r=inset(q,g); put(q.ref,r,{bg:q.ref.d.color, val:fmt(q.ref.d.amount)+&#x27; · &#x27;+pct(q.ref.d.amount/total)}); if(q.ref===zc) zr=r; });
+      kidsIn(zr,0);
+    } else if(step===2){ // ③ 확대 분야가 화면을 채우고 나머지는 왼쪽 띠로
+      const sW = W*0.17, others = secs.filter(c=&gt;c!==zc), ot = sum(others.map(c=&gt;c.d),&#x27;amount&#x27;);
+      let cy = 0;
+      others.forEach(c=&gt;{ const h=H*c.d.amount/ot; put(c, inset({x:0,y:cy,w:sW,h},g), {bg:mix(c.d.color,bg,.62), fg:cssVar(&#x27;--bm-sub&#x27;)}); cy+=h; });
+      zr = inset({x:sW,y:0,w:W-sW,h:H},g);
+      put(zc, zr, {bg:zoom.color, lab:false});
+      kidsIn({x:zr.x-g/2,y:zr.y-g/2,w:zr.w+g,h:zr.h+g},1);
+    } else { // ④ 면적 기준을 증액분으로 바꾸고 학교 직접분을 왼쪽에 묶음
+      const hh = Math.max(26, H*0.13), dW = W*directInc/incTotal;
+      const A = secs.filter(c=&gt;c.d.direct), B = secs.filter(c=&gt;!c.d.direct);
+      squarify(A.map(c=&gt;({v:c.d.inc,ref:c})), 0,hh,dW,H-hh).forEach(q=&gt;put(q.ref, inset(q,g), {bg:q.ref.d.color, val:&#x27;+&#x27;+fmt(q.ref.d.inc)}));
+      squarify(B.map(c=&gt;({v:c.d.inc,ref:c})), dW,hh,W-dW,H-hh).forEach(q=&gt;{ const r=inset(q,g); put(q.ref, r, {bg:mix(q.ref.d.color,bg,.62), fg:cssVar(&#x27;--bm-sub&#x27;), val:&#x27;+&#x27;+fmt(q.ref.d.inc)}); if(q.ref===zc) zr=r; });
+      kidsIn(zr,0);
+      const ga = inset({x:0,y:0,w:dW,h:hh},g), gb = inset({x:dW,y:0,w:W-dW,h:hh},g);
+      Object.assign(grpA.style,{left:ga.x+&#x27;px&#x27;,top:ga.y+&#x27;px&#x27;,width:ga.w+&#x27;px&#x27;,height:ga.h+&#x27;px&#x27;});
+      Object.assign(grpB.style,{left:gb.x+&#x27;px&#x27;,top:gb.y+&#x27;px&#x27;,width:gb.w+&#x27;px&#x27;,height:gb.h+&#x27;px&#x27;});
+    }
+    if(step!==3){ [grpA,grpB].forEach(e=&gt;Object.assign(e.style,{left:&#x27;0px&#x27;,top:&#x27;0px&#x27;,width:W+&#x27;px&#x27;,height:&#x27;0px&#x27;})); }
+    totalLab.style.opacity = step===0 ? 1 : 0;
+    return L;
+  }
+
+  let step = 0;
+  function render(instant){
+    if(instant) root.classList.add(&#x27;bm-instant&#x27;);
+    const L = layout(step);
+    const fs = parseFloat(getComputedStyle(cells[0].lab).fontSize) || 12;
+    L.forEach((o,c)=&gt;{
+      const s = c.el.style;
+      s.left=o.x+&#x27;px&#x27;; s.top=o.y+&#x27;px&#x27;; s.width=o.w+&#x27;px&#x27;; s.height=o.h+&#x27;px&#x27;;
+      s.backgroundColor=o.bg; s.opacity=o.op; s.color=o.fg || textOn(o.bg);
+      s.zIndex = c.kind===&#x27;kid&#x27; ? 2 : 1;
+      c.val.textContent = o.val;
+      const fits = o.lab &amp;&amp; o.op&gt;0 &amp;&amp; o.w&gt;=fs*4.2 &amp;&amp; o.h&gt;=fs*2;   // 칸이 작으면 이름표를 숨겨 겹침 방지
+      c.lab.style.opacity = fits ? 1 : 0;
+      c.val.style.display = (o.val &amp;&amp; o.h&gt;=fs*3.4) ? &#x27;block&#x27; : &#x27;none&#x27;;
+    });
+    const S = STEPS[step];
+    $(&#x27;.bm-kicker&#x27;).textContent = S.kicker;
+    $(&#x27;.bm-big&#x27;).textContent = S.big;
+    $(&#x27;.bm-cap&#x27;).textContent = S.cap;
+    $(&#x27;.bm-step-label&#x27;).textContent = (step+1)+&#x27;/&#x27;+STEPS.length+&#x27; · &#x27;+S.dot;
+    stage.setAttribute(&#x27;aria-label&#x27;, S.kicker+&#x27; &#x27;+S.big+&#x27;. &#x27;+S.cap);
+    root.dataset.step = step;
+    $(&#x27;.bm-prev&#x27;).disabled = step===0;
+    $(&#x27;.bm-next&#x27;).disabled = step===STEPS.length-1;
+    dots.forEach((d,i)=&gt; i===step ? d.setAttribute(&#x27;aria-current&#x27;,&#x27;step&#x27;) : d.removeAttribute(&#x27;aria-current&#x27;));
+    if(instant){ void root.offsetWidth; requestAnimationFrame(()=&gt;root.classList.remove(&#x27;bm-instant&#x27;)); }
+  }
+
+  const dots = STEPS.map((S,i)=&gt;{ const b=document.createElement(&#x27;button&#x27;); b.type=&#x27;button&#x27;; b.className=&#x27;bm-dot&#x27;; b.textContent=S.dot; b.addEventListener(&#x27;click&#x27;,()=&gt;go(i)); $(&#x27;.bm-dots&#x27;).appendChild(b); return b; });
+  function go(n, source){
+    n = Math.max(0, Math.min(STEPS.length-1, n));
+    if(n===step) return;
+    step = n; render(false);
+    root.dispatchEvent(new CustomEvent(&#x27;bm:step&#x27;,{detail:{step:n, source:source||&#x27;control&#x27;}}));
+  }
+  root.bmGo = go;   // 스크롤 연동 등 바깥에서 root.bmGo(단계번호) 로 호출
+  $(&#x27;.bm-prev&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;go(step-1));
+  $(&#x27;.bm-next&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;go(step+1));
+  stage.addEventListener(&#x27;click&#x27;,()=&gt;go(step+1));
+  document.addEventListener(&#x27;keydown&#x27;,e=&gt;{   // 발표 중 → ← 키 (장표가 화면에 보일 때만)
+    if(e.target.closest &amp;&amp; e.target.closest(&#x27;input,textarea,select,[contenteditable]&#x27;)) return;
+    const r = root.getBoundingClientRect(); if(r.bottom&lt;0 || r.top&gt;innerHeight) return;
+    if(e.key===&#x27;ArrowRight&#x27;||e.key===&#x27;PageDown&#x27;){ e.preventDefault(); go(step+1); }
+    if(e.key===&#x27;ArrowLeft&#x27;||e.key===&#x27;PageUp&#x27;){ e.preventDefault(); go(step-1); }
+  });
+  render(true);
+  new ResizeObserver(()=&gt;render(true)).observe(stage);
+  if(document.fonts) document.fonts.ready.then(()=&gt;render(true));
+})();
+&lt;/script&gt;
+</code></pre>
+    </div>
+    <div class="swap">
+      <b>바꿔 쓸 지점</b>
+      <ol>
+        <li><code>BM_ITEMS</code> 배열: 분야 이름·편성액·증액·색·학교직접 여부. 숫자와 제목 문장은 여기서 자동 계산된다.</li>
+        <li><code>zoom:true</code>를 다른 분야로 옮기고 그 안에 <code>children</code>을 넣으면 3단계 확대 대상이 바뀐다.</li>
+        <li><code>BM_TEXT</code>: 기관명·연도·묶음 이름(“학교로 직접”/“교육청 집행”).</li>
+        <li><code>STEPS</code>의 <code>cap</code>: 단계별 한 줄 설명.</li>
+        <li>CSS 변수 <code>--bm-dur</code>(변형 시간), <code>--bm-mark</code>(형광 색). 스크롤 연동은 <code>root.bmGo(단계)</code>를 호출하면 된다.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="part">
+    <h2>PPT로 옮기기</h2>
+    <p>슬라이드 4장을 만들고 2~4장에 <b>모핑</b> 전환을 건다. 핵심은 네 장 모두에서 같은 도형에 같은 이름을 붙이는 것이다. 이름 앞에 <code>!!</code>를 붙이면 PowerPoint가 모양·글자가 달라도 같은 도형으로 짝지어 변형한다.</p>
+    <ol class="seq">
+      <li>1장: 사각형 5개를 트리맵처럼 빈틈없이 배치하고 모두 진한 남색(#1D2B2A)으로 칠한다. <b>홈 → 정렬 → 선택 창</b>(Alt+F10)에서 이름을 <code>!!인건비</code>, <code>!!학교운영비</code>, <code>!!교육사업비</code>, <code>!!시설비</code>, <code>!!기타</code>로 바꾼다.</li>
+      <li>같은 장에서 교육사업비 칸 안에 하위 사업 사각형 5개(<code>!!기초학력</code> 등)를 작게 넣고 <b>도형 서식 → 채우기 투명도 100%</b>로 숨긴다. 큰 숫자 텍스트 상자는 <code>!!큰숫자</code>, 제목 뒤 형광 사각형은 <code>!!형광</code>(너비 0.1cm)으로 둔다.</li>
+      <li>1장을 <b>슬라이드 복제</b>(Ctrl+D)해 2장을 만든다. 칸 사이 간격을 벌리고 분야 색을 칠한다. 큰 숫자를 “60%”로 고친다.</li>
+      <li>다시 복제해 3장: <code>!!교육사업비</code>를 오른쪽 전체로 키우고 나머지는 왼쪽 띠로 줄이며 흐린 색으로 바꾼다. 하위 사업 5개는 교육사업비 칸을 채우도록 키우고 투명도를 0%로 되돌린다.</li>
+      <li>다시 복제해 4장: 분야 칸 크기를 증액분 비율로 다시 잡고, 학교 직접분 두 칸을 왼쪽에 모은다. 하위 사업은 교육사업비 칸 안으로 줄여 투명도 100%. <code>!!형광</code>을 제목 길이만큼 늘린다.</li>
+      <li>2~4장을 선택하고 <b>전환 → 모핑</b>, <b>효과 옵션 → 개체</b>, 기간 <b>00.70</b>초. 발표 중에는 클릭이나 → 키로 넘긴다.</li>
+    </ol>
+    <div class="morphgrid">
+      <table>
+        <thead><tr><th>도형 이름</th><th>1장 총액</th><th>2장 분야</th><th>3장 사업</th><th>4장 결론</th></tr></thead>
+        <tbody>
+          <tr><td><code>!!인건비</code></td><td>남색, 간격 0</td><td>#5B6B8C</td><td>왼쪽 띠, 흐리게</td><td>증액 비율, 흐리게</td></tr>
+          <tr><td><code>!!학교운영비</code></td><td>남색, 간격 0</td><td>#E07A3F</td><td>왼쪽 띠, 흐리게</td><td>왼쪽 묶음, 선명</td></tr>
+          <tr><td><code>!!교육사업비</code></td><td>남색, 간격 0</td><td>#2E9C8A</td><td>오른쪽 전체</td><td>증액 비율, 흐리게</td></tr>
+          <tr><td><code>!!기초학력</code> 외 4개</td><td>투명 100%</td><td>투명 100%</td><td>교육사업비 칸 채움</td><td>투명 100%</td></tr>
+          <tr><td><code>!!큰숫자</code></td><td>5.2조</td><td>60%</td><td>6,760억</td><td>62%</td></tr>
+          <tr><td><code>!!형광</code></td><td>너비 0.1cm</td><td>너비 0.1cm</td><td>너비 0.1cm</td><td>제목 전체 너비</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>모핑이 없는 PowerPoint 2016 이하에서는 전환을 <b>페이드</b>로 바꾸면 순서는 유지된다. 이름표 글자는 도형 안에 직접 쓰면 도형과 함께 움직인다.</p>
+  </section>
+
+  <section class="part">
+    <h2>스펙</h2>
+    <div class="spec">
+      <div>
+        <h3>팔레트</h3>
+        <ul class="pal">
+          <li><i style="background:#1D2B2A"></i>총액 덩어리·본문 <code>#1D2B2A</code></li>
+          <li><i style="background:#5B6B8C"></i>인건비 <code>#5B6B8C</code></li>
+          <li><i style="background:#E07A3F"></i>학교운영비 <code>#E07A3F</code></li>
+          <li><i style="background:#2E9C8A"></i>교육사업비 <code>#2E9C8A</code></li>
+          <li><i style="background:#C9A227"></i>시설비 <code>#C9A227</code></li>
+          <li><i style="background:#F6F7F4"></i>장표 바탕 <code>#F6F7F4</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>글꼴</h3>
+        <p style="margin:0">IBM Plex Sans KR 400·500·700<br>대체: 맑은 고딕, Apple SD 산돌고딕 Neo<br>코드: IBM Plex Mono</p>
+      </div>
+      <div>
+        <h3>난이도</h3>
+        <p style="margin:0">HTML <b>중</b>: 붙여 넣고 배열만 수정<br>PPT <b>중하</b>: 도형 이름 맞추기 + 모핑</p>
+      </div>
+      <div>
+        <h3>반영 트렌드와 출처</h3>
+        <p style="margin:0">스크롤텔링(sticky 고정 + 단계 공개): <a href="https://pudding.cool/process/how-to-implement-scrollytelling/" rel="noopener">The Pudding, How to implement scrollytelling</a>, <a href="https://www.nytimes.com/projects/2012/snow-fall/" rel="noopener">NYT Snow Fall</a><br>데이터 단순화: Cole Nussbaumer Knaflic, 『Storytelling with Data』<br>모핑 !! 명명: Microsoft 지원 문서 “모핑 전환 팁”</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="fine">○○교육청은 가상 기관이며 금액·비율은 모두 설명을 위한 가상 예시입니다.</footer>
+</main>
+
+<script>
+(function(){
+  // 스크롤 위치 → 장표 단계 (버튼으로 넘긴 뒤에는 다음 스크롤 구간 진입 때 다시 맞춤)
+  const deck = document.querySelector('.bm-deck');
+  const steps = [...document.querySelectorAll('.step')];
+  let lastIdx = 0, ticking = false;
+  function sync(){
+    ticking = false;
+    const line = innerHeight * 0.78;
+    let idx = 0;
+    steps.forEach((s,i)=>{ if(s.getBoundingClientRect().top < line) idx = i; });
+    if(idx !== lastIdx){ lastIdx = idx; deck.bmGo && deck.bmGo(idx, 'scroll'); }
+  }
+  addEventListener('scroll', ()=>{ if(!ticking){ ticking = true; requestAnimationFrame(sync); } }, {passive:true});
+
+  const btn = document.getElementById('copyBtn'), code = document.getElementById('code');
+  btn.addEventListener('click', ()=>{
+    const done = ()=>{ btn.textContent = '복사됨'; setTimeout(()=>btn.textContent='코드 복사', 1600); };
+    const fallback = ()=>{ const r=document.createRange(); r.selectNodeContents(code); const s=getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='선택됨 · Ctrl+C'; };
+    try { navigator.clipboard.writeText(code.textContent).then(done, fallback); } catch(e){ fallback(); }
+  });
+})();
+</script>
+
+</body></html>
