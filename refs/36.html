@@ -1,0 +1,493 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #36 유지선을 넘는 유리 적층</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700;900&family=IBM+Plex+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500;700&display=swap">
+<style>
+/* 레이아웃: 맨 위 16:9 도식 장표 → 설명 → 코드 → PPT → 스펙. 밝은 단일 테마(의도적 고정) */
+:root{
+  --paper:#F4F7F8; --card:#FFFFFF; --ink:#12303A; --mute:#5E7A83; --line:#D5E1E4;
+  --teal:#3FA9A1; --amber:#E8972A; --sky:#2F7FD8;
+  --f-disp:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",Consolas,"D2Coding",monospace;
+  color-scheme:light;
+}
+body{background:var(--paper);color:var(--ink);word-break:keep-all;font-family:var(--f-body);font-size:16px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:grid;gap:44px}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 20px}
+.top h1{font-family:var(--f-disp);font-weight:900;font-size:clamp(20px,3vw,28px);margin:0;letter-spacing:-.01em;text-wrap:balance}
+.top p{margin:0;color:var(--mute);font-size:14px}
+.ctrls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn{font:600 15px/1 var(--f-body);color:var(--ink);background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:11px 18px;cursor:pointer}
+.btn:hover{background:var(--ink);color:var(--card)}
+.btn:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.stepinfo{font:500 14px/1.4 var(--f-mono);color:var(--mute);align-self:center}
+section h2{font-family:var(--f-disp);font-weight:900;font-size:22px;margin:0 0 14px;letter-spacing:-.01em}
+section h3{font-size:16px;margin:22px 0 8px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px 36px}
+.cols > *,.wrap > *{min-width:0}
+p,li{max-width:68ch}
+ul,ol{padding-left:1.2em;margin:0}
+li{margin:4px 0}
+.mono{font-family:var(--f-mono)}
+.codebox{position:relative;background:#0F2830;color:#E3F1F2;border-radius:10px;overflow:hidden}
+.codebox pre{margin:0;max-height:420px;overflow:auto;padding:18px 18px 18px;font:13px/1.55 var(--f-mono);white-space:pre}
+.codebox .copy{position:absolute;top:10px;right:12px;background:#E3F1F2;color:#0F2830;border:0}
+.codebox .copy:hover{background:#FFFFFF;color:#0F2830}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px;background:var(--card)}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{font-weight:700;background:#E9F1F2}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;font:500 13px/1 var(--f-mono);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:7px 9px}
+.chip i{width:18px;height:18px;border-radius:4px;display:inline-block;border:1px solid rgba(18,48,58,.15)}
+.note{color:var(--mute);font-size:14px}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0}
+dt{font-weight:700}
+dd{margin:0;min-width:0}
+@media (max-width:560px){dl{grid-template-columns:1fr}dd{margin-bottom:8px}}
+</style>
+
+<!-- ============ 컴포넌트 스타일 (복사 대상) ============ -->
+<style id="sg-style">
+/* 유리 적층 도식: 접두어 sg- / 감싸는 요소 .sg 하나로 자기 완결 */
+.sg{
+  --sg-bg:#FFFFFF; --sg-ink:#12303A; --sg-mute:#5E7A83;
+  --sg-plane:#2F7FD8; --sg-key:#E8972A; --sg-ghost:#B9C6CA;
+  --sg-disp:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --sg-mono:"IBM Plex Mono",Consolas,monospace;
+  container-type:inline-size;width:100%;max-width:100%;aspect-ratio:16/9;
+  background:var(--sg-bg);border-radius:1.2cqw;overflow:hidden;
+  box-shadow:0 1px 0 rgba(18,48,58,.06),0 1.2cqw 3cqw rgba(18,48,58,.10);
+}
+.sg svg{display:block;width:100%;height:100%}
+.sg .sg-l{transform-box:view-box}
+@media (prefers-reduced-motion:reduce){.sg *{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>레퍼런스 #36 · 유지선을 넘는 유리 적층</h1>
+    <p>실무형 · 쌓기·누적 · 장애학생 진로·직업교육</p>
+  </header>
+
+  <div>
+    <!-- ============ 컴포넌트 마크업 (복사 대상) ============ -->
+    <div class="sg" id="sg1" role="img" aria-label="지원 다섯 겹이 쌓여 6개월 고용 유지선 70을 넘어 78에 이르는 도식. 현장실습만 운영하면 20에 그친다."></div>
+    <div class="ctrls">
+      <button class="btn" id="sgReplay" type="button">다시 보기</button>
+      <button class="btn" id="sgStep" type="button">한 단계씩</button>
+      <span class="stepinfo" id="sgInfo" aria-live="polite"></span>
+    </div>
+  </div>
+
+  <section>
+    <h2>동작 설명</h2>
+    <div class="cols">
+      <div>
+        <p>왼쪽 회색 판은 <b>현장실습만 운영할 때(20)</b>이고, 그 위 점선 마름모가 넘어야 할 <b>6개월 고용 유지선(70)</b>입니다. 오른쪽에서는 지원이 한 겹씩 떨어져 쌓이면서 오른쪽 위 누적 수치가 올라갑니다. 네 겹까지는 66으로 유지선 아래에 머물고, 마지막 <b>취업 후 적응 지원</b> 한 겹이 유리 평면을 뚫고 올라가야 78이 됩니다.</p>
+        <p>이 장표의 장치는 <b>문턱 평면 관통</b>입니다. 막대그래프의 기준선을 3D 반투명 평면으로 바꿔서, 마지막 판이 평면을 뚫는 순간 "어느 지원이 결정타인가"가 보입니다. 앞의 판들은 평면 아래에서 흐릿하게 비쳐 보이고, 결정타 판만 평면 위로 또렷이 올라옵니다.</p>
+      </div>
+      <div>
+        <h3 style="margin-top:0">응용 예</h3>
+        <ul>
+          <li><b>재원 쌓기</b>: 국비·시도비·자체 예산을 쌓아 사업비 목표선을 넘는 장면. 모자란 재원이 무엇인지 드러납니다.</li>
+          <li><b>연수 이수 시간</b>: 집합·원격·자율 연수 시간을 쌓아 연간 의무 이수 시간(평면)을 넘깁니다.</li>
+          <li><b>안전 다중 방어</b>: 점검·교육·시설 보강을 쌓아 위험 기준선 위로 올라서는 구조. 하나만으로는 못 넘는다는 메시지에 맞습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>HTML로 가져다 쓰기</h2>
+    <div class="cols">
+      <div>
+        <p class="note">아래 코드는 스타일, 마크업, 스크립트를 합친 것으로 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크는 따로 넣으세요(없으면 대체 폰트로 표시됩니다).</p>
+        <ol>
+          <li><span class="mono">SG.layers</span>: 판 이름·짧은 이름·부가 설명·값·색. 판 개수는 3~7개를 권장합니다.</li>
+          <li><span class="mono">SG.goal</span>, <span class="mono">SG.ghost</span>: 유지선 값과 왼쪽 비교 판의 값·이름.</li>
+          <li><span class="mono">SG.title</span>, <span class="mono">SG.eyebrow</span>: 결론형 제목과 계획안 위치 한 줄.</li>
+          <li><span class="mono">SG.K</span>: 값 1당 높이(px). 판 합이 커지면 줄이세요(합×K가 420 이하).</li>
+          <li><span class="mono">key:true</span>로 표시한 판은 강조색(--sg-key)으로 칠해지고 문턱을 넘는 판으로 다뤄집니다.</li>
+        </ol>
+      </div>
+      <div class="codebox">
+        <button class="btn copy" id="sgCopy" type="button">코드 복사</button>
+        <pre id="sgCode" tabindex="0"></pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>PPT로 옮기기</h2>
+    <h3>① 판 만들기 (3차원 서식)</h3>
+    <ol>
+      <li>직사각형을 그리고 <b>도형 서식 › 효과 › 3차원 회전</b>에서 미리 설정 <b>평행: 등각 오른쪽 위</b>를 고릅니다.</li>
+      <li><b>3차원 서식 › 깊이</b>를 판 값×4pt로 줍니다(14 → 56pt). <b>재질</b>은 특수 효과 <b>반투명 분말</b>, <b>조명</b>은 <b>밝은 방</b>으로 두고 채우기 투명도를 15~20%로 맞춥니다.</li>
+      <li>같은 판을 복사해 깊이와 색만 바꾸고 위로 겹쳐 쌓습니다. 유지선은 같은 3차원 회전을 준 큰 직사각형(채우기 투명도 85%, 파선 윤곽)입니다.</li>
+    </ol>
+    <h3>② 애니메이션 순서</h3>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>순서</th><th>대상 개체</th><th>효과(한국어판 이름)</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>회색 비교 판 + 치수선 + "50 부족"</td><td>나타내기 › 밝기 변화</td><td>—</td><td>이전 효과와 함께</td><td>0.50</td><td>0.00</td></tr>
+          <tr><td>1~4</td><td>판 1~4 (각 판과 오른쪽 이름표를 그룹으로)</td><td>나타내기 › 바운드</td><td>—</td><td>이전 효과 다음에</td><td>1.00</td><td>0.15</td></tr>
+          <tr><td>1~4 보조</td><td>누적 숫자 상자(14, 32, 52, 66)</td><td>나타내기 › 나타내기 / 직전 숫자 끝내기 › 사라지기</td><td>—</td><td>이전 효과와 함께</td><td>0.01</td><td>0.60</td></tr>
+          <tr><td>5</td><td>판 5(취업 후 적응 지원)</td><td>나타내기 › 바운드</td><td>—</td><td>이전 효과 다음에</td><td>1.00</td><td>0.30</td></tr>
+          <tr><td>5 마무리</td><td>유지선 평면</td><td>강조 › 채우기 색 (파랑 20%)</td><td>—</td><td>이전 효과와 함께</td><td>0.50</td><td>0.60</td></tr>
+          <tr><td>5 마무리</td><td>"유지선 통과 +8" 딱지</td><td>나타내기 › 확대/축소</td><td>개체 가운데</td><td>이전 효과와 함께</td><td>0.40</td><td>0.80</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>③ 모핑으로 만들 때</h3>
+    <ul>
+      <li>단계마다 슬라이드를 하나씩(0~5단계 = 6장) 복제하고, 다음 슬라이드에서 판을 하나 더 내려놓은 뒤 화면 전환 <b>모핑</b>(효과 옵션 <b>개체</b>, 1.2초)을 겁니다.</li>
+      <li>떨어질 판은 이전 슬라이드에서 화면 위쪽 바깥에 같은 이름으로 미리 둡니다. <b>선택 창</b>에서 이름을 <span class="mono">!!판5</span>처럼 앞에 느낌표 두 개를 붙이면 슬라이드가 달라도 같은 개체로 짝지어 움직입니다. 누적 숫자도 <span class="mono">!!누적</span>으로 이름을 맞추면 글자가 바뀌며 이어집니다.</li>
+    </ul>
+    <h3>④ 그대로 안 되는 동작과 근사법</h3>
+    <ul>
+      <li><b>착지 찌그러짐(스쿼시)</b>: PPT에는 없습니다. 바운드가 비슷한 느낌을 냅니다. 더 가깝게 하려면 판이 떨어진 직후 <b>강조 › 늘이기/줄이기</b>(세로 95%, 0.15초, 자동 반전)를 붙입니다.</li>
+      <li><b>숫자 세기</b>: PPT는 숫자를 올려 세지 못합니다. 숫자 상자를 단계별로 바꿔 끼우거나(위 표 보조 줄) 모핑의 글자 전환으로 근사합니다.</li>
+      <li><b>평면 관통</b>: 판 5를 유지선 평면 아래 조각(4)과 위 조각(8) 두 개로 나눠 평면 앞뒤에 하나씩 둡니다(아래 조각은 평면 뒤, 위 조각은 평면 앞). 번거로우면 판 5를 평면 앞에 통째로 둬도 거의 같아 보입니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>스펙</h2>
+    <dl>
+      <dt>팔레트</dt>
+      <dd><div class="chips">
+        <span class="chip"><i style="background:#12303A"></i>#12303A 먹청</span>
+        <span class="chip"><i style="background:#CFEFEA"></i>#CFEFEA 유리 1</span>
+        <span class="chip"><i style="background:#77C9C0"></i>#77C9C0 유리 3</span>
+        <span class="chip"><i style="background:#3FA9A1"></i>#3FA9A1 유리 4</span>
+        <span class="chip"><i style="background:#E8972A"></i>#E8972A 결정타</span>
+        <span class="chip"><i style="background:#2F7FD8"></i>#2F7FD8 유지선</span>
+      </div></dd>
+      <dt>폰트</dt><dd>제목 Gothic A1 900, 본문 IBM Plex Sans KR, 숫자 IBM Plex Mono (대체: Apple SD Gothic Neo, 맑은 고딕, Consolas)</dd>
+      <dt>난이도</dt><dd>HTML 중 · PPT 중 (3차원 서식만 익히면 판 복제로 끝납니다)</dd>
+      <dt>반영 트렌드</dt><dd>반투명 유리 레이어(리퀴드 글래스: 투명한 면·반사로 깊이를 주는 표현) — <a href="https://garagefarm.net/blog/animation-trends-to-watch" target="_blank" rel="noopener">GarageFarm, Animation trends to watch</a> / 3D 데이터 스토리텔링(막대 대신 높이가 있는 입체로 수치를 설명) — <a href="https://autoae.online/blog/motion-graphics-trends-2026" target="_blank" rel="noopener">AutoAE, Motion graphics trends 2026</a></dd>
+      <dt>표시</dt><dd>가상 교육청 계획안의 가상 예시이며, 수치는 구조 설명용입니다.</dd>
+    </dl>
+  </section>
+</div>
+
+<!-- ============ 컴포넌트 스크립트 (복사 대상) ============ -->
+<script id="sg-script">
+/* 유리 적층 도식 — 데이터와 단계는 SG 하나에서 바꾼다 */
+const SG = {
+  eyebrow: '2027 장애학생 진로·직업교육 내실화 계획(안) › Ⅲ-2. 단계별 전환 지원',
+  eyebrowShort: 'Ⅲ-2. 단계별 전환 지원',
+  title: '다섯 겹을 쌓아야 고용 유지선을 넘습니다',
+  titleShort: ['다섯 겹을 쌓아야', '고용 유지선을 넘습니다'],
+  tag: '가상 예시',
+  goal: { v: 70, name: '유지선' },
+  ghost: { v: 20, name: '현장실습만 운영' },
+  stackName: '다섯 겹 연계 운영',
+  K: 5.1,             // 값 1당 높이(px, 1600×900 기준)
+  layers: [           // 아래에서 위로 쌓이는 순서
+    { name: '직업평가·진로상담',   short: '진로상담', sub: '1학기 · 전원',        v: 14, col: '#CFEFEA' },
+    { name: '개별화 전환교육과정', short: '전환교육', sub: '주 6시간',            v: 18, col: '#A6E0D8' },
+    { name: '지역 사업체 현장실습', short: '현장실습', sub: '12주 · 32곳',         v: 20, col: '#77C9C0' },
+    { name: '취업 동행 코치',      short: '동행코치', sub: '면접·첫 출근 동행',   v: 14, col: '#3FA9A1' },
+    { name: '취업 후 적응 지원',   short: '적응지원', sub: '6개월 · 월 2회 방문', v: 12, col: '#E8972A', key: true }
+  ]
+};
+
+(function () {
+  const root = document.querySelector('.sg');
+  if (!root) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const W = 1600, H = 900;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 장면 좌표: 오른쪽 적층 / 왼쪽 비교 판 (바닥 중심의 화면 좌표)
+  const M = { ox: 860, oy: 786, a: 200 }, G = { ox: 300, oy: 786, a: 200 };
+  const PLANE_A = 440;
+  // 등각 투영 (x,y = 바닥, z = 높이)
+  const P = (o, x, y, z) => [o.ox + (x - y) * 0.9, o.oy + (x + y) * 0.32 - z * SG.K];
+  const pts = a => a.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+
+  function el(tag, attrs, parent, text) {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  // 색 섞기: 유리면의 밝은 윗면·어두운 옆면
+  function mix(hex, t, to) {
+    const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
+    const d = to === 'w' ? [255, 255, 255] : [18, 48, 58];
+    return 'rgb(' + c.map((v, i) => Math.round(v + (d[i] - v) * t)).join(',') + ')';
+  }
+
+  // 유리 상자 한 개 (z0~z1). top=false면 윗면 생략
+  function box(g, o, a, z0, z1, col, opt) {
+    opt = opt || {};
+    const h = a / 2;
+    const B = z => P(o, -h, -h, z), R = z => P(o, h, -h, z), F = z => P(o, h, h, z), L = z => P(o, -h, h, z);
+    const op = opt.op ?? 0.88;
+    el('polygon', { points: pts([L(z1), F(z1), F(z0), L(z0)]), fill: mix(col, 0.08, 'k'), 'fill-opacity': op, stroke: mix(col, 0.45, 'k'), 'stroke-opacity': .5, 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, g);
+    el('polygon', { points: pts([F(z1), R(z1), R(z0), F(z0)]), fill: mix(col, 0.26, 'k'), 'fill-opacity': op, stroke: mix(col, 0.45, 'k'), 'stroke-opacity': .5, 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, g);
+    // 유리 반사띠: 왼쪽 면 위쪽에 얇은 빛
+    const t = Math.min(10, (z1 - z0) * SG.K * 0.18) / SG.K;
+    el('polygon', { points: pts([L(z1), F(z1), F(z1 - t), L(z1 - t)]), fill: '#FFFFFF', 'fill-opacity': .35 }, g);
+    if (opt.top !== false) {
+      el('polygon', { points: pts([B(z1), R(z1), F(z1), L(z1)]), fill: mix(col, 0.45, 'w'), 'fill-opacity': Math.min(1, op + .06), stroke: mix(col, 0.45, 'k'), 'stroke-opacity': .45, 'stroke-width': 1.2, 'stroke-linejoin': 'round' }, g);
+      // 윗면 앞 모서리 하이라이트
+      el('polyline', { points: pts([L(z1), F(z1), R(z1)]), fill: 'none', stroke: '#FFFFFF', 'stroke-width': 2.2, 'stroke-opacity': .9, 'stroke-linejoin': 'round' }, g);
+    }
+    return { F, R, L, B };
+  }
+
+  let svg, items = [], mode = '', state = 0, playing = null;
+
+  function build() {
+    const narrow = root.clientWidth < 600;
+    mode = narrow ? 'n' : 'w';
+    root.innerHTML = '';
+    svg = el('svg', { viewBox: `0 0 ${W} ${H}`, 'aria-hidden': 'true' }, root);
+    items = [];
+    const ink = getComputedStyle(root).getPropertyValue('--sg-ink').trim() || '#12303A';
+    const mute = getComputedStyle(root).getPropertyValue('--sg-mute').trim() || '#5E7A83';
+    const planeC = getComputedStyle(root).getPropertyValue('--sg-plane').trim() || '#2F7FD8';
+    const keyC = getComputedStyle(root).getPropertyValue('--sg-key').trim() || '#E8972A';
+    const ghostC = getComputedStyle(root).getPropertyValue('--sg-ghost').trim() || '#B9C6CA';
+    const disp = 'font-family:' + getComputedStyle(root).getPropertyValue('--sg-disp');
+    const mono = 'font-family:' + getComputedStyle(root).getPropertyValue('--sg-mono');
+    const goal = SG.goal.v, total = SG.layers.reduce((s, l) => s + l.v, 0);
+
+    // 배경: 아주 옅은 바닥 격자
+    const floor = el('g', { opacity: .55 }, svg);
+    for (let i = -6; i <= 6; i++) {
+      const s = i * 60;
+      el('line', { x1: 860 + (s - 420) * .9 - 400, y1: 786 + (s + 420) * .32 - 20, x2: 860 + (s + 420) * .9 - 400, y2: 786 + (s - 420) * .32 - 20, stroke: '#E3ECEE', 'stroke-width': 1 }, floor);
+    }
+    // 바닥 그림자
+    el('ellipse', { cx: M.ox, cy: M.oy + 18, rx: 230, ry: 70, fill: ink, 'fill-opacity': .07 }, svg);
+    el('ellipse', { cx: G.ox, cy: G.oy + 18, rx: 210, ry: 62, fill: ink, 'fill-opacity': .06 }, svg);
+
+    // 머리: 계획안 위치 + 결론형 제목 + 가상 예시
+    if (narrow) {
+      el('text', { x: 64, y: 70, 'font-size': 32, fill: mute, style: disp, 'font-weight': 700 }, svg, SG.eyebrowShort);
+      SG.titleShort.forEach((t, i) => el('text', { x: 64, y: 150 + i * 82, 'font-size': 76, fill: ink, style: disp, 'font-weight': 900, 'letter-spacing': -2 }, svg, t));
+    } else {
+      el('text', { x: 64, y: 84, 'font-size': 22, fill: mute, style: disp, 'font-weight': 700 }, svg, SG.eyebrow);
+      el('text', { x: 64, y: 160, 'font-size': 62, fill: ink, style: disp, 'font-weight': 900, 'letter-spacing': -1.5 }, svg, SG.title);
+    }
+    el('rect', { x: 1418, y: 52, width: 124, height: 36, rx: 18, fill: 'none', stroke: mute, 'stroke-width': 1.5 }, svg);
+    el('text', { x: 1480, y: 77, 'font-size': 19, fill: mute, 'text-anchor': 'middle', style: disp, 'font-weight': 700 }, svg, SG.tag);
+
+    // 0단계: 비교 판(회색) + 비어 있는 유지선 높이 + 치수선
+    const g0 = el('g', { class: 'sg-l' }, svg);
+    box(g0, G, G.a, 0, SG.ghost.v, ghostC, { op: .8 });
+    const gh = G.a / 2;
+    el('polygon', { points: pts([P(G, -gh, -gh, goal), P(G, gh, -gh, goal), P(G, gh, gh, goal), P(G, -gh, gh, goal)]), fill: planeC, 'fill-opacity': .05, stroke: planeC, 'stroke-width': 2, 'stroke-dasharray': '8 7' }, g0);
+    const d0 = P(G, gh, gh, SG.ghost.v), d1 = P(G, gh, gh, goal);
+    el('line', { x1: d0[0], y1: d0[1] - 4, x2: d1[0], y2: d1[1] + 4, stroke: ink, 'stroke-width': 2 }, g0);
+    [d0[1] - 4, d1[1] + 4].forEach(y => el('line', { x1: d0[0] - 10, y1: y, x2: d0[0] + 10, y2: y, stroke: ink, 'stroke-width': 2 }, g0));
+    el('text', { x: d0[0] - 18, y: (d0[1] + d1[1]) / 2 + 12, 'font-size': narrow ? 46 : 34, fill: ink, 'text-anchor': 'end', style: mono, 'font-weight': 700 }, g0, (goal - SG.ghost.v) + ' 부족');
+    el('text', { x: G.ox, y: 886, 'font-size': narrow ? 38 : 22, fill: mute, 'text-anchor': 'middle', style: disp, 'font-weight': 700 }, g0, SG.ghost.name + ' · ' + SG.ghost.v);
+    items.push({ step: 0, g: g0, kind: 'fade' });
+
+    // 1~N단계: 판. 유지선을 걸치는 판은 평면 아래·위 두 조각
+    let z = 0;
+    const later = [];
+    const planeLayer = el('g', {}, svg);   // 평면 자리(그리는 순서 확보)
+    const after = el('g', {}, svg);
+    SG.layers.forEach((L, i) => {
+      const z0 = z, z1 = z + L.v; z = z1;
+      const origin = `${M.ox}px ${M.oy + 64 - z0 * SG.K}px`;
+      const groups = [];
+      if (z0 < goal && z1 > goal) {
+        const lo = el('g', { class: 'sg-l' }, svg); svg.insertBefore(lo, planeLayer);
+        box(lo, M, M.a, z0, goal, L.col, { top: false });
+        const hi = el('g', { class: 'sg-l' }, after);
+        box(hi, M, M.a, goal, z1, L.col);
+        groups.push(lo, hi);
+      } else {
+        const g = el('g', { class: 'sg-l' }, z1 <= goal ? svg : after);
+        if (z1 <= goal) svg.insertBefore(g, planeLayer);
+        box(g, M, M.a, z0, z1, L.col);
+        groups.push(g);
+      }
+      groups.forEach(g => (g.style.transformOrigin = origin));
+      // 오른쪽 면에 값 인쇄 (등각 기울임)
+      const tg = groups[groups.length - 1];
+      const fm = P(M, M.a / 2, 0, (z0 + z1) / 2);
+      el('text', { transform: `translate(${fm[0] + 4},${fm[1] + 12}) skewY(-19.6)`, 'font-size': narrow ? 40 : 30, fill: L.key ? '#5A3307' : ink, 'fill-opacity': .82, 'text-anchor': 'middle', style: mono, 'font-weight': 700 }, tg, '+' + L.v);
+      // 이름표 (오른쪽 열, 판 높이에 맞춤)
+      const rc = P(M, M.a / 2, -M.a / 2, (z0 + z1) / 2);
+      const lab = el('g', { class: 'sg-l' }, svg);
+      el('line', { x1: rc[0] + 10, y1: rc[1], x2: 1282, y2: rc[1], stroke: ink, 'stroke-width': 1.5, 'stroke-opacity': .55 }, lab);
+      el('circle', { cx: rc[0] + 10, cy: rc[1], r: 4.5, fill: ink }, lab);
+      if (narrow) {
+        el('text', { x: 1296, y: rc[1] + 15, 'font-size': 44, fill: L.key ? keyC : ink, style: disp, 'font-weight': 900 }, lab, L.short);
+      } else {
+        el('text', { x: 1296, y: rc[1] + 3, 'font-size': 25, fill: L.key ? '#B86A0C' : ink, style: disp, 'font-weight': 900 }, lab, L.name);
+        el('text', { x: 1296, y: rc[1] + 31, 'font-size': 18, fill: mute, style: disp, 'font-weight': 700 }, lab, L.sub);
+      }
+      later.push(lab);
+      items.push({ step: i + 1, g: groups, lab, kind: 'drop', z1 });
+    });
+    svg.appendChild(after);
+    later.forEach(l => svg.appendChild(l));
+
+    // 유지선 평면 (항상 보임, 마지막 단계에 빛남)
+    const ph = PLANE_A / 2;
+    const corners = [P(M, -ph, -ph, goal), P(M, ph, -ph, goal), P(M, ph, ph, goal), P(M, -ph, ph, goal)];
+    const plane = el('polygon', { points: pts(corners), fill: planeC, 'fill-opacity': .1, stroke: planeC, 'stroke-width': 2.2, 'stroke-dasharray': '10 8' }, planeLayer);
+    for (let k = 1; k < 4; k++) {
+      const s = -ph + k * PLANE_A / 4;
+      el('line', { x1: P(M, s, -ph, goal)[0], y1: P(M, s, -ph, goal)[1], x2: P(M, s, ph, goal)[0], y2: P(M, s, ph, goal)[1], stroke: planeC, 'stroke-opacity': .22, 'stroke-width': 1 }, planeLayer);
+      el('line', { x1: P(M, -ph, s, goal)[0], y1: P(M, -ph, s, goal)[1], x2: P(M, ph, s, goal)[0], y2: P(M, ph, s, goal)[1], stroke: planeC, 'stroke-opacity': .22, 'stroke-width': 1 }, planeLayer);
+    }
+    // 평면 이름표 (왼쪽 모서리)
+    const lc = corners[3];
+    const pl = el('g', {}, planeLayer);
+    // 평면 왼쪽 쐐기 안쪽에 놓아 비교 판의 점선과 겹치지 않게
+    const plw = narrow ? 180 : 140, plh = narrow ? 56 : 40;
+    el('rect', { x: lc[0] + 40, y: lc[1] - plh / 2, width: plw, height: plh, rx: plh / 2, fill: planeC }, pl);
+    el('text', { x: lc[0] + 40 + plw / 2, y: lc[1] + plh * .18 + 4, 'font-size': narrow ? 34 : 21, fill: '#FFFFFF', 'text-anchor': 'middle', style: disp, 'font-weight': 900 }, pl, SG.goal.name + ' ' + goal);
+    // 판 5가 평면을 뚫는 자리: 절단선 (마지막 단계)
+    const fin = el('g', { class: 'sg-l' }, svg);
+    const ah = M.a / 2;
+    el('polyline', { points: pts([P(M, -ah, ah, goal), P(M, ah, ah, goal), P(M, ah, -ah, goal)]), fill: 'none', stroke: planeC, 'stroke-width': 3.2, 'stroke-linejoin': 'round' }, fin);
+    // 통과 딱지
+    const top = P(M, -ah, -ah, total);
+    const st = el('g', {}, fin);
+    el('rect', { x: top[0] - 150, y: top[1] - 66, width: 300, height: 50, rx: 25, fill: keyC }, st);
+    el('text', { x: top[0], y: top[1] - 31, 'font-size': narrow ? 34 : 25, fill: '#FFFFFF', 'text-anchor': 'middle', style: disp, 'font-weight': 900 }, st, '유지선 통과 +' + (total - goal));
+    items.push({ step: SG.layers.length, g: fin, kind: 'fin', plane });
+    el('text', { x: M.ox, y: 886, 'font-size': narrow ? 38 : 22, fill: ink, 'text-anchor': 'middle', style: disp, 'font-weight': 700 }, svg, SG.stackName + ' · ' + total);
+
+    // 누적 계기 (오른쪽 위)
+    const rg = el('g', {}, svg);
+    if (!narrow) el('text', { x: 1296, y: 238, 'font-size': 18, fill: mute, style: disp, 'font-weight': 700 }, rg, '누적 / 유지선');
+    const num = el('text', { x: 1296, y: narrow ? 352 : 312, 'font-size': narrow ? 96 : 72, fill: ink, style: mono, 'font-weight': 700 }, rg, '0');
+    const den = el('text', { x: 1296, y: narrow ? 352 : 312, 'font-size': narrow ? 48 : 34, fill: mute, style: mono, 'font-weight': 500 }, rg, '/ ' + goal);
+    root._sg = { num, den, plane, total, goal };
+  }
+
+  // 단계 k까지 완료된 정지 상태 그리기
+  function render(k) {
+    items.forEach(it => {
+      const show = it.step < k;
+      [].concat(it.g).forEach(g => { g.getAnimations().forEach(a => a.cancel()); g.style.opacity = show ? 1 : 0; g.style.transform = ''; });
+      if (it.lab) { it.lab.getAnimations().forEach(a => a.cancel()); it.lab.style.opacity = show ? 1 : 0; }
+      if (it.kind === 'fin') { it.plane.setAttribute('fill-opacity', show ? .2 : .1); it.plane.setAttribute('stroke-dasharray', show ? 'none' : '10 8'); }
+    });
+    setNum(sumAt(k));
+    info(k);
+  }
+  const sumAt = k => SG.layers.slice(0, Math.max(0, k - 1)).reduce((s, l) => s + l.v, 0);
+  function setNum(v) {
+    const s = root._sg; s.num.textContent = v;
+    s.num.setAttribute('fill', v >= s.goal ? (getComputedStyle(root).getPropertyValue('--sg-key').trim() || '#E8972A') : (getComputedStyle(root).getPropertyValue('--sg-ink').trim() || '#12303A'));
+    s.den.setAttribute('x', 1296 + s.num.getComputedTextLength() + 14);
+  }
+  function info(k) {
+    const out = document.getElementById('sgInfo');
+    if (!out) return;
+    const names = ['비교 기준'].concat(SG.layers.map(l => l.short));
+    out.textContent = k === 0 ? '0 / ' + names.length + ' 단계' : k + ' / ' + names.length + ' · ' + names[k - 1];
+  }
+
+  // 단계 하나 재생 (Web Animations API)
+  function animateStep(k) {
+    const its = items.filter(it => it.step === k);
+    const anims = [];
+    its.forEach(it => {
+      const gs = [].concat(it.g);
+      if (it.kind === 'fade') {
+        gs.forEach(g => { g.style.opacity = 1; anims.push(g.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 500, easing: 'ease-out' })); });
+      } else if (it.kind === 'drop') {
+        // 무게 있는 낙하: 가속해 떨어지고 착지 때 눌렸다 살짝 튀어 오른다
+        gs.forEach(g => {
+          g.style.opacity = 1;
+          anims.push(g.animate([
+            { transform: 'translateY(-560px)', opacity: 0, easing: 'cubic-bezier(.55,0,1,.45)' },
+            { transform: 'translateY(-300px)', opacity: 1, offset: .3, easing: 'cubic-bezier(.55,0,1,.45)' },
+            { transform: 'translateY(0) scale(1.04,.86)', offset: .62, easing: 'ease-out' },
+            { transform: 'translateY(-12px) scale(.99,1.03)', offset: .8, easing: 'ease-in' },
+            { transform: 'translateY(0) scale(1,1)' }
+          ], { duration: 900 }));
+        });
+        it.lab.style.opacity = 1;
+        anims.push(it.lab.animate([{ opacity: 0, transform: 'translateX(24px)' }, { opacity: 1, transform: 'none' }], { duration: 380, delay: 520, fill: 'backwards', easing: 'ease-out' }));
+        // 착지 순간 숫자 올리기
+        const from = sumAt(k), to = sumAt(k + 1);
+        setTimeout(() => countTo(from, to, 360), 560);
+      } else if (it.kind === 'fin') {
+        const g = it.g; g.style.opacity = 1;
+        anims.push(g.animate([{ opacity: 0, transform: 'scale(.9)' }, { opacity: 1, transform: 'scale(1)' }], { duration: 420, delay: 760, fill: 'backwards', easing: 'cubic-bezier(.2,1.4,.4,1)' }));
+        setTimeout(() => { it.plane.setAttribute('fill-opacity', .2); it.plane.setAttribute('stroke-dasharray', 'none'); }, 700);
+      }
+    });
+    info(k + 1);
+    return Promise.all(anims.map(a => a.finished.catch(() => {})));
+  }
+  function countTo(a, b, ms) {
+    const t0 = performance.now();
+    (function f(t) { const p = Math.min(1, (t - t0) / ms); setNum(Math.round(a + (b - a) * p)); if (p < 1) requestAnimationFrame(f); })(t0);
+  }
+
+  const N = SG.layers.length + 1;           // 0단계(비교) + 판 수
+  async function play() {
+    const id = playing = {};
+    render(0); state = 0;
+    for (let k = 0; k < N; k++) {
+      // 마지막 판과 통과 딱지는 같은 단계로 함께 재생
+      const p = animateStep(k);
+      if (k === N - 1) { /* 판 N과 fin은 step N-1/N */ }
+      await p; if (playing !== id) return;
+      state = k + 1;
+      await new Promise(r => setTimeout(r, 160));
+      if (playing !== id) return;
+    }
+  }
+  function step() {
+    playing = null;
+    if (state >= N) state = 0;
+    render(state);
+    animateStep(state);
+    state++;
+  }
+  // fin 항목은 마지막 판과 같은 단계에 속하도록 단계 번호 보정
+  function fixFin() { items.forEach(it => { if (it.kind === 'fin') it.step = N - 1; }); }
+
+  build(); fixFin(); render(N); state = N;
+  new ResizeObserver(() => {
+    const m = root.clientWidth < 600 ? 'n' : 'w';
+    if (m !== mode) { playing = null; build(); fixFin(); render(state); }
+  }).observe(root);
+
+  const rb = document.getElementById('sgReplay'), sb = document.getElementById('sgStep');
+  if (rb) rb.addEventListener('click', () => reduce ? render(N) : play());
+  if (sb) sb.addEventListener('click', () => { if (reduce) { playing = null; if (state >= N) state = 0; state++; render(state); return; } step(); });
+  // 열면 완성 도식을 잠깐 보여 주고 처음부터 한 번 재생
+  if (!reduce) setTimeout(play, 1200);
+})();
+</script>
+
+<script>
+/* 복사용 코드 블록: 실제 컴포넌트 소스를 그대로 모은다 */
+(function () {
+  const css = document.getElementById('sg-style').textContent.trim();
+  const js = document.getElementById('sg-script').textContent.trim();
+  const code = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;900&family=IBM+Plex+Mono:wght@500;700&display=swap">\n<style>\n' + css + '\n</style>\n\n<div class="sg" role="img" aria-label="지원 적층 도식"></div>\n<button id="sgReplay" type="button">다시 보기</button>\n<button id="sgStep" type="button">한 단계씩</button>\n<span id="sgInfo"></span>\n\n<script>\n' + js + '\n<\/script>';
+  const pre = document.getElementById('sgCode');
+  pre.textContent = code;
+  const btn = document.getElementById('sgCopy');
+  btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = '복사됨'; setTimeout(() => (btn.textContent = '코드 복사'), 1600); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨 · Ctrl+C'; };
+    try { navigator.clipboard.writeText(code).then(done, fallback); } catch (e) { fallback(); }
+  });
+})();
+</script>
+
+</body></html>

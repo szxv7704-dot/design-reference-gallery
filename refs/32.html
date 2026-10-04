@@ -79,7 +79,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15
 
 /* 차트 조각 */
 .chart-h{font-family:var(--f-hand);font-weight:700;font-size:max(11px,2cqw);line-height:1;white-space:nowrap}
-.cell{display:flex;flex-direction:column;justify-content:flex-end;gap:.35cqw;padding:1cqw 1.2cqw 1.5cqw;font-family:var(--f-body);font-weight:700;line-height:1.1}
+.cell{box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-end;gap:.35cqw;padding:1cqw 1.2cqw 1.5cqw;font-family:var(--f-body);font-weight:700;line-height:1.1}
 .cell .lb{font-size:max(10px,1.6cqw);letter-spacing:-.01em}
 .cell .num{font-family:var(--f-display);font-weight:400;font-size:var(--n,4cqw);line-height:.95}
 .cell .num i{font-style:normal;font-size:.45em;margin-left:.08em}
@@ -259,5 +259,6 @@ document.getElementById('replay').addEventListener('click',function(){
   c.classList.add('replay');void c.offsetWidth;c.classList.remove('replay');
 });
 </script>
+
 
 </body></html>
