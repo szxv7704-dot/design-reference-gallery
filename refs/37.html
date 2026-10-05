@@ -1,0 +1,374 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #37 두 가닥 한 올</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* 레이아웃: 맨 위 16:9 표지(캔버스 실 + HTML 글자), 아래는 좁은 읽기 열에 장치·흐름 메모·스펙 */
+:root{
+  --paper:#F7F7F4;   /* 표지 바탕: 깨끗한 미색 흰 */
+  --ink:#1B2340;     /* 제목 먹색(남색 기운) */
+  --blue:#2F5BD3;    /* 유치원 가닥 */
+  --gold:#F0A93B;    /* 어린이집 가닥 */
+  --band:#FFFFFF;    /* 볼밴드 종이 */
+  --mute:#5D6478;
+  --line:#DADCE3;
+  --page:#EEF0F3;
+  --f-display:"Black Han Sans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"DM Mono","Noto Sans KR",Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--page);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;padding-inline:16px;padding-block:20px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+/* ── 표지 ── */
+.cover{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;background:var(--paper);border-radius:6px;overflow:hidden;box-shadow:0 1px 2px rgba(27,35,64,.08),0 12px 40px rgba(27,35,64,.10)}
+.cover canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cv-txt{position:absolute;margin:0}
+.cv-eyebrow{left:6cqw;top:5.6cqw;font-weight:700;font-size:1.85cqw;letter-spacing:.02em;color:var(--ink)}
+.cv-eyebrow b{color:var(--blue);font-weight:900}
+.cv-title{left:5.6cqw;top:8.6cqw;font-family:var(--f-display);font-weight:400;font-size:7.4cqw;line-height:1.02;letter-spacing:-.01em;color:var(--ink)}
+.cv-title .l2{display:block;font-size:9.6cqw;margin-top:.4cqw}
+.cv-sub{left:6cqw;top:27.6cqw;font-size:1.9cqw;font-weight:500;color:var(--mute)}
+.cv-lab{font-family:var(--f-mono);font-size:1.6cqw;font-weight:500;color:var(--ink);display:flex;align-items:center;gap:.7cqw;white-space:nowrap}
+.cv-lab i{width:1.2cqw;height:1.2cqw;border-radius:50%;display:inline-block}
+.cv-lab .k{font-family:var(--f-body);font-weight:700;font-size:1.75cqw}
+.lab-a{left:3cqw;top:33.2cqw}
+.lab-b{left:3cqw;top:45.6cqw}
+.lab-t{left:24.6cqw;top:50.8cqw}
+.lab-t::before{content:"";position:absolute;left:5.4cqw;top:-2.6cqw;width:1px;height:2.2cqw;background:var(--ink);opacity:.55}
+.cv-band{left:61cqw;width:30cqw;top:25cqw;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.2cqw}
+.cv-band .mix{font-weight:900;font-size:2.15cqw;letter-spacing:.01em;color:var(--ink)}
+.cv-band .mix em{font-style:normal;color:var(--blue)}
+.cv-band .mix span{color:#C9821A}
+.cv-band .spec{font-family:var(--f-mono);font-size:1.3cqw;letter-spacing:.08em;color:var(--mute)}
+.cv-org{right:4.6cqw;bottom:2.4cqw;text-align:right;font-size:1.5cqw;font-weight:500;color:var(--mute);line-height:1.4}
+.cv-org strong{color:var(--ink);font-weight:700}
+.cv-fake{left:auto;right:4.6cqw;top:3.2cqw;font-family:var(--f-mono);font-size:1.15cqw;color:var(--mute);border:1px solid var(--line);padding:.2cqw .8cqw;border-radius:99px;background:rgba(255,255,255,.7)}
+@container (max-width:560px){
+  .cv-lab,.cv-lab .k{font-size:2.3cqw}
+  .cv-sub{font-size:2.3cqw}
+  .cv-band .mix{font-size:2.5cqw}
+  .cv-band .spec{font-size:1.5cqw;letter-spacing:.03em}
+  .cv-org{font-size:2cqw}
+  .cv-fake{font-size:1.8cqw}
+  .cv-eyebrow{font-size:2.3cqw}
+}
+.cv-ctrl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--mute);margin-top:-28px}
+.btn{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+/* ── 본문 ── */
+section{display:flex;flex-direction:column;gap:14px;max-width:880px}
+h1.pg{font-family:var(--f-display);font-weight:400;font-size:28px;margin:0;letter-spacing:.01em}
+h2{font-size:20px;font-weight:900;margin:0;text-wrap:balance}
+.kicker{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+p{margin:0}
+.dev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.dev article{background:#fff;border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.dev h3{margin:0;font-size:16px;font-weight:900}
+.dev .use{font-size:13.5px;color:var(--mute);border-top:1px dashed var(--line);padding-top:8px;margin-top:auto}
+.tbl{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;font-family:var(--f-mono);letter-spacing:.06em;color:var(--mute);font-weight:500;background:#FAFAFB}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:700;white-space:nowrap}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px 12px}
+.flow div{position:relative;padding:0 10px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.flow div+div{border-left:1px solid var(--line)}
+.flow .st{font-family:var(--f-mono);font-size:11.5px;color:var(--mute);letter-spacing:.06em}
+.flow .yarn{height:14px;border-radius:7px;margin:4px 0}
+.flow b{font-size:14.5px}
+.flow span{font-size:13px;color:var(--mute)}
+.y1{background:linear-gradient(var(--blue),var(--blue)) left/100% 5px no-repeat,linear-gradient(var(--gold),var(--gold)) left bottom/100% 5px no-repeat}
+.y2{background:linear-gradient(var(--blue),var(--blue)) left 3px/100% 5px no-repeat,linear-gradient(var(--gold),var(--gold)) left 7px/100% 5px no-repeat}
+.y3{background:repeating-linear-gradient(60deg,var(--blue) 0 6px,var(--gold) 6px 12px)}
+.y4{background:radial-gradient(circle at 30% 50%,var(--gold) 0 3px,transparent 3.5px),repeating-linear-gradient(60deg,var(--blue) 0 6px,var(--gold) 6px 12px);border-radius:7px 50% 50% 7px}
+.y5{background:repeating-linear-gradient(60deg,var(--blue) 0 6px,var(--gold) 6px 12px);box-shadow:inset 0 0 0 2px var(--ink)}
+dl.spec{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 18px;margin:0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:16px}
+dl.spec dt{font-weight:700;font-size:14px}
+dl.spec dd{margin:0;font-size:14px;min-width:0}
+.sw{display:flex;flex-wrap:wrap;gap:8px}
+.sw span{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12.5px}
+.sw i{width:16px;height:16px;border-radius:3px;border:1px solid rgba(0,0,0,.12)}
+ul.chk{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px;font-size:14px}
+a{color:var(--blue)}
+@media (max-width:720px){
+  .dev{grid-template-columns:minmax(0,1fr)}
+  .flow{grid-template-columns:minmax(0,1fr);gap:12px}
+  .flow div+div{border-left:0;border-top:1px solid var(--line);padding-top:12px}
+  dl.spec{grid-template-columns:minmax(0,1fr)}
+  .cv-ctrl{margin-top:-30px}
+}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:4px">
+    <span class="kicker">Design Reference #37 · 실험형 · 패션·텍스타일</span>
+    <h1 class="pg">두 가닥 한 올</h1>
+    <p style="color:var(--mute);font-size:14px">유보통합 준비 계획안 표지를 <b>합사(두 가닥을 꼬아 만든 실)</b>와 실뭉치의 <b>볼밴드</b>로 디자인한 레퍼런스</p>
+  </header>
+
+  <!-- ① 표지 16:9 -->
+  <div class="cover" id="cover" role="img" aria-label="표지: 파란 가닥과 노란 가닥이 왼쪽에서 들어와 꼬이며 한 올이 되고, 오른쪽 실뭉치로 감긴다. 실뭉치 띠에 혼용률 교육 50 보육 50.">
+    <canvas id="yarn"></canvas>
+    <p class="cv-txt cv-eyebrow"><b>2027</b> 유보통합 준비 추진 계획(안)</p>
+    <h2 class="cv-txt cv-title">두 가닥을 꼬아<span class="l2">한 올로</span></h2>
+    <p class="cv-txt cv-sub">유치원과 어린이집을 하나의 유아학교로 잇는 준비</p>
+    <p class="cv-txt cv-lab lab-a"><i style="background:var(--blue)"></i><span class="k">유치원</span>교육</p>
+    <p class="cv-txt cv-lab lab-b"><i style="background:var(--gold)"></i><span class="k">어린이집</span>보육</p>
+    <p class="cv-txt cv-lab lab-t">꼬임 시작 · 2026 하반기</p>
+    <div class="cv-txt cv-band">
+      <span class="mix">혼용 <em>교육 50</em> · <span>보육 50</span></span>
+      <span class="spec">2 PLY · S TWIST · LOT 2027</span>
+    </div>
+    <p class="cv-txt cv-org"><strong>가온교육청 유아교육과</strong><br>2026. 10.</p>
+    <p class="cv-txt cv-fake">가상 예시</p>
+  </div>
+  <div class="cv-ctrl"><button class="btn" id="replay" type="button">꼬임 다시 보기</button><span>열 때 한 번, 꼬인 실이 실뭉치로 감겨 들어갑니다(동작 줄이기 설정이면 완성 화면만).</span></div>
+
+  <!-- ② 가져갈 장치 -->
+  <section>
+    <span class="kicker">Takeaway</span>
+    <h2>다른 발표에 가져갈 장치</h2>
+    <div class="dev">
+      <article>
+        <h3>혼용률 띠</h3>
+        <p>상징 오브젝트를 감싼 종이 띠에 섬유 혼용률처럼 구성 비율을 적습니다. "교육 50 · 보육 50" 한 줄이 통합의 성격을 말합니다.</p>
+        <p class="use">응용: 협업 사업의 기관 분담률, 예산 재원 구성(국비 60 · 시비 40), 프로그램 시간 배분.</p>
+      </article>
+      <article>
+        <h3>꼬임 시작점 표식</h3>
+        <p>따로 오던 두 선이 꼬이기 시작하는 자리에만 날짜 라벨을 답니다. 선 하나가 시간축 노릇을 하고, 그 점이 통합 시점이 됩니다.</p>
+        <p class="use">응용: 두 부서 합동 TF 출범일, 시범 운영 → 전면 확대 전환점, 기관 간 협약일.</p>
+      </article>
+      <article>
+        <h3>색이 섞여 이어지는 선</h3>
+        <p>두 색 가닥이 꼬인 뒤에도 각 색이 줄무늬로 남습니다. 합쳐도 원래 정체성이 지워지지 않는다는 메시지를 선 하나로 전합니다.</p>
+        <p class="use">응용: 안쪽 장표의 진행선·구분선을 두 색 사선 줄무늬로 통일해 표지와 이어 붙이기.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ③ 흐름 설계 메모 -->
+  <section>
+    <span class="kicker">Flow memo</span>
+    <h2>계획안 구성과 합사 공정 맞추기</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>계획안 구성</th><th>합사 은유</th><th>안쪽 장표 아이디어</th></tr></thead>
+        <tbody>
+          <tr><td>추진 배경</td><td>단사 두 가닥</td><td>파란 가닥(유치원·교육부)과 노란 가닥(어린이집·복지부)을 나란히 놓고 성질을 비교하는 원사 견본 카드</td></tr>
+          <tr><td>목적·방침</td><td>Z 단사를 S로 꼬면 균형</td><td>반대 방향 꼬임이 서로를 잡아 실이 풀리지 않는다는 원리를 방침 한 줄로</td></tr>
+          <tr><td>추진 과제</td><td>정렬 → 예비 꼬임 → 합사 → 감기</td><td>과제 네 개를 공정 네 칸으로. 칸마다 실의 상태가 조금씩 꼬여 감</td></tr>
+          <tr><td>추진 일정</td><td>실 길이 눈금(m)</td><td>한 올의 실을 줄자처럼 펼쳐 월별 눈금과 이정표를 표시</td></tr>
+          <tr><td>기대 효과</td><td>인장 강도 시험</td><td>한 가닥일 때와 꼬인 한 올일 때의 강도 막대를 나란히 비교</td></tr>
+          <tr><td>환류</td><td>다음 로트 번호</td><td>LOT 2027 → LOT 2028, 이번 꼬임 결과를 다음 실 만들기에 반영</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flow" aria-label="발표 흐름 도식">
+      <div><span class="st">01 단사</span><span class="yarn y1"></span><b>추진 배경</b><span>두 체계, 두 가닥</span></div>
+      <div><span class="st">02 정렬</span><span class="yarn y2"></span><b>목적·방침</b><span>같은 방향으로 모으기</span></div>
+      <div><span class="st">03 합사</span><span class="yarn y3"></span><b>추진 과제</b><span>함께 꼬는 일</span></div>
+      <div><span class="st">04 감기</span><span class="yarn y4"></span><b>추진 일정</b><span>한 올을 감아 가는 순서</span></div>
+      <div><span class="st">05 시험</span><span class="yarn y5"></span><b>기대 효과</b><span>한 가닥보다 질긴 실</span></div>
+    </div>
+  </section>
+
+  <!-- ④ 재현 체크 -->
+  <section>
+    <span class="kicker">Check</span>
+    <h2>재현 체크</h2>
+    <ul class="chk">
+      <li><b>빌린 대표 장치 3개</b>: ① 2합사의 두 색 사선 줄무늬(단사 Z 꼬임 → 합사 S 꼬임), ② 실뭉치를 감싼 볼밴드(혼용률·플라이 수·로트 번호), ③ 공처럼 감긴 실뭉치. 실 상품 라벨 전체(세탁 기호·바늘 호수·게이지)는 넣지 않았습니다.</li>
+      <li><b>조사 출처</b>: 볼밴드 표기 항목 — <a href="https://www.dummies.com/article/home-auto-hobbies/crafts/knitting-crocheting/unraveling-a-yarn-label-199050/" target="_blank" rel="noopener">Dummies, Unraveling a Yarn Label</a>, <a href="https://blog.waveplm.com/yarn-bands-the-complete-guide-to-understanding-yarn-labels/" target="_blank" rel="noopener">WavePLM, Yarn Bands Guide</a>. 합사는 단사와 반대 방향으로 꼬아 균형을 잡는다는 방적 원리를 따랐습니다.</li>
+      <li><b>이미지</b>: 사진 쓰지 않음. 실과 실뭉치는 모두 캔버스로 직접 렌더링(좌상단 광원, 구면 음영, 가닥별 사선 비드, 잔털).</li>
+    </ul>
+  </section>
+
+  <!-- ⑤ 스펙 -->
+  <section>
+    <span class="kicker">Spec</span>
+    <h2>스펙</h2>
+    <dl class="spec">
+      <dt>팔레트</dt>
+      <dd><div class="sw">
+        <span><i style="background:#F7F7F4"></i>#F7F7F4 바탕</span>
+        <span><i style="background:#1B2340"></i>#1B2340 제목</span>
+        <span><i style="background:#2F5BD3"></i>#2F5BD3 유치원</span>
+        <span><i style="background:#F0A93B"></i>#F0A93B 어린이집</span>
+        <span><i style="background:#FFFFFF"></i>#FFFFFF 볼밴드</span>
+        <span><i style="background:#5D6478"></i>#5D6478 보조</span>
+      </div></dd>
+      <dt>폰트</dt>
+      <dd>제목 Black Han Sans / 본문·라벨 Noto Sans KR 500·700·900 / 숫자·영문 라벨 DM Mono (대체: Apple SD Gothic Neo, 맑은 고딕, Consolas)</dd>
+      <dt>PPT 이식</dt>
+      <dd>실과 실뭉치는 이 페이지 표지를 고해상도로 캡처해 그림으로 넣거나, 실 사진·3D 렌더 이미지로 대체합니다. 볼밴드는 흰 사각형(양 끝 그라데이션 어둡게, 위아래 변 살짝 휜 자유형)을 실뭉치 위에 얹고 텍스트 상자 두 줄. 동작은 꼬인 실 그림에 <b>닦아내기(왼쪽에서)</b> 1.6초, 이전 효과 다음에.</dd>
+      <dt>난이도</dt>
+      <dd>중 (HTML: 캔버스 렌더링 이해 필요 / PPT: 이미지 활용 시 하)</dd>
+      <dt>반영 트렌드</dt>
+      <dd>표현적 타이포그래피 — 글자가 곧 디자인이 되도록 크기·굵기를 크게 대비(제목 2행 '한 올로'를 더 크게) · 손에 잡히는 재질감(실의 잔털과 구면 음영). 출처: <a href="https://digitalsynopsis.com/design/graphic-design-trends-2026/" target="_blank" rel="noopener">Digital Synopsis, Graphic Design Trends 2026</a></dd>
+    </dl>
+  </section>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var cover=document.getElementById('cover');
+  var cv=document.getElementById('yarn');
+  var ctx=cv.getContext('2d');
+  var BLUE=[47,91,211], GOLD=[240,169,59];
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,u=1,dpr=1,ballLayer=null,progress=1,raf=0;
+
+  // 시드 고정 난수
+  function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function shadeC(c,k){ // k<1 어둡게, k>1 밝게
+    if(k<=1) return 'rgb('+(c[0]*k|0)+','+(c[1]*k|0)+','+(c[2]*k|0)+')';
+    var t=Math.min(1,k-1);return 'rgb('+((c[0]+(255-c[0])*t)|0)+','+((c[1]+(255-c[1])*t)|0)+','+((c[2]+(255-c[2])*t)|0)+')';
+  }
+  // 실 한 마디(비드): 기울어진 타원 + 하이라이트 + 테두리
+  function bead(g,x,y,ang,len,th,col,k,ol){
+    g.save();g.translate(x,y);g.rotate(ang);
+    g.beginPath();g.ellipse(0,0,len/2,th/2,0,0,Math.PI*2);
+    g.fillStyle=shadeC(col,k);g.fill();
+    g.lineWidth=Math.max(.5,th*.05);g.strokeStyle='rgba(20,24,40,'+(ol==null?.22:ol)+')';g.stroke();
+    g.beginPath();g.ellipse(-len*.06,-th*.16,len*.34,th*.16,0,0,Math.PI*2);
+    g.fillStyle='rgba(255,255,255,'+(0.18+0.22*Math.max(0,k-.6))+')';g.fill();
+    g.restore();
+  }
+  function bez(p,t){var m=1-t;return[m*m*m*p[0][0]+3*m*m*t*p[1][0]+3*m*t*t*p[2][0]+t*t*t*p[3][0],m*m*m*p[0][1]+3*m*m*t*p[1][1]+3*m*t*t*p[2][1]+t*t*t*p[3][1]];}
+  function samplePath(p,step){ // 등간격 점
+    var pts=[],prev=bez(p,0),acc=0;pts.push(prev);
+    for(var i=1;i<=600;i++){var q=bez(p,i/600);acc+=Math.hypot(q[0]-prev[0],q[1]-prev[1]);if(acc>=step){pts.push(q);acc=0;}prev=q;}
+    return pts;
+  }
+  function S(a){return a.map(function(v){return[v[0]*u,v[1]*u];});}
+
+  // 경로(단위 u = 표지 폭의 1%)
+  var C={ballX:76.5,ballY:26.5,R:18.6,th:2.15};
+  var pathA=[[-3,38.6],[9,38.6],[19,45.8],[30,47.6]];
+  var pathB=[[-3,52.4],[9,52.4],[19,49.6],[30,47.6]];
+  var pathP=[[30,47.6],[44,48.2],[56,48.6],[66.2,42.2]];
+
+  function drawShadowLine(g,pts,w){
+    g.save();g.lineCap='round';g.lineJoin='round';g.strokeStyle='rgba(27,35,64,.10)';g.lineWidth=w;g.filter='blur('+(u*.5)+'px)';
+    g.beginPath();pts.forEach(function(p,i){i?g.lineTo(p[0]+u*.4,p[1]+u*.9):g.moveTo(p[0]+u*.4,p[1]+u*.9);});g.stroke();g.restore();
+  }
+  function fuzz(g,pts,th,seed,n){
+    var r=rng(seed);g.save();g.lineWidth=Math.max(.5,u*.06);
+    for(var i=0;i<n;i++){var p=pts[(r()*pts.length)|0];var a=r()*Math.PI*2,l=th*(.4+r()*.7);
+      g.strokeStyle='rgba(255,255,255,'+(.25+r()*.3)+')';g.beginPath();g.moveTo(p[0]+Math.cos(a)*th*.35,p[1]+Math.sin(a)*th*.35);
+      g.quadraticCurveTo(p[0]+Math.cos(a+.4)*l*.8,p[1]+Math.sin(a+.4)*l*.8,p[0]+Math.cos(a)*l,p[1]+Math.sin(a)*l);g.stroke();}
+    g.restore();
+  }
+  // 단사(한 가닥): 같은 색 비드를 Z 방향으로 기울여 꼬임 결 표현
+  function drawSingle(g,path,col,seed){
+    var p=S(path),th=C.th*u*.64,pts=samplePath(p,th*.62);
+    drawShadowLine(g,pts,th);
+    for(var i=1;i<pts.length;i++){var a=pts[i-1],b=pts[i];var ang=Math.atan2(b[1]-a[1],b[0]-a[0]);
+      var k=(i%2?0.92:1.04)*(0.94+0.06*Math.cos(ang));bead(g,(a[0]+b[0])/2,(a[1]+b[1])/2,ang-0.55,th*1.05,th,col,k);}
+    fuzz(g,pts,th,seed,pts.length*.6);
+  }
+  // 합사(두 가닥 한 올): 파랑·노랑 비드를 번갈아 S 방향으로
+  function drawPly(g,frac){
+    var p=S(pathP),th=C.th*u,pts=samplePath(p,th*.56);
+    var n=Math.max(1,Math.round(pts.length*frac));
+    drawShadowLine(g,pts.slice(0,n),th*1.05);
+    for(var i=1;i<n;i++){var a=pts[i-1],b=pts[i];var ang=Math.atan2(b[1]-a[1],b[0]-a[0]);
+      bead(g,(a[0]+b[0])/2,(a[1]+b[1])/2,ang+0.62,th*1.18,th*.66,(i%2?BLUE:GOLD),1.0);}
+    fuzz(g,pts.slice(0,n),th,7,n*.7);
+  }
+  // 실뭉치: 무작위 대원(great circle) 수십 개를 감아 앞쪽 반구만 그림
+  function buildBall(){
+    var R=C.R*u,th=C.th*u*.98,size=Math.ceil((R*2+th*6)*dpr);
+    var c=document.createElement('canvas');c.width=size;c.height=size;var g=c.getContext('2d');g.scale(dpr,dpr);
+    var cx=R+th*3,cy=R+th*3,r=rng(37);
+    // 바탕 구(속 실 색): 틈 사이로 보이는 안쪽
+    var rg=g.createRadialGradient(cx-R*.35,cy-R*.4,R*.1,cx,cy,R);rg.addColorStop(0,'#D8C49A');rg.addColorStop(.6,'#8C8FA6');rg.addColorStop(1,'#4A5578');
+    g.fillStyle=rg;g.beginPath();g.arc(cx,cy,R*.985,0,Math.PI*2);g.fill();
+    var L=[-0.45,0.58,0.68],ll=Math.hypot(L[0],L[1],L[2]);L=[L[0]/ll,L[1]/ll,L[2]/ll];
+    var WR=150,AX=[[1,1,1],[1,1,-1],[1,-1,1],[-1,1,1],[1,0,0],[0,1,0],[0,0,1],[0,1,1]];
+    for(var w=0;w<WR;w++){
+      // 임의 법선 → 대원 기저
+      var ax=AX[w%AX.length],n=[ax[0]+(r()-.5)*.7,ax[1]+(r()-.5)*.7,ax[2]+(r()-.5)*.7],nl=Math.hypot(n[0],n[1],n[2]);n=[n[0]/nl,n[1]/nl,n[2]/nl];
+      var a=Math.abs(n[0])<.9?[1,0,0]:[0,1,0];
+      var uu=[n[1]*a[2]-n[2]*a[1],n[2]*a[0]-n[0]*a[2],n[0]*a[1]-n[1]*a[0]];var ul=Math.hypot(uu[0],uu[1],uu[2]);uu=[uu[0]/ul,uu[1]/ul,uu[2]/ul];
+      var vv=[n[1]*uu[2]-n[2]*uu[1],n[2]*uu[0]-n[0]*uu[2],n[0]*uu[1]-n[1]*uu[0]];
+      var lift=1+ (w/WR)*0.02, dt=(th*.48)/R, t0=r()*6.28, seg=0;
+      var prev=null;
+      for(var t=t0;t<t0+Math.PI*2;t+=dt){
+        var P=[Math.cos(t)*uu[0]+Math.sin(t)*vv[0],Math.cos(t)*uu[1]+Math.sin(t)*vv[1],Math.cos(t)*uu[2]+Math.sin(t)*vv[2]];
+        var sx=cx+P[0]*R*lift, sy=cy-P[1]*R*lift; seg++;
+        if(P[2]>0.08&&prev){
+          var dif=Math.max(0,P[0]*L[0]+P[1]*L[1]+P[2]*L[2]);
+          var k=0.42+0.7*dif+0.15*Math.pow(dif,8);
+          var ang=Math.atan2(sy-prev[1],sx-prev[0]);
+          bead(g,(sx+prev[0])/2,(sy+prev[1])/2,ang+0.62,th*1.22,th*.72,(seg%2?BLUE:GOLD),k,.1);
+        }
+        prev=[sx,sy];
+      }
+    }
+    // 가장자리 잔털 + 테두리 어둡게
+    var r2=rng(9);g.lineWidth=Math.max(.5,u*.06);
+    for(var i=0;i<260;i++){var a2=r2()*Math.PI*2,l=th*(.3+r2()*.8);var x0=cx+Math.cos(a2)*R*.99,y0=cy+Math.sin(a2)*R*.99;
+      g.strokeStyle='rgba(255,255,255,'+(.2+r2()*.3)+')';g.beginPath();g.moveTo(x0,y0);g.quadraticCurveTo(x0+Math.cos(a2+.5)*l*.7,y0+Math.sin(a2+.5)*l*.7,x0+Math.cos(a2)*l,y0+Math.sin(a2)*l);g.stroke();}
+    var eg=g.createRadialGradient(cx-R*.25,cy-R*.3,R*.55,cx,cy,R*1.02);eg.addColorStop(0,'rgba(20,24,40,0)');eg.addColorStop(1,'rgba(20,24,40,.32)');
+    g.fillStyle=eg;g.beginPath();g.arc(cx,cy,R*1.01,0,Math.PI*2);g.fill();
+    ballLayer={c:c,ox:cx,oy:cy};
+  }
+  // 볼밴드: 구를 두른 종이 띠(위아래 변이 앞으로 휘어 보임)
+  function drawBand(g){
+    var cx=C.ballX*u,cy=C.ballY*u,R=C.R*u,h=7.4*u,bow=1.3*u,top=cy-h/2-0.3*u;
+    var hw=R*1.012;
+    g.save();
+    g.beginPath();
+    for(var i=0;i<=40;i++){var x=-1+2*i/40;g.lineTo(cx+x*hw,top+bow*Math.sqrt(Math.max(0,1-x*x)));}
+    for(i=40;i>=0;i--){x=-1+2*i/40;g.lineTo(cx+x*hw,top+h+bow*Math.sqrt(Math.max(0,1-x*x)));}
+    g.closePath();
+    g.shadowColor='rgba(27,35,64,.25)';g.shadowBlur=u*.8;g.shadowOffsetY=u*.25;
+    var lg=g.createLinearGradient(cx-hw,0,cx+hw,0);
+    lg.addColorStop(0,'#B9BCC6');lg.addColorStop(.18,'#F1F1EE');lg.addColorStop(.42,'#FFFFFF');lg.addColorStop(.8,'#ECECE8');lg.addColorStop(1,'#A9ACB8');
+    g.fillStyle=lg;g.fill();g.shadowColor='transparent';
+    g.clip();
+    // 위아래 두 색 인쇄 선
+    g.lineWidth=u*.32;
+    [[top+u*.4,BLUE],[top+h-u*.4,GOLD]].forEach(function(o){g.strokeStyle=shadeC(o[1],1);g.beginPath();
+      for(var i=0;i<=40;i++){var x=-1+2*i/40;g.lineTo(cx+x*hw,o[0]+bow*Math.sqrt(Math.max(0,1-x*x)));}g.stroke();});
+    // 양 끝 곡면 그늘
+    var sg=g.createLinearGradient(cx-hw,0,cx+hw,0);sg.addColorStop(0,'rgba(27,35,64,.30)');sg.addColorStop(.12,'rgba(27,35,64,0)');sg.addColorStop(.88,'rgba(27,35,64,0)');sg.addColorStop(1,'rgba(27,35,64,.34)');
+    g.fillStyle=sg;g.fillRect(cx-hw,top-u,hw*2,h+bow+2*u);
+    g.restore();
+  }
+  function render(){
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.fillStyle='#F7F7F4';ctx.fillRect(0,0,W,H);
+    // 바닥 그림자
+    var cx=C.ballX*u,cy=C.ballY*u,R=C.R*u;
+    var sh=ctx.createRadialGradient(cx+u,cy+R*1.02,0,cx+u,cy+R*1.02,R*1.0);sh.addColorStop(0,'rgba(27,35,64,.22)');sh.addColorStop(1,'rgba(27,35,64,0)');
+    ctx.save();ctx.translate(0,cy+R*1.02);ctx.scale(1,.16);ctx.translate(0,-(cy+R*1.02));ctx.fillStyle=sh;ctx.beginPath();ctx.arc(cx+u,cy+R*1.02,R,0,Math.PI*2);ctx.fill();ctx.restore();
+    drawSingle(ctx,pathA,BLUE,11);
+    drawSingle(ctx,pathB,GOLD,13);
+    drawPly(ctx,progress);
+    ctx.drawImage(ballLayer.c,cx-ballLayer.ox,cy-ballLayer.oy,ballLayer.c.width/dpr,ballLayer.c.height/dpr);
+    drawBand(ctx);
+  }
+  function resize(){
+    var r=cover.getBoundingClientRect();W=r.width;H=r.height;u=W/100;dpr=Math.min(2,window.devicePixelRatio||1);
+    cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);buildBall();render();
+  }
+  function play(){
+    if(reduce){progress=1;render();return;}
+    cancelAnimationFrame(raf);var t0=null,dur=1600;
+    function step(ts){if(t0===null)t0=ts;var t=Math.min(1,(ts-t0)/dur);progress=0.04+0.96*(1-Math.pow(1-t,3));render();if(t<1)raf=requestAnimationFrame(step);}
+    raf=requestAnimationFrame(step);
+  }
+  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(resize,120);});
+  document.getElementById('replay').addEventListener('click',play);
+  resize();
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){setTimeout(play,250);});
+})();
+</script>
+
+</body></html>
