@@ -1,0 +1,457 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #38 열섬 육각 지형</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+
+<style>
+/* 페이지(문서) 영역 — 밝은 단일 테마. 레이아웃: 맨 위 16:9 장표, 아래로 설명·코드·PPT·스펙 문서 */
+:root{
+  --pg-bg:#EDF1EE; --pg-paper:#FFFFFF; --pg-ink:#17201D; --pg-sub:#55605B; --pg-line:#D5DDD8;
+  --pg-teal:#0E8C88; --pg-heat:#E2553A; --pg-code:#F4F7F5;
+  --pg-sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+  --pg-mono:"IBM Plex Mono","D2Coding",Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-sans);font-size:15px;line-height:1.65}
+.pg{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:20px 64px;display:grid;gap:44px}
+.pg-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;justify-content:space-between;font-size:13px;color:var(--pg-sub)}
+.pg-head b{font-family:var(--pg-mono);color:var(--pg-ink);font-weight:600;letter-spacing:.04em}
+.pg section{display:grid;gap:14px;min-width:0}
+.pg h2{font-size:21px;line-height:1.3;margin:0;text-wrap:balance}
+.pg h2 small{display:block;font-family:var(--pg-mono);font-size:11.5px;letter-spacing:.12em;color:var(--pg-teal);font-weight:600;margin-bottom:4px}
+.pg p{margin:0;max-width:68ch}
+.pg-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.pg-card{background:var(--pg-paper);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px;min-width:0}
+.pg-card h3{margin:0 0 6px;font-size:15px}
+.pg-card p,.pg-card li{font-size:14px;color:var(--pg-sub)}
+.pg-card ul{margin:0;padding-left:18px}
+.pg-tablewrap{overflow-x:auto;background:var(--pg-paper);border:1px solid var(--pg-line);border-radius:6px}
+.pg table{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px}
+.pg th,.pg td{padding:9px 12px;border-bottom:1px solid var(--pg-line);text-align:left;vertical-align:top}
+.pg th{font-size:12px;color:var(--pg-sub);font-weight:600;background:var(--pg-code)}
+.pg tr:last-child td{border-bottom:0}
+.pg code{font-family:var(--pg-mono);font-size:.9em;background:var(--pg-code);padding:1px 5px;border-radius:3px}
+.pg-codebox{position:relative;min-width:0}
+.pg-codebox pre{margin:0;max-height:360px;overflow:auto;background:var(--pg-code);border:1px solid var(--pg-line);border-radius:6px;padding:16px;font-family:var(--pg-mono);font-size:12px;line-height:1.55;color:var(--pg-ink)}
+.pg-copy{position:absolute;top:10px;right:10px;font:600 13px var(--pg-sans);background:var(--pg-ink);color:#FFFFFF;border:0;border-radius:4px;padding:7px 12px;cursor:pointer}
+.pg-copy:focus-visible{outline:3px solid var(--pg-teal);outline-offset:2px}
+.pg-swatches{display:flex;flex-wrap:wrap;gap:10px}
+.pg-sw{display:grid;gap:4px;font-family:var(--pg-mono);font-size:11.5px;color:var(--pg-sub)}
+.pg-sw i{display:block;width:72px;height:40px;border-radius:4px;border:1px solid var(--pg-line)}
+.pg-flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13.5px}
+.pg-flow span{background:var(--pg-paper);border:1px solid var(--pg-line);border-radius:4px;padding:6px 10px}
+.pg-flow em{font-style:normal;color:var(--pg-sub)}
+.pg-note{font-size:12.5px;color:var(--pg-sub)}
+</style>
+
+<main class="pg">
+  <div class="pg-head"><span><b>REFERENCE #38</b> · 실무형 · 동작 패턴: 비교 전환(지형 변형)</span><span>○○시 폭염 대응 종합대책(안) — 가상 예시</span></div>
+<!-- ============ 재사용 모듈: 육각 지형 비교 전환(hx-) ============ -->
+<style id="hx-style">
+/* 육각 지형 비교 전환 도식 — 접두어 hx-, 색·글꼴은 아래 변수만 바꾸면 된다 */
+.hx-wrap{
+  --hx-paper:#FBFCFA; --hx-ink:#17201D; --hx-sub:#5B6661; --hx-line:#DCE3DE;
+  --hx-teal:#0E8C88; --hx-teal-d:#075E5B; --hx-water:#CFE6F0; --hx-water-l:#B3D5E3;
+  --hx-sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+  --hx-mono:"IBM Plex Mono","D2Coding",Consolas,monospace;
+  display:grid;gap:10px;max-width:100%;container-type:inline-size;
+}
+.hx-slide{
+  container-type:inline-size;position:relative;aspect-ratio:16/9;max-width:100%;
+  background:var(--hx-paper);color:var(--hx-ink);font-family:var(--hx-sans);
+  border-radius:4px;box-shadow:0 1px 2px rgba(23,32,29,.08),0 14px 40px -18px rgba(23,32,29,.28);overflow:hidden;
+}
+.hx-inner{position:absolute;inset:0;padding:3.2cqw 3.6cqw 2.6cqw;display:grid;grid-template-rows:auto 1fr;gap:1.4cqw}
+.hx-kicker{font-family:var(--hx-mono);font-size:1.15cqw;letter-spacing:.08em;color:var(--hx-sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hx-kicker b{color:var(--hx-teal);font-weight:600}
+.hx-title{margin:.5cqw 0 0;font-size:3.05cqw;line-height:1.28;font-weight:700;letter-spacing:-.02em;text-wrap:balance;max-width:78cqw}
+.hx-title em{font-style:normal;color:var(--hx-teal)}
+.hx-body{display:grid;grid-template-columns:1fr 25.5cqw;gap:2.4cqw;min-height:0}
+.hx-mapbox{position:relative;min-height:0}
+.hx-map{display:block;width:100%;height:100%}
+.hx-stepchip{position:absolute;left:0;top:0;font-family:var(--hx-mono);font-size:1.05cqw;letter-spacing:.06em;background:var(--hx-ink);color:#FFFFFF;padding:.35cqw .8cqw;border-radius:2px}
+.hx-panel{display:grid;align-content:start;gap:1.3cqw;border-left:1px solid var(--hx-line);padding-left:2cqw;min-height:0}
+.hx-q{font-size:1.2cqw;line-height:1.45;color:var(--hx-sub);margin:0}
+.hx-big{font-size:7.2cqw;font-weight:700;line-height:.95;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--hx-ink)}
+.hx-big small{font-size:3cqw;margin-left:.2cqw}
+.hx-rows{display:grid;gap:.75cqw}
+.hx-row{display:grid;grid-template-columns:8.6cqw 1fr 3.6cqw;align-items:center;gap:.7cqw;font-size:1.12cqw;color:var(--hx-sub);transition:color .3s}
+.hx-row.is-on{color:var(--hx-ink);font-weight:600}
+.hx-bar{height:.9cqw;background:#E7ECE8;border-radius:1px;overflow:hidden}
+.hx-bar i{display:block;height:100%;width:0;background:var(--hx-teal)}
+.hx-row .hx-val{font-family:var(--hx-mono);text-align:right;font-variant-numeric:tabular-nums}
+.hx-legend{display:grid;gap:.55cqw;font-size:1.02cqw;color:var(--hx-sub);margin-top:.4cqw;padding-top:1cqw;border-top:1px solid var(--hx-line)}
+.hx-legend div{display:flex;align-items:center;gap:.6cqw}
+.hx-ramp{display:flex;gap:.18cqw}
+.hx-ramp i{width:1.5cqw;height:.95cqw;border-radius:1px}
+.hx-sym{width:2.2cqw;height:1.4cqw;flex:none}
+.hx-demo{position:absolute;right:3.6cqw;bottom:1.1cqw;font-size:.95cqw;color:var(--hx-sub);font-family:var(--hx-mono)}
+.hx-ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--hx-sans)}
+.hx-btn{font:600 14px var(--hx-sans);padding:8px 14px;border-radius:4px;border:1px solid var(--hx-ink);background:var(--hx-ink);color:#FFFFFF;cursor:pointer}
+.hx-btn.hx-ghostbtn{background:var(--hx-paper);color:var(--hx-ink)}
+.hx-btn:focus-visible{outline:3px solid var(--hx-teal);outline-offset:2px}
+.hx-status{font-size:13px;color:var(--hx-sub)}
+/* 좁은 화면: 장표를 세로로 풀어 지도와 숫자를 키운다 */
+@container (max-width:620px){
+  .hx-slide{aspect-ratio:auto}
+  .hx-inner{position:relative;padding:18px 16px 30px;gap:12px}
+  .hx-kicker{font-size:10.5px;white-space:normal}
+  .hx-title{font-size:19px;max-width:none}
+  .hx-body{grid-template-columns:1fr;gap:14px}
+  .hx-mapbox{aspect-ratio:1.9}
+  .hx-stepchip{font-size:10px;padding:3px 6px}
+  .hx-panel{border-left:0;padding-left:0;border-top:1px solid var(--hx-line);padding-top:12px;gap:10px}
+  .hx-q{font-size:12.5px}
+  .hx-big{font-size:44px}.hx-big small{font-size:20px}
+  .hx-rows{gap:7px}
+  .hx-row{grid-template-columns:96px 1fr 36px;font-size:12px;gap:8px}
+  .hx-bar{height:8px}
+  .hx-legend{font-size:11.5px;gap:6px;grid-template-columns:1fr 1fr;padding-top:10px}
+  .hx-ramp i{width:14px;height:9px}.hx-sym{width:20px;height:13px}
+  .hx-demo{font-size:10px;right:16px;bottom:10px}
+}
+</style>
+
+<div class="hx-wrap" data-hx>
+  <div class="hx-slide" role="img" aria-label="쉼터 재배치 전후 도보 5분 도달 지도: 현행 32%, 6곳 이전 후 80%, 4곳 신설 후 92%">
+    <div class="hx-inner">
+      <header>
+        <div class="hx-kicker"><b>○○시 폭염 대응 종합대책(안)</b> · Ⅲ-2. 무더위쉼터 재배치</div>
+        <h1 class="hx-title">쉼터 6곳을 옮기고 <span style="white-space:nowrap">4곳을 더하면,</span> <span style="white-space:nowrap">열섬 고위험 구역</span> <em>92%</em>가 걸어서 5분 안에 닿는다</h1>
+      </header>
+      <div class="hx-body">
+        <div class="hx-mapbox">
+          <svg class="hx-map" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="hx-stepchip" aria-live="polite">4/4 · 4곳 신설</div>
+        </div>
+        <aside class="hx-panel">
+          <p class="hx-q">도보 5분(약 300m) 안에 쉼터가 있는 열섬 고위험 구역</p>
+          <div class="hx-big"><span class="hx-num">92</span><small>%</small></div>
+          <div class="hx-rows"></div>
+          <div class="hx-legend">
+            <div><span class="hx-ramp"><i style="background:#E6EBE4"></i><i style="background:#F7DDB0"></i><i style="background:#F4A660"></i><i style="background:#E2553A"></i></span>열섬 강도(낮음→매우 높음)</div>
+            <div><svg class="hx-sym" viewBox="0 0 22 14" aria-hidden="true"><path d="M3 4h8v7H3z" fill="#B33A25"/><path d="M11 4h8v7h-8z" fill="#C9462F"/><path d="M3 4l8-3 8 3-8 3z" fill="#E2553A"/></svg>솟은 칸 = 아직 쉼터가 먼 곳</div>
+            <div><svg class="hx-sym" viewBox="0 0 22 14" aria-hidden="true"><circle cx="11" cy="7" r="6" fill="none" stroke="#0E8C88" stroke-dasharray="2 1.5"/><circle cx="11" cy="7" r="2.6" fill="#0E8C88" stroke="#FFFFFF" stroke-width="1"/></svg>현행 쉼터와 도보 5분 범위</div>
+            <div><svg class="hx-sym" viewBox="0 0 22 14" aria-hidden="true"><path d="M5 10Q11 0 17 7" fill="none" stroke="#0E8C88" stroke-dasharray="1.6 1.4"/><circle cx="5" cy="10" r="2.2" fill="none" stroke="#0E8C88" stroke-dasharray="1.2 1"/><path d="M17 3.6l3.4 3.4-3.4 3.4-3.4-3.4z" fill="#075E5B" stroke="#FFFFFF" stroke-width=".8"/></svg>옮긴 자리 · ◆ 신설</div>
+          </div>
+        </aside>
+      </div>
+      <div class="hx-demo">가상 예시 · 1칸 ≈ 300m</div>
+    </div>
+  </div>
+  <div class="hx-ctrl">
+    <button type="button" class="hx-btn" data-hx-replay id="hx-replay">다시 보기</button>
+    <button type="button" class="hx-btn hx-ghostbtn" data-hx-step id="hx-step">한 단계씩</button>
+    <span class="hx-status" aria-live="polite"></span>
+  </div>
+</div>
+
+<script>
+// 복사용 코드를 만들기 위해, 스크립트가 지도를 그리기 전의 깨끗한 마크업을 보관한다
+window.__hxPristine = document.querySelector('[data-hx]').outerHTML;
+</script>
+
+<script id="hx-script">
+(function(){
+  /* ===== 1) 데이터: 이 부분만 바꿔 쓰면 된다 ===== */
+  // 지도: 한 줄 = 한 행(홀수 행은 반 칸 오른쪽). 0~3 = 열섬 강도, w = 하천(계산 제외)
+  const MAP = [
+    '0000000000000011000000',
+    'w001111000011221000000',
+    '0w12222111122222100000',
+    '00ww332222322221000000',
+    '0012wwwwww333221000000',
+    '00011222wwww3210000000',
+    '000001122333ww11011100',
+    '0000011222322ww1122210',
+    '000001222111110ww23321',
+    '0000122211000001w33321',
+    '000012221000000012ww21',
+    '0000111100000000011www'
+  ];
+  const HIGH = '23';          // 고위험으로 셀 강도
+  const REACH = 1;            // 쉼터에서 몇 칸까지 '도보 5분'인가
+  // 쉼터 좌표 [열, 행]
+  const KEEP  = [[10,3],[11,6],[12,3],[10,6],[9,6],[17,0],[20,1],[14,11],[19,4],[13,8],[21,6],[16,4]];
+  const MOVES = [ // [옮기기 전, 옮긴 뒤]
+    [[2,0],[5,2]],[[5,0],[14,2]],[[8,0],[18,8]],[[1,8],[6,9]],[[2,11],[7,6]],[[9,11],[19,9]]
+  ];
+  const ADD   = [[13,4],[7,3],[9,8],[6,5]];
+  // 단계: 장표 왼쪽 위 표시 문구와 오른쪽 막대 이름
+  const STEPS = [
+    {chip:'0/4 · 열섬 지도',      row:null},
+    {chip:'1/4 · 쉼터 공백 지형', row:null},
+    {chip:'2/4 · 현행 쉼터 18곳', row:'현행 18곳'},
+    {chip:'3/4 · 6곳 옮기기',     row:'6곳 이전'},
+    {chip:'4/4 · 4곳 신설',       row:'4곳 신설'}
+  ];
+  // 열섬 강도별 색 [윗면, 왼쪽 옆면, 오른쪽 옆면]
+  const HEAT = [['#E6EBE4','#C5CDC3','#D5DCD3'],['#F7DDB0','#D9B57A','#E7C68F'],['#F4A660','#CD7B37','#DF8E48'],['#E2553A','#AD3722','#C4442D']];
+
+  /* ===== 2) 기하 ===== */
+  const S = 10, W = Math.sqrt(3)*S, LIFT = 5.2;            // 육각 반지름, 가로 간격, 강도 1단계 높이
+  const ROWS = MAP.length, COLS = MAP[0].length, TOPPAD = 3*LIFT + 4;
+  const NS = 'http://www.w3.org/2000/svg';
+  const cx = (c,r) => W*(c + .5*(r&1)) + W/2 + 2;
+  const cy = (c,r) => 1.5*S*r + S + TOPPAD;
+  const cube = (c,r) => { const x = c - (r - (r&1))/2; return [x, -x-r, r]; };
+  const dist = (a,b) => { const A = cube(a[0],a[1]), B = cube(b[0],b[1]); return Math.max(Math.abs(A[0]-B[0]),Math.abs(A[1]-B[1]),Math.abs(A[2]-B[2])); };
+  const ease = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+  const back = t => { const k=1.7; return 1 + (k+1)*Math.pow(t-1,3) + k*Math.pow(t-1,2); };
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 시간 보간 도우미(라이브러리 없이 requestAnimationFrame)
+  const tween = (ms, fn, ez=ease) => new Promise(res => {
+    if (reduce || ms<=0) { fn(1); return res(); }
+    const t0 = performance.now();
+    const f = now => { const t = Math.min(1,(now-t0)/ms); fn(ez(t)); t<1 ? requestAnimationFrame(f) : res(); };
+    requestAnimationFrame(f);
+  });
+  const wait = ms => new Promise(r => setTimeout(r, reduce?0:ms));
+  const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent && parent.appendChild(e); return e; };
+
+  function init(root){
+    const svg = root.querySelector('.hx-map');
+    const vw = W*(COLS+.5)+4, vh = 1.5*S*(ROWS-1) + 2*S + TOPPAD + 4, PAD = W*.9;
+    svg.setAttribute('viewBox', `${(-PAD).toFixed(1)} ${(-PAD*.4).toFixed(1)} ${(vw+2*PAD).toFixed(1)} ${(vh+PAD*.9).toFixed(1)}`);
+    const gHex = el('g',{},svg), gArc = el('g',{},svg), gDisk = el('g',{},svg), gPin = el('g',{},svg);
+
+    // 칸 만들기: 행 순서대로 그려야 앞 행이 뒤 행 옆면을 가린다
+    const cells = [];
+    for (let r=0;r<ROWS;r++) for (let c=0;c<COLS;c++){
+      const ch = MAP[r][c], x = cx(c,r), y = cy(c,r), g = el('g',{},gHex);
+      if (ch==='w'){ el('polygon',{points:hexPts(x,y,0),fill:'#CFE6F0',stroke:'#B3D5E3','stroke-width':.6},g); continue; }
+      const lv = +ch, col = HEAT[lv];
+      const L = el('polygon',{fill:col[1]},g), R = el('polygon',{fill:col[2]},g);
+      const T = el('polygon',{fill:col[0],stroke:'#FFFFFF','stroke-opacity':.75,'stroke-width':.7},g);
+      cells.push({c,r,x,y,lv,L,R,T,h:0,high:HIGH.includes(ch)});
+    }
+    function hexPts(x,y,h){ const a=[]; for(let i=0;i<6;i++){ const t=Math.PI/180*(60*i-90); a.push((x+S*Math.cos(t)).toFixed(2)+','+(y-h+S*Math.sin(t)).toFixed(2)); } return a.join(' '); }
+    function setH(k,h){
+      k.h = h; const {x,y} = k, hw = W/2;
+      k.T.setAttribute('points', hexPts(x,y,h));
+      const p = (X,Y)=>X.toFixed(2)+','+Y.toFixed(2);
+      k.L.setAttribute('points', [p(x-hw,y+S/2-h),p(x,y+S-h),p(x,y+S),p(x-hw,y+S/2)].join(' '));
+      k.R.setAttribute('points', [p(x,y+S-h),p(x+hw,y+S/2-h),p(x+hw,y+S/2),p(x,y+S)].join(' '));
+    }
+
+    // 쉼터 개체: 범위 원 + 표식, 옮기는 쉼터는 이전 자리 표시와 호 경로
+    const P = []; const mk = (pos, kind, from) => {
+      const x = cx(...pos), y = cy(...pos);
+      const disk = el('circle',{cx:x,cy:y,r:0,fill:'none',stroke:'#0E8C88','stroke-width':.75,'stroke-opacity':.8,'stroke-dasharray':'2.2 1.6'},gDisk);
+      const g = el('g',{},gPin);
+      el('ellipse',{cx:0,cy:5.2,rx:3.6,ry:1.2,fill:'rgba(23,32,29,.22)'},g);
+      if (kind==='add') el('path',{d:'M0 -5.2L5.2 0 0 5.2 -5.2 0z',fill:'#075E5B',stroke:'#FFFFFF','stroke-width':1.2},g);
+      else el('circle',{r:4,fill:'#0E8C88',stroke:'#FFFFFF','stroke-width':1.3},g);
+      const o = {pos, kind, x, y, disk, g, on:false};
+      if (from){
+        const fx = cx(...from), fy = cy(...from), mx = (fx+x)/2, my = Math.min(fy,y) - 9;
+        o.from = from; o.fx=fx; o.fy=fy; o.mx=mx; o.my=my;
+        o.ghost = el('circle',{cx:fx,cy:fy,r:3.6,fill:'none',stroke:'#0E8C88','stroke-width':.9,'stroke-dasharray':'1.4 1.2'},gArc);
+        o.arc = el('path',{d:`M${fx} ${fy}Q${mx} ${my} ${x} ${y}`,fill:'none',stroke:'#0E8C88','stroke-width':.7,'stroke-opacity':.7,pathLength:1},gArc);
+      }
+      P.push(o); return o;
+    };
+    KEEP.forEach(p=>mk(p,'keep')); MOVES.forEach(([a,b])=>mk(b,'move',a)); ADD.forEach(p=>mk(p,'add'));
+    const placePin = (o,x,y,s,op) => { o.g.setAttribute('transform',`translate(${x.toFixed(2)},${y.toFixed(2)}) scale(${s.toFixed(3)})`); o.g.style.opacity = op; };
+    const qpt = (o,t) => [(1-t)*(1-t)*o.fx + 2*(1-t)*t*o.mx + t*t*o.x, (1-t)*(1-t)*o.fy + 2*(1-t)*t*o.my + t*t*o.y];
+
+    // 단계별 상태 계산: 어떤 쉼터가 어디 있는가 → 덮인 칸, 비율
+    const DR = W*REACH + S*.55;
+    function shelters(step){ // [{o, at:'from'|'to'}]
+      const a = [];
+      if (step>=2) P.forEach(o=>{ if(o.kind==='keep') a.push([o,'to']); if(o.kind==='move') a.push([o, step>=3?'to':'from']); });
+      if (step>=4) P.forEach(o=>{ if(o.kind==='add') a.push([o,'to']); });
+      return a;
+    }
+    function coverage(step){
+      const pts = shelters(step).map(([o,at]) => at==='to'? o.pos : o.from);
+      const cov = new Set(); cells.forEach((k,i)=>{ if (pts.some(p=>dist([k.c,k.r],p)<=REACH)) cov.add(i); });
+      const hi = cells.filter(k=>k.high).length, hc = cells.filter((k,i)=>k.high && cov.has(i)).length;
+      return {cov, pct: Math.round(100*hc/hi)};
+    }
+    const STATE = STEPS.map((s,i)=>Object.assign({}, s, coverage(i)));
+    const targetH = (i,step) => step===0 ? 0 : (STATE[step].cov.has(i) || !cells[i].high ? 0 : cells[i].lv*LIFT);
+
+    // 오른쪽 막대
+    const rowsBox = root.querySelector('.hx-rows'), num = root.querySelector('.hx-num'), chip = root.querySelector('.hx-stepchip');
+    const bars = STATE.map((s,i)=> s.row ? (()=>{ const d=document.createElement('div'); d.className='hx-row'; d.innerHTML=`<span>${s.row}</span><span class="hx-bar"><i></i></span><span class="hx-val">${s.pct}%</span>`; rowsBox.appendChild(d); return {d, i:d.querySelector('i'), step:i, pct:s.pct}; })() : null).filter(Boolean);
+    const shownPct = step => step<2 ? 0 : STATE[step].pct;
+
+    // 즉시 상태 적용(첫 화면·최종·동작 줄이기)
+    function apply(step){
+      cells.forEach((k,i)=>setH(k,targetH(i,step)));
+      P.forEach(o=>{
+        const vis = (o.kind==='keep'||o.kind==='move') ? step>=2 : step>=4;
+        const atFrom = o.kind==='move' && step<3;
+        const x = atFrom? o.fx : o.x, y = atFrom? o.fy : o.y;
+        placePin(o,x,y,1,vis?1:0);
+        o.disk.setAttribute('cx',x); o.disk.setAttribute('cy',y); o.disk.setAttribute('r', vis? DR : 0);
+        if (o.arc){ const done = step>=3; o.arc.style.opacity = done?1:0; o.arc.setAttribute('stroke-dasharray', done?'.022 .018':'0 1'); o.ghost.style.opacity = done?1:0; }
+      });
+      bars.forEach(b=>{ b.i.style.width = (step>=b.step? b.pct:0)+'%'; b.d.classList.toggle('is-on', b.step===step); });
+      num.textContent = shownPct(step); chip.textContent = STEPS[step].chip;
+    }
+
+    // 지형이 솟거나 꺼지는 움직임: 기준점에서 가까운 칸부터 물결처럼
+    function moveCells(step, origins, ms){
+      const from = cells.map(k=>k.h), to = cells.map((k,i)=>targetH(i,step));
+      const delay = cells.map(k=> origins ? Math.min(...origins.map(p=>dist([k.c,k.r],p)))*70 : (k.c+k.r)*14);
+      const maxD = Math.max(...delay);
+      return tween(ms+maxD, t=>{ const now=t*(ms+maxD); cells.forEach((k,i)=>{ if(from[i]===to[i]) return; const u = Math.max(0,Math.min(1,(now-delay[i])/ms)); setH(k, from[i]+(to[i]-from[i])*ease(u)); }); }, t=>t);
+    }
+    const countTo = (a,b,ms) => tween(ms, t=>{ num.textContent = Math.round(a+(b-a)*t); });
+    function dropPins(list, ms){
+      return Promise.all(list.map((o,j)=> wait(j*55).then(()=>tween(ms, t=>{ placePin(o,o.x0??o.x,(o.y0??o.y)-(1-t)*26,1,Math.min(1,t*2)); }, back).then(()=>tween(320,t=>o.disk.setAttribute('r',DR*t))))));
+    }
+
+    // 단계별 연출: step-1 상태 → step 상태
+    async function play(step){
+      chip.textContent = STEPS[step].chip;
+      bars.forEach(b=>b.d.classList.toggle('is-on', b.step===step));
+      if (step===1){ await moveCells(1,null,700); return; }
+      if (step===2){
+        const list = P.filter(o=>o.kind!=='add'); list.forEach(o=>{ if(o.kind==='move'){ o.x0=o.fx; o.y0=o.fy; o.disk.setAttribute('cx',o.fx); o.disk.setAttribute('cy',o.fy);} });
+        await dropPins(list, 480);
+        list.forEach(o=>{ delete o.x0; delete o.y0; });
+        const b = bars.find(b=>b.step===2);
+        await Promise.all([moveCells(2, shelters(2).map(([o,at])=>at==='to'?o.pos:o.from), 520), countTo(0,STATE[2].pct,900), tween(900,t=>b.i.style.width=b.pct*t+'%')]);
+        return;
+      }
+      if (step===3){
+        const mv = P.filter(o=>o.kind==='move');
+        await Promise.all(mv.map((o,j)=>wait(j*120).then(async()=>{
+          o.ghost.style.opacity=1; o.arc.style.opacity=1;
+          tween(220,t=>o.disk.setAttribute('r',DR*(1-t)));
+          await tween(700,t=>{ o.arc.setAttribute('stroke-dasharray',`${t} 1`); const [x,y]=qpt(o,t); placePin(o,x,y,1+.25*Math.sin(Math.PI*t),1); });
+          o.arc.setAttribute('stroke-dasharray','.022 .018'); o.disk.setAttribute('cx',o.x); o.disk.setAttribute('cy',o.y);
+          await tween(320,t=>o.disk.setAttribute('r',DR*t));
+        })));
+        const b = bars.find(b=>b.step===3);
+        await Promise.all([moveCells(3, mv.map(o=>o.pos), 520), countTo(STATE[2].pct,STATE[3].pct,900), tween(900,t=>b.i.style.width=b.pct*t+'%')]);
+        return;
+      }
+      if (step===4){
+        const ad = P.filter(o=>o.kind==='add');
+        await dropPins(ad, 480);
+        const b = bars.find(b=>b.step===4);
+        await Promise.all([moveCells(4, ad.map(o=>o.pos), 520), countTo(STATE[3].pct,STATE[4].pct,900), tween(900,t=>b.i.style.width=b.pct*t+'%')]);
+      }
+    }
+
+    // 버튼: 다시 보기 = 0단계부터 끝까지, 한 단계씩 = 누를 때마다 한 단계
+    let cur = STEPS.length-1, busy = false;
+    const status = root.querySelector('.hx-status');
+    const say = () => status.textContent = cur===STEPS.length-1 ? '최종 화면' : `${cur}/${STEPS.length-1}단계`;
+    async function replay(){
+      if (busy) return; busy = true; cur = 0; apply(0); say(); await wait(450);
+      for (let s=1;s<STEPS.length;s++){ await play(s); cur = s; say(); await wait(380); }
+      apply(STEPS.length-1); busy = false;
+    }
+    async function stepOnce(){
+      if (busy) return; busy = true;
+      if (cur===STEPS.length-1){ cur = 0; apply(0); }
+      else { await play(cur+1); cur++; apply(cur); }
+      say(); busy = false;
+    }
+    root.querySelector('[data-hx-replay]').addEventListener('click', replay);
+    root.querySelector('[data-hx-step]').addEventListener('click', stepOnce);
+
+    apply(STEPS.length-1); say();           // 열면 완성 도식
+    if (!reduce) setTimeout(replay, 1600);   // 한 번 처음부터 재생 후 최종 정지
+  }
+  document.querySelectorAll('[data-hx]').forEach(init);
+})();
+</script>
+<!-- ============ /재사용 모듈 ============ -->
+
+
+  <section>
+    <h2><small>MOTION</small>무엇이 움직이고, 왜 움직이나</h2>
+    <p>같은 육각 지도 위에서 <strong>색은 열섬 강도</strong>, <strong>높이는 쉼터 공백</strong>을 맡는다. 처음엔 모든 열섬이 솟아 있고, 쉼터가 떨어지고 옮겨지고 더해질 때마다 도보 5분 범위 안의 칸만 물결처럼 내려앉는다. 끝까지 솟아 있는 몇 칸이 '아직 남은 공백'이라는 결론을 말로 하지 않아도 보여 준다.</p>
+    <div class="pg-cols">
+      <div class="pg-card"><h3>정보 구조</h3><p>현행 → 대안 1(재배치) → 대안 2(신설)를 한 바닥에서 비교한다. 지도를 바꿔 끼우지 않고 같은 지형이 변형되므로, 무엇이 달라졌는지가 칸 단위로 남는다. 옮긴 쉼터는 이전 자리(점선 고리)와 호 경로를 최종 화면에 남겨 '어디서 어디로'가 정지 화면에서도 읽힌다.</p></div>
+      <div class="pg-card"><h3>응용 예</h3><ul>
+        <li>CCTV·가로등 재배치: 높이 = 사각지대, 장치를 옮기면 지형이 꺼짐</li>
+        <li>공공 와이파이·전기차 충전소 확충: 수요 강도 색 + 미설치 공백 높이</li>
+        <li>지점·매장 통폐합 보고: 닫는 지점은 솟고, 옮긴 지점 주변은 꺼지는 양방향 변형</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><small>HTML</small>가져다 쓰기</h2>
+    <p class="pg-note">아래 코드를 HTML 파일 본문에 그대로 붙여 넣으면 장표·버튼·애니메이션이 동작한다(글꼴은 <code>&lt;head&gt;</code>에 Google Fonts 링크를 넣거나 대체 글꼴로 표시). 외부 라이브러리 없음.</p>
+    <div class="pg-codebox"><button type="button" class="pg-copy" id="pg-copy">코드 복사</button><pre id="pg-code" tabindex="0"></pre></div>
+    <div class="pg-card"><h3>바꿔 쓸 지점</h3><ul>
+      <li><code>MAP</code> 문자열 배열: 한 글자가 한 칸. 0~3은 강도, <code>w</code>는 계산에서 빼는 칸(하천·녹지).</li>
+      <li><code>KEEP</code>·<code>MOVES</code>·<code>ADD</code>: 유지·이전·신설 쉼터 좌표. 비율은 자동 계산되므로 제목의 숫자만 맞춰 고치면 된다.</li>
+      <li><code>REACH</code>: 도달 범위(칸 수). <code>HIGH</code>: 비율 계산에 넣을 강도.</li>
+      <li><code>STEPS</code>: 단계 표시 문구와 오른쪽 막대 이름. <code>HEAT</code>: 강도별 윗면·옆면 색.</li>
+      <li>CSS 변수 <code>--hx-teal</code>·<code>--hx-paper</code>·<code>--hx-sans</code>로 기관 색과 글꼴 교체.</li>
+    </ul></div>
+  </section>
+
+  <section>
+    <h2><small>POWERPOINT</small>PPT로 옮기기</h2>
+    <p>칸이 264개면 PPT에서 무겁다. <strong>12×7 격자(84칸)</strong>로 줄여 만들고, 높이 변화는 모핑, 쉼터 등장은 슬라이드 안 애니메이션으로 나눈다.</p>
+    <div class="pg-tablewrap"><table>
+      <thead><tr><th>순서</th><th>대상 개체</th><th>방법 · 애니메이션 이름</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+      <tbody>
+        <tr><td>준비</td><td>칸 1개 = 윗면 육각형 + 아래 짙은 육각형</td><td>삽입 › 도형 › 육각형, 회전 90°. 짙은 옆면색 복제를 같은 자리에 두고 맨 뒤로. 윗면을 위로 올린 만큼 아래 도형이 옆면처럼 드러남</td><td>윗면 흰 윤곽 0.75pt</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>이름 짓기</td><td>모든 윗면·쉼터·막대</td><td>홈 › 정렬 › 선택 창에서 <code>!!H0705</code>(열·행), <code>!!P01</code>, <code>!!BAR2</code>처럼 이름 앞에 <code>!!</code>. 슬라이드끼리 같은 이름이면 모핑이 같은 개체로 짝지음</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>① → ② 지형 솟기</td><td>윗면 육각형</td><td>슬라이드 ①(평면) 복제 → ②에서 강도만큼 윗면을 위로(1단계 = 0.15cm). 전환 › <strong>모핑</strong></td><td>개체</td><td>클릭할 때</td><td>1.50초</td><td>—</td></tr>
+        <tr><td>② 안: 현행 쉼터</td><td>쉼터 표식 18개</td><td>나타내기 › <strong>바운드</strong></td><td>—</td><td>첫 개체 클릭할 때, 나머지 이전 효과 다음에</td><td>0.50초</td><td>0.05초씩</td></tr>
+        <tr><td>② 안: 도보 5분 원</td><td>범위 원</td><td>나타내기 › <strong>확대/축소</strong></td><td>개체 가운데</td><td>이전 효과와 함께</td><td>0.40초</td><td>0.10초</td></tr>
+        <tr><td>② → ③ 칸 꺼짐</td><td>덮인 칸 윗면, 막대·숫자</td><td>③에서 덮인 칸 윗면을 아래 도형 자리로 내리고 막대 길이·숫자 변경. 전환 › <strong>모핑</strong></td><td>개체(숫자는 '문자'로 하면 자리별로 교차)</td><td>클릭할 때</td><td>1.25초</td><td>—</td></tr>
+        <tr><td>③ → ④ 6곳 옮기기</td><td>옮길 쉼터 6개</td><td>④에서 같은 이름 표식을 새 자리로 옮기면 모핑이 이동시킴. 호 모양 경로가 필요하면 대신 이동 경로 › <strong>호</strong> 또는 <strong>사용자 지정 경로</strong></td><td>경로 › 방향 반전으로 휘는 쪽 조정</td><td>클릭할 때</td><td>1.00초</td><td>개체마다 0.1초</td></tr>
+        <tr><td>④ 안: 이전 자리·호</td><td>점선 고리, 점선 호</td><td>나타내기 › <strong>닦아내기</strong></td><td>왼쪽에서(호 방향에 맞춤)</td><td>이전 효과와 함께</td><td>0.70초</td><td>—</td></tr>
+        <tr><td>④ → ⑤ 4곳 신설</td><td>◆ 표식 4개 → 칸 꺼짐</td><td>⑤ 안에서 ◆ 나타내기 › <strong>바운드</strong>, 이어서 ⑥으로 모핑해 주변 칸 꺼짐</td><td>—</td><td>클릭할 때</td><td>0.50초 / 1.25초</td><td>0.05초씩</td></tr>
+      </tbody>
+    </table></div>
+    <div class="pg-card"><h3>안 되는 동작과 근사법</h3><ul>
+      <li><strong>물결처럼 번지는 꺼짐</strong>(가까운 칸부터): 모핑은 한꺼번에 움직인다. 꺼질 칸을 거리별 2~3묶음으로 나눠 슬라이드를 한 장 더 넣거나, 슬라이드 안에서 강조 › 이동 경로 › <strong>선</strong>(아래로)을 묶음마다 지연 0.15초씩 준다.</li>
+      <li><strong>숫자 세기</strong>(32→80→92): 숫자 보간은 불가. 숫자 상자에 끝내기 › <strong>밝기 변화</strong>, 새 숫자에 나타내기 › <strong>올라오기</strong>를 0.3초로 겹친다.</li>
+      <li><strong>표식이 호를 따라 날며 커졌다 작아짐</strong>: 이동 경로 › 호 + 강조 › <strong>크게/작게</strong>(125%, 자동 반전)를 이전 효과와 함께.</li>
+    </ul></div>
+  </section>
+
+  <section>
+    <h2><small>SPEC</small>스펙</h2>
+    <div class="pg-swatches">
+      <div class="pg-sw"><i style="background:#FBFCFA"></i>#FBFCFA 바탕</div>
+      <div class="pg-sw"><i style="background:#17201D"></i>#17201D 글자</div>
+      <div class="pg-sw"><i style="background:#0E8C88"></i>#0E8C88 쉼터</div>
+      <div class="pg-sw"><i style="background:#F7DDB0"></i>#F7DDB0 강도1</div>
+      <div class="pg-sw"><i style="background:#F4A660"></i>#F4A660 강도2</div>
+      <div class="pg-sw"><i style="background:#E2553A"></i>#E2553A 강도3</div>
+      <div class="pg-sw"><i style="background:#CFE6F0"></i>#CFE6F0 하천</div>
+    </div>
+    <div class="pg-cols">
+      <div class="pg-card"><h3>글꼴</h3><p>IBM Plex Sans KR 700/600/400(제목·본문), IBM Plex Mono 500/600(단계·수치). 대체: Apple SD Gothic Neo, 맑은 고딕 / D2Coding, Consolas.</p></div>
+      <div class="pg-card"><h3>난이도</h3><p>HTML <strong>중</strong>(데이터 배열만 고치면 됨) · PPT <strong>중</strong>(12×7 격자 기준, 모핑 슬라이드 6장). 원본 264칸 그대로면 PPT 상.</p></div>
+      <div class="pg-card"><h3>반영 트렌드</h3><p>명료함 우선(clarity-first) 데이터 시각화: 장표 하나에 결론 하나, 제목이 곧 인사이트, 시각 잡음 최소화 — <a href="https://www.beautiful.ai/blog/data-visualization-trends-for-presentations-in-2026">Beautiful.ai, Data visualization trends for presentations in 2026</a>.</p></div>
+      <div class="pg-card"><h3>가져갈 장치</h3><p><strong>높이 = 남은 문제</strong>. 색은 원래 속성, 높이는 해결되지 않은 정도로 나눠 두면 대안을 적용할수록 지형이 평평해지고, 남은 봉우리가 곧 다음 과제가 된다.</p></div>
+    </div>
+    <p class="pg-note">지도·쉼터 좌표·비율은 모두 가상 예시이며 실존 도시와 관계없다.</p>
+  </section>
+</main>
+
+<script>
+// 복사용 코드 블록: 실제 모듈의 스타일·마크업·스크립트를 그대로 묶는다
+(function(){
+  const code = '<style>\n' + document.getElementById('hx-style').textContent.trim() + '\n</style>\n\n'
+    + window.__hxPristine + '\n\n<script>\n' + document.getElementById('hx-script').textContent.trim() + '\n</' + 'script>\n';
+  const pre = document.getElementById('pg-code'); pre.textContent = code;
+  const btn = document.getElementById('pg-copy');
+  btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = '복사됨'; setTimeout(()=>btn.textContent='코드 복사',1600); };
+    navigator.clipboard.writeText(code).then(done).catch(() => {
+      const r = document.createRange(); r.selectNodeContents(pre); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = '선택됨 · Ctrl+C';
+    });
+  });
+})();
+</script>
+
+</body></html>
