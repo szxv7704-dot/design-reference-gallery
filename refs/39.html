@@ -1,0 +1,752 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #39 전술 자석 보드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;700&family=Nanum+Pen+Script&display=swap">
+<style>
+/* 레이아웃: 표지 = 화이트 전술 자석 보드 한 장(인쇄층·자석층·마커층), 아래로 장치 → 흐름 → 재현 → 스펙 */
+:root{
+  color-scheme: light;
+  --page:#f2f4f3;      /* 페이지 바탕 */
+  --ink:#10202c;       /* 제목·본문 먹색 */
+  --ink-2:#4a5862;     /* 보조 글자 */
+  --pitch:#2e9e5b;     /* 인쇄된 피치 라인 초록 */
+  --team:#1d5bd8;      /* 우리 팀 자석(코발트) */
+  --keeper:#ffc21a;    /* 골키퍼 자석(노랑) */
+  --marker-b:#1a3fa8;  /* 파란 보드마커 */
+  --marker-r:#d9302a;  /* 빨간 보드마커 */
+  --line:#d6dddb;
+  --card:#ffffff;
+  --f-title:"Do Hyeon","Black Han Sans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-hand:"Nanum Pen Script","Gaegu","Comic Sans MS",cursive;
+}
+*{box-sizing:border-box}
+body{background:var(--page);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+
+/* ───── 표지 ───── */
+.cv{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;border-radius:1.4cqw;overflow:hidden;box-shadow:0 1.2cqw 3cqw rgba(16,32,44,.16),0 .2cqw .5cqw rgba(16,32,44,.12);background:#e9edef}
+.cv canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cv .t{position:absolute;color:var(--ink)}
+.cv-kicker{left:54.5%;top:28.5%;font:700 1.55cqw/1 var(--f-body);letter-spacing:.08em;color:var(--pitch)}
+.cv-title{left:54%;top:32.5%;width:42%;margin:0;font:400 5.5cqw/1.06 var(--f-title);letter-spacing:-.01em;text-wrap:balance}
+.cv-sub{left:54.5%;top:67%;width:40%;font:500 1.75cqw/1.45 var(--f-body);color:#33434e}
+.cv-sub b{font-weight:700;color:var(--team)}
+.cv-org{left:54.5%;top:83.6%;font:500 1.35cqw/1 var(--f-body);color:var(--ink-2);letter-spacing:.02em}
+.cv-fake{right:3.4%;bottom:5.4%;font:500 1.05cqw/1 var(--f-body);color:#7d8a92;letter-spacing:.04em}
+.cv-opp{left:71.5%;top:10.6%;font:400 2.75cqw/1 var(--f-hand);color:var(--marker-r);transform:rotate(-2deg)}
+.cv-lab{top:79.5%;transform:translateX(-50%);text-align:center;font-family:var(--f-hand);color:var(--marker-b);white-space:nowrap}
+.cv-lab i{display:block;font-style:normal;font-size:4.4cqw;line-height:.9}
+.cv-lab span{display:block;font-size:2.45cqw;line-height:1}
+.cv-btn{position:absolute;right:1.8%;top:2.4%;font:500 1.05cqw/1 var(--f-body);padding:.5cqw .9cqw;border-radius:.6cqw;border:1px solid #b9c3c8;background:rgba(255,255,255,.85);color:var(--ink-2);cursor:pointer}
+.cv-btn:focus-visible{outline:2px solid var(--team);outline-offset:2px}
+@container (max-width:520px){
+  .cv-lab span{font-size:2.9cqw}
+  .cv-opp{font-size:3.1cqw}
+  .cv-sub{font-size:2.05cqw}
+  .cv-btn{display:none}
+}
+
+/* ───── 본문 ───── */
+.head{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:12px}
+.head h1{margin:0;font:400 28px/1.2 var(--f-title)}
+.head p{margin:0;color:var(--ink-2);font-size:14px}
+h2{font:400 24px/1.25 var(--f-title);margin:0 0 14px;text-wrap:balance}
+h2 small{font:500 12px/1 var(--f-body);color:var(--pitch);letter-spacing:.12em;display:block;margin-bottom:8px}
+.devs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.dev{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 18px 16px;min-width:0}
+.dev h3{margin:0 0 6px;font:700 16px/1.35 var(--f-body)}
+.dev p{margin:0 0 10px;color:#2c3a44;font-size:14.5px}
+.dev .use{margin:0;font-size:13.5px;color:var(--ink-2);border-top:1px dashed var(--line);padding-top:8px}
+.dev .use b{color:var(--marker-b)}
+.dev .tag{font:400 22px/1 var(--f-hand);color:var(--marker-r)}
+
+.tbl{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid #e7ecea;vertical-align:top}
+th{font-weight:700;font-size:12.5px;color:var(--ink-2);background:#f7f9f8;letter-spacing:.04em}
+td:first-child{font-weight:700;white-space:nowrap}
+td:nth-child(2){color:var(--marker-b);font-family:var(--f-hand);font-size:21px;line-height:1.1;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+
+/* 경기 시간 막대형 흐름 도식 */
+.flow{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 18px 18px}
+.flow-cap{font-size:13px;color:var(--ink-2);margin:0 0 14px}
+.clock{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0}
+.clock::before{content:"";position:absolute;left:0;right:0;top:22px;height:6px;border-radius:3px;background:linear-gradient(90deg,#cfe9d9 0 16.6%,var(--pitch) 16.6% 100%)}
+.min{position:relative;padding-top:40px;padding-right:10px;min-width:0}
+.min::before{content:"";position:absolute;left:0;top:16px;width:3px;height:18px;background:var(--ink);border-radius:2px}
+.min em{position:absolute;left:8px;top:0;font:400 20px/1 var(--f-hand);font-style:normal;color:var(--marker-r)}
+.min b{display:block;font-size:14px;line-height:1.35}
+.min span{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.45;margin-top:2px}
+@media (max-width:720px){
+  .clock{grid-template-columns:1fr;gap:12px;padding-left:18px}
+  .clock::before{left:4px;right:auto;top:0;bottom:0;width:5px;height:auto;background:var(--pitch)}
+  .min{padding-top:0;padding-left:56px}
+  .min::before{left:-17px;top:7px;width:16px;height:3px}
+  .min em{left:0;top:2px}
+}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
+.box h3{margin:0 0 8px;font:700 15px/1.35 var(--f-body)}
+.box ul{margin:0;padding-left:18px}
+.box li{margin:3px 0;font-size:14px}
+.box a{color:var(--marker-b)}
+.sw{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 10px}
+.sw div{display:flex;align-items:center;gap:6px;font:500 12.5px/1 var(--f-body);font-variant-numeric:tabular-nums}
+.sw i{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.12);display:inline-block}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px;margin:0}
+.kv dt{font-weight:700;color:var(--ink-2)}
+.kv dd{margin:0;min-width:0}
+</style>
+
+<div class="wrap">
+
+  <!-- ① 표지 -->
+  <section aria-label="발표 표지">
+    <div class="cv" id="cv">
+      <canvas id="board" aria-hidden="true"></canvas>
+      <div class="t cv-opp">상대: 집중호우</div>
+      <div class="t cv-kicker">○○시 · 2027 여름철 대비</div>
+      <h1 class="t cv-title">집중호우 대응<br>협업체계 개편<br>계획(안)</h1>
+      <div class="t cv-sub">11개 부서를 한 대형으로, <b>1-4-3-3</b><br>비구름보다 먼저 앞에서 움직인다</div>
+      <div class="t cv-org">○○시 안전총괄과 · 2026. 10.</div>
+      <div class="t cv-lab" style="left:7.6%"><i>1</i><span>상황실</span></div>
+      <div class="t cv-lab" style="left:17.5%"><i>4</i><span>현장 대응</span></div>
+      <div class="t cv-lab" style="left:29.5%"><i>3</i><span>지원</span></div>
+      <div class="t cv-lab" style="left:41.5%"><i>3</i><span>선제 예방</span></div>
+      <div class="t cv-fake">가상 예시</div>
+      <button class="cv-btn" id="replay" type="button">마커 다시 긋기</button>
+    </div>
+  </section>
+
+  <header class="head">
+    <h1>레퍼런스 #39 · 전술 자석 보드</h1>
+    <p>실험형 · 재난안전 주제 × 스포츠(축구 코칭 보드) 은유 · 정보 구조: 관계·공존(역할 배치)</p>
+  </header>
+
+  <!-- ② 가져갈 장치 -->
+  <section>
+    <h2><small>TAKEAWAY</small>다른 발표에 가져갈 장치</h2>
+    <div class="devs">
+      <article class="dev">
+        <span class="tag">1-4-3-3</span>
+        <h3>포메이션 숫자로 조직 요약</h3>
+        <p>조직도 대신 "몇 명이 어느 줄에 서는가"를 숫자 한 줄로 말합니다. 앞줄로 갈수록 예방, 뒷줄로 갈수록 지휘라는 위치 의미가 생깁니다.</p>
+        <p class="use"><b>응용</b> 신규 사업단 구성, TF 역할 분담, 축제 운영 인력 배치 표지</p>
+      </article>
+      <article class="dev">
+        <span class="tag">인쇄층 / 마커층</span>
+        <h3>확정은 인쇄, 계획은 손글씨</h3>
+        <p>바뀌지 않는 틀(피치 라인)은 인쇄처럼 가늘고 반듯하게, 이번 계획의 움직임·이름표는 보드마커 손글씨로 겹칩니다. 두 층이 갈라져 "무엇이 새로 정한 것인가"가 한눈에 보입니다.</p>
+        <p class="use"><b>응용</b> 기존 제도 위에 개선안 덧그리기, 평면도 위 동선 계획, 연간 일정표 위 변경 표시</p>
+      </article>
+      <article class="dev">
+        <span class="tag">마주 보는 화살표</span>
+        <h3>대치선 하나로 과제 선언</h3>
+        <p>우리 쪽 파란 점선 화살표와 상대 쪽 빨간 화살표가 하프라인에서 만납니다. "어디서 막을 것인가"가 문장 없이 위치로 전달됩니다.</p>
+        <p class="use"><b>응용</b> 경쟁사 대응 전략, 민원 급증 대비, 감염병 유입 차단 계획</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ③ 흐름 설계 메모 -->
+  <section>
+    <h2><small>FLOW</small>흐름 설계 메모: 계획안 ↔ 경기 준비</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>계획안 구성</th><th>보드 위 표현</th><th>안쪽 장표 아이디어</th></tr></thead>
+        <tbody>
+          <tr><td>추진 배경</td><td>지난 시즌 실점 장면</td><td>작년 침수 지점을 피치 위 빨간 X로 다시 찍고, 들어온 경로를 화살표로 복기</td></tr>
+          <tr><td>목표</td><td>이번 시즌 목표</td><td>보드 머리 칸에 "인명 피해 0 · 침수 신고 처리 2시간 이내" 두 줄만</td></tr>
+          <tr><td>협업 조직</td><td>포메이션 1-4-3-3</td><td>자석 11개 = 부서 11개. 줄마다 부서명을 자석 위에 작게, 표지와 같은 배치 유지</td></tr>
+          <tr><td>단계별 대응</td><td>세트피스</td><td>예비 → 주의보 → 경보 세 장면에서 자석 위치만 바뀌는 연속 장표(모핑)</td></tr>
+          <tr><td>일정·훈련</td><td>시즌 일정표</td><td>6~9월을 경기 일정처럼, 5월 합동 훈련은 "친선 경기"로 표시</td></tr>
+          <tr><td>평가·환류</td><td>경기 후 리뷰</td><td>같은 보드에 지운 자국을 남기고 고칠 화살표만 새 색으로</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flow" aria-label="발표 흐름 도식">
+      <p class="flow-cap">발표 흐름을 한 경기의 시간 막대로 짭니다. 킥오프 전 분석이 짧고, 대형과 세트피스가 본론입니다.</p>
+      <div class="clock">
+        <div class="min"><em>킥오프 전</em><b>상대 분석</b><span>추진 배경 · 작년 피해</span></div>
+        <div class="min"><em>0′</em><b>경기 목표</b><span>목표 2줄</span></div>
+        <div class="min"><em>15′</em><b>대형 발표</b><span>1-4-3-3 협업 조직</span></div>
+        <div class="min"><em>45′</em><b>세트피스</b><span>예비·주의보·경보 단계</span></div>
+        <div class="min"><em>75′</em><b>시즌 운영</b><span>일정 · 합동 훈련</span></div>
+        <div class="min"><em>90′+</em><b>리뷰</b><span>평가 · 다음 시즌 보완</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 재현 체크 · ⑤ 스펙 -->
+  <section class="two">
+    <div class="box">
+      <h2><small>CHECK</small>재현 체크</h2>
+      <h3>빌린 대표 장치 4개</h3>
+      <ul>
+        <li>알루미늄 테두리와 보강 모서리 캡이 있는 흰색 자석 보드</li>
+        <li>흰 바탕에 초록으로 인쇄된 피치 라인(하프라인·센터서클·페널티 박스)</li>
+        <li>두 색 자석 말(필드 11개 + 다른 색 골키퍼)</li>
+        <li>보드마커 화살표와 손글씨 이름표(점선 = 이동 지시)</li>
+      </ul>
+      <h3 style="margin-top:12px">조사 출처</h3>
+      <ul>
+        <li><a href="https://daviessports.co.uk/product/coaching-and-resources/teaching-resources/shoshin-football-tactics-board-white-60-x-45cm/dp00058482" target="_blank" rel="noopener">Davies Sports · 흰색 축구 전술 보드 60×45cm</a></li>
+        <li><a href="https://www.anthem-sports.com/soccer-innovations-magnetic-soccer-tactics-board.html" target="_blank" rel="noopener">Anthem Sports · 자석 전술 보드 구성품(자석 11+11, 마커)</a></li>
+      </ul>
+      <h3 style="margin-top:12px">이미지</h3>
+      <ul><li>사진 미사용. 보드·자석·마커는 모두 canvas 렌더링(한 방향 광원, 자석 두께·그림자·반사)</li></ul>
+    </div>
+    <div class="box">
+      <h2><small>SPEC</small>스펙</h2>
+      <div class="sw">
+        <div><i style="background:#f8faf9"></i>#F8FAF9 보드</div>
+        <div><i style="background:#2e9e5b"></i>#2E9E5B 피치</div>
+        <div><i style="background:#1d5bd8"></i>#1D5BD8 자석</div>
+        <div><i style="background:#ffc21a"></i>#FFC21A 키퍼</div>
+        <div><i style="background:#d9302a"></i>#D9302A 마커</div>
+        <div><i style="background:#10202c"></i>#10202C 제목</div>
+      </div>
+      <dl class="kv">
+        <dt>폰트</dt><dd>제목 Do Hyeon(대체 Black Han Sans·Noto Sans KR), 본문 IBM Plex Sans KR(대체 맑은 고딕), 손글씨 Nanum Pen Script(대체 Gaegu)</dd>
+        <dt>PPT 이식</dt><dd>배경은 표지 캡처 PNG 대신 직접 구성 권장: 흰 사각형 + 초록 선 도형으로 피치, 자석은 원 도형에 방사형 그라데이션 + 바깥쪽 그림자(오른쪽 아래), 화살표는 선 서식 › <b>스케치 스타일</b>(구불구불)로 마커 느낌. 손글씨 이름표는 나눔손글씨 펜. 화살표에 <b>닦아내기</b>(왼쪽에서, 0.6초)로 "긋는" 연출</dd>
+        <dt>난이도</dt><dd>중 (자석 질감만 손이 감)</dd>
+        <dt>트렌드</dt><dd>손그림 주석·마커 질감의 귀환: 반듯한 인쇄 정보 위에 사람 손의 화살표·메모를 겹치는 흐름 (<a href="https://designcloud.app/blog/graphic-design-trends" target="_blank" rel="noopener">designcloud.app, Graphic Design Trends 2026</a>)</dd>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const cv = document.getElementById('cv');
+  const cnv = document.getElementById('board');
+  let ctx = cnv.getContext('2d');
+  const mainCtx = ctx;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 자석 배치 (가로·세로 비율 좌표). 1-4-3-3
+  const keeper = [[0.076, 0.44]];
+  const team = [
+    [0.175,0.17],[0.175,0.35],[0.175,0.53],[0.175,0.71],   // 현장 대응 4
+    [0.295,0.25],[0.295,0.44],[0.295,0.63],                 // 지원 3
+    [0.415,0.20],[0.415,0.44],[0.415,0.68]                  // 선제 예방 3
+  ];
+  // 마커 획: 시작·조절점·끝(2차 곡선), 색, 점선 여부
+  const strokes = [
+    {p:[[0.44,0.20],[0.47,0.17],[0.505,0.205]], c:'#1a3fa8', dash:true},
+    {p:[[0.44,0.44],[0.475,0.42],[0.508,0.44]], c:'#1a3fa8', dash:true},
+    {p:[[0.44,0.68],[0.47,0.71],[0.505,0.675]], c:'#1a3fa8', dash:true},
+    {p:[[0.875,0.205],[0.72,0.25],[0.545,0.205]], c:'#d9302a', dash:false}
+  ];
+
+  let W=0,H=0,dpr=1,noise=null;
+
+  // 시드 고정 난수(매번 같은 질감)
+  function rng(seed){ return () => (seed = (seed*16807) % 2147483647) / 2147483647; }
+
+  function rr(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+  function frame(){
+    // 알루미늄 테두리: 대각선 금속 그라데이션 + 헤어라인 결
+    const g = ctx.createLinearGradient(0,0,W,H);
+    g.addColorStop(0,'#eef1f3'); g.addColorStop(.35,'#c9d0d6'); g.addColorStop(.55,'#f6f8f9'); g.addColorStop(1,'#b8c0c7');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    const r = rng(7);
+    ctx.globalAlpha = .18;
+    for(let i=0;i<220;i++){ const y = r()*H; ctx.strokeStyle = r()>.5?'#ffffff':'#8d979f'; ctx.lineWidth = .6; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y+r()*2); ctx.stroke(); }
+    ctx.globalAlpha = 1;
+  }
+
+  function board(){
+    const m = W*0.016, x=m, y=m, w=W-2*m, h=H-2*m;
+    // 보드면(살짝 차가운 흰 법랑)
+    const g = ctx.createLinearGradient(x,y,x+w,y+h);
+    g.addColorStop(0,'#ffffff'); g.addColorStop(1,'#eef3f1');
+    ctx.save(); rr(x,y,w,h,W*0.004); ctx.fillStyle=g; ctx.fill(); ctx.clip();
+
+    // 피치: 잔디 깎은 결처럼 아주 옅은 세로 띠
+    const P = pitch();
+    const bands = 14;
+    for(let i=0;i<bands;i++){ ctx.fillStyle = i%2 ? '#eef8f1' : '#f6fbf7'; ctx.fillRect(P.x+P.w*i/bands, P.y, P.w/bands+1, P.h); }
+
+    // 지운 마커 자국(아주 옅게) — 쓰던 보드라는 흔적
+    ctx.strokeStyle='rgba(60,80,110,.05)'; ctx.lineWidth=W*0.012; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(W*.6,H*.83); ctx.quadraticCurveTo(W*.7,H*.76,W*.8,H*.85); ctx.stroke();
+
+    lines(P);
+
+    // 법랑 광택: 왼쪽 위에서 비스듬한 반사 띠
+    const s = ctx.createLinearGradient(x,y,x+w*.55,y+h);
+    s.addColorStop(0,'rgba(255,255,255,0)'); s.addColorStop(.42,'rgba(255,255,255,.0)'); s.addColorStop(.5,'rgba(255,255,255,.55)'); s.addColorStop(.6,'rgba(255,255,255,0)');
+    ctx.fillStyle=s; ctx.fillRect(x,y,w,h);
+    ctx.restore();
+
+    // 테두리 안쪽 턱 그림자
+    ctx.save(); rr(x,y,w,h,W*0.004); ctx.clip();
+    ctx.shadowColor='rgba(20,30,40,.35)'; ctx.shadowBlur=W*0.006; ctx.shadowOffsetX=W*0.0015; ctx.shadowOffsetY=W*0.002;
+    ctx.lineWidth=W*0.006; ctx.strokeStyle='rgba(120,130,140,.6)'; rr(x-W*0.003,y-W*0.003,w+W*0.006,h+W*0.006,W*0.006); ctx.stroke();
+    ctx.restore();
+
+    corners();
+  }
+
+  function corners(){
+    // 보강 모서리 캡(검은 플라스틱 L자)
+    const L = W*0.05, t = W*0.016;
+    const cs = [[0,0,1,1],[W,0,-1,1],[0,H,1,-1],[W,H,-1,-1]];
+    cs.forEach(([cx,cy,sx,sy]) => {
+      ctx.save(); ctx.translate(cx,cy); ctx.scale(sx,sy);
+      ctx.shadowColor='rgba(0,0,0,.25)'; ctx.shadowBlur=W*0.004; ctx.shadowOffsetY=W*0.0012;
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(L,0); ctx.quadraticCurveTo(L,t,L-t*.4,t); ctx.lineTo(t*1.1,t); ctx.quadraticCurveTo(t,t,t,t*1.1); ctx.lineTo(t,L-t*.4); ctx.quadraticCurveTo(t,L,0,L); ctx.closePath();
+      const g = ctx.createLinearGradient(0,0,t,t); g.addColorStop(0,'#59616a'); g.addColorStop(1,'#2a3037');
+      ctx.fillStyle=g; ctx.fill(); ctx.shadowColor='transparent';
+      ctx.strokeStyle='rgba(255,255,255,.18)'; ctx.lineWidth=1; ctx.stroke();
+      ctx.restore();
+    });
+  }
+
+  function pitch(){ return {x:W*0.045, y:H*0.075, w:W*0.91, h:H*0.85}; }
+
+  function lines(P){
+    const sx = P.w/105, sy = P.h/68;
+    ctx.strokeStyle='#2e9e5b'; ctx.lineWidth=Math.max(1,W*0.0024); ctx.lineCap='butt';
+    ctx.strokeRect(P.x,P.y,P.w,P.h);
+    const cx = P.x+P.w/2, cy = P.y+P.h/2;
+    ctx.beginPath(); ctx.moveTo(cx,P.y); ctx.lineTo(cx,P.y+P.h); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(cx,cy,9.15*sx,9.15*sy,0,0,Math.PI*2); ctx.stroke();
+    dot(cx,cy);
+    [1,-1].forEach(side => {
+      const gx = side>0 ? P.x : P.x+P.w;
+      const pa = 16.5*sx*side, ga = 5.5*sx*side;
+      box(gx, cy, pa, 40.3*sy); box(gx, cy, ga, 18.32*sy);
+      const spot = gx + 11*sx*side; dot(spot, cy);
+      // 페널티 아크(박스 밖 부분만)
+      ctx.save(); ctx.beginPath();
+      if(side>0) ctx.rect(gx+pa, P.y, P.w, P.h); else ctx.rect(P.x, P.y, (gx+pa)-P.x, P.h);
+      ctx.clip(); ctx.beginPath(); ctx.ellipse(spot,cy,9.15*sx,9.15*sy,0,0,Math.PI*2); ctx.stroke(); ctx.restore();
+      // 골대
+      ctx.save(); ctx.lineWidth = W*0.003; ctx.strokeStyle='#2e9e5b';
+      ctx.strokeRect(side>0 ? gx-2.2*sx : gx, cy-3.66*sy, 2.2*sx, 7.32*sy); ctx.restore();
+    });
+    // 코너 아크
+    [[P.x,P.y,0],[P.x+P.w,P.y,Math.PI/2],[P.x+P.w,P.y+P.h,Math.PI],[P.x,P.y+P.h,Math.PI*1.5]].forEach(([x,y,a])=>{ ctx.beginPath(); ctx.ellipse(x,y,1.2*sx,1.2*sy,0,a,a+Math.PI/2); ctx.stroke(); });
+    function box(gx,cy,d,hh){ ctx.strokeRect(Math.min(gx,gx+d), cy-hh/2, Math.abs(d), hh); }
+    function dot(x,y){ ctx.beginPath(); ctx.arc(x,y,W*0.0025,0,Math.PI*2); ctx.fillStyle='#2e9e5b'; ctx.fill(); }
+  }
+
+  function shade(hex, k){ // k>0 밝게, k<0 어둡게
+    const n = parseInt(hex.slice(1),16); let r=n>>16, g=(n>>8)&255, b=n&255;
+    const t = k>0?255:0, a=Math.abs(k);
+    return `rgb(${Math.round(r+(t-r)*a)},${Math.round(g+(t-g)*a)},${Math.round(b+(t-b)*a)})`;
+  }
+
+  function puck(fx,fy,base){
+    const x=fx*W, y=fy*H, r=W*0.0215, th=r*0.2;
+    // 바닥 그림자(광원: 왼쪽 위)
+    ctx.save(); ctx.fillStyle='rgba(20,30,45,.30)'; ctx.filter=`blur(${r*0.28}px)`;
+    ctx.beginPath(); ctx.ellipse(x+r*0.22,y+r*0.34,r*1.02,r*0.96,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+    // 옆면(두께)
+    const sg = ctx.createLinearGradient(x-r,0,x+r,0);
+    sg.addColorStop(0,shade(base,-.25)); sg.addColorStop(.35,shade(base,-.05)); sg.addColorStop(1,shade(base,-.5));
+    ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(x,y+th,r,0,Math.PI*2); ctx.fill();
+    // 윗면
+    const tg = ctx.createRadialGradient(x-r*.38,y-r*.42,r*.05,x,y,r*1.05);
+    tg.addColorStop(0,shade(base,.55)); tg.addColorStop(.45,base); tg.addColorStop(1,shade(base,-.32));
+    ctx.fillStyle=tg; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    // 눌러 찍은 고리(양각)
+    ctx.lineWidth=r*0.08;
+    ctx.strokeStyle='rgba(0,0,0,.16)'; ctx.beginPath(); ctx.arc(x+r*.03,y+r*.04,r*.7,0,Math.PI*2); ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(x-r*.02,y-r*.02,r*.7,Math.PI*.85,Math.PI*1.75); ctx.stroke();
+    // 반사광
+    ctx.fillStyle='rgba(255,255,255,.75)'; ctx.beginPath(); ctx.ellipse(x-r*.42,y-r*.5,r*.26,r*.13,-0.6,0,Math.PI*2); ctx.fill();
+  }
+
+  // 보드마커 획: 2차 곡선을 점으로 나눠 진행률 t까지 긋기
+  function marker(s, t){
+    const [a,b,c] = s.p.map(([px,py]) => [px*W,py*H]);
+    const N = 60, pts=[];
+    for(let i=0;i<=N;i++){ const u=i/N, v=1-u; pts.push([v*v*a[0]+2*v*u*b[0]+u*u*c[0], v*v*a[1]+2*v*u*b[1]+u*u*c[1]]); }
+    const n = Math.max(1, Math.floor(N*t));
+    const lw = W*0.0042;
+    ctx.save(); ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle=s.c;
+    if(s.dash) ctx.setLineDash([lw*2.6, lw*2.2]);
+    // 잉크 두 겹: 바깥 반투명 + 진한 심
+    [[lw*1.25,.35],[lw,.92]].forEach(([w,al]) => {
+      ctx.globalAlpha=al; ctx.lineWidth=w; ctx.beginPath(); ctx.moveTo(...pts[0]);
+      for(let i=1;i<=n;i++) ctx.lineTo(...pts[i]); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    if(t>=1){ // 화살촉
+      const [ex,ey]=pts[N], [px,py]=pts[N-6]; const ang=Math.atan2(ey-py,ex-px), L=W*0.014;
+      ctx.globalAlpha=.95; ctx.lineWidth=lw*1.1; ctx.beginPath();
+      ctx.moveTo(ex-L*Math.cos(ang-0.5), ey-L*Math.sin(ang-0.5)); ctx.lineTo(ex,ey); ctx.lineTo(ex-L*Math.cos(ang+0.5), ey-L*Math.sin(ang+0.5)); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function rain(t){
+    // 빗금(빨간 마커): 오른쪽 위 구석에서 쏟아지는 비
+    const r = rng(42); ctx.save(); ctx.strokeStyle='#d9302a'; ctx.lineCap='round'; ctx.lineWidth=W*0.0035; ctx.globalAlpha=.9;
+    const k = Math.floor(11*t);
+    for(let i=0;i<k;i++){ const x = W*(0.885+r()*0.06), y=H*(0.1+r()*0.09); ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-W*0.008,y+H*0.035); ctx.stroke(); }
+    ctx.restore();
+  }
+
+  function draw(t){ // t: 0~1 전체 마커 진행
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(noise,0,0,W,H);
+    keeper.forEach(([x,y]) => puck(x,y,'#ffc21a'));
+    team.forEach(([x,y]) => puck(x,y,'#1d5bd8'));
+    rain(Math.min(1,t*2));
+    strokes.forEach((s,i) => { const st = Math.min(1, Math.max(0,(t - i*0.12)/0.5)); if(st>0) marker(s, st); });
+  }
+
+  function layout(){
+    const b = cv.getBoundingClientRect(); W=b.width; H=b.height; dpr=Math.min(2, window.devicePixelRatio||1);
+    cnv.width=Math.round(W*dpr); cnv.height=Math.round(H*dpr);
+    // 정적인 보드(테두리·피치)는 한 번만 그려 둔다
+    noise = document.createElement('canvas'); noise.width=cnv.width; noise.height=cnv.height;
+    // 같은 그리기 함수를 오프스크린 캔버스에 재사용
+    ctx = noise.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); frame(); board(); ctx = mainCtx;
+    draw(1);
+  }
+
+  function play(){
+    if(reduce){ draw(1); return; }
+    const t0 = performance.now(), D = 1600;
+    const step = now => { const t = Math.min(1,(now-t0)/D); draw(t); if(t<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  document.getElementById('replay').addEventListener('click', play);
+  new ResizeObserver(() => layout()).observe(cv);
+  layout();
+  play();
+})();
+</script>
+
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/39.html" target="_blank" rel="noopener">refs/39.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #39 전술 자석 보드 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&amp;amp;family=IBM+Plex+Sans+KR:wght@400;500;700&amp;amp;family=Nanum+Pen+Script&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { color-scheme: light; --page: #f2f4f3; --ink: #10202c; --ink-2: #4a5862; --pitch: #2e9e5b; --team: #1d5bd8; --keeper: #ffc21a; --marker-b: #1a3fa8; --marker-r: #d9302a; --line: #d6dddb; --card: #ffffff; --f-title: "Do Hyeon","Black Han Sans","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-body: "IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-hand: "Nanum Pen Script","Gaegu","Comic Sans MS",cursive; }
+* { box-sizing: border-box; }
+.wrap { max-width: 1180px; margin: 0px auto; display: flex; flex-direction: column; gap: 44px; }
+.cv { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; container-type: inline-size; border-radius: 1.4cqw 1.4cqw 1.4cqw 1.4cqw / 1.4cqw 1.4cqw 1.4cqw 1.4cqw; overflow: hidden; box-shadow: rgba(16, 32, 44, 0.16) 0px 1.2cqw 3cqw, rgba(16, 32, 44, 0.12) 0px 0.2cqw 0.5cqw; background: rgb(233, 237, 239); }
+.cv canvas { position: absolute; inset: 0px; width: 100%; height: 100%; display: block; }
+.cv .t { position: absolute; color: var(--ink); }
+.cv-kicker { left: 54.5%; top: 28.5%; font: 700 1.55cqw/1 var(--f-body); letter-spacing: 0.08em; color: var(--pitch); }
+.cv-title { left: 54%; top: 32.5%; width: 42%; margin: 0px; font: 400 5.5cqw/1.06 var(--f-title); letter-spacing: -0.01em; text-wrap: balance; }
+.cv-sub { left: 54.5%; top: 67%; width: 40%; font: 500 1.75cqw/1.45 var(--f-body); color: rgb(51, 67, 78); }
+.cv-sub b { font-weight: 700; color: var(--team); }
+.cv-org { left: 54.5%; top: 83.6%; font: 500 1.35cqw/1 var(--f-body); color: var(--ink-2); letter-spacing: 0.02em; }
+.cv-fake { right: 3.4%; bottom: 5.4%; font: 500 1.05cqw/1 var(--f-body); color: rgb(125, 138, 146); letter-spacing: 0.04em; }
+.cv-opp { left: 71.5%; top: 10.6%; font: 400 2.75cqw/1 var(--f-hand); color: var(--marker-r); transform: rotate(-2deg); }
+.cv-lab { top: 79.5%; transform: translateX(-50%); text-align: center; font-family: var(--f-hand); color: var(--marker-b); white-space: nowrap; }
+.cv-lab i { display: block; font-style: normal; font-size: 4.4cqw; line-height: 0.9; }
+.cv-lab span { display: block; font-size: 2.45cqw; line-height: 1; }
+.cv-btn { position: absolute; right: 1.8%; top: 2.4%; font: 500 1.05cqw/1 var(--f-body); padding: 0.5cqw 0.9cqw 0.5cqw 0.9cqw; border-radius: 0.6cqw 0.6cqw 0.6cqw 0.6cqw / 0.6cqw 0.6cqw 0.6cqw 0.6cqw; border: 1px solid rgb(185, 195, 200); background: rgba(255, 255, 255, 0.85); color: var(--ink-2); cursor: pointer; }
+.cv-btn:focus-visible { outline: 2px solid var(--team); outline-offset: 2px; }
+@container (max-width: 520px) {
+  .cv-lab span { font-size: 2.9cqw; }
+  .cv-opp { font-size: 3.1cqw; }
+  .cv-sub { font-size: 2.05cqw; }
+  .cv-btn { display: none; }
+}
+.dev { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 18px 16px; min-width: 0px; }
+.dev h3 { margin: 0px 0px 6px; font: 700 16px/1.35 var(--f-body); }
+.dev p { margin: 0px 0px 10px; color: rgb(44, 58, 68); font-size: 14.5px; }
+.min { position: relative; padding-top: 40px; padding-right: 10px; min-width: 0px; }
+.min::before { content: ""; position: absolute; left: 0px; top: 16px; width: 3px; height: 18px; background: var(--ink); border-radius: 2px; }
+.min em { position: absolute; left: 8px; top: 0px; font-variant-ligatures: ; font-variant-caps: ; font-variant-numeric: ; font-variant-east-asian: ; font-variant-alternates: ; font-variant-position: ; font-variant-emoji: ; font-weight: ; font-stretch: ; font-size: ; line-height: ; font-family: ; font-optical-sizing: ; font-size-adjust: ; font-kerning: ; font-feature-settings: ; font-variation-settings: ; font-style: normal; color: var(--marker-r); }
+.min b { display: block; font-size: 14px; line-height: 1.35; }
+.min span { display: block; font-size: 12.5px; color: var(--ink-2); line-height: 1.45; margin-top: 2px; }
+@media (max-width: 720px) {
+  .min { padding-top: 0px; padding-left: 56px; }
+  .min::before { left: -17px; top: 7px; width: 16px; height: 3px; }
+  .min em { left: 0px; top: 2px; }
+}
+.box { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px; min-width: 0px; }
+.box h3 { margin: 0px 0px 8px; font: 700 15px/1.35 var(--f-body); }
+.box ul { margin: 0px; padding-left: 18px; }
+.box li { margin: 3px 0px; font-size: 14px; }
+.box a { color: var(--marker-b); }
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:24.75px;color:rgb(16, 32, 44)"&gt;
+&lt;section aria-label="발표 표지"&gt;
+    &lt;div class="cv" id="cv"&gt;
+      &lt;canvas id="board" aria-hidden="true"&gt;&lt;/canvas&gt;
+      &lt;div class="t cv-opp"&gt;상대: 집중호우&lt;/div&gt;
+      &lt;div class="t cv-kicker"&gt;○○시 · 2027 여름철 대비&lt;/div&gt;
+      &lt;h1 class="t cv-title"&gt;집중호우 대응&lt;br&gt;협업체계 개편&lt;br&gt;계획(안)&lt;/h1&gt;
+      &lt;div class="t cv-sub"&gt;11개 부서를 한 대형으로, &lt;b&gt;1-4-3-3&lt;/b&gt;&lt;br&gt;비구름보다 먼저 앞에서 움직인다&lt;/div&gt;
+      &lt;div class="t cv-org"&gt;○○시 안전총괄과 · 2026. 10.&lt;/div&gt;
+      &lt;div class="t cv-lab" style="left:7.6%"&gt;&lt;i&gt;1&lt;/i&gt;&lt;span&gt;상황실&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-lab" style="left:17.5%"&gt;&lt;i&gt;4&lt;/i&gt;&lt;span&gt;현장 대응&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-lab" style="left:29.5%"&gt;&lt;i&gt;3&lt;/i&gt;&lt;span&gt;지원&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-lab" style="left:41.5%"&gt;&lt;i&gt;3&lt;/i&gt;&lt;span&gt;선제 예방&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-fake"&gt;가상 예시&lt;/div&gt;
+      &lt;button class="cv-btn" id="replay" type="button"&gt;마커 다시 긋기&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(() =&gt; {
+  const cv = document.getElementById('cv');
+  const cnv = document.getElementById('board');
+  let ctx = cnv.getContext('2d');
+  const mainCtx = ctx;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 자석 배치 (가로·세로 비율 좌표). 1-4-3-3
+  const keeper = [[0.076, 0.44]];
+  const team = [
+    [0.175,0.17],[0.175,0.35],[0.175,0.53],[0.175,0.71],   // 현장 대응 4
+    [0.295,0.25],[0.295,0.44],[0.295,0.63],                 // 지원 3
+    [0.415,0.20],[0.415,0.44],[0.415,0.68]                  // 선제 예방 3
+  ];
+  // 마커 획: 시작·조절점·끝(2차 곡선), 색, 점선 여부
+  const strokes = [
+    {p:[[0.44,0.20],[0.47,0.17],[0.505,0.205]], c:'#1a3fa8', dash:true},
+    {p:[[0.44,0.44],[0.475,0.42],[0.508,0.44]], c:'#1a3fa8', dash:true},
+    {p:[[0.44,0.68],[0.47,0.71],[0.505,0.675]], c:'#1a3fa8', dash:true},
+    {p:[[0.875,0.205],[0.72,0.25],[0.545,0.205]], c:'#d9302a', dash:false}
+  ];
+
+  let W=0,H=0,dpr=1,noise=null;
+
+  // 시드 고정 난수(매번 같은 질감)
+  function rng(seed){ return () =&gt; (seed = (seed*16807) % 2147483647) / 2147483647; }
+
+  function rr(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+  function frame(){
+    // 알루미늄 테두리: 대각선 금속 그라데이션 + 헤어라인 결
+    const g = ctx.createLinearGradient(0,0,W,H);
+    g.addColorStop(0,'#eef1f3'); g.addColorStop(.35,'#c9d0d6'); g.addColorStop(.55,'#f6f8f9'); g.addColorStop(1,'#b8c0c7');
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    const r = rng(7);
+    ctx.globalAlpha = .18;
+    for(let i=0;i&lt;220;i++){ const y = r()*H; ctx.strokeStyle = r()&gt;.5?'#ffffff':'#8d979f'; ctx.lineWidth = .6; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y+r()*2); ctx.stroke(); }
+    ctx.globalAlpha = 1;
+  }
+
+  function board(){
+    const m = W*0.016, x=m, y=m, w=W-2*m, h=H-2*m;
+    // 보드면(살짝 차가운 흰 법랑)
+    const g = ctx.createLinearGradient(x,y,x+w,y+h);
+    g.addColorStop(0,'#ffffff'); g.addColorStop(1,'#eef3f1');
+    ctx.save(); rr(x,y,w,h,W*0.004); ctx.fillStyle=g; ctx.fill(); ctx.clip();
+
+    // 피치: 잔디 깎은 결처럼 아주 옅은 세로 띠
+    const P = pitch();
+    const bands = 14;
+    for(let i=0;i&lt;bands;i++){ ctx.fillStyle = i%2 ? '#eef8f1' : '#f6fbf7'; ctx.fillRect(P.x+P.w*i/bands, P.y, P.w/bands+1, P.h); }
+
+    // 지운 마커 자국(아주 옅게) — 쓰던 보드라는 흔적
+    ctx.strokeStyle='rgba(60,80,110,.05)'; ctx.lineWidth=W*0.012; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(W*.6,H*.83); ctx.quadraticCurveTo(W*.7,H*.76,W*.8,H*.85); ctx.stroke();
+
+    lines(P);
+
+    // 법랑 광택: 왼쪽 위에서 비스듬한 반사 띠
+    const s = ctx.createLinearGradient(x,y,x+w*.55,y+h);
+    s.addColorStop(0,'rgba(255,255,255,0)'); s.addColorStop(.42,'rgba(255,255,255,.0)'); s.addColorStop(.5,'rgba(255,255,255,.55)'); s.addColorStop(.6,'rgba(255,255,255,0)');
+    ctx.fillStyle=s; ctx.fillRect(x,y,w,h);
+    ctx.restore();
+
+    // 테두리 안쪽 턱 그림자
+    ctx.save(); rr(x,y,w,h,W*0.004); ctx.clip();
+    ctx.shadowColor='rgba(20,30,40,.35)'; ctx.shadowBlur=W*0.006; ctx.shadowOffsetX=W*0.0015; ctx.shadowOffsetY=W*0.002;
+    ctx.lineWidth=W*0.006; ctx.strokeStyle='rgba(120,130,140,.6)'; rr(x-W*0.003,y-W*0.003,w+W*0.006,h+W*0.006,W*0.006); ctx.stroke();
+    ctx.restore();
+
+    corners();
+  }
+
+  function corners(){
+    // 보강 모서리 캡(검은 플라스틱 L자)
+    const L = W*0.05, t = W*0.016;
+    const cs = [[0,0,1,1],[W,0,-1,1],[0,H,1,-1],[W,H,-1,-1]];
+    cs.forEach(([cx,cy,sx,sy]) =&gt; {
+      ctx.save(); ctx.translate(cx,cy); ctx.scale(sx,sy);
+      ctx.shadowColor='rgba(0,0,0,.25)'; ctx.shadowBlur=W*0.004; ctx.shadowOffsetY=W*0.0012;
+      ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(L,0); ctx.quadraticCurveTo(L,t,L-t*.4,t); ctx.lineTo(t*1.1,t); ctx.quadraticCurveTo(t,t,t,t*1.1); ctx.lineTo(t,L-t*.4); ctx.quadraticCurveTo(t,L,0,L); ctx.closePath();
+      const g = ctx.createLinearGradient(0,0,t,t); g.addColorStop(0,'#59616a'); g.addColorStop(1,'#2a3037');
+      ctx.fillStyle=g; ctx.fill(); ctx.shadowColor='transparent';
+      ctx.strokeStyle='rgba(255,255,255,.18)'; ctx.lineWidth=1; ctx.stroke();
+      ctx.restore();
+    });
+  }
+
+  function pitch(){ return {x:W*0.045, y:H*0.075, w:W*0.91, h:H*0.85}; }
+
+  function lines(P){
+    const sx = P.w/105, sy = P.h/68;
+    ctx.strokeStyle='#2e9e5b'; ctx.lineWidth=Math.max(1,W*0.0024); ctx.lineCap='butt';
+    ctx.strokeRect(P.x,P.y,P.w,P.h);
+    const cx = P.x+P.w/2, cy = P.y+P.h/2;
+    ctx.beginPath(); ctx.moveTo(cx,P.y); ctx.lineTo(cx,P.y+P.h); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(cx,cy,9.15*sx,9.15*sy,0,0,Math.PI*2); ctx.stroke();
+    dot(cx,cy);
+    [1,-1].forEach(side =&gt; {
+      const gx = side&gt;0 ? P.x : P.x+P.w;
+      const pa = 16.5*sx*side, ga = 5.5*sx*side;
+      box(gx, cy, pa, 40.3*sy); box(gx, cy, ga, 18.32*sy);
+      const spot = gx + 11*sx*side; dot(spot, cy);
+      // 페널티 아크(박스 밖 부분만)
+      ctx.save(); ctx.beginPath();
+      if(side&gt;0) ctx.rect(gx+pa, P.y, P.w, P.h); else ctx.rect(P.x, P.y, (gx+pa)-P.x, P.h);
+      ctx.clip(); ctx.beginPath(); ctx.ellipse(spot,cy,9.15*sx,9.15*sy,0,0,Math.PI*2); ctx.stroke(); ctx.restore();
+      // 골대
+      ctx.save(); ctx.lineWidth = W*0.003; ctx.strokeStyle='#2e9e5b';
+      ctx.strokeRect(side&gt;0 ? gx-2.2*sx : gx, cy-3.66*sy, 2.2*sx, 7.32*sy); ctx.restore();
+    });
+    // 코너 아크
+    [[P.x,P.y,0],[P.x+P.w,P.y,Math.PI/2],[P.x+P.w,P.y+P.h,Math.PI],[P.x,P.y+P.h,Math.PI*1.5]].forEach(([x,y,a])=&gt;{ ctx.beginPath(); ctx.ellipse(x,y,1.2*sx,1.2*sy,0,a,a+Math.PI/2); ctx.stroke(); });
+    function box(gx,cy,d,hh){ ctx.strokeRect(Math.min(gx,gx+d), cy-hh/2, Math.abs(d), hh); }
+    function dot(x,y){ ctx.beginPath(); ctx.arc(x,y,W*0.0025,0,Math.PI*2); ctx.fillStyle='#2e9e5b'; ctx.fill(); }
+  }
+
+  function shade(hex, k){ // k&gt;0 밝게, k&lt;0 어둡게
+    const n = parseInt(hex.slice(1),16); let r=n&gt;&gt;16, g=(n&gt;&gt;8)&amp;255, b=n&amp;255;
+    const t = k&gt;0?255:0, a=Math.abs(k);
+    return `rgb(${Math.round(r+(t-r)*a)},${Math.round(g+(t-g)*a)},${Math.round(b+(t-b)*a)})`;
+  }
+
+  function puck(fx,fy,base){
+    const x=fx*W, y=fy*H, r=W*0.0215, th=r*0.2;
+    // 바닥 그림자(광원: 왼쪽 위)
+    ctx.save(); ctx.fillStyle='rgba(20,30,45,.30)'; ctx.filter=`blur(${r*0.28}px)`;
+    ctx.beginPath(); ctx.ellipse(x+r*0.22,y+r*0.34,r*1.02,r*0.96,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+    // 옆면(두께)
+    const sg = ctx.createLinearGradient(x-r,0,x+r,0);
+    sg.addColorStop(0,shade(base,-.25)); sg.addColorStop(.35,shade(base,-.05)); sg.addColorStop(1,shade(base,-.5));
+    ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(x,y+th,r,0,Math.PI*2); ctx.fill();
+    // 윗면
+    const tg = ctx.createRadialGradient(x-r*.38,y-r*.42,r*.05,x,y,r*1.05);
+    tg.addColorStop(0,shade(base,.55)); tg.addColorStop(.45,base); tg.addColorStop(1,shade(base,-.32));
+    ctx.fillStyle=tg; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    // 눌러 찍은 고리(양각)
+    ctx.lineWidth=r*0.08;
+    ctx.strokeStyle='rgba(0,0,0,.16)'; ctx.beginPath(); ctx.arc(x+r*.03,y+r*.04,r*.7,0,Math.PI*2); ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(x-r*.02,y-r*.02,r*.7,Math.PI*.85,Math.PI*1.75); ctx.stroke();
+    // 반사광
+    ctx.fillStyle='rgba(255,255,255,.75)'; ctx.beginPath(); ctx.ellipse(x-r*.42,y-r*.5,r*.26,r*.13,-0.6,0,Math.PI*2); ctx.fill();
+  }
+
+  // 보드마커 획: 2차 곡선을 점으로 나눠 진행률 t까지 긋기
+  function marker(s, t){
+    const [a,b,c] = s.p.map(([px,py]) =&gt; [px*W,py*H]);
+    const N = 60, pts=[];
+    for(let i=0;i&lt;=N;i++){ const u=i/N, v=1-u; pts.push([v*v*a[0]+2*v*u*b[0]+u*u*c[0], v*v*a[1]+2*v*u*b[1]+u*u*c[1]]); }
+    const n = Math.max(1, Math.floor(N*t));
+    const lw = W*0.0042;
+    ctx.save(); ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle=s.c;
+    if(s.dash) ctx.setLineDash([lw*2.6, lw*2.2]);
+    // 잉크 두 겹: 바깥 반투명 + 진한 심
+    [[lw*1.25,.35],[lw,.92]].forEach(([w,al]) =&gt; {
+      ctx.globalAlpha=al; ctx.lineWidth=w; ctx.beginPath(); ctx.moveTo(...pts[0]);
+      for(let i=1;i&lt;=n;i++) ctx.lineTo(...pts[i]); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    if(t&gt;=1){ // 화살촉
+      const [ex,ey]=pts[N], [px,py]=pts[N-6]; const ang=Math.atan2(ey-py,ex-px), L=W*0.014;
+      ctx.globalAlpha=.95; ctx.lineWidth=lw*1.1; ctx.beginPath();
+      ctx.moveTo(ex-L*Math.cos(ang-0.5), ey-L*Math.sin(ang-0.5)); ctx.lineTo(ex,ey); ctx.lineTo(ex-L*Math.cos(ang+0.5), ey-L*Math.sin(ang+0.5)); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function rain(t){
+    // 빗금(빨간 마커): 오른쪽 위 구석에서 쏟아지는 비
+    const r = rng(42); ctx.save(); ctx.strokeStyle='#d9302a'; ctx.lineCap='round'; ctx.lineWidth=W*0.0035; ctx.globalAlpha=.9;
+    const k = Math.floor(11*t);
+    for(let i=0;i&lt;k;i++){ const x = W*(0.885+r()*0.06), y=H*(0.1+r()*0.09); ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-W*0.008,y+H*0.035); ctx.stroke(); }
+    ctx.restore();
+  }
+
+  function draw(t){ // t: 0~1 전체 마커 진행
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(noise,0,0,W,H);
+    keeper.forEach(([x,y]) =&gt; puck(x,y,'#ffc21a'));
+    team.forEach(([x,y]) =&gt; puck(x,y,'#1d5bd8'));
+    rain(Math.min(1,t*2));
+    strokes.forEach((s,i) =&gt; { const st = Math.min(1, Math.max(0,(t - i*0.12)/0.5)); if(st&gt;0) marker(s, st); });
+  }
+
+  function layout(){
+    const b = cv.getBoundingClientRect(); W=b.width; H=b.height; dpr=Math.min(2, window.devicePixelRatio||1);
+    cnv.width=Math.round(W*dpr); cnv.height=Math.round(H*dpr);
+    // 정적인 보드(테두리·피치)는 한 번만 그려 둔다
+    noise = document.createElement('canvas'); noise.width=cnv.width; noise.height=cnv.height;
+    // 같은 그리기 함수를 오프스크린 캔버스에 재사용
+    ctx = noise.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); frame(); board(); ctx = mainCtx;
+    draw(1);
+  }
+
+  function play(){
+    if(reduce){ draw(1); return; }
+    const t0 = performance.now(), D = 1600;
+    const step = now =&gt; { const t = Math.min(1,(now-t0)/D); draw(t); if(t&lt;1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  document.getElementById('replay').addEventListener('click', play);
+  new ResizeObserver(() =&gt; layout()).observe(cv);
+  layout();
+  play();
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
+</body></html>
