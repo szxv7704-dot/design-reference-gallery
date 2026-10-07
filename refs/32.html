@@ -261,4 +261,161 @@ document.getElementById('replay').addEventListener('click',function(){
 </script>
 
 
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/32.html" target="_blank" rel="noopener">refs/32.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #32 재생지 콜라주 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&amp;amp;family=Gaegu:wght@700&amp;amp;family=IBM+Plex+Sans+KR:wght@400;500;700&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { --p-recycled: #F1ECE2; --p-kraft: #C9A574; --p-card: #C39A64; --p-news: #E3E0D6; --p-green: #3F8A4C; --p-sky: #7FB2DB; --p-sun: #F2C94C; --p-receipt: #FBFAF5; --p-tape: rgba(236,226,190,.82); --ink: #23261F; --ink-soft: #4A4A3E; --bg: #F4F0E8; --fg: #24261F; --muted: #64655A; --line: #D9D1C2; --card: #FBF8F2; --accent: #3F8A4C; --f-display: "Black Han Sans","Noto Sans KR","Malgun Gothic",sans-serif; --f-hand: "Gaegu","Nanum Pen Script","Malgun Gothic",cursive; --f-body: "IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif; --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .26 0 0 0 0 .18 .6 0 0 0 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); --fleck: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05 .9' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .45 0 0 0 0 .3 0 0 1.6 0 -1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #1E1F1A; --fg: #ECE8DE; --muted: #A7A796; --line: #3A3B33; --card: #272821; --accent: #7CC487; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #1E1F1A; --fg: #ECE8DE; --muted: #A7A796; --line: #3A3B33; --card: #272821; --accent: #7CC487; color-scheme: dark; }
+.wrap { max-width: 1120px; margin: 0px auto; padding-inline: 16px; padding-block: 24px 64px; display: grid; gap: 40px; }
+.cover-box { display: grid; gap: 10px; }
+.cover { container-type: inline-size; position: relative; aspect-ratio: 16 / 9; width: 100%; max-width: 100%; overflow: hidden; border-radius: 4px; background: var(--fleck),var(--grain),var(--p-recycled); color: var(--ink); box-shadow: rgba(40, 30, 10, 0.12) 0px 1px 2px, rgba(40, 30, 10, 0.35) 0px 10px 30px -12px; }
+.cover svg.defs { position: absolute; width: 0px; height: 0px; }
+.pc { position: absolute; left: calc(var(--x)*1cqw); top: calc(var(--y)*1cqw); transform: rotate(var(--r,0deg)); animation-duration: 0.5s; animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); animation-iteration-count: 1; animation-direction: normal; animation-fill-mode: both; animation-play-state: running; animation-name: stick; animation-timeline: auto; animation-range: normal; animation-delay: calc(var(--i,0)*.14s); }
+.pc.fix { width: calc(var(--w)*1cqw); height: calc(var(--h)*1cqw); }
+.pc { isolation: isolate; }
+.pc::before, .pc::after { content: ""; position: absolute; pointer-events: none; z-index: -1; }
+.pc::before { inset: -0.45cqw -0.45cqw -0.45cqw -0.45cqw; background: rgb(255, 253, 247); filter: url("#tornA") drop-shadow(rgba(70, 50, 20, 0.3) 0px 0.28cqw 0.32cqw); }
+.pc::after { inset: 0px; background: var(--grain),var(--paper); filter: url("#tornB"); }
+.pc.t2::before { filter: url("#tornC") drop-shadow(rgba(70, 50, 20, 0.3) 0px 0.28cqw 0.32cqw); }
+.pc &gt; * { position: relative; z-index: 1; }
+@keyframes stick { 
+  0% { transform: translate(.6cqw,-1.6cqw) rotate(calc(var(--r,0deg) + 4deg)) scale(1.05); }
+  100% { transform: rotate(var(--r,0deg)); }
+}
+.cover.replay .pc { animation: auto ease 0s 1 normal none running none; }
+.kraft { --paper: var(--p-kraft); }
+.news { --paper: repeating-linear-gradient(0deg,transparent 0 .9cqw,rgba(60,60,50,.07) .9cqw 1.05cqw),var(--p-news); }
+.green { --paper: var(--p-green); }
+.sun { --paper: var(--p-sun); }
+.receipt { --paper: var(--p-receipt); }
+.card { --paper: repeating-linear-gradient(90deg,rgba(255,240,210,.14) 0 .45cqw,rgba(90,60,25,.09) .45cqw .9cqw),var(--p-card); }
+.tl { padding: 0.35em 0.55em 0.3em; font-family: var(--f-display); line-height: 1; white-space: nowrap; letter-spacing: 0.01em; }
+.tl.l1 { font-size: 5.2cqw; }
+.tl.l2 { font-size: 10.4cqw; color: rgb(255, 252, 242); padding: 0.22em 0.38em 0.16em; letter-spacing: 0.02em; }
+.tl.l3 { font-size: 5.2cqw; }
+.sub { font-size: max(10px, 1.75cqw); font-weight: 500; padding: 0.7em 1.1em 0.7em 1.4em; white-space: nowrap; letter-spacing: -0.01em; }
+.sub small { display: block; font-size: 0.72em; color: var(--ink-soft); font-weight: 400; border-top: 1px dashed rgba(40, 40, 30, 0.35); margin-top: 0.35em; padding-top: 0.3em; letter-spacing: 0.04em; }
+.tag { font-family: var(--f-hand); font-weight: 700; font-size: max(11px, 2cqw); padding: 0.25em 0.8em; white-space: nowrap; }
+.tape { position: absolute; z-index: 3; width: calc(var(--w,7)*1cqw); height: 1.9cqw; background: var(--grain),var(--p-tape); left: calc(var(--x)*1cqw); top: calc(var(--y)*1cqw); transform: rotate(var(--r,0deg)); clip-path: polygon(0px 8%, 4% 0px, 8% 10%, 12% 0px, 100% 0px, 97% 14%, 100% 30%, 96% 48%, 100% 66%, 97% 84%, 100% 100%, 9% 100%, 5% 90%, 0px 100%, 3% 70%, 0px 52%, 4% 34%); box-shadow: rgba(60, 40, 10, 0.15) 0px 0.1cqw 0.2cqw; animation-duration: 0.5s; animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); animation-iteration-count: 1; animation-direction: normal; animation-fill-mode: both; animation-play-state: running; animation-name: stick; animation-timeline: auto; animation-range: normal; animation-delay: calc(var(--i,0)*.14s + .12s); }
+.staple { position: absolute; z-index: 3; width: 2.4cqw; height: 0.42cqw; border-radius: 0.1cqw 0.1cqw 0.1cqw 0.1cqw / 0.1cqw 0.1cqw 0.1cqw 0.1cqw; left: calc(var(--x)*1cqw); top: calc(var(--y)*1cqw); transform: rotate(var(--r,0deg)); background: linear-gradient(rgb(244, 244, 240), rgb(169, 170, 165) 55%, rgb(124, 125, 120)); box-shadow: rgba(30, 30, 20, 0.35) 0px 0.12cqw 0.12cqw, rgba(255, 255, 255, 0.6) 0px -0.05cqw 0px inset; animation-duration: 0.5s; animation-timing-function: ease; animation-iteration-count: 1; animation-direction: normal; animation-fill-mode: both; animation-play-state: running; animation-name: stick; animation-timeline: auto; animation-range: normal; animation-delay: calc(var(--i,0)*.14s + .12s); }
+.staple::before, .staple::after { content: ""; position: absolute; top: 0.42cqw; width: 0.24cqw; height: 0.18cqw; background: rgba(40, 35, 25, 0.35); border-radius: 50%; }
+.staple::before { left: 0.05cqw; }
+.staple::after { right: 0.05cqw; }
+.chart-h { font-family: var(--f-hand); font-weight: 700; font-size: max(11px, 2cqw); line-height: 1; white-space: nowrap; }
+.cell { box-sizing: border-box; display: flex; flex-direction: column; justify-content: flex-end; gap: 0.35cqw 0.35cqw; padding: 1cqw 1.2cqw 1.5cqw 1.2cqw; font-family: var(--f-body); font-weight: 700; line-height: 1.1; }
+.cell .lb { font-size: max(10px, 1.6cqw); letter-spacing: -0.01em; }
+.cell .num { font-family: var(--f-display); font-weight: 400; font-size: var(--n,4cqw); line-height: 0.95; }
+.cell .num i { font-style: normal; font-size: 0.45em; margin-left: 0.08em; }
+.cell.row { flex-direction: row; align-items: center; justify-content: space-between; padding-block: 0px; }
+.cell.row .num { font-size: max(11px, 2.4cqw); }
+.green.cell, .green .lb { color: rgb(255, 252, 242); }
+.earth { border-radius: 50%; }
+.earth::before { border-radius: 50%; inset: -0.4cqw -0.4cqw -0.4cqw -0.4cqw; }
+.earth::after { border-radius: 50%; background: radial-gradient(ellipse 30% 22% at 34% 34%,#5E9E57 0 96%,transparent 100%),radial-gradient(ellipse 22% 30% at 66% 66%,#5E9E57 0 96%,transparent 100%),radial-gradient(ellipse 14% 10% at 72% 28%,#5E9E57 0 95%,transparent 100%),var(--grain),var(--p-sky); }
+.leaf::before, .leaf::after { border-radius: 0px 100%; }
+.leaf .vein { position: absolute; inset: 0px; z-index: 2; background: linear-gradient(135deg, transparent calc(50% - 0.1cqw), rgba(255, 250, 230, 0.75) calc(50% - 0.1cqw), rgba(255, 250, 230, 0.75) calc(50% + 0.1cqw), transparent calc(50% + 0.1cqw)); }
+.foot { position: absolute; left: 6.4cqw; bottom: 2.1cqw; font-size: max(9.5px, 1.35cqw); color: var(--ink-soft); display: flex; gap: 1.4cqw 1.4cqw; align-items: center; font-weight: 500; white-space: nowrap; }
+.foot b { color: var(--ink); font-weight: 700; }
+.foot .vx { font-size: 0.85em; border: 1px solid rgba(60, 60, 50, 0.4); padding: 0.05em 0.55em; border-radius: 99px; }
+@container (max-width: 620px) {
+  .sub small { display: none; }
+  .sub { padding: 0.5em 0.9em 0.5em 1.3em; }
+  .cell { padding: 0.7cqw 0.9cqw 0.7cqw 0.9cqw; }
+  .cell .lb { font-size: max(9.5px, 1.75cqw); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pc, .tape, .staple { animation: auto ease 0s 1 normal none running none !important; }
+}
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;font-size:15px;line-height:24.75px;color:rgb(36, 38, 31)"&gt;&lt;div class="cover-box"&gt;
+&lt;div class="cover" id="cover" role="img" aria-label="발표 표지: ○○교육청 2027 학교 탄소중립 실천 계획(안). 재생지 조각을 찢어 붙인 콜라주로, 오른쪽에 감축 목표 구성(에너지 45, 급식·자원순환 25, 통학·이동 20, 녹지 10)을 종이 조각 크기로 표현"&gt;
+  &lt;svg class="defs" aria-hidden="true"&gt;
+    &lt;filter id="tornA" x="-10%" y="-10%" width="120%" height="120%"&gt;&lt;feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="4" seed="3"&gt;&lt;/feTurbulence&gt;&lt;feDisplacementMap in="SourceGraphic" scale="7" xChannelSelector="R" yChannelSelector="G"&gt;&lt;/feDisplacementMap&gt;&lt;/filter&gt;
+    &lt;filter id="tornC" x="-10%" y="-10%" width="120%" height="120%"&gt;&lt;feTurbulence type="fractalNoise" baseFrequency=".06" numOctaves="4" seed="11"&gt;&lt;/feTurbulence&gt;&lt;feDisplacementMap in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G"&gt;&lt;/feDisplacementMap&gt;&lt;/filter&gt;
+    &lt;filter id="tornB" x="-10%" y="-10%" width="120%" height="120%"&gt;&lt;feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="8"&gt;&lt;/feTurbulence&gt;&lt;feDisplacementMap in="SourceGraphic" scale="5" xChannelSelector="G" yChannelSelector="R"&gt;&lt;/feDisplacementMap&gt;&lt;/filter&gt;
+  &lt;/svg&gt;
+
+  &lt;!-- 상단 꼬리표 --&gt;
+  &lt;div class="pc kraft tag" style="--x:5;--y:3.6;--r:-1.5deg;--i:0"&gt;기후·환경 정책 보고&lt;/div&gt;
+
+  &lt;!-- 제목 --&gt;
+  &lt;div class="pc kraft tl l1" style="--x:5.4;--y:10;--r:-1.2deg;--i:1"&gt;2027 학교&lt;/div&gt;
+  &lt;div class="pc green tl l2 t2" style="--x:4.2;--y:17.8;--r:.8deg;--i:2"&gt;탄소중립&lt;/div&gt;
+  &lt;span class="tape" style="--x:2.6;--y:17.4;--w:6.5;--r:-38deg;--i:2"&gt;&lt;/span&gt;
+  &lt;div class="pc news tl l3" style="--x:6.6;--y:33.2;--r:-.6deg;--i:3"&gt;실천 계획(안)&lt;/div&gt;
+  &lt;div class="pc receipt sub t2" style="--x:6.2;--y:41.6;--r:.9deg;--i:4"&gt;다시 쓰는 학교의 1년&lt;small&gt;No.2027-01 · 감축 목표 대비 실천 과제 12개&lt;/small&gt;&lt;/div&gt;
+  &lt;span class="staple" style="--x:7;--y:42.5;--r:-8deg;--i:4"&gt;&lt;/span&gt;
+
+  &lt;!-- 상징: 잎, 지구 --&gt;
+  &lt;div class="pc leaf fix green" style="--x:37.5;--y:7.6;--w:6;--h:6;--r:-14deg;--i:1;--paper:#6FAE5E"&gt;&lt;span class="vein"&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="pc earth fix t2" style="--x:43.5;--y:41.5;--w:8.6;--h:8.6;--r:0deg;--i:5"&gt;&lt;/div&gt;
+
+  &lt;!-- 차트 --&gt;
+  &lt;div class="pc receipt tag chart-h" style="--x:54;--y:3.8;--r:1deg;--i:5"&gt;감축 목표 구성 (%)&lt;/div&gt;
+  &lt;div class="pc card cell fix" style="--x:54;--y:10.5;--w:18.5;--h:36;--r:-.7deg;--i:6;--n:9cqw"&gt;&lt;span class="num"&gt;45&lt;i&gt;%&lt;/i&gt;&lt;/span&gt;&lt;span class="lb"&gt;에너지&lt;/span&gt;&lt;span class="lb" style="font-weight:500"&gt;전기·냉난방&lt;/span&gt;&lt;/div&gt;
+  &lt;span class="tape" style="--x:59;--y:9.2;--w:8;--r:-4deg;--i:6"&gt;&lt;/span&gt;
+  &lt;div class="pc kraft cell fix t2" style="--x:73.4;--y:10.5;--w:22.6;--h:15.5;--r:.8deg;--i:7;--n:5.4cqw"&gt;&lt;span class="num"&gt;25&lt;i&gt;%&lt;/i&gt;&lt;/span&gt;&lt;span class="lb"&gt;급식·자원순환&lt;/span&gt;&lt;/div&gt;
+  &lt;span class="staple" style="--x:91.5;--y:11.6;--r:12deg;--i:7"&gt;&lt;/span&gt;
+  &lt;div class="pc sun cell fix" style="--x:73.4;--y:26.9;--w:22.6;--h:12.4;--r:-.5deg;--i:8;--n:4.4cqw"&gt;&lt;span class="num"&gt;20&lt;i&gt;%&lt;/i&gt;&lt;/span&gt;&lt;span class="lb"&gt;통학·이동&lt;/span&gt;&lt;/div&gt;
+  &lt;div class="pc green cell row fix t2" style="--x:73.4;--y:40.3;--w:22.6;--h:6.2;--r:.6deg;--i:9"&gt;&lt;span class="lb"&gt;녹지&lt;/span&gt;&lt;span class="num"&gt;10&lt;i&gt;%&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;
+
+  &lt;div class="foot"&gt;&lt;b&gt;○○교육청&lt;/b&gt;&lt;span&gt;2026. 10.&lt;/span&gt;&lt;span class="vx"&gt;가상 예시&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;button type="button" id="replay"&gt;다시 붙이기&lt;/button&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;script&gt;
+document.getElementById('replay').addEventListener('click',function(){
+  var c=document.getElementById('cover');
+  c.classList.add('replay');void c.offsetWidth;c.classList.remove('replay');
+});
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
 </body></html>

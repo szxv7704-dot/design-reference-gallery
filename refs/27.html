@@ -202,4 +202,111 @@ a:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
 
 </div>
 
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/27.html" target="_blank" rel="noopener">refs/27.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #27 일요판 1면 약속 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&amp;amp;family=Noto+Serif+KR:wght@500;700;900&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { --paper: #FBFAF7; --page: #F3F2EE; --ink: #1B1E24; --ink-soft: #5A5F6B; --rule: #C8CBD1; --navy: #23467A; --f-serif: "Noto Serif KR","Nanum Myeongjo","Batang",serif; --f-sans: "Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif; color-scheme: light; }
+.wrap { max-width: 1120px; margin: 0px auto; display: flex; flex-direction: column; gap: 56px; }
+.cover { position: relative; aspect-ratio: 16 / 9; width: 100%; max-width: 100%; container-type: inline-size; overflow: hidden; background: var(--paper); box-shadow: rgba(27, 30, 36, 0.08) 0px 1px 2px, rgba(27, 30, 36, 0.3) 0px 16px 40px -24px; }
+.cover::before { content: ""; position: absolute; inset: 0px; pointer-events: none; opacity: 0.5; background-image: url("data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'&gt;&lt;filter id='n'&gt;&lt;feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/&gt;&lt;feColorMatrix values='0 0 0 0 .35  0 0 0 0 .36  0 0 0 0 .40  0 0 0 .07 0'/&gt;&lt;/filter&gt;&lt;rect width='100%' height='100%' filter='url(%23n)'/&gt;&lt;/svg&gt;"); }
+.sheet { position: absolute; inset: 0px; padding: 2.6cqw 4.2cqw 2.4cqw 4.2cqw; display: grid; grid-template-rows: auto auto 1fr auto; }
+.band { display: flex; justify-content: space-between; gap: 2cqw 2cqw; font: 500 max(1cqw,7px)/1 var(--f-sans); color: var(--ink-soft); letter-spacing: 0.08em; padding-bottom: 0.9cqw; border-bottom: .08cqw solid var(--ink); }
+.band .tag { color: var(--navy); font-weight: 700; }
+.mast { display: flex; align-items: baseline; justify-content: space-between; gap: 2cqw 2cqw; padding-block: 1cqw 1.1cqw; border-bottom: .32cqw solid var(--ink); position: relative; }
+.mast::after { content: ""; position: absolute; left: 0px; right: 0px; bottom: -0.75cqw; border-bottom: .08cqw solid var(--ink); }
+.name { font: 900 max(3.2cqw,15px)/1 var(--f-serif); letter-spacing: 0.1em; }
+.mast small { font: 500 max(1cqw,7px)/1.3 var(--f-sans); color: var(--ink-soft); letter-spacing: 0.06em; text-align: right; }
+.main { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1.6cqw; align-items: end; padding-top: 3.4cqw; min-height: 0px; position: relative; }
+.main::before { content: ""; position: absolute; left: 0px; right: 0px; top: 1.4cqw; height: 0.7cqw; background: repeating-linear-gradient(90deg,var(--rule) 0 .08cqw,transparent .08cqw calc((100% + 1.6cqw)/12)); opacity: 0.9; }
+.lead { grid-column: 1 / 9; min-width: 0px; padding-bottom: 0.4cqw; }
+.kicker { font: 700 max(1.35cqw,9px)/1 var(--f-sans); color: var(--navy); letter-spacing: 0.12em; margin: 0px 0px 1.6cqw; }
+.hl { font: 900 8.2cqw/1.08 var(--f-serif); letter-spacing: -0.035em; margin: 0px; text-wrap: balance; }
+.hl span { display: block; }
+.hl .soft { font-weight: 700; }
+.deck { margin: 2.2cqw 0px 0px; padding-top: 1.4cqw; border-top: .08cqw solid var(--rule); font: 700 max(2.3cqw,12px)/1.3 var(--f-sans); letter-spacing: -0.01em; }
+.deck i { font-style: normal; color: var(--ink-soft); font-weight: 500; }
+.side { grid-column: 10 / 13; min-width: 0px; border-left: .08cqw solid var(--rule); padding-left: 1.8cqw; display: flex; flex-direction: column; gap: 1.7cqw 1.7cqw; padding-bottom: 0.6cqw; }
+.side div { display: grid; gap: 0.5cqw 0.5cqw; }
+.side b { font: 700 max(.95cqw,7px)/1 var(--f-sans); color: var(--navy); letter-spacing: 0.14em; }
+.side p { margin: 0px; font: 700 max(1.6cqw,9px)/1.35 var(--f-serif); }
+.foot { display: flex; justify-content: space-between; gap: 2cqw 2cqw; margin-top: 2cqw; padding-top: 1cqw; border-top: .08cqw solid var(--ink); font: 500 max(1.05cqw,7px)/1.2 var(--f-sans); color: var(--ink-soft); letter-spacing: 0.04em; }
+.foot strong { color: var(--ink); font-weight: 700; }
+@container (max-width: 560px) {
+  .lead { grid-column: 1 / 13; }
+  .side, .main::before, .mast small { display: none; }
+  .hl { font-size: 9.6cqw; }
+  .main { padding-top: 2.4cqw; }
+  .sheet { padding: 3cqw 4.4cqw 2.8cqw 4.4cqw; }
+}
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;font-size:14px;line-height:23.1px;color:rgb(27, 30, 36)"&gt;
+&lt;div class="cover" role="img" aria-label="일요판 신문 1면 형식의 계획안 표지. 헤드라인 '모든 아이의 배움, 끝까지 함께', 부제 '○○교육청 2027 기초학력 보장 종합계획(안)'."&gt;
+  &lt;div class="sheet"&gt;
+    &lt;div class="band"&gt;&lt;span&gt;2026년 10월 2일 금요일 · 제2027-1호&lt;/span&gt;&lt;span class="tag"&gt;가상 예시&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="mast"&gt;
+      &lt;span class="name"&gt;배움일요&lt;/span&gt;
+      &lt;small&gt;가상 제호 · 계획안 발표 표지&lt;/small&gt;
+    &lt;/div&gt;
+    &lt;div class="main"&gt;
+      &lt;div class="lead"&gt;
+        &lt;p class="kicker"&gt;○○교육청 · 계획안 발표&lt;/p&gt;
+        &lt;h1 class="hl"&gt;&lt;span class="soft"&gt;모든 아이의 배움,&lt;/span&gt;&lt;span&gt;끝까지 함께.&lt;/span&gt;&lt;/h1&gt;
+        &lt;p class="deck"&gt;2027 기초학력 보장 종합계획&lt;i&gt;(안)&lt;/i&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="side" aria-hidden="false"&gt;
+        &lt;div&gt;&lt;b&gt;진단&lt;/b&gt;&lt;p&gt;진단은 지원의 출발점&lt;/p&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;b&gt;협력&lt;/b&gt;&lt;p&gt;담임 혼자가 아닌 학교 전체&lt;/p&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;b&gt;연계&lt;/b&gt;&lt;p&gt;유아·초등·특수까지 하나로&lt;/p&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="foot"&gt;&lt;strong&gt;○○교육청 초등교육과&lt;/strong&gt;&lt;span&gt;2026. 10. 2.&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
 </body></html>

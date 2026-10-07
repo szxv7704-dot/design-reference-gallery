@@ -511,4 +511,379 @@ td.idea{color:var(--ink-2)}
 })();
 </script>
 
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/28.html" target="_blank" rel="noopener">refs/28.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #28 기준음 A440 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800;900&amp;amp;family=IBM+Plex+Sans+KR:wght@400;500;600;700&amp;amp;family=IBM+Plex+Mono:wght@400;500;600&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { color-scheme: light; --paper: #F6F8FB; --page: #FFFFFF; --ink: #14213D; --ink-2: #4A5672; --line: #DCE2EC; --cobalt: #2B59C3; --teal: #13998A; --amber: #E39B2D; --berry: #C4508A; --steel: #9AA3B0; --f-display: "Gothic A1","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif; --f-body: "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif; --f-mono: "IBM Plex Mono",Consolas,"Courier New",monospace; }
+* { box-sizing: border-box; }
+.wrap { max-width: 1120px; margin: 0px auto; padding-inline: 16px; padding-block: 24px 64px; }
+.cover { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; container-type: inline-size; background: var(--paper); overflow: hidden; border-radius: 6px; box-shadow: 0 1px 0 var(--line),0 18px 40px -24px rgba(20,33,61,.35); }
+.cover canvas { position: absolute; inset: 0px; width: 100%; height: 100%; display: block; }
+.cv-head { position: absolute; left: 6cqw; top: 7.2cqw; width: 58cqw; z-index: 2; }
+.cv-eyebrow { font-family: var(--f-mono); font-weight: 500; font-size: max(1.25cqw, 8px); letter-spacing: 0.14em; color: var(--ink-2); display: flex; gap: 1.2cqw 1.2cqw; align-items: center; margin: 0px 0px 1.6cqw; }
+.cv-eyebrow b { color: var(--ink); font-weight: 600; }
+.cv-eyebrow i { display: inline-block; width: 3.2cqw; height: 1px; background: var(--ink-2); }
+.cv-title { font-family: var(--f-display); font-weight: 900; font-size: 4.7cqw; line-height: 1.16; letter-spacing: -0.035em; margin: 0px; color: var(--ink); text-wrap: balance; }
+.cv-title .yr { display: block; font-weight: 700; font-size: 0.42em; letter-spacing: 0.02em; color: var(--ink-2); margin-bottom: 0.5em; }
+.cv-sub { margin: 2.2cqw 0px 0px; font-family: var(--f-display); font-weight: 700; font-size: 2.05cqw; color: var(--cobalt); letter-spacing: -0.01em; display: flex; flex-wrap: wrap; }
+.cv-sub span { display: inline-block; white-space: pre; will-change: transform; }
+.cv-foot { position: absolute; left: 6cqw; bottom: 3.4cqw; z-index: 2; font-size: max(1.2cqw, 8px); color: var(--ink-2); font-weight: 500; display: flex; gap: 1.6cqw 1.6cqw; align-items: center; }
+.cv-foot b { color: var(--ink); font-weight: 700; }
+.cv-tag { position: absolute; right: 2.4cqw; top: 2.2cqw; z-index: 2; font-size: max(1cqw, 7px); font-family: var(--f-mono); color: var(--ink-2); border: 1px solid var(--line); background: rgba(255, 255, 255, 0.7); padding: 0.2cqw 0.7cqw 0.2cqw 0.7cqw; border-radius: 99px; }
+.cv-lab { position: absolute; z-index: 2; transform: translateY(-50%); font-size: max(1.32cqw, 8.5px); font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 0.6cqw 0.6cqw; white-space: nowrap; line-height: 1; }
+.cv-lab::before { content: ""; width: 0.9cqw; height: 0.9cqw; min-width: 5px; min-height: 5px; border-radius: 50%; background: var(--c); }
+.btn { font-style: inherit; font-variant: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-weight: 600; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.btn:hover { border-color: var(--ink-2); }
+.btn:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+p { margin: 0px; }
+.dev { border-top: 2px solid var(--ink); padding-top: 14px; min-width: 0px; }
+.dev p { color: var(--ink-2); font-size: 14.5px; }
+.mini { display: block; width: 100%; height: 64px; margin: 10px 0px 8px; background: var(--paper); border-radius: 4px; }
+.sw { display: flex; flex-wrap: wrap; gap: 10px; }
+.sw div { display: flex; flex-direction: column; gap: 4px; font-family: var(--f-mono); font-size: 11.5px; color: var(--ink-2); }
+.sw i { display: block; width: 62px; height: 40px; border-radius: 4px; border: 1px solid var(--line); }
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', sans-serif;font-size:15px;line-height:24.75px;color:rgb(20, 33, 61)"&gt;
+&lt;div class="cover" id="cover" role="img" aria-label="발표 표지: 2027학년도 교원·보조인력 합동 연수 운영 계획(안). 네 가닥의 파형이 서로 다른 주기로 흔들리다 소리굽쇠 앞에서 한 줄로 맞춰진다."&gt;
+    &lt;canvas id="cv"&gt;&lt;/canvas&gt;
+    &lt;span class="cv-tag"&gt;가상 예시&lt;/span&gt;
+    &lt;div class="cv-head"&gt;
+      &lt;p class="cv-eyebrow"&gt;&lt;b&gt;A4 = 440 Hz&lt;/b&gt;&lt;i&gt;&lt;/i&gt;기준음 조율&lt;/p&gt;
+      &lt;h1 class="cv-title"&gt;&lt;span class="yr"&gt;2027학년도&lt;/span&gt;교원·보조인력&lt;br&gt;합동 연수 운영 계획(안)&lt;/h1&gt;
+      &lt;p class="cv-sub" id="sub" aria-label="모두가 같은 음에서 시작합니다"&gt;모두가 같은 음에서 시작합니다&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;span class="cv-lab" id="lab0" style="--c:var(--cobalt)"&gt;교원&lt;/span&gt;
+    &lt;span class="cv-lab" id="lab1" style="--c:var(--teal)"&gt;특수교육실무사&lt;/span&gt;
+    &lt;span class="cv-lab" id="lab2" style="--c:var(--amber)"&gt;늘봄 실무인력&lt;/span&gt;
+    &lt;span class="cv-lab" id="lab3" style="--c:var(--berry)"&gt;협력강사&lt;/span&gt;
+    &lt;div class="cv-foot"&gt;&lt;b&gt;해솔교육청&lt;/b&gt;&lt;span&gt;유초등교육과&lt;/span&gt;&lt;span&gt;2027. 2.&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;button class="btn" id="replay" type="button"&gt;다시 조율&lt;/button&gt;
+&lt;canvas class="mini" id="mini1" aria-hidden="true"&gt;&lt;/canvas&gt;
+&lt;canvas class="mini" id="mini2" aria-hidden="true"&gt;&lt;/canvas&gt;
+&lt;canvas class="mini" id="mini3" aria-hidden="true"&gt;&lt;/canvas&gt;
+&lt;svg viewBox="0 0 960 190" role="img" aria-labelledby="flowT"&gt;
+        &lt;title id="flowT"&gt;발표 흐름: 제각각의 음, 기준음 제시, 파트별 맞추기, 합주, 무대(현장 적용)&lt;/title&gt;
+        &lt;defs&gt;
+          &lt;marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"&gt;&lt;path d="M0 0L10 5L0 10z" fill="#4A5672"&gt;&lt;/path&gt;&lt;/marker&gt;
+        &lt;/defs&gt;
+        &lt;!-- 다섯 구간을 하나의 파형으로: 앞은 흔들리고 뒤로 갈수록 고르게 --&gt;
+        &lt;path id="fwave" d="" fill="none" stroke="#14213D" stroke-width="2.2" stroke-linecap="round"&gt;&lt;/path&gt;
+        &lt;g font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif" fill="#14213D"&gt;
+          &lt;g transform="translate(20,0)"&gt;
+            &lt;text x="0" y="132" font-size="12" fill="#4A5672" font-family="IBM Plex Mono, monospace"&gt;01 추진 배경&lt;/text&gt;
+            &lt;text x="0" y="156" font-size="16" font-weight="700"&gt;제각각의 음&lt;/text&gt;
+          &lt;/g&gt;
+          &lt;g transform="translate(212,0)"&gt;
+            &lt;text x="0" y="132" font-size="12" fill="#4A5672" font-family="IBM Plex Mono, monospace"&gt;02 목적·방침&lt;/text&gt;
+            &lt;text x="0" y="156" font-size="16" font-weight="700"&gt;기준음 제시&lt;/text&gt;
+          &lt;/g&gt;
+          &lt;g transform="translate(404,0)"&gt;
+            &lt;text x="0" y="132" font-size="12" fill="#4A5672" font-family="IBM Plex Mono, monospace"&gt;03 대상·과정&lt;/text&gt;
+            &lt;text x="0" y="156" font-size="16" font-weight="700"&gt;파트별 맞추기&lt;/text&gt;
+          &lt;/g&gt;
+          &lt;g transform="translate(596,0)"&gt;
+            &lt;text x="0" y="132" font-size="12" fill="#4A5672" font-family="IBM Plex Mono, monospace"&gt;04 일정·협력&lt;/text&gt;
+            &lt;text x="0" y="156" font-size="16" font-weight="700"&gt;합주&lt;/text&gt;
+          &lt;/g&gt;
+          &lt;g transform="translate(788,0)"&gt;
+            &lt;text x="0" y="132" font-size="12" fill="#2B59C3" font-family="IBM Plex Mono, monospace"&gt;05 기대 효과&lt;/text&gt;
+            &lt;text x="0" y="156" font-size="16" font-weight="700" fill="#2B59C3"&gt;무대(현장 적용)&lt;/text&gt;
+            &lt;text x="0" y="176" font-size="12" fill="#4A5672"&gt;튜너 0 cent로 마무리&lt;/text&gt;
+          &lt;/g&gt;
+        &lt;/g&gt;
+        &lt;g stroke="#DCE2EC" stroke-width="1"&gt;
+          &lt;line x1="200" y1="20" x2="200" y2="160"&gt;&lt;/line&gt;&lt;line x1="392" y1="20" x2="392" y2="160"&gt;&lt;/line&gt;&lt;line x1="584" y1="20" x2="584" y2="160"&gt;&lt;/line&gt;&lt;line x1="776" y1="20" x2="776" y2="160"&gt;&lt;/line&gt;
+        &lt;/g&gt;
+        &lt;line x1="20" y1="104" x2="940" y2="104" stroke="#4A5672" stroke-width="1" marker-end="url(#ar)"&gt;&lt;/line&gt;
+      &lt;/svg&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  // ── 표지 설정 ── 가닥 색·기준선 위치(표지 높이 비율)·어긋남 정도
+  var STRANDS = [
+    {c:'#2B59C3', y:.655, ph:1.9, dk:.55, beat:3.0},
+    {c:'#13998A', y:.715, ph:-2.4, dk:-.42, beat:4.2},
+    {c:'#E39B2D', y:.775, ph:3.1, dk:.34, beat:2.4},
+    {c:'#C4508A', y:.835, ph:-1.2, dk:-.62, beat:3.6}
+  ];
+  var X0 = .17, XM = .66;            // 가닥 시작·합류 지점(표지 폭 비율)
+  var reduce = window.matchMedia &amp;&amp; matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cover = document.getElementById('cover'), cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+  var W=0,H=0,DPR=1, t0=performance.now(), raf=0;
+
+  // 부제 글자를 한 글자씩 나눠 '조율되는 글자' 준비
+  var sub = document.getElementById('sub'), txt = sub.textContent; sub.textContent='';
+  var chars = [];
+  for (var i=0;i&lt;txt.length;i++){ var s=document.createElement('span'); s.textContent=txt[i]; s.setAttribute('aria-hidden','true'); sub.appendChild(s); chars.push({el:s, seed:Math.sin(i*12.9898)*43758.5453 % 1}); }
+
+  function size(){
+    var r = cover.getBoundingClientRect(); DPR = Math.min(window.devicePixelRatio||1, 2);
+    W = r.width; H = r.height; cv.width = Math.round(W*DPR); cv.height = Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    // 라벨을 가닥 시작점 왼쪽에 둔다
+    var maxR=0;
+    STRANDS.forEach(function(s,i){ var l=document.getElementById('lab'+i); l.style.left='5.2%'; l.style.top=(s.y*100)+'%'; maxR=Math.max(maxR, l.offsetLeft+l.offsetWidth); });
+    // 라벨이 길거나 화면이 좁으면 가닥 시작점을 라벨 오른쪽으로 민다
+    X0 = Math.max(.17, (maxR + Math.max(8, W*.012))/W);
+  }
+  function ease(x){ return x&lt;0?0:x&gt;1?1:1-Math.pow(1-x,3); }
+  function smooth(x){ x=Math.max(0,Math.min(1,x)); return x*x*(3-2*x); }
+
+  // ── 소리굽쇠 기하(회전 전 좌표, 단위 = W) ──
+  function forkGeom(){
+    var u=W/1280, cx=W*.815, top=H*.075;
+    return {u:u, cx:cx, top:top, gap:30*u, tw:27*u, yU:H*.545, sw:21*u, yStem:H*.88, ball:16*u, ang:-.11};
+  }
+  // 합류 지점: 회전된 손잡이 위 한 점(그림 좌표로 변환)
+  function stemPoint(g){
+    var py = H*.76, px = g.cx - g.sw/2;
+    var ox=g.cx, oy=H*.5, a=g.ang, dx=px-ox, dy=py-oy;
+    return {x: ox + dx*Math.cos(a) - dy*Math.sin(a), y: oy + dx*Math.sin(a) + dy*Math.cos(a)};
+  }
+
+  function drawWaves(time, D){
+    var g=forkGeom(), P=stemPoint(g), x0=W*X0, xm=W*XM;
+    var k0 = (2*Math.PI)/(W*.052), A0 = H*.018, w = time*2.2;
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    STRANDS.forEach(function(s){
+      ctx.beginPath();
+      for (var x=x0; x&lt;=xm; x+=1.5){
+        var t=(x-x0)/(xm-x0), e=smooth(t), off=(1-e);
+        var base = H*s.y + (P.y - H*s.y)*e;
+        // 주기·위상 어긋남은 합류할수록 0으로, 맥놀이(진폭 출렁임)도 함께 사라짐
+        var phase = k0*x*(1 + s.dk*.5*off*off*D) + s.ph*off*D - w;
+        var amp = A0*(1 - .55*off*D*(.5+.5*Math.cos(s.beat*t*6.283 + time*1.3)));
+        var y = base + amp*Math.sin(phase);
+        if (x===x0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle=s.c; ctx.globalAlpha=.92; ctx.lineWidth=Math.max(1.4, W*.0022); ctx.stroke();
+    });
+    ctx.globalAlpha=1;
+    // 합류 뒤 한 줄: 남색 기준선
+    ctx.beginPath();
+    for (var x=xm-W*.01; x&lt;=P.x; x+=1.5){
+      var y = P.y + A0*Math.sin(k0*x - w);
+      if (x&lt;=xm-W*.01+.1) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle='#14213D'; ctx.lineWidth=Math.max(2, W*.0034); ctx.stroke();
+    // 시작점 작은 고정 핀
+    STRANDS.forEach(function(s){ ctx.beginPath(); ctx.arc(x0, H*s.y, Math.max(1.6,W*.0026), 0, 7); ctx.fillStyle=s.c; ctx.fill(); });
+  }
+
+  // 금속 면: 좌상단 광원 기준의 가로 그라데이션(평평한 막대 정면)
+  function steelBar(x, w){
+    var gr = ctx.createLinearGradient(x,0,x+w,0);
+    gr.addColorStop(0,'#7C8592'); gr.addColorStop(.08,'#F4F6F9'); gr.addColorStop(.2,'#D3D8DF');
+    gr.addColorStop(.42,'#BCC3CC'); gr.addColorStop(.62,'#A3ABB7'); gr.addColorStop(.86,'#C9CFD7'); gr.addColorStop(.95,'#8D96A3'); gr.addColorStop(1,'#5E6773');
+    return gr;
+  }
+  function tinePath(x, w, top, yU, dx){
+    // dx: 떨림으로 끝이 벌어지는 양(위로 갈수록 커짐)
+    ctx.beginPath();
+    ctx.moveTo(x, yU); ctx.lineTo(x, top+w*.35);
+    ctx.quadraticCurveTo(x+dx*.0, top, x+w*.5+dx, top);
+    ctx.quadraticCurveTo(x+w, top, x+w, top+w*.35);
+    ctx.lineTo(x+w, yU); ctx.closePath();
+  }
+  function silhouette(g){
+    var L=g.cx-g.gap/2-g.tw, R=g.cx+g.gap/2, ro=g.gap/2+g.tw, ri=g.gap/2;
+    ctx.beginPath();
+    ctx.rect(L, g.top, g.tw, g.yU-g.top); ctx.rect(R, g.top, g.tw, g.yU-g.top);
+    ctx.moveTo(g.cx-ro, g.yU); ctx.arc(g.cx, g.yU, ro, Math.PI, 0, true); ctx.lineTo(g.cx+ri, g.yU); ctx.arc(g.cx, g.yU, ri, 0, Math.PI, false); ctx.closePath();
+    ctx.rect(g.cx-g.sw/2, g.yU+ro-6*g.u, g.sw, g.yStem-(g.yU+ro)+6*g.u);
+    ctx.moveTo(g.cx+g.ball*1.15, g.yStem+g.ball*.6); ctx.arc(g.cx, g.yStem+g.ball*.6, g.ball*1.15, 0, 7);
+  }
+  function brushed(x, y, w, h, seed){
+    // 헤어라인 금속 결: 세로로 아주 옅은 선
+    ctx.save(); ctx.globalAlpha=.07; ctx.lineWidth=.6;
+    for (var i=0;i&lt;w;i+=1.3){ var r=Math.abs(Math.sin((i+seed)*91.7)); ctx.strokeStyle = r&gt;.5?'#FFFFFF':'#47505C'; ctx.beginPath(); ctx.moveTo(x+i, y); ctx.lineTo(x+i, y+h); ctx.stroke(); }
+    ctx.restore();
+  }
+
+  function drawFork(time, vibAmp){
+    var g=forkGeom(), u=g.u, ro=g.gap/2+g.tw, ri=g.gap/2;
+    var vib = vibAmp*Math.sin(time*38);
+    ctx.save();
+    ctx.translate(g.cx, H*.5); ctx.rotate(g.ang); ctx.translate(-g.cx, -H*.5);
+
+    // 바닥 그림자(오른쪽 아래로 떨어지는 부드러운 그림자)
+    ctx.save(); ctx.translate(16*u, 20*u); ctx.shadowColor='rgba(20,33,61,.22)'; ctx.shadowBlur=26*u; ctx.fillStyle='rgba(20,33,61,.10)';
+    silhouette(g); ctx.fill(); ctx.restore();
+
+    // 손잡이(원기둥): 가로 그라데이션으로 둥근 양감
+    var sx=g.cx-g.sw/2, sTop=g.yU+ro-6*u;
+    var cg=ctx.createLinearGradient(sx,0,sx+g.sw,0);
+    cg.addColorStop(0,'#5F6875'); cg.addColorStop(.18,'#AEB6C1'); cg.addColorStop(.32,'#F7F9FB'); cg.addColorStop(.5,'#C3CAD3'); cg.addColorStop(.78,'#8A93A0'); cg.addColorStop(1,'#4E5763');
+    ctx.fillStyle=cg; ctx.fillRect(sx, sTop, g.sw, g.yStem-sTop);
+    // 손잡이 위 각인 "A 440"
+    ctx.save(); ctx.translate(g.cx+1.2*u, g.yStem-62*u); ctx.rotate(-Math.PI/2);
+    ctx.font='600 '+(10.5*u)+'px "IBM Plex Mono", Consolas, monospace'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillStyle='rgba(255,255,255,.75)'; ctx.fillText('A 440', .7*u, .7*u);
+    ctx.fillStyle='rgba(40,48,60,.78)'; ctx.fillText('A 440', 0, 0); ctx.restore();
+
+    // 끝 구슬(구): 방사형 그라데이션 + 반사광
+    var by=g.yStem+g.ball*.6, br=g.ball*1.15;
+    var rg=ctx.createRadialGradient(g.cx-br*.4, by-br*.45, br*.08, g.cx, by, br);
+    rg.addColorStop(0,'#FFFFFF'); rg.addColorStop(.25,'#D9DEE5'); rg.addColorStop(.7,'#8E97A4'); rg.addColorStop(1,'#545D69');
+    ctx.beginPath(); ctx.arc(g.cx, by, br, 0, 7); ctx.fillStyle=rg; ctx.fill();
+    ctx.beginPath(); ctx.arc(g.cx, by, br*.82, .2, 1.4); ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.lineWidth=1.2*u; ctx.stroke();
+
+    // U자 굽이: 바깥 반원 - 안쪽 반원
+    ctx.beginPath(); ctx.arc(g.cx, g.yU, ro, Math.PI, 0, true); ctx.arc(g.cx, g.yU, ri, 0, Math.PI, false); ctx.closePath();
+    var ug=ctx.createLinearGradient(g.cx-ro,0,g.cx+ro,0);
+    ug.addColorStop(0,'#7C8592'); ug.addColorStop(.06,'#EEF1F5'); ug.addColorStop(.3,'#C4CAD3'); ug.addColorStop(.5,'#9AA3AF'); ug.addColorStop(.72,'#BAC1CA'); ug.addColorStop(.94,'#8B94A1'); ug.addColorStop(1,'#5E6773');
+    ctx.fillStyle=ug; ctx.fill();
+    var ush=ctx.createLinearGradient(0,g.yU,0,g.yU+ro); ush.addColorStop(0,'rgba(20,33,61,0)'); ush.addColorStop(1,'rgba(20,33,61,.22)');
+    ctx.fillStyle=ush; ctx.fill();
+
+    // 두 가지(tine): 떨림 잔상 → 본체 → 결 → 하이라이트
+    var L=g.cx-g.gap/2-g.tw, R=g.cx+g.gap/2;
+    [[L,-1],[R,1]].forEach(function(p){
+      var x=p[0], dir=p[1];
+      if (vibAmp&gt;0){ ctx.save(); ctx.globalAlpha=.22; ctx.fillStyle=steelBar(x,g.tw); tinePath(x,g.tw,g.top,g.yU+1,dir*vibAmp); ctx.fill(); tinePath(x,g.tw,g.top,g.yU+1,-dir*vibAmp*.6); ctx.fill(); ctx.restore(); }
+      ctx.save();
+      // 떨림: 위로 갈수록 바깥으로 기울도록 기울임 변환
+      ctx.translate(x+g.tw/2, g.yU); ctx.transform(1,0,-dir*vib/(g.yU-g.top),1,0,0); ctx.translate(-(x+g.tw/2), -g.yU);
+      tinePath(x,g.tw,g.top,g.yU+1,0); ctx.fillStyle=steelBar(x,g.tw); ctx.fill();
+      ctx.save(); ctx.clip(); brushed(x, g.top, g.tw, g.yU-g.top, x);
+      // 위쪽은 하늘빛 반사, 아래쪽은 살짝 어둡게
+      var vg=ctx.createLinearGradient(0,g.top,0,g.yU); vg.addColorStop(0,'rgba(255,255,255,.28)'); vg.addColorStop(.35,'rgba(214,226,246,.10)'); vg.addColorStop(1,'rgba(20,33,61,.12)');
+      ctx.fillStyle=vg; ctx.fillRect(x, g.top, g.tw, g.yU-g.top);
+      // 비스듬한 반사 띠
+      ctx.globalAlpha=.35; ctx.fillStyle='#FFFFFF'; ctx.beginPath(); ctx.moveTo(x, g.top+H*.18); ctx.lineTo(x+g.tw, g.top+H*.12); ctx.lineTo(x+g.tw, g.top+H*.15); ctx.lineTo(x, g.top+H*.21); ctx.fill();
+      ctx.restore();
+      tinePath(x,g.tw,g.top,g.yU+1,0); ctx.strokeStyle='rgba(60,68,80,.55)'; ctx.lineWidth=.8*u; ctx.stroke();
+      ctx.restore();
+    });
+    ctx.restore();
+  }
+
+  // 소리 동심호: 가지 끝 오른쪽으로 퍼지는 옅은 호(제목 쪽으로는 뻗지 않음)
+  function drawRings(time, on){
+    var g=forkGeom(), cx=g.cx+W*.012, cy=g.top+H*.14;
+    ctx.save(); ctx.lineWidth=Math.max(1, W*.0012);
+    for (var i=0;i&lt;4;i++){
+      var p = on ? ((time*.35 + i/4) % 1) : (i+1)/5;
+      var r = W*(.035 + p*.11);
+      ctx.strokeStyle='rgba(43,89,195,'+(0.42*(1-p)).toFixed(3)+')';
+      ctx.beginPath(); ctx.arc(cx, cy, r, -0.85, 0.55); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx-W*.024, cy, r, Math.PI-0.55, Math.PI+0.85); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function frame(now){
+    var time=(now-t0)/1000;
+    var k = reduce ? 1 : ease(time/2.4);           // 0 → 1: 조율 진행도
+    var D = 1 + (1-k)*1.6;                           // 처음엔 더 크게 어긋남
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#F6F8FB'; ctx.fillRect(0,0,W,H);
+    // 아주 옅은 오선(5줄) — 하단 띠의 배경 결
+    ctx.strokeStyle='rgba(20,33,61,.06)'; ctx.lineWidth=1;
+    for (var i=0;i&lt;5;i++){ var yy=H*(.62+i*.06); ctx.beginPath(); ctx.moveTo(W*X0-6,yy); ctx.lineTo(W*.70,yy); ctx.stroke(); }
+    var tt = reduce ? 0 : time;
+    drawWaves(tt, D);
+    drawRings(tt, !reduce);
+    drawFork(tt, reduce ? 0 : (k&lt;1 ? .9*W/1280 : .55*W/1280));
+    // 조율되는 글자
+    chars.forEach(function(c,i){
+      var local = reduce ? 1 : ease((time - .25 - i*.06)/1.2);
+      var off = (1-local) * (c.seed*2-1) * 0.55;    // em 단위 상하 어긋남
+      var rot = (1-local) * (c.seed*2-1) * 6;
+      c.el.style.transform = 'translateY('+off.toFixed(3)+'em) rotate('+rot.toFixed(2)+'deg)';
+      c.el.style.opacity = (0.55 + .45*local).toFixed(3);
+    });
+    if (!reduce) raf=requestAnimationFrame(frame);
+  }
+  function start(){ cancelAnimationFrame(raf); size(); t0=performance.now(); frame(t0); }
+  document.getElementById('replay').addEventListener('click', start);
+  window.addEventListener('resize', function(){ size(); if(reduce) frame(performance.now()); });
+  start();
+  // 폰트가 늦게 오면 라벨 폭만 다시 재고 애니메이션은 이어서 진행
+  if (document.fonts &amp;&amp; document.fonts.ready) document.fonts.ready.then(function(){ size(); if (reduce) frame(performance.now()); });
+
+  // ── 장치 미니 그림 ──
+  function mini(id, draw){ var c=document.getElementById(id); var r=c.getBoundingClientRect(); var d=Math.min(devicePixelRatio||1,2); c.width=r.width*d; c.height=r.height*d; var x=c.getContext('2d'); x.setTransform(d,0,0,d,0,0); draw(x, r.width, r.height); }
+  function drawMinis(){
+    mini('mini1', function(x,w,h){
+      var cols=['#2B59C3','#13998A','#E39B2D','#C4508A'];
+      cols.forEach(function(c,i){ x.beginPath(); for (var px=10; px&lt;=w*.78; px++){ var t=(px-10)/(w*.78-10), e=t*t*(3-2*t), b=h*(.2+i*.2)+(h*.5-h*(.2+i*.2))*e; var y=b+5*Math.sin(px*.16*(1+(i-1.5)*.18*(1-e))+(i*1.7)*(1-e)); px===10?x.moveTo(px,y):x.lineTo(px,y);} x.strokeStyle=c; x.lineWidth=1.5; x.stroke(); });
+      x.beginPath(); for (var px=w*.78; px&lt;w-10; px++){ var y=h*.5+5*Math.sin(px*.16); px===w*.78?x.moveTo(px,y):x.lineTo(px,y);} x.strokeStyle='#14213D'; x.lineWidth=2.4; x.stroke();
+    });
+    mini('mini2', function(x,w,h){
+      var s='기준을 맞춥니다'; x.font='800 18px "Gothic A1", sans-serif'; x.textBaseline='alphabetic';
+      var cw=x.measureText(s).width, sx=(w-cw)/2, y=h*.62;
+      x.strokeStyle='#DCE2EC'; x.beginPath(); x.moveTo(12,y+3); x.lineTo(w-12,y+3); x.stroke();
+      var acc=sx; for (var i=0;i&lt;s.length;i++){ var o=i&lt;4?Math.sin(i*2.3)*7*(1-i/4):0; x.fillStyle=i&lt;4?'#7C8AA8':'#14213D'; x.fillText(s[i], acc, y+o); acc+=x.measureText(s[i]).width; }
+    });
+    mini('mini3', function(x,w,h){
+      var cx=w*.5, cy=h*.5;
+      var gr=x.createLinearGradient(cx-60,0,cx+60,0); gr.addColorStop(0,'#6E7784'); gr.addColorStop(.15,'#F4F6F9'); gr.addColorStop(.5,'#AEB6C1'); gr.addColorStop(.9,'#C9CFD7'); gr.addColorStop(1,'#5E6773');
+      x.save(); x.translate(cx,cy); x.rotate(-Math.PI/2+.08); x.translate(-cx,-cy);
+      x.shadowColor='rgba(20,33,61,.25)'; x.shadowBlur=8; x.shadowOffsetY=4;
+      x.fillStyle=gr; x.fillRect(cx-8, cy-70, 7, 70); x.fillRect(cx+1, cy-70, 7, 70);
+      x.beginPath(); x.arc(cx, cy, 8, 0, Math.PI); x.arc(cx, cy, 1, Math.PI, 0, true); x.fill();
+      x.fillRect(cx-3, cy+6, 6, 40); x.restore();
+      x.font='500 10px "IBM Plex Mono", monospace'; x.fillStyle='#4A5672'; x.fillText('기준 오브제 1개 + 여백', 10, h-10);
+    });
+  }
+  (document.fonts &amp;&amp; document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(drawMinis);
+
+  // ── 흐름 도식 파형: 앞은 크게 흔들리고 뒤로 갈수록 고른 사인파 ──
+  (function(){
+    var d='', n=0;
+    for (var x=20; x&lt;=930; x+=3){ var t=(x-20)/910, e=t*t*(3-2*t);
+      var y = 70 + 22*Math.sin(x*.09 + 4*(1-e)*Math.sin(x*.013)) * (1 - .6*(1-e)*(.5+.5*Math.cos(x*.03)));
+      d += (n++?'L':'M') + x.toFixed(1)+' '+y.toFixed(1)+' '; }
+    document.getElementById('fwave').setAttribute('d', d);
+  })();
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
 </body></html>

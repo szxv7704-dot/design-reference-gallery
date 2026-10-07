@@ -605,4 +605,501 @@ td .st.s{background:var(--soil-soft);color:#7A5430}
 })();
 </script>
 
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/16.html" target="_blank" rel="noopener">refs/16.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #16 기초가 자라는 60일 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&amp;amp;family=Noto+Sans+KR:wght@400;500;700&amp;amp;family=Nanum+Pen+Script&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { --paper: #FFFFFF; --ground: #F4F6EF; --ink: #24301F; --ink2: #5A6552; --mute: #8A947F; --rule: #DCE2D2; --leaf: #4E8F43; --leaf-soft: #E6F1DA; --soil: #C49A6C; --soil-soft: #F3E8D6; --bloom: #D9668A; --pencil: #D2463F; --display: "Hahmlet","Noto Serif KR","AppleMyungjo","Batang",serif; --sans: "Noto Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --hand: "Nanum Pen Script","Gaegu","Apple SD Gothic Neo",cursive; color-scheme: light; }
+.wrap { max-width: 1280px; margin: 0px auto; padding-inline: 16px; padding-block: 20px 64px; display: grid; gap: 28px; }
+.cover-shell { container-type: inline-size; }
+.cover { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: radial-gradient(120% 90% at 18% 0%, rgb(255, 255, 255) 0%, rgb(251, 252, 247) 55%, rgb(241, 244, 232) 100%); box-shadow: 0 1px 0 var(--rule),0 18px 40px -26px rgba(36,48,31,.45); overflow: hidden; }
+.hdr { position: absolute; left: 3.4cqw; right: 3.4cqw; top: 2.6cqw; display: flex; justify-content: space-between; align-items: flex-end; gap: 3cqw 3cqw; }
+.hdr .l { min-width: 0px; }
+.h1 { font: 800 5.7cqw/1.04 var(--display); letter-spacing: -0.035em; margin: 0px; color: var(--ink); text-wrap: balance; }
+.h1 em { font-style: normal; color: var(--leaf); }
+.sub { margin: 0.9cqw 0px 0px; font: 500 1.6cqw/1.35 var(--sans); color: var(--ink2); }
+.org { flex: 0 0 auto; text-align: right; font: 500 1.12cqw/1.55 var(--sans); color: var(--ink2); padding-bottom: 0.25cqw; }
+.org b { display: block; font-weight: 700; color: var(--ink); }
+.scene { position: absolute; left: 2.2cqw; top: 14.4cqw; width: 53cqw; aspect-ratio: 900 / 620; }
+.scene-svg { position: absolute; inset: 0px; width: 100%; height: 100%; display: block; overflow: visible; }
+.tag { position: absolute; font: 700 1.12cqw/1.25 var(--sans); color: var(--ink); background: rgba(255, 255, 255, 0.94); padding: 0.32cqw 0.7cqw 0.32cqw 0.7cqw; border: 1px solid rgb(207, 198, 180); border-radius: 0.3cqw 0.3cqw 0.3cqw 0.3cqw / 0.3cqw 0.3cqw 0.3cqw 0.3cqw; white-space: nowrap; box-shadow: rgba(60, 40, 20, 0.35) 0px 2px 6px -3px; }
+.tag small { font-weight: 500; color: var(--ink2); margin-right: 0.35em; }
+.tag.root { left: 74.4%; top: 88%; transform: translateY(-50%); }
+.tag.surf { left: 2%; bottom: 81%; }
+.tag.bloom { left: 56.6%; top: 4.2%; transform: translateY(-50%); }
+.tag, .ld { transition: opacity 0.4s; }
+.tag.off, .ld.off { opacity: 0; }
+.journal { position: absolute; left: 58.4cqw; top: 14.6cqw; width: 38cqw; height: 39cqw; transform: rotate(1.4deg); transform-origin: 30% 20%; }
+.page { position: absolute; inset: 0px; border-radius: 0.3cqw 0.7cqw 0.7cqw 0.3cqw / 0.3cqw 0.7cqw 0.7cqw 0.3cqw; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .45  0 0 0 0 .42  0 0 0 0 .35  0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"), linear-gradient(90deg, transparent 0px, transparent 5.2cqw, rgba(210, 70, 63, 0.28) 5.2cqw, rgba(210, 70, 63, 0.28) calc(5.2cqw + 1px), transparent calc(5.2cqw + 1px)), repeating-linear-gradient(0deg, rgba(80, 120, 170, 0.13) 0px, rgba(80, 120, 170, 0.13) 1px, transparent 1px, transparent 1.25cqw), repeating-linear-gradient(90deg, rgba(80, 120, 170, 0.13) 0px, rgba(80, 120, 170, 0.13) 1px, transparent 1px, transparent 1.25cqw), linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(253, 252, 248) 60%, rgb(244, 241, 232) 100%); box-shadow: rgba(60, 50, 30, 0.12) 0px 0.2cqw 0.4cqw, rgba(60, 50, 30, 0.38) 0px 1.4cqw 2.6cqw -1.2cqw, rgba(0, 0, 0, 0.04) -0.15cqw -0.15cqw 0px inset; }
+.rings { position: absolute; left: -1.3cqw; top: 1.6cqw; bottom: 1.6cqw; display: flex; flex-direction: column; justify-content: space-between; z-index: 2; }
+.rings i { display: block; position: relative; width: 3.4cqw; height: 1cqw; }
+.rings i::before { content: ""; position: absolute; right: 0.1cqw; top: 0.12cqw; width: 0.85cqw; height: 0.85cqw; border-radius: 50%; background: radial-gradient(circle at 40% 40%, rgb(156, 150, 134) 0%, rgb(216, 211, 198) 70%); box-shadow: rgba(0, 0, 0, 0.35) 0.1cqw 0.1cqw 0.15cqw inset; }
+.rings i::after { content: ""; position: absolute; left: 0px; top: 0.18cqw; width: 2.9cqw; height: 0.62cqw; border-radius: 0.4cqw 0.4cqw 0.4cqw 0.4cqw / 0.4cqw 0.4cqw 0.4cqw 0.4cqw; background: linear-gradient(rgb(251, 251, 250) 0%, rgb(196, 199, 203) 35%, rgb(135, 140, 147) 60%, rgb(230, 232, 234) 85%, rgb(158, 163, 169) 100%); box-shadow: rgba(0, 0, 0, 0.28) 0px 0.12cqw 0.18cqw; }
+.jin { position: absolute; inset: 1.8cqw 1.8cqw 1.5cqw 6.4cqw; display: grid; grid-template-rows: auto 1fr auto; gap: 0.8cqw 0.8cqw; word-break: keep-all; overflow-wrap: break-word; }
+.jtop { display: grid; grid-template-columns: minmax(0px, 1fr) auto; gap: 1.4cqw 1.4cqw; align-items: start; }
+.form { font: 500 .86cqw/1.5 var(--sans); color: rgb(124, 122, 108); letter-spacing: 0.06em; }
+.jtitle { font: 400 3.1cqw/1 var(--hand); color: rgb(44, 58, 90); margin: 0.25cqw 0px 0.3cqw; }
+.jline { font: 400 1.85cqw/1.1 var(--hand); color: rgb(60, 74, 104); white-space: nowrap; }
+.jhead { min-width: 0px; }
+.photo { position: relative; width: 9.6cqw; background: rgb(255, 255, 255); padding: 0.5cqw 0.5cqw 1.9cqw 0.5cqw; transform: rotate(-5deg); margin-top: 0.2cqw; box-shadow: rgba(50, 40, 20, 0.28) 0px 0.25cqw 0.6cqw; }
+.photo svg { display: block; width: 100%; height: auto; }
+.photo span { position: absolute; left: 0px; right: 0px; bottom: 0.2cqw; text-align: center; font: 400 1.55cqw/1.2 var(--hand); color: rgb(60, 74, 104); }
+.tape { position: absolute; left: 50%; top: -0.9cqw; width: 5.4cqw; height: 1.6cqw; transform: translateX(-50%) rotate(4deg); background: linear-gradient(rgba(255, 236, 170, 0.78), rgba(246, 222, 150, 0.72)); box-shadow: rgba(0, 0, 0, 0.12) 0px 0.05cqw 0.15cqw; clip-path: polygon(2% 10%, 8% 0px, 16% 12%, 24% 2%, 100% 0px, 97% 30%, 100% 55%, 96% 80%, 100% 100%, 0px 100%, 4% 70%, 0px 45%); }
+.log { list-style: none; margin: 0px; padding: 0px; display: grid; align-content: start; gap: 0.9cqw 0.9cqw; }
+.log li { display: grid; grid-template-columns: 2.2cqw 5.4cqw minmax(0px, 1fr); align-items: baseline; column-gap: 0.6cqw; position: relative; font: 400 2.25cqw/1.2 var(--hand); color: rgb(44, 58, 90); padding-bottom: 0.35cqw; border-bottom: 1px dashed rgba(60, 74, 104, 0.22); }
+.log li:last-child { border-bottom: 0px; }
+.ck { width: 2cqw; height: 2cqw; color: rgb(62, 138, 58); align-self: center; opacity: 0; transform: scale(0.3) rotate(-20deg); transition: opacity 0.25s, transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.log li .t, .log li .d { transition: color 0.3s, opacity 0.3s; }
+.log li:not(.done) .t, .log li:not(.done) .d { opacity: 0.38; }
+.log li.done .ck { opacity: 1; transform: none; }
+.log li::before { content: ""; position: absolute; inset: -0.15cqw -0.6cqw 0.05cqw -0.8cqw; border-radius: 0.3cqw 0.3cqw 0.3cqw 0.3cqw / 0.3cqw 0.3cqw 0.3cqw 0.3cqw; background: rgba(255, 224, 110, 0); transition: background 0.3s; z-index: -1; }
+.log li.now::before { background: rgba(255, 224, 110, 0.42); }
+.log { position: relative; z-index: 0; }
+.log li:not(.done) .circ::after { opacity: 0; }
+.circ::after { transition: opacity 0.4s; }
+.log .d { font-size: 1.8cqw; color: rgb(122, 106, 80); white-space: nowrap; }
+.log .d b { font-weight: 400; color: rgb(44, 58, 90); }
+.circ { position: relative; display: inline-block; padding: 0px 0.3em; }
+.circ::after { content: ""; position: absolute; inset: -0.28em -0.2em -0.18em -0.3em; border: .17cqw solid var(--pencil); border-radius: 50% 46% 52% 44%; transform: rotate(-3deg); opacity: 0.85; }
+.jfoot { display: flex; justify-content: space-between; align-items: center; font: 500 .8cqw/1.3 var(--sans); color: rgb(140, 136, 120); }
+.sim { font: 500 .8cqw/1.3 var(--sans); color: rgb(140, 136, 120); border: 1px solid rgb(215, 210, 195); padding: 0.05cqw 0.45cqw 0.05cqw 0.45cqw; border-radius: 0.2cqw 0.2cqw 0.2cqw 0.2cqw / 0.2cqw 0.2cqw 0.2cqw 0.2cqw; }
+.tl { position: absolute; left: 3.2cqw; top: 51.3cqw; width: 51cqw; height: 3.4cqw; display: flex; align-items: center; gap: 0.9cqw 0.9cqw; }
+.tb { flex: 0 0 auto; width: 2.9cqw; height: 2.9cqw; border-radius: 50%; border: 1px solid rgb(207, 198, 180); background: rgb(255, 255, 255); color: var(--leaf); display: grid; place-items: center; padding: 0px; cursor: pointer; box-shadow: rgba(60, 40, 20, 0.35) 0px 0.15cqw 0.4cqw -0.15cqw; }
+.tb svg { width: 58%; height: 58%; fill: currentcolor; }
+.tb .ipa { display: none; }
+.tb.on .ip { display: none; }
+.tb.on .ipa { display: inline; }
+.tb:hover { background: var(--leaf-soft); }
+.tb:focus-visible, .tl input:focus-visible { outline: 2px solid var(--leaf); outline-offset: 2px; }
+.dayc { flex: 0 0 auto; min-width: 7.4cqw; font-style: ; font-variant-ligatures: ; font-variant-caps: ; font-variant-east-asian: ; font-variant-alternates: ; font-variant-position: ; font-variant-emoji: ; font-weight: ; font-stretch: ; font-size: ; line-height: ; font-family: ; font-optical-sizing: ; font-size-adjust: ; font-kerning: ; font-feature-settings: ; font-variation-settings: ; color: rgb(44, 58, 90); font-variant-numeric: tabular-nums; }
+.dayc b { font-weight: 400; font-size: 1.35em; color: var(--leaf); }
+.track { position: relative; flex: 1 1 0%; min-width: 0px; height: 100%; display: flex; align-items: center; }
+.track .mk { position: absolute; top: 50%; width: 0.55cqw; height: 0.55cqw; margin: -0.275cqw 0px 0px -0.275cqw; border-radius: 50%; background: rgb(255, 255, 255); border: 1px solid rgb(168, 138, 98); pointer-events: none; }
+.tl input { appearance: none; width: 100%; height: 0.5cqw; min-height: 4px; margin: 0px; border-radius: 99px; cursor: pointer; background: linear-gradient(90deg,var(--leaf) 0 var(--p,100%),#E6D8BF var(--p,100%) 100%); }
+.tl input::-webkit-slider-thumb { appearance: none; width: 1.5cqw; height: 1.5cqw; min-width: 14px; min-height: 14px; border-radius: 50%; background: rgb(255, 255, 255); border: .25cqw solid var(--leaf); box-shadow: rgba(0, 0, 0, 0.25) 0px 1px 3px; position: relative; z-index: 2; }
+@container (max-width: 680px) {
+  .cover { aspect-ratio: auto; display: grid; gap: 18px; padding: 20px 14px 28px; }
+  .hdr, .scene, .journal, .tl { position: relative; left: auto; right: auto; top: auto; }
+  .tl { width: 100%; height: 40px; gap: 10px; margin-top: -6px; }
+  .tb { width: 34px; height: 34px; }
+  .dayc { font-size: 24px; min-width: 74px; }
+  .track .mk { width: 7px; height: 7px; margin: -3.5px 0px 0px -3.5px; }
+  .tl input { height: 6px; }
+  .tl input::-webkit-slider-thumb { width: 18px; height: 18px; border-width: 3px; }
+  .hdr { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .h1 { font-size: 36px; }
+  .sub { font-size: 14.5px; margin-top: 8px; }
+  .org { text-align: left; font-size: 12.5px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .org b { display: inline; }
+  .scene { width: 100%; }
+  .tag { font-size: 11px; padding: 3px 6px; border-radius: 4px; }
+  .tag.surf { bottom: auto; top: 2%; left: 1%; }
+  .tag.bloom { top: -2%; }
+  .journal { width: auto; height: auto; margin-left: 22px; transform: rotate(0.8deg); }
+  .page { position: absolute; inset: 0px; border-radius: 4px 8px 8px 4px; }
+  .rings { left: -17px; top: 16px; bottom: 16px; }
+  .rings i { width: 42px; height: 13px; }
+  .rings i::before { width: 11px; height: 11px; right: 1px; top: 1px; }
+  .rings i::after { width: 36px; height: 8px; top: 2px; border-radius: 5px; }
+  .jin { position: relative; inset: auto; padding: 18px 16px 14px 44px; gap: 10px; }
+  .page { background-size: auto, auto, auto 16px, 16px, auto; }
+  .jtop { gap: 12px; }
+  .form { font-size: 10.5px; }
+  .jtitle { font-size: 30px; white-space: nowrap; }
+  .jline { font-size: 20px; }
+  .photo { width: 92px; padding: 5px 5px 22px; }
+  .photo span { font-size: 18px; bottom: 2px; }
+  .tape { width: 62px; height: 18px; top: -10px; }
+  .log { gap: 6px; }
+  .log li { grid-template-columns: 20px 50px minmax(0px, 1fr); column-gap: 6px; font-size: 18px; padding-bottom: 4px; }
+  .log li::before { left: -8px; right: -6px; border-radius: 4px; }
+  .ck { width: 20px; height: 20px; }
+  .log .d { font-size: 16px; }
+  .jin { padding-left: 36px; }
+  .jline { white-space: normal; font-size: 17px; }
+  .photo { width: 84px; }
+  .tag.root { left: auto; right: 1%; top: 94%; }
+  .circ::after { border-width: 2px; }
+  .jfoot, .sim { font-size: 10.5px; }
+}
+.sec { background: var(--paper); border: 1px solid var(--rule); padding: 26px 26px 28px; min-width: 0px; display: grid; gap: 18px; }
+.sec h2 { font: 700 22px/1.3 var(--display); margin: 0px; letter-spacing: -0.01em; text-wrap: balance; }
+td.day { font: 400 22px/1.1 var(--hand); color: rgb(44, 58, 90); white-space: nowrap; }
+td.plan b { display: block; }
+td .st { display: inline-block; font-size: 12.5px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--leaf-soft); color: rgb(47, 106, 42); }
+td .st.s { background: var(--soil-soft); color: rgb(122, 84, 48); }
+.flow { margin: 0px; padding-left: 20px; display: grid; gap: 6px; color: var(--ink2); font-size: 14.5px; max-width: 78ch; }
+.flow b { color: var(--ink); }
+@media (max-width: 760px) {
+  .sec { padding: 20px 16px 22px; }
+}
+&lt;/style&gt;
+
+&lt;main class="wrap" style="font-family:'Noto Sans KR', Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:24.75px;color:rgb(36, 48, 31)"&gt;
+&lt;div class="cover-shell"&gt;
+  &lt;section class="cover" aria-label="표지"&gt;
+    &lt;header class="hdr"&gt;
+      &lt;div class="l"&gt;
+        &lt;h1 class="h1"&gt;기초가 자라는 &lt;em&gt;60일&lt;/em&gt;&lt;/h1&gt;
+        &lt;p class="sub"&gt;○○교육청 2027 기초학력 보장 종합계획(안)&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;p class="org"&gt;&lt;b&gt;○○교육청 초등교육과&lt;/b&gt;2027. 2.&lt;/p&gt;
+    &lt;/header&gt;
+
+    &lt;div class="scene"&gt;
+      &lt;svg class="scene-svg" viewBox="0 0 900 620" role="img" aria-labelledby="sc-t" xmlns="http://www.w3.org/2000/svg"&gt;&lt;title id="sc-t"&gt;흙 단면 속 강낭콩 한 그루가 60일 동안 씨앗에서 뿌리, 떡잎, 본잎을 거쳐 꽃이 피기까지 자라는 장면&lt;/title&gt;&lt;defs&gt;
+&lt;linearGradient id="gTop" x1="0" y1="0" x2="1" y2="1"&gt;&lt;stop offset="0" stop-color="#E8CFA6"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#CDA676"&gt;&lt;/stop&gt;&lt;/linearGradient&gt;
+&lt;linearGradient id="gFaceLight" x1="0" y1="0" x2="1" y2=".4"&gt;&lt;stop offset="0" stop-color="#FFFFFF" stop-opacity=".16"&gt;&lt;/stop&gt;&lt;stop offset=".55" stop-color="#FFFFFF" stop-opacity="0"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#5C3E22" stop-opacity=".14"&gt;&lt;/stop&gt;&lt;/linearGradient&gt;
+&lt;radialGradient id="gPebble" cx=".35" cy=".3" r=".8"&gt;&lt;stop offset="0" stop-color="#F6EBDA"&gt;&lt;/stop&gt;&lt;stop offset=".5" stop-color="#CDB497"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#8F7556"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;
+&lt;radialGradient id="gSeed" cx=".32" cy=".28" r=".85"&gt;&lt;stop offset="0" stop-color="#E7A47A"&gt;&lt;/stop&gt;&lt;stop offset=".45" stop-color="#B5603A"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#6E331C"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;
+&lt;linearGradient id="gLeaf" x1="0" y1="0" x2="1" y2="1"&gt;&lt;stop offset="0" stop-color="#A9D77F"&gt;&lt;/stop&gt;&lt;stop offset=".55" stop-color="#6AAE4E"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#3F8236"&gt;&lt;/stop&gt;&lt;/linearGradient&gt;
+&lt;radialGradient id="gCot" cx=".4" cy=".3" r=".8"&gt;&lt;stop offset="0" stop-color="#F3EDA4"&gt;&lt;/stop&gt;&lt;stop offset=".6" stop-color="#C9C76A"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#9A9A45"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;
+&lt;radialGradient id="gCotOld" cx=".4" cy=".3" r=".8"&gt;&lt;stop offset="0" stop-color="#E9D99A"&gt;&lt;/stop&gt;&lt;stop offset=".6" stop-color="#C7AE68"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#977E45"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;
+&lt;radialGradient id="gPetal" cx=".35" cy=".3" r=".85"&gt;&lt;stop offset="0" stop-color="#FFFFFF"&gt;&lt;/stop&gt;&lt;stop offset=".5" stop-color="#FFC6D6"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#EE7FA0"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;
+&lt;radialGradient id="gCore" cx=".4" cy=".35" r=".7"&gt;&lt;stop offset="0" stop-color="#FFF4B8"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#E7B33C"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;
+&lt;radialGradient id="gBud" cx=".35" cy=".3" r=".8"&gt;&lt;stop offset="0" stop-color="#FFE1EA"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#D9668A"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;
+&lt;filter id="fGrain" x="0" y="0" width="100%" height="100%"&gt;&lt;feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7" result="n"&gt;&lt;/feTurbulence&gt;&lt;feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.25" result="a"&gt;&lt;/feColorMatrix&gt;&lt;feComposite in="SourceGraphic" in2="a" operator="in"&gt;&lt;/feComposite&gt;&lt;/filter&gt;
+&lt;filter id="fBlur2"&gt;&lt;feGaussianBlur stdDeviation="2"&gt;&lt;/feGaussianBlur&gt;&lt;/filter&gt;
+&lt;filter id="fBlur6" x="-10%" y="-200%" width="120%" height="500%"&gt;&lt;feGaussianBlur stdDeviation="6"&gt;&lt;/feGaussianBlur&gt;&lt;/filter&gt;
+&lt;filter id="fDrop" x="-30%" y="-30%" width="160%" height="160%"&gt;&lt;feDropShadow dx="4" dy="5" stdDeviation="3.2" flood-color="#3D4A2A" flood-opacity=".22"&gt;&lt;/feDropShadow&gt;&lt;/filter&gt;
+&lt;linearGradient id="gStem" x1="0" y1="0" x2="1" y2="0"&gt;&lt;stop offset="0" stop-color="#B9E08E"&gt;&lt;/stop&gt;&lt;stop offset=".45" stop-color="#6DAE55"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#3F7A33"&gt;&lt;/stop&gt;&lt;/linearGradient&gt;
+&lt;linearGradient id="gStemPale" x1="0" y1="0" x2="1" y2="0"&gt;&lt;stop offset="0" stop-color="#FBF7E2"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#D9D2A4"&gt;&lt;/stop&gt;&lt;/linearGradient&gt;
+&lt;radialGradient id="gHalo"&gt;&lt;stop offset="0" stop-color="#FFF7E4" stop-opacity=".55"&gt;&lt;/stop&gt;&lt;stop offset=".7" stop-color="#FFF4DC" stop-opacity=".22"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#FFF4DC" stop-opacity="0"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;
+&lt;clipPath id="cpAbove"&gt;&lt;rect x="0" y="-60" width="900" height="250.5"&gt;&lt;/rect&gt;&lt;/clipPath&gt;
+&lt;clipPath id="cpBelow"&gt;&lt;rect x="0" y="190.5" width="900" height="430"&gt;&lt;/rect&gt;&lt;/clipPath&gt;
+&lt;/defs&gt;&lt;ellipse cx="455" cy="604" rx="440" ry="12" fill="#6B5134" opacity=".28" filter="url(#fBlur6)"&gt;&lt;/ellipse&gt;&lt;path d="M20,190 L880,190 L852,158 L48,158Z" fill="url(#gTop)"&gt;&lt;/path&gt;&lt;path d="M20,190 L880,190 L852,158 L48,158Z" fill="#8A6440" filter="url(#fGrain)" opacity=".55"&gt;&lt;/path&gt;&lt;rect x="20" y="190" width="860" height="410" fill="#DCC29A"&gt;&lt;/rect&gt;&lt;path d="M20,190 H880 V262 C800,270 700,256 600,266 C480,276 380,258 260,268 C160,276 80,262 20,268Z" fill="#C49A6C"&gt;&lt;/path&gt;&lt;path d="M20,268 C80,262 160,276 260,268 C380,258 480,276 600,266 C700,256 800,270 880,262 V420 C780,428 690,412 560,424 C430,436 330,414 200,426 C120,432 60,420 20,428Z" fill="#D2AF82"&gt;&lt;/path&gt;&lt;rect x="20" y="190" width="860" height="410" fill="#7A5634" filter="url(#fGrain)" opacity=".5"&gt;&lt;/rect&gt;&lt;rect x="20" y="190" width="860" height="410" fill="url(#gFaceLight)"&gt;&lt;/rect&gt;&lt;ellipse cx="406.3" cy="409.9" rx="8.6" ry="5.3" transform="rotate(8.1 406.3 409.9)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="408.5" cy="413.6" rx="7.7" ry="1.9" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="48.3" cy="377.1" rx="6.3" ry="3.7" transform="rotate(14.6 48.3 377.1)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="49.9" cy="379.7" rx="5.7" ry="1.3" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="294.3" cy="525.7" rx="10.7" ry="6.6" transform="rotate(23.6 294.3 525.7)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="297.0" cy="530.3" rx="9.6" ry="2.3" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="702.3" cy="488.6" rx="4.2" ry="2.8" transform="rotate(7.6 702.3 488.6)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="703.3" cy="490.5" rx="3.8" ry="1.0" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="282.9" cy="353.4" rx="6.2" ry="3.8" transform="rotate(17.3 282.9 353.4)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="284.4" cy="356.1" rx="5.6" ry="1.3" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="817.7" cy="374.4" rx="4.3" ry="3.4" transform="rotate(20.0 817.7 374.4)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="818.8" cy="376.8" rx="3.9" ry="1.2" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="688.1" cy="444.6" rx="5.6" ry="3.3" transform="rotate(-11.7 688.1 444.6)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="689.5" cy="447.0" rx="5.1" ry="1.2" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="417.9" cy="305.0" rx="8.9" ry="6.5" transform="rotate(-29.2 417.9 305.0)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="420.1" cy="309.6" rx="8.0" ry="2.3" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="730.8" cy="434.9" rx="7.3" ry="5.5" transform="rotate(-2.7 730.8 434.9)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="732.6" cy="438.8" rx="6.6" ry="1.9" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="821.3" cy="523.8" rx="8.6" ry="6.5" transform="rotate(-16.3 821.3 523.8)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="823.4" cy="528.3" rx="7.7" ry="2.3" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="47.5" cy="475.8" rx="10.4" ry="6.0" transform="rotate(11.2 47.5 475.8)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="50.1" cy="480.0" rx="9.4" ry="2.1" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="811.3" cy="518.4" rx="5.1" ry="3.6" transform="rotate(-14.7 811.3 518.4)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="812.5" cy="521.0" rx="4.6" ry="1.3" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="638.8" cy="425.5" rx="4.3" ry="2.4" transform="rotate(-18.1 638.8 425.5)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="639.9" cy="427.2" rx="3.8" ry="0.8" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="587.1" cy="567.1" rx="7.5" ry="4.3" transform="rotate(-17.0 587.1 567.1)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="589.0" cy="570.1" rx="6.8" ry="1.5" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="224.4" cy="341.3" rx="8.7" ry="6.6" transform="rotate(21.6 224.4 341.3)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="226.6" cy="345.9" rx="7.8" ry="2.3" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="211.1" cy="415.1" rx="4.2" ry="2.6" transform="rotate(-12.3 211.1 415.1)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="212.2" cy="416.9" rx="3.7" ry="0.9" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="141.5" cy="308.2" rx="6.1" ry="4.1" transform="rotate(2.1 141.5 308.2)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="143.0" cy="311.1" rx="5.5" ry="1.4" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="427.2" cy="464.8" rx="7.5" ry="5.1" transform="rotate(-25.2 427.2 464.8)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="429.1" cy="468.3" rx="6.8" ry="1.8" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="558.6" cy="489.0" rx="6.2" ry="4.1" transform="rotate(18.4 558.6 489.0)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="560.2" cy="491.9" rx="5.6" ry="1.4" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;ellipse cx="636.9" cy="301.0" rx="6.3" ry="3.8" transform="rotate(12.7 636.9 301.0)" fill="url(#gPebble)"&gt;&lt;/ellipse&gt;&lt;ellipse cx="638.4" cy="303.6" rx="5.7" ry="1.3" fill="#6E4E2F" opacity=".25"&gt;&lt;/ellipse&gt;&lt;circle cx="410.9" cy="482.8" r="1.4" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="307.8" cy="437.9" r="0.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="792.8" cy="203.2" r="1.4" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="591.5" cy="409.3" r="1.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="453.1" cy="533.9" r="1.6" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="461.7" cy="441.3" r="1.6" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="425.7" cy="387.4" r="0.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="661.4" cy="558.4" r="0.7" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="102.3" cy="344.3" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="156.4" cy="268.7" r="1.3" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="638.1" cy="500.0" r="1.0" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="101.3" cy="569.7" r="1.2" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="513.2" cy="255.3" r="1.5" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="682.4" cy="361.8" r="1.5" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="605.2" cy="356.0" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="531.1" cy="336.2" r="1.1" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="38.4" cy="271.4" r="0.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="374.3" cy="509.0" r="1.3" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="682.8" cy="462.5" r="1.0" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="321.2" cy="456.0" r="1.1" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="166.3" cy="216.7" r="0.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="567.5" cy="495.4" r="1.4" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="145.9" cy="582.4" r="0.8" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="591.4" cy="312.3" r="1.4" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="841.1" cy="204.5" r="0.7" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="849.6" cy="320.2" r="1.3" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="404.8" cy="434.1" r="1.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="479.5" cy="558.1" r="1.5" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="549.6" cy="313.7" r="1.0" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="808.5" cy="321.0" r="1.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="345.5" cy="542.8" r="1.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="42.6" cy="240.2" r="1.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="256.6" cy="541.9" r="0.9" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="255.8" cy="199.7" r="1.4" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="767.7" cy="515.1" r="0.8" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="814.4" cy="358.3" r="1.5" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="849.6" cy="528.8" r="1.5" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="853.1" cy="344.2" r="1.3" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="665.2" cy="257.2" r="0.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="478.0" cy="305.9" r="1.4" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="743.3" cy="532.4" r="0.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="448.1" cy="337.7" r="0.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="626.5" cy="470.4" r="1.6" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="381.4" cy="388.5" r="1.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="283.6" cy="283.5" r="0.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="653.4" cy="335.9" r="0.7" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="573.5" cy="501.1" r="1.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="101.4" cy="300.1" r="1.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="778.1" cy="329.4" r="1.5" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="190.9" cy="294.4" r="0.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="322.3" cy="370.4" r="1.2" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="804.6" cy="229.8" r="0.8" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="477.4" cy="201.7" r="0.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="210.8" cy="389.2" r="0.6" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="736.8" cy="292.4" r="1.2" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="637.1" cy="292.0" r="1.1" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="853.9" cy="357.5" r="0.6" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="849.1" cy="452.7" r="1.4" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="205.5" cy="544.5" r="1.3" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="48.0" cy="232.7" r="1.2" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="831.0" cy="354.2" r="0.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="805.8" cy="489.6" r="1.0" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="689.1" cy="289.5" r="1.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="148.8" cy="297.4" r="1.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="233.7" cy="394.1" r="1.0" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="760.1" cy="353.8" r="0.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="850.5" cy="218.0" r="1.0" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="210.2" cy="225.9" r="1.0" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="389.5" cy="317.0" r="1.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="781.1" cy="440.6" r="1.7" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="527.4" cy="544.3" r="1.1" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="652.5" cy="418.8" r="1.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="540.9" cy="516.7" r="1.4" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="475.9" cy="276.1" r="1.1" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="52.7" cy="285.1" r="1.5" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="735.0" cy="418.5" r="1.0" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="513.5" cy="199.5" r="1.4" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="157.5" cy="253.5" r="0.6" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="332.2" cy="287.2" r="0.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="619.9" cy="445.5" r="1.1" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="486.5" cy="289.4" r="1.0" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="319.7" cy="237.4" r="1.1" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="328.1" cy="345.8" r="1.1" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="510.0" cy="511.5" r="0.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="491.8" cy="220.4" r="1.3" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="111.7" cy="401.6" r="0.9" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="866.2" cy="518.1" r="0.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="265.7" cy="232.4" r="1.0" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="545.2" cy="398.8" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="672.1" cy="369.3" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="225.5" cy="412.0" r="0.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="412.2" cy="291.4" r="1.2" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="331.7" cy="321.0" r="1.2" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="701.8" cy="483.4" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="278.9" cy="405.5" r="0.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="594.0" cy="454.9" r="1.6" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="316.5" cy="439.4" r="0.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="341.2" cy="406.0" r="1.6" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="550.8" cy="209.6" r="1.0" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="159.2" cy="419.5" r="1.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="569.4" cy="249.9" r="1.1" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="252.2" cy="432.7" r="1.6" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="338.4" cy="394.7" r="1.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="499.0" cy="328.3" r="1.6" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="69.9" cy="587.1" r="1.2" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="477.3" cy="336.8" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="311.6" cy="203.2" r="0.6" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="693.0" cy="483.5" r="1.4" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="232.0" cy="544.7" r="1.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="688.8" cy="347.0" r="0.9" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="254.0" cy="223.7" r="0.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="286.4" cy="235.7" r="1.2" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="270.9" cy="499.3" r="1.0" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="193.3" cy="360.7" r="0.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="624.2" cy="318.7" r="1.5" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="505.2" cy="316.8" r="1.4" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="399.1" cy="218.3" r="1.1" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="528.0" cy="395.8" r="0.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="347.7" cy="437.5" r="1.5" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="552.7" cy="382.2" r="0.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="321.4" cy="334.2" r="1.5" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="437.3" cy="230.9" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="209.4" cy="256.4" r="0.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="662.3" cy="450.0" r="0.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="157.7" cy="234.8" r="1.1" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="334.6" cy="538.2" r="1.2" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="33.3" cy="209.0" r="1.5" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="31.8" cy="577.9" r="1.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="400.8" cy="344.4" r="1.1" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="123.1" cy="532.9" r="1.7" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="526.2" cy="510.2" r="0.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="507.7" cy="595.4" r="1.3" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="91.4" cy="338.8" r="1.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="848.5" cy="274.1" r="1.6" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="586.8" cy="446.2" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="237.4" cy="561.9" r="1.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="675.1" cy="307.5" r="1.0" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="174.0" cy="407.5" r="1.0" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="599.3" cy="537.8" r="1.3" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="346.1" cy="235.1" r="1.2" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="164.7" cy="401.8" r="1.1" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="251.4" cy="458.1" r="0.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="405.1" cy="217.9" r="1.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="463.0" cy="427.3" r="1.2" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="399.5" cy="215.2" r="1.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="595.8" cy="512.8" r="0.6" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="595.4" cy="329.1" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="693.0" cy="491.4" r="1.4" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="482.2" cy="332.6" r="1.3" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="752.1" cy="481.4" r="1.5" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="472.5" cy="284.6" r="1.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="149.6" cy="330.4" r="1.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="690.8" cy="220.9" r="0.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="871.5" cy="324.4" r="1.3" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="201.3" cy="477.8" r="0.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="41.2" cy="289.4" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="596.3" cy="423.8" r="1.6" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="537.3" cy="342.6" r="1.0" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="151.8" cy="440.7" r="1.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="456.1" cy="486.0" r="1.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="177.8" cy="484.0" r="0.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="493.5" cy="363.6" r="1.5" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="424.0" cy="332.1" r="1.3" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="371.0" cy="538.6" r="1.4" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="553.5" cy="515.5" r="1.1" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="756.1" cy="373.8" r="1.5" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="269.9" cy="523.8" r="0.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="800.1" cy="492.5" r="0.7" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="847.6" cy="571.6" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="286.7" cy="364.5" r="1.3" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="438.3" cy="215.3" r="0.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="547.1" cy="305.8" r="1.3" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="743.3" cy="272.9" r="1.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="709.4" cy="324.2" r="1.6" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="764.5" cy="415.0" r="0.6" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="399.4" cy="324.6" r="1.1" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="384.7" cy="508.9" r="1.4" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="356.9" cy="311.9" r="1.3" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="442.0" cy="592.9" r="0.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="256.0" cy="491.2" r="1.5" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="352.4" cy="316.7" r="1.5" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="466.8" cy="227.9" r="1.2" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="742.6" cy="382.9" r="0.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="726.1" cy="346.9" r="1.1" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="487.5" cy="242.1" r="1.5" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="772.5" cy="590.6" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="465.9" cy="206.0" r="0.8" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="130.7" cy="546.6" r="1.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="251.1" cy="240.3" r="0.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="784.7" cy="448.2" r="1.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="397.9" cy="455.2" r="1.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="268.4" cy="206.3" r="1.3" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="275.7" cy="314.3" r="1.1" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="99.4" cy="205.0" r="1.1" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="622.7" cy="206.0" r="1.1" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="452.7" cy="227.8" r="1.5" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="53.6" cy="348.1" r="1.2" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="88.5" cy="200.3" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="691.5" cy="391.1" r="1.8" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="518.2" cy="230.5" r="1.0" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="445.9" cy="523.4" r="1.7" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="94.4" cy="450.9" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="318.9" cy="289.2" r="0.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="138.4" cy="276.7" r="1.0" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="436.9" cy="419.4" r="1.3" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="531.4" cy="434.4" r="1.2" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="88.2" cy="515.5" r="1.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="277.3" cy="283.9" r="1.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="98.3" cy="405.7" r="1.3" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="370.4" cy="530.1" r="1.3" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="194.0" cy="204.7" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="141.4" cy="264.7" r="1.6" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="703.1" cy="300.4" r="1.0" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="46.2" cy="495.5" r="1.2" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="734.6" cy="539.3" r="1.4" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="420.0" cy="336.8" r="1.2" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="565.9" cy="397.3" r="1.6" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="517.0" cy="393.5" r="0.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="516.7" cy="583.7" r="1.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="564.4" cy="256.5" r="0.7" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="714.6" cy="384.9" r="1.6" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="634.0" cy="340.4" r="0.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="779.5" cy="529.9" r="0.7" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="58.2" cy="550.7" r="0.8" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="777.0" cy="524.9" r="0.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="809.2" cy="428.8" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="82.2" cy="271.3" r="0.6" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="541.6" cy="324.3" r="1.1" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="694.3" cy="326.2" r="0.9" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="508.6" cy="354.6" r="1.2" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="631.7" cy="419.6" r="1.0" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="240.6" cy="292.3" r="1.4" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="845.6" cy="465.1" r="0.8" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="588.5" cy="282.9" r="0.8" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="831.9" cy="510.8" r="1.5" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="489.8" cy="555.9" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="129.8" cy="284.7" r="1.4" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="231.0" cy="308.9" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="283.0" cy="325.4" r="0.9" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="531.4" cy="545.0" r="0.9" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="678.5" cy="291.7" r="0.9" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="662.3" cy="529.6" r="1.7" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="703.3" cy="221.8" r="1.0" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="98.4" cy="505.7" r="1.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="55.5" cy="351.6" r="1.1" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="247.3" cy="580.7" r="1.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="479.8" cy="245.9" r="0.6" fill="#B88B5D" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="307.8" cy="226.5" r="1.4" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="720.4" cy="241.0" r="1.4" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="399.2" cy="322.8" r="1.4" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="426.9" cy="398.5" r="1.3" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="437.7" cy="523.2" r="1.4" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="419.4" cy="542.5" r="1.0" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="585.6" cy="409.1" r="1.0" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="308.8" cy="588.6" r="0.7" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="348.5" cy="516.1" r="1.2" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="69.8" cy="505.5" r="0.8" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="424.3" cy="288.3" r="1.4" fill="#8B6440" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="240.8" cy="357.5" r="1.2" fill="#F2E2C4" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="569.9" cy="579.4" r="1.1" fill="#9C7149" opacity=".7"&gt;&lt;/circle&gt;&lt;circle cx="379.6" cy="166.2" r="1.7" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="302.9" cy="173.2" r="1.2" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="323.0" cy="186.1" r="1.9" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="554.8" cy="187.2" r="1.9" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="501.0" cy="173.0" r="2.1" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="256.8" cy="173.0" r="1.7" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="325.4" cy="173.3" r="1.6" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="368.9" cy="161.3" r="0.8" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="702.1" cy="184.0" r="1.3" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="95.0" cy="171.2" r="1.7" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="333.1" cy="173.6" r="2.3" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="269.6" cy="172.2" r="1.1" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="667.5" cy="169.8" r="1.7" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="798.9" cy="186.7" r="1.5" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="534.3" cy="175.3" r="0.9" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="585.6" cy="166.0" r="2.1" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="693.6" cy="187.8" r="1.8" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="676.2" cy="178.4" r="2.0" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="319.3" cy="182.9" r="2.3" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="799.1" cy="178.2" r="1.9" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="257.8" cy="163.9" r="0.9" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="510.2" cy="181.3" r="2.2" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="740.6" cy="175.6" r="0.9" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="402.0" cy="174.7" r="2.3" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="116.8" cy="169.6" r="1.6" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="380.8" cy="164.3" r="1.7" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="168.9" cy="185.4" r="2.0" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="330.7" cy="185.0" r="2.2" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="566.1" cy="161.2" r="1.7" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="698.1" cy="180.8" r="1.5" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="215.1" cy="182.2" r="0.9" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="587.6" cy="179.7" r="1.5" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="825.6" cy="161.7" r="1.7" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="413.6" cy="162.8" r="2.2" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="736.9" cy="163.0" r="1.3" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="583.5" cy="184.5" r="1.7" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="73.8" cy="162.4" r="1.1" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="607.1" cy="162.2" r="2.1" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="416.6" cy="183.0" r="2.1" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="289.4" cy="182.0" r="2.0" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="198.4" cy="178.5" r="0.9" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="765.2" cy="185.5" r="2.3" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="832.4" cy="169.6" r="1.0" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="363.4" cy="176.8" r="1.4" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="246.3" cy="164.0" r="2.3" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="350.5" cy="175.5" r="2.3" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="686.1" cy="175.4" r="1.4" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="240.2" cy="171.8" r="1.7" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="793.9" cy="187.2" r="2.3" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="801.2" cy="166.4" r="2.3" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="498.8" cy="171.8" r="1.1" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="144.3" cy="173.3" r="2.3" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="669.7" cy="165.9" r="1.4" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="814.0" cy="170.5" r="1.5" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="838.2" cy="186.8" r="1.0" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="780.9" cy="163.7" r="1.4" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="267.3" cy="177.4" r="2.2" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="61.5" cy="179.4" r="1.7" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="237.3" cy="181.9" r="1.4" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="778.9" cy="162.2" r="1.5" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="377.9" cy="167.0" r="1.2" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="583.9" cy="178.2" r="1.8" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="66.8" cy="168.7" r="1.4" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="414.3" cy="171.3" r="1.5" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="724.3" cy="185.4" r="2.4" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="313.2" cy="162.0" r="1.9" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="558.8" cy="169.5" r="1.3" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="374.2" cy="175.1" r="1.7" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="667.0" cy="173.6" r="2.1" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="514.4" cy="171.0" r="2.2" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="318.3" cy="185.7" r="2.1" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="520.5" cy="184.2" r="1.6" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="307.7" cy="175.5" r="1.2" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="313.1" cy="161.3" r="1.5" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="278.1" cy="178.3" r="1.0" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="725.0" cy="162.6" r="2.3" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="150.5" cy="165.8" r="0.9" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="525.4" cy="186.5" r="1.8" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="555.4" cy="185.6" r="1.8" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="726.8" cy="166.2" r="2.3" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="366.1" cy="168.1" r="1.2" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="577.2" cy="166.6" r="1.8" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="94.5" cy="185.2" r="1.2" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="633.6" cy="183.6" r="2.1" fill="#8F6844"&gt;&lt;/circle&gt;&lt;circle cx="199.1" cy="187.9" r="2.2" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="359.5" cy="166.8" r="1.7" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="305.8" cy="177.5" r="1.1" fill="#E8D2AE"&gt;&lt;/circle&gt;&lt;circle cx="300.7" cy="162.8" r="1.6" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="424.5" cy="168.4" r="2.2" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;circle cx="68.1" cy="179.0" r="1.7" fill="#A57A4E"&gt;&lt;/circle&gt;&lt;path d="M20,190 H880" stroke="#F4E3C4" stroke-width="2.2"&gt;&lt;/path&gt;&lt;path d="M20,192.5 H880" stroke="#8B623C" stroke-width="1" opacity=".5"&gt;&lt;/path&gt;&lt;path d="M880,190 V600" stroke="#9C7650" stroke-width="1.2" opacity=".6"&gt;&lt;/path&gt;&lt;g id="halo"&gt;&lt;/g&gt;&lt;g id="plant"&gt;&lt;/g&gt;&lt;g id="leads" fill="none" stroke="#3A3428" stroke-width="1.1"&gt;&lt;g class="ld" data-from="10"&gt;&lt;path id="ldRoot" d="M0,0"&gt;&lt;/path&gt;&lt;circle id="ldRootDot" r="3" fill="#FFFFFF" stroke-width="1.2"&gt;&lt;/circle&gt;&lt;/g&gt;&lt;g class="ld"&gt;&lt;path d="M46,174 L46,124"&gt;&lt;/path&gt;&lt;circle cx="46" cy="174" r="3" fill="#FFFFFF" stroke-width="1.2"&gt;&lt;/circle&gt;&lt;/g&gt;&lt;g class="ld" data-from="53"&gt;&lt;path id="ldBloom" d="M0,0"&gt;&lt;/path&gt;&lt;circle id="ldBloomDot" r="3" fill="#FFFFFF" stroke-width="1.2"&gt;&lt;/circle&gt;&lt;/g&gt;&lt;/g&gt;&lt;/svg&gt;
+      &lt;span class="tag surf"&gt;&lt;small&gt;지표면 위&lt;/small&gt;보이는 성장&lt;/span&gt;
+      &lt;span class="tag root" data-from="10"&gt;&lt;small&gt;뿌리&lt;/small&gt;기초 진단·지원&lt;/span&gt;
+      &lt;span class="tag bloom" data-from="53"&gt;&lt;small&gt;꽃&lt;/small&gt;성과&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;div class="tl" role="group" aria-label="60일 생장 재생"&gt;
+      &lt;button type="button" class="tb" id="bPlay" aria-label="재생"&gt;&lt;svg viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path class="ip" d="M8,5 L19,12 L8,19Z"&gt;&lt;/path&gt;&lt;path class="ipa" d="M7,5 H10.5 V19 H7Z M13.5,5 H17 V19 H13.5Z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
+      &lt;button type="button" class="tb" id="bRe" aria-label="처음부터 재생"&gt;&lt;svg viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path d="M5.5,12 A6.5,6.5 0 1 0 8,6.9" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"&gt;&lt;/path&gt;&lt;path d="M4.2,4.6 L9.4,5.4 L7.2,10.2Z" fill="currentColor"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;
+      &lt;output class="dayc" id="dayOut" for="day"&gt;Day &lt;b&gt;60&lt;/b&gt;&lt;/output&gt;
+      &lt;div class="track"&gt;
+        &lt;input type="range" id="day" min="0" max="60" step="0.1" value="60" aria-label="날짜 이동(0~60일)"&gt;
+        &lt;i class="mk" style="left:0%"&gt;&lt;/i&gt;&lt;i class="mk" style="left:23.33%"&gt;&lt;/i&gt;&lt;i class="mk" style="left:50%"&gt;&lt;/i&gt;&lt;i class="mk" style="left:100%"&gt;&lt;/i&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="journal" aria-label="성장일지 한 페이지"&gt;
+      &lt;div class="page"&gt;&lt;/div&gt;
+      &lt;div class="rings" aria-hidden="true"&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
+      &lt;div class="jin"&gt;
+        &lt;div class="jtop"&gt;
+          &lt;div class="jhead"&gt;
+            &lt;div class="form"&gt;관찰일지 · No. 01&lt;/div&gt;
+            &lt;div class="jtitle"&gt;성장일지&lt;/div&gt;
+            &lt;div class="jline"&gt;우리 학교 기초 60일&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;figure class="photo" style="margin:0"&gt;
+            &lt;i class="tape" aria-hidden="true"&gt;&lt;/i&gt;
+            &lt;svg viewBox="300 4 300 250" aria-hidden="true"&gt;&lt;rect x="300" y="0" width="300" height="190" fill="#EEF4E3"&gt;&lt;/rect&gt;&lt;rect x="300" y="190" width="300" height="70" fill="#D6B98D"&gt;&lt;/rect&gt;&lt;path d="M300,190 H600" stroke="#B58F62" stroke-width="2"&gt;&lt;/path&gt;&lt;use href="#plant"&gt;&lt;/use&gt;&lt;/svg&gt;
+            &lt;span id="photoDay"&gt;Day 60&lt;/span&gt;
+          &lt;/figure&gt;
+        &lt;/div&gt;
+        &lt;ol class="log"&gt;
+          &lt;li data-d="0"&gt;&lt;svg class="ck" viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path d="M3,13 C6,15 8,18 9,20 C12,13 16,7 22,3" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;span class="d"&gt;&lt;b&gt;Day 0&lt;/b&gt;&lt;/span&gt;&lt;span class="t"&gt;진단, 출발점 확인&lt;/span&gt;&lt;/li&gt;
+          &lt;li data-d="14"&gt;&lt;svg class="ck" viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path d="M3,13 C6,15 8,18 9,20 C12,13 16,7 22,3" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;span class="d"&gt;&lt;b&gt;Day 14&lt;/b&gt;&lt;/span&gt;&lt;span class="t"&gt;맞춤 지원, 뿌리 내림&lt;/span&gt;&lt;/li&gt;
+          &lt;li data-d="30"&gt;&lt;svg class="ck" viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path d="M3,13 C6,15 8,18 9,20 C12,13 16,7 22,3" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;span class="d"&gt;&lt;b&gt;Day 30&lt;/b&gt;&lt;/span&gt;&lt;span class="t"&gt;떡잎, 첫 변화&lt;/span&gt;&lt;/li&gt;
+          &lt;li data-d="60"&gt;&lt;svg class="ck" viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path d="M3,13 C6,15 8,18 9,20 C12,13 16,7 22,3" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;span class="d"&gt;&lt;b&gt;Day 60&lt;/b&gt;&lt;/span&gt;&lt;span class="t"&gt;&lt;span class="circ"&gt;꽃, 목표 도달&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
+        &lt;/ol&gt;
+        &lt;div class="jfoot"&gt;&lt;span&gt;3.4 → 5.3&lt;/span&gt;&lt;span class="sim"&gt;가상 예시&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+
+&lt;script&gt;
+(() =&gt; {
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  const plant = document.getElementById('plant');
+  const halo = document.getElementById('halo');
+  const X = 450, SURF = 190;
+  const PR = 318, STEP = 6;
+  const ease = x =&gt; x &lt;= 0 ? 0 : x &gt;= 1 ? 1 : x * x * (3 - 2 * x);
+  const seg = (t, a, b) =&gt; ease((t - a) / (b - a));
+  const lerp = (a, b, k) =&gt; a + (b - a) * k;
+  const r1 = n =&gt; Math.round(n * 10) / 10;
+  const D2R = Math.PI / 180;
+  let sd = 11;
+  const rnd = () =&gt; { sd = (sd * 16807) % 2147483647; return (sd - 1) / 2147483646; };
+
+  // full-length curve, revealed progressively so its shape never shifts while growing
+  function curve(x, y, ang, Lfull, bend, wig, ph) {
+    const pts = [[x, y]];
+    for (let d = STEP; d &lt;= Lfull; d += STEP) {
+      const a = ang + bend * (d / Lfull) + wig * Math.sin(d / 38 + ph);
+      x += Math.cos(a) * STEP; y += Math.sin(a) * STEP;
+      if (y &gt; 593 || x &lt; 28 || x &gt; 872) break;
+      pts.push([x, y]);
+    }
+    return pts;
+  }
+  const cut = (pts, len) =&gt; {
+    const n = Math.min(pts.length - 1, len / STEP);
+    if (n &lt;= 0) return null;
+    const i = Math.floor(n), f = n - i, out = pts.slice(0, i + 1);
+    if (f &gt; 0 &amp;&amp; pts[i + 1]) out.push([lerp(pts[i][0], pts[i + 1][0], f), lerp(pts[i][1], pts[i + 1][1], f)]);
+    return out.length &gt; 1 ? out : null;
+  };
+  function tube(pts, w0, w1, off) {
+    const L = [], R = [], n = pts.length;
+    for (let i = 0; i &lt; n; i++) {
+      const a = pts[Math.max(0, i - 1)], b = pts[Math.min(n - 1, i + 1)];
+      let tx = b[0] - a[0], ty = b[1] - a[1]; const m = Math.hypot(tx, ty) || 1; tx /= m; ty /= m;
+      const w = lerp(w0, w1, i / (n - 1)) / 2, o = (off || 0);
+      const cx = pts[i][0] - ty * o, cy = pts[i][1] + tx * o;
+      L.push(r1(cx - ty * w) + ',' + r1(cy + tx * w)); R.push(r1(cx + ty * w) + ',' + r1(cy - tx * w));
+    }
+    return 'M' + L.join(' L') + ' L' + R.reverse().join(' L') + 'Z';
+  }
+  const rootSvg = (pts, w0, w1) =&gt;
+    `&lt;path d="${tube(pts, w0 + 1.6, w1 + .8)}" fill="#B99464"/&gt;` +
+    `&lt;path d="${tube(pts, w0, w1)}" fill="#F3E6C6"/&gt;` +
+    `&lt;path d="${tube(pts, w0 * .32, w1 * .3, -w0 * .2)}" fill="#FFFBEF" opacity=".9"/&gt;`;
+
+  // root system (fixed at load, revealed over time)
+  const prim = curve(X - 2, 268, Math.PI / 2, PR, .14, .07, 1.3);
+  const primLen = t =&gt; PR * (.5 * seg(t, 1.5, 13) + .5 * seg(t, 14, 54));
+  const birthAt = d =&gt; { for (let t = 0; t &lt;= 60; t += .1) if (primLen(t) &gt;= d) return t; return 60; };
+  const lats = [];
+  for (let i = 0; i &lt; 14; i++) {
+    const f = .05 + i * .056 + rnd() * .018, side = i % 2 ? 1 : -1;
+    const p = prim[Math.min(prim.length - 1, Math.round(f * PR / STEP))];
+    const ang = (side &gt; 0 ? 18 + rnd() * 22 : 180 - 18 - rnd() * 22) * D2R;
+    const L = 265 * (1 - f * .8) + rnd() * 45;
+    const pts = curve(p[0], p[1], ang, L, side * (.4 + rnd() * .35), .09, rnd() * 6);
+    const birth = birthAt(f * PR + 6) + .5, dur = 15 + rnd() * 10;
+    const subs = [];
+    [.3, .55, .78].forEach((q, j) =&gt; {
+      const sp = pts[Math.min(pts.length - 1, Math.round(q * (pts.length - 1)))];
+      const sa = ang + side * (.55 + rnd() * .5) * (j % 2 ? -1 : 1) + side * .4;
+      subs.push({ pts: curve(sp[0], sp[1], sa, 26 + rnd() * 34, side * .5, .12, rnd() * 6), q, b: birth + 9 + j * 5 + rnd() * 3 });
+    });
+    lats.push({ pts, f, birth, dur, subs, side });
+  }
+
+  // root-tag lead: nearest right-side root point to the tag
+  (() =&gt; {
+    let best = null, bd = 1e9;
+    lats.filter(l =&gt; l.side &gt; 0).forEach(l =&gt; l.pts.forEach(p =&gt; { const d = Math.hypot(p[0] - 640, p[1] - 505); if (d &lt; bd) { bd = d; best = p; } }));
+    if (best) {
+      document.getElementById('ldRoot').setAttribute('d', `M${r1(best[0])},${r1(best[1])} L668,546`);
+      const dot = document.getElementById('ldRootDot'); dot.setAttribute('cx', r1(best[0])); dot.setAttribute('cy', r1(best[1]));
+    }
+  })();
+
+  // shoot
+  const KEYS = [[8, 244], [18, 183], [30, 120], [50, 54], [58, 36]];
+  function yTop(t) {
+    if (t &lt; KEYS[0][0]) return null;
+    for (let i = 0; i &lt; KEYS.length - 1; i++) {
+      const [ta, ya] = KEYS[i], [tb, yb] = KEYS[i + 1];
+      if (t &lt;= tb) return lerp(ya, yb, ease((t - ta) / (tb - ta)));
+    }
+    return KEYS[KEYS.length - 1][1];
+  }
+  const sx = y =&gt; X + 2 + 4 * Math.sin((246 - y) / 55);
+  const LEAF = (L, W) =&gt; `M0,0 C${r1(L * .16)},${r1(-W * .95)} ${r1(L * .66)},${r1(-W * 1.05)} ${r1(L)},0 C${r1(L * .66)},${r1(W * 1.05)} ${r1(L * .16)},${r1(W * .95)} 0,0Z`;
+  const LEAFTOP = (L, W) =&gt; `M0,0 C${r1(L * .16)},${r1(-W * .95)} ${r1(L * .66)},${r1(-W * 1.05)} ${r1(L)},0 C${r1(L * .6)},${r1(-W * .25)} ${r1(L * .2)},${r1(-W * .2)} 0,0Z`;
+  function leafPair(nx, ny, angDeg, L, W, fill, stroke, pet) {
+    let s = '';
+    [1, -1].forEach(m =&gt; {
+      const a = angDeg * D2R, bx = nx + m * Math.cos(a) * pet, by = ny + Math.sin(a) * pet;
+      s += `&lt;path d="M${r1(nx)},${r1(ny)} L${r1(bx)},${r1(by)}" stroke="#4E8F43" stroke-width="2.2" stroke-linecap="round"/&gt;`;
+      s += `&lt;g transform="translate(${r1(bx)} ${r1(by)}) scale(${m} 1) rotate(${r1(angDeg)})"&gt;` +
+        `&lt;path d="${LEAF(L, W)}" fill="${fill}" stroke="${stroke}" stroke-width=".9"/&gt;` +
+        `&lt;path d="${LEAFTOP(L, W)}" fill="#FFFFFF" opacity=".22"/&gt;` +
+        `&lt;path d="M2,0 Q${r1(L * .5)},${r1(-W * .08)} ${r1(L * .92)},0" stroke="${stroke}" stroke-width=".9" fill="none" opacity=".75"/&gt;&lt;/g&gt;`;
+    });
+    return s;
+  }
+
+  function render(t) {
+    let below = '', above = '', hx0 = 1e9, hx1 = -1e9, hy1 = 0;
+    const track = pts =&gt; pts.forEach(p =&gt; { hx0 = Math.min(hx0, p[0]); hx1 = Math.max(hx1, p[0]); hy1 = Math.max(hy1, p[1]); });
+
+    // roots
+    const pl = primLen(t);
+    lats.forEach(l =&gt; {
+      const g = seg(t, l.birth, l.birth + l.dur);
+      if (g &lt;= 0) return;
+      const len = (l.pts.length - 1) * STEP * g, pts = cut(l.pts, len);
+      if (!pts) return;
+      track(pts);
+      l.subs.forEach(s =&gt; {
+        const sg = seg(t, s.b, s.b + 12);
+        if (sg &lt;= 0 || g &lt; s.q + .05) return;
+        const sp = cut(s.pts, (s.pts.length - 1) * STEP * sg);
+        if (sp) below += rootSvg(sp, 1.6, .5);
+      });
+      below += rootSvg(pts, (1.3 + 2.6 * (1 - l.f)) * (.5 + .5 * g), .6);
+    });
+    const pp = cut(prim, pl);
+    if (pp) { track(pp); below += rootSvg(pp, 2.4 + 4.6 * seg(t, 2, 50), .9); }
+
+    // invisible foundation: a soft glow that widens with the root system
+    if (hx1 &gt; hx0) {
+      const rx = (hx1 - hx0) / 2 + 26, ry = (hy1 - 262) / 2 + 30;
+      halo.innerHTML = `&lt;ellipse cx="${r1((hx0 + hx1) / 2)}" cy="${r1(262 + ry - 30)}" rx="${r1(rx)}" ry="${r1(ry)}" fill="url(#gHalo)"/&gt;`;
+    } else halo.innerHTML = '';
+
+    // seed
+    const ss = 1.22 * (1 + .07 * seg(t, 0, 4) - .22 * seg(t, 22, 44));
+    below += `&lt;g transform="translate(${X - 4} 254) rotate(-10) scale(${r1(ss * 100) / 100})"&gt;` +
+      `&lt;ellipse cx="2" cy="16" rx="24" ry="5" fill="#5A3A20" opacity=".25" filter="url(#fBlur2)"/&gt;` +
+      `&lt;path d="M-24,2 C-26,-12 -12,-17 0,-13 C6,-11 9,-9 14,-12 C24,-16 30,-4 25,6 C20,16 4,17 -6,15 C-16,13 -23,11 -24,2Z" fill="url(#gSeed)" stroke="#7A3F25" stroke-width=".8"/&gt;` +
+      `&lt;path d="M-24,2 C-26,-12 -12,-17 0,-13 C6,-11 9,-9 14,-12 C24,-16 30,-4 25,6 C20,16 4,17 -6,15 C-16,13 -23,11 -24,2Z" fill="#6B4A2C" opacity="${r1(seg(t, 20, 46) * 4.5) / 10}"/&gt;` +
+      `&lt;path d="M-18,-6 C-8,-2 6,-3 20,-8" stroke="#4A2412" stroke-width="1.3" fill="none" opacity="${r1(seg(t, 6, 10) * 10) / 10}"/&gt;` +
+      `&lt;ellipse cx="2" cy="-12" rx="5" ry="2.4" fill="#F4E6D0" opacity=".9"/&gt;` +
+      `&lt;ellipse cx="-10" cy="-6" rx="9" ry="3.6" fill="#FFFFFF" opacity=".5" transform="rotate(-18 -10 -6)"/&gt;` +
+      `&lt;ellipse cx="-13" cy="-7" rx="3" ry="1.3" fill="#FFFFFF" opacity=".9" transform="rotate(-18 -13 -7)"/&gt;&lt;/g&gt;`;
+
+    // stem
+    const yt = yTop(t);
+    if (yt !== null) {
+      const pts = [];
+      for (let y = 246; y &gt; yt; y -= 5) pts.push([sx(y), y]);
+      pts.push([sx(yt), yt]);
+      const hook = t &lt; 24 ? 1 - seg(t, 16.5, 23.5) : 0;
+      if (hook &gt; 0) {
+        let [hxp, hyp] = pts[pts.length - 1], a = -Math.PI / 2;
+        for (let k = 1; k &lt;= 5; k++) { a += 2.3 * hook / 5; hxp += Math.cos(a) * 3.6 * hook; hyp += Math.sin(a) * 3.6 * hook; pts.push([hxp, hyp]); }
+      }
+      if (pts.length &gt; 1) {
+        const wb = 3 + 4.5 * seg(t, 10, 50), d = tube(pts, wb, 2.4);
+        below += `&lt;path d="${d}" fill="url(#gStemPale)" stroke="#B9B07A" stroke-width=".7" clip-path="url(#cpBelow)"/&gt;`;
+        above += `&lt;path d="${d}" fill="url(#gStem)" stroke="#3F7A33" stroke-width=".8" clip-path="url(#cpAbove)"/&gt;`;
+      }
+      if (yt &lt; SURF + 2) above += `&lt;path d="M436,190.5 Q442,184 449,189 M455,189 Q462,183.5 468,190.5" stroke="#B48A5C" stroke-width="3" fill="none" stroke-linecap="round"/&gt;`;
+
+      // cotyledons
+      if (t &gt;= 18.5) {
+        const ny = Math.max(yt + 5, 122), nx = sx(ny), op = seg(t, 19, 29), sz = .55 + .45 * seg(t, 18.5, 28);
+        const ang = lerp(-78, -6, op) + 26 * seg(t, 44, 58);
+        [1, -1].forEach(m =&gt; {
+          above += `&lt;g transform="translate(${r1(nx)} ${r1(ny)}) scale(${r1(m * sz * 100) / 100} ${r1(sz * 100) / 100}) rotate(${r1(ang)})"&gt;` +
+            `&lt;path d="M0,0 C6,-17 28,-19 34,-5 C37,6 24,13 11,9 C4,7 1,4 0,0Z" fill="url(#gCot)" stroke="#8E8E3E" stroke-width=".9"/&gt;` +
+            `&lt;path d="M0,0 C6,-17 28,-19 34,-5 C37,6 24,13 11,9 C4,7 1,4 0,0Z" fill="url(#gCotOld)" opacity="${r1(seg(t, 42, 58) * 8) / 10}"/&gt;` +
+            `&lt;ellipse cx="15" cy="-7" rx="8" ry="3" fill="#FFFFFF" opacity=".35" transform="rotate(-12 15 -7)"/&gt;&lt;/g&gt;`;
+        });
+      }
+      // true leaves, two pairs
+      if (t &gt;= 30) {
+        const g = seg(t, 30, 42), ny = Math.max(yt + 4, 84);
+        above += leafPair(sx(ny), ny, lerp(-72, -16, g), 52 * (.25 + .75 * g), 15 * (.25 + .75 * g), 'url(#gLeaf)', '#3F7A33', 9 * g);
+      }
+      if (t &gt;= 40) {
+        const g = seg(t, 40, 50), ny = Math.max(yt + 3, 58);
+        above += leafPair(sx(ny), ny, lerp(-80, -34, g), 42 * (.25 + .75 * g), 12 * (.25 + .75 * g), 'url(#gLeaf)', '#3F7A33', 7 * g);
+      }
+      // bud and flower
+      if (t &gt;= 46) {
+        const b = seg(t, 46, 52), o = seg(t, 52, 59), fx = sx(yt), fy = yt - 6 * b;
+        above += `&lt;path d="M${r1(fx - 5 * b)},${r1(yt + 2)} L${r1(fx)},${r1(yt - 6 * b)} L${r1(fx + 5 * b)},${r1(yt + 2)}Z" fill="#5E9E48"/&gt;`;
+        if (o &lt; 1) above += `&lt;ellipse cx="${r1(fx)}" cy="${r1(fy - 3 * b)}" rx="${r1(5.5 * b)}" ry="${r1(9 * b)}" fill="url(#gBud)" opacity="${r1((1 - o) * 10) / 10}"/&gt;`;
+        if (o &gt; 0) {
+          for (let k = 0; k &lt; 5; k++) {
+            const a = (-90 + 12 + k * 72) * D2R, px = fx + Math.cos(a) * 10.5 * o, py = fy - 4 + Math.sin(a) * 10.5 * o;
+            above += `&lt;ellipse cx="${r1(px)}" cy="${r1(py)}" rx="${r1(12.5 * o)}" ry="${r1(8.8 * o)}" transform="rotate(${r1(a / D2R)} ${r1(px)} ${r1(py)})" fill="url(#gPetal)" stroke="#D86F8E" stroke-width=".8"/&gt;`;
+          }
+          above += `&lt;circle cx="${r1(fx)}" cy="${r1(fy - 4)}" r="${r1(5.2 * o)}" fill="url(#gCore)"/&gt;`;
+        }
+        const ld = document.getElementById('ldBloom'), dot = document.getElementById('ldBloomDot');
+        ld.setAttribute('d', `M${r1(fx + 24)},${r1(fy - 4)} L508,${r1(fy - 4)}`); dot.setAttribute('cx', r1(fx + 24)); dot.setAttribute('cy', r1(fy - 4));
+      }
+    }
+    plant.innerHTML = below + `&lt;g filter="url(#fDrop)"&gt;${above}&lt;/g&gt;`;
+  }
+
+  // timeline + journal sync
+  const range = document.getElementById('day'), out = document.getElementById('dayOut').querySelector('b');
+  const rows = [...document.querySelectorAll('.log li')], photoDay = document.getElementById('photoDay');
+  const gated = [...document.querySelectorAll('[data-from]')];
+  const bPlay = document.getElementById('bPlay'), bRe = document.getElementById('bRe');
+  let day = 60, playing = false, last = 0, raf = 0;
+  const SPEED = 60 / 9;   // whole 60 days in 9 seconds
+
+  function show(t) {
+    day = Math.max(0, Math.min(60, t));
+    render(day);
+    const d = Math.floor(day + 1e-6);
+    out.textContent = d; photoDay.textContent = 'Day ' + d;
+    range.value = day.toFixed(1);
+    range.style.setProperty('--p', (day / 60 * 100).toFixed(2) + '%');
+    let now = -1;
+    rows.forEach((r, i) =&gt; { const done = day &gt;= +r.dataset.d - 1e-6; r.classList.toggle('done', done); if (done) now = i; });
+    rows.forEach((r, i) =&gt; r.classList.toggle('now', i === now));
+    gated.forEach(el =&gt; el.classList.toggle('off', day &lt; +el.dataset.from));
+  }
+  function setPlaying(p) {
+    playing = p; bPlay.classList.toggle('on', p); bPlay.setAttribute('aria-label', p ? '일시정지' : '재생');
+    cancelAnimationFrame(raf);
+    if (p) { last = performance.now(); raf = requestAnimationFrame(tick); }
+  }
+  function tick(now) {
+    const dt = Math.min(.1, (now - last) / 1000); last = now;
+    show(day + dt * SPEED);
+    if (day &gt;= 60) { setPlaying(false); return; }
+    raf = requestAnimationFrame(tick);
+  }
+  bPlay.addEventListener('click', () =&gt; { if (playing) setPlaying(false); else { if (day &gt;= 60) show(0); setPlaying(true); } });
+  bRe.addEventListener('click', () =&gt; { show(0); setPlaying(true); });
+  range.addEventListener('input', () =&gt; { setPlaying(false); show(+range.value); });
+
+  show(60);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let touched = false;
+  [bPlay, bRe, range].forEach(el =&gt; el.addEventListener('pointerdown', () =&gt; { touched = true; }));
+  range.addEventListener('keydown', () =&gt; { touched = true; });
+  if (!reduce) setTimeout(() =&gt; { if (!touched) { show(0); setPlaying(true); } }, 1400);
+  window.__growTo = show;
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
 </body></html>

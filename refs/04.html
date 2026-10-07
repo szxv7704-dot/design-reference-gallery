@@ -401,4 +401,231 @@ ul.ppt li{padding:3px 0}
 
 </div>
 
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/04.html" target="_blank" rel="noopener">refs/04.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #4 가온 야간편 탑승권 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&amp;amp;family=Nanum+Gothic+Coding:wght@400;700&amp;amp;family=Martian+Mono:wght@400;600;800&amp;amp;family=Gothic+A1:wght@400;600;800&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { --ink-paper: #F3EEE2; --ink-stock: #FBF8F0; --ink-blue: #3D5588; --ink-pink: #FF48B0; --ink-yellow: #FFE800; --bg: #F3EEE2; --sheet: #FBF8F0; --fg: #1F2433; --muted: #5B6275; --line: #D9D2C1; --accent: #3D5588; --hot: #D6288A; --mark: #FFE800; --mark-fg: #1F2433; --f-disp: "Do Hyeon","Black Han Sans","Malgun Gothic",sans-serif; --f-field: "Nanum Gothic Coding","D2Coding",Consolas,monospace; --f-code: "Martian Mono","Consolas","Courier New",monospace; --f-body: "Gothic A1","Malgun Gothic","Apple SD Gothic Neo",sans-serif; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #141824; --sheet: #1C2231; --fg: #ECE7DA; --muted: #A3A9B8; --line: #313a50; --accent: #9DB2E6; --hot: #FF6CC0; --mark: #FFE800; --mark-fg: #141824; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #141824; --sheet: #1C2231; --fg: #ECE7DA; --muted: #A3A9B8; --line: #313a50; --accent: #9DB2E6; --hot: #FF6CC0; --mark: #FFE800; --mark-fg: #141824; color-scheme: dark; }
+* { box-sizing: border-box; }
+.wrap { max-width: 1180px; margin: 0px auto; padding-inline: 16px; padding-block: 20px 64px; }
+.slide { container-type: inline-size; position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: var(--ink-paper); color: var(--ink-blue); isolation: isolate; box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 0px, rgba(20, 24, 36, 0.45) 0px 12px 40px -18px; }
+.slide .sky { position: absolute; inset: 0px 0px auto; height: 31cqw; background: var(--ink-blue); mix-blend-mode: multiply; }
+.slide .sky-dots { position: absolute; left: 0px; right: 0px; top: 30.5cqw; height: 5cqw; background: radial-gradient(circle,var(--ink-blue) 42%,transparent 44%) 0 0/0.8cqw 0.8cqw; mask-image: linear-gradient(rgb(0, 0, 0), transparent); mix-blend-mode: multiply; }
+.slide .sun { position: absolute; left: 70cqw; top: 1.2cqw; width: 14cqw; height: 14cqw; border-radius: 50%; background: var(--ink-yellow); }
+.slide .sun-pink { position: absolute; left: 70.7cqw; top: 1.7cqw; width: 14cqw; height: 14cqw; border-radius: 50%; background: linear-gradient(transparent 52%,var(--ink-pink) 52%); mix-blend-mode: multiply; opacity: 0.9; }
+.slide .sun-lines { position: absolute; left: 70.7cqw; top: 9cqw; width: 14cqw; height: 6.8cqw; border-radius: 0px 0px 7cqw 7cqw / 0px 0px 7cqw 7cqw; background: repeating-linear-gradient(var(--ink-paper) 0 .35cqw,transparent .35cqw 1.1cqw); mix-blend-mode: screen; opacity: 0.55; }
+.reg { position: absolute; width: 2.2cqw; height: 2.2cqw; border: .12cqw solid var(--ink-blue); border-radius: 50%; }
+.reg::before, .reg::after { content: ""; position: absolute; background: var(--ink-blue); }
+.reg::before { left: 50%; top: -0.6cqw; bottom: -0.6cqw; width: 0.12cqw; transform: translateX(-50%); }
+.reg::after { top: 50%; left: -0.6cqw; right: -0.6cqw; height: 0.12cqw; transform: translateY(-50%); }
+.reg.p { border-color: var(--ink-pink); transform: translate(0.25cqw, 0.18cqw); }
+.reg.p::before, .reg.p::after { background: var(--ink-pink); }
+.reg.bl { left: 2cqw; bottom: 2cqw; }
+.reg.br { right: 2cqw; bottom: 2cqw; }
+.foot { position: absolute; left: 5.2cqw; bottom: 2.1cqw; font: 400 1.02cqw/1.3 var(--f-field); color: var(--ink-blue); letter-spacing: 0.02em; }
+.foot b { background: var(--ink-pink); color: var(--ink-stock); padding: 0.1cqw 0.5cqw 0.1cqw 0.5cqw; margin-right: 0.6cqw; font-weight: 700; }
+.foot-r { position: absolute; right: 5.4cqw; bottom: 2.1cqw; font: 400 .95cqw/1.3 var(--f-code); color: var(--ink-blue); letter-spacing: 0.06em; }
+.pass-wrap { position: absolute; left: 4.6cqw; top: 6.6cqw; width: 90cqw; height: 41cqw; transform: rotate(-1.4deg); }
+.cut { mask-image: radial-gradient(circle at 66cqw 0px, transparent 1.35cqw, rgb(0, 0, 0) 1.42cqw), radial-gradient(circle at 66cqw 100%, transparent 1.35cqw, rgb(0, 0, 0) 1.42cqw); mask-composite: intersect; border-radius: 0.7cqw 0.7cqw 0.7cqw 0.7cqw / 0.7cqw 0.7cqw 0.7cqw 0.7cqw; }
+.pass-shadow { position: absolute; inset: 0px; background: var(--ink-pink); transform: translate(0.9cqw, 1cqw); mix-blend-mode: multiply; opacity: 0.85; }
+.pass { position: absolute; inset: 0px; background: var(--ink-stock); display: grid; grid-template-columns: 66cqw 24cqw; overflow: hidden; }
+.perf { position: absolute; left: 66cqw; top: 1.6cqw; bottom: 1.6cqw; width: 0.5cqw; transform: translateX(-50%); background: radial-gradient(circle,var(--ink-paper) 0 .16cqw,rgba(61,85,136,.35) .17cqw .2cqw,transparent .21cqw) 50% 0/.5cqw .62cqw repeat-y; }
+.main, .stub { position: relative; display: flex; flex-direction: column; min-width: 0px; }
+.band { position: relative; height: 4.2cqw; flex: 0 0 auto; }
+.band .ink { position: absolute; inset: 0px; background: var(--ink-pink); transform: translate(0.28cqw, -0.16cqw); mix-blend-mode: multiply; }
+.band .txt { position: relative; height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0px 1.8cqw 0px 1.8cqw; color: var(--ink-blue); }
+.carrier { display: flex; align-items: center; gap: 0.8cqw 0.8cqw; font: 400 1.9cqw/1 var(--f-disp); letter-spacing: 0.02em; }
+.carrier svg { width: 2.3cqw; height: 2.3cqw; }
+.carrier small { font: 600 .9cqw/1 var(--f-code); letter-spacing: 0.18em; margin-left: 0.3cqw; }
+.bp { text-align: right; font: 800 1.25cqw/1.05 var(--f-code); letter-spacing: 0.2em; }
+.bp span { display: block; font: 400 1.1cqw/1.2 var(--f-field); letter-spacing: 0.3em; }
+.body { flex: 1 1 0%; padding: 1.2cqw 1.9cqw 1.1cqw 1.9cqw; display: flex; flex-direction: column; gap: 0.95cqw 0.95cqw; font-family: var(--f-field); }
+.lbl { display: block; font: 400 .82cqw/1.15 var(--f-field); letter-spacing: 0.05em; color: var(--ink-blue); opacity: 0.8; white-space: nowrap; }
+.lbl i { font-variant-ligatures: ; font-variant-caps: ; font-variant-numeric: ; font-variant-east-asian: ; font-variant-alternates: ; font-variant-position: ; font-variant-emoji: ; font-weight: ; font-stretch: ; font-size: ; line-height: ; font-family: ; font-optical-sizing: ; font-size-adjust: ; font-kerning: ; font-feature-settings: ; font-variation-settings: ; font-style: normal; letter-spacing: 0.14em; margin-left: 0.35cqw; }
+.val { display: block; font: 700 1.6cqw/1.2 var(--f-field); color: var(--ink-blue); white-space: nowrap; }
+.val.code { font: 600 1.65cqw/1.2 var(--f-code); letter-spacing: 0.04em; }
+.row1 { display: grid; grid-template-columns: 1fr auto auto; gap: 2.4cqw 2.4cqw; align-items: end; }
+.sub { display: block; font: 400 .85cqw/1.25 var(--f-field); color: var(--ink-blue); }
+.title-f { border-top: .14cqw solid var(--ink-blue); border-bottom: .14cqw dashed var(--ink-blue); padding: 0.55cqw 0px 0.6cqw; display: flex; align-items: baseline; gap: 1.4cqw 1.4cqw; }
+.title-f .t { font: 400 3.35cqw/1.05 var(--f-disp); color: var(--ink-blue); position: relative; z-index: 0; display: inline-block; letter-spacing: -0.01em; white-space: nowrap; }
+.title-f .t::before { content: attr(data-t); position: absolute; left: 0.26cqw; top: 0.18cqw; color: var(--ink-pink); mix-blend-mode: multiply; z-index: -1; }
+.title-f .t-sub { font: 400 1.1cqw/1.3 var(--f-field); color: var(--ink-blue); white-space: nowrap; }
+.route { display: grid; grid-template-columns: auto 1fr auto; gap: 1.2cqw 1.2cqw; align-items: center; }
+.port .iata { font: 800 5.6cqw/.9 var(--f-code); letter-spacing: -0.02em; color: var(--ink-blue); position: relative; z-index: 0; display: inline-block; }
+.port .iata::before { content: attr(data-c); position: absolute; left: 0.3cqw; top: 0.2cqw; color: var(--ink-pink); mix-blend-mode: multiply; z-index: -1; }
+.port .city { display: block; font: 700 1.12cqw/1.3 var(--f-field); color: var(--ink-blue); margin-top: 0.35cqw; }
+.port .kpi { display: inline-block; font: 400 .95cqw/1.3 var(--f-field); color: var(--ink-blue); background: var(--ink-yellow); mix-blend-mode: multiply; padding: 0.05cqw 0.4cqw 0.05cqw 0.4cqw; margin-top: 0.25cqw; }
+.port.to { text-align: right; }
+.port .lbl, .port .city { display: block; }
+.via { position: relative; height: 6.2cqw; }
+.via::before { content: ""; position: absolute; left: 0px; right: 2.4cqw; top: 2.1cqw; border-top: .2cqw dashed var(--ink-blue); }
+.via .plane { position: absolute; right: 0px; top: 1.05cqw; width: 2.3cqw; height: 2.3cqw; }
+.stops { position: absolute; left: 1.5cqw; right: 4cqw; top: 0px; display: flex; justify-content: space-between; }
+.stop { display: flex; flex-direction: column; align-items: center; gap: 0.25cqw 0.25cqw; }
+.stop .n { font: 600 .72cqw/1 var(--f-code); letter-spacing: 0.14em; color: var(--ink-blue); }
+.stop .dot { width: 1.3cqw; height: 1.3cqw; border-radius: 50%; background: var(--ink-stock); border: .22cqw solid var(--ink-blue); position: relative; }
+.stop .dot::after { content: ""; position: absolute; inset: 0.12cqw 0.12cqw 0.12cqw 0.12cqw; border-radius: 50%; background: var(--ink-pink); transform: translate(0.14cqw, 0.08cqw); mix-blend-mode: multiply; }
+.stop .c { font: 600 1.05cqw/1 var(--f-code); color: var(--ink-blue); letter-spacing: 0.06em; }
+.stop .k { font: 400 .85cqw/1.1 var(--f-field); color: var(--ink-blue); white-space: nowrap; }
+.strip { display: grid; grid-template-columns: 1.25fr 1.25fr 1.25fr 1fr 1.35fr; border: .14cqw solid var(--ink-blue); }
+.strip &gt; div { padding: 0.45cqw 0.75cqw 0.5cqw 0.75cqw; border-left: .14cqw solid var(--ink-blue); min-width: 0px; position: relative; }
+.strip &gt; div:first-child { border-left: 0px; }
+.strip .hl { position: absolute; inset: 0.35cqw 0.35cqw 0.35cqw 0.35cqw; background: var(--ink-yellow); mix-blend-mode: multiply; transform: translate(0.18cqw, 0.12cqw); z-index: 0; }
+.strip &gt; div &gt; :not(.hl) { position: relative; z-index: 1; }
+.strip .big { font: 800 2.05cqw/1.1 var(--f-code); color: var(--ink-blue); display: block; }
+.lower { display: grid; grid-template-columns: auto 1fr; gap: 1.4cqw 1.4cqw; align-items: center; }
+.pdf { width: 25cqw; color: var(--ink-blue); }
+.pdf svg { display: block; width: 100%; height: 4.6cqw; }
+.pdf svg path { fill: currentcolor; }
+.pdf .hr { font: 400 .62cqw/1.3 var(--f-code); letter-spacing: 0.06em; margin-top: 0.25cqw; white-space: nowrap; }
+.warn { font: 400 .88cqw/1.45 var(--f-field); color: var(--ink-blue); border-left: .5cqw solid var(--ink-pink); padding-left: 0.8cqw; }
+.warn b { font-weight: 700; display: block; font-size: 0.95cqw; }
+.stub .band .txt { justify-content: flex-start; gap: 0.8cqw 0.8cqw; padding: 0px 1.5cqw 0px 2cqw; }
+.stub .band .txt .bp { text-align: left; }
+.stub .body { padding: 1.1cqw 1.4cqw 1.1cqw 2.1cqw; gap: 0.8cqw 0.8cqw; }
+.s-route { display: flex; align-items: center; gap: 0.7cqw 0.7cqw; font: 800 2.6cqw/1 var(--f-code); color: var(--ink-blue); }
+.s-route span { font: 400 1.2cqw/1 var(--f-code); }
+.s-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6cqw 1cqw; }
+.s-grid .val { font-size: 1.35cqw; }
+.s-foot { display: flex; align-items: flex-end; gap: 1.1cqw 1.1cqw; margin-top: auto; }
+.aztec { width: 7.2cqw; height: 7.2cqw; color: var(--ink-blue); flex: 0 0 auto; }
+.aztec svg { width: 100%; height: 100%; display: block; }
+.aztec svg path { fill: currentcolor; }
+.seq { font: 800 1.6cqw/1 var(--f-code); color: var(--ink-blue); }
+.grain { position: absolute; inset: 0px; pointer-events: none; z-index: 5; mix-blend-mode: multiply; opacity: 0.4; background-image: url("data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'&gt;&lt;filter id='n'&gt;&lt;feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/&gt;&lt;feColorMatrix values='0 0 0 0 .15  0 0 0 0 .16  0 0 0 0 .25  0 0 0 .5 0'/&gt;&lt;/filter&gt;&lt;rect width='100%' height='100%' filter='url(%23n)'/&gt;&lt;/svg&gt;"); }
+.speck { position: absolute; inset: 0px; pointer-events: none; z-index: 6; opacity: 0.7; background-image: url("data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'&gt;&lt;filter id='s'&gt;&lt;feTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='1' seed='7' stitchTiles='stitch'/&gt;&lt;feColorMatrix values='0 0 0 0 .98  0 0 0 0 .97  0 0 0 0 .94  4 0 0 0 -2.75'/&gt;&lt;/filter&gt;&lt;rect width='100%' height='100%' filter='url(%23s)'/&gt;&lt;/svg&gt;"); }
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'Gothic A1', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;font-size:14px;line-height:22.4px;color:rgb(31, 36, 51)"&gt;
+&lt;div class="slide" role="img" aria-label="표지: 가온 나이트라인 탑승권 형식. 편명 GN 2027, 출발 DAY(2025 야간 방문객 42만 명)에서 야시장·수변 야경·체류 숙박을 경유해 도착 NGT(2029 목표 100만 명). 탑승 18:20, 출발 19:00, 탑승구 W3, 그룹 1, 운임 120억 원."&gt;
+  &lt;div class="sky"&gt;&lt;/div&gt;&lt;div class="sky-dots"&gt;&lt;/div&gt;
+  &lt;div class="sun"&gt;&lt;/div&gt;&lt;div class="sun-pink"&gt;&lt;/div&gt;&lt;div class="sun-lines"&gt;&lt;/div&gt;
+
+  &lt;div class="pass-wrap"&gt;
+    &lt;div class="pass-shadow cut"&gt;&lt;/div&gt;
+    &lt;div class="pass cut"&gt;
+      &lt;div class="main"&gt;
+        &lt;div class="band"&gt;&lt;div class="ink"&gt;&lt;/div&gt;&lt;div class="txt"&gt;
+          &lt;div class="carrier"&gt;&lt;svg viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path d="M15.5 2.5a9.5 9.5 0 1 0 6 16.9A8 8 0 0 1 15.5 2.5Z" fill="#3D5588"&gt;&lt;/path&gt;&lt;circle cx="17.5" cy="7" r="1.4" fill="#3D5588"&gt;&lt;/circle&gt;&lt;/svg&gt;가온 나이트라인&lt;small&gt;GAON NIGHTLINE&lt;/small&gt;&lt;/div&gt;
+          &lt;div class="bp"&gt;BOARDING PASS&lt;span&gt;탑승권&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;&lt;/div&gt;
+        &lt;div class="body"&gt;
+          &lt;div class="row1"&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;승객 성명&lt;i&gt;NAME OF PASSENGER&lt;/i&gt;&lt;/span&gt;&lt;span class="val"&gt;가온시 문화관광국 관광진흥과&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;편명&lt;i&gt;FLIGHT&lt;/i&gt;&lt;/span&gt;&lt;span class="val code"&gt;GN 2027&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;날짜&lt;i&gt;DATE&lt;/i&gt;&lt;/span&gt;&lt;span class="val code"&gt;30SEP26&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="title-f"&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;여정&lt;i&gt;ITINERARY&lt;/i&gt;&lt;/span&gt;&lt;span class="t" data-t="가온시 야간관광 활성화 사업"&gt;가온시 야간관광 활성화 사업&lt;/span&gt;&lt;/div&gt;
+            &lt;span class="t-sub"&gt;2027–2029 사업계획 보고&lt;br&gt;보고일 2026. 9. 30.&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class="route"&gt;
+            &lt;div class="port"&gt;&lt;span class="lbl"&gt;출발&lt;i&gt;FROM&lt;/i&gt;&lt;/span&gt;&lt;span class="iata" data-c="DAY"&gt;DAY&lt;/span&gt;&lt;span class="city"&gt;낮에만 머무는 도시&lt;/span&gt;&lt;span class="kpi"&gt;2025 야간 방문객 42만 명&lt;/span&gt;&lt;/div&gt;
+            &lt;div class="via"&gt;
+              &lt;div class="stops"&gt;
+                &lt;div class="stop"&gt;&lt;span class="n"&gt;VIA 1&lt;/span&gt;&lt;span class="dot"&gt;&lt;/span&gt;&lt;span class="c"&gt;MKT&lt;/span&gt;&lt;span class="k"&gt;야시장 상설화&lt;/span&gt;&lt;/div&gt;
+                &lt;div class="stop"&gt;&lt;span class="n"&gt;VIA 2&lt;/span&gt;&lt;span class="dot"&gt;&lt;/span&gt;&lt;span class="c"&gt;RVR&lt;/span&gt;&lt;span class="k"&gt;수변 야경&lt;/span&gt;&lt;/div&gt;
+                &lt;div class="stop"&gt;&lt;span class="n"&gt;VIA 3&lt;/span&gt;&lt;span class="dot"&gt;&lt;/span&gt;&lt;span class="c"&gt;STY&lt;/span&gt;&lt;span class="k"&gt;체류형 숙박 연계&lt;/span&gt;&lt;/div&gt;
+              &lt;/div&gt;
+              &lt;svg class="plane" viewBox="0 0 24 24" aria-hidden="true"&gt;&lt;path d="M2 13.2 5 12l3 1.6 3.2-.4L7.6 4.6 10 4l6.3 8.4 4.4-.5c1.2-.1 1.9.6 1.9 1.2s-.7 1.2-1.9 1.2l-4.4-.3L10 22l-2.4-.6 3.6-8.6-3.2-.4L5 14 2 13.2Z" fill="#3D5588"&gt;&lt;/path&gt;&lt;/svg&gt;
+            &lt;/div&gt;
+            &lt;div class="port to"&gt;&lt;span class="lbl"&gt;도착&lt;i&gt;TO&lt;/i&gt;&lt;/span&gt;&lt;span class="iata" data-c="NGT"&gt;NGT&lt;/span&gt;&lt;span class="city"&gt;밤까지 머무는 도시&lt;/span&gt;&lt;span class="kpi"&gt;2029 목표 연 100만 명&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="strip"&gt;
+            &lt;div&gt;&lt;span class="hl"&gt;&lt;/span&gt;&lt;span class="lbl"&gt;탑승 시각&lt;i&gt;BOARDING&lt;/i&gt;&lt;/span&gt;&lt;span class="big"&gt;18:20&lt;/span&gt;&lt;span class="sub"&gt;9월 말 일몰 무렵&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;출발 시각&lt;i&gt;DEPARTS&lt;/i&gt;&lt;/span&gt;&lt;span class="big"&gt;19:00&lt;/span&gt;&lt;span class="sub"&gt;야시장 개장&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;탑승구&lt;i&gt;GATE&lt;/i&gt;&lt;/span&gt;&lt;span class="big"&gt;W3&lt;/span&gt;&lt;span class="sub"&gt;가온천 수변광장&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;그룹&lt;i&gt;GROUP&lt;/i&gt;&lt;/span&gt;&lt;span class="big"&gt;1&lt;/span&gt;&lt;span class="sub"&gt;1단계 · 2027&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;운임&lt;i&gt;FARE&lt;/i&gt;&lt;/span&gt;&lt;span class="big"&gt;120억&lt;/span&gt;&lt;span class="sub"&gt;국비 60 · 시비 60&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="lower"&gt;
+            &lt;div class="pdf" aria-label="PDF417 바코드: 사업 핵심 수치"&gt;&lt;svg preserveAspectRatio="none" aria-hidden="true" viewBox="0 0 342 76" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M0 76L16 76L16 0L0 0ZM18 76L20 76L20 0L18 0ZM22 76L24 76L24 0L22 0ZM26 76L28 76L28 0L26 0ZM34 76L40 76L40 72L42 72L42 68L40 68L40 56L42 56L42 52L40 52L40 48L42 48L42 52L44 52L44 48L46 48L46 44L44 44L44 40L42 40L42 44L40 44L40 36L46 36L46 28L44 28L44 32L42 32L42 20L40 20L40 16L42 16L42 12L40 12L40 8L42 8L42 12L44 12L44 4L42 4L42 0L40 0L40 4L38 4L38 0L34 0ZM42 76L46 76L46 72L42 72ZM48 76L50 76L50 72L48 72ZM58 76L62 76L62 68L64 68L64 64L62 64L62 60L66 60L66 52L64 52L64 56L58 56L58 60L54 60L54 64L52 64L52 56L50 56L50 60L48 60L48 64L46 64L46 72L48 72L48 68L50 68L50 72L58 72L58 68L56 68L56 64L60 64L60 72L58 72ZM68 76L70 76L70 60L72 60L72 56L70 56L70 44L72 44L72 40L74 40L74 36L72 36L72 32L74 32L74 20L76 20L76 16L72 16L72 12L70 12L70 0L68 0ZM80 76L82 76L82 68L84 68L84 64L86 64L86 68L84 68L84 76L88 76L88 72L90 72L90 68L88 68L88 64L90 64L90 56L92 56L92 64L90 64L90 68L94 68L94 64L100 64L100 56L98 56L98 52L96 52L96 48L100 48L100 44L96 44L96 40L94 40L94 52L92 52L92 48L88 48L88 60L80 60L80 64L78 64L78 52L80 52L80 48L82 48L82 44L84 44L84 40L82 40L82 36L84 36L84 40L90 40L90 36L86 36L86 32L84 32L84 28L86 28L86 24L80 24L80 32L76 32L76 40L78 40L78 36L80 36L80 40L78 40L78 48L76 48L76 52L72 52L72 56L74 56L74 64L72 64L72 72L80 72ZM92 76L96 76L96 72L92 72ZM102 76L108 76L108 72L110 72L110 68L112 68L112 72L110 72L110 76L116 76L116 68L118 68L118 64L112 64L112 60L110 60L110 64L108 64L108 60L106 60L106 68L104 68L104 60L106 60L106 56L108 56L108 60L110 60L110 52L112 52L112 48L110 48L110 44L112 44L112 48L114 48L114 44L116 44L116 40L118 40L118 36L120 36L120 32L118 32L118 28L116 28L116 12L120 12L120 8L116 8L116 4L114 4L114 8L112 8L112 12L110 12L110 16L114 16L114 28L112 28L112 32L114 32L114 36L112 36L112 40L106 40L106 44L104 44L104 40L106 40L106 36L104 36L104 28L108 28L108 24L112 24L112 20L110 20L110 16L108 16L108 12L106 12L106 16L104 16L104 12L106 12L106 8L110 8L110 4L106 4L106 0L102 0ZM120 76L122 76L122 72L128 72L128 64L126 64L126 60L132 60L132 56L134 56L134 52L132 52L132 48L126 48L126 44L122 44L122 40L124 40L124 32L122 32L122 36L120 36L120 44L118 44L118 52L120 52L120 48L122 48L122 52L120 52L120 56L122 56L122 60L124 60L124 68L122 68L122 64L120 64L120 68L118 68L118 72L120 72ZM128 76L130 76L130 72L128 72ZM136 76L138 76L138 64L140 64L140 60L138 60L138 52L140 52L140 48L142 48L142 52L140 52L140 56L148 56L148 60L144 60L144 64L140 64L140 72L142 72L142 76L146 76L146 64L150 64L150 60L154 60L154 56L156 56L156 48L158 48L158 40L152 40L152 48L150 48L150 44L148 44L148 52L146 52L146 44L144 44L144 40L140 40L140 36L148 36L148 32L150 32L150 36L148 36L148 40L152 40L152 32L156 32L156 28L154 28L154 24L160 24L160 20L162 20L162 16L158 16L158 20L156 20L156 16L154 16L154 20L150 20L150 24L152 24L152 28L150 28L150 24L148 24L148 28L146 28L146 32L144 32L144 28L142 28L142 32L140 32L140 20L142 20L142 24L144 24L144 20L146 20L146 16L148 16L148 12L144 12L144 16L140 16L140 12L138 12L138 0L136 0ZM148 76L158 76L158 68L162 68L162 60L158 60L158 64L150 64L150 68L156 68L156 72L148 72ZM160 76L168 76L168 64L166 64L166 68L164 68L164 72L160 72ZM170 76L172 76L172 64L174 64L174 60L172 60L172 56L174 56L174 52L172 52L172 40L176 40L176 28L178 28L178 36L180 36L180 32L184 32L184 36L192 36L192 32L190 32L190 24L194 24L194 28L196 28L196 24L198 24L198 20L190 20L190 16L192 16L192 12L186 12L186 16L180 16L180 20L182 20L182 24L184 24L184 20L186 20L186 24L184 24L184 28L180 28L180 20L178 20L178 24L176 24L176 16L180 16L180 12L174 12L174 20L172 20L172 8L176 8L176 4L178 4L178 0L170 0ZM178 76L182 76L182 68L180 68L180 64L178 64ZM184 76L192 76L192 72L196 72L196 68L194 68L194 64L192 64L192 68L190 68L190 72L188 72L188 68L190 68L190 64L192 64L192 60L190 60L190 52L194 52L194 48L198 48L198 44L200 44L200 40L202 40L202 36L198 36L198 40L194 40L194 36L192 36L192 44L190 44L190 48L188 48L188 52L186 52L186 48L182 48L182 44L184 44L184 36L180 36L180 40L176 40L176 44L180 44L180 64L182 64L182 68L186 68L186 72L184 72ZM196 76L202 76L202 72L196 72ZM204 76L208 76L208 68L206 68L206 56L210 56L210 60L212 60L212 52L210 52L210 48L208 48L208 52L206 52L206 44L210 44L210 48L214 48L214 44L212 44L212 40L210 40L210 36L208 36L208 40L206 40L206 32L210 32L210 28L206 28L206 20L210 20L210 16L206 16L206 8L208 8L208 4L206 4L206 0L204 0ZM212 76L214 76L214 72L218 72L218 68L220 68L220 72L222 72L222 68L226 68L226 60L224 60L224 64L222 64L222 60L220 60L220 64L216 64L216 68L214 68L214 60L212 60L212 64L210 64L210 68L212 68ZM222 76L226 76L226 72L222 72ZM230 76L236 76L236 72L232 72L232 64L230 64L230 68L226 68L226 72L230 72ZM238 76L244 76L244 72L248 72L248 76L250 76L250 68L248 68L248 60L250 60L250 52L252 52L252 48L254 48L254 44L252 44L252 32L254 32L254 36L256 36L256 52L252 52L252 56L256 56L256 60L258 60L258 52L260 52L260 48L258 48L258 40L260 40L260 32L258 32L258 28L252 28L252 24L256 24L256 16L254 16L254 20L252 20L252 16L250 16L250 24L248 24L248 32L250 32L250 36L248 36L248 40L242 40L242 44L244 44L244 48L248 48L248 56L244 56L244 60L246 60L246 68L244 68L244 64L242 64L242 60L240 60L240 56L242 56L242 52L240 52L240 48L242 48L242 44L240 44L240 36L248 36L248 32L246 32L246 28L244 28L244 32L242 32L242 28L244 28L244 20L248 20L248 16L250 16L250 12L248 12L248 8L246 8L246 16L240 16L240 12L242 12L242 8L246 8L246 4L248 4L248 0L242 0L242 4L240 4L240 0L238 0ZM256 76L258 76L258 72L260 72L260 64L262 64L262 60L258 60L258 64L256 64L256 68L254 68L254 72L256 72ZM264 76L270 76L270 68L264 68ZM272 76L276 76L276 72L278 72L278 64L276 64L276 68L274 68L274 64L276 64L276 60L274 60L274 56L278 56L278 60L280 60L280 48L278 48L278 52L276 52L276 48L274 48L274 44L276 44L276 36L278 36L278 44L280 44L280 36L284 36L284 28L288 28L288 24L294 24L294 20L288 20L288 12L286 12L286 16L282 16L282 20L284 20L284 24L282 24L282 32L280 32L280 28L278 28L278 20L276 20L276 16L278 16L278 12L276 12L276 8L278 8L278 12L280 12L280 8L282 8L282 0L272 0ZM278 76L282 76L282 72L278 72ZM284 76L286 76L286 72L284 72ZM294 76L296 76L296 68L292 68L292 64L296 64L296 60L294 60L294 56L292 56L292 48L290 48L290 56L286 56L286 60L284 60L284 68L286 68L286 72L294 72ZM306 76L320 76L320 0L306 0ZM322 76L324 76L324 0L322 0ZM330 76L332 76L332 0L330 0ZM334 76L336 76L336 0L334 0ZM340 76L342 76L342 0L340 0ZM96 72L100 72L100 68L96 68ZM132 72L134 72L134 68L132 68ZM240 72L240 68L242 68L242 72ZM282 72L284 72L284 68L282 68ZM298 72L300 72L300 68L298 68ZM36 68L36 64L38 64L38 68ZM262 68L264 68L264 64L262 64ZM302 68L304 68L304 64L302 64ZM44 64L46 64L46 60L44 60ZM164 64L166 64L166 60L168 60L168 56L166 56L166 52L168 52L168 48L166 48L166 44L168 44L168 36L166 36L166 40L162 40L162 44L164 44L164 48L160 48L160 52L158 52L158 56L164 56ZM176 64L178 64L178 60L176 60ZM184 64L184 56L186 56L186 64ZM250 64L252 64L252 60L250 60ZM280 64L282 64L282 60L280 60ZM288 64L288 60L290 60L290 64ZM36 60L36 56L38 56L38 60ZM116 60L118 60L118 52L116 52ZM156 60L158 60L158 56L156 56ZM194 60L202 60L202 52L196 52L196 56L194 56ZM218 60L220 60L220 56L218 56ZM228 60L236 60L236 56L228 56ZM266 60L270 60L270 48L268 48L268 56L266 56ZM282 60L284 60L284 52L282 52ZM44 56L46 56L46 52L44 52ZM52 56L54 56L54 52L52 52ZM84 56L86 56L86 52L84 52ZM124 56L124 52L130 52L130 56ZM150 56L150 52L152 52L152 56ZM176 56L178 56L178 52L176 52ZM214 56L216 56L216 52L220 52L220 56L222 56L222 48L226 48L226 44L224 44L224 40L226 40L226 44L230 44L230 40L228 40L228 36L230 36L230 32L232 32L232 28L224 28L224 24L222 24L222 40L220 40L220 48L218 48L218 44L216 44L216 48L214 48ZM224 56L226 56L226 52L224 52ZM298 56L300 56L300 52L298 52ZM54 52L56 52L56 48L54 48ZM58 52L64 52L64 44L66 44L66 40L62 40L62 48L60 48L60 44L56 44L56 48L58 48ZM114 52L116 52L116 48L114 48ZM174 52L176 52L176 44L174 44ZM226 52L234 52L234 48L226 48ZM294 52L298 52L298 48L302 48L302 44L298 44L298 40L302 40L302 36L304 36L304 32L300 32L300 36L298 36L298 32L294 32L294 28L292 28L292 36L294 36L294 40L296 40L296 44L292 44L292 48L294 48ZM48 48L50 48L50 44L54 44L54 40L52 40L52 36L50 36L50 32L48 32L48 36L46 36L46 40L48 40ZM84 48L86 48L86 44L84 44ZM132 48L134 48L134 40L128 40L128 44L132 44ZM264 48L266 48L266 40L260 40L260 44L264 44ZM276 48L278 48L278 44L276 44ZM284 48L288 48L288 44L290 44L290 40L292 40L292 36L288 36L288 32L286 32L286 40L284 40ZM74 44L76 44L76 40L74 40ZM146 44L148 44L148 40L146 40ZM186 44L188 44L188 40L186 40ZM214 44L216 44L216 40L218 40L218 32L220 32L220 28L214 28L214 24L212 24L212 40L214 40ZM36 40L36 36L38 36L38 40ZM56 40L62 40L62 36L58 36L58 28L56 28L56 32L54 32L54 36L56 36ZM126 40L128 40L128 36L126 36ZM158 40L160 40L160 32L156 32L156 36L158 36ZM266 40L268 40L268 36L266 36ZM64 36L66 36L66 32L64 32ZM92 36L94 36L94 28L98 28L98 36L100 36L100 24L98 24L98 20L90 20L90 28L88 28L88 32L92 32ZM130 36L134 36L134 28L132 28L132 16L126 16L126 20L130 20L130 24L124 24L124 32L130 32ZM164 36L166 36L166 32L168 32L168 28L164 28L164 24L160 24L160 28L162 28L162 32L164 32ZM172 36L172 24L174 24L174 36ZM214 36L214 32L216 32L216 36ZM268 36L270 36L270 20L262 20L262 24L266 24L266 28L264 28L264 32L268 32ZM50 32L52 32L52 24L56 24L56 20L52 20L52 12L54 12L54 16L62 16L62 12L58 12L58 8L52 8L52 4L50 4L50 16L46 16L46 20L48 20L48 24L46 24L46 28L50 28ZM120 32L122 32L122 24L124 24L124 16L126 16L126 12L124 12L124 8L122 8L122 12L120 12L120 16L118 16L118 28L120 28ZM196 32L202 32L202 28L196 28ZM234 32L236 32L236 24L234 24ZM288 32L290 32L290 28L288 28ZM38 28L38 24L40 24L40 28ZM58 28L66 28L66 24L64 24L64 20L66 20L66 16L62 16L62 24L58 24ZM76 28L78 28L78 24L76 24ZM260 28L262 28L262 24L260 24ZM274 28L274 24L276 24L276 28ZM294 28L300 28L300 20L298 20L298 24L294 24ZM44 24L46 24L46 20L44 20ZM70 24L70 20L72 20L72 24ZM78 24L80 24L80 16L82 16L82 12L80 12L80 8L74 8L74 12L78 12ZM146 24L148 24L148 20L146 20ZM216 24L222 24L222 20L220 20L220 16L222 16L222 12L226 12L226 8L230 8L230 4L232 4L232 8L234 8L234 4L236 4L236 0L228 0L228 4L226 4L226 0L216 0L216 4L222 4L222 8L218 8L218 16L216 16ZM224 24L226 24L226 20L228 20L228 24L232 24L232 20L230 20L230 12L226 12L226 16L224 16ZM258 24L260 24L260 20L262 20L262 12L264 12L264 16L266 16L266 12L270 12L270 0L264 0L264 4L266 4L266 8L262 8L262 0L252 0L252 8L254 8L254 4L258 4L258 8L260 8L260 12L258 12ZM280 24L282 24L282 20L280 20ZM42 20L44 20L44 16L42 16ZM82 20L84 20L84 16L82 16ZM88 20L90 20L90 16L88 16ZM148 20L150 20L150 16L148 16ZM198 20L202 20L202 16L200 16L200 12L202 12L202 4L198 4ZM234 20L236 20L236 16L234 16ZM278 20L280 20L280 16L278 16ZM296 20L298 20L298 16L296 16ZM44 16L46 16L46 12L44 12ZM90 16L94 16L94 12L90 12ZM96 16L100 16L100 4L98 4L98 8L96 8L96 4L98 4L98 0L92 0L92 4L88 4L88 8L94 8L94 12L96 12ZM150 16L152 16L152 12L150 12ZM162 16L164 16L164 12L168 12L168 4L164 4L164 8L160 8L160 12L162 12ZM212 16L214 16L214 0L210 0L210 8L212 8ZM280 16L282 16L282 12L280 12ZM290 16L296 16L296 12L302 12L302 8L300 8L300 4L304 4L304 0L294 0L294 4L296 4L296 8L292 8L292 12L290 12ZM36 12L36 8L38 8L38 12ZM84 12L88 12L88 8L84 8ZM128 12L132 12L132 8L130 8L130 4L128 4ZM142 12L144 12L144 8L142 8ZM148 12L150 12L150 8L148 8ZM180 12L186 12L186 8L184 8L184 0L180 0L180 4L182 4L182 8L180 8ZM194 12L196 12L196 4L198 4L198 0L192 0L192 4L190 4L190 8L194 8ZM208 12L210 12L210 8L208 8ZM254 12L256 12L256 8L254 8ZM282 12L284 12L284 8L282 8ZM46 8L48 8L48 4L46 4ZM60 8L64 8L64 4L60 4ZM82 8L84 8L84 4L86 4L86 0L80 0L80 4L82 4ZM124 8L126 8L126 4L124 4ZM140 8L142 8L142 0L140 0ZM150 8L160 8L160 4L162 4L162 0L158 0L158 4L150 4ZM284 8L286 8L286 0L284 0ZM288 8L290 8L290 0L288 0ZM44 4L46 4L46 0L44 0ZM52 4L56 4L56 0L52 0ZM72 4L74 4L74 0L72 0ZM110 4L114 4L114 0L110 0ZM116 4L118 4L118 0L116 0ZM122 4L124 4L124 0L122 0ZM146 4L150 4L150 0L146 0ZM186 4L188 4L188 0L186 0Z" fill-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;div class="hr"&gt;GN2027 DAY&amp;gt;NGT · 420K&amp;gt;1000K · STAY 18&amp;gt;35% · 12.0B KRW&lt;/div&gt;&lt;/div&gt;
+            &lt;div class="warn"&gt;&lt;b&gt;탑승구는 출발 15분 전(18:45)에 닫힙니다.&lt;/b&gt;주민 소음·안전 협의를 마치지 않은 구간은 운항하지 않습니다.&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="stub"&gt;
+        &lt;div class="band"&gt;&lt;div class="ink"&gt;&lt;/div&gt;&lt;div class="txt"&gt;&lt;div class="bp"&gt;BOARDING PASS&lt;span&gt;보관용&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class="body"&gt;
+          &lt;div&gt;&lt;span class="lbl"&gt;승객&lt;i&gt;NAME&lt;/i&gt;&lt;/span&gt;&lt;span class="val" style="font-size:1.35cqw"&gt;관광진흥과&lt;/span&gt;&lt;/div&gt;
+          &lt;div class="s-grid"&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;편명&lt;i&gt;FLT&lt;/i&gt;&lt;/span&gt;&lt;span class="val code" style="font-size:1.35cqw"&gt;GN 2027&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;날짜&lt;i&gt;DATE&lt;/i&gt;&lt;/span&gt;&lt;span class="val code" style="font-size:1.35cqw"&gt;30SEP26&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="s-route"&gt;DAY&lt;span&gt;→&lt;/span&gt;NGT&lt;/div&gt;
+          &lt;div class="s-grid"&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;탑승&lt;i&gt;BRD&lt;/i&gt;&lt;/span&gt;&lt;span class="val code"&gt;18:20&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;탑승구&lt;i&gt;GATE&lt;/i&gt;&lt;/span&gt;&lt;span class="val code"&gt;W3&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;그룹&lt;i&gt;GRP&lt;/i&gt;&lt;/span&gt;&lt;span class="val code"&gt;1&lt;/span&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;경유&lt;i&gt;VIA&lt;/i&gt;&lt;/span&gt;&lt;span class="val code" style="font-size:1.05cqw"&gt;MKT·RVR·STY&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class="s-foot"&gt;
+            &lt;div class="aztec" aria-label="Aztec 코드"&gt;&lt;svg aria-hidden="true" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;path d="M4 108L12 108L12 104L4 104ZM24 108L28 108L28 104L24 104ZM36 108L48 108L48 104L40 104L40 100L28 100L28 104L36 104ZM56 108L68 108L68 104L56 104ZM76 108L80 108L80 100L84 100L84 104L88 104L88 108L96 108L96 104L92 104L92 96L96 96L96 88L104 88L104 84L96 84L96 72L92 72L92 76L88 76L88 68L84 68L84 56L80 56L80 36L84 36L84 40L88 40L88 44L92 44L92 40L96 40L96 32L92 32L92 36L88 36L88 32L92 32L92 28L88 28L88 24L92 24L92 20L96 20L96 24L100 24L100 12L92 12L92 16L76 16L76 20L84 20L84 24L80 24L80 28L48 28L48 24L44 24L44 28L32 28L32 24L40 24L40 20L36 20L36 16L24 16L24 12L20 12L20 16L16 16L16 24L8 24L8 20L12 20L12 12L0 12L0 28L8 28L8 36L12 36L12 32L16 32L16 28L20 28L20 20L24 20L24 28L20 28L20 32L24 32L24 36L20 36L20 44L16 44L16 48L24 48L24 40L28 40L28 64L20 64L20 56L16 56L16 60L12 60L12 64L8 64L8 72L12 72L12 68L16 68L16 76L8 76L8 72L0 72L0 80L8 80L8 84L4 84L4 92L12 92L12 80L16 80L16 88L28 88L28 84L20 84L20 80L24 80L24 76L20 76L20 72L24 72L24 68L28 68L28 72L24 72L24 76L28 76L28 80L36 80L36 88L40 88L40 92L44 92L44 88L48 88L48 84L40 84L40 80L56 80L56 84L52 84L52 88L56 88L56 92L48 92L48 96L56 96L56 100L64 100L64 96L60 96L60 88L64 88L64 84L68 84L68 80L84 80L84 84L88 84L88 80L92 80L92 88L88 88L88 92L80 92L80 96L76 96L76 100L72 100L72 104L76 104ZM100 108L104 108L104 104L100 104ZM0 104L4 104L4 100L0 100ZM20 104L24 104L24 100L20 100ZM52 104L56 104L56 100L52 100ZM96 104L100 104L100 100L104 100L104 96L108 96L108 88L104 88L104 92L100 92L100 96L96 96ZM4 100L8 100L8 96L4 96ZM12 100L16 100L16 96L12 96ZM68 100L72 100L72 96L68 96ZM16 96L40 96L40 92L36 92L36 88L28 88L28 92L16 92ZM72 96L76 96L76 88L84 88L84 84L72 84ZM100 80L104 80L104 76L100 76ZM32 76L32 32L76 32L76 76ZM36 72L72 72L72 36L36 36ZM100 72L108 72L108 64L104 64L104 68L100 68ZM0 68L4 68L4 64L0 64ZM40 68L40 40L68 40L68 68ZM92 68L100 68L100 60L96 60L96 64L92 64ZM44 64L64 64L64 44L44 44ZM88 64L92 64L92 60L88 60ZM4 60L8 60L8 52L4 52ZM48 60L48 48L60 48L60 60ZM100 60L108 60L108 56L104 56L104 52L108 52L108 44L104 44L104 48L88 48L88 52L92 52L92 56L96 56L96 52L100 52ZM12 56L16 56L16 52L12 52ZM20 56L24 56L24 52L20 52ZM52 56L56 56L56 52L52 52ZM84 56L88 56L88 52L84 52ZM0 52L4 52L4 48L0 48ZM8 48L12 48L12 44L8 44ZM4 44L8 44L8 40L4 40ZM12 40L16 40L16 36L12 36ZM100 40L108 40L108 36L100 36ZM0 36L4 36L4 32L0 32ZM100 32L104 32L104 28L108 28L108 12L104 12L104 24L100 24ZM52 24L56 24L56 20L52 20ZM60 24L64 24L64 20L60 20ZM68 24L72 24L72 16L64 16L64 20L68 20ZM40 20L44 20L44 16L48 16L48 12L44 12L44 8L48 8L48 4L36 4L36 8L32 8L32 12L40 12ZM48 20L52 20L52 16L48 16ZM56 20L60 20L60 16L56 16ZM52 16L56 16L56 12L52 12ZM12 12L16 12L16 8L12 8ZM24 12L28 12L28 4L32 4L32 0L12 0L12 4L24 4ZM56 12L60 12L60 0L56 0L56 4L52 4L52 8L56 8ZM72 12L76 12L76 8L72 8ZM88 12L92 12L92 8L96 8L96 4L88 4L88 0L80 0L80 4L84 4L84 8L88 8ZM104 8L108 8L108 4L104 4ZM4 4L8 4L8 0L4 0ZM64 4L68 4L68 0L64 0ZM72 4L76 4L76 0L72 0ZM96 4L104 4L104 0L96 0Z" fill-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;&lt;/div&gt;
+            &lt;div&gt;&lt;span class="lbl"&gt;순번&lt;i&gt;SEQ&lt;/i&gt;&lt;/span&gt;&lt;span class="seq"&gt;001&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="perf"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="foot"&gt;&lt;b&gt;가상 예시&lt;/b&gt;가온시·가온 나이트라인은 실재하지 않습니다. 수치는 설계용 가정값입니다.&lt;/div&gt;
+  &lt;div class="foot-r"&gt;RISO 3C · FEDERAL BLUE / FLUO PINK / YELLOW&lt;/div&gt;
+  &lt;div class="reg bl"&gt;&lt;/div&gt;&lt;div class="reg bl p"&gt;&lt;/div&gt;&lt;div class="reg br"&gt;&lt;/div&gt;&lt;div class="reg br p"&gt;&lt;/div&gt;
+  &lt;div class="grain"&gt;&lt;/div&gt;&lt;div class="speck"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
 </body></html>

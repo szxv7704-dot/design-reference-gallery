@@ -305,4 +305,193 @@ a{color:#8eeeff}
 })();
 </script>
 
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/30.html" target="_blank" rel="noopener">refs/30.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #30 꺼지지 않는 창구 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;600&amp;amp;family=IBM+Plex+Sans+KR:wght@400;500&amp;amp;family=IBM+Plex+Mono:wght@400&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { --night: #05060a; --wall: #11131b; --core: #fff4f9; --pink: #ff2d8a; --cyan: #25e2ff; --amber: #ffb01f; --lime: #7cff5c; --ink: #e9eaf2; --mute: #9a9eb2; --line: #262936; --panel: #0d0f16; --f-neon: "Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-body: "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-mono: "IBM Plex Mono",ui-monospace,Consolas,monospace; color-scheme: dark; }
+* { box-sizing: border-box; }
+.wrap { max-width: 1180px; margin: 0px auto; padding-inline: 16px; padding-block: 24px 64px; }
+.stage { container: stage / inline-size; width: 100%; }
+.slide { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 6px; background: radial-gradient(60% 55% at 30% 42%, rgba(255,45,138,.20), transparent 70%),
+    radial-gradient(30% 45% at 82% 45%, rgba(37,226,255,.10), transparent 70%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='48'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.035' stroke-width='1.2'%3E%3Cpath d='M0 .6h120M0 24.6h120M60 0v24M0 24v24M120 24v24'/%3E%3C/g%3E%3C/svg%3E") 0 0/9cqw auto,
+    linear-gradient(180deg,#0a0b11 0%,var(--wall) 55%,#08090d 82%); display: grid; grid-template: "eye eye" "title signs" 1fr "foot foot" / 1fr 27cqw; column-gap: 5cqw; padding: 4.2cqw 5.2cqw 3.2cqw 5.2cqw; font-family: var(--f-neon); }
+.slide::before { content: ""; position: absolute; inset: 0px; pointer-events: none; background: radial-gradient(120% 90% at 45% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%); }
+.floor { position: absolute; left: 0px; right: 0px; bottom: 0px; height: 17%; pointer-events: none; background: radial-gradient(28% 70% at 30% 0%, rgba(255, 45, 138, 0.16), transparent 70%), radial-gradient(14% 60% at 80% 0%, rgba(255, 176, 31, 0.1), transparent 70%), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 0.15cqw, transparent 0.15cqw, transparent 1.4cqw), linear-gradient(rgb(11, 12, 18), rgb(3, 3, 5)); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+.floor::after { content: ""; position: absolute; left: 12%; width: 36%; top: 0px; height: 100%; background: repeating-linear-gradient(90deg, rgba(255, 45, 138, 0.1) 0px, rgba(255, 45, 138, 0.1) 0.35cqw, transparent 0.35cqw, transparent 1.6cqw); mask: linear-gradient(rgb(0, 0, 0), transparent 85%); filter: blur(0.25cqw); transition: opacity 0.4s; }
+.eye { grid-area: eye; position: relative; z-index: 1; display: flex; gap: 1.4cqw 1.4cqw; align-items: center; font-family: var(--f-body); font-size: 1.45cqw; letter-spacing: 0.14em; color: rgb(185, 188, 203); }
+.eye b { font-weight: 500; color: rgb(230, 231, 239); }
+.eye i { font-style: normal; width: 3.2cqw; height: 1px; background: rgb(74, 77, 92); }
+.titlebox { grid-area: title; position: relative; z-index: 1; align-self: center; display: grid; gap: 2.6cqw 2.6cqw; }
+.neon { margin: 0px; font-weight: 300; font-size: 10.4cqw; line-height: 1.16; letter-spacing: 0.02em; display: grid; justify-items: start; }
+.ln { position: relative; display: block; white-space: nowrap; padding-bottom: 0.9cqw; }
+.ln::after { content: ""; position: absolute; left: 0.1em; right: 0.3em; bottom: 0.2cqw; height: 0.18cqw; border-radius: 1px; background: linear-gradient(90deg, rgb(27, 29, 38), rgb(45, 48, 60) 40%, rgb(27, 29, 38)); }
+.ch { --glow: 0 0 .12cqw #fff,
+    0 0 .45cqw var(--pink),
+    0 0 1.3cqw var(--pink),
+    0 0 3.2cqw rgba(255,45,138,.85),
+    0 0 7cqw rgba(255,45,138,.45); position: relative; display: inline-block; color: var(--core); -webkit-text-stroke: 0.13cqw rgb(255, 140, 189); text-shadow: var(--glow); }
+.ch::after { content: ""; position: absolute; left: 50%; bottom: -0.95cqw; width: 0.55cqw; height: 1.1cqw; transform: translateX(-50%); border-radius: 0.15cqw 0.15cqw 0.15cqw 0.15cqw / 0.15cqw 0.15cqw 0.15cqw 0.15cqw; background: linear-gradient(90deg, rgb(58, 61, 74), rgb(141, 145, 163) 45%, rgb(43, 45, 55)); box-shadow: rgba(0, 0, 0, 0.7) 0px 0.2cqw 0.3cqw; }
+.ch.sp { width: 0.32em; }
+.ch.sp::after { display: none; }
+.sub { font-family: var(--f-body); font-size: 1.85cqw; line-height: 1.5; color: rgb(200, 202, 214); max-width: 40cqw; margin: 0px; text-wrap: balance; }
+.sub b { font-weight: 500; color: rgb(255, 255, 255); }
+.signs { grid-area: signs; position: relative; z-index: 1; align-self: center; display: grid; gap: 3.1cqw 3.1cqw; padding-top: 1.6cqw; }
+.sign { --c: var(--cyan); --tint: #d6fbff; position: relative; display: flex; justify-content: center; align-items: center; padding: 1.4cqw 1.6cqw 1.4cqw 1.6cqw; border-radius: 1.2cqw 1.2cqw 1.2cqw 1.2cqw / 1.2cqw 1.2cqw 1.2cqw 1.2cqw; border: .26cqw solid var(--tint); box-shadow: 0 0 .4cqw var(--c),0 0 1.4cqw var(--c),inset 0 0 .4cqw var(--c),inset 0 0 1.6cqw color-mix(in srgb,var(--c) 40%,transparent); background: color-mix(in srgb,var(--c) 6%,transparent); font-size: 2.55cqw; font-weight: 400; letter-spacing: 0.06em; color: var(--tint); text-shadow: 0 0 .3cqw var(--c),0 0 1cqw var(--c),0 0 2.2cqw color-mix(in srgb,var(--c) 60%,transparent); }
+.sign::before, .sign::after { content: ""; position: absolute; top: -2.6cqw; width: 0.12cqw; height: 2.3cqw; background: rgb(59, 62, 75); }
+.sign::before { left: 16%; }
+.sign::after { right: 16%; }
+.sign.a { --c: var(--cyan); --tint: #d4faff; }
+.sign.b { --c: var(--amber); --tint: #ffe9bf; }
+.sign.c { --c: var(--lime); --tint: #dcffd2; }
+.foot { grid-area: foot; position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: flex-end; gap: 2cqw 2cqw; font-family: var(--f-body); font-size: 1.4cqw; color: rgb(195, 197, 210); padding-top: 2cqw; }
+.foot .org { display: flex; gap: 2cqw 2cqw; align-items: baseline; }
+.foot .org b { font-weight: 500; color: rgb(236, 238, 245); font-size: 1.6cqw; }
+.foot .date { font-family: var(--f-mono); letter-spacing: 0.06em; }
+.foot .fake { font-size: 1.15cqw; color: rgb(125, 129, 148); letter-spacing: 0.08em; border: 1px solid rgb(58, 61, 75); border-radius: 99px; padding: 0.2cqw 1cqw 0.2cqw 1cqw; }
+.ch.off { color: rgb(59, 44, 53); -webkit-text-stroke-color: rgb(91, 70, 82); text-shadow: rgba(0, 0, 0, 0.6) 0px 0.15cqw 0.2cqw; }
+.sign.off { color: rgb(58, 61, 71); border-color: rgb(53, 56, 68); box-shadow: none; background: transparent; text-shadow: none; }
+.slide::before { transition: background-color 0.5s; }
+.slide.dim::before { background-color: rgba(5, 6, 10, 0.55); }
+.slide.dim .floor::after { opacity: 0; }
+.ch.flick { animation: 0.42s steps(1) 0s 1 normal both running flick; }
+.sign.flick { animation: 0.5s steps(1) 0s 1 normal both running sflick; }
+@keyframes flick { 
+  0% { color: rgb(59, 44, 53); -webkit-text-stroke-color: rgb(91, 70, 82); text-shadow: none; }
+  20% { color: var(--core); -webkit-text-stroke-color: rgb(255, 140, 189); text-shadow: var(--glow); }
+  35% { color: rgb(59, 44, 53); -webkit-text-stroke-color: rgb(91, 70, 82); text-shadow: none; }
+  55%, 100% { color: var(--core); -webkit-text-stroke-color: rgb(255, 140, 189); text-shadow: var(--glow); }
+}
+@keyframes sflick { 
+  0% { opacity: 0.25; }
+  20% { opacity: 1; }
+  34% { opacity: 0.25; }
+  52%, 100% { opacity: 1; }
+}
+@container stage (max-width: 620px) {
+  .slide { aspect-ratio: 4 / 5; grid-template: "eye" "title" "signs" 1fr "foot" / 1fr; padding: 7cqw 6.5cqw 5cqw 6.5cqw; row-gap: 5cqw; }
+  .eye { font-size: 3.2cqw; gap: 2.4cqw 2.4cqw; }
+  .eye i { width: 5cqw; }
+  .titlebox { gap: 4cqw 4cqw; align-self: start; padding-top: 2cqw; }
+  .neon { font-size: 17cqw; }
+  .ln { padding-bottom: 1.6cqw; }
+  .ln::after { height: 0.4cqw; }
+  .ch { -webkit-text-stroke-width: 0.25cqw; --glow: 0 0 .25cqw #fff,0 0 .9cqw var(--pink),0 0 2.4cqw var(--pink),0 0 6cqw rgba(255,45,138,.8),0 0 12cqw rgba(255,45,138,.4); }
+  .ch::after { width: 1cqw; height: 2cqw; bottom: -1.8cqw; }
+  .sub { font-size: 3.7cqw; max-width: none; }
+  .signs { grid-template-columns: repeat(3, 1fr); gap: 2.6cqw 2.6cqw; align-self: center; padding-top: 4cqw; }
+  .sign { font-size: 3.6cqw; padding: 2.6cqw 1cqw 2.6cqw 1cqw; border-width: 0.45cqw 0.45cqw 0.45cqw 0.45cqw; border-radius: 2cqw 2cqw 2cqw 2cqw / 2cqw 2cqw 2cqw 2cqw; letter-spacing: 0px; white-space: nowrap; }
+  .sign::before, .sign::after { top: -4cqw; height: 3.6cqw; width: 0.25cqw; }
+  .foot { font-size: 3cqw; flex-wrap: wrap; row-gap: 1.5cqw; }
+  .foot .org { gap: 3cqw 3cqw; }
+  .foot .org b { font-size: 3.4cqw; }
+  .foot .fake { font-size: 2.6cqw; padding: 0.3cqw 2cqw 0.3cqw 2cqw; }
+  .floor { height: 13%; }
+}
+button { font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 13px; color: var(--ink); background: rgb(23, 26, 36); border: 1px solid rgb(52, 56, 73); border-radius: 6px; padding: 7px 14px; cursor: pointer; }
+button:hover { border-color: var(--pink); }
+.doc { max-width: 760px; margin: 56px auto 0px; display: grid; gap: 56px; }
+p { margin: 0px; }
+@media (prefers-reduced-motion: reduce) {
+  .ch.flick, .sign.flick { animation: auto ease 0s 1 normal none running none; }
+}
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:25.5px;color:rgb(233, 234, 242)"&gt;
+&lt;div class="stage"&gt;
+    &lt;section class="slide" id="slide" aria-label="발표 표지: 민원 서비스 혁신"&gt;
+      &lt;div class="floor" aria-hidden="true"&gt;&lt;/div&gt;
+      &lt;div class="eye"&gt;&lt;b&gt;○○교육청&lt;/b&gt;&lt;i&gt;&lt;/i&gt;&lt;span&gt;2027 계획(안)&lt;/span&gt;&lt;/div&gt;
+
+      &lt;div class="titlebox"&gt;
+        &lt;h1 class="neon" aria-label="민원 서비스 혁신"&gt;
+          &lt;span class="ln" aria-hidden="true"&gt;&lt;span class="ch"&gt;민&lt;/span&gt;&lt;span class="ch"&gt;원&lt;/span&gt;&lt;span class="ch sp"&gt; &lt;/span&gt;&lt;span class="ch"&gt;서&lt;/span&gt;&lt;span class="ch"&gt;비&lt;/span&gt;&lt;span class="ch"&gt;스&lt;/span&gt;&lt;/span&gt;
+          &lt;span class="ln" aria-hidden="true"&gt;&lt;span class="ch"&gt;혁&lt;/span&gt;&lt;span class="ch"&gt;신&lt;/span&gt;&lt;/span&gt;
+        &lt;/h1&gt;
+        &lt;p class="sub"&gt;불이 꺼지지 않는 창구,&lt;br&gt;&lt;b&gt;○○교육청 2027 민원 서비스 혁신 계획(안)&lt;/b&gt;&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="signs" aria-label="핵심 약속"&gt;
+        &lt;div class="sign a"&gt;언제나 열림&lt;/div&gt;
+        &lt;div class="sign b"&gt;한 번에 처리&lt;/div&gt;
+        &lt;div class="sign c"&gt;기다림 없이&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="foot"&gt;
+        &lt;div class="org"&gt;&lt;b&gt;○○교육청 민원담당관&lt;/b&gt;&lt;span class="date"&gt;2026. 10.&lt;/span&gt;&lt;/div&gt;
+        &lt;span class="fake"&gt;가상 예시&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;button type="button" id="replay"&gt;점등 다시 보기&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  var slide=document.getElementById('slide');
+  var chars=[].slice.call(slide.querySelectorAll('.ch:not(.sp)'));
+  var signs=[].slice.call(slide.querySelectorAll('.sign'));
+  var timers=[];
+  var reduce=window.matchMedia&amp;&amp;window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function clear(){timers.forEach(clearTimeout);timers=[];}
+  function on(el,t){timers.push(setTimeout(function(){el.classList.remove('off');el.classList.add('flick');},t));}
+  function run(){
+    if(reduce)return;
+    clear();
+    chars.concat(signs).forEach(function(el){el.classList.remove('flick');el.classList.add('off');});
+    slide.classList.add('dim');
+    var t=300;
+    chars.forEach(function(el){on(el,t);t+=170;});
+    timers.push(setTimeout(function(){slide.classList.remove('dim');},t));
+    t+=250;
+    signs.forEach(function(el){on(el,t);t+=480;});
+  }
+  document.getElementById('replay').addEventListener('click',run);
+  timers.push(setTimeout(run,1400));
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
 </body></html>

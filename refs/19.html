@@ -451,4 +451,337 @@ a{color:#2C5F8A}
 })();
 </script>
 
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/19.html" target="_blank" rel="noopener">refs/19.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #19 화이트 단지 모형 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;700&amp;amp;family=IBM+Plex+Mono:wght@400;500&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { color-scheme: light; --studio: #E6EAEE; --studio2: #D9DEE4; --page: #EEF1F4; --paper: #FFFFFF; --ink: #1F2B36; --muted: #66717C; --hair: #D3D9DF; --hair2: #E5E9ED; --clay-t: #FAFAF8; --clay-w: #ECECE9; --clay-s: #D6D7D4; --glass-s: #C3C7C9; --glass-w: #D3D6D7; --slab: #BFC2C1; --acc: #F08A24; --acc-t: #FFC27A; --acc-w: #F7A447; --acc-s: #DE7A1A; --acc-g: #B95F0C; --acc-ink: #8A4A0A; --acc-soft: #FFF1E0; --sans: "IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --mono: "IBM Plex Mono","SFMono-Regular",Consolas,monospace; }
+* { box-sizing: border-box; }
+.wrap { max-width: 1280px; margin: 0px auto; padding-inline: 16px; padding-block: 24px 64px; }
+.cover { position: relative; margin: 0px; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; container-type: inline-size; overflow: hidden; background: radial-gradient(120% 90% at 62% 40%,#F6F8FA 0%,var(--studio) 55%,var(--studio2) 100%); border: 1px solid var(--hair); box-shadow: rgba(31, 43, 54, 0.12) 0px 10px 30px; }
+.plaque { position: absolute; left: 4cqw; top: 4.2cqw; width: 34cqw; }
+.eyebrow { font: 500 1.05cqw/1.3 var(--mono); letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; display: flex; gap: 1.2cqw 1.2cqw; align-items: center; }
+.eyebrow i { font-style: normal; border-top-style: ; border-top-width: ; border-right-style: ; border-right-width: ; border-bottom-style: ; border-bottom-width: ; border-left-style: ; border-left-width: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; padding: 0.25cqw 0.6cqw 0.25cqw 0.6cqw; border-radius: 0.3cqw 0.3cqw 0.3cqw 0.3cqw / 0.3cqw 0.3cqw 0.3cqw 0.3cqw; color: var(--acc-ink); border-color: var(--acc-w); letter-spacing: 0.04em; }
+.plaque h1 { margin: 1.6cqw 0px 0px; font-weight: 700; font-size: 3.35cqw; line-height: 1.22; letter-spacing: -0.025em; text-wrap: balance; }
+.plaque h1 span { display: block; font-weight: 300; font-size: 2.1cqw; letter-spacing: -0.01em; color: rgb(58, 71, 83); margin-bottom: 0.5cqw; }
+.plaque .org { margin-top: 1.8cqw; display: flex; gap: 1.6cqw 1.6cqw; font-size: 1.15cqw; color: var(--muted); align-items: baseline; }
+.plaque .org b { color: var(--ink); font-weight: 500; font-size: 1.3cqw; }
+.panel { position: absolute; left: 4cqw; bottom: 3.6cqw; width: 29cqw; display: grid; gap: 0.45cqw 0.45cqw; }
+.panel .cap { font: 500 .9cqw/1 var(--mono); letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.4cqw; }
+.key { color-scheme: unset; forced-color-adjust: unset; mask: unset; math-depth: unset; position: unset; position-anchor: unset; text-size-adjust: unset; appearance: unset; color: var(--ink); font-family: unset; font-feature-settings: unset; font-kerning: unset; font-optical-sizing: unset; font-palette: unset; font-size: 1.12cqw; font-size-adjust: unset; font-stretch: unset; font-style: unset; font-synthesis: unset; font-variant: unset; font-variation-settings: unset; font-weight: unset; position-area: unset; text-orientation: unset; text-rendering: unset; text-spacing-trim: unset; -webkit-font-smoothing: unset; -webkit-locale: unset; -webkit-text-orientation: unset; -webkit-writing-mode: unset; writing-mode: unset; zoom: unset; accent-color: unset; place-content: unset; align-items: center; place-self: unset; alignment-baseline: unset; anchor-name: unset; anchor-scope: unset; animation-composition: unset; animation: unset; app-region: unset; aspect-ratio: unset; backdrop-filter: unset; backface-visibility: unset; background: rgba(255, 255, 255, 0.55); background-blend-mode: unset; baseline-shift: unset; baseline-source: unset; block-size: unset; border-block: unset; border: 1px solid rgba(31, 43, 54, 0.08); border-radius: 0.5cqw 0.5cqw 0.5cqw 0.5cqw / 0.5cqw 0.5cqw 0.5cqw 0.5cqw; border-collapse: unset; border-end-end-radius: unset; border-end-start-radius: unset; border-inline: unset; border-start-end-radius: unset; border-start-start-radius: unset; inset: unset; box-decoration-break: unset; box-shadow: unset; box-sizing: border-box; break-after: unset; break-before: unset; break-inside: unset; buffered-rendering: unset; caption-side: unset; caret-animation: unset; caret-color: unset; clear: unset; clip: unset; clip-path: unset; clip-rule: unset; color-interpolation: unset; color-interpolation-filters: unset; color-rendering: unset; columns: unset; column-fill: unset; gap: 0.9cqw 0.9cqw; column-rule: unset; column-span: unset; contain: unset; contain-intrinsic-block-size: unset; contain-intrinsic-size: unset; contain-intrinsic-inline-size: unset; container: unset; content: unset; content-visibility: unset; corner-shape: unset; corner-block-end-shape: unset; corner-block-start-shape: unset; counter-increment: unset; counter-reset: unset; counter-set: unset; cursor: pointer; cx: unset; cy: unset; d: unset; display: grid; dominant-baseline: unset; dynamic-range-limit: unset; empty-cells: unset; field-sizing: unset; fill: unset; fill-opacity: unset; fill-rule: unset; filter: unset; flex: unset; flex-flow: unset; float: unset; flood-color: unset; flood-opacity: unset; grid-auto-columns: unset; grid-auto-flow: unset; grid-auto-rows: unset; grid-area: unset; grid-template-areas: unset; grid-template-columns: 2.3cqw 1fr auto; grid-template-rows: unset; height: unset; hyphenate-character: unset; hyphenate-limit-chars: unset; hyphens: unset; image-orientation: unset; image-rendering: unset; initial-letter: unset; inline-size: unset; inset-block: unset; inset-inline: unset; interpolate-size: unset; isolation: unset; justify-items: unset; letter-spacing: unset; lighting-color: unset; line-break: unset; line-height: 1.25; list-style: unset; margin-block: unset; margin: unset; margin-inline: unset; marker: unset; mask-type: unset; math-shift: unset; math-style: unset; max-block-size: unset; max-height: unset; max-inline-size: unset; max-width: unset; min-block-size: unset; min-height: unset; min-inline-size: unset; min-width: unset; mix-blend-mode: unset; object-fit: unset; object-position: unset; object-view-box: unset; offset: unset; opacity: unset; order: unset; orphans: unset; outline: unset; outline-offset: unset; overflow-anchor: unset; overflow-block: unset; overflow-clip-margin: unset; overflow-inline: unset; overflow-wrap: unset; overflow: unset; overlay: unset; overscroll-behavior-block: unset; overscroll-behavior-inline: unset; overscroll-behavior: unset; padding-block: unset; padding: 0.5cqw 0.9cqw 0.5cqw 0.5cqw; padding-inline: unset; page: unset; page-orientation: unset; paint-order: unset; perspective: unset; perspective-origin: unset; pointer-events: unset; position-try: unset; position-visibility: unset; print-color-adjust: unset; quotes: unset; r: unset; reading-flow: unset; reading-order: unset; resize: unset; rotate: unset; ruby-align: unset; ruby-position: unset; rx: unset; ry: unset; scale: unset; scroll-behavior: unset; scroll-initial-target: unset; scroll-margin-block: unset; scroll-margin: unset; scroll-margin-inline: unset; scroll-marker-group: unset; scroll-padding-block: unset; scroll-padding: unset; scroll-padding-inline: unset; scroll-snap-align: unset; scroll-snap-stop: unset; scroll-snap-type: unset; scroll-target-group: unset; scroll-timeline: unset; scrollbar-color: unset; scrollbar-gutter: unset; scrollbar-width: unset; shape-image-threshold: unset; shape-margin: unset; shape-outside: unset; shape-rendering: unset; size: unset; speak: unset; stop-color: unset; stop-opacity: unset; stroke: unset; stroke-dasharray: unset; stroke-dashoffset: unset; stroke-linecap: unset; stroke-linejoin: unset; stroke-miterlimit: unset; stroke-opacity: unset; stroke-width: unset; tab-size: unset; table-layout: unset; text-align: unset; text-align-last: unset; text-anchor: unset; text-autospace: unset; text-box: unset; text-combine-upright: unset; text-decoration: unset; text-decoration-skip-ink: unset; text-emphasis: unset; text-emphasis-position: unset; text-indent: unset; text-overflow: unset; text-shadow: unset; text-transform: unset; text-underline-offset: unset; text-underline-position: unset; text-wrap: unset; timeline-scope: unset; touch-action: unset; transform: unset; transform-box: unset; transform-origin: unset; transform-style: unset; transition: unset; translate: unset; user-select: unset; vector-effect: unset; vertical-align: unset; view-timeline: unset; view-transition-class: unset; view-transition-group: unset; view-transition-name: unset; visibility: unset; border-spacing: unset; -webkit-box-align: unset; -webkit-box-decoration-break: unset; -webkit-box-direction: unset; -webkit-box-flex: unset; -webkit-box-ordinal-group: unset; -webkit-box-orient: unset; -webkit-box-pack: unset; -webkit-box-reflect: unset; -webkit-line-break: unset; -webkit-line-clamp: unset; -webkit-mask-box-image: unset; -webkit-rtl-ordering: unset; -webkit-ruby-position: unset; -webkit-tap-highlight-color: unset; -webkit-text-combine: unset; -webkit-text-decorations-in-effect: unset; -webkit-text-fill-color: unset; -webkit-text-security: unset; -webkit-text-stroke: unset; -webkit-user-drag: unset; white-space-collapse: unset; widows: unset; width: unset; will-change: unset; word-break: unset; word-spacing: unset; x: unset; y: unset; z-index: unset; }
+.key .k { width: 2.3cqw; height: 2.3cqw; border-radius: 50%; display: grid; place-items: center; font: 500 1.05cqw var(--mono); background: var(--clay-t); box-shadow: inset 0 -.2cqw 0 var(--clay-s),0 .15cqw .35cqw rgba(31,43,54,.18); color: var(--muted); }
+.key small { font-size: 0.92cqw; color: var(--muted); }
+.key:hover { background: rgba(255, 255, 255, 0.85); }
+.key:focus-visible { outline: .2cqw solid var(--ink); outline-offset: 0.15cqw; }
+.key[aria-pressed="true"] { background: var(--paper); border-color: var(--acc-w); }
+.key[aria-pressed="true"] .k { background: var(--acc); color: rgb(255, 255, 255); box-shadow: rgba(240, 138, 36, 0.25) 0px 0px 0px 0.3cqw, rgba(240, 138, 36, 0.55) 0px 0px 1.2cqw; }
+.callout { position: absolute; right: 3cqw; bottom: 3cqw; width: 27cqw; background: rgba(255, 255, 255, 0.94); border-radius: 0.6cqw 0.6cqw 0.6cqw 0.6cqw / 0.6cqw 0.6cqw 0.6cqw 0.6cqw; padding: 1.4cqw 1.6cqw 1.4cqw 1.6cqw; box-shadow: rgba(31, 43, 54, 0.14) 0px 0.4cqw 1.6cqw; font-size: 1.08cqw; line-height: 1.5; }
+.crumb { font: 400 .88cqw/1.3 var(--mono); color: var(--muted); letter-spacing: 0.02em; }
+.crumb b { color: var(--acc-ink); font-weight: 500; }
+.callout h2 { margin: 0.5cqw 0px 0.3cqw; font-size: 1.75cqw; line-height: 1.25; letter-spacing: -0.02em; display: flex; gap: 0.8cqw 0.8cqw; align-items: center; }
+.callout h2 .n { flex: 0 0 auto; width: 2.1cqw; height: 2.1cqw; border-radius: 50%; background: var(--acc); color: rgb(255, 255, 255); font: 500 1.05cqw/2.1cqw var(--mono); text-align: center; }
+.callout p { margin: 0px; color: rgb(58, 71, 83); }
+.tags { display: flex; flex-wrap: wrap; gap: 0.45cqw 0.45cqw; margin-top: 0.8cqw; }
+.tags span { font: 500 .9cqw/1 var(--mono); padding: 0.4cqw 0.6cqw 0.4cqw 0.6cqw; border-radius: 0.3cqw 0.3cqw 0.3cqw 0.3cqw / 0.3cqw 0.3cqw 0.3cqw 0.3cqw; background: var(--acc-soft); color: var(--acc-ink); }
+.tags span.v { background: rgb(238, 241, 244); color: var(--muted); }
+.stage { position: absolute; left: 63cqw; top: 31.5cqw; width: 0px; height: 0px; --u: .35cqw; perspective: 9000px; }
+.ground-shadow { position: absolute; left: -30cqw; top: -6cqw; width: 60cqw; height: 22cqw; border-radius: 50%; background: radial-gradient(closest-side, rgba(31, 43, 54, 0.2), rgba(31, 43, 54, 0)); transform: translateY(2cqw); }
+.world { position: absolute; left: 0px; top: 0px; transform-style: preserve-3d; transform: rotateX(55deg) rotateZ(-35deg); }
+.site { position: absolute; left: calc(-60 * var(--u)); top: calc(-45 * var(--u)); width: calc(120 * var(--u)); height: calc(90 * var(--u)); transform-style: preserve-3d; }
+.box { position: absolute; transform-style: preserve-3d; transform: translateZ(calc((var(--z) + var(--lift,0)) * var(--u))); transition: transform 0.8s cubic-bezier(0.3, 0.7, 0.2, 1); --c-t: var(--clay-t); --c-w: var(--clay-w); --c-s: var(--clay-s); --g-s: var(--glass-s); --g-w: var(--glass-w); }
+.f { position: absolute; transition: opacity 0.45s, background-color 0.45s; }
+.f-t { left: 0px; top: 0px; width: 100%; height: 100%; transform: translateZ(calc(var(--h) * var(--u))); background-color: var(--c-t); }
+.f-s { left: 0px; width: 100%; top: calc(100% - var(--h) * var(--u)); height: calc(var(--h) * var(--u)); transform-origin: 50% 100%; transform: rotateX(-90deg); background-color: var(--c-s); }
+.f-w { top: 0px; height: 100%; left: calc(var(--h) * var(--u) * -1); width: calc(var(--h) * var(--u)); transform-origin: 100% 50%; transform: rotateY(90deg); background-color: var(--c-w); }
+.win &gt; .f-s::before, .win &gt; .f-w::before { content: ""; position: absolute; transition: background 0.45s; }
+.win &gt; .f-s::before { left: calc(1.4 * var(--u)); right: calc(1.4 * var(--u)); top: 26%; bottom: 26%; background: repeating-linear-gradient(90deg,var(--g-s) 0 calc(2.1 * var(--u)),transparent 0 calc(3 * var(--u))); }
+.win &gt; .f-w::before { top: calc(1.2 * var(--u)); bottom: calc(1.2 * var(--u)); left: 26%; right: 26%; background: repeating-linear-gradient(180deg,var(--g-w) 0 calc(2.1 * var(--u)),transparent 0 calc(3 * var(--u))); }
+.floor &gt; .f-s { box-shadow: inset 0 calc(.32 * var(--u)) 0 var(--slab); }
+.floor &gt; .f-w { box-shadow: inset calc(.32 * var(--u)) 0 0 var(--slab); }
+.roof &gt; .f-t { box-shadow: inset 0 0 0 calc(.45 * var(--u)) var(--clay-w); }
+.gym &gt; .f-t { background-image: repeating-linear-gradient(90deg,transparent 0 calc(3.6 * var(--u)),var(--clay-w) 0 calc(4.4 * var(--u))); }
+.plate { --c-t: #F2F3F1; --c-w: #E2E3E0; --c-s: #C9CBC8; }
+.hl { --c-t: var(--acc-t); --c-w: var(--acc-w); --c-s: var(--acc-s); --g-s: var(--acc-g); --g-w: #D7801E; }
+.floor.open &gt; .f { opacity: 0; }
+.inner &gt; .f { opacity: 0; }
+.floor.open .inner &gt; .f { opacity: 1; }
+.pick { cursor: pointer; }
+.deco { position: absolute; transform-style: preserve-3d; transform: translateZ(calc(.06 * var(--u))); }
+.field { background: rgb(233, 236, 231); border-radius: calc(2 * var(--u)); }
+.track { border: calc(.55 * var(--u)) solid #FBFBFA; border-radius: calc(12 * var(--u)); }
+.road { background: rgb(221, 224, 226); }
+.road::after { content: ""; position: absolute; left: 0px; right: 0px; top: 50%; height: calc(.25 * var(--u)); background: repeating-linear-gradient(90deg,#F7F7F5 0 calc(3 * var(--u)),transparent 0 calc(6 * var(--u))); }
+.shd { position: absolute; transform: translateZ(calc(.08 * var(--u))); }
+.bb { position: absolute; width: 0px; height: 0px; transform-style: flat; transform: translateZ(calc(var(--bz,0) * var(--u))) rotateZ(35deg) rotateX(-55deg); }
+.tree { position: absolute; left: 0px; bottom: 0px; transform: translateX(-50%); width: calc(3.4 * var(--u)); height: calc(6 * var(--u)); }
+.tree::before { content: ""; position: absolute; left: calc(50% - .1 * var(--u)); bottom: 0px; width: calc(.25 * var(--u)); height: calc(3 * var(--u)); background: rgb(207, 209, 206); }
+.tree::after { content: ""; position: absolute; left: 0px; top: 0px; width: calc(3.4 * var(--u)); height: calc(3.4 * var(--u)); border-radius: 50%; background: radial-gradient(circle at 34% 30%, rgb(255, 255, 255) 0%, rgb(241, 241, 239) 45%, rgb(205, 207, 204) 100%); }
+.fig { position: absolute; left: 0px; bottom: 0px; transform: translateX(-50%); width: calc(.55 * var(--u)); height: calc(1.75 * var(--u)); border-radius: calc(.3 * var(--u)) calc(.3 * var(--u)) calc(.1 * var(--u)) calc(.1 * var(--u)); background: linear-gradient(90deg, rgb(255, 255, 255), rgb(215, 216, 213)); }
+.label3d { position: absolute; font: 500 calc(1.9 * var(--u))/1 var(--mono); color: rgb(154, 162, 169); letter-spacing: 0.06em; white-space: nowrap; }
+.overlay { position: absolute; inset: 0px; pointer-events: none; }
+.pin { position: absolute; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center; transition: left 0.6s cubic-bezier(0.3, 0.7, 0.2, 1), top 0.6s cubic-bezier(0.3, 0.7, 0.2, 1), opacity 0.3s; }
+.pin .tag { font-size: 1.02cqw; font-weight: 500; background: var(--ink); color: rgb(255, 255, 255); padding: 0.35cqw 0.7cqw 0.35cqw 0.7cqw; border-radius: 0.35cqw 0.35cqw 0.35cqw 0.35cqw / 0.35cqw 0.35cqw 0.35cqw 0.35cqw; white-space: nowrap; display: flex; gap: 0.5cqw 0.5cqw; align-items: center; }
+.pin .tag b { font: 500 .95cqw var(--mono); color: var(--acc-t); }
+.pin .stem { width: 1px; height: 4.2cqw; background: var(--ink); }
+.pin .dot { width: 0.8cqw; height: 0.8cqw; border-radius: 50%; background: var(--acc); box-shadow: rgba(240, 138, 36, 0.3) 0px 0px 0px 0.3cqw; margin-top: -0.4cqw; }
+.pin.sm .tag { font-size: 0.88cqw; padding: 0.25cqw 0.5cqw 0.25cqw 0.5cqw; background: rgba(31, 43, 54, 0.85); }
+.pin.sm .stem { height: 2.4cqw; }
+.legend { position: absolute; right: 3cqw; top: 3.2cqw; text-align: right; font: 400 .9cqw/1.5 var(--mono); color: var(--muted); }
+@media (prefers-reduced-motion: reduce) {
+  .box, .f, .pin, .win &gt; .f-s::before, .win &gt; .f-w::before { transition: none; }
+}
+@media (max-width: 760px) {
+  .cover .panel, .cover .callout { display: none; }
+}
+td .st { display: inline-block; font: 500 11px/1 var(--mono); padding: 4px 6px; border-radius: 3px; background: var(--acc-soft); color: var(--acc-ink); margin-bottom: 4px; }
+td .st.g { background: rgb(238, 241, 244); color: var(--muted); }
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:24.75px;color:rgb(31, 43, 54)"&gt;
+&lt;figure class="cover" id="cover" aria-label="표지: 흰 클레이 단지 모형 위에서 특수학급 신·증설 대상 공간을 선택해 점등하는 계획안 표지"&gt;
+    &lt;div class="stage" id="stage" aria-hidden="true"&gt;
+      &lt;div class="ground-shadow"&gt;&lt;/div&gt;
+      &lt;div class="world"&gt;&lt;div class="site" id="site"&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="overlay" id="overlay" aria-hidden="true"&gt;&lt;/div&gt;
+
+    &lt;div class="plaque"&gt;
+      &lt;div class="eyebrow"&gt;○○교육청 특수교육과 &lt;i&gt;가상 예시&lt;/i&gt;&lt;/div&gt;
+      &lt;h1&gt;&lt;span&gt;2027&lt;/span&gt;특수학급 신·증설 및&lt;br&gt;공간 조성 계획(안)&lt;/h1&gt;
+      &lt;div class="org"&gt;&lt;b&gt;○○교육청&lt;/b&gt;&lt;span&gt;2026. 10.&lt;/span&gt;&lt;span&gt;○○초등학교 외 시범 1교&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class="panel" id="panelIn" role="group" aria-label="모형 조작 패널"&gt;
+      &lt;div class="cap"&gt;MODEL CONTROL · 누르면 점등&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="legend" aria-hidden="true"&gt;SCALE 1:500 · 가상 배치&lt;br&gt;흰색 = 기존 · 주황 = 계획&lt;/div&gt;
+    &lt;div class="callout" id="calloutIn" aria-live="polite"&gt;&lt;/div&gt;
+  &lt;/figure&gt;
+&lt;div class="keys" id="panelOut" role="group" aria-label="모형 조작 패널"&gt;&lt;/div&gt;
+&lt;div class="callout" id="calloutOut" aria-live="polite"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  const U = v =&gt; `calc(${v} * var(--u))`;
+  const site = document.getElementById('site');
+  const el = (tag, cls, parent) =&gt; { const e = document.createElement(tag); if (cls) e.className = cls; if (parent) parent.appendChild(e); return e; };
+
+  function box(parent, o){
+    const b = el('div', 'box ' + (o.cls || ''), parent);
+    b.style.left = U(o.x); b.style.top = U(o.y); b.style.width = U(o.w); b.style.height = U(o.d);
+    b.style.setProperty('--z', o.z || 0); b.style.setProperty('--h', o.h);
+    el('div', 'f f-w', b); el('div', 'f f-s', b); el('div', 'f f-t', b);
+    if (o.grp) b.dataset.grp = o.grp;
+    if (o.pick) { b.dataset.pick = o.pick; b.classList.add('pick'); }
+    return b;
+  }
+  function deco(cls, x, y, w, d){ const e = el('div', 'deco ' + cls, site); e.style.left = U(x); e.style.top = U(y); e.style.width = U(w); e.style.height = U(d); return e; }
+  function shadow(x, y, w, d, h){
+    const s = el('div', 'shd', site);
+    s.style.left = U(x); s.style.top = U(y); s.style.width = U(w); s.style.height = U(d);
+    s.style.boxShadow = `${U(h * .42)} ${U(h * .42)} ${U(h * .5)} rgba(55,66,78,.20)`;
+  }
+  function bb(cls, x, y, z){ const p = el('div', 'bb', site); p.style.left = U(x); p.style.top = U(y); p.style.setProperty('--bz', z || 0); el('div', cls, p); return p; }
+
+  // 모형대
+  box(site, {x:0, y:0, z:-2.6, w:120, d:90, h:2.6, cls:'plate'});
+  deco('road', 0, 82, 120, 8);
+  deco('field', 34, 38, 46, 40);
+  const tr = deco('track', 38, 42, 38, 32);
+  // 축척 막대 10m + 방위
+  const sc = deco('', 4, 77.5, 10, .5); sc.style.background = 'repeating-linear-gradient(90deg,#9AA2A9 0 ' + U(5) + ',#FFFFFF 0 ' + U(10) + ')';
+  const scl = deco('label3d', 4, 74.6, 20, 2); scl.textContent = '0      10m';
+  const nl = deco('label3d', 112, 3, 6, 4); nl.textContent = 'N ↑';
+
+  // 담장 + 정문
+  box(site, {x:6, y:79.6, w:24, d:.5, h:1});
+  box(site, {x:40, y:79.6, w:74, d:.5, h:1});
+  box(site, {x:29.5, y:79, w:1.2, d:1.6, h:2.2}); box(site, {x:39.5, y:79, w:1.2, d:1.6, h:2.2});
+
+  // 건물 정의 (1단위 = 1m)
+  const B = {
+    main:  {x:14, y:14, w:60, d:12, n:4, fh:4, pick:'class', open:1, rooms:[
+      {x:0,y:3.5,w:9,d:8.5},{x:9,y:3.5,w:9,d:8.5},{x:18,y:3.5,w:9,d:8.5},
+      {x:27,y:3.5,w:9,d:8.5,id:'class'},{x:36,y:3.5,w:6,d:8.5,id:'sensory'},
+      {x:42,y:3.5,w:5,d:8.5},{x:47,y:3.5,w:9,d:8.5},{x:56,y:0,w:4,d:12,h:3.4}]},
+    annex: {x:84, y:14, w:22, d:16, n:3, fh:4, pick:'support', open:0, rooms:[
+      {x:0,y:3.5,w:8.5,d:12,id:'support'},{x:8.5,y:3.5,w:6.5,d:12},{x:15,y:3.5,w:7,d:12},{x:18,y:0,w:4,d:3.5,h:3.4}]},
+    kinder:{x:8, y:40, w:22, d:15, n:2, fh:3.6, pick:'kinder', open:0, rooms:[
+      {x:0,y:6.5,w:8,d:8.5,id:'kinder'},{x:0,y:3,w:8,d:3.5},{x:8,y:3,w:7,d:12},{x:15,y:3,w:7,d:12}]}
+  };
+  const floors = {};
+  Object.entries(B).forEach(([id, b]) =&gt; {
+    shadow(b.x, b.y, b.w, b.d, b.n * b.fh);
+    floors[id] = [];
+    for (let i = 0; i &lt; b.n; i++) {
+      const f = box(site, {x:b.x, y:b.y, z:i * b.fh, w:b.w, d:b.d, h:b.fh, cls:'floor win' + (i === b.n - 1 ? ' roof' : ''), pick:b.pick});
+      floors[id].push(f);
+      if (i === b.open) {
+        // 슬래브 + 실 블록 (층 분해 시에만 보임)
+        const slab = box(f, {x:0, y:0, w:b.w, d:b.d, h:.4, cls:'inner'});
+        slab.style.setProperty('--c-t', '#F3F3F0');
+        b.rooms.forEach(r =&gt; {
+          const rb = box(f, {x:r.x + .2, y:r.y + .2, z:.4, w:r.w - .4, d:r.d - .4, h:r.id ? 2.9 : (r.h || 2.3), cls:'inner'});
+          if (r.id) { rb.dataset.room = r.id; rb.dataset.pick = r.id; rb.classList.add('pick'); }
+        });
+      }
+    }
+  });
+  // 체육관
+  shadow(84, 40, 26, 22, 11);
+  box(site, {x:84, y:40, w:26, d:22, h:11, cls:'gym win'});
+  // 무장애 동선: 엘리베이터 + 연결통로 + 경사로
+  shadow(74, 16, 5, 8, 17);
+  box(site, {x:74, y:16, w:5, d:8, h:17, grp:'bf', pick:'bf'});
+  box(site, {x:79, y:18, z:4, w:5, d:5, h:3.6, grp:'bf', pick:'bf', cls:'win'});
+  box(site, {x:38, y:26, w:14, d:7.5, h:.7, grp:'bf', pick:'bf'});
+  box(site, {x:41, y:26, z:3.6, w:8, d:3.2, h:.35});
+  // 통학차량 승하차장: 캐노피 + 기둥 + 차량
+  shadow(9, 66, 18, 8, 4);
+  box(site, {x:11, y:68.4, w:11, d:2.6, h:2.8, cls:'win'});
+  [[9.3,66.3],[25.9,66.3],[9.3,73.4],[25.9,73.4]].forEach(p =&gt; box(site, {x:p[0], y:p[1], w:.4, d:.4, h:3.4, grp:'bus'}));
+  box(site, {x:9, y:66, z:3.4, w:17.3, d:8, h:.35, grp:'bus', pick:'bus'});
+
+  // 나무·인물
+  [[4,60],[4,66],[4,72],[34,82.5],[46,80],[54,80],[62,80],[70,80],[78,80],[86,80],[94,80],[102,80],[112,72],[112,64],[112,48],[80,34],[32,34],[10,8],[20,8],[30,8],[44,8],[58,8],[90,8],[100,8]]
+    .forEach(([x, y]) =&gt; { const s = deco('', x - 1.7, y - 1.7, 3.4, 3.4); s.style.borderRadius = '50%'; s.style.boxShadow = `${U(1.6)} ${U(1.6)} ${U(1.6)} rgba(55,66,78,.16)`; bb('tree', x, y); });
+  [[48,36],[50,37],[60,60],[62,58.5],[56,50],[20,71],[18,71.5],[44,34],[70,66]].forEach(([x, y]) =&gt; bb('fig', x, y));
+
+  // 대상 정의 (면적·예산·일정은 가상)
+  const T = [
+    {id:'class', n:'1', name:'특수학급 신설 교실', short:'본관 2층', crumb:['학교 전체','본관','2층','특수학급'], at:[14+31.5, 14+7.75, 4+3.3], bld:'main',
+      text:'2층 교과교실 1실을 특수학급으로 전환해 2학급에서 3학급으로 늘립니다. 화장실과 감각·휴게실이 같은 층 바로 옆에 있습니다.', tags:['77㎡','초 6명/학급','2027. 2. 완공'], won:1.2},
+    {id:'sensory', n:'2', name:'감각·휴게실', short:'본관 2층', crumb:['학교 전체','본관','2층','감각·휴게실'], at:[14+39, 14+7.75, 4+3.3], bld:'main',
+      text:'조명 밝기와 소음을 조절할 수 있는 진정 공간입니다. 특수학급과 내부 문으로 연결해 복도를 거치지 않습니다.', tags:['51㎡','흡음·조광','2027. 2. 완공'], won:0.6},
+    {id:'support', n:'3', name:'통합 지원실', short:'별관 1층', crumb:['학교 전체','별관','1층','통합 지원실'], at:[84+4.25, 14+9.5, 3.3], bld:'annex',
+      text:'통합학급 담임과 특수교사의 협의, 개별화교육계획 회의, 치료지원을 한 곳에서 합니다. 시간표로 나눠 씁니다.', tags:['98㎡','협의·치료 겸용','2027. 3. 완공'], won:0.9},
+    {id:'bf', n:'4', name:'무장애 동선', short:'경사로·승강기', crumb:['학교 전체','주출입구','승강기','2층 연결통로'], at:[76.5, 20, 17.5], bld:null,
+      text:'주출입구 경사로(기울기 1/12 이하)에서 승강기, 별관 2층 연결통로까지 단차 없이 이어집니다. BF 인증을 목표로 합니다.', tags:['단차 0곳','승강기 1대 신설','2027. 7. 완공'], won:3.8},
+    {id:'kinder', n:'5', name:'유치원 특수학급', short:'유치원동 1층', crumb:['학교 전체','유치원동','1층','특수학급'], at:[8+4, 40+10.75, 3.3], bld:'kinder',
+      text:'1층에 두어 실외 놀이터로 바로 나갈 수 있습니다. 교실 안에 유아용 화장실을 붙여 이동을 줄입니다.', tags:['68㎡','유 4명/학급','2027. 2. 완공'], won:0.8},
+    {id:'bus', n:'6', name:'통학차량 승하차장', short:'서측 진입부', crumb:['학교 전체','외부 공간','승하차장'], at:[17.6, 70, 3.8], bld:null,
+      text:'비를 피할 수 있는 캐노피와 대기 공간을 만들고, 차량 정차 위치에서 유치원동 현관까지 직선 동선을 냅니다.', tags:['캐노피 140㎡','차량 2대 동시','2027. 4. 완공'], won:0.7}
+  ];
+  const ALL = {id:'all', n:'0', name:'전체 계획', short:'6곳 동시 점등', crumb:['학교 전체'], at:null, bld:null,
+    text:'특수학급 1학급 증설과 지원 공간 5곳을 한 단지 안에서 함께 조성합니다. 각 공간 번호를 누르면 해당 건물과 층이 열립니다.',
+    tags:['총 ' + T.reduce((s, t) =&gt; s + t.won, 0).toFixed(1) + '억 원', '6개 공간', '2027. 7. 준공']};
+  const byId = Object.fromEntries(T.map(t =&gt; [t.id, t])); byId.all = ALL;
+  const order = [...T, ALL];
+
+  // 3D 좌표 → 표지 cqw 투영 (rotateZ(-35) 후 rotateX(55), 직교)
+  const cz = Math.cos(35 * Math.PI / 180), sz = Math.sin(35 * Math.PI / 180), cx = Math.cos(55 * Math.PI / 180), sx = Math.sin(55 * Math.PI / 180), u = .35;
+  function proj(x, y, z){ x -= 60; y -= 45; const X = x * cz + y * sz, Y = -x * sz + y * cz; return [63 + X * u, 31.5 + (Y * cx - z * sx) * u]; }
+
+  const overlay = document.getElementById('overlay');
+  const pins = T.map(t =&gt; {
+    const p = el('div', 'pin', overlay);
+    p.innerHTML = `&lt;div class="tag"&gt;&lt;b&gt;${t.n}&lt;/b&gt;${t.name}&lt;/div&gt;&lt;div class="stem"&gt;&lt;/div&gt;&lt;div class="dot"&gt;&lt;/div&gt;`;
+    const [l, tp] = proj(...t.at); p.style.left = l + 'cqw'; p.style.top = tp + 'cqw';
+    return p;
+  });
+
+  // 패널 버튼
+  function mkKeys(host, compact){
+    order.forEach(t =&gt; {
+      const b = el('button', 'key', host);
+      b.type = 'button'; b.dataset.t = t.id; b.setAttribute('aria-pressed', 'false');
+      b.innerHTML = `&lt;span class="k"&gt;${t.n}&lt;/span&gt;&lt;span&gt;${t.name}&lt;/span&gt;&lt;small&gt;${t.short}&lt;/small&gt;`;
+    });
+  }
+  mkKeys(document.getElementById('panelIn'));
+  mkKeys(document.getElementById('panelOut'), true);
+
+  function callout(t){
+    const c = t.crumb.map((s, i) =&gt; i === t.crumb.length - 1 ? `&lt;b&gt;${s}&lt;/b&gt;` : s).join(' › ');
+    return `&lt;div class="crumb"&gt;${c}&lt;/div&gt;&lt;h2&gt;&lt;span class="n"&gt;${t.n}&lt;/span&gt;${t.name}&lt;/h2&gt;&lt;p&gt;${t.text}&lt;/p&gt;
+      &lt;div class="tags"&gt;${t.tags.map(s =&gt; `&lt;span&gt;${s}&lt;/span&gt;`).join('')}${t.won &amp;&amp; t.id !== 'all' ? `&lt;span class="v"&gt;${t.won.toFixed(1)}억 원 · 가상&lt;/span&gt;` : '&lt;span class="v"&gt;가상 예시&lt;/span&gt;'}&lt;/div&gt;`;
+  }
+
+  let cur = null;
+  function select(id){
+    if (!byId[id] || id === cur) return;
+    cur = id; const t = byId[id];
+    // 층 분해
+    Object.entries(B).forEach(([bid, b]) =&gt; {
+      const opening = t.bld === bid;
+      floors[bid].forEach((f, i) =&gt; {
+        f.classList.toggle('open', opening &amp;&amp; i === b.open);
+        f.style.setProperty('--lift', opening &amp;&amp; i &gt; b.open ? 11 : 0);
+      });
+    });
+    // 점등
+    site.querySelectorAll('[data-room]').forEach(r =&gt; r.classList.toggle('hl', r.dataset.room === id));
+    site.querySelectorAll('[data-grp]').forEach(g =&gt; g.classList.toggle('hl', g.dataset.grp === id || id === 'all'));
+    // 전체 계획: 실 대신 해당 건물 해당 층 점등
+    Object.entries(B).forEach(([bid, b]) =&gt; floors[bid][b.open].classList.toggle('hl', id === 'all'));
+    pins.forEach((p, i) =&gt; { const on = id === 'all' || T[i].id === id; p.style.opacity = on ? 1 : 0; p.classList.toggle('sm', id === 'all'); });
+    document.querySelectorAll('.key').forEach(k =&gt; k.setAttribute('aria-pressed', String(k.dataset.t === id)));
+    const html = callout(t);
+    document.getElementById('calloutIn').innerHTML = html;
+    document.getElementById('calloutOut').innerHTML = html;
+  }
+
+  document.addEventListener('click', e =&gt; {
+    const k = e.target.closest('.key'); if (k) { select(k.dataset.t); return; }
+    const p = e.target.closest('[data-pick]'); if (p &amp;&amp; site.contains(p)) select(p.dataset.pick);
+  });
+  document.addEventListener('keydown', e =&gt; {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    const k = e.target.closest &amp;&amp; e.target.closest('.key');
+    if (k &amp;&amp; (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowUp')) {
+      const sib = [...k.parentElement.querySelectorAll('.key')]; const i = sib.indexOf(k);
+      const n = sib[(i + (e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : -1) + sib.length) % sib.length];
+      n.focus(); select(n.dataset.t); e.preventDefault(); return;
+    }
+    const m = { '0':'all', '1':'class', '2':'sensory', '3':'support', '4':'bf', '5':'kinder', '6':'bus' }[e.key];
+    if (m) select(m);
+  });
+
+  select('class');
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
 </body></html>

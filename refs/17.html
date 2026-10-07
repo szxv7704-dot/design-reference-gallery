@@ -377,4 +377,301 @@ let rt;new ResizeObserver(()=>{clearTimeout(rt);rt=setTimeout(()=>{if(!L||Math.a
 })();
 </script>
 
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/17.html" target="_blank" rel="noopener">refs/17.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #17 두 개의 심 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;600;700&amp;amp;family=IBM+Plex+Sans+KR:wght@400;500;600&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+img { max-width: 100%; }
+:root { --bg: #EEF0EC; --surface: #F8F9F6; --fg: #25302D; --muted: #5D6965; --line: #D3D9D4; --teal: #2C8780; --gold: #A8741E; --wood: #C8935A; --display: "Hahmlet","Nanum Myeongjo","AppleMyungjo","Batang",serif; --sans: "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #171C1A; --surface: #1F2522; --fg: #E6EAE5; --muted: #A1ACA6; --line: #323B37; --teal: #62C1B7; --gold: #E2B15A; --wood: #D9A86E; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #171C1A; --surface: #1F2522; --fg: #E6EAE5; --muted: #A1ACA6; --line: #323B37; --teal: #62C1B7; --gold: #E2B15A; --wood: #D9A86E; color-scheme: dark; }
+* { box-sizing: border-box; }
+.wrap { max-width: 1180px; margin: 0px auto; padding-inline: 16px; padding-block: 20px 72px; }
+.cover { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; overflow: hidden; container-type: inline-size; margin: 0px; border-radius: 4px; background: radial-gradient(120% 90% at 72% 46%, rgb(247, 246, 240) 0%, rgb(236, 238, 232) 55%, rgb(226, 230, 225) 100%); box-shadow: rgba(37, 48, 45, 0.1) 0px 1px 2px, rgba(37, 48, 45, 0.12) 0px 10px 32px; }
+.cover .grain { position: absolute; inset: 0px; pointer-events: none; opacity: 0.5; mix-blend-mode: multiply; background-size: 200px; }
+#cv { position: absolute; inset: 0px; width: 100%; height: 100%; display: block; }
+.slabbox { position: absolute; left: 46%; top: 6%; width: 52%; height: 88%; pointer-events: none; }
+.ctext { position: absolute; left: 6%; width: 41%; top: 0px; bottom: 0px; display: flex; flex-direction: column; justify-content: center; gap: 2.2cqw 2.2cqw; color: rgb(36, 48, 44); }
+.cover h1 { margin: 0px; font-family: var(--display); font-weight: 700; font-size: max(16px, 4.25cqw); line-height: 1.2; letter-spacing: -0.025em; text-wrap: balance; }
+.cover h1 .yr { display: block; font-family: var(--sans); font-weight: 600; font-size: 0.42em; letter-spacing: 0.3em; color: rgb(44, 135, 128); margin-bottom: 0.55em; }
+.cover h1 .ln { display: block; }
+.csub { margin: 0px; font-family: var(--display); font-weight: 600; font-size: max(11px, 1.85cqw); line-height: 1.4; color: rgb(138, 94, 34); display: flex; align-items: center; gap: 0.7em; }
+.csub::before { content: ""; width: 2.2em; height: max(1px, 0.12cqw); background: rgb(200, 147, 90); }
+.corg { position: absolute; left: 6%; bottom: 7%; font-family: var(--sans); font-size: max(10px, 1.3cqw); color: rgb(75, 87, 83); letter-spacing: 0.02em; }
+.corg b { font-weight: 600; color: rgb(36, 48, 44); margin-right: 0.7em; }
+.virt { position: absolute; left: 1.6%; top: 2.6%; font-size: max(9px, 0.95cqw); color: rgb(93, 105, 101); background: rgba(255, 255, 255, 0.6); padding: 0.15em 0.6em; border-radius: 0.3em; }
+.lab { position: absolute; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 0.45em; padding: 0.3em 0.75em 0.28em; white-space: nowrap; font-family: var(--sans); font-weight: 500; font-size: max(10px, 1.2cqw); line-height: 1.2; color: rgb(42, 42, 34); background: rgba(255, 252, 244, 0.9); border: 1px solid rgba(80, 58, 30, 0.28); border-radius: 99px; box-shadow: rgba(80, 58, 30, 0.18) 0px 1px 3px; transition: opacity 0.6s; }
+.lab i { display: block; width: 0.62em; height: 0.62em; border-radius: 50%; }
+.lab.a i { background: rgb(44, 135, 128); }
+.lab.b i { background: rgb(217, 162, 58); }
+.lab.c i { background: rgb(200, 147, 90); border: 1px solid rgb(138, 94, 34); }
+.lab.c.wait { opacity: 0; }
+@media (max-width: 600px) {
+  .cover { aspect-ratio: 4 / 5; }
+  .slabbox { left: 3%; top: 3%; width: 94%; height: 54%; }
+  .ctext { inset: 58% 7% 13%; width: auto; gap: 3cqw 3cqw; justify-content: center; }
+  .cover h1 { font-size: max(18px, 6.9cqw); }
+  .csub { font-size: max(12px, 3.6cqw); }
+  .corg { left: 7%; bottom: 5%; font-size: max(11px, 3.1cqw); }
+  .lab { font-size: max(10.5px, 2.9cqw); }
+  .virt { font-size: 10px; }
+}
+.dev { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px 28px; }
+.dev div { min-width: 0px; border-top: 2px solid var(--fg); padding-top: 10px; }
+.dev h3 { margin: 0px 0px 4px; font-family: var(--display); font-weight: 600; font-size: 17px; line-height: 1.4; }
+.dev h3 small { font-family: var(--sans); font-weight: 500; font-size: 12px; color: var(--teal); margin-left: 6px; }
+.dev p { margin: 0px; font-size: 14.5px; }
+.tw { overflow-x: auto; border-top: 2px solid var(--fg); }
+td.r { white-space: nowrap; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ring { display: inline-block; vertical-align: -3px; width: 16px; height: 16px; border-radius: 50%; margin-right: 6px; border: 2px solid var(--line); }
+.ring.in { border-color: var(--teal); }
+.ring.sh { border-color: var(--wood); }
+.png { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 22px 0px 0px; }
+.png figure { margin: 0px; min-width: 0px; background: rgb(236, 238, 232); border: 1px solid var(--line); border-radius: 6px; padding: 10px; }
+.png img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; }
+.png figcaption { font-size: 13px; color: rgb(75, 87, 83); margin-top: 6px; }
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15.5px;line-height:26.35px;color:rgb(37, 48, 45)"&gt;
+&lt;figure class="cover" id="cover" aria-label="발표 표지 가상 예시. 왼쪽에 제목, 오른쪽에 맞붙어 자란 두 나무를 가로로 자른 밝은 목재 단면. 심이 두 개이고 각 심을 따로 감싼 안쪽 나이테 바깥을 공유 나이테가 하나로 감싼다."&gt;
+  &lt;div class="grain" id="grain"&gt;&lt;/div&gt;
+  &lt;canvas id="cv"&gt;&lt;/canvas&gt;
+  &lt;div class="slabbox" id="slabbox"&gt;&lt;/div&gt;
+  &lt;div class="ctext"&gt;
+    &lt;h1&gt;&lt;span class="yr"&gt;2027&lt;/span&gt;&lt;span class="ln"&gt;유보통합 준비 및&lt;/span&gt;&lt;span class="ln"&gt;선도 운영 계획(안)&lt;/span&gt;&lt;/h1&gt;
+    &lt;p class="csub"&gt;두 개의 심, 하나의 나이테&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class="corg"&gt;&lt;b&gt;○○교육청&lt;/b&gt;유아교육과 · 2026. 12.&lt;/div&gt;
+  &lt;span class="lab a" id="labA"&gt;&lt;i&gt;&lt;/i&gt;유치원&lt;/span&gt;
+  &lt;span class="lab b" id="labB"&gt;&lt;i&gt;&lt;/i&gt;어린이집&lt;/span&gt;
+  &lt;span class="lab c wait" id="labC"&gt;&lt;i&gt;&lt;/i&gt;함께 자랄 나이테&lt;/span&gt;
+  &lt;span class="virt"&gt;가상 예시&lt;/span&gt;
+&lt;/figure&gt;
+&lt;button type="button" id="replay"&gt;나이테 다시 그리기&lt;/button&gt;
+&lt;img id="pngBefore" alt="통합 전 단면: 각자 수피를 두른 두 개의 작은 원목이 맞닿아 있는 모습"&gt;
+&lt;img id="pngAfter" alt="완성 단면: 두 심을 공유 나이테가 하나로 감싼 연리지 단면"&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+const cover=document.getElementById('cover'),cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+const box=document.getElementById('slabbox');
+const labs={a:document.getElementById('labA'),b:document.getElementById('labB'),c:document.getElementById('labC')};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ── noise ── */
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a&gt;&gt;&gt;15,1|a);t=t+Math.imul(t^t&gt;&gt;&gt;7,61|t)^t;return((t^t&gt;&gt;&gt;14)&gt;&gt;&gt;0)/4294967296}}
+const R0=rng(17),perm=new Uint8Array(512),val=new Float32Array(256);
+for(let i=0;i&lt;256;i++){perm[i]=i;val[i]=R0()}
+for(let i=255;i&gt;0;i--){const j=Math.floor(R0()*(i+1));[perm[i],perm[j]]=[perm[j],perm[i]]}
+for(let i=0;i&lt;256;i++)perm[i+256]=perm[i];
+function vn(x,y){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,X=xi&amp;255,Y=yi&amp;255;
+  const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+  const a=val[perm[X+perm[Y]]],b=val[perm[X+1+perm[Y]]],c=val[perm[X+perm[Y+1]]],d=val[perm[X+1+perm[Y+1]]];
+  return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v}
+function fbm(x,y,o){let s=0,a=.5,f=1,n=0;for(let i=0;i&lt;o;i++){s+=a*vn(x*f,y*f);n+=a;a*=.5;f*=2.03}return s/n}
+const sst=(e0,e1,x)=&gt;{const t=Math.max(0,Math.min(1,(x-e0)/(e1-e0)));return t*t*(3-2*t)};
+
+/* ── geometry (slab units) ── */
+const P1=[-.305,.035],P2=[.31,-.03],K=.12,ROT=-.13;
+const RMERGE=.272, REDGE=.612;
+// ring boundaries: inner (separate) then shared
+const rr=rng(5),RINGS=[0],DARK=[];
+(function(){let r=.022;while(r&lt;RMERGE-.012){RINGS.push(r);r+=.026*(.65+rr()*.7)}
+  RINGS.push(RMERGE);const nIn=RINGS.length;
+  const nSh=8,step=(REDGE-RMERGE)/nSh;for(let i=1;i&lt;=nSh;i++)RINGS.push(RMERGE+step*i+(i&lt;nSh?(rr()-.5)*step*.35:0));
+  RINGS.push(9);for(let i=0;i&lt;RINGS.length;i++)DARK.push(.75+rr()*.45);RINGS.nIn=nIn})();
+const SHARED=RINGS.slice(RINGS.nIn-1,RINGS.length-1); // RMERGE ... REDGE
+const CRACKS=[[-2.55,.20],[.62,.15],[2.25,.11],[-.95,.08]];
+const EARLY=[238,214,168],LATE=[195,139,85],HEART=[226,190,140],TEALT=[118,176,165],GOLDT=[234,176,78];
+const BARK_HI=[150,112,78],BARK_LO=[96,68,44],CAMB=[232,200,146];
+
+function smin(a,b,k){const h=Math.max(k-Math.abs(a-b),0)/k;return Math.min(a,b)-h*h*k*.25}
+
+let G=null; // precomputed fields
+function precompute(w,h,S,cx,cy){
+  const n=w*h,F=new Float32Array(n),C=new Uint8ClampedArray(n*3),BN=new Uint8ClampedArray(n),BL=new Float32Array(n);
+  const cr=Math.cos(ROT),sr=Math.sin(ROT);
+  for(let j=0;j&lt;h;j++){const Y=(j-cy)/S;
+    for(let i=0;i&lt;w;i++){const X=(i-cx)/S,k=j*w+i;
+      const x=X*cr-Y*sr,y=X*sr+Y*cr;
+      const dx1=x-P1[0],dy1=y-P1[1],dx2=x-P2[0],dy2=y-P2[1];
+      const r1=Math.hypot(dx1,dy1),r2=Math.hypot(dx2,dy2);
+      if(Math.min(r1,r2)&gt;.75){F[k]=9;continue}
+      const a1=Math.atan2(dy1,dx1),a2=Math.atan2(dy2,dx2);
+      const d1=r1*(1+.06*Math.sin(a1+.8)+.03*Math.sin(2*a1+2.1)+.018*Math.sin(3*a1+.3));
+      const d2=r2*(1+.06*Math.sin(a2+2.6)+.03*Math.sin(2*a2+.4)+.018*Math.sin(3*a2+1.7));
+      let f=smin(d1,d2,K);
+      const warp=(fbm(x*3.1+7,y*3.1,3)-.5)*.05+(vn(x*16,y*16)-.5)*.008;
+      f+=warp*Math.min(1,f/.08);
+      F[k]=f;
+      if(f&gt;REDGE+.06)continue;
+      // ring lookup
+      let lo=0,hi=RINGS.length-1;while(hi-lo&gt;1){const m=(lo+hi)&gt;&gt;1;if(RINGS[m]&lt;=f)lo=m;else hi=m}
+      const q=(f-RINGS[lo])/(RINGS[hi]-RINGS[lo]);
+      const heart=1-sst(.18,.5,f);
+      const e0=EARLY[0]+(HEART[0]-EARLY[0])*heart*.5,e1=EARLY[1]+(HEART[1]-EARLY[1])*heart*.5,e2=EARLY[2]+(HEART[2]-EARLY[2])*heart*.5;
+      const lw=sst(.5,.93,q)*DARK[lo],bl=sst(.93,.995,q);
+      let R=e0+(LATE[0]-e0)*lw,Gc=e1+(LATE[1]-e1)*lw,B=e2+(LATE[2]-e2)*lw;
+      const dk=1-.13*bl*DARK[lo];R*=dk;Gc*=dk;B*=dk;
+      // institution tint near piths
+      const sel=sst(-.025,.025,d2-d1),fade=(1-sst(.12,.3,f))*.2;
+      const t1=fade*sel,t2=fade*(1-sel);
+      R+=(TEALT[0]-R)*t1+(GOLDT[0]-R)*t2;Gc+=(TEALT[1]-Gc)*t1+(GOLDT[1]-Gc)*t2;B+=(TEALT[2]-B)*t1+(GOLDT[2]-B)*t2;
+      // medullary rays
+      const ang=sel&gt;.5?a1:a2;
+      const ray=Math.pow(.5+.5*Math.sin(ang*150+fbm(x*6,y*6,2)*9),36)*sst(.03,.12,f);
+      // fine grain + saw marks
+      const g=.965+.07*vn(x*95,y*95)+.025*(vn(x*300,y*300)-.5);
+      const saw=1+.016*Math.sin(Math.hypot(x-3.4,y+2.6)*90+vn(x*4,y*4)*3);
+      // light: top-left, soft sheen
+      const L=1+.05*(-x*.35-y*.6)+.075*Math.exp(-((x+.45)*(x+.45)+(y+.32)*(y+.32))/.1);
+      let m=g*saw*L*(1+.05*ray);
+      // pith
+      const dp=Math.min(r1,r2);
+      if(dp&lt;.03){const pv=1-sst(.008,.022,dp);m*=1-.35*pv;R+=(150-R)*pv*.5;Gc+=(100-Gc)*pv*.5;B+=(60-B)*pv*.5}
+      // pith checks
+      [[P1,1.1],[P2,-.5]].forEach(([p,phi])=&gt;{const ddx=x-p[0],ddy=y-p[1],rr_=Math.hypot(ddx,ddy);if(rr_&lt;.07){const pd=Math.abs(-Math.sin(phi)*ddx+Math.cos(phi)*ddy);const wv=.0026*(1-rr_/.07);if(pd&lt;wv)m*=.55+.3*pd/wv}});
+      // included-bark seam where the trees met
+      const seam=Math.abs(d1-d2);if(seam&lt;.007&amp;&amp;f&lt;.35)m*=1-.28*(1-seam/.007)*(1-sst(.27,.35,f));
+      // radial checks from the edge
+      const th=Math.atan2(y,x);
+      for(const [ck,len] of CRACKS){const fs=REDGE-len;if(f&gt;fs){let dt=th-ck-.006*Math.sin(f*40);dt=Math.atan2(Math.sin(dt),Math.cos(dt));
+        const wid=.016*Math.pow((f-fs)/len,1.6)+.0006;const ad=Math.abs(dt);
+        if(ad&lt;wid){const c=1-ad/wid;m*=1-.5*Math.min(1,c*2.2);R+=(110-R)*c*.4;Gc+=(74-Gc)*c*.4;B+=(44-B)*c*.4}
+        else if(dt&gt;0&amp;&amp;ad&lt;wid*1.9)m*=1+.05}}
+      C[k*3]=R*m;C[k*3+1]=Gc*m;C[k*3+2]=B*m;
+      // bark noise + light
+      if(f&gt;.2){const rid=1-Math.abs(2*vn(x*34+3,y*34)-1);const n2=.55*sst(.35,.85,rid)+.45*fbm(x*12,y*12,2);BN[k]=n2*255;
+        const nx=x-(sel&gt;.5?P1[0]:P2[0])*.6,ny=y;const nl=Math.hypot(nx,ny)||1;BL[k]=(-nx*.45-ny*.85)/nl}
+    }}
+  return{w,h,S,cx,cy,F,C,BN,BL};
+}
+
+let face,faceX,side,img;
+function renderFace(Rc){
+  const {w,h,S,F,C,BN,BL}=G,d=img.data,px=1.3/S,bw=.006+.05*Rc;
+  for(let k=0,n=w*h;k&lt;n;k++){const f=F[k],o=k*4;const dd=Rc-f;
+    if(dd&lt;-px){d[o+3]=0;continue}
+    let R,Gc,B,a=dd&lt;0?1+dd/px:1;
+    if(dd&lt;bw){const n2=BN[k]/255,t=dd/bw;const lgt=1+.22*BL[k]*(1-t*.4);
+      const sh=.82+.18*sst(0,.35,t);
+      R=(BARK_HI[0]+(BARK_LO[0]-BARK_HI[0])*n2)*lgt*sh;Gc=(BARK_HI[1]+(BARK_LO[1]-BARK_HI[1])*n2)*lgt*sh;B=(BARK_HI[2]+(BARK_LO[2]-BARK_HI[2])*n2)*lgt*sh;
+      if(dd&gt;bw-px*1.5){const c=.55;R+=(CAMB[0]-R)*c;Gc+=(CAMB[1]-Gc)*c;B+=(CAMB[2]-B)*c}}
+    else if(dd&lt;bw+.008){R=CAMB[0]*.98;Gc=CAMB[1]*.97;B=CAMB[2]*.95}
+    else{const ao=1-.1*Math.exp(-(dd-bw-.008)/.018);R=C[k*3]*ao;Gc=C[k*3+1]*ao;B=C[k*3+2]*ao}
+    d[o]=R;d[o+1]=Gc;d[o+2]=B;d[o+3]=a*255}
+  face.getContext('2d').putImageData(img,0,0);
+  const sc=side.getContext('2d');sc.globalCompositeOperation='source-over';sc.clearRect(0,0,w,h);sc.drawImage(face,0,0);
+  sc.globalCompositeOperation='source-in';const gr=sc.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#8A6443');gr.addColorStop(1,'#6A4A30');sc.fillStyle=gr;sc.fillRect(0,0,w,h);
+}
+function compose(c,ox,oy,S,scale){
+  const th=S*.045;
+  c.save();c.shadowColor='rgba(70,52,32,.26)';c.shadowBlur=S*.16*scale;c.shadowOffsetX=S*.04*scale;c.shadowOffsetY=S*.09*scale;
+  c.drawImage(side,ox,oy+th);c.restore();
+  c.save();c.shadowColor='rgba(60,42,24,.32)';c.shadowBlur=S*.025*scale;c.shadowOffsetY=S*.012*scale;c.drawImage(side,ox,oy+th);c.restore();
+  for(let i=1;i&lt;=3;i++)c.drawImage(side,ox,oy+th*i/4);
+  c.drawImage(face,ox,oy);
+}
+
+let L=null,dpr=1,cw=0;
+function layout(){
+  dpr=Math.min(2,devicePixelRatio||1);
+  const cr=cover.getBoundingClientRect(),br=box.getBoundingClientRect();cw=cr.width;
+  cv.width=Math.round(cr.width*dpr);cv.height=Math.round(cr.height*dpr);
+  const bx=(br.left-cr.left)*dpr,by=(br.top-cr.top)*dpr,bwid=br.width*dpr,bh=br.height*dpr;
+  const S=Math.min(bwid/2.08,bh/1.5);
+  const w=Math.ceil(S*2.1),h=Math.ceil(S*1.6);
+  const ox=Math.round(bx+bwid/2-w/2),oy=Math.round(by+bh/2-h/2-S*.04);
+  face=document.createElement('canvas');face.width=w;face.height=h;side=document.createElement('canvas');side.width=w;side.height=h;
+  img=face.getContext('2d').createImageData(w,h);
+  G=precompute(w,h,S,w/2,h/2);
+  L={ox,oy,S,w,h};
+  // labels
+  const cr2=Math.cos(ROT),sr2=Math.sin(ROT);
+  const toScr=(x,y)=&gt;{const X=x*cr2+y*sr2,Y=-x*sr2+y*cr2;return[(ox+w/2+X*S)/dpr,(oy+h/2+Y*S)/dpr]};
+  const put=(el,[x,y])=&gt;{el.style.left=x+'px';el.style.top=y+'px'};
+  put(labs.a,toScr(P1[0]-.01,P1[1]+.125));put(labs.b,toScr(P2[0]+.01,P2[1]+.125));put(labs.c,toScr(.0,.47));
+}
+function draw(Rc){renderFace(Rc);ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);compose(ctx,L.ox,L.oy,L.S,1)}
+
+/* one-time outward growth, ring by ring */
+let anim=0;
+function grow(){
+  cancelAnimationFrame(anim);labs.c.classList.add('wait');
+  if(reduce){draw(REDGE);labs.c.classList.remove('wait');return}
+  const steps=SHARED.length-1,per=300,t0=performance.now()+250;
+  draw(RMERGE-.004);
+  const tick=t=&gt;{const e=Math.max(0,(t-t0)/per);const i=Math.min(steps,Math.floor(e)),fr=e-i;
+    let Rc;if(i&gt;=steps)Rc=REDGE;else{const s=Math.min(1,fr/.7),es=1-Math.pow(1-s,3);Rc=SHARED[i]+(SHARED[i+1]-SHARED[i])*es}
+    if(e&lt;=0)Rc=RMERGE-.004;
+    draw(Rc);
+    if(i&lt;steps)anim=requestAnimationFrame(tick);else{labs.c.classList.remove('wait');makePNGs()}};
+  anim=requestAnimationFrame(tick);
+}
+
+/* PNG exports for PPT */
+let pngDone=false;
+function makePNGs(){if(pngDone)return;pngDone=true;
+  setTimeout(()=&gt;{const {S,w,h}=L,pad=Math.round(S*.22),ex=document.createElement('canvas');ex.width=w+pad*2;ex.height=h+pad*2;const c=ex.getContext('2d');
+    renderFace(RMERGE-.004);compose(c,pad,pad-S*.06,S,1);document.getElementById('pngBefore').src=ex.toDataURL('image/png');
+    c.clearRect(0,0,ex.width,ex.height);renderFace(REDGE);compose(c,pad,pad-S*.06,S,1);document.getElementById('pngAfter').src=ex.toDataURL('image/png');
+  },60)}
+
+/* paper grain */
+(function(){const s=200,g=document.createElement('canvas');g.width=g.height=s;const x=g.getContext('2d'),d=x.createImageData(s,s),r=rng(3);
+  for(let i=0;i&lt;s*s;i++){const v=r();if(v&lt;.18)d.data.set([110,100,80,Math.floor(r()*22)],i*4);else if(v&lt;.2)d.data.set([255,255,255,70],i*4)}
+  x.putImageData(d,0,0);document.getElementById('grain').style.backgroundImage='url('+g.toDataURL()+')'})();
+
+function start(){layout();grow();if(reduce)makePNGs()}
+(document.fonts&amp;&amp;document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);
+document.getElementById('replay').addEventListener('click',grow);
+let rt;new ResizeObserver(()=&gt;{clearTimeout(rt);rt=setTimeout(()=&gt;{if(!L||Math.abs(cover.getBoundingClientRect().width-cw)&lt;2)return;cancelAnimationFrame(anim);layout();draw(REDGE);labs.c.classList.remove('wait')},150)}).observe(cover);
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
 </body></html>
