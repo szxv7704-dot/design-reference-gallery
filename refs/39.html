@@ -29,23 +29,25 @@ body{background:var(--page);color:var(--ink);font-family:var(--f-body);font-size
 .cv{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;border-radius:1.4cqw;overflow:hidden;box-shadow:0 1.2cqw 3cqw rgba(16,32,44,.16),0 .2cqw .5cqw rgba(16,32,44,.12);background:#e9edef}
 .cv canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .cv .t{position:absolute;color:var(--ink)}
-.cv-kicker{left:54.5%;top:28.5%;font:700 1.55cqw/1 var(--f-body);letter-spacing:.08em;color:var(--pitch)}
-.cv-title{left:54%;top:32.5%;width:42%;margin:0;font:400 5.5cqw/1.06 var(--f-title);letter-spacing:-.01em;text-wrap:balance}
-.cv-sub{left:54.5%;top:67%;width:40%;font:500 1.75cqw/1.45 var(--f-body);color:#33434e}
+.cv-kicker{left:56%;top:23%;font:700 1.55cqw/1 var(--f-body);letter-spacing:.08em;color:var(--pitch)}
+.cv-title{left:55.6%;top:27%;width:39%;margin:0;font:400 5.1cqw/1.06 var(--f-title);letter-spacing:-.01em;text-wrap:balance}
+.cv-sub{left:56%;top:58.5%;width:38%;font:500 1.65cqw/1.45 var(--f-body);color:#33434e}
 .cv-sub b{font-weight:700;color:var(--team)}
-.cv-org{left:54.5%;top:83.6%;font:500 1.35cqw/1 var(--f-body);color:var(--ink-2);letter-spacing:.02em}
+.cv-org{left:56%;top:71.5%;font:500 1.35cqw/1 var(--f-body);color:var(--ink-2);letter-spacing:.02em}
 .cv-fake{right:3.4%;bottom:5.4%;font:500 1.05cqw/1 var(--f-body);color:#7d8a92;letter-spacing:.04em}
-.cv-opp{left:71.5%;top:10.6%;font:400 2.75cqw/1 var(--f-hand);color:var(--marker-r);transform:rotate(-2deg)}
-.cv-lab{top:79.5%;transform:translateX(-50%);text-align:center;font-family:var(--f-hand);color:var(--marker-b);white-space:nowrap}
-.cv-lab i{display:block;font-style:normal;font-size:4.4cqw;line-height:.9}
-.cv-lab span{display:block;font-size:2.45cqw;line-height:1}
-.cv-btn{position:absolute;right:1.8%;top:2.4%;font:500 1.05cqw/1 var(--f-body);padding:.5cqw .9cqw;border-radius:.6cqw;border:1px solid #b9c3c8;background:rgba(255,255,255,.85);color:var(--ink-2);cursor:pointer}
+.cv-opp{left:66%;top:2.6%;font:400 2.6cqw/1 var(--f-hand);color:var(--marker-r);transform:rotate(-2deg)}
+.cv-lab{top:83.2%;transform:translateX(-50%);text-align:center;font-family:var(--f-hand);color:var(--marker-b);white-space:nowrap;transition:opacity .35s}
+.cv-coach{left:62.4%;top:85.2%;font:400 2.3cqw/1.05 var(--f-hand);color:var(--ink);white-space:nowrap;transition:opacity .35s}
+.cv-lab i{display:block;font-style:normal;font-size:3.5cqw;line-height:.9}
+.cv-lab span{display:block;font-size:2.2cqw;line-height:1}
+.cv-ctl{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--ink-2)}
+.cv-btn{font:500 13px/1 var(--f-body);padding:8px 14px;border-radius:8px;border:1px solid #b9c3c8;background:#fff;color:var(--ink);cursor:pointer}
 .cv-btn:focus-visible{outline:2px solid var(--team);outline-offset:2px}
 @container (max-width:520px){
-  .cv-lab span{font-size:2.9cqw}
   .cv-opp{font-size:3.1cqw}
   .cv-sub{font-size:2.05cqw}
-  .cv-btn{display:none}
+  .cv-lab span{display:none}
+  .cv-coach{font-size:2.8cqw}
 }
 
 /* ───── 본문 ───── */
@@ -113,13 +115,14 @@ tr:last-child td{border-bottom:0}
       <h1 class="t cv-title">집중호우 대응<br>협업체계 개편<br>계획(안)</h1>
       <div class="t cv-sub">11개 부서를 한 대형으로, <b>1-4-3-3</b><br>비구름보다 먼저 앞에서 움직인다</div>
       <div class="t cv-org">○○시 안전총괄과 · 2026. 10.</div>
-      <div class="t cv-lab" style="left:7.6%"><i>1</i><span>상황실</span></div>
-      <div class="t cv-lab" style="left:17.5%"><i>4</i><span>현장 대응</span></div>
-      <div class="t cv-lab" style="left:29.5%"><i>3</i><span>지원</span></div>
-      <div class="t cv-lab" style="left:41.5%"><i>3</i><span>선제 예방</span></div>
+      <div class="t cv-lab" data-g="1" style="left:7.6%"><i>1</i><span>배수</span></div>
+      <div class="t cv-lab" data-g="2" style="left:17.5%"><i>4</i><span>현장 대응</span></div>
+      <div class="t cv-lab" data-g="3" style="left:29.5%"><i>3</i><span>지원</span></div>
+      <div class="t cv-lab" data-g="4" style="left:41.5%"><i>3</i><span>선제 예방</span></div>
+      <div class="t cv-coach" data-g="0">상황실 · 감독석</div>
       <div class="t cv-fake">가상 예시</div>
-      <button class="cv-btn" id="replay" type="button">마커 다시 긋기</button>
     </div>
+    <div class="cv-ctl"><span>열 때 한 번: 감독석 → 골키퍼 → 수비 → 미드 → 공격 순으로 자석이 놓이고, 마지막에 마커로 대치선을 긋습니다.</span><button class="cv-btn" id="replay" type="button">작전 다시 보기</button></div>
   </section>
 
   <header class="head">
@@ -142,6 +145,12 @@ tr:last-child td{border-bottom:0}
         <h3>확정은 인쇄, 계획은 손글씨</h3>
         <p>바뀌지 않는 틀(피치 라인)은 인쇄처럼 가늘고 반듯하게, 이번 계획의 움직임·이름표는 보드마커 손글씨로 겹칩니다. 두 층이 갈라져 "무엇이 새로 정한 것인가"가 한눈에 보입니다.</p>
         <p class="use"><b>응용</b> 기존 제도 위에 개선안 덧그리기, 평면도 위 동선 계획, 연간 일정표 위 변경 표시</p>
+      </article>
+      <article class="dev">
+        <span class="tag">포메이션 착지</span>
+        <h3>조직이 제자리에 서는 순간을 보여 주기</h3>
+        <p>자석이 손에 들려 떠 있다가(그림자가 멀고 흐림) 제자리에 "탁" 내려앉습니다. 감독석 → 골키퍼 → 수비 → 미드 → 공격 순서가 곧 지휘 → 최후 방어 → 현장 → 지원 → 예방의 설명 순서입니다.</p>
+        <p class="use"><b>응용</b> 조직 개편 발표, TF 구성, 행사 인력 배치. PPT는 자석마다 <b>나타내기 › 확대/축소</b> 0.35초 + 그림자 개체 <b>밝기 변화</b>, 줄마다 이전 효과 다음</p>
       </article>
       <article class="dev">
         <span class="tag">마주 보는 화살표</span>
@@ -189,7 +198,7 @@ tr:last-child td{border-bottom:0}
       <ul>
         <li>알루미늄 테두리와 보강 모서리 캡이 있는 흰색 자석 보드</li>
         <li>흰 바탕에 초록으로 인쇄된 피치 라인(하프라인·센터서클·페널티 박스)</li>
-        <li>두 색 자석 말(필드 11개 + 다른 색 골키퍼)</li>
+        <li>두 색 자석 말(필드 10개 + 다른 색 골키퍼) + 벤치의 감독 자석</li>
         <li>보드마커 화살표와 손글씨 이름표(점선 = 이동 지시)</li>
       </ul>
       <h3 style="margin-top:12px">조사 출처</h3>
@@ -228,19 +237,24 @@ tr:last-child td{border-bottom:0}
   const mainCtx = ctx;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 자석 배치 (가로·세로 비율 좌표). 1-4-3-3
-  const keeper = [[0.076, 0.44]];
+  // 자석 배치 (가로·세로 비율 좌표). 1-4-3-3 + 감독석(상황실)
+  // 그룹 순서 = 놓이는 순서: 0 감독석, 1 골키퍼(배수·수문), 2 수비 4(현장 대응), 3 미드 3(지원), 4 공격 3(선제 예방)
+  const coach = [0.585, 0.875];
+  const keeper = [[0.076, 0.386]];
   const team = [
-    [0.175,0.17],[0.175,0.35],[0.175,0.53],[0.175,0.71],   // 현장 대응 4
-    [0.295,0.25],[0.295,0.44],[0.295,0.63],                 // 지원 3
-    [0.415,0.20],[0.415,0.44],[0.415,0.68]                  // 선제 예방 3
+    [0.175,0.156],[0.175,0.310],[0.175,0.463],[0.175,0.617],   // 현장 대응 4
+    [0.295,0.224],[0.295,0.386],[0.295,0.548],                  // 지원 3
+    [0.415,0.182],[0.415,0.386],[0.415,0.591]                   // 선제 예방 3
   ];
-  // 마커 획: 시작·조절점·끝(2차 곡선), 색, 점선 여부
+  const groupOf = i => i < 4 ? 2 : i < 7 ? 3 : 4;
+  // 타임라인(ms): 그룹 시작 시각, 자석 하나가 내려앉는 시간, 같은 줄 안 간격
+  const T = { group:[150, 500, 850, 1300, 1750], drop:380, gap:80, cloud:2250, arrows:2650, stroke:600, end:3700 };
+  // 마커 획: 시작·조절점·끝(2차 곡선), 색, 점선 여부. 빨강 = 상대(집중호우)가 밀고 들어오는 길
   const strokes = [
-    {p:[[0.44,0.20],[0.47,0.17],[0.505,0.205]], c:'#1a3fa8', dash:true},
-    {p:[[0.44,0.44],[0.475,0.42],[0.508,0.44]], c:'#1a3fa8', dash:true},
-    {p:[[0.44,0.68],[0.47,0.71],[0.505,0.675]], c:'#1a3fa8', dash:true},
-    {p:[[0.875,0.205],[0.72,0.25],[0.545,0.205]], c:'#d9302a', dash:false}
+    {p:[[0.875,0.135],[0.72,0.175],[0.548,0.140]], c:'#d9302a', dash:false, at:2450},
+    {p:[[0.44,0.182],[0.47,0.155],[0.505,0.180]], c:'#1a3fa8', dash:true, at:2650},
+    {p:[[0.44,0.386],[0.475,0.366],[0.508,0.386]], c:'#1a3fa8', dash:true, at:2770},
+    {p:[[0.44,0.591],[0.47,0.621],[0.505,0.586]], c:'#1a3fa8', dash:true, at:2890}
   ];
 
   let W=0,H=0,dpr=1,noise=null;
@@ -278,6 +292,8 @@ tr:last-child td{border-bottom:0}
     ctx.beginPath(); ctx.moveTo(W*.6,H*.83); ctx.quadraticCurveTo(W*.7,H*.76,W*.8,H*.85); ctx.stroke();
 
     lines(P);
+    techArea(P);
+    card();
 
     // 법랑 광택: 왼쪽 위에서 비스듬한 반사 띠
     const s = ctx.createLinearGradient(x,y,x+w*.55,y+h);
@@ -292,6 +308,27 @@ tr:last-child td{border-bottom:0}
     ctx.restore();
 
     corners();
+  }
+
+  // 감독석(테크니컬 에어리어): 하프라인 아래 터치라인 밖 점선 칸
+  function techArea(P){
+    const cx = W*0.6, y = P.y+P.h+H*0.03, w = W*0.13, h = H*0.1;
+    ctx.save(); ctx.strokeStyle='#2e9e5b'; ctx.lineWidth=Math.max(1,W*0.0018); ctx.setLineDash([W*0.006,W*0.005]);
+    ctx.strokeRect(cx-w*0.62, y, w, h); ctx.restore();
+  }
+  // 제목 카드: 보드에 자석 두 개로 붙인 흰 카드(두께·그림자). 피치 선이 제목 글자와 겹치지 않게 한다
+  function card(){
+    const x=W*0.53, y=H*0.19, w=W*0.425, h=H*0.6, r=W*0.006;
+    ctx.save(); ctx.shadowColor='rgba(16,32,44,.22)'; ctx.shadowBlur=W*0.012; ctx.shadowOffsetX=W*0.002; ctx.shadowOffsetY=W*0.004;
+    rr(x,y,w,h,r); ctx.fillStyle='#ffffff'; ctx.fill(); ctx.restore();
+    ctx.save(); rr(x,y,w,h,r); ctx.strokeStyle='rgba(16,32,44,.10)'; ctx.lineWidth=1; ctx.stroke(); ctx.restore();
+    [[x+W*0.02,y+H*0.03],[x+w-W*0.02,y+H*0.03]].forEach(([mx,my]) => pin(mx,my));
+  }
+  function pin(x,y){ // 카드를 누르는 작은 은색 자석
+    const r=W*0.009;
+    ctx.save(); ctx.fillStyle='rgba(20,30,45,.25)'; ctx.filter=`blur(${r*.35}px)`; ctx.beginPath(); ctx.arc(x+r*.25,y+r*.35,r,0,Math.PI*2); ctx.fill(); ctx.restore();
+    const g=ctx.createRadialGradient(x-r*.4,y-r*.4,r*.1,x,y,r); g.addColorStop(0,'#ffffff'); g.addColorStop(.5,'#c3cad0'); g.addColorStop(1,'#7f8890');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
   }
 
   function corners(){
@@ -309,7 +346,7 @@ tr:last-child td{border-bottom:0}
     });
   }
 
-  function pitch(){ return {x:W*0.045, y:H*0.075, w:W*0.91, h:H*0.85}; }
+  function pitch(){ return {x:W*0.045, y:H*0.075, w:W*0.91, h:H*0.725}; }   // 아래 띠 = 벤치·라벨 자리
 
   function lines(P){
     const sx = P.w/105, sy = P.h/68;
@@ -344,11 +381,15 @@ tr:last-child td{border-bottom:0}
     return `rgb(${Math.round(r+(t-r)*a)},${Math.round(g+(t-g)*a)},${Math.round(b+(t-b)*a)})`;
   }
 
-  function puck(fx,fy,base){
-    const x=fx*W, y=fy*H, r=W*0.0215, th=r*0.2;
-    // 바닥 그림자(광원: 왼쪽 위)
-    ctx.save(); ctx.fillStyle='rgba(20,30,45,.30)'; ctx.filter=`blur(${r*0.28}px)`;
-    ctx.beginPath(); ctx.ellipse(x+r*0.22,y+r*0.34,r*1.02,r*0.96,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+  // lift: 0 = 보드에 붙음, 1 = 손에 들려 떠 있음(그림자가 멀어지고 흐려진다), sq: 착지 순간 눌림
+  function puck(fx,fy,base,lift=0,sq=0,square=false){
+    const gx=fx*W, gy=fy*H, r=W*0.0215*(1+lift*0.18), th=r*0.2;
+    const x=gx-lift*W*0.012, y=gy-lift*H*0.05;
+    // 바닥 그림자(광원: 왼쪽 위) — 바닥 위치에 남는다
+    ctx.save(); ctx.fillStyle=`rgba(20,30,45,${.30-lift*.18})`; ctx.filter=`blur(${r*(0.28+lift*0.9)}px)`;
+    ctx.beginPath(); ctx.ellipse(gx+r*0.22,gy+r*0.34,r*(1.02+lift*.25),r*(0.96+lift*.2),0,0,Math.PI*2); ctx.fill(); ctx.restore();
+    ctx.save(); ctx.translate(x,y); ctx.scale(1+sq*0.08,1-sq*0.08); ctx.translate(-x,-y);
+    if(square){ squarePuck(x,y,r,th,base); ctx.restore(); return; }
     // 옆면(두께)
     const sg = ctx.createLinearGradient(x-r,0,x+r,0);
     sg.addColorStop(0,shade(base,-.25)); sg.addColorStop(.35,shade(base,-.05)); sg.addColorStop(1,shade(base,-.5));
@@ -363,6 +404,16 @@ tr:last-child td{border-bottom:0}
     ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(x-r*.02,y-r*.02,r*.7,Math.PI*.85,Math.PI*1.75); ctx.stroke();
     // 반사광
     ctx.fillStyle='rgba(255,255,255,.75)'; ctx.beginPath(); ctx.ellipse(x-r*.42,y-r*.5,r*.26,r*.13,-0.6,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+  // 감독 자석: 모서리 둥근 네모(다른 모양 = 선수가 아니라 지휘)
+  function squarePuck(x,y,r,th,base){
+    const s=r*1.7, k=r*.35;
+    ctx.fillStyle=shade(base,-.45); rr(x-s/2,y-s/2+th,s,s,k); ctx.fill();
+    const g=ctx.createLinearGradient(x-s/2,y-s/2,x+s/2,y+s/2); g.addColorStop(0,shade(base,.45)); g.addColorStop(.5,base); g.addColorStop(1,shade(base,-.3));
+    ctx.fillStyle=g; rr(x-s/2,y-s/2,s,s,k); ctx.fill();
+    ctx.fillStyle='#ffffff'; ctx.font=`700 ${r*0.95}px "IBM Plex Sans KR","Malgun Gothic",sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('C',x,y+r*.04);
+    ctx.fillStyle='rgba(255,255,255,.6)'; ctx.beginPath(); ctx.ellipse(x-s*.24,y-s*.3,s*.16,s*.06,-.5,0,Math.PI*2); ctx.fill();
   }
 
   // 보드마커 획: 2차 곡선을 점으로 나눠 진행률 t까지 긋기
@@ -388,47 +439,76 @@ tr:last-child td{border-bottom:0}
     ctx.restore();
   }
 
-  function rain(t){
-    // 빗금(빨간 마커): 오른쪽 위 구석에서 쏟아지는 비
-    const r = rng(42); ctx.save(); ctx.strokeStyle='#d9302a'; ctx.lineCap='round'; ctx.lineWidth=W*0.0035; ctx.globalAlpha=.9;
-    const k = Math.floor(11*t);
-    for(let i=0;i<k;i++){ const x = W*(0.885+r()*0.06), y=H*(0.1+r()*0.09); ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-W*0.008,y+H*0.035); ctx.stroke(); }
+  // 상대 표시: 보드마커로 그린 비구름 + 빗방울 3개 (t: 0~1 그려진 정도)
+  function cloud(t){
+    if(t<=0) return;
+    const cx=W*0.915, cy=H*0.115, u=W*0.014;
+    ctx.save(); ctx.strokeStyle='#d9302a'; ctx.lineCap='round'; ctx.lineJoin='round';
+    const lw=W*0.0042;
+    [[lw*1.25,.35],[lw,.92]].forEach(([w,al]) => {
+      ctx.globalAlpha=al; ctx.lineWidth=w; ctx.beginPath();
+      const a=Math.min(1,t*1.6);
+      ctx.arc(cx-u*1.3, cy, u*0.9, Math.PI*0.5, Math.PI*(0.5+1.05*a));
+      if(a>0.4) ctx.arc(cx, cy-u*0.55, u*1.25, Math.PI*1.05, Math.PI*(1.05+1.0*Math.min(1,(a-.4)/.6)));
+      ctx.stroke();
+      if(a>=1){ ctx.beginPath(); ctx.arc(cx+u*1.35, cy+u*0.05, u*0.85, Math.PI*1.4, Math.PI*2.5); ctx.moveTo(cx+u*1.35,cy+u*0.9); ctx.lineTo(cx-u*1.3,cy+u*0.9); ctx.stroke(); }
+    });
+    const drops=Math.floor(Math.max(0,(t-.6)/.4)*3.999);
+    for(let k=0;k<drops;k++){ const x=cx-u*0.9+k*u*0.9, y=cy+u*1.6; ctx.globalAlpha=.92; ctx.lineWidth=lw;
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-u*0.25,y+u*0.75); ctx.stroke(); }
     ctx.restore();
   }
 
-  function draw(t){ // t: 0~1 전체 마커 진행
+  const ease = p => 1-Math.pow(1-p,3);
+  const labels = [...cv.querySelectorAll('[data-g]')];
+  let shown = reduce ? T.end : 0;   // 지금 그려 둔 시각(ms). 크기가 바뀌면 이 시각으로 다시 그린다
+
+  // ms: 재생 시작부터 지난 시간. T.end 이상이면 완성 화면
+  function draw(ms){
+    shown = ms;
     ctx.setTransform(dpr,0,0,dpr,0,0);
     ctx.clearRect(0,0,W,H);
     ctx.drawImage(noise,0,0,W,H);
-    keeper.forEach(([x,y]) => puck(x,y,'#ffc21a'));
-    team.forEach(([x,y]) => puck(x,y,'#1d5bd8'));
-    rain(Math.min(1,t*2));
-    strokes.forEach((s,i) => { const st = Math.min(1, Math.max(0,(t - i*0.12)/0.5)); if(st>0) marker(s, st); });
+    const place = (pos, g, k, color, square) => {
+      const p = (ms - T.group[g] - k*T.gap) / T.drop;
+      if(p <= 0) return;
+      const q = Math.min(1,p), lift = 1-ease(q), sq = q>=1 ? 0 : Math.max(0,(q-.8)/.2)*Math.sin(q*Math.PI);
+      ctx.save(); ctx.globalAlpha = Math.min(1, q*3); puck(pos[0],pos[1],color,lift,sq,square); ctx.restore();
+    };
+    place(coach, 0, 0, '#10202c', true);
+    keeper.forEach(pos => place(pos, 1, 0, '#ffc21a'));
+    const seen = [0,0,0,0,0];
+    team.forEach((pos,i) => { const g = groupOf(i); place(pos, g, seen[g]++, '#1d5bd8'); });
+    cloud(Math.max(0,Math.min(1,(ms - T.cloud)/500)));
+    strokes.forEach(s => { const st = (ms - s.at)/T.stroke; if(st>0) marker(s, Math.min(1,st)); });
+    labels.forEach(el => { el.style.opacity = ms >= T.group[+el.dataset.g] + T.drop*0.6 ? 1 : 0; });
   }
 
   function layout(){
     const b = cv.getBoundingClientRect(); W=b.width; H=b.height; dpr=Math.min(2, window.devicePixelRatio||1);
     cnv.width=Math.round(W*dpr); cnv.height=Math.round(H*dpr);
-    // 정적인 보드(테두리·피치)는 한 번만 그려 둔다
+    // 움직이지 않는 보드(테두리·피치·제목 카드)는 한 번만 그려 둔다
     noise = document.createElement('canvas'); noise.width=cnv.width; noise.height=cnv.height;
-    // 같은 그리기 함수를 오프스크린 캔버스에 재사용
     ctx = noise.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); frame(); board(); ctx = mainCtx;
-    draw(1);
+    draw(shown);
   }
 
+  let raf = 0;
   function play(){
-    if(reduce){ draw(1); return; }
-    const t0 = performance.now(), D = 1600;
-    const step = now => { const t = Math.min(1,(now-t0)/D); draw(t); if(t<1) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
+    cancelAnimationFrame(raf);
+    if(reduce){ draw(T.end); return; }
+    const t0 = performance.now();
+    const step = now => { const ms = now - t0; draw(ms); if(ms < T.end) raf = requestAnimationFrame(step); };
+    draw(0); raf = requestAnimationFrame(step);
   }
 
   document.getElementById('replay').addEventListener('click', play);
-  new ResizeObserver(() => layout()).observe(cv);
   layout();
+  new ResizeObserver(() => layout()).observe(cv);
   play();
 })();
 </script>
+
 
 
 <section class="drc" data-dr-code aria-labelledby="drc-h">
@@ -471,23 +551,24 @@ tr:last-child td{border-bottom:0}
 .cv { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; container-type: inline-size; border-radius: 1.4cqw 1.4cqw 1.4cqw 1.4cqw / 1.4cqw 1.4cqw 1.4cqw 1.4cqw; overflow: hidden; box-shadow: rgba(16, 32, 44, 0.16) 0px 1.2cqw 3cqw, rgba(16, 32, 44, 0.12) 0px 0.2cqw 0.5cqw; background: rgb(233, 237, 239); }
 .cv canvas { position: absolute; inset: 0px; width: 100%; height: 100%; display: block; }
 .cv .t { position: absolute; color: var(--ink); }
-.cv-kicker { left: 54.5%; top: 28.5%; font: 700 1.55cqw/1 var(--f-body); letter-spacing: 0.08em; color: var(--pitch); }
-.cv-title { left: 54%; top: 32.5%; width: 42%; margin: 0px; font: 400 5.5cqw/1.06 var(--f-title); letter-spacing: -0.01em; text-wrap: balance; }
-.cv-sub { left: 54.5%; top: 67%; width: 40%; font: 500 1.75cqw/1.45 var(--f-body); color: rgb(51, 67, 78); }
+.cv-kicker { left: 56%; top: 23%; font: 700 1.55cqw/1 var(--f-body); letter-spacing: 0.08em; color: var(--pitch); }
+.cv-title { left: 55.6%; top: 27%; width: 39%; margin: 0px; font: 400 5.1cqw/1.06 var(--f-title); letter-spacing: -0.01em; text-wrap: balance; }
+.cv-sub { left: 56%; top: 58.5%; width: 38%; font: 500 1.65cqw/1.45 var(--f-body); color: rgb(51, 67, 78); }
 .cv-sub b { font-weight: 700; color: var(--team); }
-.cv-org { left: 54.5%; top: 83.6%; font: 500 1.35cqw/1 var(--f-body); color: var(--ink-2); letter-spacing: 0.02em; }
+.cv-org { left: 56%; top: 71.5%; font: 500 1.35cqw/1 var(--f-body); color: var(--ink-2); letter-spacing: 0.02em; }
 .cv-fake { right: 3.4%; bottom: 5.4%; font: 500 1.05cqw/1 var(--f-body); color: rgb(125, 138, 146); letter-spacing: 0.04em; }
-.cv-opp { left: 71.5%; top: 10.6%; font: 400 2.75cqw/1 var(--f-hand); color: var(--marker-r); transform: rotate(-2deg); }
-.cv-lab { top: 79.5%; transform: translateX(-50%); text-align: center; font-family: var(--f-hand); color: var(--marker-b); white-space: nowrap; }
-.cv-lab i { display: block; font-style: normal; font-size: 4.4cqw; line-height: 0.9; }
-.cv-lab span { display: block; font-size: 2.45cqw; line-height: 1; }
-.cv-btn { position: absolute; right: 1.8%; top: 2.4%; font: 500 1.05cqw/1 var(--f-body); padding: 0.5cqw 0.9cqw 0.5cqw 0.9cqw; border-radius: 0.6cqw 0.6cqw 0.6cqw 0.6cqw / 0.6cqw 0.6cqw 0.6cqw 0.6cqw; border: 1px solid rgb(185, 195, 200); background: rgba(255, 255, 255, 0.85); color: var(--ink-2); cursor: pointer; }
+.cv-opp { left: 66%; top: 2.6%; font: 400 2.6cqw/1 var(--f-hand); color: var(--marker-r); transform: rotate(-2deg); }
+.cv-lab { top: 83.2%; transform: translateX(-50%); text-align: center; font-family: var(--f-hand); color: var(--marker-b); white-space: nowrap; transition: opacity 0.35s; }
+.cv-coach { left: 62.4%; top: 85.2%; font: 400 2.3cqw/1.05 var(--f-hand); color: var(--ink); white-space: nowrap; transition: opacity 0.35s; }
+.cv-lab i { display: block; font-style: normal; font-size: 3.5cqw; line-height: 0.9; }
+.cv-lab span { display: block; font-size: 2.2cqw; line-height: 1; }
+.cv-btn { font: 500 13px/1 var(--f-body); padding: 8px 14px; border-radius: 8px; border: 1px solid rgb(185, 195, 200); background: rgb(255, 255, 255); color: var(--ink); cursor: pointer; }
 .cv-btn:focus-visible { outline: 2px solid var(--team); outline-offset: 2px; }
 @container (max-width: 520px) {
-  .cv-lab span { font-size: 2.9cqw; }
   .cv-opp { font-size: 3.1cqw; }
   .cv-sub { font-size: 2.05cqw; }
-  .cv-btn { display: none; }
+  .cv-lab span { display: none; }
+  .cv-coach { font-size: 2.8cqw; }
 }
 .dev { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 18px 16px; min-width: 0px; }
 .dev h3 { margin: 0px 0px 6px; font: 700 16px/1.35 var(--f-body); }
@@ -509,24 +590,23 @@ tr:last-child td{border-bottom:0}
 .box a { color: var(--marker-b); }
 &lt;/style&gt;
 
-&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:24.75px;color:rgb(16, 32, 44)"&gt;
-&lt;section aria-label="발표 표지"&gt;
-    &lt;div class="cv" id="cv"&gt;
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:24.75px;color:rgb(16, 32, 44)"&gt;&lt;section&gt;
+&lt;div class="cv" id="cv"&gt;
       &lt;canvas id="board" aria-hidden="true"&gt;&lt;/canvas&gt;
       &lt;div class="t cv-opp"&gt;상대: 집중호우&lt;/div&gt;
       &lt;div class="t cv-kicker"&gt;○○시 · 2027 여름철 대비&lt;/div&gt;
       &lt;h1 class="t cv-title"&gt;집중호우 대응&lt;br&gt;협업체계 개편&lt;br&gt;계획(안)&lt;/h1&gt;
       &lt;div class="t cv-sub"&gt;11개 부서를 한 대형으로, &lt;b&gt;1-4-3-3&lt;/b&gt;&lt;br&gt;비구름보다 먼저 앞에서 움직인다&lt;/div&gt;
       &lt;div class="t cv-org"&gt;○○시 안전총괄과 · 2026. 10.&lt;/div&gt;
-      &lt;div class="t cv-lab" style="left:7.6%"&gt;&lt;i&gt;1&lt;/i&gt;&lt;span&gt;상황실&lt;/span&gt;&lt;/div&gt;
-      &lt;div class="t cv-lab" style="left:17.5%"&gt;&lt;i&gt;4&lt;/i&gt;&lt;span&gt;현장 대응&lt;/span&gt;&lt;/div&gt;
-      &lt;div class="t cv-lab" style="left:29.5%"&gt;&lt;i&gt;3&lt;/i&gt;&lt;span&gt;지원&lt;/span&gt;&lt;/div&gt;
-      &lt;div class="t cv-lab" style="left:41.5%"&gt;&lt;i&gt;3&lt;/i&gt;&lt;span&gt;선제 예방&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-lab" data-g="1" style="left:7.6%"&gt;&lt;i&gt;1&lt;/i&gt;&lt;span&gt;배수&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-lab" data-g="2" style="left:17.5%"&gt;&lt;i&gt;4&lt;/i&gt;&lt;span&gt;현장 대응&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-lab" data-g="3" style="left:29.5%"&gt;&lt;i&gt;3&lt;/i&gt;&lt;span&gt;지원&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-lab" data-g="4" style="left:41.5%"&gt;&lt;i&gt;3&lt;/i&gt;&lt;span&gt;선제 예방&lt;/span&gt;&lt;/div&gt;
+      &lt;div class="t cv-coach" data-g="0"&gt;상황실 · 감독석&lt;/div&gt;
       &lt;div class="t cv-fake"&gt;가상 예시&lt;/div&gt;
-      &lt;button class="cv-btn" id="replay" type="button"&gt;마커 다시 긋기&lt;/button&gt;
     &lt;/div&gt;
-  &lt;/section&gt;
-&lt;/div&gt;
+&lt;button class="cv-btn" id="replay" type="button"&gt;작전 다시 보기&lt;/button&gt;
+&lt;/section&gt;&lt;/div&gt;
 
 &lt;script&gt;
 (() =&gt; {
@@ -536,19 +616,24 @@ tr:last-child td{border-bottom:0}
   const mainCtx = ctx;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 자석 배치 (가로·세로 비율 좌표). 1-4-3-3
-  const keeper = [[0.076, 0.44]];
+  // 자석 배치 (가로·세로 비율 좌표). 1-4-3-3 + 감독석(상황실)
+  // 그룹 순서 = 놓이는 순서: 0 감독석, 1 골키퍼(배수·수문), 2 수비 4(현장 대응), 3 미드 3(지원), 4 공격 3(선제 예방)
+  const coach = [0.585, 0.875];
+  const keeper = [[0.076, 0.386]];
   const team = [
-    [0.175,0.17],[0.175,0.35],[0.175,0.53],[0.175,0.71],   // 현장 대응 4
-    [0.295,0.25],[0.295,0.44],[0.295,0.63],                 // 지원 3
-    [0.415,0.20],[0.415,0.44],[0.415,0.68]                  // 선제 예방 3
+    [0.175,0.156],[0.175,0.310],[0.175,0.463],[0.175,0.617],   // 현장 대응 4
+    [0.295,0.224],[0.295,0.386],[0.295,0.548],                  // 지원 3
+    [0.415,0.182],[0.415,0.386],[0.415,0.591]                   // 선제 예방 3
   ];
-  // 마커 획: 시작·조절점·끝(2차 곡선), 색, 점선 여부
+  const groupOf = i =&gt; i &lt; 4 ? 2 : i &lt; 7 ? 3 : 4;
+  // 타임라인(ms): 그룹 시작 시각, 자석 하나가 내려앉는 시간, 같은 줄 안 간격
+  const T = { group:[150, 500, 850, 1300, 1750], drop:380, gap:80, cloud:2250, arrows:2650, stroke:600, end:3700 };
+  // 마커 획: 시작·조절점·끝(2차 곡선), 색, 점선 여부. 빨강 = 상대(집중호우)가 밀고 들어오는 길
   const strokes = [
-    {p:[[0.44,0.20],[0.47,0.17],[0.505,0.205]], c:'#1a3fa8', dash:true},
-    {p:[[0.44,0.44],[0.475,0.42],[0.508,0.44]], c:'#1a3fa8', dash:true},
-    {p:[[0.44,0.68],[0.47,0.71],[0.505,0.675]], c:'#1a3fa8', dash:true},
-    {p:[[0.875,0.205],[0.72,0.25],[0.545,0.205]], c:'#d9302a', dash:false}
+    {p:[[0.875,0.135],[0.72,0.175],[0.548,0.140]], c:'#d9302a', dash:false, at:2450},
+    {p:[[0.44,0.182],[0.47,0.155],[0.505,0.180]], c:'#1a3fa8', dash:true, at:2650},
+    {p:[[0.44,0.386],[0.475,0.366],[0.508,0.386]], c:'#1a3fa8', dash:true, at:2770},
+    {p:[[0.44,0.591],[0.47,0.621],[0.505,0.586]], c:'#1a3fa8', dash:true, at:2890}
   ];
 
   let W=0,H=0,dpr=1,noise=null;
@@ -586,6 +671,8 @@ tr:last-child td{border-bottom:0}
     ctx.beginPath(); ctx.moveTo(W*.6,H*.83); ctx.quadraticCurveTo(W*.7,H*.76,W*.8,H*.85); ctx.stroke();
 
     lines(P);
+    techArea(P);
+    card();
 
     // 법랑 광택: 왼쪽 위에서 비스듬한 반사 띠
     const s = ctx.createLinearGradient(x,y,x+w*.55,y+h);
@@ -600,6 +687,27 @@ tr:last-child td{border-bottom:0}
     ctx.restore();
 
     corners();
+  }
+
+  // 감독석(테크니컬 에어리어): 하프라인 아래 터치라인 밖 점선 칸
+  function techArea(P){
+    const cx = W*0.6, y = P.y+P.h+H*0.03, w = W*0.13, h = H*0.1;
+    ctx.save(); ctx.strokeStyle='#2e9e5b'; ctx.lineWidth=Math.max(1,W*0.0018); ctx.setLineDash([W*0.006,W*0.005]);
+    ctx.strokeRect(cx-w*0.62, y, w, h); ctx.restore();
+  }
+  // 제목 카드: 보드에 자석 두 개로 붙인 흰 카드(두께·그림자). 피치 선이 제목 글자와 겹치지 않게 한다
+  function card(){
+    const x=W*0.53, y=H*0.19, w=W*0.425, h=H*0.6, r=W*0.006;
+    ctx.save(); ctx.shadowColor='rgba(16,32,44,.22)'; ctx.shadowBlur=W*0.012; ctx.shadowOffsetX=W*0.002; ctx.shadowOffsetY=W*0.004;
+    rr(x,y,w,h,r); ctx.fillStyle='#ffffff'; ctx.fill(); ctx.restore();
+    ctx.save(); rr(x,y,w,h,r); ctx.strokeStyle='rgba(16,32,44,.10)'; ctx.lineWidth=1; ctx.stroke(); ctx.restore();
+    [[x+W*0.02,y+H*0.03],[x+w-W*0.02,y+H*0.03]].forEach(([mx,my]) =&gt; pin(mx,my));
+  }
+  function pin(x,y){ // 카드를 누르는 작은 은색 자석
+    const r=W*0.009;
+    ctx.save(); ctx.fillStyle='rgba(20,30,45,.25)'; ctx.filter=`blur(${r*.35}px)`; ctx.beginPath(); ctx.arc(x+r*.25,y+r*.35,r,0,Math.PI*2); ctx.fill(); ctx.restore();
+    const g=ctx.createRadialGradient(x-r*.4,y-r*.4,r*.1,x,y,r); g.addColorStop(0,'#ffffff'); g.addColorStop(.5,'#c3cad0'); g.addColorStop(1,'#7f8890');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
   }
 
   function corners(){
@@ -617,7 +725,7 @@ tr:last-child td{border-bottom:0}
     });
   }
 
-  function pitch(){ return {x:W*0.045, y:H*0.075, w:W*0.91, h:H*0.85}; }
+  function pitch(){ return {x:W*0.045, y:H*0.075, w:W*0.91, h:H*0.725}; }   // 아래 띠 = 벤치·라벨 자리
 
   function lines(P){
     const sx = P.w/105, sy = P.h/68;
@@ -652,11 +760,15 @@ tr:last-child td{border-bottom:0}
     return `rgb(${Math.round(r+(t-r)*a)},${Math.round(g+(t-g)*a)},${Math.round(b+(t-b)*a)})`;
   }
 
-  function puck(fx,fy,base){
-    const x=fx*W, y=fy*H, r=W*0.0215, th=r*0.2;
-    // 바닥 그림자(광원: 왼쪽 위)
-    ctx.save(); ctx.fillStyle='rgba(20,30,45,.30)'; ctx.filter=`blur(${r*0.28}px)`;
-    ctx.beginPath(); ctx.ellipse(x+r*0.22,y+r*0.34,r*1.02,r*0.96,0,0,Math.PI*2); ctx.fill(); ctx.restore();
+  // lift: 0 = 보드에 붙음, 1 = 손에 들려 떠 있음(그림자가 멀어지고 흐려진다), sq: 착지 순간 눌림
+  function puck(fx,fy,base,lift=0,sq=0,square=false){
+    const gx=fx*W, gy=fy*H, r=W*0.0215*(1+lift*0.18), th=r*0.2;
+    const x=gx-lift*W*0.012, y=gy-lift*H*0.05;
+    // 바닥 그림자(광원: 왼쪽 위) — 바닥 위치에 남는다
+    ctx.save(); ctx.fillStyle=`rgba(20,30,45,${.30-lift*.18})`; ctx.filter=`blur(${r*(0.28+lift*0.9)}px)`;
+    ctx.beginPath(); ctx.ellipse(gx+r*0.22,gy+r*0.34,r*(1.02+lift*.25),r*(0.96+lift*.2),0,0,Math.PI*2); ctx.fill(); ctx.restore();
+    ctx.save(); ctx.translate(x,y); ctx.scale(1+sq*0.08,1-sq*0.08); ctx.translate(-x,-y);
+    if(square){ squarePuck(x,y,r,th,base); ctx.restore(); return; }
     // 옆면(두께)
     const sg = ctx.createLinearGradient(x-r,0,x+r,0);
     sg.addColorStop(0,shade(base,-.25)); sg.addColorStop(.35,shade(base,-.05)); sg.addColorStop(1,shade(base,-.5));
@@ -671,6 +783,16 @@ tr:last-child td{border-bottom:0}
     ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(x-r*.02,y-r*.02,r*.7,Math.PI*.85,Math.PI*1.75); ctx.stroke();
     // 반사광
     ctx.fillStyle='rgba(255,255,255,.75)'; ctx.beginPath(); ctx.ellipse(x-r*.42,y-r*.5,r*.26,r*.13,-0.6,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+  // 감독 자석: 모서리 둥근 네모(다른 모양 = 선수가 아니라 지휘)
+  function squarePuck(x,y,r,th,base){
+    const s=r*1.7, k=r*.35;
+    ctx.fillStyle=shade(base,-.45); rr(x-s/2,y-s/2+th,s,s,k); ctx.fill();
+    const g=ctx.createLinearGradient(x-s/2,y-s/2,x+s/2,y+s/2); g.addColorStop(0,shade(base,.45)); g.addColorStop(.5,base); g.addColorStop(1,shade(base,-.3));
+    ctx.fillStyle=g; rr(x-s/2,y-s/2,s,s,k); ctx.fill();
+    ctx.fillStyle='#ffffff'; ctx.font=`700 ${r*0.95}px "IBM Plex Sans KR","Malgun Gothic",sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('C',x,y+r*.04);
+    ctx.fillStyle='rgba(255,255,255,.6)'; ctx.beginPath(); ctx.ellipse(x-s*.24,y-s*.3,s*.16,s*.06,-.5,0,Math.PI*2); ctx.fill();
   }
 
   // 보드마커 획: 2차 곡선을 점으로 나눠 진행률 t까지 긋기
@@ -696,44 +818,72 @@ tr:last-child td{border-bottom:0}
     ctx.restore();
   }
 
-  function rain(t){
-    // 빗금(빨간 마커): 오른쪽 위 구석에서 쏟아지는 비
-    const r = rng(42); ctx.save(); ctx.strokeStyle='#d9302a'; ctx.lineCap='round'; ctx.lineWidth=W*0.0035; ctx.globalAlpha=.9;
-    const k = Math.floor(11*t);
-    for(let i=0;i&lt;k;i++){ const x = W*(0.885+r()*0.06), y=H*(0.1+r()*0.09); ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-W*0.008,y+H*0.035); ctx.stroke(); }
+  // 상대 표시: 보드마커로 그린 비구름 + 빗방울 3개 (t: 0~1 그려진 정도)
+  function cloud(t){
+    if(t&lt;=0) return;
+    const cx=W*0.915, cy=H*0.115, u=W*0.014;
+    ctx.save(); ctx.strokeStyle='#d9302a'; ctx.lineCap='round'; ctx.lineJoin='round';
+    const lw=W*0.0042;
+    [[lw*1.25,.35],[lw,.92]].forEach(([w,al]) =&gt; {
+      ctx.globalAlpha=al; ctx.lineWidth=w; ctx.beginPath();
+      const a=Math.min(1,t*1.6);
+      ctx.arc(cx-u*1.3, cy, u*0.9, Math.PI*0.5, Math.PI*(0.5+1.05*a));
+      if(a&gt;0.4) ctx.arc(cx, cy-u*0.55, u*1.25, Math.PI*1.05, Math.PI*(1.05+1.0*Math.min(1,(a-.4)/.6)));
+      ctx.stroke();
+      if(a&gt;=1){ ctx.beginPath(); ctx.arc(cx+u*1.35, cy+u*0.05, u*0.85, Math.PI*1.4, Math.PI*2.5); ctx.moveTo(cx+u*1.35,cy+u*0.9); ctx.lineTo(cx-u*1.3,cy+u*0.9); ctx.stroke(); }
+    });
+    const drops=Math.floor(Math.max(0,(t-.6)/.4)*3.999);
+    for(let k=0;k&lt;drops;k++){ const x=cx-u*0.9+k*u*0.9, y=cy+u*1.6; ctx.globalAlpha=.92; ctx.lineWidth=lw;
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-u*0.25,y+u*0.75); ctx.stroke(); }
     ctx.restore();
   }
 
-  function draw(t){ // t: 0~1 전체 마커 진행
+  const ease = p =&gt; 1-Math.pow(1-p,3);
+  const labels = [...cv.querySelectorAll('[data-g]')];
+  let shown = reduce ? T.end : 0;   // 지금 그려 둔 시각(ms). 크기가 바뀌면 이 시각으로 다시 그린다
+
+  // ms: 재생 시작부터 지난 시간. T.end 이상이면 완성 화면
+  function draw(ms){
+    shown = ms;
     ctx.setTransform(dpr,0,0,dpr,0,0);
     ctx.clearRect(0,0,W,H);
     ctx.drawImage(noise,0,0,W,H);
-    keeper.forEach(([x,y]) =&gt; puck(x,y,'#ffc21a'));
-    team.forEach(([x,y]) =&gt; puck(x,y,'#1d5bd8'));
-    rain(Math.min(1,t*2));
-    strokes.forEach((s,i) =&gt; { const st = Math.min(1, Math.max(0,(t - i*0.12)/0.5)); if(st&gt;0) marker(s, st); });
+    const place = (pos, g, k, color, square) =&gt; {
+      const p = (ms - T.group[g] - k*T.gap) / T.drop;
+      if(p &lt;= 0) return;
+      const q = Math.min(1,p), lift = 1-ease(q), sq = q&gt;=1 ? 0 : Math.max(0,(q-.8)/.2)*Math.sin(q*Math.PI);
+      ctx.save(); ctx.globalAlpha = Math.min(1, q*3); puck(pos[0],pos[1],color,lift,sq,square); ctx.restore();
+    };
+    place(coach, 0, 0, '#10202c', true);
+    keeper.forEach(pos =&gt; place(pos, 1, 0, '#ffc21a'));
+    const seen = [0,0,0,0,0];
+    team.forEach((pos,i) =&gt; { const g = groupOf(i); place(pos, g, seen[g]++, '#1d5bd8'); });
+    cloud(Math.max(0,Math.min(1,(ms - T.cloud)/500)));
+    strokes.forEach(s =&gt; { const st = (ms - s.at)/T.stroke; if(st&gt;0) marker(s, Math.min(1,st)); });
+    labels.forEach(el =&gt; { el.style.opacity = ms &gt;= T.group[+el.dataset.g] + T.drop*0.6 ? 1 : 0; });
   }
 
   function layout(){
     const b = cv.getBoundingClientRect(); W=b.width; H=b.height; dpr=Math.min(2, window.devicePixelRatio||1);
     cnv.width=Math.round(W*dpr); cnv.height=Math.round(H*dpr);
-    // 정적인 보드(테두리·피치)는 한 번만 그려 둔다
+    // 움직이지 않는 보드(테두리·피치·제목 카드)는 한 번만 그려 둔다
     noise = document.createElement('canvas'); noise.width=cnv.width; noise.height=cnv.height;
-    // 같은 그리기 함수를 오프스크린 캔버스에 재사용
     ctx = noise.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0); frame(); board(); ctx = mainCtx;
-    draw(1);
+    draw(shown);
   }
 
+  let raf = 0;
   function play(){
-    if(reduce){ draw(1); return; }
-    const t0 = performance.now(), D = 1600;
-    const step = now =&gt; { const t = Math.min(1,(now-t0)/D); draw(t); if(t&lt;1) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
+    cancelAnimationFrame(raf);
+    if(reduce){ draw(T.end); return; }
+    const t0 = performance.now();
+    const step = now =&gt; { const ms = now - t0; draw(ms); if(ms &lt; T.end) raf = requestAnimationFrame(step); };
+    draw(0); raf = requestAnimationFrame(step);
   }
 
   document.getElementById('replay').addEventListener('click', play);
-  new ResizeObserver(() =&gt; layout()).observe(cv);
   layout();
+  new ResizeObserver(() =&gt; layout()).observe(cv);
   play();
 })();
 &lt;/script&gt;</code></pre>

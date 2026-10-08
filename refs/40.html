@@ -1,0 +1,948 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #40 도미노 일정표</title>
+<style>
+/* 레이아웃: 위에 장표 크게, 아래로 설명 → 코드 → PPT → 스펙. 밝은 단일 테마(색 모두 명시) */
+:root{
+  --pg-bg:#EEF1F5; --pg-card:#FFFFFF; --pg-ink:#152033; --pg-sub:#566173; --pg-line:#D9DFE7;
+  --pg-a:#23395B; --pg-hot:#EC5730; --pg-code:#111A28; --pg-code-ink:#DCE4EE;
+  --pg-sans:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+  --pg-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-sans); font-size:15px; line-height:1.65}
+.pg{max-width:1200px; margin:0 auto; padding-inline:16px; padding-block:24px 64px}
+.pg-top{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-bottom:14px}
+.pg-top h1{font-size:22px; margin:0; letter-spacing:-.02em; text-wrap:balance}
+.pg-top .pg-meta{font-size:13px; color:var(--pg-sub)}
+.pg-top .pg-meta b{color:var(--pg-hot)}
+section{margin-top:44px}
+section > h2{font-size:18px; margin:0 0 12px; letter-spacing:-.01em; display:flex; align-items:baseline; gap:10px}
+section > h2 span{font-family:var(--pg-mono); font-size:12px; color:var(--pg-sub); font-weight:500}
+section p{margin:0 0 10px; max-width:68ch}
+.pg-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px}
+.pg-card{background:var(--pg-card); border:1px solid var(--pg-line); border-radius:8px; padding:16px 18px; min-width:0}
+.pg-card h3{font-size:15px; margin:0 0 6px}
+.pg-card p{font-size:14px; color:var(--pg-sub); margin:0}
+.pg-card p + p{margin-top:6px}
+.pg-card .pg-use{color:var(--pg-ink)}
+.pg-code-wrap{display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:18px; align-items:start}
+.pg-guide{font-size:14px; color:var(--pg-sub); margin:0; padding-left:18px}
+.pg-guide li{margin-bottom:8px}
+.pg-guide code{font-family:var(--pg-mono); font-size:12.5px; color:var(--pg-ink); background:#E2E7EE; padding:1px 4px; border-radius:3px}
+.pg-codebox{background:var(--pg-code); border-radius:8px; overflow:hidden; min-width:0}
+.pg-codebar{display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-bottom:1px solid #263347; color:#8C9AAE; font-size:12px; font-family:var(--pg-mono)}
+.pg-copy{font:inherit; font-family:var(--pg-sans); font-size:13px; padding:5px 12px; border-radius:5px; border:1px solid #3A4A62; background:#1C2A3E; color:#FFFFFF; cursor:pointer}
+.pg-copy:focus-visible{outline:2px solid var(--pg-hot); outline-offset:2px}
+.pg-codebox pre{margin:0; max-height:520px; overflow:auto; padding:14px 16px}
+.pg-codebox code{font-family:var(--pg-mono); font-size:12px; line-height:1.55; color:var(--pg-code-ink); white-space:pre}
+.pg-tablewrap{overflow-x:auto; background:var(--pg-card); border:1px solid var(--pg-line); border-radius:8px}
+table{border-collapse:collapse; width:100%; min-width:760px; font-size:13.5px}
+th,td{text-align:left; vertical-align:top; padding:9px 12px; border-bottom:1px solid var(--pg-line)}
+th{font-size:12.5px; color:var(--pg-sub); font-weight:500; background:#F6F8FB}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:var(--pg-mono); color:var(--pg-sub); white-space:nowrap}
+.pg-sub{font-size:14px; color:var(--pg-sub)}
+.pg-sw{display:flex; flex-wrap:wrap; gap:10px}
+.pg-sw div{display:flex; align-items:center; gap:8px; font-family:var(--pg-mono); font-size:12.5px; background:var(--pg-card); border:1px solid var(--pg-line); border-radius:6px; padding:5px 10px 5px 5px}
+.pg-sw i{width:22px; height:22px; border-radius:4px; box-shadow:inset 0 0 0 1px rgba(21,32,51,.15)}
+dl{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:8px 18px; margin:14px 0 0; font-size:14px}
+dt{color:var(--pg-sub)}
+dd{margin:0}
+a{color:var(--pg-a)}
+@media (max-width:720px){ .pg-code-wrap{grid-template-columns:minmax(0,1fr)} dl{grid-template-columns:minmax(0,1fr)} dt{margin-top:6px} }
+</style>
+
+<div class="pg">
+  <div class="pg-top">
+    <h1>도미노 일정표</h1>
+    <span class="pg-meta">레퍼런스 #40 · 실무형 · 동작 패턴 <b>연쇄(도미노)</b> · 계획안의 <b>추진 일정</b></span>
+  </div>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 도미노 일정 장표 — 클래스 접두어 dmn- / 색은 아래 변수에서 바꾼다 */
+.dmn-wrap{
+  --dmn-bg:#F5F7FA;      /* 장표 바탕 */
+  --dmn-ink:#152033;     /* 제목 글자 */
+  --dmn-sub:#5A6577;     /* 보조 글자 */
+  --dmn-a:#23395B;       /* 시설 트랙(남색) */
+  --dmn-b:#13877B;       /* 운영 트랙(청록) */
+  --dmn-hot:#EC5730;     /* 병목 절차(주황) */
+  --dmn-goal:#F2B233;    /* 최종 목표(금색) */
+  --dmn-line:#D5DCE5;
+  max-width:1200px; margin:0 auto;
+  font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+  color:var(--dmn-ink);
+}
+.dmn-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; container-type:inline-size;
+  background:var(--dmn-bg); overflow:hidden; border-radius:10px; box-shadow:0 1px 2px rgba(21,32,51,.08),0 8px 28px rgba(21,32,51,.08)}
+.dmn-canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+.dmn-head{position:absolute; left:4.4cqw; right:4.4cqw; top:3.4cqw}
+.dmn-eyebrow{font-size:1.32cqw; color:var(--dmn-sub); letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.dmn-eyebrow b{color:var(--dmn-a); font-weight:700}
+.dmn-title{margin:.7cqw 0 0; font-size:3.05cqw; line-height:1.25; font-weight:700; letter-spacing:-.025em; color:var(--dmn-ink)}
+.dmn-title em{font-style:normal; color:var(--dmn-hot)}
+.dmn-legend{margin-top:.9cqw; display:flex; gap:1.8cqw; font-size:1.18cqw; color:var(--dmn-sub)}
+.dmn-legend span{display:inline-flex; align-items:center; gap:.5cqw}
+.dmn-legend i{display:inline-block; width:.62cqw; height:1.25cqw; border-radius:.12cqw; background:#FBFAF6; box-shadow:inset 0 0 0 1px #B9C2CF}
+.dmn-legend i.is-fall{transform:rotate(62deg)}
+.dmn-legend i.is-hot{background:var(--dmn-hot); box-shadow:none}
+.dmn-tag{position:absolute; right:2.2cqw; top:2.2cqw; font-size:1.02cqw; color:var(--dmn-sub); border:1px solid var(--dmn-line); border-radius:99px; padding:.15cqw .8cqw; background:#FFFFFF}
+.dmn-layer{position:absolute; inset:0; pointer-events:none}
+.dmn-mon{position:absolute; transform:translate(-50%,0); font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:1.05cqw; color:var(--dmn-sub); white-space:nowrap}
+.dmn-mon.is-year{color:var(--dmn-a); font-weight:500}
+.dmn-row{position:absolute; left:2.6cqw; transform:translate(0,-50%); font-size:1.15cqw; font-weight:700; color:#FFFFFF; padding:.18cqw .6cqw; border-radius:.3cqw}
+.dmn-lab{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; font-size:1.28cqw; font-weight:500;
+  padding:.28cqw .7cqw; border-radius:.35cqw; background:#FFFFFF; color:var(--dmn-c); box-shadow:inset 0 0 0 1px var(--dmn-c);
+  opacity:.55; transition:background .25s, color .25s, opacity .25s}
+.dmn-lab small{font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:.92cqw; margin-right:.4cqw; opacity:.85}
+.dmn-lab.is-on{background:var(--dmn-c); color:#FFFFFF; opacity:1}
+.dmn-lab.is-goal.is-on{color:var(--dmn-ink)}
+.dmn-note{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; font-size:1.18cqw; font-weight:700; color:var(--dmn-hot);
+  background:var(--dmn-bg); padding:0 .8cqw; opacity:0; transition:opacity .4s}
+.dmn-note.is-on{opacity:1}
+.dmn-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin-top:12px}
+.dmn-btn{font:inherit; font-size:14px; font-weight:500; padding:7px 14px; border-radius:6px; border:1px solid #C9D1DC; background:#FFFFFF; color:#152033; cursor:pointer}
+.dmn-btn:hover{border-color:#23395B}
+.dmn-btn:focus-visible{outline:2px solid #EC5730; outline-offset:2px}
+.dmn-status{font-size:13px; color:#5A6577; min-width:0}
+</style>
+
+<div class="dmn-wrap" id="dmn">
+  <div class="dmn-slide" role="img" aria-label="도미노 일정 도식: 1월 기본계획에서 시작해 시설·운영 두 줄로 갈라졌다가 이듬해 4월 재개관에서 합류한다. 6월 실시설계 확정이 병목이다.">
+    <canvas class="dmn-canvas"></canvas>
+    <div class="dmn-head">
+      <div class="dmn-eyebrow"><b>Ⅴ. 추진 일정</b> · ○○시 중앙도서관 리모델링 추진 계획(안)</div>
+      <h2 class="dmn-title"><em>6월 실시설계 확정</em>이 넘어져야 재개관까지 이어집니다</h2>
+      <div class="dmn-legend"><span><i></i>도미노 1개 = 1개월</span><span><i class="is-fall"></i>넘어지면 완료</span><span><i class="is-hot"></i>밀리면 뒤가 모두 밀리는 절차</span></div>
+    </div>
+    <div class="dmn-tag">가상 예시</div>
+    <div class="dmn-layer"></div>
+  </div>
+  <div class="dmn-ctrl">
+    <button class="dmn-btn" type="button" data-act="play">다시 보기</button>
+    <button class="dmn-btn" type="button" data-act="step">한 단계씩</button>
+    <span class="dmn-status" aria-live="polite"></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ── 데이터: 여기만 바꾸면 된다 ──────────────────────────────
+     m = 몇 번째 달(1부터), track = 'a'(위 줄) | 'b'(아래 줄) | 'goal'(합류 지점)
+     도미노는 달마다 1개씩 자동으로 세워진다(1개 = 1개월). */
+  var DMN = {
+    months: 16,                       // 마지막 달(합류 도미노가 서는 달)
+    monthLabels: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월','1월','2월','3월','4월'],
+    years: [{m:1, text:'2027'}, {m:13, text:'2028'}],
+    rows: {a:'시설', b:'운영'},
+    bFrom: 3,                         // 아래 줄이 시작되는 달(1월 도미노에서 갈라짐)
+    note: {from:6, text:'실시설계가 한 달 밀리면 뒤 10개월이 함께 밀립니다'},
+    steps: [
+      {title:'1월 · 기본계획 수립',            items:[{track:'a', m:1,  name:'기본계획 수립'}]},
+      {title:'3월 · 설계 공모, 장서 임시 이전', items:[{track:'a', m:3,  name:'설계 공모'}, {track:'b', m:3, name:'장서 임시 이전'}]},
+      {title:'6월 · 실시설계 확정(병목)',       items:[{track:'a', m:6,  name:'실시설계 확정', hot:true}]},
+      {title:'7~8월 · 운영 프로그램 공모, 착공', items:[{track:'b', m:7,  name:'운영 프로그램 공모'}, {track:'a', m:8, name:'착공'}]},
+      {title:'이듬해 2~3월 · 준공, 시범 운영',   items:[{track:'a', m:14, name:'준공'}, {track:'b', m:15, name:'시범 운영'}]},
+      {title:'이듬해 4월 · 재개관',             items:[{track:'goal', m:16, name:'재개관'}]}
+    ]
+  };
+
+  var root = document.getElementById('dmn');
+  var slide = root.querySelector('.dmn-slide');
+  var cv = root.querySelector('.dmn-canvas');
+  var ctx = cv.getContext('2d');
+  var layer = root.querySelector('.dmn-layer');
+  var statusEl = root.querySelector('.dmn-status');
+  var css = getComputedStyle(root);
+  function cvar(n){ return css.getPropertyValue(n).trim(); }
+  var COL = {a:cvar('--dmn-a'), b:cvar('--dmn-b'), hot:cvar('--dmn-hot'), goal:cvar('--dmn-goal'), ivory:'#FBFAF6', pip:'#1E2836'};
+
+  /* ── 1. 도미노 배치 (월 = x, 줄 = y, 높이 = z) ── */
+  var YA = 0, YB = 2, N = DMN.months;
+  var ms = {};                       // 'a3' → 마일스톤 정보
+  DMN.steps.forEach(function(s, k){ s.items.forEach(function(it){ it.step = k; ms[it.track + it.m] = it; }); });
+  var doms = [];
+  function add(x, y, kind, info){
+    var big = kind === 'goal', mile = !!info && !big;
+    var d = {x:x, y:y, info:info || null, kind:kind,
+      h: big ? 2.3 : mile ? 1.5 : 1.25, w: big ? 2.2 : mile ? .7 : .6, t: big ? .36 : mile ? .24 : .2,
+      dur: big ? .8 : mile ? .42 : .3, next:[], prev:[], s:Infinity, th:0};
+    d.color = big ? COL.goal : !info ? COL.ivory : info.hot ? COL.hot : kind === 'a' ? COL.a : COL.b;
+    d.pipCol = (big || !info) ? COL.pip : '#FFFFFF';
+    d.pips = big ? [6, 6] : [(Math.round(x * 3) + (kind === 'b' ? 2 : 0)) % 7, (Math.round(x * 5) + 1) % 7];
+    doms.push(d); return d;
+  }
+  function link(a, b){ a.next.push(b); b.prev.push(a); }
+  var A = [], B = [];
+  for (var m = 1; m < N; m++) A[m] = add(m, YA, 'a', ms['a' + m]);
+  var b1 = add(DMN.bFrom - 1.3, YB * .36, 'b', null), b2 = add(DMN.bFrom - .66, YB * .74, 'b', null);
+  for (m = DMN.bFrom; m < N; m++) B[m] = add(m, YB, 'b', ms['b' + m]);
+  var G = add(N, (YA + YB) / 2, 'goal', ms['goal' + N]);
+  for (m = 1; m < N - 1; m++) link(A[m], A[m + 1]);
+  link(A[1], b1); link(b1, b2); link(b2, B[DMN.bFrom]);
+  for (m = DMN.bFrom; m < N - 1; m++) link(B[m], B[m + 1]);
+  link(A[N - 1], G); link(B[N - 1], G);
+  doms.forEach(function(d){
+    var n = d.next[0];
+    d.phi = n ? Math.atan2(n.y - d.y, n.x - d.x) : 0;
+    if (Math.abs(d.phi) < .05 || d.kind === 'goal' || n === G) d.phi = 0;
+    d.ca = Math.cos(d.phi); d.sa = Math.sin(d.phi);
+  });
+
+  /* ── 2. 접촉 각도 미리 계산: 뒤 도미노가 φ만큼 기울었을 때 앞 도미노가 멈추는 각 ── */
+  function contactAngle(i, j, phiDeg){
+    var dA = (j.x - i.x) * i.ca + (j.y - i.y) * i.sa;
+    var pjA = dA + j.t / 2, ph = phiDeg * Math.PI / 180;
+    var bA = pjA - j.t * Math.cos(ph), bZ = j.t * Math.sin(ph);          // 뒤 도미노의 뒷면 아래 모서리
+    var uA = Math.sin(ph), uZ = Math.cos(ph), nA = -Math.cos(ph), nZ = Math.sin(ph);
+    var tA = bA + j.h * uA, tZ = bZ + j.h * uZ;                           // 뒷면 위 모서리
+    for (var th = 0; th <= 90; th += .25){
+      var r = th * Math.PI / 180, s = Math.sin(r), c = Math.cos(r);
+      var cA = i.t / 2 + i.h * s, cZ = i.h * c;                          // 앞 도미노의 윗 모서리
+      var dist = (cA - bA) * nA + (cZ - bZ) * nZ, par = (cA - bA) * uA + (cZ - bZ) * uZ;
+      if (dist <= 0 && par >= -.05 && par <= j.h + .02) return th;
+      var fd = (tA - i.t / 2) * c - tZ * s, fp = (tA - i.t / 2) * s + tZ * c; // 뒤 도미노 윗 모서리 vs 앞면
+      if (fd <= 0 && fp >= 0 && fp <= i.h) return th;
+    }
+    return 90;
+  }
+  doms.forEach(function(d){
+    d.tab = d.next.map(function(j){ var a = []; for (var p = 0; p <= 90; p++) a.push(contactAngle(d, j, p)); return a; });
+  });
+  function lookup(tab, p){ var k = Math.max(0, Math.min(90, p)), f = Math.floor(k), c = Math.min(90, f + 1); return tab[f] + (tab[c] - tab[f]) * (k - f); }
+
+  /* ── 3. 넘어지기 시작하는 시각: 앞 도미노가 닿는 순간 ── */
+  A[1].s = 0;
+  var order = doms.slice().sort(function(p, q){ return p.x - q.x; });
+  for (var pass = 0; pass < 3; pass++) order.forEach(function(d){
+    d.next.forEach(function(j, k){
+      var tc = d.dur * Math.sqrt(d.tab[k][0] / 90);
+      if (d.s + tc < j.s) j.s = d.s + tc;
+    });
+  });
+  var END = G.s + G.dur + .35;
+  var BOUND = DMN.steps.map(function(st){
+    var t = 0;
+    st.items.forEach(function(it){
+      var d = doms.filter(function(q){ return q.info === it; })[0];
+      var tc = d.next.length ? d.dur * Math.sqrt(d.tab[0][0] / 90) : d.dur + .35;
+      t = Math.max(t, d.s + tc);
+    });
+    return t;
+  });
+  BOUND[BOUND.length - 1] = END;
+
+  function freeAngle(d, t){
+    var u = (t - d.s) / d.dur;
+    if (u <= 0) return 0;
+    if (u < 1) return 90 * u * u;                                         // 중력처럼 점점 빠르게
+    if (d.kind === 'goal'){ var v = (t - d.s - d.dur) / .3; return v < 1 ? 90 - 5 * Math.sin(Math.PI * v) : 90; } // 바닥에 닿아 살짝 튐
+    return 90;
+  }
+  var byStart = doms.slice().sort(function(p, q){ return q.s - p.s; });
+  function solve(t){
+    byStart.forEach(function(d){
+      var th = freeAngle(d, t);
+      d.next.forEach(function(j, k){ th = Math.min(th, lookup(d.tab[k], j.th)); });
+      d.th = th;
+    });
+  }
+
+  /* ── 4. 카메라(왼쪽 앞 위에서 내려다봄) ── */
+  var cam = (function(){
+    var yaw = -2 * Math.PI / 180, pit = 52 * Math.PI / 180, D = 48;
+    var T = [9.6, .8, .4];
+    var v = [Math.sin(yaw) * Math.cos(pit), -Math.cos(yaw) * Math.cos(pit), Math.sin(pit)];
+    var C = [T[0] + D * v[0], T[1] + D * v[1], T[2] + D * v[2]];
+    var f = [-v[0], -v[1], -v[2]];
+    var r = [f[1], -f[0], 0], rl = Math.hypot(r[0], r[1]); r = [r[0] / rl, r[1] / rl, 0];
+    var u = [r[1] * f[2] - r[2] * f[1], r[2] * f[0] - r[0] * f[2], r[0] * f[1] - r[1] * f[0]];
+    return {C:C, f:f, r:r, u:u, k:1, ox:0, oy:0};
+  })();
+  function proj(P){
+    var dx = P[0] - cam.C[0], dy = P[1] - cam.C[1], dz = P[2] - cam.C[2];
+    var zc = dx * cam.f[0] + dy * cam.f[1] + dz * cam.f[2];
+    var xc = dx * cam.r[0] + dy * cam.r[1] + dz * cam.r[2];
+    var yc = dx * cam.u[0] + dy * cam.u[1] + dz * cam.u[2];
+    return [cam.ox + cam.k * xc / zc, cam.oy - cam.k * yc / zc, zc];
+  }
+  var FX0 = -.4, FX1 = N + 2.8, FY0 = -1.35, FY1 = 2.85, FZ = .26;      // FY0 = 앞 가장자리      // 탁자 범위
+  (function fit(){                                                       // 장면을 장표 안 정해진 칸(cqw 단위)에 맞춘다
+    var pts = [[FX0,FY1,0],[FX1,FY1,0],[FX0,FY0,-FZ],[FX1,FY0,-FZ],[N,(YA+YB)/2,2.3],[1,YB,1.5],[N-1,YB,1.25]];
+    var x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+    pts.forEach(function(p){ var q = proj(p); x0 = Math.min(x0,q[0]); x1 = Math.max(x1,q[0]); y0 = Math.min(y0,q[1]); y1 = Math.max(y1,q[1]); });
+    var box = {l:4.6, r:98.6, t:14.4, b:46.4};
+    var k = Math.min((box.r - box.l) / (x1 - x0), (box.b - box.t) / (y1 - y0));
+    cam.k = k; cam.ox = box.l + ((box.r - box.l) - k * (x1 - x0)) / 2 - k * x0; cam.oy = box.b - k * y1;            // 아래 맞춤
+  })();
+
+  /* ── 5. 글자 겹(월 눈금·줄 이름·마일스톤 이름) ── */
+  function place(el, P, dy){ var q = proj(P); el.style.left = q[0] + '%'; el.style.top = ((q[1] + (dy || 0)) / 56.25 * 100) + '%'; }
+  var ROWY = {a:50.6, b:54.0};
+  DMN.monthLabels.forEach(function(t, i){
+    var el = document.createElement('div'); el.className = 'dmn-mon'; el.textContent = t; place(el, [i + 1, FY0, -FZ], .45); layer.appendChild(el);
+  });
+  DMN.years.forEach(function(y){
+    var el = document.createElement('div'); el.className = 'dmn-mon is-year'; el.textContent = y.text; place(el, [y.m, FY1 + .1, 0], -2.2); layer.appendChild(el);
+  });
+  Object.keys(DMN.rows).forEach(function(k){
+    var el = document.createElement('div'); el.className = 'dmn-row'; el.textContent = DMN.rows[k];
+    el.style.background = COL[k]; el.style.top = (ROWY[k] / 56.25 * 100) + '%'; layer.appendChild(el);
+  });
+  doms.forEach(function(d){
+    if (!d.info) return;
+    var el = document.createElement('div'); el.className = 'dmn-lab' + (d.kind === 'goal' ? ' is-goal' : '');
+    el.style.setProperty('--dmn-c', d.color);
+    el.innerHTML = '<small>' + DMN.monthLabels[d.info.m - 1] + '</small>' + d.info.name;
+    var q = proj([d.kind === 'goal' ? d.x + 1.25 : d.x, FY0, -FZ]);
+    var row = d.kind === 'goal' ? (ROWY.a + ROWY.b) / 2 : ROWY[d.kind];
+    el.style.left = q[0] + '%'; el.style.top = (row / 56.25 * 100) + '%';
+    layer.appendChild(el); d.el = el;
+  });
+  var NOTE_Y = -.86;
+  var noteEl = document.createElement('div'); noteEl.className = 'dmn-note'; noteEl.textContent = DMN.note.text;
+  place(noteEl, [(DMN.note.from + N) / 2, NOTE_Y, 0]); layer.appendChild(noteEl);
+
+  /* ── 6. 그리기 ── */
+  var L = [-.42, -.5, .76], Ll = Math.hypot(L[0], L[1], L[2]); L = [L[0]/Ll, L[1]/Ll, L[2]/Ll]; // 왼쪽 앞 위의 빛
+  var shadowCv = document.createElement('canvas'), sctx = shadowCv.getContext('2d');
+  var S = 1;
+  function rgb(hex){ var n = parseInt(hex.slice(1), 16); return [n >> 16, n >> 8 & 255, n & 255]; }
+  function shade(hex, k){ var c = rgb(hex); return 'rgb(' + c.map(function(v){ return Math.max(0, Math.min(255, Math.round(v * k))); }).join(',') + ')'; }
+  function path(c, pts){ c.beginPath(); pts.forEach(function(p, i){ i ? c.lineTo(p[0] * S, p[1] * S) : c.moveTo(p[0] * S, p[1] * S); }); c.closePath(); }
+  function hull(p){
+    p = p.slice().sort(function(a, b){ return a[0] - b[0] || a[1] - b[1]; });
+    function cr(o, a, b){ return (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0]); }
+    var lo = [], up = [];
+    p.forEach(function(q){ while (lo.length > 1 && cr(lo[lo.length-2], lo[lo.length-1], q) <= 0) lo.pop(); lo.push(q); });
+    p.reverse().forEach(function(q){ while (up.length > 1 && cr(up[up.length-2], up[up.length-1], q) <= 0) up.pop(); up.push(q); });
+    return lo.slice(0, -1).concat(up.slice(0, -1));
+  }
+  // 도미노 한 개의 꼭짓점(앞 아래 모서리를 축으로 th만큼 넘어감)
+  function world(d, a, b, z){
+    var r = d.th * Math.PI / 180, c = Math.cos(r), s = Math.sin(r);
+    var a2 = d.t / 2 + (a - d.t / 2) * c + z * s, z2 = -(a - d.t / 2) * s + z * c;
+    return [d.x + a2 * d.ca - b * d.sa, d.y + a2 * d.sa + b * d.ca, z2];
+  }
+  var FACES = [ // [법선(a,b,z), 네 꼭짓점]
+    [[1,0,0],  [[1,-1,0],[1,1,0],[1,1,1],[1,-1,1]]],
+    [[-1,0,0], [[-1,1,0],[-1,-1,0],[-1,-1,1],[-1,1,1]]],
+    [[0,1,0],  [[1,1,0],[-1,1,0],[-1,1,1],[1,1,1]]],
+    [[0,-1,0], [[-1,-1,0],[1,-1,0],[1,-1,1],[-1,-1,1]]],
+    [[0,0,1],  [[1,-1,1],[1,1,1],[-1,1,1],[-1,-1,1]]]
+  ];
+  var PIPS = [[], [[0,0]], [[-1,-1],[1,1]], [[-1,-1],[0,0],[1,1]], [[-1,-1],[1,-1],[-1,1],[1,1]], [[-1,-1],[1,-1],[0,0],[-1,1],[1,1]], [[-1,-1],[-1,0],[-1,1],[1,-1],[1,0],[1,1]]];
+  function v3(d, f){ return world(d, f[0] * d.t / 2, f[1] * d.w / 2, f[2] * d.h); }
+  function nrm(d, n){
+    var r = d.th * Math.PI / 180, c = Math.cos(r), s = Math.sin(r);
+    var a2 = n[0] * c + n[2] * s, z2 = -n[0] * s + n[2] * c;
+    return [a2 * d.ca - n[1] * d.sa, a2 * d.sa + n[1] * d.ca, z2];
+  }
+  function drawDomino(d){
+    var cen = world(d, 0, 0, d.h / 2);
+    FACES.forEach(function(F){
+      var n = nrm(d, F[0]);
+      var fc = v3(d, [F[0][0], F[0][1], F[0][2] === 1 ? 1 : .5]);
+      var toC = [cam.C[0] - fc[0], cam.C[1] - fc[1], cam.C[2] - fc[2]];
+      if (n[0] * toC[0] + n[1] * toC[1] + n[2] * toC[2] <= 0) return;
+      var lit = Math.max(0, n[0] * L[0] + n[1] * L[1] + n[2] * L[2]);
+      var k = .7 + .36 * lit;
+      var pts = F[1].map(function(f){ return proj(v3(d, f)); });
+      path(ctx, pts);
+      if (F[0][2] === 1){ ctx.fillStyle = shade(d.color, k + .04); }
+      else {                                                              // 아래쪽이 살짝 어두운 면(양감)
+        var lo = proj(world(d, F[0][0] * d.t / 2, F[0][1] * d.w / 2, 0)), hi = proj(world(d, F[0][0] * d.t / 2, F[0][1] * d.w / 2, d.h));
+        var g = ctx.createLinearGradient(lo[0] * S, lo[1] * S, hi[0] * S, hi[1] * S);
+        g.addColorStop(0, shade(d.color, k * .84)); g.addColorStop(1, shade(d.color, k * 1.04));
+        ctx.fillStyle = g;
+      }
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(21,32,51,.22)'; ctx.lineWidth = Math.max(.6, S * .06); ctx.stroke();
+      if (F[0][0] !== 0){                                                 // 넓은 면: 가운데 선 + 눈(점)
+        var sgn = F[0][0], fa = sgn * d.t / 2 * 1.001;
+        var l1 = proj(world(d, fa, -d.w * .38, d.h / 2)), l2 = proj(world(d, fa, d.w * .38, d.h / 2));
+        ctx.beginPath(); ctx.moveTo(l1[0] * S, l1[1] * S); ctx.lineTo(l2[0] * S, l2[1] * S);
+        ctx.strokeStyle = d.pipCol; ctx.globalAlpha = .55; ctx.lineWidth = Math.max(.7, S * .09); ctx.stroke(); ctx.globalAlpha = 1;
+        ctx.fillStyle = d.pipCol;
+        d.pips.forEach(function(cnt, half){
+          var zc = d.h * (half ? .25 : .75);
+          PIPS[cnt].forEach(function(p){
+            var bb = -sgn * p[0] * d.w * .25, zz = zc + p[1] * d.h * .13, rr = Math.min(d.w, d.h) * .065;
+            var ring = []; for (var q = 0; q < 8; q++){ var an = q / 8 * Math.PI * 2; ring.push(proj(world(d, fa, bb + Math.cos(an) * rr, zz + Math.sin(an) * rr))); }
+            path(ctx, ring); ctx.fill();
+          });
+        });
+      }
+    });
+    d.depth = proj(cen)[2];
+  }
+  function floorPt(x, y){ return proj([x, y, 0]); }
+  function drawScene(t){
+    var W = cv.width, H = cv.height; S = W / 100;
+    ctx.clearRect(0, 0, W, H);
+    // 탁자 앞면 두께 + 윗면
+    path(ctx, [proj([FX0,FY0,0]), proj([FX1,FY0,0]), proj([FX1,FY0,-FZ]), proj([FX0,FY0,-FZ])]); ctx.fillStyle = '#C9D2DE'; ctx.fill();
+    path(ctx, [proj([FX0,FY0,0]), proj([FX0,FY1,0]), proj([FX0,FY1,-FZ]), proj([FX0,FY0,-FZ])]); ctx.fillStyle = '#D6DDE7'; ctx.fill();
+    var fl = [floorPt(FX0,FY0), floorPt(FX1,FY0), floorPt(FX1,FY1), floorPt(FX0,FY1)];
+    path(ctx, fl);
+    var g = ctx.createLinearGradient(0, fl[0][1] * S, 0, fl[2][1] * S); g.addColorStop(0, '#E4E9F0'); g.addColorStop(1, '#FFFFFF');
+    ctx.fillStyle = g; ctx.fill();
+    // 줄(트랙) 바탕
+    [[YA, COL.a, .5, N - .5], [YB, COL.b, DMN.bFrom - .5, N - .5]].forEach(function(r){
+      path(ctx, [floorPt(r[2], r[0] - .5), floorPt(r[3], r[0] - .5), floorPt(r[3], r[0] + .5), floorPt(r[2], r[0] + .5)]);
+      ctx.fillStyle = r[1]; ctx.globalAlpha = .07; ctx.fill(); ctx.globalAlpha = 1;
+    });
+    // 달 칸 눈금, 해 바뀌는 선
+    for (var m = 0; m <= N; m++){
+      var x = m + .5, yr = DMN.years.some(function(y){ return y.m - .5 === x; });
+      var p1 = floorPt(x, FY0), p2 = floorPt(x, FY1);
+      ctx.beginPath(); ctx.moveTo(p1[0] * S, p1[1] * S); ctx.lineTo(p2[0] * S, p2[1] * S);
+      ctx.strokeStyle = yr ? 'rgba(35,57,91,.42)' : 'rgba(35,57,91,.10)'; ctx.lineWidth = Math.max(.6, S * (yr ? .1 : .06));
+      if (yr) ctx.setLineDash([S * .5, S * .35]); ctx.stroke(); ctx.setLineDash([]);
+    }
+    solve(t);
+    // 그림자: 빛 방향으로 바닥에 투영한 외곽 → 흐리게
+    shadowCv.width = W; shadowCv.height = H; sctx.clearRect(0, 0, W, H); sctx.fillStyle = '#1B2A40';
+    doms.forEach(function(d){
+      var pts = [];
+      [-1,1].forEach(function(a){ [-1,1].forEach(function(b){ [0,1].forEach(function(z){
+        var w = v3(d, [a, b, z]); pts.push(proj([w[0] - L[0] / L[2] * w[2], w[1] - L[1] / L[2] * w[2], 0]));
+      }); }); });
+      path(sctx, hull(pts)); sctx.fill();
+    });
+    ctx.save(); ctx.globalAlpha = .16;
+    if ('filter' in ctx) ctx.filter = 'blur(' + Math.max(1, S * .28) + 'px)';
+    ctx.drawImage(shadowCv, 0, 0); ctx.restore();
+    // 병목 이후 구간 괄호(마지막에 나타남)
+    var na = Math.max(0, Math.min(1, (t - G.s) / .5));
+    if (na > 0){
+      var a1 = floorPt(DMN.note.from, NOTE_Y), a2 = floorPt(N, NOTE_Y);
+      ctx.save(); ctx.globalAlpha = na; ctx.strokeStyle = COL.hot; ctx.lineWidth = Math.max(1, S * .14);
+      ctx.beginPath(); ctx.moveTo(a1[0] * S, a1[1] * S); ctx.lineTo(a2[0] * S, a2[1] * S); ctx.stroke();
+      [DMN.note.from, N].forEach(function(x){ var q1 = floorPt(x, NOTE_Y - .22), q2 = floorPt(x, NOTE_Y + .22);
+        ctx.beginPath(); ctx.moveTo(q1[0] * S, q1[1] * S); ctx.lineTo(q2[0] * S, q2[1] * S); ctx.stroke(); });
+      ctx.restore();
+    }
+    noteEl.classList.toggle('is-on', na >= 1);
+    // 도미노: 먼 것부터
+    doms.forEach(function(d){ d.depth = proj(world(d, 0, 0, d.h / 2))[2]; });
+    doms.slice().sort(function(p, q){ return q.depth - p.depth; }).forEach(drawDomino);
+    doms.forEach(function(d){ if (d.el) d.el.classList.toggle('is-on', d.th > 18); });
+  }
+
+  /* ── 7. 재생 제어 ── */
+  var now = END, raf = 0, stepIdx = -1;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function resize(){ var r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.max(1, Math.round(r.width * dpr)); cv.height = Math.max(1, Math.round(r.height * dpr)); drawScene(now); }
+  function runTo(target, from){
+    cancelAnimationFrame(raf);
+    if (from != null) now = from;
+    if (reduce){ now = target; drawScene(now); return; }
+    var last = performance.now();
+    (function tick(ts){
+      now = Math.min(target, now + (ts - last) / 1000); last = ts;
+      drawScene(now);
+      if (now < target) raf = requestAnimationFrame(tick);
+    })(last);
+  }
+  function setStatus(txt){ statusEl.textContent = txt; }
+  root.querySelector('[data-act="play"]').addEventListener('click', function(){
+    stepIdx = -1; setStatus('처음부터 재생'); runTo(END, 0);
+  });
+  root.querySelector('[data-act="step"]').addEventListener('click', function(){
+    if (stepIdx >= DMN.steps.length - 1 || stepIdx < 0){ stepIdx = 0; now = 0; } else stepIdx++;
+    setStatus('단계 ' + (stepIdx + 1) + '/' + DMN.steps.length + ' · ' + DMN.steps[stepIdx].title);
+    runTo(BOUND[stepIdx]);
+  });
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(cv); else window.addEventListener('resize', resize);
+  resize();                                                              // 열면 완성 상태
+  if (!reduce) setTimeout(function(){ setStatus('처음부터 재생'); runTo(END, 0); }, 900); // 그다음 처음부터 한 번
+})();
+</script>
+
+
+  <section>
+    <h2>동작 설명 <span>무엇을 움직임으로 보여 주나</span></h2>
+    <p>일정표의 막대 대신 한 달에 도미노 1개를 세웠습니다. 앞 절차가 넘어져야 다음 절차가 넘어지므로, 화면을 보는 사람은 설명 없이도 선후 관계를 읽습니다. 1월 기본계획 뒤에서 시설·운영 두 줄로 갈라졌다가 이듬해 4월의 큰 도미노에서 다시 합쳐집니다.</p>
+    <p>넘어진 도미노는 곧 완료된 일입니다. 다 넘어진 최종 화면은 그대로 진척표가 되고, 주황색 실시설계 도미노와 그 뒤 10개월 괄호가 "여기가 밀리면 뒤가 모두 밀린다"는 결론을 남깁니다. <b>한 단계씩</b>을 누르면 절차마다 앞 도미노에 기대어 멈춥니다.</p>
+    <div class="pg-grid" style="margin-top:16px">
+      <div class="pg-card"><h3>가져갈 장치 ① 개수로 세는 기간</h3><p>도미노 1개 = 1개월. 기간이 막대 길이가 아니라 세울 수 있는 개수가 되어 "몇 달 남았나"가 손가락으로 세어집니다.</p><p class="pg-use">응용: 공사 공정표, 예산 집행 월별 계획, 채용 절차 주차별 일정</p></div>
+      <div class="pg-card"><h3>가져갈 장치 ② 넘어짐 = 완료</h3><p>같은 장표를 진행 상황 보고에 다시 씁니다. 오늘까지 끝난 달만 넘어뜨려 두면 서 있는 도미노가 남은 일입니다.</p><p class="pg-use">응용: 분기 점검 보고, 사업 중간 보고, 정책 과제 이행 현황</p></div>
+      <div class="pg-card"><h3>가져갈 장치 ③ 갈라짐과 합류</h3><p>한 도미노가 두 줄을 동시에 밀고, 두 줄이 큰 도미노 하나를 함께 넘어뜨립니다. 병행 과제와 공동 목표가 한 번에 보입니다.</p><p class="pg-use">응용: 시스템 개통(개발·교육 병행), 행사 준비(시설·홍보), 조직 개편 일정</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>HTML로 가져다 쓰기 <span>복사 → 빈 .html 파일에 붙여 넣기</span></h2>
+    <div class="pg-code-wrap">
+      <ol class="pg-guide">
+        <li>절차 이름·달은 스크립트 맨 위 <code>DMN.steps</code>에서 바꿉니다. <code>m</code>은 몇 번째 달, <code>track</code>은 <code>'a'</code>(앞 줄)·<code>'b'</code>(뒤 줄)·<code>'goal'</code>.</li>
+        <li>전체 기간은 <code>months</code>와 <code>monthLabels</code>, 뒤 줄이 갈라지는 달은 <code>bFrom</code>으로 정합니다.</li>
+        <li>색은 <code>.dmn-wrap</code>의 <code>--dmn-a</code>·<code>--dmn-b</code>·<code>--dmn-hot</code>·<code>--dmn-goal</code>, 제목은 <code>.dmn-title</code>에서 바꿉니다.</li>
+        <li>병목 강조는 해당 항목에 <code>hot:true</code>, 괄호 문구는 <code>note</code>에서 바꿉니다.</li>
+        <li>AI 채팅에 수정을 부탁할 때는 링크 대신 이 코드를 붙여 넣으세요.</li>
+      </ol>
+      <div class="pg-codebox">
+        <div class="pg-codebar"><span>domino-schedule.html</span><button class="pg-copy" type="button" id="pg-copy">코드 복사</button></div>
+        <pre id="pg-pre"><code>&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=IBM+Plex+Sans+KR:wght@400;500;700&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* 도미노 일정 장표 — 클래스 접두어 dmn- / 색은 아래 변수에서 바꾼다 */
+.dmn-wrap{
+  --dmn-bg:#F5F7FA;      /* 장표 바탕 */
+  --dmn-ink:#152033;     /* 제목 글자 */
+  --dmn-sub:#5A6577;     /* 보조 글자 */
+  --dmn-a:#23395B;       /* 시설 트랙(남색) */
+  --dmn-b:#13877B;       /* 운영 트랙(청록) */
+  --dmn-hot:#EC5730;     /* 병목 절차(주황) */
+  --dmn-goal:#F2B233;    /* 최종 목표(금색) */
+  --dmn-line:#D5DCE5;
+  max-width:1200px; margin:0 auto;
+  font-family:&#x27;IBM Plex Sans KR&#x27;,&#x27;Apple SD Gothic Neo&#x27;,&#x27;Malgun Gothic&#x27;,&#x27;Noto Sans KR&#x27;,sans-serif;
+  color:var(--dmn-ink);
+}
+.dmn-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; container-type:inline-size;
+  background:var(--dmn-bg); overflow:hidden; border-radius:10px; box-shadow:0 1px 2px rgba(21,32,51,.08),0 8px 28px rgba(21,32,51,.08)}
+.dmn-canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+.dmn-head{position:absolute; left:4.4cqw; right:4.4cqw; top:3.4cqw}
+.dmn-eyebrow{font-size:1.32cqw; color:var(--dmn-sub); letter-spacing:.02em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.dmn-eyebrow b{color:var(--dmn-a); font-weight:700}
+.dmn-title{margin:.7cqw 0 0; font-size:3.05cqw; line-height:1.25; font-weight:700; letter-spacing:-.025em; color:var(--dmn-ink)}
+.dmn-title em{font-style:normal; color:var(--dmn-hot)}
+.dmn-legend{margin-top:.9cqw; display:flex; gap:1.8cqw; font-size:1.18cqw; color:var(--dmn-sub)}
+.dmn-legend span{display:inline-flex; align-items:center; gap:.5cqw}
+.dmn-legend i{display:inline-block; width:.62cqw; height:1.25cqw; border-radius:.12cqw; background:#FBFAF6; box-shadow:inset 0 0 0 1px #B9C2CF}
+.dmn-legend i.is-fall{transform:rotate(62deg)}
+.dmn-legend i.is-hot{background:var(--dmn-hot); box-shadow:none}
+.dmn-tag{position:absolute; right:2.2cqw; top:2.2cqw; font-size:1.02cqw; color:var(--dmn-sub); border:1px solid var(--dmn-line); border-radius:99px; padding:.15cqw .8cqw; background:#FFFFFF}
+.dmn-layer{position:absolute; inset:0; pointer-events:none}
+.dmn-mon{position:absolute; transform:translate(-50%,0); font-family:&#x27;IBM Plex Mono&#x27;,ui-monospace,monospace; font-size:1.05cqw; color:var(--dmn-sub); white-space:nowrap}
+.dmn-mon.is-year{color:var(--dmn-a); font-weight:500}
+.dmn-row{position:absolute; left:2.6cqw; transform:translate(0,-50%); font-size:1.15cqw; font-weight:700; color:#FFFFFF; padding:.18cqw .6cqw; border-radius:.3cqw}
+.dmn-lab{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; font-size:1.28cqw; font-weight:500;
+  padding:.28cqw .7cqw; border-radius:.35cqw; background:#FFFFFF; color:var(--dmn-c); box-shadow:inset 0 0 0 1px var(--dmn-c);
+  opacity:.55; transition:background .25s, color .25s, opacity .25s}
+.dmn-lab small{font-family:&#x27;IBM Plex Mono&#x27;,ui-monospace,monospace; font-size:.92cqw; margin-right:.4cqw; opacity:.85}
+.dmn-lab.is-on{background:var(--dmn-c); color:#FFFFFF; opacity:1}
+.dmn-lab.is-goal.is-on{color:var(--dmn-ink)}
+.dmn-note{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; font-size:1.18cqw; font-weight:700; color:var(--dmn-hot);
+  background:var(--dmn-bg); padding:0 .8cqw; opacity:0; transition:opacity .4s}
+.dmn-note.is-on{opacity:1}
+.dmn-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin-top:12px}
+.dmn-btn{font:inherit; font-size:14px; font-weight:500; padding:7px 14px; border-radius:6px; border:1px solid #C9D1DC; background:#FFFFFF; color:#152033; cursor:pointer}
+.dmn-btn:hover{border-color:#23395B}
+.dmn-btn:focus-visible{outline:2px solid #EC5730; outline-offset:2px}
+.dmn-status{font-size:13px; color:#5A6577; min-width:0}
+&lt;/style&gt;
+
+&lt;div class=&quot;dmn-wrap&quot; id=&quot;dmn&quot;&gt;
+  &lt;div class=&quot;dmn-slide&quot; role=&quot;img&quot; aria-label=&quot;도미노 일정 도식: 1월 기본계획에서 시작해 시설·운영 두 줄로 갈라졌다가 이듬해 4월 재개관에서 합류한다. 6월 실시설계 확정이 병목이다.&quot;&gt;
+    &lt;canvas class=&quot;dmn-canvas&quot;&gt;&lt;/canvas&gt;
+    &lt;div class=&quot;dmn-head&quot;&gt;
+      &lt;div class=&quot;dmn-eyebrow&quot;&gt;&lt;b&gt;Ⅴ. 추진 일정&lt;/b&gt; · ○○시 중앙도서관 리모델링 추진 계획(안)&lt;/div&gt;
+      &lt;h2 class=&quot;dmn-title&quot;&gt;&lt;em&gt;6월 실시설계 확정&lt;/em&gt;이 넘어져야 재개관까지 이어집니다&lt;/h2&gt;
+      &lt;div class=&quot;dmn-legend&quot;&gt;&lt;span&gt;&lt;i&gt;&lt;/i&gt;도미노 1개 = 1개월&lt;/span&gt;&lt;span&gt;&lt;i class=&quot;is-fall&quot;&gt;&lt;/i&gt;넘어지면 완료&lt;/span&gt;&lt;span&gt;&lt;i class=&quot;is-hot&quot;&gt;&lt;/i&gt;밀리면 뒤가 모두 밀리는 절차&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;dmn-tag&quot;&gt;가상 예시&lt;/div&gt;
+    &lt;div class=&quot;dmn-layer&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;dmn-ctrl&quot;&gt;
+    &lt;button class=&quot;dmn-btn&quot; type=&quot;button&quot; data-act=&quot;play&quot;&gt;다시 보기&lt;/button&gt;
+    &lt;button class=&quot;dmn-btn&quot; type=&quot;button&quot; data-act=&quot;step&quot;&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;dmn-status&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  /* ── 데이터: 여기만 바꾸면 된다 ──────────────────────────────
+     m = 몇 번째 달(1부터), track = &#x27;a&#x27;(위 줄) | &#x27;b&#x27;(아래 줄) | &#x27;goal&#x27;(합류 지점)
+     도미노는 달마다 1개씩 자동으로 세워진다(1개 = 1개월). */
+  var DMN = {
+    months: 16,                       // 마지막 달(합류 도미노가 서는 달)
+    monthLabels: [&#x27;1월&#x27;,&#x27;2월&#x27;,&#x27;3월&#x27;,&#x27;4월&#x27;,&#x27;5월&#x27;,&#x27;6월&#x27;,&#x27;7월&#x27;,&#x27;8월&#x27;,&#x27;9월&#x27;,&#x27;10월&#x27;,&#x27;11월&#x27;,&#x27;12월&#x27;,&#x27;1월&#x27;,&#x27;2월&#x27;,&#x27;3월&#x27;,&#x27;4월&#x27;],
+    years: [{m:1, text:&#x27;2027&#x27;}, {m:13, text:&#x27;2028&#x27;}],
+    rows: {a:&#x27;시설&#x27;, b:&#x27;운영&#x27;},
+    bFrom: 3,                         // 아래 줄이 시작되는 달(1월 도미노에서 갈라짐)
+    note: {from:6, text:&#x27;실시설계가 한 달 밀리면 뒤 10개월이 함께 밀립니다&#x27;},
+    steps: [
+      {title:&#x27;1월 · 기본계획 수립&#x27;,            items:[{track:&#x27;a&#x27;, m:1,  name:&#x27;기본계획 수립&#x27;}]},
+      {title:&#x27;3월 · 설계 공모, 장서 임시 이전&#x27;, items:[{track:&#x27;a&#x27;, m:3,  name:&#x27;설계 공모&#x27;}, {track:&#x27;b&#x27;, m:3, name:&#x27;장서 임시 이전&#x27;}]},
+      {title:&#x27;6월 · 실시설계 확정(병목)&#x27;,       items:[{track:&#x27;a&#x27;, m:6,  name:&#x27;실시설계 확정&#x27;, hot:true}]},
+      {title:&#x27;7~8월 · 운영 프로그램 공모, 착공&#x27;, items:[{track:&#x27;b&#x27;, m:7,  name:&#x27;운영 프로그램 공모&#x27;}, {track:&#x27;a&#x27;, m:8, name:&#x27;착공&#x27;}]},
+      {title:&#x27;이듬해 2~3월 · 준공, 시범 운영&#x27;,   items:[{track:&#x27;a&#x27;, m:14, name:&#x27;준공&#x27;}, {track:&#x27;b&#x27;, m:15, name:&#x27;시범 운영&#x27;}]},
+      {title:&#x27;이듬해 4월 · 재개관&#x27;,             items:[{track:&#x27;goal&#x27;, m:16, name:&#x27;재개관&#x27;}]}
+    ]
+  };
+
+  var root = document.getElementById(&#x27;dmn&#x27;);
+  var slide = root.querySelector(&#x27;.dmn-slide&#x27;);
+  var cv = root.querySelector(&#x27;.dmn-canvas&#x27;);
+  var ctx = cv.getContext(&#x27;2d&#x27;);
+  var layer = root.querySelector(&#x27;.dmn-layer&#x27;);
+  var statusEl = root.querySelector(&#x27;.dmn-status&#x27;);
+  var css = getComputedStyle(root);
+  function cvar(n){ return css.getPropertyValue(n).trim(); }
+  var COL = {a:cvar(&#x27;--dmn-a&#x27;), b:cvar(&#x27;--dmn-b&#x27;), hot:cvar(&#x27;--dmn-hot&#x27;), goal:cvar(&#x27;--dmn-goal&#x27;), ivory:&#x27;#FBFAF6&#x27;, pip:&#x27;#1E2836&#x27;};
+
+  /* ── 1. 도미노 배치 (월 = x, 줄 = y, 높이 = z) ── */
+  var YA = 0, YB = 2, N = DMN.months;
+  var ms = {};                       // &#x27;a3&#x27; → 마일스톤 정보
+  DMN.steps.forEach(function(s, k){ s.items.forEach(function(it){ it.step = k; ms[it.track + it.m] = it; }); });
+  var doms = [];
+  function add(x, y, kind, info){
+    var big = kind === &#x27;goal&#x27;, mile = !!info &amp;&amp; !big;
+    var d = {x:x, y:y, info:info || null, kind:kind,
+      h: big ? 2.3 : mile ? 1.5 : 1.25, w: big ? 2.2 : mile ? .7 : .6, t: big ? .36 : mile ? .24 : .2,
+      dur: big ? .8 : mile ? .42 : .3, next:[], prev:[], s:Infinity, th:0};
+    d.color = big ? COL.goal : !info ? COL.ivory : info.hot ? COL.hot : kind === &#x27;a&#x27; ? COL.a : COL.b;
+    d.pipCol = (big || !info) ? COL.pip : &#x27;#FFFFFF&#x27;;
+    d.pips = big ? [6, 6] : [(Math.round(x * 3) + (kind === &#x27;b&#x27; ? 2 : 0)) % 7, (Math.round(x * 5) + 1) % 7];
+    doms.push(d); return d;
+  }
+  function link(a, b){ a.next.push(b); b.prev.push(a); }
+  var A = [], B = [];
+  for (var m = 1; m &lt; N; m++) A[m] = add(m, YA, &#x27;a&#x27;, ms[&#x27;a&#x27; + m]);
+  var b1 = add(DMN.bFrom - 1.3, YB * .36, &#x27;b&#x27;, null), b2 = add(DMN.bFrom - .66, YB * .74, &#x27;b&#x27;, null);
+  for (m = DMN.bFrom; m &lt; N; m++) B[m] = add(m, YB, &#x27;b&#x27;, ms[&#x27;b&#x27; + m]);
+  var G = add(N, (YA + YB) / 2, &#x27;goal&#x27;, ms[&#x27;goal&#x27; + N]);
+  for (m = 1; m &lt; N - 1; m++) link(A[m], A[m + 1]);
+  link(A[1], b1); link(b1, b2); link(b2, B[DMN.bFrom]);
+  for (m = DMN.bFrom; m &lt; N - 1; m++) link(B[m], B[m + 1]);
+  link(A[N - 1], G); link(B[N - 1], G);
+  doms.forEach(function(d){
+    var n = d.next[0];
+    d.phi = n ? Math.atan2(n.y - d.y, n.x - d.x) : 0;
+    if (Math.abs(d.phi) &lt; .05 || d.kind === &#x27;goal&#x27; || n === G) d.phi = 0;
+    d.ca = Math.cos(d.phi); d.sa = Math.sin(d.phi);
+  });
+
+  /* ── 2. 접촉 각도 미리 계산: 뒤 도미노가 φ만큼 기울었을 때 앞 도미노가 멈추는 각 ── */
+  function contactAngle(i, j, phiDeg){
+    var dA = (j.x - i.x) * i.ca + (j.y - i.y) * i.sa;
+    var pjA = dA + j.t / 2, ph = phiDeg * Math.PI / 180;
+    var bA = pjA - j.t * Math.cos(ph), bZ = j.t * Math.sin(ph);          // 뒤 도미노의 뒷면 아래 모서리
+    var uA = Math.sin(ph), uZ = Math.cos(ph), nA = -Math.cos(ph), nZ = Math.sin(ph);
+    var tA = bA + j.h * uA, tZ = bZ + j.h * uZ;                           // 뒷면 위 모서리
+    for (var th = 0; th &lt;= 90; th += .25){
+      var r = th * Math.PI / 180, s = Math.sin(r), c = Math.cos(r);
+      var cA = i.t / 2 + i.h * s, cZ = i.h * c;                          // 앞 도미노의 윗 모서리
+      var dist = (cA - bA) * nA + (cZ - bZ) * nZ, par = (cA - bA) * uA + (cZ - bZ) * uZ;
+      if (dist &lt;= 0 &amp;&amp; par &gt;= -.05 &amp;&amp; par &lt;= j.h + .02) return th;
+      var fd = (tA - i.t / 2) * c - tZ * s, fp = (tA - i.t / 2) * s + tZ * c; // 뒤 도미노 윗 모서리 vs 앞면
+      if (fd &lt;= 0 &amp;&amp; fp &gt;= 0 &amp;&amp; fp &lt;= i.h) return th;
+    }
+    return 90;
+  }
+  doms.forEach(function(d){
+    d.tab = d.next.map(function(j){ var a = []; for (var p = 0; p &lt;= 90; p++) a.push(contactAngle(d, j, p)); return a; });
+  });
+  function lookup(tab, p){ var k = Math.max(0, Math.min(90, p)), f = Math.floor(k), c = Math.min(90, f + 1); return tab[f] + (tab[c] - tab[f]) * (k - f); }
+
+  /* ── 3. 넘어지기 시작하는 시각: 앞 도미노가 닿는 순간 ── */
+  A[1].s = 0;
+  var order = doms.slice().sort(function(p, q){ return p.x - q.x; });
+  for (var pass = 0; pass &lt; 3; pass++) order.forEach(function(d){
+    d.next.forEach(function(j, k){
+      var tc = d.dur * Math.sqrt(d.tab[k][0] / 90);
+      if (d.s + tc &lt; j.s) j.s = d.s + tc;
+    });
+  });
+  var END = G.s + G.dur + .35;
+  var BOUND = DMN.steps.map(function(st){
+    var t = 0;
+    st.items.forEach(function(it){
+      var d = doms.filter(function(q){ return q.info === it; })[0];
+      var tc = d.next.length ? d.dur * Math.sqrt(d.tab[0][0] / 90) : d.dur + .35;
+      t = Math.max(t, d.s + tc);
+    });
+    return t;
+  });
+  BOUND[BOUND.length - 1] = END;
+
+  function freeAngle(d, t){
+    var u = (t - d.s) / d.dur;
+    if (u &lt;= 0) return 0;
+    if (u &lt; 1) return 90 * u * u;                                         // 중력처럼 점점 빠르게
+    if (d.kind === &#x27;goal&#x27;){ var v = (t - d.s - d.dur) / .3; return v &lt; 1 ? 90 - 5 * Math.sin(Math.PI * v) : 90; } // 바닥에 닿아 살짝 튐
+    return 90;
+  }
+  var byStart = doms.slice().sort(function(p, q){ return q.s - p.s; });
+  function solve(t){
+    byStart.forEach(function(d){
+      var th = freeAngle(d, t);
+      d.next.forEach(function(j, k){ th = Math.min(th, lookup(d.tab[k], j.th)); });
+      d.th = th;
+    });
+  }
+
+  /* ── 4. 카메라(왼쪽 앞 위에서 내려다봄) ── */
+  var cam = (function(){
+    var yaw = -2 * Math.PI / 180, pit = 52 * Math.PI / 180, D = 48;
+    var T = [9.6, .8, .4];
+    var v = [Math.sin(yaw) * Math.cos(pit), -Math.cos(yaw) * Math.cos(pit), Math.sin(pit)];
+    var C = [T[0] + D * v[0], T[1] + D * v[1], T[2] + D * v[2]];
+    var f = [-v[0], -v[1], -v[2]];
+    var r = [f[1], -f[0], 0], rl = Math.hypot(r[0], r[1]); r = [r[0] / rl, r[1] / rl, 0];
+    var u = [r[1] * f[2] - r[2] * f[1], r[2] * f[0] - r[0] * f[2], r[0] * f[1] - r[1] * f[0]];
+    return {C:C, f:f, r:r, u:u, k:1, ox:0, oy:0};
+  })();
+  function proj(P){
+    var dx = P[0] - cam.C[0], dy = P[1] - cam.C[1], dz = P[2] - cam.C[2];
+    var zc = dx * cam.f[0] + dy * cam.f[1] + dz * cam.f[2];
+    var xc = dx * cam.r[0] + dy * cam.r[1] + dz * cam.r[2];
+    var yc = dx * cam.u[0] + dy * cam.u[1] + dz * cam.u[2];
+    return [cam.ox + cam.k * xc / zc, cam.oy - cam.k * yc / zc, zc];
+  }
+  var FX0 = -.4, FX1 = N + 2.8, FY0 = -1.35, FY1 = 2.85, FZ = .26;      // FY0 = 앞 가장자리      // 탁자 범위
+  (function fit(){                                                       // 장면을 장표 안 정해진 칸(cqw 단위)에 맞춘다
+    var pts = [[FX0,FY1,0],[FX1,FY1,0],[FX0,FY0,-FZ],[FX1,FY0,-FZ],[N,(YA+YB)/2,2.3],[1,YB,1.5],[N-1,YB,1.25]];
+    var x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+    pts.forEach(function(p){ var q = proj(p); x0 = Math.min(x0,q[0]); x1 = Math.max(x1,q[0]); y0 = Math.min(y0,q[1]); y1 = Math.max(y1,q[1]); });
+    var box = {l:4.6, r:98.6, t:14.4, b:46.4};
+    var k = Math.min((box.r - box.l) / (x1 - x0), (box.b - box.t) / (y1 - y0));
+    cam.k = k; cam.ox = box.l + ((box.r - box.l) - k * (x1 - x0)) / 2 - k * x0; cam.oy = box.b - k * y1;            // 아래 맞춤
+  })();
+
+  /* ── 5. 글자 겹(월 눈금·줄 이름·마일스톤 이름) ── */
+  function place(el, P, dy){ var q = proj(P); el.style.left = q[0] + &#x27;%&#x27;; el.style.top = ((q[1] + (dy || 0)) / 56.25 * 100) + &#x27;%&#x27;; }
+  var ROWY = {a:50.6, b:54.0};
+  DMN.monthLabels.forEach(function(t, i){
+    var el = document.createElement(&#x27;div&#x27;); el.className = &#x27;dmn-mon&#x27;; el.textContent = t; place(el, [i + 1, FY0, -FZ], .45); layer.appendChild(el);
+  });
+  DMN.years.forEach(function(y){
+    var el = document.createElement(&#x27;div&#x27;); el.className = &#x27;dmn-mon is-year&#x27;; el.textContent = y.text; place(el, [y.m, FY1 + .1, 0], -2.2); layer.appendChild(el);
+  });
+  Object.keys(DMN.rows).forEach(function(k){
+    var el = document.createElement(&#x27;div&#x27;); el.className = &#x27;dmn-row&#x27;; el.textContent = DMN.rows[k];
+    el.style.background = COL[k]; el.style.top = (ROWY[k] / 56.25 * 100) + &#x27;%&#x27;; layer.appendChild(el);
+  });
+  doms.forEach(function(d){
+    if (!d.info) return;
+    var el = document.createElement(&#x27;div&#x27;); el.className = &#x27;dmn-lab&#x27; + (d.kind === &#x27;goal&#x27; ? &#x27; is-goal&#x27; : &#x27;&#x27;);
+    el.style.setProperty(&#x27;--dmn-c&#x27;, d.color);
+    el.innerHTML = &#x27;&lt;small&gt;&#x27; + DMN.monthLabels[d.info.m - 1] + &#x27;&lt;/small&gt;&#x27; + d.info.name;
+    var q = proj([d.kind === &#x27;goal&#x27; ? d.x + 1.25 : d.x, FY0, -FZ]);
+    var row = d.kind === &#x27;goal&#x27; ? (ROWY.a + ROWY.b) / 2 : ROWY[d.kind];
+    el.style.left = q[0] + &#x27;%&#x27;; el.style.top = (row / 56.25 * 100) + &#x27;%&#x27;;
+    layer.appendChild(el); d.el = el;
+  });
+  var NOTE_Y = -.86;
+  var noteEl = document.createElement(&#x27;div&#x27;); noteEl.className = &#x27;dmn-note&#x27;; noteEl.textContent = DMN.note.text;
+  place(noteEl, [(DMN.note.from + N) / 2, NOTE_Y, 0]); layer.appendChild(noteEl);
+
+  /* ── 6. 그리기 ── */
+  var L = [-.42, -.5, .76], Ll = Math.hypot(L[0], L[1], L[2]); L = [L[0]/Ll, L[1]/Ll, L[2]/Ll]; // 왼쪽 앞 위의 빛
+  var shadowCv = document.createElement(&#x27;canvas&#x27;), sctx = shadowCv.getContext(&#x27;2d&#x27;);
+  var S = 1;
+  function rgb(hex){ var n = parseInt(hex.slice(1), 16); return [n &gt;&gt; 16, n &gt;&gt; 8 &amp; 255, n &amp; 255]; }
+  function shade(hex, k){ var c = rgb(hex); return &#x27;rgb(&#x27; + c.map(function(v){ return Math.max(0, Math.min(255, Math.round(v * k))); }).join(&#x27;,&#x27;) + &#x27;)&#x27;; }
+  function path(c, pts){ c.beginPath(); pts.forEach(function(p, i){ i ? c.lineTo(p[0] * S, p[1] * S) : c.moveTo(p[0] * S, p[1] * S); }); c.closePath(); }
+  function hull(p){
+    p = p.slice().sort(function(a, b){ return a[0] - b[0] || a[1] - b[1]; });
+    function cr(o, a, b){ return (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0]); }
+    var lo = [], up = [];
+    p.forEach(function(q){ while (lo.length &gt; 1 &amp;&amp; cr(lo[lo.length-2], lo[lo.length-1], q) &lt;= 0) lo.pop(); lo.push(q); });
+    p.reverse().forEach(function(q){ while (up.length &gt; 1 &amp;&amp; cr(up[up.length-2], up[up.length-1], q) &lt;= 0) up.pop(); up.push(q); });
+    return lo.slice(0, -1).concat(up.slice(0, -1));
+  }
+  // 도미노 한 개의 꼭짓점(앞 아래 모서리를 축으로 th만큼 넘어감)
+  function world(d, a, b, z){
+    var r = d.th * Math.PI / 180, c = Math.cos(r), s = Math.sin(r);
+    var a2 = d.t / 2 + (a - d.t / 2) * c + z * s, z2 = -(a - d.t / 2) * s + z * c;
+    return [d.x + a2 * d.ca - b * d.sa, d.y + a2 * d.sa + b * d.ca, z2];
+  }
+  var FACES = [ // [법선(a,b,z), 네 꼭짓점]
+    [[1,0,0],  [[1,-1,0],[1,1,0],[1,1,1],[1,-1,1]]],
+    [[-1,0,0], [[-1,1,0],[-1,-1,0],[-1,-1,1],[-1,1,1]]],
+    [[0,1,0],  [[1,1,0],[-1,1,0],[-1,1,1],[1,1,1]]],
+    [[0,-1,0], [[-1,-1,0],[1,-1,0],[1,-1,1],[-1,-1,1]]],
+    [[0,0,1],  [[1,-1,1],[1,1,1],[-1,1,1],[-1,-1,1]]]
+  ];
+  var PIPS = [[], [[0,0]], [[-1,-1],[1,1]], [[-1,-1],[0,0],[1,1]], [[-1,-1],[1,-1],[-1,1],[1,1]], [[-1,-1],[1,-1],[0,0],[-1,1],[1,1]], [[-1,-1],[-1,0],[-1,1],[1,-1],[1,0],[1,1]]];
+  function v3(d, f){ return world(d, f[0] * d.t / 2, f[1] * d.w / 2, f[2] * d.h); }
+  function nrm(d, n){
+    var r = d.th * Math.PI / 180, c = Math.cos(r), s = Math.sin(r);
+    var a2 = n[0] * c + n[2] * s, z2 = -n[0] * s + n[2] * c;
+    return [a2 * d.ca - n[1] * d.sa, a2 * d.sa + n[1] * d.ca, z2];
+  }
+  function drawDomino(d){
+    var cen = world(d, 0, 0, d.h / 2);
+    FACES.forEach(function(F){
+      var n = nrm(d, F[0]);
+      var fc = v3(d, [F[0][0], F[0][1], F[0][2] === 1 ? 1 : .5]);
+      var toC = [cam.C[0] - fc[0], cam.C[1] - fc[1], cam.C[2] - fc[2]];
+      if (n[0] * toC[0] + n[1] * toC[1] + n[2] * toC[2] &lt;= 0) return;
+      var lit = Math.max(0, n[0] * L[0] + n[1] * L[1] + n[2] * L[2]);
+      var k = .7 + .36 * lit;
+      var pts = F[1].map(function(f){ return proj(v3(d, f)); });
+      path(ctx, pts);
+      if (F[0][2] === 1){ ctx.fillStyle = shade(d.color, k + .04); }
+      else {                                                              // 아래쪽이 살짝 어두운 면(양감)
+        var lo = proj(world(d, F[0][0] * d.t / 2, F[0][1] * d.w / 2, 0)), hi = proj(world(d, F[0][0] * d.t / 2, F[0][1] * d.w / 2, d.h));
+        var g = ctx.createLinearGradient(lo[0] * S, lo[1] * S, hi[0] * S, hi[1] * S);
+        g.addColorStop(0, shade(d.color, k * .84)); g.addColorStop(1, shade(d.color, k * 1.04));
+        ctx.fillStyle = g;
+      }
+      ctx.fill();
+      ctx.strokeStyle = &#x27;rgba(21,32,51,.22)&#x27;; ctx.lineWidth = Math.max(.6, S * .06); ctx.stroke();
+      if (F[0][0] !== 0){                                                 // 넓은 면: 가운데 선 + 눈(점)
+        var sgn = F[0][0], fa = sgn * d.t / 2 * 1.001;
+        var l1 = proj(world(d, fa, -d.w * .38, d.h / 2)), l2 = proj(world(d, fa, d.w * .38, d.h / 2));
+        ctx.beginPath(); ctx.moveTo(l1[0] * S, l1[1] * S); ctx.lineTo(l2[0] * S, l2[1] * S);
+        ctx.strokeStyle = d.pipCol; ctx.globalAlpha = .55; ctx.lineWidth = Math.max(.7, S * .09); ctx.stroke(); ctx.globalAlpha = 1;
+        ctx.fillStyle = d.pipCol;
+        d.pips.forEach(function(cnt, half){
+          var zc = d.h * (half ? .25 : .75);
+          PIPS[cnt].forEach(function(p){
+            var bb = -sgn * p[0] * d.w * .25, zz = zc + p[1] * d.h * .13, rr = Math.min(d.w, d.h) * .065;
+            var ring = []; for (var q = 0; q &lt; 8; q++){ var an = q / 8 * Math.PI * 2; ring.push(proj(world(d, fa, bb + Math.cos(an) * rr, zz + Math.sin(an) * rr))); }
+            path(ctx, ring); ctx.fill();
+          });
+        });
+      }
+    });
+    d.depth = proj(cen)[2];
+  }
+  function floorPt(x, y){ return proj([x, y, 0]); }
+  function drawScene(t){
+    var W = cv.width, H = cv.height; S = W / 100;
+    ctx.clearRect(0, 0, W, H);
+    // 탁자 앞면 두께 + 윗면
+    path(ctx, [proj([FX0,FY0,0]), proj([FX1,FY0,0]), proj([FX1,FY0,-FZ]), proj([FX0,FY0,-FZ])]); ctx.fillStyle = &#x27;#C9D2DE&#x27;; ctx.fill();
+    path(ctx, [proj([FX0,FY0,0]), proj([FX0,FY1,0]), proj([FX0,FY1,-FZ]), proj([FX0,FY0,-FZ])]); ctx.fillStyle = &#x27;#D6DDE7&#x27;; ctx.fill();
+    var fl = [floorPt(FX0,FY0), floorPt(FX1,FY0), floorPt(FX1,FY1), floorPt(FX0,FY1)];
+    path(ctx, fl);
+    var g = ctx.createLinearGradient(0, fl[0][1] * S, 0, fl[2][1] * S); g.addColorStop(0, &#x27;#E4E9F0&#x27;); g.addColorStop(1, &#x27;#FFFFFF&#x27;);
+    ctx.fillStyle = g; ctx.fill();
+    // 줄(트랙) 바탕
+    [[YA, COL.a, .5, N - .5], [YB, COL.b, DMN.bFrom - .5, N - .5]].forEach(function(r){
+      path(ctx, [floorPt(r[2], r[0] - .5), floorPt(r[3], r[0] - .5), floorPt(r[3], r[0] + .5), floorPt(r[2], r[0] + .5)]);
+      ctx.fillStyle = r[1]; ctx.globalAlpha = .07; ctx.fill(); ctx.globalAlpha = 1;
+    });
+    // 달 칸 눈금, 해 바뀌는 선
+    for (var m = 0; m &lt;= N; m++){
+      var x = m + .5, yr = DMN.years.some(function(y){ return y.m - .5 === x; });
+      var p1 = floorPt(x, FY0), p2 = floorPt(x, FY1);
+      ctx.beginPath(); ctx.moveTo(p1[0] * S, p1[1] * S); ctx.lineTo(p2[0] * S, p2[1] * S);
+      ctx.strokeStyle = yr ? &#x27;rgba(35,57,91,.42)&#x27; : &#x27;rgba(35,57,91,.10)&#x27;; ctx.lineWidth = Math.max(.6, S * (yr ? .1 : .06));
+      if (yr) ctx.setLineDash([S * .5, S * .35]); ctx.stroke(); ctx.setLineDash([]);
+    }
+    solve(t);
+    // 그림자: 빛 방향으로 바닥에 투영한 외곽 → 흐리게
+    shadowCv.width = W; shadowCv.height = H; sctx.clearRect(0, 0, W, H); sctx.fillStyle = &#x27;#1B2A40&#x27;;
+    doms.forEach(function(d){
+      var pts = [];
+      [-1,1].forEach(function(a){ [-1,1].forEach(function(b){ [0,1].forEach(function(z){
+        var w = v3(d, [a, b, z]); pts.push(proj([w[0] - L[0] / L[2] * w[2], w[1] - L[1] / L[2] * w[2], 0]));
+      }); }); });
+      path(sctx, hull(pts)); sctx.fill();
+    });
+    ctx.save(); ctx.globalAlpha = .16;
+    if (&#x27;filter&#x27; in ctx) ctx.filter = &#x27;blur(&#x27; + Math.max(1, S * .28) + &#x27;px)&#x27;;
+    ctx.drawImage(shadowCv, 0, 0); ctx.restore();
+    // 병목 이후 구간 괄호(마지막에 나타남)
+    var na = Math.max(0, Math.min(1, (t - G.s) / .5));
+    if (na &gt; 0){
+      var a1 = floorPt(DMN.note.from, NOTE_Y), a2 = floorPt(N, NOTE_Y);
+      ctx.save(); ctx.globalAlpha = na; ctx.strokeStyle = COL.hot; ctx.lineWidth = Math.max(1, S * .14);
+      ctx.beginPath(); ctx.moveTo(a1[0] * S, a1[1] * S); ctx.lineTo(a2[0] * S, a2[1] * S); ctx.stroke();
+      [DMN.note.from, N].forEach(function(x){ var q1 = floorPt(x, NOTE_Y - .22), q2 = floorPt(x, NOTE_Y + .22);
+        ctx.beginPath(); ctx.moveTo(q1[0] * S, q1[1] * S); ctx.lineTo(q2[0] * S, q2[1] * S); ctx.stroke(); });
+      ctx.restore();
+    }
+    noteEl.classList.toggle(&#x27;is-on&#x27;, na &gt;= 1);
+    // 도미노: 먼 것부터
+    doms.forEach(function(d){ d.depth = proj(world(d, 0, 0, d.h / 2))[2]; });
+    doms.slice().sort(function(p, q){ return q.depth - p.depth; }).forEach(drawDomino);
+    doms.forEach(function(d){ if (d.el) d.el.classList.toggle(&#x27;is-on&#x27;, d.th &gt; 18); });
+  }
+
+  /* ── 7. 재생 제어 ── */
+  var now = END, raf = 0, stepIdx = -1;
+  var reduce = window.matchMedia &amp;&amp; matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  function resize(){ var r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.max(1, Math.round(r.width * dpr)); cv.height = Math.max(1, Math.round(r.height * dpr)); drawScene(now); }
+  function runTo(target, from){
+    cancelAnimationFrame(raf);
+    if (from != null) now = from;
+    if (reduce){ now = target; drawScene(now); return; }
+    var last = performance.now();
+    (function tick(ts){
+      now = Math.min(target, now + (ts - last) / 1000); last = ts;
+      drawScene(now);
+      if (now &lt; target) raf = requestAnimationFrame(tick);
+    })(last);
+  }
+  function setStatus(txt){ statusEl.textContent = txt; }
+  root.querySelector(&#x27;[data-act=&quot;play&quot;]&#x27;).addEventListener(&#x27;click&#x27;, function(){
+    stepIdx = -1; setStatus(&#x27;처음부터 재생&#x27;); runTo(END, 0);
+  });
+  root.querySelector(&#x27;[data-act=&quot;step&quot;]&#x27;).addEventListener(&#x27;click&#x27;, function(){
+    if (stepIdx &gt;= DMN.steps.length - 1 || stepIdx &lt; 0){ stepIdx = 0; now = 0; } else stepIdx++;
+    setStatus(&#x27;단계 &#x27; + (stepIdx + 1) + &#x27;/&#x27; + DMN.steps.length + &#x27; · &#x27; + DMN.steps[stepIdx].title);
+    runTo(BOUND[stepIdx]);
+  });
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(cv); else window.addEventListener(&#x27;resize&#x27;, resize);
+  resize();                                                              // 열면 완성 상태
+  if (!reduce) setTimeout(function(){ setStatus(&#x27;처음부터 재생&#x27;); runTo(END, 0); }, 900); // 그다음 처음부터 한 번
+})();
+&lt;/script&gt;
+</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>PPT로 옮기기 <span>PowerPoint 한국어판 기준</span></h2>
+    <p class="pg-sub">도미노는 <b>직사각형</b>에 [도형 서식] → 효과 → <b>3차원 서식</b>(깊이 8pt, 위쪽 입체 '둥글게' 2pt, 재질 '무광택', 조명 '부드러움')을 주고 점은 작은 원으로 그려 그룹으로 묶습니다. 탁자는 큰 직사각형에 <b>3차원 회전</b> '원근감: 위에서 보기'를 줍니다.</p>
+    <div class="pg-tablewrap" style="margin-top:12px">
+      <table>
+        <thead><tr><th>순서</th><th>대상 개체</th><th>방법</th><th>효과 옵션 · 시작 · 재생 시간 · 지연</th></tr></thead>
+        <tbody>
+          <tr><td>0 준비</td><td>도미노 그룹 하나하나</td><td>회전 축을 바닥 모서리로 옮기는 요령: 도미노 아래에 같은 크기의 <b>투명 직사각형</b>(채우기·선 없음)을 붙여 그룹으로 묶습니다. 그룹의 가운데가 도미노 바닥이 됩니다.</td><td>선택 창(Alt+F10)에서 이름을 <b>A01, A02…, B03…, G16</b>처럼 붙여 두면 다음 단계가 쉬워집니다.</td></tr>
+          <tr><td>1 넘어지기</td><td>A01 그룹</td><td>[애니메이션] → 강조 → <b>회전</b></td><td>효과 옵션: 시계 방향, 양 '사용자 지정' 60° · 시작: 클릭할 때 · 재생 시간 0.30초 · [효과 옵션] 대화 상자에서 '부드럽게 시작' 0.25초(가속)</td></tr>
+          <tr><td>2 연쇄</td><td>A02~A15, B03~B15</td><td>같은 <b>회전</b>을 애니메이션 복사(Alt+Shift+C → 붙여 넣기)</td><td>시작: 이전 효과와 함께 · 재생 시간 0.30초 · 지연을 0.15초씩 늘림(A02 0.15, A03 0.30 …). 같은 달의 A·B는 같은 지연</td></tr>
+          <tr><td>3 합류</td><td>G16(재개관)</td><td>강조 → <b>회전</b> 90° + 끝에 '바운스 종료' 0.1초</td><td>시작: 이전 효과와 함께 · 재생 시간 0.70초 · 지연 = A15 지연 + 0.15초</td></tr>
+          <tr><td>4 이름표</td><td>아래 이름표 상자</td><td>강조 → <b>채우기 색</b>(흰색 → 트랙 색) 또는 나타내기 → <b>밝기 변화</b></td><td>시작: 이전 효과와 함께 · 재생 시간 0.25초 · 지연 = 해당 도미노 지연 + 0.10초</td></tr>
+          <tr><td>5 결론</td><td>주황 괄호 + 문구</td><td>나타내기 → <b>닦아내기</b></td><td>효과 옵션: 왼쪽에서 · 시작: 이전 효과 다음에 · 재생 시간 0.50초</td></tr>
+          <tr><td>대안 모핑</td><td>슬라이드 전체</td><td>슬라이드 1(모두 서 있음)을 단계 수만큼 복제하고, 슬라이드마다 그 단계까지의 도미노만 회전(60°, 마지막 90°)한 뒤 [전환] → <b>모핑</b>을 줍니다. 이름 앞에 <b>!!</b>를 붙이면(!!A06) 모양이 조금 달라도 같은 개체로 짝지어 움직입니다.</td><td>효과 옵션: 개체 · 재생 시간 0.8초 · 화면 전환: 마우스를 클릭할 때 → '한 단계씩'과 같은 진행</td></tr>
+          <tr><td>안 되는 것</td><td>앞 도미노에 기대어 멈추기</td><td>PPT에는 충돌 계산이 없습니다. 각도를 미리 정해 근사합니다: 첫 접촉 35°, 줄 중간 60°, 줄 끝 70°, 합류 도미노 90°.</td><td>원근 3D가 번거로우면 옆에서 본 평면 측면도(막대 회전)만으로도 연쇄가 읽힙니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>스펙</h2>
+    <div class="pg-sw">
+      <div><i style="background:#F5F7FA"></i>#F5F7FA 바탕</div>
+      <div><i style="background:#23395B"></i>#23395B 시설</div>
+      <div><i style="background:#13877B"></i>#13877B 운영</div>
+      <div><i style="background:#EC5730"></i>#EC5730 병목</div>
+      <div><i style="background:#F2B233"></i>#F2B233 목표</div>
+      <div><i style="background:#FBFAF6"></i>#FBFAF6 도미노</div>
+    </div>
+    <dl>
+      <dt>폰트</dt><dd>IBM Plex Sans KR 400·500·700 (대체: Apple SD Gothic Neo, 맑은 고딕) · 달 눈금 IBM Plex Mono 500 (대체: Consolas)</dd>
+      <dt>표현</dt><dd>canvas 원근 투영으로 그린 상아색 도미노(면마다 왼쪽 앞 위 빛 음영, 아래가 어두운 그라데이션, 흐린 바닥 그림자). 도미노끼리의 접촉 각을 미리 계산해 실제처럼 앞 도미노에 기대어 멈춥니다.</dd>
+      <dt>난이도</dt><dd>HTML 상(3D 투영·접촉 계산) · PPT 중(회전 축 그룹 요령 + 지연 누적)</dd>
+      <dt>반영 트렌드</dt><dd>2D와 3D 사이의 하이브리드(평면 정보 위에 부드러운 3D 깊이)와 상태에 따라 움직이는 인터랙티브 모션 — <a href="https://www.tangence.com/blog/?p=1093" target="_blank" rel="noopener">Tangence, Top Motion Graphic Trends in 2026</a></dd>
+      <dt>재사용 범위</dt><dd>선후 관계가 있는 모든 일정. 줄은 2개까지가 읽기 좋고, 기간은 12~18개월이 한 장에 맞습니다.</dd>
+    </dl>
+  </section>
+</div>
+
+<script>
+document.getElementById('pg-copy').addEventListener('click', function(){
+  var btn = this, txt = document.getElementById('pg-pre').innerText;
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(document.getElementById('pg-pre')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨 — Ctrl+C'; }
+  try {
+    navigator.clipboard.writeText(txt).then(function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1600); }, selectAll);
+  } catch (e) { selectAll(); }
+});
+</script>
+
+</body></html>
