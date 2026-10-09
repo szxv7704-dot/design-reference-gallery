@@ -1,0 +1,1113 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #46 미니멀 스튜디오 키트</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@800;900&family=IBM+Plex+Sans+KR:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 페이지: 밝은 스튜디오 단일 테마(의도). 장표 3장을 세로로, 아래에 계열 값 카드·코드·PPT 안내 */
+/* B 미니멀 스튜디오 계열 값 — 이 묶음만 바꾸면 계열이 바뀝니다 */
+:root, .bk-slide{
+  --ds-bg:#EEF1F4;        /* 바탕: 전시 스튜디오 청백 */
+  --ds-surface:#FAFAF8;   /* 면: 흰 클레이 모형 윗면 */
+  --ds-ink:#1F2B36;       /* 본문 글자: 명판 남색 */
+  --ds-sub:#5E6974;       /* 보조 글자 */
+  --ds-line:#CDD4DB;      /* 구분선 */
+  --ds-accent:#E2571A;    /* 강조 1: 점등 주황 — 한 화면 한 곳 */
+  --ds-accent2:#2F5D86;   /* 보조 강조: 도면 청색 */
+  --ds-c1:#2F4252; --ds-c2:#4F6679; --ds-c3:#7389A0; --ds-c4:#9DB0C1; --ds-c5:#C6D2DC;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:2px;
+  --ds-shadow:0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30);
+}
+
+:root{color-scheme:light;
+  --pg-bg:#F4F6F8; --pg-paper:#FFFFFF; --pg-ink:#1F2B36; --pg-sub:#5E6974; --pg-line:#D9DFE5; --pg-code:#16202A; --pg-code-ink:#DCE3EA; --pg-acc:#C24A12;
+  --pg-sans:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono",Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--pg-bg);color:var(--pg-ink);font:15px/1.65 var(--pg-sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:28px 72px}
+.top .k{font:500 12px var(--pg-mono);letter-spacing:.12em;color:var(--pg-sub);text-transform:uppercase;margin:0}
+.top h1{font:800 clamp(26px,4vw,40px)/1.2 var(--pg-head);letter-spacing:-.03em;margin:8px 0 6px;text-wrap:balance}
+.top p.lede{margin:0;color:var(--pg-sub);max-width:72ch}
+.slides{margin-top:28px;display:grid;gap:28px}
+.slides figure{margin:0;min-width:0}
+.slides figcaption{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:10px;font-size:13.5px;color:var(--pg-sub)}
+.slides figcaption b{font:500 12px var(--pg-mono);letter-spacing:.1em;color:var(--pg-ink)}
+.secbtns{display:flex;flex-wrap:wrap;gap:6px}
+.secbtns button{font:500 13px var(--pg-sans);border:1px solid var(--pg-line);background:var(--pg-paper);color:var(--pg-ink);padding:5px 11px;border-radius:2px;cursor:pointer}
+.secbtns button[aria-pressed=true]{border-color:var(--pg-ink);background:var(--pg-ink);color:var(--pg-paper)}
+.secbtns button:focus-visible,.copy:focus-visible,pre:focus-visible{outline:2px solid var(--pg-acc);outline-offset:2px}
+section.blk{margin-top:56px}
+section.blk>h2{font:800 22px/1.3 var(--pg-head);letter-spacing:-.02em;margin:0 0 4px}
+section.blk>h2 span{font:500 12px var(--pg-mono);color:var(--pg-sub);letter-spacing:.1em;margin-right:10px}
+section.blk>p.d{margin:0 0 16px;color:var(--pg-sub);max-width:72ch}
+.card{background:var(--pg-paper);border:1px solid var(--pg-line);padding:22px;min-width:0}
+@media (max-width:560px){.card{padding:16px 14px}}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.sw div{border:1px solid var(--pg-line);background:var(--pg-paper);font-size:12px;min-width:0}
+.sw i{display:block;height:44px;border-bottom:1px solid var(--pg-line)}
+.sw p{margin:0;padding:6px 8px;line-height:1.4}
+.sw code{font:12px var(--pg-mono)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:0 28px;margin-top:22px}
+.rules dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:0}
+.rules dt,.rules dd{padding:11px 0;border-bottom:1px solid var(--pg-line);margin:0;min-width:0}
+.rules dt{font-weight:700;font-size:13.5px;color:var(--pg-sub)}
+.rules dd{font-size:14px}
+.typo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px;margin-top:22px}
+.typo div{border-top:2px solid var(--pg-ink);padding-top:10px;min-width:0}
+.typo .s1{font:800 30px/1.2 var(--ds-font-title);letter-spacing:-.03em}
+.typo .s2{font:400 17px/1.5 var(--ds-font-body)}
+.typo .s3{font:500 20px/1.3 var(--ds-font-num);letter-spacing:.06em}
+.typo small{display:block;margin-top:6px;color:var(--pg-sub);font-size:12.5px}
+.dont{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px}
+.dont li{border:1px solid var(--pg-line);padding:12px 14px;font-size:14px;min-width:0}
+.dont li b{display:block;font:500 11px var(--pg-mono);letter-spacing:.12em;color:var(--pg-acc);margin-bottom:4px}
+.els{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(360px,100%),1fr));gap:0 24px}
+.els li{display:grid;grid-template-columns:42px 1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--pg-line);font-size:14px;min-width:0}
+.els .no{font:500 12.5px var(--pg-mono);color:var(--pg-sub);padding-top:2px}
+.els a{color:var(--pg-ink);font-weight:500}
+.els .it{font-size:12.5px;color:var(--pg-sub);white-space:nowrap}
+.els .tx{grid-column:2;font-size:12px;color:var(--pg-sub)}
+ol.how{margin:0 0 18px;padding-left:20px;max-width:80ch}
+ol.how li{margin:3px 0}
+.cbs{display:grid;gap:18px}
+.cb{min-width:0}
+.cb-h{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--pg-code);color:var(--pg-code-ink);padding:8px 12px;font:500 12.5px var(--pg-mono)}
+.copy{font:500 12.5px var(--pg-sans);border:1px solid var(--pg-code-ink);background:transparent;color:var(--pg-code-ink);padding:4px 10px;border-radius:2px;cursor:pointer}
+.cb pre{margin:0;max-height:520px;overflow:auto;background:var(--pg-code);color:var(--pg-code-ink);padding:14px 16px;font:12.5px/1.55 var(--pg-mono);border-top:1px solid #2A3744}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--pg-line)}
+th{font-size:12.5px;color:var(--pg-sub);font-weight:500}
+td code{font:12.5px var(--pg-mono)}
+.chip{display:inline-block;width:14px;height:14px;border:1px solid var(--pg-line);vertical-align:-2px;margin-right:6px}
+.spec{display:grid;grid-template-columns:120px 1fr;gap:10px 16px;margin:0;font-size:14px}
+.spec dt{font-weight:700;color:var(--pg-sub);font-size:13px}
+.spec dd{margin:0;min-width:0}
+@media (max-width:560px){.spec,.rules dl{grid-template-columns:1fr}.rules dt{border-bottom:0;padding-bottom:0}}
+a{color:#2F5D86}
+.foot{font-size:13px;color:var(--pg-sub);margin-top:14px}
+/* ---- 장표 CSS ---- */
+/* ===== 공통 뼈대: 1600×900 가상 화면, 1px = var(--px) ===== */
+.bk-slide{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius)}
+.bk-slide *{box-sizing:border-box}
+.bk-in{position:absolute;inset:0;--px:calc(100cqw / 1600)}
+.bk-abs{position:absolute}
+/* 머리말 띠 (y 40~88): 섹션 표시 + 축척 막대 끝선 */
+.bk-band{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(40*var(--px));height:calc(48*var(--px));
+  display:flex;align-items:center;justify-content:space-between;border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.bk-band .bk-sec{display:flex;align-items:center;gap:calc(14*var(--px));font-size:calc(17*var(--px));font-weight:500;letter-spacing:-.01em}
+.bk-band .bk-sec b{font:500 calc(15*var(--px))/1 var(--ds-font-num);letter-spacing:.08em;color:var(--ds-ink);
+  padding-right:calc(14*var(--px));border-right:calc(1*var(--px)) solid var(--ds-line)}
+.bk-band .bk-plan{display:flex;align-items:center;gap:calc(16*var(--px));font-size:calc(14*var(--px));color:var(--ds-sub)}
+/* 축척 막대: 흑백 교대 다섯 칸 — 모형 사진의 축척 표시에서 빌림 */
+.bk-scale{display:flex;height:calc(6*var(--px));border:calc(1*var(--px)) solid var(--ds-ink)}
+.bk-scale i{display:block;width:calc(12*var(--px));background:var(--ds-surface)}
+.bk-scale i:nth-child(odd){background:var(--ds-ink)}
+/* 제목 (y 112~) */
+.bk-title{position:absolute;left:calc(80*var(--px));top:calc(112*var(--px));width:calc(1000*var(--px));margin:0;
+  font:800 calc(50*var(--px))/1.24 var(--ds-font-title);letter-spacing:-.03em;text-wrap:balance}
+.bk-title em{font-style:normal;color:var(--ds-accent)}
+/* 바닥 줄 (y 846~) */
+.bk-foot{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(846*var(--px));
+  display:flex;justify-content:space-between;align-items:baseline;font-size:calc(14*var(--px));color:var(--ds-sub)}
+.bk-foot .bk-pg{font:500 calc(14*var(--px))/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-ink)}
+.bk-mono{font-family:var(--ds-font-num);letter-spacing:.1em}
+.bk-cap{font:500 calc(13*var(--px))/1.5 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
+
+/* ===== 흰 매스 모형 (SVG, 단위 m) — 면 3단 음영은 한 방향 광원(왼쪽 위) ===== */
+.bk-model{position:absolute;overflow:visible}
+.bk-model .t{fill:var(--ds-surface)}
+.bk-model .l{fill:color-mix(in srgb,var(--ds-surface) 91%,var(--ds-ink))}
+.bk-model .r{fill:color-mix(in srgb,var(--ds-surface) 80%,var(--ds-ink))}
+.bk-model .deck{fill:color-mix(in srgb,var(--ds-surface) 86%,var(--ds-ink))}
+.bk-model .pl-t{fill:color-mix(in srgb,var(--ds-surface) 96%,var(--ds-ink))}
+.bk-model .gl{fill:color-mix(in srgb,var(--ds-surface) 74%,var(--ds-ink))}
+.bk-model .gr{fill:color-mix(in srgb,var(--ds-surface) 66%,var(--ds-ink))}
+.bk-model .slab{fill:color-mix(in srgb,var(--ds-surface) 72%,var(--ds-ink))}
+.bk-model .mu-l{stroke:color-mix(in srgb,var(--ds-surface) 91%,var(--ds-ink));stroke-width:.32}
+.bk-model .mu-r{stroke:color-mix(in srgb,var(--ds-surface) 80%,var(--ds-ink));stroke-width:.32}
+.bk-model .edge{fill:none;stroke:var(--ds-surface);stroke-width:.12;stroke-opacity:.9}
+.bk-model .shd{fill:var(--ds-ink);opacity:.16}
+.bk-model .lead{stroke:var(--ds-ink);stroke-width:.14;fill:none}
+.bk-model .lead-dot{fill:var(--ds-ink)}
+.bk-model text{font-family:var(--ds-font-num);fill:var(--ds-sub);letter-spacing:.06em}
+/* 점등: 층 전체(간지) */
+.bk-model .fl.on .l{fill:color-mix(in srgb,var(--ds-accent) 34%,var(--ds-surface))}
+.bk-model .fl.on .r{fill:color-mix(in srgb,var(--ds-accent) 52%,var(--ds-surface))}
+.bk-model .fl.on .gl{fill:color-mix(in srgb,var(--ds-accent) 82%,var(--ds-ink))}
+.bk-model .fl.on .gr{fill:color-mix(in srgb,var(--ds-accent) 70%,var(--ds-ink))}
+.bk-model .fl.on .mu-l{stroke:color-mix(in srgb,var(--ds-accent) 34%,var(--ds-surface))}
+.bk-model .fl.on .mu-r{stroke:color-mix(in srgb,var(--ds-accent) 52%,var(--ds-surface))}
+/* 점등: 창만(마무리) */
+.bk-model .fl.win .gl{fill:color-mix(in srgb,var(--ds-accent) 62%,var(--ds-surface))}
+.bk-model .fl.win .gr{fill:color-mix(in srgb,var(--ds-accent) 78%,var(--ds-surface))}
+
+/* 목차 */
+.bk-toc-list{position:absolute;left:calc(80*var(--px));top:calc(262*var(--px));width:calc(820*var(--px));margin:0;padding:0;list-style:none;
+  border-top:calc(1*var(--px)) solid var(--ds-ink)}
+.bk-toc-list li{display:grid;grid-template-columns:calc(84*var(--px)) 1fr auto;align-items:baseline;column-gap:calc(8*var(--px));
+  height:calc(108*var(--px));padding-top:calc(26*var(--px));border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.bk-toc-list .n{font:800 calc(24*var(--px))/1 var(--ds-font-title)}
+.bk-toc-list .nm{font:800 calc(32*var(--px))/1.15 var(--ds-font-title);letter-spacing:-.03em}
+.bk-toc-list .sb{grid-column:2;font-size:calc(17*var(--px));line-height:1.4;color:var(--ds-sub);margin-top:calc(8*var(--px))}
+.bk-toc-list .pg{grid-row:1;grid-column:3;font:500 calc(16*var(--px))/1 var(--ds-font-num);color:var(--ds-sub);letter-spacing:.06em}
+.bk-toc-model{left:calc(930*var(--px));top:calc(240*var(--px));width:calc(640*var(--px));height:calc(520*var(--px))}
+.bk-toc-cap{position:absolute;left:calc(1000*var(--px));top:calc(782*var(--px));margin:0}
+
+/* 간지 */
+.bk-div-big{position:absolute;left:calc(44*var(--px));top:calc(96*var(--px));font:900 calc(560*var(--px))/1 var(--ds-font-title);
+  color:color-mix(in srgb,var(--ds-ink) 6%,var(--ds-bg));letter-spacing:-.04em;pointer-events:none;white-space:nowrap}
+.bk-div-main{position:absolute;left:calc(80*var(--px));top:calc(250*var(--px));width:calc(820*var(--px))}
+.bk-div-k{margin:0;font-size:calc(16*var(--px));color:var(--ds-sub)}
+.bk-div-name{margin:calc(18*var(--px)) 0 0;font:800 calc(92*var(--px))/1.12 var(--ds-font-title);letter-spacing:-.04em;text-wrap:balance}
+.bk-div-sub{margin:calc(26*var(--px)) 0 0;padding-top:calc(22*var(--px));border-top:calc(2*var(--px)) solid var(--ds-ink);width:calc(560*var(--px));
+  font-size:calc(26*var(--px));line-height:1.35;color:var(--ds-ink)}
+.bk-div-items{margin:calc(28*var(--px)) 0 0;padding:0;list-style:none;display:grid;gap:calc(10*var(--px));font-size:calc(18*var(--px));color:var(--ds-sub)}
+.bk-div-items li{display:grid;grid-template-columns:calc(44*var(--px)) 1fr}
+.bk-div-items li span{font-family:var(--ds-font-num);color:var(--ds-ink)}
+.bk-div-prog{position:absolute;left:calc(80*var(--px));top:calc(770*var(--px));margin:0;padding:0;list-style:none;display:flex;gap:calc(6*var(--px))}
+.bk-div-prog li{width:calc(96*var(--px));padding-top:calc(10*var(--px));border-top:calc(4*var(--px)) solid var(--ds-line);
+  font:500 calc(13*var(--px))/1 var(--ds-font-num);color:var(--ds-sub);letter-spacing:.06em}
+.bk-div-prog li.cur{border-top-color:var(--ds-ink);color:var(--ds-ink)}
+.bk-div-model{left:calc(850*var(--px));top:calc(170*var(--px));width:calc(700*var(--px));height:calc(600*var(--px))}
+/* 전환 하나: 층 점등 0.7초 */
+.bk-div .bk-model .fl polygon,.bk-div .bk-model .fl line{transition:fill .7s ease,stroke .7s ease}
+@media (prefers-reduced-motion:reduce){.bk-div .bk-model .fl polygon,.bk-div .bk-model .fl line{transition:none}}
+
+/* 마무리 */
+.bk-end-k{position:absolute;left:calc(80*var(--px));top:calc(232*var(--px));margin:0;font-size:calc(16*var(--px));color:var(--ds-sub)}
+.bk-end-msg{position:absolute;left:calc(80*var(--px));top:calc(272*var(--px));width:calc(900*var(--px));margin:0;
+  font:800 calc(62*var(--px))/1.22 var(--ds-font-title);letter-spacing:-.04em}
+.bk-end-contact{position:absolute;left:calc(80*var(--px));top:calc(560*var(--px));width:calc(760*var(--px));margin:0;
+  display:grid;grid-template-columns:1fr 1fr;border-top:calc(2*var(--px)) solid var(--ds-ink)}
+.bk-end-contact div{padding:calc(18*var(--px)) 0 calc(16*var(--px));border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.bk-end-contact dt{font:500 calc(13*var(--px))/1 var(--ds-font-num);letter-spacing:.1em;color:var(--ds-sub)}
+.bk-end-contact dd{margin:calc(10*var(--px)) 0 0;font-size:calc(21*var(--px));font-weight:500}
+.bk-end-model{left:calc(920*var(--px));top:calc(220*var(--px));width:calc(590*var(--px));height:calc(540*var(--px))}
+.bk-end-cap{position:absolute;left:calc(1000*var(--px));top:calc(782*var(--px));margin:0}
+
+</style>
+<div class="wrap">
+  <header class="top">
+    <p class="k">레퍼런스 #46 · 계열 키트 · 가상 예시</p>
+    <h1>B 미니멀 스튜디오 계열 키트</h1>
+    <p class="lede">표지 #19 화이트 단지 모형, #26 구명튜브, #28 기준음 A440, #37 분광 프리즘 뒤에 붙는 목차·섹션 간지·마무리 3장과 계열 값입니다. 밝은 청백 스튜디오, 흰 매스 모형 하나, 점등 주황 한 곳이라는 표지의 약속을 본문 장표의 뼈대로 옮겼습니다.</p>
+  </header>
+
+  <div class="slides">
+    <figure><!-- 장표 1: 목차 -->
+<section class="bk-slide bk-toc" aria-label="목차 장표">
+  <div class="bk-in">
+    <header class="bk-band"><div class="bk-sec"><b>00</b>목차</div><div class="bk-plan"><span class="bk-planname"></span><span class="bk-scale" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div></header>
+    <h2 class="bk-title">아래층 기초부터 옥상까지,<br><em>다섯 단계</em>로 설명합니다</h2>
+    <ol class="bk-toc-list"></ol>
+    <svg class="bk-model bk-toc-model" role="img" aria-label="5층 흰 매스 모형. 1층이 Ⅰ장, 5층이 Ⅴ장"></svg>
+    <p class="bk-cap bk-toc-cap">FIG. 00 — ○○초등학교 본관 매스 모형 · 층 = 장 순서</p>
+    <footer class="bk-foot"><span>가상 예시 · 출처: ○○교육청 내부 자료(가상)</span><span class="bk-pg">02</span></footer>
+  </div>
+</section>
+<figcaption><b>01 목차</b>층 = 장 순서. 1층(기초)이 Ⅰ장, 5층(옥상)이 Ⅴ장입니다. 정지 장표.</figcaption></figure>
+    <figure><!-- 장표 2: 섹션 간지 (번호·이름은 BK_SECTIONS에서) -->
+<section class="bk-slide bk-div" aria-label="섹션 간지 장표">
+  <div class="bk-in">
+    <div class="bk-div-big" aria-hidden="true"></div>
+    <header class="bk-band"><div class="bk-sec"><b class="bk-div-no"></b><span class="bk-div-nm1"></span></div><div class="bk-plan"><span class="bk-planname"></span><span class="bk-scale" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div></header>
+    <div class="bk-div-main">
+      <p class="bk-mono bk-div-k"></p>
+      <h2 class="bk-div-name"></h2>
+      <p class="bk-div-sub"></p>
+      <ul class="bk-div-items"></ul>
+    </div>
+    <ol class="bk-div-prog" aria-label="전체 진행"></ol>
+    <svg class="bk-model bk-div-model" role="img" aria-label="5층 흰 매스 모형, 현재 장의 층에 불이 켜짐"></svg>
+    <footer class="bk-foot"><span>가상 예시</span><span class="bk-pg bk-div-pg"></span></footer>
+  </div>
+</section>
+<figcaption><b>02 섹션 간지</b><span>번호·이름만 바꿔 다섯 번 씁니다. 해당 층이 0.7초에 점등됩니다.</span>
+      <span class="secbtns" role="group" aria-label="간지 섹션 바꿔 보기">
+        <button type="button" data-i="0" aria-pressed="false">Ⅰ</button><button type="button" data-i="1" aria-pressed="false">Ⅱ</button><button type="button" data-i="2" aria-pressed="true">Ⅲ</button><button type="button" data-i="3" aria-pressed="false">Ⅳ</button><button type="button" data-i="4" aria-pressed="false">Ⅴ</button>
+      </span></figcaption></figure>
+    <figure><!-- 장표 3: 마무리 -->
+<section class="bk-slide bk-end" aria-label="마무리 장표">
+  <div class="bk-in">
+    <header class="bk-band"><div class="bk-sec"><b>END</b>맺음</div><div class="bk-plan"><span class="bk-planname"></span><span class="bk-scale" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div></header>
+    <p class="bk-mono bk-end-k">CLOSING</p>
+    <h2 class="bk-end-msg">학생의 하루가 머무는 공간부터<br>한 층씩 바꾸겠습니다</h2>
+    <dl class="bk-end-contact"></dl>
+    <svg class="bk-model bk-end-model" role="img" aria-label="다섯 층 창에 모두 불이 켜진 흰 매스 모형"></svg>
+    <p class="bk-cap bk-end-cap">FIG. 06 — 다섯 층 점등 · 2029 완료 목표(가상)</p>
+    <footer class="bk-foot"><span>가상 예시</span><span class="bk-pg">24</span></footer>
+  </div>
+</section>
+<figcaption><b>03 마무리</b>표지의 "한 곳 점등"이 마지막 장에서 "다섯 층 모두 점등"으로 닫힙니다. 정지 장표.</figcaption></figure>
+  </div>
+
+  <section class="blk">
+    <h2><span>CARD</span>계열 값 카드 · B 미니멀 스튜디오</h2>
+    <p class="d">표지 4장(#19·26·28·37)의 공통점: 밝은 청백 무광 바탕, 흰 사물 하나와 부드러운 접지 그림자, 남색 굵은 고딕 제목, 고정폭 숫자의 전시 캡션(FIG.), 강조색은 따뜻한 주황 계열 한 곳.</p>
+    <div class="card">
+      <div class="sw">
+        <div><i style="background:var(--ds-bg)"></i><p>--ds-bg 바탕<br><code>#EEF1F4</code></p></div>
+        <div><i style="background:var(--ds-surface)"></i><p>--ds-surface 면<br><code>#FAFAF8</code></p></div>
+        <div><i style="background:var(--ds-ink)"></i><p>--ds-ink 글자<br><code>#1F2B36</code></p></div>
+        <div><i style="background:var(--ds-sub)"></i><p>--ds-sub 보조<br><code>#5E6974</code></p></div>
+        <div><i style="background:var(--ds-line)"></i><p>--ds-line 선<br><code>#CDD4DB</code></p></div>
+        <div><i style="background:var(--ds-accent)"></i><p>--ds-accent 점등<br><code>#E2571A</code></p></div>
+        <div><i style="background:var(--ds-accent2)"></i><p>--ds-accent2 도면 청색<br><code>#2F5D86</code></p></div>
+        <div><i style="background:linear-gradient(90deg,var(--ds-c1) 0 20%,var(--ds-c2) 0 40%,var(--ds-c3) 0 60%,var(--ds-c4) 0 80%,var(--ds-c5) 0)"></i><p>--ds-c1~c5 분류(남회색 한 계통)<br><code>#2F4252 → #C6D2DC</code></p></div>
+      </div>
+      <div class="typo">
+        <div><span class="s1">결론 한 문장 제목</span><small>제목 · Gothic A1 800 (대체: 프리텐다드 ExtraBold → 맑은 고딕 굵게)</small></div>
+        <div><span class="s2">본문과 표의 글자는 이 크기로 읽힙니다.</span><small>본문 · IBM Plex Sans KR 400/500 (대체: 프리텐다드 → 맑은 고딕)</small></div>
+        <div><span class="s3">FIG. 03 · 412억 원</span><small>숫자·캡션 · IBM Plex Mono 500 (대체: Consolas)</small></div>
+      </div>
+      <div class="rules">
+        <dl>
+          <dt>머리말 띠</dt><dd>왼쪽 고정폭 섹션 번호 + 세로 가는 선 + 섹션 이름, 오른쪽 계획안 이름과 흑백 다섯 칸 축척 막대. 띠 아래 1px 구분선.</dd>
+          <dt>강조색</dt><dd>한 장에 한 곳. 모형의 점등 부분, 제목 핵심 단어, 핵심 수치 하나 중 하나만. 점등 모형이 있는 장은 제목에 강조색을 쓰지 않습니다.</dd>
+          <dt>질감</dt><dd>평면 + 약한 입체. 입체는 흰 클레이 매스(면 3단 음영, 접지 그림자)까지. 나무·금속 같은 재질은 표지 한 장에만.</dd>
+          <dt>모션</dt><dd>표지 은유 1, 간지 점등 전환 0.7초. 본문은 정지 또는 순차 등장(1.5초 이내).</dd>
+        </dl>
+        <dl>
+          <dt>사진·그림</dt><dd>밝은 무광 배경 위 사물 하나 컷만. 배경을 지운 PNG에 부드러운 접지 그림자. 그림은 흰 매스 모형 문법(창 격자·슬래브선·흰 인물 첨경) 하나로 통일.</dd>
+          <dt>캡션</dt><dd>그림 아래 "FIG. 번호 — 설명" 고정폭 13px. 그림 위 라벨은 지시선 끝에 3개까지.</dd>
+          <dt>분류색</dt><dd>본문 장표에서만 c1~c5 남회색 농도 차로. 다섯 범주를 넘으면 라벨·위치로 구분.</dd>
+          <dt>여백</dt><dd>본문 영역의 30% 이상을 비워 둡니다. 카드 상자보다 가는 선과 정렬로 나눕니다.</dd>
+        </dl>
+      </div>
+      <ul class="dont">
+        <li><b>DON'T 01</b>주황을 여러 곳에 흩뿌리기. 제목·숫자·아이콘이 동시에 주황이면 "점등"의 뜻이 사라집니다.</li>
+        <li><b>DON'T 02</b>어두운 바탕이나 파란 그라데이션 배경. 이 계열은 전시 스튜디오의 밝은 무광 화면이 기준입니다.</li>
+        <li><b>DON'T 03</b>아이콘·사물 여러 개를 나열하기. 한 장의 그림은 사물(모형) 하나, 나머지는 글과 선으로.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span>MATCH</span>이 계열과 어울리는 기존 요소 15개</h2>
+    <p class="d">DB에서 어울리는 계열(families)에 B가 들어 있고 덱에 쓸 수 있는 요소입니다. 계열 값 묶음을 붙이면 같은 분위기로 바뀝니다.</p>
+    <div class="card"><ul class="els"><li><span class="no">#6</span><a href="https://claude.ai/artifact/66y2jVDpPFr4e8GZ2kzvMU" target="_blank" rel="noopener">딜러의 세 더미</a><span class="it">분류·유목화</span><span class="tx">평면</span></li><li><span class="no">#8</span><a href="https://claude.ai/artifact/GCZx1CPy67A8EWvzu7KxfK" target="_blank" rel="noopener">세 겹 병풍</a><span class="it">조직·체계</span><span class="tx">재질</span></li><li><span class="no">#13</span><a href="https://claude.ai/artifact/SerWLxavCg6tcVz91kMUJG" target="_blank" rel="noopener">던져 채우는 오후표</a><span class="it">일정</span><span class="tx">평면</span></li><li><span class="no">#14</span><a href="https://claude.ai/artifact/BVYnUphnh6znAZ4ZeQaBwa" target="_blank" rel="noopener">상세도 호출</a><span class="it">조직·체계</span><span class="tx">평면</span></li><li><span class="no">#15</span><a href="https://claude.ai/artifact/R6QhyXnViC9fX8miy7de7x" target="_blank" rel="noopener">연수 배선반</a><span class="it">조직·체계</span><span class="tx">약한 입체</span></li><li><span class="no">#22</span><a href="https://claude.ai/artifact/WeKwdAvAc3QeCh3D5bFC22" target="_blank" rel="noopener">다섯 칸 다이얼</a><span class="it">흐름·절차</span><span class="tx">평면</span></li><li><span class="no">#23</span><a href="https://claude.ai/artifact/4Gt3kD5ahsVZB35uRzMSdr" target="_blank" rel="noopener">주 경로 간트</a><span class="it">일정</span><span class="tx">평면</span></li><li><span class="no">#33</span><a href="https://claude.ai/artifact/FLb4r1LqoAVHmWBugk44uh" target="_blank" rel="noopener">쪼개지는 예산 사각형</a><span class="it">구성비</span><span class="tx">평면</span></li><li><span class="no">#34</span><a href="https://claude.ai/artifact/LaASks1GbNLmNDsAvDkQF3" target="_blank" rel="noopener">허브 내비게이션 업무보고</a><span class="it">핵심 수치</span><span class="tx">평면</span></li><li><span class="no">#35</span><a href="https://claude.ai/artifact/6dbUR96MRR4MoPm5tg1dxf" target="_blank" rel="noopener">세로 스와이프 카드</a><span class="it">핵심 수치</span><span class="tx">평면</span></li><li><span class="no">#36</span><a href="https://claude.ai/artifact/62XXeCmzfzbVmkU6zfe6dk" target="_blank" rel="noopener">유지선을 넘는 유리 적층</a><span class="it">비교·순위</span><span class="tx">재질</span></li><li><span class="no">#38</span><a href="https://claude.ai/artifact/JJdiNwZ3MwqyiJ6aCNasR5" target="_blank" rel="noopener">열섬 육각 지형</a><span class="it">지도·분포</span><span class="tx">약한 입체</span></li><li><span class="no">#40</span><a href="https://claude.ai/artifact/3oRk9UnrciRcVdDi6atRxJ" target="_blank" rel="noopener">도미노 일정표</a><span class="it">일정</span><span class="tx">재질</span></li><li><span class="no">#41</span><a href="https://claude.ai/artifact/V7VwbpUg3F3uoyTQo8rjXE" target="_blank" rel="noopener">타이밍 타워 순위표</a><span class="it">추이</span><span class="tx">평면</span></li><li><span class="no">#44</span><a href="https://claude.ai/artifact/6Lk5cgqZn4RD3oENUR6ad9" target="_blank" rel="noopener">분자 결합 추진체계</a><span class="it">조직·체계</span><span class="tx">재질</span></li></ul></div>
+  </section>
+
+  <section class="blk">
+    <h2><span>HTML</span>HTML로 가져다 쓰기</h2>
+    <ol class="how">
+      <li>장표마다 코드 블록 하나가 자기 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>계획안 이름·섹션 이름은 <code>BK_PLAN</code>, <code>BK_SECTIONS</code> 배열에서, 문의처는 마무리 코드의 <code>C</code> 배열에서 바꿉니다.</li>
+      <li>간지는 <code>bkShowSection(0)</code>~<code>bkShowSection(4)</code>로 섹션을 고릅니다(코드 맨 아래 기본값 2).</li>
+      <li>분위기는 맨 위 <code>--ds-*</code> 묶음만 바꿉니다. 다른 계열 키트의 묶음으로 갈아 끼울 수 있습니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="cbs"><div class="cb"><div class="cb-h"><span>장표 1 · 목차</span><button type="button" class="copy" data-k="toc">코드 복사</button></div><pre id="code-toc" tabindex="0"><code>&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@800;900&amp;family=IBM+Plex+Sans+KR:wght@400;500&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* B 미니멀 스튜디오 계열 값 — 이 묶음만 바꾸면 계열이 바뀝니다 */
+:root, .bk-slide{
+  --ds-bg:#EEF1F4;        /* 바탕: 전시 스튜디오 청백 */
+  --ds-surface:#FAFAF8;   /* 면: 흰 클레이 모형 윗면 */
+  --ds-ink:#1F2B36;       /* 본문 글자: 명판 남색 */
+  --ds-sub:#5E6974;       /* 보조 글자 */
+  --ds-line:#CDD4DB;      /* 구분선 */
+  --ds-accent:#E2571A;    /* 강조 1: 점등 주황 — 한 화면 한 곳 */
+  --ds-accent2:#2F5D86;   /* 보조 강조: 도면 청색 */
+  --ds-c1:#2F4252; --ds-c2:#4F6679; --ds-c3:#7389A0; --ds-c4:#9DB0C1; --ds-c5:#C6D2DC;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;IBM Plex Mono&quot;,&quot;SFMono-Regular&quot;,Consolas,monospace;
+  --ds-radius:2px;
+  --ds-shadow:0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30);
+}
+
+/* ===== 공통 뼈대: 1600×900 가상 화면, 1px = var(--px) ===== */
+.bk-slide{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius)}
+.bk-slide *{box-sizing:border-box}
+.bk-in{position:absolute;inset:0;--px:calc(100cqw / 1600)}
+.bk-abs{position:absolute}
+/* 머리말 띠 (y 40~88): 섹션 표시 + 축척 막대 끝선 */
+.bk-band{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(40*var(--px));height:calc(48*var(--px));
+  display:flex;align-items:center;justify-content:space-between;border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.bk-band .bk-sec{display:flex;align-items:center;gap:calc(14*var(--px));font-size:calc(17*var(--px));font-weight:500;letter-spacing:-.01em}
+.bk-band .bk-sec b{font:500 calc(15*var(--px))/1 var(--ds-font-num);letter-spacing:.08em;color:var(--ds-ink);
+  padding-right:calc(14*var(--px));border-right:calc(1*var(--px)) solid var(--ds-line)}
+.bk-band .bk-plan{display:flex;align-items:center;gap:calc(16*var(--px));font-size:calc(14*var(--px));color:var(--ds-sub)}
+/* 축척 막대: 흑백 교대 다섯 칸 — 모형 사진의 축척 표시에서 빌림 */
+.bk-scale{display:flex;height:calc(6*var(--px));border:calc(1*var(--px)) solid var(--ds-ink)}
+.bk-scale i{display:block;width:calc(12*var(--px));background:var(--ds-surface)}
+.bk-scale i:nth-child(odd){background:var(--ds-ink)}
+/* 제목 (y 112~) */
+.bk-title{position:absolute;left:calc(80*var(--px));top:calc(112*var(--px));width:calc(1000*var(--px));margin:0;
+  font:800 calc(50*var(--px))/1.24 var(--ds-font-title);letter-spacing:-.03em;text-wrap:balance}
+.bk-title em{font-style:normal;color:var(--ds-accent)}
+/* 바닥 줄 (y 846~) */
+.bk-foot{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(846*var(--px));
+  display:flex;justify-content:space-between;align-items:baseline;font-size:calc(14*var(--px));color:var(--ds-sub)}
+.bk-foot .bk-pg{font:500 calc(14*var(--px))/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-ink)}
+.bk-mono{font-family:var(--ds-font-num);letter-spacing:.1em}
+.bk-cap{font:500 calc(13*var(--px))/1.5 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
+
+/* ===== 흰 매스 모형 (SVG, 단위 m) — 면 3단 음영은 한 방향 광원(왼쪽 위) ===== */
+.bk-model{position:absolute;overflow:visible}
+.bk-model .t{fill:var(--ds-surface)}
+.bk-model .l{fill:color-mix(in srgb,var(--ds-surface) 91%,var(--ds-ink))}
+.bk-model .r{fill:color-mix(in srgb,var(--ds-surface) 80%,var(--ds-ink))}
+.bk-model .deck{fill:color-mix(in srgb,var(--ds-surface) 86%,var(--ds-ink))}
+.bk-model .pl-t{fill:color-mix(in srgb,var(--ds-surface) 96%,var(--ds-ink))}
+.bk-model .gl{fill:color-mix(in srgb,var(--ds-surface) 74%,var(--ds-ink))}
+.bk-model .gr{fill:color-mix(in srgb,var(--ds-surface) 66%,var(--ds-ink))}
+.bk-model .slab{fill:color-mix(in srgb,var(--ds-surface) 72%,var(--ds-ink))}
+.bk-model .mu-l{stroke:color-mix(in srgb,var(--ds-surface) 91%,var(--ds-ink));stroke-width:.32}
+.bk-model .mu-r{stroke:color-mix(in srgb,var(--ds-surface) 80%,var(--ds-ink));stroke-width:.32}
+.bk-model .edge{fill:none;stroke:var(--ds-surface);stroke-width:.12;stroke-opacity:.9}
+.bk-model .shd{fill:var(--ds-ink);opacity:.16}
+.bk-model .lead{stroke:var(--ds-ink);stroke-width:.14;fill:none}
+.bk-model .lead-dot{fill:var(--ds-ink)}
+.bk-model text{font-family:var(--ds-font-num);fill:var(--ds-sub);letter-spacing:.06em}
+/* 점등: 층 전체(간지) */
+.bk-model .fl.on .l{fill:color-mix(in srgb,var(--ds-accent) 34%,var(--ds-surface))}
+.bk-model .fl.on .r{fill:color-mix(in srgb,var(--ds-accent) 52%,var(--ds-surface))}
+.bk-model .fl.on .gl{fill:color-mix(in srgb,var(--ds-accent) 82%,var(--ds-ink))}
+.bk-model .fl.on .gr{fill:color-mix(in srgb,var(--ds-accent) 70%,var(--ds-ink))}
+.bk-model .fl.on .mu-l{stroke:color-mix(in srgb,var(--ds-accent) 34%,var(--ds-surface))}
+.bk-model .fl.on .mu-r{stroke:color-mix(in srgb,var(--ds-accent) 52%,var(--ds-surface))}
+/* 점등: 창만(마무리) */
+.bk-model .fl.win .gl{fill:color-mix(in srgb,var(--ds-accent) 62%,var(--ds-surface))}
+.bk-model .fl.win .gr{fill:color-mix(in srgb,var(--ds-accent) 78%,var(--ds-surface))}
+
+/* 목차 */
+.bk-toc-list{position:absolute;left:calc(80*var(--px));top:calc(262*var(--px));width:calc(820*var(--px));margin:0;padding:0;list-style:none;
+  border-top:calc(1*var(--px)) solid var(--ds-ink)}
+.bk-toc-list li{display:grid;grid-template-columns:calc(84*var(--px)) 1fr auto;align-items:baseline;column-gap:calc(8*var(--px));
+  height:calc(108*var(--px));padding-top:calc(26*var(--px));border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.bk-toc-list .n{font:800 calc(24*var(--px))/1 var(--ds-font-title)}
+.bk-toc-list .nm{font:800 calc(32*var(--px))/1.15 var(--ds-font-title);letter-spacing:-.03em}
+.bk-toc-list .sb{grid-column:2;font-size:calc(17*var(--px));line-height:1.4;color:var(--ds-sub);margin-top:calc(8*var(--px))}
+.bk-toc-list .pg{grid-row:1;grid-column:3;font:500 calc(16*var(--px))/1 var(--ds-font-num);color:var(--ds-sub);letter-spacing:.06em}
+.bk-toc-model{left:calc(930*var(--px));top:calc(240*var(--px));width:calc(640*var(--px));height:calc(520*var(--px))}
+.bk-toc-cap{position:absolute;left:calc(1000*var(--px));top:calc(782*var(--px));margin:0}
+&lt;/style&gt;
+&lt;!-- 장표 1: 목차 --&gt;
+&lt;section class=&quot;bk-slide bk-toc&quot; aria-label=&quot;목차 장표&quot;&gt;
+  &lt;div class=&quot;bk-in&quot;&gt;
+    &lt;header class=&quot;bk-band&quot;&gt;&lt;div class=&quot;bk-sec&quot;&gt;&lt;b&gt;00&lt;/b&gt;목차&lt;/div&gt;&lt;div class=&quot;bk-plan&quot;&gt;&lt;span class=&quot;bk-planname&quot;&gt;&lt;/span&gt;&lt;span class=&quot;bk-scale&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;&lt;/header&gt;
+    &lt;h2 class=&quot;bk-title&quot;&gt;아래층 기초부터 옥상까지,&lt;br&gt;&lt;em&gt;다섯 단계&lt;/em&gt;로 설명합니다&lt;/h2&gt;
+    &lt;ol class=&quot;bk-toc-list&quot;&gt;&lt;/ol&gt;
+    &lt;svg class=&quot;bk-model bk-toc-model&quot; role=&quot;img&quot; aria-label=&quot;5층 흰 매스 모형. 1층이 Ⅰ장, 5층이 Ⅴ장&quot;&gt;&lt;/svg&gt;
+    &lt;p class=&quot;bk-cap bk-toc-cap&quot;&gt;FIG. 00 — ○○초등학교 본관 매스 모형 · 층 = 장 순서&lt;/p&gt;
+    &lt;footer class=&quot;bk-foot&quot;&gt;&lt;span&gt;가상 예시 · 출처: ○○교육청 내부 자료(가상)&lt;/span&gt;&lt;span class=&quot;bk-pg&quot;&gt;02&lt;/span&gt;&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+&lt;script&gt;
+/* 흰 매스 모형 그리기: bkModel(svg요소, {lit:[층 번호(0부터)], mode:&#x27;on&#x27;|&#x27;win&#x27;, labels:[{f, text}], id}) */
+function bkModel(svg, o){
+  const W=56, D=16, FH=4, N=5, H=N*FH, PAR=1.1;           // 본관 56×16m, 5층, 층고 4m, 난간 1.1m
+  const A=22*Math.PI/180, B=38*Math.PI/180;               // 축측 투상 각도
+  const P=(x,y,z)=&gt;[x*Math.cos(A)-y*Math.cos(B), x*Math.sin(A)+y*Math.sin(B)-z];
+  const NS=&#x27;http://www.w3.org/2000/svg&#x27;, id=o.id||&#x27;m&#x27;;
+  const pts=a=&gt;a.map(p=&gt;P(...p).map(v=&gt;v.toFixed(2)).join(&#x27;,&#x27;)).join(&#x27; &#x27;);
+  const mk=(tag,attr,parent)=&gt;{const e=document.createElementNS(NS,tag);for(const k in attr)e.setAttribute(k,attr[k]);(parent||svg).appendChild(e);return e;};
+  const poly=(a,cls,g)=&gt;mk(&#x27;polygon&#x27;,{points:pts(a),class:cls},g);
+  const line=(a,b,cls,g)=&gt;{const p=P(...a),q=P(...b);return mk(&#x27;line&#x27;,{x1:p[0],y1:p[1],x2:q[0],y2:q[1],class:cls},g);};
+  // 상자 하나: 윗면·앞면(y=y1)·오른면(x=x1)
+  const box=(x0,y0,z0,x1,y1,z1,g,c)=&gt;{c=c||{};
+    poly([[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],c.l||&#x27;l&#x27;,g);
+    poly([[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],c.r||&#x27;r&#x27;,g);
+    poly([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],c.t||&#x27;t&#x27;,g);};
+  svg.innerHTML=&#x27;&#x27;;
+  const defs=mk(&#x27;defs&#x27;,{});
+  const f=mk(&#x27;filter&#x27;,{id:id+&#x27;-blur&#x27;,x:&#x27;-20%&#x27;,y:&#x27;-20%&#x27;,width:&#x27;140%&#x27;,height:&#x27;140%&#x27;},defs); mk(&#x27;feGaussianBlur&#x27;,{stdDeviation:&#x27;1.1&#x27;},f);
+  const cp=mk(&#x27;clipPath&#x27;,{id:id+&#x27;-roof&#x27;},defs);
+  mk(&#x27;polygon&#x27;,{points:pts([[.9,.9,H+PAR],[W-.9,.9,H+PAR],[W-.9,D-.9,H+PAR],[.9,D-.9,H+PAR]])},cp);
+
+  // 1) 모형대(두께 2.4m 판) + 판 윗모서리 밝은 선
+  box(-7,-6,-2.4,W+7,D+11,0,null,{t:&#x27;pl-t&#x27;});
+  mk(&#x27;polyline&#x27;,{points:pts([[-7,D+11,0],[W+7,D+11,0],[W+7,-6,0]]),class:&#x27;edge&#x27;});
+  // 2) 접지 그림자: 광원 반대(오른쪽 아래)로 번진 발자국
+  poly([[0,0,0],[W,0,0],[W+5,3.5,0],[W+5,D+4,0],[5,D+4,0],[0,D,0]],&#x27;shd&#x27;).setAttribute(&#x27;filter&#x27;,`url(#${id}-blur)`);
+  // 3) 층별 띠: 벽·창 띠·멀리언·슬래브선
+  for(let i=0;i&lt;N;i++){
+    const g=mk(&#x27;g&#x27;,{class:&#x27;fl&#x27;+((o.lit||[]).includes(i)?&#x27; &#x27;+(o.mode||&#x27;on&#x27;):&#x27;&#x27;),&#x27;data-f&#x27;:i});
+    const z0=i*FH, z1=z0+FH, w0=z0+1.15, w1=z0+3.05;
+    poly([[0,D,z0],[W,D,z0],[W,D,z1],[0,D,z1]],&#x27;l&#x27;,g);
+    poly([[W,0,z0],[W,D,z0],[W,D,z1],[W,0,z1]],&#x27;r&#x27;,g);
+    // 창 띠(1층은 현관 자리 비움)
+    const spans=i===0?[[1.6,21.5],[34.5,W-1.6]]:[[1.6,W-1.6]];
+    spans.forEach(([a,b])=&gt;{poly([[a,D,w0],[b,D,w0],[b,D,w1],[a,D,w1]],&#x27;gl&#x27;,g);
+      for(let x=a+3.2;x&lt;b-.5;x+=3.2) line([x,D,w0],[x,D,w1],&#x27;mu-l&#x27;,g);});
+    poly([[W,1.6,w0],[W,D-1.6,w0],[W,D-1.6,w1],[W,1.6,w1]],&#x27;gr&#x27;,g);
+    for(let y=1.6+3.2;y&lt;D-2;y+=3.2) line([W,y,w0],[W,y,w1],&#x27;mu-r&#x27;,g);
+    if(i&gt;0){poly([[0,D,z0],[W,D,z0],[W,D,z0+.32],[0,D,z0+.32]],&#x27;slab&#x27;,g);
+      poly([[W,0,z0],[W,D,z0],[W,D,z0+.32],[W,0,z0+.32]],&#x27;slab&#x27;,g);}
+    if(i===0) poly([[23.5,D,0],[32.5,D,0],[32.5,D,2.9],[23.5,D,2.9]],&#x27;gr&#x27;,g);   // 현관 유리문
+  }
+  // 4) 옥상: 난간 바깥면 + 윗면, 안쪽은 잘라서 바닥·안쪽 벽, 계단탑
+  poly([[0,D,H],[W,D,H],[W,D,H+PAR],[0,D,H+PAR]],&#x27;l&#x27;);
+  poly([[W,0,H],[W,D,H],[W,D,H+PAR],[W,0,H+PAR]],&#x27;r&#x27;);
+  poly([[0,0,H+PAR],[W,0,H+PAR],[W,D,H+PAR],[0,D,H+PAR]],&#x27;t&#x27;);
+  const roof=mk(&#x27;g&#x27;,{&#x27;clip-path&#x27;:`url(#${id}-roof)`});
+  poly([[.9,.9,H],[W-.9,.9,H],[W-.9,D-.9,H],[.9,D-.9,H]],&#x27;deck&#x27;,roof);
+  poly([[.9,.9,H],[.9,D-.9,H],[.9,D-.9,H+PAR],[.9,.9,H+PAR]],&#x27;r&#x27;,roof);
+  poly([[.9,.9,H],[W-.9,.9,H],[W-.9,.9,H+PAR],[.9,.9,H+PAR]],&#x27;l&#x27;,roof);
+  box(39,3,H,46.5,10,H+3.4);                                   // 계단탑
+  box(8,4,H,13,8.5,H+1.2);                                     // 실외기 받침
+  // 5) 현관 캐노피: 기둥 2 + 얇은 판
+  box(23.6,D+2.6,0,24,D+3,3.2); box(32,D+2.6,0,32.4,D+3,3.2);
+  box(22.5,D,3.2,33.5,D+3.4,3.6);
+  // 6) 흰 인물 첨경(키 1.7m) 셋
+  [[17,D+6],[38.5,D+7.5],[40.3,D+6.8]].forEach(([x,y])=&gt;{
+    const b=P(x,y,0),t=P(x,y,1.42),h=P(x,y,1.66);
+    mk(&#x27;ellipse&#x27;,{cx:b[0]+.5,cy:b[1]+.1,rx:.7,ry:.22,class:&#x27;shd&#x27;});
+    mk(&#x27;rect&#x27;,{x:b[0]-.28,y:t[1],width:.56,height:b[1]-t[1],rx:.24,class:&#x27;t&#x27;});
+    mk(&#x27;rect&#x27;,{x:b[0],y:t[1],width:.26,height:b[1]-t[1],rx:.12,class:&#x27;r&#x27;});
+    mk(&#x27;circle&#x27;,{cx:h[0],cy:h[1],r:.25,class:&#x27;t&#x27;});
+  });
+  // 7) 지시선 라벨(최대 3개, 오른쪽 깨끗한 면 끝에)
+  (o.labels||[]).forEach(L=&gt;{
+    const z=L.f*FH+FH/2, a=P(W,D/2,z), bx=P(W+7,0,0)[0]+5;
+    mk(&#x27;circle&#x27;,{cx:a[0],cy:a[1],r:.38,class:&#x27;lead-dot&#x27;});
+    mk(&#x27;polyline&#x27;,{points:`${a[0]},${a[1]} ${bx-1},${a[1]}`,class:&#x27;lead&#x27;});
+    const t=mk(&#x27;text&#x27;,{x:bx,y:a[1]+.7,&#x27;font-size&#x27;:L.size||2});t.textContent=L.text;
+  });
+  // 보기 상자: 모형대 기준 + 라벨 여백
+  const xs=[P(-7,D+11,0)[0]-1, P(W+7,-6,0)[0]+ (o.labels&amp;&amp;o.labels.length? (o.pad||22):1)];
+  const ys=[P(0,0,H+3.4)[1]-3, P(W+7,D+11,-2.4)[1]+1];
+  svg.setAttribute(&#x27;viewBox&#x27;,`${xs[0]} ${ys[0]} ${xs[1]-xs[0]} ${ys[1]-ys[0]}`);
+  return {setLit(i){svg.querySelectorAll(&#x27;.fl&#x27;).forEach(g=&gt;g.classList.toggle(&#x27;on&#x27;,+g.dataset.f===i));}};
+}
+
+/* 계획안 이름과 섹션 — 세 장이 같이 씁니다 */
+const BK_PLAN=&#x27;○○교육청 2027 학교 공간 재구조화 추진 계획(안)&#x27;;
+const BK_SECTIONS=[
+  {no:&#x27;Ⅰ&#x27;, name:&#x27;추진 배경 및 현황&#x27;, sub:&#x27;학생 수 변화와 노후 공간 진단&#x27;, pg:&#x27;03&#x27;, items:[&#x27;학생 수·학급 수 5년 추이&#x27;,&#x27;준공 40년 이상 교사 현황&#x27;,&#x27;교원·학생 공간 수요 조사&#x27;]},
+  {no:&#x27;Ⅱ&#x27;, name:&#x27;목표 및 지표&#x27;, sub:&#x27;2029년까지 재구조화 48교&#x27;, pg:&#x27;07&#x27;, items:[&#x27;연차별 목표 학교 수&#x27;,&#x27;성과 지표 4종(현재값·목표값)&#x27;,&#x27;측정 방법과 주기&#x27;]},
+  {no:&#x27;Ⅲ&#x27;, name:&#x27;세부 추진과제&#x27;, sub:&#x27;교실에서 지역 개방까지 4대 과제&#x27;, pg:&#x27;10&#x27;, items:[&#x27;교실 재구조화&#x27;,&#x27;복도·홈베이스 전환&#x27;,&#x27;학교도서관 복합화&#x27;,&#x27;방과후 공유 공간 개방&#x27;]},
+  {no:&#x27;Ⅳ&#x27;, name:&#x27;추진체계&#x27;, sub:&#x27;교육감 → 추진단 → TF → 학교&#x27;, pg:&#x27;16&#x27;, items:[&#x27;위계와 역할 분담&#x27;,&#x27;사용자 참여 설계 절차&#x27;,&#x27;지자체 협력 창구&#x27;]},
+  {no:&#x27;Ⅴ&#x27;, name:&#x27;일정 및 예산&#x27;, sub:&#x27;분기별 일정과 재원별 예산&#x27;, pg:&#x27;19&#x27;, items:[&#x27;분기별 추진 일정&#x27;,&#x27;연도별 예산 412억 원&#x27;,&#x27;국비·지방비·교육청 자체 분담&#x27;]}
+];
+
+(function(){
+  document.querySelectorAll(&#x27;.bk-planname&#x27;).forEach(e=&gt;e.textContent=BK_PLAN);
+  const ol=document.querySelector(&#x27;.bk-toc-list&#x27;);
+  ol.innerHTML=BK_SECTIONS.map(s=&gt;`&lt;li&gt;&lt;span class=&quot;n&quot;&gt;${s.no}&lt;/span&gt;&lt;span class=&quot;nm&quot;&gt;${s.name}&lt;/span&gt;&lt;span class=&quot;pg&quot;&gt;p.${s.pg}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;${s.sub}&lt;/span&gt;&lt;/li&gt;`).join(&#x27;&#x27;);
+  bkModel(document.querySelector(&#x27;.bk-toc-model&#x27;),{id:&#x27;toc&#x27;,labels:[{f:4,text:&#x27;5F · Ⅴ&#x27;},{f:0,text:&#x27;1F · Ⅰ&#x27;}]});
+})();
+&lt;/script&gt;
+</code></pre></div><div class="cb"><div class="cb-h"><span>장표 2 · 섹션 간지</span><button type="button" class="copy" data-k="divider">코드 복사</button></div><pre id="code-divider" tabindex="0"><code>&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@800;900&amp;family=IBM+Plex+Sans+KR:wght@400;500&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* B 미니멀 스튜디오 계열 값 — 이 묶음만 바꾸면 계열이 바뀝니다 */
+:root, .bk-slide{
+  --ds-bg:#EEF1F4;        /* 바탕: 전시 스튜디오 청백 */
+  --ds-surface:#FAFAF8;   /* 면: 흰 클레이 모형 윗면 */
+  --ds-ink:#1F2B36;       /* 본문 글자: 명판 남색 */
+  --ds-sub:#5E6974;       /* 보조 글자 */
+  --ds-line:#CDD4DB;      /* 구분선 */
+  --ds-accent:#E2571A;    /* 강조 1: 점등 주황 — 한 화면 한 곳 */
+  --ds-accent2:#2F5D86;   /* 보조 강조: 도면 청색 */
+  --ds-c1:#2F4252; --ds-c2:#4F6679; --ds-c3:#7389A0; --ds-c4:#9DB0C1; --ds-c5:#C6D2DC;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;IBM Plex Mono&quot;,&quot;SFMono-Regular&quot;,Consolas,monospace;
+  --ds-radius:2px;
+  --ds-shadow:0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30);
+}
+
+/* ===== 공통 뼈대: 1600×900 가상 화면, 1px = var(--px) ===== */
+.bk-slide{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius)}
+.bk-slide *{box-sizing:border-box}
+.bk-in{position:absolute;inset:0;--px:calc(100cqw / 1600)}
+.bk-abs{position:absolute}
+/* 머리말 띠 (y 40~88): 섹션 표시 + 축척 막대 끝선 */
+.bk-band{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(40*var(--px));height:calc(48*var(--px));
+  display:flex;align-items:center;justify-content:space-between;border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.bk-band .bk-sec{display:flex;align-items:center;gap:calc(14*var(--px));font-size:calc(17*var(--px));font-weight:500;letter-spacing:-.01em}
+.bk-band .bk-sec b{font:500 calc(15*var(--px))/1 var(--ds-font-num);letter-spacing:.08em;color:var(--ds-ink);
+  padding-right:calc(14*var(--px));border-right:calc(1*var(--px)) solid var(--ds-line)}
+.bk-band .bk-plan{display:flex;align-items:center;gap:calc(16*var(--px));font-size:calc(14*var(--px));color:var(--ds-sub)}
+/* 축척 막대: 흑백 교대 다섯 칸 — 모형 사진의 축척 표시에서 빌림 */
+.bk-scale{display:flex;height:calc(6*var(--px));border:calc(1*var(--px)) solid var(--ds-ink)}
+.bk-scale i{display:block;width:calc(12*var(--px));background:var(--ds-surface)}
+.bk-scale i:nth-child(odd){background:var(--ds-ink)}
+/* 제목 (y 112~) */
+.bk-title{position:absolute;left:calc(80*var(--px));top:calc(112*var(--px));width:calc(1000*var(--px));margin:0;
+  font:800 calc(50*var(--px))/1.24 var(--ds-font-title);letter-spacing:-.03em;text-wrap:balance}
+.bk-title em{font-style:normal;color:var(--ds-accent)}
+/* 바닥 줄 (y 846~) */
+.bk-foot{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(846*var(--px));
+  display:flex;justify-content:space-between;align-items:baseline;font-size:calc(14*var(--px));color:var(--ds-sub)}
+.bk-foot .bk-pg{font:500 calc(14*var(--px))/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-ink)}
+.bk-mono{font-family:var(--ds-font-num);letter-spacing:.1em}
+.bk-cap{font:500 calc(13*var(--px))/1.5 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
+
+/* ===== 흰 매스 모형 (SVG, 단위 m) — 면 3단 음영은 한 방향 광원(왼쪽 위) ===== */
+.bk-model{position:absolute;overflow:visible}
+.bk-model .t{fill:var(--ds-surface)}
+.bk-model .l{fill:color-mix(in srgb,var(--ds-surface) 91%,var(--ds-ink))}
+.bk-model .r{fill:color-mix(in srgb,var(--ds-surface) 80%,var(--ds-ink))}
+.bk-model .deck{fill:color-mix(in srgb,var(--ds-surface) 86%,var(--ds-ink))}
+.bk-model .pl-t{fill:color-mix(in srgb,var(--ds-surface) 96%,var(--ds-ink))}
+.bk-model .gl{fill:color-mix(in srgb,var(--ds-surface) 74%,var(--ds-ink))}
+.bk-model .gr{fill:color-mix(in srgb,var(--ds-surface) 66%,var(--ds-ink))}
+.bk-model .slab{fill:color-mix(in srgb,var(--ds-surface) 72%,var(--ds-ink))}
+.bk-model .mu-l{stroke:color-mix(in srgb,var(--ds-surface) 91%,var(--ds-ink));stroke-width:.32}
+.bk-model .mu-r{stroke:color-mix(in srgb,var(--ds-surface) 80%,var(--ds-ink));stroke-width:.32}
+.bk-model .edge{fill:none;stroke:var(--ds-surface);stroke-width:.12;stroke-opacity:.9}
+.bk-model .shd{fill:var(--ds-ink);opacity:.16}
+.bk-model .lead{stroke:var(--ds-ink);stroke-width:.14;fill:none}
+.bk-model .lead-dot{fill:var(--ds-ink)}
+.bk-model text{font-family:var(--ds-font-num);fill:var(--ds-sub);letter-spacing:.06em}
+/* 점등: 층 전체(간지) */
+.bk-model .fl.on .l{fill:color-mix(in srgb,var(--ds-accent) 34%,var(--ds-surface))}
+.bk-model .fl.on .r{fill:color-mix(in srgb,var(--ds-accent) 52%,var(--ds-surface))}
+.bk-model .fl.on .gl{fill:color-mix(in srgb,var(--ds-accent) 82%,var(--ds-ink))}
+.bk-model .fl.on .gr{fill:color-mix(in srgb,var(--ds-accent) 70%,var(--ds-ink))}
+.bk-model .fl.on .mu-l{stroke:color-mix(in srgb,var(--ds-accent) 34%,var(--ds-surface))}
+.bk-model .fl.on .mu-r{stroke:color-mix(in srgb,var(--ds-accent) 52%,var(--ds-surface))}
+/* 점등: 창만(마무리) */
+.bk-model .fl.win .gl{fill:color-mix(in srgb,var(--ds-accent) 62%,var(--ds-surface))}
+.bk-model .fl.win .gr{fill:color-mix(in srgb,var(--ds-accent) 78%,var(--ds-surface))}
+
+/* 간지 */
+.bk-div-big{position:absolute;left:calc(44*var(--px));top:calc(96*var(--px));font:900 calc(560*var(--px))/1 var(--ds-font-title);
+  color:color-mix(in srgb,var(--ds-ink) 6%,var(--ds-bg));letter-spacing:-.04em;pointer-events:none;white-space:nowrap}
+.bk-div-main{position:absolute;left:calc(80*var(--px));top:calc(250*var(--px));width:calc(820*var(--px))}
+.bk-div-k{margin:0;font-size:calc(16*var(--px));color:var(--ds-sub)}
+.bk-div-name{margin:calc(18*var(--px)) 0 0;font:800 calc(92*var(--px))/1.12 var(--ds-font-title);letter-spacing:-.04em;text-wrap:balance}
+.bk-div-sub{margin:calc(26*var(--px)) 0 0;padding-top:calc(22*var(--px));border-top:calc(2*var(--px)) solid var(--ds-ink);width:calc(560*var(--px));
+  font-size:calc(26*var(--px));line-height:1.35;color:var(--ds-ink)}
+.bk-div-items{margin:calc(28*var(--px)) 0 0;padding:0;list-style:none;display:grid;gap:calc(10*var(--px));font-size:calc(18*var(--px));color:var(--ds-sub)}
+.bk-div-items li{display:grid;grid-template-columns:calc(44*var(--px)) 1fr}
+.bk-div-items li span{font-family:var(--ds-font-num);color:var(--ds-ink)}
+.bk-div-prog{position:absolute;left:calc(80*var(--px));top:calc(770*var(--px));margin:0;padding:0;list-style:none;display:flex;gap:calc(6*var(--px))}
+.bk-div-prog li{width:calc(96*var(--px));padding-top:calc(10*var(--px));border-top:calc(4*var(--px)) solid var(--ds-line);
+  font:500 calc(13*var(--px))/1 var(--ds-font-num);color:var(--ds-sub);letter-spacing:.06em}
+.bk-div-prog li.cur{border-top-color:var(--ds-ink);color:var(--ds-ink)}
+.bk-div-model{left:calc(850*var(--px));top:calc(170*var(--px));width:calc(700*var(--px));height:calc(600*var(--px))}
+/* 전환 하나: 층 점등 0.7초 */
+.bk-div .bk-model .fl polygon,.bk-div .bk-model .fl line{transition:fill .7s ease,stroke .7s ease}
+@media (prefers-reduced-motion:reduce){.bk-div .bk-model .fl polygon,.bk-div .bk-model .fl line{transition:none}}
+&lt;/style&gt;
+&lt;!-- 장표 2: 섹션 간지 (번호·이름은 BK_SECTIONS에서) --&gt;
+&lt;section class=&quot;bk-slide bk-div&quot; aria-label=&quot;섹션 간지 장표&quot;&gt;
+  &lt;div class=&quot;bk-in&quot;&gt;
+    &lt;div class=&quot;bk-div-big&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+    &lt;header class=&quot;bk-band&quot;&gt;&lt;div class=&quot;bk-sec&quot;&gt;&lt;b class=&quot;bk-div-no&quot;&gt;&lt;/b&gt;&lt;span class=&quot;bk-div-nm1&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;bk-plan&quot;&gt;&lt;span class=&quot;bk-planname&quot;&gt;&lt;/span&gt;&lt;span class=&quot;bk-scale&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;&lt;/header&gt;
+    &lt;div class=&quot;bk-div-main&quot;&gt;
+      &lt;p class=&quot;bk-mono bk-div-k&quot;&gt;&lt;/p&gt;
+      &lt;h2 class=&quot;bk-div-name&quot;&gt;&lt;/h2&gt;
+      &lt;p class=&quot;bk-div-sub&quot;&gt;&lt;/p&gt;
+      &lt;ul class=&quot;bk-div-items&quot;&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;ol class=&quot;bk-div-prog&quot; aria-label=&quot;전체 진행&quot;&gt;&lt;/ol&gt;
+    &lt;svg class=&quot;bk-model bk-div-model&quot; role=&quot;img&quot; aria-label=&quot;5층 흰 매스 모형, 현재 장의 층에 불이 켜짐&quot;&gt;&lt;/svg&gt;
+    &lt;footer class=&quot;bk-foot&quot;&gt;&lt;span&gt;가상 예시&lt;/span&gt;&lt;span class=&quot;bk-pg bk-div-pg&quot;&gt;&lt;/span&gt;&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+&lt;script&gt;
+/* 흰 매스 모형 그리기: bkModel(svg요소, {lit:[층 번호(0부터)], mode:&#x27;on&#x27;|&#x27;win&#x27;, labels:[{f, text}], id}) */
+function bkModel(svg, o){
+  const W=56, D=16, FH=4, N=5, H=N*FH, PAR=1.1;           // 본관 56×16m, 5층, 층고 4m, 난간 1.1m
+  const A=22*Math.PI/180, B=38*Math.PI/180;               // 축측 투상 각도
+  const P=(x,y,z)=&gt;[x*Math.cos(A)-y*Math.cos(B), x*Math.sin(A)+y*Math.sin(B)-z];
+  const NS=&#x27;http://www.w3.org/2000/svg&#x27;, id=o.id||&#x27;m&#x27;;
+  const pts=a=&gt;a.map(p=&gt;P(...p).map(v=&gt;v.toFixed(2)).join(&#x27;,&#x27;)).join(&#x27; &#x27;);
+  const mk=(tag,attr,parent)=&gt;{const e=document.createElementNS(NS,tag);for(const k in attr)e.setAttribute(k,attr[k]);(parent||svg).appendChild(e);return e;};
+  const poly=(a,cls,g)=&gt;mk(&#x27;polygon&#x27;,{points:pts(a),class:cls},g);
+  const line=(a,b,cls,g)=&gt;{const p=P(...a),q=P(...b);return mk(&#x27;line&#x27;,{x1:p[0],y1:p[1],x2:q[0],y2:q[1],class:cls},g);};
+  // 상자 하나: 윗면·앞면(y=y1)·오른면(x=x1)
+  const box=(x0,y0,z0,x1,y1,z1,g,c)=&gt;{c=c||{};
+    poly([[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],c.l||&#x27;l&#x27;,g);
+    poly([[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],c.r||&#x27;r&#x27;,g);
+    poly([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],c.t||&#x27;t&#x27;,g);};
+  svg.innerHTML=&#x27;&#x27;;
+  const defs=mk(&#x27;defs&#x27;,{});
+  const f=mk(&#x27;filter&#x27;,{id:id+&#x27;-blur&#x27;,x:&#x27;-20%&#x27;,y:&#x27;-20%&#x27;,width:&#x27;140%&#x27;,height:&#x27;140%&#x27;},defs); mk(&#x27;feGaussianBlur&#x27;,{stdDeviation:&#x27;1.1&#x27;},f);
+  const cp=mk(&#x27;clipPath&#x27;,{id:id+&#x27;-roof&#x27;},defs);
+  mk(&#x27;polygon&#x27;,{points:pts([[.9,.9,H+PAR],[W-.9,.9,H+PAR],[W-.9,D-.9,H+PAR],[.9,D-.9,H+PAR]])},cp);
+
+  // 1) 모형대(두께 2.4m 판) + 판 윗모서리 밝은 선
+  box(-7,-6,-2.4,W+7,D+11,0,null,{t:&#x27;pl-t&#x27;});
+  mk(&#x27;polyline&#x27;,{points:pts([[-7,D+11,0],[W+7,D+11,0],[W+7,-6,0]]),class:&#x27;edge&#x27;});
+  // 2) 접지 그림자: 광원 반대(오른쪽 아래)로 번진 발자국
+  poly([[0,0,0],[W,0,0],[W+5,3.5,0],[W+5,D+4,0],[5,D+4,0],[0,D,0]],&#x27;shd&#x27;).setAttribute(&#x27;filter&#x27;,`url(#${id}-blur)`);
+  // 3) 층별 띠: 벽·창 띠·멀리언·슬래브선
+  for(let i=0;i&lt;N;i++){
+    const g=mk(&#x27;g&#x27;,{class:&#x27;fl&#x27;+((o.lit||[]).includes(i)?&#x27; &#x27;+(o.mode||&#x27;on&#x27;):&#x27;&#x27;),&#x27;data-f&#x27;:i});
+    const z0=i*FH, z1=z0+FH, w0=z0+1.15, w1=z0+3.05;
+    poly([[0,D,z0],[W,D,z0],[W,D,z1],[0,D,z1]],&#x27;l&#x27;,g);
+    poly([[W,0,z0],[W,D,z0],[W,D,z1],[W,0,z1]],&#x27;r&#x27;,g);
+    // 창 띠(1층은 현관 자리 비움)
+    const spans=i===0?[[1.6,21.5],[34.5,W-1.6]]:[[1.6,W-1.6]];
+    spans.forEach(([a,b])=&gt;{poly([[a,D,w0],[b,D,w0],[b,D,w1],[a,D,w1]],&#x27;gl&#x27;,g);
+      for(let x=a+3.2;x&lt;b-.5;x+=3.2) line([x,D,w0],[x,D,w1],&#x27;mu-l&#x27;,g);});
+    poly([[W,1.6,w0],[W,D-1.6,w0],[W,D-1.6,w1],[W,1.6,w1]],&#x27;gr&#x27;,g);
+    for(let y=1.6+3.2;y&lt;D-2;y+=3.2) line([W,y,w0],[W,y,w1],&#x27;mu-r&#x27;,g);
+    if(i&gt;0){poly([[0,D,z0],[W,D,z0],[W,D,z0+.32],[0,D,z0+.32]],&#x27;slab&#x27;,g);
+      poly([[W,0,z0],[W,D,z0],[W,D,z0+.32],[W,0,z0+.32]],&#x27;slab&#x27;,g);}
+    if(i===0) poly([[23.5,D,0],[32.5,D,0],[32.5,D,2.9],[23.5,D,2.9]],&#x27;gr&#x27;,g);   // 현관 유리문
+  }
+  // 4) 옥상: 난간 바깥면 + 윗면, 안쪽은 잘라서 바닥·안쪽 벽, 계단탑
+  poly([[0,D,H],[W,D,H],[W,D,H+PAR],[0,D,H+PAR]],&#x27;l&#x27;);
+  poly([[W,0,H],[W,D,H],[W,D,H+PAR],[W,0,H+PAR]],&#x27;r&#x27;);
+  poly([[0,0,H+PAR],[W,0,H+PAR],[W,D,H+PAR],[0,D,H+PAR]],&#x27;t&#x27;);
+  const roof=mk(&#x27;g&#x27;,{&#x27;clip-path&#x27;:`url(#${id}-roof)`});
+  poly([[.9,.9,H],[W-.9,.9,H],[W-.9,D-.9,H],[.9,D-.9,H]],&#x27;deck&#x27;,roof);
+  poly([[.9,.9,H],[.9,D-.9,H],[.9,D-.9,H+PAR],[.9,.9,H+PAR]],&#x27;r&#x27;,roof);
+  poly([[.9,.9,H],[W-.9,.9,H],[W-.9,.9,H+PAR],[.9,.9,H+PAR]],&#x27;l&#x27;,roof);
+  box(39,3,H,46.5,10,H+3.4);                                   // 계단탑
+  box(8,4,H,13,8.5,H+1.2);                                     // 실외기 받침
+  // 5) 현관 캐노피: 기둥 2 + 얇은 판
+  box(23.6,D+2.6,0,24,D+3,3.2); box(32,D+2.6,0,32.4,D+3,3.2);
+  box(22.5,D,3.2,33.5,D+3.4,3.6);
+  // 6) 흰 인물 첨경(키 1.7m) 셋
+  [[17,D+6],[38.5,D+7.5],[40.3,D+6.8]].forEach(([x,y])=&gt;{
+    const b=P(x,y,0),t=P(x,y,1.42),h=P(x,y,1.66);
+    mk(&#x27;ellipse&#x27;,{cx:b[0]+.5,cy:b[1]+.1,rx:.7,ry:.22,class:&#x27;shd&#x27;});
+    mk(&#x27;rect&#x27;,{x:b[0]-.28,y:t[1],width:.56,height:b[1]-t[1],rx:.24,class:&#x27;t&#x27;});
+    mk(&#x27;rect&#x27;,{x:b[0],y:t[1],width:.26,height:b[1]-t[1],rx:.12,class:&#x27;r&#x27;});
+    mk(&#x27;circle&#x27;,{cx:h[0],cy:h[1],r:.25,class:&#x27;t&#x27;});
+  });
+  // 7) 지시선 라벨(최대 3개, 오른쪽 깨끗한 면 끝에)
+  (o.labels||[]).forEach(L=&gt;{
+    const z=L.f*FH+FH/2, a=P(W,D/2,z), bx=P(W+7,0,0)[0]+5;
+    mk(&#x27;circle&#x27;,{cx:a[0],cy:a[1],r:.38,class:&#x27;lead-dot&#x27;});
+    mk(&#x27;polyline&#x27;,{points:`${a[0]},${a[1]} ${bx-1},${a[1]}`,class:&#x27;lead&#x27;});
+    const t=mk(&#x27;text&#x27;,{x:bx,y:a[1]+.7,&#x27;font-size&#x27;:L.size||2});t.textContent=L.text;
+  });
+  // 보기 상자: 모형대 기준 + 라벨 여백
+  const xs=[P(-7,D+11,0)[0]-1, P(W+7,-6,0)[0]+ (o.labels&amp;&amp;o.labels.length? (o.pad||22):1)];
+  const ys=[P(0,0,H+3.4)[1]-3, P(W+7,D+11,-2.4)[1]+1];
+  svg.setAttribute(&#x27;viewBox&#x27;,`${xs[0]} ${ys[0]} ${xs[1]-xs[0]} ${ys[1]-ys[0]}`);
+  return {setLit(i){svg.querySelectorAll(&#x27;.fl&#x27;).forEach(g=&gt;g.classList.toggle(&#x27;on&#x27;,+g.dataset.f===i));}};
+}
+
+/* 계획안 이름과 섹션 — 세 장이 같이 씁니다 */
+const BK_PLAN=&#x27;○○교육청 2027 학교 공간 재구조화 추진 계획(안)&#x27;;
+const BK_SECTIONS=[
+  {no:&#x27;Ⅰ&#x27;, name:&#x27;추진 배경 및 현황&#x27;, sub:&#x27;학생 수 변화와 노후 공간 진단&#x27;, pg:&#x27;03&#x27;, items:[&#x27;학생 수·학급 수 5년 추이&#x27;,&#x27;준공 40년 이상 교사 현황&#x27;,&#x27;교원·학생 공간 수요 조사&#x27;]},
+  {no:&#x27;Ⅱ&#x27;, name:&#x27;목표 및 지표&#x27;, sub:&#x27;2029년까지 재구조화 48교&#x27;, pg:&#x27;07&#x27;, items:[&#x27;연차별 목표 학교 수&#x27;,&#x27;성과 지표 4종(현재값·목표값)&#x27;,&#x27;측정 방법과 주기&#x27;]},
+  {no:&#x27;Ⅲ&#x27;, name:&#x27;세부 추진과제&#x27;, sub:&#x27;교실에서 지역 개방까지 4대 과제&#x27;, pg:&#x27;10&#x27;, items:[&#x27;교실 재구조화&#x27;,&#x27;복도·홈베이스 전환&#x27;,&#x27;학교도서관 복합화&#x27;,&#x27;방과후 공유 공간 개방&#x27;]},
+  {no:&#x27;Ⅳ&#x27;, name:&#x27;추진체계&#x27;, sub:&#x27;교육감 → 추진단 → TF → 학교&#x27;, pg:&#x27;16&#x27;, items:[&#x27;위계와 역할 분담&#x27;,&#x27;사용자 참여 설계 절차&#x27;,&#x27;지자체 협력 창구&#x27;]},
+  {no:&#x27;Ⅴ&#x27;, name:&#x27;일정 및 예산&#x27;, sub:&#x27;분기별 일정과 재원별 예산&#x27;, pg:&#x27;19&#x27;, items:[&#x27;분기별 추진 일정&#x27;,&#x27;연도별 예산 412억 원&#x27;,&#x27;국비·지방비·교육청 자체 분담&#x27;]}
+];
+
+(function(){
+  document.querySelectorAll(&#x27;.bk-planname&#x27;).forEach(e=&gt;e.textContent=BK_PLAN);
+  const root=document.querySelector(&#x27;.bk-div&#x27;), q=s=&gt;root.querySelector(s);
+  const svg=q(&#x27;.bk-div-model&#x27;); let model=null;
+  q(&#x27;.bk-div-prog&#x27;).innerHTML=BK_SECTIONS.map(s=&gt;`&lt;li&gt;${s.no}&lt;/li&gt;`).join(&#x27;&#x27;);
+  // 간지 바꾸기: bkShowSection(0~4)
+  window.bkShowSection=function(i){
+    const s=BK_SECTIONS[i], n=String(i+1).padStart(2,&#x27;0&#x27;);
+    q(&#x27;.bk-div-big&#x27;).textContent=n;
+    q(&#x27;.bk-div-no&#x27;).textContent=s.no+&#x27;.&#x27;; q(&#x27;.bk-div-nm1&#x27;).textContent=s.name;
+    q(&#x27;.bk-div-k&#x27;).textContent=`SECTION ${n} / 05`;
+    q(&#x27;.bk-div-name&#x27;).textContent=s.name; q(&#x27;.bk-div-sub&#x27;).textContent=s.sub;
+    q(&#x27;.bk-div-items&#x27;).innerHTML=s.items.map((t,k)=&gt;`&lt;li&gt;&lt;span&gt;${i+1}.${k+1}&lt;/span&gt;${t}&lt;/li&gt;`).join(&#x27;&#x27;);
+    q(&#x27;.bk-div-prog&#x27;).querySelectorAll(&#x27;li&#x27;).forEach((li,k)=&gt;li.classList.toggle(&#x27;cur&#x27;,k===i));
+    q(&#x27;.bk-div-pg&#x27;).textContent=s.pg;
+    model=bkModel(svg,{id:&#x27;div&#x27;,lit:[],labels:[{f:i,text:`${i+1}F · ${s.no}`,size:2.3}],pad:18});
+    requestAnimationFrame(()=&gt;requestAnimationFrame(()=&gt;model.setLit(i)));   // 다음 프레임에 점등 → 0.7초 전환
+  };
+  bkShowSection(2);
+})();
+&lt;/script&gt;
+</code></pre></div><div class="cb"><div class="cb-h"><span>장표 3 · 마무리</span><button type="button" class="copy" data-k="closing">코드 복사</button></div><pre id="code-closing" tabindex="0"><code>&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@800;900&amp;family=IBM+Plex+Sans+KR:wght@400;500&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* B 미니멀 스튜디오 계열 값 — 이 묶음만 바꾸면 계열이 바뀝니다 */
+:root, .bk-slide{
+  --ds-bg:#EEF1F4;        /* 바탕: 전시 스튜디오 청백 */
+  --ds-surface:#FAFAF8;   /* 면: 흰 클레이 모형 윗면 */
+  --ds-ink:#1F2B36;       /* 본문 글자: 명판 남색 */
+  --ds-sub:#5E6974;       /* 보조 글자 */
+  --ds-line:#CDD4DB;      /* 구분선 */
+  --ds-accent:#E2571A;    /* 강조 1: 점등 주황 — 한 화면 한 곳 */
+  --ds-accent2:#2F5D86;   /* 보조 강조: 도면 청색 */
+  --ds-c1:#2F4252; --ds-c2:#4F6679; --ds-c3:#7389A0; --ds-c4:#9DB0C1; --ds-c5:#C6D2DC;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;IBM Plex Mono&quot;,&quot;SFMono-Regular&quot;,Consolas,monospace;
+  --ds-radius:2px;
+  --ds-shadow:0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30);
+}
+
+/* ===== 공통 뼈대: 1600×900 가상 화면, 1px = var(--px) ===== */
+.bk-slide{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius)}
+.bk-slide *{box-sizing:border-box}
+.bk-in{position:absolute;inset:0;--px:calc(100cqw / 1600)}
+.bk-abs{position:absolute}
+/* 머리말 띠 (y 40~88): 섹션 표시 + 축척 막대 끝선 */
+.bk-band{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(40*var(--px));height:calc(48*var(--px));
+  display:flex;align-items:center;justify-content:space-between;border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.bk-band .bk-sec{display:flex;align-items:center;gap:calc(14*var(--px));font-size:calc(17*var(--px));font-weight:500;letter-spacing:-.01em}
+.bk-band .bk-sec b{font:500 calc(15*var(--px))/1 var(--ds-font-num);letter-spacing:.08em;color:var(--ds-ink);
+  padding-right:calc(14*var(--px));border-right:calc(1*var(--px)) solid var(--ds-line)}
+.bk-band .bk-plan{display:flex;align-items:center;gap:calc(16*var(--px));font-size:calc(14*var(--px));color:var(--ds-sub)}
+/* 축척 막대: 흑백 교대 다섯 칸 — 모형 사진의 축척 표시에서 빌림 */
+.bk-scale{display:flex;height:calc(6*var(--px));border:calc(1*var(--px)) solid var(--ds-ink)}
+.bk-scale i{display:block;width:calc(12*var(--px));background:var(--ds-surface)}
+.bk-scale i:nth-child(odd){background:var(--ds-ink)}
+/* 제목 (y 112~) */
+.bk-title{position:absolute;left:calc(80*var(--px));top:calc(112*var(--px));width:calc(1000*var(--px));margin:0;
+  font:800 calc(50*var(--px))/1.24 var(--ds-font-title);letter-spacing:-.03em;text-wrap:balance}
+.bk-title em{font-style:normal;color:var(--ds-accent)}
+/* 바닥 줄 (y 846~) */
+.bk-foot{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(846*var(--px));
+  display:flex;justify-content:space-between;align-items:baseline;font-size:calc(14*var(--px));color:var(--ds-sub)}
+.bk-foot .bk-pg{font:500 calc(14*var(--px))/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-ink)}
+.bk-mono{font-family:var(--ds-font-num);letter-spacing:.1em}
+.bk-cap{font:500 calc(13*var(--px))/1.5 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
+
+/* ===== 흰 매스 모형 (SVG, 단위 m) — 면 3단 음영은 한 방향 광원(왼쪽 위) ===== */
+.bk-model{position:absolute;overflow:visible}
+.bk-model .t{fill:var(--ds-surface)}
+.bk-model .l{fill:color-mix(in srgb,var(--ds-surface) 91%,var(--ds-ink))}
+.bk-model .r{fill:color-mix(in srgb,var(--ds-surface) 80%,var(--ds-ink))}
+.bk-model .deck{fill:color-mix(in srgb,var(--ds-surface) 86%,var(--ds-ink))}
+.bk-model .pl-t{fill:color-mix(in srgb,var(--ds-surface) 96%,var(--ds-ink))}
+.bk-model .gl{fill:color-mix(in srgb,var(--ds-surface) 74%,var(--ds-ink))}
+.bk-model .gr{fill:color-mix(in srgb,var(--ds-surface) 66%,var(--ds-ink))}
+.bk-model .slab{fill:color-mix(in srgb,var(--ds-surface) 72%,var(--ds-ink))}
+.bk-model .mu-l{stroke:color-mix(in srgb,var(--ds-surface) 91%,var(--ds-ink));stroke-width:.32}
+.bk-model .mu-r{stroke:color-mix(in srgb,var(--ds-surface) 80%,var(--ds-ink));stroke-width:.32}
+.bk-model .edge{fill:none;stroke:var(--ds-surface);stroke-width:.12;stroke-opacity:.9}
+.bk-model .shd{fill:var(--ds-ink);opacity:.16}
+.bk-model .lead{stroke:var(--ds-ink);stroke-width:.14;fill:none}
+.bk-model .lead-dot{fill:var(--ds-ink)}
+.bk-model text{font-family:var(--ds-font-num);fill:var(--ds-sub);letter-spacing:.06em}
+/* 점등: 층 전체(간지) */
+.bk-model .fl.on .l{fill:color-mix(in srgb,var(--ds-accent) 34%,var(--ds-surface))}
+.bk-model .fl.on .r{fill:color-mix(in srgb,var(--ds-accent) 52%,var(--ds-surface))}
+.bk-model .fl.on .gl{fill:color-mix(in srgb,var(--ds-accent) 82%,var(--ds-ink))}
+.bk-model .fl.on .gr{fill:color-mix(in srgb,var(--ds-accent) 70%,var(--ds-ink))}
+.bk-model .fl.on .mu-l{stroke:color-mix(in srgb,var(--ds-accent) 34%,var(--ds-surface))}
+.bk-model .fl.on .mu-r{stroke:color-mix(in srgb,var(--ds-accent) 52%,var(--ds-surface))}
+/* 점등: 창만(마무리) */
+.bk-model .fl.win .gl{fill:color-mix(in srgb,var(--ds-accent) 62%,var(--ds-surface))}
+.bk-model .fl.win .gr{fill:color-mix(in srgb,var(--ds-accent) 78%,var(--ds-surface))}
+
+/* 마무리 */
+.bk-end-k{position:absolute;left:calc(80*var(--px));top:calc(232*var(--px));margin:0;font-size:calc(16*var(--px));color:var(--ds-sub)}
+.bk-end-msg{position:absolute;left:calc(80*var(--px));top:calc(272*var(--px));width:calc(900*var(--px));margin:0;
+  font:800 calc(62*var(--px))/1.22 var(--ds-font-title);letter-spacing:-.04em}
+.bk-end-contact{position:absolute;left:calc(80*var(--px));top:calc(560*var(--px));width:calc(760*var(--px));margin:0;
+  display:grid;grid-template-columns:1fr 1fr;border-top:calc(2*var(--px)) solid var(--ds-ink)}
+.bk-end-contact div{padding:calc(18*var(--px)) 0 calc(16*var(--px));border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.bk-end-contact dt{font:500 calc(13*var(--px))/1 var(--ds-font-num);letter-spacing:.1em;color:var(--ds-sub)}
+.bk-end-contact dd{margin:calc(10*var(--px)) 0 0;font-size:calc(21*var(--px));font-weight:500}
+.bk-end-model{left:calc(920*var(--px));top:calc(220*var(--px));width:calc(590*var(--px));height:calc(540*var(--px))}
+.bk-end-cap{position:absolute;left:calc(1000*var(--px));top:calc(782*var(--px));margin:0}
+&lt;/style&gt;
+&lt;!-- 장표 3: 마무리 --&gt;
+&lt;section class=&quot;bk-slide bk-end&quot; aria-label=&quot;마무리 장표&quot;&gt;
+  &lt;div class=&quot;bk-in&quot;&gt;
+    &lt;header class=&quot;bk-band&quot;&gt;&lt;div class=&quot;bk-sec&quot;&gt;&lt;b&gt;END&lt;/b&gt;맺음&lt;/div&gt;&lt;div class=&quot;bk-plan&quot;&gt;&lt;span class=&quot;bk-planname&quot;&gt;&lt;/span&gt;&lt;span class=&quot;bk-scale&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;&lt;/header&gt;
+    &lt;p class=&quot;bk-mono bk-end-k&quot;&gt;CLOSING&lt;/p&gt;
+    &lt;h2 class=&quot;bk-end-msg&quot;&gt;학생의 하루가 머무는 공간부터&lt;br&gt;한 층씩 바꾸겠습니다&lt;/h2&gt;
+    &lt;dl class=&quot;bk-end-contact&quot;&gt;&lt;/dl&gt;
+    &lt;svg class=&quot;bk-model bk-end-model&quot; role=&quot;img&quot; aria-label=&quot;다섯 층 창에 모두 불이 켜진 흰 매스 모형&quot;&gt;&lt;/svg&gt;
+    &lt;p class=&quot;bk-cap bk-end-cap&quot;&gt;FIG. 06 — 다섯 층 점등 · 2029 완료 목표(가상)&lt;/p&gt;
+    &lt;footer class=&quot;bk-foot&quot;&gt;&lt;span&gt;가상 예시&lt;/span&gt;&lt;span class=&quot;bk-pg&quot;&gt;24&lt;/span&gt;&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+&lt;script&gt;
+/* 흰 매스 모형 그리기: bkModel(svg요소, {lit:[층 번호(0부터)], mode:&#x27;on&#x27;|&#x27;win&#x27;, labels:[{f, text}], id}) */
+function bkModel(svg, o){
+  const W=56, D=16, FH=4, N=5, H=N*FH, PAR=1.1;           // 본관 56×16m, 5층, 층고 4m, 난간 1.1m
+  const A=22*Math.PI/180, B=38*Math.PI/180;               // 축측 투상 각도
+  const P=(x,y,z)=&gt;[x*Math.cos(A)-y*Math.cos(B), x*Math.sin(A)+y*Math.sin(B)-z];
+  const NS=&#x27;http://www.w3.org/2000/svg&#x27;, id=o.id||&#x27;m&#x27;;
+  const pts=a=&gt;a.map(p=&gt;P(...p).map(v=&gt;v.toFixed(2)).join(&#x27;,&#x27;)).join(&#x27; &#x27;);
+  const mk=(tag,attr,parent)=&gt;{const e=document.createElementNS(NS,tag);for(const k in attr)e.setAttribute(k,attr[k]);(parent||svg).appendChild(e);return e;};
+  const poly=(a,cls,g)=&gt;mk(&#x27;polygon&#x27;,{points:pts(a),class:cls},g);
+  const line=(a,b,cls,g)=&gt;{const p=P(...a),q=P(...b);return mk(&#x27;line&#x27;,{x1:p[0],y1:p[1],x2:q[0],y2:q[1],class:cls},g);};
+  // 상자 하나: 윗면·앞면(y=y1)·오른면(x=x1)
+  const box=(x0,y0,z0,x1,y1,z1,g,c)=&gt;{c=c||{};
+    poly([[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],c.l||&#x27;l&#x27;,g);
+    poly([[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],c.r||&#x27;r&#x27;,g);
+    poly([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],c.t||&#x27;t&#x27;,g);};
+  svg.innerHTML=&#x27;&#x27;;
+  const defs=mk(&#x27;defs&#x27;,{});
+  const f=mk(&#x27;filter&#x27;,{id:id+&#x27;-blur&#x27;,x:&#x27;-20%&#x27;,y:&#x27;-20%&#x27;,width:&#x27;140%&#x27;,height:&#x27;140%&#x27;},defs); mk(&#x27;feGaussianBlur&#x27;,{stdDeviation:&#x27;1.1&#x27;},f);
+  const cp=mk(&#x27;clipPath&#x27;,{id:id+&#x27;-roof&#x27;},defs);
+  mk(&#x27;polygon&#x27;,{points:pts([[.9,.9,H+PAR],[W-.9,.9,H+PAR],[W-.9,D-.9,H+PAR],[.9,D-.9,H+PAR]])},cp);
+
+  // 1) 모형대(두께 2.4m 판) + 판 윗모서리 밝은 선
+  box(-7,-6,-2.4,W+7,D+11,0,null,{t:&#x27;pl-t&#x27;});
+  mk(&#x27;polyline&#x27;,{points:pts([[-7,D+11,0],[W+7,D+11,0],[W+7,-6,0]]),class:&#x27;edge&#x27;});
+  // 2) 접지 그림자: 광원 반대(오른쪽 아래)로 번진 발자국
+  poly([[0,0,0],[W,0,0],[W+5,3.5,0],[W+5,D+4,0],[5,D+4,0],[0,D,0]],&#x27;shd&#x27;).setAttribute(&#x27;filter&#x27;,`url(#${id}-blur)`);
+  // 3) 층별 띠: 벽·창 띠·멀리언·슬래브선
+  for(let i=0;i&lt;N;i++){
+    const g=mk(&#x27;g&#x27;,{class:&#x27;fl&#x27;+((o.lit||[]).includes(i)?&#x27; &#x27;+(o.mode||&#x27;on&#x27;):&#x27;&#x27;),&#x27;data-f&#x27;:i});
+    const z0=i*FH, z1=z0+FH, w0=z0+1.15, w1=z0+3.05;
+    poly([[0,D,z0],[W,D,z0],[W,D,z1],[0,D,z1]],&#x27;l&#x27;,g);
+    poly([[W,0,z0],[W,D,z0],[W,D,z1],[W,0,z1]],&#x27;r&#x27;,g);
+    // 창 띠(1층은 현관 자리 비움)
+    const spans=i===0?[[1.6,21.5],[34.5,W-1.6]]:[[1.6,W-1.6]];
+    spans.forEach(([a,b])=&gt;{poly([[a,D,w0],[b,D,w0],[b,D,w1],[a,D,w1]],&#x27;gl&#x27;,g);
+      for(let x=a+3.2;x&lt;b-.5;x+=3.2) line([x,D,w0],[x,D,w1],&#x27;mu-l&#x27;,g);});
+    poly([[W,1.6,w0],[W,D-1.6,w0],[W,D-1.6,w1],[W,1.6,w1]],&#x27;gr&#x27;,g);
+    for(let y=1.6+3.2;y&lt;D-2;y+=3.2) line([W,y,w0],[W,y,w1],&#x27;mu-r&#x27;,g);
+    if(i&gt;0){poly([[0,D,z0],[W,D,z0],[W,D,z0+.32],[0,D,z0+.32]],&#x27;slab&#x27;,g);
+      poly([[W,0,z0],[W,D,z0],[W,D,z0+.32],[W,0,z0+.32]],&#x27;slab&#x27;,g);}
+    if(i===0) poly([[23.5,D,0],[32.5,D,0],[32.5,D,2.9],[23.5,D,2.9]],&#x27;gr&#x27;,g);   // 현관 유리문
+  }
+  // 4) 옥상: 난간 바깥면 + 윗면, 안쪽은 잘라서 바닥·안쪽 벽, 계단탑
+  poly([[0,D,H],[W,D,H],[W,D,H+PAR],[0,D,H+PAR]],&#x27;l&#x27;);
+  poly([[W,0,H],[W,D,H],[W,D,H+PAR],[W,0,H+PAR]],&#x27;r&#x27;);
+  poly([[0,0,H+PAR],[W,0,H+PAR],[W,D,H+PAR],[0,D,H+PAR]],&#x27;t&#x27;);
+  const roof=mk(&#x27;g&#x27;,{&#x27;clip-path&#x27;:`url(#${id}-roof)`});
+  poly([[.9,.9,H],[W-.9,.9,H],[W-.9,D-.9,H],[.9,D-.9,H]],&#x27;deck&#x27;,roof);
+  poly([[.9,.9,H],[.9,D-.9,H],[.9,D-.9,H+PAR],[.9,.9,H+PAR]],&#x27;r&#x27;,roof);
+  poly([[.9,.9,H],[W-.9,.9,H],[W-.9,.9,H+PAR],[.9,.9,H+PAR]],&#x27;l&#x27;,roof);
+  box(39,3,H,46.5,10,H+3.4);                                   // 계단탑
+  box(8,4,H,13,8.5,H+1.2);                                     // 실외기 받침
+  // 5) 현관 캐노피: 기둥 2 + 얇은 판
+  box(23.6,D+2.6,0,24,D+3,3.2); box(32,D+2.6,0,32.4,D+3,3.2);
+  box(22.5,D,3.2,33.5,D+3.4,3.6);
+  // 6) 흰 인물 첨경(키 1.7m) 셋
+  [[17,D+6],[38.5,D+7.5],[40.3,D+6.8]].forEach(([x,y])=&gt;{
+    const b=P(x,y,0),t=P(x,y,1.42),h=P(x,y,1.66);
+    mk(&#x27;ellipse&#x27;,{cx:b[0]+.5,cy:b[1]+.1,rx:.7,ry:.22,class:&#x27;shd&#x27;});
+    mk(&#x27;rect&#x27;,{x:b[0]-.28,y:t[1],width:.56,height:b[1]-t[1],rx:.24,class:&#x27;t&#x27;});
+    mk(&#x27;rect&#x27;,{x:b[0],y:t[1],width:.26,height:b[1]-t[1],rx:.12,class:&#x27;r&#x27;});
+    mk(&#x27;circle&#x27;,{cx:h[0],cy:h[1],r:.25,class:&#x27;t&#x27;});
+  });
+  // 7) 지시선 라벨(최대 3개, 오른쪽 깨끗한 면 끝에)
+  (o.labels||[]).forEach(L=&gt;{
+    const z=L.f*FH+FH/2, a=P(W,D/2,z), bx=P(W+7,0,0)[0]+5;
+    mk(&#x27;circle&#x27;,{cx:a[0],cy:a[1],r:.38,class:&#x27;lead-dot&#x27;});
+    mk(&#x27;polyline&#x27;,{points:`${a[0]},${a[1]} ${bx-1},${a[1]}`,class:&#x27;lead&#x27;});
+    const t=mk(&#x27;text&#x27;,{x:bx,y:a[1]+.7,&#x27;font-size&#x27;:L.size||2});t.textContent=L.text;
+  });
+  // 보기 상자: 모형대 기준 + 라벨 여백
+  const xs=[P(-7,D+11,0)[0]-1, P(W+7,-6,0)[0]+ (o.labels&amp;&amp;o.labels.length? (o.pad||22):1)];
+  const ys=[P(0,0,H+3.4)[1]-3, P(W+7,D+11,-2.4)[1]+1];
+  svg.setAttribute(&#x27;viewBox&#x27;,`${xs[0]} ${ys[0]} ${xs[1]-xs[0]} ${ys[1]-ys[0]}`);
+  return {setLit(i){svg.querySelectorAll(&#x27;.fl&#x27;).forEach(g=&gt;g.classList.toggle(&#x27;on&#x27;,+g.dataset.f===i));}};
+}
+
+/* 계획안 이름과 섹션 — 세 장이 같이 씁니다 */
+const BK_PLAN=&#x27;○○교육청 2027 학교 공간 재구조화 추진 계획(안)&#x27;;
+const BK_SECTIONS=[
+  {no:&#x27;Ⅰ&#x27;, name:&#x27;추진 배경 및 현황&#x27;, sub:&#x27;학생 수 변화와 노후 공간 진단&#x27;, pg:&#x27;03&#x27;, items:[&#x27;학생 수·학급 수 5년 추이&#x27;,&#x27;준공 40년 이상 교사 현황&#x27;,&#x27;교원·학생 공간 수요 조사&#x27;]},
+  {no:&#x27;Ⅱ&#x27;, name:&#x27;목표 및 지표&#x27;, sub:&#x27;2029년까지 재구조화 48교&#x27;, pg:&#x27;07&#x27;, items:[&#x27;연차별 목표 학교 수&#x27;,&#x27;성과 지표 4종(현재값·목표값)&#x27;,&#x27;측정 방법과 주기&#x27;]},
+  {no:&#x27;Ⅲ&#x27;, name:&#x27;세부 추진과제&#x27;, sub:&#x27;교실에서 지역 개방까지 4대 과제&#x27;, pg:&#x27;10&#x27;, items:[&#x27;교실 재구조화&#x27;,&#x27;복도·홈베이스 전환&#x27;,&#x27;학교도서관 복합화&#x27;,&#x27;방과후 공유 공간 개방&#x27;]},
+  {no:&#x27;Ⅳ&#x27;, name:&#x27;추진체계&#x27;, sub:&#x27;교육감 → 추진단 → TF → 학교&#x27;, pg:&#x27;16&#x27;, items:[&#x27;위계와 역할 분담&#x27;,&#x27;사용자 참여 설계 절차&#x27;,&#x27;지자체 협력 창구&#x27;]},
+  {no:&#x27;Ⅴ&#x27;, name:&#x27;일정 및 예산&#x27;, sub:&#x27;분기별 일정과 재원별 예산&#x27;, pg:&#x27;19&#x27;, items:[&#x27;분기별 추진 일정&#x27;,&#x27;연도별 예산 412억 원&#x27;,&#x27;국비·지방비·교육청 자체 분담&#x27;]}
+];
+
+(function(){
+  document.querySelectorAll(&#x27;.bk-planname&#x27;).forEach(e=&gt;e.textContent=BK_PLAN);
+  // 문의처: 값만 바꾸세요
+  const C=[[&#x27;담당 부서&#x27;,&#x27;○○교육청 교육시설과&#x27;],[&#x27;담당자&#x27;,&#x27;주무관 ○○○&#x27;],[&#x27;전화&#x27;,&#x27;0○○-○○○-○○○○&#x27;],[&#x27;전자우편&#x27;,&#x27;○○○@○○.go.kr&#x27;]];
+  document.querySelector(&#x27;.bk-end-contact&#x27;).innerHTML=C.map(([k,v])=&gt;`&lt;div&gt;&lt;dt&gt;${k}&lt;/dt&gt;&lt;dd&gt;${v}&lt;/dd&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+  bkModel(document.querySelector(&#x27;.bk-end-model&#x27;),{id:&#x27;end&#x27;,lit:[0,1,2,3,4],mode:&#x27;win&#x27;});
+})();
+&lt;/script&gt;
+</code></pre></div><div class="cb"><div class="cb-h"><span>계열 값 묶음 · B 미니멀 스튜디오</span><button type="button" class="copy" data-k="tokens">코드 복사</button></div><pre id="code-tokens" tabindex="0"><code>/* B 미니멀 스튜디오 계열 값 — 이 묶음만 바꾸면 계열이 바뀝니다 */
+:root, .bk-slide{
+  --ds-bg:#EEF1F4;        /* 바탕: 전시 스튜디오 청백 */
+  --ds-surface:#FAFAF8;   /* 면: 흰 클레이 모형 윗면 */
+  --ds-ink:#1F2B36;       /* 본문 글자: 명판 남색 */
+  --ds-sub:#5E6974;       /* 보조 글자 */
+  --ds-line:#CDD4DB;      /* 구분선 */
+  --ds-accent:#E2571A;    /* 강조 1: 점등 주황 — 한 화면 한 곳 */
+  --ds-accent2:#2F5D86;   /* 보조 강조: 도면 청색 */
+  --ds-c1:#2F4252; --ds-c2:#4F6679; --ds-c3:#7389A0; --ds-c4:#9DB0C1; --ds-c5:#C6D2DC;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;IBM Plex Mono&quot;,&quot;SFMono-Regular&quot;,Consolas,monospace;
+  --ds-radius:2px;
+  --ds-shadow:0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30);
+}
+</code></pre></div></div>
+  </section>
+
+  <section class="blk">
+    <h2><span>PPT</span>PPT로 옮기기 · 슬라이드 마스터에 계열 값 넣기</h2>
+    <div class="card">
+      <dl class="spec">
+        <dt>테마 색</dt><dd>[디자인] → [적용] → [색] → [색 사용자 지정]: 텍스트/배경 어둡게1 <code>#1F2B36</code>, 밝게1 <code>#EEF1F4</code>, 어둡게2 <code>#2F4252</code>, 밝게2 <code>#FAFAF8</code>, 강조1 <code>#E2571A</code>, 강조2 <code>#2F5D86</code>, 강조3~6 <code>#4F6679 #7389A0 #9DB0C1 #C6D2DC</code>, 하이퍼링크 <code>#2F5D86</code>. 이름 "B 미니멀 스튜디오".</dd>
+        <dt>테마 글꼴</dt><dd>[글꼴 사용자 지정]: 제목 Gothic A1(없으면 프리텐다드 ExtraBold), 본문 IBM Plex Sans KR(없으면 맑은 고딕). 숫자·캡션 텍스트 상자만 IBM Plex Mono 또는 Consolas로 직접 지정.</dd>
+        <dt>공통 뼈대</dt><dd>16:9(33.87×19.05cm), 1px = 0.0212cm. 좌우 여백 1.69cm, 머리말 띠 위 0.85cm·높이 1.02cm(아래 0.75pt 선 <code>#CDD4DB</code>), 제목 위 2.37cm, 본문 4.66~17.36cm, 바닥 줄 위 17.91cm. 축척 막대는 0.25×0.13cm 사각형 5개를 남색·흰색 교대로 붙여 그룹.</dd>
+        <dt>레이아웃 1 목차</dt><dd>왼쪽 17.4cm 폭에 표 5행(행 높이 2.29cm, 위 굵은 선 1.5pt 남색, 행 사이 0.75pt 회색). 열: 번호(고정폭 22pt) · 장 이름(32pt 굵게) + 설명(17pt 보조색) · 쪽. 오른쪽 12.3cm 칸에 모형 그림, 아래 FIG 캡션.</dd>
+        <dt>레이아웃 2 간지</dt><dd>배경에 섹션 번호 텍스트 상자(Gothic A1 Black 480pt, 남색 6% 투명도 94%), 위에 SECTION 라벨·장 이름(92pt)·2pt 선·부제·하위 목차. 하단 진행 막대 5칸(현재 칸만 남색). 오른쪽 모형 그림. 다섯 간지는 이 레이아웃 복제 후 글자와 점등 층 그림만 교체.</dd>
+        <dt>레이아웃 3 마무리</dt><dd>핵심 메시지 64pt 2줄, 아래 2pt 선 + 2×2 문의처 표(라벨 고정폭 13pt, 값 21pt). 오른쪽에 창 모두 점등 모형.</dd>
+        <dt>모형 그림</dt><dd>장표 HTML을 브라우저에서 열어 모형 SVG를 복사 → PPT에 붙여넣기 → [그래픽 형식] → [도형으로 변환]. 층별 면이 따로 나뉘므로 점등 층만 채우기 색을 강조1(밝게 40~60%)로 바꿉니다.</dd>
+        <dt>전환</dt><dd>간지에만 [전환] → [모핑] 0.7초(직전 장과 같은 모형 위치). 모핑이 없으면 [페이드] 0.7초. 목차·마무리는 전환 없음.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span>SPEC</span>스펙</h2>
+    <div class="card"><div class="tbl"><table>
+      <thead><tr><th>변수</th><th>값</th><th>쓰는 곳</th></tr></thead>
+      <tbody>
+        <tr><td><code>--ds-bg</code></td><td><span class="chip" style="background:var(--ds-bg)"></span><code>#EEF1F4</code></td><td>장표 바탕(무광 청백)</td></tr>
+        <tr><td><code>--ds-surface</code></td><td><span class="chip" style="background:var(--ds-surface)"></span><code>#FAFAF8</code></td><td>모형 윗면, 표 면</td></tr>
+        <tr><td><code>--ds-ink</code></td><td><span class="chip" style="background:var(--ds-ink)"></span><code>#1F2B36</code></td><td>제목·본문·굵은 선</td></tr>
+        <tr><td><code>--ds-sub</code></td><td><span class="chip" style="background:var(--ds-sub)"></span><code>#5E6974</code></td><td>설명·캡션·쪽 번호(바탕 대비 4.9:1)</td></tr>
+        <tr><td><code>--ds-line</code></td><td><span class="chip" style="background:var(--ds-line)"></span><code>#CDD4DB</code></td><td>구분선, 진행 막대 바탕</td></tr>
+        <tr><td><code>--ds-accent</code></td><td><span class="chip" style="background:var(--ds-accent)"></span><code>#E2571A</code></td><td>점등 한 곳 / 제목 핵심어(굵은 큰 글자에서 3.3:1)</td></tr>
+        <tr><td><code>--ds-accent2</code></td><td><span class="chip" style="background:var(--ds-accent2)"></span><code>#2F5D86</code></td><td>링크, 도면 보조선</td></tr>
+        <tr><td><code>--ds-c1~c5</code></td><td><code>#2F4252 #4F6679 #7389A0 #9DB0C1 #C6D2DC</code></td><td>본문 분류(남회색 농도)</td></tr>
+        <tr><td><code>--ds-radius</code> / <code>--ds-shadow</code></td><td><code>2px</code> / <code>0 18px 40px -22px</code></td><td>각진 모서리, 낮게 깔린 그림자</td></tr>
+      </tbody></table></div>
+      <dl class="spec" style="margin-top:18px">
+        <dt>글꼴</dt><dd>Gothic A1 800/900 · IBM Plex Sans KR 400/500 · IBM Plex Mono 500 (Google Fonts)</dd>
+        <dt>난이도</dt><dd>HTML 중 / PPT 중(모형 그림은 SVG 붙여넣기 후 도형 변환)</dd>
+        <dt>트렌드</dt><dd>배경 층으로 깔리는 초대형 글자(oversized typography as a background layer) — 간지의 옅은 섹션 번호에 적용. <a href="https://www.slidesai.io/blog/presentation-design-trends" target="_blank" rel="noopener">SlidesAI · 35 Presentation Design Trends 2026</a></dd>
+        <dt>모형 관찰 디테일</dt><dd>두께 있는 모형대와 윗모서리 밝은 선, 층마다 슬래브선, 3.2m 간격 창 멀리언, 옥상 난간 안쪽 벽과 계단탑·실외기 받침, 현관 유리문과 기둥 둘 캐노피, 키 1.7m 흰 인물 셋, 오른쪽 아래로 번지는 접지 그림자.</dd>
+      </dl>
+      <p class="foot">기관·학교·담당자·수치는 모두 가상 예시입니다(○○ 자리표시).</p>
+    </div>
+  </section>
+</div>
+<script>
+/* 흰 매스 모형 그리기: bkModel(svg요소, {lit:[층 번호(0부터)], mode:'on'|'win', labels:[{f, text}], id}) */
+function bkModel(svg, o){
+  const W=56, D=16, FH=4, N=5, H=N*FH, PAR=1.1;           // 본관 56×16m, 5층, 층고 4m, 난간 1.1m
+  const A=22*Math.PI/180, B=38*Math.PI/180;               // 축측 투상 각도
+  const P=(x,y,z)=>[x*Math.cos(A)-y*Math.cos(B), x*Math.sin(A)+y*Math.sin(B)-z];
+  const NS='http://www.w3.org/2000/svg', id=o.id||'m';
+  const pts=a=>a.map(p=>P(...p).map(v=>v.toFixed(2)).join(',')).join(' ');
+  const mk=(tag,attr,parent)=>{const e=document.createElementNS(NS,tag);for(const k in attr)e.setAttribute(k,attr[k]);(parent||svg).appendChild(e);return e;};
+  const poly=(a,cls,g)=>mk('polygon',{points:pts(a),class:cls},g);
+  const line=(a,b,cls,g)=>{const p=P(...a),q=P(...b);return mk('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],class:cls},g);};
+  // 상자 하나: 윗면·앞면(y=y1)·오른면(x=x1)
+  const box=(x0,y0,z0,x1,y1,z1,g,c)=>{c=c||{};
+    poly([[x0,y1,z0],[x1,y1,z0],[x1,y1,z1],[x0,y1,z1]],c.l||'l',g);
+    poly([[x1,y0,z0],[x1,y1,z0],[x1,y1,z1],[x1,y0,z1]],c.r||'r',g);
+    poly([[x0,y0,z1],[x1,y0,z1],[x1,y1,z1],[x0,y1,z1]],c.t||'t',g);};
+  svg.innerHTML='';
+  const defs=mk('defs',{});
+  const f=mk('filter',{id:id+'-blur',x:'-20%',y:'-20%',width:'140%',height:'140%'},defs); mk('feGaussianBlur',{stdDeviation:'1.1'},f);
+  const cp=mk('clipPath',{id:id+'-roof'},defs);
+  mk('polygon',{points:pts([[.9,.9,H+PAR],[W-.9,.9,H+PAR],[W-.9,D-.9,H+PAR],[.9,D-.9,H+PAR]])},cp);
+
+  // 1) 모형대(두께 2.4m 판) + 판 윗모서리 밝은 선
+  box(-7,-6,-2.4,W+7,D+11,0,null,{t:'pl-t'});
+  mk('polyline',{points:pts([[-7,D+11,0],[W+7,D+11,0],[W+7,-6,0]]),class:'edge'});
+  // 2) 접지 그림자: 광원 반대(오른쪽 아래)로 번진 발자국
+  poly([[0,0,0],[W,0,0],[W+5,3.5,0],[W+5,D+4,0],[5,D+4,0],[0,D,0]],'shd').setAttribute('filter',`url(#${id}-blur)`);
+  // 3) 층별 띠: 벽·창 띠·멀리언·슬래브선
+  for(let i=0;i<N;i++){
+    const g=mk('g',{class:'fl'+((o.lit||[]).includes(i)?' '+(o.mode||'on'):''),'data-f':i});
+    const z0=i*FH, z1=z0+FH, w0=z0+1.15, w1=z0+3.05;
+    poly([[0,D,z0],[W,D,z0],[W,D,z1],[0,D,z1]],'l',g);
+    poly([[W,0,z0],[W,D,z0],[W,D,z1],[W,0,z1]],'r',g);
+    // 창 띠(1층은 현관 자리 비움)
+    const spans=i===0?[[1.6,21.5],[34.5,W-1.6]]:[[1.6,W-1.6]];
+    spans.forEach(([a,b])=>{poly([[a,D,w0],[b,D,w0],[b,D,w1],[a,D,w1]],'gl',g);
+      for(let x=a+3.2;x<b-.5;x+=3.2) line([x,D,w0],[x,D,w1],'mu-l',g);});
+    poly([[W,1.6,w0],[W,D-1.6,w0],[W,D-1.6,w1],[W,1.6,w1]],'gr',g);
+    for(let y=1.6+3.2;y<D-2;y+=3.2) line([W,y,w0],[W,y,w1],'mu-r',g);
+    if(i>0){poly([[0,D,z0],[W,D,z0],[W,D,z0+.32],[0,D,z0+.32]],'slab',g);
+      poly([[W,0,z0],[W,D,z0],[W,D,z0+.32],[W,0,z0+.32]],'slab',g);}
+    if(i===0) poly([[23.5,D,0],[32.5,D,0],[32.5,D,2.9],[23.5,D,2.9]],'gr',g);   // 현관 유리문
+  }
+  // 4) 옥상: 난간 바깥면 + 윗면, 안쪽은 잘라서 바닥·안쪽 벽, 계단탑
+  poly([[0,D,H],[W,D,H],[W,D,H+PAR],[0,D,H+PAR]],'l');
+  poly([[W,0,H],[W,D,H],[W,D,H+PAR],[W,0,H+PAR]],'r');
+  poly([[0,0,H+PAR],[W,0,H+PAR],[W,D,H+PAR],[0,D,H+PAR]],'t');
+  const roof=mk('g',{'clip-path':`url(#${id}-roof)`});
+  poly([[.9,.9,H],[W-.9,.9,H],[W-.9,D-.9,H],[.9,D-.9,H]],'deck',roof);
+  poly([[.9,.9,H],[.9,D-.9,H],[.9,D-.9,H+PAR],[.9,.9,H+PAR]],'r',roof);
+  poly([[.9,.9,H],[W-.9,.9,H],[W-.9,.9,H+PAR],[.9,.9,H+PAR]],'l',roof);
+  box(39,3,H,46.5,10,H+3.4);                                   // 계단탑
+  box(8,4,H,13,8.5,H+1.2);                                     // 실외기 받침
+  // 5) 현관 캐노피: 기둥 2 + 얇은 판
+  box(23.6,D+2.6,0,24,D+3,3.2); box(32,D+2.6,0,32.4,D+3,3.2);
+  box(22.5,D,3.2,33.5,D+3.4,3.6);
+  // 6) 흰 인물 첨경(키 1.7m) 셋
+  [[17,D+6],[38.5,D+7.5],[40.3,D+6.8]].forEach(([x,y])=>{
+    const b=P(x,y,0),t=P(x,y,1.42),h=P(x,y,1.66);
+    mk('ellipse',{cx:b[0]+.5,cy:b[1]+.1,rx:.7,ry:.22,class:'shd'});
+    mk('rect',{x:b[0]-.28,y:t[1],width:.56,height:b[1]-t[1],rx:.24,class:'t'});
+    mk('rect',{x:b[0],y:t[1],width:.26,height:b[1]-t[1],rx:.12,class:'r'});
+    mk('circle',{cx:h[0],cy:h[1],r:.25,class:'t'});
+  });
+  // 7) 지시선 라벨(최대 3개, 오른쪽 깨끗한 면 끝에)
+  (o.labels||[]).forEach(L=>{
+    const z=L.f*FH+FH/2, a=P(W,D/2,z), bx=P(W+7,0,0)[0]+5;
+    mk('circle',{cx:a[0],cy:a[1],r:.38,class:'lead-dot'});
+    mk('polyline',{points:`${a[0]},${a[1]} ${bx-1},${a[1]}`,class:'lead'});
+    const t=mk('text',{x:bx,y:a[1]+.7,'font-size':L.size||2});t.textContent=L.text;
+  });
+  // 보기 상자: 모형대 기준 + 라벨 여백
+  const xs=[P(-7,D+11,0)[0]-1, P(W+7,-6,0)[0]+ (o.labels&&o.labels.length? (o.pad||22):1)];
+  const ys=[P(0,0,H+3.4)[1]-3, P(W+7,D+11,-2.4)[1]+1];
+  svg.setAttribute('viewBox',`${xs[0]} ${ys[0]} ${xs[1]-xs[0]} ${ys[1]-ys[0]}`);
+  return {setLit(i){svg.querySelectorAll('.fl').forEach(g=>g.classList.toggle('on',+g.dataset.f===i));}};
+}
+
+/* 계획안 이름과 섹션 — 세 장이 같이 씁니다 */
+const BK_PLAN='○○교육청 2027 학교 공간 재구조화 추진 계획(안)';
+const BK_SECTIONS=[
+  {no:'Ⅰ', name:'추진 배경 및 현황', sub:'학생 수 변화와 노후 공간 진단', pg:'03', items:['학생 수·학급 수 5년 추이','준공 40년 이상 교사 현황','교원·학생 공간 수요 조사']},
+  {no:'Ⅱ', name:'목표 및 지표', sub:'2029년까지 재구조화 48교', pg:'07', items:['연차별 목표 학교 수','성과 지표 4종(현재값·목표값)','측정 방법과 주기']},
+  {no:'Ⅲ', name:'세부 추진과제', sub:'교실에서 지역 개방까지 4대 과제', pg:'10', items:['교실 재구조화','복도·홈베이스 전환','학교도서관 복합화','방과후 공유 공간 개방']},
+  {no:'Ⅳ', name:'추진체계', sub:'교육감 → 추진단 → TF → 학교', pg:'16', items:['위계와 역할 분담','사용자 참여 설계 절차','지자체 협력 창구']},
+  {no:'Ⅴ', name:'일정 및 예산', sub:'분기별 일정과 재원별 예산', pg:'19', items:['분기별 추진 일정','연도별 예산 412억 원','국비·지방비·교육청 자체 분담']}
+];
+
+(function(){
+  document.querySelectorAll('.bk-planname').forEach(e=>e.textContent=BK_PLAN);
+  const ol=document.querySelector('.bk-toc-list');
+  ol.innerHTML=BK_SECTIONS.map(s=>`<li><span class="n">${s.no}</span><span class="nm">${s.name}</span><span class="pg">p.${s.pg}</span><span class="sb">${s.sub}</span></li>`).join('');
+  bkModel(document.querySelector('.bk-toc-model'),{id:'toc',labels:[{f:4,text:'5F · Ⅴ'},{f:0,text:'1F · Ⅰ'}]});
+})();
+
+(function(){
+  document.querySelectorAll('.bk-planname').forEach(e=>e.textContent=BK_PLAN);
+  const root=document.querySelector('.bk-div'), q=s=>root.querySelector(s);
+  const svg=q('.bk-div-model'); let model=null;
+  q('.bk-div-prog').innerHTML=BK_SECTIONS.map(s=>`<li>${s.no}</li>`).join('');
+  // 간지 바꾸기: bkShowSection(0~4)
+  window.bkShowSection=function(i){
+    const s=BK_SECTIONS[i], n=String(i+1).padStart(2,'0');
+    q('.bk-div-big').textContent=n;
+    q('.bk-div-no').textContent=s.no+'.'; q('.bk-div-nm1').textContent=s.name;
+    q('.bk-div-k').textContent=`SECTION ${n} / 05`;
+    q('.bk-div-name').textContent=s.name; q('.bk-div-sub').textContent=s.sub;
+    q('.bk-div-items').innerHTML=s.items.map((t,k)=>`<li><span>${i+1}.${k+1}</span>${t}</li>`).join('');
+    q('.bk-div-prog').querySelectorAll('li').forEach((li,k)=>li.classList.toggle('cur',k===i));
+    q('.bk-div-pg').textContent=s.pg;
+    model=bkModel(svg,{id:'div',lit:[],labels:[{f:i,text:`${i+1}F · ${s.no}`,size:2.3}],pad:18});
+    requestAnimationFrame(()=>requestAnimationFrame(()=>model.setLit(i)));   // 다음 프레임에 점등 → 0.7초 전환
+  };
+  bkShowSection(2);
+})();
+
+(function(){
+  document.querySelectorAll('.bk-planname').forEach(e=>e.textContent=BK_PLAN);
+  // 문의처: 값만 바꾸세요
+  const C=[['담당 부서','○○교육청 교육시설과'],['담당자','주무관 ○○○'],['전화','0○○-○○○-○○○○'],['전자우편','○○○@○○.go.kr']];
+  document.querySelector('.bk-end-contact').innerHTML=C.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+  bkModel(document.querySelector('.bk-end-model'),{id:'end',lit:[0,1,2,3,4],mode:'win'});
+})();
+
+(function(){
+  document.querySelectorAll('.secbtns button').forEach(b=>b.addEventListener('click',()=>{
+    bkShowSection(+b.dataset.i);
+    document.querySelectorAll('.secbtns button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  }));
+  document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+    const pre=document.getElementById('code-'+b.dataset.k), txt=pre.textContent;
+    const sel=()=>{const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C';};
+    try{navigator.clipboard.writeText(txt).then(()=>{b.textContent='복사됨';setTimeout(()=>b.textContent='코드 복사',1600);},sel);}catch(e){sel();}
+  }));
+})();
+</script>
+
+</body></html>
