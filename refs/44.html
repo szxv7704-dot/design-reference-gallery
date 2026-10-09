@@ -144,11 +144,11 @@ code.i{font-family:var(--m); font-size:.9em; background:#EEF2F5; padding:1px 5px
   // z: +면 앞(크고 밝게), -면 뒤. lx·ly: 이름표 위치, al: 이름표 기준(l=왼쪽 정렬, r=오른쪽 정렬, c=가운데)
   var ATOMS = [
     {id:'hub', name:'○○시 통합창구', role:'접수 · 배정 · 사후관리', color:'#24466E', x:1010, y:470, z:0,    r:74, step:0, lx:1104, ly:430, al:'l'},
-    {id:'inc', name:'○○창업진흥원',  role:'보육 공간 · 창업 교육',   color:'#F08A24', x:790,  y:290, z:0.15, r:50, step:1, lx:790,  ly:186, al:'c'},
-    {id:'gua', name:'○○신용보증재단', role:'보증 · 정책자금',         color:'#2E9E6A', x:1240, y:262, z:-0.2, r:50, step:1, lx:1240, ly:162, al:'c'},
-    {id:'tec', name:'○○테크노파크',  role:'기술 지원 · 시제품',      color:'#2F7BE0', x:1340, y:575, z:0.3,  r:44, step:2, lx:1300, ly:668, al:'l'},
-    {id:'cci', name:'○○상공회의소',  role:'판로 · 수출 상담',        color:'#E9B820', x:1120, y:745, z:0.2,  r:40, step:2, lx:1176, ly:768, al:'l'},
-    {id:'job', name:'○○고용센터',    role:'인력 채용 · 고용 장려금',  color:'#C04A8F', x:845,  y:700, z:-0.25,r:38, step:2, lx:790,  ly:718, al:'r'},
+    {id:'inc', name:'○○창업진흥원',  role:'보육 공간 · 창업 교육',   color:'#CF8A45', x:790,  y:290, z:0.15, r:50, step:1, lx:790,  ly:186, al:'c'},
+    {id:'gua', name:'○○신용보증재단', role:'보증 · 정책자금',         color:'#4E8E6F', x:1240, y:262, z:-0.2, r:50, step:1, lx:1240, ly:162, al:'c'},
+    {id:'tec', name:'○○테크노파크',  role:'기술 지원 · 시제품',      color:'#4C73A6', x:1340, y:575, z:0.3,  r:44, step:2, lx:1300, ly:668, al:'l'},
+    {id:'cci', name:'○○상공회의소',  role:'판로 · 수출 상담',        color:'#C4A04A', x:1120, y:745, z:0.2,  r:40, step:2, lx:1176, ly:768, al:'l'},
+    {id:'job', name:'○○고용센터',    role:'인력 채용 · 고용 장려금',  color:'#985B7D', x:845,  y:700, z:-0.25,r:38, step:2, lx:790,  ly:718, al:'r'},
     {id:'biz', name:'기업',          role:'신청은 한 번',            color:'#FFFFFF', x:690,  y:505, z:0.35, r:30, step:4, lx:690,  ly:580, al:'c'}
   ];
   // order: 2 = 이중 결합(상시 협업), 1 = 단일 결합(요청 시 연계)
@@ -215,19 +215,27 @@ code.i{font-family:var(--m); font-size:.9em; background:#EEF2F5; padding:1px 5px
   function easeOut(p){ return 1 - Math.pow(1 - p, 3); }
   function easeBack(p){ var c = 1.6; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); }
 
-  // 광택 플라스틱 구: 좌상단 광원, 아래쪽 바닥 반사광, 하이라이트 점
+  // 무광 플라스틱 구: 좌상단 광원의 부드러운 음영, 아래쪽 약한 반사광, 금형 이음선·결합 구멍
   function sphere(x, y, r, col, a){
     ctx.save(); ctx.globalAlpha = a;
     var g = ctx.createRadialGradient(x - r*.38, y - r*.42, r*.04, x - r*.1, y - r*.1, r*1.08);
-    g.addColorStop(0, mix(col,'#FFFFFF',.62)); g.addColorStop(.32, col);
-    g.addColorStop(.82, mix(col,'#0B1726',.32)); g.addColorStop(1, mix(col,'#0B1726',.5));
+    g.addColorStop(0, mix(col,'#FFFFFF',.28)); g.addColorStop(.45, col);
+    g.addColorStop(.85, mix(col,'#0B1726',.28)); g.addColorStop(1, mix(col,'#0B1726',.42));
     ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
     var b = ctx.createRadialGradient(x + r*.2, y + r*.95, 0, x + r*.2, y + r*.95, r*.9);   // 바닥 반사광
-    b.addColorStop(0, 'rgba(255,255,255,.28)'); b.addColorStop(1, 'rgba(255,255,255,0)');
+    b.addColorStop(0, 'rgba(255,255,255,.14)'); b.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = b; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
-    var s = ctx.createRadialGradient(x - r*.4, y - r*.46, 0, x - r*.4, y - r*.46, r*.34);  // 하이라이트
-    s.addColorStop(0, 'rgba(255,255,255,.95)'); s.addColorStop(1, 'rgba(255,255,255,0)');
-    ctx.fillStyle = s; ctx.beginPath(); ctx.ellipse(x - r*.4, y - r*.46, r*.34, r*.24, -0.6, 0, Math.PI*2); ctx.fill();
+    // 금형 이음선(적도)과 쓰지 않은 결합 구멍 두 개 — 분자 모형 키트 원자의 실물 디테일
+    ctx.strokeStyle = 'rgba(0,0,0,.14)'; ctx.lineWidth = Math.max(1, r*.025);
+    ctx.beginPath(); ctx.ellipse(x, y + r*.05, r*.99, r*.28, -0.18, 0.15, Math.PI - 0.15); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.18)';
+    ctx.beginPath(); ctx.ellipse(x, y + r*.05 - 1.2, r*.99, r*.28, -0.18, 0.2, Math.PI - 0.2); ctx.stroke();
+    [[-0.52, -0.38], [0.28, -0.62]].forEach(function(o){
+      var hx = x + o[0]*r, hy = y + o[1]*r, hr = r*.085;
+      ctx.fillStyle = 'rgba(0,0,0,.42)'; ctx.beginPath(); ctx.ellipse(hx, hy, hr, hr*.8, -0.5, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,.25)'; ctx.lineWidth = Math.max(.8, r*.02);
+      ctx.beginPath(); ctx.ellipse(hx + hr*.15, hy + hr*.18, hr, hr*.8, -0.5, 0.2, Math.PI*.9); ctx.stroke();
+    });
     ctx.restore();
   }
   // 원통 막대(결합): 폭 방향 그라데이션으로 둥근 양감
@@ -235,7 +243,7 @@ code.i{font-family:var(--m); font-size:.9em; background:#EEF2F5; padding:1px 5px
     var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy); if (L < 1) return;
     var nx = -dy / L, ny = dx / L;
     var g = ctx.createLinearGradient(x1 + nx*w/2, y1 + ny*w/2, x1 - nx*w/2, y1 - ny*w/2);
-    g.addColorStop(0, '#7E8B96'); g.addColorStop(.3, '#F2F5F7'); g.addColorStop(.55, '#C9D1D8'); g.addColorStop(1, '#6E7A85');
+    g.addColorStop(0, '#959FA9'); g.addColorStop(.32, '#E3E7EB'); g.addColorStop(.6, '#CBD2D8'); g.addColorStop(1, '#88929C');
     ctx.strokeStyle = g; ctx.lineWidth = w; ctx.lineCap = 'round';
     ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
   }
@@ -475,11 +483,11 @@ code.i{font-family:var(--m); font-size:.9em; background:#EEF2F5; padding:1px 5px
   // z: +면 앞(크고 밝게), -면 뒤. lx·ly: 이름표 위치, al: 이름표 기준(l=왼쪽 정렬, r=오른쪽 정렬, c=가운데)
   var ATOMS = [
     {id:&#x27;hub&#x27;, name:&#x27;○○시 통합창구&#x27;, role:&#x27;접수 · 배정 · 사후관리&#x27;, color:&#x27;#24466E&#x27;, x:1010, y:470, z:0,    r:74, step:0, lx:1104, ly:430, al:&#x27;l&#x27;},
-    {id:&#x27;inc&#x27;, name:&#x27;○○창업진흥원&#x27;,  role:&#x27;보육 공간 · 창업 교육&#x27;,   color:&#x27;#F08A24&#x27;, x:790,  y:290, z:0.15, r:50, step:1, lx:790,  ly:186, al:&#x27;c&#x27;},
-    {id:&#x27;gua&#x27;, name:&#x27;○○신용보증재단&#x27;, role:&#x27;보증 · 정책자금&#x27;,         color:&#x27;#2E9E6A&#x27;, x:1240, y:262, z:-0.2, r:50, step:1, lx:1240, ly:162, al:&#x27;c&#x27;},
-    {id:&#x27;tec&#x27;, name:&#x27;○○테크노파크&#x27;,  role:&#x27;기술 지원 · 시제품&#x27;,      color:&#x27;#2F7BE0&#x27;, x:1340, y:575, z:0.3,  r:44, step:2, lx:1300, ly:668, al:&#x27;l&#x27;},
-    {id:&#x27;cci&#x27;, name:&#x27;○○상공회의소&#x27;,  role:&#x27;판로 · 수출 상담&#x27;,        color:&#x27;#E9B820&#x27;, x:1120, y:745, z:0.2,  r:40, step:2, lx:1176, ly:768, al:&#x27;l&#x27;},
-    {id:&#x27;job&#x27;, name:&#x27;○○고용센터&#x27;,    role:&#x27;인력 채용 · 고용 장려금&#x27;,  color:&#x27;#C04A8F&#x27;, x:845,  y:700, z:-0.25,r:38, step:2, lx:790,  ly:718, al:&#x27;r&#x27;},
+    {id:&#x27;inc&#x27;, name:&#x27;○○창업진흥원&#x27;,  role:&#x27;보육 공간 · 창업 교육&#x27;,   color:&#x27;#CF8A45&#x27;, x:790,  y:290, z:0.15, r:50, step:1, lx:790,  ly:186, al:&#x27;c&#x27;},
+    {id:&#x27;gua&#x27;, name:&#x27;○○신용보증재단&#x27;, role:&#x27;보증 · 정책자금&#x27;,         color:&#x27;#4E8E6F&#x27;, x:1240, y:262, z:-0.2, r:50, step:1, lx:1240, ly:162, al:&#x27;c&#x27;},
+    {id:&#x27;tec&#x27;, name:&#x27;○○테크노파크&#x27;,  role:&#x27;기술 지원 · 시제품&#x27;,      color:&#x27;#4C73A6&#x27;, x:1340, y:575, z:0.3,  r:44, step:2, lx:1300, ly:668, al:&#x27;l&#x27;},
+    {id:&#x27;cci&#x27;, name:&#x27;○○상공회의소&#x27;,  role:&#x27;판로 · 수출 상담&#x27;,        color:&#x27;#C4A04A&#x27;, x:1120, y:745, z:0.2,  r:40, step:2, lx:1176, ly:768, al:&#x27;l&#x27;},
+    {id:&#x27;job&#x27;, name:&#x27;○○고용센터&#x27;,    role:&#x27;인력 채용 · 고용 장려금&#x27;,  color:&#x27;#985B7D&#x27;, x:845,  y:700, z:-0.25,r:38, step:2, lx:790,  ly:718, al:&#x27;r&#x27;},
     {id:&#x27;biz&#x27;, name:&#x27;기업&#x27;,          role:&#x27;신청은 한 번&#x27;,            color:&#x27;#FFFFFF&#x27;, x:690,  y:505, z:0.35, r:30, step:4, lx:690,  ly:580, al:&#x27;c&#x27;}
   ];
   // order: 2 = 이중 결합(상시 협업), 1 = 단일 결합(요청 시 연계)
@@ -546,19 +554,27 @@ code.i{font-family:var(--m); font-size:.9em; background:#EEF2F5; padding:1px 5px
   function easeOut(p){ return 1 - Math.pow(1 - p, 3); }
   function easeBack(p){ var c = 1.6; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); }
 
-  // 광택 플라스틱 구: 좌상단 광원, 아래쪽 바닥 반사광, 하이라이트 점
+  // 무광 플라스틱 구: 좌상단 광원의 부드러운 음영, 아래쪽 약한 반사광, 금형 이음선·결합 구멍
   function sphere(x, y, r, col, a){
     ctx.save(); ctx.globalAlpha = a;
     var g = ctx.createRadialGradient(x - r*.38, y - r*.42, r*.04, x - r*.1, y - r*.1, r*1.08);
-    g.addColorStop(0, mix(col,&#x27;#FFFFFF&#x27;,.62)); g.addColorStop(.32, col);
-    g.addColorStop(.82, mix(col,&#x27;#0B1726&#x27;,.32)); g.addColorStop(1, mix(col,&#x27;#0B1726&#x27;,.5));
+    g.addColorStop(0, mix(col,&#x27;#FFFFFF&#x27;,.28)); g.addColorStop(.45, col);
+    g.addColorStop(.85, mix(col,&#x27;#0B1726&#x27;,.28)); g.addColorStop(1, mix(col,&#x27;#0B1726&#x27;,.42));
     ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
     var b = ctx.createRadialGradient(x + r*.2, y + r*.95, 0, x + r*.2, y + r*.95, r*.9);   // 바닥 반사광
-    b.addColorStop(0, &#x27;rgba(255,255,255,.28)&#x27;); b.addColorStop(1, &#x27;rgba(255,255,255,0)&#x27;);
+    b.addColorStop(0, &#x27;rgba(255,255,255,.14)&#x27;); b.addColorStop(1, &#x27;rgba(255,255,255,0)&#x27;);
     ctx.fillStyle = b; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
-    var s = ctx.createRadialGradient(x - r*.4, y - r*.46, 0, x - r*.4, y - r*.46, r*.34);  // 하이라이트
-    s.addColorStop(0, &#x27;rgba(255,255,255,.95)&#x27;); s.addColorStop(1, &#x27;rgba(255,255,255,0)&#x27;);
-    ctx.fillStyle = s; ctx.beginPath(); ctx.ellipse(x - r*.4, y - r*.46, r*.34, r*.24, -0.6, 0, Math.PI*2); ctx.fill();
+    // 금형 이음선(적도)과 쓰지 않은 결합 구멍 두 개 — 분자 모형 키트 원자의 실물 디테일
+    ctx.strokeStyle = &#x27;rgba(0,0,0,.14)&#x27;; ctx.lineWidth = Math.max(1, r*.025);
+    ctx.beginPath(); ctx.ellipse(x, y + r*.05, r*.99, r*.28, -0.18, 0.15, Math.PI - 0.15); ctx.stroke();
+    ctx.strokeStyle = &#x27;rgba(255,255,255,.18)&#x27;;
+    ctx.beginPath(); ctx.ellipse(x, y + r*.05 - 1.2, r*.99, r*.28, -0.18, 0.2, Math.PI - 0.2); ctx.stroke();
+    [[-0.52, -0.38], [0.28, -0.62]].forEach(function(o){
+      var hx = x + o[0]*r, hy = y + o[1]*r, hr = r*.085;
+      ctx.fillStyle = &#x27;rgba(0,0,0,.42)&#x27;; ctx.beginPath(); ctx.ellipse(hx, hy, hr, hr*.8, -0.5, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = &#x27;rgba(255,255,255,.25)&#x27;; ctx.lineWidth = Math.max(.8, r*.02);
+      ctx.beginPath(); ctx.ellipse(hx + hr*.15, hy + hr*.18, hr, hr*.8, -0.5, 0.2, Math.PI*.9); ctx.stroke();
+    });
     ctx.restore();
   }
   // 원통 막대(결합): 폭 방향 그라데이션으로 둥근 양감
@@ -566,7 +582,7 @@ code.i{font-family:var(--m); font-size:.9em; background:#EEF2F5; padding:1px 5px
     var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy); if (L &lt; 1) return;
     var nx = -dy / L, ny = dx / L;
     var g = ctx.createLinearGradient(x1 + nx*w/2, y1 + ny*w/2, x1 - nx*w/2, y1 - ny*w/2);
-    g.addColorStop(0, &#x27;#7E8B96&#x27;); g.addColorStop(.3, &#x27;#F2F5F7&#x27;); g.addColorStop(.55, &#x27;#C9D1D8&#x27;); g.addColorStop(1, &#x27;#6E7A85&#x27;);
+    g.addColorStop(0, &#x27;#959FA9&#x27;); g.addColorStop(.32, &#x27;#E3E7EB&#x27;); g.addColorStop(.6, &#x27;#CBD2D8&#x27;); g.addColorStop(1, &#x27;#88929C&#x27;);
     ctx.strokeStyle = g; ctx.lineWidth = w; ctx.lineCap = &#x27;round&#x27;;
     ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
   }

@@ -34,7 +34,7 @@ body{background:var(--page);color:var(--ink);font-family:var(--f-body);font-size
 .cv-sub{left:56%;top:58.5%;width:38%;font:500 1.65cqw/1.45 var(--f-body);color:#33434e}
 .cv-sub b{font-weight:700;color:var(--team)}
 .cv-org{left:56%;top:71.5%;font:500 1.35cqw/1 var(--f-body);color:var(--ink-2);letter-spacing:.02em}
-.cv-fake{right:3.4%;bottom:5.4%;font:500 1.05cqw/1 var(--f-body);color:#7d8a92;letter-spacing:.04em}
+.cv-fake{right:6.2%;top:73.6%;font:500 1.05cqw/1 var(--f-body);color:#7d8a92;letter-spacing:.04em}
 .cv-opp{left:66%;top:2.6%;font:400 2.6cqw/1 var(--f-hand);color:var(--marker-r);transform:rotate(-2deg)}
 .cv-lab{top:83.2%;transform:translateX(-50%);text-align:center;font-family:var(--f-hand);color:var(--marker-b);white-space:nowrap;transition:opacity .35s}
 .cv-coach{left:62.4%;top:85.2%;font:400 2.3cqw/1.05 var(--f-hand);color:var(--ink);white-space:nowrap;transition:opacity .35s}
@@ -308,6 +308,29 @@ tr:last-child td{border-bottom:0}
     ctx.restore();
 
     corners();
+    tray();
+  }
+  // 보드 아래 알루미늄 마커 트레이: 빨강·파랑 마커와 펠트 지우개
+  function tray(){
+    const x0=W*0.64, x1=W*0.94, y0=H*0.935, y1=H*0.99;
+    ctx.save();
+    ctx.shadowColor='rgba(16,24,32,.3)'; ctx.shadowBlur=W*0.006; ctx.shadowOffsetY=W*0.002;
+    let g=ctx.createLinearGradient(0,y0,0,y1); g.addColorStop(0,'#F4F6F8'); g.addColorStop(.35,'#C6CDD3'); g.addColorStop(1,'#9AA3AB');
+    ctx.fillStyle=g; rr(x0,y0,x1-x0,y1-y0,W*0.003); ctx.fill(); ctx.restore();
+    ctx.fillStyle='#7D868E'; ctx.fillRect(x0+W*0.004,y0+H*0.008,x1-x0-W*0.008,H*0.012);         // 홈
+    // 마커(누운 원통): 몸통 흰색 + 색 캡
+    const pen=(px,col)=>{ const py=y0+H*0.004, L=W*0.068, d=H*0.022;
+      let gg=ctx.createLinearGradient(0,py,0,py+d); gg.addColorStop(0,'#FFFFFF'); gg.addColorStop(.5,'#E9ECEE'); gg.addColorStop(1,'#B8BFC5');
+      ctx.fillStyle=gg; rr(px,py,L,d,d/2); ctx.fill();
+      gg=ctx.createLinearGradient(0,py,0,py+d); gg.addColorStop(0,shade(col,.25)); gg.addColorStop(1,shade(col,-.3));
+      ctx.fillStyle=gg; rr(px+L*.72,py-d*.06,L*.3,d*1.12,d*.5); ctx.fill();
+      ctx.fillStyle=col; ctx.fillRect(px+L*.2,py+d*.32,L*.34,d*.36); };
+    pen(x0+W*0.012,'#C9332C'); pen(x0+W*0.09,'#24439A');
+    // 지우개: 손잡이(회색) + 펠트(짙은 회색)
+    const ex=x0+W*0.19, ey=y0-H*0.012, ew=W*0.075, eh=H*0.036;
+    ctx.fillStyle='#3E454C'; rr(ex,ey+eh*.62,ew,eh*.42,W*0.002); ctx.fill();
+    g=ctx.createLinearGradient(0,ey,0,ey+eh*.7); g.addColorStop(0,'#D9DEE2'); g.addColorStop(1,'#A9B1B8');
+    ctx.fillStyle=g; rr(ex+ew*.04,ey,ew*.92,eh*.7,W*0.004); ctx.fill();
   }
 
   // 감독석(테크니컬 에어리어): 하프라인 아래 터치라인 밖 점선 칸
@@ -327,8 +350,11 @@ tr:last-child td{border-bottom:0}
   function pin(x,y){ // 카드를 누르는 작은 은색 자석
     const r=W*0.009;
     ctx.save(); ctx.fillStyle='rgba(20,30,45,.25)'; ctx.filter=`blur(${r*.35}px)`; ctx.beginPath(); ctx.arc(x+r*.25,y+r*.35,r,0,Math.PI*2); ctx.fill(); ctx.restore();
-    const g=ctx.createRadialGradient(x-r*.4,y-r*.4,r*.1,x,y,r); g.addColorStop(0,'#ffffff'); g.addColorStop(.5,'#c3cad0'); g.addColorStop(1,'#7f8890');
+    ctx.fillStyle='#8E979F'; ctx.beginPath(); ctx.arc(x,y+r*.18,r,0,Math.PI*2); ctx.fill();          // 두께
+    const g=ctx.createLinearGradient(x-r,y-r,x+r,y+r); g.addColorStop(0,'#E6EAED'); g.addColorStop(1,'#B3BCC4');
     ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.8)'; ctx.lineWidth=r*.12; ctx.beginPath(); ctx.arc(x,y,r*.8,Math.PI*.9,Math.PI*1.6); ctx.stroke();
+    ctx.strokeStyle='rgba(70,80,90,.35)'; ctx.lineWidth=r*.08; ctx.beginPath(); ctx.arc(x,y,r*.8,0,Math.PI*2); ctx.stroke();
   }
 
   function corners(){
@@ -382,7 +408,7 @@ tr:last-child td{border-bottom:0}
   }
 
   // lift: 0 = 보드에 붙음, 1 = 손에 들려 떠 있음(그림자가 멀어지고 흐려진다), sq: 착지 순간 눌림
-  function puck(fx,fy,base,lift=0,sq=0,square=false){
+  function puck(fx,fy,base,lift=0,sq=0,square=false,num=''){
     const gx=fx*W, gy=fy*H, r=W*0.0215*(1+lift*0.18), th=r*0.2;
     const x=gx-lift*W*0.012, y=gy-lift*H*0.05;
     // 바닥 그림자(광원: 왼쪽 위) — 바닥 위치에 남는다
@@ -390,30 +416,27 @@ tr:last-child td{border-bottom:0}
     ctx.beginPath(); ctx.ellipse(gx+r*0.22,gy+r*0.34,r*(1.02+lift*.25),r*(0.96+lift*.2),0,0,Math.PI*2); ctx.fill(); ctx.restore();
     ctx.save(); ctx.translate(x,y); ctx.scale(1+sq*0.08,1-sq*0.08); ctx.translate(-x,-y);
     if(square){ squarePuck(x,y,r,th,base); ctx.restore(); return; }
-    // 옆면(두께)
-    const sg = ctx.createLinearGradient(x-r,0,x+r,0);
-    sg.addColorStop(0,shade(base,-.25)); sg.addColorStop(.35,shade(base,-.05)); sg.addColorStop(1,shade(base,-.5));
-    ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(x,y+th,r,0,Math.PI*2); ctx.fill();
-    // 윗면
-    const tg = ctx.createRadialGradient(x-r*.38,y-r*.42,r*.05,x,y,r*1.05);
-    tg.addColorStop(0,shade(base,.55)); tg.addColorStop(.45,base); tg.addColorStop(1,shade(base,-.32));
+    // 납작한 무광 원판 자석: 옆 두께 띠 → 모따기 테 → 평평한 윗면 → 찍힌 등번호
+    const t2 = r*0.3;
+    ctx.fillStyle=shade(base,-.42); ctx.beginPath(); ctx.arc(x,y+t2,r,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=shade(base,-.22); ctx.beginPath(); ctx.arc(x,y+t2*.45,r,0,Math.PI*2); ctx.fill();
+    const tg = ctx.createLinearGradient(x-r,y-r,x+r,y+r);
+    tg.addColorStop(0,shade(base,.1)); tg.addColorStop(1,shade(base,-.08));
     ctx.fillStyle=tg; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
-    // 눌러 찍은 고리(양각)
-    ctx.lineWidth=r*0.08;
-    ctx.strokeStyle='rgba(0,0,0,.16)'; ctx.beginPath(); ctx.arc(x+r*.03,y+r*.04,r*.7,0,Math.PI*2); ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(x-r*.02,y-r*.02,r*.7,Math.PI*.85,Math.PI*1.75); ctx.stroke();
-    // 반사광
-    ctx.fillStyle='rgba(255,255,255,.75)'; ctx.beginPath(); ctx.ellipse(x-r*.42,y-r*.5,r*.26,r*.13,-0.6,0,Math.PI*2); ctx.fill();
+    ctx.lineWidth=r*0.07; ctx.strokeStyle=shade(base,.32); ctx.beginPath(); ctx.arc(x,y,r*.9,Math.PI*.95,Math.PI*1.7); ctx.stroke();
+    ctx.strokeStyle='rgba(0,0,0,.12)'; ctx.beginPath(); ctx.arc(x,y,r*.9,Math.PI*-.05,Math.PI*.7); ctx.stroke();
+    if(num){ ctx.fillStyle=base==='#E2A93B'?'#3A2A0A':'#FFFFFF'; ctx.font=`700 ${r*0.92}px "IBM Plex Sans KR","Malgun Gothic",sans-serif`;
+      ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(num,x,y+r*.05); }
     ctx.restore();
   }
   // 감독 자석: 모서리 둥근 네모(다른 모양 = 선수가 아니라 지휘)
   function squarePuck(x,y,r,th,base){
     const s=r*1.7, k=r*.35;
-    ctx.fillStyle=shade(base,-.45); rr(x-s/2,y-s/2+th,s,s,k); ctx.fill();
-    const g=ctx.createLinearGradient(x-s/2,y-s/2,x+s/2,y+s/2); g.addColorStop(0,shade(base,.45)); g.addColorStop(.5,base); g.addColorStop(1,shade(base,-.3));
+    ctx.fillStyle='#05090D'; rr(x-s/2,y-s/2+r*.3,s,s,k); ctx.fill();
+    const g=ctx.createLinearGradient(x-s/2,y-s/2,x+s/2,y+s/2); g.addColorStop(0,shade(base,.18)); g.addColorStop(1,shade(base,-.1));
     ctx.fillStyle=g; rr(x-s/2,y-s/2,s,s,k); ctx.fill();
     ctx.fillStyle='#ffffff'; ctx.font=`700 ${r*0.95}px "IBM Plex Sans KR","Malgun Gothic",sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('C',x,y+r*.04);
-    ctx.fillStyle='rgba(255,255,255,.6)'; ctx.beginPath(); ctx.ellipse(x-s*.24,y-s*.3,s*.16,s*.06,-.5,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.22)'; ctx.lineWidth=r*.07; rr(x-s/2+r*.12,y-s/2+r*.12,s-r*.24,s-r*.24,k*.7); ctx.stroke();
   }
 
   // 보드마커 획: 2차 곡선을 점으로 나눠 진행률 t까지 긋기
@@ -469,16 +492,16 @@ tr:last-child td{border-bottom:0}
     ctx.setTransform(dpr,0,0,dpr,0,0);
     ctx.clearRect(0,0,W,H);
     ctx.drawImage(noise,0,0,W,H);
-    const place = (pos, g, k, color, square) => {
+    const place = (pos, g, k, color, square, num) => {
       const p = (ms - T.group[g] - k*T.gap) / T.drop;
       if(p <= 0) return;
       const q = Math.min(1,p), lift = 1-ease(q), sq = q>=1 ? 0 : Math.max(0,(q-.8)/.2)*Math.sin(q*Math.PI);
-      ctx.save(); ctx.globalAlpha = Math.min(1, q*3); puck(pos[0],pos[1],color,lift,sq,square); ctx.restore();
+      ctx.save(); ctx.globalAlpha = Math.min(1, q*3); puck(pos[0],pos[1],color,lift,sq,square,num); ctx.restore();
     };
     place(coach, 0, 0, '#10202c', true);
-    keeper.forEach(pos => place(pos, 1, 0, '#ffc21a'));
-    const seen = [0,0,0,0,0];
-    team.forEach((pos,i) => { const g = groupOf(i); place(pos, g, seen[g]++, '#1d5bd8'); });
+    keeper.forEach(pos => place(pos, 1, 0, '#E2A93B', false, '1'));
+    const seen = [0,0,0,0,0], NUM = ['2','3','4','5','6','8','10','7','9','11'];
+    team.forEach((pos,i) => { const g = groupOf(i); place(pos, g, seen[g]++, '#2B4C8C', false, NUM[i]); });
     cloud(Math.max(0,Math.min(1,(ms - T.cloud)/500)));
     strokes.forEach(s => { const st = (ms - s.at)/T.stroke; if(st>0) marker(s, Math.min(1,st)); });
     labels.forEach(el => { el.style.opacity = ms >= T.group[+el.dataset.g] + T.drop*0.6 ? 1 : 0; });
@@ -556,7 +579,7 @@ tr:last-child td{border-bottom:0}
 .cv-sub { left: 56%; top: 58.5%; width: 38%; font: 500 1.65cqw/1.45 var(--f-body); color: rgb(51, 67, 78); }
 .cv-sub b { font-weight: 700; color: var(--team); }
 .cv-org { left: 56%; top: 71.5%; font: 500 1.35cqw/1 var(--f-body); color: var(--ink-2); letter-spacing: 0.02em; }
-.cv-fake { right: 3.4%; bottom: 5.4%; font: 500 1.05cqw/1 var(--f-body); color: rgb(125, 138, 146); letter-spacing: 0.04em; }
+.cv-fake { right: 6.2%; top: 73.6%; font: 500 1.05cqw/1 var(--f-body); color: rgb(125, 138, 146); letter-spacing: 0.04em; }
 .cv-opp { left: 66%; top: 2.6%; font: 400 2.6cqw/1 var(--f-hand); color: var(--marker-r); transform: rotate(-2deg); }
 .cv-lab { top: 83.2%; transform: translateX(-50%); text-align: center; font-family: var(--f-hand); color: var(--marker-b); white-space: nowrap; transition: opacity 0.35s; }
 .cv-coach { left: 62.4%; top: 85.2%; font: 400 2.3cqw/1.05 var(--f-hand); color: var(--ink); white-space: nowrap; transition: opacity 0.35s; }
@@ -687,6 +710,29 @@ tr:last-child td{border-bottom:0}
     ctx.restore();
 
     corners();
+    tray();
+  }
+  // 보드 아래 알루미늄 마커 트레이: 빨강·파랑 마커와 펠트 지우개
+  function tray(){
+    const x0=W*0.64, x1=W*0.94, y0=H*0.935, y1=H*0.99;
+    ctx.save();
+    ctx.shadowColor='rgba(16,24,32,.3)'; ctx.shadowBlur=W*0.006; ctx.shadowOffsetY=W*0.002;
+    let g=ctx.createLinearGradient(0,y0,0,y1); g.addColorStop(0,'#F4F6F8'); g.addColorStop(.35,'#C6CDD3'); g.addColorStop(1,'#9AA3AB');
+    ctx.fillStyle=g; rr(x0,y0,x1-x0,y1-y0,W*0.003); ctx.fill(); ctx.restore();
+    ctx.fillStyle='#7D868E'; ctx.fillRect(x0+W*0.004,y0+H*0.008,x1-x0-W*0.008,H*0.012);         // 홈
+    // 마커(누운 원통): 몸통 흰색 + 색 캡
+    const pen=(px,col)=&gt;{ const py=y0+H*0.004, L=W*0.068, d=H*0.022;
+      let gg=ctx.createLinearGradient(0,py,0,py+d); gg.addColorStop(0,'#FFFFFF'); gg.addColorStop(.5,'#E9ECEE'); gg.addColorStop(1,'#B8BFC5');
+      ctx.fillStyle=gg; rr(px,py,L,d,d/2); ctx.fill();
+      gg=ctx.createLinearGradient(0,py,0,py+d); gg.addColorStop(0,shade(col,.25)); gg.addColorStop(1,shade(col,-.3));
+      ctx.fillStyle=gg; rr(px+L*.72,py-d*.06,L*.3,d*1.12,d*.5); ctx.fill();
+      ctx.fillStyle=col; ctx.fillRect(px+L*.2,py+d*.32,L*.34,d*.36); };
+    pen(x0+W*0.012,'#C9332C'); pen(x0+W*0.09,'#24439A');
+    // 지우개: 손잡이(회색) + 펠트(짙은 회색)
+    const ex=x0+W*0.19, ey=y0-H*0.012, ew=W*0.075, eh=H*0.036;
+    ctx.fillStyle='#3E454C'; rr(ex,ey+eh*.62,ew,eh*.42,W*0.002); ctx.fill();
+    g=ctx.createLinearGradient(0,ey,0,ey+eh*.7); g.addColorStop(0,'#D9DEE2'); g.addColorStop(1,'#A9B1B8');
+    ctx.fillStyle=g; rr(ex+ew*.04,ey,ew*.92,eh*.7,W*0.004); ctx.fill();
   }
 
   // 감독석(테크니컬 에어리어): 하프라인 아래 터치라인 밖 점선 칸
@@ -706,8 +752,11 @@ tr:last-child td{border-bottom:0}
   function pin(x,y){ // 카드를 누르는 작은 은색 자석
     const r=W*0.009;
     ctx.save(); ctx.fillStyle='rgba(20,30,45,.25)'; ctx.filter=`blur(${r*.35}px)`; ctx.beginPath(); ctx.arc(x+r*.25,y+r*.35,r,0,Math.PI*2); ctx.fill(); ctx.restore();
-    const g=ctx.createRadialGradient(x-r*.4,y-r*.4,r*.1,x,y,r); g.addColorStop(0,'#ffffff'); g.addColorStop(.5,'#c3cad0'); g.addColorStop(1,'#7f8890');
+    ctx.fillStyle='#8E979F'; ctx.beginPath(); ctx.arc(x,y+r*.18,r,0,Math.PI*2); ctx.fill();          // 두께
+    const g=ctx.createLinearGradient(x-r,y-r,x+r,y+r); g.addColorStop(0,'#E6EAED'); g.addColorStop(1,'#B3BCC4');
     ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.8)'; ctx.lineWidth=r*.12; ctx.beginPath(); ctx.arc(x,y,r*.8,Math.PI*.9,Math.PI*1.6); ctx.stroke();
+    ctx.strokeStyle='rgba(70,80,90,.35)'; ctx.lineWidth=r*.08; ctx.beginPath(); ctx.arc(x,y,r*.8,0,Math.PI*2); ctx.stroke();
   }
 
   function corners(){
@@ -761,7 +810,7 @@ tr:last-child td{border-bottom:0}
   }
 
   // lift: 0 = 보드에 붙음, 1 = 손에 들려 떠 있음(그림자가 멀어지고 흐려진다), sq: 착지 순간 눌림
-  function puck(fx,fy,base,lift=0,sq=0,square=false){
+  function puck(fx,fy,base,lift=0,sq=0,square=false,num=''){
     const gx=fx*W, gy=fy*H, r=W*0.0215*(1+lift*0.18), th=r*0.2;
     const x=gx-lift*W*0.012, y=gy-lift*H*0.05;
     // 바닥 그림자(광원: 왼쪽 위) — 바닥 위치에 남는다
@@ -769,30 +818,27 @@ tr:last-child td{border-bottom:0}
     ctx.beginPath(); ctx.ellipse(gx+r*0.22,gy+r*0.34,r*(1.02+lift*.25),r*(0.96+lift*.2),0,0,Math.PI*2); ctx.fill(); ctx.restore();
     ctx.save(); ctx.translate(x,y); ctx.scale(1+sq*0.08,1-sq*0.08); ctx.translate(-x,-y);
     if(square){ squarePuck(x,y,r,th,base); ctx.restore(); return; }
-    // 옆면(두께)
-    const sg = ctx.createLinearGradient(x-r,0,x+r,0);
-    sg.addColorStop(0,shade(base,-.25)); sg.addColorStop(.35,shade(base,-.05)); sg.addColorStop(1,shade(base,-.5));
-    ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(x,y+th,r,0,Math.PI*2); ctx.fill();
-    // 윗면
-    const tg = ctx.createRadialGradient(x-r*.38,y-r*.42,r*.05,x,y,r*1.05);
-    tg.addColorStop(0,shade(base,.55)); tg.addColorStop(.45,base); tg.addColorStop(1,shade(base,-.32));
+    // 납작한 무광 원판 자석: 옆 두께 띠 → 모따기 테 → 평평한 윗면 → 찍힌 등번호
+    const t2 = r*0.3;
+    ctx.fillStyle=shade(base,-.42); ctx.beginPath(); ctx.arc(x,y+t2,r,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle=shade(base,-.22); ctx.beginPath(); ctx.arc(x,y+t2*.45,r,0,Math.PI*2); ctx.fill();
+    const tg = ctx.createLinearGradient(x-r,y-r,x+r,y+r);
+    tg.addColorStop(0,shade(base,.1)); tg.addColorStop(1,shade(base,-.08));
     ctx.fillStyle=tg; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
-    // 눌러 찍은 고리(양각)
-    ctx.lineWidth=r*0.08;
-    ctx.strokeStyle='rgba(0,0,0,.16)'; ctx.beginPath(); ctx.arc(x+r*.03,y+r*.04,r*.7,0,Math.PI*2); ctx.stroke();
-    ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(x-r*.02,y-r*.02,r*.7,Math.PI*.85,Math.PI*1.75); ctx.stroke();
-    // 반사광
-    ctx.fillStyle='rgba(255,255,255,.75)'; ctx.beginPath(); ctx.ellipse(x-r*.42,y-r*.5,r*.26,r*.13,-0.6,0,Math.PI*2); ctx.fill();
+    ctx.lineWidth=r*0.07; ctx.strokeStyle=shade(base,.32); ctx.beginPath(); ctx.arc(x,y,r*.9,Math.PI*.95,Math.PI*1.7); ctx.stroke();
+    ctx.strokeStyle='rgba(0,0,0,.12)'; ctx.beginPath(); ctx.arc(x,y,r*.9,Math.PI*-.05,Math.PI*.7); ctx.stroke();
+    if(num){ ctx.fillStyle=base==='#E2A93B'?'#3A2A0A':'#FFFFFF'; ctx.font=`700 ${r*0.92}px "IBM Plex Sans KR","Malgun Gothic",sans-serif`;
+      ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(num,x,y+r*.05); }
     ctx.restore();
   }
   // 감독 자석: 모서리 둥근 네모(다른 모양 = 선수가 아니라 지휘)
   function squarePuck(x,y,r,th,base){
     const s=r*1.7, k=r*.35;
-    ctx.fillStyle=shade(base,-.45); rr(x-s/2,y-s/2+th,s,s,k); ctx.fill();
-    const g=ctx.createLinearGradient(x-s/2,y-s/2,x+s/2,y+s/2); g.addColorStop(0,shade(base,.45)); g.addColorStop(.5,base); g.addColorStop(1,shade(base,-.3));
+    ctx.fillStyle='#05090D'; rr(x-s/2,y-s/2+r*.3,s,s,k); ctx.fill();
+    const g=ctx.createLinearGradient(x-s/2,y-s/2,x+s/2,y+s/2); g.addColorStop(0,shade(base,.18)); g.addColorStop(1,shade(base,-.1));
     ctx.fillStyle=g; rr(x-s/2,y-s/2,s,s,k); ctx.fill();
     ctx.fillStyle='#ffffff'; ctx.font=`700 ${r*0.95}px "IBM Plex Sans KR","Malgun Gothic",sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText('C',x,y+r*.04);
-    ctx.fillStyle='rgba(255,255,255,.6)'; ctx.beginPath(); ctx.ellipse(x-s*.24,y-s*.3,s*.16,s*.06,-.5,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.22)'; ctx.lineWidth=r*.07; rr(x-s/2+r*.12,y-s/2+r*.12,s-r*.24,s-r*.24,k*.7); ctx.stroke();
   }
 
   // 보드마커 획: 2차 곡선을 점으로 나눠 진행률 t까지 긋기
@@ -848,16 +894,16 @@ tr:last-child td{border-bottom:0}
     ctx.setTransform(dpr,0,0,dpr,0,0);
     ctx.clearRect(0,0,W,H);
     ctx.drawImage(noise,0,0,W,H);
-    const place = (pos, g, k, color, square) =&gt; {
+    const place = (pos, g, k, color, square, num) =&gt; {
       const p = (ms - T.group[g] - k*T.gap) / T.drop;
       if(p &lt;= 0) return;
       const q = Math.min(1,p), lift = 1-ease(q), sq = q&gt;=1 ? 0 : Math.max(0,(q-.8)/.2)*Math.sin(q*Math.PI);
-      ctx.save(); ctx.globalAlpha = Math.min(1, q*3); puck(pos[0],pos[1],color,lift,sq,square); ctx.restore();
+      ctx.save(); ctx.globalAlpha = Math.min(1, q*3); puck(pos[0],pos[1],color,lift,sq,square,num); ctx.restore();
     };
     place(coach, 0, 0, '#10202c', true);
-    keeper.forEach(pos =&gt; place(pos, 1, 0, '#ffc21a'));
-    const seen = [0,0,0,0,0];
-    team.forEach((pos,i) =&gt; { const g = groupOf(i); place(pos, g, seen[g]++, '#1d5bd8'); });
+    keeper.forEach(pos =&gt; place(pos, 1, 0, '#E2A93B', false, '1'));
+    const seen = [0,0,0,0,0], NUM = ['2','3','4','5','6','8','10','7','9','11'];
+    team.forEach((pos,i) =&gt; { const g = groupOf(i); place(pos, g, seen[g]++, '#2B4C8C', false, NUM[i]); });
     cloud(Math.max(0,Math.min(1,(ms - T.cloud)/500)));
     strokes.forEach(s =&gt; { const st = (ms - s.at)/T.stroke; if(st&gt;0) marker(s, Math.min(1,st)); });
     labels.forEach(el =&gt; { el.style.opacity = ms &gt;= T.group[+el.dataset.g] + T.drop*0.6 ? 1 : 0; });

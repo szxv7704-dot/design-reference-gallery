@@ -68,7 +68,7 @@ a{color:var(--pg-a)}
   --dmn-a:#23395B;       /* 시설 트랙(남색) */
   --dmn-b:#13877B;       /* 운영 트랙(청록) */
   --dmn-hot:#EC5730;     /* 병목 절차(주황) */
-  --dmn-goal:#F2B233;    /* 최종 목표(금색) */
+  --dmn-goal:#DDBB6E;    /* 최종 목표(금색) */
   --dmn-line:#D5DCE5;
   max-width:1200px; margin:0 auto;
   font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
@@ -91,13 +91,13 @@ a{color:var(--pg-a)}
 .dmn-layer{position:absolute; inset:0; pointer-events:none}
 .dmn-mon{position:absolute; transform:translate(-50%,0); font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:1.05cqw; color:var(--dmn-sub); white-space:nowrap}
 .dmn-mon.is-year{color:var(--dmn-a); font-weight:500}
-.dmn-row{position:absolute; left:2.6cqw; transform:translate(0,-50%); font-size:1.15cqw; font-weight:700; color:#FFFFFF; padding:.18cqw .6cqw; border-radius:.3cqw}
+.dmn-row{position:absolute; left:2.6cqw; transform:translate(0,-50%); font-size:1.15cqw; font-weight:700; color:var(--dmn-sub); letter-spacing:.08em}
 .dmn-lab{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; font-size:1.28cqw; font-weight:500;
-  padding:.28cqw .7cqw; border-radius:.35cqw; background:#FFFFFF; color:var(--dmn-c); box-shadow:inset 0 0 0 1px var(--dmn-c);
-  opacity:.55; transition:background .25s, color .25s, opacity .25s}
+  padding:.1cqw 0 .1cqw .7cqw; border-left:.22cqw solid var(--dmn-c); color:var(--dmn-sub);
+  opacity:.45; transition:color .25s, opacity .25s}
 .dmn-lab small{font-family:'IBM Plex Mono',ui-monospace,monospace; font-size:.92cqw; margin-right:.4cqw; opacity:.85}
-.dmn-lab.is-on{background:var(--dmn-c); color:#FFFFFF; opacity:1}
-.dmn-lab.is-goal.is-on{color:var(--dmn-ink)}
+.dmn-lab.is-on{color:var(--dmn-ink); opacity:1}
+.dmn-lab.is-on.is-hot{color:var(--dmn-hot); font-weight:700}
 .dmn-note{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; font-size:1.18cqw; font-weight:700; color:var(--dmn-hot);
   background:var(--dmn-bg); padding:0 .8cqw; opacity:0; transition:opacity .4s}
 .dmn-note.is-on{opacity:1}
@@ -288,12 +288,13 @@ a{color:var(--pg-a)}
   });
   Object.keys(DMN.rows).forEach(function(k){
     var el = document.createElement('div'); el.className = 'dmn-row'; el.textContent = DMN.rows[k];
-    el.style.background = COL[k]; el.style.top = (ROWY[k] / 56.25 * 100) + '%'; layer.appendChild(el);
+    el.style.top = (ROWY[k] / 56.25 * 100) + '%'; layer.appendChild(el);
   });
   doms.forEach(function(d){
     if (!d.info) return;
     var el = document.createElement('div'); el.className = 'dmn-lab' + (d.kind === 'goal' ? ' is-goal' : '');
     el.style.setProperty('--dmn-c', d.color);
+    if (d.color === COL.hot) el.classList.add('is-hot');
     el.innerHTML = '<small>' + DMN.monthLabels[d.info.m - 1] + '</small>' + d.info.name;
     var q = proj([d.kind === 'goal' ? d.x + 1.25 : d.x, FY0, -FZ]);
     var row = d.kind === 'goal' ? (ROWY.a + ROWY.b) / 2 : ROWY[d.kind];
@@ -497,7 +498,7 @@ a{color:var(--pg-a)}
   --dmn-a:#23395B;       /* 시설 트랙(남색) */
   --dmn-b:#13877B;       /* 운영 트랙(청록) */
   --dmn-hot:#EC5730;     /* 병목 절차(주황) */
-  --dmn-goal:#F2B233;    /* 최종 목표(금색) */
+  --dmn-goal:#DDBB6E;    /* 최종 목표(금색) */
   --dmn-line:#D5DCE5;
   max-width:1200px; margin:0 auto;
   font-family:&#x27;IBM Plex Sans KR&#x27;,&#x27;Apple SD Gothic Neo&#x27;,&#x27;Malgun Gothic&#x27;,&#x27;Noto Sans KR&#x27;,sans-serif;
@@ -520,13 +521,13 @@ a{color:var(--pg-a)}
 .dmn-layer{position:absolute; inset:0; pointer-events:none}
 .dmn-mon{position:absolute; transform:translate(-50%,0); font-family:&#x27;IBM Plex Mono&#x27;,ui-monospace,monospace; font-size:1.05cqw; color:var(--dmn-sub); white-space:nowrap}
 .dmn-mon.is-year{color:var(--dmn-a); font-weight:500}
-.dmn-row{position:absolute; left:2.6cqw; transform:translate(0,-50%); font-size:1.15cqw; font-weight:700; color:#FFFFFF; padding:.18cqw .6cqw; border-radius:.3cqw}
+.dmn-row{position:absolute; left:2.6cqw; transform:translate(0,-50%); font-size:1.15cqw; font-weight:700; color:var(--dmn-sub); letter-spacing:.08em}
 .dmn-lab{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; font-size:1.28cqw; font-weight:500;
-  padding:.28cqw .7cqw; border-radius:.35cqw; background:#FFFFFF; color:var(--dmn-c); box-shadow:inset 0 0 0 1px var(--dmn-c);
-  opacity:.55; transition:background .25s, color .25s, opacity .25s}
+  padding:.1cqw 0 .1cqw .7cqw; border-left:.22cqw solid var(--dmn-c); color:var(--dmn-sub);
+  opacity:.45; transition:color .25s, opacity .25s}
 .dmn-lab small{font-family:&#x27;IBM Plex Mono&#x27;,ui-monospace,monospace; font-size:.92cqw; margin-right:.4cqw; opacity:.85}
-.dmn-lab.is-on{background:var(--dmn-c); color:#FFFFFF; opacity:1}
-.dmn-lab.is-goal.is-on{color:var(--dmn-ink)}
+.dmn-lab.is-on{color:var(--dmn-ink); opacity:1}
+.dmn-lab.is-on.is-hot{color:var(--dmn-hot); font-weight:700}
 .dmn-note{position:absolute; transform:translate(-50%,-50%); white-space:nowrap; font-size:1.18cqw; font-weight:700; color:var(--dmn-hot);
   background:var(--dmn-bg); padding:0 .8cqw; opacity:0; transition:opacity .4s}
 .dmn-note.is-on{opacity:1}
@@ -717,12 +718,13 @@ a{color:var(--pg-a)}
   });
   Object.keys(DMN.rows).forEach(function(k){
     var el = document.createElement(&#x27;div&#x27;); el.className = &#x27;dmn-row&#x27;; el.textContent = DMN.rows[k];
-    el.style.background = COL[k]; el.style.top = (ROWY[k] / 56.25 * 100) + &#x27;%&#x27;; layer.appendChild(el);
+    el.style.top = (ROWY[k] / 56.25 * 100) + &#x27;%&#x27;; layer.appendChild(el);
   });
   doms.forEach(function(d){
     if (!d.info) return;
     var el = document.createElement(&#x27;div&#x27;); el.className = &#x27;dmn-lab&#x27; + (d.kind === &#x27;goal&#x27; ? &#x27; is-goal&#x27; : &#x27;&#x27;);
     el.style.setProperty(&#x27;--dmn-c&#x27;, d.color);
+    if (d.color === COL.hot) el.classList.add(&#x27;is-hot&#x27;);
     el.innerHTML = &#x27;&lt;small&gt;&#x27; + DMN.monthLabels[d.info.m - 1] + &#x27;&lt;/small&gt;&#x27; + d.info.name;
     var q = proj([d.kind === &#x27;goal&#x27; ? d.x + 1.25 : d.x, FY0, -FZ]);
     var row = d.kind === &#x27;goal&#x27; ? (ROWY.a + ROWY.b) / 2 : ROWY[d.kind];

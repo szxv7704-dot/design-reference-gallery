@@ -13,10 +13,10 @@
   --line:#E3E0D8;
   --wood:#EAD7B5;      /* 레일 안쪽 조리대 원목 */
   --steel:#C7CED6;
-  --c-play:#2E9E62;    /* 접시 색: 놀이 */
-  --c-snack:#F08A24;   /* 간식 */
-  --c-rest:#2F7FD8;    /* 쉼 */
-  --c-special:#E04F78; /* 특성화 활동 */
+  --c-play:#5E9479;    /* 접시 유약: 놀이(청자) */
+  --c-snack:#C98F38;   /* 간식(유자) */
+  --c-rest:#4D6B96;    /* 쉼(쪽빛) */
+  --c-special:#A9544E; /* 특성화 활동(팥) */
   --led-bg:#1E242B; --led:#FFB547;
   --f-display:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
@@ -39,17 +39,16 @@ body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1
   font-size:6.3cqw;line-height:1.12;letter-spacing:-.035em;color:var(--ink)}
 .cv-title small{display:block;font-size:max(1.75cqw,8.5px);font-weight:700;letter-spacing:.02em;color:var(--ink-2);margin-bottom:.5cqw}
 .cv-sub{position:absolute;left:5.75cqw;top:26.6cqw;margin:0;font-size:max(2.05cqw,10px);font-weight:500;color:var(--ink);letter-spacing:-.01em}
-.cv-sub b{font-weight:700;background:linear-gradient(transparent 62%,rgba(240,138,36,.28) 62%)}
+.cv-sub b{font-weight:700}
 /* 운행 시간 전광판 */
-.cv-led{position:absolute;right:5cqw;top:9.2cqw;background:var(--led-bg);color:var(--led);border-radius:.8cqw;
-  padding:1cqw 1.6cqw;font-family:var(--f-led);text-align:right;box-shadow:inset 0 0 0 .25cqw #3A434D,0 1cqw 2cqw -1cqw rgba(0,0,0,.35)}
-.cv-led .t{font-size:2.6cqw;letter-spacing:.06em;text-shadow:0 0 .6cqw rgba(255,181,71,.55);line-height:1.15}
-.cv-led .l{font-size:max(1.05cqw,7px);color:#F7E2BC;font-family:var(--f-body);letter-spacing:.08em}
+.cv-led{position:absolute;right:5cqw;top:9.6cqw;width:22cqw;text-align:right;border-top:1px solid #1D2733;padding-top:.9cqw}
+.cv-led .t{font-family:var(--f-mono);font-size:2.3cqw;font-weight:700;letter-spacing:.04em;color:var(--ink);line-height:1.2}
+.cv-led .l{font-size:max(1.05cqw,7px);color:var(--ink-2);letter-spacing:.08em;margin-top:.2cqw}
 /* 레일 안쪽 범례(접시 색 = 활동 영역) */
-.cv-legend{position:absolute;left:50%;top:77.5%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:1.1cqw;
-  background:rgba(255,255,255,.86);border-radius:99px;padding:.7cqw 1.4cqw;box-shadow:0 .3cqw 1cqw -.4cqw rgba(60,40,10,.35)}
-.cv-legend span.k{font-size:max(1.05cqw,7px);color:var(--ink-2);letter-spacing:.04em;white-space:nowrap}
-.chip{all:unset;cursor:pointer;display:flex;align-items:center;gap:.5cqw;font-size:max(1.45cqw,9px);font-weight:700;color:var(--ink);white-space:nowrap;
+.cv-legend{position:absolute;right:5cqw;top:17.4cqw;width:22cqw;display:grid;grid-template-columns:repeat(2,auto);justify-content:end;gap:.6cqw 2.4cqw;
+  border-top:1px solid var(--line);padding-top:.9cqw}
+.cv-legend span.k{grid-column:1/-1;font-size:max(1cqw,7px);color:var(--ink-2);letter-spacing:.08em;white-space:nowrap;text-align:right}
+.chip{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:flex-start;gap:.6cqw;font-size:max(1.3cqw,8px);font-weight:500;color:var(--ink);white-space:nowrap;
   padding:.15cqw .3cqw;border-radius:.6cqw}
 .chip i{width:1.7cqw;height:1.7cqw;min-width:9px;min-height:9px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 .38cqw var(--c),0 .1cqw .3cqw rgba(0,0,0,.25)}
 .chip:hover,.chip:focus-visible{background:rgba(29,39,51,.07)}
@@ -101,14 +100,14 @@ a{color:#1F5FAE}
       <p class="cv-sub">매일 같은 레일 위로, <b>날마다 고르는 오후</b></p>
       <div class="cv-led" aria-label="운행 시간 14시부터 19시"><div class="t">14:00 → 19:00</div><div class="l">매일 운행</div></div>
       <div class="cv-legend" role="group" aria-label="접시 색 범례: 누르면 해당 접시가 앞으로 옵니다">
-        <span class="k">접시 색</span>
+        <span class="k">접시 테 유약 = 활동</span>
         <button class="chip" data-cat="0" style="--c:var(--c-play)"><i></i>놀이</button>
         <button class="chip" data-cat="1" style="--c:var(--c-snack)"><i></i>간식</button>
         <button class="chip" data-cat="2" style="--c:var(--c-rest)"><i></i>쉼</button>
         <button class="chip" data-cat="3" style="--c:var(--c-special)"><i></i>특성화 활동</button>
       </div>
     </div>
-    <p class="hint">표지 안 범례 칩을 누르면 레일이 돌아 그 색 접시가 맨 앞에 와서 멈춥니다. 이 동작이 아래 ‘회전 레일 목차’ 장치입니다.</p>
+    <p class="hint">오른쪽 범례를 누르면 레일이 돌아 그 색 접시가 맨 앞에 와서 멈춥니다. 이 동작이 아래 ‘회전 레일 목차’ 장치입니다.</p>
   </div>
 
   <section>
@@ -239,7 +238,7 @@ a{color:#1F5FAE}
   const W=1920,H=1080, CX=1180, CY=800;
   const L=1100, R=330, BAND=72, GUARD=16, SKIRT=48;
   const P=2*L+2*Math.PI*R;
-  const CAT=['#2E9E62','#F08A24','#2F7FD8','#E04F78']; // 놀이·간식·쉼·특성화
+  const CAT=['#5E9479','#C98F38','#4D6B96','#A9544E']; // 놀이·간식·쉼·특성화
   const ORDER=[0,1,3,2,0,3,1,2,0,1,2,3,1,0];          // 레일 위 접시 순서(색 섞기)
   const N=ORDER.length, GAP=P/N;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -318,7 +317,7 @@ a{color:#1F5FAE}
     const sg=c.createRadialGradient(x+10*s,y+lift*s+th+6*s,4,x+10*s,y+lift*s+th+6*s,r*1.15);
     sg.addColorStop(0,'rgba(40,50,60,.32)');sg.addColorStop(1,'rgba(40,50,60,0)');
     c.fillStyle=sg;c.beginPath();c.ellipse(x+10*s,y+lift*s+th+6*s,r*1.15,ry*1.25,0,0,7);c.fill();c.restore();
-    if(glow){c.save();c.strokeStyle=col;c.globalAlpha=.35;c.lineWidth=10*s;c.beginPath();c.ellipse(x,y+th/2,r*1.18,ry*1.22,0,0,7);c.stroke();c.restore();}
+    if(glow){c.save();c.strokeStyle=col;c.globalAlpha=.45;c.lineWidth=3*s;c.beginPath();c.ellipse(x,y+th/2,r*1.18,ry*1.22,0,0,7);c.stroke();c.restore();}
     // 굽(아래 두께)
     const side=c.createLinearGradient(x-r,0,x+r,0);side.addColorStop(0,'#F4F5F6');side.addColorStop(.6,'#D9DDE1');side.addColorStop(1,'#BFC5CB');
     c.fillStyle=side;c.beginPath();c.ellipse(x,y+th,r*.98,ry*.98,0,0,Math.PI);c.lineTo(x-r,y);c.ellipse(x,y,r,ry,0,Math.PI,0,true);c.closePath();c.fill();
@@ -345,21 +344,30 @@ a{color:#1F5FAE}
     const c=g;
     if(cat===0){ // 놀이: 원목 블록 쌓기
       const a=30*s;
-      cube(c,x-a*.55,y-a*.55,a,'#F3D9A8','#D9B57A','#BF955A');
-      cube(c,x+a*.55,y-a*.55,a,'#9FD3B4','#5DB283','#3F8E64');
-      cube(c,x,y-a*1.45,a,'#F7CFA0','#E3A464','#C98647');
+      cube(c,x-a*.55,y-a*.55,a,'#F2DDB6','#D8BC8C','#BC9C6A');
+      cube(c,x+a*.55,y-a*.55,a,'#C7DACB','#93B39E','#6F927C');
+      cube(c,x,y-a*1.45,a,'#F2DDB6','#D8BC8C','#BC9C6A');
+      // 원목 결과 모서리 마모
+      c.strokeStyle='rgba(140,100,55,.28)';c.lineWidth=.8*s;
+      for(const [bx,by] of [[x-a*.55,y-a*.55],[x,y-a*1.45]]) for(let k=1;k<4;k++){c.beginPath();c.moveTo(bx-a*.62+k*a*.12,by-k*a*.04);c.quadraticCurveTo(bx,by+a*.1-k*a*.05,bx+a*.62-k*a*.1,by+k*a*.03);c.stroke();}
     } else if(cat===1){ // 간식: 귤
       const rr=24*s, cy=y-rr*.85;
-      const og=c.createRadialGradient(x-rr*.4,cy-rr*.45,rr*.1,x,cy,rr*1.1);
-      og.addColorStop(0,'#FFC46B');og.addColorStop(.55,'#F59324');og.addColorStop(1,'#C9640E');
-      c.fillStyle=og;c.beginPath();c.ellipse(x,cy,rr*1.05,rr*.95,0,0,7);c.fill();
-      c.fillStyle='rgba(255,255,255,.55)';c.beginPath();c.ellipse(x-rr*.42,cy-rr*.42,rr*.2,rr*.12,-.6,0,7);c.fill();
-      c.fillStyle='#7A5A2A';c.beginPath();c.arc(x+rr*.05,cy-rr*.9,rr*.08,0,7);c.fill();
-      const lg=c.createLinearGradient(x,cy-rr*1.3,x+rr*.9,cy-rr*.8);lg.addColorStop(0,'#6CC17A');lg.addColorStop(1,'#2F8A49');
-      c.fillStyle=lg;c.beginPath();c.ellipse(x+rr*.45,cy-rr*1.02,rr*.48,rr*.17,-.35,0,7);c.fill();
+      // 귤: 위아래가 눌린 몸통, 껍질 기공, 꼭지(별 모양 받침), 잎맥 있는 잎
+      const og=c.createLinearGradient(x-rr,cy-rr,x+rr,cy+rr);
+      og.addColorStop(0,'#F3B25E');og.addColorStop(.6,'#E08A2E');og.addColorStop(1,'#B9661D');
+      c.fillStyle=og;c.beginPath();c.ellipse(x,cy,rr*1.08,rr*.88,0,0,7);c.fill();
+      c.save();c.beginPath();c.ellipse(x,cy,rr*1.08,rr*.88,0,0,7);c.clip();
+      for(let k=0;k<70;k++){const a=k*2.399, d=Math.sqrt(k/70);const px=x+Math.cos(a)*d*rr, py=cy+Math.sin(a)*d*rr*.82;
+        c.fillStyle=k%3?'rgba(150,72,10,.18)':'rgba(255,220,160,.25)';c.beginPath();c.arc(px,py,.9*s,0,7);c.fill();}
+      const sh=c.createLinearGradient(x,cy-rr,x,cy+rr);sh.addColorStop(0,'rgba(255,240,210,.22)');sh.addColorStop(1,'rgba(90,40,0,.18)');
+      c.fillStyle=sh;c.fillRect(x-rr*1.2,cy-rr,rr*2.4,rr*2);c.restore();
+      c.fillStyle='#5C6B3A';c.beginPath();
+      for(let k=0;k<10;k++){const a=k*Math.PI/5-Math.PI/2, rad=k%2?rr*.07:rr*.17;const px=x+rr*.05+Math.cos(a)*rad, py=cy-rr*.84+Math.sin(a)*rad*.45;k?c.lineTo(px,py):c.moveTo(px,py);}c.closePath();c.fill();
+      c.fillStyle='#6E8F52';c.beginPath();c.moveTo(x+rr*.08,cy-rr*.9);c.quadraticCurveTo(x+rr*.5,cy-rr*1.35,x+rr*1.0,cy-rr*1.05);c.quadraticCurveTo(x+rr*.5,cy-rr*.82,x+rr*.08,cy-rr*.9);c.fill();
+      c.strokeStyle='rgba(235,240,215,.7)';c.lineWidth=.8*s;c.beginPath();c.moveTo(x+rr*.12,cy-rr*.92);c.quadraticCurveTo(x+rr*.5,cy-rr*1.1,x+rr*.95,cy-rr*1.04);c.stroke();
     } else if(cat===2){ // 쉼: 작은 베개
       const w=46*s,h=22*s,cy=y-h*.75;
-      const pg=c.createLinearGradient(x-w,cy-h,x+w*.6,cy+h);pg.addColorStop(0,'#E4F0FD');pg.addColorStop(.5,'#9CC5F0');pg.addColorStop(1,'#4F8FD6');
+      const pg=c.createLinearGradient(x-w,cy-h,x+w*.6,cy+h);pg.addColorStop(0,'#F1F3F6');pg.addColorStop(.55,'#C9D3E0');pg.addColorStop(1,'#8C9DB5');
       c.fillStyle=pg;c.beginPath();
       c.moveTo(x-w*.8,cy-h*.6);
       c.quadraticCurveTo(x,cy-h*1.25,x+w*.8,cy-h*.6);
@@ -367,19 +375,23 @@ a{color:#1F5FAE}
       c.quadraticCurveTo(x,cy+h*1.15,x-w*.8,cy+h*.6);
       c.quadraticCurveTo(x-w*.98,cy,x-w*.8,cy-h*.6);c.fill();
       c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=1.5*s;c.beginPath();c.moveTo(x-w*.55,cy-h*.62);c.quadraticCurveTo(x-w*.1,cy-h*.9,x+w*.35,cy-h*.72);c.stroke();
-      c.fillStyle='#3E78BD';c.beginPath();c.arc(x+w*.05,cy+h*.05,2.6*s,0,7);c.fill();
+      // 가장자리 박음질과 가운데 단추
+      c.setLineDash([2.2*s,2.2*s]);c.strokeStyle='rgba(77,107,150,.55)';c.lineWidth=.9*s;c.beginPath();
+      c.moveTo(x-w*.7,cy-h*.45);c.quadraticCurveTo(x,cy-h*1.02,x+w*.7,cy-h*.45);c.quadraticCurveTo(x+w*.84,cy,x+w*.7,cy+h*.45);
+      c.quadraticCurveTo(x,cy+h*.95,x-w*.7,cy+h*.45);c.quadraticCurveTo(x-w*.84,cy,x-w*.7,cy-h*.45);c.stroke();c.setLineDash([]);
+      c.fillStyle='#4D6B96';c.beginPath();c.arc(x+w*.05,cy+h*.05,2.4*s,0,7);c.fill();
     } else { // 특성화 활동: 작은 북
       const rx=24*s, ry=rx*.38, h=24*s, top=y-h-ry*.3;
-      const sg=c.createLinearGradient(x-rx,0,x+rx,0);sg.addColorStop(0,'#F58AA6');sg.addColorStop(.45,'#E04F78');sg.addColorStop(1,'#A52E52');
+      const sg=c.createLinearGradient(x-rx,0,x+rx,0);sg.addColorStop(0,'#D38A83');sg.addColorStop(.45,'#A9544E');sg.addColorStop(1,'#78352F');
       c.fillStyle=sg;c.beginPath();c.ellipse(x,top+h,rx,ry,0,0,Math.PI);c.lineTo(x-rx,top);c.ellipse(x,top,rx,ry,0,Math.PI,0,true);c.closePath();c.fill();
       // 줄 매듭(지그재그)
       c.strokeStyle='rgba(255,236,200,.95)';c.lineWidth=1.6*s;c.beginPath();
       for(let i=0;i<=8;i++){const a=Math.PI-i*Math.PI/8;const xx=x+Math.cos(a)*rx*.98;const yy=(i%2?top+h-ry*.2:top+ry*.5)+Math.sin(a)*ry*.95;i?c.lineTo(xx,yy):c.moveTo(xx,yy);}c.stroke();
       // 금색 테
-      c.strokeStyle='#E8B64C';c.lineWidth=2.4*s;c.beginPath();c.ellipse(x,top+h,rx,ry,0,0,Math.PI);c.stroke();
+      c.strokeStyle='#B9955A';c.lineWidth=2.4*s;c.beginPath();c.ellipse(x,top+h,rx,ry,0,0,Math.PI);c.stroke();
       const hg=c.createRadialGradient(x-rx*.3,top-ry*.3,1,x,top,rx);hg.addColorStop(0,'#FFFFFF');hg.addColorStop(1,'#E9E4DA');
       c.fillStyle=hg;c.beginPath();c.ellipse(x,top,rx,ry,0,0,7);c.fill();
-      c.strokeStyle='#E8B64C';c.lineWidth=2.4*s;c.stroke();
+      c.strokeStyle='#B9955A';c.lineWidth=2.4*s;c.stroke();
     }
   }
 
@@ -488,7 +500,7 @@ a{color:#1F5FAE}
 &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&amp;amp;family=Orbit&amp;amp;family=Nanum+Gothic+Coding:wght@400;700&amp;amp;display=swap"&gt;
 &lt;style&gt;
 :root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
-:root { --bg: #FBFAF7; --paper: #FFFFFF; --ink: #1D2733; --ink-2: #55606C; --line: #E3E0D8; --wood: #EAD7B5; --steel: #C7CED6; --c-play: #2E9E62; --c-snack: #F08A24; --c-rest: #2F7FD8; --c-special: #E04F78; --led-bg: #1E242B; --led: #FFB547; --f-display: "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-body: "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-led: "Orbit","Nanum Gothic Coding",Consolas,monospace; --f-mono: "Nanum Gothic Coding",Consolas,monospace; color-scheme: light; }
+:root { --bg: #FBFAF7; --paper: #FFFFFF; --ink: #1D2733; --ink-2: #55606C; --line: #E3E0D8; --wood: #EAD7B5; --steel: #C7CED6; --c-play: #5E9479; --c-snack: #C98F38; --c-rest: #4D6B96; --c-special: #A9544E; --led-bg: #1E242B; --led: #FFB547; --f-display: "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-body: "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-led: "Orbit","Nanum Gothic Coding",Consolas,monospace; --f-mono: "Nanum Gothic Coding",Consolas,monospace; color-scheme: light; }
 * { box-sizing: border-box; }
 .wrap { max-width: 1180px; margin: 0px auto; padding-inline: 16px; padding-block: 20px 64px; display: grid; gap: 44px; }
 .cover { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; container-type: inline-size; overflow: hidden; background: rgb(255, 255, 255); border-radius: 6px; box-shadow: 0 1px 0 var(--line),0 18px 40px -24px rgba(40,50,60,.35); }
@@ -498,13 +510,13 @@ a{color:#1F5FAE}
 .cv-title { position: absolute; left: 5.6cqw; top: 8.4cqw; margin: 0px; font-family: var(--f-display); font-weight: 900; font-size: 6.3cqw; line-height: 1.12; letter-spacing: -0.035em; color: var(--ink); }
 .cv-title small { display: block; font-size: max(1.75cqw, 8.5px); font-weight: 700; letter-spacing: 0.02em; color: var(--ink-2); margin-bottom: 0.5cqw; }
 .cv-sub { position: absolute; left: 5.75cqw; top: 26.6cqw; margin: 0px; font-size: max(2.05cqw, 10px); font-weight: 500; color: var(--ink); letter-spacing: -0.01em; }
-.cv-sub b { font-weight: 700; background: linear-gradient(transparent 62%, rgba(240, 138, 36, 0.28) 62%); }
-.cv-led { position: absolute; right: 5cqw; top: 9.2cqw; background: var(--led-bg); color: var(--led); border-radius: 0.8cqw 0.8cqw 0.8cqw 0.8cqw / 0.8cqw 0.8cqw 0.8cqw 0.8cqw; padding: 1cqw 1.6cqw 1cqw 1.6cqw; font-family: var(--f-led); text-align: right; box-shadow: rgb(58, 67, 77) 0px 0px 0px 0.25cqw inset, rgba(0, 0, 0, 0.35) 0px 1cqw 2cqw -1cqw; }
-.cv-led .t { font-size: 2.6cqw; letter-spacing: 0.06em; text-shadow: rgba(255, 181, 71, 0.55) 0px 0px 0.6cqw; line-height: 1.15; }
-.cv-led .l { font-size: max(1.05cqw, 7px); color: rgb(247, 226, 188); font-family: var(--f-body); letter-spacing: 0.08em; }
-.cv-legend { position: absolute; left: 50%; top: 77.5%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 1.1cqw 1.1cqw; background: rgba(255, 255, 255, 0.86); border-radius: 99px; padding: 0.7cqw 1.4cqw 0.7cqw 1.4cqw; box-shadow: rgba(60, 40, 10, 0.35) 0px 0.3cqw 1cqw -0.4cqw; }
-.cv-legend span.k { font-size: max(1.05cqw, 7px); color: var(--ink-2); letter-spacing: 0.04em; white-space: nowrap; }
-.chip { color-scheme: unset; forced-color-adjust: unset; mask: unset; math-depth: unset; position: unset; position-anchor: unset; text-size-adjust: unset; appearance: unset; color: var(--ink); font-family: unset; font-feature-settings: unset; font-kerning: unset; font-optical-sizing: unset; font-palette: unset; font-size: max(1.45cqw, 9px); font-size-adjust: unset; font-stretch: unset; font-style: unset; font-synthesis: unset; font-variant: unset; font-variation-settings: unset; font-weight: 700; position-area: unset; text-orientation: unset; text-rendering: unset; text-spacing-trim: unset; -webkit-font-smoothing: unset; -webkit-locale: unset; -webkit-text-orientation: unset; -webkit-writing-mode: unset; writing-mode: unset; zoom: unset; accent-color: unset; place-content: unset; align-items: center; place-self: unset; alignment-baseline: unset; anchor-name: unset; anchor-scope: unset; animation-composition: unset; animation: unset; app-region: unset; aspect-ratio: unset; backdrop-filter: unset; backface-visibility: unset; background: unset; background-blend-mode: unset; baseline-shift: unset; baseline-source: unset; block-size: unset; border-block: unset; border: unset; border-radius: 0.6cqw 0.6cqw 0.6cqw 0.6cqw / 0.6cqw 0.6cqw 0.6cqw 0.6cqw; border-collapse: unset; border-end-end-radius: unset; border-end-start-radius: unset; border-inline: unset; border-start-end-radius: unset; border-start-start-radius: unset; inset: unset; box-decoration-break: unset; box-shadow: unset; box-sizing: unset; break-after: unset; break-before: unset; break-inside: unset; buffered-rendering: unset; caption-side: unset; caret-animation: unset; caret-color: unset; clear: unset; clip: unset; clip-path: unset; clip-rule: unset; color-interpolation: unset; color-interpolation-filters: unset; color-rendering: unset; columns: unset; column-fill: unset; gap: 0.5cqw 0.5cqw; column-rule: unset; column-span: unset; contain: unset; contain-intrinsic-block-size: unset; contain-intrinsic-size: unset; contain-intrinsic-inline-size: unset; container: unset; content: unset; content-visibility: unset; corner-shape: unset; corner-block-end-shape: unset; corner-block-start-shape: unset; counter-increment: unset; counter-reset: unset; counter-set: unset; cursor: pointer; cx: unset; cy: unset; d: unset; display: flex; dominant-baseline: unset; dynamic-range-limit: unset; empty-cells: unset; field-sizing: unset; fill: unset; fill-opacity: unset; fill-rule: unset; filter: unset; flex: unset; flex-flow: unset; float: unset; flood-color: unset; flood-opacity: unset; grid: unset; grid-area: unset; height: unset; hyphenate-character: unset; hyphenate-limit-chars: unset; hyphens: unset; image-orientation: unset; image-rendering: unset; initial-letter: unset; inline-size: unset; inset-block: unset; inset-inline: unset; interpolate-size: unset; isolation: unset; justify-items: unset; letter-spacing: unset; lighting-color: unset; line-break: unset; line-height: unset; list-style: unset; margin-block: unset; margin: unset; margin-inline: unset; marker: unset; mask-type: unset; math-shift: unset; math-style: unset; max-block-size: unset; max-height: unset; max-inline-size: unset; max-width: unset; min-block-size: unset; min-height: unset; min-inline-size: unset; min-width: unset; mix-blend-mode: unset; object-fit: unset; object-position: unset; object-view-box: unset; offset: unset; opacity: unset; order: unset; orphans: unset; outline: unset; outline-offset: unset; overflow-anchor: unset; overflow-block: unset; overflow-clip-margin: unset; overflow-inline: unset; overflow-wrap: unset; overflow: unset; overlay: unset; overscroll-behavior-block: unset; overscroll-behavior-inline: unset; overscroll-behavior: unset; padding-block: unset; padding: 0.15cqw 0.3cqw 0.15cqw 0.3cqw; padding-inline: unset; page: unset; page-orientation: unset; paint-order: unset; perspective: unset; perspective-origin: unset; pointer-events: unset; position-try: unset; position-visibility: unset; print-color-adjust: unset; quotes: unset; r: unset; reading-flow: unset; reading-order: unset; resize: unset; rotate: unset; ruby-align: unset; ruby-position: unset; rx: unset; ry: unset; scale: unset; scroll-behavior: unset; scroll-initial-target: unset; scroll-margin-block: unset; scroll-margin: unset; scroll-margin-inline: unset; scroll-marker-group: unset; scroll-padding-block: unset; scroll-padding: unset; scroll-padding-inline: unset; scroll-snap-align: unset; scroll-snap-stop: unset; scroll-snap-type: unset; scroll-target-group: unset; scroll-timeline: unset; scrollbar-color: unset; scrollbar-gutter: unset; scrollbar-width: unset; shape-image-threshold: unset; shape-margin: unset; shape-outside: unset; shape-rendering: unset; size: unset; speak: unset; stop-color: unset; stop-opacity: unset; stroke: unset; stroke-dasharray: unset; stroke-dashoffset: unset; stroke-linecap: unset; stroke-linejoin: unset; stroke-miterlimit: unset; stroke-opacity: unset; stroke-width: unset; tab-size: unset; table-layout: unset; text-align: unset; text-align-last: unset; text-anchor: unset; text-autospace: unset; text-box: unset; text-combine-upright: unset; text-decoration: unset; text-decoration-skip-ink: unset; text-emphasis: unset; text-emphasis-position: unset; text-indent: unset; text-overflow: unset; text-shadow: unset; text-transform: unset; text-underline-offset: unset; text-underline-position: unset; white-space: nowrap; text-wrap-style: unset; timeline-scope: unset; touch-action: unset; transform: unset; transform-box: unset; transform-origin: unset; transform-style: unset; transition: unset; translate: unset; user-select: unset; vector-effect: unset; vertical-align: unset; view-timeline: unset; view-transition-class: unset; view-transition-group: unset; view-transition-name: unset; visibility: unset; border-spacing: unset; -webkit-box-align: unset; -webkit-box-decoration-break: unset; -webkit-box-direction: unset; -webkit-box-flex: unset; -webkit-box-ordinal-group: unset; -webkit-box-orient: unset; -webkit-box-pack: unset; -webkit-box-reflect: unset; -webkit-line-break: unset; -webkit-line-clamp: unset; -webkit-mask-box-image: unset; -webkit-rtl-ordering: unset; -webkit-ruby-position: unset; -webkit-tap-highlight-color: unset; -webkit-text-combine: unset; -webkit-text-decorations-in-effect: unset; -webkit-text-fill-color: unset; -webkit-text-security: unset; -webkit-text-stroke: unset; -webkit-user-drag: unset; widows: unset; width: unset; will-change: unset; word-break: unset; word-spacing: unset; x: unset; y: unset; z-index: unset; }
+.cv-sub b { font-weight: 700; }
+.cv-led { position: absolute; right: 5cqw; top: 9.6cqw; width: 22cqw; text-align: right; border-top: 1px solid rgb(29, 39, 51); padding-top: 0.9cqw; }
+.cv-led .t { font-family: var(--f-mono); font-size: 2.3cqw; font-weight: 700; letter-spacing: 0.04em; color: var(--ink); line-height: 1.2; }
+.cv-led .l { font-size: max(1.05cqw, 7px); color: var(--ink-2); letter-spacing: 0.08em; margin-top: 0.2cqw; }
+.cv-legend { position: absolute; right: 5cqw; top: 17.4cqw; width: 22cqw; display: grid; grid-template-columns: repeat(2, auto); justify-content: end; gap: 0.6cqw 2.4cqw; border-top: 1px solid var(--line); padding-top: 0.9cqw; }
+.cv-legend span.k { grid-column: 1 / -1; font-size: max(1cqw, 7px); color: var(--ink-2); letter-spacing: 0.08em; white-space: nowrap; text-align: right; }
+.chip { color-scheme: unset; forced-color-adjust: unset; mask: unset; math-depth: unset; position: unset; position-anchor: unset; text-size-adjust: unset; appearance: unset; color: var(--ink); font-family: unset; font-feature-settings: unset; font-kerning: unset; font-optical-sizing: unset; font-palette: unset; font-size: max(1.3cqw, 8px); font-size-adjust: unset; font-stretch: unset; font-style: unset; font-synthesis: unset; font-variant: unset; font-variation-settings: unset; font-weight: 500; position-area: unset; text-orientation: unset; text-rendering: unset; text-spacing-trim: unset; -webkit-font-smoothing: unset; -webkit-locale: unset; -webkit-text-orientation: unset; -webkit-writing-mode: unset; writing-mode: unset; zoom: unset; accent-color: unset; align-content: unset; align-items: center; place-self: unset; alignment-baseline: unset; anchor-name: unset; anchor-scope: unset; animation-composition: unset; animation: unset; app-region: unset; aspect-ratio: unset; backdrop-filter: unset; backface-visibility: unset; background: unset; background-blend-mode: unset; baseline-shift: unset; baseline-source: unset; block-size: unset; border-block: unset; border: unset; border-radius: 0.6cqw 0.6cqw 0.6cqw 0.6cqw / 0.6cqw 0.6cqw 0.6cqw 0.6cqw; border-collapse: unset; border-end-end-radius: unset; border-end-start-radius: unset; border-inline: unset; border-start-end-radius: unset; border-start-start-radius: unset; inset: unset; box-decoration-break: unset; box-shadow: unset; box-sizing: unset; break-after: unset; break-before: unset; break-inside: unset; buffered-rendering: unset; caption-side: unset; caret-animation: unset; caret-color: unset; clear: unset; clip: unset; clip-path: unset; clip-rule: unset; color-interpolation: unset; color-interpolation-filters: unset; color-rendering: unset; columns: unset; column-fill: unset; gap: 0.6cqw 0.6cqw; column-rule: unset; column-span: unset; contain: unset; contain-intrinsic-block-size: unset; contain-intrinsic-size: unset; contain-intrinsic-inline-size: unset; container: unset; content: unset; content-visibility: unset; corner-shape: unset; corner-block-end-shape: unset; corner-block-start-shape: unset; counter-increment: unset; counter-reset: unset; counter-set: unset; cursor: pointer; cx: unset; cy: unset; d: unset; display: flex; dominant-baseline: unset; dynamic-range-limit: unset; empty-cells: unset; field-sizing: unset; fill: unset; fill-opacity: unset; fill-rule: unset; filter: unset; flex: unset; flex-flow: unset; float: unset; flood-color: unset; flood-opacity: unset; grid: unset; grid-area: unset; height: unset; hyphenate-character: unset; hyphenate-limit-chars: unset; hyphens: unset; image-orientation: unset; image-rendering: unset; initial-letter: unset; inline-size: unset; inset-block: unset; inset-inline: unset; interpolate-size: unset; isolation: unset; justify-content: flex-start; justify-items: unset; letter-spacing: unset; lighting-color: unset; line-break: unset; line-height: unset; list-style: unset; margin-block: unset; margin: unset; margin-inline: unset; marker: unset; mask-type: unset; math-shift: unset; math-style: unset; max-block-size: unset; max-height: unset; max-inline-size: unset; max-width: unset; min-block-size: unset; min-height: unset; min-inline-size: unset; min-width: unset; mix-blend-mode: unset; object-fit: unset; object-position: unset; object-view-box: unset; offset: unset; opacity: unset; order: unset; orphans: unset; outline: unset; outline-offset: unset; overflow-anchor: unset; overflow-block: unset; overflow-clip-margin: unset; overflow-inline: unset; overflow-wrap: unset; overflow: unset; overlay: unset; overscroll-behavior-block: unset; overscroll-behavior-inline: unset; overscroll-behavior: unset; padding-block: unset; padding: 0.15cqw 0.3cqw 0.15cqw 0.3cqw; padding-inline: unset; page: unset; page-orientation: unset; paint-order: unset; perspective: unset; perspective-origin: unset; pointer-events: unset; position-try: unset; position-visibility: unset; print-color-adjust: unset; quotes: unset; r: unset; reading-flow: unset; reading-order: unset; resize: unset; rotate: unset; ruby-align: unset; ruby-position: unset; rx: unset; ry: unset; scale: unset; scroll-behavior: unset; scroll-initial-target: unset; scroll-margin-block: unset; scroll-margin: unset; scroll-margin-inline: unset; scroll-marker-group: unset; scroll-padding-block: unset; scroll-padding: unset; scroll-padding-inline: unset; scroll-snap-align: unset; scroll-snap-stop: unset; scroll-snap-type: unset; scroll-target-group: unset; scroll-timeline: unset; scrollbar-color: unset; scrollbar-gutter: unset; scrollbar-width: unset; shape-image-threshold: unset; shape-margin: unset; shape-outside: unset; shape-rendering: unset; size: unset; speak: unset; stop-color: unset; stop-opacity: unset; stroke: unset; stroke-dasharray: unset; stroke-dashoffset: unset; stroke-linecap: unset; stroke-linejoin: unset; stroke-miterlimit: unset; stroke-opacity: unset; stroke-width: unset; tab-size: unset; table-layout: unset; text-align: unset; text-align-last: unset; text-anchor: unset; text-autospace: unset; text-box: unset; text-combine-upright: unset; text-decoration: unset; text-decoration-skip-ink: unset; text-emphasis: unset; text-emphasis-position: unset; text-indent: unset; text-overflow: unset; text-shadow: unset; text-transform: unset; text-underline-offset: unset; text-underline-position: unset; white-space: nowrap; text-wrap-style: unset; timeline-scope: unset; touch-action: unset; transform: unset; transform-box: unset; transform-origin: unset; transform-style: unset; transition: unset; translate: unset; user-select: unset; vector-effect: unset; vertical-align: unset; view-timeline: unset; view-transition-class: unset; view-transition-group: unset; view-transition-name: unset; visibility: unset; border-spacing: unset; -webkit-box-align: unset; -webkit-box-decoration-break: unset; -webkit-box-direction: unset; -webkit-box-flex: unset; -webkit-box-ordinal-group: unset; -webkit-box-orient: unset; -webkit-box-pack: unset; -webkit-box-reflect: unset; -webkit-line-break: unset; -webkit-line-clamp: unset; -webkit-mask-box-image: unset; -webkit-rtl-ordering: unset; -webkit-ruby-position: unset; -webkit-tap-highlight-color: unset; -webkit-text-combine: unset; -webkit-text-decorations-in-effect: unset; -webkit-text-fill-color: unset; -webkit-text-security: unset; -webkit-text-stroke: unset; -webkit-user-drag: unset; widows: unset; width: unset; will-change: unset; word-break: unset; word-spacing: unset; x: unset; y: unset; z-index: unset; }
 .chip i { width: 1.7cqw; height: 1.7cqw; min-width: 9px; min-height: 9px; border-radius: 50%; background: rgb(255, 255, 255); box-shadow: inset 0 0 0 .38cqw var(--c),0 .1cqw .3cqw rgba(0,0,0,.25); }
 .chip:hover, .chip:focus-visible { background: rgba(29, 39, 51, 0.07); }
 .chip:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
@@ -518,7 +530,7 @@ a{color:#1F5FAE}
       &lt;p class="cv-sub"&gt;매일 같은 레일 위로, &lt;b&gt;날마다 고르는 오후&lt;/b&gt;&lt;/p&gt;
       &lt;div class="cv-led" aria-label="운행 시간 14시부터 19시"&gt;&lt;div class="t"&gt;14:00 → 19:00&lt;/div&gt;&lt;div class="l"&gt;매일 운행&lt;/div&gt;&lt;/div&gt;
       &lt;div class="cv-legend" role="group" aria-label="접시 색 범례: 누르면 해당 접시가 앞으로 옵니다"&gt;
-        &lt;span class="k"&gt;접시 색&lt;/span&gt;
+        &lt;span class="k"&gt;접시 테 유약 = 활동&lt;/span&gt;
         &lt;button class="chip" data-cat="0" style="--c:var(--c-play)"&gt;&lt;i&gt;&lt;/i&gt;놀이&lt;/button&gt;
         &lt;button class="chip" data-cat="1" style="--c:var(--c-snack)"&gt;&lt;i&gt;&lt;/i&gt;간식&lt;/button&gt;
         &lt;button class="chip" data-cat="2" style="--c:var(--c-rest)"&gt;&lt;i&gt;&lt;/i&gt;쉼&lt;/button&gt;
@@ -535,7 +547,7 @@ a{color:#1F5FAE}
   const W=1920,H=1080, CX=1180, CY=800;
   const L=1100, R=330, BAND=72, GUARD=16, SKIRT=48;
   const P=2*L+2*Math.PI*R;
-  const CAT=['#2E9E62','#F08A24','#2F7FD8','#E04F78']; // 놀이·간식·쉼·특성화
+  const CAT=['#5E9479','#C98F38','#4D6B96','#A9544E']; // 놀이·간식·쉼·특성화
   const ORDER=[0,1,3,2,0,3,1,2,0,1,2,3,1,0];          // 레일 위 접시 순서(색 섞기)
   const N=ORDER.length, GAP=P/N;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -614,7 +626,7 @@ a{color:#1F5FAE}
     const sg=c.createRadialGradient(x+10*s,y+lift*s+th+6*s,4,x+10*s,y+lift*s+th+6*s,r*1.15);
     sg.addColorStop(0,'rgba(40,50,60,.32)');sg.addColorStop(1,'rgba(40,50,60,0)');
     c.fillStyle=sg;c.beginPath();c.ellipse(x+10*s,y+lift*s+th+6*s,r*1.15,ry*1.25,0,0,7);c.fill();c.restore();
-    if(glow){c.save();c.strokeStyle=col;c.globalAlpha=.35;c.lineWidth=10*s;c.beginPath();c.ellipse(x,y+th/2,r*1.18,ry*1.22,0,0,7);c.stroke();c.restore();}
+    if(glow){c.save();c.strokeStyle=col;c.globalAlpha=.45;c.lineWidth=3*s;c.beginPath();c.ellipse(x,y+th/2,r*1.18,ry*1.22,0,0,7);c.stroke();c.restore();}
     // 굽(아래 두께)
     const side=c.createLinearGradient(x-r,0,x+r,0);side.addColorStop(0,'#F4F5F6');side.addColorStop(.6,'#D9DDE1');side.addColorStop(1,'#BFC5CB');
     c.fillStyle=side;c.beginPath();c.ellipse(x,y+th,r*.98,ry*.98,0,0,Math.PI);c.lineTo(x-r,y);c.ellipse(x,y,r,ry,0,Math.PI,0,true);c.closePath();c.fill();
@@ -641,21 +653,30 @@ a{color:#1F5FAE}
     const c=g;
     if(cat===0){ // 놀이: 원목 블록 쌓기
       const a=30*s;
-      cube(c,x-a*.55,y-a*.55,a,'#F3D9A8','#D9B57A','#BF955A');
-      cube(c,x+a*.55,y-a*.55,a,'#9FD3B4','#5DB283','#3F8E64');
-      cube(c,x,y-a*1.45,a,'#F7CFA0','#E3A464','#C98647');
+      cube(c,x-a*.55,y-a*.55,a,'#F2DDB6','#D8BC8C','#BC9C6A');
+      cube(c,x+a*.55,y-a*.55,a,'#C7DACB','#93B39E','#6F927C');
+      cube(c,x,y-a*1.45,a,'#F2DDB6','#D8BC8C','#BC9C6A');
+      // 원목 결과 모서리 마모
+      c.strokeStyle='rgba(140,100,55,.28)';c.lineWidth=.8*s;
+      for(const [bx,by] of [[x-a*.55,y-a*.55],[x,y-a*1.45]]) for(let k=1;k&lt;4;k++){c.beginPath();c.moveTo(bx-a*.62+k*a*.12,by-k*a*.04);c.quadraticCurveTo(bx,by+a*.1-k*a*.05,bx+a*.62-k*a*.1,by+k*a*.03);c.stroke();}
     } else if(cat===1){ // 간식: 귤
       const rr=24*s, cy=y-rr*.85;
-      const og=c.createRadialGradient(x-rr*.4,cy-rr*.45,rr*.1,x,cy,rr*1.1);
-      og.addColorStop(0,'#FFC46B');og.addColorStop(.55,'#F59324');og.addColorStop(1,'#C9640E');
-      c.fillStyle=og;c.beginPath();c.ellipse(x,cy,rr*1.05,rr*.95,0,0,7);c.fill();
-      c.fillStyle='rgba(255,255,255,.55)';c.beginPath();c.ellipse(x-rr*.42,cy-rr*.42,rr*.2,rr*.12,-.6,0,7);c.fill();
-      c.fillStyle='#7A5A2A';c.beginPath();c.arc(x+rr*.05,cy-rr*.9,rr*.08,0,7);c.fill();
-      const lg=c.createLinearGradient(x,cy-rr*1.3,x+rr*.9,cy-rr*.8);lg.addColorStop(0,'#6CC17A');lg.addColorStop(1,'#2F8A49');
-      c.fillStyle=lg;c.beginPath();c.ellipse(x+rr*.45,cy-rr*1.02,rr*.48,rr*.17,-.35,0,7);c.fill();
+      // 귤: 위아래가 눌린 몸통, 껍질 기공, 꼭지(별 모양 받침), 잎맥 있는 잎
+      const og=c.createLinearGradient(x-rr,cy-rr,x+rr,cy+rr);
+      og.addColorStop(0,'#F3B25E');og.addColorStop(.6,'#E08A2E');og.addColorStop(1,'#B9661D');
+      c.fillStyle=og;c.beginPath();c.ellipse(x,cy,rr*1.08,rr*.88,0,0,7);c.fill();
+      c.save();c.beginPath();c.ellipse(x,cy,rr*1.08,rr*.88,0,0,7);c.clip();
+      for(let k=0;k&lt;70;k++){const a=k*2.399, d=Math.sqrt(k/70);const px=x+Math.cos(a)*d*rr, py=cy+Math.sin(a)*d*rr*.82;
+        c.fillStyle=k%3?'rgba(150,72,10,.18)':'rgba(255,220,160,.25)';c.beginPath();c.arc(px,py,.9*s,0,7);c.fill();}
+      const sh=c.createLinearGradient(x,cy-rr,x,cy+rr);sh.addColorStop(0,'rgba(255,240,210,.22)');sh.addColorStop(1,'rgba(90,40,0,.18)');
+      c.fillStyle=sh;c.fillRect(x-rr*1.2,cy-rr,rr*2.4,rr*2);c.restore();
+      c.fillStyle='#5C6B3A';c.beginPath();
+      for(let k=0;k&lt;10;k++){const a=k*Math.PI/5-Math.PI/2, rad=k%2?rr*.07:rr*.17;const px=x+rr*.05+Math.cos(a)*rad, py=cy-rr*.84+Math.sin(a)*rad*.45;k?c.lineTo(px,py):c.moveTo(px,py);}c.closePath();c.fill();
+      c.fillStyle='#6E8F52';c.beginPath();c.moveTo(x+rr*.08,cy-rr*.9);c.quadraticCurveTo(x+rr*.5,cy-rr*1.35,x+rr*1.0,cy-rr*1.05);c.quadraticCurveTo(x+rr*.5,cy-rr*.82,x+rr*.08,cy-rr*.9);c.fill();
+      c.strokeStyle='rgba(235,240,215,.7)';c.lineWidth=.8*s;c.beginPath();c.moveTo(x+rr*.12,cy-rr*.92);c.quadraticCurveTo(x+rr*.5,cy-rr*1.1,x+rr*.95,cy-rr*1.04);c.stroke();
     } else if(cat===2){ // 쉼: 작은 베개
       const w=46*s,h=22*s,cy=y-h*.75;
-      const pg=c.createLinearGradient(x-w,cy-h,x+w*.6,cy+h);pg.addColorStop(0,'#E4F0FD');pg.addColorStop(.5,'#9CC5F0');pg.addColorStop(1,'#4F8FD6');
+      const pg=c.createLinearGradient(x-w,cy-h,x+w*.6,cy+h);pg.addColorStop(0,'#F1F3F6');pg.addColorStop(.55,'#C9D3E0');pg.addColorStop(1,'#8C9DB5');
       c.fillStyle=pg;c.beginPath();
       c.moveTo(x-w*.8,cy-h*.6);
       c.quadraticCurveTo(x,cy-h*1.25,x+w*.8,cy-h*.6);
@@ -663,19 +684,23 @@ a{color:#1F5FAE}
       c.quadraticCurveTo(x,cy+h*1.15,x-w*.8,cy+h*.6);
       c.quadraticCurveTo(x-w*.98,cy,x-w*.8,cy-h*.6);c.fill();
       c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=1.5*s;c.beginPath();c.moveTo(x-w*.55,cy-h*.62);c.quadraticCurveTo(x-w*.1,cy-h*.9,x+w*.35,cy-h*.72);c.stroke();
-      c.fillStyle='#3E78BD';c.beginPath();c.arc(x+w*.05,cy+h*.05,2.6*s,0,7);c.fill();
+      // 가장자리 박음질과 가운데 단추
+      c.setLineDash([2.2*s,2.2*s]);c.strokeStyle='rgba(77,107,150,.55)';c.lineWidth=.9*s;c.beginPath();
+      c.moveTo(x-w*.7,cy-h*.45);c.quadraticCurveTo(x,cy-h*1.02,x+w*.7,cy-h*.45);c.quadraticCurveTo(x+w*.84,cy,x+w*.7,cy+h*.45);
+      c.quadraticCurveTo(x,cy+h*.95,x-w*.7,cy+h*.45);c.quadraticCurveTo(x-w*.84,cy,x-w*.7,cy-h*.45);c.stroke();c.setLineDash([]);
+      c.fillStyle='#4D6B96';c.beginPath();c.arc(x+w*.05,cy+h*.05,2.4*s,0,7);c.fill();
     } else { // 특성화 활동: 작은 북
       const rx=24*s, ry=rx*.38, h=24*s, top=y-h-ry*.3;
-      const sg=c.createLinearGradient(x-rx,0,x+rx,0);sg.addColorStop(0,'#F58AA6');sg.addColorStop(.45,'#E04F78');sg.addColorStop(1,'#A52E52');
+      const sg=c.createLinearGradient(x-rx,0,x+rx,0);sg.addColorStop(0,'#D38A83');sg.addColorStop(.45,'#A9544E');sg.addColorStop(1,'#78352F');
       c.fillStyle=sg;c.beginPath();c.ellipse(x,top+h,rx,ry,0,0,Math.PI);c.lineTo(x-rx,top);c.ellipse(x,top,rx,ry,0,Math.PI,0,true);c.closePath();c.fill();
       // 줄 매듭(지그재그)
       c.strokeStyle='rgba(255,236,200,.95)';c.lineWidth=1.6*s;c.beginPath();
       for(let i=0;i&lt;=8;i++){const a=Math.PI-i*Math.PI/8;const xx=x+Math.cos(a)*rx*.98;const yy=(i%2?top+h-ry*.2:top+ry*.5)+Math.sin(a)*ry*.95;i?c.lineTo(xx,yy):c.moveTo(xx,yy);}c.stroke();
       // 금색 테
-      c.strokeStyle='#E8B64C';c.lineWidth=2.4*s;c.beginPath();c.ellipse(x,top+h,rx,ry,0,0,Math.PI);c.stroke();
+      c.strokeStyle='#B9955A';c.lineWidth=2.4*s;c.beginPath();c.ellipse(x,top+h,rx,ry,0,0,Math.PI);c.stroke();
       const hg=c.createRadialGradient(x-rx*.3,top-ry*.3,1,x,top,rx);hg.addColorStop(0,'#FFFFFF');hg.addColorStop(1,'#E9E4DA');
       c.fillStyle=hg;c.beginPath();c.ellipse(x,top,rx,ry,0,0,7);c.fill();
-      c.strokeStyle='#E8B64C';c.lineWidth=2.4*s;c.stroke();
+      c.strokeStyle='#B9955A';c.lineWidth=2.4*s;c.stroke();
     }
   }
 

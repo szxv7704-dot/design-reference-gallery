@@ -151,7 +151,7 @@ a{color:var(--court)}
 
       <!-- 정점 라벨(구간 예산) -->
       <g id="bb-labels"></g>
-      <text x="1580" y="884" text-anchor="end" font-size="17" fill="#FFFFFF" opacity=".75">가상 예시 · 정점 높이 ∝ √예산 · 단위 억 원</text>
+      <text x="1580" y="884" text-anchor="end" font-size="17" fill="#FFFFFF" opacity=".75">가상 예시 · 정점 높이 = 예산(정비례) · 단위 억 원</text>
     </svg>
 
     <div class="bb-head">
@@ -187,9 +187,9 @@ a{color:var(--court)}
   };
 
   var NS="http://www.w3.org/2000/svg", root=document.getElementById("bb");
-  var G=700, R=22, X0=110, X1=1400, K=40;          // 바닥선, 공 반지름, 축 범위, 높이 계수
+  var G=700, R=22, X0=110, X1=1400, K=3.2;          // 바닥선, 공 반지름, 축 범위, 높이 계수
   var X=function(m){return X0+(X1-X0)*m/BB_DATA.months;};
-  var H=function(b){return K*Math.sqrt(b);};         // 높이 = √예산 (작은 구간도 보이게)
+  var H=function(b){return K*b;};                   // 높이 = 예산에 정비례(0에서 시작) — 작은 구간이 낮아 보이는 것이 사실
   var total=BB_DATA.phases.reduce(function(s,p){return s+p.budget;},0);
   var $=function(id){return document.getElementById(id);};
   function el(tag,attrs,parent,text){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
@@ -210,7 +210,7 @@ a{color:var(--court)}
   var net=$("bb-net"), nx=X(BB_DATA.netAt);
   el("rect",{x:nx-5,y:G-96,width:10,height:96,rx:3,fill:"url(#bb-postG)"},net);
   el("rect",{x:nx-8,y:G-102,width:16,height:9,rx:3,fill:"#3E4A55"},net);
-  el("text",{x:nx,y:G-112,"text-anchor":"middle","font-size":17,fill:"#4E6681","font-weight":600},net,"해 바뀜");
+  el("text",{x:nx+14,y:G-30,"text-anchor":"start","font-size":17,fill:"#4E6681","font-weight":600},net,"해 바뀜");
 
   /* 구간별 포물선(면·궤적), 착지 자국, 라벨 만들기 */
   var segs=[], t=0, fills=$("bb-fills"), trails=$("bb-trails"), marks=$("bb-marks"), labels=$("bb-labels");
@@ -226,8 +226,8 @@ a{color:var(--court)}
     // 정점 라벨: 위 = 이름, 아래 = 금액
     var ax=(x0+x1)/2, ay=cy-h, lg=el("g",{opacity:0},labels);
     var anchor="middle", lx=ax;
-    var last=i===BB_DATA.phases.length-1, ny=ay-78, by2=ay-32;
-    if(last){anchor="start";lx=x1+34;ny=ay-12;by2=ay+34;}  // 마지막 좁은 구간은 오른쪽 옆에
+    var last=i===BB_DATA.phases.length-1, up=(h<40&&i%2)?56:0, ny=ay-78-up, by2=ay-32-up;  // 낮은 구간끼리 라벨이 붙지 않게 한 칸씩 엇갈림
+    if(last){anchor="end";lx=1588;ny=ay-60;by2=ay-14;}  // 마지막 좁은 구간은 오른쪽 끝에 맞춰
     el("text",{x:lx,y:ny,"text-anchor":anchor,"font-size":24,"font-weight":600,fill:"#4E6681",class:"bb-lname"},lg,p.name);
     var bt=el("text",{x:lx,y:by2,"text-anchor":anchor,"font-size":46,fill:p.key?"#F0642D":"#14304F",class:"bb-num bb-lbud"},lg);
     bt.textContent=p.budget; el("tspan",{"font-size":22,"font-weight":800,"font-family":"Gothic A1, sans-serif",dx:4},bt,"억");
@@ -312,7 +312,7 @@ a{color:var(--court)}
       <p>네트 기둥은 연도 경계다. 공이 네트를 넘어가는 순간이 해가 바뀌는 시점이라, 한 단계가 두 회계연도에 걸친다는 사실이 따로 설명 없이 보인다(부지 조성·토목).</p>
     </div>
     <div class="grid2" style="margin-top:14px">
-      <div class="box dev"><h3>가져갈 장치 · 바운드 궤적 차트</h3><p>착지점 = 마일스톤, 포물선 폭 = 기간, 포물선 높이 = 규모. 간트 막대와 막대그래프를 한 줄로 합친다. 높이는 √값으로 잡아 작은 구간도 보이게 하고, 숫자는 실제 값으로 적는다.</p></div>
+      <div class="box dev"><h3>가져갈 장치 · 바운드 궤적 차트</h3><p>착지점 = 마일스톤, 포물선 폭 = 기간, 포물선 높이 = 규모. 간트 막대와 막대그래프를 한 줄로 합친다. 높이는 값에 정비례로 잡는다(√ 등으로 줄이면 큰 구간의 쏠림이 작아 보인다). 작은 구간은 낮게 튀어도 숫자 라벨로 읽힌다.</p></div>
       <div class="box"><h3>응용 1 · 연차별 인력 투입</h3><p>사업 연차마다 한 번씩 튀게 하고 높이를 투입 인원으로. 정점이 가장 높은 해가 인력 피크.</p></div>
       <div class="box"><h3>응용 2 · 행사 운영 타임라인</h3><p>하루 행사를 시간대별로 튀게 하고 높이를 예상 방문객 수로. 네트 = 점심 휴식.</p></div>
       <div class="box"><h3>응용 3 · 분기별 집행 계획</h3><p>분기 4번의 바운드, 높이 = 분기 집행액. 네트 = 추경 시점으로 써서 전후를 나눈다.</p></div>
@@ -434,7 +434,7 @@ a{color:var(--court)}
 
       &lt;!-- 정점 라벨(구간 예산) --&gt;
       &lt;g id=&quot;bb-labels&quot;&gt;&lt;/g&gt;
-      &lt;text x=&quot;1580&quot; y=&quot;884&quot; text-anchor=&quot;end&quot; font-size=&quot;17&quot; fill=&quot;#FFFFFF&quot; opacity=&quot;.75&quot;&gt;가상 예시 · 정점 높이 ∝ √예산 · 단위 억 원&lt;/text&gt;
+      &lt;text x=&quot;1580&quot; y=&quot;884&quot; text-anchor=&quot;end&quot; font-size=&quot;17&quot; fill=&quot;#FFFFFF&quot; opacity=&quot;.75&quot;&gt;가상 예시 · 정점 높이 = 예산(정비례) · 단위 억 원&lt;/text&gt;
     &lt;/svg&gt;
 
     &lt;div class=&quot;bb-head&quot;&gt;
@@ -470,9 +470,9 @@ a{color:var(--court)}
   };
 
   var NS=&quot;http://www.w3.org/2000/svg&quot;, root=document.getElementById(&quot;bb&quot;);
-  var G=700, R=22, X0=110, X1=1400, K=40;          // 바닥선, 공 반지름, 축 범위, 높이 계수
+  var G=700, R=22, X0=110, X1=1400, K=3.2;          // 바닥선, 공 반지름, 축 범위, 높이 계수
   var X=function(m){return X0+(X1-X0)*m/BB_DATA.months;};
-  var H=function(b){return K*Math.sqrt(b);};         // 높이 = √예산 (작은 구간도 보이게)
+  var H=function(b){return K*b;};                   // 높이 = 예산에 정비례(0에서 시작) — 작은 구간이 낮아 보이는 것이 사실
   var total=BB_DATA.phases.reduce(function(s,p){return s+p.budget;},0);
   var $=function(id){return document.getElementById(id);};
   function el(tag,attrs,parent,text){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
@@ -493,7 +493,7 @@ a{color:var(--court)}
   var net=$(&quot;bb-net&quot;), nx=X(BB_DATA.netAt);
   el(&quot;rect&quot;,{x:nx-5,y:G-96,width:10,height:96,rx:3,fill:&quot;url(#bb-postG)&quot;},net);
   el(&quot;rect&quot;,{x:nx-8,y:G-102,width:16,height:9,rx:3,fill:&quot;#3E4A55&quot;},net);
-  el(&quot;text&quot;,{x:nx,y:G-112,&quot;text-anchor&quot;:&quot;middle&quot;,&quot;font-size&quot;:17,fill:&quot;#4E6681&quot;,&quot;font-weight&quot;:600},net,&quot;해 바뀜&quot;);
+  el(&quot;text&quot;,{x:nx+14,y:G-30,&quot;text-anchor&quot;:&quot;start&quot;,&quot;font-size&quot;:17,fill:&quot;#4E6681&quot;,&quot;font-weight&quot;:600},net,&quot;해 바뀜&quot;);
 
   /* 구간별 포물선(면·궤적), 착지 자국, 라벨 만들기 */
   var segs=[], t=0, fills=$(&quot;bb-fills&quot;), trails=$(&quot;bb-trails&quot;), marks=$(&quot;bb-marks&quot;), labels=$(&quot;bb-labels&quot;);
@@ -509,8 +509,8 @@ a{color:var(--court)}
     // 정점 라벨: 위 = 이름, 아래 = 금액
     var ax=(x0+x1)/2, ay=cy-h, lg=el(&quot;g&quot;,{opacity:0},labels);
     var anchor=&quot;middle&quot;, lx=ax;
-    var last=i===BB_DATA.phases.length-1, ny=ay-78, by2=ay-32;
-    if(last){anchor=&quot;start&quot;;lx=x1+34;ny=ay-12;by2=ay+34;}  // 마지막 좁은 구간은 오른쪽 옆에
+    var last=i===BB_DATA.phases.length-1, up=(h<40&&i%2)?56:0, ny=ay-78-up, by2=ay-32-up;  // 낮은 구간끼리 라벨이 붙지 않게 한 칸씩 엇갈림
+    if(last){anchor=&quot;end&quot;;lx=1588;ny=ay-60;by2=ay-14;}  // 마지막 좁은 구간은 오른쪽 끝에 맞춰
     el(&quot;text&quot;,{x:lx,y:ny,&quot;text-anchor&quot;:anchor,&quot;font-size&quot;:24,&quot;font-weight&quot;:600,fill:&quot;#4E6681&quot;,class:&quot;bb-lname&quot;},lg,p.name);
     var bt=el(&quot;text&quot;,{x:lx,y:by2,&quot;text-anchor&quot;:anchor,&quot;font-size&quot;:46,fill:p.key?&quot;#F0642D&quot;:&quot;#14304F&quot;,class:&quot;bb-num bb-lbud&quot;},lg);
     bt.textContent=p.budget; el(&quot;tspan&quot;,{&quot;font-size&quot;:22,&quot;font-weight&quot;:800,&quot;font-family&quot;:&quot;Gothic A1, sans-serif&quot;,dx:4},bt,&quot;억&quot;);
@@ -621,7 +621,7 @@ a{color:var(--court)}
       <dt>글꼴</dt><dd>제목 Do Hyeon, 본문 Gothic A1, 숫자 Barlow Condensed (대체: Apple SD Gothic Neo, 맑은 고딕, Arial Narrow)</dd>
       <dt>난이도</dt><dd>HTML 중 · PPT 중(아치형 경로 6개의 높이를 손으로 맞추는 작업)</dd>
       <dt>반영 트렌드</dt><dd>베지어 이징 대신 스프링 물리, 그리고 무게감을 주는 찌그러짐·늘어남(squash &amp; stretch) — Josh W. Comeau, “Squash and Stretch”(2026) <a href="https://www.joshwcomeau.com/animation/squash-and-stretch" target="_blank" rel="noopener">joshwcomeau.com</a></dd>
-      <dt>표현</dt><dd>밝은 하늘 바탕 + 하드코트 파랑. 공은 방사형 음영·펠트 노이즈·솔기·하이라이트로 양감을 준다. 높이는 √예산(라벨은 실제 금액).</dd>
+      <dt>표현</dt><dd>밝은 하늘 바탕 + 하드코트 파랑. 공은 방사형 음영·펠트 노이즈·솔기·하이라이트로 양감을 준다. 높이는 예산에 정비례.</dd>
     </dl>
   </section>
 </div>

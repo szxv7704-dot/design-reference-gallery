@@ -100,7 +100,7 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
     <svg viewBox="0 0 1600 900" aria-hidden="true">
       <defs>
         <linearGradient id="lk-gBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6DC93"/><stop offset=".45" stop-color="#DDAE4C"/><stop offset="1" stop-color="#B47F27"/></linearGradient>
-        <linearGradient id="lk-gShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".22" stop-color="#fff" stop-opacity=".28"/><stop offset=".34" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="lk-gShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".22" stop-color="#fff" stop-opacity=".12"/><stop offset=".34" stop-color="#fff" stop-opacity="0"/></linearGradient>
         <linearGradient id="lk-gPlug" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0CF7F"/><stop offset="1" stop-color="#CE9A3A"/></linearGradient>
         <linearGradient id="lk-gCav" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3A2A14"/><stop offset=".5" stop-color="#5E4623"/><stop offset="1" stop-color="#3A2A14"/></linearGradient>
         <linearGradient id="lk-gWay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33240F"/><stop offset="1" stop-color="#5A4220"/></linearGradient>
@@ -132,6 +132,13 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
       <rect x="660" y="290" width="790" height="445" rx="42" fill="url(#lk-gShine)"/>
       <rect x="668" y="298" width="774" height="429" rx="36" fill="none" stroke="#FFF4D2" stroke-opacity=".55" stroke-width="3"/>
 
+      <!-- 몸통 고정 리벳: 납작한 머리 + 둘레 홈 -->
+      <g fill="#C99A45" stroke="#8E6420" stroke-width="2">
+        <circle cx="712" cy="342" r="11"/><circle cx="712" cy="684" r="11"/><circle cx="1424" cy="342" r="11"/><circle cx="1424" cy="684" r="11"/>
+      </g>
+      <g fill="none" stroke="#F6DFA5" stroke-width="1.6" opacity=".8">
+        <path d="M704 338 A9 9 0 0 1 716 333"/><path d="M704 680 A9 9 0 0 1 716 675"/><path d="M1416 338 A9 9 0 0 1 1428 333"/><path d="M1416 680 A9 9 0 0 1 1428 675"/>
+      </g>
       <!-- 단면 창 -->
       <rect x="776" y="318" width="622" height="384" rx="18" fill="url(#lk-hatch)" stroke="#9E6E22" stroke-width="4"/>
       <rect x="782" y="470" width="610" height="192" fill="url(#lk-gPlug)"/>
@@ -144,7 +151,7 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
       <g id="lk-pins"></g>
 
       <!-- 정렬선 = 목표선 -->
-      <line id="lk-glowline" x1="776" y1="470" x2="1398" y2="470" stroke="#19C2AE" stroke-width="14" opacity="0" filter="url(#lk-glow)"/>
+      <line id="lk-glowline" x1="776" y1="470" x2="1398" y2="470" stroke="#0B8A7C" stroke-width="7" opacity="0"/>
       <line x1="776" y1="470" x2="1462" y2="470" stroke="#0B8A7C" stroke-width="3.5" stroke-dasharray="12 7"/>
       <text x="1470" y="462" font-size="26" font-weight="900" fill="#0B8A7C" font-family="Noto Sans KR, sans-serif">정렬선</text>
       <text x="1470" y="490" font-size="18" font-weight="500" fill="#4A5A63" font-family="Noto Sans KR, sans-serif">2030 목표</text>
@@ -153,6 +160,10 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
       <rect x="1450" y="604" width="30" height="40" fill="url(#lk-gKey)" stroke="#5E6973" stroke-width="2.5"/>
       <rect x="1474" y="548" width="114" height="150" rx="44" fill="url(#lk-gKey)" stroke="#5E6973" stroke-width="2.5"/>
       <circle cx="1548" cy="623" r="17" fill="#EEF3F0" stroke="#5E6973" stroke-width="2.5"/>
+      <g stroke="#7F8A94" stroke-width="2" stroke-linecap="round" opacity=".75">
+        <line x1="1494" y1="574" x2="1494" y2="672"/><line x1="1504" y1="566" x2="1504" y2="680"/><line x1="1514" y1="562" x2="1514" y2="684"/>
+      </g>
+      <rect x="1450" y="600" width="9" height="48" rx="2" fill="#AEB8C1" stroke="#5E6973" stroke-width="2"/>
 
       <g id="lk-cards"></g>
     </svg>
@@ -224,7 +235,7 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
     el("text",Object.assign({x:x,y:822,"font-size":21,"font-weight":700,fill:"#4A5A63"},tf),c).textContent = DATA[i].name[1];
     p.val  = el("text",Object.assign({x:x,y:860,"font-size":34,"font-weight":900,fill:"#1C2A32"},tf),c);
     p.goal = el("text",Object.assign({x:x,y:882,"font-size":16,"font-weight":500,fill:"#4A5A63"},tf),c);
-    p.goal.textContent = "목표 " + DATA[i].goal + "%";
+    p.goal.textContent = "2025년 " + DATA[i].now + "%";
     parts.push(p);
   });
 
@@ -256,7 +267,7 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
       var ok = st.t[i] >= .999; if (ok) done++;
       p.ok.setAttribute("opacity", ok ? 1 : 0);
       p.card.setAttribute("stroke", ok ? "#0B8A7C" : "#E2553B");
-      p.val.textContent = Math.round(DATA[i].now + (DATA[i].goal - DATA[i].now) * st.t[i]) + "%";
+      p.val.textContent = Math.round(DATA[i].now + (DATA[i].goal - DATA[i].now) * Math.min(1, st.t[i])) + "%";
       p.val.setAttribute("fill", ok ? "#0B8A7C" : "#1C2A32");
     });
     var o = st.open;
@@ -393,7 +404,7 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
     &lt;svg viewBox=&quot;0 0 1600 900&quot; aria-hidden=&quot;true&quot;&gt;
       &lt;defs&gt;
         &lt;linearGradient id=&quot;lk-gBody&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#F6DC93&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;#DDAE4C&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#B47F27&quot;/&gt;&lt;/linearGradient&gt;
-        &lt;linearGradient id=&quot;lk-gShine&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;0&quot;/&gt;&lt;stop offset=&quot;.22&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;.28&quot;/&gt;&lt;stop offset=&quot;.34&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;0&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;linearGradient id=&quot;lk-gShine&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;0&quot;/&gt;&lt;stop offset=&quot;.22&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;.12&quot;/&gt;&lt;stop offset=&quot;.34&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;0&quot;/&gt;&lt;/linearGradient&gt;
         &lt;linearGradient id=&quot;lk-gPlug&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#F0CF7F&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#CE9A3A&quot;/&gt;&lt;/linearGradient&gt;
         &lt;linearGradient id=&quot;lk-gCav&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#3A2A14&quot;/&gt;&lt;stop offset=&quot;.5&quot; stop-color=&quot;#5E4623&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#3A2A14&quot;/&gt;&lt;/linearGradient&gt;
         &lt;linearGradient id=&quot;lk-gWay&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#33240F&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#5A4220&quot;/&gt;&lt;/linearGradient&gt;
@@ -425,6 +436,13 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
       &lt;rect x=&quot;660&quot; y=&quot;290&quot; width=&quot;790&quot; height=&quot;445&quot; rx=&quot;42&quot; fill=&quot;url(#lk-gShine)&quot;/&gt;
       &lt;rect x=&quot;668&quot; y=&quot;298&quot; width=&quot;774&quot; height=&quot;429&quot; rx=&quot;36&quot; fill=&quot;none&quot; stroke=&quot;#FFF4D2&quot; stroke-opacity=&quot;.55&quot; stroke-width=&quot;3&quot;/&gt;
 
+      &lt;!-- 몸통 고정 리벳: 납작한 머리 + 둘레 홈 --&gt;
+      &lt;g fill=&quot;#C99A45&quot; stroke=&quot;#8E6420&quot; stroke-width=&quot;2&quot;&gt;
+        &lt;circle cx=&quot;712&quot; cy=&quot;342&quot; r=&quot;11&quot;/&gt;&lt;circle cx=&quot;712&quot; cy=&quot;684&quot; r=&quot;11&quot;/&gt;&lt;circle cx=&quot;1424&quot; cy=&quot;342&quot; r=&quot;11&quot;/&gt;&lt;circle cx=&quot;1424&quot; cy=&quot;684&quot; r=&quot;11&quot;/&gt;
+      &lt;/g&gt;
+      &lt;g fill=&quot;none&quot; stroke=&quot;#F6DFA5&quot; stroke-width=&quot;1.6&quot; opacity=&quot;.8&quot;&gt;
+        &lt;path d=&quot;M704 338 A9 9 0 0 1 716 333&quot;/&gt;&lt;path d=&quot;M704 680 A9 9 0 0 1 716 675&quot;/&gt;&lt;path d=&quot;M1416 338 A9 9 0 0 1 1428 333&quot;/&gt;&lt;path d=&quot;M1416 680 A9 9 0 0 1 1428 675&quot;/&gt;
+      &lt;/g&gt;
       &lt;!-- 단면 창 --&gt;
       &lt;rect x=&quot;776&quot; y=&quot;318&quot; width=&quot;622&quot; height=&quot;384&quot; rx=&quot;18&quot; fill=&quot;url(#lk-hatch)&quot; stroke=&quot;#9E6E22&quot; stroke-width=&quot;4&quot;/&gt;
       &lt;rect x=&quot;782&quot; y=&quot;470&quot; width=&quot;610&quot; height=&quot;192&quot; fill=&quot;url(#lk-gPlug)&quot;/&gt;
@@ -437,7 +455,7 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
       &lt;g id=&quot;lk-pins&quot;&gt;&lt;/g&gt;
 
       &lt;!-- 정렬선 = 목표선 --&gt;
-      &lt;line id=&quot;lk-glowline&quot; x1=&quot;776&quot; y1=&quot;470&quot; x2=&quot;1398&quot; y2=&quot;470&quot; stroke=&quot;#19C2AE&quot; stroke-width=&quot;14&quot; opacity=&quot;0&quot; filter=&quot;url(#lk-glow)&quot;/&gt;
+      &lt;line id=&quot;lk-glowline&quot; x1=&quot;776&quot; y1=&quot;470&quot; x2=&quot;1398&quot; y2=&quot;470&quot; stroke=&quot;#0B8A7C&quot; stroke-width=&quot;7&quot; opacity=&quot;0&quot;/&gt;
       &lt;line x1=&quot;776&quot; y1=&quot;470&quot; x2=&quot;1462&quot; y2=&quot;470&quot; stroke=&quot;#0B8A7C&quot; stroke-width=&quot;3.5&quot; stroke-dasharray=&quot;12 7&quot;/&gt;
       &lt;text x=&quot;1470&quot; y=&quot;462&quot; font-size=&quot;26&quot; font-weight=&quot;900&quot; fill=&quot;#0B8A7C&quot; font-family=&quot;Noto Sans KR, sans-serif&quot;&gt;정렬선&lt;/text&gt;
       &lt;text x=&quot;1470&quot; y=&quot;490&quot; font-size=&quot;18&quot; font-weight=&quot;500&quot; fill=&quot;#4A5A63&quot; font-family=&quot;Noto Sans KR, sans-serif&quot;&gt;2030 목표&lt;/text&gt;
@@ -446,6 +464,10 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
       &lt;rect x=&quot;1450&quot; y=&quot;604&quot; width=&quot;30&quot; height=&quot;40&quot; fill=&quot;url(#lk-gKey)&quot; stroke=&quot;#5E6973&quot; stroke-width=&quot;2.5&quot;/&gt;
       &lt;rect x=&quot;1474&quot; y=&quot;548&quot; width=&quot;114&quot; height=&quot;150&quot; rx=&quot;44&quot; fill=&quot;url(#lk-gKey)&quot; stroke=&quot;#5E6973&quot; stroke-width=&quot;2.5&quot;/&gt;
       &lt;circle cx=&quot;1548&quot; cy=&quot;623&quot; r=&quot;17&quot; fill=&quot;#EEF3F0&quot; stroke=&quot;#5E6973&quot; stroke-width=&quot;2.5&quot;/&gt;
+      &lt;g stroke=&quot;#7F8A94&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; opacity=&quot;.75&quot;&gt;
+        &lt;line x1=&quot;1494&quot; y1=&quot;574&quot; x2=&quot;1494&quot; y2=&quot;672&quot;/&gt;&lt;line x1=&quot;1504&quot; y1=&quot;566&quot; x2=&quot;1504&quot; y2=&quot;680&quot;/&gt;&lt;line x1=&quot;1514&quot; y1=&quot;562&quot; x2=&quot;1514&quot; y2=&quot;684&quot;/&gt;
+      &lt;/g&gt;
+      &lt;rect x=&quot;1450&quot; y=&quot;600&quot; width=&quot;9&quot; height=&quot;48&quot; rx=&quot;2&quot; fill=&quot;#AEB8C1&quot; stroke=&quot;#5E6973&quot; stroke-width=&quot;2&quot;/&gt;
 
       &lt;g id=&quot;lk-cards&quot;&gt;&lt;/g&gt;
     &lt;/svg&gt;
@@ -517,7 +539,7 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
     el(&quot;text&quot;,Object.assign({x:x,y:822,&quot;font-size&quot;:21,&quot;font-weight&quot;:700,fill:&quot;#4A5A63&quot;},tf),c).textContent = DATA[i].name[1];
     p.val  = el(&quot;text&quot;,Object.assign({x:x,y:860,&quot;font-size&quot;:34,&quot;font-weight&quot;:900,fill:&quot;#1C2A32&quot;},tf),c);
     p.goal = el(&quot;text&quot;,Object.assign({x:x,y:882,&quot;font-size&quot;:16,&quot;font-weight&quot;:500,fill:&quot;#4A5A63&quot;},tf),c);
-    p.goal.textContent = &quot;목표 &quot; + DATA[i].goal + &quot;%&quot;;
+    p.goal.textContent = &quot;2025년 &quot; + DATA[i].now + &quot;%&quot;;
     parts.push(p);
   });
 
@@ -549,7 +571,7 @@ td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:
       var ok = st.t[i] &gt;= .999; if (ok) done++;
       p.ok.setAttribute(&quot;opacity&quot;, ok ? 1 : 0);
       p.card.setAttribute(&quot;stroke&quot;, ok ? &quot;#0B8A7C&quot; : &quot;#E2553B&quot;);
-      p.val.textContent = Math.round(DATA[i].now + (DATA[i].goal - DATA[i].now) * st.t[i]) + &quot;%&quot;;
+      p.val.textContent = Math.round(DATA[i].now + (DATA[i].goal - DATA[i].now) * Math.min(1, st.t[i])) + &quot;%&quot;;
       p.val.setAttribute(&quot;fill&quot;, ok ? &quot;#0B8A7C&quot; : &quot;#1C2A32&quot;);
     });
     var o = st.open;
