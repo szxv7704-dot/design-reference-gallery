@@ -15,6 +15,19 @@
 | `scripts/add-code.js` | 표지 장표만 떼어 낸 "HTML로 가져다 쓰기" 코드 칸을 페이지 끝에 붙임: `node scripts/add-code.js refs/NN.html` (실무형처럼 원래 코드 칸이 있으면 건너뜀, 다시 실행하면 새로 만듦) |
 | `scripts/thumb.js` | 썸네일 생성: `node scripts/thumb.js refs/NN.html thumbs/NN.jpg` (Playwright 필요) |
 
+## 분류 체계
+
+- **표지(실험형)**: 덱의 분위기를 정하는 첫 장. `family`에 계열 기호를 적는다.
+  A 픽셀 게임 · B 미니멀 스튜디오 · C 경쾌한 놀이 오브젝트 · D 인쇄·종이 에디토리얼 · E 자연 재질 · F 관측·중계 인포그래픽 · G 어두운 콘셉트
+- **요소(실무형)**: 표지 뒤에 오는 본문 장표.
+  - `info_type`: 추이, 비교·순위, 구성비, 분류·유목화, 흐름·절차, 조직·체계, 일정, 핵심 수치, 지도·분포, 표·목록
+  - `texture`: 평면 / 약한 입체 / 재질 (재질일수록 어울리는 계열이 좁다)
+  - `families`: 어울리는 표지 계열 기호 목록
+  - `deck_ok`, `deck_note`: 덱에 넣으면 안 되는 요소와 그 이유
+  - `section`: 계획안 속 위치(보조 꼬리표)
+
+갤러리에서 계열을 고르면 그 계열의 표지와 어울리는 요소(덱 제외 빼고)가 함께 나온다.
+
 ## 갱신 방식
 
 claude.ai 루틴이 새 레퍼런스를 만들 때마다 `refs/`, `thumbs/`, `data/rounds.json`을 갱신해 `main`에 푸시합니다.

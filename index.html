@@ -56,6 +56,12 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .chips button[aria-pressed=true]{background:var(--prac);border-color:var(--prac);color:#fff}
 .chips button[aria-pressed=true] em{color:#dbe7f5}
 .tag.sec{background:#E3ECF8;color:#1F4E86;font-weight:700}
+.tag.fam{background:#F6E5DC;color:#8A3517;font-weight:700}
+.tag.info{background:#E3ECF8;color:#1F4E86;font-weight:700}
+.tag.no{background:#FBE3E1;color:#A1251B;font-weight:700}
+.chips button:disabled{opacity:.45;cursor:default}
+.compat{font-size:12.5px;color:var(--soft);margin:6px 0 0}
+.note{font-size:12.5px;color:#A1251B;margin:6px 0 0}
 .empty{padding:60px 0;text-align:center;color:var(--soft)}
 footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 @media (max-width:600px){.bar{position:static}}
@@ -66,18 +72,20 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 <div class="wrap">
   <header>
     <h1>발표자료 디자인 레퍼런스</h1>
-    <p>계획안 발표(PPT·HTML)에 쓸 표지와 도식 장표 레퍼런스입니다. <b>실험형</b>은 다른 세계를 빌린 표지, <b>실무형</b>은 움직임으로 구조를 보여 주는 도식입니다. 실무형은 계획안 속 위치(현황·목표 및 지표·세부과제·추진체계·일정 및 예산)로 골라 볼 수 있습니다. 카드를 누르면 원본 페이지(설계 메모·PPT 이식법 포함)가 열립니다.</p>
+    <p>계획안 발표(PPT·HTML)를 위한 레퍼런스입니다. <b>표지</b>(실험형)는 덱의 분위기를 정하는 첫 장이고, 분위기에 따라 <b>계열</b> A~G로 묶었습니다. <b>요소</b>(실무형)는 표지 뒤에 오는 본문 장표이고, <b>정보 유형</b>(추이·비교·구성비 등)으로 찾습니다. 계열을 고르면 그 계열의 표지와 함께 어울리는 요소가 나옵니다. 카드를 누르면 원본 페이지(설계 메모·코드·PPT 이식법 포함)가 열립니다.</p>
     <div class="stats" id="stats"></div>
   </header>
 
   <div class="bar" role="search">
     <div class="seg" id="seg">
       <button type="button" data-t="" aria-pressed="true">전체</button>
-      <button type="button" data-t="실험형" aria-pressed="false">실험형</button>
-      <button type="button" data-t="실무형" aria-pressed="false">실무형</button>
+      <button type="button" data-t="실험형" aria-pressed="false">표지</button>
+      <button type="button" data-t="실무형" aria-pressed="false">요소</button>
     </div>
     <select id="topic" aria-label="주제"><option value="">모든 주제</option></select>
     <input id="q" type="search" placeholder="검색: 제목, 구조, 패턴, 스타일…" aria-label="검색">
+    <div class="chips" id="fam" role="group" aria-label="표지 계열"><span>표지 계열</span></div>
+    <div class="chips" id="info" role="group" aria-label="정보 유형"><span>정보 유형</span></div>
     <div class="chips" id="sec" role="group" aria-label="계획안 속 위치"><span>계획안 속 위치</span></div>
   </div>
 
@@ -90,23 +98,36 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hex = c => /^#[0-9a-f]{3,8}$/i.test(c) ? c : '#ccc';
-let all = [], type = '', sec = '';
-// 계획안 발표 순서. 실험형은 '표지'
-const SECTIONS = ['표지', '현황', '목표 및 지표', '세부과제', '추진체계', '일정 및 예산'];
-const secOf = r => r.section || (r.type === '실험형' ? '표지' : '');
+let all = [], type = '', sec = '', fam = '', info = '';
+// 표지 분위기 계열 (실험형의 family). 실무형은 families에 어울리는 계열을 적는다
+const FAMILIES = {A:'픽셀 게임', B:'미니멀 스튜디오', C:'경쾌한 놀이 오브젝트', D:'인쇄·종이 에디토리얼', E:'자연 재질', F:'관측·중계 인포그래픽', G:'어두운 콘셉트'};
+// 본문 요소의 정보 유형 (0개인 유형도 보여 빈칸을 드러낸다)
+const INFO_TYPES = ['추이', '비교·순위', '구성비', '분류·유목화', '흐름·절차', '조직·체계', '일정', '핵심 수치', '지도·분포', '표·목록'];
+// 계획안 발표 순서 (실무형의 section)
+const SECTIONS = ['현황', '목표 및 지표', '세부과제', '추진체계', '일정 및 예산'];
+const secOf = r => r.section || '';
+const famLabel = k => k ? `${k} ${FAMILIES[k] || ''}` : '';
+// 계열 필터: 그 계열의 표지 + 그 계열과 어울리는 요소(덱 제외 요소는 빼고)
+const inFam = r => r.type === '실험형' ? r.family === fam : (r.families || []).includes(fam) && r.deck_ok !== false;
 
 function render(){
   const topic = $('#topic').value, q = $('#q').value.trim().toLowerCase();
   const rows = all.filter(r =>
     (!type || r.type === type) && (!topic || r.topic === topic) && (!sec || secOf(r) === sec) &&
-    (!q || [r.title, secOf(r), r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)));
+    (!fam || inFam(r)) && (!info || r.info_type === info) &&
+    (!q || [r.title, secOf(r), famLabel(r.family), r.info_type, r.texture, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)))
+    .sort((a, b) => fam ? (a.type === '실험형' ? 0 : 1) - (b.type === '실험형' ? 0 : 1) || b.no - a.no : b.no - a.no);
   $('#grid').innerHTML = rows.length ? rows.map(r => `
     <a class="card" href="${esc(r.file)}${r.v ? '?v=' + esc(r.v) : ''}" target="_blank" rel="noopener">
       <img class="thumb" src="${esc(r.thumb)}${r.v ? '?v=' + esc(r.v) : ''}" alt="" loading="lazy">
       <div class="body">
         <div class="meta">
-          <span class="type ${r.type === '실험형' ? 'exp' : 'prac'}">${esc(r.type)}</span>
-          ${r.section ? `<span class="tag sec">${esc(r.section)}</span>` : ''}
+          <span class="type ${r.type === '실험형' ? 'exp' : 'prac'}">${r.type === '실험형' ? '표지' : '요소'}</span>
+          ${r.family ? `<span class="tag fam">${esc(famLabel(r.family))}</span>` : ''}
+          ${r.info_type ? `<span class="tag info">${esc(r.info_type)}</span>` : ''}
+          ${r.texture ? `<span class="tag">${esc(r.texture)}</span>` : ''}
+          ${r.deck_ok === false ? '<span class="tag no">덱 제외</span>' : ''}
+          ${r.section ? `<span class="tag">${esc(r.section)}</span>` : ''}
           ${r.structure ? `<span class="tag">${esc(r.structure)}</span>` : ''}
           ${r.pattern ? `<span class="tag">${esc(r.pattern)}</span>` : ''}
           ${r.field ? `<span class="tag">${esc(r.field)}</span>` : ''}
@@ -115,6 +136,8 @@ function render(){
         <h2>${esc(String(r.title).replace(/^레퍼런스\s*#\d+\s*/, ''))}</h2>
         <p class="topic">${esc(r.topic)}</p>
         ${r.takeaway ? `<p class="take"><b>가져갈 장치</b> · ${esc(r.takeaway)}</p>` : ''}
+        ${r.type === '실무형' && r.deck_ok !== false ? `<p class="compat">어울리는 계열 · ${(r.families || []).map(esc).join('·') || '—'}</p>` : ''}
+        ${r.deck_ok === false && r.deck_note ? `<p class="note">${esc(r.deck_note)}</p>` : ''}
         <div class="sw">${(r.palette || []).slice(0, 6).map(c => `<i style="background:${hex(c)}"></i>`).join('')}</div>
       </div>
     </a>`).join('') : '<p class="empty">조건에 맞는 레퍼런스가 없습니다.</p>';
@@ -123,7 +146,13 @@ function render(){
 fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
   all = d.sort((a, b) => b.no - a.no);
   const n = t => all.filter(r => r.type === t).length;
-  $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${n('실험형')}</b>실험형</span><span><b>${n('실무형')}</b>실무형</span>`;
+  $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${n('실험형')}</b>표지</span><span><b>${n('실무형')}</b>요소</span>`;
+  const chip = (box, key, val, label, cnt) => $(box).insertAdjacentHTML('beforeend',
+    `<button type="button" data-${key}="${esc(val)}" aria-pressed="${val === ''}"${cnt === 0 ? ' disabled' : ''}>${esc(label)}<em>${cnt}</em></button>`);
+  chip('#fam', 'f', '', '전체', all.length);
+  Object.keys(FAMILIES).forEach(k => { fam = k; chip('#fam', 'f', k, famLabel(k), all.filter(r => r.family === k).length); }); fam = '';
+  chip('#info', 'i', '', '전체', n('실무형'));
+  INFO_TYPES.forEach(t => chip('#info', 'i', t, t, all.filter(r => r.info_type === t).length));
   [...new Set(all.map(r => r.topic))].sort().forEach(t => $('#topic').insertAdjacentHTML('beforeend', `<option>${esc(t)}</option>`));
   ['', ...SECTIONS].forEach(s => $('#sec').insertAdjacentHTML('beforeend',
     `<button type="button" data-s="${esc(s)}" aria-pressed="${s === ''}">${s || '전체'}<em>${s ? all.filter(r => secOf(r) === s).length : all.length}</em></button>`));
@@ -142,6 +171,14 @@ $('#sec').addEventListener('click', e => {
   document.querySelectorAll('#sec button').forEach(x => x.setAttribute('aria-pressed', x === b));
   render();
 });
+const pick = (box, key, set) => $(box).addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b || b.disabled) return;
+  set(b.dataset[key]);
+  document.querySelectorAll(box + ' button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  render();
+});
+pick('#fam', 'f', v => fam = v);
+pick('#info', 'i', v => info = v);
 $('#topic').addEventListener('change', render);
 $('#q').addEventListener('input', render);
 </script>
