@@ -49,8 +49,16 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .sw{display:flex;margin-top:auto;padding-top:6px;height:12px}
 .sw i{flex:1;height:8px}
 .sw i:first-child{border-radius:4px 0 0 4px}.sw i:last-child{border-radius:0 4px 4px 0}
+.chips{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--soft)}
+.chips span{margin-right:2px}
+.chips button{border:1px solid var(--line);background:var(--card);font:500 13px var(--f);padding:5px 12px;border-radius:999px;cursor:pointer;color:var(--ink)}
+.chips button em{font-style:normal;color:var(--soft);margin-left:4px;font-size:12px}
+.chips button[aria-pressed=true]{background:var(--prac);border-color:var(--prac);color:#fff}
+.chips button[aria-pressed=true] em{color:#dbe7f5}
+.tag.sec{background:#E3ECF8;color:#1F4E86;font-weight:700}
 .empty{padding:60px 0;text-align:center;color:var(--soft)}
 footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
+@media (max-width:600px){.bar{position:static}}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
 </style>
 </head>
@@ -58,7 +66,7 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 <div class="wrap">
   <header>
     <h1>발표자료 디자인 레퍼런스</h1>
-    <p>계획안 발표(PPT·HTML)에 쓸 표지와 도식 장표 레퍼런스입니다. <b>실험형</b>은 교육 밖 세계를 빌린 표지, <b>실무형</b>은 움직임으로 구조를 보여 주는 도식입니다. 카드를 누르면 원본 페이지(설계 메모·PPT 이식법 포함)가 열립니다.</p>
+    <p>계획안 발표(PPT·HTML)에 쓸 표지와 도식 장표 레퍼런스입니다. <b>실험형</b>은 다른 세계를 빌린 표지, <b>실무형</b>은 움직임으로 구조를 보여 주는 도식입니다. 실무형은 계획안 속 위치(현황·목표 및 지표·세부과제·추진체계·일정 및 예산)로 골라 볼 수 있습니다. 카드를 누르면 원본 페이지(설계 메모·PPT 이식법 포함)가 열립니다.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -70,6 +78,7 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
     </div>
     <select id="topic" aria-label="주제"><option value="">모든 주제</option></select>
     <input id="q" type="search" placeholder="검색: 제목, 구조, 패턴, 스타일…" aria-label="검색">
+    <div class="chips" id="sec" role="group" aria-label="계획안 속 위치"><span>계획안 속 위치</span></div>
   </div>
 
   <div class="grid" id="grid"></div>
@@ -81,19 +90,23 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hex = c => /^#[0-9a-f]{3,8}$/i.test(c) ? c : '#ccc';
-let all = [], type = '';
+let all = [], type = '', sec = '';
+// 계획안 발표 순서. 실험형은 '표지'
+const SECTIONS = ['표지', '현황', '목표 및 지표', '세부과제', '추진체계', '일정 및 예산'];
+const secOf = r => r.section || (r.type === '실험형' ? '표지' : '');
 
 function render(){
   const topic = $('#topic').value, q = $('#q').value.trim().toLowerCase();
   const rows = all.filter(r =>
-    (!type || r.type === type) && (!topic || r.topic === topic) &&
-    (!q || [r.title, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)));
+    (!type || r.type === type) && (!topic || r.topic === topic) && (!sec || secOf(r) === sec) &&
+    (!q || [r.title, secOf(r), r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)));
   $('#grid').innerHTML = rows.length ? rows.map(r => `
     <a class="card" href="${esc(r.file)}${r.v ? '?v=' + esc(r.v) : ''}" target="_blank" rel="noopener">
       <img class="thumb" src="${esc(r.thumb)}${r.v ? '?v=' + esc(r.v) : ''}" alt="" loading="lazy">
       <div class="body">
         <div class="meta">
           <span class="type ${r.type === '실험형' ? 'exp' : 'prac'}">${esc(r.type)}</span>
+          ${r.section ? `<span class="tag sec">${esc(r.section)}</span>` : ''}
           ${r.structure ? `<span class="tag">${esc(r.structure)}</span>` : ''}
           ${r.pattern ? `<span class="tag">${esc(r.pattern)}</span>` : ''}
           ${r.field ? `<span class="tag">${esc(r.field)}</span>` : ''}
@@ -112,6 +125,8 @@ fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
   const n = t => all.filter(r => r.type === t).length;
   $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${n('실험형')}</b>실험형</span><span><b>${n('실무형')}</b>실무형</span>`;
   [...new Set(all.map(r => r.topic))].sort().forEach(t => $('#topic').insertAdjacentHTML('beforeend', `<option>${esc(t)}</option>`));
+  ['', ...SECTIONS].forEach(s => $('#sec').insertAdjacentHTML('beforeend',
+    `<button type="button" data-s="${esc(s)}" aria-pressed="${s === ''}">${s || '전체'}<em>${s ? all.filter(r => secOf(r) === s).length : all.length}</em></button>`));
   render();
 }).catch(() => { $('#grid').innerHTML = '<p class="empty">목록을 불러오지 못했습니다.</p>'; });
 
@@ -119,6 +134,12 @@ $('#seg').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   type = b.dataset.t;
   document.querySelectorAll('#seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  render();
+});
+$('#sec').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  sec = b.dataset.s;
+  document.querySelectorAll('#sec button').forEach(x => x.setAttribute('aria-pressed', x === b));
   render();
 });
 $('#topic').addEventListener('change', render);
