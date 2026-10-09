@@ -40,7 +40,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--soft)}
 .type{font-weight:700;padding:2px 8px;border-radius:999px;color:#fff}
-.type.exp{background:var(--exp)} .type.prac{background:var(--prac)}
+.type.exp{background:var(--exp)} .type.prac{background:var(--prac)} .type.kit{background:#3F6B4E}
 .tag{background:var(--chip);padding:2px 8px;border-radius:999px}
 .card h2{font-size:17px;line-height:1.35;margin:0;font-weight:700}
 .topic{font-size:13px;color:var(--soft);margin:0}
@@ -80,6 +80,7 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
     <div class="seg" id="seg">
       <button type="button" data-t="" aria-pressed="true">전체</button>
       <button type="button" data-t="실험형" aria-pressed="false">표지</button>
+      <button type="button" data-t="계열키트" aria-pressed="false">계열 키트</button>
       <button type="button" data-t="실무형" aria-pressed="false">요소</button>
     </div>
     <select id="topic" aria-label="주제"><option value="">모든 주제</option></select>
@@ -108,7 +109,9 @@ const SECTIONS = ['현황', '목표 및 지표', '세부과제', '추진체계',
 const secOf = r => r.section || '';
 const famLabel = k => k ? `${k} ${FAMILIES[k] || ''}` : '';
 // 계열 필터: 그 계열의 표지 + 그 계열과 어울리는 요소(덱 제외 요소는 빼고)
-const inFam = r => r.type === '실험형' ? r.family === fam : (r.families || []).includes(fam) && r.deck_ok !== false;
+const inFam = r => r.type === '실무형' ? (r.families || []).includes(fam) && r.deck_ok !== false : r.family === fam;
+const KIND = {'실험형': '표지', '계열키트': '계열 키트', '실무형': '요소'};
+const ORDER = {'실험형': 0, '계열키트': 1, '실무형': 2};
 
 function render(){
   const topic = $('#topic').value, q = $('#q').value.trim().toLowerCase();
@@ -116,13 +119,13 @@ function render(){
     (!type || r.type === type) && (!topic || r.topic === topic) && (!sec || secOf(r) === sec) &&
     (!fam || inFam(r)) && (!info || r.info_type === info) &&
     (!q || [r.title, secOf(r), famLabel(r.family), r.info_type, r.texture, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)))
-    .sort((a, b) => fam ? (a.type === '실험형' ? 0 : 1) - (b.type === '실험형' ? 0 : 1) || b.no - a.no : b.no - a.no);
+    .sort((a, b) => fam ? (ORDER[a.type] ?? 3) - (ORDER[b.type] ?? 3) || b.no - a.no : b.no - a.no);
   $('#grid').innerHTML = rows.length ? rows.map(r => `
     <a class="card" href="${esc(r.file)}${r.v ? '?v=' + esc(r.v) : ''}" target="_blank" rel="noopener">
       <img class="thumb" src="${esc(r.thumb)}${r.v ? '?v=' + esc(r.v) : ''}" alt="" loading="lazy">
       <div class="body">
         <div class="meta">
-          <span class="type ${r.type === '실험형' ? 'exp' : 'prac'}">${r.type === '실험형' ? '표지' : '요소'}</span>
+          <span class="type ${r.type === '실험형' ? 'exp' : r.type === '계열키트' ? 'kit' : 'prac'}">${esc(KIND[r.type] || r.type)}</span>
           ${r.family ? `<span class="tag fam">${esc(famLabel(r.family))}</span>` : ''}
           ${r.info_type ? `<span class="tag info">${esc(r.info_type)}</span>` : ''}
           ${r.texture ? `<span class="tag">${esc(r.texture)}</span>` : ''}
@@ -146,7 +149,7 @@ function render(){
 fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
   all = d.sort((a, b) => b.no - a.no);
   const n = t => all.filter(r => r.type === t).length;
-  $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${n('실험형')}</b>표지</span><span><b>${n('실무형')}</b>요소</span>`;
+  $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${n('실험형')}</b>표지</span><span><b>${n('계열키트')}</b>계열 키트</span><span><b>${n('실무형')}</b>요소</span>`;
   const chip = (box, key, val, label, cnt) => $(box).insertAdjacentHTML('beforeend',
     `<button type="button" data-${key}="${esc(val)}" aria-pressed="${val === ''}"${cnt === 0 ? ' disabled' : ''}>${esc(label)}<em>${cnt}</em></button>`);
   chip('#fam', 'f', '', '전체', all.length);
