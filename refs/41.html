@@ -1,0 +1,696 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #41 타이밍 타워 순위표</title>
+<style>
+/* 레이아웃: 맨 위 장표, 아래로 설명 → 코드 → PPT → 스펙을 한 열로 */
+:root{
+  --bg:#EEF3F1; --fg:#15212C; --sub:#55666F; --line:#D3DCD9; --card:#FFFFFF; --accent:#0B8A6C; --code-bg:#14202A; --code-fg:#DCE7E3;
+  --kr:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --num:"Saira Condensed","Arial Narrow",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F171C;--fg:#E4ECE9;--sub:#9DB0AA;--line:#2A3A40;--card:#16222A;--accent:#3FD0A6;--code-bg:#0A1115;--code-fg:#DCE7E3;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F171C;--fg:#E4ECE9;--sub:#9DB0AA;--line:#2A3A40;--card:#16222A;--accent:#3FD0A6;--code-bg:#0A1115;--code-fg:#DCE7E3;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--kr);line-height:1.65;padding:0 16px}
+main{max-width:1200px;margin:0 auto;padding-block:28px 64px;display:grid;gap:44px}
+header.pg{display:grid;gap:4px}
+header.pg p{margin:0;color:var(--sub);font-size:14px}
+header.pg h1{margin:0;font-size:clamp(22px,3vw,30px);letter-spacing:-.01em;text-wrap:balance}
+.tag{font-family:var(--num);font-weight:700;letter-spacing:.06em;color:var(--accent)}
+section{display:grid;gap:14px;min-width:0}
+section>h2{margin:0;font-size:20px;border-top:1px solid var(--line);padding-top:18px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.two>*{min-width:0}
+p,li{max-width:68ch}
+ul,ol{margin:0;padding-left:1.2em}
+li{margin:4px 0}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.box h3{margin:0 0 6px;font-size:15px}
+.code-wrap{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:20px;align-items:start}
+.code-wrap>*{min-width:0}
+@media (max-width:760px){.code-wrap{grid-template-columns:1fr}}
+.code{position:relative;background:var(--code-bg);border-radius:10px;overflow:hidden}
+.code button{position:absolute;top:10px;right:10px;font:600 13px var(--kr);padding:6px 12px;border-radius:6px;border:1px solid #3A4C55;background:#21313B;color:#E4ECE9;cursor:pointer}
+.code pre{margin:0;max-height:520px;overflow:auto;padding:46px 16px 16px;font:12.5px/1.55 ui-monospace,"SFMono-Regular",Consolas,monospace;color:var(--code-fg);white-space:pre}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{color:var(--sub);font-weight:600;font-size:13px}
+td code,p code,li code{font-family:ui-monospace,Consolas,monospace;font-size:.92em;background:var(--card);border:1px solid var(--line);padding:0 4px;border-radius:4px}
+.sw{display:flex;flex-wrap:wrap;gap:10px}
+.sw span{display:flex;align-items:center;gap:8px;font-family:ui-monospace,Consolas,monospace;font-size:13px}
+.sw i{width:22px;height:22px;border-radius:5px;border:1px solid var(--line)}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0}
+dt{color:var(--sub)}dd{margin:0;min-width:0}
+@media (max-width:520px){dl{grid-template-columns:1fr}dd{margin-bottom:8px}}
+a{color:var(--accent)}
+</style>
+<main>
+<header class="pg">
+  <p><span class="tag">REFERENCE #41</span> · 실무형 · 계획안 위치: 현황 · 동작 패턴: 레이스·순위</p>
+  <h1>타이밍 타워 순위표 — 순위가 바뀌는 해마다 기록판이 다시 줄을 선다</h1>
+</header>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&family=Saira+Condensed:wght@500;700;800&display=swap">
+<style>
+/* ── 타이밍 타워 순위표: 색·글꼴은 여기서만 바꾸면 된다 ── */
+.tt-wrap{
+  --tt-bg:#F5F8F7;      /* 장표 바탕 */
+  --tt-ink:#15212C;     /* 본문 글자 */
+  --tt-sub:#5B6B78;     /* 보조 글자 */
+  --tt-band:#E9EFED;    /* 순위 줄무늬 */
+  --tt-old:#7F93B5;     /* 구도심 노선 */
+  --tt-old-d:#3E5687;   /* 구도심 노선(타워 막대) */
+  --tt-new:#0C9C7B;     /* 신도시·산단 노선 */
+  --tt-up:#0C9C7B;      /* 순위 상승 */
+  --tt-down:#E0533D;    /* 순위 하락 */
+  --tt-flag:#F2B01E;    /* 사건 깃발 */
+  --tt-card:#FFFFFF;
+  --tt-kr:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+  --tt-num:"Saira Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+  container-type:inline-size;
+  font-family:var(--tt-kr);color:var(--tt-ink);
+  width:100%;max-width:1200px;margin:0 auto;
+}
+.tt-slide{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;background:var(--tt-bg);overflow:hidden;border-radius:.6cqw;box-shadow:0 .4cqw 2cqw rgba(21,33,44,.10);}
+.tt-slide *{box-sizing:border-box}
+
+/* 머리글 */
+.tt-eyebrow{position:absolute;left:4cqw;top:3.4cqw;font-size:1.25cqw;font-weight:600;color:var(--tt-sub);letter-spacing:.04em;white-space:nowrap}
+.tt-eyebrow b{color:var(--tt-new);font-weight:800;margin-right:.6cqw}
+.tt-title{position:absolute;left:4cqw;top:5.6cqw;margin:0;font-size:3.5cqw;font-weight:800;letter-spacing:-.02em;line-height:1.15;white-space:nowrap}
+.tt-title em{font-style:normal;color:var(--tt-new)}
+.tt-lede{position:absolute;left:4cqw;top:10.6cqw;font-size:1.55cqw;color:var(--tt-sub);white-space:nowrap}
+.tt-legend{position:absolute;right:4cqw;top:3.2cqw;display:flex;gap:1.6cqw;font-size:1.15cqw;color:var(--tt-sub)}
+.tt-legend span{display:flex;align-items:center;gap:.5cqw}
+.tt-legend i{display:block;width:2.2cqw;height:.5cqw;border-radius:.3cqw}
+
+/* 보드: 그래프와 타워가 같은 순위 줄을 공유한다 */
+.tt-board{position:absolute;left:4cqw;right:4cqw;top:17.4cqw;height:30.4cqw}
+.tt-bands{position:absolute;inset:0;display:grid;grid-template-rows:repeat(8,1fr)}
+.tt-bands div:nth-child(odd){background:var(--tt-band)}
+.tt-bands div{border-radius:.3cqw}
+.tt-chart{position:absolute;left:0;top:0;bottom:0;width:58%}
+.tt-chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.tt-chart path{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.tt-dot{position:absolute;width:1.15cqw;height:1.15cqw;margin:-.575cqw 0 0 -.575cqw;border-radius:50%;border:.25cqw solid var(--tt-card)}
+.tt-flagline{position:absolute;top:-1.4cqw;bottom:-.4cqw;width:0;border-left:.18cqw dashed var(--tt-flag);transition:opacity .4s}
+.tt-flag{position:absolute;top:-3.3cqw;transform:translateX(-.1cqw);display:flex;align-items:center;gap:.5cqw;font-size:1.15cqw;font-weight:600;white-space:nowrap;color:var(--tt-ink);transition:opacity .4s}
+.tt-flag i{display:block;width:1.5cqw;height:1cqw;background:var(--tt-flag);clip-path:polygon(0 0,100% 50%,0 100%)}
+.tt-years{position:absolute;left:4cqw;top:48.6cqw;width:calc((100cqw - 8cqw)*.58);height:2cqw}
+.tt-years span{position:absolute;transform:translateX(-50%);font-family:var(--tt-num);font-weight:500;font-size:1.35cqw;color:var(--tt-sub);transition:color .3s}
+.tt-years span.on{color:var(--tt-ink);font-weight:800}
+
+/* 타이밍 타워 */
+.tt-tower{position:absolute;right:0;top:0;bottom:0;width:39%}
+.tt-row{position:absolute;left:0;right:0;height:12.5%;padding:.35cqw 0;transition:top .8s cubic-bezier(.6,.05,.25,1)}
+.tt-row>div{height:100%;display:grid;grid-template-columns:3cqw .45cqw 4.6cqw 1fr 4.4cqw 3.8cqw;align-items:center;background:var(--tt-card);border-radius:.35cqw;box-shadow:0 .1cqw .5cqw rgba(21,33,44,.08);font-size:1.35cqw}
+.tt-pos{font-family:var(--tt-num);font-weight:800;font-size:2cqw;text-align:center}
+.tt-bar{height:70%;border-radius:.2cqw}
+.tt-no{font-family:var(--tt-num);font-weight:800;font-size:1.9cqw;padding-left:.7cqw}
+.tt-name{color:var(--tt-sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-val{font-family:var(--tt-num);font-weight:700;font-size:1.75cqw;text-align:right;font-variant-numeric:tabular-nums}
+.tt-chip{justify-self:center;font-family:var(--tt-num);font-weight:800;font-size:1.4cqw;padding:.05cqw .45cqw;border-radius:.3cqw;color:#fff;min-width:2.6cqw;text-align:center}
+.tt-head{position:absolute;right:4cqw;top:13.2cqw;width:calc((100cqw - 8cqw)*.39);height:3.6cqw;display:flex;align-items:flex-end;gap:1cqw}
+.tt-lap{font-family:var(--tt-num);font-weight:700;font-size:1.2cqw;background:var(--tt-ink);color:#fff;padding:.15cqw .6cqw;border-radius:.25cqw;margin-bottom:.45cqw}
+.tt-year{font-family:var(--tt-num);font-weight:800;font-size:3.2cqw;line-height:1}
+.tt-cols{margin-left:auto;display:flex;gap:1.1cqw;font-size:1.05cqw;color:var(--tt-sub);margin-bottom:.45cqw;white-space:nowrap}
+
+/* 레이스 컨트롤 메시지 줄 */
+.tt-rc{position:absolute;left:4cqw;right:4cqw;bottom:2.6cqw;height:3.4cqw;display:flex;align-items:center;gap:1.2cqw;background:var(--tt-card);border-radius:.4cqw;box-shadow:0 .1cqw .5cqw rgba(21,33,44,.08);padding:0 1.2cqw 0 0;overflow:hidden}
+.tt-rc b{height:100%;display:flex;align-items:center;padding:0 1.2cqw;background:var(--tt-flag);color:var(--tt-ink);font-size:1.15cqw;font-weight:800;letter-spacing:.04em;white-space:nowrap}
+.tt-rc span{font-size:1.4cqw;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-note{position:absolute;right:4cqw;bottom:.7cqw;font-size:.95cqw;color:var(--tt-sub)}
+
+/* 장표 아래 버튼 */
+.tt-ctrl{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.tt-ctrl button{font:600 14px var(--tt-kr);padding:8px 16px;border-radius:8px;border:1px solid #C9D3D0;background:#FFFFFF;color:#15212C;cursor:pointer}
+.tt-ctrl button:hover{border-color:#0C9C7B}
+.tt-ctrl button:focus-visible{outline:2px solid #0C9C7B;outline-offset:2px}
+
+/* 좁은 화면: 노선 이름을 숨기고 숫자를 키운다 */
+@container (max-width:560px){
+  .tt-row>div{grid-template-columns:3.4cqw .6cqw 6cqw 0 1fr 5.4cqw}
+  .tt-name{display:none}
+  .tt-legend{font-size:1.6cqw}
+  .tt-cols{display:none}
+  .tt-lede{font-size:1.9cqw}
+  .tt-rc span{font-size:1.75cqw}
+  .tt-flag{font-size:1.55cqw}
+  .tt-years span{font-size:1.7cqw}
+}
+@media (prefers-reduced-motion:reduce){.tt-row{transition:none}}
+</style>
+
+<div class="tt-wrap" id="tt-demo">
+  <div class="tt-slide">
+    <div class="tt-eyebrow"><b>Ⅰ. 현황</b>노선별 일평균 승객 순위 변화 (2019 → 2025)</div>
+    <h2 class="tt-title"><em>신도시 노선</em>이 승객 순위를 뒤집었다</h2>
+    <div class="tt-lede">수요는 신도시로 옮겨 갔는데, 노선망과 배차는 아직 구도심에 맞춰져 있다</div>
+    <div class="tt-legend"><span><i style="background:var(--tt-old-d)"></i>구도심 노선</span><span><i style="background:var(--tt-new)"></i>신도시·산단 노선</span></div>
+
+    <div class="tt-head"><span class="tt-lap">LAP 7/7</span><span class="tt-year">2025</span><span class="tt-cols"><span>일평균(천 명)</span><span>2019 대비</span></span></div>
+
+    <div class="tt-board">
+      <div class="tt-bands"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      <div class="tt-chart"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg></div>
+      <div class="tt-tower" role="list" aria-label="연도별 노선 순위표"></div>
+    </div>
+    <div class="tt-years"></div>
+
+    <div class="tt-rc"><b>레이스 컨트롤</b><span class="tt-msg"></span></div>
+    <div class="tt-note">가상 예시 · ○○시 시내버스 노선 개편 계획(안)</div>
+  </div>
+  <div class="tt-ctrl"><button type="button" data-act="replay">다시 보기</button><button type="button" data-act="step">한 단계씩</button></div>
+</div>
+
+<script>
+(function(){
+  /* ── 데이터: 노선·연도·값만 바꾸면 순위와 그래프가 다시 계산된다 ── */
+  const DATA = {
+    years: [2019,2020,2021,2022,2023,2024,2025],
+    routes: [ // grp: old = 구도심, new = 신도시·산단 / v = 연도별 일평균 승객(천 명)
+      {no:'100', name:'구도심 순환',    grp:'old', v:[18.2,15.0,14.1,13.0,12.1,11.4,10.6]},
+      {no:'103', name:'역전–중앙시장',  grp:'old', v:[16.5,13.2,12.4,11.5,10.6, 9.8, 9.0]},
+      {no:'210', name:'터미널–시청',    grp:'old', v:[15.1,12.5,12.0,11.8,11.2,10.9,10.3]},
+      {no:'305', name:'대학가 간선',    grp:'old', v:[13.0, 9.1, 9.8,10.4,10.1, 9.9, 9.6]},
+      {no:'41',  name:'외곽 지선',      grp:'old', v:[ 9.2, 7.4, 7.2, 6.9, 6.5, 6.1, 5.8]},
+      {no:'720', name:'산업단지 직행',  grp:'new', v:[ 8.1, 7.2, 8.0, 9.0, 9.9,10.8,11.6]},
+      {no:'512', name:'신도시–시청',    grp:'new', v:[ 7.5, 7.0, 8.3,11.9,13.4,14.6,15.2]},
+      {no:'515', name:'신도시–○○역',   grp:'new', v:[ 6.2, 5.9, 7.1,10.2,11.8,12.9,13.7]}
+    ],
+    flags: [{at:3, label:'2022 ○○신도시 2단계 입주'}], // at = years 배열의 위치
+    messages: [ // 단계마다 아래 줄에 뜨는 해설
+      '출발 순위 — 구도심 노선 5개가 1~5위를 차지',
+      '감염병 확산 — 전 노선 승객 급감, 순위는 그대로',
+      '신도시 1단계 입주 — 512번 7위에서 5위로',
+      '신도시 2단계 입주 — 512번 2위, 515번 6위까지 상승',
+      '512번 선두 — 구도심 순환 100번은 2위로 밀림',
+      '신도시 노선 1·2위 — 산업단지 720번도 5위',
+      '결과 — 신도시·산단 노선이 1~3위, 그러나 배차의 62%는 여전히 구도심 노선'
+    ]
+  };
+  const STEP_MS = 600, GAP_MS = 220;
+
+  const root = document.getElementById('tt-demo');
+  const svg = root.querySelector('.tt-chart svg');
+  const chart = root.querySelector('.tt-chart');
+  const tower = root.querySelector('.tt-tower');
+  const yearsEl = root.querySelector('.tt-years');
+  const msgEl = root.querySelector('.tt-msg');
+  const lapEl = root.querySelector('.tt-lap');
+  const yearEl = root.querySelector('.tt-year');
+  const N = DATA.routes.length, L = DATA.years.length - 1;
+  const css = n => getComputedStyle(root).getPropertyValue(n).trim();
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 연도별 순위 계산 (값이 큰 순)
+  const ranks = DATA.years.map((_, y) => {
+    const order = DATA.routes.map((r, i) => i).sort((a, b) => DATA.routes[b].v[y] - DATA.routes[a].v[y]);
+    const rk = []; order.forEach((ri, pos) => rk[ri] = pos); return rk;
+  });
+  const X = i => 3 + i * (94 / L);              // 그래프 가로 위치(%)
+  const Y = rank => (rank + .5) * (100 / N);     // 순위 줄 세로 위치(%) — 타워 줄과 같다
+
+  // 그래프 요소 만들기
+  const paths = [], dots = [];
+  DATA.routes.forEach(r => {
+    const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('stroke', r.grp === 'new' ? css('--tt-new') : css('--tt-old'));
+    p.setAttribute('stroke-width', r.grp === 'new' ? 3.6 : 2.2);
+    if (r.grp === 'new') svg.appendChild(p); else svg.insertBefore(p, svg.firstChild);
+    paths.push(p);
+    const d = document.createElement('div'); d.className = 'tt-dot';
+    d.style.background = r.grp === 'new' ? css('--tt-new') : css('--tt-old-d');
+    chart.appendChild(d); dots.push(d);
+  });
+  const flagEls = DATA.flags.map(f => {
+    const line = document.createElement('div'); line.className = 'tt-flagline'; line.style.left = X(f.at) + '%';
+    const lab = document.createElement('div'); lab.className = 'tt-flag'; lab.style.left = X(f.at) + '%';
+    lab.innerHTML = '<i></i>' + f.label;
+    chart.append(line, lab); return {f, line, lab};
+  });
+  DATA.years.forEach((y, i) => {
+    const s = document.createElement('span'); s.textContent = y; s.style.left = X(i) + '%'; yearsEl.appendChild(s);
+  });
+
+  // 타워 줄 만들기
+  const rows = DATA.routes.map(r => {
+    const row = document.createElement('div'); row.className = 'tt-row'; row.setAttribute('role', 'listitem');
+    row.innerHTML = '<div><span class="tt-pos"></span><span class="tt-bar"></span><span class="tt-no"></span>' +
+      '<span class="tt-name"></span><span class="tt-val"></span><span class="tt-chip"></span></div>';
+    row.querySelector('.tt-bar').style.background = r.grp === 'new' ? css('--tt-new') : css('--tt-old-d');
+    row.querySelector('.tt-no').textContent = r.no;
+    row.querySelector('.tt-name').textContent = r.name;
+    tower.appendChild(row); return row;
+  });
+
+  // 곡선 한 구간(앞 점 → 뒤 점)을 t만큼만 그린다 (de Casteljau 분할)
+  function seg(x0, y0, x1, y1, t) {
+    const m = (x1 - x0) / 2, P = [[x0,y0],[x0+m,y0],[x1-m,y1],[x1,y1]];
+    const lerp = (a, b) => [a[0] + (b[0]-a[0])*t, a[1] + (b[1]-a[1])*t];
+    const a = lerp(P[0],P[1]), b = lerp(P[1],P[2]), c = lerp(P[2],P[3]);
+    const d = lerp(a,b), e = lerp(b,c), f = lerp(d,e);
+    return {c: ` C${a[0]},${a[1]} ${d[0]},${d[1]} ${f[0]},${f[1]}`, end: f};
+  }
+  // p = 0~L 사이 진행도 (예: 2.5 = 2021과 2022 사이 절반)
+  function drawLines(p) {
+    DATA.routes.forEach((r, ri) => {
+      let d = `M${X(0)},${Y(ranks[0][ri])}`, end = [X(0), Y(ranks[0][ri])];
+      for (let i = 1; i <= Math.ceil(p); i++) {
+        const t = Math.min(1, p - (i - 1));
+        const s = seg(X(i-1), Y(ranks[i-1][ri]), X(i), Y(ranks[i][ri]), t);
+        d += s.c; end = s.end;
+      }
+      paths[ri].setAttribute('d', d);
+      dots[ri].style.left = end[0] + '%'; dots[ri].style.top = end[1] + '%';
+    });
+    flagEls.forEach(o => { const on = p >= o.f.at - .02 ? 1 : 0; o.line.style.opacity = on; o.lab.style.opacity = on; });
+  }
+  // 타워를 해당 연도로 맞춘다
+  function setTower(lap, prevLap) {
+    rows.forEach((row, ri) => {
+      const rk = ranks[lap][ri];
+      const pk = ranks[prevLap][ri];
+      row.style.zIndex = rk < pk ? 3 : rk > pk ? 1 : 2; // 추월하는 줄이 위로 지나간다
+      row.style.top = (rk * 100 / N) + '%';
+      row.querySelector('.tt-pos').textContent = rk + 1;
+      const diff = ranks[0][ri] - rk, chip = row.querySelector('.tt-chip');
+      chip.textContent = diff > 0 ? '▲' + diff : diff < 0 ? '▼' + (-diff) : '–';
+      chip.style.background = diff > 0 ? css('--tt-up') : diff < 0 ? css('--tt-down') : '#AEB9C2';
+      tweenNum(row.querySelector('.tt-val'), DATA.routes[ri].v[prevLap], DATA.routes[ri].v[lap]);
+    });
+    lapEl.textContent = `LAP ${lap + 1}/${L + 1}`;
+    yearEl.textContent = DATA.years[lap];
+    msgEl.textContent = DATA.messages[lap];
+    yearsEl.querySelectorAll('span').forEach((s, i) => s.classList.toggle('on', i === lap));
+  }
+  function tweenNum(el, a, b) {
+    if (reduce || a === b) { el.textContent = b.toFixed(1); return; }
+    const t0 = performance.now();
+    (function f(now) { const k = Math.min(1, (now - t0) / STEP_MS); el.textContent = (a + (b - a) * k).toFixed(1); if (k < 1) requestAnimationFrame(f); })(t0);
+  }
+
+  let lap = L, raf = 0, timer = 0;
+  function goTo(next, animate) {
+    cancelAnimationFrame(raf);
+    const from = lap; lap = next;
+    setTower(lap, animate ? from : lap);
+    if (!animate || reduce || next < from) { drawLines(lap); return; }
+    const t0 = performance.now();
+    (function f(now) {
+      const k = Math.min(1, (now - t0) / STEP_MS), e = k < .5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2) / 2;
+      drawLines(from + (next - from) * e);
+      if (k < 1) raf = requestAnimationFrame(f);
+    })(t0);
+  }
+  function stop() { clearTimeout(timer); }
+  function play() {
+    stop();
+    rows.forEach(r => r.style.transition = 'none'); goTo(0, false);
+    void tower.offsetHeight; rows.forEach(r => r.style.transition = '');
+    const tick = () => { if (lap < L) { goTo(lap + 1, true); timer = setTimeout(tick, STEP_MS + GAP_MS); } };
+    timer = setTimeout(tick, 500);
+  }
+  root.querySelector('[data-act="replay"]').addEventListener('click', play);
+  root.querySelector('[data-act="step"]').addEventListener('click', () => {
+    stop();
+    if (lap >= L) { rows.forEach(r => r.style.transition = 'none'); goTo(0, false); void tower.offsetHeight; rows.forEach(r => r.style.transition = ''); }
+    else goTo(lap + 1, true);
+  });
+
+  // 처음: 완성 화면 → 잠시 뒤 처음부터 한 번 재생 → 최종 화면에서 정지
+  rows.forEach(r => r.style.transition = 'none'); goTo(L, false);
+  void tower.offsetHeight; rows.forEach(r => r.style.transition = '');
+  if (!reduce) timer = setTimeout(play, 900);
+})();
+</script>
+
+
+<section>
+  <h2>동작 설명</h2>
+  <div class="two">
+    <div>
+      <p>자동차 경주 중계의 <b>타이밍 타워</b>(오른쪽 세로 순위표)와 <b>범프 차트</b>(순위 궤적)를 같은 줄무늬 위에 붙였습니다. 한 해가 한 바퀴(LAP)입니다. 바퀴가 돌 때마다 타워의 줄이 새 순위로 미끄러져 자리를 바꾸고, 왼쪽에는 그 노선이 지나온 순위 궤적이 한 칸씩 이어집니다.</p>
+      <p>궤적의 앞머리가 언제나 타워의 같은 줄 높이에 닿습니다. 그래서 재생이 끝난 뒤에도 "어디서 출발해 몇 계단을 올랐는가"가 한 화면에 남습니다. 아래 <b>레이스 컨트롤</b> 줄은 그해 순위를 흔든 사건을 한 줄로 알리고, 깃발은 사건이 일어난 해에 꽂혀 남습니다.</p>
+    </div>
+    <div class="box">
+      <h3>가져갈 장치</h3>
+      <ul>
+        <li><b>타워 + 궤적 접합</b>: 표(현재 값)와 그래프(지나온 길)를 같은 줄 높이로 맞춰 한 장에 둡니다.</li>
+        <li><b>출발 대비 칩 ▲▼</b>: 직전 해가 아니라 출발 연도와 비교해, 최종 화면만 봐도 누적 변화가 보입니다.</li>
+        <li><b>레이스 컨트롤 한 줄</b>: 도식 위에 말풍선을 얹지 않고 아래 고정 줄에서 원인을 해설합니다.</li>
+      </ul>
+      <h3 style="margin-top:12px">응용 예</h3>
+      <ul>
+        <li>민원 유형별 접수 건수 순위 변화(분기 = 바퀴)</li>
+        <li>관광지별 방문객 순위, 축제 개최 전후 비교</li>
+        <li>부서별 예산 집행률 순위를 월별로(타워 값 = 집행률 %)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>HTML로 가져다 쓰기</h2>
+  <div class="code-wrap">
+    <div>
+      <ul>
+        <li>노선·값은 스크립트 맨 위 <code>DATA.routes</code>에서 바꿉니다. 순위와 궤적은 값으로 자동 계산됩니다.</li>
+        <li>연도는 <code>DATA.years</code>, 사건 깃발은 <code>DATA.flags</code>(at = 연도 위치), 아래 해설 줄은 <code>DATA.messages</code>(연도 수와 같게).</li>
+        <li>제목·부제는 <code>.tt-title</code>, <code>.tt-lede</code> 글자를, 색은 <code>.tt-wrap</code>의 <code>--tt-</code> 변수만 고치면 됩니다.</li>
+        <li>줄 수를 바꾸면 <code>.tt-bands</code> 안의 div 개수도 같게 맞춥니다.</li>
+        <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+      </ul>
+    </div>
+    <div class="code">
+      <button type="button" id="copy-btn">코드 복사</button>
+      <pre><code id="copy-src">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;800&amp;family=Saira+Condensed:wght@500;700;800&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 타이밍 타워 순위표: 색·글꼴은 여기서만 바꾸면 된다 ── */
+.tt-wrap{
+  --tt-bg:#F5F8F7;      /* 장표 바탕 */
+  --tt-ink:#15212C;     /* 본문 글자 */
+  --tt-sub:#5B6B78;     /* 보조 글자 */
+  --tt-band:#E9EFED;    /* 순위 줄무늬 */
+  --tt-old:#7F93B5;     /* 구도심 노선 */
+  --tt-old-d:#3E5687;   /* 구도심 노선(타워 막대) */
+  --tt-new:#0C9C7B;     /* 신도시·산단 노선 */
+  --tt-up:#0C9C7B;      /* 순위 상승 */
+  --tt-down:#E0533D;    /* 순위 하락 */
+  --tt-flag:#F2B01E;    /* 사건 깃발 */
+  --tt-card:#FFFFFF;
+  --tt-kr:&quot;Gothic A1&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,&quot;맑은 고딕&quot;,sans-serif;
+  --tt-num:&quot;Saira Condensed&quot;,&quot;Arial Narrow&quot;,&quot;Roboto Condensed&quot;,sans-serif;
+  container-type:inline-size;
+  font-family:var(--tt-kr);color:var(--tt-ink);
+  width:100%;max-width:1200px;margin:0 auto;
+}
+.tt-slide{position:relative;width:100%;aspect-ratio:16/9;max-width:100%;background:var(--tt-bg);overflow:hidden;border-radius:.6cqw;box-shadow:0 .4cqw 2cqw rgba(21,33,44,.10);}
+.tt-slide *{box-sizing:border-box}
+
+/* 머리글 */
+.tt-eyebrow{position:absolute;left:4cqw;top:3.4cqw;font-size:1.25cqw;font-weight:600;color:var(--tt-sub);letter-spacing:.04em;white-space:nowrap}
+.tt-eyebrow b{color:var(--tt-new);font-weight:800;margin-right:.6cqw}
+.tt-title{position:absolute;left:4cqw;top:5.6cqw;margin:0;font-size:3.5cqw;font-weight:800;letter-spacing:-.02em;line-height:1.15;white-space:nowrap}
+.tt-title em{font-style:normal;color:var(--tt-new)}
+.tt-lede{position:absolute;left:4cqw;top:10.6cqw;font-size:1.55cqw;color:var(--tt-sub);white-space:nowrap}
+.tt-legend{position:absolute;right:4cqw;top:3.2cqw;display:flex;gap:1.6cqw;font-size:1.15cqw;color:var(--tt-sub)}
+.tt-legend span{display:flex;align-items:center;gap:.5cqw}
+.tt-legend i{display:block;width:2.2cqw;height:.5cqw;border-radius:.3cqw}
+
+/* 보드: 그래프와 타워가 같은 순위 줄을 공유한다 */
+.tt-board{position:absolute;left:4cqw;right:4cqw;top:17.4cqw;height:30.4cqw}
+.tt-bands{position:absolute;inset:0;display:grid;grid-template-rows:repeat(8,1fr)}
+.tt-bands div:nth-child(odd){background:var(--tt-band)}
+.tt-bands div{border-radius:.3cqw}
+.tt-chart{position:absolute;left:0;top:0;bottom:0;width:58%}
+.tt-chart svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.tt-chart path{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.tt-dot{position:absolute;width:1.15cqw;height:1.15cqw;margin:-.575cqw 0 0 -.575cqw;border-radius:50%;border:.25cqw solid var(--tt-card)}
+.tt-flagline{position:absolute;top:-1.4cqw;bottom:-.4cqw;width:0;border-left:.18cqw dashed var(--tt-flag);transition:opacity .4s}
+.tt-flag{position:absolute;top:-3.3cqw;transform:translateX(-.1cqw);display:flex;align-items:center;gap:.5cqw;font-size:1.15cqw;font-weight:600;white-space:nowrap;color:var(--tt-ink);transition:opacity .4s}
+.tt-flag i{display:block;width:1.5cqw;height:1cqw;background:var(--tt-flag);clip-path:polygon(0 0,100% 50%,0 100%)}
+.tt-years{position:absolute;left:4cqw;top:48.6cqw;width:calc((100cqw - 8cqw)*.58);height:2cqw}
+.tt-years span{position:absolute;transform:translateX(-50%);font-family:var(--tt-num);font-weight:500;font-size:1.35cqw;color:var(--tt-sub);transition:color .3s}
+.tt-years span.on{color:var(--tt-ink);font-weight:800}
+
+/* 타이밍 타워 */
+.tt-tower{position:absolute;right:0;top:0;bottom:0;width:39%}
+.tt-row{position:absolute;left:0;right:0;height:12.5%;padding:.35cqw 0;transition:top .8s cubic-bezier(.6,.05,.25,1)}
+.tt-row&gt;div{height:100%;display:grid;grid-template-columns:3cqw .45cqw 4.6cqw 1fr 4.4cqw 3.8cqw;align-items:center;background:var(--tt-card);border-radius:.35cqw;box-shadow:0 .1cqw .5cqw rgba(21,33,44,.08);font-size:1.35cqw}
+.tt-pos{font-family:var(--tt-num);font-weight:800;font-size:2cqw;text-align:center}
+.tt-bar{height:70%;border-radius:.2cqw}
+.tt-no{font-family:var(--tt-num);font-weight:800;font-size:1.9cqw;padding-left:.7cqw}
+.tt-name{color:var(--tt-sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-val{font-family:var(--tt-num);font-weight:700;font-size:1.75cqw;text-align:right;font-variant-numeric:tabular-nums}
+.tt-chip{justify-self:center;font-family:var(--tt-num);font-weight:800;font-size:1.4cqw;padding:.05cqw .45cqw;border-radius:.3cqw;color:#fff;min-width:2.6cqw;text-align:center}
+.tt-head{position:absolute;right:4cqw;top:13.2cqw;width:calc((100cqw - 8cqw)*.39);height:3.6cqw;display:flex;align-items:flex-end;gap:1cqw}
+.tt-lap{font-family:var(--tt-num);font-weight:700;font-size:1.2cqw;background:var(--tt-ink);color:#fff;padding:.15cqw .6cqw;border-radius:.25cqw;margin-bottom:.45cqw}
+.tt-year{font-family:var(--tt-num);font-weight:800;font-size:3.2cqw;line-height:1}
+.tt-cols{margin-left:auto;display:flex;gap:1.1cqw;font-size:1.05cqw;color:var(--tt-sub);margin-bottom:.45cqw;white-space:nowrap}
+
+/* 레이스 컨트롤 메시지 줄 */
+.tt-rc{position:absolute;left:4cqw;right:4cqw;bottom:2.6cqw;height:3.4cqw;display:flex;align-items:center;gap:1.2cqw;background:var(--tt-card);border-radius:.4cqw;box-shadow:0 .1cqw .5cqw rgba(21,33,44,.08);padding:0 1.2cqw 0 0;overflow:hidden}
+.tt-rc b{height:100%;display:flex;align-items:center;padding:0 1.2cqw;background:var(--tt-flag);color:var(--tt-ink);font-size:1.15cqw;font-weight:800;letter-spacing:.04em;white-space:nowrap}
+.tt-rc span{font-size:1.4cqw;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-note{position:absolute;right:4cqw;bottom:.7cqw;font-size:.95cqw;color:var(--tt-sub)}
+
+/* 장표 아래 버튼 */
+.tt-ctrl{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.tt-ctrl button{font:600 14px var(--tt-kr);padding:8px 16px;border-radius:8px;border:1px solid #C9D3D0;background:#FFFFFF;color:#15212C;cursor:pointer}
+.tt-ctrl button:hover{border-color:#0C9C7B}
+.tt-ctrl button:focus-visible{outline:2px solid #0C9C7B;outline-offset:2px}
+
+/* 좁은 화면: 노선 이름을 숨기고 숫자를 키운다 */
+@container (max-width:560px){
+  .tt-row&gt;div{grid-template-columns:3.4cqw .6cqw 6cqw 0 1fr 5.4cqw}
+  .tt-name{display:none}
+  .tt-legend{font-size:1.6cqw}
+  .tt-cols{display:none}
+  .tt-lede{font-size:1.9cqw}
+  .tt-rc span{font-size:1.75cqw}
+  .tt-flag{font-size:1.55cqw}
+  .tt-years span{font-size:1.7cqw}
+}
+@media (prefers-reduced-motion:reduce){.tt-row{transition:none}}
+&lt;/style&gt;
+
+&lt;div class=&quot;tt-wrap&quot; id=&quot;tt-demo&quot;&gt;
+  &lt;div class=&quot;tt-slide&quot;&gt;
+    &lt;div class=&quot;tt-eyebrow&quot;&gt;&lt;b&gt;Ⅰ. 현황&lt;/b&gt;노선별 일평균 승객 순위 변화 (2019 → 2025)&lt;/div&gt;
+    &lt;h2 class=&quot;tt-title&quot;&gt;&lt;em&gt;신도시 노선&lt;/em&gt;이 승객 순위를 뒤집었다&lt;/h2&gt;
+    &lt;div class=&quot;tt-lede&quot;&gt;수요는 신도시로 옮겨 갔는데, 노선망과 배차는 아직 구도심에 맞춰져 있다&lt;/div&gt;
+    &lt;div class=&quot;tt-legend&quot;&gt;&lt;span&gt;&lt;i style=&quot;background:var(--tt-old-d)&quot;&gt;&lt;/i&gt;구도심 노선&lt;/span&gt;&lt;span&gt;&lt;i style=&quot;background:var(--tt-new)&quot;&gt;&lt;/i&gt;신도시·산단 노선&lt;/span&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;tt-head&quot;&gt;&lt;span class=&quot;tt-lap&quot;&gt;LAP 7/7&lt;/span&gt;&lt;span class=&quot;tt-year&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;tt-cols&quot;&gt;&lt;span&gt;일평균(천 명)&lt;/span&gt;&lt;span&gt;2019 대비&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;tt-board&quot;&gt;
+      &lt;div class=&quot;tt-bands&quot;&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;tt-chart&quot;&gt;&lt;svg viewBox=&quot;0 0 100 100&quot; preserveAspectRatio=&quot;none&quot; aria-hidden=&quot;true&quot;&gt;&lt;/svg&gt;&lt;/div&gt;
+      &lt;div class=&quot;tt-tower&quot; role=&quot;list&quot; aria-label=&quot;연도별 노선 순위표&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tt-years&quot;&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;tt-rc&quot;&gt;&lt;b&gt;레이스 컨트롤&lt;/b&gt;&lt;span class=&quot;tt-msg&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;tt-note&quot;&gt;가상 예시 · ○○시 시내버스 노선 개편 계획(안)&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;tt-ctrl&quot;&gt;&lt;button type=&quot;button&quot; data-act=&quot;replay&quot;&gt;다시 보기&lt;/button&gt;&lt;button type=&quot;button&quot; data-act=&quot;step&quot;&gt;한 단계씩&lt;/button&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  /* ── 데이터: 노선·연도·값만 바꾸면 순위와 그래프가 다시 계산된다 ── */
+  const DATA = {
+    years: [2019,2020,2021,2022,2023,2024,2025],
+    routes: [ // grp: old = 구도심, new = 신도시·산단 / v = 연도별 일평균 승객(천 명)
+      {no:&#x27;100&#x27;, name:&#x27;구도심 순환&#x27;,    grp:&#x27;old&#x27;, v:[18.2,15.0,14.1,13.0,12.1,11.4,10.6]},
+      {no:&#x27;103&#x27;, name:&#x27;역전–중앙시장&#x27;,  grp:&#x27;old&#x27;, v:[16.5,13.2,12.4,11.5,10.6, 9.8, 9.0]},
+      {no:&#x27;210&#x27;, name:&#x27;터미널–시청&#x27;,    grp:&#x27;old&#x27;, v:[15.1,12.5,12.0,11.8,11.2,10.9,10.3]},
+      {no:&#x27;305&#x27;, name:&#x27;대학가 간선&#x27;,    grp:&#x27;old&#x27;, v:[13.0, 9.1, 9.8,10.4,10.1, 9.9, 9.6]},
+      {no:&#x27;41&#x27;,  name:&#x27;외곽 지선&#x27;,      grp:&#x27;old&#x27;, v:[ 9.2, 7.4, 7.2, 6.9, 6.5, 6.1, 5.8]},
+      {no:&#x27;720&#x27;, name:&#x27;산업단지 직행&#x27;,  grp:&#x27;new&#x27;, v:[ 8.1, 7.2, 8.0, 9.0, 9.9,10.8,11.6]},
+      {no:&#x27;512&#x27;, name:&#x27;신도시–시청&#x27;,    grp:&#x27;new&#x27;, v:[ 7.5, 7.0, 8.3,11.9,13.4,14.6,15.2]},
+      {no:&#x27;515&#x27;, name:&#x27;신도시–○○역&#x27;,   grp:&#x27;new&#x27;, v:[ 6.2, 5.9, 7.1,10.2,11.8,12.9,13.7]}
+    ],
+    flags: [{at:3, label:&#x27;2022 ○○신도시 2단계 입주&#x27;}], // at = years 배열의 위치
+    messages: [ // 단계마다 아래 줄에 뜨는 해설
+      &#x27;출발 순위 — 구도심 노선 5개가 1~5위를 차지&#x27;,
+      &#x27;감염병 확산 — 전 노선 승객 급감, 순위는 그대로&#x27;,
+      &#x27;신도시 1단계 입주 — 512번 7위에서 5위로&#x27;,
+      &#x27;신도시 2단계 입주 — 512번 2위, 515번 6위까지 상승&#x27;,
+      &#x27;512번 선두 — 구도심 순환 100번은 2위로 밀림&#x27;,
+      &#x27;신도시 노선 1·2위 — 산업단지 720번도 5위&#x27;,
+      &#x27;결과 — 신도시·산단 노선이 1~3위, 그러나 배차의 62%는 여전히 구도심 노선&#x27;
+    ]
+  };
+  const STEP_MS = 600, GAP_MS = 220;
+
+  const root = document.getElementById(&#x27;tt-demo&#x27;);
+  const svg = root.querySelector(&#x27;.tt-chart svg&#x27;);
+  const chart = root.querySelector(&#x27;.tt-chart&#x27;);
+  const tower = root.querySelector(&#x27;.tt-tower&#x27;);
+  const yearsEl = root.querySelector(&#x27;.tt-years&#x27;);
+  const msgEl = root.querySelector(&#x27;.tt-msg&#x27;);
+  const lapEl = root.querySelector(&#x27;.tt-lap&#x27;);
+  const yearEl = root.querySelector(&#x27;.tt-year&#x27;);
+  const N = DATA.routes.length, L = DATA.years.length - 1;
+  const css = n =&gt; getComputedStyle(root).getPropertyValue(n).trim();
+  const reduce = matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+
+  // 연도별 순위 계산 (값이 큰 순)
+  const ranks = DATA.years.map((_, y) =&gt; {
+    const order = DATA.routes.map((r, i) =&gt; i).sort((a, b) =&gt; DATA.routes[b].v[y] - DATA.routes[a].v[y]);
+    const rk = []; order.forEach((ri, pos) =&gt; rk[ri] = pos); return rk;
+  });
+  const X = i =&gt; 3 + i * (94 / L);              // 그래프 가로 위치(%)
+  const Y = rank =&gt; (rank + .5) * (100 / N);     // 순위 줄 세로 위치(%) — 타워 줄과 같다
+
+  // 그래프 요소 만들기
+  const paths = [], dots = [];
+  DATA.routes.forEach(r =&gt; {
+    const p = document.createElementNS(&#x27;http://www.w3.org/2000/svg&#x27;, &#x27;path&#x27;);
+    p.setAttribute(&#x27;stroke&#x27;, r.grp === &#x27;new&#x27; ? css(&#x27;--tt-new&#x27;) : css(&#x27;--tt-old&#x27;));
+    p.setAttribute(&#x27;stroke-width&#x27;, r.grp === &#x27;new&#x27; ? 3.6 : 2.2);
+    if (r.grp === &#x27;new&#x27;) svg.appendChild(p); else svg.insertBefore(p, svg.firstChild);
+    paths.push(p);
+    const d = document.createElement(&#x27;div&#x27;); d.className = &#x27;tt-dot&#x27;;
+    d.style.background = r.grp === &#x27;new&#x27; ? css(&#x27;--tt-new&#x27;) : css(&#x27;--tt-old-d&#x27;);
+    chart.appendChild(d); dots.push(d);
+  });
+  const flagEls = DATA.flags.map(f =&gt; {
+    const line = document.createElement(&#x27;div&#x27;); line.className = &#x27;tt-flagline&#x27;; line.style.left = X(f.at) + &#x27;%&#x27;;
+    const lab = document.createElement(&#x27;div&#x27;); lab.className = &#x27;tt-flag&#x27;; lab.style.left = X(f.at) + &#x27;%&#x27;;
+    lab.innerHTML = &#x27;&lt;i&gt;&lt;/i&gt;&#x27; + f.label;
+    chart.append(line, lab); return {f, line, lab};
+  });
+  DATA.years.forEach((y, i) =&gt; {
+    const s = document.createElement(&#x27;span&#x27;); s.textContent = y; s.style.left = X(i) + &#x27;%&#x27;; yearsEl.appendChild(s);
+  });
+
+  // 타워 줄 만들기
+  const rows = DATA.routes.map(r =&gt; {
+    const row = document.createElement(&#x27;div&#x27;); row.className = &#x27;tt-row&#x27;; row.setAttribute(&#x27;role&#x27;, &#x27;listitem&#x27;);
+    row.innerHTML = &#x27;&lt;div&gt;&lt;span class=&quot;tt-pos&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tt-bar&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tt-no&quot;&gt;&lt;/span&gt;&#x27; +
+      &#x27;&lt;span class=&quot;tt-name&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tt-val&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tt-chip&quot;&gt;&lt;/span&gt;&lt;/div&gt;&#x27;;
+    row.querySelector(&#x27;.tt-bar&#x27;).style.background = r.grp === &#x27;new&#x27; ? css(&#x27;--tt-new&#x27;) : css(&#x27;--tt-old-d&#x27;);
+    row.querySelector(&#x27;.tt-no&#x27;).textContent = r.no;
+    row.querySelector(&#x27;.tt-name&#x27;).textContent = r.name;
+    tower.appendChild(row); return row;
+  });
+
+  // 곡선 한 구간(앞 점 → 뒤 점)을 t만큼만 그린다 (de Casteljau 분할)
+  function seg(x0, y0, x1, y1, t) {
+    const m = (x1 - x0) / 2, P = [[x0,y0],[x0+m,y0],[x1-m,y1],[x1,y1]];
+    const lerp = (a, b) =&gt; [a[0] + (b[0]-a[0])*t, a[1] + (b[1]-a[1])*t];
+    const a = lerp(P[0],P[1]), b = lerp(P[1],P[2]), c = lerp(P[2],P[3]);
+    const d = lerp(a,b), e = lerp(b,c), f = lerp(d,e);
+    return {c: ` C${a[0]},${a[1]} ${d[0]},${d[1]} ${f[0]},${f[1]}`, end: f};
+  }
+  // p = 0~L 사이 진행도 (예: 2.5 = 2021과 2022 사이 절반)
+  function drawLines(p) {
+    DATA.routes.forEach((r, ri) =&gt; {
+      let d = `M${X(0)},${Y(ranks[0][ri])}`, end = [X(0), Y(ranks[0][ri])];
+      for (let i = 1; i &lt;= Math.ceil(p); i++) {
+        const t = Math.min(1, p - (i - 1));
+        const s = seg(X(i-1), Y(ranks[i-1][ri]), X(i), Y(ranks[i][ri]), t);
+        d += s.c; end = s.end;
+      }
+      paths[ri].setAttribute(&#x27;d&#x27;, d);
+      dots[ri].style.left = end[0] + &#x27;%&#x27;; dots[ri].style.top = end[1] + &#x27;%&#x27;;
+    });
+    flagEls.forEach(o =&gt; { const on = p &gt;= o.f.at - .02 ? 1 : 0; o.line.style.opacity = on; o.lab.style.opacity = on; });
+  }
+  // 타워를 해당 연도로 맞춘다
+  function setTower(lap, prevLap) {
+    rows.forEach((row, ri) =&gt; {
+      const rk = ranks[lap][ri];
+      const pk = ranks[prevLap][ri];
+      row.style.zIndex = rk &lt; pk ? 3 : rk &gt; pk ? 1 : 2; // 추월하는 줄이 위로 지나간다
+      row.style.top = (rk * 100 / N) + &#x27;%&#x27;;
+      row.querySelector(&#x27;.tt-pos&#x27;).textContent = rk + 1;
+      const diff = ranks[0][ri] - rk, chip = row.querySelector(&#x27;.tt-chip&#x27;);
+      chip.textContent = diff &gt; 0 ? &#x27;▲&#x27; + diff : diff &lt; 0 ? &#x27;▼&#x27; + (-diff) : &#x27;–&#x27;;
+      chip.style.background = diff &gt; 0 ? css(&#x27;--tt-up&#x27;) : diff &lt; 0 ? css(&#x27;--tt-down&#x27;) : &#x27;#AEB9C2&#x27;;
+      tweenNum(row.querySelector(&#x27;.tt-val&#x27;), DATA.routes[ri].v[prevLap], DATA.routes[ri].v[lap]);
+    });
+    lapEl.textContent = `LAP ${lap + 1}/${L + 1}`;
+    yearEl.textContent = DATA.years[lap];
+    msgEl.textContent = DATA.messages[lap];
+    yearsEl.querySelectorAll(&#x27;span&#x27;).forEach((s, i) =&gt; s.classList.toggle(&#x27;on&#x27;, i === lap));
+  }
+  function tweenNum(el, a, b) {
+    if (reduce || a === b) { el.textContent = b.toFixed(1); return; }
+    const t0 = performance.now();
+    (function f(now) { const k = Math.min(1, (now - t0) / STEP_MS); el.textContent = (a + (b - a) * k).toFixed(1); if (k &lt; 1) requestAnimationFrame(f); })(t0);
+  }
+
+  let lap = L, raf = 0, timer = 0;
+  function goTo(next, animate) {
+    cancelAnimationFrame(raf);
+    const from = lap; lap = next;
+    setTower(lap, animate ? from : lap);
+    if (!animate || reduce || next &lt; from) { drawLines(lap); return; }
+    const t0 = performance.now();
+    (function f(now) {
+      const k = Math.min(1, (now - t0) / STEP_MS), e = k &lt; .5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2) / 2;
+      drawLines(from + (next - from) * e);
+      if (k &lt; 1) raf = requestAnimationFrame(f);
+    })(t0);
+  }
+  function stop() { clearTimeout(timer); }
+  function play() {
+    stop();
+    rows.forEach(r =&gt; r.style.transition = &#x27;none&#x27;); goTo(0, false);
+    void tower.offsetHeight; rows.forEach(r =&gt; r.style.transition = &#x27;&#x27;);
+    const tick = () =&gt; { if (lap &lt; L) { goTo(lap + 1, true); timer = setTimeout(tick, STEP_MS + GAP_MS); } };
+    timer = setTimeout(tick, 500);
+  }
+  root.querySelector(&#x27;[data-act=&quot;replay&quot;]&#x27;).addEventListener(&#x27;click&#x27;, play);
+  root.querySelector(&#x27;[data-act=&quot;step&quot;]&#x27;).addEventListener(&#x27;click&#x27;, () =&gt; {
+    stop();
+    if (lap &gt;= L) { rows.forEach(r =&gt; r.style.transition = &#x27;none&#x27;); goTo(0, false); void tower.offsetHeight; rows.forEach(r =&gt; r.style.transition = &#x27;&#x27;); }
+    else goTo(lap + 1, true);
+  });
+
+  // 처음: 완성 화면 → 잠시 뒤 처음부터 한 번 재생 → 최종 화면에서 정지
+  rows.forEach(r =&gt; r.style.transition = &#x27;none&#x27;); goTo(L, false);
+  void tower.offsetHeight; rows.forEach(r =&gt; r.style.transition = &#x27;&#x27;);
+  if (!reduce) timer = setTimeout(play, 900);
+})();
+&lt;/script&gt;
+</code></pre>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>PPT로 옮기기</h2>
+  <p>핵심은 <b>모핑 전환</b>입니다. 연도 하나를 슬라이드 하나로 만들고(7장), 같은 노선의 개체 이름을 모든 장에서 똑같이 맞추면 PowerPoint가 줄의 이동과 궤적의 늘어남을 자동으로 이어 줍니다.</p>
+  <ol>
+    <li><b>밑판 만들기</b>: 1장에 줄무늬 8줄(사각형), 오른쪽에 타워 줄 8개를 만듭니다. 줄 하나 = 그룹(흰 사각형 + 순위 숫자 + 색 막대 + 노선 번호 + 값 + 칩).</li>
+    <li><b>이름 붙이기</b>: [홈] → [정렬] → [선택 창]에서 그룹 이름을 <code>!!r512</code>, <code>!!r515</code>…처럼 노선마다 <code>!!</code>로 시작하게 바꿉니다. 궤적 선은 <code>!!l512</code>, 끝점 원은 <code>!!d512</code>. <code>!!</code>로 시작하는 이름은 모핑이 "같은 개체"로 짝을 짓습니다.</li>
+    <li><b>장 복제</b>: 1장을 6번 복제(Ctrl+D)하고, 장마다 타워 줄 그룹을 새 순위 위치로 옮기고 값·칩 글자를 고칩니다. 궤적은 [삽입] → [도형] → [자유형: 곡선]으로 그해까지 이어 그린 선을 같은 이름으로 바꿔 넣습니다.</li>
+    <li><b>전환 적용</b>: 2~7장을 모두 선택 → [전환] → <b>모핑</b>, 효과 옵션 <b>개체</b>, 기간 <b>00.90</b>. 화면 전환 시점은 클릭(한 단계씩) 또는 [다음 시간 후] 01.25(자동 재생).</li>
+    <li><b>사건 깃발</b>: 4장(2022)에 깃발·점선을 넣고 [애니메이션] → <b>나타내기</b>, 시작 <b>이전 효과 다음에</b>, 지연 <b>00.50</b>. 5장부터는 애니메이션 없이 그대로 둡니다.</li>
+    <li><b>레이스 컨트롤 줄</b>: 해설 글상자 이름을 <code>!!msg</code>로 두고 장마다 문장만 바꿉니다. 모핑 효과 옵션을 <b>단어</b>로 바꾸면 글자가 바뀌는 느낌이 납니다(이 경우 줄 이동도 단어 단위로 처리되니 개체 옵션과 비교해 고르세요).</li>
+  </ol>
+  <div class="tbl"><table>
+    <thead><tr><th>HTML 동작</th><th>PPT 재현</th><th>안 될 때 근사법</th></tr></thead>
+    <tbody>
+      <tr><td>타워 줄이 새 순위로 미끄러짐</td><td>모핑(개체), 0.9초</td><td>모핑이 없는 버전: [애니메이션] → 이동 경로 <b>선</b>(위/아래), 시작 <b>이전 효과와 함께</b>, 0.8초, 부드럽게 시작·끝 50%</td></tr>
+      <tr><td>궤적이 한 칸씩 이어짐</td><td>장마다 늘어난 곡선을 같은 이름으로 → 모핑</td><td>선 하나씩 <b>닦아내기</b>, 효과 옵션 <b>왼쪽에서</b>, 시작 <b>이전 효과와 함께</b>, 0.9초</td></tr>
+      <tr><td>값 숫자가 굴러감</td><td>지원 안 됨 → 모핑으로 글자 교체(살짝 겹쳐 바뀜)</td><td>새 값 글상자에 <b>밝기 변화</b> 0.3초</td></tr>
+      <tr><td>▲▼ 칩 색 변경</td><td>장마다 칩 채우기 색을 바꿔 두면 모핑이 색을 이어 줌</td><td>—</td></tr>
+      <tr><td>깃발 등장</td><td>나타내기, 이전 효과 다음에, 지연 0.5초</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>스펙</h2>
+  <div class="sw">
+    <span><i style="background:#F5F8F7"></i>#F5F8F7 바탕</span>
+    <span><i style="background:#15212C"></i>#15212C 글자</span>
+    <span><i style="background:#3E5687"></i>#3E5687 구도심(막대)</span>
+    <span><i style="background:#7F93B5"></i>#7F93B5 구도심(궤적)</span>
+    <span><i style="background:#0C9C7B"></i>#0C9C7B 신도시·상승</span>
+    <span><i style="background:#E0533D"></i>#E0533D 하락</span>
+    <span><i style="background:#F2B01E"></i>#F2B01E 깃발·해설</span>
+  </div>
+  <dl>
+    <dt>폰트</dt><dd>Gothic A1(제목·본문, 대체: Apple SD Gothic Neo, 맑은 고딕) + Saira Condensed(순위·연도·값 숫자, 대체: Arial Narrow). PPT에서는 숫자를 Bahnschrift SemiCondensed로 바꾸면 비슷합니다.</dd>
+    <dt>난이도</dt><dd>HTML 중 · PPT 중(모핑 7장 + 이름 규칙만 지키면 됨)</dd>
+    <dt>톤</dt><dd>밝은 회녹색 바탕, 흰 타워 줄, 신도시 노선만 진한 청록으로 강조하고 구도심 노선은 옅은 청회색으로 물려 둠</dd>
+    <dt>반영 트렌드</dt><dd>순위 변화를 보여 주는 범프 차트에 "왜 순위가 움직였는가" 주석을 붙이는 방식 — <a href="https://domo-webflow.domo.com/learn/charts/bump-charts" target="_blank" rel="noopener">Domo, Bump Charts: A Guide to Visualizing Rank Changes</a>; 애니메이션·상호작용이 기본이 된 데이터 시각화 — <a href="https://infogram.com/blog/how-data-visualization-drives-engagement-in-2026/" target="_blank" rel="noopener">Infogram, How Data Visualization Drives Engagement in 2026</a></dd>
+  </dl>
+</section>
+</main>
+<script>
+document.getElementById('copy-btn').addEventListener('click', function(){
+  const btn = this, src = document.getElementById('copy-src');
+  navigator.clipboard.writeText(src.textContent).then(() => { btn.textContent = '복사됨'; setTimeout(() => btn.textContent = '코드 복사', 1600); })
+  .catch(() => { const r = document.createRange(); r.selectNodeContents(src); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '전체 선택됨 — Ctrl+C'; });
+});
+</script>
+
+</body></html>

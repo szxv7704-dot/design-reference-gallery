@@ -1,0 +1,636 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #45 바운드 예산 일정표</title>
+<style>
+/* 레이아웃: 위에 큰 장표, 아래로 설명 → 코드 → PPT → 스펙의 한 단 문서 */
+:root{--bg:#F6F9FC;--fg:#14304F;--sub:#4E6681;--line:#D7E2EC;--accent:#F0642D;--court:#2F6CA6;--code:#0F1E2E;
+--disp:"Do Hyeon","Gothic A1",sans-serif;--body:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--mono:"IBM Plex Mono",Consolas,monospace}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.7}
+.pg{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
+.pg-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px 16px;margin-bottom:14px}
+.pg-top h1{font-family:var(--disp);font-weight:400;font-size:28px;margin:0;letter-spacing:-.01em}
+.pg-top p{margin:0;color:var(--sub);font-size:13px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.tags li{font-size:12px;font-weight:600;border:1px solid var(--line);background:#FFFFFF;border-radius:999px;padding:2px 10px;color:var(--sub)}
+.tags li.on{border-color:var(--court);color:var(--court)}
+section{margin-top:44px}
+h2.s{font-family:var(--disp);font-weight:400;font-size:24px;margin:0 0 12px;display:flex;gap:10px;align-items:baseline}
+h2.s span{font-family:var(--mono);font-size:13px;color:var(--accent)}
+.prose{max-width:68ch}
+.prose p{margin:0 0 10px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.box{background:#FFFFFF;border:1px solid var(--line);border-radius:8px;padding:14px 16px;min-width:0}
+.box h3{margin:0 0 6px;font-size:15px}
+.box p,.box ul{margin:0;font-size:14px}
+.box ul{padding-left:18px}
+.dev{border-left:4px solid var(--accent)}
+.code-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:18px;align-items:start}
+@media (max-width:760px){.code-wrap{grid-template-columns:1fr}}
+.code-guide ol{margin:0;padding-left:20px;font-size:14px}
+.code-guide li{margin-bottom:6px}
+.code-box{position:relative;min-width:0}
+.code-box pre{margin:0;background:var(--code);color:#D6E4F0;border-radius:8px;padding:16px;max-height:520px;overflow:auto;font:12.5px/1.55 var(--mono)}
+.copy{position:absolute;top:10px;right:14px;font:600 13px var(--body);background:#FFFFFF;color:var(--code);border:0;border-radius:999px;padding:6px 14px;cursor:pointer}
+.copy:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:13.5px;background:#FFFFFF}
+th,td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:#EAF1F8;font-weight:700}
+td code,p code,li code{font-family:var(--mono);font-size:12.5px;background:#EAF1F8;padding:0 4px;border-radius:3px}
+.sw{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 0}
+.sw span{display:flex;align-items:center;gap:6px;font:12px var(--mono)}
+.sw i{width:22px;height:22px;border-radius:4px;border:1px solid var(--line);display:inline-block}
+dl.spec{display:grid;grid-template-columns:8em minmax(0,1fr);gap:8px 14px;margin:0;font-size:14px}
+dl.spec dt{font-weight:700} dl.spec dd{margin:0}
+@media (max-width:520px){dl.spec{grid-template-columns:1fr} dl.spec dd{margin-bottom:6px}}
+a{color:var(--court)}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap">
+
+<div class="pg">
+  <div class="pg-top"><h1>레퍼런스 #45 · 바운드 예산 일정표</h1><p>실무형 · 2026-10-09 · 가상 예시</p></div>
+  <ul class="tags"><li class="on">일정 및 예산</li><li>던지기·튕기기</li><li>스포츠·공공시설</li><li>스프링 물리 · 찌그러짐과 늘어남</li></ul>
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Do+Hyeon&family=Gothic+A1:wght@400;600;800&display=swap">
+<style>
+/* 바운드 예산 일정표 — 접두어 bb- / 색·글꼴은 아래 변수에서 바꾼다 */
+.bb-wrap{
+  --bb-sky:#F3F8FC;      /* 하늘(배경) */
+  --bb-ink:#14304F;      /* 글자·궤적 */
+  --bb-sub:#4E6681;      /* 보조 글자 */
+  --bb-court:#2F6CA6;    /* 코트 면 */
+  --bb-court2:#24578A;   /* 코트 아래쪽 */
+  --bb-key:#F0642D;      /* 강조(가장 큰 구간) */
+  --bb-fill:#9CC3E6;     /* 포물선 아래 면 */
+  font-family:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color:var(--bb-ink); max-width:100%;
+}
+.bb-slide{position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:linear-gradient(180deg,#FFFFFF 0%,var(--bb-sky) 70%);border-radius:6px;
+  box-shadow:0 1px 2px rgba(20,48,79,.12),0 10px 30px rgba(20,48,79,.10)}
+.bb-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.bb-head{position:absolute;left:4.2cqw;right:4.2cqw;top:2.6cqw;display:flex;justify-content:space-between;align-items:flex-start;gap:2cqw}
+.bb-eyebrow{font-size:1.45cqw;font-weight:600;color:var(--bb-sub);letter-spacing:.02em;white-space:nowrap}
+.bb-eyebrow b{color:var(--bb-court);font-weight:800}
+.bb-title{margin:.7cqw 0 0;font-family:"Do Hyeon","Gothic A1",sans-serif;font-weight:400;font-size:3.35cqw;line-height:1.12;color:var(--bb-ink);letter-spacing:-.01em}
+.bb-title em{font-style:normal;color:var(--bb-key)}
+.bb-total{flex:none;text-align:right;border:.12cqw solid var(--bb-ink);border-radius:.6cqw;padding:.6cqw 1cqw;background:#FFFFFF}
+.bb-total small{display:block;font-size:1.05cqw;color:var(--bb-sub);font-weight:600}
+.bb-total strong{font-family:"Barlow Condensed","Gothic A1",sans-serif;font-size:2.6cqw;font-weight:700;line-height:1;color:var(--bb-ink)}
+.bb-total strong span{font-family:"Gothic A1",sans-serif;font-size:1.4cqw;font-weight:800;margin-left:.2cqw}
+.bb-num{font-family:"Barlow Condensed","Gothic A1",sans-serif;font-weight:700}
+.bb-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
+.bb-ctrl button{font:600 14px "Gothic A1",sans-serif;color:var(--bb-ink);background:#FFFFFF;border:1.5px solid var(--bb-ink);border-radius:999px;padding:7px 16px;cursor:pointer}
+.bb-ctrl button:hover{background:var(--bb-ink);color:#FFFFFF}
+.bb-ctrl button:focus-visible{outline:3px solid var(--bb-key);outline-offset:2px}
+@container (max-width:640px){.bb-lname{display:none}.bb-lbud{font-size:62px}.bb-head .bb-total small{display:none}}
+/* 좁은 화면: 구간 이름은 장표 아래 범례로 */
+.bb-legend{display:none;margin:10px 0 0;padding:0;list-style:none;font-size:13px;line-height:1.5;color:var(--bb-ink)}
+.bb-legend li{display:flex;gap:8px;border-bottom:1px solid #DCE6EF;padding:4px 0}
+.bb-legend .bb-lm{flex:none;width:9.5em;color:var(--bb-sub);font-variant-numeric:tabular-nums}
+.bb-legend b{margin-left:auto;font-family:"Barlow Condensed","Gothic A1",sans-serif;font-size:16px}
+.bb-legend .bb-k b{color:var(--bb-key)}
+@media (max-width:640px){.bb-legend{display:block}}
+.bb-status{font-size:13px;color:var(--bb-sub)}
+</style>
+
+<div class="bb-wrap" id="bb">
+  <div class="bb-slide">
+    <svg class="bb-svg" viewBox="0 0 1600 900" aria-label="생활체육공원 조성 일정과 구간별 예산을 공이 튀는 궤적으로 나타낸 도식" role="img">
+      <defs>
+        <!-- 공(테니스공) 질감: 방사형 음영 + 펠트 노이즈 -->
+        <radialGradient id="bb-ballG" cx="38%" cy="32%" r="70%">
+          <stop offset="0" stop-color="#F6FF9A"/><stop offset=".45" stop-color="#D7EA35"/>
+          <stop offset=".85" stop-color="#9DB21C"/><stop offset="1" stop-color="#6F7E12"/>
+        </radialGradient>
+        <filter id="bb-felt" x="-10%" y="-10%" width="120%" height="120%">
+          <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="3" result="n"/>
+          <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+          <feComposite in="g" in2="SourceGraphic" operator="in" result="gm"/>
+          <feBlend in="SourceGraphic" in2="gm" mode="multiply"/>
+        </filter>
+        <clipPath id="bb-ballClip"><circle r="22"/></clipPath>
+        <!-- 코트 면 -->
+        <linearGradient id="bb-courtG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" style="stop-color:var(--bb-court)"/><stop offset="1" style="stop-color:var(--bb-court2)"/>
+        </linearGradient>
+        <filter id="bb-grain"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="8"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0"/></filter>
+        <linearGradient id="bb-postG" x1="0" x2="1">
+          <stop offset="0" stop-color="#5D6B78"/><stop offset=".4" stop-color="#E8EEF3"/><stop offset="1" stop-color="#3E4A55"/>
+        </linearGradient>
+        <filter id="bb-soft"><feGaussianBlur stdDeviation="4"/></filter>
+        <clipPath id="bb-reveal"><rect id="bb-revealRect" x="0" y="0" width="0" height="900"/></clipPath>
+      </defs>
+
+      <!-- 코트 바닥(시간 축) -->
+      <rect x="0" y="700" width="1600" height="200" fill="url(#bb-courtG)"/>
+      <rect x="0" y="700" width="1600" height="200" filter="url(#bb-grain)" fill="#FFFFFF"/>
+      <rect x="0" y="697" width="1600" height="6" fill="#FFFFFF"/>
+      <g id="bb-axis"></g>
+
+      <!-- 포물선 면·궤적 (공이 지나간 만큼 드러남) -->
+      <g clip-path="url(#bb-reveal)"><g id="bb-fills"></g><g id="bb-trails"></g></g>
+      <g id="bb-marks"></g>
+
+      <!-- 네트 기둥 = 연도 경계 -->
+      <g id="bb-net"></g>
+
+      <!-- 공과 그림자 -->
+      <ellipse id="bb-shadow" cx="0" cy="704" rx="22" ry="5" fill="#0B2540" filter="url(#bb-soft)"/>
+      <g id="bb-ball">
+        <g id="bb-ballBody">
+          <circle r="22" fill="url(#bb-ballG)" filter="url(#bb-felt)"/>
+          <g clip-path="url(#bb-ballClip)"><g id="bb-seam">
+            <path d="M-26,-10 C-10,-4 -10,14 -26,22" fill="none" stroke="#FFFFF2" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M26,-22 C10,-14 10,4 26,10" fill="none" stroke="#FFFFF2" stroke-width="3.2" stroke-linecap="round"/>
+          </g></g>
+          <ellipse cx="-7" cy="-9" rx="7" ry="4.5" fill="#FFFFFF" opacity=".45"/>
+        </g>
+      </g>
+
+      <!-- 정점 라벨(구간 예산) -->
+      <g id="bb-labels"></g>
+      <text x="1580" y="884" text-anchor="end" font-size="17" fill="#FFFFFF" opacity=".75">가상 예시 · 정점 높이 ∝ √예산 · 단위 억 원</text>
+    </svg>
+
+    <div class="bb-head">
+      <div>
+        <div class="bb-eyebrow"><b>Ⅴ. 일정 및 예산</b> · ○○시 생활체육공원 조성 계획(안)</div>
+        <h2 class="bb-title">186억 원 중 <em>60%</em>가<br>2028년 3~9월 시공 구간에 실린다</h2>
+      </div>
+      <div class="bb-total"><small>총사업비 · 2027.1~2028.12</small><strong>186<span>억 원</span></strong></div>
+    </div>
+  </div>
+  <ol class="bb-legend" id="bb-legend"></ol>
+  <div class="bb-ctrl">
+    <button type="button" id="bb-replay">다시 보기</button>
+    <button type="button" id="bb-step">한 단계씩</button>
+    <span class="bb-status" id="bb-status" aria-live="polite"></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ───── 데이터: 여기만 바꾸면 된다 ─────
+     from·to = 시작 월로부터 몇 번째 달인지(0부터), budget = 억 원, key = 강조 구간 */
+  var BB_DATA = {
+    startYear: 2027, months: 24, netAt: 12,   // netAt: 연도 경계(네트) 위치
+    phases: [
+      {name:"기본계획·타당성 조사", from:0,  to:3,  budget:2},
+      {name:"설계 공모·실시설계",   from:3,  to:8,  budget:9},
+      {name:"부지 조성·토목",       from:8,  to:14, budget:38},
+      {name:"체육관 건축·코트 시공", from:14, to:21, budget:112, key:true},
+      {name:"장비·조명 설치",       from:21, to:23, budget:21},
+      {name:"시범 운영·개장",       from:23, to:24, budget:4}
+    ]
+  };
+
+  var NS="http://www.w3.org/2000/svg", root=document.getElementById("bb");
+  var G=700, R=22, X0=110, X1=1400, K=40;          // 바닥선, 공 반지름, 축 범위, 높이 계수
+  var X=function(m){return X0+(X1-X0)*m/BB_DATA.months;};
+  var H=function(b){return K*Math.sqrt(b);};         // 높이 = √예산 (작은 구간도 보이게)
+  var total=BB_DATA.phases.reduce(function(s,p){return s+p.budget;},0);
+  var $=function(id){return document.getElementById(id);};
+  function el(tag,attrs,parent,text){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
+
+  /* 코트 눈금: 월 숫자, 연도, 구간 경계선 */
+  var axis=$("bb-axis");
+  for(var m=0;m<BB_DATA.months;m++){
+    el("text",{x:X(m+.5),y:G+42,"text-anchor":"middle","font-size":21,fill:"#FFFFFF",opacity:.82,class:"bb-num"},axis,String(m%12+1));
+  }
+  for(var y=0;y*12<BB_DATA.months;y++){
+    el("text",{x:X(y*12+6),y:G+120,"text-anchor":"middle","font-size":60,fill:"#FFFFFF",opacity:.92,class:"bb-num","letter-spacing":"4"},axis,String(BB_DATA.startYear+y));
+  }
+  var cuts=[0].concat(BB_DATA.phases.map(function(p){return p.to;}));
+  cuts.forEach(function(c){el("rect",{x:X(c)-2,y:G,width:4,height:62,fill:"#FFFFFF",opacity:.9},axis);});
+  el("text",{x:X0-14,y:G+42,"text-anchor":"end","font-size":17,fill:"#FFFFFF",opacity:.7},axis,"월");
+
+  /* 네트 기둥 */
+  var net=$("bb-net"), nx=X(BB_DATA.netAt);
+  el("rect",{x:nx-5,y:G-96,width:10,height:96,rx:3,fill:"url(#bb-postG)"},net);
+  el("rect",{x:nx-8,y:G-102,width:16,height:9,rx:3,fill:"#3E4A55"},net);
+  el("text",{x:nx,y:G-112,"text-anchor":"middle","font-size":17,fill:"#4E6681","font-weight":600},net,"해 바뀜");
+
+  /* 구간별 포물선(면·궤적), 착지 자국, 라벨 만들기 */
+  var segs=[], t=0, fills=$("bb-fills"), trails=$("bb-trails"), marks=$("bb-marks"), labels=$("bb-labels");
+  // 0단계: 왼쪽 위에서 던져 들어와 첫 달에 착지
+  segs.push({kind:"throw", x0:30, y0:300, x1:X0, t0:0, dur:.5}); t=.5;
+  BB_DATA.phases.forEach(function(p,i){
+    var x0=X(p.from), x1=X(p.to), h=H(p.budget), dur=.25+.027*Math.sqrt(h);
+    var cy=G-R, col=p.key?"#F0642D":"#14304F";
+    el("path",{d:"M"+x0+","+G+" L"+x0+","+cy+" Q"+(x0+x1)/2+","+(cy-2*h)+" "+x1+","+cy+" L"+x1+","+G+" Z",
+      fill:p.key?"#FBD2BF":"#9CC3E6",opacity:p.key?.55:.32},fills);
+    el("path",{d:"M"+x0+","+cy+" Q"+(x0+x1)/2+","+(cy-2*h)+" "+x1+","+cy,fill:"none",stroke:col,
+      "stroke-width":p.key?4:3,"stroke-dasharray":"2 10","stroke-linecap":"round"},trails);
+    // 정점 라벨: 위 = 이름, 아래 = 금액
+    var ax=(x0+x1)/2, ay=cy-h, lg=el("g",{opacity:0},labels);
+    var anchor="middle", lx=ax;
+    var last=i===BB_DATA.phases.length-1, ny=ay-78, by2=ay-32;
+    if(last){anchor="start";lx=x1+34;ny=ay-12;by2=ay+34;}  // 마지막 좁은 구간은 오른쪽 옆에
+    el("text",{x:lx,y:ny,"text-anchor":anchor,"font-size":24,"font-weight":600,fill:"#4E6681",class:"bb-lname"},lg,p.name);
+    var bt=el("text",{x:lx,y:by2,"text-anchor":anchor,"font-size":46,fill:p.key?"#F0642D":"#14304F",class:"bb-num bb-lbud"},lg);
+    bt.textContent=p.budget; el("tspan",{"font-size":22,"font-weight":800,"font-family":"Gothic A1, sans-serif",dx:4},bt,"억");
+    if(p.key){
+      var pct=Math.round(p.budget/total*100);
+      var pg=el("g",{},lg); el("rect",{x:ax+70,y:ay-70,width:118,height:40,rx:20,fill:"#F0642D"},pg);
+      el("text",{x:ax+129,y:ay-42,"text-anchor":"middle","font-size":22,"font-weight":800,fill:"#FFFFFF"},pg,"전체 "+pct+"%");
+    }
+    var mk=el("ellipse",{cx:x1,cy:G+3,rx:16,ry:4,fill:"#C9D96A",opacity:0},marks);
+    var rg=el("ellipse",{cx:x1,cy:G+3,rx:0,ry:0,fill:"none",stroke:"#FFFFFF","stroke-width":3,opacity:0},marks);
+    segs.push({kind:"bounce",p:p,x0:x0,x1:x1,h:h,t0:t,dur:dur,label:lg,lx:lx,ly:last?ay:ay-24,mark:mk,ring:rg});
+    t+=dur;
+  });
+  /* 좁은 화면용 범례 */
+  BB_DATA.phases.forEach(function(p){
+    var ym=function(m){return (BB_DATA.startYear+Math.floor(m/12))+"."+(m%12+1);};
+    var li=document.createElement("li"); if(p.key) li.className="bb-k";
+    li.innerHTML='<span class="bb-lm">'+ym(p.from)+"~"+ym(p.to-1)+'</span><span>'+p.name+'</span><b>'+p.budget+'억</b>';
+    $("bb-legend").appendChild(li);
+  });
+  var T=t, lands=segs.map(function(s){return s.t0+s.dur;});
+
+  /* 시간 t에서의 화면을 계산해 그린다(애니메이션·한 단계씩·정지 화면 공용) */
+  function render(t){
+    var bx=30, by=300, vy=0;
+    for(var i=0;i<segs.length;i++){
+      var s=segs[i], u=Math.min(1,Math.max(0,(t-s.t0)/s.dur));
+      if(t<s.t0) break;
+      if(s.kind==="throw"){bx=s.x0+(s.x1-s.x0)*u; by=s.y0+(G-R-s.y0)*u*u; vy=2*u;}
+      else{bx=s.x0+(s.x1-s.x0)*u; by=G-R-4*s.h*u*(1-u); vy=Math.abs(1-2*u)*Math.min(1,s.h/250);
+        // 정점 라벨: 공이 정점을 지날 때 스프링처럼 튀어나옴
+        var ta=s.t0+s.dur/2, q=(t-ta)/.55, sc=q<=0?0:(q>=1?1:1-Math.exp(-6*q)*Math.cos(11*q));
+        s.label.setAttribute("opacity",q<=0?0:Math.min(1,q*4));
+        s.label.setAttribute("transform","translate("+s.lx+","+s.ly+") scale("+sc+") translate("+(-s.lx)+","+(-s.ly)+")");
+        // 착지 자국과 파문
+        var tl=s.t0+s.dur, r=(t-tl)/.5;
+        s.mark.setAttribute("opacity",t>=tl?.9:0);
+        s.ring.setAttribute("opacity",r>0&&r<1?(1-r)*.9:0);
+        s.ring.setAttribute("rx",r>0&&r<1?16+44*r:0); s.ring.setAttribute("ry",r>0&&r<1?4+8*r:0);
+      }
+    }
+    for(;i<segs.length;i++){ if(segs[i].label){segs[i].label.setAttribute("opacity",0);segs[i].mark.setAttribute("opacity",0);segs[i].ring.setAttribute("opacity",0);} }
+    // 찌그러짐(착지) · 늘어남(빠를 때)
+    var d=Infinity; lands.forEach(function(l){d=Math.min(d,Math.abs(t-l));});
+    var sy=1+.12*vy, sx=1/sy;
+    if(d<.08 && t>.05 && t<T-1e-6){var k=1-d/.08; sy=1-.3*k; sx=1+.26*k;}
+    var cy=by+R*(1-sy);   // 바닥에 붙은 채로 찌그러지도록
+    $("bb-ball").setAttribute("transform","translate("+bx+","+cy+") scale("+sx+","+sy+")");
+    $("bb-seam").setAttribute("transform","rotate("+((bx-30)/R*57.3)+")");
+    var hn=Math.min(1,(G-R-by)/450);
+    var sh=$("bb-shadow"); sh.setAttribute("cx",bx); sh.setAttribute("rx",R*(1.1-.5*hn)); sh.setAttribute("opacity",.42*(1-.7*hn));
+    $("bb-revealRect").setAttribute("width",Math.max(0,bx));
+  }
+
+  /* 재생 제어 */
+  var raf=0, now=T, stepEnd=null, status=$("bb-status");
+  var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function say(t){var n=0;segs.forEach(function(s,i){if(t>=s.t0+s.dur-1e-6)n=i+1;});
+    var s=segs[n-1]; status.textContent=n===0?"":(n===1?"착수 · 2027년 1월":n-1+"/"+BB_DATA.phases.length+" · "+s.p.name+" "+s.p.budget+"억 원");}
+  function play(from,to){
+    cancelAnimationFrame(raf); var start=performance.now()-from*1000;
+    (function tick(ts){ now=Math.min(to,(ts-start)/1000); render(now); say(now); if(now<to) raf=requestAnimationFrame(tick); else say(now); })(performance.now());
+  }
+  $("bb-replay").onclick=function(){ if(reduce){render(T);say(T);return;} play(0,T); };
+  $("bb-step").onclick=function(){
+    var k=0; segs.forEach(function(s,i){if(now>=s.t0+s.dur-1e-6)k=i+1;});
+    if(k>=segs.length){now=0;render(0);k=0;}
+    var s=segs[k]; if(reduce){now=s.t0+s.dur;render(now);say(now);return;}
+    cancelAnimationFrame(raf); render(s.t0); play(s.t0,s.t0+s.dur);
+  };
+  // 열면 완성 도식 → 잠시 뒤 처음부터 한 번 재생 → 최종 정지
+  render(T); say(T);
+  if(!reduce) setTimeout(function(){play(0,T);},900);
+})();
+</script>
+
+
+  <section>
+    <h2 class="s"><span>01</span>동작 설명</h2>
+    <div class="prose">
+      <p>던져진 테니스공이 코트(시간 축) 위를 여섯 번 튄다. <b>착지점은 단계가 바뀌는 달</b>, <b>두 착지점 사이의 폭은 기간</b>, <b>포물선 정점의 높이는 그 구간의 예산</b>이다. 공이 정점을 지날 때 금액이 스프링처럼 튀어나오고, 착지할 때마다 공이 찌그러지며 코트에 자국이 남는다. 그래서 일정(언제 바뀌나)과 예산(어디에 몰리나)을 한 줄의 궤적으로 읽는다.</p>
+      <p>네트 기둥은 연도 경계다. 공이 네트를 넘어가는 순간이 해가 바뀌는 시점이라, 한 단계가 두 회계연도에 걸친다는 사실이 따로 설명 없이 보인다(부지 조성·토목).</p>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="box dev"><h3>가져갈 장치 · 바운드 궤적 차트</h3><p>착지점 = 마일스톤, 포물선 폭 = 기간, 포물선 높이 = 규모. 간트 막대와 막대그래프를 한 줄로 합친다. 높이는 √값으로 잡아 작은 구간도 보이게 하고, 숫자는 실제 값으로 적는다.</p></div>
+      <div class="box"><h3>응용 1 · 연차별 인력 투입</h3><p>사업 연차마다 한 번씩 튀게 하고 높이를 투입 인원으로. 정점이 가장 높은 해가 인력 피크.</p></div>
+      <div class="box"><h3>응용 2 · 행사 운영 타임라인</h3><p>하루 행사를 시간대별로 튀게 하고 높이를 예상 방문객 수로. 네트 = 점심 휴식.</p></div>
+      <div class="box"><h3>응용 3 · 분기별 집행 계획</h3><p>분기 4번의 바운드, 높이 = 분기 집행액. 네트 = 추경 시점으로 써서 전후를 나눈다.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="s"><span>02</span>HTML로 가져다 쓰기</h2>
+    <div class="code-wrap">
+      <div class="code-guide box">
+        <ol>
+          <li>단계 이름·기간·금액은 스크립트 맨 위 <code>BB_DATA.phases</code>만 고치면 포물선·라벨·눈금·범례가 다시 계산된다.</li>
+          <li>제목·기관명은 <code>.bb-head</code> 안의 글자를, 색은 <code>.bb-wrap</code>의 CSS 변수를 바꾼다. 강조 구간은 <code>key:true</code>.</li>
+          <li>연도 경계는 <code>netAt</code>, 기간 길이는 <code>months</code>, 높이 배율은 <code>K</code>.</li>
+          <li>사진은 쓰지 않았다. 공 질감은 SVG 그라데이션과 노이즈 필터다.</li>
+          <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+        </ol>
+      </div>
+      <div class="code-box">
+        <button class="copy" type="button" id="copyBtn">코드 복사</button>
+        <pre><code id="codeTxt">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&amp;family=Do+Hyeon&amp;family=Gothic+A1:wght@400;600;800&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* 바운드 예산 일정표 — 접두어 bb- / 색·글꼴은 아래 변수에서 바꾼다 */
+.bb-wrap{
+  --bb-sky:#F3F8FC;      /* 하늘(배경) */
+  --bb-ink:#14304F;      /* 글자·궤적 */
+  --bb-sub:#4E6681;      /* 보조 글자 */
+  --bb-court:#2F6CA6;    /* 코트 면 */
+  --bb-court2:#24578A;   /* 코트 아래쪽 */
+  --bb-key:#F0642D;      /* 강조(가장 큰 구간) */
+  --bb-fill:#9CC3E6;     /* 포물선 아래 면 */
+  font-family:&quot;Gothic A1&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  color:var(--bb-ink); max-width:100%;
+}
+.bb-slide{position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:linear-gradient(180deg,#FFFFFF 0%,var(--bb-sky) 70%);border-radius:6px;
+  box-shadow:0 1px 2px rgba(20,48,79,.12),0 10px 30px rgba(20,48,79,.10)}
+.bb-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.bb-head{position:absolute;left:4.2cqw;right:4.2cqw;top:2.6cqw;display:flex;justify-content:space-between;align-items:flex-start;gap:2cqw}
+.bb-eyebrow{font-size:1.45cqw;font-weight:600;color:var(--bb-sub);letter-spacing:.02em;white-space:nowrap}
+.bb-eyebrow b{color:var(--bb-court);font-weight:800}
+.bb-title{margin:.7cqw 0 0;font-family:&quot;Do Hyeon&quot;,&quot;Gothic A1&quot;,sans-serif;font-weight:400;font-size:3.35cqw;line-height:1.12;color:var(--bb-ink);letter-spacing:-.01em}
+.bb-title em{font-style:normal;color:var(--bb-key)}
+.bb-total{flex:none;text-align:right;border:.12cqw solid var(--bb-ink);border-radius:.6cqw;padding:.6cqw 1cqw;background:#FFFFFF}
+.bb-total small{display:block;font-size:1.05cqw;color:var(--bb-sub);font-weight:600}
+.bb-total strong{font-family:&quot;Barlow Condensed&quot;,&quot;Gothic A1&quot;,sans-serif;font-size:2.6cqw;font-weight:700;line-height:1;color:var(--bb-ink)}
+.bb-total strong span{font-family:&quot;Gothic A1&quot;,sans-serif;font-size:1.4cqw;font-weight:800;margin-left:.2cqw}
+.bb-num{font-family:&quot;Barlow Condensed&quot;,&quot;Gothic A1&quot;,sans-serif;font-weight:700}
+.bb-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:12px}
+.bb-ctrl button{font:600 14px &quot;Gothic A1&quot;,sans-serif;color:var(--bb-ink);background:#FFFFFF;border:1.5px solid var(--bb-ink);border-radius:999px;padding:7px 16px;cursor:pointer}
+.bb-ctrl button:hover{background:var(--bb-ink);color:#FFFFFF}
+.bb-ctrl button:focus-visible{outline:3px solid var(--bb-key);outline-offset:2px}
+@container (max-width:640px){.bb-lname{display:none}.bb-lbud{font-size:62px}.bb-head .bb-total small{display:none}}
+/* 좁은 화면: 구간 이름은 장표 아래 범례로 */
+.bb-legend{display:none;margin:10px 0 0;padding:0;list-style:none;font-size:13px;line-height:1.5;color:var(--bb-ink)}
+.bb-legend li{display:flex;gap:8px;border-bottom:1px solid #DCE6EF;padding:4px 0}
+.bb-legend .bb-lm{flex:none;width:9.5em;color:var(--bb-sub);font-variant-numeric:tabular-nums}
+.bb-legend b{margin-left:auto;font-family:&quot;Barlow Condensed&quot;,&quot;Gothic A1&quot;,sans-serif;font-size:16px}
+.bb-legend .bb-k b{color:var(--bb-key)}
+@media (max-width:640px){.bb-legend{display:block}}
+.bb-status{font-size:13px;color:var(--bb-sub)}
+&lt;/style&gt;
+
+&lt;div class=&quot;bb-wrap&quot; id=&quot;bb&quot;&gt;
+  &lt;div class=&quot;bb-slide&quot;&gt;
+    &lt;svg class=&quot;bb-svg&quot; viewBox=&quot;0 0 1600 900&quot; aria-label=&quot;생활체육공원 조성 일정과 구간별 예산을 공이 튀는 궤적으로 나타낸 도식&quot; role=&quot;img&quot;&gt;
+      &lt;defs&gt;
+        &lt;!-- 공(테니스공) 질감: 방사형 음영 + 펠트 노이즈 --&gt;
+        &lt;radialGradient id=&quot;bb-ballG&quot; cx=&quot;38%&quot; cy=&quot;32%&quot; r=&quot;70%&quot;&gt;
+          &lt;stop offset=&quot;0&quot; stop-color=&quot;#F6FF9A&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;#D7EA35&quot;/&gt;
+          &lt;stop offset=&quot;.85&quot; stop-color=&quot;#9DB21C&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#6F7E12&quot;/&gt;
+        &lt;/radialGradient&gt;
+        &lt;filter id=&quot;bb-felt&quot; x=&quot;-10%&quot; y=&quot;-10%&quot; width=&quot;120%&quot; height=&quot;120%&quot;&gt;
+          &lt;feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;1.6&quot; numOctaves=&quot;2&quot; seed=&quot;3&quot; result=&quot;n&quot;/&gt;
+          &lt;feColorMatrix in=&quot;n&quot; type=&quot;saturate&quot; values=&quot;0&quot; result=&quot;g&quot;/&gt;
+          &lt;feComposite in=&quot;g&quot; in2=&quot;SourceGraphic&quot; operator=&quot;in&quot; result=&quot;gm&quot;/&gt;
+          &lt;feBlend in=&quot;SourceGraphic&quot; in2=&quot;gm&quot; mode=&quot;multiply&quot;/&gt;
+        &lt;/filter&gt;
+        &lt;clipPath id=&quot;bb-ballClip&quot;&gt;&lt;circle r=&quot;22&quot;/&gt;&lt;/clipPath&gt;
+        &lt;!-- 코트 면 --&gt;
+        &lt;linearGradient id=&quot;bb-courtG&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;
+          &lt;stop offset=&quot;0&quot; style=&quot;stop-color:var(--bb-court)&quot;/&gt;&lt;stop offset=&quot;1&quot; style=&quot;stop-color:var(--bb-court2)&quot;/&gt;
+        &lt;/linearGradient&gt;
+        &lt;filter id=&quot;bb-grain&quot;&gt;&lt;feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;.9&quot; numOctaves=&quot;2&quot; seed=&quot;8&quot;/&gt;
+          &lt;feColorMatrix type=&quot;matrix&quot; values=&quot;0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0&quot;/&gt;&lt;/filter&gt;
+        &lt;linearGradient id=&quot;bb-postG&quot; x1=&quot;0&quot; x2=&quot;1&quot;&gt;
+          &lt;stop offset=&quot;0&quot; stop-color=&quot;#5D6B78&quot;/&gt;&lt;stop offset=&quot;.4&quot; stop-color=&quot;#E8EEF3&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#3E4A55&quot;/&gt;
+        &lt;/linearGradient&gt;
+        &lt;filter id=&quot;bb-soft&quot;&gt;&lt;feGaussianBlur stdDeviation=&quot;4&quot;/&gt;&lt;/filter&gt;
+        &lt;clipPath id=&quot;bb-reveal&quot;&gt;&lt;rect id=&quot;bb-revealRect&quot; x=&quot;0&quot; y=&quot;0&quot; width=&quot;0&quot; height=&quot;900&quot;/&gt;&lt;/clipPath&gt;
+      &lt;/defs&gt;
+
+      &lt;!-- 코트 바닥(시간 축) --&gt;
+      &lt;rect x=&quot;0&quot; y=&quot;700&quot; width=&quot;1600&quot; height=&quot;200&quot; fill=&quot;url(#bb-courtG)&quot;/&gt;
+      &lt;rect x=&quot;0&quot; y=&quot;700&quot; width=&quot;1600&quot; height=&quot;200&quot; filter=&quot;url(#bb-grain)&quot; fill=&quot;#FFFFFF&quot;/&gt;
+      &lt;rect x=&quot;0&quot; y=&quot;697&quot; width=&quot;1600&quot; height=&quot;6&quot; fill=&quot;#FFFFFF&quot;/&gt;
+      &lt;g id=&quot;bb-axis&quot;&gt;&lt;/g&gt;
+
+      &lt;!-- 포물선 면·궤적 (공이 지나간 만큼 드러남) --&gt;
+      &lt;g clip-path=&quot;url(#bb-reveal)&quot;&gt;&lt;g id=&quot;bb-fills&quot;&gt;&lt;/g&gt;&lt;g id=&quot;bb-trails&quot;&gt;&lt;/g&gt;&lt;/g&gt;
+      &lt;g id=&quot;bb-marks&quot;&gt;&lt;/g&gt;
+
+      &lt;!-- 네트 기둥 = 연도 경계 --&gt;
+      &lt;g id=&quot;bb-net&quot;&gt;&lt;/g&gt;
+
+      &lt;!-- 공과 그림자 --&gt;
+      &lt;ellipse id=&quot;bb-shadow&quot; cx=&quot;0&quot; cy=&quot;704&quot; rx=&quot;22&quot; ry=&quot;5&quot; fill=&quot;#0B2540&quot; filter=&quot;url(#bb-soft)&quot;/&gt;
+      &lt;g id=&quot;bb-ball&quot;&gt;
+        &lt;g id=&quot;bb-ballBody&quot;&gt;
+          &lt;circle r=&quot;22&quot; fill=&quot;url(#bb-ballG)&quot; filter=&quot;url(#bb-felt)&quot;/&gt;
+          &lt;g clip-path=&quot;url(#bb-ballClip)&quot;&gt;&lt;g id=&quot;bb-seam&quot;&gt;
+            &lt;path d=&quot;M-26,-10 C-10,-4 -10,14 -26,22&quot; fill=&quot;none&quot; stroke=&quot;#FFFFF2&quot; stroke-width=&quot;3.2&quot; stroke-linecap=&quot;round&quot;/&gt;
+            &lt;path d=&quot;M26,-22 C10,-14 10,4 26,10&quot; fill=&quot;none&quot; stroke=&quot;#FFFFF2&quot; stroke-width=&quot;3.2&quot; stroke-linecap=&quot;round&quot;/&gt;
+          &lt;/g&gt;&lt;/g&gt;
+          &lt;ellipse cx=&quot;-7&quot; cy=&quot;-9&quot; rx=&quot;7&quot; ry=&quot;4.5&quot; fill=&quot;#FFFFFF&quot; opacity=&quot;.45&quot;/&gt;
+        &lt;/g&gt;
+      &lt;/g&gt;
+
+      &lt;!-- 정점 라벨(구간 예산) --&gt;
+      &lt;g id=&quot;bb-labels&quot;&gt;&lt;/g&gt;
+      &lt;text x=&quot;1580&quot; y=&quot;884&quot; text-anchor=&quot;end&quot; font-size=&quot;17&quot; fill=&quot;#FFFFFF&quot; opacity=&quot;.75&quot;&gt;가상 예시 · 정점 높이 ∝ √예산 · 단위 억 원&lt;/text&gt;
+    &lt;/svg&gt;
+
+    &lt;div class=&quot;bb-head&quot;&gt;
+      &lt;div&gt;
+        &lt;div class=&quot;bb-eyebrow&quot;&gt;&lt;b&gt;Ⅴ. 일정 및 예산&lt;/b&gt; · ○○시 생활체육공원 조성 계획(안)&lt;/div&gt;
+        &lt;h2 class=&quot;bb-title&quot;&gt;186억 원 중 &lt;em&gt;60%&lt;/em&gt;가&lt;br&gt;2028년 3~9월 시공 구간에 실린다&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;bb-total&quot;&gt;&lt;small&gt;총사업비 · 2027.1~2028.12&lt;/small&gt;&lt;strong&gt;186&lt;span&gt;억 원&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;ol class=&quot;bb-legend&quot; id=&quot;bb-legend&quot;&gt;&lt;/ol&gt;
+  &lt;div class=&quot;bb-ctrl&quot;&gt;
+    &lt;button type=&quot;button&quot; id=&quot;bb-replay&quot;&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; id=&quot;bb-step&quot;&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;bb-status&quot; id=&quot;bb-status&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  /* ───── 데이터: 여기만 바꾸면 된다 ─────
+     from·to = 시작 월로부터 몇 번째 달인지(0부터), budget = 억 원, key = 강조 구간 */
+  var BB_DATA = {
+    startYear: 2027, months: 24, netAt: 12,   // netAt: 연도 경계(네트) 위치
+    phases: [
+      {name:&quot;기본계획·타당성 조사&quot;, from:0,  to:3,  budget:2},
+      {name:&quot;설계 공모·실시설계&quot;,   from:3,  to:8,  budget:9},
+      {name:&quot;부지 조성·토목&quot;,       from:8,  to:14, budget:38},
+      {name:&quot;체육관 건축·코트 시공&quot;, from:14, to:21, budget:112, key:true},
+      {name:&quot;장비·조명 설치&quot;,       from:21, to:23, budget:21},
+      {name:&quot;시범 운영·개장&quot;,       from:23, to:24, budget:4}
+    ]
+  };
+
+  var NS=&quot;http://www.w3.org/2000/svg&quot;, root=document.getElementById(&quot;bb&quot;);
+  var G=700, R=22, X0=110, X1=1400, K=40;          // 바닥선, 공 반지름, 축 범위, 높이 계수
+  var X=function(m){return X0+(X1-X0)*m/BB_DATA.months;};
+  var H=function(b){return K*Math.sqrt(b);};         // 높이 = √예산 (작은 구간도 보이게)
+  var total=BB_DATA.phases.reduce(function(s,p){return s+p.budget;},0);
+  var $=function(id){return document.getElementById(id);};
+  function el(tag,attrs,parent,text){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
+
+  /* 코트 눈금: 월 숫자, 연도, 구간 경계선 */
+  var axis=$(&quot;bb-axis&quot;);
+  for(var m=0;m&lt;BB_DATA.months;m++){
+    el(&quot;text&quot;,{x:X(m+.5),y:G+42,&quot;text-anchor&quot;:&quot;middle&quot;,&quot;font-size&quot;:21,fill:&quot;#FFFFFF&quot;,opacity:.82,class:&quot;bb-num&quot;},axis,String(m%12+1));
+  }
+  for(var y=0;y*12&lt;BB_DATA.months;y++){
+    el(&quot;text&quot;,{x:X(y*12+6),y:G+120,&quot;text-anchor&quot;:&quot;middle&quot;,&quot;font-size&quot;:60,fill:&quot;#FFFFFF&quot;,opacity:.92,class:&quot;bb-num&quot;,&quot;letter-spacing&quot;:&quot;4&quot;},axis,String(BB_DATA.startYear+y));
+  }
+  var cuts=[0].concat(BB_DATA.phases.map(function(p){return p.to;}));
+  cuts.forEach(function(c){el(&quot;rect&quot;,{x:X(c)-2,y:G,width:4,height:62,fill:&quot;#FFFFFF&quot;,opacity:.9},axis);});
+  el(&quot;text&quot;,{x:X0-14,y:G+42,&quot;text-anchor&quot;:&quot;end&quot;,&quot;font-size&quot;:17,fill:&quot;#FFFFFF&quot;,opacity:.7},axis,&quot;월&quot;);
+
+  /* 네트 기둥 */
+  var net=$(&quot;bb-net&quot;), nx=X(BB_DATA.netAt);
+  el(&quot;rect&quot;,{x:nx-5,y:G-96,width:10,height:96,rx:3,fill:&quot;url(#bb-postG)&quot;},net);
+  el(&quot;rect&quot;,{x:nx-8,y:G-102,width:16,height:9,rx:3,fill:&quot;#3E4A55&quot;},net);
+  el(&quot;text&quot;,{x:nx,y:G-112,&quot;text-anchor&quot;:&quot;middle&quot;,&quot;font-size&quot;:17,fill:&quot;#4E6681&quot;,&quot;font-weight&quot;:600},net,&quot;해 바뀜&quot;);
+
+  /* 구간별 포물선(면·궤적), 착지 자국, 라벨 만들기 */
+  var segs=[], t=0, fills=$(&quot;bb-fills&quot;), trails=$(&quot;bb-trails&quot;), marks=$(&quot;bb-marks&quot;), labels=$(&quot;bb-labels&quot;);
+  // 0단계: 왼쪽 위에서 던져 들어와 첫 달에 착지
+  segs.push({kind:&quot;throw&quot;, x0:30, y0:300, x1:X0, t0:0, dur:.5}); t=.5;
+  BB_DATA.phases.forEach(function(p,i){
+    var x0=X(p.from), x1=X(p.to), h=H(p.budget), dur=.25+.027*Math.sqrt(h);
+    var cy=G-R, col=p.key?&quot;#F0642D&quot;:&quot;#14304F&quot;;
+    el(&quot;path&quot;,{d:&quot;M&quot;+x0+&quot;,&quot;+G+&quot; L&quot;+x0+&quot;,&quot;+cy+&quot; Q&quot;+(x0+x1)/2+&quot;,&quot;+(cy-2*h)+&quot; &quot;+x1+&quot;,&quot;+cy+&quot; L&quot;+x1+&quot;,&quot;+G+&quot; Z&quot;,
+      fill:p.key?&quot;#FBD2BF&quot;:&quot;#9CC3E6&quot;,opacity:p.key?.55:.32},fills);
+    el(&quot;path&quot;,{d:&quot;M&quot;+x0+&quot;,&quot;+cy+&quot; Q&quot;+(x0+x1)/2+&quot;,&quot;+(cy-2*h)+&quot; &quot;+x1+&quot;,&quot;+cy,fill:&quot;none&quot;,stroke:col,
+      &quot;stroke-width&quot;:p.key?4:3,&quot;stroke-dasharray&quot;:&quot;2 10&quot;,&quot;stroke-linecap&quot;:&quot;round&quot;},trails);
+    // 정점 라벨: 위 = 이름, 아래 = 금액
+    var ax=(x0+x1)/2, ay=cy-h, lg=el(&quot;g&quot;,{opacity:0},labels);
+    var anchor=&quot;middle&quot;, lx=ax;
+    var last=i===BB_DATA.phases.length-1, ny=ay-78, by2=ay-32;
+    if(last){anchor=&quot;start&quot;;lx=x1+34;ny=ay-12;by2=ay+34;}  // 마지막 좁은 구간은 오른쪽 옆에
+    el(&quot;text&quot;,{x:lx,y:ny,&quot;text-anchor&quot;:anchor,&quot;font-size&quot;:24,&quot;font-weight&quot;:600,fill:&quot;#4E6681&quot;,class:&quot;bb-lname&quot;},lg,p.name);
+    var bt=el(&quot;text&quot;,{x:lx,y:by2,&quot;text-anchor&quot;:anchor,&quot;font-size&quot;:46,fill:p.key?&quot;#F0642D&quot;:&quot;#14304F&quot;,class:&quot;bb-num bb-lbud&quot;},lg);
+    bt.textContent=p.budget; el(&quot;tspan&quot;,{&quot;font-size&quot;:22,&quot;font-weight&quot;:800,&quot;font-family&quot;:&quot;Gothic A1, sans-serif&quot;,dx:4},bt,&quot;억&quot;);
+    if(p.key){
+      var pct=Math.round(p.budget/total*100);
+      var pg=el(&quot;g&quot;,{},lg); el(&quot;rect&quot;,{x:ax+70,y:ay-70,width:118,height:40,rx:20,fill:&quot;#F0642D&quot;},pg);
+      el(&quot;text&quot;,{x:ax+129,y:ay-42,&quot;text-anchor&quot;:&quot;middle&quot;,&quot;font-size&quot;:22,&quot;font-weight&quot;:800,fill:&quot;#FFFFFF&quot;},pg,&quot;전체 &quot;+pct+&quot;%&quot;);
+    }
+    var mk=el(&quot;ellipse&quot;,{cx:x1,cy:G+3,rx:16,ry:4,fill:&quot;#C9D96A&quot;,opacity:0},marks);
+    var rg=el(&quot;ellipse&quot;,{cx:x1,cy:G+3,rx:0,ry:0,fill:&quot;none&quot;,stroke:&quot;#FFFFFF&quot;,&quot;stroke-width&quot;:3,opacity:0},marks);
+    segs.push({kind:&quot;bounce&quot;,p:p,x0:x0,x1:x1,h:h,t0:t,dur:dur,label:lg,lx:lx,ly:last?ay:ay-24,mark:mk,ring:rg});
+    t+=dur;
+  });
+  /* 좁은 화면용 범례 */
+  BB_DATA.phases.forEach(function(p){
+    var ym=function(m){return (BB_DATA.startYear+Math.floor(m/12))+&quot;.&quot;+(m%12+1);};
+    var li=document.createElement(&quot;li&quot;); if(p.key) li.className=&quot;bb-k&quot;;
+    li.innerHTML=&#x27;&lt;span class=&quot;bb-lm&quot;&gt;&#x27;+ym(p.from)+&quot;~&quot;+ym(p.to-1)+&#x27;&lt;/span&gt;&lt;span&gt;&#x27;+p.name+&#x27;&lt;/span&gt;&lt;b&gt;&#x27;+p.budget+&#x27;억&lt;/b&gt;&#x27;;
+    $(&quot;bb-legend&quot;).appendChild(li);
+  });
+  var T=t, lands=segs.map(function(s){return s.t0+s.dur;});
+
+  /* 시간 t에서의 화면을 계산해 그린다(애니메이션·한 단계씩·정지 화면 공용) */
+  function render(t){
+    var bx=30, by=300, vy=0;
+    for(var i=0;i&lt;segs.length;i++){
+      var s=segs[i], u=Math.min(1,Math.max(0,(t-s.t0)/s.dur));
+      if(t&lt;s.t0) break;
+      if(s.kind===&quot;throw&quot;){bx=s.x0+(s.x1-s.x0)*u; by=s.y0+(G-R-s.y0)*u*u; vy=2*u;}
+      else{bx=s.x0+(s.x1-s.x0)*u; by=G-R-4*s.h*u*(1-u); vy=Math.abs(1-2*u)*Math.min(1,s.h/250);
+        // 정점 라벨: 공이 정점을 지날 때 스프링처럼 튀어나옴
+        var ta=s.t0+s.dur/2, q=(t-ta)/.55, sc=q&lt;=0?0:(q&gt;=1?1:1-Math.exp(-6*q)*Math.cos(11*q));
+        s.label.setAttribute(&quot;opacity&quot;,q&lt;=0?0:Math.min(1,q*4));
+        s.label.setAttribute(&quot;transform&quot;,&quot;translate(&quot;+s.lx+&quot;,&quot;+s.ly+&quot;) scale(&quot;+sc+&quot;) translate(&quot;+(-s.lx)+&quot;,&quot;+(-s.ly)+&quot;)&quot;);
+        // 착지 자국과 파문
+        var tl=s.t0+s.dur, r=(t-tl)/.5;
+        s.mark.setAttribute(&quot;opacity&quot;,t&gt;=tl?.9:0);
+        s.ring.setAttribute(&quot;opacity&quot;,r&gt;0&amp;&amp;r&lt;1?(1-r)*.9:0);
+        s.ring.setAttribute(&quot;rx&quot;,r&gt;0&amp;&amp;r&lt;1?16+44*r:0); s.ring.setAttribute(&quot;ry&quot;,r&gt;0&amp;&amp;r&lt;1?4+8*r:0);
+      }
+    }
+    for(;i&lt;segs.length;i++){ if(segs[i].label){segs[i].label.setAttribute(&quot;opacity&quot;,0);segs[i].mark.setAttribute(&quot;opacity&quot;,0);segs[i].ring.setAttribute(&quot;opacity&quot;,0);} }
+    // 찌그러짐(착지) · 늘어남(빠를 때)
+    var d=Infinity; lands.forEach(function(l){d=Math.min(d,Math.abs(t-l));});
+    var sy=1+.12*vy, sx=1/sy;
+    if(d&lt;.08 &amp;&amp; t&gt;.05 &amp;&amp; t&lt;T-1e-6){var k=1-d/.08; sy=1-.3*k; sx=1+.26*k;}
+    var cy=by+R*(1-sy);   // 바닥에 붙은 채로 찌그러지도록
+    $(&quot;bb-ball&quot;).setAttribute(&quot;transform&quot;,&quot;translate(&quot;+bx+&quot;,&quot;+cy+&quot;) scale(&quot;+sx+&quot;,&quot;+sy+&quot;)&quot;);
+    $(&quot;bb-seam&quot;).setAttribute(&quot;transform&quot;,&quot;rotate(&quot;+((bx-30)/R*57.3)+&quot;)&quot;);
+    var hn=Math.min(1,(G-R-by)/450);
+    var sh=$(&quot;bb-shadow&quot;); sh.setAttribute(&quot;cx&quot;,bx); sh.setAttribute(&quot;rx&quot;,R*(1.1-.5*hn)); sh.setAttribute(&quot;opacity&quot;,.42*(1-.7*hn));
+    $(&quot;bb-revealRect&quot;).setAttribute(&quot;width&quot;,Math.max(0,bx));
+  }
+
+  /* 재생 제어 */
+  var raf=0, now=T, stepEnd=null, status=$(&quot;bb-status&quot;);
+  var reduce=window.matchMedia&amp;&amp;matchMedia(&quot;(prefers-reduced-motion: reduce)&quot;).matches;
+  function say(t){var n=0;segs.forEach(function(s,i){if(t&gt;=s.t0+s.dur-1e-6)n=i+1;});
+    var s=segs[n-1]; status.textContent=n===0?&quot;&quot;:(n===1?&quot;착수 · 2027년 1월&quot;:n-1+&quot;/&quot;+BB_DATA.phases.length+&quot; · &quot;+s.p.name+&quot; &quot;+s.p.budget+&quot;억 원&quot;);}
+  function play(from,to){
+    cancelAnimationFrame(raf); var start=performance.now()-from*1000;
+    (function tick(ts){ now=Math.min(to,(ts-start)/1000); render(now); say(now); if(now&lt;to) raf=requestAnimationFrame(tick); else say(now); })(performance.now());
+  }
+  $(&quot;bb-replay&quot;).onclick=function(){ if(reduce){render(T);say(T);return;} play(0,T); };
+  $(&quot;bb-step&quot;).onclick=function(){
+    var k=0; segs.forEach(function(s,i){if(now&gt;=s.t0+s.dur-1e-6)k=i+1;});
+    if(k&gt;=segs.length){now=0;render(0);k=0;}
+    var s=segs[k]; if(reduce){now=s.t0+s.dur;render(now);say(now);return;}
+    cancelAnimationFrame(raf); render(s.t0); play(s.t0,s.t0+s.dur);
+  };
+  // 열면 완성 도식 → 잠시 뒤 처음부터 한 번 재생 → 최종 정지
+  render(T); say(T);
+  if(!reduce) setTimeout(function(){play(0,T);},900);
+})();
+&lt;/script&gt;
+</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="s"><span>03</span>PPT로 옮기기</h2>
+    <div class="prose"><p>정적인 부분(코트 띠, 월 눈금, 연도, 네트 기둥, 포물선 아래 면, 점선 궤적)은 도형으로 먼저 그려 둔다. 포물선은 <b>삽입 › 도형 › 곡선</b>으로 세 점(시작·정점·끝)을 찍어 만들고, 높이는 표의 값대로 맞춘다. 공은 원 도형에 방사형 그라데이션 채우기(연두→올리브) + 흰 곡선 두 개를 그룹으로 묶는다.</p></div>
+    <div class="tbl"><table>
+      <thead><tr><th>순서</th><th>대상 개체</th><th>애니메이션(한국어판)</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>공</td><td>이동 경로 › 사용자 지정 경로(왼쪽 위 → 첫 착지점)</td><td>부드럽게 시작 0초, 부드럽게 종료 0초</td><td>클릭할 때</td><td>0.5초</td><td>0</td></tr>
+        <tr><td>2~7</td><td>공</td><td>이동 경로 › <b>아치형</b>(구간마다 1개, 6개)</td><td>경로 핸들로 폭 = 구간 폭, 높이 = 포물선 높이. 부드럽게 시작·종료 0초(일정한 수평 속도)</td><td>이전 효과 다음에</td><td>0.45~0.8초(높은 구간일수록 길게)</td><td>0</td></tr>
+        <tr><td>2~7</td><td>점선 궤적 + 아래 면</td><td>나타내기 › <b>닦아내기</b></td><td>방향: 왼쪽에서</td><td>이전 효과와 함께</td><td>공 경로와 같게</td><td>0</td></tr>
+        <tr><td>2~7</td><td>예산 라벨(이름+금액)</td><td>나타내기 › <b>확대/축소</b> 뒤 강조 › <b>펄스</b></td><td>확대/축소: 개체 가운데</td><td>이전 효과와 함께</td><td>0.3초 / 펄스 0.3초</td><td>경로 재생 시간의 절반(정점 통과 시점)</td></tr>
+        <tr><td>착지마다</td><td>공</td><td>강조 › <b>크게/작게</b></td><td>크기: 사용자 지정 75%, 방향 ‘세로’, <b>자동 반대로</b> 체크</td><td>이전 효과 다음에</td><td>0.08초</td><td>0</td></tr>
+        <tr><td>착지마다</td><td>착지 자국(연두 타원)</td><td>나타내기 › 나타내기</td><td>—</td><td>이전 효과와 함께</td><td>즉시</td><td>0</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="box"><h3>모핑으로 만드는 방법</h3><p>슬라이드를 착지점 수만큼(7장) 복제하고 장마다 공 위치와 드러난 궤적·라벨을 바꾼 뒤 전환 › <b>모핑</b>(개체, 0.6초). 공 도형 이름을 선택 창에서 모든 장 똑같이 <code>!!공</code>으로 지으면 다른 도형과 섞이지 않고 같은 공으로 이어진다. 모핑은 직선으로 움직이므로 포물선 정점에 중간 슬라이드를 한 장씩 더 넣어(13장) 꺾인 궤적으로 근사한다.</p></div>
+      <div class="box"><h3>안 되는 동작과 근사법</h3><ul><li>포물선 위에서 공이 회전: 이동 경로에 강조 › <b>회전</b>(360°)을 ‘이전 효과와 함께’ 겹친다.</li><li>정점 라벨의 스프링 튕김: 확대/축소 + 펄스로 근사.</li><li>높이에 따라 커졌다 작아지는 그림자: 생략하거나, 그림자 타원에 크게/작게 70%를 경로 앞 절반에 겹친다.</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="s"><span>04</span>스펙</h2>
+    <dl class="spec">
+      <dt>팔레트</dt><dd><div class="sw">
+        <span><i style="background:#F3F8FC"></i>#F3F8FC 하늘</span><span><i style="background:#14304F"></i>#14304F 잉크</span>
+        <span><i style="background:#2F6CA6"></i>#2F6CA6 코트</span><span><i style="background:#F0642D"></i>#F0642D 강조</span>
+        <span><i style="background:#D7EA35"></i>#D7EA35 공</span><span><i style="background:#9CC3E6"></i>#9CC3E6 면</span></div></dd>
+      <dt>글꼴</dt><dd>제목 Do Hyeon, 본문 Gothic A1, 숫자 Barlow Condensed (대체: Apple SD Gothic Neo, 맑은 고딕, Arial Narrow)</dd>
+      <dt>난이도</dt><dd>HTML 중 · PPT 중(아치형 경로 6개의 높이를 손으로 맞추는 작업)</dd>
+      <dt>반영 트렌드</dt><dd>베지어 이징 대신 스프링 물리, 그리고 무게감을 주는 찌그러짐·늘어남(squash &amp; stretch) — Josh W. Comeau, “Squash and Stretch”(2026) <a href="https://www.joshwcomeau.com/animation/squash-and-stretch" target="_blank" rel="noopener">joshwcomeau.com</a></dd>
+      <dt>표현</dt><dd>밝은 하늘 바탕 + 하드코트 파랑. 공은 방사형 음영·펠트 노이즈·솔기·하이라이트로 양감을 준다. 높이는 √예산(라벨은 실제 금액).</dd>
+    </dl>
+  </section>
+</div>
+<script>
+document.getElementById("copyBtn").addEventListener("click",function(){
+  var b=this, txt=document.getElementById("codeTxt");
+  function sel(){var r=document.createRange();r.selectNodeContents(txt);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="선택됨 · Ctrl+C";}
+  try{navigator.clipboard.writeText(txt.textContent).then(function(){b.textContent="복사됨";setTimeout(function(){b.textContent="코드 복사";},1600);},sel);}catch(e){sel();}
+});
+</script>
+
+</body></html>

@@ -1,0 +1,658 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #43 칸막이 벤토 상자</title>
+<style>
+/* 레이아웃: 위에 장표 하나 크게, 아래로 설명·코드·PPT·스펙을 한 열로 */
+:root{
+  --pg-bg:#F3F0E8; --pg-card:#FFFFFF; --pg-ink:#1E2230; --pg-sub:#5E5848; --pg-line:#DDD4C2; --pg-accent:#C6461F;
+  --pg-code-bg:#1C1F27; --pg-code-fg:#E6E2D6;
+  --f-display:'Hahmlet','Nanum Myeongjo','Batang',serif;
+  --f-body:'Gothic A1','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --f-mono:'JetBrains Mono',Consolas,monospace;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--f-body); font-size:15px; line-height:1.7; word-break:keep-all}
+.pg{max-width:1280px; margin:0 auto; padding-inline:16px; padding-block:28px 64px}
+.pg-top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 20px; margin-bottom:16px}
+.pg-top h1{margin:0; font-family:var(--f-display); font-size:clamp(22px,3vw,30px); letter-spacing:-.02em}
+.pg-meta{font-size:13px; color:var(--pg-sub)}
+.pg-meta b{color:var(--pg-accent)}
+section{margin-top:44px}
+h2.pg-h{font-family:var(--f-display); font-size:21px; margin:0 0 14px; letter-spacing:-.01em; text-wrap:balance}
+.pg-h small{font-family:var(--f-mono); font-size:12px; color:var(--pg-sub); margin-right:8px}
+.pg-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px}
+.pg-panel{background:var(--pg-card); border:1px solid var(--pg-line); border-radius:10px; padding:18px 20px; min-width:0}
+.pg-panel h3{margin:0 0 8px; font-size:15px}
+.pg-panel p{margin:0 0 10px}
+.pg-panel ul,.pg-panel ol{margin:0; padding-left:20px}
+.pg-panel li{margin:4px 0}
+.pg-steps{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-top:14px}
+.pg-steps div{border-top:3px solid var(--pg-line); padding-top:8px; font-size:13.5px; line-height:1.5}
+.pg-steps div b{display:block; font-size:14px}
+.pg-steps div:nth-child(5){border-color:var(--pg-accent)}
+.pg-code{display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); gap:20px; align-items:start}
+.pg-codebox{position:relative; min-width:0}
+.pg-codebox pre{margin:0; max-height:520px; overflow:auto; background:var(--pg-code-bg); color:var(--pg-code-fg); border-radius:10px; padding:18px; font-family:var(--f-mono); font-size:12.5px; line-height:1.55; white-space:pre}
+.pg-copy{position:absolute; top:10px; right:14px; font:inherit; font-size:13px; font-weight:700; padding:6px 12px; border-radius:6px; border:1px solid #4A4F5E; background:#2A2E39; color:#F3EFE3; cursor:pointer}
+.pg-copy:focus-visible{outline:2px solid #F2A07F; outline-offset:2px}
+.pg-tablewrap{overflow-x:auto; background:var(--pg-card); border:1px solid var(--pg-line); border-radius:10px}
+table{border-collapse:collapse; width:100%; min-width:760px; font-size:13.5px; line-height:1.55}
+th,td{text-align:left; vertical-align:top; padding:10px 12px; border-bottom:1px solid var(--pg-line)}
+th{background:#F8F4EC; font-size:12.5px; color:var(--pg-sub); white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td code,.pg-panel code{font-family:var(--f-mono); font-size:12px; background:#F3EEE3; padding:1px 5px; border-radius:4px}
+.pg-sw{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
+.pg-sw span{display:inline-flex; align-items:center; gap:6px; font-family:var(--f-mono); font-size:12px}
+.pg-sw i{width:22px; height:22px; border-radius:5px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+dl.pg-spec{display:grid; grid-template-columns:120px minmax(0,1fr); gap:10px 16px; margin:0}
+dl.pg-spec dt{font-weight:700; color:var(--pg-sub); font-size:13.5px}
+dl.pg-spec dd{margin:0}
+@media (max-width:760px){
+  .pg-grid,.pg-code{grid-template-columns:1fr}
+  .pg-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  dl.pg-spec{grid-template-columns:1fr; gap:2px}
+  dl.pg-spec dd{margin-bottom:10px}
+}
+</style>
+
+<div class="pg">
+  <header class="pg-top">
+    <h1>레퍼런스 #43 칸막이 벤토 상자</h1>
+    <div class="pg-meta"><b>실무형</b> · 세부과제 · 동작 패턴: 유목화 · 가상 예시</div>
+  </header>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=Hahmlet:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* ── 칸막이 벤토 상자 (유목화) : 클래스 접두어 bt- ── */
+.bt{
+  /* 색: 바탕·글자·나무 */
+  --bt-paper:#FBFAF6; --bt-ink:#1E2230; --bt-sub:#6B6455;
+  --bt-wood1:#E2BE8C; --bt-wood2:#C9955A; --bt-floor:#F8F0E1;
+  /* 칸막이 두께 */
+  --bt-dv:1.1cqw;
+  container-type:inline-size; width:100%; max-width:1280px; margin:0 auto;
+  font-family:'Gothic A1','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  color:var(--bt-ink); word-break:keep-all;
+}
+.bt *{box-sizing:border-box}
+.bt-slide{position:relative; aspect-ratio:16/9; width:100%; max-width:100%; background:var(--bt-paper);
+  border-radius:.8cqw; overflow:hidden; display:grid; grid-template-rows:auto minmax(0,1fr);
+  gap:1.5cqw; padding:2.4cqw 3.2cqw 2.6cqw;
+  box-shadow:0 .2cqw .6cqw rgba(40,30,15,.08), 0 0 0 1px rgba(40,30,15,.07)}
+.bt-head{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2cqw; align-items:end}
+.bt-eyebrow{margin:0 0 .7cqw; font-size:1.12cqw; font-weight:700; letter-spacing:.02em; color:var(--bt-sub); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.bt-eyebrow span{color:#B9472A}
+.bt-title{margin:0; font-family:'Hahmlet','Nanum Myeongjo','Batang',serif; font-weight:700; font-size:2.75cqw; line-height:1.22; letter-spacing:-.02em; text-wrap:balance}
+.bt-title em{font-style:normal; color:#C6461F}
+.bt-note{display:grid; gap:.5cqw; justify-items:end; font-size:1.05cqw; color:var(--bt-sub); white-space:nowrap}
+.bt-note b{display:inline-flex; align-items:center; gap:.5cqw; font-weight:700; color:var(--bt-ink)}
+.bt-note b::before{content:""; width:1.4cqw; height:1cqw; border-radius:.2cqw; border:.18cqw solid var(--bt-wood2); background:var(--bt-floor)}
+.bt-note small{font-size:.95cqw; border:1px solid rgba(107,100,85,.4); border-radius:99px; padding:.15cqw .7cqw}
+
+/* 나무 상자: 테두리 = 결 있는 나무, 바닥 = 안쪽 그림자 */
+.bt-box{position:relative; min-height:0; padding:1.1cqw; border-radius:1.2cqw;
+  background:
+    repeating-linear-gradient(92deg, rgba(120,70,20,.07) 0 .25cqw, transparent .25cqw 1.1cqw),
+    linear-gradient(180deg,var(--bt-wood1),var(--bt-wood2));
+  box-shadow:0 1.3cqw 2.2cqw -1.1cqw rgba(90,55,20,.45), inset 0 .15cqw 0 rgba(255,255,255,.55), inset 0 -.2cqw 0 rgba(90,50,15,.25)}
+.bt-floor{position:relative; width:100%; height:100%; border-radius:.6cqw; background:var(--bt-floor);
+  box-shadow:inset 0 .5cqw 1cqw rgba(110,70,30,.28), inset 0 0 0 .1cqw rgba(110,70,30,.18)}
+
+/* 과제 조각 */
+.bt-chip{position:absolute; display:flex; align-items:center; gap:.7cqw; padding:0 .9cqw;
+  border-radius:.55cqw; background:#FFFFFF; font-size:1.3cqw; font-weight:700; line-height:1.15; color:var(--bt-ink);
+  box-shadow:0 .3cqw .6cqw rgba(70,45,20,.2), 0 0 0 1px rgba(70,45,20,.08);
+  transform:translateY(var(--dy,0)) rotate(var(--r,0deg)); opacity:var(--o,1);
+  transition:left .75s cubic-bezier(.65,0,.25,1), top .75s cubic-bezier(.65,0,.25,1), width .75s cubic-bezier(.65,0,.25,1),
+    transform .6s cubic-bezier(.3,1.35,.5,1), opacity .35s ease, background-color .45s ease}
+.bt-chip b{font-family:'JetBrains Mono',Consolas,monospace; font-size:.95cqw; font-weight:700; color:#9A917E; transition:color .45s}
+.bt-chip i{flex:none; width:1cqw; height:1cqw; border-radius:50%; background:var(--c); transform:scale(0); transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.bt-chip.is-tag{background:var(--t)}
+.bt-chip.is-tag b{color:var(--c)}
+.bt-chip.is-tag i{transform:scale(1)}
+
+/* 칸막이: 위에서 내려앉으며 살짝 튕김 */
+.bt-div{position:absolute; border-radius:.3cqw; z-index:3;
+  background:linear-gradient(180deg,#EACB9E,#C38C50);
+  box-shadow:0 .55cqw .8cqw rgba(80,45,15,.38), inset 0 .12cqw 0 rgba(255,255,255,.6);
+  opacity:0; transform:translateY(-3cqw) scale(1.04);
+  transition:opacity .25s ease, transform .55s cubic-bezier(.34,1.7,.6,1)}
+.bt-div.is-v{background:linear-gradient(90deg,#EACB9E,#C38C50)}
+.bt-div.is-on{opacity:1; transform:none}
+
+/* 칸 이름표 */
+.bt-label{position:absolute; z-index:2; display:flex; align-items:baseline; gap:.6cqw; font-size:1.35cqw; font-weight:800; color:var(--c);
+  opacity:0; transform:translateY(.6cqw); transition:opacity .4s ease, transform .4s ease}
+.bt-label span{font-family:'JetBrains Mono',Consolas,monospace; font-size:1cqw; font-weight:700; color:var(--bt-sub)}
+.bt-label.is-on{opacity:1; transform:none}
+
+.bt-instant, .bt-instant *{transition:none !important}
+
+/* 버튼 줄 (장표 바깥) */
+.bt-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:14px; font-size:14px; color:#4A4536}
+.bt-ctrl button{font:inherit; font-weight:700; padding:8px 16px; border-radius:8px; border:1px solid #CBBFA6; background:#FFFFFF; color:#1E2230; cursor:pointer}
+.bt-ctrl button:hover{background:#F4ECDD}
+.bt-ctrl button:focus-visible{outline:2px solid #C6461F; outline-offset:2px}
+.bt-cap{min-width:0; flex:1 1 220px}
+.bt-cap b{color:#C6461F}
+
+/* 좁은 화면: 세로형 4:5 장표로 바꿔 글자를 키운다 */
+@container (max-width:560px){
+  .bt{--bt-dv:2cqw}
+  .bt-slide{aspect-ratio:4/5; padding:5cqw 4.5cqw 5cqw; gap:3.5cqw; border-radius:2cqw}
+  .bt-head{grid-template-columns:1fr; gap:2cqw}
+  .bt-eyebrow{font-size:2.9cqw; white-space:normal}
+  .bt-title{font-size:5.6cqw}
+  .bt-note{justify-items:start; grid-auto-flow:column; justify-content:start; gap:3cqw; font-size:2.8cqw}
+  .bt-note b::before{width:3cqw; height:2.2cqw}
+  .bt-note small{font-size:2.6cqw}
+  .bt-box{padding:2cqw; border-radius:2.4cqw}
+  .bt-chip{font-size:3cqw; padding:0 1.4cqw; gap:1.2cqw; border-radius:1.2cqw}
+  .bt-chip b{display:none}
+  .bt-chip i{width:2cqw; height:2cqw}
+  .bt-label{font-size:3.1cqw}
+  .bt-label span{font-size:2.5cqw}
+}
+@media (prefers-reduced-motion:reduce){ .bt *{transition:none !important} }
+</style>
+
+<div class="bt" id="bt">
+  <div class="bt-slide" role="img" aria-label="등불축제 세부과제 12개를 체험·볼거리·머물거리·먹거리 네 칸으로 나눈 도식. 칸 넓이는 과제 수에 비례한다.">
+    <div class="bt-head">
+      <div>
+        <p class="bt-eyebrow"><span>Ⅲ. 세부 추진과제</span> · ○○시 강변 등불축제 운영 계획(안)</p>
+        <h2 class="bt-title">흩어진 과제 12개를 네 칸에 담으니 <em>체험</em>이 가장 넓다</h2>
+      </div>
+      <div class="bt-note"><b>칸 넓이 = 과제 수</b><small>가상 예시</small></div>
+    </div>
+    <div class="bt-box"><div class="bt-floor" id="bt-floor"></div></div>
+  </div>
+  <div class="bt-ctrl">
+    <button type="button" id="bt-play">다시 보기</button>
+    <button type="button" id="bt-step">한 단계씩</button>
+    <span class="bt-cap" id="bt-cap" aria-live="polite"></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ① 묶음(칸): rect = 상자 바닥 안의 [x, y, 너비, 높이] (%). 넓이를 과제 수에 비례하게 잡았다 (12개 → 1개당 1/12) */
+  var BT_GROUPS = [
+    {id:'do',   name:'체험 거리', c:'#C6461F', t:'#FBE3D7', rect:[0,     0,     57.14, 58.33], cols:2},
+    {id:'see',  name:'볼거리',   c:'#2F55A4', t:'#E2E9F8', rect:[57.14, 0,     42.86, 58.33], cols:1},
+    {id:'stay', name:'머물거리', c:'#16806A', t:'#D8F0E6', rect:[0,     58.33, 60,    41.67], cols:2},
+    {id:'eat',  name:'먹거리',   c:'#B47A00', t:'#FCEFC8', rect:[60,    58.33, 40,    41.67], cols:1}
+  ];
+  /* ② 과제: 계획안 순서 그대로. g = 들어갈 칸 id */
+  var BT_TASKS = [
+    {no:'01', name:'개막 불꽃 공연',   g:'see'},
+    {no:'02', name:'소원 등 만들기',   g:'do'},
+    {no:'03', name:'지역 먹거리 장터', g:'eat'},
+    {no:'04', name:'원도심 야간 투어', g:'stay'},
+    {no:'05', name:'수상 등불 전시',   g:'see'},
+    {no:'06', name:'등불 야간 카약',   g:'do'},
+    {no:'07', name:'숙박 연계 할인',   g:'stay'},
+    {no:'08', name:'한지 공방 체험',   g:'do'},
+    {no:'09', name:'강변 푸드트럭 존', g:'eat'},
+    {no:'10', name:'등불 퍼레이드',    g:'see'},
+    {no:'11', name:'어린이 등불 놀이터', g:'do'},
+    {no:'12', name:'축제 셔틀버스',    g:'stay'}
+  ];
+  /* ③ 단계: at = 다시 보기에서 시작 시각(ms) */
+  var BT_STEPS = [
+    {at:0,    name:'빈 상자',  desc:'과제를 담을 상자 하나'},
+    {at:120,  name:'쏟기',    desc:'계획안 순서대로 과제 12개를 쏟는다'},
+    {at:1250, name:'꼬리표',  desc:'성격별로 색 꼬리표를 붙인다'},
+    {at:2000, name:'모으기',  desc:'같은 색끼리 제자리로 모인다'},
+    {at:3200, name:'칸막이',  desc:'칸막이가 내려앉아 묶음이 확정된다'},
+    {at:3900, name:'이름표',  desc:'칸 이름과 과제 수를 단다 — 칸 넓이 = 과제 수'}
+  ];
+
+  var root = document.getElementById('bt');
+  var floor = document.getElementById('bt-floor');
+  var cap = document.getElementById('bt-cap');
+  var LAST = BT_STEPS.length - 1, cur = LAST, timers = [];
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var G = {}; BT_GROUPS.forEach(function(g, i){ g.i = i; G[g.id] = g; });
+
+  /* 칸 안 자리 계산 (%): 이름표 띠 아래, 남은 높이 가운데 정렬 */
+  var PX = 1.6, PY = 3.2, BAND = 8.6, CH = 12, GY = 2.4;
+  var slot = {};
+  BT_GROUPS.forEach(function(g){
+    var list = BT_TASKS.filter(function(t){ return t.g === g.id; });
+    var r = g.rect, rows = Math.ceil(list.length / g.cols);
+    var w = (r[2] - PX * (g.cols + 1)) / g.cols;
+    var top0 = r[1] + PY + BAND, avail = r[3] - PY * 2 - BAND;
+    var used = rows * CH + (rows - 1) * GY, y0 = top0 + Math.max(0, (avail - used) / 2);
+    list.forEach(function(t, k){
+      slot[t.no] = {x: r[0] + PX + (k % g.cols) * (w + PX), y: y0 + Math.floor(k / g.cols) * (CH + GY), w: w, k: g.i * 4 + k};
+    });
+  });
+  /* 흩어진 자리: 4열×3행에 조금씩 어긋나고 기울게 */
+  var JIT = [[1,-2,-6],[-2,3,5],[2,0,-3],[-1,-1,7],[3,2,4],[0,-3,-7],[-3,1,3],[1,3,-4],[-2,-2,6],[2,1,-5],[0,2,4],[-1,-1,-6]];
+  BT_TASKS.forEach(function(t, i){
+    var j = JIT[i]; t.sx = 3 + (i % 4) * 24 + j[0]; t.sy = 9 + Math.floor(i / 4) * 30 + j[1] * 1.5; t.sr = j[2];
+  });
+
+  /* 요소 만들기 */
+  BT_TASKS.forEach(function(t){
+    var g = G[t.g], el = document.createElement('div');
+    el.className = 'bt-chip';
+    el.style.setProperty('--c', g.c); el.style.setProperty('--t', g.t);
+    el.style.height = CH + '%';
+    el.innerHTML = '<i></i><b>' + t.no + '</b><span>' + t.name + '</span>';
+    floor.appendChild(el); t.el = el;
+  });
+  BT_GROUPS.forEach(function(g){
+    var el = document.createElement('div'), n = BT_TASKS.filter(function(t){ return t.g === g.id; }).length;
+    el.className = 'bt-label'; el.style.setProperty('--c', g.c);
+    el.style.left = (g.rect[0] + PX + .4) + '%'; el.style.top = (g.rect[1] + PY) + '%';
+    el.innerHTML = g.name + '<span>' + n + '개</span>';
+    floor.appendChild(el); g.label = el;
+  });
+  /* 칸막이: 가로 1, 세로 2 (칸 경계선 위) */
+  var DV = [
+    {v:false, css:'left:-.2%;width:100.4%;top:calc(58.33% - var(--bt-dv)/2);height:var(--bt-dv)'},
+    {v:true,  css:'top:-.4%;height:calc(58.33% + .4%);left:calc(57.14% - var(--bt-dv)/2);width:var(--bt-dv)'},
+    {v:true,  css:'top:58.33%;height:calc(41.67% + .4%);left:calc(60% - var(--bt-dv)/2);width:var(--bt-dv)'}
+  ].map(function(d){
+    var el = document.createElement('div'); el.className = 'bt-div' + (d.v ? ' is-v' : '');
+    el.style.cssText = d.css; floor.appendChild(el); return el;
+  });
+
+  /* 단계 s의 모습으로 그리기 */
+  function render(s, instant){
+    cur = s;
+    if (instant) root.classList.add('bt-instant');
+    BT_TASKS.forEach(function(t, i){
+      var el = t.el, p = slot[t.no], grouped = s >= 3;
+      var d = s === 1 ? i * 70 : s === 2 ? G[t.g].i * 110 : s === 3 ? p.k * 45 : 0;
+      el.style.transitionDelay = instant ? '0ms' : d + 'ms';
+      el.style.left = (grouped ? p.x : t.sx) + '%';
+      el.style.top = (grouped ? p.y : t.sy) + '%';
+      el.style.width = (grouped ? p.w : 22) + '%';
+      el.style.setProperty('--r', (grouped ? 0 : t.sr) + 'deg');
+      el.style.setProperty('--dy', s >= 1 ? '0px' : '-4cqw');
+      el.style.setProperty('--o', s >= 1 ? 1 : 0);
+      el.classList.toggle('is-tag', s >= 2);
+    });
+    DV.forEach(function(el, i){ el.style.transitionDelay = instant ? '0ms' : i * 160 + 'ms'; el.classList.toggle('is-on', s >= 4); });
+    BT_GROUPS.forEach(function(g, i){ g.label.style.transitionDelay = instant ? '0ms' : i * 90 + 'ms'; g.label.classList.toggle('is-on', s >= 5); });
+    cap.innerHTML = '<b>' + s + '/' + LAST + ' ' + BT_STEPS[s].name + '</b> · ' + BT_STEPS[s].desc;
+    if (instant){ void root.offsetWidth; root.classList.remove('bt-instant'); }
+  }
+  function stop(){ timers.forEach(clearTimeout); timers = []; }
+  function play(){
+    stop();
+    if (reduce){ render(LAST, true); return; }
+    render(0, true);
+    BT_STEPS.forEach(function(st, s){ if (s) timers.push(setTimeout(function(){ render(s); }, st.at)); });
+  }
+  function step(){
+    stop();
+    if (cur >= LAST){ render(0, true); if (!reduce) return; }
+    render(Math.min(cur + 1, LAST), reduce);
+  }
+  document.getElementById('bt-play').addEventListener('click', play);
+  document.getElementById('bt-step').addEventListener('click', step);
+
+  /* 열면 완성 도식 → 잠시 뒤 한 번 재생 → 최종 정지 */
+  render(LAST, true);
+  if (!reduce) timers.push(setTimeout(play, 700));
+})();
+</script>
+
+
+  <section>
+    <h2 class="pg-h"><small>01</small>동작 설명</h2>
+    <div class="pg-grid">
+      <div class="pg-panel">
+        <h3>정보 구조</h3>
+        <p>계획안 순서대로 나열된 과제 12개를 한 상자에 쏟고, 성격별 색 꼬리표를 붙인 뒤 같은 색끼리 모은다. 마지막에 칸막이가 내려앉아 묶음을 확정한다. 칸막이는 나눈 결과를 '선'이 아니라 '물건'으로 보여 준다.</p>
+        <p>칸 넓이는 과제 수에 비례한다(1개 = 상자의 1/12). 그래서 최종 화면만 봐도 어느 묶음에 과제가 몰렸는지 넓이로 읽힌다. 번호(01~12)는 끝까지 남아 원래 계획안 순서와 분류를 함께 보여 준다.</p>
+      </div>
+      <div class="pg-panel">
+        <h3>응용 예</h3>
+        <ul>
+          <li><b>예산 배분</b>: 칸 넓이를 과제 수 대신 예산 비중으로 바꾸면 사업 묶음별 예산 구성 장표가 된다.</li>
+          <li><b>민원·의견 분류</b>: 수요 조사에서 모은 의견 조각을 쏟고 주제별 칸으로 나눠 '가장 넓은 칸 = 가장 많은 요구'를 보여 준다.</li>
+          <li><b>조직 개편</b>: 흩어진 업무를 새 팀 칸으로 옮겨 담아 팀별 업무량을 넓이로 비교한다.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pg-steps">
+      <div><b>1 쏟기</b>계획안 순서대로 조각이 떨어진다. 아직 모두 흰색.</div>
+      <div><b>2 꼬리표</b>성격에 따라 색이 입혀진다. 섞여 있음이 드러난다.</div>
+      <div><b>3 모으기</b>같은 색끼리 자기 칸 자리로 미끄러진다.</div>
+      <div><b>4 칸막이</b>나무 칸막이가 위에서 내려앉으며 살짝 튕긴다.</div>
+      <div><b>5 이름표</b>칸 이름과 과제 수. 넓이 = 과제 수.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="pg-h"><small>02</small>HTML로 가져다 쓰기</h2>
+    <div class="pg-code">
+      <div class="pg-panel">
+        <ul>
+          <li>아래 코드를 빈 <code>.html</code> 파일에 그대로 붙여 넣으면 장표와 버튼이 동작한다. AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+          <li>과제 이름·칸 배정은 <code>BT_TASKS</code>, 칸 이름·색·위치는 <code>BT_GROUPS</code>(rect = x, y, 너비, 높이 %)에서 바꾼다.</li>
+          <li>칸 넓이를 다시 나누면 <code>DV</code> 칸막이 세 개의 위치(58.33%, 57.14%, 60%)도 같이 바꾼다.</li>
+          <li>제목·계획안 위치는 <code>.bt-head</code> 안 글자, 나무 색은 <code>--bt-wood1·2</code>, 단계 시각은 <code>BT_STEPS</code>의 <code>at</code>.</li>
+        </ul>
+      </div>
+      <div class="pg-codebox">
+        <button type="button" class="pg-copy" id="pg-copy">코드 복사</button>
+        <pre id="pg-pre"><code>&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&amp;family=Hahmlet:wght@600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 칸막이 벤토 상자 (유목화) : 클래스 접두어 bt- ── */
+.bt{
+  /* 색: 바탕·글자·나무 */
+  --bt-paper:#FBFAF6; --bt-ink:#1E2230; --bt-sub:#6B6455;
+  --bt-wood1:#E2BE8C; --bt-wood2:#C9955A; --bt-floor:#F8F0E1;
+  /* 칸막이 두께 */
+  --bt-dv:1.1cqw;
+  container-type:inline-size; width:100%; max-width:1280px; margin:0 auto;
+  font-family:&#x27;Gothic A1&#x27;,&#x27;Apple SD Gothic Neo&#x27;,&#x27;Malgun Gothic&#x27;,sans-serif;
+  color:var(--bt-ink); word-break:keep-all;
+}
+.bt *{box-sizing:border-box}
+.bt-slide{position:relative; aspect-ratio:16/9; width:100%; max-width:100%; background:var(--bt-paper);
+  border-radius:.8cqw; overflow:hidden; display:grid; grid-template-rows:auto minmax(0,1fr);
+  gap:1.5cqw; padding:2.4cqw 3.2cqw 2.6cqw;
+  box-shadow:0 .2cqw .6cqw rgba(40,30,15,.08), 0 0 0 1px rgba(40,30,15,.07)}
+.bt-head{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2cqw; align-items:end}
+.bt-eyebrow{margin:0 0 .7cqw; font-size:1.12cqw; font-weight:700; letter-spacing:.02em; color:var(--bt-sub); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.bt-eyebrow span{color:#B9472A}
+.bt-title{margin:0; font-family:&#x27;Hahmlet&#x27;,&#x27;Nanum Myeongjo&#x27;,&#x27;Batang&#x27;,serif; font-weight:700; font-size:2.75cqw; line-height:1.22; letter-spacing:-.02em; text-wrap:balance}
+.bt-title em{font-style:normal; color:#C6461F}
+.bt-note{display:grid; gap:.5cqw; justify-items:end; font-size:1.05cqw; color:var(--bt-sub); white-space:nowrap}
+.bt-note b{display:inline-flex; align-items:center; gap:.5cqw; font-weight:700; color:var(--bt-ink)}
+.bt-note b::before{content:&quot;&quot;; width:1.4cqw; height:1cqw; border-radius:.2cqw; border:.18cqw solid var(--bt-wood2); background:var(--bt-floor)}
+.bt-note small{font-size:.95cqw; border:1px solid rgba(107,100,85,.4); border-radius:99px; padding:.15cqw .7cqw}
+
+/* 나무 상자: 테두리 = 결 있는 나무, 바닥 = 안쪽 그림자 */
+.bt-box{position:relative; min-height:0; padding:1.1cqw; border-radius:1.2cqw;
+  background:
+    repeating-linear-gradient(92deg, rgba(120,70,20,.07) 0 .25cqw, transparent .25cqw 1.1cqw),
+    linear-gradient(180deg,var(--bt-wood1),var(--bt-wood2));
+  box-shadow:0 1.3cqw 2.2cqw -1.1cqw rgba(90,55,20,.45), inset 0 .15cqw 0 rgba(255,255,255,.55), inset 0 -.2cqw 0 rgba(90,50,15,.25)}
+.bt-floor{position:relative; width:100%; height:100%; border-radius:.6cqw; background:var(--bt-floor);
+  box-shadow:inset 0 .5cqw 1cqw rgba(110,70,30,.28), inset 0 0 0 .1cqw rgba(110,70,30,.18)}
+
+/* 과제 조각 */
+.bt-chip{position:absolute; display:flex; align-items:center; gap:.7cqw; padding:0 .9cqw;
+  border-radius:.55cqw; background:#FFFFFF; font-size:1.3cqw; font-weight:700; line-height:1.15; color:var(--bt-ink);
+  box-shadow:0 .3cqw .6cqw rgba(70,45,20,.2), 0 0 0 1px rgba(70,45,20,.08);
+  transform:translateY(var(--dy,0)) rotate(var(--r,0deg)); opacity:var(--o,1);
+  transition:left .75s cubic-bezier(.65,0,.25,1), top .75s cubic-bezier(.65,0,.25,1), width .75s cubic-bezier(.65,0,.25,1),
+    transform .6s cubic-bezier(.3,1.35,.5,1), opacity .35s ease, background-color .45s ease}
+.bt-chip b{font-family:&#x27;JetBrains Mono&#x27;,Consolas,monospace; font-size:.95cqw; font-weight:700; color:#9A917E; transition:color .45s}
+.bt-chip i{flex:none; width:1cqw; height:1cqw; border-radius:50%; background:var(--c); transform:scale(0); transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.bt-chip.is-tag{background:var(--t)}
+.bt-chip.is-tag b{color:var(--c)}
+.bt-chip.is-tag i{transform:scale(1)}
+
+/* 칸막이: 위에서 내려앉으며 살짝 튕김 */
+.bt-div{position:absolute; border-radius:.3cqw; z-index:3;
+  background:linear-gradient(180deg,#EACB9E,#C38C50);
+  box-shadow:0 .55cqw .8cqw rgba(80,45,15,.38), inset 0 .12cqw 0 rgba(255,255,255,.6);
+  opacity:0; transform:translateY(-3cqw) scale(1.04);
+  transition:opacity .25s ease, transform .55s cubic-bezier(.34,1.7,.6,1)}
+.bt-div.is-v{background:linear-gradient(90deg,#EACB9E,#C38C50)}
+.bt-div.is-on{opacity:1; transform:none}
+
+/* 칸 이름표 */
+.bt-label{position:absolute; z-index:2; display:flex; align-items:baseline; gap:.6cqw; font-size:1.35cqw; font-weight:800; color:var(--c);
+  opacity:0; transform:translateY(.6cqw); transition:opacity .4s ease, transform .4s ease}
+.bt-label span{font-family:&#x27;JetBrains Mono&#x27;,Consolas,monospace; font-size:1cqw; font-weight:700; color:var(--bt-sub)}
+.bt-label.is-on{opacity:1; transform:none}
+
+.bt-instant, .bt-instant *{transition:none !important}
+
+/* 버튼 줄 (장표 바깥) */
+.bt-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:14px; font-size:14px; color:#4A4536}
+.bt-ctrl button{font:inherit; font-weight:700; padding:8px 16px; border-radius:8px; border:1px solid #CBBFA6; background:#FFFFFF; color:#1E2230; cursor:pointer}
+.bt-ctrl button:hover{background:#F4ECDD}
+.bt-ctrl button:focus-visible{outline:2px solid #C6461F; outline-offset:2px}
+.bt-cap{min-width:0; flex:1 1 220px}
+.bt-cap b{color:#C6461F}
+
+/* 좁은 화면: 세로형 4:5 장표로 바꿔 글자를 키운다 */
+@container (max-width:560px){
+  .bt{--bt-dv:2cqw}
+  .bt-slide{aspect-ratio:4/5; padding:5cqw 4.5cqw 5cqw; gap:3.5cqw; border-radius:2cqw}
+  .bt-head{grid-template-columns:1fr; gap:2cqw}
+  .bt-eyebrow{font-size:2.9cqw; white-space:normal}
+  .bt-title{font-size:5.6cqw}
+  .bt-note{justify-items:start; grid-auto-flow:column; justify-content:start; gap:3cqw; font-size:2.8cqw}
+  .bt-note b::before{width:3cqw; height:2.2cqw}
+  .bt-note small{font-size:2.6cqw}
+  .bt-box{padding:2cqw; border-radius:2.4cqw}
+  .bt-chip{font-size:3cqw; padding:0 1.4cqw; gap:1.2cqw; border-radius:1.2cqw}
+  .bt-chip b{display:none}
+  .bt-chip i{width:2cqw; height:2cqw}
+  .bt-label{font-size:3.1cqw}
+  .bt-label span{font-size:2.5cqw}
+}
+@media (prefers-reduced-motion:reduce){ .bt *{transition:none !important} }
+&lt;/style&gt;
+
+&lt;div class=&quot;bt&quot; id=&quot;bt&quot;&gt;
+  &lt;div class=&quot;bt-slide&quot; role=&quot;img&quot; aria-label=&quot;등불축제 세부과제 12개를 체험·볼거리·머물거리·먹거리 네 칸으로 나눈 도식. 칸 넓이는 과제 수에 비례한다.&quot;&gt;
+    &lt;div class=&quot;bt-head&quot;&gt;
+      &lt;div&gt;
+        &lt;p class=&quot;bt-eyebrow&quot;&gt;&lt;span&gt;Ⅲ. 세부 추진과제&lt;/span&gt; · ○○시 강변 등불축제 운영 계획(안)&lt;/p&gt;
+        &lt;h2 class=&quot;bt-title&quot;&gt;흩어진 과제 12개를 네 칸에 담으니 &lt;em&gt;체험&lt;/em&gt;이 가장 넓다&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;bt-note&quot;&gt;&lt;b&gt;칸 넓이 = 과제 수&lt;/b&gt;&lt;small&gt;가상 예시&lt;/small&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;bt-box&quot;&gt;&lt;div class=&quot;bt-floor&quot; id=&quot;bt-floor&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;bt-ctrl&quot;&gt;
+    &lt;button type=&quot;button&quot; id=&quot;bt-play&quot;&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; id=&quot;bt-step&quot;&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;bt-cap&quot; id=&quot;bt-cap&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  /* ① 묶음(칸): rect = 상자 바닥 안의 [x, y, 너비, 높이] (%). 넓이를 과제 수에 비례하게 잡았다 (12개 → 1개당 1/12) */
+  var BT_GROUPS = [
+    {id:&#x27;do&#x27;,   name:&#x27;체험 거리&#x27;, c:&#x27;#C6461F&#x27;, t:&#x27;#FBE3D7&#x27;, rect:[0,     0,     57.14, 58.33], cols:2},
+    {id:&#x27;see&#x27;,  name:&#x27;볼거리&#x27;,   c:&#x27;#2F55A4&#x27;, t:&#x27;#E2E9F8&#x27;, rect:[57.14, 0,     42.86, 58.33], cols:1},
+    {id:&#x27;stay&#x27;, name:&#x27;머물거리&#x27;, c:&#x27;#16806A&#x27;, t:&#x27;#D8F0E6&#x27;, rect:[0,     58.33, 60,    41.67], cols:2},
+    {id:&#x27;eat&#x27;,  name:&#x27;먹거리&#x27;,   c:&#x27;#B47A00&#x27;, t:&#x27;#FCEFC8&#x27;, rect:[60,    58.33, 40,    41.67], cols:1}
+  ];
+  /* ② 과제: 계획안 순서 그대로. g = 들어갈 칸 id */
+  var BT_TASKS = [
+    {no:&#x27;01&#x27;, name:&#x27;개막 불꽃 공연&#x27;,   g:&#x27;see&#x27;},
+    {no:&#x27;02&#x27;, name:&#x27;소원 등 만들기&#x27;,   g:&#x27;do&#x27;},
+    {no:&#x27;03&#x27;, name:&#x27;지역 먹거리 장터&#x27;, g:&#x27;eat&#x27;},
+    {no:&#x27;04&#x27;, name:&#x27;원도심 야간 투어&#x27;, g:&#x27;stay&#x27;},
+    {no:&#x27;05&#x27;, name:&#x27;수상 등불 전시&#x27;,   g:&#x27;see&#x27;},
+    {no:&#x27;06&#x27;, name:&#x27;등불 야간 카약&#x27;,   g:&#x27;do&#x27;},
+    {no:&#x27;07&#x27;, name:&#x27;숙박 연계 할인&#x27;,   g:&#x27;stay&#x27;},
+    {no:&#x27;08&#x27;, name:&#x27;한지 공방 체험&#x27;,   g:&#x27;do&#x27;},
+    {no:&#x27;09&#x27;, name:&#x27;강변 푸드트럭 존&#x27;, g:&#x27;eat&#x27;},
+    {no:&#x27;10&#x27;, name:&#x27;등불 퍼레이드&#x27;,    g:&#x27;see&#x27;},
+    {no:&#x27;11&#x27;, name:&#x27;어린이 등불 놀이터&#x27;, g:&#x27;do&#x27;},
+    {no:&#x27;12&#x27;, name:&#x27;축제 셔틀버스&#x27;,    g:&#x27;stay&#x27;}
+  ];
+  /* ③ 단계: at = 다시 보기에서 시작 시각(ms) */
+  var BT_STEPS = [
+    {at:0,    name:&#x27;빈 상자&#x27;,  desc:&#x27;과제를 담을 상자 하나&#x27;},
+    {at:120,  name:&#x27;쏟기&#x27;,    desc:&#x27;계획안 순서대로 과제 12개를 쏟는다&#x27;},
+    {at:1250, name:&#x27;꼬리표&#x27;,  desc:&#x27;성격별로 색 꼬리표를 붙인다&#x27;},
+    {at:2000, name:&#x27;모으기&#x27;,  desc:&#x27;같은 색끼리 제자리로 모인다&#x27;},
+    {at:3200, name:&#x27;칸막이&#x27;,  desc:&#x27;칸막이가 내려앉아 묶음이 확정된다&#x27;},
+    {at:3900, name:&#x27;이름표&#x27;,  desc:&#x27;칸 이름과 과제 수를 단다 — 칸 넓이 = 과제 수&#x27;}
+  ];
+
+  var root = document.getElementById(&#x27;bt&#x27;);
+  var floor = document.getElementById(&#x27;bt-floor&#x27;);
+  var cap = document.getElementById(&#x27;bt-cap&#x27;);
+  var LAST = BT_STEPS.length - 1, cur = LAST, timers = [];
+  var reduce = window.matchMedia &amp;&amp; window.matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  var G = {}; BT_GROUPS.forEach(function(g, i){ g.i = i; G[g.id] = g; });
+
+  /* 칸 안 자리 계산 (%): 이름표 띠 아래, 남은 높이 가운데 정렬 */
+  var PX = 1.6, PY = 3.2, BAND = 8.6, CH = 12, GY = 2.4;
+  var slot = {};
+  BT_GROUPS.forEach(function(g){
+    var list = BT_TASKS.filter(function(t){ return t.g === g.id; });
+    var r = g.rect, rows = Math.ceil(list.length / g.cols);
+    var w = (r[2] - PX * (g.cols + 1)) / g.cols;
+    var top0 = r[1] + PY + BAND, avail = r[3] - PY * 2 - BAND;
+    var used = rows * CH + (rows - 1) * GY, y0 = top0 + Math.max(0, (avail - used) / 2);
+    list.forEach(function(t, k){
+      slot[t.no] = {x: r[0] + PX + (k % g.cols) * (w + PX), y: y0 + Math.floor(k / g.cols) * (CH + GY), w: w, k: g.i * 4 + k};
+    });
+  });
+  /* 흩어진 자리: 4열×3행에 조금씩 어긋나고 기울게 */
+  var JIT = [[1,-2,-6],[-2,3,5],[2,0,-3],[-1,-1,7],[3,2,4],[0,-3,-7],[-3,1,3],[1,3,-4],[-2,-2,6],[2,1,-5],[0,2,4],[-1,-1,-6]];
+  BT_TASKS.forEach(function(t, i){
+    var j = JIT[i]; t.sx = 3 + (i % 4) * 24 + j[0]; t.sy = 9 + Math.floor(i / 4) * 30 + j[1] * 1.5; t.sr = j[2];
+  });
+
+  /* 요소 만들기 */
+  BT_TASKS.forEach(function(t){
+    var g = G[t.g], el = document.createElement(&#x27;div&#x27;);
+    el.className = &#x27;bt-chip&#x27;;
+    el.style.setProperty(&#x27;--c&#x27;, g.c); el.style.setProperty(&#x27;--t&#x27;, g.t);
+    el.style.height = CH + &#x27;%&#x27;;
+    el.innerHTML = &#x27;&lt;i&gt;&lt;/i&gt;&lt;b&gt;&#x27; + t.no + &#x27;&lt;/b&gt;&lt;span&gt;&#x27; + t.name + &#x27;&lt;/span&gt;&#x27;;
+    floor.appendChild(el); t.el = el;
+  });
+  BT_GROUPS.forEach(function(g){
+    var el = document.createElement(&#x27;div&#x27;), n = BT_TASKS.filter(function(t){ return t.g === g.id; }).length;
+    el.className = &#x27;bt-label&#x27;; el.style.setProperty(&#x27;--c&#x27;, g.c);
+    el.style.left = (g.rect[0] + PX + .4) + &#x27;%&#x27;; el.style.top = (g.rect[1] + PY) + &#x27;%&#x27;;
+    el.innerHTML = g.name + &#x27;&lt;span&gt;&#x27; + n + &#x27;개&lt;/span&gt;&#x27;;
+    floor.appendChild(el); g.label = el;
+  });
+  /* 칸막이: 가로 1, 세로 2 (칸 경계선 위) */
+  var DV = [
+    {v:false, css:&#x27;left:-.2%;width:100.4%;top:calc(58.33% - var(--bt-dv)/2);height:var(--bt-dv)&#x27;},
+    {v:true,  css:&#x27;top:-.4%;height:calc(58.33% + .4%);left:calc(57.14% - var(--bt-dv)/2);width:var(--bt-dv)&#x27;},
+    {v:true,  css:&#x27;top:58.33%;height:calc(41.67% + .4%);left:calc(60% - var(--bt-dv)/2);width:var(--bt-dv)&#x27;}
+  ].map(function(d){
+    var el = document.createElement(&#x27;div&#x27;); el.className = &#x27;bt-div&#x27; + (d.v ? &#x27; is-v&#x27; : &#x27;&#x27;);
+    el.style.cssText = d.css; floor.appendChild(el); return el;
+  });
+
+  /* 단계 s의 모습으로 그리기 */
+  function render(s, instant){
+    cur = s;
+    if (instant) root.classList.add(&#x27;bt-instant&#x27;);
+    BT_TASKS.forEach(function(t, i){
+      var el = t.el, p = slot[t.no], grouped = s &gt;= 3;
+      var d = s === 1 ? i * 70 : s === 2 ? G[t.g].i * 110 : s === 3 ? p.k * 45 : 0;
+      el.style.transitionDelay = instant ? &#x27;0ms&#x27; : d + &#x27;ms&#x27;;
+      el.style.left = (grouped ? p.x : t.sx) + &#x27;%&#x27;;
+      el.style.top = (grouped ? p.y : t.sy) + &#x27;%&#x27;;
+      el.style.width = (grouped ? p.w : 22) + &#x27;%&#x27;;
+      el.style.setProperty(&#x27;--r&#x27;, (grouped ? 0 : t.sr) + &#x27;deg&#x27;);
+      el.style.setProperty(&#x27;--dy&#x27;, s &gt;= 1 ? &#x27;0px&#x27; : &#x27;-4cqw&#x27;);
+      el.style.setProperty(&#x27;--o&#x27;, s &gt;= 1 ? 1 : 0);
+      el.classList.toggle(&#x27;is-tag&#x27;, s &gt;= 2);
+    });
+    DV.forEach(function(el, i){ el.style.transitionDelay = instant ? &#x27;0ms&#x27; : i * 160 + &#x27;ms&#x27;; el.classList.toggle(&#x27;is-on&#x27;, s &gt;= 4); });
+    BT_GROUPS.forEach(function(g, i){ g.label.style.transitionDelay = instant ? &#x27;0ms&#x27; : i * 90 + &#x27;ms&#x27;; g.label.classList.toggle(&#x27;is-on&#x27;, s &gt;= 5); });
+    cap.innerHTML = &#x27;&lt;b&gt;&#x27; + s + &#x27;/&#x27; + LAST + &#x27; &#x27; + BT_STEPS[s].name + &#x27;&lt;/b&gt; · &#x27; + BT_STEPS[s].desc;
+    if (instant){ void root.offsetWidth; root.classList.remove(&#x27;bt-instant&#x27;); }
+  }
+  function stop(){ timers.forEach(clearTimeout); timers = []; }
+  function play(){
+    stop();
+    if (reduce){ render(LAST, true); return; }
+    render(0, true);
+    BT_STEPS.forEach(function(st, s){ if (s) timers.push(setTimeout(function(){ render(s); }, st.at)); });
+  }
+  function step(){
+    stop();
+    if (cur &gt;= LAST){ render(0, true); if (!reduce) return; }
+    render(Math.min(cur + 1, LAST), reduce);
+  }
+  document.getElementById(&#x27;bt-play&#x27;).addEventListener(&#x27;click&#x27;, play);
+  document.getElementById(&#x27;bt-step&#x27;).addEventListener(&#x27;click&#x27;, step);
+
+  /* 열면 완성 도식 → 잠시 뒤 한 번 재생 → 최종 정지 */
+  render(LAST, true);
+  if (!reduce) timers.push(setTimeout(play, 700));
+})();
+&lt;/script&gt;
+</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="pg-h"><small>03</small>PPT로 옮기기</h2>
+    <div class="pg-panel" style="margin-bottom:14px">
+      <h3>뼈대: 모핑 장표 4장 + 애니메이션</h3>
+      <ol>
+        <li>장표 1에 상자(둥근 사각형 2겹: 바깥 나무색 그라데이션 #E2BE8C→#C9955A, 안쪽 #F8F0E1 + 안쪽 그림자)와 과제 조각 12개를 흩어 놓는다(각 −7°~7° 회전, 흰색 채우기).</li>
+        <li>선택 창(Alt+F10)에서 조각 이름을 <code>!!c01</code>~<code>!!c12</code>로 바꾼다. 이름이 같아야 모핑이 같은 개체로 이어 준다.</li>
+        <li>장표를 복제해 장표 2: 조각 채우기만 칸 색(연한 색)으로 바꾼다. 장표 3: 조각을 칸 자리로 옮기고 회전 0°, 크기를 칸 폭에 맞춘다. 장표 4: 칸막이 3개(<code>!!dv1</code>~<code>!!dv3</code>)와 이름표 4개를 추가한다.</li>
+        <li>장표 2·3·4에 <b>전환 → 모핑</b>, 효과 옵션 <b>개체</b>, 기간 2·3장 0.8초, 4장 0.6초. 장표 1의 쏟기는 아래 애니메이션으로.</li>
+      </ol>
+    </div>
+    <div class="pg-tablewrap">
+      <table>
+        <thead><tr><th>단계</th><th>대상 개체</th><th>애니메이션(한국어판)</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+        <tbody>
+          <tr><td>1 쏟기</td><td>장표 1의 조각 12개</td><td>나타내기 → 내려오기(없으면 날아오기)</td><td>날아오기면 방향: 위에서</td><td>첫 개체 클릭할 때, 나머지 이전 효과와 함께</td><td>0.5초</td><td>0, 0.07, 0.14 … 초씩 증가</td></tr>
+          <tr><td>2 꼬리표</td><td>조각 전체</td><td>전환: 모핑(장표 2)</td><td>개체</td><td>클릭할 때</td><td>0.8초</td><td>—</td></tr>
+          <tr><td>3 모으기</td><td>조각 전체</td><td>전환: 모핑(장표 3)</td><td>개체</td><td>클릭할 때</td><td>0.8초</td><td>—</td></tr>
+          <tr><td>4 칸막이</td><td>장표 4의 칸막이 3개</td><td>나타내기 → 바운드</td><td>—</td><td>전환 후 자동: 가로 칸막이 '이전 효과 다음에', 세로 2개 '이전 효과와 함께'</td><td>0.6초</td><td>0 / 0.15 / 0.3초</td></tr>
+          <tr><td>5 이름표</td><td>칸 이름표 4개</td><td>나타내기 → 떠오르기</td><td>위로</td><td>이전 효과 다음에, 나머지 함께</td><td>0.4초</td><td>0, 0.09 … 초씩</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pg-grid" style="margin-top:14px">
+      <div class="pg-panel">
+        <h3>모핑 !! 규칙</h3>
+        <p>이름 앞에 <code>!!</code>를 붙이면 모양·위치가 달라도 같은 개체로 짝지어진다. 장표 2에서 복제할 때 개체를 지우고 새로 그리면 짝이 끊기므로, 반드시 복제한 개체의 채우기·위치만 바꾼다.</p>
+      </div>
+      <div class="pg-panel">
+        <h3>안 되는 동작의 근사법</h3>
+        <p>HTML의 '시간차 이동'(같은 묶음끼리 0.045초씩 늦게 출발)은 모핑이 한 번에 움직여 재현되지 않는다. 장표 3을 3a(체험·볼거리만 이동)와 3b(나머지 이동) 두 장으로 쪼개면 비슷해진다. 칸막이의 오버슈트는 바운드로 대신한다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="pg-h"><small>04</small>스펙</h2>
+    <div class="pg-panel">
+      <dl class="pg-spec">
+        <dt>팔레트</dt>
+        <dd>
+          <div class="pg-sw">
+            <span><i style="background:#FBFAF6"></i>#FBFAF6 바탕</span>
+            <span><i style="background:#C9955A"></i>#C9955A 나무</span>
+            <span><i style="background:#C6461F"></i>#C6461F 체험</span>
+            <span><i style="background:#2F55A4"></i>#2F55A4 볼거리</span>
+            <span><i style="background:#16806A"></i>#16806A 머물거리</span>
+            <span><i style="background:#B47A00"></i>#B47A00 먹거리</span>
+          </div>
+        </dd>
+        <dt>폰트</dt><dd>제목 Hahmlet 700(대체: 나눔명조, 바탕) · 본문 Gothic A1 700·800(대체: Apple SD Gothic Neo, 맑은 고딕) · 번호 JetBrains Mono(대체: Consolas)</dd>
+        <dt>난이도</dt><dd>HTML 중 · PPT 중(모핑 4장 + 바운드, 시간차는 장표 분할로 근사)</dd>
+        <dt>반영 트렌드</dt><dd>벤토 그리드: 크기가 다른 칸이 각자 하나의 이야기를 담는 모듈형 격자(2026 웹 디자인 대표 패턴). 여기서는 칸 크기에 '과제 수'라는 의미를 실었다. 출처: <a href="https://line25.com/articles/web-design-trends-2026/" target="_blank" rel="noopener">line25 'Web Design Trends 2026: The Definitive Guide'</a></dd>
+        <dt>밝기</dt><dd>밝은 미색 바탕 + 연한 나무. 짙은 색은 칸 이름과 제목 강조에만.</dd>
+      </dl>
+    </div>
+  </section>
+</div>
+
+<script>
+document.getElementById('pg-copy').addEventListener('click', function(){
+  var btn = this, pre = document.getElementById('pg-pre'), txt = pre.textContent;
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨: Ctrl+C'; }
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ btn.textContent = '복사했습니다'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1800); }, sel);
+  } else sel();
+});
+</script>
+
+</body></html>

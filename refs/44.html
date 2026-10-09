@@ -1,0 +1,741 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #44 분자 결합 추진체계</title>
+<style>
+:root{
+  /* 레이아웃: 맨 위 장표 → 동작 설명 → 코드 → PPT → 스펙, 한 열 문서형 */
+  --bg:#EEF2F4; --paper:#FFFFFF; --ink:#14283F; --sub:#55677A; --line:#D3DCE3; --accent:#E8562F; --code:#14202E; --codeink:#D9E4EC;
+  --f:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif; --m:"Red Hat Mono",Consolas,monospace;
+}
+body{background:var(--bg); color:var(--ink); font-family:var(--f); font-size:15px; line-height:1.7}
+.page{max-width:1280px; margin:0 auto; padding-inline:16px; padding-block:24px 64px}
+.top{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin-bottom:14px}
+.top h1{font-size:20px; margin:0; letter-spacing:-.01em}
+.top p{margin:0; color:var(--sub); font-size:13px}
+.tagrow{display:flex; flex-wrap:wrap; gap:6px}
+.tagrow span{font-size:12px; font-weight:700; border:1px solid var(--line); background:var(--paper); border-radius:4px; padding:2px 8px; color:var(--sub)}
+.tagrow span.k{color:#fff; background:var(--ink); border-color:var(--ink)}
+section.doc{background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:24px clamp(16px,3vw,32px); margin-top:20px}
+section.doc h2{font-size:18px; margin:0 0 12px; letter-spacing:-.01em; text-wrap:balance}
+section.doc h3{font-size:15px; margin:20px 0 6px}
+section.doc p, section.doc li{max-width:72ch}
+.cols{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:24px}
+@media (max-width:760px){.cols{grid-template-columns:minmax(0,1fr)}}
+.codewrap{display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:24px; align-items:start}
+@media (max-width:860px){.codewrap{grid-template-columns:minmax(0,1fr)}}
+.codebox{position:relative; min-width:0}
+.codebox pre{margin:0; background:var(--code); color:var(--codeink); border-radius:8px; padding:16px; max-height:520px; overflow:auto; font:12.5px/1.55 var(--m); white-space:pre}
+.copy{position:absolute; top:10px; right:14px; font:700 13px/1 var(--f); background:#FFFFFF; color:var(--ink); border:0; border-radius:5px; padding:8px 12px; cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:640px}
+.tbl{overflow-x:auto}
+th,td{border-bottom:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top}
+th{font-size:12.5px; color:var(--sub); font-weight:700; background:#F5F8FA}
+td b{font-weight:800}
+.sw{display:flex; flex-wrap:wrap; gap:10px}
+.sw div{display:flex; align-items:center; gap:8px; font:12.5px var(--m)}
+.sw i{width:26px; height:26px; border-radius:50%; box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+dl.spec{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:8px 18px; margin:0}
+dl.spec dt{font-weight:800} dl.spec dd{margin:0; color:var(--ink)}
+@media (max-width:560px){dl.spec{grid-template-columns:minmax(0,1fr)} dl.spec dd{margin-bottom:8px}}
+a{color:#1F5FA8}
+code.i{font-family:var(--m); font-size:.9em; background:#EEF2F5; padding:1px 5px; border-radius:3px}
+</style>
+<div class="page">
+  <div class="top">
+    <h1>레퍼런스 #44 분자 결합 추진체계</h1>
+    <div class="tagrow"><span class="k">실무형</span><span>추진체계</span><span>연결</span><span>가상 예시</span></div>
+    <p>공 막대 분자 모형으로 협업 조직을 보여 주는 도식 장표</p>
+  </div>
+
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&family=Red+Hat+Mono:wght@500;600&display=swap">
+<style>
+/* ── 분자 결합 추진체계 장표 (클래스 접두어 mol-) ──
+   색·글꼴은 아래 변수만 바꾸면 전체에 반영됩니다. 원자 색은 스크립트의 ATOMS 배열에 있습니다. */
+.mol-wrap{
+  --mol-bg:#F4F7F8;        /* 장표 바탕(밝은 실험대) */
+  --mol-ink:#14283F;       /* 제목·본문 */
+  --mol-sub:#5A6B7C;       /* 보조 글자 */
+  --mol-line:#D5DEE4;      /* 구분선 */
+  --mol-accent:#E8562F;    /* 진행 강조 */
+  --mol-card:#FFFFFF;
+  --mol-font:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+  --mol-mono:"Red Hat Mono",Consolas,"Courier New",monospace;
+  font-family:var(--mol-font); color:var(--mol-ink);
+  max-width:1280px; margin:0 auto;
+}
+.mol-slide{
+  position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden;
+  container-type:inline-size; background:var(--mol-bg); border-radius:6px;
+  box-shadow:0 1px 2px rgba(20,40,63,.08),0 12px 32px -12px rgba(20,40,63,.18);
+}
+.mol-slide canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+/* 바닥 실험대 면: 아래로 갈수록 살짝 밝은 회청 */
+.mol-floor{position:absolute; left:0; right:0; bottom:0; height:22%;
+  background:linear-gradient(180deg,rgba(214,225,231,0),rgba(214,225,231,.55))}
+.mol-head{position:absolute; left:4.4cqw; top:4.6cqw; width:40cqw; z-index:2}
+.mol-kicker{font-size:max(1.3cqw,8px); font-weight:700; letter-spacing:.01em;
+  color:var(--mol-sub); white-space:nowrap; margin:0 0 1.4cqw}
+.mol-kicker b{color:var(--mol-accent); font-weight:800}
+.mol-title{font-size:max(3.25cqw,14px); line-height:1.32; font-weight:800; letter-spacing:-.025em; margin:0; text-wrap:balance; word-break:keep-all}
+.mol-steps{list-style:none; margin:2.2cqw 0 0; padding:0; display:flex; flex-wrap:nowrap; gap:.4cqw}
+.mol-steps li{white-space:nowrap; font-size:max(1cqw,7px); font-weight:700; color:var(--mol-sub); padding:.45cqw .9cqw;
+  border:1px solid var(--mol-line); border-radius:99px; background:var(--mol-card); transition:color .25s,border-color .25s,background .25s}
+.mol-steps li span{font-family:var(--mol-mono); margin-right:.4cqw; opacity:.7}
+.mol-steps li.on{color:#fff; background:var(--mol-ink); border-color:var(--mol-ink)}
+.mol-steps li.done{color:var(--mol-ink); border-color:#9FB0BF}
+.mol-legend{position:absolute; left:4.4cqw; bottom:4.4cqw; z-index:2; display:grid; gap:1cqw;
+  background:rgba(255,255,255,.86); border:1px solid var(--mol-line); border-radius:1cqw; padding:1.4cqw 1.8cqw}
+.mol-legend div{display:grid; grid-template-columns:5.2cqw auto; align-items:center; gap:1.2cqw;
+  font-size:max(1.12cqw,7px); color:var(--mol-sub)}
+.mol-legend b{color:var(--mol-ink); font-weight:700; margin-right:.5cqw}
+.mol-legend small{font-size:inherit}
+.mol-legend svg{width:5.2cqw; height:2cqw; display:block}
+.mol-tag{position:absolute; right:2.6cqw; top:2.4cqw; z-index:2; font-size:max(1cqw,7px);
+  color:var(--mol-sub); letter-spacing:.06em}
+/* 원자 이름표: 위치는 스크립트가 ATOMS의 lx·ly로 잡습니다 */
+.mol-lab{position:absolute; z-index:2; transform:translate(var(--ax,0),-50%); white-space:nowrap; pointer-events:none}
+.mol-lab strong{display:block; font-size:max(1.45cqw,8px); font-weight:800; line-height:1.25}
+.mol-lab em{display:block; font-style:normal; font-size:max(1.1cqw,7px); color:var(--mol-sub); line-height:1.35}
+.mol-lab.hub strong{font-size:max(1.75cqw,9px)}
+.mol-lab i{display:inline-block; width:.8cqw; height:.8cqw; border-radius:50%; margin-right:.5cqw; vertical-align:.1cqw}
+.mol-ctrl{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
+.mol-ctrl button{font:700 14px/1 var(--mol-font); color:var(--mol-ink); background:#FFFFFF; border:1px solid #C3CED7;
+  border-radius:6px; padding:10px 16px; cursor:pointer}
+.mol-ctrl button:hover{border-color:var(--mol-ink)}
+.mol-ctrl button:focus-visible{outline:2px solid var(--mol-accent); outline-offset:2px}
+.mol-ctrl span{align-self:center; font-size:13px; color:var(--mol-sub)}
+@container (max-width:560px){
+  .mol-lab em{display:none}
+  .mol-legend small{display:none}
+  .mol-legend{padding:1.2cqw 1.6cqw}
+  .mol-head{width:44cqw}
+}
+</style>
+
+<div class="mol-wrap">
+  <div class="mol-slide" id="molSlide">
+    <div class="mol-floor"></div>
+    <canvas id="molCanvas" aria-hidden="true"></canvas>
+    <div class="mol-head">
+      <p class="mol-kicker"><b>Ⅳ. 추진체계</b> · ○○시 창업·중소기업 원스톱 지원 계획(안)</p>
+      <h2 class="mol-title">통합창구 하나에 다섯 기관이 결합해, 기업은 한 번만 신청합니다</h2>
+      <ol class="mol-steps" id="molSteps"></ol>
+    </div>
+    <div class="mol-legend" aria-label="범례">
+      <div><svg viewBox="0 0 52 20"><rect x="2" y="4" width="48" height="4.5" rx="2.2" fill="#9AA6B0"/><rect x="2" y="11.5" width="48" height="4.5" rx="2.2" fill="#9AA6B0"/></svg><span><b>이중 결합</b>상시 협업<small> · 창구에 직원 상주</small></span></div>
+      <div><svg viewBox="0 0 52 20"><rect x="2" y="7.5" width="48" height="5" rx="2.5" fill="#9AA6B0"/></svg><span><b>단일 결합</b>요청 시 연계<small> · 3일 안에 회신</small></span></div>
+      <div><svg viewBox="0 0 52 20"><circle cx="12" cy="10" r="5" fill="#9AA6B0"/><circle cx="36" cy="10" r="9" fill="#9AA6B0"/></svg><span><b>원자 크기</b>처리 비중</span></div>
+    </div>
+    <div class="mol-tag">가상 예시</div>
+    <div id="molLabels"></div>
+  </div>
+  <div class="mol-ctrl">
+    <button type="button" id="molReplay">다시 보기</button>
+    <button type="button" id="molStep">한 단계씩</button>
+    <span id="molNow" aria-live="polite"></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ── 데이터: 원자(기관)·결합(협업 관계)·단계. 좌표는 1600×900 가상 화면 기준 ──
+  // z: +면 앞(크고 밝게), -면 뒤. lx·ly: 이름표 위치, al: 이름표 기준(l=왼쪽 정렬, r=오른쪽 정렬, c=가운데)
+  var ATOMS = [
+    {id:'hub', name:'○○시 통합창구', role:'접수 · 배정 · 사후관리', color:'#24466E', x:1010, y:470, z:0,    r:74, step:0, lx:1104, ly:430, al:'l'},
+    {id:'inc', name:'○○창업진흥원',  role:'보육 공간 · 창업 교육',   color:'#F08A24', x:790,  y:290, z:0.15, r:50, step:1, lx:790,  ly:186, al:'c'},
+    {id:'gua', name:'○○신용보증재단', role:'보증 · 정책자금',         color:'#2E9E6A', x:1240, y:262, z:-0.2, r:50, step:1, lx:1240, ly:162, al:'c'},
+    {id:'tec', name:'○○테크노파크',  role:'기술 지원 · 시제품',      color:'#2F7BE0', x:1340, y:575, z:0.3,  r:44, step:2, lx:1300, ly:668, al:'l'},
+    {id:'cci', name:'○○상공회의소',  role:'판로 · 수출 상담',        color:'#E9B820', x:1120, y:745, z:0.2,  r:40, step:2, lx:1176, ly:768, al:'l'},
+    {id:'job', name:'○○고용센터',    role:'인력 채용 · 고용 장려금',  color:'#C04A8F', x:845,  y:700, z:-0.25,r:38, step:2, lx:790,  ly:718, al:'r'},
+    {id:'biz', name:'기업',          role:'신청은 한 번',            color:'#FFFFFF', x:690,  y:505, z:0.35, r:30, step:4, lx:690,  ly:580, al:'c'}
+  ];
+  // order: 2 = 이중 결합(상시 협업), 1 = 단일 결합(요청 시 연계)
+  var BONDS = [
+    {a:'hub', b:'inc', order:2, step:1},
+    {a:'hub', b:'gua', order:2, step:1},
+    {a:'hub', b:'tec', order:1, step:2},
+    {a:'hub', b:'cci', order:1, step:2},
+    {a:'hub', b:'job', order:1, step:2},
+    {a:'inc', b:'gua', order:1, step:3},   // 창업 보증 연계
+    {a:'tec', b:'cci', order:1, step:3},   // 시제품 → 판로
+    {a:'biz', b:'hub', order:1, step:4}
+  ];
+  var STEPS = [
+    {name:'핵 배치',       dur:0.6, cap:'통합창구가 가운데 자리를 잡습니다'},
+    {name:'상시 결합',     dur:0.9, cap:'창업진흥원·신용보증재단은 창구에 상주(이중 결합)'},
+    {name:'요청 시 결합',  dur:0.9, cap:'세 기관은 요청이 오면 연계(단일 결합)'},
+    {name:'기관 간 결합',  dur:0.7, cap:'보증↔보육, 시제품↔판로는 기관끼리 직접 연결'},
+    {name:'한 번 신청',    dur:1.5, cap:'기업의 신청 한 건이 창구를 거쳐 필요한 기관까지 흐릅니다'}
+  ];
+  var PULSE = ['biz','hub','gua','inc'];   // 마지막 단계에서 신호가 지나가는 경로(예시 신청)
+
+  // ── 준비 ──
+  var slide = document.getElementById('molSlide');
+  var cv = document.getElementById('molCanvas'), ctx = cv.getContext('2d');
+  var labBox = document.getElementById('molLabels');
+  var stepList = document.getElementById('molSteps');
+  var nowEl = document.getElementById('molNow');
+  var VW = 1600, VH = 900, FLOOR = 868;
+  var byId = {}; ATOMS.forEach(function(a){ byId[a.id] = a; });
+  var starts = [], acc = 0;
+  STEPS.forEach(function(s, i){
+    starts.push(acc); acc += s.dur;
+    var li = document.createElement('li');
+    li.innerHTML = '<span>' + (i + 1) + '</span>' + s.name; stepList.appendChild(li);
+  });
+  var TOTAL = acc;
+
+  // 단계 안에서 원자·결합이 들어오는 시각 정하기(같은 단계 안에서 0.18초씩 엇갈림)
+  var perStep = {};
+  ATOMS.forEach(function(a){ var k = perStep['a' + a.step] = (perStep['a' + a.step] || 0) + 1;
+    a.t0 = starts[a.step] + (k - 1) * 0.18; a.dur = a.step === 0 ? 0.75 : 0.6; });
+  BONDS.forEach(function(b){ var k = perStep['b' + b.step] = (perStep['b' + b.step] || 0) + 1;
+    var lead = (b.step === 3) ? 0.1 : 0.42;
+    b.t0 = starts[b.step] + lead + (k - 1) * 0.18; b.dur = 0.4; b.A = byId[b.a]; b.B = byId[b.b]; });
+
+  // 이름표 만들기
+  ATOMS.forEach(function(a){
+    var d = document.createElement('div');
+    d.className = 'mol-lab' + (a.id === 'hub' ? ' hub' : '');
+    d.style.left = (a.lx / VW * 100) + '%'; d.style.top = (a.ly / VH * 100) + '%';
+    d.style.setProperty('--ax', a.al === 'l' ? '0' : a.al === 'r' ? '-100%' : '-50%');
+    d.style.textAlign = a.al === 'l' ? 'left' : a.al === 'r' ? 'right' : 'center';
+    var dot = a.id === 'biz' ? '#FFFFFF;box-shadow:inset 0 0 0 1px #9AA6B0' : a.color;
+    d.innerHTML = '<strong><i style="background:' + dot + '"></i>' + a.name + '</strong><em>' + a.role + '</em>';
+    labBox.appendChild(d); a.lab = d;
+  });
+
+  // ── 그리기 도구 ──
+  function hex(c){ c = c.replace('#',''); return [parseInt(c.substr(0,2),16), parseInt(c.substr(2,2),16), parseInt(c.substr(4,2),16)]; }
+  function mix(c, d, t){ var a = hex(c), b = hex(d);
+    return 'rgb(' + [0,1,2].map(function(i){ return Math.round(a[i] + (b[i] - a[i]) * t); }).join(',') + ')'; }
+  function clamp(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function easeOut(p){ return 1 - Math.pow(1 - p, 3); }
+  function easeBack(p){ var c = 1.6; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); }
+
+  // 광택 플라스틱 구: 좌상단 광원, 아래쪽 바닥 반사광, 하이라이트 점
+  function sphere(x, y, r, col, a){
+    ctx.save(); ctx.globalAlpha = a;
+    var g = ctx.createRadialGradient(x - r*.38, y - r*.42, r*.04, x - r*.1, y - r*.1, r*1.08);
+    g.addColorStop(0, mix(col,'#FFFFFF',.62)); g.addColorStop(.32, col);
+    g.addColorStop(.82, mix(col,'#0B1726',.32)); g.addColorStop(1, mix(col,'#0B1726',.5));
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+    var b = ctx.createRadialGradient(x + r*.2, y + r*.95, 0, x + r*.2, y + r*.95, r*.9);   // 바닥 반사광
+    b.addColorStop(0, 'rgba(255,255,255,.28)'); b.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = b; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+    var s = ctx.createRadialGradient(x - r*.4, y - r*.46, 0, x - r*.4, y - r*.46, r*.34);  // 하이라이트
+    s.addColorStop(0, 'rgba(255,255,255,.95)'); s.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = s; ctx.beginPath(); ctx.ellipse(x - r*.4, y - r*.46, r*.34, r*.24, -0.6, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+  // 원통 막대(결합): 폭 방향 그라데이션으로 둥근 양감
+  function stick(x1, y1, x2, y2, w){
+    var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy); if (L < 1) return;
+    var nx = -dy / L, ny = dx / L;
+    var g = ctx.createLinearGradient(x1 + nx*w/2, y1 + ny*w/2, x1 - nx*w/2, y1 - ny*w/2);
+    g.addColorStop(0, '#7E8B96'); g.addColorStop(.3, '#F2F5F7'); g.addColorStop(.55, '#C9D1D8'); g.addColorStop(1, '#6E7A85');
+    ctx.strokeStyle = g; ctx.lineWidth = w; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  }
+
+  // 시각 t에서 원자 위치·투명도 계산
+  function atomState(a, t){
+    var p = clamp((t - a.t0) / a.dur);
+    if (p <= 0) return null;
+    var hub = byId.hub, x = a.x, y = a.y, al = clamp(p * 2.5), sq = 1;
+    if (a.id === 'hub'){ // 위에서 떨어져 살짝 눌렸다가 섬
+      var q = easeOut(clamp(p / .7)); y = a.y - 330 * (1 - q);
+      if (p > .7){ var k = (p - .7) / .3; sq = 1 - .09 * Math.sin(k * Math.PI) ; }
+    } else { // 바깥쪽에서 던져 들어와 자리에 닿음
+      var dx = a.x - hub.x, dy = a.y - hub.y, L = Math.hypot(dx, dy) || 1, e = easeBack(p);
+      x = a.x + dx / L * 300 * (1 - e); y = a.y + dy / L * 300 * (1 - e);
+    }
+    // 결합이 걸린 직후 허브 쪽으로 한 번 당겨졌다 돌아오는 반동
+    BONDS.forEach(function(b){
+      if ((b.a === a.id && b.b === 'hub') || (b.b === a.id && b.a === 'hub')){
+        var k = (t - (b.t0 + b.dur)) / .45;
+        if (k > 0 && k < 1){ var hx = hub.x - a.x, hy = hub.y - a.y, L2 = Math.hypot(hx, hy);
+          var m = Math.sin(k * Math.PI) * (1 - k) * 14; x += hx / L2 * m; y += hy / L2 * m; }
+      }
+    });
+    return {x:x, y:y, a:al, sq:sq, p:p};
+  }
+
+  function render(t){
+    var W = cv.width, H = cv.height, sc = W / VW;
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0, 0, W, H); ctx.setTransform(sc,0,0,sc,0,0);
+    var S = {}; ATOMS.forEach(function(a){ S[a.id] = atomState(a, t); });
+
+    // 1) 바닥 그림자
+    ATOMS.forEach(function(a){ var s = S[a.id]; if (!s) return;
+      var sz = 1 + a.z * .18, r = a.r * sz, lift = (FLOOR - s.y) / 600;
+      var g = ctx.createRadialGradient(s.x + 30, FLOOR, 0, s.x + 30, FLOOR, r * 1.5);
+      g.addColorStop(0, 'rgba(30,55,80,' + (.22 * s.a / (1 + lift)) + ')'); g.addColorStop(1, 'rgba(30,55,80,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(s.x + 30, FLOOR, r * 1.5, r * .32, 0, 0, Math.PI*2); ctx.fill(); });
+
+    // 2) 결합 막대(뒤쪽 것부터)
+    BONDS.slice().sort(function(m, n){ return (m.A.z + m.B.z) - (n.A.z + n.B.z); }).forEach(function(b){
+      var sa = S[b.a], sb = S[b.b]; if (!sa || !sb) return;
+      var e = easeOut(clamp((t - b.t0) / b.dur)); if (e <= 0) return;
+      var w = 13 * (1 + (b.A.z + b.B.z) * .09);
+      var x2 = sa.x + (sb.x - sa.x) * e, y2 = sa.y + (sb.y - sa.y) * e;
+      if (b.order === 2){ var dx = sb.x - sa.x, dy = sb.y - sa.y, L = Math.hypot(dx, dy), nx = -dy / L * w * .85, ny = dx / L * w * .85;
+        stick(sa.x + nx, sa.y + ny, x2 + nx, y2 + ny, w * .82); stick(sa.x - nx, sa.y - ny, x2 - nx, y2 - ny, w * .82);
+      } else stick(sa.x, sa.y, x2, y2, w);
+    });
+
+    // 3) 신호(마지막 단계): 기업 → 창구 → 필요한 기관
+    var pt0 = starts[4] + STEPS[4].dur * .25, pdur = STEPS[4].dur * .6, pp = (t - pt0) / pdur, glowAt = {};
+    if (pp > 0 && pp < 1.15){
+      var segs = PULSE.length - 1, u = clamp(pp) * segs, i = Math.min(segs - 1, Math.floor(u)), f = u - i;
+      var A = S[PULSE[i]], B = S[PULSE[i + 1]];
+      if (A && B){ var px = A.x + (B.x - A.x) * f, py = A.y + (B.y - A.y) * f, fade = pp > 1 ? 1 - (pp - 1) / .15 : 1;
+        var g = ctx.createRadialGradient(px, py, 0, px, py, 34);
+        g.addColorStop(0, 'rgba(255,255,255,' + fade + ')'); g.addColorStop(.35, 'rgba(232,86,47,' + (.85 * fade) + ')'); g.addColorStop(1, 'rgba(232,86,47,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, 34, 0, Math.PI*2); ctx.fill(); }
+      PULSE.forEach(function(id, k){ var d = Math.abs(u - k); if (d < .5) glowAt[id] = 1 - d * 2; });
+    }
+
+    // 4) 원자(뒤쪽 것부터)
+    ATOMS.slice().sort(function(m, n){ return m.z - n.z; }).forEach(function(a){
+      var s = S[a.id]; if (!s) return;
+      var r = a.r * (1 + a.z * .18);
+      if (glowAt[a.id]){ ctx.save(); ctx.globalAlpha = glowAt[a.id] * .9; ctx.strokeStyle = '#E8562F'; ctx.lineWidth = 6;
+        ctx.beginPath(); ctx.arc(s.x, s.y, r + 12, 0, Math.PI*2); ctx.stroke(); ctx.restore(); }
+      ctx.save(); ctx.translate(s.x, s.y + r * (1 - s.sq)); ctx.scale(2 - s.sq, s.sq);
+      sphere(0, 0, r, a.id === 'biz' ? '#E9EEF2' : a.color, s.a); ctx.restore();
+    });
+
+    // 5) 이름표·단계 표시
+    ATOMS.forEach(function(a){ var s = S[a.id]; a.lab.style.opacity = s ? clamp((s.p - .35) / .5) : 0; });
+    var cur = -1; for (var k = 0; k < STEPS.length; k++) if (t >= starts[k] - 1e-6) cur = k;
+    var fin = t >= TOTAL - 1e-6;
+    [].forEach.call(stepList.children, function(li, k){
+      li.className = fin ? 'done' : k === cur ? 'on' : k < cur ? 'done' : ''; });
+    nowEl.textContent = fin ? '완성: 통합창구 1곳 · 기관 5곳 · 결합 8개' : (cur >= 0 ? (cur + 1) + '단계 ' + STEPS[cur].cap : '');
+  }
+
+  // ── 재생 제어 ──
+  var t = TOTAL, target = TOTAL, raf = null, last = null;
+  function tick(now){
+    if (last === null) last = now;
+    t = Math.min(target, t + (now - last) / 1000); last = now; render(t);
+    if (t < target) raf = requestAnimationFrame(tick); else raf = null;
+  }
+  function play(from, to){ if (raf) cancelAnimationFrame(raf); t = from; target = to; last = null; render(t); raf = requestAnimationFrame(tick); }
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('molReplay').onclick = function(){ reduce ? render(TOTAL) : play(0, TOTAL); };
+  document.getElementById('molStep').onclick = function(){
+    var from = t >= TOTAL - 1e-6 ? 0 : (raf ? target : t), k = 0;
+    if (from >= TOTAL - 1e-6) from = 0;
+    while (k < STEPS.length - 1 && starts[k] + STEPS[k].dur <= from + 1e-6) k++;
+    var end = starts[k] + STEPS[k].dur;
+    if (reduce){ t = end; render(end); } else play(from, end);
+  };
+
+  function fit(){ var r = slide.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d); render(t); }
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(slide); else window.addEventListener('resize', fit);
+  fit();
+  // 열면 완성 도식 → 잠시 뒤 처음부터 한 번 재생 → 최종 정지
+  if (!reduce) setTimeout(function(){ play(0, TOTAL); }, 900);
+})();
+</script>
+
+
+  <section class="doc">
+    <h2>동작 설명</h2>
+    <div class="cols">
+      <div>
+        <p>추진체계를 공 막대 분자 모형으로 바꿨습니다. 원자는 기관, 막대는 협업 관계이고 <b>막대 수가 협업 강도</b>입니다. 이중 결합은 창구에 직원이 상주하는 상시 협업, 단일 결합은 요청이 오면 연계하는 관계입니다. 원자 크기는 기관이 맡는 처리 비중입니다.</p>
+        <p>움직임 순서가 조직이 짜이는 순서입니다. 통합창구가 먼저 가운데 내려앉고, 상시 기관 둘이 던져져 이중 결합으로 붙고, 요청 시 기관 셋이 단일 결합으로 붙습니다. 결합이 걸리는 순간 원자가 창구 쪽으로 한 번 당겨졌다 돌아와 '붙었다'는 느낌을 줍니다. 이어 기관끼리 직접 잇는 결합이 생기고, 마지막에 기업 원자 하나가 창구에만 붙은 뒤 신청 신호가 창구 → 신용보증재단 → 창업진흥원으로 흐릅니다.</p>
+      </div>
+      <div>
+        <h3 style="margin-top:0">이렇게 응용할 수 있습니다</h3>
+        <ul>
+          <li><b>부서 간 협업 체계</b>: 주관 부서를 핵으로 두고 상시 TF는 이중, 자문은 단일 결합으로.</li>
+          <li><b>민관 거버넌스</b>: 지자체·기업·주민단체를 원자로, 협약 수준을 결합 차수(삼중 결합 = 공동 예산)로.</li>
+          <li><b>합병·통합 전후 비교</b>: 같은 원자를 두고 결합만 다시 걸어 조직 개편 전후를 보여 주기.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="doc">
+    <h2>HTML로 가져다 쓰기</h2>
+    <div class="codewrap">
+      <div>
+        <p>빈 HTML 파일에 아래 코드를 그대로 붙여 넣으면 장표와 버튼이 그려지고 움직입니다.</p>
+        <ul>
+          <li>제목·부제는 <code class="i">mol-title</code>, <code class="i">mol-kicker</code>에서 바꿉니다.</li>
+          <li>기관 이름·역할·색·위치·크기는 스크립트의 <code class="i">ATOMS</code> 배열에 있습니다.</li>
+          <li>협업 관계는 <code class="i">BONDS</code>(order 2 = 이중, 1 = 단일), 단계 이름과 길이는 <code class="i">STEPS</code>, 신호 경로는 <code class="i">PULSE</code>에서 바꿉니다.</li>
+          <li>바탕·글자색·글꼴은 <code class="i">.mol-wrap</code>의 CSS 변수에서 바꿉니다.</li>
+          <li>AI 채팅에 이 장표를 보여 줄 때는 링크 대신 이 코드를 붙여 넣으세요.</li>
+        </ul>
+      </div>
+      <div class="codebox">
+        <button type="button" class="copy" id="copyBtn">코드 복사</button>
+        <pre id="codePre"><code>&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&amp;family=Red+Hat+Mono:wght@500;600&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 분자 결합 추진체계 장표 (클래스 접두어 mol-) ──
+   색·글꼴은 아래 변수만 바꾸면 전체에 반영됩니다. 원자 색은 스크립트의 ATOMS 배열에 있습니다. */
+.mol-wrap{
+  --mol-bg:#F4F7F8;        /* 장표 바탕(밝은 실험대) */
+  --mol-ink:#14283F;       /* 제목·본문 */
+  --mol-sub:#5A6B7C;       /* 보조 글자 */
+  --mol-line:#D5DEE4;      /* 구분선 */
+  --mol-accent:#E8562F;    /* 진행 강조 */
+  --mol-card:#FFFFFF;
+  --mol-font:&quot;Gothic A1&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,&quot;맑은 고딕&quot;,sans-serif;
+  --mol-mono:&quot;Red Hat Mono&quot;,Consolas,&quot;Courier New&quot;,monospace;
+  font-family:var(--mol-font); color:var(--mol-ink);
+  max-width:1280px; margin:0 auto;
+}
+.mol-slide{
+  position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden;
+  container-type:inline-size; background:var(--mol-bg); border-radius:6px;
+  box-shadow:0 1px 2px rgba(20,40,63,.08),0 12px 32px -12px rgba(20,40,63,.18);
+}
+.mol-slide canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+/* 바닥 실험대 면: 아래로 갈수록 살짝 밝은 회청 */
+.mol-floor{position:absolute; left:0; right:0; bottom:0; height:22%;
+  background:linear-gradient(180deg,rgba(214,225,231,0),rgba(214,225,231,.55))}
+.mol-head{position:absolute; left:4.4cqw; top:4.6cqw; width:40cqw; z-index:2}
+.mol-kicker{font-size:max(1.3cqw,8px); font-weight:700; letter-spacing:.01em;
+  color:var(--mol-sub); white-space:nowrap; margin:0 0 1.4cqw}
+.mol-kicker b{color:var(--mol-accent); font-weight:800}
+.mol-title{font-size:max(3.25cqw,14px); line-height:1.32; font-weight:800; letter-spacing:-.025em; margin:0; text-wrap:balance; word-break:keep-all}
+.mol-steps{list-style:none; margin:2.2cqw 0 0; padding:0; display:flex; flex-wrap:nowrap; gap:.4cqw}
+.mol-steps li{white-space:nowrap; font-size:max(1cqw,7px); font-weight:700; color:var(--mol-sub); padding:.45cqw .9cqw;
+  border:1px solid var(--mol-line); border-radius:99px; background:var(--mol-card); transition:color .25s,border-color .25s,background .25s}
+.mol-steps li span{font-family:var(--mol-mono); margin-right:.4cqw; opacity:.7}
+.mol-steps li.on{color:#fff; background:var(--mol-ink); border-color:var(--mol-ink)}
+.mol-steps li.done{color:var(--mol-ink); border-color:#9FB0BF}
+.mol-legend{position:absolute; left:4.4cqw; bottom:4.4cqw; z-index:2; display:grid; gap:1cqw;
+  background:rgba(255,255,255,.86); border:1px solid var(--mol-line); border-radius:1cqw; padding:1.4cqw 1.8cqw}
+.mol-legend div{display:grid; grid-template-columns:5.2cqw auto; align-items:center; gap:1.2cqw;
+  font-size:max(1.12cqw,7px); color:var(--mol-sub)}
+.mol-legend b{color:var(--mol-ink); font-weight:700; margin-right:.5cqw}
+.mol-legend small{font-size:inherit}
+.mol-legend svg{width:5.2cqw; height:2cqw; display:block}
+.mol-tag{position:absolute; right:2.6cqw; top:2.4cqw; z-index:2; font-size:max(1cqw,7px);
+  color:var(--mol-sub); letter-spacing:.06em}
+/* 원자 이름표: 위치는 스크립트가 ATOMS의 lx·ly로 잡습니다 */
+.mol-lab{position:absolute; z-index:2; transform:translate(var(--ax,0),-50%); white-space:nowrap; pointer-events:none}
+.mol-lab strong{display:block; font-size:max(1.45cqw,8px); font-weight:800; line-height:1.25}
+.mol-lab em{display:block; font-style:normal; font-size:max(1.1cqw,7px); color:var(--mol-sub); line-height:1.35}
+.mol-lab.hub strong{font-size:max(1.75cqw,9px)}
+.mol-lab i{display:inline-block; width:.8cqw; height:.8cqw; border-radius:50%; margin-right:.5cqw; vertical-align:.1cqw}
+.mol-ctrl{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap}
+.mol-ctrl button{font:700 14px/1 var(--mol-font); color:var(--mol-ink); background:#FFFFFF; border:1px solid #C3CED7;
+  border-radius:6px; padding:10px 16px; cursor:pointer}
+.mol-ctrl button:hover{border-color:var(--mol-ink)}
+.mol-ctrl button:focus-visible{outline:2px solid var(--mol-accent); outline-offset:2px}
+.mol-ctrl span{align-self:center; font-size:13px; color:var(--mol-sub)}
+@container (max-width:560px){
+  .mol-lab em{display:none}
+  .mol-legend small{display:none}
+  .mol-legend{padding:1.2cqw 1.6cqw}
+  .mol-head{width:44cqw}
+}
+&lt;/style&gt;
+
+&lt;div class=&quot;mol-wrap&quot;&gt;
+  &lt;div class=&quot;mol-slide&quot; id=&quot;molSlide&quot;&gt;
+    &lt;div class=&quot;mol-floor&quot;&gt;&lt;/div&gt;
+    &lt;canvas id=&quot;molCanvas&quot; aria-hidden=&quot;true&quot;&gt;&lt;/canvas&gt;
+    &lt;div class=&quot;mol-head&quot;&gt;
+      &lt;p class=&quot;mol-kicker&quot;&gt;&lt;b&gt;Ⅳ. 추진체계&lt;/b&gt; · ○○시 창업·중소기업 원스톱 지원 계획(안)&lt;/p&gt;
+      &lt;h2 class=&quot;mol-title&quot;&gt;통합창구 하나에 다섯 기관이 결합해, 기업은 한 번만 신청합니다&lt;/h2&gt;
+      &lt;ol class=&quot;mol-steps&quot; id=&quot;molSteps&quot;&gt;&lt;/ol&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;mol-legend&quot; aria-label=&quot;범례&quot;&gt;
+      &lt;div&gt;&lt;svg viewBox=&quot;0 0 52 20&quot;&gt;&lt;rect x=&quot;2&quot; y=&quot;4&quot; width=&quot;48&quot; height=&quot;4.5&quot; rx=&quot;2.2&quot; fill=&quot;#9AA6B0&quot;/&gt;&lt;rect x=&quot;2&quot; y=&quot;11.5&quot; width=&quot;48&quot; height=&quot;4.5&quot; rx=&quot;2.2&quot; fill=&quot;#9AA6B0&quot;/&gt;&lt;/svg&gt;&lt;span&gt;&lt;b&gt;이중 결합&lt;/b&gt;상시 협업&lt;small&gt; · 창구에 직원 상주&lt;/small&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;svg viewBox=&quot;0 0 52 20&quot;&gt;&lt;rect x=&quot;2&quot; y=&quot;7.5&quot; width=&quot;48&quot; height=&quot;5&quot; rx=&quot;2.5&quot; fill=&quot;#9AA6B0&quot;/&gt;&lt;/svg&gt;&lt;span&gt;&lt;b&gt;단일 결합&lt;/b&gt;요청 시 연계&lt;small&gt; · 3일 안에 회신&lt;/small&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;svg viewBox=&quot;0 0 52 20&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;10&quot; r=&quot;5&quot; fill=&quot;#9AA6B0&quot;/&gt;&lt;circle cx=&quot;36&quot; cy=&quot;10&quot; r=&quot;9&quot; fill=&quot;#9AA6B0&quot;/&gt;&lt;/svg&gt;&lt;span&gt;&lt;b&gt;원자 크기&lt;/b&gt;처리 비중&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;mol-tag&quot;&gt;가상 예시&lt;/div&gt;
+    &lt;div id=&quot;molLabels&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;mol-ctrl&quot;&gt;
+    &lt;button type=&quot;button&quot; id=&quot;molReplay&quot;&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; id=&quot;molStep&quot;&gt;한 단계씩&lt;/button&gt;
+    &lt;span id=&quot;molNow&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  // ── 데이터: 원자(기관)·결합(협업 관계)·단계. 좌표는 1600×900 가상 화면 기준 ──
+  // z: +면 앞(크고 밝게), -면 뒤. lx·ly: 이름표 위치, al: 이름표 기준(l=왼쪽 정렬, r=오른쪽 정렬, c=가운데)
+  var ATOMS = [
+    {id:&#x27;hub&#x27;, name:&#x27;○○시 통합창구&#x27;, role:&#x27;접수 · 배정 · 사후관리&#x27;, color:&#x27;#24466E&#x27;, x:1010, y:470, z:0,    r:74, step:0, lx:1104, ly:430, al:&#x27;l&#x27;},
+    {id:&#x27;inc&#x27;, name:&#x27;○○창업진흥원&#x27;,  role:&#x27;보육 공간 · 창업 교육&#x27;,   color:&#x27;#F08A24&#x27;, x:790,  y:290, z:0.15, r:50, step:1, lx:790,  ly:186, al:&#x27;c&#x27;},
+    {id:&#x27;gua&#x27;, name:&#x27;○○신용보증재단&#x27;, role:&#x27;보증 · 정책자금&#x27;,         color:&#x27;#2E9E6A&#x27;, x:1240, y:262, z:-0.2, r:50, step:1, lx:1240, ly:162, al:&#x27;c&#x27;},
+    {id:&#x27;tec&#x27;, name:&#x27;○○테크노파크&#x27;,  role:&#x27;기술 지원 · 시제품&#x27;,      color:&#x27;#2F7BE0&#x27;, x:1340, y:575, z:0.3,  r:44, step:2, lx:1300, ly:668, al:&#x27;l&#x27;},
+    {id:&#x27;cci&#x27;, name:&#x27;○○상공회의소&#x27;,  role:&#x27;판로 · 수출 상담&#x27;,        color:&#x27;#E9B820&#x27;, x:1120, y:745, z:0.2,  r:40, step:2, lx:1176, ly:768, al:&#x27;l&#x27;},
+    {id:&#x27;job&#x27;, name:&#x27;○○고용센터&#x27;,    role:&#x27;인력 채용 · 고용 장려금&#x27;,  color:&#x27;#C04A8F&#x27;, x:845,  y:700, z:-0.25,r:38, step:2, lx:790,  ly:718, al:&#x27;r&#x27;},
+    {id:&#x27;biz&#x27;, name:&#x27;기업&#x27;,          role:&#x27;신청은 한 번&#x27;,            color:&#x27;#FFFFFF&#x27;, x:690,  y:505, z:0.35, r:30, step:4, lx:690,  ly:580, al:&#x27;c&#x27;}
+  ];
+  // order: 2 = 이중 결합(상시 협업), 1 = 단일 결합(요청 시 연계)
+  var BONDS = [
+    {a:&#x27;hub&#x27;, b:&#x27;inc&#x27;, order:2, step:1},
+    {a:&#x27;hub&#x27;, b:&#x27;gua&#x27;, order:2, step:1},
+    {a:&#x27;hub&#x27;, b:&#x27;tec&#x27;, order:1, step:2},
+    {a:&#x27;hub&#x27;, b:&#x27;cci&#x27;, order:1, step:2},
+    {a:&#x27;hub&#x27;, b:&#x27;job&#x27;, order:1, step:2},
+    {a:&#x27;inc&#x27;, b:&#x27;gua&#x27;, order:1, step:3},   // 창업 보증 연계
+    {a:&#x27;tec&#x27;, b:&#x27;cci&#x27;, order:1, step:3},   // 시제품 → 판로
+    {a:&#x27;biz&#x27;, b:&#x27;hub&#x27;, order:1, step:4}
+  ];
+  var STEPS = [
+    {name:&#x27;핵 배치&#x27;,       dur:0.6, cap:&#x27;통합창구가 가운데 자리를 잡습니다&#x27;},
+    {name:&#x27;상시 결합&#x27;,     dur:0.9, cap:&#x27;창업진흥원·신용보증재단은 창구에 상주(이중 결합)&#x27;},
+    {name:&#x27;요청 시 결합&#x27;,  dur:0.9, cap:&#x27;세 기관은 요청이 오면 연계(단일 결합)&#x27;},
+    {name:&#x27;기관 간 결합&#x27;,  dur:0.7, cap:&#x27;보증↔보육, 시제품↔판로는 기관끼리 직접 연결&#x27;},
+    {name:&#x27;한 번 신청&#x27;,    dur:1.5, cap:&#x27;기업의 신청 한 건이 창구를 거쳐 필요한 기관까지 흐릅니다&#x27;}
+  ];
+  var PULSE = [&#x27;biz&#x27;,&#x27;hub&#x27;,&#x27;gua&#x27;,&#x27;inc&#x27;];   // 마지막 단계에서 신호가 지나가는 경로(예시 신청)
+
+  // ── 준비 ──
+  var slide = document.getElementById(&#x27;molSlide&#x27;);
+  var cv = document.getElementById(&#x27;molCanvas&#x27;), ctx = cv.getContext(&#x27;2d&#x27;);
+  var labBox = document.getElementById(&#x27;molLabels&#x27;);
+  var stepList = document.getElementById(&#x27;molSteps&#x27;);
+  var nowEl = document.getElementById(&#x27;molNow&#x27;);
+  var VW = 1600, VH = 900, FLOOR = 868;
+  var byId = {}; ATOMS.forEach(function(a){ byId[a.id] = a; });
+  var starts = [], acc = 0;
+  STEPS.forEach(function(s, i){
+    starts.push(acc); acc += s.dur;
+    var li = document.createElement(&#x27;li&#x27;);
+    li.innerHTML = &#x27;&lt;span&gt;&#x27; + (i + 1) + &#x27;&lt;/span&gt;&#x27; + s.name; stepList.appendChild(li);
+  });
+  var TOTAL = acc;
+
+  // 단계 안에서 원자·결합이 들어오는 시각 정하기(같은 단계 안에서 0.18초씩 엇갈림)
+  var perStep = {};
+  ATOMS.forEach(function(a){ var k = perStep[&#x27;a&#x27; + a.step] = (perStep[&#x27;a&#x27; + a.step] || 0) + 1;
+    a.t0 = starts[a.step] + (k - 1) * 0.18; a.dur = a.step === 0 ? 0.75 : 0.6; });
+  BONDS.forEach(function(b){ var k = perStep[&#x27;b&#x27; + b.step] = (perStep[&#x27;b&#x27; + b.step] || 0) + 1;
+    var lead = (b.step === 3) ? 0.1 : 0.42;
+    b.t0 = starts[b.step] + lead + (k - 1) * 0.18; b.dur = 0.4; b.A = byId[b.a]; b.B = byId[b.b]; });
+
+  // 이름표 만들기
+  ATOMS.forEach(function(a){
+    var d = document.createElement(&#x27;div&#x27;);
+    d.className = &#x27;mol-lab&#x27; + (a.id === &#x27;hub&#x27; ? &#x27; hub&#x27; : &#x27;&#x27;);
+    d.style.left = (a.lx / VW * 100) + &#x27;%&#x27;; d.style.top = (a.ly / VH * 100) + &#x27;%&#x27;;
+    d.style.setProperty(&#x27;--ax&#x27;, a.al === &#x27;l&#x27; ? &#x27;0&#x27; : a.al === &#x27;r&#x27; ? &#x27;-100%&#x27; : &#x27;-50%&#x27;);
+    d.style.textAlign = a.al === &#x27;l&#x27; ? &#x27;left&#x27; : a.al === &#x27;r&#x27; ? &#x27;right&#x27; : &#x27;center&#x27;;
+    var dot = a.id === &#x27;biz&#x27; ? &#x27;#FFFFFF;box-shadow:inset 0 0 0 1px #9AA6B0&#x27; : a.color;
+    d.innerHTML = &#x27;&lt;strong&gt;&lt;i style=&quot;background:&#x27; + dot + &#x27;&quot;&gt;&lt;/i&gt;&#x27; + a.name + &#x27;&lt;/strong&gt;&lt;em&gt;&#x27; + a.role + &#x27;&lt;/em&gt;&#x27;;
+    labBox.appendChild(d); a.lab = d;
+  });
+
+  // ── 그리기 도구 ──
+  function hex(c){ c = c.replace(&#x27;#&#x27;,&#x27;&#x27;); return [parseInt(c.substr(0,2),16), parseInt(c.substr(2,2),16), parseInt(c.substr(4,2),16)]; }
+  function mix(c, d, t){ var a = hex(c), b = hex(d);
+    return &#x27;rgb(&#x27; + [0,1,2].map(function(i){ return Math.round(a[i] + (b[i] - a[i]) * t); }).join(&#x27;,&#x27;) + &#x27;)&#x27;; }
+  function clamp(v){ return v &lt; 0 ? 0 : v &gt; 1 ? 1 : v; }
+  function easeOut(p){ return 1 - Math.pow(1 - p, 3); }
+  function easeBack(p){ var c = 1.6; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); }
+
+  // 광택 플라스틱 구: 좌상단 광원, 아래쪽 바닥 반사광, 하이라이트 점
+  function sphere(x, y, r, col, a){
+    ctx.save(); ctx.globalAlpha = a;
+    var g = ctx.createRadialGradient(x - r*.38, y - r*.42, r*.04, x - r*.1, y - r*.1, r*1.08);
+    g.addColorStop(0, mix(col,&#x27;#FFFFFF&#x27;,.62)); g.addColorStop(.32, col);
+    g.addColorStop(.82, mix(col,&#x27;#0B1726&#x27;,.32)); g.addColorStop(1, mix(col,&#x27;#0B1726&#x27;,.5));
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+    var b = ctx.createRadialGradient(x + r*.2, y + r*.95, 0, x + r*.2, y + r*.95, r*.9);   // 바닥 반사광
+    b.addColorStop(0, &#x27;rgba(255,255,255,.28)&#x27;); b.addColorStop(1, &#x27;rgba(255,255,255,0)&#x27;);
+    ctx.fillStyle = b; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+    var s = ctx.createRadialGradient(x - r*.4, y - r*.46, 0, x - r*.4, y - r*.46, r*.34);  // 하이라이트
+    s.addColorStop(0, &#x27;rgba(255,255,255,.95)&#x27;); s.addColorStop(1, &#x27;rgba(255,255,255,0)&#x27;);
+    ctx.fillStyle = s; ctx.beginPath(); ctx.ellipse(x - r*.4, y - r*.46, r*.34, r*.24, -0.6, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+  // 원통 막대(결합): 폭 방향 그라데이션으로 둥근 양감
+  function stick(x1, y1, x2, y2, w){
+    var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy); if (L &lt; 1) return;
+    var nx = -dy / L, ny = dx / L;
+    var g = ctx.createLinearGradient(x1 + nx*w/2, y1 + ny*w/2, x1 - nx*w/2, y1 - ny*w/2);
+    g.addColorStop(0, &#x27;#7E8B96&#x27;); g.addColorStop(.3, &#x27;#F2F5F7&#x27;); g.addColorStop(.55, &#x27;#C9D1D8&#x27;); g.addColorStop(1, &#x27;#6E7A85&#x27;);
+    ctx.strokeStyle = g; ctx.lineWidth = w; ctx.lineCap = &#x27;round&#x27;;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  }
+
+  // 시각 t에서 원자 위치·투명도 계산
+  function atomState(a, t){
+    var p = clamp((t - a.t0) / a.dur);
+    if (p &lt;= 0) return null;
+    var hub = byId.hub, x = a.x, y = a.y, al = clamp(p * 2.5), sq = 1;
+    if (a.id === &#x27;hub&#x27;){ // 위에서 떨어져 살짝 눌렸다가 섬
+      var q = easeOut(clamp(p / .7)); y = a.y - 330 * (1 - q);
+      if (p &gt; .7){ var k = (p - .7) / .3; sq = 1 - .09 * Math.sin(k * Math.PI) ; }
+    } else { // 바깥쪽에서 던져 들어와 자리에 닿음
+      var dx = a.x - hub.x, dy = a.y - hub.y, L = Math.hypot(dx, dy) || 1, e = easeBack(p);
+      x = a.x + dx / L * 300 * (1 - e); y = a.y + dy / L * 300 * (1 - e);
+    }
+    // 결합이 걸린 직후 허브 쪽으로 한 번 당겨졌다 돌아오는 반동
+    BONDS.forEach(function(b){
+      if ((b.a === a.id &amp;&amp; b.b === &#x27;hub&#x27;) || (b.b === a.id &amp;&amp; b.a === &#x27;hub&#x27;)){
+        var k = (t - (b.t0 + b.dur)) / .45;
+        if (k &gt; 0 &amp;&amp; k &lt; 1){ var hx = hub.x - a.x, hy = hub.y - a.y, L2 = Math.hypot(hx, hy);
+          var m = Math.sin(k * Math.PI) * (1 - k) * 14; x += hx / L2 * m; y += hy / L2 * m; }
+      }
+    });
+    return {x:x, y:y, a:al, sq:sq, p:p};
+  }
+
+  function render(t){
+    var W = cv.width, H = cv.height, sc = W / VW;
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0, 0, W, H); ctx.setTransform(sc,0,0,sc,0,0);
+    var S = {}; ATOMS.forEach(function(a){ S[a.id] = atomState(a, t); });
+
+    // 1) 바닥 그림자
+    ATOMS.forEach(function(a){ var s = S[a.id]; if (!s) return;
+      var sz = 1 + a.z * .18, r = a.r * sz, lift = (FLOOR - s.y) / 600;
+      var g = ctx.createRadialGradient(s.x + 30, FLOOR, 0, s.x + 30, FLOOR, r * 1.5);
+      g.addColorStop(0, &#x27;rgba(30,55,80,&#x27; + (.22 * s.a / (1 + lift)) + &#x27;)&#x27;); g.addColorStop(1, &#x27;rgba(30,55,80,0)&#x27;);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(s.x + 30, FLOOR, r * 1.5, r * .32, 0, 0, Math.PI*2); ctx.fill(); });
+
+    // 2) 결합 막대(뒤쪽 것부터)
+    BONDS.slice().sort(function(m, n){ return (m.A.z + m.B.z) - (n.A.z + n.B.z); }).forEach(function(b){
+      var sa = S[b.a], sb = S[b.b]; if (!sa || !sb) return;
+      var e = easeOut(clamp((t - b.t0) / b.dur)); if (e &lt;= 0) return;
+      var w = 13 * (1 + (b.A.z + b.B.z) * .09);
+      var x2 = sa.x + (sb.x - sa.x) * e, y2 = sa.y + (sb.y - sa.y) * e;
+      if (b.order === 2){ var dx = sb.x - sa.x, dy = sb.y - sa.y, L = Math.hypot(dx, dy), nx = -dy / L * w * .85, ny = dx / L * w * .85;
+        stick(sa.x + nx, sa.y + ny, x2 + nx, y2 + ny, w * .82); stick(sa.x - nx, sa.y - ny, x2 - nx, y2 - ny, w * .82);
+      } else stick(sa.x, sa.y, x2, y2, w);
+    });
+
+    // 3) 신호(마지막 단계): 기업 → 창구 → 필요한 기관
+    var pt0 = starts[4] + STEPS[4].dur * .25, pdur = STEPS[4].dur * .6, pp = (t - pt0) / pdur, glowAt = {};
+    if (pp &gt; 0 &amp;&amp; pp &lt; 1.15){
+      var segs = PULSE.length - 1, u = clamp(pp) * segs, i = Math.min(segs - 1, Math.floor(u)), f = u - i;
+      var A = S[PULSE[i]], B = S[PULSE[i + 1]];
+      if (A &amp;&amp; B){ var px = A.x + (B.x - A.x) * f, py = A.y + (B.y - A.y) * f, fade = pp &gt; 1 ? 1 - (pp - 1) / .15 : 1;
+        var g = ctx.createRadialGradient(px, py, 0, px, py, 34);
+        g.addColorStop(0, &#x27;rgba(255,255,255,&#x27; + fade + &#x27;)&#x27;); g.addColorStop(.35, &#x27;rgba(232,86,47,&#x27; + (.85 * fade) + &#x27;)&#x27;); g.addColorStop(1, &#x27;rgba(232,86,47,0)&#x27;);
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, 34, 0, Math.PI*2); ctx.fill(); }
+      PULSE.forEach(function(id, k){ var d = Math.abs(u - k); if (d &lt; .5) glowAt[id] = 1 - d * 2; });
+    }
+
+    // 4) 원자(뒤쪽 것부터)
+    ATOMS.slice().sort(function(m, n){ return m.z - n.z; }).forEach(function(a){
+      var s = S[a.id]; if (!s) return;
+      var r = a.r * (1 + a.z * .18);
+      if (glowAt[a.id]){ ctx.save(); ctx.globalAlpha = glowAt[a.id] * .9; ctx.strokeStyle = &#x27;#E8562F&#x27;; ctx.lineWidth = 6;
+        ctx.beginPath(); ctx.arc(s.x, s.y, r + 12, 0, Math.PI*2); ctx.stroke(); ctx.restore(); }
+      ctx.save(); ctx.translate(s.x, s.y + r * (1 - s.sq)); ctx.scale(2 - s.sq, s.sq);
+      sphere(0, 0, r, a.id === &#x27;biz&#x27; ? &#x27;#E9EEF2&#x27; : a.color, s.a); ctx.restore();
+    });
+
+    // 5) 이름표·단계 표시
+    ATOMS.forEach(function(a){ var s = S[a.id]; a.lab.style.opacity = s ? clamp((s.p - .35) / .5) : 0; });
+    var cur = -1; for (var k = 0; k &lt; STEPS.length; k++) if (t &gt;= starts[k] - 1e-6) cur = k;
+    var fin = t &gt;= TOTAL - 1e-6;
+    [].forEach.call(stepList.children, function(li, k){
+      li.className = fin ? &#x27;done&#x27; : k === cur ? &#x27;on&#x27; : k &lt; cur ? &#x27;done&#x27; : &#x27;&#x27;; });
+    nowEl.textContent = fin ? &#x27;완성: 통합창구 1곳 · 기관 5곳 · 결합 8개&#x27; : (cur &gt;= 0 ? (cur + 1) + &#x27;단계 &#x27; + STEPS[cur].cap : &#x27;&#x27;);
+  }
+
+  // ── 재생 제어 ──
+  var t = TOTAL, target = TOTAL, raf = null, last = null;
+  function tick(now){
+    if (last === null) last = now;
+    t = Math.min(target, t + (now - last) / 1000); last = now; render(t);
+    if (t &lt; target) raf = requestAnimationFrame(tick); else raf = null;
+  }
+  function play(from, to){ if (raf) cancelAnimationFrame(raf); t = from; target = to; last = null; render(t); raf = requestAnimationFrame(tick); }
+  var reduce = window.matchMedia &amp;&amp; matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  document.getElementById(&#x27;molReplay&#x27;).onclick = function(){ reduce ? render(TOTAL) : play(0, TOTAL); };
+  document.getElementById(&#x27;molStep&#x27;).onclick = function(){
+    var from = t &gt;= TOTAL - 1e-6 ? 0 : (raf ? target : t), k = 0;
+    if (from &gt;= TOTAL - 1e-6) from = 0;
+    while (k &lt; STEPS.length - 1 &amp;&amp; starts[k] + STEPS[k].dur &lt;= from + 1e-6) k++;
+    var end = starts[k] + STEPS[k].dur;
+    if (reduce){ t = end; render(end); } else play(from, end);
+  };
+
+  function fit(){ var r = slide.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d); render(t); }
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(slide); else window.addEventListener(&#x27;resize&#x27;, fit);
+  fit();
+  // 열면 완성 도식 → 잠시 뒤 처음부터 한 번 재생 → 최종 정지
+  if (!reduce) setTimeout(function(){ play(0, TOTAL); }, 900);
+})();
+&lt;/script&gt;
+</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="doc">
+    <h2>PPT로 옮기기</h2>
+    <p><b>준비</b>: 원자는 원 도형에 <b>그라데이션 채우기(방사형)</b>를 주고 <b>3차원 서식 → 위쪽 입체: 둥글게, 재질: 플라스틱</b>을 적용하거나, 장표의 원자를 PNG로 캡처해 씁니다. 결합 막대는 둥근 모서리 사각형에 <b>선형 그라데이션(진회색-흰색-진회색)</b>을 주고 각도를 맞춰 회전합니다. 이중 결합은 막대 두 개를 그룹으로 묶습니다.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>클릭 순서</th><th>대상 개체</th><th>애니메이션(한국어판)</th><th>효과 옵션</th><th>시작</th><th>재생 시간</th><th>지연</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>통합창구 원 + 이름표</td><td>나타내기 → <b>바운드</b></td><td>-</td><td>클릭할 때</td><td>1.00초</td><td>0</td></tr>
+        <tr><td>2</td><td>창업진흥원 원</td><td>나타내기 → <b>날아오기</b></td><td>방향: 왼쪽 위에서 / 효과 옵션 대화 상자에서 부드럽게 종료 0.3초, 튕겨서 종료 0.2초</td><td>클릭할 때</td><td>0.60초</td><td>0</td></tr>
+        <tr><td></td><td>신용보증재단 원</td><td>나타내기 → <b>날아오기</b></td><td>방향: 오른쪽 위에서 / 같은 설정</td><td>이전 효과와 함께</td><td>0.60초</td><td>0.18초</td></tr>
+        <tr><td></td><td>이중 결합 막대 2묶음</td><td>나타내기 → <b>닦아내기</b></td><td>방향: 통합창구 쪽에서(막대 회전 각도에 가까운 방향 선택)</td><td>이전 효과 다음에</td><td>0.40초</td><td>0</td></tr>
+        <tr><td></td><td>원자(결합 직후 반동)</td><td>이동 경로 → <b>선</b></td><td>통합창구 쪽으로 아주 짧게, <b>자동 반대로</b> 체크</td><td>이전 효과 다음에</td><td>0.20초</td><td>0</td></tr>
+        <tr><td>3</td><td>테크노파크·상공회의소·고용센터 원</td><td>나타내기 → <b>날아오기</b></td><td>각자 바깥 방향에서, 2와 같은 설정</td><td>클릭할 때 / 나머지는 이전 효과와 함께</td><td>0.60초</td><td>0, 0.18, 0.36초</td></tr>
+        <tr><td></td><td>단일 결합 막대 3개</td><td>나타내기 → <b>닦아내기</b></td><td>통합창구 쪽에서</td><td>이전 효과 다음에(둘째부터 함께)</td><td>0.40초</td><td>0, 0.18, 0.36초</td></tr>
+        <tr><td>4</td><td>기관 간 결합 막대 2개</td><td>나타내기 → <b>닦아내기</b></td><td>왼쪽 기관 쪽에서</td><td>클릭할 때 / 둘째는 함께</td><td>0.40초</td><td>0, 0.18초</td></tr>
+        <tr><td>5</td><td>기업 원 + 결합 막대</td><td>나타내기 → <b>날아오기</b> / <b>닦아내기</b></td><td>왼쪽에서</td><td>클릭할 때 / 이전 효과 다음에</td><td>0.60 / 0.40초</td><td>0</td></tr>
+        <tr><td></td><td>주황 빛 원(신호)</td><td>이동 경로 → <b>사용자 지정 경로</b></td><td>기업 → 창구 → 신용보증재단 → 창업진흥원 꼭짓점을 차례로 클릭, 부드럽게 시작·종료 0</td><td>이전 효과 다음에</td><td>1.25초</td><td>0</td></tr>
+        <tr><td></td><td>주황 빛 원(신호)</td><td>끝내기 → <b>밝기 변화</b></td><td>-</td><td>이전 효과 다음에</td><td>0.20초</td><td>0</td></tr>
+        <tr><td>각 단계</td><td>단계 알약 1~5</td><td>강조 → <b>채우기 색</b></td><td>남색 #14283F, 글자는 흰색 강조(글꼴 색)</td><td>해당 단계 첫 효과와 함께</td><td>0.25초</td><td>0</td></tr>
+      </tbody>
+    </table></div>
+    <h3>모핑으로 만들기(권장)</h3>
+    <ul>
+      <li>완성 슬라이드를 만든 뒤 <b>5번 복제</b>합니다. 첫 장부터 단계 순서대로 아직 나오지 않은 개체를 지웁니다.</li>
+      <li>이름은 <b>선택 창(Alt+F10)</b>에서 <code class="i">!!창구</code>, <code class="i">!!진흥원</code>, <code class="i">!!결합-창구-진흥원</code>처럼 모든 슬라이드에서 똑같이 붙입니다. <code class="i">!!</code>로 시작하는 같은 이름끼리 모핑이 짝을 짓습니다.</li>
+      <li>앞 슬라이드에는 원자를 지우지 말고 <b>슬라이드 바깥(완성 위치에서 창구 반대 방향)</b>으로 옮겨 두면 날아 들어오고, 결합 막대는 <b>길이를 0에 가깝게 줄여 창구 원 위</b>에 두면 뻗어 나옵니다.</li>
+      <li>각 슬라이드에 <b>전환 → 모핑</b>, 효과 옵션 <b>개체</b>, 기간 1.00초. 신호는 마지막 장을 3장으로 나눠 <code class="i">!!신호</code> 원을 창구 → 신용보증재단 → 창업진흥원 위치로 옮기면 됩니다.</li>
+    </ul>
+    <h3>안 되는 동작과 근사법</h3>
+    <ul>
+      <li><b>통합창구 착지 눌림</b>: 바운드 효과로 대신하거나, 강조 → 크기 조정(세로 92%, 자동 반대로, 0.15초)을 이어 붙입니다.</li>
+      <li><b>원자 뒤로 숨는 막대의 앞뒤 순서</b>: PPT는 개체 순서를 고정하므로, 막대를 모두 원자 뒤로 보내 두면(맨 뒤로 보내기) 같은 결과가 됩니다.</li>
+      <li><b>신호가 지날 때 원자 테두리 빛</b>: 강조 → <b>펄스</b>를 해당 원자에 0.3초, 이동 경로 효과와 함께 시작하고 지연을 0.4초·0.8초로 엇갈립니다.</li>
+    </ul>
+  </section>
+
+  <section class="doc">
+    <h2>스펙</h2>
+    <dl class="spec">
+      <dt>팔레트</dt><dd><div class="sw">
+        <div><i style="background:#F4F7F8"></i>#F4F7F8 바탕</div><div><i style="background:#14283F"></i>#14283F 글자</div>
+        <div><i style="background:#24466E"></i>#24466E 통합창구</div><div><i style="background:#F08A24"></i>#F08A24</div>
+        <div><i style="background:#2E9E6A"></i>#2E9E6A</div><div><i style="background:#2F7BE0"></i>#2F7BE0</div>
+        <div><i style="background:#E9B820"></i>#E9B820</div><div><i style="background:#C04A8F"></i>#C04A8F</div>
+        <div><i style="background:#E8562F"></i>#E8562F 신호·강조</div></div></dd>
+      <dt>글꼴</dt><dd>Gothic A1 800(제목)·400~700(본문) / 대체: Apple SD Gothic Neo, 맑은 고딕</dd>
+      <dt>표현</dt><dd>밝은 실험대 바탕 위 canvas 렌더링 공 막대 모형: 좌상단 광원의 방사형 그라데이션 구, 바닥 반사광과 하이라이트, 폭 방향 그라데이션 원통 막대, 바닥에 떨어지는 흐린 그림자</dd>
+      <dt>난이도</dt><dd>HTML 중 · PPT 중(모핑 사용 시 하)</dd>
+      <dt>트렌드</dt><dd>만지고 싶은 광택·입체 오브젝트(tactile, puffy 3D)를 장식이 아닌 정보 요소로 쓰기 — <a href="https://www.krumzi.com/blog/12-graphic-design-trends-shaping-2026-and-how-ai-is-changing-the-game" target="_blank" rel="noopener">Krumzi, 12 Graphic Design Trends 2026</a> / 물리 법칙이 느껴지는 촉각형 애니메이션(던짐·반동) — <a href="https://garagefarm.net/blog/animation-trends-to-watch" target="_blank" rel="noopener">GarageFarm, Animation trends to watch</a></dd>
+    </dl>
+  </section>
+</div>
+<script>
+document.getElementById('copyBtn').addEventListener('click', function(){
+  var btn = this, txt = document.getElementById('codePre').textContent;
+  function sel(){ var r = document.createRange(); r.selectNodeContents(document.getElementById('codePre')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '전체 선택됨 · Ctrl+C'; }
+  try { navigator.clipboard.writeText(txt).then(function(){ btn.textContent = '복사했습니다'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1800); }, sel); } catch(e) { sel(); }
+});
+</script>
+
+</body></html>

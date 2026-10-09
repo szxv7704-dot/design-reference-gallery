@@ -7,7 +7,7 @@ const { chromium } = require('playwright');
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, deviceScaleFactor: 0.5 });
   await page.goto('file://' + path.resolve(src));
-  await page.waitForTimeout(3500); // 웹폰트·등장 애니메이션 대기
+  await page.waitForTimeout(+process.env.WAIT || 3500); // 웹폰트·등장 애니메이션 대기 (재생이 긴 실무형은 WAIT=9000)
   const box = await page.evaluate(() => {
     for (const el of document.querySelectorAll('body *')) {
       const r = el.getBoundingClientRect();

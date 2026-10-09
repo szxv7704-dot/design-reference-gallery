@@ -1,0 +1,677 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #42 맞춰지는 자물쇠</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Hahmlet:wght@600;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* 레이아웃: 맨 위 16:9 장표, 아래로 설명·코드·PPT·스펙을 한 단 문서로 */
+:root{
+  --pg-bg:#EEF2F0; --pg-paper:#FFFFFF; --pg-ink:#1C2A32; --pg-ink2:#4A5A63; --pg-line:#D2DBD7;
+  --pg-teal:#0B8A7C; --pg-coral:#E2553B; --pg-code:#16212A; --pg-codefg:#DDE6EA;
+  --pg-sans:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-title:"Hahmlet","Noto Serif KR","Batang",serif;
+  --pg-mono:"JetBrains Mono","D2Coding","Consolas",monospace;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-sans); font-size:15px; line-height:1.7;}
+.pg{max-width:1280px; margin:0 auto; padding:28px 16px 64px; display:grid; gap:28px;}
+.pg-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 16px;}
+.pg-head h1{font-family:var(--pg-title); font-size:22px; margin:0; letter-spacing:-.01em;}
+.pg-head p{margin:0; color:var(--pg-ink2); font-size:13px;}
+.pg-sec{background:var(--pg-paper); border:1px solid var(--pg-line); border-radius:14px; padding:24px clamp(16px,3vw,32px); display:grid; gap:14px; min-width:0;}
+.pg-sec h2{font-family:var(--pg-title); font-size:20px; margin:0; display:flex; gap:10px; align-items:baseline;}
+.pg-sec h2 small{font-family:var(--pg-sans); font-size:12px; color:var(--pg-teal); font-weight:700; letter-spacing:.06em;}
+.pg-sec h3{font-size:15px; margin:6px 0 0;}
+.pg-sec p,.pg-sec li{max-width:72ch; margin:0;}
+.pg-sec ul,.pg-sec ol{margin:0; padding-left:1.3em; display:grid; gap:4px;}
+.pg-two{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px;}
+.pg-codewrap{display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:20px; align-items:start;}
+@media (max-width:760px){ .pg-two,.pg-codewrap{grid-template-columns:minmax(0,1fr);} }
+.pg-note{font-size:14px; color:var(--pg-ink2); display:grid; gap:8px;}
+.pg-note b{color:var(--pg-ink);}
+.pg-code{position:relative; min-width:0;}
+.pg-code pre{margin:0; background:var(--pg-code); color:var(--pg-codefg); font:12.5px/1.6 var(--pg-mono); border-radius:10px; padding:16px; max-height:520px; overflow:auto; white-space:pre;}
+.pg-copy{position:absolute; top:10px; right:10px; font:700 13px var(--pg-sans); background:#fff; color:var(--pg-ink); border:0; border-radius:8px; padding:8px 12px; cursor:pointer;}
+.pg-copy:focus-visible{outline:3px solid var(--pg-teal);}
+.pg-tbl{overflow-x:auto;}
+table{border-collapse:collapse; width:100%; font-size:14px; min-width:640px;}
+th,td{border-bottom:1px solid var(--pg-line); padding:9px 10px; text-align:left; vertical-align:top;}
+th{font-size:12px; color:var(--pg-ink2); letter-spacing:.04em; background:#F5F8F6;}
+td code,p code,li code{font-family:var(--pg-mono); font-size:12.5px; background:#EEF2F0; padding:1px 5px; border-radius:4px;}
+.pg-sw{display:flex; flex-wrap:wrap; gap:10px;}
+.pg-sw span{display:flex; align-items:center; gap:8px; font:12.5px var(--pg-mono); color:var(--pg-ink2);}
+.pg-sw i{width:26px; height:26px; border-radius:6px; border:1px solid rgba(0,0,0,.12); display:inline-block;}
+.pg-mlist{display:none;}
+@media (max-width:640px){ .pg-mlist{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; font-size:13px;}
+  .pg-mlist div{background:var(--pg-paper); border:1px solid var(--pg-line); border-radius:10px; padding:8px 10px;} .pg-mlist b{color:var(--pg-teal);} }
+.pg-foot{font-size:12px; color:var(--pg-ink2);}
+</style>
+
+<main class="pg">
+  <header class="pg-head">
+    <h1>레퍼런스 #42 · 맞춰지는 자물쇠</h1>
+    <p>실무형 · 목표 및 지표 · 동작 패턴: 변형 · 가상 예시</p>
+  </header>
+
+  <section aria-label="도식 장표">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@600;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+/* ===== 핀 텀블러 자물쇠 도식 (접두어 lk-) ===== */
+.lk-wrap{
+  /* 색·글꼴은 여기서 바꾼다 */
+  --lk-bg:#F3F6F4;      /* 장표 바탕 */
+  --lk-ink:#1C2A32;     /* 제목·숫자 */
+  --lk-ink2:#4A5A63;    /* 보조 글자 */
+  --lk-teal:#0B8A7C;    /* 정렬선·달성 */
+  --lk-coral:#E2553B;   /* 남은 차이 */
+  --lk-brass:#D3A040;   /* 자물쇠 몸통 */
+  --lk-title:"Hahmlet","Noto Serif KR","Batang",serif;
+  --lk-sans:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-family:var(--lk-sans); color:var(--lk-ink);
+  max-width:1280px; margin:0 auto;
+}
+.lk-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; container-type:inline-size;
+  background:radial-gradient(120% 90% at 70% 40%,#FFFFFF 0%,var(--lk-bg) 62%,#E7EEEA 100%);
+  border-radius:14px; overflow:hidden; box-shadow:0 1px 0 #fff inset,0 18px 40px -24px rgba(28,42,50,.35);}
+.lk-slide svg{position:absolute; inset:0; width:100%; height:100%;}
+.lk-text{position:absolute; left:4cqw; top:3.6cqw; width:34cqw; display:flex; flex-direction:column; gap:1.3cqw;}
+.lk-kicker{display:flex; align-items:center; gap:.8cqw; font-size:1.15cqw; color:var(--lk-ink2); white-space:nowrap;}
+.lk-kicker b{background:var(--lk-ink); color:#fff; font-weight:700; padding:.3cqw .8cqw; border-radius:.4cqw; letter-spacing:.02em;}
+.lk-title{font-family:var(--lk-title); font-weight:800; font-size:3.45cqw; line-height:1.22; letter-spacing:-.02em; margin:0; text-wrap:balance; word-break:keep-all;}
+.lk-title em{font-style:normal; color:var(--lk-teal);}
+.lk-sub{font-size:1.32cqw; line-height:1.55; word-break:keep-all; color:var(--lk-ink2); margin:0;}
+.lk-result{margin-top:.6cqw; padding-top:1.2cqw; border-top:.14cqw solid #C9D4CF;}
+.lk-result small{display:block; font-size:1.1cqw; color:var(--lk-ink2); font-weight:500;}
+.lk-big{font-family:var(--lk-title); font-weight:800; font-size:6.2cqw; line-height:1.05; font-variant-numeric:tabular-nums; color:var(--lk-ink); transition:color .4s;}
+.lk-big span{font-size:2.4cqw; margin-left:.3cqw;}
+.lk-big.is-open{color:var(--lk-teal);}
+.lk-legend{position:absolute; left:4cqw; bottom:3.2cqw; display:grid; gap:.55cqw; font-size:1.08cqw; color:var(--lk-ink2);}
+.lk-legend div{display:flex; align-items:center; gap:.7cqw;}
+.lk-legend i{display:inline-block; width:2.6cqw; height:0; border-top:.25cqw dashed var(--lk-teal);}
+.lk-legend i.c{border-top:.7cqw solid var(--lk-coral); width:1.4cqw; border-radius:.2cqw;}
+.lk-legend i.g{border-top:.2cqw dashed #7F8B94;}
+.lk-tag{position:absolute; right:1.4cqw; bottom:1cqw; font-size:.95cqw; color:#7F8B94;}
+.lk-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:12px;}
+.lk-ctrl button{font:600 14px/1 var(--lk-sans); color:var(--lk-ink); background:#fff; border:1.5px solid #C3CFCA; border-radius:999px; padding:10px 16px; cursor:pointer;}
+.lk-ctrl button:hover{border-color:var(--lk-teal); color:var(--lk-teal);}
+.lk-ctrl button:focus-visible{outline:3px solid var(--lk-teal); outline-offset:2px;}
+.lk-step{font-size:14px; color:var(--lk-ink2); min-width:0;}
+</style>
+
+<div class="lk-wrap" id="lk">
+  <div class="lk-slide">
+    <svg viewBox="0 0 1600 900" aria-hidden="true">
+      <defs>
+        <linearGradient id="lk-gBody" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6DC93"/><stop offset=".45" stop-color="#DDAE4C"/><stop offset="1" stop-color="#B47F27"/></linearGradient>
+        <linearGradient id="lk-gShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".22" stop-color="#fff" stop-opacity=".28"/><stop offset=".34" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="lk-gPlug" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0CF7F"/><stop offset="1" stop-color="#CE9A3A"/></linearGradient>
+        <linearGradient id="lk-gCav" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3A2A14"/><stop offset=".5" stop-color="#5E4623"/><stop offset="1" stop-color="#3A2A14"/></linearGradient>
+        <linearGradient id="lk-gWay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#33240F"/><stop offset="1" stop-color="#5A4220"/></linearGradient>
+        <linearGradient id="lk-gKeyPin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A9761F"/><stop offset=".38" stop-color="#FBE3A0"/><stop offset="1" stop-color="#B8852C"/></linearGradient>
+        <linearGradient id="lk-gDriver" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7E8993"/><stop offset=".38" stop-color="#F3F6F8"/><stop offset="1" stop-color="#8D98A2"/></linearGradient>
+        <linearGradient id="lk-gKey" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1F4F6"/><stop offset=".5" stop-color="#BEC8D0"/><stop offset="1" stop-color="#8E99A3"/></linearGradient>
+        <pattern id="lk-hatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="14" height="14" fill="#F4DDA6"/><line x1="0" y1="0" x2="0" y2="14" stroke="#E2C27A" stroke-width="3"/></pattern>
+        <filter id="lk-blur" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="10"/></filter>
+        <filter id="lk-glow" x="-10%" y="-400%" width="120%" height="900%"><feGaussianBlur stdDeviation="6"/></filter>
+      </defs>
+
+      <!-- 바닥 그림자 -->
+      <ellipse cx="1060" cy="748" rx="410" ry="14" fill="#1C2A32" opacity=".22" filter="url(#lk-blur)"/>
+
+      <!-- 고리(샤클): 겹친 선으로 원통 질감 -->
+      <g id="lk-shackle">
+        <g fill="none" stroke-linecap="butt">
+          <path d="M717 330 L717 225 A338 115 0 0 1 1393 225 L1393 330" stroke="#5F6A74" stroke-width="60"/>
+          <path d="M717 330 L717 225 A338 115 0 0 1 1393 225 L1393 330" stroke="#8F9AA4" stroke-width="50"/>
+          <path d="M717 330 L717 225 A338 115 0 0 1 1393 225 L1393 330" stroke="#B5BFC7" stroke-width="36"/>
+          <path d="M717 330 L717 225 A338 115 0 0 1 1393 225 L1393 330" stroke="#DCE3E8" stroke-width="18"/>
+          <path d="M711 330 L711 225 A344 119 0 0 1 1399 225 L1399 330" stroke="#FFFFFF" stroke-width="5" opacity=".9"/>
+        </g>
+      </g>
+
+      <!-- 몸통: 두께(아래 띠) + 앞면 + 광택 -->
+      <rect x="660" y="304" width="790" height="445" rx="42" fill="#94661C"/>
+      <rect x="660" y="290" width="790" height="445" rx="42" fill="url(#lk-gBody)"/>
+      <rect x="660" y="290" width="790" height="445" rx="42" fill="url(#lk-gShine)"/>
+      <rect x="668" y="298" width="774" height="429" rx="36" fill="none" stroke="#FFF4D2" stroke-opacity=".55" stroke-width="3"/>
+
+      <!-- 단면 창 -->
+      <rect x="776" y="318" width="622" height="384" rx="18" fill="url(#lk-hatch)" stroke="#9E6E22" stroke-width="4"/>
+      <rect x="782" y="470" width="610" height="192" fill="url(#lk-gPlug)"/>
+      <rect x="782" y="540" width="610" height="114" fill="url(#lk-gWay)"/>
+      <g id="lk-chambers"></g>
+
+      <!-- 열쇠 (현재 모양 점선 + 바뀌는 실선) -->
+      <path id="lk-key" fill="url(#lk-gKey)" stroke="#5E6973" stroke-width="2.5" stroke-linejoin="round"/>
+      <path id="lk-ghost" fill="none" stroke="#56616B" stroke-width="2.5" stroke-dasharray="7 6"/>
+      <g id="lk-pins"></g>
+
+      <!-- 정렬선 = 목표선 -->
+      <line id="lk-glowline" x1="776" y1="470" x2="1398" y2="470" stroke="#19C2AE" stroke-width="14" opacity="0" filter="url(#lk-glow)"/>
+      <line x1="776" y1="470" x2="1462" y2="470" stroke="#0B8A7C" stroke-width="3.5" stroke-dasharray="12 7"/>
+      <text x="1470" y="462" font-size="26" font-weight="900" fill="#0B8A7C" font-family="Noto Sans KR, sans-serif">정렬선</text>
+      <text x="1470" y="490" font-size="18" font-weight="500" fill="#4A5A63" font-family="Noto Sans KR, sans-serif">2030 목표</text>
+
+      <!-- 열쇠 손잡이 (몸통 밖) -->
+      <rect x="1450" y="604" width="30" height="40" fill="url(#lk-gKey)" stroke="#5E6973" stroke-width="2.5"/>
+      <rect x="1474" y="548" width="114" height="150" rx="44" fill="url(#lk-gKey)" stroke="#5E6973" stroke-width="2.5"/>
+      <circle cx="1548" cy="623" r="17" fill="#EEF3F0" stroke="#5E6973" stroke-width="2.5"/>
+
+      <g id="lk-cards"></g>
+    </svg>
+
+    <div class="lk-text">
+      <div class="lk-kicker"><b>Ⅱ. 목표 및 지표</b><span>○○시 만성질환 예방·관리 추진 계획(안)</span></div>
+      <h2 class="lk-title">다섯 지표가 한 선에 맞춰지면 <em>건강수명 72세</em>가 열린다</h2>
+      <p class="lk-sub">지표마다 목표치는 다르지만, 다섯 개 모두 2030 목표에 닿아야 자물쇠가 열립니다.</p>
+      <div class="lk-result">
+        <small>○○시 건강수명</small>
+        <div class="lk-big" id="lk-big">70.4<span>세</span></div>
+        <small id="lk-bigcap">2025 현재</small>
+      </div>
+    </div>
+    <div class="lk-legend">
+      <div><i></i>정렬선 = 지표별 2030 목표치</div>
+      <div><i class="c"></i>목표까지 남은 차이</div>
+      <div><i class="g"></i>2025년 열쇠 모양</div>
+    </div>
+    <div class="lk-tag">가상 예시</div>
+  </div>
+  <div class="lk-ctrl">
+    <button type="button" id="lk-replay">다시 보기</button>
+    <button type="button" id="lk-next">한 단계씩</button>
+    <span class="lk-step" id="lk-step" aria-live="polite"></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ===== 데이터: 지표 이름(두 줄), 2025 현재값, 2030 목표값 ===== */
+  var DATA = [
+    { name:["고혈압","인지율"],   now:72, goal:80 },
+    { name:["당뇨 치료","지속률"], now:60, goal:75 },
+    { name:["혈압","조절률"],     now:48, goal:60 },
+    { name:["걷기","실천율"],     now:45, goal:55 },
+    { name:["건강검진","수검률"], now:69, goal:80 }
+  ];
+  var RESULT = { now:70.4, goal:72.0, unit:"세" };   /* 자물쇠가 열리면 바뀌는 결과값 */
+  var PIN_X = [850, 970, 1090, 1210, 1330];          /* 핀 위치(가로) */
+  var SHEAR = 470, KEYPIN = 90, DRIVER = 80, TOP = 330, VALLEY = 628, K = 3.6; /* K: 1%p 차이 = 3.6px */
+  var DUR = 650, GAP = 120;                          /* 단계별 재생 시간·간격(ms) */
+
+  var NS = "http://www.w3.org/2000/svg";
+  var root = document.getElementById("lk");
+  function $(id){ return root.querySelector("#"+id); }
+  function el(tag, attrs, parent){ var e=document.createElementNS(NS,tag); for(var k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+
+  /* 상태: t[i] 0(현재)→1(목표), open 0→1 */
+  var st = { t:DATA.map(function(){return 0;}), open:0 };
+  var parts = [];
+  var ch = $("lk-chambers"), pins = $("lk-pins"), cards = $("lk-cards");
+
+  PIN_X.forEach(function(x, i){
+    el("rect",{x:x-31,y:TOP,width:62,height:SHEAR-TOP,rx:6,fill:"url(#lk-gCav)"},ch);
+    el("rect",{x:x-31,y:SHEAR,width:62,height:72,fill:"url(#lk-gCav)"},ch);
+    var g = el("g",{},pins);
+    var p = {
+      spring: el("path",{fill:"none",stroke:"#7D8891","stroke-width":4,"stroke-linejoin":"round"},g),
+      driver: el("rect",{x:x-25,width:50,height:DRIVER,rx:9,fill:"url(#lk-gDriver)",stroke:"#5E6973","stroke-width":2},g),
+      keypin: el("rect",{x:x-25,width:50,height:KEYPIN,rx:9,fill:"url(#lk-gKeyPin)",stroke:"#8A5E18","stroke-width":2},g),
+      red:    el("rect",{x:x-25,y:SHEAR,width:50,height:0,fill:"#E2553B",opacity:.88},g),
+      ok:     el("rect",{x:x-34,y:SHEAR-3,width:68,height:6,rx:3,fill:"#0B8A7C",opacity:0},g)
+    };
+    var c = el("g",{},cards);
+    p.card = el("rect",{x:x-56,y:765,width:112,height:126,rx:12,fill:"#FFFFFF","stroke-width":3},c);
+    var tf = {"text-anchor":"middle","font-family":"Noto Sans KR, sans-serif"};
+    el("text",Object.assign({x:x,y:797,"font-size":21,"font-weight":700,fill:"#4A5A63"},tf),c).textContent = DATA[i].name[0];
+    el("text",Object.assign({x:x,y:822,"font-size":21,"font-weight":700,fill:"#4A5A63"},tf),c).textContent = DATA[i].name[1];
+    p.val  = el("text",Object.assign({x:x,y:860,"font-size":34,"font-weight":900,fill:"#1C2A32"},tf),c);
+    p.goal = el("text",Object.assign({x:x,y:882,"font-size":16,"font-weight":500,fill:"#4A5A63"},tf),c);
+    p.goal.textContent = "목표 " + DATA[i].goal + "%";
+    parts.push(p);
+  });
+
+  function gapOf(i, t){ return (DATA[i].goal - DATA[i].now) * K * (1 - t); }
+  function keyPath(tFn){
+    var d = "M1398 646 L784 646 L774 636 L" + (PIN_X[0]-52) + " " + VALLEY;
+    PIN_X.forEach(function(x, i){
+      var tt = SHEAR + KEYPIN + gapOf(i, tFn(i));
+      d += " L"+(x-52)+" "+VALLEY+" L"+(x-20)+" "+tt.toFixed(1)+" L"+(x+20)+" "+tt.toFixed(1)+" L"+(x+52)+" "+VALLEY;
+    });
+    return d + " L1398 " + VALLEY;
+  }
+  function springPath(x, y0, y1){
+    var n = 7, w = 19, d = "M"+x+" "+y0, h = (y1 - y0) / n;
+    for (var k=0; k<n; k++) d += " L"+(x+(k%2?-w:w))+" "+(y0+h*(k+.5)).toFixed(1);
+    return d + " L"+x+" "+y1.toFixed(1);
+  }
+
+  function render(){
+    $("lk-key").setAttribute("d", keyPath(function(i){ return st.t[i]; }) + " Z");
+    $("lk-ghost").setAttribute("d", keyPath(function(){ return 0; }));
+    var done = 0;
+    PIN_X.forEach(function(x, i){
+      var p = parts[i], g = gapOf(i, st.t[i]), tt = SHEAR + KEYPIN + g;
+      p.keypin.setAttribute("y", tt - KEYPIN);
+      p.driver.setAttribute("y", tt - KEYPIN - DRIVER);
+      p.spring.setAttribute("d", springPath(x, TOP + 2, tt - KEYPIN - DRIVER));
+      p.red.setAttribute("height", Math.max(0, g - .5));
+      var ok = st.t[i] >= .999; if (ok) done++;
+      p.ok.setAttribute("opacity", ok ? 1 : 0);
+      p.card.setAttribute("stroke", ok ? "#0B8A7C" : "#E2553B");
+      p.val.textContent = Math.round(DATA[i].now + (DATA[i].goal - DATA[i].now) * st.t[i]) + "%";
+      p.val.setAttribute("fill", ok ? "#0B8A7C" : "#1C2A32");
+    });
+    var o = st.open;
+    $("lk-shackle").setAttribute("transform", "translate(0 " + (-60 * o).toFixed(1) + ")");
+    $("lk-glowline").setAttribute("opacity", (done === DATA.length ? .55 + .45 * o : 0).toFixed(2));
+    var v = RESULT.now + (RESULT.goal - RESULT.now) * Math.min(1, o);
+    var big = $("lk-big");
+    big.innerHTML = v.toFixed(1) + "<span>" + RESULT.unit + "</span>";
+    big.classList.toggle("is-open", o >= .999);
+    $("lk-bigcap").textContent = o >= .999 ? "2030 목표 · 자물쇠 열림" : "2025 현재";
+  }
+
+  /* ===== 단계: 지표 다섯 개를 하나씩 맞춘 뒤, 자물쇠가 열린다 ===== */
+  var STEPS = DATA.map(function(d, i){
+    return { label: "지표 " + (i+1) + "/5 · " + d.name.join(" ") + " " + d.now + "% → " + d.goal + "%", run: function(e){ st.t[i] = e; } };
+  }).concat([{ label: "다섯 핀이 정렬선에 맞춤 → 고리가 열림 · 건강수명 " + RESULT.now + " → " + RESULT.goal + RESULT.unit, run: function(e){ st.open = e; } }]);
+
+  function easeBack(x){ var c = 1.6; return 1 + (c+1)*Math.pow(x-1,3) + c*Math.pow(x-1,2); }
+  var timer = null, raf = null, idx = 0;
+  function stopAll(){ clearTimeout(timer); cancelAnimationFrame(raf); }
+  function tween(step, done){
+    var t0 = performance.now();
+    (function frame(now){
+      var x = Math.min(1, (now - t0) / DUR);
+      step.run(x < 1 ? easeBack(x) : 1); render();
+      if (x < 1) raf = requestAnimationFrame(frame); else if (done) done();
+    })(t0);
+  }
+  function setLabel(s){ $("lk-step").textContent = s; }
+  function reset(){ st.t = st.t.map(function(){return 0;}); st.open = 0; idx = 0; render(); }
+  function finalState(){ st.t = st.t.map(function(){return 1;}); st.open = 1; idx = STEPS.length; render(); }
+
+  function play(){
+    stopAll(); reset(); setLabel("2025 현재 열쇠: 다섯 핀이 모두 정렬선 아래에 걸림");
+    (function next(){
+      if (idx >= STEPS.length) { setLabel("완료 · " + STEPS[STEPS.length-1].label); return; }
+      var s = STEPS[idx++]; setLabel(s.label);
+      tween(s, function(){ timer = setTimeout(next, GAP); });
+    })();
+  }
+  function stepOnce(){
+    stopAll();
+    if (idx >= STEPS.length) { reset(); setLabel("처음: 2025 현재 열쇠 (다시 누르면 한 단계씩)"); return; }
+    STEPS.slice(0, idx).forEach(function(s){ s.run(1); });
+    var s = STEPS[idx++]; setLabel(s.label); tween(s);
+  }
+
+  $("lk-replay").addEventListener("click", play);
+  $("lk-next").addEventListener("click", stepOnce);
+
+  /* 처음 열면: 완성 도식 → 처음부터 한 번 재생 → 최종 정지. 움직임 줄이기 설정이면 완성 도식만 */
+  finalState(); setLabel("완성 도식");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) timer = setTimeout(play, 700);
+})();
+</script>
+
+    <div class="pg-mlist" aria-label="지표 요약(모바일)">
+      <div>고혈압 인지율 72 → <b>80%</b></div><div>당뇨 치료 지속률 60 → <b>75%</b></div><div>혈압 조절률 48 → <b>60%</b></div><div>걷기 실천율 45 → <b>55%</b></div><div>건강검진 수검률 69 → <b>80%</b></div><div>건강수명 70.4 → <b>72.0세</b></div>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2><small>01</small>동작 설명</h2>
+    <p>핀 텀블러 자물쇠의 단면을 빌려, 성과 지표 다섯 개를 <b>핀 다섯 개</b>로 세웠습니다. 2025년 열쇠(현재값)로는 핀이 정렬선 아래에 걸려 빨간 구간이 남습니다. 열쇠의 톱니가 하나씩 <b>목표 모양으로 변형</b>될 때마다 해당 핀이 정렬선까지 올라가고 숫자가 목표치로 바뀝니다. 다섯 개가 모두 맞으면 고리가 튀어 올라 상위 목표(건강수명)가 열립니다.</p>
+    <p>핵심은 <b>정규화된 목표선</b>입니다. 지표마다 단위와 목표치는 달라도 "목표 도달"을 같은 높이의 선 하나로 맞춰, 무엇이 얼마나 모자란지(빨간 길이)와 모두 맞아야 결과가 난다는 조건(AND)을 한 화면에 보여 줍니다. 최종 화면에는 2025년 열쇠 모양이 점선으로 남아 전후 비교가 됩니다.</p>
+    <h3>응용 예</h3>
+    <ul>
+      <li>인증·평가 준비: 필수 기준 항목을 핀으로, 기준 충족선을 정렬선으로 두고 "모두 충족해야 인증"을 표현</li>
+      <li>사업 착수 조건: 예산 확보·조례 개정·부지 확보·인력 충원이 모두 갖춰져야 착공이 열리는 선행 조건 도식</li>
+      <li>기업 KPI: 매출·이익률·고객 유지율·재구매율을 핀으로 두고 목표 연도 열쇠로 바꿔 끼우는 연간 목표 장표</li>
+    </ul>
+  </section>
+
+  <section class="pg-sec">
+    <h2><small>02</small>HTML로 가져다 쓰기</h2>
+    <div class="pg-codewrap">
+      <div class="pg-note">
+        <p><b>지표 이름·값</b>: 스크립트 맨 위 <code>DATA</code> 배열의 <code>name</code>(두 줄), <code>now</code>, <code>goal</code>을 바꿉니다. 핀 개수를 바꾸면 <code>PIN_X</code>도 같은 개수로 맞춥니다.</p>
+        <p><b>결과값</b>: <code>RESULT</code>의 <code>now</code>·<code>goal</code>·<code>unit</code>.</p>
+        <p><b>글자·색</b>: 제목·부제는 <code>.lk-title</code>, <code>.lk-sub</code> 마크업에서, 색은 <code>.lk-wrap</code>의 <code>--lk-</code> 변수에서 바꿉니다. 차이가 너무 작게 보이면 <code>K</code>(1%p당 높이)를 키웁니다.</p>
+        <p><b>속도</b>: <code>DUR</code>(단계 길이), <code>GAP</code>(단계 사이).</p>
+        <p>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</p>
+      </div>
+      <div class="pg-code">
+        <button type="button" class="pg-copy" id="pg-copy">코드 복사</button>
+        <pre><code id="pg-src">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Hahmlet:wght@600;800&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ===== 핀 텀블러 자물쇠 도식 (접두어 lk-) ===== */
+.lk-wrap{
+  /* 색·글꼴은 여기서 바꾼다 */
+  --lk-bg:#F3F6F4;      /* 장표 바탕 */
+  --lk-ink:#1C2A32;     /* 제목·숫자 */
+  --lk-ink2:#4A5A63;    /* 보조 글자 */
+  --lk-teal:#0B8A7C;    /* 정렬선·달성 */
+  --lk-coral:#E2553B;   /* 남은 차이 */
+  --lk-brass:#D3A040;   /* 자물쇠 몸통 */
+  --lk-title:&quot;Hahmlet&quot;,&quot;Noto Serif KR&quot;,&quot;Batang&quot;,serif;
+  --lk-sans:&quot;Noto Sans KR&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  font-family:var(--lk-sans); color:var(--lk-ink);
+  max-width:1280px; margin:0 auto;
+}
+.lk-slide{position:relative; width:100%; max-width:100%; aspect-ratio:16/9; container-type:inline-size;
+  background:radial-gradient(120% 90% at 70% 40%,#FFFFFF 0%,var(--lk-bg) 62%,#E7EEEA 100%);
+  border-radius:14px; overflow:hidden; box-shadow:0 1px 0 #fff inset,0 18px 40px -24px rgba(28,42,50,.35);}
+.lk-slide svg{position:absolute; inset:0; width:100%; height:100%;}
+.lk-text{position:absolute; left:4cqw; top:3.6cqw; width:34cqw; display:flex; flex-direction:column; gap:1.3cqw;}
+.lk-kicker{display:flex; align-items:center; gap:.8cqw; font-size:1.15cqw; color:var(--lk-ink2); white-space:nowrap;}
+.lk-kicker b{background:var(--lk-ink); color:#fff; font-weight:700; padding:.3cqw .8cqw; border-radius:.4cqw; letter-spacing:.02em;}
+.lk-title{font-family:var(--lk-title); font-weight:800; font-size:3.45cqw; line-height:1.22; letter-spacing:-.02em; margin:0; text-wrap:balance; word-break:keep-all;}
+.lk-title em{font-style:normal; color:var(--lk-teal);}
+.lk-sub{font-size:1.32cqw; line-height:1.55; word-break:keep-all; color:var(--lk-ink2); margin:0;}
+.lk-result{margin-top:.6cqw; padding-top:1.2cqw; border-top:.14cqw solid #C9D4CF;}
+.lk-result small{display:block; font-size:1.1cqw; color:var(--lk-ink2); font-weight:500;}
+.lk-big{font-family:var(--lk-title); font-weight:800; font-size:6.2cqw; line-height:1.05; font-variant-numeric:tabular-nums; color:var(--lk-ink); transition:color .4s;}
+.lk-big span{font-size:2.4cqw; margin-left:.3cqw;}
+.lk-big.is-open{color:var(--lk-teal);}
+.lk-legend{position:absolute; left:4cqw; bottom:3.2cqw; display:grid; gap:.55cqw; font-size:1.08cqw; color:var(--lk-ink2);}
+.lk-legend div{display:flex; align-items:center; gap:.7cqw;}
+.lk-legend i{display:inline-block; width:2.6cqw; height:0; border-top:.25cqw dashed var(--lk-teal);}
+.lk-legend i.c{border-top:.7cqw solid var(--lk-coral); width:1.4cqw; border-radius:.2cqw;}
+.lk-legend i.g{border-top:.2cqw dashed #7F8B94;}
+.lk-tag{position:absolute; right:1.4cqw; bottom:1cqw; font-size:.95cqw; color:#7F8B94;}
+.lk-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:12px;}
+.lk-ctrl button{font:600 14px/1 var(--lk-sans); color:var(--lk-ink); background:#fff; border:1.5px solid #C3CFCA; border-radius:999px; padding:10px 16px; cursor:pointer;}
+.lk-ctrl button:hover{border-color:var(--lk-teal); color:var(--lk-teal);}
+.lk-ctrl button:focus-visible{outline:3px solid var(--lk-teal); outline-offset:2px;}
+.lk-step{font-size:14px; color:var(--lk-ink2); min-width:0;}
+&lt;/style&gt;
+
+&lt;div class=&quot;lk-wrap&quot; id=&quot;lk&quot;&gt;
+  &lt;div class=&quot;lk-slide&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 1600 900&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;defs&gt;
+        &lt;linearGradient id=&quot;lk-gBody&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#F6DC93&quot;/&gt;&lt;stop offset=&quot;.45&quot; stop-color=&quot;#DDAE4C&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#B47F27&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;linearGradient id=&quot;lk-gShine&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;0&quot;/&gt;&lt;stop offset=&quot;.22&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;.28&quot;/&gt;&lt;stop offset=&quot;.34&quot; stop-color=&quot;#fff&quot; stop-opacity=&quot;0&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;linearGradient id=&quot;lk-gPlug&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#F0CF7F&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#CE9A3A&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;linearGradient id=&quot;lk-gCav&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#3A2A14&quot;/&gt;&lt;stop offset=&quot;.5&quot; stop-color=&quot;#5E4623&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#3A2A14&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;linearGradient id=&quot;lk-gWay&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#33240F&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#5A4220&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;linearGradient id=&quot;lk-gKeyPin&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#A9761F&quot;/&gt;&lt;stop offset=&quot;.38&quot; stop-color=&quot;#FBE3A0&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#B8852C&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;linearGradient id=&quot;lk-gDriver&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#7E8993&quot;/&gt;&lt;stop offset=&quot;.38&quot; stop-color=&quot;#F3F6F8&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#8D98A2&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;linearGradient id=&quot;lk-gKey&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#F1F4F6&quot;/&gt;&lt;stop offset=&quot;.5&quot; stop-color=&quot;#BEC8D0&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#8E99A3&quot;/&gt;&lt;/linearGradient&gt;
+        &lt;pattern id=&quot;lk-hatch&quot; width=&quot;14&quot; height=&quot;14&quot; patternUnits=&quot;userSpaceOnUse&quot; patternTransform=&quot;rotate(45)&quot;&gt;&lt;rect width=&quot;14&quot; height=&quot;14&quot; fill=&quot;#F4DDA6&quot;/&gt;&lt;line x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;14&quot; stroke=&quot;#E2C27A&quot; stroke-width=&quot;3&quot;/&gt;&lt;/pattern&gt;
+        &lt;filter id=&quot;lk-blur&quot; x=&quot;-20%&quot; y=&quot;-200%&quot; width=&quot;140%&quot; height=&quot;500%&quot;&gt;&lt;feGaussianBlur stdDeviation=&quot;10&quot;/&gt;&lt;/filter&gt;
+        &lt;filter id=&quot;lk-glow&quot; x=&quot;-10%&quot; y=&quot;-400%&quot; width=&quot;120%&quot; height=&quot;900%&quot;&gt;&lt;feGaussianBlur stdDeviation=&quot;6&quot;/&gt;&lt;/filter&gt;
+      &lt;/defs&gt;
+
+      &lt;!-- 바닥 그림자 --&gt;
+      &lt;ellipse cx=&quot;1060&quot; cy=&quot;748&quot; rx=&quot;410&quot; ry=&quot;14&quot; fill=&quot;#1C2A32&quot; opacity=&quot;.22&quot; filter=&quot;url(#lk-blur)&quot;/&gt;
+
+      &lt;!-- 고리(샤클): 겹친 선으로 원통 질감 --&gt;
+      &lt;g id=&quot;lk-shackle&quot;&gt;
+        &lt;g fill=&quot;none&quot; stroke-linecap=&quot;butt&quot;&gt;
+          &lt;path d=&quot;M717 330 L717 225 A338 115 0 0 1 1393 225 L1393 330&quot; stroke=&quot;#5F6A74&quot; stroke-width=&quot;60&quot;/&gt;
+          &lt;path d=&quot;M717 330 L717 225 A338 115 0 0 1 1393 225 L1393 330&quot; stroke=&quot;#8F9AA4&quot; stroke-width=&quot;50&quot;/&gt;
+          &lt;path d=&quot;M717 330 L717 225 A338 115 0 0 1 1393 225 L1393 330&quot; stroke=&quot;#B5BFC7&quot; stroke-width=&quot;36&quot;/&gt;
+          &lt;path d=&quot;M717 330 L717 225 A338 115 0 0 1 1393 225 L1393 330&quot; stroke=&quot;#DCE3E8&quot; stroke-width=&quot;18&quot;/&gt;
+          &lt;path d=&quot;M711 330 L711 225 A344 119 0 0 1 1399 225 L1399 330&quot; stroke=&quot;#FFFFFF&quot; stroke-width=&quot;5&quot; opacity=&quot;.9&quot;/&gt;
+        &lt;/g&gt;
+      &lt;/g&gt;
+
+      &lt;!-- 몸통: 두께(아래 띠) + 앞면 + 광택 --&gt;
+      &lt;rect x=&quot;660&quot; y=&quot;304&quot; width=&quot;790&quot; height=&quot;445&quot; rx=&quot;42&quot; fill=&quot;#94661C&quot;/&gt;
+      &lt;rect x=&quot;660&quot; y=&quot;290&quot; width=&quot;790&quot; height=&quot;445&quot; rx=&quot;42&quot; fill=&quot;url(#lk-gBody)&quot;/&gt;
+      &lt;rect x=&quot;660&quot; y=&quot;290&quot; width=&quot;790&quot; height=&quot;445&quot; rx=&quot;42&quot; fill=&quot;url(#lk-gShine)&quot;/&gt;
+      &lt;rect x=&quot;668&quot; y=&quot;298&quot; width=&quot;774&quot; height=&quot;429&quot; rx=&quot;36&quot; fill=&quot;none&quot; stroke=&quot;#FFF4D2&quot; stroke-opacity=&quot;.55&quot; stroke-width=&quot;3&quot;/&gt;
+
+      &lt;!-- 단면 창 --&gt;
+      &lt;rect x=&quot;776&quot; y=&quot;318&quot; width=&quot;622&quot; height=&quot;384&quot; rx=&quot;18&quot; fill=&quot;url(#lk-hatch)&quot; stroke=&quot;#9E6E22&quot; stroke-width=&quot;4&quot;/&gt;
+      &lt;rect x=&quot;782&quot; y=&quot;470&quot; width=&quot;610&quot; height=&quot;192&quot; fill=&quot;url(#lk-gPlug)&quot;/&gt;
+      &lt;rect x=&quot;782&quot; y=&quot;540&quot; width=&quot;610&quot; height=&quot;114&quot; fill=&quot;url(#lk-gWay)&quot;/&gt;
+      &lt;g id=&quot;lk-chambers&quot;&gt;&lt;/g&gt;
+
+      &lt;!-- 열쇠 (현재 모양 점선 + 바뀌는 실선) --&gt;
+      &lt;path id=&quot;lk-key&quot; fill=&quot;url(#lk-gKey)&quot; stroke=&quot;#5E6973&quot; stroke-width=&quot;2.5&quot; stroke-linejoin=&quot;round&quot;/&gt;
+      &lt;path id=&quot;lk-ghost&quot; fill=&quot;none&quot; stroke=&quot;#56616B&quot; stroke-width=&quot;2.5&quot; stroke-dasharray=&quot;7 6&quot;/&gt;
+      &lt;g id=&quot;lk-pins&quot;&gt;&lt;/g&gt;
+
+      &lt;!-- 정렬선 = 목표선 --&gt;
+      &lt;line id=&quot;lk-glowline&quot; x1=&quot;776&quot; y1=&quot;470&quot; x2=&quot;1398&quot; y2=&quot;470&quot; stroke=&quot;#19C2AE&quot; stroke-width=&quot;14&quot; opacity=&quot;0&quot; filter=&quot;url(#lk-glow)&quot;/&gt;
+      &lt;line x1=&quot;776&quot; y1=&quot;470&quot; x2=&quot;1462&quot; y2=&quot;470&quot; stroke=&quot;#0B8A7C&quot; stroke-width=&quot;3.5&quot; stroke-dasharray=&quot;12 7&quot;/&gt;
+      &lt;text x=&quot;1470&quot; y=&quot;462&quot; font-size=&quot;26&quot; font-weight=&quot;900&quot; fill=&quot;#0B8A7C&quot; font-family=&quot;Noto Sans KR, sans-serif&quot;&gt;정렬선&lt;/text&gt;
+      &lt;text x=&quot;1470&quot; y=&quot;490&quot; font-size=&quot;18&quot; font-weight=&quot;500&quot; fill=&quot;#4A5A63&quot; font-family=&quot;Noto Sans KR, sans-serif&quot;&gt;2030 목표&lt;/text&gt;
+
+      &lt;!-- 열쇠 손잡이 (몸통 밖) --&gt;
+      &lt;rect x=&quot;1450&quot; y=&quot;604&quot; width=&quot;30&quot; height=&quot;40&quot; fill=&quot;url(#lk-gKey)&quot; stroke=&quot;#5E6973&quot; stroke-width=&quot;2.5&quot;/&gt;
+      &lt;rect x=&quot;1474&quot; y=&quot;548&quot; width=&quot;114&quot; height=&quot;150&quot; rx=&quot;44&quot; fill=&quot;url(#lk-gKey)&quot; stroke=&quot;#5E6973&quot; stroke-width=&quot;2.5&quot;/&gt;
+      &lt;circle cx=&quot;1548&quot; cy=&quot;623&quot; r=&quot;17&quot; fill=&quot;#EEF3F0&quot; stroke=&quot;#5E6973&quot; stroke-width=&quot;2.5&quot;/&gt;
+
+      &lt;g id=&quot;lk-cards&quot;&gt;&lt;/g&gt;
+    &lt;/svg&gt;
+
+    &lt;div class=&quot;lk-text&quot;&gt;
+      &lt;div class=&quot;lk-kicker&quot;&gt;&lt;b&gt;Ⅱ. 목표 및 지표&lt;/b&gt;&lt;span&gt;○○시 만성질환 예방·관리 추진 계획(안)&lt;/span&gt;&lt;/div&gt;
+      &lt;h2 class=&quot;lk-title&quot;&gt;다섯 지표가 한 선에 맞춰지면 &lt;em&gt;건강수명 72세&lt;/em&gt;가 열린다&lt;/h2&gt;
+      &lt;p class=&quot;lk-sub&quot;&gt;지표마다 목표치는 다르지만, 다섯 개 모두 2030 목표에 닿아야 자물쇠가 열립니다.&lt;/p&gt;
+      &lt;div class=&quot;lk-result&quot;&gt;
+        &lt;small&gt;○○시 건강수명&lt;/small&gt;
+        &lt;div class=&quot;lk-big&quot; id=&quot;lk-big&quot;&gt;70.4&lt;span&gt;세&lt;/span&gt;&lt;/div&gt;
+        &lt;small id=&quot;lk-bigcap&quot;&gt;2025 현재&lt;/small&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;lk-legend&quot;&gt;
+      &lt;div&gt;&lt;i&gt;&lt;/i&gt;정렬선 = 지표별 2030 목표치&lt;/div&gt;
+      &lt;div&gt;&lt;i class=&quot;c&quot;&gt;&lt;/i&gt;목표까지 남은 차이&lt;/div&gt;
+      &lt;div&gt;&lt;i class=&quot;g&quot;&gt;&lt;/i&gt;2025년 열쇠 모양&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;lk-tag&quot;&gt;가상 예시&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;lk-ctrl&quot;&gt;
+    &lt;button type=&quot;button&quot; id=&quot;lk-replay&quot;&gt;다시 보기&lt;/button&gt;
+    &lt;button type=&quot;button&quot; id=&quot;lk-next&quot;&gt;한 단계씩&lt;/button&gt;
+    &lt;span class=&quot;lk-step&quot; id=&quot;lk-step&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  /* ===== 데이터: 지표 이름(두 줄), 2025 현재값, 2030 목표값 ===== */
+  var DATA = [
+    { name:[&quot;고혈압&quot;,&quot;인지율&quot;],   now:72, goal:80 },
+    { name:[&quot;당뇨 치료&quot;,&quot;지속률&quot;], now:60, goal:75 },
+    { name:[&quot;혈압&quot;,&quot;조절률&quot;],     now:48, goal:60 },
+    { name:[&quot;걷기&quot;,&quot;실천율&quot;],     now:45, goal:55 },
+    { name:[&quot;건강검진&quot;,&quot;수검률&quot;], now:69, goal:80 }
+  ];
+  var RESULT = { now:70.4, goal:72.0, unit:&quot;세&quot; };   /* 자물쇠가 열리면 바뀌는 결과값 */
+  var PIN_X = [850, 970, 1090, 1210, 1330];          /* 핀 위치(가로) */
+  var SHEAR = 470, KEYPIN = 90, DRIVER = 80, TOP = 330, VALLEY = 628, K = 3.6; /* K: 1%p 차이 = 3.6px */
+  var DUR = 650, GAP = 120;                          /* 단계별 재생 시간·간격(ms) */
+
+  var NS = &quot;http://www.w3.org/2000/svg&quot;;
+  var root = document.getElementById(&quot;lk&quot;);
+  function $(id){ return root.querySelector(&quot;#&quot;+id); }
+  function el(tag, attrs, parent){ var e=document.createElementNS(NS,tag); for(var k in attrs) e.setAttribute(k,attrs[k]); if(parent) parent.appendChild(e); return e; }
+
+  /* 상태: t[i] 0(현재)→1(목표), open 0→1 */
+  var st = { t:DATA.map(function(){return 0;}), open:0 };
+  var parts = [];
+  var ch = $(&quot;lk-chambers&quot;), pins = $(&quot;lk-pins&quot;), cards = $(&quot;lk-cards&quot;);
+
+  PIN_X.forEach(function(x, i){
+    el(&quot;rect&quot;,{x:x-31,y:TOP,width:62,height:SHEAR-TOP,rx:6,fill:&quot;url(#lk-gCav)&quot;},ch);
+    el(&quot;rect&quot;,{x:x-31,y:SHEAR,width:62,height:72,fill:&quot;url(#lk-gCav)&quot;},ch);
+    var g = el(&quot;g&quot;,{},pins);
+    var p = {
+      spring: el(&quot;path&quot;,{fill:&quot;none&quot;,stroke:&quot;#7D8891&quot;,&quot;stroke-width&quot;:4,&quot;stroke-linejoin&quot;:&quot;round&quot;},g),
+      driver: el(&quot;rect&quot;,{x:x-25,width:50,height:DRIVER,rx:9,fill:&quot;url(#lk-gDriver)&quot;,stroke:&quot;#5E6973&quot;,&quot;stroke-width&quot;:2},g),
+      keypin: el(&quot;rect&quot;,{x:x-25,width:50,height:KEYPIN,rx:9,fill:&quot;url(#lk-gKeyPin)&quot;,stroke:&quot;#8A5E18&quot;,&quot;stroke-width&quot;:2},g),
+      red:    el(&quot;rect&quot;,{x:x-25,y:SHEAR,width:50,height:0,fill:&quot;#E2553B&quot;,opacity:.88},g),
+      ok:     el(&quot;rect&quot;,{x:x-34,y:SHEAR-3,width:68,height:6,rx:3,fill:&quot;#0B8A7C&quot;,opacity:0},g)
+    };
+    var c = el(&quot;g&quot;,{},cards);
+    p.card = el(&quot;rect&quot;,{x:x-56,y:765,width:112,height:126,rx:12,fill:&quot;#FFFFFF&quot;,&quot;stroke-width&quot;:3},c);
+    var tf = {&quot;text-anchor&quot;:&quot;middle&quot;,&quot;font-family&quot;:&quot;Noto Sans KR, sans-serif&quot;};
+    el(&quot;text&quot;,Object.assign({x:x,y:797,&quot;font-size&quot;:21,&quot;font-weight&quot;:700,fill:&quot;#4A5A63&quot;},tf),c).textContent = DATA[i].name[0];
+    el(&quot;text&quot;,Object.assign({x:x,y:822,&quot;font-size&quot;:21,&quot;font-weight&quot;:700,fill:&quot;#4A5A63&quot;},tf),c).textContent = DATA[i].name[1];
+    p.val  = el(&quot;text&quot;,Object.assign({x:x,y:860,&quot;font-size&quot;:34,&quot;font-weight&quot;:900,fill:&quot;#1C2A32&quot;},tf),c);
+    p.goal = el(&quot;text&quot;,Object.assign({x:x,y:882,&quot;font-size&quot;:16,&quot;font-weight&quot;:500,fill:&quot;#4A5A63&quot;},tf),c);
+    p.goal.textContent = &quot;목표 &quot; + DATA[i].goal + &quot;%&quot;;
+    parts.push(p);
+  });
+
+  function gapOf(i, t){ return (DATA[i].goal - DATA[i].now) * K * (1 - t); }
+  function keyPath(tFn){
+    var d = &quot;M1398 646 L784 646 L774 636 L&quot; + (PIN_X[0]-52) + &quot; &quot; + VALLEY;
+    PIN_X.forEach(function(x, i){
+      var tt = SHEAR + KEYPIN + gapOf(i, tFn(i));
+      d += &quot; L&quot;+(x-52)+&quot; &quot;+VALLEY+&quot; L&quot;+(x-20)+&quot; &quot;+tt.toFixed(1)+&quot; L&quot;+(x+20)+&quot; &quot;+tt.toFixed(1)+&quot; L&quot;+(x+52)+&quot; &quot;+VALLEY;
+    });
+    return d + &quot; L1398 &quot; + VALLEY;
+  }
+  function springPath(x, y0, y1){
+    var n = 7, w = 19, d = &quot;M&quot;+x+&quot; &quot;+y0, h = (y1 - y0) / n;
+    for (var k=0; k&lt;n; k++) d += &quot; L&quot;+(x+(k%2?-w:w))+&quot; &quot;+(y0+h*(k+.5)).toFixed(1);
+    return d + &quot; L&quot;+x+&quot; &quot;+y1.toFixed(1);
+  }
+
+  function render(){
+    $(&quot;lk-key&quot;).setAttribute(&quot;d&quot;, keyPath(function(i){ return st.t[i]; }) + &quot; Z&quot;);
+    $(&quot;lk-ghost&quot;).setAttribute(&quot;d&quot;, keyPath(function(){ return 0; }));
+    var done = 0;
+    PIN_X.forEach(function(x, i){
+      var p = parts[i], g = gapOf(i, st.t[i]), tt = SHEAR + KEYPIN + g;
+      p.keypin.setAttribute(&quot;y&quot;, tt - KEYPIN);
+      p.driver.setAttribute(&quot;y&quot;, tt - KEYPIN - DRIVER);
+      p.spring.setAttribute(&quot;d&quot;, springPath(x, TOP + 2, tt - KEYPIN - DRIVER));
+      p.red.setAttribute(&quot;height&quot;, Math.max(0, g - .5));
+      var ok = st.t[i] &gt;= .999; if (ok) done++;
+      p.ok.setAttribute(&quot;opacity&quot;, ok ? 1 : 0);
+      p.card.setAttribute(&quot;stroke&quot;, ok ? &quot;#0B8A7C&quot; : &quot;#E2553B&quot;);
+      p.val.textContent = Math.round(DATA[i].now + (DATA[i].goal - DATA[i].now) * st.t[i]) + &quot;%&quot;;
+      p.val.setAttribute(&quot;fill&quot;, ok ? &quot;#0B8A7C&quot; : &quot;#1C2A32&quot;);
+    });
+    var o = st.open;
+    $(&quot;lk-shackle&quot;).setAttribute(&quot;transform&quot;, &quot;translate(0 &quot; + (-60 * o).toFixed(1) + &quot;)&quot;);
+    $(&quot;lk-glowline&quot;).setAttribute(&quot;opacity&quot;, (done === DATA.length ? .55 + .45 * o : 0).toFixed(2));
+    var v = RESULT.now + (RESULT.goal - RESULT.now) * Math.min(1, o);
+    var big = $(&quot;lk-big&quot;);
+    big.innerHTML = v.toFixed(1) + &quot;&lt;span&gt;&quot; + RESULT.unit + &quot;&lt;/span&gt;&quot;;
+    big.classList.toggle(&quot;is-open&quot;, o &gt;= .999);
+    $(&quot;lk-bigcap&quot;).textContent = o &gt;= .999 ? &quot;2030 목표 · 자물쇠 열림&quot; : &quot;2025 현재&quot;;
+  }
+
+  /* ===== 단계: 지표 다섯 개를 하나씩 맞춘 뒤, 자물쇠가 열린다 ===== */
+  var STEPS = DATA.map(function(d, i){
+    return { label: &quot;지표 &quot; + (i+1) + &quot;/5 · &quot; + d.name.join(&quot; &quot;) + &quot; &quot; + d.now + &quot;% → &quot; + d.goal + &quot;%&quot;, run: function(e){ st.t[i] = e; } };
+  }).concat([{ label: &quot;다섯 핀이 정렬선에 맞춤 → 고리가 열림 · 건강수명 &quot; + RESULT.now + &quot; → &quot; + RESULT.goal + RESULT.unit, run: function(e){ st.open = e; } }]);
+
+  function easeBack(x){ var c = 1.6; return 1 + (c+1)*Math.pow(x-1,3) + c*Math.pow(x-1,2); }
+  var timer = null, raf = null, idx = 0;
+  function stopAll(){ clearTimeout(timer); cancelAnimationFrame(raf); }
+  function tween(step, done){
+    var t0 = performance.now();
+    (function frame(now){
+      var x = Math.min(1, (now - t0) / DUR);
+      step.run(x &lt; 1 ? easeBack(x) : 1); render();
+      if (x &lt; 1) raf = requestAnimationFrame(frame); else if (done) done();
+    })(t0);
+  }
+  function setLabel(s){ $(&quot;lk-step&quot;).textContent = s; }
+  function reset(){ st.t = st.t.map(function(){return 0;}); st.open = 0; idx = 0; render(); }
+  function finalState(){ st.t = st.t.map(function(){return 1;}); st.open = 1; idx = STEPS.length; render(); }
+
+  function play(){
+    stopAll(); reset(); setLabel(&quot;2025 현재 열쇠: 다섯 핀이 모두 정렬선 아래에 걸림&quot;);
+    (function next(){
+      if (idx &gt;= STEPS.length) { setLabel(&quot;완료 · &quot; + STEPS[STEPS.length-1].label); return; }
+      var s = STEPS[idx++]; setLabel(s.label);
+      tween(s, function(){ timer = setTimeout(next, GAP); });
+    })();
+  }
+  function stepOnce(){
+    stopAll();
+    if (idx &gt;= STEPS.length) { reset(); setLabel(&quot;처음: 2025 현재 열쇠 (다시 누르면 한 단계씩)&quot;); return; }
+    STEPS.slice(0, idx).forEach(function(s){ s.run(1); });
+    var s = STEPS[idx++]; setLabel(s.label); tween(s);
+  }
+
+  $(&quot;lk-replay&quot;).addEventListener(&quot;click&quot;, play);
+  $(&quot;lk-next&quot;).addEventListener(&quot;click&quot;, stepOnce);
+
+  /* 처음 열면: 완성 도식 → 처음부터 한 번 재생 → 최종 정지. 움직임 줄이기 설정이면 완성 도식만 */
+  finalState(); setLabel(&quot;완성 도식&quot;);
+  var reduce = window.matchMedia &amp;&amp; window.matchMedia(&quot;(prefers-reduced-motion: reduce)&quot;).matches;
+  if (!reduce) timer = setTimeout(play, 700);
+})();
+&lt;/script&gt;
+</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2><small>03</small>PPT로 옮기기</h2>
+    <p>자물쇠 그림은 도형(사각형·원호)과 그라데이션 채우기로 그리거나, 이 페이지의 최종 화면을 캡처해 몸통·창만 배경으로 쓰고 핀·톱니·고리·숫자만 개체로 올립니다. 움직임은 <b>모핑 전환</b> 6장으로 만드는 것이 가장 가깝습니다.</p>
+    <ol>
+      <li><b>1번 슬라이드(현재)</b>: 열쇠 날을 <b>자유형 도형</b>으로 그리고 이름을 <code>!!key</code>로 바꿉니다([홈] → [정렬] → [선택 창]). 핀 위아래 두 개를 그룹으로 묶어 <code>!!pin1</code>~<code>!!pin5</code>, 빨간 구간 <code>!!red1</code>~<code>!!red5</code>, 고리 <code>!!shackle</code>, 지표 카드의 숫자 상자 <code>!!val1</code>~<code>!!val5</code>, 결과 숫자 <code>!!result</code>.</li>
+      <li><b>2~6번 슬라이드</b>: 앞 슬라이드를 복제한 뒤 한 장에 지표 하나씩 바꿉니다. 열쇠 날을 우클릭 → [점 편집]으로 해당 톱니 꼭짓점만 위로 올리고, 같은 핀 그룹을 정렬선까지 위로 옮기고, 빨간 구간은 높이 0(또는 삭제)으로, 숫자는 목표치로 고칩니다. 카드 테두리 색은 주황 → 청록.</li>
+      <li><b>7번 슬라이드(열림)</b>: 고리 <code>!!shackle</code>을 위로 약 1cm 옮기고 결과 숫자를 72.0세로, 정렬선에 청록 [네온] 효과를 줍니다.</li>
+      <li>2~7번 슬라이드 모두 [전환] → <b>모핑</b>, [효과 옵션] → <b>개체</b>(숫자가 바뀌는 장면은 <b>문자</b>), 기간 <b>0.70초</b>, [화면 전환] → 마우스를 클릭할 때(자동 재생은 [다음 시간 후] 00:00.30).</li>
+    </ol>
+    <div class="pg-tbl"><table>
+      <thead><tr><th>HTML 동작</th><th>PPT 방법</th><th>설정</th></tr></thead>
+      <tbody>
+        <tr><td>톱니 모양이 목표 모양으로 변형</td><td>모핑 전환 + [점 편집]으로 고친 같은 이름 <code>!!key</code></td><td>개체, 0.70초, 클릭할 때</td></tr>
+        <tr><td>핀이 정렬선까지 올라가며 살짝 튐</td><td>모핑으로 위치 이동. 튀는 느낌은 근사: 핀 그룹에 [애니메이션] → 강조 <b>펄스</b></td><td>이전 효과 다음에, 0.30초, 지연 0초</td></tr>
+        <tr><td>빨간 구간 줄어듦</td><td>다음 슬라이드에서 높이 0 → 모핑이 줄여 줌 (또는 끝내기 <b>닦아내기</b>, 방향 위에서)</td><td>0.50초, 이전 효과와 함께</td></tr>
+        <tr><td>숫자 72 → 80 카운트</td><td>카운트는 불가. 근사: 모핑 [효과 옵션] <b>문자</b>로 숫자 교체</td><td>0.70초</td></tr>
+        <tr><td>고리가 튀어 오름</td><td>모핑으로 위로 이동, 또는 이동 경로 <b>선</b>(방향 위로) + [효과 옵션]의 끝내기 바운스 0.2초</td><td>0.60초, 클릭할 때</td></tr>
+        <tr><td>정렬선 빛남</td><td>정렬선에 [도형 서식] → 네온 청록 8pt, 강조 <b>밝게 하기</b>(없으면 <b>펄스</b>)</td><td>고리와 함께, 0.50초</td></tr>
+      </tbody>
+    </table></div>
+    <p class="pg-foot">모핑의 <code>!!</code> 규칙: 이름 앞에 <code>!!</code>를 붙이면 모양이 달라도 같은 개체로 짝지어 변형합니다. 슬라이드마다 이름 철자가 정확히 같아야 합니다(PowerPoint 2019·Microsoft 365).</p>
+  </section>
+
+  <section class="pg-sec">
+    <h2><small>04</small>스펙</h2>
+    <div class="pg-two">
+      <div style="display:grid;gap:10px;min-width:0">
+        <h3>팔레트</h3>
+        <div class="pg-sw">
+          <span><i style="background:#F3F6F4"></i>#F3F6F4 바탕</span>
+          <span><i style="background:#1C2A32"></i>#1C2A32 글자</span>
+          <span><i style="background:#0B8A7C"></i>#0B8A7C 정렬·달성</span>
+          <span><i style="background:#E2553B"></i>#E2553B 남은 차이</span>
+          <span><i style="background:#D3A040"></i>#D3A040 황동</span>
+          <span><i style="background:#BEC8D0"></i>#BEC8D0 강철</span>
+        </div>
+        <h3>폰트</h3>
+        <p>제목·큰 숫자 Hahmlet 800 (대체: Noto Serif KR, 바탕) / 본문·라벨 Noto Sans KR (대체: Apple SD Gothic Neo, 맑은 고딕)</p>
+      </div>
+      <div style="display:grid;gap:10px;min-width:0">
+        <h3>난이도</h3>
+        <p>HTML <b>중</b>(데이터 배열만 바꾸면 됨) · PPT <b>중</b>(점 편집 + 모핑 7장)</p>
+        <h3>반영한 트렌드</h3>
+        <p>그려 낸 추상 모션 대신 실제 장치가 작동하는 모습을 보여 주는 흐름과, 평면 대신 깊이감 있는 3D 재질. 출처: Advids, <a href="https://advids.co/blog/ui-animation-motion-design-trends" target="_blank" rel="noopener">100 UI animation videos · 2026</a>; Sprak Design, <a href="https://www.sprakdesign.com/creative-graphic-design-trends-in-the-usa-for-2026/" target="_blank" rel="noopener">Creative graphic design trends for 2026</a>.</p>
+      </div>
+    </div>
+    <p class="pg-foot">모든 기관명·수치는 가상 예시입니다. 실존 기관·브랜드의 자물쇠 디자인을 따르지 않았습니다.</p>
+  </section>
+</main>
+
+<script>
+(function(){
+  var btn = document.getElementById("pg-copy"), src = document.getElementById("pg-src");
+  btn.addEventListener("click", function(){
+    var text = src.textContent;
+    function fallback(){ var r = document.createRange(); r.selectNodeContents(src); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "전체 선택됨 · Ctrl+C"; }
+    try {
+      navigator.clipboard.writeText(text).then(function(){ btn.textContent = "복사됨"; setTimeout(function(){ btn.textContent = "코드 복사"; }, 1600); }, fallback);
+    } catch(e){ fallback(); }
+  });
+})();
+</script>
+
+</body></html>
