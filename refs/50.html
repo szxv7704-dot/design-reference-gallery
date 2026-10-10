@@ -1,0 +1,598 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #50 재원 지분 마리메코</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+KR:wght@700;800&family=Noto+Sans+KR:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<style>
+/* 페이지 틀: 밝은 단일 테마(장표가 밝은 기준 화면이므로 의도적으로 고정). 장표 자체 규칙은 아래 mk- 블록 */
+:root{
+  --pg-bg:#ECEEF1; --pg-paper:#FFFFFF; --pg-ink:#18223A; --pg-sub:#596377; --pg-line:#D3D8E0;
+  --pg-accent:#C9482A; --pg-code-bg:#141A26; --pg-code-ink:#DCE3EE; --pg-code-sub:#8C97AA;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-title:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono",Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-font); font-size:15px; line-height:1.65}
+.pg-wrap{max-width:1180px; margin:0 auto; padding-inline:16px; padding-block:28px 64px; display:grid; gap:40px}
+.pg-top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 24px; border-bottom:1px solid var(--pg-line); padding-bottom:12px}
+.pg-top h1{font-family:var(--pg-title); font-weight:800; font-size:clamp(20px,2.6vw,28px); letter-spacing:-.01em; margin:0}
+.pg-top p{margin:0; color:var(--pg-sub); font-size:13px; letter-spacing:.04em}
+.pg-top p b{font-family:var(--pg-mono); font-weight:600; color:var(--pg-ink)}
+.pg-stage{display:grid; gap:14px; min-width:0}
+.pg-scroll{overflow-x:auto; min-width:0; padding-bottom:4px}
+@media (max-width:560px){ .pg-scroll .mk-slide{min-width:720px} }
+.pg-bar{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.pg-bar span{font-size:13px; color:var(--pg-sub); margin-right:4px}
+.pg-btn{font:inherit; font-size:13px; padding:6px 12px; border:1px solid var(--pg-line); background:var(--pg-paper); color:var(--pg-ink); border-radius:2px; cursor:pointer}
+.pg-btn[aria-pressed="true"]{border-color:var(--pg-ink); background:var(--pg-ink); color:var(--pg-paper)}
+.pg-btn:focus-visible{outline:2px solid var(--pg-accent); outline-offset:2px}
+.pg-btn.pg-ghost{margin-left:auto}
+section{display:grid; gap:12px; min-width:0}
+section h2{font-family:var(--pg-title); font-weight:800; font-size:19px; margin:0; display:flex; gap:10px; align-items:baseline}
+section h2 small{font-family:var(--pg-mono); font-weight:500; font-size:12px; color:var(--pg-sub); letter-spacing:.08em}
+section p, section li{max-width:68ch}
+section p{margin:0}
+ul,ol{margin:0; padding-left:1.2em}
+.pg-cols{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px 36px}
+.pg-cols > div{min-width:0}
+.pg-cols h3{font-size:14px; margin:0 0 6px; letter-spacing:.02em}
+.pg-device{border-left:3px solid var(--pg-accent); padding:4px 0 4px 14px; font-weight:500}
+.pg-code{position:relative; background:var(--pg-code-bg); border-radius:3px; min-width:0}
+.pg-code pre{margin:0; max-height:520px; overflow:auto; padding:18px 18px 18px; color:var(--pg-code-ink); font-family:var(--pg-mono); font-size:12.5px; line-height:1.55; white-space:pre; tab-size:2}
+.pg-code-bar{display:flex; justify-content:space-between; align-items:center; padding:8px 12px 8px 18px; border-bottom:1px solid #263044; color:var(--pg-code-sub); font-size:12px; font-family:var(--pg-mono)}
+.pg-code-bar .pg-btn{background:#232C3D; color:var(--pg-code-ink); border-color:#3A465C}
+.pg-table{overflow-x:auto; min-width:0}
+table.pg-t{border-collapse:collapse; width:100%; font-size:13px; min-width:640px}
+.pg-t th,.pg-t td{padding:7px 10px; border-bottom:1px solid var(--pg-line); text-align:left; vertical-align:middle; white-space:nowrap}
+.pg-t thead th{font-size:12px; color:var(--pg-sub); font-weight:600; border-bottom:1.5px solid var(--pg-ink)}
+.pg-t code{font-family:var(--pg-mono); font-size:12px}
+.pg-sw{display:inline-block; width:12px; height:12px; border:1px solid rgba(0,0,0,.18); vertical-align:-1px; margin-right:6px}
+dl.pg-spec{display:grid; grid-template-columns:max-content 1fr; gap:6px 18px; margin:0}
+dl.pg-spec dt{color:var(--pg-sub); font-size:13px}
+dl.pg-spec dd{margin:0; min-width:0}
+@media (max-width:560px){ dl.pg-spec{grid-template-columns:1fr} dl.pg-spec dd{margin-bottom:6px} .pg-btn.pg-ghost{margin-left:0} }
+
+/* ── 레퍼런스 #50 재원 지분 마리메코 · 장표 CSS (접두어 mk-) ──
+   가상 화면 1600×900 기준. 1 가상 px = 1/16 cqw. 색은 모두 --ds-* 변수로만. */
+.mk-slide{
+  /* 공통 변수: 중립 값 (계열 값으로 바꾸려면 이 묶음만 교체) */
+  --ds-bg:#F5F6F8; --ds-surface:#FFFFFF; --ds-ink:#1B2740; --ds-sub:#5A6478; --ds-line:#D5DAE1;
+  --ds-accent:#D4512A; --ds-accent2:#2F5E8C;
+  --ds-c1:#33496B; --ds-c2:#9FB1C7; --ds-c3:#D3DCE7; --ds-c4:#E7ECF2; --ds-c5:#6F82A0;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","IBM Plex Sans KR",Consolas,monospace;
+  --ds-radius:2px; --ds-shadow:0 1px 0 rgba(27,39,64,.05),0 18px 40px -24px rgba(27,39,64,.28);
+
+  container-type:inline-size; position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  border-radius:var(--ds-radius); box-shadow:var(--ds-shadow);
+}
+.mk-slide *{box-sizing:border-box; margin:0}
+
+/* 머리말 띠 y40~88 */
+.mk-head{position:absolute; left:5cqw; right:5cqw; top:2.5cqw; height:3cqw;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:.0625cqw solid var(--ds-line)}
+.mk-sec{display:flex; align-items:baseline; gap:.75cqw; font-size:1.125cqw; font-weight:600; letter-spacing:.04em}
+.mk-sec b{font-family:var(--ds-font-title); font-weight:800; color:var(--ds-accent2); font-size:1.25cqw}
+.mk-plan{font-size:1cqw; color:var(--ds-sub); letter-spacing:.02em}
+
+/* 제목 y112~ : 결론 한 문장 */
+.mk-title{position:absolute; left:5cqw; right:5cqw; top:7cqw;
+  font-family:var(--ds-font-title); font-weight:800; font-size:2.75cqw; line-height:1.28;
+  letter-spacing:-.01em; text-wrap:balance}
+.mk-title em{font-style:normal; color:var(--ds-accent)}
+.mk-lede{position:absolute; left:5cqw; right:5cqw; top:11.15cqw; font-size:1.2cqw; color:var(--ds-sub)}
+
+/* 본문 도식 (SVG, viewBox 1600×900 그대로) */
+.mk-svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+.mk-svg text{font-family:var(--ds-font-body); fill:var(--ds-ink)}
+.mk-svg .mk-num{font-family:var(--ds-font-num); font-variant-numeric:tabular-nums}
+.mk-svg .mk-sub{fill:var(--ds-sub)}
+.mk-svg .mk-on-dark{fill:var(--ds-surface)}
+
+/* 바닥 줄 y846~ */
+.mk-foot{position:absolute; left:5cqw; right:5cqw; top:52.6cqw;
+  display:flex; justify-content:space-between; font-size:.95cqw; color:var(--ds-sub)}
+.mk-foot .mk-pg{font-family:var(--ds-font-num)}
+
+/* 순차 등장: 열이 차례로 떠오름(전체 1.4초, 한 번). 정지 화면이 기본값 */
+.mk-slide.mk-play .mk-step{animation:mk-in .46s cubic-bezier(.2,.7,.3,1) both; animation-delay:var(--mk-d,0s)}
+@keyframes mk-in{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion:reduce){.mk-slide.mk-play .mk-step{animation:none}}
+.mk-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+</style>
+
+<div class="pg-wrap">
+  <header class="pg-top">
+    <h1>재원 지분 마리메코</h1>
+    <p>레퍼런스 <b>#50</b> · 요소 · 구성비 · 일정 및 예산 · 가상 예시</p>
+  </header>
+
+  <div class="pg-stage">
+<div class="pg-scroll">
+<div class="mk-slide" id="mk-slide" role="figure" aria-labelledby="mk-title">
+  <div class="mk-head">
+    <p class="mk-sec"><b>Ⅴ.</b>일정 및 예산</p>
+    <p class="mk-plan">2027 ○○교육청 교육환경 개선 종합계획(안)</p>
+  </div>
+  <h2 class="mk-title" id="mk-title">늘봄·돌봄 예산의 <em>65%</em>가 국비, 의존도가 가장 크다</h2>
+  <p class="mk-lede">열 너비 = 분야 예산, 칸 높이 = 재원 비율 → 칸 넓이 = 금액 · 국비 비율이 높은 분야부터 · 단위 억 원</p>
+  <svg class="mk-svg" viewBox="0 0 1600 900" aria-hidden="true"></svg>
+  <table class="mk-sr" id="mk-table"></table>
+  <div class="mk-foot">
+    <span>가상 예시 · 자료: ○○교육청 2027 본예산(안) 재원별 편성 내역 재구성</span>
+    <span class="mk-pg">17</span>
+  </div>
+</div>
+
+    </div>
+    <div class="pg-bar" role="group" aria-label="계열 값 바꿔 보기">
+      <span>계열 값 바꿔 보기</span>
+<button type="button" class="pg-btn" id="pg-fam-N" data-fam="N" aria-pressed="true">중립 값</button>
+<button type="button" class="pg-btn" id="pg-fam-B" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+<button type="button" class="pg-btn" id="pg-fam-D" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+<button type="button" class="pg-btn" id="pg-fam-F" data-fam="F" aria-pressed="false">F 관측·중계</button>
+      <button type="button" class="pg-btn pg-ghost" id="pg-replay">다시 보기</button>
+    </div>
+  </div>
+
+  <section>
+    <h2>구조 <small>STRUCTURE</small></h2>
+    <p>분야 다섯 개를 가로로 세우고, 열의 너비를 분야 예산(억 원)에, 열 안 칸의 높이를 재원 비율에 맞췄다. 그래서 칸 하나의 넓이가 곧 그 분야·재원의 금액이고, 한 장에서 "어느 분야가 큰가"와 "그 분야가 무엇으로 채워지는가"를 같이 읽는다. 국비 칸을 바닥에 깔고 국비 비율이 높은 분야부터 세워, 국비 칸 윗변이 계단처럼 내려가며 의존도 순위를 보여 준다.</p>
+    <p class="pg-device">가져갈 장치 — 기준선 하나가 합계 막대의 경계로 이어진다: 국비 평균(42%) 점선을 오른쪽 합계 막대의 국비 윗변까지 끌고 가, 각 열이 평균보다 위인지 아래인지 눈금 없이 판별한다. 재원 이름은 범례 대신 합계 막대 옆에 한 번만 적는다.</p>
+    <div class="pg-cols">
+      <div><h3>응용 1 · 교원 구성</h3><p>열 = 학교급(초·중·고·특수), 너비 = 교원 수, 칸 = 정규·기간제·강사 비율.</p></div>
+      <div><h3>응용 2 · 학교폭력 심의 결과</h3><p>열 = 유형(언어·신체·사이버 등), 너비 = 심의 건수, 칸 = 조치 호수 구간 비율.</p></div>
+      <div><h3>응용 3 · 늘봄 프로그램 운영 주체</h3><p>열 = 지역(○○구 등), 너비 = 참여 학생 수, 칸 = 학교 자체·지역 기관·대학 연계 비율.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>HTML로 가져다 쓰기 <small>CODE</small></h2>
+    <ul>
+      <li>데이터는 스크립트 맨 위 <code>MK_DATA</code> 하나: 분야 이름과 재원별 금액만 바꾸면 너비·높이·비율·정렬이 다시 계산된다.</li>
+      <li>강조 칸은 <code>highlight: ['분야 이름', 재원 순번]</code> 한 곳만. 제목의 강조 단어와 같은 값을 가리키게 한다.</li>
+      <li>분위기는 <code>.mk-slide</code> 맨 위 <code>--ds-*</code> 묶음만 바꾼다. 아래 스펙 표의 계열 값을 그대로 붙여 넣으면 된다.</li>
+      <li>국비 칸 글자는 <code>--ds-surface</code>, 나머지 칸 글자는 <code>--ds-ink</code>로 찍힌다. 그래서 <code>--ds-c1</code>은 진하게, <code>--ds-c2·c3</code>는 옅게 둔다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ul>
+    <div class="pg-code">
+      <div class="pg-code-bar"><span>mk-slide.html · 장표만</span><button type="button" class="pg-btn" id="pg-copy">코드 복사</button></div>
+      <pre id="pg-code-pre" tabindex="0">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;800&amp;family=IBM+Plex+Sans+KR:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 레퍼런스 #50 재원 지분 마리메코 · 장표 CSS (접두어 mk-) ──
+   가상 화면 1600×900 기준. 1 가상 px = 1/16 cqw. 색은 모두 --ds-* 변수로만. */
+.mk-slide{
+  /* 공통 변수: 중립 값 (계열 값으로 바꾸려면 이 묶음만 교체) */
+  --ds-bg:#F5F6F8; --ds-surface:#FFFFFF; --ds-ink:#1B2740; --ds-sub:#5A6478; --ds-line:#D5DAE1;
+  --ds-accent:#D4512A; --ds-accent2:#2F5E8C;
+  --ds-c1:#33496B; --ds-c2:#9FB1C7; --ds-c3:#D3DCE7; --ds-c4:#E7ECF2; --ds-c5:#6F82A0;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;IBM Plex Mono&quot;,&quot;IBM Plex Sans KR&quot;,Consolas,monospace;
+  --ds-radius:2px; --ds-shadow:0 1px 0 rgba(27,39,64,.05),0 18px 40px -24px rgba(27,39,64,.28);
+
+  container-type:inline-size; position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  border-radius:var(--ds-radius); box-shadow:var(--ds-shadow);
+}
+.mk-slide *{box-sizing:border-box; margin:0}
+
+/* 머리말 띠 y40~88 */
+.mk-head{position:absolute; left:5cqw; right:5cqw; top:2.5cqw; height:3cqw;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:.0625cqw solid var(--ds-line)}
+.mk-sec{display:flex; align-items:baseline; gap:.75cqw; font-size:1.125cqw; font-weight:600; letter-spacing:.04em}
+.mk-sec b{font-family:var(--ds-font-title); font-weight:800; color:var(--ds-accent2); font-size:1.25cqw}
+.mk-plan{font-size:1cqw; color:var(--ds-sub); letter-spacing:.02em}
+
+/* 제목 y112~ : 결론 한 문장 */
+.mk-title{position:absolute; left:5cqw; right:5cqw; top:7cqw;
+  font-family:var(--ds-font-title); font-weight:800; font-size:2.75cqw; line-height:1.28;
+  letter-spacing:-.01em; text-wrap:balance}
+.mk-title em{font-style:normal; color:var(--ds-accent)}
+.mk-lede{position:absolute; left:5cqw; right:5cqw; top:11.15cqw; font-size:1.2cqw; color:var(--ds-sub)}
+
+/* 본문 도식 (SVG, viewBox 1600×900 그대로) */
+.mk-svg{position:absolute; inset:0; width:100%; height:100%; overflow:visible}
+.mk-svg text{font-family:var(--ds-font-body); fill:var(--ds-ink)}
+.mk-svg .mk-num{font-family:var(--ds-font-num); font-variant-numeric:tabular-nums}
+.mk-svg .mk-sub{fill:var(--ds-sub)}
+.mk-svg .mk-on-dark{fill:var(--ds-surface)}
+
+/* 바닥 줄 y846~ */
+.mk-foot{position:absolute; left:5cqw; right:5cqw; top:52.6cqw;
+  display:flex; justify-content:space-between; font-size:.95cqw; color:var(--ds-sub)}
+.mk-foot .mk-pg{font-family:var(--ds-font-num)}
+
+/* 순차 등장: 열이 차례로 떠오름(전체 1.4초, 한 번). 정지 화면이 기본값 */
+.mk-slide.mk-play .mk-step{animation:mk-in .46s cubic-bezier(.2,.7,.3,1) both; animation-delay:var(--mk-d,0s)}
+@keyframes mk-in{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+@media (prefers-reduced-motion:reduce){.mk-slide.mk-play .mk-step{animation:none}}
+.mk-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+&lt;/style&gt;
+&lt;div class=&quot;mk-slide&quot; id=&quot;mk-slide&quot; role=&quot;figure&quot; aria-labelledby=&quot;mk-title&quot;&gt;
+  &lt;div class=&quot;mk-head&quot;&gt;
+    &lt;p class=&quot;mk-sec&quot;&gt;&lt;b&gt;Ⅴ.&lt;/b&gt;일정 및 예산&lt;/p&gt;
+    &lt;p class=&quot;mk-plan&quot;&gt;2027 ○○교육청 교육환경 개선 종합계획(안)&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;h2 class=&quot;mk-title&quot; id=&quot;mk-title&quot;&gt;늘봄·돌봄 예산의 &lt;em&gt;65%&lt;/em&gt;가 국비, 의존도가 가장 크다&lt;/h2&gt;
+  &lt;p class=&quot;mk-lede&quot;&gt;열 너비 = 분야 예산, 칸 높이 = 재원 비율 → 칸 넓이 = 금액 · 국비 비율이 높은 분야부터 · 단위 억 원&lt;/p&gt;
+  &lt;svg class=&quot;mk-svg&quot; viewBox=&quot;0 0 1600 900&quot; aria-hidden=&quot;true&quot;&gt;&lt;/svg&gt;
+  &lt;table class=&quot;mk-sr&quot; id=&quot;mk-table&quot;&gt;&lt;/table&gt;
+  &lt;div class=&quot;mk-foot&quot;&gt;
+    &lt;span&gt;가상 예시 · 자료: ○○교육청 2027 본예산(안) 재원별 편성 내역 재구성&lt;/span&gt;
+    &lt;span class=&quot;mk-pg&quot;&gt;17&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+/* ── 데이터: 여기만 바꾸면 도식이 다시 그려진다 ──
+   sources: 재원 이름(아래 칸부터 위로 쌓임, 첫 재원 = 비율 정렬 기준)
+   fields : 분야 이름과 재원별 금액(억 원). 열 너비는 금액 합계에 정비례.
+   highlight: 강조할 칸 [분야 이름, 재원 순번] — 한 곳만 */
+var MK_DATA = {
+  unit: &#x27;억&#x27;,
+  sources: [&#x27;국비&#x27;, &#x27;지방비&#x27;, &#x27;교육청 자체&#x27;],
+  fields: [
+    { name: &#x27;학교시설 개선&#x27;, v: [180, 140, 200] },
+    { name: &#x27;늘봄·돌봄&#x27;,     v: [195,  75,  30] },
+    { name: &#x27;디지털 교육&#x27;,   v: [ 90,  30,  80] },
+    { name: &#x27;진로·직업&#x27;,     v: [ 36,  48,  36] },
+    { name: &#x27;학교안전&#x27;,      v: [ 20,  30,  50] }
+  ],
+  highlight: [&#x27;늘봄·돌봄&#x27;, 0],
+  refLabel: [&#x27;국비&#x27;, &#x27;평균&#x27;]
+};
+
+(function () {
+  var NS = &#x27;http://www.w3.org/2000/svg&#x27;;
+  // 도식 자리(가상 px): 열 영역 x132~1196, 값 축 y770(0%)~300(100%), 합계 막대 x1276
+  var G = { x0: 132, x1: 1196, gap: 8, y0: 770, h: 470, hdY: 258, totX: 1276, totW: 48 };
+
+  function el(tag, attr, parent, text) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attr) n.setAttribute(k, attr[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, &#x27;,&#x27;); }
+  // 반올림 합이 100이 되도록(최대 나머지 방식) — 표시용만, 도형은 실제 값
+  function pct(arr) {
+    var s = arr.reduce(function (a, b) { return a + b; }, 0);
+    var raw = arr.map(function (v) { return v / s * 100; });
+    var fl = raw.map(Math.floor), left = 100 - fl.reduce(function (a, b) { return a + b; }, 0);
+    raw.map(function (r, i) { return [r - fl[i], i]; }).sort(function (a, b) { return b[0] - a[0]; })
+      .slice(0, left).forEach(function (p) { fl[p[1]]++; });
+    return fl;
+  }
+  var FILL = [&#x27;var(--ds-c1)&#x27;, &#x27;var(--ds-c2)&#x27;, &#x27;var(--ds-c3)&#x27;];
+
+  function render(root, D) {
+    var svg = root.querySelector(&#x27;.mk-svg&#x27;);
+    svg.textContent = &#x27;&#x27;;
+    var fields = D.fields.map(function (f) {
+      var t = f.v.reduce(function (a, b) { return a + b; }, 0);
+      return { name: f.name, v: f.v, t: t, share0: f.v[0] / t };
+    }).sort(function (a, b) { return b.share0 - a.share0; });
+    var total = fields.reduce(function (a, f) { return a + f.t; }, 0);
+    var srcTot = D.sources.map(function (_, i) { return fields.reduce(function (a, f) { return a + f.v[i]; }, 0); });
+    var totPct = pct(fields.map(function (f) { return f.t; }));
+    var usable = G.x1 - G.x0 - G.gap * (fields.length - 1);
+
+    // 값 축: 0·25·50·75·100% 눈금
+    var ax = el(&#x27;g&#x27;, {}, svg);
+    [0, 25, 50, 75, 100].forEach(function (p) {
+      var y = G.y0 - G.h * p / 100;
+      el(&#x27;line&#x27;, { x1: 120, x2: 128, y1: y, y2: y, stroke: &#x27;var(--ds-sub)&#x27;, &#x27;stroke-width&#x27;: 1.5 }, ax);
+      el(&#x27;text&#x27;, { x: 114, y: y + 6, &#x27;text-anchor&#x27;: &#x27;end&#x27;, &#x27;font-size&#x27;: 16, class: &#x27;mk-num mk-sub&#x27; }, ax, p + (p === 100 ? &#x27;%&#x27; : &#x27;&#x27;));
+    });
+    el(&#x27;line&#x27;, { x1: 128, x2: 128, y1: G.y0 - G.h, y2: G.y0, stroke: &#x27;var(--ds-line)&#x27;, &#x27;stroke-width&#x27;: 1.5 }, ax);
+    el(&#x27;text&#x27;, { x: 114, y: 800, &#x27;text-anchor&#x27;: &#x27;end&#x27;, &#x27;font-size&#x27;: 16, class: &#x27;mk-sub&#x27; }, ax, &#x27;비중&#x27;);
+
+    var x = G.x0;
+    fields.forEach(function (f, fi) {
+      var w = usable * f.t / total;                 // 열 너비 = 분야 예산(선형)
+      var g = el(&#x27;g&#x27;, { class: &#x27;mk-step&#x27;, style: &#x27;--mk-d:&#x27; + (fi * 0.17).toFixed(2) + &#x27;s&#x27; }, svg);
+      var p = pct(f.v), y = G.y0, narrow = w &lt; 150;
+      // 머리: 열 너비만큼의 굵은 자(=예산 규모) + 이름 + 합계
+      el(&#x27;rect&#x27;, { x: x, y: 236, width: w, height: 3, fill: &#x27;var(--ds-ink)&#x27; }, g);
+      el(&#x27;text&#x27;, { x: x, y: G.hdY + 6, &#x27;font-size&#x27;: 19, &#x27;font-weight&#x27;: 600 }, g, f.name);
+      el(&#x27;text&#x27;, { x: x, y: G.hdY + 32, &#x27;font-size&#x27;: 18, class: &#x27;mk-num mk-sub&#x27; }, g, fmt(f.t) + D.unit);
+      f.v.forEach(function (v, si) {
+        var h = G.h * v / f.t;                      // 칸 높이 = 재원 비율(선형, 0부터)
+        y -= h;
+        var hot = D.highlight &amp;&amp; D.highlight[0] === f.name &amp;&amp; D.highlight[1] === si;
+        el(&#x27;rect&#x27;, { x: x, y: y, width: w, height: h, fill: hot ? &#x27;var(--ds-accent)&#x27; : FILL[si],
+          stroke: &#x27;var(--ds-bg)&#x27;, &#x27;stroke-width&#x27;: 3 }, g);
+        var cls = &#x27;mk-num&#x27; + (si === 0 || hot ? &#x27; mk-on-dark&#x27; : &#x27;&#x27;), cy = y + h / 2;
+        if (!narrow) {
+          var t = el(&#x27;text&#x27;, { x: x + 14, y: cy + 9, &#x27;font-size&#x27;: 26, &#x27;font-weight&#x27;: 600, class: cls }, g, p[si] + &#x27;%&#x27;);
+          el(&#x27;tspan&#x27;, { dx: 10, &#x27;font-size&#x27;: 17, &#x27;font-weight&#x27;: 500, opacity: .85 }, t, fmt(v) + D.unit);
+        } else if (h &gt;= 88) {
+          el(&#x27;text&#x27;, { x: x + 10, y: cy - 2, &#x27;font-size&#x27;: 24, &#x27;font-weight&#x27;: 600, class: cls }, g, p[si] + &#x27;%&#x27;);
+          el(&#x27;text&#x27;, { x: x + 10, y: cy + 22, &#x27;font-size&#x27;: 16, opacity: .85, class: cls }, g, fmt(v) + D.unit);
+        } else {
+          el(&#x27;text&#x27;, { x: x + 10, y: cy + 8, &#x27;font-size&#x27;: 22, &#x27;font-weight&#x27;: 600, class: cls }, g, p[si] + &#x27;%&#x27;);
+        }
+      });
+      el(&#x27;text&#x27;, { x: x, y: 800, &#x27;font-size&#x27;: 16, class: &#x27;mk-num mk-sub&#x27; }, g, totPct[fi] + &#x27;%&#x27;);
+      x += w + G.gap;
+    });
+    el(&#x27;line&#x27;, { x1: G.x0, x2: G.x1, y1: G.y0, y2: G.y0, stroke: &#x27;var(--ds-ink)&#x27;, &#x27;stroke-width&#x27;: 2 }, svg);
+
+    // 합계 막대: 같은 값 축, 재원 이름은 여기에 직접 표시(범례 대신)
+    var tg = el(&#x27;g&#x27;, { class: &#x27;mk-step&#x27;, style: &#x27;--mk-d:.9s&#x27; }, svg), tp = pct(srcTot), ty = G.y0;
+    el(&#x27;rect&#x27;, { x: G.totX, y: 236, width: G.totW, height: 3, fill: &#x27;var(--ds-ink)&#x27; }, tg);
+    el(&#x27;text&#x27;, { x: G.totX, y: G.hdY + 6, &#x27;font-size&#x27;: 19, &#x27;font-weight&#x27;: 600 }, tg, &#x27;합계&#x27;);
+    el(&#x27;text&#x27;, { x: G.totX, y: G.hdY + 32, &#x27;font-size&#x27;: 18, class: &#x27;mk-num mk-sub&#x27; }, tg, fmt(total) + D.unit);
+    srcTot.forEach(function (v, si) {
+      var h = G.h * v / total; ty -= h;
+      el(&#x27;rect&#x27;, { x: G.totX, y: ty, width: G.totW, height: h, fill: FILL[si], stroke: &#x27;var(--ds-bg)&#x27;, &#x27;stroke-width&#x27;: 3 }, tg);
+      el(&#x27;text&#x27;, { x: G.totX + G.totW + 16, y: ty + h / 2 - 4, &#x27;font-size&#x27;: 19, &#x27;font-weight&#x27;: 600 }, tg, D.sources[si]);
+      el(&#x27;text&#x27;, { x: G.totX + G.totW + 16, y: ty + h / 2 + 20, &#x27;font-size&#x27;: 16, class: &#x27;mk-num mk-sub&#x27; }, tg, tp[si] + &#x27;% · &#x27; + fmt(v) + D.unit);
+    });
+    el(&#x27;line&#x27;, { x1: G.totX, x2: G.totX + G.totW, y1: G.y0, y2: G.y0, stroke: &#x27;var(--ds-ink)&#x27;, &#x27;stroke-width&#x27;: 2 }, tg);
+
+    // 기준선: 첫 재원의 전체 평균 비율 — 열마다 위·아래를 바로 판별
+    var ry = G.y0 - G.h * srcTot[0] / total;
+    var rg = el(&#x27;g&#x27;, { class: &#x27;mk-step&#x27;, style: &#x27;--mk-d:1s&#x27; }, svg);
+    el(&#x27;line&#x27;, { x1: G.x0 - 4, x2: G.totX, y1: ry, y2: ry, stroke: &#x27;var(--ds-ink)&#x27;, &#x27;stroke-width&#x27;: 1.6, &#x27;stroke-dasharray&#x27;: &#x27;7 5&#x27; }, rg);
+    el(&#x27;text&#x27;, { x: (G.x1 + G.totX) / 2, y: ry - 30, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 15, class: &#x27;mk-sub&#x27; }, rg, D.refLabel[0] + &#x27; &#x27; + D.refLabel[1]);
+    el(&#x27;text&#x27;, { x: (G.x1 + G.totX) / 2, y: ry - 9, &#x27;text-anchor&#x27;: &#x27;middle&#x27;, &#x27;font-size&#x27;: 16, &#x27;font-weight&#x27;: 600, class: &#x27;mk-num&#x27; }, rg, tp[0] + &#x27;%&#x27;);
+
+    // 화면 읽기 프로그램용 표
+    var tb = root.querySelector(&#x27;.mk-sr&#x27;);
+    if (tb) {
+      tb.innerHTML = &#x27;&lt;caption&gt;분야별 재원 구성(억 원)&lt;/caption&gt;&lt;tr&gt;&lt;th&gt;분야&lt;/th&gt;&#x27; +
+        D.sources.map(function (s) { return &#x27;&lt;th&gt;&#x27; + s + &#x27;&lt;/th&gt;&#x27;; }).join(&#x27;&#x27;) + &#x27;&lt;th&gt;계&lt;/th&gt;&lt;/tr&gt;&#x27; +
+        fields.map(function (f) { return &#x27;&lt;tr&gt;&lt;th&gt;&#x27; + f.name + &#x27;&lt;/th&gt;&#x27; + f.v.map(function (v) { return &#x27;&lt;td&gt;&#x27; + v + &#x27;&lt;/td&gt;&#x27;; }).join(&#x27;&#x27;) + &#x27;&lt;td&gt;&#x27; + f.t + &#x27;&lt;/td&gt;&lt;/tr&gt;&#x27;; }).join(&#x27;&#x27;);
+    }
+  }
+
+  function play(root) {
+    root.classList.remove(&#x27;mk-play&#x27;); void root.offsetWidth; root.classList.add(&#x27;mk-play&#x27;);
+  }
+  var root = document.getElementById(&#x27;mk-slide&#x27;);
+  render(root, MK_DATA);
+  play(root);
+  window.mkReplay = function () { play(root); };
+})();
+&lt;/script&gt;
+</pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <div class="pg-cols">
+      <div>
+        <h3>뼈대 자리</h3>
+        <ol>
+          <li>슬라이드 크기 16:9(33.867×19.05cm). 가상 1px = 0.0212cm로 환산: 좌우 여백 1.69cm, 머리말 띠 위 0.85cm.</li>
+          <li>머리말 띠: 텍스트 상자 2개(왼쪽 "Ⅴ. 일정 및 예산", 오른쪽 계획안 이름 10pt) + 1pt 선, 높이 1.0cm.</li>
+          <li>제목 28pt 굵게, 한 줄. "65%"만 강조색. 그 아래 부제 12pt 보조색.</li>
+          <li>바닥 줄: "가상 예시 · 자료" 9pt 왼쪽, 쪽 번호 오른쪽.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>도식 만들기</h3>
+        <ol>
+          <li>차트 대신 직사각형으로 그린다. 열 영역 너비 22.5cm에서 간격 0.17cm×4를 뺀 21.84cm를 예산 비율로 나눈다(늘봄 5.28 · 디지털 3.52 · 시설 9.16 · 진로 2.11 · 안전 1.76cm).</li>
+          <li>열 높이 9.95cm(=100%). 칸 높이 = 9.95 × 비율. 국비 칸을 맨 아래에 두고 [맞춤 → 아래쪽 맞춤].</li>
+          <li>칸 테두리는 배경색 2pt로 칸 사이를 가른다. 글자는 칸 왼쪽 0.3cm, 세로 가운데.</li>
+          <li>평균선: 1.25pt 파선, 바닥에서 9.95×0.42 = 4.18cm 높이. 합계 막대 국비 윗변까지 잇는다.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>[애니메이션] 나타내기</h3>
+        <ol>
+          <li>열마다 그룹으로 묶고(머리 자·이름·칸·비중) 순서대로 "떠오르기".</li>
+          <li>첫 열 "이전 효과와 함께", 나머지 "이전 효과 다음에", 각 0.4초·지연 0초. 합계 막대와 평균선은 마지막에 "닦아내기" 0.3초.</li>
+          <li>전체 1.5초 안쪽. 인쇄본은 애니메이션 없이 그대로 완성된다.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="pg-table">
+      <table class="pg-t">
+        <thead><tr><th>변수</th><th>중립 값</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead>
+        <tbody>
+<tr><th><code>--ds-bg</code></th><td><span class="pg-sw" style="background:#F5F6F8"></span><code>#F5F6F8</code></td><td><span class="pg-sw" style="background:#EEF1F4"></span><code>#EEF1F4</code></td><td><span class="pg-sw" style="background:#FBFAF7"></span><code>#FBFAF7</code></td><td><span class="pg-sw" style="background:#F4F6F8"></span><code>#F4F6F8</code></td></tr>
+<tr><th><code>--ds-surface</code></th><td><span class="pg-sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="pg-sw" style="background:#FAFAF8"></span><code>#FAFAF8</code></td><td><span class="pg-sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td><td><span class="pg-sw" style="background:#FFFFFF"></span><code>#FFFFFF</code></td></tr>
+<tr><th><code>--ds-ink</code></th><td><span class="pg-sw" style="background:#1B2740"></span><code>#1B2740</code></td><td><span class="pg-sw" style="background:#1F2B36"></span><code>#1F2B36</code></td><td><span class="pg-sw" style="background:#1B1E24"></span><code>#1B1E24</code></td><td><span class="pg-sw" style="background:#12203A"></span><code>#12203A</code></td></tr>
+<tr><th><code>--ds-sub</code></th><td><span class="pg-sw" style="background:#5A6478"></span><code>#5A6478</code></td><td><span class="pg-sw" style="background:#5E6974"></span><code>#5E6974</code></td><td><span class="pg-sw" style="background:#5A5F6B"></span><code>#5A5F6B</code></td><td><span class="pg-sw" style="background:#4E5B70"></span><code>#4E5B70</code></td></tr>
+<tr><th><code>--ds-line</code></th><td><span class="pg-sw" style="background:#D5DAE1"></span><code>#D5DAE1</code></td><td><span class="pg-sw" style="background:#CDD4DB"></span><code>#CDD4DB</code></td><td><span class="pg-sw" style="background:#C8CBD1"></span><code>#C8CBD1</code></td><td><span class="pg-sw" style="background:#C9D2DC"></span><code>#C9D2DC</code></td></tr>
+<tr><th><code>--ds-accent</code></th><td><span class="pg-sw" style="background:#D4512A"></span><code>#D4512A</code></td><td><span class="pg-sw" style="background:#E2571A"></span><code>#E2571A</code></td><td><span class="pg-sw" style="background:#23467A"></span><code>#23467A</code></td><td><span class="pg-sw" style="background:#E5483A"></span><code>#E5483A</code></td></tr>
+<tr><th><code>--ds-accent2</code></th><td><span class="pg-sw" style="background:#2F5E8C"></span><code>#2F5E8C</code></td><td><span class="pg-sw" style="background:#2F5D86"></span><code>#2F5D86</code></td><td><span class="pg-sw" style="background:#23467A"></span><code>#23467A</code></td><td><span class="pg-sw" style="background:#346CB2"></span><code>#346CB2</code></td></tr>
+<tr><th><code>--ds-c1</code></th><td><span class="pg-sw" style="background:#33496B"></span><code>#33496B</code></td><td><span class="pg-sw" style="background:#2F4252"></span><code>#2F4252</code></td><td><span class="pg-sw" style="background:#55585F"></span><code>#55585F</code></td><td><span class="pg-sw" style="background:#1F57C3"></span><code>#1F57C3</code></td></tr>
+<tr><th><code>--ds-c2</code></th><td><span class="pg-sw" style="background:#9FB1C7"></span><code>#9FB1C7</code></td><td><span class="pg-sw" style="background:#9DB0C1"></span><code>#9DB0C1</code></td><td><span class="pg-sw" style="background:#AEB1B7"></span><code>#AEB1B7</code></td><td><span class="pg-sw" style="background:#93B1E0"></span><code>#93B1E0</code></td></tr>
+<tr><th><code>--ds-c3</code></th><td><span class="pg-sw" style="background:#D3DCE7"></span><code>#D3DCE7</code></td><td><span class="pg-sw" style="background:#C6D2DC"></span><code>#C6D2DC</code></td><td><span class="pg-sw" style="background:#DCDDDF"></span><code>#DCDDDF</code></td><td><span class="pg-sw" style="background:#CADAF1"></span><code>#CADAF1</code></td></tr>
+<tr><th><code>--ds-c4</code></th><td><span class="pg-sw" style="background:#E7ECF2"></span><code>#E7ECF2</code></td><td><span class="pg-sw" style="background:#7389A0"></span><code>#7389A0</code></td><td><span class="pg-sw" style="background:#ECECEA"></span><code>#ECECEA</code></td><td><span class="pg-sw" style="background:#E2EAF6"></span><code>#E2EAF6</code></td></tr>
+<tr><th><code>--ds-c5</code></th><td><span class="pg-sw" style="background:#6F82A0"></span><code>#6F82A0</code></td><td><span class="pg-sw" style="background:#4F6679"></span><code>#4F6679</code></td><td><span class="pg-sw" style="background:#80848C"></span><code>#80848C</code></td><td><span class="pg-sw" style="background:#5C82C9"></span><code>#5C82C9</code></td></tr>
+<tr><th><code>--ds-font-title</code></th><td><code>&quot;Gothic A1&quot;</code></td><td><code>&quot;Gothic A1&quot;</code></td><td><code>&quot;Noto Serif KR&quot;</code></td><td><code>&quot;Gothic A1&quot;</code></td></tr>
+<tr><th><code>--ds-font-body</code></th><td><code>&quot;IBM Plex Sans KR&quot;</code></td><td><code>&quot;IBM Plex Sans KR&quot;</code></td><td><code>&quot;Noto Sans KR&quot;</code></td><td><code>&quot;Gothic A1&quot;</code></td></tr>
+<tr><th><code>--ds-font-num</code></th><td><code>&quot;IBM Plex Mono&quot;</code></td><td><code>&quot;IBM Plex Mono&quot;</code></td><td><code>&quot;IBM Plex Mono&quot;</code></td><td><code>&quot;Saira Semi Condensed&quot;</code></td></tr>
+<tr><th><code>--ds-radius</code></th><td><code>2px</code></td><td><code>2px</code></td><td><code>0px</code></td><td><code>0px</code></td></tr>
+<tr><th><code>--ds-shadow</code></th><td><code>얕은 그림자</code></td><td><code>얕은 그림자</code></td><td><code>없음(테두리)</code></td><td><code>얕은 그림자</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <dl class="pg-spec">
+      <dt>폰트</dt><dd>중립: Gothic A1 800(제목) · IBM Plex Sans KR 400/600(본문) · IBM Plex Mono 500/600(숫자). 대체: 프리텐다드·맑은 고딕·Consolas. D는 Noto Serif KR 제목, F는 Saira Semi Condensed 숫자.</dd>
+      <dt>질감</dt><dd>평면. 어울리는 계열: B·C·D·E·F·G (A 픽셀 게임은 제외)</dd>
+      <dt>모션</dt><dd>순차 등장(열 다섯 → 합계·평균선, 1.4초, 한 번). 동작 줄이기 설정이면 바로 완성 화면.</dd>
+      <dt>난이도</dt><dd>HTML 중 · PPT 중(직사각형 너비·높이 계산만 하면 된다)</dd>
+      <dt>트렌드</dt><dd>부분-전체 차트는 기준값(앵커)과 끝선 정렬이 있을 때 값 추정이 정확해진다는 연구 — IEEE VIS 2025 단편 논문(위스콘신대 그래픽스 그룹)(<a href="https://graphics.cs.wisc.edu/Papers/2025/BG25/">graphics.cs.wisc.edu/Papers/2025/BG25</a>). 이 장표는 국비 평균선을 앵커로, 합계 막대 경계를 정렬선으로 썼다.</dd>
+    </dl>
+  </section>
+</div>
+
+<script>
+/* ── 데이터: 여기만 바꾸면 도식이 다시 그려진다 ──
+   sources: 재원 이름(아래 칸부터 위로 쌓임, 첫 재원 = 비율 정렬 기준)
+   fields : 분야 이름과 재원별 금액(억 원). 열 너비는 금액 합계에 정비례.
+   highlight: 강조할 칸 [분야 이름, 재원 순번] — 한 곳만 */
+var MK_DATA = {
+  unit: '억',
+  sources: ['국비', '지방비', '교육청 자체'],
+  fields: [
+    { name: '학교시설 개선', v: [180, 140, 200] },
+    { name: '늘봄·돌봄',     v: [195,  75,  30] },
+    { name: '디지털 교육',   v: [ 90,  30,  80] },
+    { name: '진로·직업',     v: [ 36,  48,  36] },
+    { name: '학교안전',      v: [ 20,  30,  50] }
+  ],
+  highlight: ['늘봄·돌봄', 0],
+  refLabel: ['국비', '평균']
+};
+
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  // 도식 자리(가상 px): 열 영역 x132~1196, 값 축 y770(0%)~300(100%), 합계 막대 x1276
+  var G = { x0: 132, x1: 1196, gap: 8, y0: 770, h: 470, hdY: 258, totX: 1276, totW: 48 };
+
+  function el(tag, attr, parent, text) {
+    var n = document.createElementNS(NS, tag);
+    for (var k in attr) n.setAttribute(k, attr[k]);
+    if (text != null) n.textContent = text;
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  // 반올림 합이 100이 되도록(최대 나머지 방식) — 표시용만, 도형은 실제 값
+  function pct(arr) {
+    var s = arr.reduce(function (a, b) { return a + b; }, 0);
+    var raw = arr.map(function (v) { return v / s * 100; });
+    var fl = raw.map(Math.floor), left = 100 - fl.reduce(function (a, b) { return a + b; }, 0);
+    raw.map(function (r, i) { return [r - fl[i], i]; }).sort(function (a, b) { return b[0] - a[0]; })
+      .slice(0, left).forEach(function (p) { fl[p[1]]++; });
+    return fl;
+  }
+  var FILL = ['var(--ds-c1)', 'var(--ds-c2)', 'var(--ds-c3)'];
+
+  function render(root, D) {
+    var svg = root.querySelector('.mk-svg');
+    svg.textContent = '';
+    var fields = D.fields.map(function (f) {
+      var t = f.v.reduce(function (a, b) { return a + b; }, 0);
+      return { name: f.name, v: f.v, t: t, share0: f.v[0] / t };
+    }).sort(function (a, b) { return b.share0 - a.share0; });
+    var total = fields.reduce(function (a, f) { return a + f.t; }, 0);
+    var srcTot = D.sources.map(function (_, i) { return fields.reduce(function (a, f) { return a + f.v[i]; }, 0); });
+    var totPct = pct(fields.map(function (f) { return f.t; }));
+    var usable = G.x1 - G.x0 - G.gap * (fields.length - 1);
+
+    // 값 축: 0·25·50·75·100% 눈금
+    var ax = el('g', {}, svg);
+    [0, 25, 50, 75, 100].forEach(function (p) {
+      var y = G.y0 - G.h * p / 100;
+      el('line', { x1: 120, x2: 128, y1: y, y2: y, stroke: 'var(--ds-sub)', 'stroke-width': 1.5 }, ax);
+      el('text', { x: 114, y: y + 6, 'text-anchor': 'end', 'font-size': 16, class: 'mk-num mk-sub' }, ax, p + (p === 100 ? '%' : ''));
+    });
+    el('line', { x1: 128, x2: 128, y1: G.y0 - G.h, y2: G.y0, stroke: 'var(--ds-line)', 'stroke-width': 1.5 }, ax);
+    el('text', { x: 114, y: 800, 'text-anchor': 'end', 'font-size': 16, class: 'mk-sub' }, ax, '비중');
+
+    var x = G.x0;
+    fields.forEach(function (f, fi) {
+      var w = usable * f.t / total;                 // 열 너비 = 분야 예산(선형)
+      var g = el('g', { class: 'mk-step', style: '--mk-d:' + (fi * 0.17).toFixed(2) + 's' }, svg);
+      var p = pct(f.v), y = G.y0, narrow = w < 150;
+      // 머리: 열 너비만큼의 굵은 자(=예산 규모) + 이름 + 합계
+      el('rect', { x: x, y: 236, width: w, height: 3, fill: 'var(--ds-ink)' }, g);
+      el('text', { x: x, y: G.hdY + 6, 'font-size': 19, 'font-weight': 600 }, g, f.name);
+      el('text', { x: x, y: G.hdY + 32, 'font-size': 18, class: 'mk-num mk-sub' }, g, fmt(f.t) + D.unit);
+      f.v.forEach(function (v, si) {
+        var h = G.h * v / f.t;                      // 칸 높이 = 재원 비율(선형, 0부터)
+        y -= h;
+        var hot = D.highlight && D.highlight[0] === f.name && D.highlight[1] === si;
+        el('rect', { x: x, y: y, width: w, height: h, fill: hot ? 'var(--ds-accent)' : FILL[si],
+          stroke: 'var(--ds-bg)', 'stroke-width': 3 }, g);
+        var cls = 'mk-num' + (si === 0 || hot ? ' mk-on-dark' : ''), cy = y + h / 2;
+        if (!narrow) {
+          var t = el('text', { x: x + 14, y: cy + 9, 'font-size': 26, 'font-weight': 600, class: cls }, g, p[si] + '%');
+          el('tspan', { dx: 10, 'font-size': 17, 'font-weight': 500, opacity: .85 }, t, fmt(v) + D.unit);
+        } else if (h >= 88) {
+          el('text', { x: x + 10, y: cy - 2, 'font-size': 24, 'font-weight': 600, class: cls }, g, p[si] + '%');
+          el('text', { x: x + 10, y: cy + 22, 'font-size': 16, opacity: .85, class: cls }, g, fmt(v) + D.unit);
+        } else {
+          el('text', { x: x + 10, y: cy + 8, 'font-size': 22, 'font-weight': 600, class: cls }, g, p[si] + '%');
+        }
+      });
+      el('text', { x: x, y: 800, 'font-size': 16, class: 'mk-num mk-sub' }, g, totPct[fi] + '%');
+      x += w + G.gap;
+    });
+    el('line', { x1: G.x0, x2: G.x1, y1: G.y0, y2: G.y0, stroke: 'var(--ds-ink)', 'stroke-width': 2 }, svg);
+
+    // 합계 막대: 같은 값 축, 재원 이름은 여기에 직접 표시(범례 대신)
+    var tg = el('g', { class: 'mk-step', style: '--mk-d:.9s' }, svg), tp = pct(srcTot), ty = G.y0;
+    el('rect', { x: G.totX, y: 236, width: G.totW, height: 3, fill: 'var(--ds-ink)' }, tg);
+    el('text', { x: G.totX, y: G.hdY + 6, 'font-size': 19, 'font-weight': 600 }, tg, '합계');
+    el('text', { x: G.totX, y: G.hdY + 32, 'font-size': 18, class: 'mk-num mk-sub' }, tg, fmt(total) + D.unit);
+    srcTot.forEach(function (v, si) {
+      var h = G.h * v / total; ty -= h;
+      el('rect', { x: G.totX, y: ty, width: G.totW, height: h, fill: FILL[si], stroke: 'var(--ds-bg)', 'stroke-width': 3 }, tg);
+      el('text', { x: G.totX + G.totW + 16, y: ty + h / 2 - 4, 'font-size': 19, 'font-weight': 600 }, tg, D.sources[si]);
+      el('text', { x: G.totX + G.totW + 16, y: ty + h / 2 + 20, 'font-size': 16, class: 'mk-num mk-sub' }, tg, tp[si] + '% · ' + fmt(v) + D.unit);
+    });
+    el('line', { x1: G.totX, x2: G.totX + G.totW, y1: G.y0, y2: G.y0, stroke: 'var(--ds-ink)', 'stroke-width': 2 }, tg);
+
+    // 기준선: 첫 재원의 전체 평균 비율 — 열마다 위·아래를 바로 판별
+    var ry = G.y0 - G.h * srcTot[0] / total;
+    var rg = el('g', { class: 'mk-step', style: '--mk-d:1s' }, svg);
+    el('line', { x1: G.x0 - 4, x2: G.totX, y1: ry, y2: ry, stroke: 'var(--ds-ink)', 'stroke-width': 1.6, 'stroke-dasharray': '7 5' }, rg);
+    el('text', { x: (G.x1 + G.totX) / 2, y: ry - 30, 'text-anchor': 'middle', 'font-size': 15, class: 'mk-sub' }, rg, D.refLabel[0] + ' ' + D.refLabel[1]);
+    el('text', { x: (G.x1 + G.totX) / 2, y: ry - 9, 'text-anchor': 'middle', 'font-size': 16, 'font-weight': 600, class: 'mk-num' }, rg, tp[0] + '%');
+
+    // 화면 읽기 프로그램용 표
+    var tb = root.querySelector('.mk-sr');
+    if (tb) {
+      tb.innerHTML = '<caption>분야별 재원 구성(억 원)</caption><tr><th>분야</th>' +
+        D.sources.map(function (s) { return '<th>' + s + '</th>'; }).join('') + '<th>계</th></tr>' +
+        fields.map(function (f) { return '<tr><th>' + f.name + '</th>' + f.v.map(function (v) { return '<td>' + v + '</td>'; }).join('') + '<td>' + f.t + '</td></tr>'; }).join('');
+    }
+  }
+
+  function play(root) {
+    root.classList.remove('mk-play'); void root.offsetWidth; root.classList.add('mk-play');
+  }
+  var root = document.getElementById('mk-slide');
+  render(root, MK_DATA);
+  play(root);
+  window.mkReplay = function () { play(root); };
+})();
+
+</script>
+<script>
+/* 페이지 조작: 계열 값 바꿔 보기 · 다시 보기 · 코드 복사 */
+(function(){
+  var P = {"N": {"--ds-bg": "#F5F6F8", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B2740", "--ds-sub": "#5A6478", "--ds-line": "#D5DAE1", "--ds-accent": "#D4512A", "--ds-accent2": "#2F5E8C", "--ds-c1": "#33496B", "--ds-c2": "#9FB1C7", "--ds-c3": "#D3DCE7", "--ds-c4": "#E7ECF2", "--ds-c5": "#6F82A0", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"IBM Plex Sans KR\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(27,39,64,.05),0 18px 40px -24px rgba(27,39,64,.28)"}, "B": {"--ds-bg": "#EEF1F4", "--ds-surface": "#FAFAF8", "--ds-ink": "#1F2B36", "--ds-sub": "#5E6974", "--ds-line": "#CDD4DB", "--ds-accent": "#E2571A", "--ds-accent2": "#2F5D86", "--ds-c1": "#2F4252", "--ds-c2": "#9DB0C1", "--ds-c3": "#C6D2DC", "--ds-c4": "#7389A0", "--ds-c5": "#4F6679", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"}, "D": {"--ds-bg": "#FBFAF7", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B1E24", "--ds-sub": "#5A5F6B", "--ds-line": "#C8CBD1", "--ds-accent": "#23467A", "--ds-accent2": "#23467A", "--ds-c1": "#55585F", "--ds-c2": "#AEB1B7", "--ds-c3": "#DCDDDF", "--ds-c4": "#ECECEA", "--ds-c5": "#80848C", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",serif", "--ds-font-body": "\"Noto Sans KR\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"Noto Sans KR\",Consolas,monospace", "--ds-radius": "0px", "--ds-shadow": "0 0 0 1px #D9DBDF"}, "F": {"--ds-bg": "#F4F6F8", "--ds-surface": "#FFFFFF", "--ds-ink": "#12203A", "--ds-sub": "#4E5B70", "--ds-line": "#C9D2DC", "--ds-accent": "#E5483A", "--ds-accent2": "#346CB2", "--ds-c1": "#1F57C3", "--ds-c2": "#93B1E0", "--ds-c3": "#CADAF1", "--ds-c4": "#E2EAF6", "--ds-c5": "#5C82C9", "--ds-font-title": "\"Gothic A1\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"Gothic A1\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Saira Semi Condensed\",\"Gothic A1\",\"Arial Narrow\",sans-serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 0 rgba(18,32,58,.06),0 16px 36px -24px rgba(18,32,58,.35)"}}, slide = document.getElementById('mk-slide');
+  document.querySelectorAll('[data-fam]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var v = P[b.dataset.fam];
+      for (var k in v) slide.style.setProperty(k, v[k]);
+      document.querySelectorAll('[data-fam]').forEach(function(o){ o.setAttribute('aria-pressed', String(o === b)); });
+    });
+  });
+  document.getElementById('pg-replay').addEventListener('click', function(){ window.mkReplay && window.mkReplay(); });
+  var pre = document.getElementById('pg-code-pre'), cb = document.getElementById('pg-copy');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  cb.addEventListener('click', function(){
+    var t = pre.textContent;
+    try {
+      navigator.clipboard.writeText(t).then(function(){ cb.textContent = '복사됨'; setTimeout(function(){ cb.textContent = '코드 복사'; }, 1600); },
+        function(){ selectAll(); cb.textContent = '전체 선택됨 · Ctrl+C'; });
+    } catch(e){ selectAll(); cb.textContent = '전체 선택됨 · Ctrl+C'; }
+  });
+})();
+</script>
+
+</body></html>

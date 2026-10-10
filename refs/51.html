@@ -1,0 +1,520 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #51 낱칸 시·군 지도</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@600;800&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;600&family=Saira+Semi+Condensed:wght@500;600&display=swap">
+<style>
+/* 페이지 틀: 장표 아래로 설명이 흐르는 한 단 문서. 장표 색은 장표 자체 변수만 따른다 */
+:root{--bg:#F1F3F6;--panel:#FFFFFF;--fg:#1C2740;--muted:#5A6478;--rule:#D5DAE3;--accent:#B9441F;--code-bg:#141A26;--code-fg:#DCE3EE;--btn:#1C2740;--btn-fg:#FFFFFF;
+ --f-title:"Gothic A1","Pretendard","Malgun Gothic",sans-serif;--f-body:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;--f-mono:"IBM Plex Mono",Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11161F;--panel:#1A2130;--fg:#E4E9F1;--muted:#9AA6BA;--rule:#2E3748;--accent:#F08A5D;--code-bg:#0B0F16;--code-fg:#DCE3EE;--btn:#E4E9F1;--btn-fg:#11161F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11161F;--panel:#1A2130;--fg:#E4E9F1;--muted:#9AA6BA;--rule:#2E3748;--accent:#F08A5D;--code-bg:#0B0F16;--code-fg:#DCE3EE;--btn:#E4E9F1;--btn-fg:#11161F;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:grid;gap:40px}
+.hd{display:grid;gap:4px}
+.hd .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.hd h1{font-family:var(--f-title);font-weight:800;font-size:clamp(24px,3.4vw,34px);margin:0;text-wrap:balance}
+.hd p{margin:0;color:var(--muted)}
+.stage{display:grid;gap:12px}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctrl .lbl{font-size:13px;color:var(--muted);margin-right:4px}
+.ctrl button{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--rule);background:var(--panel);color:var(--fg);border-radius:3px;cursor:pointer}
+.ctrl button[aria-pressed="true"]{background:var(--btn);color:var(--btn-fg);border-color:var(--btn)}
+.ctrl button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ctrl .sp{flex:1}
+section{display:grid;gap:12px;min-width:0}
+section h2{font-family:var(--f-title);font-weight:800;font-size:20px;margin:0;padding-top:16px;border-top:1px solid var(--rule)}
+section p,section li{max-width:70ch}
+section p{margin:0}
+ul,ol{margin:0;padding-left:1.2em}
+.dev{border-left:3px solid var(--accent);padding:4px 0 4px 14px}
+.dev b{color:var(--fg)}
+.codebox{position:relative;background:var(--code-bg);border-radius:4px;min-width:0}
+.scroller{overflow-x:auto;min-width:0}
+@media (max-width:700px){.scroller .ns-slide{width:720px}}
+.codebox pre{margin:0;padding-top:44px!important;max-height:520px;overflow:auto;padding:16px;color:var(--code-fg);font-family:var(--f-mono);font-size:12px;line-height:1.55;white-space:pre}
+.codebox .copy{position:absolute;top:10px;right:22px;font:inherit;font-size:12px;padding:5px 10px;border:1px solid #3A4458;background:#222B3B;color:#E4E9F1;border-radius:3px;cursor:pointer}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-size:13px;min-width:640px;width:100%}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-weight:600;color:var(--muted)}
+td code,p code,li code{font-family:var(--f-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border:1px solid var(--rule);vertical-align:-1px;margin-right:6px}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px}
+.kv dt{color:var(--muted)} .kv dd{margin:0}
+</style>
+<style>
+/* ── 낱칸 시·군 지도 (정보 유형: 지도·분포) ──
+   색·글꼴은 아래 --ds-* 변수로만 쓴다. 계열을 바꾸려면 이 묶음만 바꾼다. */
+.ns-slide{
+  --ds-bg:#F6F7F9; --ds-surface:#FFFFFF; --ds-ink:#1C2740; --ds-sub:#5A6478; --ds-line:#D5DAE3;
+  --ds-accent:#D4512A; --ds-accent2:#2F5E8C;
+  --ds-c1:#24345A; --ds-c2:#4A5D80; --ds-c3:#8593AE; --ds-c4:#B7C0D2; --ds-c5:#DDE2EA;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:3px; --ds-shadow:0 1px 2px rgba(28,39,64,.08);
+  position:relative; width:100%; aspect-ratio:16/9; container-type:inline-size;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  overflow:hidden; box-shadow:var(--ds-shadow);
+}
+.ns-slide svg{display:block;width:100%;height:100%}
+/* 글자 — 제목 1종, 보조 2단계(18 / 15) */
+.ns-slide .ns-title{font-family:var(--ds-font-title);font-weight:800;font-size:40px;fill:var(--ds-ink);letter-spacing:-.5px}
+.ns-slide .ns-em{fill:var(--ds-accent)}
+.ns-slide .ns-sec{font-family:var(--ds-font-body);font-weight:600;font-size:18px;fill:var(--ds-ink)}
+.ns-slide .ns-l{font-family:var(--ds-font-body);font-weight:500;font-size:18px;fill:var(--ds-ink)}
+.ns-slide .ns-lb{font-family:var(--ds-font-body);font-weight:600;font-size:18px;fill:var(--ds-ink)}
+.ns-slide .ns-s{font-family:var(--ds-font-body);font-weight:400;font-size:15px;fill:var(--ds-sub);letter-spacing:0}
+.ns-slide .ns-n{font-family:var(--ds-font-num);font-weight:500;font-size:15px;fill:var(--ds-sub);letter-spacing:0}
+.ns-slide .ns-nb{font-family:var(--ds-font-num);font-weight:600;font-size:18px;fill:var(--ds-ink)}
+.ns-slide .ns-big{font-family:var(--ds-font-num);font-weight:600;font-size:76px;fill:var(--ds-ink);letter-spacing:-2px}
+.ns-slide .ns-unit{font-family:var(--ds-font-title);font-weight:800;font-size:28px;fill:var(--ds-ink);letter-spacing:0}
+.ns-slide .ns-ac{fill:var(--ds-accent)}
+/* 도형 */
+.ns-slide .ns-rule{stroke:var(--ds-line);stroke-width:1.5}
+.ns-slide .ns-land-o{fill:none;stroke:var(--ds-c4);stroke-width:1.5}
+.ns-slide .ns-land-i{fill:var(--ds-bg)}
+.ns-slide .ns-tile{fill:var(--ds-surface);stroke:var(--ds-line);stroke-width:1;rx:var(--ds-radius)}
+.ns-slide .ns-on{fill:var(--ds-c1)}
+.ns-slide .ns-off{fill:var(--ds-c5)}
+.ns-slide .ns-zone{fill:none;stroke:var(--ds-accent);stroke-width:2.5;stroke-dasharray:9 6;stroke-linejoin:round}
+.ns-slide .ns-bar-a{fill:var(--ds-accent)}
+.ns-slide .ns-bar-1{fill:var(--ds-c1)}
+.ns-slide .ns-bar-2{fill:var(--ds-c2)}
+.ns-slide .ns-bar-3{fill:var(--ds-c3)}
+.ns-slide .ns-gap{stroke:var(--ds-bg);stroke-width:2}
+.ns-slide .ns-grid{stroke:var(--ds-line);stroke-width:1}
+.ns-slide .ns-axis{stroke:var(--ds-sub);stroke-width:1.2}
+.ns-slide .ns-arrow{fill:var(--ds-ink)}
+/* 순차 등장 — 전체 1.45초, 한 번. 최종 상태가 기본값이라 JS·모션이 없어도 모두 보인다 */
+.ns-slide.ns-play .ns-in{animation:ns-fade .35s ease-out both;animation-delay:var(--d,0s)}
+@keyframes ns-fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ns-slide.ns-play .ns-in{animation:none}}
+
+/* 계열 값 미리보기 — 같은 구조에 --ds-* 묶음만 바꾼다 (DB 표지 palette·fonts 기준) */
+.ns-slide[data-ds="B"]{--ds-bg:#EEF1F4;--ds-surface:#FAFAF8;--ds-ink:#1F2B36;--ds-sub:#5E6974;--ds-line:#CDD4DB;--ds-accent:#E2571A;--ds-accent2:#2F5D86;--ds-c1:#2F4252;--ds-c2:#4F6679;--ds-c3:#7389A0;--ds-c4:#9DB0C1;--ds-c5:#D3DBE3;--ds-font-title:"Gothic A1","Pretendard","Malgun Gothic",sans-serif;--ds-font-body:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;--ds-font-num:"IBM Plex Mono",Consolas,monospace;--ds-radius:2px;--ds-shadow:0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)}
+.ns-slide[data-ds="D"]{--ds-bg:#F3EEE3;--ds-surface:#FBF8F1;--ds-ink:#1E1F24;--ds-sub:#5B5A57;--ds-line:#CFC7B6;--ds-accent:#C8402B;--ds-accent2:#23467A;--ds-c1:#2A2C33;--ds-c2:#4E5560;--ds-c3:#8A8F96;--ds-c4:#B9B4A8;--ds-c5:#E2DBCC;--ds-font-title:"Noto Serif KR","Batang",serif;--ds-font-body:"Noto Sans KR","Malgun Gothic",sans-serif;--ds-font-num:"IBM Plex Mono",Consolas,monospace;--ds-radius:0px;--ds-shadow:none}
+.ns-slide[data-ds="F"]{--ds-bg:#F4F6F8;--ds-surface:#FFFFFF;--ds-ink:#12203A;--ds-sub:#56627A;--ds-line:#D3DAE4;--ds-accent:#E8590C;--ds-accent2:#2F6FB5;--ds-c1:#1D3D6E;--ds-c2:#2F6FB5;--ds-c3:#7FA3CF;--ds-c4:#B4C8E0;--ds-c5:#DCE5F0;--ds-font-title:"Gothic A1","Pretendard","Malgun Gothic",sans-serif;--ds-font-body:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;--ds-font-num:"Saira Semi Condensed","Arial Narrow",sans-serif;--ds-radius:2px;--ds-shadow:0 1px 2px rgba(18,32,58,.10)}
+</style>
+<div class="wrap">
+  <header class="hd">
+    <span class="eyebrow">REFERENCE 51 · 요소 · 지도·분포 · 현황</span>
+    <h1>낱칸 시·군 지도</h1>
+    <p>시·군 타일 안에 학교를 한 칸씩 쌓아, 문제 학교가 어디에 몰렸는지와 몇 교인지를 같은 그림에서 읽게 한 본문 장표입니다. 가상 예시입니다.</p>
+  </header>
+
+  <div class="stage">
+    <div class="scroller"><div class="ns-slide" id="ns-slide" role="img" aria-label="시·군별 내진 보강 미완료 학교 분포 타일 지도"></div></div>
+    <div class="ctrl" role="group" aria-label="계열 값 바꿔 보기">
+      <span class="lbl">계열 값 바꿔 보기</span>
+      <button type="button" id="ds-n" data-ds="" aria-pressed="true">중립 값</button>
+      <button type="button" id="ds-b" data-ds="B" aria-pressed="false">B 미니멀 스튜디오</button>
+      <button type="button" id="ds-d" data-ds="D" aria-pressed="false">D 인쇄·종이</button>
+      <button type="button" id="ds-f" data-ds="F" aria-pressed="false">F 관측·중계</button>
+      <span class="sp"></span>
+      <button type="button" id="ns-replay">다시 보기</button>
+    </div>
+  </div>
+
+  <section>
+    <h2>구조</h2>
+    <p>시·군을 같은 크기의 타일로 바꿔 실제 위치에 가깝게 놓고(타일 격자 지도), 각 타일 안에 학교 1교를 작은 칸 하나로 쌓았습니다. 칸은 아래부터 보강이 남은 학교를 먼저 채우므로 진한 칸의 양이 미완료 학교 수, 칸 더미의 높이가 그 시·군의 전체 학교 수입니다. 오른쪽 열은 지도에서 보인 쏠림을 숫자로 확정합니다. 핵심 수치, 권역 몫 막대, 묶음별 비율 막대가 위에서 아래로 이어집니다.</p>
+    <div class="dev">
+      <p><b>가져갈 장치: 칸 하나 = 학교 1교.</b> 면적을 크게 차지하는 군 지역이 부풀어 보이는 일반 단계구분도와 달리 타일 크기가 모두 같고, 수량은 칸 개수로만 셉니다. 비율 지도는 학교 수가 적은 군의 70%와 큰 시의 19%를 같은 무게로 보여 주지만, 이 장표는 "몇 교 중 몇 교"를 그대로 보여 줍니다.</p>
+      <p><b>두 번째 장치: 권역 윤곽은 타일 사이 틈을 지납니다.</b> 강조색은 이 윤곽과 오른쪽 몫 막대, 한 곳에만 씁니다. 같은 뜻에만 쓰므로 지도와 숫자가 한눈에 이어집니다.</p>
+    </div>
+    <p>응용 예</p>
+    <ul>
+      <li>석면 잔존 학교: 진한 칸 = 석면 건축자재가 남은 학교, 권역 = 2027 제거 집중 지역</li>
+      <li>원거리 통학: 칸 = 통학 거리 3km 넘는 학생 10명, 권역 = 통학버스 신규 노선 대상</li>
+      <li>늘봄 대기: 칸 = 학교 1교, 진한 칸 = 대기 인원이 있는 학교, 권역 = 거점형 늘봄센터 설치 후보</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>HTML로 가져다 쓰기</h2>
+    <ul>
+      <li>데이터는 <code>NS_DATA</code> 한 곳에 있습니다. <code>regions</code>의 <code>c·r</code>(타일 열·행), <code>t</code>(전체), <code>o</code>(미완료), <code>g:1</code>(강조 권역)을 바꾸면 지도와 오른쪽 수치가 다시 계산됩니다. 제목 문장의 숫자는 직접 고칩니다.</li>
+      <li>권역 윤곽 좌표(<code>M75 223 …</code>)는 강조 타일의 모양이 바뀌면 타일 사이 틈을 따라 다시 잡습니다. 타일 간격은 156×148입니다.</li>
+      <li>분위기는 <code>.ns-slide</code>의 <code>--ds-*</code> 묶음만 바꿉니다. 계열 값은 아래 스펙 표에 있습니다.</li>
+      <li>타일 한 칸에 8×8 = 64교까지 들어갑니다. 넘으면 <code>COLS</code>·<code>CELL</code>을 조정하세요.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ul>
+    <div class="codebox">
+      <button type="button" class="copy" id="copy-btn">코드 복사</button>
+      <pre id="code-src" tabindex="0">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@600;800&amp;family=IBM+Plex+Sans+KR:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 낱칸 시·군 지도 (정보 유형: 지도·분포) ──
+   색·글꼴은 아래 --ds-* 변수로만 쓴다. 계열을 바꾸려면 이 묶음만 바꾼다. */
+.ns-slide{
+  --ds-bg:#F6F7F9; --ds-surface:#FFFFFF; --ds-ink:#1C2740; --ds-sub:#5A6478; --ds-line:#D5DAE3;
+  --ds-accent:#D4512A; --ds-accent2:#2F5E8C;
+  --ds-c1:#24345A; --ds-c2:#4A5D80; --ds-c3:#8593AE; --ds-c4:#B7C0D2; --ds-c5:#DDE2EA;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;IBM Plex Mono&quot;,&quot;SFMono-Regular&quot;,Consolas,monospace;
+  --ds-radius:3px; --ds-shadow:0 1px 2px rgba(28,39,64,.08);
+  position:relative; width:100%; aspect-ratio:16/9; container-type:inline-size;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  overflow:hidden; box-shadow:var(--ds-shadow);
+}
+.ns-slide svg{display:block;width:100%;height:100%}
+/* 글자 — 제목 1종, 보조 2단계(18 / 15) */
+.ns-slide .ns-title{font-family:var(--ds-font-title);font-weight:800;font-size:40px;fill:var(--ds-ink);letter-spacing:-.5px}
+.ns-slide .ns-em{fill:var(--ds-accent)}
+.ns-slide .ns-sec{font-family:var(--ds-font-body);font-weight:600;font-size:18px;fill:var(--ds-ink)}
+.ns-slide .ns-l{font-family:var(--ds-font-body);font-weight:500;font-size:18px;fill:var(--ds-ink)}
+.ns-slide .ns-lb{font-family:var(--ds-font-body);font-weight:600;font-size:18px;fill:var(--ds-ink)}
+.ns-slide .ns-s{font-family:var(--ds-font-body);font-weight:400;font-size:15px;fill:var(--ds-sub);letter-spacing:0}
+.ns-slide .ns-n{font-family:var(--ds-font-num);font-weight:500;font-size:15px;fill:var(--ds-sub);letter-spacing:0}
+.ns-slide .ns-nb{font-family:var(--ds-font-num);font-weight:600;font-size:18px;fill:var(--ds-ink)}
+.ns-slide .ns-big{font-family:var(--ds-font-num);font-weight:600;font-size:76px;fill:var(--ds-ink);letter-spacing:-2px}
+.ns-slide .ns-unit{font-family:var(--ds-font-title);font-weight:800;font-size:28px;fill:var(--ds-ink);letter-spacing:0}
+.ns-slide .ns-ac{fill:var(--ds-accent)}
+/* 도형 */
+.ns-slide .ns-rule{stroke:var(--ds-line);stroke-width:1.5}
+.ns-slide .ns-land-o{fill:none;stroke:var(--ds-c4);stroke-width:1.5}
+.ns-slide .ns-land-i{fill:var(--ds-bg)}
+.ns-slide .ns-tile{fill:var(--ds-surface);stroke:var(--ds-line);stroke-width:1;rx:var(--ds-radius)}
+.ns-slide .ns-on{fill:var(--ds-c1)}
+.ns-slide .ns-off{fill:var(--ds-c5)}
+.ns-slide .ns-zone{fill:none;stroke:var(--ds-accent);stroke-width:2.5;stroke-dasharray:9 6;stroke-linejoin:round}
+.ns-slide .ns-bar-a{fill:var(--ds-accent)}
+.ns-slide .ns-bar-1{fill:var(--ds-c1)}
+.ns-slide .ns-bar-2{fill:var(--ds-c2)}
+.ns-slide .ns-bar-3{fill:var(--ds-c3)}
+.ns-slide .ns-gap{stroke:var(--ds-bg);stroke-width:2}
+.ns-slide .ns-grid{stroke:var(--ds-line);stroke-width:1}
+.ns-slide .ns-axis{stroke:var(--ds-sub);stroke-width:1.2}
+.ns-slide .ns-arrow{fill:var(--ds-ink)}
+/* 순차 등장 — 전체 1.45초, 한 번. 최종 상태가 기본값이라 JS·모션이 없어도 모두 보인다 */
+.ns-slide.ns-play .ns-in{animation:ns-fade .35s ease-out both;animation-delay:var(--d,0s)}
+@keyframes ns-fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ns-slide.ns-play .ns-in{animation:none}}
+&lt;/style&gt;
+
+&lt;div class=&quot;ns-slide&quot; id=&quot;ns-slide&quot; role=&quot;img&quot; aria-label=&quot;시·군별 내진 보강 미완료 학교 분포 타일 지도&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+/* ── 데이터: 이 배열만 바꾸면 된다 ──
+   c·r = 타일 격자 위치(열·행, 실제 시·군 위치를 근사), t = 전체 학교 수, o = 보강 미완료 학교 수, g = 강조 권역(1) */
+const NS_DATA = {
+  section: &#x27;Ⅰ. 추진 배경 및 현황&#x27;,
+  plan: &#x27;○○교육청 · 2027 학교시설 내진 보강 집중 지원 계획(안)&#x27;,
+  title: [&#x27;내진 보강이 남은 학교 148교 중 41%가 &#x27;, &#x27;북부 4개 군&#x27;, &#x27;에 몰려 있다&#x27;],
+  zoneName: &#x27;북부 권역&#x27;,
+  source: &#x27;가상 예시 · 출처: ○○교육청 학교시설과, 학교시설 내진성능 현황(2026. 6. 30. 기준)&#x27;,
+  page: &#x27;4&#x27;,
+  regions: [
+    {n:&#x27;A군&#x27;, c:0, r:0, t:20, o:14, g:1}, {n:&#x27;B군&#x27;, c:1, r:0, t:24, o:16, g:1}, {n:&#x27;C군&#x27;, c:2, r:0, t:22, o:15, g:1},
+    {n:&#x27;D군&#x27;, c:0, r:1, t:26, o:16, g:1}, {n:&#x27;E시&#x27;, c:1, r:1, t:48, o:9},  {n:&#x27;F시&#x27;, c:2, r:1, t:64, o:12}, {n:&#x27;G군&#x27;, c:3, r:1, t:26, o:10},
+    {n:&#x27;H군&#x27;, c:0, r:2, t:30, o:9},  {n:&#x27;I시&#x27;, c:1, r:2, t:56, o:8},  {n:&#x27;J시&#x27;, c:2, r:2, t:62, o:10}, {n:&#x27;K군&#x27;, c:3, r:2, t:34, o:9}, {n:&#x27;L군&#x27;, c:4, r:2, t:28, o:8},
+    {n:&#x27;M군&#x27;, c:1, r:3, t:32, o:7},  {n:&#x27;N시&#x27;, c:2, r:3, t:50, o:5}
+  ]
+};
+
+(function(){
+  const D = NS_DATA, R = D.regions;
+  // 격자 치수(가상 화면 1600×900 기준)
+  const X0=80, Y0=228, PX=156, PY=148, TW=150, TH=142, CELL=11, SQ=9, COLS=8;
+  const tx = c =&gt; X0 + c*PX, ty = r =&gt; Y0 + r*PY;
+  const sum = (a,k) =&gt; a.reduce((s,x)=&gt;s+x[k],0);
+  const Z = R.filter(x=&gt;x.g), N = R.filter(x=&gt;!x.g);
+  const T = sum(R,&#x27;t&#x27;), O = sum(R,&#x27;o&#x27;), zT = sum(Z,&#x27;t&#x27;), zO = sum(Z,&#x27;o&#x27;), nT = sum(N,&#x27;t&#x27;), nO = sum(N,&#x27;o&#x27;);
+  const pct = (a,b,d=1) =&gt; (a/b*100).toFixed(d);
+  let s = &#x27;&#x27;;
+  const inD = (d, body) =&gt; `&lt;g class=&quot;ns-in&quot; style=&quot;--d:${d}s&quot;&gt;${body}&lt;/g&gt;`;
+
+  // 머리말 띠 · 제목
+  s += `&lt;text class=&quot;ns-sec&quot; x=&quot;80&quot; y=&quot;70&quot;&gt;${D.section}&lt;/text&gt;`;
+  s += `&lt;text class=&quot;ns-s&quot; x=&quot;1520&quot; y=&quot;70&quot; text-anchor=&quot;end&quot;&gt;${D.plan}&lt;/text&gt;`;
+  s += `&lt;line class=&quot;ns-rule&quot; x1=&quot;80&quot; y1=&quot;88&quot; x2=&quot;1520&quot; y2=&quot;88&quot;/&gt;`;
+  s += `&lt;text class=&quot;ns-title&quot; x=&quot;80&quot; y=&quot;160&quot;&gt;${D.title[0]}&lt;tspan class=&quot;ns-em&quot;&gt;${D.title[1]}&lt;/tspan&gt;${D.title[2]}&lt;/text&gt;`;
+
+  // 도 경계: 타일을 12만큼 키운 면의 합집합 윤곽(선 → 안쪽 덮기)
+  let lo=&#x27;&#x27;, li=&#x27;&#x27;;
+  R.forEach(x=&gt;{
+    lo += `&lt;rect x=&quot;${tx(x.c)-12}&quot; y=&quot;${ty(x.r)-12}&quot; width=&quot;${TW+24}&quot; height=&quot;${TH+24}&quot;/&gt;`;
+    li += `&lt;rect x=&quot;${tx(x.c)-11}&quot; y=&quot;${ty(x.r)-11}&quot; width=&quot;${TW+22}&quot; height=&quot;${TH+22}&quot;/&gt;`;
+  });
+  s += `&lt;g class=&quot;ns-land-o&quot;&gt;${lo}&lt;/g&gt;&lt;g class=&quot;ns-land-i&quot;&gt;${li}&lt;/g&gt;`;
+
+  // 시·군 타일: 한 칸 = 학교 1교, 아래부터 미완료 학교를 먼저 채운다(높이 = 학교 수, 진한 칸 = 미완료)
+  R.forEach((x,i)=&gt;{
+    const X=tx(x.c), Y=ty(x.r), base=Y+TH-12;
+    let q=&#x27;&#x27;;
+    for(let k=0;k&lt;x.t;k++){
+      const col=k%COLS, row=Math.floor(k/COLS);
+      q += `&lt;rect class=&quot;${k&lt;x.o?&#x27;ns-on&#x27;:&#x27;ns-off&#x27;}&quot; x=&quot;${X+12+col*CELL}&quot; y=&quot;${base-SQ-row*CELL}&quot; width=&quot;${SQ}&quot; height=&quot;${SQ}&quot;/&gt;`;
+    }
+    s += inD((i*0.05).toFixed(2),
+      `&lt;rect class=&quot;ns-tile&quot; x=&quot;${X}&quot; y=&quot;${Y}&quot; width=&quot;${TW}&quot; height=&quot;${TH}&quot;/&gt;`+
+      `&lt;text class=&quot;ns-lb&quot; x=&quot;${X+12}&quot; y=&quot;${Y+28}&quot;&gt;${x.n}&lt;/text&gt;`+
+      `&lt;text class=&quot;ns-n&quot; x=&quot;${X+TW-12}&quot; y=&quot;${Y+28}&quot; text-anchor=&quot;end&quot;&gt;&lt;tspan class=&quot;ns-nb&quot; style=&quot;font-size:16px&quot;&gt;${x.o}&lt;/tspan&gt;/${x.t}&lt;/text&gt;`+
+      q+
+      `&lt;text class=&quot;ns-n&quot; x=&quot;${X+TW-10}&quot; y=&quot;${base}&quot; text-anchor=&quot;end&quot;&gt;${Math.round(x.o/x.t*100)}%&lt;/text&gt;`);
+  });
+
+  // 강조 권역 윤곽(타일 사이 틈의 가운데를 지난다) — 강조색은 이 권역 한 곳에만
+  s += inD(&#x27;0.70&#x27;, `&lt;path class=&quot;ns-zone&quot; d=&quot;M75 223 H545 V373 H233 V523 H75 Z&quot;/&gt;`+
+    `&lt;text class=&quot;ns-lb ns-ac&quot; x=&quot;561&quot; y=&quot;244&quot;&gt;${D.zoneName}&lt;/text&gt;`+
+    `&lt;text class=&quot;ns-s&quot; x=&quot;561&quot; y=&quot;266&quot;&gt;${Z.map(x=&gt;x.n.replace(&#x27;군&#x27;,&#x27;&#x27;)).join(&#x27;·&#x27;)}군&lt;/text&gt;`);
+
+  // 방위 표시
+  s += `&lt;g transform=&quot;translate(838 232)&quot;&gt;&lt;text class=&quot;ns-n&quot; x=&quot;0&quot; y=&quot;0&quot; text-anchor=&quot;middle&quot;&gt;N&lt;/text&gt;`+
+       `&lt;path class=&quot;ns-arrow&quot; d=&quot;M0 8 L5 20 L0 17 L-5 20 Z&quot;/&gt;&lt;line class=&quot;ns-axis&quot; x1=&quot;0&quot; y1=&quot;17&quot; x2=&quot;0&quot; y2=&quot;40&quot;/&gt;&lt;/g&gt;`;
+
+  // 지도 범례(지도 옆 빈 바다 자리)
+  s += inD(&#x27;0.75&#x27;,
+    `&lt;rect class=&quot;ns-on&quot; x=&quot;572&quot; y=&quot;690&quot; width=&quot;13&quot; height=&quot;13&quot;/&gt;&lt;text class=&quot;ns-l&quot; x=&quot;596&quot; y=&quot;702&quot;&gt;보강 미완료 학교 1교&lt;/text&gt;`+
+    `&lt;rect class=&quot;ns-off&quot; x=&quot;572&quot; y=&quot;716&quot; width=&quot;13&quot; height=&quot;13&quot;/&gt;&lt;text class=&quot;ns-l&quot; x=&quot;596&quot; y=&quot;728&quot;&gt;보강 완료 학교 1교&lt;/text&gt;`+
+    `&lt;line class=&quot;ns-zone&quot; x1=&quot;568&quot; y1=&quot;750&quot; x2=&quot;588&quot; y2=&quot;750&quot;/&gt;&lt;text class=&quot;ns-l&quot; x=&quot;596&quot; y=&quot;756&quot;&gt;${D.zoneName}&lt;/text&gt;`+
+    `&lt;text class=&quot;ns-s&quot; x=&quot;572&quot; y=&quot;788&quot;&gt;타일 위치 = 시·군 실제 위치를 근사&lt;/text&gt;`+
+    `&lt;text class=&quot;ns-s&quot; x=&quot;572&quot; y=&quot;810&quot;&gt;타일 숫자 = 미완료 / 전체 학교 수&lt;/text&gt;`);
+
+  // 오른쪽: 핵심 수치 → 권역 몫 → 비율 비교
+  const RX=944, RW=576;
+  s += `&lt;line class=&quot;ns-rule&quot; x1=&quot;${RX-32}&quot; y1=&quot;228&quot; x2=&quot;${RX-32}&quot; y2=&quot;812&quot;/&gt;`;
+  s += inD(&#x27;0.80&#x27;,
+    `&lt;text class=&quot;ns-l&quot; x=&quot;${RX}&quot; y=&quot;246&quot;&gt;내진 보강 미완료 학교&lt;/text&gt;`+
+    `&lt;text class=&quot;ns-big&quot; x=&quot;${RX-4}&quot; y=&quot;320&quot;&gt;${O}&lt;tspan class=&quot;ns-unit&quot; dx=&quot;8&quot;&gt;교&lt;/tspan&gt;&lt;tspan class=&quot;ns-s&quot; dx=&quot;18&quot;&gt;전체 ${T}교 중 ${pct(O,T)}%&lt;/tspan&gt;&lt;/text&gt;`);
+
+  // 몫 막대: 0 ~ ${O}교, 길이는 학교 수에 정비례
+  const zw = RW*zO/O;
+  s += inD(&#x27;0.95&#x27;,
+    `&lt;line class=&quot;ns-rule&quot; x1=&quot;${RX}&quot; y1=&quot;364&quot; x2=&quot;1520&quot; y2=&quot;364&quot;/&gt;`+
+    `&lt;text class=&quot;ns-l&quot; x=&quot;${RX}&quot; y=&quot;398&quot;&gt;미완료 ${O}교의 위치&lt;/text&gt;`+
+    `&lt;rect class=&quot;ns-bar-a&quot; x=&quot;${RX}&quot; y=&quot;414&quot; width=&quot;${zw.toFixed(1)}&quot; height=&quot;30&quot;/&gt;`+
+    `&lt;rect class=&quot;ns-bar-3&quot; x=&quot;${(RX+zw).toFixed(1)}&quot; y=&quot;414&quot; width=&quot;${(RW-zw).toFixed(1)}&quot; height=&quot;30&quot;/&gt;`+
+    `&lt;line class=&quot;ns-gap&quot; x1=&quot;${(RX+zw).toFixed(1)}&quot; y1=&quot;414&quot; x2=&quot;${(RX+zw).toFixed(1)}&quot; y2=&quot;444&quot;/&gt;`+
+    `&lt;text class=&quot;ns-lb ns-ac&quot; x=&quot;${RX}&quot; y=&quot;474&quot;&gt;${D.zoneName} ${zO}교 · ${pct(zO,O)}%&lt;/text&gt;`+
+    `&lt;text class=&quot;ns-s&quot; x=&quot;${RX}&quot; y=&quot;496&quot;&gt;학교 수로는 전체의 ${pct(zT,T)}%&lt;/text&gt;`+
+    `&lt;text class=&quot;ns-l&quot; x=&quot;1520&quot; y=&quot;474&quot; text-anchor=&quot;end&quot;&gt;나머지 ${N.length}개 시·군 ${nO}교 · ${pct(nO,O)}%&lt;/text&gt;`);
+
+  // 미완료 비율 막대: 0 ~ 100%
+  const BX=RX+190, BW=300, rows=[
+    {k:`${D.zoneName}`, v:zO/zT, f:`${zO}/${zT}교`, c:&#x27;ns-bar-1&#x27;},
+    {k:`나머지 ${N.length}개 시·군`, v:nO/nT, f:`${nO}/${nT}교`, c:&#x27;ns-bar-3&#x27;},
+    {k:&#x27;도 전체&#x27;, v:O/T, f:`${O}/${T}교`, c:&#x27;ns-bar-2&#x27;}];
+  let g = `&lt;line class=&quot;ns-rule&quot; x1=&quot;${RX}&quot; y1=&quot;530&quot; x2=&quot;1520&quot; y2=&quot;530&quot;/&gt;`+
+          `&lt;text class=&quot;ns-l&quot; x=&quot;${RX}&quot; y=&quot;564&quot;&gt;시·군 묶음별 미완료 비율&lt;/text&gt;`;
+  [0,25,50,75,100].forEach(t=&gt;{
+    const x=BX+BW*t/100;
+    g += `&lt;line class=&quot;${t?&#x27;ns-grid&#x27;:&#x27;ns-axis&#x27;}&quot; x1=&quot;${x}&quot; y1=&quot;584&quot; x2=&quot;${x}&quot; y2=&quot;704&quot;/&gt;`+
+         `&lt;text class=&quot;ns-n&quot; x=&quot;${x}&quot; y=&quot;726&quot; text-anchor=&quot;middle&quot;&gt;${t}${t===100?&#x27;%&#x27;:&#x27;&#x27;}&lt;/text&gt;`;
+  });
+  rows.forEach((r,i)=&gt;{
+    const y=592+i*38;
+    g += `&lt;text class=&quot;ns-l&quot; x=&quot;${RX}&quot; y=&quot;${y+18}&quot;&gt;${r.k}&lt;/text&gt;`+
+         `&lt;rect class=&quot;${r.c}&quot; x=&quot;${BX}&quot; y=&quot;${y}&quot; width=&quot;${(BW*r.v).toFixed(1)}&quot; height=&quot;24&quot;/&gt;`+
+         `&lt;text class=&quot;ns-nb&quot; x=&quot;${(BX+BW*r.v+10).toFixed(1)}&quot; y=&quot;${y+18}&quot;&gt;${(r.v*100).toFixed(1)}%&lt;/text&gt;`;
+  });
+  rows.forEach((r,i)=&gt;{ g += `&lt;text class=&quot;ns-n&quot; x=&quot;1520&quot; y=&quot;${592+i*38+18}&quot; text-anchor=&quot;end&quot;&gt;${r.f}&lt;/text&gt;`; });
+  s += inD(&#x27;1.10&#x27;, g +
+    `&lt;text class=&quot;ns-s&quot; x=&quot;${RX}&quot; y=&quot;772&quot;&gt;미완료 = 내진성능평가 결과 보강이 필요한 건물이 1동 이상 남은 학교&lt;/text&gt;`+
+    `&lt;text class=&quot;ns-s&quot; x=&quot;${RX}&quot; y=&quot;796&quot;&gt;대상 = 초·중·고·특수학교(분교장 포함)&lt;/text&gt;`);
+
+  // 바닥 줄
+  s += `&lt;line class=&quot;ns-rule&quot; x1=&quot;80&quot; y1=&quot;838&quot; x2=&quot;1520&quot; y2=&quot;838&quot;/&gt;`+
+       `&lt;text class=&quot;ns-s&quot; x=&quot;80&quot; y=&quot;866&quot;&gt;${D.source}&lt;/text&gt;`+
+       `&lt;text class=&quot;ns-n&quot; x=&quot;1520&quot; y=&quot;866&quot; text-anchor=&quot;end&quot;&gt;${D.page}&lt;/text&gt;`;
+
+  const el = document.getElementById(&#x27;ns-slide&#x27;);
+  el.innerHTML = `&lt;svg viewBox=&quot;0 0 1600 900&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;${s}&lt;/svg&gt;`;
+  // 순차 등장 다시 보기: window.nsReplay()
+  window.nsReplay = function(){ el.classList.remove(&#x27;ns-play&#x27;); void el.offsetWidth; el.classList.add(&#x27;ns-play&#x27;); };
+  window.nsReplay();
+})();
+&lt;/script&gt;
+</pre>
+    </div>
+  </section>
+
+  <section>
+    <h2>PPT로 옮기기</h2>
+    <ol>
+      <li>슬라이드 16:9(33.867×19.05cm). 안내선: 좌우 1.69cm(가로 80/1600), 머리말 선 1.86cm, 본문 4.82~17.36cm, 바닥 선 17.78cm.</li>
+      <li>머리말 띠: 왼쪽 텍스트 상자 "Ⅰ. 추진 배경 및 현황"(12pt 굵게), 오른쪽 계획안 이름(10pt, 오른쪽 맞춤), 아래 0.75pt 구분선. 제목은 26pt, "북부 4개 군"만 강조색.</li>
+      <li>타일: 직사각형 3.17×3.0cm, 가로 간격 0.13cm(가로 피치 3.30cm, 세로 피치 3.13cm). 시·군 이름은 왼쪽 위, "미완료/전체"는 오른쪽 위에 둡니다.</li>
+      <li>낱칸: 0.19cm 정사각형 하나를 만들고 Ctrl+D로 가로 8칸(간격 0.04cm)을 만든 뒤 그룹, 행 단위로 복제해 아래부터 쌓습니다. 미완료 칸만 진한 채우기로 바꿉니다. 학교 수가 많으면 표 개체(행 높이·열 너비 0.23cm)로 칸을 만들고 셀 음영을 바꾸는 편이 빠릅니다.</li>
+      <li>도 경계: 모든 타일보다 0.25cm 큰 사각형들을 그리고 [도형 병합 → 통합]으로 하나로 만든 뒤 채우기 없음·0.75pt 선으로 맨 뒤에 둡니다. 권역 윤곽은 [자유형]으로 타일 사이 틈을 따라 그리고 2pt 파선.</li>
+      <li>오른쪽 막대: 몫 막대 전체 너비 12.2cm = 148교 → 61교는 5.03cm. 비율 막대는 100% = 6.35cm로 66.3% → 4.21cm, 20.2% → 1.28cm, 28.4% → 1.80cm. 막대 차트 개체를 쓰면 축 최소값을 0으로 고정합니다.</li>
+      <li>[애니메이션] 나타내기 → 페이드. 타일 14개는 첫 개체만 "클릭할 때", 나머지는 "이전 효과와 함께" + 지연 0.05초씩 증가, 길이 0.35초. 권역 윤곽 0.70초, 범례 0.75초, 오른쪽 블록 0.80·0.95·1.10초(모두 "이전 효과와 함께").</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>스펙</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>변수</th><th>중립 값</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead>
+      <tbody id="spec-rows"></tbody>
+    </table></div>
+    <dl class="kv">
+      <dt>폰트</dt><dd>중립·B·F: Gothic A1 800(제목) + IBM Plex Sans KR 400/500/600(본문) + IBM Plex Mono 500/600(숫자), F는 숫자를 Saira Semi Condensed 600으로. D: Noto Serif KR 900 + Noto Sans KR + IBM Plex Mono. 대체: 프리텐다드·맑은 고딕·바탕·Consolas</dd>
+      <dt>질감</dt><dd>평면, 어울리는 계열은 B·C·D·E·F·G</dd>
+      <dt>모션</dt><dd>순차 등장 1.45초, 한 번. 정지 화면에 모든 정보가 남고, 동작 줄이기 설정이면 최종 상태만 보입니다.</dd>
+      <dt>난이도</dt><dd>HTML 중 · PPT 중(낱칸 복제가 손이 많이 감, 표 개체로 줄일 수 있음)</dd>
+      <dt>트렌드</dt><dd>타일마다 차트 하나를 담는 격자 지도(grid map). 면적 큰 지역이 부풀어 보이는 단계구분도의 편향을 없애는 방식입니다. 출처: <a href="https://flourish.studio/blog/grid-maps-explained/" target="_blank" rel="noopener">Flourish, Grid maps: where charts meet maps</a></dd>
+    </dl>
+  </section>
+</div>
+
+<script>
+/* ── 데이터: 이 배열만 바꾸면 된다 ──
+   c·r = 타일 격자 위치(열·행, 실제 시·군 위치를 근사), t = 전체 학교 수, o = 보강 미완료 학교 수, g = 강조 권역(1) */
+const NS_DATA = {
+  section: 'Ⅰ. 추진 배경 및 현황',
+  plan: '○○교육청 · 2027 학교시설 내진 보강 집중 지원 계획(안)',
+  title: ['내진 보강이 남은 학교 148교 중 41%가 ', '북부 4개 군', '에 몰려 있다'],
+  zoneName: '북부 권역',
+  source: '가상 예시 · 출처: ○○교육청 학교시설과, 학교시설 내진성능 현황(2026. 6. 30. 기준)',
+  page: '4',
+  regions: [
+    {n:'A군', c:0, r:0, t:20, o:14, g:1}, {n:'B군', c:1, r:0, t:24, o:16, g:1}, {n:'C군', c:2, r:0, t:22, o:15, g:1},
+    {n:'D군', c:0, r:1, t:26, o:16, g:1}, {n:'E시', c:1, r:1, t:48, o:9},  {n:'F시', c:2, r:1, t:64, o:12}, {n:'G군', c:3, r:1, t:26, o:10},
+    {n:'H군', c:0, r:2, t:30, o:9},  {n:'I시', c:1, r:2, t:56, o:8},  {n:'J시', c:2, r:2, t:62, o:10}, {n:'K군', c:3, r:2, t:34, o:9}, {n:'L군', c:4, r:2, t:28, o:8},
+    {n:'M군', c:1, r:3, t:32, o:7},  {n:'N시', c:2, r:3, t:50, o:5}
+  ]
+};
+
+(function(){
+  const D = NS_DATA, R = D.regions;
+  // 격자 치수(가상 화면 1600×900 기준)
+  const X0=80, Y0=228, PX=156, PY=148, TW=150, TH=142, CELL=11, SQ=9, COLS=8;
+  const tx = c => X0 + c*PX, ty = r => Y0 + r*PY;
+  const sum = (a,k) => a.reduce((s,x)=>s+x[k],0);
+  const Z = R.filter(x=>x.g), N = R.filter(x=>!x.g);
+  const T = sum(R,'t'), O = sum(R,'o'), zT = sum(Z,'t'), zO = sum(Z,'o'), nT = sum(N,'t'), nO = sum(N,'o');
+  const pct = (a,b,d=1) => (a/b*100).toFixed(d);
+  let s = '';
+  const inD = (d, body) => `<g class="ns-in" style="--d:${d}s">${body}</g>`;
+
+  // 머리말 띠 · 제목
+  s += `<text class="ns-sec" x="80" y="70">${D.section}</text>`;
+  s += `<text class="ns-s" x="1520" y="70" text-anchor="end">${D.plan}</text>`;
+  s += `<line class="ns-rule" x1="80" y1="88" x2="1520" y2="88"/>`;
+  s += `<text class="ns-title" x="80" y="160">${D.title[0]}<tspan class="ns-em">${D.title[1]}</tspan>${D.title[2]}</text>`;
+
+  // 도 경계: 타일을 12만큼 키운 면의 합집합 윤곽(선 → 안쪽 덮기)
+  let lo='', li='';
+  R.forEach(x=>{
+    lo += `<rect x="${tx(x.c)-12}" y="${ty(x.r)-12}" width="${TW+24}" height="${TH+24}"/>`;
+    li += `<rect x="${tx(x.c)-11}" y="${ty(x.r)-11}" width="${TW+22}" height="${TH+22}"/>`;
+  });
+  s += `<g class="ns-land-o">${lo}</g><g class="ns-land-i">${li}</g>`;
+
+  // 시·군 타일: 한 칸 = 학교 1교, 아래부터 미완료 학교를 먼저 채운다(높이 = 학교 수, 진한 칸 = 미완료)
+  R.forEach((x,i)=>{
+    const X=tx(x.c), Y=ty(x.r), base=Y+TH-12;
+    let q='';
+    for(let k=0;k<x.t;k++){
+      const col=k%COLS, row=Math.floor(k/COLS);
+      q += `<rect class="${k<x.o?'ns-on':'ns-off'}" x="${X+12+col*CELL}" y="${base-SQ-row*CELL}" width="${SQ}" height="${SQ}"/>`;
+    }
+    s += inD((i*0.05).toFixed(2),
+      `<rect class="ns-tile" x="${X}" y="${Y}" width="${TW}" height="${TH}"/>`+
+      `<text class="ns-lb" x="${X+12}" y="${Y+28}">${x.n}</text>`+
+      `<text class="ns-n" x="${X+TW-12}" y="${Y+28}" text-anchor="end"><tspan class="ns-nb" style="font-size:16px">${x.o}</tspan>/${x.t}</text>`+
+      q+
+      `<text class="ns-n" x="${X+TW-10}" y="${base}" text-anchor="end">${Math.round(x.o/x.t*100)}%</text>`);
+  });
+
+  // 강조 권역 윤곽(타일 사이 틈의 가운데를 지난다) — 강조색은 이 권역 한 곳에만
+  s += inD('0.70', `<path class="ns-zone" d="M75 223 H545 V373 H233 V523 H75 Z"/>`+
+    `<text class="ns-lb ns-ac" x="561" y="244">${D.zoneName}</text>`+
+    `<text class="ns-s" x="561" y="266">${Z.map(x=>x.n.replace('군','')).join('·')}군</text>`);
+
+  // 방위 표시
+  s += `<g transform="translate(838 232)"><text class="ns-n" x="0" y="0" text-anchor="middle">N</text>`+
+       `<path class="ns-arrow" d="M0 8 L5 20 L0 17 L-5 20 Z"/><line class="ns-axis" x1="0" y1="17" x2="0" y2="40"/></g>`;
+
+  // 지도 범례(지도 옆 빈 바다 자리)
+  s += inD('0.75',
+    `<rect class="ns-on" x="572" y="690" width="13" height="13"/><text class="ns-l" x="596" y="702">보강 미완료 학교 1교</text>`+
+    `<rect class="ns-off" x="572" y="716" width="13" height="13"/><text class="ns-l" x="596" y="728">보강 완료 학교 1교</text>`+
+    `<line class="ns-zone" x1="568" y1="750" x2="588" y2="750"/><text class="ns-l" x="596" y="756">${D.zoneName}</text>`+
+    `<text class="ns-s" x="572" y="788">타일 위치 = 시·군 실제 위치를 근사</text>`+
+    `<text class="ns-s" x="572" y="810">타일 숫자 = 미완료 / 전체 학교 수</text>`);
+
+  // 오른쪽: 핵심 수치 → 권역 몫 → 비율 비교
+  const RX=944, RW=576;
+  s += `<line class="ns-rule" x1="${RX-32}" y1="228" x2="${RX-32}" y2="812"/>`;
+  s += inD('0.80',
+    `<text class="ns-l" x="${RX}" y="246">내진 보강 미완료 학교</text>`+
+    `<text class="ns-big" x="${RX-4}" y="320">${O}<tspan class="ns-unit" dx="8">교</tspan><tspan class="ns-s" dx="18">전체 ${T}교 중 ${pct(O,T)}%</tspan></text>`);
+
+  // 몫 막대: 0 ~ ${O}교, 길이는 학교 수에 정비례
+  const zw = RW*zO/O;
+  s += inD('0.95',
+    `<line class="ns-rule" x1="${RX}" y1="364" x2="1520" y2="364"/>`+
+    `<text class="ns-l" x="${RX}" y="398">미완료 ${O}교의 위치</text>`+
+    `<rect class="ns-bar-a" x="${RX}" y="414" width="${zw.toFixed(1)}" height="30"/>`+
+    `<rect class="ns-bar-3" x="${(RX+zw).toFixed(1)}" y="414" width="${(RW-zw).toFixed(1)}" height="30"/>`+
+    `<line class="ns-gap" x1="${(RX+zw).toFixed(1)}" y1="414" x2="${(RX+zw).toFixed(1)}" y2="444"/>`+
+    `<text class="ns-lb ns-ac" x="${RX}" y="474">${D.zoneName} ${zO}교 · ${pct(zO,O)}%</text>`+
+    `<text class="ns-s" x="${RX}" y="496">학교 수로는 전체의 ${pct(zT,T)}%</text>`+
+    `<text class="ns-l" x="1520" y="474" text-anchor="end">나머지 ${N.length}개 시·군 ${nO}교 · ${pct(nO,O)}%</text>`);
+
+  // 미완료 비율 막대: 0 ~ 100%
+  const BX=RX+190, BW=300, rows=[
+    {k:`${D.zoneName}`, v:zO/zT, f:`${zO}/${zT}교`, c:'ns-bar-1'},
+    {k:`나머지 ${N.length}개 시·군`, v:nO/nT, f:`${nO}/${nT}교`, c:'ns-bar-3'},
+    {k:'도 전체', v:O/T, f:`${O}/${T}교`, c:'ns-bar-2'}];
+  let g = `<line class="ns-rule" x1="${RX}" y1="530" x2="1520" y2="530"/>`+
+          `<text class="ns-l" x="${RX}" y="564">시·군 묶음별 미완료 비율</text>`;
+  [0,25,50,75,100].forEach(t=>{
+    const x=BX+BW*t/100;
+    g += `<line class="${t?'ns-grid':'ns-axis'}" x1="${x}" y1="584" x2="${x}" y2="704"/>`+
+         `<text class="ns-n" x="${x}" y="726" text-anchor="middle">${t}${t===100?'%':''}</text>`;
+  });
+  rows.forEach((r,i)=>{
+    const y=592+i*38;
+    g += `<text class="ns-l" x="${RX}" y="${y+18}">${r.k}</text>`+
+         `<rect class="${r.c}" x="${BX}" y="${y}" width="${(BW*r.v).toFixed(1)}" height="24"/>`+
+         `<text class="ns-nb" x="${(BX+BW*r.v+10).toFixed(1)}" y="${y+18}">${(r.v*100).toFixed(1)}%</text>`;
+  });
+  rows.forEach((r,i)=>{ g += `<text class="ns-n" x="1520" y="${592+i*38+18}" text-anchor="end">${r.f}</text>`; });
+  s += inD('1.10', g +
+    `<text class="ns-s" x="${RX}" y="772">미완료 = 내진성능평가 결과 보강이 필요한 건물이 1동 이상 남은 학교</text>`+
+    `<text class="ns-s" x="${RX}" y="796">대상 = 초·중·고·특수학교(분교장 포함)</text>`);
+
+  // 바닥 줄
+  s += `<line class="ns-rule" x1="80" y1="838" x2="1520" y2="838"/>`+
+       `<text class="ns-s" x="80" y="866">${D.source}</text>`+
+       `<text class="ns-n" x="1520" y="866" text-anchor="end">${D.page}</text>`;
+
+  const el = document.getElementById('ns-slide');
+  el.innerHTML = `<svg viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+  // 순차 등장 다시 보기: window.nsReplay()
+  window.nsReplay = function(){ el.classList.remove('ns-play'); void el.offsetWidth; el.classList.add('ns-play'); };
+  window.nsReplay();
+})();
+</script>
+<script>
+// 계열 미리보기, 다시 보기, 스펙 표, 코드 복사
+(function(){
+  const slide=document.getElementById('ns-slide');
+  const btns=[...document.querySelectorAll('.ctrl button[data-ds]')];
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    if(b.dataset.ds) slide.setAttribute('data-ds',b.dataset.ds); else slide.removeAttribute('data-ds');
+    btns.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+  }));
+  document.getElementById('ns-replay').addEventListener('click',()=>window.nsReplay&&window.nsReplay());
+  // 스펙 표: 각 계열 값을 실제 계산된 변수에서 읽는다
+  const names=['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-radius'];
+  const probe=document.createElement('div'); probe.className='ns-slide'; probe.style.cssText='position:absolute;width:10px;visibility:hidden;left:-9999px'; document.body.appendChild(probe);
+  const vals={};
+  ['', 'B','D','F'].forEach(k=>{ if(k) probe.setAttribute('data-ds',k); else probe.removeAttribute('data-ds');
+    const cs=getComputedStyle(probe); vals[k]=names.map(n=>cs.getPropertyValue(n).trim()); });
+  probe.remove();
+  const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  document.getElementById('spec-rows').innerHTML=names.map((n,i)=>'<tr><td><code>'+n+'</code></td>'+['','B','D','F'].map(k=>{const v=vals[k][i];return '<td>'+(v.startsWith('#')?'<span class="sw" style="background:'+esc(v)+'"></span>':'')+'<code>'+esc(v)+'</code></td>';}).join('')+'</tr>').join('');
+  const cb=document.getElementById('copy-btn'), pre=document.getElementById('code-src');
+  cb.addEventListener('click',()=>{
+    const sel=()=>{const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='선택됨, Ctrl+C로 복사';};
+    try{ navigator.clipboard.writeText(pre.textContent).then(()=>{cb.textContent='복사됨';setTimeout(()=>cb.textContent='코드 복사',1600);},sel); }catch(e){ sel(); }
+  });
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,540 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #48 세 줄 나란히 추이</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700;800&family=IBM+Plex+Sans+KR:wght@400;600&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+KR:wght@500;700;800&family=Noto+Sans+KR:wght@400;700&family=Saira+Semi+Condensed:wght@500;600&display=swap">
+<style>
+/* 레이아웃: 장표 한 장 + 아래로 설명·코드·PPT·스펙을 한 단으로 쌓는 참고 시트. 의도적으로 밝은 단일 테마 */
+:root{--pg-bg:#E9EDF2;--pg-paper:#FFFFFF;--pg-ink:#1B2A44;--pg-sub:#5B6679;--pg-line:#D5DBE3;--pg-accent:#D9532B;--pg-code:#141C2B;--pg-codeink:#D8E0EC;
+  --pg-title:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--pg-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--pg-mono:"IBM Plex Mono",Consolas,monospace;color-scheme:light}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-body);font-size:15px;line-height:1.65}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 64px;display:flex;flex-direction:column;gap:36px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.top h1{font-family:var(--pg-title);font-weight:800;font-size:22px;margin:0;letter-spacing:-.01em}
+.top h1 span{font-family:var(--pg-mono);font-weight:500;color:var(--pg-sub);margin-right:10px}
+.meta{font-size:13px;color:var(--pg-sub)}
+.stage{background:var(--pg-paper);border:1px solid var(--pg-line);border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.scroll{overflow-x:auto}
+.scroll > .inner{min-width:0}
+@media (max-width:640px){.scroll > .inner{min-width:760px} .hint{display:block!important}}
+.hint{display:none;font-size:12px;color:var(--pg-sub)}
+.fam{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fam > span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+button{font:inherit;font-size:13px;border:1px solid var(--pg-line);background:var(--pg-paper);color:var(--pg-ink);padding:6px 12px;border-radius:4px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--pg-ink);color:var(--pg-paper);border-color:var(--pg-ink)}
+button:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.replay{margin-left:auto}
+section{display:flex;flex-direction:column;gap:12px;min-width:0}
+h2{font-family:var(--pg-title);font-size:18px;font-weight:800;margin:0;padding-bottom:8px;border-bottom:1px solid var(--pg-line)}
+h2 small{font-family:var(--pg-mono);font-weight:500;color:var(--pg-sub);font-size:12px;margin-right:8px}
+p,ul,ol{margin:0;max-width:72ch}
+ul,ol{padding-left:20px}
+li+li{margin-top:4px}
+.dev{border-left:3px solid var(--pg-accent);padding:4px 0 4px 14px;max-width:72ch}
+.dev b{display:block;font-family:var(--pg-title)}
+pre{margin:0;background:var(--pg-code);color:var(--pg-codeink);font-family:var(--pg-mono);font-size:12px;line-height:1.55;padding:16px;border-radius:6px;max-height:520px;overflow:auto;white-space:pre}
+.codebar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.codebar span{font-size:13px;color:var(--pg-sub)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;font-size:13px;min-width:640px;width:100%}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--pg-line);vertical-align:middle}
+th{font-weight:600;color:var(--pg-sub);font-size:12px}
+td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:0}
+dt{color:var(--pg-sub)} dd{margin:0;min-width:0}
+@media (max-width:640px){dl{grid-template-columns:1fr} dd{margin-bottom:6px}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <h1><span>#48</span>세 줄 나란히 추이</h1>
+    <div class="meta">요소 · 추이 · 평면 · 섹션 "현황" · 가상 예시</div>
+  </div>
+
+  <div class="stage">
+    <div class="scroll"><div class="inner" id="slideHost">
+<style>
+/* ── 레퍼런스 #48 세 줄 나란히 추이 (접두어 tr48-) ──
+   가상 화면 1600×900, --u = 1/1600 화면 폭. 색은 --ds-* 변수로만. */
+.tr48{
+  /* 중립 값 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#1B2A44; --ds-sub:#5B6679; --ds-line:#D5DBE3;
+  --ds-accent:#D9532B; --ds-accent2:#2E5B8A;
+  --ds-c1:#1B2A44; --ds-c2:#3D5476; --ds-c3:#7F91AB; --ds-c4:#A9B6C8; --ds-c5:#D2DAE4;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:2px; --ds-shadow:0 1px 2px rgba(27,42,68,.06),0 12px 28px -18px rgba(27,42,68,.28);
+  container-type:inline-size; width:100%;
+}
+/* 계열 값 묶음: 감싸는 요소에 data-fam="B|D|F"를 주면 변수만 바뀐다 */
+.tr48[data-fam="B"]{
+  --ds-bg:#EEF1F4; --ds-surface:#FAFAF8; --ds-ink:#1F2B36; --ds-sub:#5E6974; --ds-line:#CDD4DB;
+  --ds-accent:#E2571A; --ds-accent2:#2F5D86;
+  --ds-c1:#2F4252; --ds-c2:#4F6679; --ds-c3:#7389A0; --ds-c4:#9DB0C1; --ds-c5:#C6D2DC;
+  --ds-radius:2px; --ds-shadow:0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30);
+}
+.tr48[data-fam="D"]{
+  --ds-bg:#FBFAF7; --ds-surface:#FFFFFF; --ds-ink:#1B1E24; --ds-sub:#5A5F6B; --ds-line:#C8CBD1;
+  --ds-accent:#23467A; --ds-accent2:#3A3F4A;
+  --ds-c1:#1B1E24; --ds-c2:#3A3F4A; --ds-c3:#8A8F99; --ds-c4:#B4B8BF; --ds-c5:#DADCE0;
+  --ds-font-title:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo",serif;
+  --ds-font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Noto Serif KR","Nanum Myeongjo",serif;
+  --ds-radius:0px; --ds-shadow:none;
+}
+.tr48[data-fam="F"]{
+  --ds-bg:#F4F6F8; --ds-surface:#FFFFFF; --ds-ink:#12203A; --ds-sub:#4A5874; --ds-line:#D3DAE4;
+  --ds-accent:#E8590C; --ds-accent2:#346CB2;
+  --ds-c1:#12203A; --ds-c2:#2F4E7E; --ds-c3:#7E93B3; --ds-c4:#A8B8CE; --ds-c5:#D3DCE8;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow",sans-serif;
+  --ds-radius:3px; --ds-shadow:0 1px 2px rgba(18,32,58,.08),0 14px 30px -20px rgba(18,32,58,.35);
+}
+.tr48-slide{
+  --u:calc(100cqw / 1600);
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*18); line-height:1.35; box-sizing:border-box;
+}
+.tr48-slide *{box-sizing:border-box;margin:0}
+.tr48-abs{position:absolute}
+/* 머리말 띠 y40~88 */
+.tr48-head{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);
+  display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ds-line)}
+.tr48-sec{display:flex;align-items:baseline;gap:calc(var(--u)*12);font-weight:700;font-size:calc(var(--u)*19)}
+.tr48-sec b{font-family:var(--ds-font-num);font-weight:600;color:var(--ds-ink)}
+.tr48-plan{font-size:calc(var(--u)*15);color:var(--ds-sub);letter-spacing:.02em}
+/* 제목 y112~ */
+.tr48-title{left:calc(var(--u)*80);top:calc(var(--u)*112);width:calc(var(--u)*1380);
+  font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*44);line-height:1.28;letter-spacing:-.01em;color:var(--ds-ink);text-wrap:balance;border:0;padding:0}
+.tr48-title em{font-style:normal;color:var(--ds-accent)}
+/* 본문: 전망 구역 면 */
+.tr48-zone{background:var(--ds-surface);border-left:1px dashed var(--ds-c4);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius)}
+.tr48-zlab{font-size:calc(var(--u)*15);color:var(--ds-sub);letter-spacing:.04em;white-space:nowrap}
+.tr48-zlab strong{color:var(--ds-ink);font-weight:700}
+.tr48-colhead{font-size:calc(var(--u)*15);color:var(--ds-sub);letter-spacing:.04em;white-space:nowrap}
+.tr48-colhead strong{color:var(--ds-ink);font-weight:700}
+/* 행 */
+.tr48-name{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*27);color:var(--ds-ink);line-height:1.2}
+.tr48-unit{font-size:calc(var(--u)*15);color:var(--ds-sub);margin-top:calc(var(--u)*6)}
+.tr48-base{height:1px;background:var(--ds-ink)}
+.tr48-zero{font-family:var(--ds-font-num);font-size:calc(var(--u)*13);color:var(--ds-sub);text-align:right;width:calc(var(--u)*20)}
+.tr48-bar{background:var(--tr48-col)}
+.tr48-bar.is-proj{background:repeating-linear-gradient(135deg,var(--tr48-col) 0 calc(var(--u)*2.2),transparent 0 calc(var(--u)*6.5));
+  outline:calc(var(--u)*1.6) solid var(--tr48-col);outline-offset:calc(var(--u)*-1.6)}
+.tr48-val{font-family:var(--ds-font-num);font-weight:500;font-size:calc(var(--u)*16);color:var(--ds-sub);
+  width:calc(var(--u)*90);text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tr48-val.is-now{color:var(--ds-ink);font-weight:600}
+/* 오른쪽 증감률 열 */
+.tr48-pct{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*32);text-align:right;color:var(--ds-ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1}
+.tr48-pct.is-key{color:var(--ds-accent)}
+.tr48-rbar{background:var(--ds-c3)}
+.tr48-rbar.is-key{background:var(--ds-accent)}
+.tr48-from{font-family:var(--ds-font-num);font-size:calc(var(--u)*14);color:var(--ds-sub);text-align:right;white-space:nowrap}
+.tr48-grid{width:1px;background:var(--ds-line)}
+.tr48-tick{font-family:var(--ds-font-num);font-size:calc(var(--u)*13);color:var(--ds-sub);width:calc(var(--u)*60);text-align:center}
+.tr48-year{font-family:var(--ds-font-num);font-size:calc(var(--u)*14);color:var(--ds-sub);width:calc(var(--u)*54);text-align:center}
+.tr48-year.is-now{color:var(--ds-ink);font-weight:600}
+.tr48-derive{font-size:calc(var(--u)*14);color:var(--ds-sub);white-space:nowrap;border-top:1px solid var(--ds-line);padding-top:calc(var(--u)*8);width:calc(var(--u)*250)}
+.tr48-derive b{font-family:var(--ds-font-num);color:var(--ds-ink);font-weight:600}
+/* 바닥 줄 y846~ */
+.tr48-foot{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*840);padding-top:calc(var(--u)*10);
+  border-top:1px solid var(--ds-line);display:flex;justify-content:space-between;font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.tr48-foot b{font-family:var(--ds-font-num);font-weight:500;color:var(--ds-ink)}
+/* 순차 등장(나타내기): 행 단위, 전체 1.4초, 한 번 */
+.tr48-in{animation:tr48-appear .35s ease-out both}
+@keyframes tr48-appear{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.tr48-in{animation:none}}
+</style>
+
+<div class="tr48" id="tr48">
+  <div class="tr48-slide" role="img" aria-label="최근 10년과 2030년 전망의 학생 수, 학급 수, 교원 수 추이">
+    <header class="tr48-abs tr48-head">
+      <div class="tr48-sec"><b>Ⅰ.</b><span>추진 배경 및 현황</span></div>
+      <div class="tr48-plan">○○교육청 적정규모 학교 육성 기본계획(안)</div>
+    </header>
+    <h2 class="tr48-abs tr48-title">학생은 2030년까지 <em>3분의 1</em>이 줄지만,<br>학급과 교원은 10% 안쪽으로 준다</h2>
+    <div class="tr48-abs" id="tr48-body" style="inset:0"></div>
+    <footer class="tr48-abs tr48-foot">
+      <span>가상 예시 · 출처: ○○교육청 교육통계(각 연도 4. 1. 기준, 초·중·고), 2026~2030년은 출생아 수 기반 추계</span>
+      <b>4</b>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ── 데이터: 여기만 바꾸면 된다 ──
+     vals는 2016~2030 순서 15개, 앞 10개 실적(~2025) + 뒤 5개 전망.
+     key:true인 행 하나만 강조색. 막대 높이 = 값 ÷ 그 행 최댓값(0부터 선형). */
+  var YEARS = [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030];
+  var NOW = 9; /* 2025 = 현재 = 마지막 실적 */
+  var ROWS = [
+    {name:"학생 수", unit:"천 명 · 초·중·고 재적", key:true, dec:1,
+     vals:[212.4,208.1,203.6,199.0,195.2,191.3,186.9,181.7,176.0,170.2,164.1,157.6,150.8,144.5,139.3]},
+    {name:"학급 수", unit:"개 · 특수학급 제외", dec:0,
+     vals:[8420,8395,8362,8330,8301,8268,8240,8195,8140,8086,8010,7920,7820,7720,7620]},
+    {name:"교원 수", unit:"명 · 정원 기준", dec:0,
+     vals:[14350,14390,14420,14410,14380,14330,14290,14250,14190,14120,13980,13820,13650,13470,13300]}
+  ];
+  var PCT_MAX = 40; /* 증감률 막대 눈금 끝(%) */
+
+  /* ── 배치(가상 1600×900 좌표) ── */
+  var X0 = 368, STEP = 54, BW = 32;          /* 연도 막대 */
+  var ROW_TOP = [262, 442, 622], PLOT_H = 118, BASE_DY = 150;
+  var RX = 1510, RW = 250;                    /* 증감률 열: 0 기준선 x, 40% 길이 */
+  var body = document.getElementById("tr48-body");
+  var u = function(n){ return "calc(var(--u)*" + n + ")"; };
+  function el(cls, css, html, parent){
+    var d = document.createElement("div"); d.className = "tr48-abs " + cls;
+    for (var k in css) d.style[k] = (typeof css[k] === "number") ? u(css[k]) : css[k];
+    if (html != null) d.innerHTML = html; (parent || body).appendChild(d); return d;
+  }
+  function fmt(v, dec){ return v.toLocaleString("ko-KR",{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+
+  /* 전망 구역 면과 열 머리 */
+  var zx = X0 + 10*STEP - 6;
+  el("tr48-zone", {left:zx, top:226, width:5*STEP + 10, height:572});
+  el("tr48-zlab", {left:X0, top:234}, "<strong>실적</strong> 2016–2025");
+  el("tr48-zlab", {left:zx + 14, top:234}, "<strong>전망</strong> 2026–2030");
+  el("tr48-colhead", {left:RX - RW - 10, top:234, width:RW + 10, textAlign:"right"}, "<strong>증감률</strong> 2016→2030");
+  /* 증감률 눈금선 */
+  [0, 20, 40].forEach(function(t){
+    var x = RX - RW * t / PCT_MAX;
+    el("tr48-grid", {left:x, top:268, height:520});
+    el("tr48-tick", {left:x - 30, top:794}, t === 0 ? "0" : "−" + t + "%");
+  });
+
+  ROWS.forEach(function(r, ri){
+    var g = el("tr48-in", {left:0, top:0, width:1600, height:900, animationDelay:(ri*0.35) + "s"});
+    var top = ROW_TOP[ri], base = top + BASE_DY, max = Math.max.apply(null, r.vals);
+    var col = r.key ? "var(--ds-accent2)" : "var(--ds-c3)";
+    el("", {left:80, top:top + 52, width:250},
+      '<div class="tr48-name">' + r.name + '</div><div class="tr48-unit">' + r.unit + '</div>', g);
+    el("tr48-base", {left:X0 - 4, top:base, width:15*STEP + 4}, null, g);
+    el("tr48-zero", {left:X0 - 30, top:base - 9}, "0", g);
+    r.vals.forEach(function(v, i){
+      var h = PLOT_H * v / max;              /* 선형: 0부터 */
+      var b = el("tr48-bar" + (i > NOW ? " is-proj" : ""),
+        {left:X0 + i*STEP + (STEP - BW)/2, top:base - h, width:BW, height:h}, null, g);
+      b.style.setProperty("--tr48-col", col);
+      /* 값 라벨은 처음·현재·마지막 세 개만. 현재값은 막대 오른쪽 끝에 맞춰 전망 경계선을 넘지 않게 */
+      if (i === 0 || i === YEARS.length - 1)
+        el("tr48-val", {left:X0 + i*STEP + STEP/2 - 45, top:base - h - 26}, fmt(v, r.dec), g);
+      if (i === NOW)
+        el("tr48-val is-now", {left:X0 + i*STEP + (STEP + BW)/2 - 90, top:base - h - 26, textAlign:"right"}, fmt(v, r.dec), g);
+    });
+    /* 증감률 */
+    var a = r.vals[0], z = r.vals[r.vals.length - 1], p = (z - a) / a * 100;
+    var w = RW * Math.abs(p) / PCT_MAX;
+    el("tr48-pct" + (r.key ? " is-key" : ""), {left:RX - RW, top:top + 40, width:RW},
+      (p < 0 ? "−" : "+") + Math.abs(p).toFixed(1) + "%", g);
+    el("tr48-rbar" + (r.key ? " is-key" : ""), {left:RX - w, top:top + 84, width:w, height:24}, null, g);
+    el("tr48-from", {left:RX - RW, top:top + 116, width:RW},
+      fmt(a, r.dec) + " → " + fmt(z, r.dec), g);
+  });
+
+  /* 연도 축 + 파생 지표 */
+  var gy = el("tr48-in", {left:0, top:0, width:1600, height:900, animationDelay:"1.05s"});
+  YEARS.forEach(function(y, i){
+    el("tr48-year" + (i === NOW ? " is-now" : ""), {left:X0 + i*STEP, top:794},
+      (i === 0 || i === NOW || i === YEARS.length - 1) ? String(y) : "’" + String(y).slice(2), gy);
+  });
+  var s = ROWS[0].vals, c = ROWS[1].vals;
+  var per = function(i){ return (s[i] * 1000 / c[i]).toFixed(1); };
+  el("tr48-derive", {left:80, top:796},
+    "학급당 학생 수 <b>" + per(0) + " → " + per(NOW) + " → " + per(YEARS.length - 1) + "명</b>", gy);
+})();
+</script>
+
+    </div></div>
+    <div class="hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</div>
+    <div class="fam" role="group" aria-label="계열 값 바꿔 보기">
+      <span>계열 값 바꿔 보기</span>
+      <button type="button" id="fam-0" data-fam="" aria-pressed="true">중립 값</button>
+      <button type="button" id="fam-B" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+      <button type="button" id="fam-D" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+      <button type="button" id="fam-F" data-fam="F" aria-pressed="false">F 관측·중계</button>
+      <button type="button" id="replay" class="replay">다시 보기</button>
+    </div>
+  </div>
+
+  <section>
+    <h2><small>01</small>구조</h2>
+    <p>지표 세 개(학생·학급·교원)를 한 그래프에 겹치지 않고, 같은 연도 축을 공유하는 세 줄로 나란히 놓았습니다. 각 줄의 막대는 그 지표의 0부터 선형으로 그려서, 학생 막대는 눈에 띄게 낮아지고 학급·교원 막대는 거의 같은 높이를 유지합니다. 단위가 서로 달라 높이만으로는 비교가 어려우므로, 오른쪽 열에서 같은 기간 증감률(%)을 하나의 공통 눈금으로 다시 비교합니다.</p>
+    <div class="dev"><b>가져갈 장치: 줄마다 따로 그린 추이 + 공통 눈금 증감률 열 + 전망 구역 면</b>단위가 다른 지표는 각자의 0부터 그리고, 비교는 오른쪽 % 열 하나에 몰아서 합니다. 2026년 이후는 같은 막대를 빗금으로 바꾸고 흰 면 위에 올려서, 실적과 추계가 정지 화면에서도 갈립니다. 강조색은 학생 수 증감률 한 곳에만 씁니다.</div>
+    <ul>
+      <li>교육 예산: 총예산·인건비·학교운영비 연도별 추이 + 2030년 중기재정 전망</li>
+      <li>늘봄·돌봄: 참여 학생 수·프로그램 수·강사 수 추이와 증감률</li>
+      <li>학교 시설: 노후 건물 동수·석면 잔여 학교 수·개선 예산 추이</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><small>02</small>HTML로 가져다 쓰기</h2>
+    <ul>
+      <li>데이터는 스크립트 맨 위 <code>ROWS</code> 배열만 고치면 됩니다. 값 15개(실적 10 + 전망 5), 강조할 줄 하나에 <code>key:true</code>.</li>
+      <li>색·글꼴은 <code>.tr48</code>의 <code>--ds-*</code> 변수에서 바꿉니다. 계열 값은 감싸는 요소에 <code>data-fam="B"</code>(또는 D, F)를 붙이면 됩니다.</li>
+      <li>연도가 바뀌면 <code>YEARS</code>와 현재 위치 <code>NOW</code>를 함께 고칩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ul>
+    <div class="codebar"><span>장표만 떼어 낸 자기 완결 코드</span><button type="button" id="copyBtn">코드 복사</button></div>
+    <pre id="code" tabindex="0">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700;800&amp;family=IBM+Plex+Sans+KR:wght@400;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;family=Noto+Serif+KR:wght@500;700;800&amp;family=Noto+Sans+KR:wght@400;700&amp;family=Saira+Semi+Condensed:wght@500;600&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 레퍼런스 #48 세 줄 나란히 추이 (접두어 tr48-) ──
+   가상 화면 1600×900, --u = 1/1600 화면 폭. 색은 --ds-* 변수로만. */
+.tr48{
+  /* 중립 값 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#1B2A44; --ds-sub:#5B6679; --ds-line:#D5DBE3;
+  --ds-accent:#D9532B; --ds-accent2:#2E5B8A;
+  --ds-c1:#1B2A44; --ds-c2:#3D5476; --ds-c3:#7F91AB; --ds-c4:#A9B6C8; --ds-c5:#D2DAE4;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;IBM Plex Mono&quot;,&quot;SFMono-Regular&quot;,Consolas,monospace;
+  --ds-radius:2px; --ds-shadow:0 1px 2px rgba(27,42,68,.06),0 12px 28px -18px rgba(27,42,68,.28);
+  container-type:inline-size; width:100%;
+}
+/* 계열 값 묶음: 감싸는 요소에 data-fam=&quot;B|D|F&quot;를 주면 변수만 바뀐다 */
+.tr48[data-fam=&quot;B&quot;]{
+  --ds-bg:#EEF1F4; --ds-surface:#FAFAF8; --ds-ink:#1F2B36; --ds-sub:#5E6974; --ds-line:#CDD4DB;
+  --ds-accent:#E2571A; --ds-accent2:#2F5D86;
+  --ds-c1:#2F4252; --ds-c2:#4F6679; --ds-c3:#7389A0; --ds-c4:#9DB0C1; --ds-c5:#C6D2DC;
+  --ds-radius:2px; --ds-shadow:0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30);
+}
+.tr48[data-fam=&quot;D&quot;]{
+  --ds-bg:#FBFAF7; --ds-surface:#FFFFFF; --ds-ink:#1B1E24; --ds-sub:#5A5F6B; --ds-line:#C8CBD1;
+  --ds-accent:#23467A; --ds-accent2:#3A3F4A;
+  --ds-c1:#1B1E24; --ds-c2:#3A3F4A; --ds-c3:#8A8F99; --ds-c4:#B4B8BF; --ds-c5:#DADCE0;
+  --ds-font-title:&quot;Noto Serif KR&quot;,&quot;Nanum Myeongjo&quot;,&quot;AppleMyungjo&quot;,serif;
+  --ds-font-body:&quot;Noto Sans KR&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;Noto Serif KR&quot;,&quot;Nanum Myeongjo&quot;,serif;
+  --ds-radius:0px; --ds-shadow:none;
+}
+.tr48[data-fam=&quot;F&quot;]{
+  --ds-bg:#F4F6F8; --ds-surface:#FFFFFF; --ds-ink:#12203A; --ds-sub:#4A5874; --ds-line:#D3DAE4;
+  --ds-accent:#E8590C; --ds-accent2:#346CB2;
+  --ds-c1:#12203A; --ds-c2:#2F4E7E; --ds-c3:#7E93B3; --ds-c4:#A8B8CE; --ds-c5:#D3DCE8;
+  --ds-font-num:&quot;Saira Semi Condensed&quot;,&quot;Arial Narrow&quot;,sans-serif;
+  --ds-radius:3px; --ds-shadow:0 1px 2px rgba(18,32,58,.08),0 14px 30px -20px rgba(18,32,58,.35);
+}
+.tr48-slide{
+  --u:calc(100cqw / 1600);
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*18); line-height:1.35; box-sizing:border-box;
+}
+.tr48-slide *{box-sizing:border-box;margin:0}
+.tr48-abs{position:absolute}
+/* 머리말 띠 y40~88 */
+.tr48-head{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);
+  display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ds-line)}
+.tr48-sec{display:flex;align-items:baseline;gap:calc(var(--u)*12);font-weight:700;font-size:calc(var(--u)*19)}
+.tr48-sec b{font-family:var(--ds-font-num);font-weight:600;color:var(--ds-ink)}
+.tr48-plan{font-size:calc(var(--u)*15);color:var(--ds-sub);letter-spacing:.02em}
+/* 제목 y112~ */
+.tr48-title{left:calc(var(--u)*80);top:calc(var(--u)*112);width:calc(var(--u)*1380);
+  font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*44);line-height:1.28;letter-spacing:-.01em;color:var(--ds-ink);text-wrap:balance;border:0;padding:0}
+.tr48-title em{font-style:normal;color:var(--ds-accent)}
+/* 본문: 전망 구역 면 */
+.tr48-zone{background:var(--ds-surface);border-left:1px dashed var(--ds-c4);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius)}
+.tr48-zlab{font-size:calc(var(--u)*15);color:var(--ds-sub);letter-spacing:.04em;white-space:nowrap}
+.tr48-zlab strong{color:var(--ds-ink);font-weight:700}
+.tr48-colhead{font-size:calc(var(--u)*15);color:var(--ds-sub);letter-spacing:.04em;white-space:nowrap}
+.tr48-colhead strong{color:var(--ds-ink);font-weight:700}
+/* 행 */
+.tr48-name{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*27);color:var(--ds-ink);line-height:1.2}
+.tr48-unit{font-size:calc(var(--u)*15);color:var(--ds-sub);margin-top:calc(var(--u)*6)}
+.tr48-base{height:1px;background:var(--ds-ink)}
+.tr48-zero{font-family:var(--ds-font-num);font-size:calc(var(--u)*13);color:var(--ds-sub);text-align:right;width:calc(var(--u)*20)}
+.tr48-bar{background:var(--tr48-col)}
+.tr48-bar.is-proj{background:repeating-linear-gradient(135deg,var(--tr48-col) 0 calc(var(--u)*2.2),transparent 0 calc(var(--u)*6.5));
+  outline:calc(var(--u)*1.6) solid var(--tr48-col);outline-offset:calc(var(--u)*-1.6)}
+.tr48-val{font-family:var(--ds-font-num);font-weight:500;font-size:calc(var(--u)*16);color:var(--ds-sub);
+  width:calc(var(--u)*90);text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tr48-val.is-now{color:var(--ds-ink);font-weight:600}
+/* 오른쪽 증감률 열 */
+.tr48-pct{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*32);text-align:right;color:var(--ds-ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1}
+.tr48-pct.is-key{color:var(--ds-accent)}
+.tr48-rbar{background:var(--ds-c3)}
+.tr48-rbar.is-key{background:var(--ds-accent)}
+.tr48-from{font-family:var(--ds-font-num);font-size:calc(var(--u)*14);color:var(--ds-sub);text-align:right;white-space:nowrap}
+.tr48-grid{width:1px;background:var(--ds-line)}
+.tr48-tick{font-family:var(--ds-font-num);font-size:calc(var(--u)*13);color:var(--ds-sub);width:calc(var(--u)*60);text-align:center}
+.tr48-year{font-family:var(--ds-font-num);font-size:calc(var(--u)*14);color:var(--ds-sub);width:calc(var(--u)*54);text-align:center}
+.tr48-year.is-now{color:var(--ds-ink);font-weight:600}
+.tr48-derive{font-size:calc(var(--u)*14);color:var(--ds-sub);white-space:nowrap;border-top:1px solid var(--ds-line);padding-top:calc(var(--u)*8);width:calc(var(--u)*250)}
+.tr48-derive b{font-family:var(--ds-font-num);color:var(--ds-ink);font-weight:600}
+/* 바닥 줄 y846~ */
+.tr48-foot{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*840);padding-top:calc(var(--u)*10);
+  border-top:1px solid var(--ds-line);display:flex;justify-content:space-between;font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.tr48-foot b{font-family:var(--ds-font-num);font-weight:500;color:var(--ds-ink)}
+/* 순차 등장(나타내기): 행 단위, 전체 1.4초, 한 번 */
+.tr48-in{animation:tr48-appear .35s ease-out both}
+@keyframes tr48-appear{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.tr48-in{animation:none}}
+&lt;/style&gt;
+
+&lt;div class=&quot;tr48&quot; id=&quot;tr48&quot;&gt;
+  &lt;div class=&quot;tr48-slide&quot; role=&quot;img&quot; aria-label=&quot;최근 10년과 2030년 전망의 학생 수, 학급 수, 교원 수 추이&quot;&gt;
+    &lt;header class=&quot;tr48-abs tr48-head&quot;&gt;
+      &lt;div class=&quot;tr48-sec&quot;&gt;&lt;b&gt;Ⅰ.&lt;/b&gt;&lt;span&gt;추진 배경 및 현황&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;tr48-plan&quot;&gt;○○교육청 적정규모 학교 육성 기본계획(안)&lt;/div&gt;
+    &lt;/header&gt;
+    &lt;h2 class=&quot;tr48-abs tr48-title&quot;&gt;학생은 2030년까지 &lt;em&gt;3분의 1&lt;/em&gt;이 줄지만,&lt;br&gt;학급과 교원은 10% 안쪽으로 준다&lt;/h2&gt;
+    &lt;div class=&quot;tr48-abs&quot; id=&quot;tr48-body&quot; style=&quot;inset:0&quot;&gt;&lt;/div&gt;
+    &lt;footer class=&quot;tr48-abs tr48-foot&quot;&gt;
+      &lt;span&gt;가상 예시 · 출처: ○○교육청 교육통계(각 연도 4. 1. 기준, 초·중·고), 2026~2030년은 출생아 수 기반 추계&lt;/span&gt;
+      &lt;b&gt;4&lt;/b&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  /* ── 데이터: 여기만 바꾸면 된다 ──
+     vals는 2016~2030 순서 15개, 앞 10개 실적(~2025) + 뒤 5개 전망.
+     key:true인 행 하나만 강조색. 막대 높이 = 값 ÷ 그 행 최댓값(0부터 선형). */
+  var YEARS = [2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030];
+  var NOW = 9; /* 2025 = 현재 = 마지막 실적 */
+  var ROWS = [
+    {name:&quot;학생 수&quot;, unit:&quot;천 명 · 초·중·고 재적&quot;, key:true, dec:1,
+     vals:[212.4,208.1,203.6,199.0,195.2,191.3,186.9,181.7,176.0,170.2,164.1,157.6,150.8,144.5,139.3]},
+    {name:&quot;학급 수&quot;, unit:&quot;개 · 특수학급 제외&quot;, dec:0,
+     vals:[8420,8395,8362,8330,8301,8268,8240,8195,8140,8086,8010,7920,7820,7720,7620]},
+    {name:&quot;교원 수&quot;, unit:&quot;명 · 정원 기준&quot;, dec:0,
+     vals:[14350,14390,14420,14410,14380,14330,14290,14250,14190,14120,13980,13820,13650,13470,13300]}
+  ];
+  var PCT_MAX = 40; /* 증감률 막대 눈금 끝(%) */
+
+  /* ── 배치(가상 1600×900 좌표) ── */
+  var X0 = 368, STEP = 54, BW = 32;          /* 연도 막대 */
+  var ROW_TOP = [262, 442, 622], PLOT_H = 118, BASE_DY = 150;
+  var RX = 1510, RW = 250;                    /* 증감률 열: 0 기준선 x, 40% 길이 */
+  var body = document.getElementById(&quot;tr48-body&quot;);
+  var u = function(n){ return &quot;calc(var(--u)*&quot; + n + &quot;)&quot;; };
+  function el(cls, css, html, parent){
+    var d = document.createElement(&quot;div&quot;); d.className = &quot;tr48-abs &quot; + cls;
+    for (var k in css) d.style[k] = (typeof css[k] === &quot;number&quot;) ? u(css[k]) : css[k];
+    if (html != null) d.innerHTML = html; (parent || body).appendChild(d); return d;
+  }
+  function fmt(v, dec){ return v.toLocaleString(&quot;ko-KR&quot;,{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+
+  /* 전망 구역 면과 열 머리 */
+  var zx = X0 + 10*STEP - 6;
+  el(&quot;tr48-zone&quot;, {left:zx, top:226, width:5*STEP + 10, height:572});
+  el(&quot;tr48-zlab&quot;, {left:X0, top:234}, &quot;&lt;strong&gt;실적&lt;/strong&gt; 2016–2025&quot;);
+  el(&quot;tr48-zlab&quot;, {left:zx + 14, top:234}, &quot;&lt;strong&gt;전망&lt;/strong&gt; 2026–2030&quot;);
+  el(&quot;tr48-colhead&quot;, {left:RX - RW - 10, top:234, width:RW + 10, textAlign:&quot;right&quot;}, &quot;&lt;strong&gt;증감률&lt;/strong&gt; 2016→2030&quot;);
+  /* 증감률 눈금선 */
+  [0, 20, 40].forEach(function(t){
+    var x = RX - RW * t / PCT_MAX;
+    el(&quot;tr48-grid&quot;, {left:x, top:268, height:520});
+    el(&quot;tr48-tick&quot;, {left:x - 30, top:794}, t === 0 ? &quot;0&quot; : &quot;−&quot; + t + &quot;%&quot;);
+  });
+
+  ROWS.forEach(function(r, ri){
+    var g = el(&quot;tr48-in&quot;, {left:0, top:0, width:1600, height:900, animationDelay:(ri*0.35) + &quot;s&quot;});
+    var top = ROW_TOP[ri], base = top + BASE_DY, max = Math.max.apply(null, r.vals);
+    var col = r.key ? &quot;var(--ds-accent2)&quot; : &quot;var(--ds-c3)&quot;;
+    el(&quot;&quot;, {left:80, top:top + 52, width:250},
+      &#x27;&lt;div class=&quot;tr48-name&quot;&gt;&#x27; + r.name + &#x27;&lt;/div&gt;&lt;div class=&quot;tr48-unit&quot;&gt;&#x27; + r.unit + &#x27;&lt;/div&gt;&#x27;, g);
+    el(&quot;tr48-base&quot;, {left:X0 - 4, top:base, width:15*STEP + 4}, null, g);
+    el(&quot;tr48-zero&quot;, {left:X0 - 30, top:base - 9}, &quot;0&quot;, g);
+    r.vals.forEach(function(v, i){
+      var h = PLOT_H * v / max;              /* 선형: 0부터 */
+      var b = el(&quot;tr48-bar&quot; + (i &gt; NOW ? &quot; is-proj&quot; : &quot;&quot;),
+        {left:X0 + i*STEP + (STEP - BW)/2, top:base - h, width:BW, height:h}, null, g);
+      b.style.setProperty(&quot;--tr48-col&quot;, col);
+      /* 값 라벨은 처음·현재·마지막 세 개만. 현재값은 막대 오른쪽 끝에 맞춰 전망 경계선을 넘지 않게 */
+      if (i === 0 || i === YEARS.length - 1)
+        el(&quot;tr48-val&quot;, {left:X0 + i*STEP + STEP/2 - 45, top:base - h - 26}, fmt(v, r.dec), g);
+      if (i === NOW)
+        el(&quot;tr48-val is-now&quot;, {left:X0 + i*STEP + (STEP + BW)/2 - 90, top:base - h - 26, textAlign:&quot;right&quot;}, fmt(v, r.dec), g);
+    });
+    /* 증감률 */
+    var a = r.vals[0], z = r.vals[r.vals.length - 1], p = (z - a) / a * 100;
+    var w = RW * Math.abs(p) / PCT_MAX;
+    el(&quot;tr48-pct&quot; + (r.key ? &quot; is-key&quot; : &quot;&quot;), {left:RX - RW, top:top + 40, width:RW},
+      (p &lt; 0 ? &quot;−&quot; : &quot;+&quot;) + Math.abs(p).toFixed(1) + &quot;%&quot;, g);
+    el(&quot;tr48-rbar&quot; + (r.key ? &quot; is-key&quot; : &quot;&quot;), {left:RX - w, top:top + 84, width:w, height:24}, null, g);
+    el(&quot;tr48-from&quot;, {left:RX - RW, top:top + 116, width:RW},
+      fmt(a, r.dec) + &quot; → &quot; + fmt(z, r.dec), g);
+  });
+
+  /* 연도 축 + 파생 지표 */
+  var gy = el(&quot;tr48-in&quot;, {left:0, top:0, width:1600, height:900, animationDelay:&quot;1.05s&quot;});
+  YEARS.forEach(function(y, i){
+    el(&quot;tr48-year&quot; + (i === NOW ? &quot; is-now&quot; : &quot;&quot;), {left:X0 + i*STEP, top:794},
+      (i === 0 || i === NOW || i === YEARS.length - 1) ? String(y) : &quot;’&quot; + String(y).slice(2), gy);
+  });
+  var s = ROWS[0].vals, c = ROWS[1].vals;
+  var per = function(i){ return (s[i] * 1000 / c[i]).toFixed(1); };
+  el(&quot;tr48-derive&quot;, {left:80, top:796},
+    &quot;학급당 학생 수 &lt;b&gt;&quot; + per(0) + &quot; → &quot; + per(NOW) + &quot; → &quot; + per(YEARS.length - 1) + &quot;명&lt;/b&gt;&quot;, gy);
+})();
+&lt;/script&gt;
+</pre>
+  </section>
+
+  <section>
+    <h2><small>03</small>PPT로 옮기기</h2>
+    <ol>
+      <li><b>뼈대</b>: 슬라이드 13.33×7.5in 기준, 좌우 여백 0.67in. 머리말 띠는 위 0.33in에 텍스트 상자 2개(왼쪽 섹션, 오른쪽 계획안 이름 11pt 회색) + 아래 가는 선 0.75pt. 제목은 위 0.93in, 28pt 굵게, 핵심어 "3분의 1"만 강조색.</li>
+      <li><b>세 줄 막대</b>: [삽입]→[차트]→세로 막대형을 3개 만들어 위아래로 쌓습니다(각 높이 1.3in, 줄 간격 0.2in). 세 차트의 가로 위치·너비를 [맞춤]으로 같게 하고, 세로축은 최솟값 0 고정 후 축선·눈금선 숨김. 간격 너비 70%.</li>
+      <li><b>전망 막대</b>: 2026~2030 데이터 요소를 하나씩 선택해 [채우기: 패턴 → 넓은 하향 대각선] + 같은 색 테두리 1pt. 뒤에 흰 사각형(전망 구역)을 깔고 왼쪽 테두리만 점선.</li>
+      <li><b>증감률 열</b>: 막대 대신 직사각형 3개, 너비 = 증감률 × (2.1in ÷ 40%). 오른쪽 끝을 [오른쪽 맞춤]으로 한 선에 세웁니다. 학생 수 하나만 강조색.</li>
+      <li><b>애니메이션</b>: 줄 묶음 3개 + 연도 축에 [나타내기], 첫 줄 "이전 효과와 함께", 나머지 "이전 효과 다음에" 지연 0초·재생 0.35초.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><small>04</small>스펙</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>변수</th><th>중립 값</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead>
+      <tbody id="tokTbl"></tbody>
+    </table></div>
+    <dl>
+      <dt>폰트</dt><dd>중립·B: Gothic A1 800(제목) + IBM Plex Sans KR(본문) + IBM Plex Mono(숫자) / D: Noto Serif KR + Noto Sans KR / F: 숫자만 Saira Semi Condensed. 대체: 프리텐다드·맑은 고딕·Consolas</dd>
+      <dt>질감</dt><dd>평면 (전망 구역 면에만 약한 그림자 변수)</dd>
+      <dt>어울리는 계열</dt><dd>B · C · D · E · F · G</dd>
+      <dt>모션</dt><dd>순차 등장 4단(줄 3 + 연도 축), 각 0.35초, 전체 1.4초, 한 번. reduced-motion이면 바로 최종 상태</dd>
+      <dt>난이도</dt><dd>HTML 중 / PPT 중 (차트 3개 정렬과 패턴 채우기)</dd>
+      <dt>트렌드</dt><dd>겹친 선 대신 같은 축의 작은 배수(small multiples)와 장표 하나에 결론 하나 — Stony Brook CSE564 강의 자료 'Tufte 2026'(<a href="https://www3.cs.stonybrook.edu/~mueller/teaching/cse564/tufte%202026.pdf">링크</a>), Ninja Tables 'Mapping Tomorrow: Emerging Data Trends for 2026'(<a href="https://ninjatables.com/top-data-visualization-trends/">링크</a>)</dd>
+    </dl>
+  </section>
+</div>
+
+<script>
+(function(){
+  var host = document.getElementById("tr48");
+  var btns = document.querySelectorAll(".fam [data-fam]");
+  btns.forEach(function(b){ b.addEventListener("click", function(){
+    if (b.dataset.fam) host.setAttribute("data-fam", b.dataset.fam); else host.removeAttribute("data-fam");
+    btns.forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+  }); });
+  document.getElementById("replay").addEventListener("click", function(){
+    host.querySelectorAll(".tr48-in").forEach(function(g){ g.style.animationName = "none"; void g.offsetWidth; g.style.animationName = ""; });
+  });
+  var pre = document.getElementById("code"), cb = document.getElementById("copyBtn");
+  cb.addEventListener("click", function(){
+    function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); cb.textContent = "선택됨 — Ctrl+C로 복사"; }
+    try { navigator.clipboard.writeText(pre.textContent).then(function(){ cb.textContent = "복사됨"; setTimeout(function(){ cb.textContent = "코드 복사"; }, 1600); }, sel); } catch(e) { sel(); }
+  });
+  /* 변수 표: 각 계열 값을 실제 계산값으로 채운다 */
+  var names = ["--ds-bg","--ds-surface","--ds-ink","--ds-sub","--ds-line","--ds-accent","--ds-accent2","--ds-c1","--ds-c2","--ds-c3","--ds-c4","--ds-c5","--ds-radius"];
+  var fams = ["","B","D","F"], probe = [];
+  fams.forEach(function(f){ var d = document.createElement("div"); d.className = "tr48"; if (f) d.setAttribute("data-fam", f); d.style.position = "absolute"; d.style.visibility = "hidden"; document.body.appendChild(d); probe.push(d); });
+  var tb = document.getElementById("tokTbl");
+  names.forEach(function(n){
+    var tr = document.createElement("tr"); var h = "<td><code>" + n + "</code></td>";
+    probe.forEach(function(d){ var v = getComputedStyle(d).getPropertyValue(n).trim();
+      h += "<td>" + (v.charAt(0) === "#" ? '<span class="sw" style="background:' + v + '"></span>' : "") + "<code>" + v + "</code></td>"; });
+    tr.innerHTML = h; tb.appendChild(tr);
+  });
+  probe.forEach(function(d){ d.remove(); });
+})();
+</script>
+
+</body></html>

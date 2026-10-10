@@ -1,0 +1,620 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #49 조사 완료선 정렬 비교</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@600;700;900&family=Noto+Sans+KR:wght@400;500;700&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<style>
+/* 페이지 껍데기: 밝은 단일 테마(장표 미리보기 페이지라 의도적으로 한 테마만) */
+:root{
+  --pg-bg:#EEF0F3; --pg-card:#FFFFFF; --pg-ink:#1C2740; --pg-sub:#5A6478; --pg-line:#D7DCE3; --pg-acc:#2F5E8C;
+  --pg-code-bg:#141A26; --pg-code-ink:#DCE3EE;
+  --pg-sans:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-sans); font-size:15px; line-height:1.65}
+.pg{max-width:1160px; margin:0 auto; padding-inline:20px; padding-block:28px 64px; display:flex; flex-direction:column; gap:40px}
+.pg-top{display:flex; flex-direction:column; gap:6px}
+.pg-eyebrow{font-family:var(--pg-mono); font-size:12px; letter-spacing:.12em; color:var(--pg-sub)}
+.pg-top h1{margin:0; font-family:var(--pg-head); font-weight:800; font-size:clamp(24px,4vw,34px); line-height:1.2; text-wrap:balance}
+.pg-top p{margin:0; color:var(--pg-sub); max-width:68ch}
+.pg-stage{display:flex; flex-direction:column; gap:12px; min-width:0}
+.pg-frame{border:1px solid var(--pg-line); background:var(--pg-card); box-shadow:0 18px 40px -28px rgba(28,39,64,.35); min-width:0}
+.pg-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+.pg-hint{display:none; font-size:13px; color:var(--pg-sub); margin:0}
+@media (max-width:760px){
+  .pg-scroll > .ds49{width:920px}
+  .pg-hint{display:block}
+}
+.pg-bar{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.pg-bar span{font-size:13px; color:var(--pg-sub); margin-right:4px}
+.pg-btn{font:inherit; font-size:13px; padding:7px 12px; border:1px solid var(--pg-line); background:var(--pg-card); color:var(--pg-ink); border-radius:3px; cursor:pointer}
+.pg-btn[aria-pressed="true"]{border-color:var(--pg-ink); background:var(--pg-ink); color:var(--pg-card)}
+.pg-btn:focus-visible{outline:2px solid var(--pg-acc); outline-offset:2px}
+.pg-btn.ghost{margin-left:auto}
+section{display:flex; flex-direction:column; gap:14px; min-width:0}
+section h2{margin:0; font-family:var(--pg-head); font-weight:800; font-size:20px; display:flex; gap:12px; align-items:baseline; border-bottom:1px solid var(--pg-line); padding-bottom:8px}
+section h2 small{font-family:var(--pg-mono); font-weight:500; font-size:12px; color:var(--pg-sub); letter-spacing:.1em}
+section h3{margin:0; font-size:15px; font-weight:600}
+section p, section li{max-width:72ch}
+section p{margin:0}
+ul,ol{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:4px}
+.pg-two{display:grid; grid-template-columns:1fr 1fr; gap:28px}
+.pg-two > div{display:flex; flex-direction:column; gap:10px; min-width:0}
+@media (max-width:760px){.pg-two{grid-template-columns:1fr}}
+.pg-device{border-left:3px solid var(--pg-ink); padding:10px 16px; background:var(--pg-card)}
+.pg-device b{font-family:var(--pg-head)}
+.pg-code{position:relative; background:var(--pg-code-bg); color:var(--pg-code-ink); border-radius:4px; min-width:0}
+.pg-code pre{margin:0; max-height:520px; overflow:auto; padding:16px 18px; font-family:var(--pg-mono); font-size:12px; line-height:1.55; white-space:pre; tab-size:2}
+.pg-code .pg-btn{position:absolute; top:10px; right:18px; background:var(--pg-code-ink); color:var(--pg-code-bg); border-color:transparent}
+.pg-copied{font-size:13px; color:var(--pg-sub); min-height:1.4em}
+.pg-tbl-wrap{overflow-x:auto}
+table.pg-tbl{border-collapse:collapse; width:100%; font-size:13.5px; min-width:640px}
+.pg-tbl th,.pg-tbl td{border-bottom:1px solid var(--pg-line); padding:7px 10px; text-align:left; vertical-align:middle}
+.pg-tbl th{font-weight:600; color:var(--pg-sub); font-size:12.5px}
+.pg-tbl td code{font-family:var(--pg-mono); font-size:12px}
+.sw{display:inline-block; width:12px; height:12px; border:1px solid rgba(0,0,0,.15); vertical-align:-1px; margin-right:6px}
+dl.pg-spec{display:grid; grid-template-columns:120px 1fr; gap:6px 16px; margin:0}
+dl.pg-spec dt{color:var(--pg-sub)}
+dl.pg-spec dd{margin:0}
+@media (max-width:480px){dl.pg-spec{grid-template-columns:1fr; gap:2px} dl.pg-spec dd{margin-bottom:8px}}
+.pg-note{font-size:13px; color:var(--pg-sub)}
+code{font-family:var(--pg-mono); font-size:.9em}
+</style>
+
+<main class="pg">
+  <div class="pg-top">
+    <span class="pg-eyebrow">REFERENCE #49 · 요소 · 비교·순위 · 현황</span>
+    <h1>조사 완료선 정렬 비교</h1>
+    <p>교육지원청 8곳의 학교폭력 사안 처리 기간을 단계로 나누고, 막대를 총 길이가 아니라 "조사 완료 시점"에 맞춰 세웠다. 어느 단계에서 차이가 벌어지는지 한눈에 보인다. 가상 예시.</p>
+  </div>
+
+  <div class="pg-stage">
+    <div class="pg-frame pg-scroll">
+<style>
+/* ===== 레퍼런스 #49 조사 완료선 정렬 비교 — 장표 CSS (접두어 ds49-) =====
+   가상 화면 1600×900 기준. --u = 가상 1px. 색은 --ds-* 변수로만 쓴다. */
+.ds49{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F6F7F9; --ds-surface:#FFFFFF; --ds-ink:#1C2740; --ds-sub:#5A6478; --ds-line:#DADFE6;
+  --ds-accent:#C8461F; --ds-accent2:#2F5E8C;
+  --ds-c1:#24344F; --ds-c2:#4A5F80; --ds-c3:#7A8CA8; --ds-c4:#B4C0D0; --ds-c5:#D5DDE7;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:3px; --ds-shadow:0 1px 0 rgba(28,39,64,.06),0 10px 24px -16px rgba(28,39,64,.28);
+  container-type:inline-size; width:100%;
+}
+.ds49 *,.ds49 *::before,.ds49 *::after{box-sizing:border-box}
+.ds49-slide{
+  --u:calc(100cqw / 1600);
+  --k:calc(var(--u)*14);      /* 1일 = 가상 14px (선형 축척) */
+  --c:calc(var(--u)*578);     /* 기준선(조사 완료 시점) x 위치, 본문 영역 왼쪽 기준 */
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*16); line-height:1.35; font-variant-numeric:tabular-nums;
+}
+/* ── 머리말 띠 (y 40~88) ── */
+.ds49-head{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--ds-line)}
+.ds49-sec{display:flex; align-items:baseline; gap:calc(var(--u)*12); font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*18)}
+.ds49-sec b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-accent2)}
+.ds49-plan{font-size:calc(var(--u)*14); color:var(--ds-sub); letter-spacing:.02em}
+/* ── 제목 (y 112~) ── */
+.ds49-title{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*108); margin:0;
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*42); line-height:1.2; letter-spacing:-.01em; color:var(--ds-ink); text-wrap:balance}
+.ds49-title em{font-style:normal; color:var(--ds-accent)}
+.ds49-lede{position:absolute; left:calc(var(--u)*80); top:calc(var(--u)*170); margin:0; font-size:calc(var(--u)*16); color:var(--ds-sub)}
+.ds49-lede span{color:var(--ds-ink); font-weight:600}
+/* ── 본문 (y 222~812). 안쪽 좌표는 본문 왼쪽(x 80) 기준 ── */
+.ds49-body{position:absolute; left:calc(var(--u)*80); top:calc(var(--u)*222); width:calc(var(--u)*1440); height:calc(var(--u)*592)}
+.ds49-body > *{position:absolute}
+/* 머리 줄 */
+.ds49-th{top:0; font-size:calc(var(--u)*13); color:var(--ds-sub); letter-spacing:.03em}
+.ds49-th b{display:block; font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-ink); letter-spacing:0; margin-bottom:calc(var(--u)*4)}
+.ds49-th-l{left:calc(var(--c) - var(--u)*330); width:calc(var(--u)*318); text-align:right}
+.ds49-th-r{left:calc(var(--c) + var(--u)*12); width:calc(var(--u)*480)}
+.ds49-key{display:inline-flex; align-items:center; gap:calc(var(--u)*6); margin-left:calc(var(--u)*14)}
+.ds49-th-l .ds49-key{margin-left:0; margin-right:calc(var(--u)*14)}
+.ds49-key i{display:inline-block; width:calc(var(--u)*14); height:calc(var(--u)*10); border-radius:1px}
+/* 눈금(10일 간격)과 세로 안내선 */
+.ds49-tick{top:calc(var(--u)*50); transform:translateX(-50%); white-space:nowrap; font-family:var(--ds-font-num); font-size:calc(var(--u)*12); color:var(--ds-sub)}
+.ds49-grid{top:calc(var(--u)*68); height:calc(var(--u)*452); width:1px; background:var(--ds-line)}
+.ds49-spine{top:calc(var(--u)*44); height:calc(var(--u)*486); width:calc(var(--u)*2); margin-left:calc(var(--u)*-1); background:var(--ds-ink)}
+/* 줄: 순위 · 지원청 · 막대 · 총 기간 */
+.ds49-row{z-index:1; left:0; width:100%; height:calc(var(--u)*56)}
+.ds49-row + .ds49-row{border-top:0}
+.ds49-row::after{content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--ds-line); opacity:.7}
+.ds49-row > *{position:absolute; top:0; height:100%; display:flex; align-items:center}
+.ds49-rank{left:0; width:calc(var(--u)*40); font-family:var(--ds-font-num); font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.ds49-name{left:calc(var(--u)*44); width:calc(var(--u)*200); flex-direction:column; align-items:flex-start !important; justify-content:center}
+.ds49-name b{font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*19); line-height:1.15}
+.ds49-name small{font-size:calc(var(--u)*12.5); color:var(--ds-sub)}
+.ds49-seg{z-index:1; top:50% !important; height:calc(var(--u)*28) !important; transform:translateY(-50%); justify-content:center;
+  font-family:var(--ds-font-num); font-size:calc(var(--u)*14); font-weight:500}
+.ds49-s0{background:var(--ds-c4); color:var(--ds-ink); border-radius:var(--ds-radius) 0 0 var(--ds-radius)}
+.ds49-s1{background:var(--ds-c2); color:var(--ds-surface)}
+.ds49-s2{background:var(--ds-accent); color:var(--ds-surface); font-weight:700 !important}
+.ds49-s3{background:var(--ds-c4); color:var(--ds-ink); border-radius:0 var(--ds-radius) var(--ds-radius) 0}
+.ds49-s1,.ds49-s2{box-shadow:inset 0 0 0 0 transparent}
+.ds49-seg + .ds49-seg{border-left:1px solid var(--ds-bg)}
+.ds49-tot{left:calc(var(--u)*1132); width:calc(var(--u)*130); justify-content:flex-end; gap:calc(var(--u)*4); align-items:baseline !important; padding-top:calc(var(--u)*13)}
+.ds49-tot b{font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*26); line-height:1}
+.ds49-tot small{font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds49-gap{left:calc(var(--u)*1290); width:calc(var(--u)*150); justify-content:flex-end; font-family:var(--ds-font-num); font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.ds49-gap.is-over{color:var(--ds-ink); font-weight:600}
+.ds49-th-t{left:calc(var(--u)*1132); width:calc(var(--u)*308); text-align:right}
+.ds49-th-n{left:0; width:calc(var(--u)*250)}
+/* 치수선: 조사 완료 전후 차이를 도면 치수처럼 */
+.ds49-lead{z-index:0; width:0; border-left:1px dashed var(--ds-sub)}
+.ds49-lead.is-acc{border-left-color:var(--ds-accent)}
+.ds49-dim{top:calc(var(--u)*548); height:calc(var(--u)*14); border-top:1px solid var(--ds-sub)}
+.ds49-dim::before,.ds49-dim::after{content:""; position:absolute; top:calc(var(--u)*-7); width:1px; height:calc(var(--u)*14); background:inherit; background:var(--ds-sub)}
+.ds49-dim::before{left:0} .ds49-dim::after{right:0}
+.ds49-dim.is-acc{border-top:calc(var(--u)*2) solid var(--ds-accent)}
+.ds49-dim.is-acc::before,.ds49-dim.is-acc::after{background:var(--ds-accent); width:calc(var(--u)*2)}
+.ds49-dim span{position:absolute; top:calc(var(--u)*8); left:50%; transform:translateX(-50%); white-space:nowrap; font-size:calc(var(--u)*14); color:var(--ds-sub)}
+.ds49-dim span b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+.ds49-dim.is-acc span{color:var(--ds-ink)}
+.ds49-dim.is-acc span b{color:var(--ds-accent); font-size:calc(var(--u)*17)}
+.ds49-note{left:calc(var(--u)*1132); width:calc(var(--u)*308); top:calc(var(--u)*536); text-align:right; font-size:calc(var(--u)*13); color:var(--ds-sub); line-height:1.45}
+.ds49-note b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+/* ── 바닥 줄 (y 846~) ── */
+.ds49-foot{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846); display:flex; justify-content:space-between;
+  font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds49-foot b{font-family:var(--ds-font-num); font-weight:500; color:var(--ds-ink)}
+/* 순차 등장: 머리 → 1~8위 줄 → 치수선(전체 1.4초, 한 번). 최종 상태는 정지 화면과 같다 */
+@keyframes ds49-in{from{opacity:0}to{opacity:1}}
+.ds49-play [data-seq]{animation:ds49-in .4s ease-out both; animation-delay:calc(var(--i) * .1s)}
+@media (prefers-reduced-motion:reduce){.ds49-play [data-seq]{animation:none}}
+</style>
+
+<div class="ds49" id="ds49">
+  <div class="ds49-slide" role="img" aria-label="교육지원청 8곳의 학교폭력 사안 처리 기간 비교: 최단 중부 27일, 최장 동남 52일. 조사 완료까지는 6일 차이, 심의 대기에서 19일 차이">
+    <header class="ds49-head">
+      <div class="ds49-sec"><b>Ⅰ</b>추진 배경·현황</div>
+      <div class="ds49-plan">2027 ○○교육청 학교폭력 사안 처리 기간 단축 계획(안)</div>
+    </header>
+    <h2 class="ds49-title">지원청 간 처리 기간 25일 차이, 그중 19일은 <em>심의 대기</em>에서 생긴다</h2>
+    <p class="ds49-lede">2026년 상반기 사안 <span>1,074건</span> · 접수부터 조치 결정 통보까지 지원청별 평균 일수 · 목표 <span>35일 이내</span></p>
+    <div class="ds49-body" id="ds49-body"><!-- 스크립트가 아래 데이터로 채운다 --></div>
+    <footer class="ds49-foot">
+      <span>가상 예시 · 출처: ○○교육청 학교폭력 사안 처리 현황(가상), 2026. 1.~6. 접수 기준, 달력일</span>
+      <b>6</b>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ── 데이터: 교육지원청별 단계 평균 일수(일). 총 기간이 짧은 순으로 자동 정렬 ──
+  // a 초기 대응(접수·보고) · b 조사(전담조사관) · c 심의 대기(위원회 개최까지) · d 결정·통보, n 처리 건수
+  var DATA = [
+    {name:"중부", a:5, b:9,  c:10, d:3, n:96},
+    {name:"동부", a:4, b:10, c:12, d:3, n:142},
+    {name:"북부", a:5, b:11, c:13, d:4, n:118},
+    {name:"서남", a:6, b:10, c:16, d:3, n:87},
+    {name:"남부", a:5, b:12, c:18, d:4, n:164},
+    {name:"동북", a:6, b:11, c:21, d:4, n:103},
+    {name:"서부", a:7, b:13, c:24, d:4, n:189},
+    {name:"동남", a:6, b:12, c:29, d:5, n:175}
+  ];
+  var GOAL = 35;           // 목표 처리 기간(일)
+  var LEFT_MAX = 20, RIGHT_MAX = 30;   // 눈금 범위(일). 기준선 왼쪽 22일, 오른쪽 36일까지 그릴 수 있다
+  var ROW0 = 72, ROW_H = 56;           // 첫 줄 y, 줄 높이(가상 px)
+
+  function x(days){ return 'calc(var(--c) + var(--k) * ' + days + ')'; }   // 기준선에서 days일 떨어진 x
+  function u(n){ return 'calc(var(--u) * ' + n + ')'; }
+  var rows = DATA.map(function(r){ r.left = r.a + r.b; r.right = r.c + r.d; r.total = r.left + r.right; return r; })
+                 .sort(function(p, q){ return p.total - q.total; });
+
+  var h = [], seq = 0;
+  // 머리 줄
+  h.push('<div data-seq style="--i:'+seq+'">'
+    + '<div class="ds49-th ds49-th-n" style="position:absolute"><b>순위 · 교육지원청</b>짧은 순 · 상반기 처리 건수 · 눈금 단위 일</div>'
+    + '<div class="ds49-th ds49-th-l" style="position:absolute"><b>← 조사 완료까지</b><span class="ds49-key">초기 대응 <i style="background:var(--ds-c4)"></i></span><span class="ds49-key">조사 <i style="background:var(--ds-c2)"></i></span></div>'
+    + '<div class="ds49-th ds49-th-r" style="position:absolute"><b>조사 완료 이후 →</b><span class="ds49-key" style="margin-left:0"><i style="background:var(--ds-accent)"></i> 심의 대기</span><span class="ds49-key"><i style="background:var(--ds-c4)"></i> 결정·통보</span></div>'
+    + '<div class="ds49-th ds49-th-t" style="position:absolute"><b>총 처리 기간</b>일 · 목표 '+GOAL+'일 대비</div>'
+    + '</div>');
+  // 눈금·안내선(10일 간격, 0에서 시작하는 선형 축)
+  var g = [];
+  for(var t = -LEFT_MAX; t <= RIGHT_MAX; t += 10){
+    g.push('<span class="ds49-tick" style="position:absolute;left:'+x(t)+'">'+Math.abs(t)+'</span>');
+    if(t !== 0) g.push('<span class="ds49-grid" style="position:absolute;left:'+x(t)+'"></span>');
+  }
+  g.push('<span class="ds49-spine" style="position:absolute;left:'+x(0)+'"></span>');
+  h.push('<div data-seq style="--i:'+(seq++)+'">' + g.join('') + '</div>');
+
+  // 줄
+  rows.forEach(function(r, i){
+    var top = ROW0 + i * ROW_H, diff = r.total - GOAL;
+    h.push('<div class="ds49-row" data-seq style="top:'+u(top)+';--i:'+(seq++)+'">'
+      + '<span class="ds49-rank">'+(i+1)+'</span>'
+      + '<span class="ds49-name"><b>'+r.name+'</b><small>교육지원청 · '+r.n+'건</small></span>'
+      + '<span class="ds49-seg ds49-s0" style="left:'+x(-r.left)+';width:calc(var(--k)*'+r.a+')">'+r.a+'</span>'
+      + '<span class="ds49-seg ds49-s1" style="left:'+x(-r.b)+';width:calc(var(--k)*'+r.b+')">'+r.b+'</span>'
+      + '<span class="ds49-seg ds49-s2" style="left:'+x(0)+';width:calc(var(--k)*'+r.c+')">'+r.c+'</span>'
+      + '<span class="ds49-seg ds49-s3" style="left:'+x(r.c)+';width:calc(var(--k)*'+r.d+')">'+r.d+'</span>'
+      + '<span class="ds49-tot"><b>'+r.total+'</b><small>일</small></span>'
+      + '<span class="ds49-gap'+(diff>0?' is-over':'')+'">'+(diff>0?'+':diff<0?'−':'±')+Math.abs(diff)+'</span>'
+      + '</div>');
+  });
+
+  // 치수선: 왼쪽(조사 완료까지)과 오른쪽(심의 대기)의 최소~최대 차이
+  function ext(key){ var v = rows.map(function(r){ return r[key]; }); var lo = Math.min.apply(0,v), hi = Math.max.apply(0,v);
+    return {lo:lo, hi:hi, iLo:v.indexOf(lo), iHi:v.lastIndexOf(hi)}; }
+  var L = ext('left'), C = ext('c');
+  var dimTop = 548;
+  function lead(days, rowIdx, acc){
+    var y0 = ROW0 + rowIdx * ROW_H + 42;   // 막대 아래 끝
+    return '<span class="ds49-lead'+(acc?' is-acc':'')+'" style="position:absolute;left:'+x(days)+';top:'+u(y0)+';height:'+u(dimTop - y0 + 7)+'"></span>';
+  }
+  h.push('<div data-seq style="z-index:0;--i:'+(seq++)+'">'
+    + lead(-L.lo, L.iLo) + lead(-L.hi, L.iHi)
+    + '<div class="ds49-dim" style="position:absolute;left:'+x(-L.hi)+';width:calc(var(--k)*'+(L.hi-L.lo)+')"><span>조사 완료까지 차이 <b>'+(L.hi-L.lo)+'일</b></span></div>'
+    + lead(C.lo, C.iLo, true) + lead(C.hi, C.iHi, true)
+    + '<div class="ds49-dim is-acc" style="position:absolute;left:'+x(C.lo)+';width:calc(var(--k)*'+(C.hi-C.lo)+')"><span>심의 대기 차이 <b>'+(C.hi-C.lo)+'일</b></span></div>'
+    + '<p class="ds49-note" style="position:absolute;margin:0">목표 초과 <b>'+rows.filter(function(r){return r.total>GOAL;}).length+'곳</b> / '+rows.length+'곳<br>기준선 = 조사 완료 시점</p>'
+    + '</div>');
+
+  var root = document.getElementById('ds49');
+  root.querySelector('#ds49-body').innerHTML = h.join('');
+
+  // 순차 등장 한 번 재생(다시 보기 버튼이 있으면 같은 함수를 부른다)
+  var slide = root.querySelector('.ds49-slide');
+  window.ds49Play = function(){
+    slide.classList.remove('ds49-play'); void slide.offsetWidth; slide.classList.add('ds49-play');
+  };
+  window.ds49Play();
+})();
+</script>
+
+    </div>
+    <p class="pg-hint">← 좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="pg-bar" role="group" aria-label="계열 값 바꿔 보기">
+      <span>계열 값 바꿔 보기</span>
+      <button class="pg-btn" type="button" id="fam-N" data-fam="N" aria-pressed="true">중립 값</button>
+      <button class="pg-btn" type="button" id="fam-B" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+      <button class="pg-btn" type="button" id="fam-D" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+      <button class="pg-btn" type="button" id="fam-F" data-fam="F" aria-pressed="false">F 관측·중계</button>
+      <button class="pg-btn ghost" type="button" id="replay">다시 보기</button>
+    </div>
+  </div>
+
+  <section>
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <div class="pg-two">
+      <div>
+        <p>지원청 여덟 곳을 총 처리 기간이 짧은 순으로 줄 세웠다. 막대는 네 단계(초기 대응, 조사, 심의 대기, 결정·통보)로 나뉘고, 오른쪽 열에 총 일수와 목표 35일 대비 차이를 숫자로 적었다.</p>
+        <p>보통의 누적 막대는 0에서 시작하므로 첫 구간만 비교하기 쉽다. 이 장표는 막대마다 "조사 완료 시점"을 같은 세로선에 맞췄다. 그래서 왼쪽(조사까지)과 오른쪽(심의 대기 이후)이 각각 공통 기준선을 가진다. 왼쪽 끝은 6일 안에 모여 있고, 오른쪽은 19일까지 벌어진다.</p>
+        <div class="pg-device"><b>가져갈 장치: 기준선 정렬 + 치수선.</b> 비교하고 싶은 구간이 시작되는 시점을 공통 기준선으로 삼아 막대를 좌우로 나눈다. 아래에는 도면 치수선처럼 최솟값과 최댓값의 차이를 두 개만 적는다. 강조색은 문제 구간(심의 대기) 하나에만 쓴다.</div>
+      </div>
+      <div>
+        <h3>응용 예</h3>
+        <ul>
+          <li><b>교육 예산·재정</b>: 사업별 집행 소요 기간을 "계약 체결 시점"에 정렬한다. 왼쪽은 발주 준비, 오른쪽은 계약 후 집행. 어느 사업이 계약 뒤에 늦어지는지 보인다.</li>
+          <li><b>학교 시설</b>: 학교별 개선 공사를 "착공일"에 정렬한다. 왼쪽은 설계·입찰, 오른쪽은 공사·준공 검사.</li>
+          <li><b>늘봄·돌봄</b>: 지원청별 강사 채용 기간을 "공고 마감"에 정렬한다. 왼쪽은 공고 기간, 오른쪽은 심사·계약·배치.</li>
+        </ul>
+        <p class="pg-note">줄은 5~10개가 알맞다. 단계는 기준선 양쪽에 두 개씩, 모두 네 개까지. 다섯 개를 넘기면 구간 숫자가 칸에 들어가지 않는다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>HTML로 가져다 쓰기 <small>CODE</small></h2>
+    <ul>
+      <li>데이터: 스크립트 맨 위 <code>DATA</code> 배열. 단계별 일수 <code>a·b·c·d</code>와 건수 <code>n</code>만 고치면 순위·총 기간·목표 대비·치수선이 다시 계산된다.</li>
+      <li>목표 일수는 <code>GOAL</code>, 눈금 범위는 <code>LEFT_MAX·RIGHT_MAX</code>. 1일당 길이는 CSS의 <code>--k</code>, 기준선 위치는 <code>--c</code>.</li>
+      <li>분위기: <code>.ds49 { --ds-… }</code> 묶음만 바꾸면 계열이 바뀐다(아래 스펙 표의 값).</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ul>
+    <div class="pg-code">
+      <button class="pg-btn" type="button" id="copy">코드 복사</button>
+      <pre id="code" tabindex="0">&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800&amp;family=IBM+Plex+Sans+KR:wght@400;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap"&gt;
+&lt;style&gt;
+/* ===== 레퍼런스 #49 조사 완료선 정렬 비교 — 장표 CSS (접두어 ds49-) =====
+   가상 화면 1600×900 기준. --u = 가상 1px. 색은 --ds-* 변수로만 쓴다. */
+.ds49{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F6F7F9; --ds-surface:#FFFFFF; --ds-ink:#1C2740; --ds-sub:#5A6478; --ds-line:#DADFE6;
+  --ds-accent:#C8461F; --ds-accent2:#2F5E8C;
+  --ds-c1:#24344F; --ds-c2:#4A5F80; --ds-c3:#7A8CA8; --ds-c4:#B4C0D0; --ds-c5:#D5DDE7;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:3px; --ds-shadow:0 1px 0 rgba(28,39,64,.06),0 10px 24px -16px rgba(28,39,64,.28);
+  container-type:inline-size; width:100%;
+}
+.ds49 *,.ds49 *::before,.ds49 *::after{box-sizing:border-box}
+.ds49-slide{
+  --u:calc(100cqw / 1600);
+  --k:calc(var(--u)*14);      /* 1일 = 가상 14px (선형 축척) */
+  --c:calc(var(--u)*578);     /* 기준선(조사 완료 시점) x 위치, 본문 영역 왼쪽 기준 */
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*16); line-height:1.35; font-variant-numeric:tabular-nums;
+}
+/* ── 머리말 띠 (y 40~88) ── */
+.ds49-head{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--ds-line)}
+.ds49-sec{display:flex; align-items:baseline; gap:calc(var(--u)*12); font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*18)}
+.ds49-sec b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-accent2)}
+.ds49-plan{font-size:calc(var(--u)*14); color:var(--ds-sub); letter-spacing:.02em}
+/* ── 제목 (y 112~) ── */
+.ds49-title{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*108); margin:0;
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*42); line-height:1.2; letter-spacing:-.01em; color:var(--ds-ink); text-wrap:balance}
+.ds49-title em{font-style:normal; color:var(--ds-accent)}
+.ds49-lede{position:absolute; left:calc(var(--u)*80); top:calc(var(--u)*170); margin:0; font-size:calc(var(--u)*16); color:var(--ds-sub)}
+.ds49-lede span{color:var(--ds-ink); font-weight:600}
+/* ── 본문 (y 222~812). 안쪽 좌표는 본문 왼쪽(x 80) 기준 ── */
+.ds49-body{position:absolute; left:calc(var(--u)*80); top:calc(var(--u)*222); width:calc(var(--u)*1440); height:calc(var(--u)*592)}
+.ds49-body &gt; *{position:absolute}
+/* 머리 줄 */
+.ds49-th{top:0; font-size:calc(var(--u)*13); color:var(--ds-sub); letter-spacing:.03em}
+.ds49-th b{display:block; font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-ink); letter-spacing:0; margin-bottom:calc(var(--u)*4)}
+.ds49-th-l{left:calc(var(--c) - var(--u)*330); width:calc(var(--u)*318); text-align:right}
+.ds49-th-r{left:calc(var(--c) + var(--u)*12); width:calc(var(--u)*480)}
+.ds49-key{display:inline-flex; align-items:center; gap:calc(var(--u)*6); margin-left:calc(var(--u)*14)}
+.ds49-th-l .ds49-key{margin-left:0; margin-right:calc(var(--u)*14)}
+.ds49-key i{display:inline-block; width:calc(var(--u)*14); height:calc(var(--u)*10); border-radius:1px}
+/* 눈금(10일 간격)과 세로 안내선 */
+.ds49-tick{top:calc(var(--u)*50); transform:translateX(-50%); white-space:nowrap; font-family:var(--ds-font-num); font-size:calc(var(--u)*12); color:var(--ds-sub)}
+.ds49-grid{top:calc(var(--u)*68); height:calc(var(--u)*452); width:1px; background:var(--ds-line)}
+.ds49-spine{top:calc(var(--u)*44); height:calc(var(--u)*486); width:calc(var(--u)*2); margin-left:calc(var(--u)*-1); background:var(--ds-ink)}
+/* 줄: 순위 · 지원청 · 막대 · 총 기간 */
+.ds49-row{z-index:1; left:0; width:100%; height:calc(var(--u)*56)}
+.ds49-row + .ds49-row{border-top:0}
+.ds49-row::after{content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:var(--ds-line); opacity:.7}
+.ds49-row &gt; *{position:absolute; top:0; height:100%; display:flex; align-items:center}
+.ds49-rank{left:0; width:calc(var(--u)*40); font-family:var(--ds-font-num); font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.ds49-name{left:calc(var(--u)*44); width:calc(var(--u)*200); flex-direction:column; align-items:flex-start !important; justify-content:center}
+.ds49-name b{font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*19); line-height:1.15}
+.ds49-name small{font-size:calc(var(--u)*12.5); color:var(--ds-sub)}
+.ds49-seg{z-index:1; top:50% !important; height:calc(var(--u)*28) !important; transform:translateY(-50%); justify-content:center;
+  font-family:var(--ds-font-num); font-size:calc(var(--u)*14); font-weight:500}
+.ds49-s0{background:var(--ds-c4); color:var(--ds-ink); border-radius:var(--ds-radius) 0 0 var(--ds-radius)}
+.ds49-s1{background:var(--ds-c2); color:var(--ds-surface)}
+.ds49-s2{background:var(--ds-accent); color:var(--ds-surface); font-weight:700 !important}
+.ds49-s3{background:var(--ds-c4); color:var(--ds-ink); border-radius:0 var(--ds-radius) var(--ds-radius) 0}
+.ds49-s1,.ds49-s2{box-shadow:inset 0 0 0 0 transparent}
+.ds49-seg + .ds49-seg{border-left:1px solid var(--ds-bg)}
+.ds49-tot{left:calc(var(--u)*1132); width:calc(var(--u)*130); justify-content:flex-end; gap:calc(var(--u)*4); align-items:baseline !important; padding-top:calc(var(--u)*13)}
+.ds49-tot b{font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*26); line-height:1}
+.ds49-tot small{font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds49-gap{left:calc(var(--u)*1290); width:calc(var(--u)*150); justify-content:flex-end; font-family:var(--ds-font-num); font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.ds49-gap.is-over{color:var(--ds-ink); font-weight:600}
+.ds49-th-t{left:calc(var(--u)*1132); width:calc(var(--u)*308); text-align:right}
+.ds49-th-n{left:0; width:calc(var(--u)*250)}
+/* 치수선: 조사 완료 전후 차이를 도면 치수처럼 */
+.ds49-lead{z-index:0; width:0; border-left:1px dashed var(--ds-sub)}
+.ds49-lead.is-acc{border-left-color:var(--ds-accent)}
+.ds49-dim{top:calc(var(--u)*548); height:calc(var(--u)*14); border-top:1px solid var(--ds-sub)}
+.ds49-dim::before,.ds49-dim::after{content:""; position:absolute; top:calc(var(--u)*-7); width:1px; height:calc(var(--u)*14); background:inherit; background:var(--ds-sub)}
+.ds49-dim::before{left:0} .ds49-dim::after{right:0}
+.ds49-dim.is-acc{border-top:calc(var(--u)*2) solid var(--ds-accent)}
+.ds49-dim.is-acc::before,.ds49-dim.is-acc::after{background:var(--ds-accent); width:calc(var(--u)*2)}
+.ds49-dim span{position:absolute; top:calc(var(--u)*8); left:50%; transform:translateX(-50%); white-space:nowrap; font-size:calc(var(--u)*14); color:var(--ds-sub)}
+.ds49-dim span b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+.ds49-dim.is-acc span{color:var(--ds-ink)}
+.ds49-dim.is-acc span b{color:var(--ds-accent); font-size:calc(var(--u)*17)}
+.ds49-note{left:calc(var(--u)*1132); width:calc(var(--u)*308); top:calc(var(--u)*536); text-align:right; font-size:calc(var(--u)*13); color:var(--ds-sub); line-height:1.45}
+.ds49-note b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+/* ── 바닥 줄 (y 846~) ── */
+.ds49-foot{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846); display:flex; justify-content:space-between;
+  font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds49-foot b{font-family:var(--ds-font-num); font-weight:500; color:var(--ds-ink)}
+/* 순차 등장: 머리 → 1~8위 줄 → 치수선(전체 1.4초, 한 번). 최종 상태는 정지 화면과 같다 */
+@keyframes ds49-in{from{opacity:0}to{opacity:1}}
+.ds49-play [data-seq]{animation:ds49-in .4s ease-out both; animation-delay:calc(var(--i) * .1s)}
+@media (prefers-reduced-motion:reduce){.ds49-play [data-seq]{animation:none}}
+&lt;/style&gt;
+
+&lt;div class="ds49" id="ds49"&gt;
+  &lt;div class="ds49-slide" role="img" aria-label="교육지원청 8곳의 학교폭력 사안 처리 기간 비교: 최단 중부 27일, 최장 동남 52일. 조사 완료까지는 6일 차이, 심의 대기에서 19일 차이"&gt;
+    &lt;header class="ds49-head"&gt;
+      &lt;div class="ds49-sec"&gt;&lt;b&gt;Ⅰ&lt;/b&gt;추진 배경·현황&lt;/div&gt;
+      &lt;div class="ds49-plan"&gt;2027 ○○교육청 학교폭력 사안 처리 기간 단축 계획(안)&lt;/div&gt;
+    &lt;/header&gt;
+    &lt;h2 class="ds49-title"&gt;지원청 간 처리 기간 25일 차이, 그중 19일은 &lt;em&gt;심의 대기&lt;/em&gt;에서 생긴다&lt;/h2&gt;
+    &lt;p class="ds49-lede"&gt;2026년 상반기 사안 &lt;span&gt;1,074건&lt;/span&gt; · 접수부터 조치 결정 통보까지 지원청별 평균 일수 · 목표 &lt;span&gt;35일 이내&lt;/span&gt;&lt;/p&gt;
+    &lt;div class="ds49-body" id="ds49-body"&gt;&lt;!-- 스크립트가 아래 데이터로 채운다 --&gt;&lt;/div&gt;
+    &lt;footer class="ds49-foot"&gt;
+      &lt;span&gt;가상 예시 · 출처: ○○교육청 학교폭력 사안 처리 현황(가상), 2026. 1.~6. 접수 기준, 달력일&lt;/span&gt;
+      &lt;b&gt;6&lt;/b&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  // ── 데이터: 교육지원청별 단계 평균 일수(일). 총 기간이 짧은 순으로 자동 정렬 ──
+  // a 초기 대응(접수·보고) · b 조사(전담조사관) · c 심의 대기(위원회 개최까지) · d 결정·통보, n 처리 건수
+  var DATA = [
+    {name:"중부", a:5, b:9,  c:10, d:3, n:96},
+    {name:"동부", a:4, b:10, c:12, d:3, n:142},
+    {name:"북부", a:5, b:11, c:13, d:4, n:118},
+    {name:"서남", a:6, b:10, c:16, d:3, n:87},
+    {name:"남부", a:5, b:12, c:18, d:4, n:164},
+    {name:"동북", a:6, b:11, c:21, d:4, n:103},
+    {name:"서부", a:7, b:13, c:24, d:4, n:189},
+    {name:"동남", a:6, b:12, c:29, d:5, n:175}
+  ];
+  var GOAL = 35;           // 목표 처리 기간(일)
+  var LEFT_MAX = 20, RIGHT_MAX = 30;   // 눈금 범위(일). 기준선 왼쪽 22일, 오른쪽 36일까지 그릴 수 있다
+  var ROW0 = 72, ROW_H = 56;           // 첫 줄 y, 줄 높이(가상 px)
+
+  function x(days){ return 'calc(var(--c) + var(--k) * ' + days + ')'; }   // 기준선에서 days일 떨어진 x
+  function u(n){ return 'calc(var(--u) * ' + n + ')'; }
+  var rows = DATA.map(function(r){ r.left = r.a + r.b; r.right = r.c + r.d; r.total = r.left + r.right; return r; })
+                 .sort(function(p, q){ return p.total - q.total; });
+
+  var h = [], seq = 0;
+  // 머리 줄
+  h.push('&lt;div data-seq style="--i:'+seq+'"&gt;'
+    + '&lt;div class="ds49-th ds49-th-n" style="position:absolute"&gt;&lt;b&gt;순위 · 교육지원청&lt;/b&gt;짧은 순 · 상반기 처리 건수 · 눈금 단위 일&lt;/div&gt;'
+    + '&lt;div class="ds49-th ds49-th-l" style="position:absolute"&gt;&lt;b&gt;← 조사 완료까지&lt;/b&gt;&lt;span class="ds49-key"&gt;초기 대응 &lt;i style="background:var(--ds-c4)"&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class="ds49-key"&gt;조사 &lt;i style="background:var(--ds-c2)"&gt;&lt;/i&gt;&lt;/span&gt;&lt;/div&gt;'
+    + '&lt;div class="ds49-th ds49-th-r" style="position:absolute"&gt;&lt;b&gt;조사 완료 이후 →&lt;/b&gt;&lt;span class="ds49-key" style="margin-left:0"&gt;&lt;i style="background:var(--ds-accent)"&gt;&lt;/i&gt; 심의 대기&lt;/span&gt;&lt;span class="ds49-key"&gt;&lt;i style="background:var(--ds-c4)"&gt;&lt;/i&gt; 결정·통보&lt;/span&gt;&lt;/div&gt;'
+    + '&lt;div class="ds49-th ds49-th-t" style="position:absolute"&gt;&lt;b&gt;총 처리 기간&lt;/b&gt;일 · 목표 '+GOAL+'일 대비&lt;/div&gt;'
+    + '&lt;/div&gt;');
+  // 눈금·안내선(10일 간격, 0에서 시작하는 선형 축)
+  var g = [];
+  for(var t = -LEFT_MAX; t &lt;= RIGHT_MAX; t += 10){
+    g.push('&lt;span class="ds49-tick" style="position:absolute;left:'+x(t)+'"&gt;'+Math.abs(t)+'&lt;/span&gt;');
+    if(t !== 0) g.push('&lt;span class="ds49-grid" style="position:absolute;left:'+x(t)+'"&gt;&lt;/span&gt;');
+  }
+  g.push('&lt;span class="ds49-spine" style="position:absolute;left:'+x(0)+'"&gt;&lt;/span&gt;');
+  h.push('&lt;div data-seq style="--i:'+(seq++)+'"&gt;' + g.join('') + '&lt;/div&gt;');
+
+  // 줄
+  rows.forEach(function(r, i){
+    var top = ROW0 + i * ROW_H, diff = r.total - GOAL;
+    h.push('&lt;div class="ds49-row" data-seq style="top:'+u(top)+';--i:'+(seq++)+'"&gt;'
+      + '&lt;span class="ds49-rank"&gt;'+(i+1)+'&lt;/span&gt;'
+      + '&lt;span class="ds49-name"&gt;&lt;b&gt;'+r.name+'&lt;/b&gt;&lt;small&gt;교육지원청 · '+r.n+'건&lt;/small&gt;&lt;/span&gt;'
+      + '&lt;span class="ds49-seg ds49-s0" style="left:'+x(-r.left)+';width:calc(var(--k)*'+r.a+')"&gt;'+r.a+'&lt;/span&gt;'
+      + '&lt;span class="ds49-seg ds49-s1" style="left:'+x(-r.b)+';width:calc(var(--k)*'+r.b+')"&gt;'+r.b+'&lt;/span&gt;'
+      + '&lt;span class="ds49-seg ds49-s2" style="left:'+x(0)+';width:calc(var(--k)*'+r.c+')"&gt;'+r.c+'&lt;/span&gt;'
+      + '&lt;span class="ds49-seg ds49-s3" style="left:'+x(r.c)+';width:calc(var(--k)*'+r.d+')"&gt;'+r.d+'&lt;/span&gt;'
+      + '&lt;span class="ds49-tot"&gt;&lt;b&gt;'+r.total+'&lt;/b&gt;&lt;small&gt;일&lt;/small&gt;&lt;/span&gt;'
+      + '&lt;span class="ds49-gap'+(diff&gt;0?' is-over':'')+'"&gt;'+(diff&gt;0?'+':diff&lt;0?'−':'±')+Math.abs(diff)+'&lt;/span&gt;'
+      + '&lt;/div&gt;');
+  });
+
+  // 치수선: 왼쪽(조사 완료까지)과 오른쪽(심의 대기)의 최소~최대 차이
+  function ext(key){ var v = rows.map(function(r){ return r[key]; }); var lo = Math.min.apply(0,v), hi = Math.max.apply(0,v);
+    return {lo:lo, hi:hi, iLo:v.indexOf(lo), iHi:v.lastIndexOf(hi)}; }
+  var L = ext('left'), C = ext('c');
+  var dimTop = 548;
+  function lead(days, rowIdx, acc){
+    var y0 = ROW0 + rowIdx * ROW_H + 42;   // 막대 아래 끝
+    return '&lt;span class="ds49-lead'+(acc?' is-acc':'')+'" style="position:absolute;left:'+x(days)+';top:'+u(y0)+';height:'+u(dimTop - y0 + 7)+'"&gt;&lt;/span&gt;';
+  }
+  h.push('&lt;div data-seq style="z-index:0;--i:'+(seq++)+'"&gt;'
+    + lead(-L.lo, L.iLo) + lead(-L.hi, L.iHi)
+    + '&lt;div class="ds49-dim" style="position:absolute;left:'+x(-L.hi)+';width:calc(var(--k)*'+(L.hi-L.lo)+')"&gt;&lt;span&gt;조사 완료까지 차이 &lt;b&gt;'+(L.hi-L.lo)+'일&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;'
+    + lead(C.lo, C.iLo, true) + lead(C.hi, C.iHi, true)
+    + '&lt;div class="ds49-dim is-acc" style="position:absolute;left:'+x(C.lo)+';width:calc(var(--k)*'+(C.hi-C.lo)+')"&gt;&lt;span&gt;심의 대기 차이 &lt;b&gt;'+(C.hi-C.lo)+'일&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;'
+    + '&lt;p class="ds49-note" style="position:absolute;margin:0"&gt;목표 초과 &lt;b&gt;'+rows.filter(function(r){return r.total&gt;GOAL;}).length+'곳&lt;/b&gt; / '+rows.length+'곳&lt;br&gt;기준선 = 조사 완료 시점&lt;/p&gt;'
+    + '&lt;/div&gt;');
+
+  var root = document.getElementById('ds49');
+  root.querySelector('#ds49-body').innerHTML = h.join('');
+
+  // 순차 등장 한 번 재생(다시 보기 버튼이 있으면 같은 함수를 부른다)
+  var slide = root.querySelector('.ds49-slide');
+  window.ds49Play = function(){
+    slide.classList.remove('ds49-play'); void slide.offsetWidth; slide.classList.add('ds49-play');
+  };
+  window.ds49Play();
+})();
+&lt;/script&gt;
+</pre>
+    </div>
+    <p class="pg-copied" id="copied" aria-live="polite"></p>
+  </section>
+
+  <section>
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <div class="pg-two">
+      <div>
+        <h3>뼈대 자리 (슬라이드 33.867 × 19.05cm 기준)</h3>
+        <ul>
+          <li>여백: 좌우 1.69cm. 머리말 띠는 위 0.85~1.86cm, 아래에 0.75pt 가는 선.</li>
+          <li>제목은 2.3cm 위치에 28pt 굵게, "심의 대기"만 강조색. 그 아래 12pt 보조 줄.</li>
+          <li>본문 4.7~17.2cm, 바닥 줄 17.9cm(가상 예시·출처 9pt, 쪽 번호 오른쪽).</li>
+        </ul>
+        <h3>막대 만들기 (도형으로, 차트 기능 대신)</h3>
+        <ol>
+          <li>1일 = 0.296cm로 정한다. 기준선(조사 완료)은 왼쪽에서 13.9cm에 세로선 1.5pt 남색, 머리 줄부터 마지막 줄까지.</li>
+          <li>줄 간격 1.19cm, 막대 높이 0.59cm. 각 줄에 직사각형 4개: 조사(진한 회청)는 기준선에서 왼쪽으로, 그 왼쪽에 초기 대응(연한 회청). 심의 대기(강조색)는 기준선에서 오른쪽으로, 그 오른쪽에 결정·통보(연한 회청). 너비 = 일수 × 0.296cm.</li>
+          <li>도형 안 숫자는 10pt 고정폭 글꼴, 가운데 맞춤. 네 도형을 [그룹화]해 한 줄로.</li>
+          <li>10일마다 0.5pt 연회색 세로 안내선을 그리고 [맨 뒤로 보내기].</li>
+          <li>치수선: 0.75pt 선 양 끝에 짧은 세로선, 해당 막대 끝에서 점선을 내려 잇는다. 심의 대기 쪽만 강조색 1.5pt.</li>
+          <li>오른쪽 총 기간 열은 텍스트 상자(18pt 숫자 + 9pt "일"), 목표 대비는 오른쪽 맞춤 10pt.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>순차 등장</h3>
+        <ul>
+          <li>순서: 머리 줄 → 눈금·기준선 → 1위~8위 줄(그룹) → 치수선. 모두 11개.</li>
+          <li>[애니메이션 → 나타내기 → 밝기 변화], 시작 "이전 효과와 함께", 지연 0.1초씩 늘림(0, 0.1, … 1.0초), 재생 시간 0.4초. 전체 1.4초.</li>
+          <li>인쇄·PDF에서는 애니메이션이 사라져도 모든 값이 남는다.</li>
+        </ul>
+        <h3>계열 값 넣기</h3>
+        <ul>
+          <li>[디자인 → 적용 → 색 → 색 사용자 지정]: 텍스트/배경 4개, 강조 1 = <code>--ds-accent</code>, 강조 2 = <code>--ds-accent2</code>, 강조 3~6 = <code>--ds-c1~c4</code>.</li>
+          <li>[글꼴 사용자 지정]: 제목 = 제목 글꼴, 본문 = 본문 글꼴. 막대 숫자·총 기간만 고정폭 글꼴로 바꾼다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="pg-tbl-wrap">
+      <table class="pg-tbl" id="spec"></table>
+    </div>
+    <dl class="pg-spec">
+      <dt>폰트</dt><dd>제목 Gothic A1 700/800, 본문 IBM Plex Sans KR 400/600, 숫자 IBM Plex Mono 500/600 (대체: 프리텐다드 → 맑은 고딕, Consolas). 계열 D는 Noto Serif KR 제목, F는 Saira Semi Condensed 숫자.</dd>
+      <dt>질감</dt><dd>평면</dd>
+      <dt>어울리는 계열</dt><dd>B · C · D · E · F · G</dd>
+      <dt>축척</dt><dd>1일 = 가상 14px, 선형. 기준선 양쪽 모두 0에서 시작.</dd>
+      <dt>모션</dt><dd>순차 등장 11단계, 각 0.4초, 0.1초 간격, 전체 1.4초, 한 번. 움직임 줄이기 설정이면 최종 상태만.</dd>
+      <dt>난이도</dt><dd>HTML 하 (데이터 배열만 고치면 됨) · PPT 중 (도형 32개를 일수에 맞춰 배치)</dd>
+      <dt>트렌드</dt><dd>누적 막대는 첫 구간만 공통 기준선을 가진다는 한계를 풀기 위해, 비교할 구간을 가운데 기준선에 맞추는 정렬형(diverging) 막대. 출처: <a href="https://info3312.infosci.cornell.edu/ae/ae-15-survey-bar-charts.html" target="_blank" rel="noopener">Cornell INFO 3312 "Diverging bar charts for survey data"(2026)</a>, <a href="https://www.storytellingwithdata.com/blog/a-diverging-bar-makeover-how-to-tackle-the-challenge-of-scope-creep" target="_blank" rel="noopener">Storytelling with Data "a diverging bar makeover"</a></dd>
+    </dl>
+  </section>
+</main>
+
+<script>
+(function(){
+  // 계열 값 묶음(DB의 계열 표지 palette·fonts에서 정함)
+  var FAM = {
+    N:{"--ds-bg":"#F6F7F9","--ds-surface":"#FFFFFF","--ds-ink":"#1C2740","--ds-sub":"#5A6478","--ds-line":"#DADFE6","--ds-accent":"#C8461F","--ds-accent2":"#2F5E8C","--ds-c1":"#24344F","--ds-c2":"#4A5F80","--ds-c3":"#7A8CA8","--ds-c4":"#B4C0D0","--ds-c5":"#D5DDE7",
+       "--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace","--ds-radius":"3px","--ds-shadow":"0 1px 0 rgba(28,39,64,.06),0 10px 24px -16px rgba(28,39,64,.28)"},
+    B:{"--ds-bg":"#EEF1F4","--ds-surface":"#FAFAF8","--ds-ink":"#1F2B36","--ds-sub":"#5E6974","--ds-line":"#CDD4DB","--ds-accent":"#D2501A","--ds-accent2":"#2F5D86","--ds-c1":"#2F4252","--ds-c2":"#4F6679","--ds-c3":"#7389A0","--ds-c4":"#AFBFCD","--ds-c5":"#C6D2DC",
+       "--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace","--ds-radius":"2px","--ds-shadow":"0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"},
+    D:{"--ds-bg":"#FBFAF7","--ds-surface":"#F1EEE6","--ds-ink":"#1B1E24","--ds-sub":"#5A5F6B","--ds-line":"#C8CBD1","--ds-accent":"#B8382C","--ds-accent2":"#23467A","--ds-c1":"#2A2E36","--ds-c2":"#4E535D","--ds-c3":"#7A7F89","--ds-c4":"#BDBFC4","--ds-c5":"#D2D4D8",
+       "--ds-font-title":"\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif","--ds-font-body":"\"Noto Sans KR\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace","--ds-radius":"0px","--ds-shadow":"none"},
+    F:{"--ds-bg":"#F4F6F8","--ds-surface":"#FFFFFF","--ds-ink":"#12203A","--ds-sub":"#556178","--ds-line":"#D3DAE3","--ds-accent":"#D63A2C","--ds-accent2":"#346CB2","--ds-c1":"#1F3F6E","--ds-c2":"#2F62A3","--ds-c3":"#6A93C8","--ds-c4":"#A9C1DF","--ds-c5":"#D3E0EF",
+       "--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"Saira Semi Condensed\",\"Arial Narrow\",sans-serif","--ds-radius":"2px","--ds-shadow":"0 0 0 1px rgba(18,32,58,.08),0 8px 18px -12px rgba(18,32,58,.35)"}
+  };
+  var NAMES = {N:"중립 값",B:"B 미니멀 스튜디오",D:"D 인쇄·종이",F:"F 관측·중계"};
+  var root = document.getElementById('ds49');
+  function apply(k){
+    var t = FAM[k]; Object.keys(t).forEach(function(p){ root.style.setProperty(p, t[p]); });
+    document.querySelectorAll('[data-fam]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-fam')===k ? 'true':'false'); });
+  }
+  document.querySelectorAll('[data-fam]').forEach(function(b){ b.addEventListener('click', function(){ apply(b.getAttribute('data-fam')); }); });
+  document.getElementById('replay').addEventListener('click', function(){ window.ds49Play && window.ds49Play(); });
+  window.pgApply = apply;
+
+  // 스펙 표: 변수 × 계열
+  var keys = Object.keys(FAM.N).filter(function(k){ return k.indexOf('font')<0; });
+  var html = '<thead><tr><th>변수</th>' + ['N','B','D','F'].map(function(k){ return '<th>'+NAMES[k]+'</th>'; }).join('') + '</tr></thead><tbody>';
+  keys.forEach(function(v){
+    html += '<tr><td><code>'+v+'</code></td>' + ['N','B','D','F'].map(function(k){
+      var val = FAM[k][v]; var isHex = /^#/.test(val);
+      return '<td>' + (isHex ? '<span class="sw" style="background:'+val+'"></span>' : '') + '<code>' + val.replace(/</g,'&lt;') + '</code></td>';
+    }).join('') + '</tr>';
+  });
+  html += '<tr><td><code>제목·본문·숫자 글꼴</code></td><td>Gothic A1 · IBM Plex Sans KR · IBM Plex Mono</td><td>Gothic A1 · IBM Plex Sans KR · IBM Plex Mono</td><td>Noto Serif KR · Noto Sans KR · IBM Plex Mono</td><td>Gothic A1 · Gothic A1 · Saira Semi Condensed</td></tr>';
+  document.getElementById('spec').innerHTML = html + '</tbody>';
+
+  // 코드 복사
+  var pre = document.getElementById('code'), msg = document.getElementById('copied');
+  document.getElementById('copy').addEventListener('click', function(){
+    var text = pre.textContent;
+    function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 있어 코드 전체를 선택했습니다. Ctrl+C(⌘C)로 복사하세요.'; }
+    try{
+      navigator.clipboard.writeText(text).then(function(){ msg.textContent = '코드를 복사했습니다.'; }, sel);
+    }catch(e){ sel(); }
+  });
+})();
+</script>
+
+</body></html>

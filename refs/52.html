@@ -1,0 +1,534 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #52 관측·중계 키트</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800;900&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<style id="fk-tokens">
+/* F 관측·중계 계열 값 — 이 묶음만 바꾸면 계열이 바뀝니다 */
+:root, .fk-slide{
+  --ds-bg:#F3F5F8;        /* 바탕: 낮 경기장의 밝은 청백 */
+  --ds-surface:#FFFFFF;   /* 면: 레인 도료 흰색, 제목 칸 */
+  --ds-ink:#12203A;       /* 본문 글자·기록판: 중계 남색 */
+  --ds-sub:#556178;       /* 보조 글자 */
+  --ds-line:#D3DAE4;      /* 구분선 */
+  --ds-accent:#E5483A;    /* 강조 1: 페이스 라이트·미달 빨강 — 한 화면 한 곳 */
+  --ds-accent2:#2F64AE;   /* 보조 강조: 트랙 고무 파랑 */
+  --ds-c1:#1E3A66; --ds-c2:#34598F; --ds-c3:#5B7DB0; --ds-c4:#8FA8CC; --ds-c5:#C4D2E6;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Gothic A1","Arial Narrow","Malgun Gothic",sans-serif;
+  --ds-radius:3px;
+  --ds-shadow:0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34);
+}
+</style>
+<style>
+/* 페이지: 밝은 단일 테마(의도). 장표 3장을 세로로, 아래에 계열 값 카드·요소 목록·코드·PPT·스펙 */
+:root{color-scheme:light;
+  --pg-bg:#EEF1F5; --pg-paper:#FFFFFF; --pg-ink:#12203A; --pg-sub:#556178; --pg-line:#D6DCE5; --pg-code:#0F1A2E; --pg-code-ink:#DCE3EE; --pg-acc:#C83C2E; --pg-blue:#2F64AE;
+  --pg-sans:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-num:"Saira Semi Condensed","Gothic A1","Arial Narrow",sans-serif;
+  --pg-mono:ui-monospace,"SFMono-Regular",Consolas,"D2Coding",monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--pg-bg);color:var(--pg-ink);font:500 15px/1.7 var(--pg-sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:28px 72px}
+.top .k{font:600 13px var(--pg-num);letter-spacing:.14em;color:var(--pg-sub);margin:0}
+.top h1{font:900 clamp(26px,4vw,40px)/1.2 var(--pg-sans);letter-spacing:-.03em;margin:8px 0 6px;text-wrap:balance}
+.top p.lede{margin:0;color:var(--pg-sub);max-width:74ch}
+.slides{margin-top:28px;display:grid;gap:30px}
+.slides figure{margin:0;min-width:0}
+.sv{min-width:0}
+.slides figcaption{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:10px;font-size:13.5px;color:var(--pg-sub)}
+.slides figcaption b{font:700 12.5px var(--pg-num);letter-spacing:.12em;color:var(--pg-ink)}
+.secbtns{display:flex;flex-wrap:wrap;gap:6px}
+.secbtns button{font:700 13px var(--pg-sans);border:1px solid var(--pg-line);background:var(--pg-paper);color:var(--pg-ink);padding:5px 11px;border-radius:3px;cursor:pointer}
+.secbtns button[aria-pressed=true]{border-color:var(--pg-ink);background:var(--pg-ink);color:var(--pg-paper)}
+.secbtns button:focus-visible,.copy:focus-visible,pre:focus-visible{outline:2px solid var(--pg-acc);outline-offset:2px}
+.swipe{display:none;font-size:12.5px;color:var(--pg-sub);margin:6px 0 0}
+/* 좁은 화면: 장표를 760px 폭으로 고정하고 옆으로 밀어 봄(글자 크기 유지) */
+@media (max-width:700px){.sv{overflow-x:auto;-webkit-overflow-scrolling:touch}.sv>.fk-slide{width:760px;max-width:none}.swipe{display:block}}
+section.blk{margin-top:56px}
+section.blk>h2{font:800 22px/1.3 var(--pg-sans);letter-spacing:-.02em;margin:0 0 4px}
+section.blk>h2 span{font:600 12.5px var(--pg-num);color:var(--pg-sub);letter-spacing:.14em;margin-right:10px}
+section.blk>p.d{margin:0 0 16px;color:var(--pg-sub);max-width:74ch}
+.card{background:var(--pg-paper);border:1px solid var(--pg-line);padding:22px;min-width:0}
+@media (max-width:560px){.card{padding:16px 14px}}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.sw div{border:1px solid var(--pg-line);background:var(--pg-paper);font-size:12px;min-width:0}
+.sw i{display:block;height:44px;border-bottom:1px solid var(--pg-line)}
+.sw p{margin:0;padding:6px 8px;line-height:1.4}
+.sw code{font:12px var(--pg-mono)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:0 28px;margin-top:22px}
+.rules dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:0}
+.rules dt,.rules dd{padding:11px 0;border-bottom:1px solid var(--pg-line);margin:0;min-width:0}
+.rules dt{font-weight:800;font-size:13.5px;color:var(--pg-sub)}
+.rules dd{font-size:14px}
+.typo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px;margin-top:22px}
+.typo div{border-top:2px solid var(--pg-ink);padding-top:10px;min-width:0}
+.typo .s1{font:900 30px/1.2 var(--ds-font-title);letter-spacing:-.03em}
+.typo .s2{font:500 17px/1.5 var(--ds-font-body)}
+.typo .s3{font:700 26px/1.2 var(--ds-font-num);letter-spacing:.02em}
+.typo small{display:block;margin-top:6px;color:var(--pg-sub);font-size:12.5px}
+.dont{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px}
+.dont li{border:1px solid var(--pg-line);padding:12px 14px;font-size:14px;min-width:0}
+.dont li b{display:block;font:700 12px var(--pg-num);letter-spacing:.14em;color:var(--pg-acc);margin-bottom:4px}
+.els{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(360px,100%),1fr));gap:0 24px}
+.els li{display:grid;grid-template-columns:42px 1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--pg-line);font-size:14px;min-width:0}
+.els .no{font:600 13.5px var(--pg-num);color:var(--pg-sub);padding-top:1px}
+.els a{color:var(--pg-ink);font-weight:700}
+.els .it{font-size:12.5px;color:var(--pg-sub);white-space:nowrap}
+.els .tx{grid-column:2;font-size:12px;color:var(--pg-sub)}
+ol.how{margin:0 0 18px;padding-left:20px;max-width:80ch}
+ol.how li{margin:3px 0}
+ol.how code,.card code.i{font:12.5px var(--pg-mono);background:var(--pg-bg);padding:1px 4px}
+.cbs{display:grid;gap:18px}
+.cb{min-width:0}
+.cb-h{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--pg-code);color:var(--pg-code-ink);padding:8px 12px;font:600 13px var(--pg-sans)}
+.copy{font:700 12.5px var(--pg-sans);border:1px solid var(--pg-code-ink);background:transparent;color:var(--pg-code-ink);padding:4px 10px;border-radius:3px;cursor:pointer}
+.cb pre{margin:0;max-height:520px;overflow:auto;background:var(--pg-code);color:var(--pg-code-ink);padding:14px 16px;font:12.5px/1.55 var(--pg-mono);border-top:1px solid #24324A}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--pg-line)}
+th{font-size:12.5px;color:var(--pg-sub);font-weight:700}
+td code{font:12.5px var(--pg-mono)}
+.chip{display:inline-block;width:14px;height:14px;border:1px solid var(--pg-line);vertical-align:-2px;margin-right:6px}
+.ppt{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.ppt li{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--pg-line);font-size:14px;min-width:0}
+.ppt li>b{font-size:13px;color:var(--pg-blue)}
+.ppt li>div{min-width:0}
+.spec{display:grid;grid-template-columns:120px 1fr;gap:10px 16px;margin:0;font-size:14px}
+.spec dt{font-weight:800;color:var(--pg-sub);font-size:13px}
+.spec dd{margin:0;min-width:0}
+@media (max-width:560px){.spec,.rules dl,.ppt li{grid-template-columns:1fr}.rules dt{border-bottom:0;padding-bottom:0}.ppt li{gap:2px}}
+a{color:var(--pg-blue)}
+.foot{font-size:13px;color:var(--pg-sub);margin-top:14px}
+</style>
+<style id="fk-css">
+/* ===== 공통 뼈대: 1600×900 가상 화면, 1px = var(--px) ===== */
+.fk-slide{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);font-weight:500;box-shadow:var(--ds-shadow);border-radius:var(--ds-radius)}
+.fk-slide *{box-sizing:border-box}
+.fk-in{position:absolute;inset:0;--px:calc(100cqw / 1600)}
+/* 머리말 띠 (y 40~88): 남색 구간 패 + 섹션 이름 / 계획안 이름 + 기준 시점. 아래 테두리는 눈금자 */
+.fk-band{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(40*var(--px));height:calc(48*var(--px));
+  display:flex;align-items:center;justify-content:space-between}
+.fk-band::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(6*var(--px));
+  border-bottom:calc(1*var(--px)) solid var(--ds-ink);
+  background:repeating-linear-gradient(90deg,var(--ds-sub) 0 calc(1*var(--px)),transparent 0 calc(16*var(--px)));opacity:.55}
+.fk-sec{display:flex;align-items:center;gap:calc(14*var(--px));font-size:calc(17*var(--px));font-weight:700;letter-spacing:-.01em;padding-bottom:calc(8*var(--px))}
+.fk-tab{display:inline-flex;align-items:center;justify-content:center;min-width:calc(46*var(--px));height:calc(30*var(--px));padding:0 calc(10*var(--px));
+  background:var(--ds-ink);color:var(--ds-surface);border-radius:calc(2*var(--px));font:700 calc(17*var(--px))/1 var(--ds-font-num);letter-spacing:.06em}
+.fk-plan{display:flex;align-items:center;gap:calc(14*var(--px));font-size:calc(14*var(--px));color:var(--ds-sub);padding-bottom:calc(8*var(--px))}
+.fk-stamp{font:600 calc(15*var(--px))/1 var(--ds-font-num);letter-spacing:.08em;color:var(--ds-ink);padding-left:calc(14*var(--px));border-left:calc(1*var(--px)) solid var(--ds-line)}
+/* 제목 (y 112~) */
+.fk-title{position:absolute;left:calc(80*var(--px));top:calc(112*var(--px));width:calc(1440*var(--px));margin:0;
+  font:900 calc(50*var(--px))/1.24 var(--ds-font-title);letter-spacing:-.035em;text-wrap:balance}
+.fk-title em{font-style:normal;color:var(--ds-accent)}
+/* 바닥 줄 (y 846~) */
+.fk-foot{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(846*var(--px));
+  display:flex;justify-content:space-between;align-items:baseline;font-size:calc(14*var(--px));color:var(--ds-sub)}
+.fk-pg{font:600 calc(16*var(--px))/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-ink)}
+.fk-cap{position:absolute;margin:0;font:600 calc(15*var(--px))/1.3 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
+
+/* ===== 구간 띠: 트랙 고무 한 레인 + 쪽 눈금 띠 (표지 #20의 트랙·눈금 띠를 축소) ===== */
+.fk-strip{position:absolute;left:calc(80*var(--px));width:calc(1440*var(--px));overflow:visible;display:block}
+.fk-strip .rub{fill:var(--ds-accent2)}
+.fk-strip .wear{fill:var(--ds-surface);opacity:.08}
+.fk-strip .paint{fill:var(--ds-surface)}
+.fk-strip .pnum{fill:var(--ds-surface);opacity:.92;font-family:var(--ds-font-num);font-weight:700}
+.fk-strip .mk{fill:var(--ds-ink)}
+.fk-strip .g1{fill:var(--ds-ink);opacity:.22}
+.fk-strip .g2{fill:var(--ds-surface);opacity:.13}
+.fk-strip .fade{fill:var(--ds-bg);opacity:.66}
+.fk-strip .ax{fill:var(--ds-ink)}
+.fk-strip .tk{fill:color-mix(in srgb,var(--ds-surface) 42%,var(--ds-ink))}
+.fk-strip .tM{fill:var(--ds-surface)}
+.fk-strip .lab{fill:var(--ds-surface);font-family:var(--ds-font-num);font-weight:600;letter-spacing:.04em}
+.fk-strip .fk-pace{fill:var(--ds-accent);transform-box:fill-box;transform-origin:left center}
+
+/* 목차 */
+.fk-toc-capl{left:calc(80*var(--px));top:calc(226*var(--px))}
+.fk-toc-capr{right:calc(80*var(--px));top:calc(226*var(--px))}
+.fk-toc-strip{top:calc(256*var(--px));height:calc(118*var(--px))}
+.fk-toc-cols{position:absolute;left:0;top:0;margin:0;padding:0;list-style:none}
+.fk-toc-cols li{position:absolute;top:calc(374*var(--px));height:calc(436*var(--px));padding:calc(30*var(--px)) calc(18*var(--px)) 0;
+  border-left:calc(1*var(--px)) solid var(--ds-line)}
+.fk-toc-cols li:first-child{border-left-color:var(--ds-ink)}
+.fk-toc-cols .n{display:block;font:900 calc(44*var(--px))/1 var(--ds-font-title)}
+.fk-toc-cols .nm{display:block;margin-top:calc(14*var(--px));font:800 calc(30*var(--px))/1.2 var(--ds-font-title);letter-spacing:-.03em;word-break:keep-all}
+.fk-toc-cols .sb{display:block;margin-top:calc(10*var(--px));font-size:calc(16*var(--px));line-height:1.45;color:var(--ds-sub);word-break:keep-all}
+.fk-toc-cols ul{margin:calc(20*var(--px)) 0 0;padding:calc(14*var(--px)) 0 0;list-style:none;border-top:calc(1*var(--px)) solid var(--ds-line);
+  display:grid;gap:calc(10*var(--px));font-size:calc(16*var(--px));line-height:1.35}
+.fk-toc-cols ul li{position:static;height:auto;padding:0;border:0;display:grid;grid-template-columns:auto 1fr;column-gap:calc(10*var(--px));word-break:keep-all}
+.fk-toc-cols ul li span{font:600 calc(15*var(--px))/1.35 var(--ds-font-num);color:var(--ds-sub);letter-spacing:.03em;white-space:nowrap}
+.fk-toc-cols .pr{position:absolute;left:calc(18*var(--px));bottom:0;font:600 calc(15*var(--px))/1 var(--ds-font-num);letter-spacing:.05em;color:var(--ds-ink)}
+
+/* 섹션 간지 */
+.fk-div-k{left:calc(80*var(--px));top:calc(124*var(--px));letter-spacing:.14em}
+.fk-div-num{position:absolute;left:calc(66*var(--px));top:calc(150*var(--px));font:700 calc(330*var(--px))/.86 var(--ds-font-num);letter-spacing:-.02em;color:var(--ds-ink)}
+.fk-div-name{position:absolute;left:calc(80*var(--px));top:calc(462*var(--px));width:calc(920*var(--px));margin:0;
+  font:900 calc(92*var(--px))/1.1 var(--ds-font-title);letter-spacing:-.045em;white-space:nowrap}
+.fk-div-sub{position:absolute;left:calc(80*var(--px));top:calc(594*var(--px));width:calc(600*var(--px));margin:0;padding-top:calc(18*var(--px));
+  border-top:calc(2*var(--px)) solid var(--ds-ink);font-size:calc(26*var(--px));line-height:1.35;font-weight:600}
+/* 기록판: 표지 #20의 남색 방송 기록판 */
+.fk-board{position:absolute;background:var(--ds-ink);color:var(--ds-surface);border-radius:var(--ds-radius);display:flex;flex-direction:column;overflow:hidden}
+.fk-bh{display:flex;justify-content:space-between;align-items:baseline;padding:calc(18*var(--px)) calc(24*var(--px)) calc(14*var(--px));
+  border-bottom:calc(1*var(--px)) solid color-mix(in srgb,var(--ds-surface) 18%,var(--ds-ink))}
+.fk-bh span{font-size:calc(15*var(--px));font-weight:800;letter-spacing:.06em;color:color-mix(in srgb,var(--ds-surface) 72%,var(--ds-ink))}
+.fk-bh b{font:700 calc(24*var(--px))/1 var(--ds-font-num);letter-spacing:.03em}
+.fk-bc,.fk-br{display:grid;grid-template-columns:calc(118*var(--px)) 1fr;align-items:baseline;padding:0 calc(24*var(--px))}
+.fk-bc{padding-block:calc(12*var(--px)) calc(6*var(--px));font-size:calc(13*var(--px));font-weight:600;color:color-mix(in srgb,var(--ds-surface) 55%,var(--ds-ink))}
+.fk-br{flex:1;align-items:center;border-top:calc(1*var(--px)) solid color-mix(in srgb,var(--ds-surface) 10%,var(--ds-ink));font-size:calc(20*var(--px));font-weight:600}
+.fk-br b{font:600 calc(26*var(--px))/1 var(--ds-font-num);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.fk-bf{padding:calc(14*var(--px)) calc(24*var(--px));border-top:calc(1*var(--px)) solid color-mix(in srgb,var(--ds-surface) 18%,var(--ds-ink));
+  font:600 calc(15*var(--px))/1.2 var(--ds-font-num);letter-spacing:.04em;color:color-mix(in srgb,var(--ds-surface) 72%,var(--ds-ink))}
+.fk-div-board{left:calc(1040*var(--px));top:calc(150*var(--px));width:calc(480*var(--px));height:calc(530*var(--px))}
+.fk-div-strip{top:calc(732*var(--px));height:calc(72*var(--px))}
+.fk-div-here{position:absolute;top:calc(704*var(--px));margin:0;font:700 calc(14*var(--px))/1 var(--ds-font-num);letter-spacing:.1em;color:var(--ds-ink);
+  padding-left:calc(10*var(--px));border-left:calc(2*var(--px)) solid var(--ds-ink);height:calc(24*var(--px))}
+/* 전환 하나: 페이스 라이트가 현재 구간을 0.8초에 한 번 지나감 */
+.fk-div .fk-pace.run{animation:fkPace .8s cubic-bezier(.3,.7,.25,1) both}
+@keyframes fkPace{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.fk-div .fk-pace.run{animation:none}}
+
+/* 마무리 */
+.fk-end-k{left:calc(80*var(--px));top:calc(124*var(--px));letter-spacing:.14em}
+.fk-end-msg{position:absolute;left:calc(80*var(--px));top:calc(160*var(--px));width:calc(920*var(--px));margin:0;
+  font:900 calc(56*var(--px))/1.24 var(--ds-font-title);letter-spacing:-.04em}
+.fk-end-goal{position:absolute;left:calc(80*var(--px));top:calc(330*var(--px));margin:0;font-size:calc(20*var(--px));font-weight:600;color:var(--ds-sub)}
+.fk-end-goal b{font:700 calc(22*var(--px))/1 var(--ds-font-num);color:var(--ds-ink);letter-spacing:.02em}
+.fk-end-next{position:absolute;left:calc(80*var(--px));top:calc(420*var(--px));width:calc(840*var(--px));margin:0;padding:0;list-style:none;
+  border-top:calc(2*var(--px)) solid var(--ds-ink)}
+.fk-end-next li{display:grid;grid-template-columns:calc(200*var(--px)) 1fr auto;align-items:baseline;height:calc(66*var(--px));padding-top:calc(20*var(--px));
+  border-bottom:calc(1*var(--px)) solid var(--ds-line);font-size:calc(20*var(--px));font-weight:600}
+.fk-end-next li b{font:700 calc(26*var(--px))/1 var(--ds-font-num);letter-spacing:.02em}
+.fk-end-next li span{font-size:calc(15*var(--px));color:var(--ds-sub);font-weight:500}
+.fk-end-nextk{left:calc(80*var(--px));top:calc(392*var(--px))}
+.fk-end-board{left:calc(1040*var(--px));top:calc(150*var(--px));width:calc(480*var(--px));height:calc(452*var(--px))}
+.fk-end-board .fk-br{grid-template-columns:calc(118*var(--px)) 1fr;font-size:calc(19*var(--px))}
+.fk-end-board .fk-br em{font-style:normal;font-size:calc(14*var(--px));font-weight:700;letter-spacing:.06em;color:color-mix(in srgb,var(--ds-surface) 60%,var(--ds-ink))}
+.fk-end-board .fk-br b{font-size:calc(22*var(--px))}
+.fk-end-strip{top:calc(732*var(--px));height:calc(72*var(--px))}
+.fk-end-fin{position:absolute;right:calc(80*var(--px));top:calc(704*var(--px));margin:0;font:700 calc(14*var(--px))/1 var(--ds-font-num);letter-spacing:.1em;
+  padding-right:calc(10*var(--px));border-right:calc(2*var(--px)) solid var(--ds-ink);height:calc(24*var(--px))}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="k">레퍼런스 #52 · 계열 키트 F · 가상 예시</p>
+    <h1>F 관측·중계 인포그래픽 키트</h1>
+    <p class="lede">표지 #20 예산집행 레이스, #25 늘봄 수요 일기도, #31 한 칸씩 켜지는 돔 뒤에 붙는 목차·섹션 간지·마무리 3장과 계열 값입니다. 밝은 낮 경기장 바탕, 남색 중계 기록판, 파란 트랙 한 레인과 쪽 눈금 띠를 덱 전체의 진행 표시로 이어 씁니다.</p>
+  </header>
+
+  <div class="slides">
+    <figure><div class="sv" id="mount-toc"></div><p class="swipe">장표를 옆으로 밀어 보세요.</p>
+      <figcaption><b>01 목차</b>구간 길이 = 쪽 수. 트랙 한 레인을 다섯 구간으로 나누고, 아래 기둥에 각 구간의 세부 쪽을 적었습니다. 정지 장표.</figcaption></figure>
+    <figure><div class="sv" id="mount-div"></div><p class="swipe">장표를 옆으로 밀어 보세요.</p>
+      <figcaption><b>02 섹션 간지</b><span>번호·이름만 바꿔 다섯 번 씁니다. 페이스 라이트가 현재 구간을 0.8초에 한 번 지나갑니다.</span>
+        <span class="secbtns" role="group" aria-label="간지 섹션 바꿔 보기">
+          <button type="button" data-i="0" aria-pressed="false">Ⅰ</button><button type="button" data-i="1" aria-pressed="false">Ⅱ</button><button type="button" data-i="2" aria-pressed="true">Ⅲ</button><button type="button" data-i="3" aria-pressed="false">Ⅳ</button><button type="button" data-i="4" aria-pressed="false">Ⅴ</button>
+        </span></figcaption></figure>
+    <figure><div class="sv" id="mount-end"></div><p class="swipe">장표를 옆으로 밀어 보세요.</p>
+      <figcaption><b>03 마무리</b>표지의 결승선이 마지막 장에서 다시 나옵니다. 페이스 라이트가 다섯 구간을 모두 지나 목표선에 닿은 정지 화면입니다.</figcaption></figure>
+  </div>
+
+  <section class="blk">
+    <h2><span>CARD</span>계열 값 카드 · F 관측·중계 인포그래픽</h2>
+    <p class="d">표지 3장(#20·25·31)의 공통점: 흰색에 가까운 밝은 청백 바탕, 남색 굵은 고딕 결론 제목, 좁은 숫자체의 기록·눈금, 남색 기록판이나 범례 상자 하나, 파랑을 바탕 색으로 깔고 빨강·주황은 미달이나 목표 같은 한 곳에만 씁니다. 모든 장에 "언제 기준인가"가 적혀 있습니다.</p>
+    <div class="card">
+      <div class="sw">
+        <div><i style="background:var(--ds-bg)"></i><p>--ds-bg 바탕<br><code>#F3F5F8</code></p></div>
+        <div><i style="background:var(--ds-surface)"></i><p>--ds-surface 면·도료<br><code>#FFFFFF</code></p></div>
+        <div><i style="background:var(--ds-ink)"></i><p>--ds-ink 글자·기록판<br><code>#12203A</code></p></div>
+        <div><i style="background:var(--ds-sub)"></i><p>--ds-sub 보조<br><code>#556178</code></p></div>
+        <div><i style="background:var(--ds-line)"></i><p>--ds-line 선<br><code>#D3DAE4</code></p></div>
+        <div><i style="background:var(--ds-accent)"></i><p>--ds-accent 페이스 라이트<br><code>#E5483A</code></p></div>
+        <div><i style="background:var(--ds-accent2)"></i><p>--ds-accent2 트랙 파랑<br><code>#2F64AE</code></p></div>
+        <div><i style="background:linear-gradient(90deg,var(--ds-c1) 0 20%,var(--ds-c2) 0 40%,var(--ds-c3) 0 60%,var(--ds-c4) 0 80%,var(--ds-c5) 0)"></i><p>--ds-c1~c5 분류(남·청 한 계통)<br><code>#1E3A66 → #C4D2E6</code></p></div>
+      </div>
+      <div class="typo">
+        <div><span class="s1">결론 한 문장 제목</span><small>제목 · Gothic A1 900/800 (대체: 프리텐다드 Black → 맑은 고딕 굵게)</small></div>
+        <div><span class="s2">본문과 기록판 글자는 이 크기로 읽힙니다.</span><small>본문 · Gothic A1 500/600 (대체: 프리텐다드 → 맑은 고딕)</small></div>
+        <div><span class="s3">p.10–15 · 91.9% · 2027.10</span><small>숫자·기록 · Saira Semi Condensed 600/700 (대체: Arial Narrow; 한글은 Gothic A1로 넘어감)</small></div>
+      </div>
+      <div class="rules">
+        <dl>
+          <dt>머리말 띠</dt><dd>왼쪽 남색 구간 패(번호) + 섹션 이름, 오른쪽 계획안 이름과 기준 시점(숫자체). 띠 아래는 16px 간격 눈금이 있는 눈금자 선.</dd>
+          <dt>강조색</dt><dd>빨강 한 곳. 페이스 라이트, 미달 표시, 제목 핵심 단어 중 하나만. 파랑(accent2)은 트랙·바탕 면으로 넓게 써도 됩니다.</dd>
+          <dt>질감</dt><dd>평면 + 약한 입체. 고무 입자 같은 미세 질감은 구간 띠 한 곳까지. 기록판은 평면 남색 면.</dd>
+          <dt>모션</dt><dd>표지 은유 1, 간지의 페이스 라이트 0.8초. 본문은 정지 또는 순차 등장(1.5초 이내). 숫자 카운트업·깜빡임은 쓰지 않습니다.</dd>
+        </dl>
+        <dl>
+          <dt>사진·그림</dt><dd>관측 장면 하나(트랙, 일기도, 건축 사진)를 위에서나 옆에서 정면으로. 사진은 실사 한 장, 그 위 라벨은 지시선 끝에 3개까지.</dd>
+          <dt>기준 표기</dt><dd>모든 수치 장표에 "2027. 9. 30. 기준"처럼 관측 시점을 숫자체로. 기록판 머리에도 시점을 적습니다.</dd>
+          <dt>분류색</dt><dd>본문 장표에서만 c1~c5 남·청 농도 차로. 다섯 범주를 넘으면 레인(위치)과 번호로 구분.</dd>
+          <dt>눈금</dt><dd>축은 0에서 시작, 작은 눈금은 가늘게, 큰 눈금에만 숫자. 목표값은 결승선처럼 흰 수직선 하나.</dd>
+        </dl>
+      </div>
+      <ul class="dont">
+        <li><b>DON'T 01</b>네온 글로·LED 번짐을 본문 장표로 가져오기. 빛 효과는 표지의 은유 한 장에만 씁니다.</li>
+        <li><b>DON'T 02</b>어두운 방송 화면 전체 바탕. 남색은 기록판 한 면까지, 바탕은 밝은 낮 경기장입니다.</li>
+        <li><b>DON'T 03</b>레인마다 다른 원색. 분류는 위치·번호·농도로 하고, 빨강은 미달이나 현재 위치 한 곳에만.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span>MATCH</span>이 계열과 어울리는 기존 요소 17개</h2>
+    <p class="d">DB에서 어울리는 계열(families)에 F가 들어 있고 덱에 쓸 수 있는 요소입니다. 계열 값 묶음을 붙이면 같은 분위기로 바뀝니다. 특히 #41 타이밍 타워 순위표, #47 눈금 머리 과제표, #49 조사 완료선 정렬 비교는 기록판·눈금 문법을 이미 갖고 있습니다.</p>
+    <div class="card"><ul class="els"><li><span class="no">#6</span><a href="https://claude.ai/artifact/66y2jVDpPFr4e8GZ2kzvMU" target="_blank" rel="noopener">딜러의 세 더미</a><span class="it">분류·유목화</span><span class="tx">평면</span></li><li><span class="no">#13</span><a href="https://claude.ai/artifact/SerWLxavCg6tcVz91kMUJG" target="_blank" rel="noopener">던져 채우는 오후표</a><span class="it">일정</span><span class="tx">평면</span></li><li><span class="no">#14</span><a href="https://claude.ai/artifact/BVYnUphnh6znAZ4ZeQaBwa" target="_blank" rel="noopener">상세도 호출</a><span class="it">조직·체계</span><span class="tx">평면</span></li><li><span class="no">#15</span><a href="https://claude.ai/artifact/R6QhyXnViC9fX8miy7de7x" target="_blank" rel="noopener">연수 배선반</a><span class="it">조직·체계</span><span class="tx">약한 입체</span></li><li><span class="no">#22</span><a href="https://claude.ai/artifact/WeKwdAvAc3QeCh3D5bFC22" target="_blank" rel="noopener">다섯 칸 다이얼</a><span class="it">흐름·절차</span><span class="tx">평면</span></li><li><span class="no">#23</span><a href="https://claude.ai/artifact/4Gt3kD5ahsVZB35uRzMSdr" target="_blank" rel="noopener">주 경로 간트</a><span class="it">일정</span><span class="tx">평면</span></li><li><span class="no">#33</span><a href="https://claude.ai/artifact/FLb4r1LqoAVHmWBugk44uh" target="_blank" rel="noopener">쪼개지는 예산 사각형</a><span class="it">구성비</span><span class="tx">평면</span></li><li><span class="no">#34</span><a href="https://claude.ai/artifact/LaASks1GbNLmNDsAvDkQF3" target="_blank" rel="noopener">허브 내비게이션 업무보고</a><span class="it">핵심 수치</span><span class="tx">평면</span></li><li><span class="no">#35</span><a href="https://claude.ai/artifact/6dbUR96MRR4MoPm5tg1dxf" target="_blank" rel="noopener">세로 스와이프 카드</a><span class="it">핵심 수치</span><span class="tx">평면</span></li><li><span class="no">#36</span><a href="https://claude.ai/artifact/62XXeCmzfzbVmkU6zfe6dk" target="_blank" rel="noopener">유지선을 넘는 유리 적층</a><span class="it">비교·순위</span><span class="tx">재질</span></li><li><span class="no">#38</span><a href="https://claude.ai/artifact/JJdiNwZ3MwqyiJ6aCNasR5" target="_blank" rel="noopener">열섬 육각 지형</a><span class="it">지도·분포</span><span class="tx">약한 입체</span></li><li><span class="no">#41</span><a href="https://claude.ai/artifact/V7VwbpUg3F3uoyTQo8rjXE" target="_blank" rel="noopener">타이밍 타워 순위표</a><span class="it">추이</span><span class="tx">평면</span></li><li><span class="no">#47</span><a href="https://claude.ai/artifact/H81oDuU5ZsqBDw3CBBEaVe" target="_blank" rel="noopener">눈금 머리 과제표</a><span class="it">표·목록</span><span class="tx">평면</span></li><li><span class="no">#48</span><a href="https://claude.ai/artifact/Pi2c8RbgJEL9B3oKn5djbz" target="_blank" rel="noopener">세 줄 나란히 추이</a><span class="it">추이</span><span class="tx">평면</span></li><li><span class="no">#49</span><a href="https://claude.ai/artifact/6xJeMrKJGMRSYDPZpfNAUs" target="_blank" rel="noopener">조사 완료선 정렬 비교</a><span class="it">비교·순위</span><span class="tx">평면</span></li><li><span class="no">#50</span><a href="https://claude.ai/artifact/LovsoX736f8AasS1YounDH" target="_blank" rel="noopener">재원 지분 마리메코</a><span class="it">구성비</span><span class="tx">평면</span></li><li><span class="no">#51</span><a href="https://claude.ai/artifact/Bzq7tLvtEZxwa5wtQekw7a" target="_blank" rel="noopener">낱칸 시·군 지도</a><span class="it">지도·분포</span><span class="tx">평면</span></li></ul></div>
+  </section>
+
+  <section class="blk">
+    <h2><span>HTML</span>HTML로 가져다 쓰기</h2>
+    <ol class="how">
+      <li>장표마다 코드 블록 하나가 자기 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>계획안 이름은 <code>FK_PLAN</code>, 섹션 번호·이름·쪽 범위·세부 항목은 <code>FK_SECTIONS</code> 배열에서 바꿉니다. 구간 띠의 길이는 쪽 범위로 자동 계산됩니다.</li>
+      <li>간지는 코드 맨 아래 <code>fkShowSection(2)</code>의 숫자(0~4)로 섹션을 고릅니다. 마무리의 문의처·다음 보고 일정은 <code>FK_CONTACT</code>, <code>FK_NEXT</code> 배열에 있습니다.</li>
+      <li>분위기는 맨 위 <code>--ds-*</code> 묶음만 바꿉니다. 마지막 블록의 계열 값만 따로 복사해 다른 요소 장표에 붙일 수 있습니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="cbs">
+      <div class="cb"><div class="cb-h"><span>장표 1 · 목차</span><button type="button" class="copy" data-k="toc">코드 복사</button></div><pre id="code-toc" tabindex="0"><code></code></pre></div>
+      <div class="cb"><div class="cb-h"><span>장표 2 · 섹션 간지</span><button type="button" class="copy" data-k="div">코드 복사</button></div><pre id="code-div" tabindex="0"><code></code></pre></div>
+      <div class="cb"><div class="cb-h"><span>장표 3 · 마무리</span><button type="button" class="copy" data-k="end">코드 복사</button></div><pre id="code-end" tabindex="0"><code></code></pre></div>
+      <div class="cb"><div class="cb-h"><span>계열 값 묶음만 (:root)</span><button type="button" class="copy" data-k="tok">코드 복사</button></div><pre id="code-tok" tabindex="0"><code></code></pre></div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span>PPT</span>PPT로 옮기기</h2>
+    <p class="d">슬라이드 마스터에 계열 값을 한 번 넣어 두면 본문 요소를 어떤 것을 가져와도 같은 분위기로 맞춰집니다(한국어판 메뉴 이름).</p>
+    <div class="card">
+      <ol class="ppt">
+        <li><b>테마 색</b><div>디자인 › 적용 › 색 › 색 사용자 지정. 텍스트/배경-어둡게 1 <code class="i">#12203A</code>, 밝게 1 <code class="i">#FFFFFF</code>, 어둡게 2 <code class="i">#556178</code>, 밝게 2 <code class="i">#F3F5F8</code>, 강조 1 <code class="i">#E5483A</code>, 강조 2 <code class="i">#2F64AE</code>, 강조 3~6 <code class="i">#1E3A66 #34598F #5B7DB0 #8FA8CC</code>. 이름 "F 관측·중계".</div></li>
+        <li><b>테마 글꼴</b><div>디자인 › 적용 › 글꼴 › 글꼴 사용자 지정. 제목·본문 모두 Gothic A1(없으면 맑은 고딕). 숫자는 텍스트 상자마다 Saira Semi Condensed(없으면 Arial Narrow)로 지정합니다.</div></li>
+        <li><b>마스터 공통</b><div>보기 › 슬라이드 마스터. 슬라이드 크기 와이드(33.867×19.05cm, 1600px = 33.867cm 기준 1px ≈ 0.0212cm). 머리말 띠: 왼쪽 여백 1.69cm, 위 0.85cm에 남색 사각형 0.97×0.64cm(구간 번호), 띠 아래 0.02cm 남색 선. 바닥 줄 위 17.9cm에 "가상 예시 · 출처"와 쪽 번호(필드 › 슬라이드 번호).</div></li>
+        <li><b>레이아웃 1 · 목차</b><div>구간 띠 = 파란 사각형(폭 30.48cm, 높이 1.52cm) 위에 흰 선 4개(쪽 수 비례 위치, 예: 21쪽 중 4쪽 → 5.81cm) + 남색 눈금 띠(높이 0.64cm). 아래 텍스트 상자 5개를 각 구간 시작선에 왼쪽 맞춤.</div></li>
+        <li><b>레이아웃 2 · 간지</b><div>큰 번호 텍스트 상자(Saira 250pt), 이름(Gothic A1 Black 70pt), 오른쪽 남색 둥근 사각형(10.16×11.22cm, 모서리 반경 최소)을 기록판으로. 아래 구간 띠는 목차의 것을 복사하고, 현재 구간 외에는 흰색 투명도 34% 사각형을 덮습니다. 빨간 페이스 라이트(높이 0.1cm): 애니메이션 › 나타내기 › 닦아내기, 방향 왼쪽에서, 시작 "이전 효과와 함께", 0.80초.</div></li>
+        <li><b>레이아웃 3 · 마무리</b><div>간지 레이아웃을 복제해 큰 번호 대신 맺음 문장, 기록판에 문의처. 구간 띠의 페이스 라이트를 띠 전체 길이로 늘리고 애니메이션은 지웁니다(정지).</div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span>SPEC</span>스펙</h2>
+    <div class="card">
+      <div class="tbl"><table>
+        <thead><tr><th>변수</th><th>F 값</th><th>쓰는 곳</th></tr></thead>
+        <tbody>
+          <tr><td><code>--ds-bg</code></td><td><span class="chip" style="background:var(--ds-bg)"></span><code>#F3F5F8</code></td><td>장표 바탕, 간지의 지난 구간 흐림</td></tr>
+          <tr><td><code>--ds-surface</code></td><td><span class="chip" style="background:var(--ds-surface)"></span><code>#FFFFFF</code></td><td>레인 선·출발선·결승선 도료, 기록판 글자</td></tr>
+          <tr><td><code>--ds-ink</code></td><td><span class="chip" style="background:var(--ds-ink)"></span><code>#12203A</code></td><td>제목·본문, 기록판 면, 눈금 띠, 구간 패</td></tr>
+          <tr><td><code>--ds-sub</code></td><td><span class="chip" style="background:var(--ds-sub)"></span><code>#556178</code></td><td>보조 글자, 머리말 눈금</td></tr>
+          <tr><td><code>--ds-line</code></td><td><span class="chip" style="background:var(--ds-line)"></span><code>#D3DAE4</code></td><td>구분선, 목차 기둥 선</td></tr>
+          <tr><td><code>--ds-accent</code></td><td><span class="chip" style="background:var(--ds-accent)"></span><code>#E5483A</code></td><td>페이스 라이트(간지·마무리), 목차 제목 핵심어 — 한 장 한 곳</td></tr>
+          <tr><td><code>--ds-accent2</code></td><td><span class="chip" style="background:var(--ds-accent2)"></span><code>#2F64AE</code></td><td>트랙 고무 면</td></tr>
+          <tr><td><code>--ds-c1~c5</code></td><td><code>#1E3A66 #34598F #5B7DB0 #8FA8CC #C4D2E6</code></td><td>본문 요소의 분류(이 키트 3장에는 쓰지 않음)</td></tr>
+          <tr><td><code>--ds-radius</code> / <code>--ds-shadow</code></td><td><code>3px</code> / 아래로 번지는 남색 그림자 0.34</td><td>장표·기록판 모서리, 장표 그림자</td></tr>
+        </tbody>
+      </table></div>
+      <dl class="spec" style="margin-top:20px">
+        <dt>폰트</dt><dd>Gothic A1 900/800(제목), 500/600(본문) + Saira Semi Condensed 600/700(쪽·날짜·번호). 대체: 프리텐다드 → 맑은 고딕 / Arial Narrow.</dd>
+        <dt>표현</dt><dd>구간 띠는 SVG: 파란 고무 면에 feTurbulence 두 겹(남색·흰색)으로 고무 입자, 레인 가운데 마모 띠, 흰 레인 선·출발선·결승선(실제 규격처럼 레인과 직각), 구간 경계는 이어달리기 인계 구역처럼 갈고리 꺾은 흰 선과 남색 작은 표지 삼각형, 구간마다 칠한 번호. 아래 남색 눈금 띠는 쪽마다 작은 눈금, 구간 시작에 큰 눈금과 쪽 번호.</dd>
+        <dt>난이도</dt><dd>HTML 하(배열만 교체) / PPT 중(구간 띠 비례 위치 계산 필요).</dd>
+        <dt>반영 트렌드</dt><dd>간지는 이미지 하나와 최소 레이아웃으로, 진행 위치는 코스·로드맵 비유로 보여 주는 흐름 — Slidesgo 'Presentation Design Trends 2026' (<a href="https://slidesgo.com/slidesgo-school/ai-presentations/presentation-design-trends-2026" target="_blank" rel="noopener">slidesgo.com</a>). 트랙 표시 규격(50mm 흰 선, 출발·결승선 직각, 인계 구역 갈고리 선, 경계 앞 다른 색 표지)은 서호주 체육시설 치수 안내·England Athletics 자료를 참고했습니다.</dd>
+      </dl>
+    </div>
+    <p class="foot">가상 예시입니다. 기관명·계획명·쪽 수·연락처는 모두 자리표시이거나 지어낸 값입니다.</p>
+  </section>
+</div>
+
+<!-- ===== 장표 원본(코드 칸과 화면이 같은 원본을 씀) ===== -->
+<script type="text/html" id="src-toc">
+<!-- 장표 1: 목차 -->
+<section class="fk-slide fk-toc" aria-label="목차 장표">
+  <div class="fk-in">
+    <header class="fk-band"><div class="fk-sec"><b class="fk-tab">00</b><span>목차</span></div><div class="fk-plan"><span class="fk-planname"></span><span class="fk-stamp"></span></div></header>
+    <h2 class="fk-title">현황에서 예산까지, <em>다섯 구간</em>으로 보고합니다</h2>
+    <p class="fk-cap fk-toc-capl">구간 길이 = 쪽 수 · 눈금 1칸 = 1쪽</p>
+    <p class="fk-cap fk-toc-capr"></p>
+    <svg class="fk-strip fk-toc-strip" role="img" aria-label="본문 쪽 수를 다섯 구간으로 나눈 트랙 한 레인과 쪽 눈금"></svg>
+    <ol class="fk-toc-cols"></ol>
+    <footer class="fk-foot"><span>가상 예시 · 출처: ○○교육청 내부 자료(가상)</span><span class="fk-pg">p.02</span></footer>
+  </div>
+</section>
+</script>
+<script type="text/html" id="src-div">
+<!-- 장표 2: 섹션 간지 (번호·이름은 FK_SECTIONS에서) -->
+<section class="fk-slide fk-div" aria-label="섹션 간지 장표">
+  <div class="fk-in">
+    <header class="fk-band"><div class="fk-sec"><b class="fk-tab fk-div-no"></b><span class="fk-div-nm1"></span></div><div class="fk-plan"><span class="fk-planname"></span><span class="fk-stamp"></span></div></header>
+    <p class="fk-cap fk-div-k"></p>
+    <div class="fk-div-num" aria-hidden="true"></div>
+    <h2 class="fk-div-name"></h2>
+    <p class="fk-div-sub"></p>
+    <div class="fk-board fk-div-board" role="region" aria-label="구간 기록판">
+      <div class="fk-bh"><span class="fk-div-bt"></span><b class="fk-div-br"></b></div>
+      <div class="fk-bc"><span>쪽</span><span>내용</span></div>
+      <div class="fk-div-rows" style="display:contents"></div>
+      <div class="fk-bf fk-div-bf"></div>
+    </div>
+    <p class="fk-div-here">현재 구간</p>
+    <svg class="fk-strip fk-div-strip" role="img" aria-label="전체 다섯 구간 중 현재 구간 표시"></svg>
+    <footer class="fk-foot"><span>가상 예시</span><span class="fk-pg fk-div-pg"></span></footer>
+  </div>
+</section>
+</script>
+<script type="text/html" id="src-end">
+<!-- 장표 3: 마무리 -->
+<section class="fk-slide fk-end" aria-label="마무리 장표">
+  <div class="fk-in">
+    <header class="fk-band"><div class="fk-sec"><b class="fk-tab">END</b><span>맺음</span></div><div class="fk-plan"><span class="fk-planname"></span><span class="fk-stamp"></span></div></header>
+    <p class="fk-cap fk-end-k">FINISH · 보고를 마칩니다</p>
+    <h2 class="fk-end-msg">다섯 구간을 지나 목표선까지,<br>분기마다 기록으로 보고하겠습니다</h2>
+    <p class="fk-end-goal">목표 연도 <b>2029</b> · 통학로 위험 구간 <b>312곳 → 156곳</b></p>
+    <p class="fk-cap fk-end-nextk">다음 기록 보고</p>
+    <ol class="fk-end-next"></ol>
+    <div class="fk-board fk-end-board" role="region" aria-label="문의처">
+      <div class="fk-bh"><span>문의</span><b>평일 09:00–18:00</b></div>
+      <div class="fk-end-rows" style="display:contents"></div>
+    </div>
+    <p class="fk-end-fin">목표선 2029</p>
+    <svg class="fk-strip fk-end-strip" role="img" aria-label="다섯 구간을 모두 지나 결승선에 닿은 페이스 라이트"></svg>
+    <footer class="fk-foot"><span>가상 예시</span><span class="fk-pg">p.24</span></footer>
+  </div>
+</section>
+</script>
+
+<script id="fk-js">
+/* 계획안 이름·기준 시점과 섹션 — 세 장이 같이 씁니다 */
+const FK_PLAN='○○교육청 2027 통학로 안전 관리 강화 계획(안)';
+const FK_STAMP='2027.10';
+// from~to: 섹션이 차지하는 쪽(간지 포함). 구간 띠의 길이는 이 쪽 수에 정비례합니다.
+const FK_SECTIONS=[
+  {no:'Ⅰ', code:'01', name:'추진 배경 및 현황', sub:'통학로 사고와 위험 구간 진단', from:3, to:6,
+   items:[['04','최근 5년 어린이 교통사고'],['05','위험 구간 312곳 분포'],['06','학교·학부모 설문']]},
+  {no:'Ⅱ', code:'02', name:'목표 및 지표', sub:'2029년 위험 구간 절반 해소', from:7, to:9,
+   items:[['08','연차별 목표'],['09','성과지표 4종']]},
+  {no:'Ⅲ', code:'03', name:'세부 추진과제', sub:'정비·인력·교육·데이터 4대 과제', from:10, to:15,
+   items:[['11','위험 구간 시설 정비'],['12','보행 안전 인력 배치'],['13–14','안전 교육·캠페인'],['15','관측 데이터 공유 체계']]},
+  {no:'Ⅳ', code:'04', name:'추진체계', sub:'교육감 → 추진단 → TF → 학교', from:16, to:18,
+   items:[['17','위계·역할 분담'],['18','지자체 협력']]},
+  {no:'Ⅴ', code:'05', name:'일정 및 예산', sub:'분기별 일정과 재원별 예산', from:19, to:23,
+   items:[['20','분기별 추진 일정'],['21–22','연도별 예산 186억 원'],['23','국비·지방비·자체 분담']]}
+];
+const FK_P0=FK_SECTIONS[0].from, FK_P1=FK_SECTIONS[FK_SECTIONS.length-1].to, FK_PAGES=FK_P1-FK_P0+1;
+const fkPad=n=>String(n).padStart(2,'0');
+const fkX=p=>(p-FK_P0)/FK_PAGES*1440;          // 쪽 → 가상 px (선형)
+
+/* 구간 띠 그리기: fkStrip(svg, {h:트랙 높이, ah:눈금 띠 높이, cur:현재 구간(0~4, 없으면 -1), all:끝까지 페이스 라이트, id}) */
+function fkStrip(svg,o){
+  const W=1440,H=o.h,A=o.ah,id=o.id||'fk',cur=o.cur==null?-1:o.cur;
+  const seg=FK_SECTIONS.map(s=>[fkX(s.from),fkX(s.to+1)]);
+  let s=`<defs>
+    <filter id="${id}-g1" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.4 -1.12" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+    <filter id="${id}-g2" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="17" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.6 -1.4" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+  </defs>`;
+  // 1) 고무 면 + 레인 가운데 마모 띠(달리는 자리라 조금 밝음)
+  s+=`<rect class="rub" x="0" y="0" width="${W}" height="${H}"/><rect class="wear" x="0" y="${H*.32}" width="${W}" height="${H*.36}"/>`;
+  // 2) 구간마다 칠한 번호
+  seg.forEach((g,i)=>{s+=`<text class="pnum" x="${g[0]+16}" y="${H*.66}" font-size="${H*.56}">${i+1}</text>`;});
+  // 3) 흰 레인 선(위·아래), 출발선·결승선(레인과 직각)
+  s+=`<rect class="paint" x="0" y="2" width="${W}" height="3"/><rect class="paint" x="0" y="${H-5}" width="${W}" height="3"/>`;
+  s+=`<rect class="paint" x="0" y="2" width="6" height="${H-4}"/><rect class="paint" x="${W-6}" y="2" width="6" height="${H-4}"/>`;
+  // 4) 구간 경계: 인계 구역처럼 갈고리 꺾은 흰 선 + 경계 앞 남색 표지 삼각형
+  seg.slice(1).forEach(g=>{const x=g[0];
+    s+=`<rect class="paint" x="${x-1.5}" y="5" width="3" height="${H-10}"/><rect class="paint" x="${x-12}" y="8" width="12" height="3"/><rect class="paint" x="${x-12}" y="${H-11}" width="12" height="3"/>`;
+    s+=`<polygon class="mk" points="${x-26},2 ${x-16},2 ${x-21},10"/>`;});
+  // 5) 고무 입자 두 겹(도료 위까지 덮어 칠이 닳은 느낌)
+  s+=`<rect class="g1" x="0" y="0" width="${W}" height="${H}" filter="url(#${id}-g1)"/><rect class="g2" x="0" y="0" width="${W}" height="${H}" filter="url(#${id}-g2)"/>`;
+  // 6) 현재 구간 외 흐림
+  if(cur>=0) seg.forEach((g,i)=>{if(i!==cur) s+=`<rect class="fade" x="${g[0]}" y="0" width="${g[1]-g[0]}" height="${H}"/>`;});
+  // 7) 페이스 라이트(강조색 한 곳)
+  if(cur>=0) s+=`<rect class="fk-pace" x="${seg[cur][0]+6}" y="${H-15}" width="${seg[cur][1]-seg[cur][0]-12}" height="5"/>`;
+  if(o.all) s+=`<rect class="fk-pace" x="6" y="${H-15}" width="${W-12}" height="5"/>`;
+  // 8) 남색 쪽 눈금 띠: 쪽마다 작은 눈금, 구간 시작에 큰 눈금 + 쪽 번호
+  s+=`<rect class="ax" x="0" y="${H}" width="${W}" height="${A}"/>`;
+  for(let p=FK_P0;p<=FK_P1+1;p++){
+    const x=Math.min(W-1.5,Math.max(0,fkX(p)-.75)), major=FK_SECTIONS.some(t=>t.from===p)||p===FK_P1+1;
+    s+=`<rect class="${major?'tM':'tk'}" x="${x}" y="${H}" width="1.5" height="${A*(major?.4:.22)}"/>`;}
+  FK_SECTIONS.forEach(t=>{s+=`<text class="lab" x="${fkX(t.from)+7}" y="${H+A*.8}" font-size="${A*.46}">p.${fkPad(t.from)}</text>`;});
+  s+=`<text class="lab" x="${W-7}" y="${H+A*.8}" font-size="${A*.46}" text-anchor="end">p.${fkPad(FK_P1)}</text>`;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H+A}`);
+  svg.innerHTML=s;
+}
+function fkCommon(root){
+  root.querySelectorAll('.fk-planname').forEach(e=>e.textContent=FK_PLAN);
+  root.querySelectorAll('.fk-stamp').forEach(e=>e.textContent=FK_STAMP);
+}
+</script>
+
+<script type="text/plain" id="init-toc">
+/* 목차: 구간 기둥 = 구간 띠의 시작선에 맞춰 놓음 */
+(function(){
+  const root=document.querySelector('.fk-toc'); fkCommon(root);
+  root.querySelector('.fk-toc-capr').textContent=`본문 p.${fkPad(FK_P0)}–${FK_P1} · ${FK_PAGES}쪽`;
+  fkStrip(root.querySelector('.fk-toc-strip'),{h:86,ah:32,id:'toc'});
+  root.querySelector('.fk-toc-cols').innerHTML=FK_SECTIONS.map(s=>{
+    const x=80+fkX(s.from), w=fkX(s.to+1)-fkX(s.from);
+    return `<li style="left:calc(${x}*var(--px));width:calc(${w}*var(--px))"><span class="n">${s.no}</span><span class="nm">${s.name}</span><span class="sb">${s.sub}</span>`+
+      `<ul>${s.items.map(it=>`<li><span>p.${it[0]}</span>${it[1]}</li>`).join('')}</ul>`+
+      `<span class="pr">p.${fkPad(s.from)}–${fkPad(s.to)} · ${s.to-s.from+1}쪽</span></li>`;}).join('');
+})();
+</script>
+<script type="text/plain" id="init-div">
+/* 섹션 간지: fkShowSection(0~4)로 번호·이름·기록판·구간 띠가 함께 바뀜 */
+function fkShowSection(i){
+  const root=document.querySelector('.fk-div'), s=FK_SECTIONS[i], n=s.to-s.from+1; fkCommon(root);
+  root.querySelector('.fk-div-no').textContent=s.no;
+  root.querySelector('.fk-div-nm1').textContent=s.name;
+  root.querySelector('.fk-div-k').textContent=`SECTION ${s.code} / ${fkPad(FK_SECTIONS.length)} · p.${fkPad(s.from)}–${fkPad(s.to)}`;
+  root.querySelector('.fk-div-num').textContent=s.code;
+  root.querySelector('.fk-div-name').textContent=s.name;
+  root.querySelector('.fk-div-sub').textContent=s.sub;
+  root.querySelector('.fk-div-bt').textContent=`${s.no} 구간 기록`;
+  root.querySelector('.fk-div-br').textContent=`p.${fkPad(s.from)}–${fkPad(s.to)}`;
+  root.querySelector('.fk-div-rows').innerHTML=s.items.map(it=>`<div class="fk-br"><b>${it[0]}</b><span>${it[1]}</span></div>`).join('');
+  root.querySelector('.fk-div-bf').textContent=`구간 길이 ${n}쪽 · 전체 ${FK_PAGES}쪽 중 ${Math.round(n/FK_PAGES*100)}%`;
+  root.querySelector('.fk-div-pg').textContent=`p.${fkPad(s.from)}`;
+  root.querySelector('.fk-div-here').style.left=`calc(${80+fkX(s.from)}*var(--px))`;
+  const svg=root.querySelector('.fk-div-strip');
+  fkStrip(svg,{h:44,ah:28,cur:i,id:'div'});
+  const pace=svg.querySelector('.fk-pace');
+  requestAnimationFrame(()=>pace.classList.add('run'));
+}
+fkShowSection(2);
+</script>
+<script type="text/plain" id="init-end">
+/* 마무리: 문의처와 다음 보고 일정 */
+const FK_CONTACT=[['담당 부서','○○교육청 학생안전과'],['담당','○○○ 주무관'],['전화','0○○-○○○-○○○○'],['전자우편','○○○○@○○○.go.kr']];
+const FK_NEXT=[['2028. 4.','1분기 실적 보고','위험 구간 정비 착수율'],['2028. 7.','상반기 점검','보행 안전 인력 배치 현황'],['2029. 1.','연간 성과 보고','성과지표 4종 현재값']];
+(function(){
+  const root=document.querySelector('.fk-end'); fkCommon(root);
+  root.querySelector('.fk-end-rows').innerHTML=FK_CONTACT.map(c=>`<div class="fk-br"><em>${c[0]}</em><span>${c[1]}</span></div>`).join('');
+  root.querySelector('.fk-end-next').innerHTML=FK_NEXT.map(r=>`<li><b>${r[0]}</b>${r[1]}<span>${r[2]}</span></li>`).join('');
+  fkStrip(root.querySelector('.fk-end-strip'),{h:44,ah:28,all:true,id:'end'});
+})();
+</script>
+
+<script>
+/* 페이지: 장표 원본을 화면에 넣고, 같은 원본으로 코드 칸을 만든다 */
+(function(){
+  const $=id=>document.getElementById(id), T=id=>$(id).textContent.trim();
+  const run=code=>{const s=document.createElement('script');s.textContent=code;document.body.appendChild(s);};
+  [['toc','mount-toc'],['div','mount-div'],['end','mount-end']].forEach(([k,m])=>{ $(m).innerHTML=T('src-'+k); run(T('init-'+k)); });
+
+  const FONT='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800;900&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">';
+  const SC='<'+'/script>', ST='<'+'/style>';
+  const snip=k=>['<meta charset="utf-8">',FONT,'<style>',T('fk-tokens'),'',T('fk-css'),ST,T('src-'+k),'<script>',T('fk-js'),'',T('init-'+k),SC].join('\n');
+  const codes={toc:snip('toc'),div:snip('div'),end:snip('end'),tok:T('fk-tokens').replace(':root, .fk-slide{',':root{')};
+  Object.keys(codes).forEach(k=>{ $('code-'+k).querySelector('code').textContent=codes[k]; });
+  document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.k, pre=$('code-'+k);
+    const done=()=>{b.textContent='복사됨';setTimeout(()=>b.textContent='코드 복사',1600);};
+    const fb=()=>{const r=document.createRange();r.selectNodeContents(pre);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent='선택됨 · Ctrl+C';};
+    try{navigator.clipboard.writeText(codes[k]).then(done,fb);}catch(e){fb();}
+  }));
+  document.querySelectorAll('.secbtns button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.secbtns button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    fkShowSection(+b.dataset.i);
+  }));
+})();
+</script>
+
+</body></html>
