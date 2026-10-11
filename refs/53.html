@@ -1,0 +1,567 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #53 밑줄 대조표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@600;700;900&family=Noto+Sans+KR:wght@400;500;700&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">
+<style>
+/* 페이지 껍데기: 밝은 단일 테마(장표 미리보기 페이지라 의도적으로 한 테마만) */
+:root{
+  --pg-bg:#EEF0F3; --pg-card:#FFFFFF; --pg-ink:#1C2740; --pg-sub:#5A6478; --pg-line:#D7DCE3; --pg-acc:#2F5E8C;
+  --pg-code-bg:#141A26; --pg-code-ink:#DCE3EE;
+  --pg-sans:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-sans); font-size:15px; line-height:1.65}
+.pg{max-width:1160px; margin:0 auto; padding-inline:20px; padding-block:28px 64px; display:flex; flex-direction:column; gap:40px}
+.pg-top{display:flex; flex-direction:column; gap:6px}
+.pg-eyebrow{font-family:var(--pg-mono); font-size:12px; letter-spacing:.12em; color:var(--pg-sub)}
+.pg-top h1{margin:0; font-family:var(--pg-head); font-weight:800; font-size:clamp(24px,4vw,34px); line-height:1.2; text-wrap:balance}
+.pg-top p{margin:0; color:var(--pg-sub); max-width:68ch}
+.pg-stage{display:flex; flex-direction:column; gap:12px; min-width:0}
+.pg-frame{border:1px solid var(--pg-line); background:var(--pg-card); box-shadow:0 18px 40px -28px rgba(28,39,64,.35); min-width:0}
+.pg-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch}
+.pg-hint{display:none; font-size:13px; color:var(--pg-sub); margin:0}
+@media (max-width:760px){ .pg-scroll > .ds53{width:960px} .pg-hint{display:block} }
+.pg-bar{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.pg-bar span{font-size:13px; color:var(--pg-sub); margin-right:4px}
+.pg-btn{font:inherit; font-size:13px; padding:7px 12px; border:1px solid var(--pg-line); background:var(--pg-card); color:var(--pg-ink); border-radius:3px; cursor:pointer}
+.pg-btn[aria-pressed="true"]{border-color:var(--pg-ink); background:var(--pg-ink); color:var(--pg-card)}
+.pg-btn:focus-visible{outline:2px solid var(--pg-acc); outline-offset:2px}
+.pg-btn.ghost{margin-left:auto}
+section{display:flex; flex-direction:column; gap:14px; min-width:0}
+section h2{margin:0; font-family:var(--pg-head); font-weight:800; font-size:20px; display:flex; gap:12px; align-items:baseline; border-bottom:1px solid var(--pg-line); padding-bottom:8px}
+section h2 small{font-family:var(--pg-mono); font-weight:500; font-size:12px; color:var(--pg-sub); letter-spacing:.1em}
+section h3{margin:0; font-size:15px; font-weight:600}
+section p, section li{max-width:72ch}
+section p{margin:0}
+ul,ol{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:4px}
+code{font-family:var(--pg-mono); font-size:.9em}
+.pg-two{display:grid; grid-template-columns:1fr 1fr; gap:28px}
+.pg-two > div{display:flex; flex-direction:column; gap:10px; min-width:0}
+@media (max-width:760px){.pg-two{grid-template-columns:1fr}}
+.pg-device{border-left:3px solid var(--pg-ink); padding:10px 16px; background:var(--pg-card)}
+.pg-device b{font-family:var(--pg-head)}
+.pg-code{position:relative; background:var(--pg-code-bg); color:var(--pg-code-ink); border-radius:4px; min-width:0}
+.pg-code pre{margin:0; max-height:520px; overflow:auto; padding:16px 18px; font-family:var(--pg-mono); font-size:12px; line-height:1.55; white-space:pre; tab-size:2}
+.pg-code .pg-btn{position:absolute; top:10px; right:18px; background:var(--pg-code-ink); color:var(--pg-code-bg); border-color:transparent}
+.pg-copied{font-size:13px; color:var(--pg-sub); min-height:1.4em}
+.pg-tbl-wrap{overflow-x:auto}
+table.pg-tbl{border-collapse:collapse; width:100%; font-size:13.5px; min-width:640px}
+.pg-tbl th,.pg-tbl td{border-bottom:1px solid var(--pg-line); padding:7px 10px; text-align:left; vertical-align:middle}
+.pg-tbl th{font-weight:600; color:var(--pg-sub); font-size:12.5px}
+.pg-tbl td code{font-size:12px}
+.sw{display:inline-block; width:12px; height:12px; border:1px solid rgba(0,0,0,.15); vertical-align:-1px; margin-right:6px}
+dl.pg-spec{display:grid; grid-template-columns:120px 1fr; gap:6px 16px; margin:0}
+dl.pg-spec dt{color:var(--pg-sub)}
+dl.pg-spec dd{margin:0; min-width:0}
+@media (max-width:520px){dl.pg-spec{grid-template-columns:1fr} dl.pg-spec dd{margin-bottom:8px}}
+.pg-note{font-size:13px; color:var(--pg-sub)}
+a{color:var(--pg-acc)}
+/* ===== 장표 CSS ===== */
+/* ===== 레퍼런스 #53 밑줄 대조표 — 장표 CSS (접두어 ds53-) =====
+   가상 화면 1600×900 기준. --u = 가상 1px. 색은 --ds-* 변수로만 쓴다. */
+.ds53{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F6F7F9; --ds-surface:#FFFFFF; --ds-ink:#1C2740; --ds-sub:#5A6478; --ds-line:#DADFE6;
+  --ds-accent:#D4512A; --ds-accent2:#2F5E8C;
+  --ds-c1:#24344F; --ds-c2:#4A5F80; --ds-c3:#7A8CA8; --ds-c4:#AEBBCD; --ds-c5:#D5DDE7;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:3px; --ds-shadow:0 1px 0 rgba(28,39,64,.06),0 10px 24px -16px rgba(28,39,64,.28);
+  container-type:inline-size; width:100%;
+}
+.ds53 *,.ds53 *::before,.ds53 *::after{box-sizing:border-box}
+.ds53-slide{
+  --u:calc(100cqw / 1600);
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*16); line-height:1.4; font-variant-numeric:tabular-nums;
+}
+/* ── 머리말 띠 (y 40~88) ── */
+.ds53-head{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--ds-line)}
+.ds53-sec{display:flex; align-items:baseline; gap:calc(var(--u)*12); font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*18)}
+.ds53-sec b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-accent2)}
+.ds53-plan{font-size:calc(var(--u)*14); color:var(--ds-sub); letter-spacing:.02em}
+/* ── 제목 (y 112~) + 읽는 법 한 줄 ── */
+.ds53-title{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*108); margin:0;
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*42); line-height:1.2; letter-spacing:-.01em; color:var(--ds-ink); text-wrap:balance}
+.ds53-title em{font-style:normal; color:var(--ds-accent)}
+.ds53-lede{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*170); margin:0;
+  display:flex; gap:calc(var(--u)*28); font-size:calc(var(--u)*16); color:var(--ds-sub)}
+.ds53-lede b{font-weight:600; color:var(--ds-ink); font-family:var(--ds-font-num)}
+/* ── 본문 표 (y 222~820) ── */
+.ds53-table{position:absolute; left:calc(var(--u)*80); width:calc(var(--u)*1440); top:calc(var(--u)*222)}
+.ds53-cols{display:grid; grid-template-columns:calc(var(--u)*78) calc(var(--u)*212) calc(var(--u)*362) calc(var(--u)*398) calc(var(--u)*302) calc(var(--u)*88)}
+.ds53-thead{height:calc(var(--u)*58); align-items:end; border-bottom:calc(var(--u)*2) solid var(--ds-ink); font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds53-th{padding-bottom:calc(var(--u)*9); display:flex; flex-direction:column; justify-content:flex-end; gap:calc(var(--u)*6); height:100%}
+.ds53-th-name{font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-ink)}
+.ds53-th-old{font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.ds53-old-col{padding-left:calc(var(--u)*20)}
+.ds53-new-col{padding-left:calc(var(--u)*24); border-left:1px solid var(--ds-line)}
+.ds53-bar-col{padding-left:calc(var(--u)*28)}
+/* 처리 기간 열 머리: 0~25일 눈금 + 표시 규칙 */
+.ds53-key{display:flex; gap:calc(var(--u)*14); align-items:center; font-size:calc(var(--u)*12)}
+.ds53-key i{display:inline-block; width:calc(var(--u)*18); height:calc(var(--u)*10); vertical-align:middle; margin-right:calc(var(--u)*5)}
+.ds53-key .k-old{border:calc(var(--u)*1.5) solid var(--ds-c3); background:repeating-linear-gradient(135deg,var(--ds-c5) 0 calc(var(--u)*2),transparent calc(var(--u)*2) calc(var(--u)*5))}
+.ds53-key .k-new{background:var(--ds-c2)}
+.ds53-ruler{position:relative; width:calc(var(--u)*180); height:calc(var(--u)*16); font-family:var(--ds-font-num); font-size:calc(var(--u)*12)}
+.ds53-ruler i{position:absolute; bottom:0; font-style:normal; transform:translateX(-50%); padding-bottom:calc(var(--u)*5)}
+.ds53-ruler i::after{content:""; position:absolute; left:50%; bottom:0; width:1px; height:calc(var(--u)*4); background:var(--ds-sub)}
+.ds53-ruler i:first-child{transform:none}
+.ds53-ruler i:first-child::after{left:0}
+/* 줄 */
+.ds53-row{height:calc(var(--u)*68); border-bottom:1px solid var(--ds-line)}
+.ds53-row > div{display:flex; flex-direction:column; justify-content:center; min-width:0}
+.ds53-row.is-key{background:var(--ds-surface); box-shadow:var(--ds-shadow); border-radius:var(--ds-radius); border-bottom-color:transparent; position:relative; z-index:1}
+.ds53-field{font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*15); color:var(--ds-sub); padding-left:calc(var(--u)*10); letter-spacing:.04em}
+.ds53-task b{font-weight:600; font-size:calc(var(--u)*17)}
+.ds53-task small{font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds53-old p,.ds53-new p{margin:0}
+.ds53-old,.ds53-new{padding-right:calc(var(--u)*22); word-break:keep-all; font-size:calc(var(--u)*16)}
+/* 신구 대조 표시 규칙: 현행은 흐린 글자 + 바뀌는 말에 취소선, 개선은 진한 글자 + 바뀐 말에 밑줄 */
+.ds53-old{color:var(--ds-sub)}
+.ds53-old del{text-decoration:line-through; text-decoration-color:var(--ds-ink); text-decoration-thickness:calc(var(--u)*1.6); color:var(--ds-ink)}
+.ds53-new{color:var(--ds-ink)}
+.ds53-new ins{text-decoration:underline; text-decoration-color:var(--ds-accent2); text-decoration-thickness:calc(var(--u)*3); text-underline-offset:calc(var(--u)*5); font-weight:600; text-decoration-skip-ink:none}
+/* 처리 기간: 0~25일 선형. 빈 틀 = 현행, 채움 = 개선, 빗금 = 줄어든 기간 */
+.ds53-bar{flex-direction:row !important; align-items:center; justify-content:flex-start !important; gap:calc(var(--u)*12)}
+.ds53-track{position:relative; width:calc(var(--u)*180); height:calc(var(--u)*18); flex:none}
+.ds53-was{position:absolute; left:0; top:0; height:100%; border:calc(var(--u)*1.5) solid var(--ds-c3);
+  background:repeating-linear-gradient(135deg,var(--ds-c5) 0 calc(var(--u)*2),transparent calc(var(--u)*2) calc(var(--u)*5))}
+.ds53-now{position:absolute; left:0; top:0; height:100%; background:var(--ds-c2)}
+.ds53-num{font-family:var(--ds-font-num); font-size:calc(var(--u)*14); color:var(--ds-sub); white-space:nowrap}
+.ds53-num b{font-weight:600; color:var(--ds-ink); font-size:calc(var(--u)*16)}
+.ds53-when{font-family:var(--ds-font-num); font-size:calc(var(--u)*14); color:var(--ds-ink); text-align:right; align-items:flex-end; padding-right:calc(var(--u)*10)}
+/* 평균 줄 */
+.ds53-total{height:calc(var(--u)*60); border-top:calc(var(--u)*2) solid var(--ds-ink); margin-top:-1px}
+.ds53-total > div{display:flex; flex-direction:column; justify-content:center; min-width:0}
+.ds53-total-lab{font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*17); padding-left:calc(var(--u)*10)}
+.ds53-total-note{font-size:calc(var(--u)*14); color:var(--ds-sub)}
+.ds53-total .ds53-num b{font-size:calc(var(--u)*18)}
+/* ── 바닥 줄 (y 846~) ── */
+.ds53-foot{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846); display:flex; justify-content:space-between;
+  font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds53-foot b{font-family:var(--ds-font-num); font-weight:500; color:var(--ds-ink)}
+/* 순차 등장: 머리 → 7줄 → 평균 줄 차례로(전체 1.3초, 한 번). 최종 상태 = 정지 화면 */
+@keyframes ds53-in{from{opacity:0; transform:translateY(calc(var(--u)*8))}to{opacity:1; transform:none}}
+.ds53-play [data-seq]{animation:ds53-in .4s cubic-bezier(.2,.7,.3,1) both; animation-delay:calc(var(--i) * .1s)}
+@media (prefers-reduced-motion:reduce){.ds53-play [data-seq]{animation:none}}
+
+</style>
+
+<main class="pg">
+  <div class="pg-top">
+    <span class="pg-eyebrow">REFERENCE #53 · 요소 · 표·목록 · 세부과제</span>
+    <h1>밑줄 대조표</h1>
+    <p>현행과 개선을 나란히 놓는 신구 대조표. 문장 전체를 비교하게 하지 않고, 바뀌는 말에만 취소선과 밑줄을 그어 눈이 그 말만 따라가게 했다. 가상 예시.</p>
+  </div>
+
+  <div class="pg-stage">
+    <div class="pg-frame pg-scroll">
+<div class="ds53" id="ds53">
+  <div class="ds53-slide" role="img" aria-label="학교 행정 7개 절차 신구 대조표: 평균 처리 기간 11.3일에서 3.5일로 단축">
+    <header class="ds53-head">
+      <div class="ds53-sec"><b>Ⅲ</b>세부 추진과제</div>
+      <div class="ds53-plan">2027 ○○교육청 학교 업무 경감 추진 계획(안)</div>
+    </header>
+    <h2 class="ds53-title">학교 행정 7개 절차의 처리 기간을 <em>3분의 1</em>로 줄인다</h2>
+    <p class="ds53-lede"><span>평균 처리 기간 <b>11.3일 → 3.5일</b></span><span>바뀌는 말만 표시 · 현행 <del style="text-decoration-thickness:calc(var(--u)*1.6)">취소선</del> → 개선 <ins style="text-decoration-color:var(--ds-accent2);text-decoration-thickness:calc(var(--u)*3);text-underline-offset:calc(var(--u)*5);text-decoration-skip-ink:none">밑줄</ins></span><span>시행 <b>2027. 1.~7.</b></span></p>
+    <div class="ds53-table" id="ds53-table"><!-- 스크립트가 아래 데이터로 채운다 --></div>
+    <footer class="ds53-foot">
+      <span>가상 예시 · 출처: ○○교육청 학교 업무 실태조사(가상), 2026. 8. · 처리 기간 = 요청부터 완료까지 평균 근무일</span>
+      <b>14</b>
+    </footer>
+  </div>
+</div>
+
+    </div>
+    <p class="pg-hint">← 좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="pg-bar" role="group" aria-label="계열 값 바꿔 보기">
+      <span>계열 값 바꿔 보기</span>
+      <button class="pg-btn" type="button" id="fam-N" data-fam="N" aria-pressed="true">중립 값</button>
+      <button class="pg-btn" type="button" id="fam-B" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+      <button class="pg-btn" type="button" id="fam-D" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+      <button class="pg-btn" type="button" id="fam-F" data-fam="F" aria-pressed="false">F 관측·중계</button>
+      <button class="pg-btn ghost" type="button" id="replay">다시 보기</button>
+    </div>
+  </div>
+
+  <section>
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <div class="pg-two">
+      <div>
+        <p>한 줄이 절차 하나다. 줄마다 분야, 업무와 담당 부서, 현행, 개선, 처리 기간, 시행 시기가 같은 순서로 놓인다. 계획안의 "현행 → 개선" 대비를 표 한 장으로 줄인 형태로, 업무 경감·제도 개선·규정 개정 과제에 그대로 맞는다.</p>
+        <p>처리 기간 열은 0~25일 선형 축을 열 머리에 달았다. 현행은 빈 틀, 개선은 채운 막대로 같은 자리에서 겹쳐 그리고, 둘 사이 빗금이 줄어든 기간이다. 맨 아래 평균 줄도 같은 축이다.</p>
+        <div class="pg-device"><b>가져갈 장치: 바뀌는 말만 표시.</b> 법령 신구조문대비표의 관례를 장표로 옮겼다. 현행 열은 흐린 글자에 바뀌는 말만 진한 취소선, 개선 열은 진한 글자에 바뀐 말만 굵은 밑줄. 청중은 두 문장을 처음부터 비교하지 않고 밑줄 친 말만 읽어도 무엇이 달라지는지 안다. 데이터에서는 <code>[ ]</code>로 감싸기만 하면 된다.</div>
+      </div>
+      <div>
+        <h3>응용 예</h3>
+        <ul>
+          <li><b>학교폭력 사안 처리</b>: 단계별 현행·개선 절차와 처리 기간(접수→심의→조치). 바뀐 주체(학교 → 교육지원청)에 밑줄.</li>
+          <li><b>학교 규칙·조례 개정</b>: 조항별 현행·개정안. 처리 기간 열 대신 "적용 대상 학교 수" 막대.</li>
+          <li><b>교육 예산 집행 절차</b>: 계약·지출 단계별 개선. 기간 열은 "결재 단계 수"(빈 틀 5칸 → 채움 2칸)로 바꿔도 된다.</li>
+        </ul>
+        <p class="pg-note">줄은 5~9개가 알맞다. 한 칸 문장은 두 줄 이내, 밑줄은 칸마다 한 곳만. 밑줄이 두 곳 이상이면 그 칸은 두 줄로 나눈다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>HTML로 가져다 쓰기 <small>CODE</small></h2>
+    <ul>
+      <li>데이터: 스크립트 맨 위 <code>ROWS</code> 배열. <code>now</code>(현행)·<code>next</code>(개선) 문장에서 바뀌는 말을 <code>[ ]</code>로 감싼다. 처리 기간은 <code>d0</code>(현행)·<code>d1</code>(개선), 단위 근무일.</li>
+      <li>축: <code>MAX</code>는 가장 긴 기간보다 조금 크게, 눈금은 <code>TICKS</code>. 강조할 줄 하나에 <code>key:true</code>.</li>
+      <li>분위기: <code>.ds53 { --ds-… }</code> 묶음만 바꾸면 계열이 바뀐다(아래 스펙 표의 값).</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ul>
+    <div class="pg-code">
+      <button class="pg-btn" type="button" id="copy">코드 복사</button>
+      <pre id="code" tabindex="0">&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800&amp;family=IBM+Plex+Sans+KR:wght@400;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap"&gt;
+&lt;style&gt;
+/* ===== 레퍼런스 #53 밑줄 대조표 — 장표 CSS (접두어 ds53-) =====
+   가상 화면 1600×900 기준. --u = 가상 1px. 색은 --ds-* 변수로만 쓴다. */
+.ds53{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F6F7F9; --ds-surface:#FFFFFF; --ds-ink:#1C2740; --ds-sub:#5A6478; --ds-line:#DADFE6;
+  --ds-accent:#D4512A; --ds-accent2:#2F5E8C;
+  --ds-c1:#24344F; --ds-c2:#4A5F80; --ds-c3:#7A8CA8; --ds-c4:#AEBBCD; --ds-c5:#D5DDE7;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:3px; --ds-shadow:0 1px 0 rgba(28,39,64,.06),0 10px 24px -16px rgba(28,39,64,.28);
+  container-type:inline-size; width:100%;
+}
+.ds53 *,.ds53 *::before,.ds53 *::after{box-sizing:border-box}
+.ds53-slide{
+  --u:calc(100cqw / 1600);
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*16); line-height:1.4; font-variant-numeric:tabular-nums;
+}
+/* ── 머리말 띠 (y 40~88) ── */
+.ds53-head{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--ds-line)}
+.ds53-sec{display:flex; align-items:baseline; gap:calc(var(--u)*12); font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*18)}
+.ds53-sec b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-accent2)}
+.ds53-plan{font-size:calc(var(--u)*14); color:var(--ds-sub); letter-spacing:.02em}
+/* ── 제목 (y 112~) + 읽는 법 한 줄 ── */
+.ds53-title{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*108); margin:0;
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*42); line-height:1.2; letter-spacing:-.01em; color:var(--ds-ink); text-wrap:balance}
+.ds53-title em{font-style:normal; color:var(--ds-accent)}
+.ds53-lede{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*170); margin:0;
+  display:flex; gap:calc(var(--u)*28); font-size:calc(var(--u)*16); color:var(--ds-sub)}
+.ds53-lede b{font-weight:600; color:var(--ds-ink); font-family:var(--ds-font-num)}
+/* ── 본문 표 (y 222~820) ── */
+.ds53-table{position:absolute; left:calc(var(--u)*80); width:calc(var(--u)*1440); top:calc(var(--u)*222)}
+.ds53-cols{display:grid; grid-template-columns:calc(var(--u)*78) calc(var(--u)*212) calc(var(--u)*362) calc(var(--u)*398) calc(var(--u)*302) calc(var(--u)*88)}
+.ds53-thead{height:calc(var(--u)*58); align-items:end; border-bottom:calc(var(--u)*2) solid var(--ds-ink); font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds53-th{padding-bottom:calc(var(--u)*9); display:flex; flex-direction:column; justify-content:flex-end; gap:calc(var(--u)*6); height:100%}
+.ds53-th-name{font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-ink)}
+.ds53-th-old{font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.ds53-old-col{padding-left:calc(var(--u)*20)}
+.ds53-new-col{padding-left:calc(var(--u)*24); border-left:1px solid var(--ds-line)}
+.ds53-bar-col{padding-left:calc(var(--u)*28)}
+/* 처리 기간 열 머리: 0~25일 눈금 + 표시 규칙 */
+.ds53-key{display:flex; gap:calc(var(--u)*14); align-items:center; font-size:calc(var(--u)*12)}
+.ds53-key i{display:inline-block; width:calc(var(--u)*18); height:calc(var(--u)*10); vertical-align:middle; margin-right:calc(var(--u)*5)}
+.ds53-key .k-old{border:calc(var(--u)*1.5) solid var(--ds-c3); background:repeating-linear-gradient(135deg,var(--ds-c5) 0 calc(var(--u)*2),transparent calc(var(--u)*2) calc(var(--u)*5))}
+.ds53-key .k-new{background:var(--ds-c2)}
+.ds53-ruler{position:relative; width:calc(var(--u)*180); height:calc(var(--u)*16); font-family:var(--ds-font-num); font-size:calc(var(--u)*12)}
+.ds53-ruler i{position:absolute; bottom:0; font-style:normal; transform:translateX(-50%); padding-bottom:calc(var(--u)*5)}
+.ds53-ruler i::after{content:""; position:absolute; left:50%; bottom:0; width:1px; height:calc(var(--u)*4); background:var(--ds-sub)}
+.ds53-ruler i:first-child{transform:none}
+.ds53-ruler i:first-child::after{left:0}
+/* 줄 */
+.ds53-row{height:calc(var(--u)*68); border-bottom:1px solid var(--ds-line)}
+.ds53-row &gt; div{display:flex; flex-direction:column; justify-content:center; min-width:0}
+.ds53-row.is-key{background:var(--ds-surface); box-shadow:var(--ds-shadow); border-radius:var(--ds-radius); border-bottom-color:transparent; position:relative; z-index:1}
+.ds53-field{font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*15); color:var(--ds-sub); padding-left:calc(var(--u)*10); letter-spacing:.04em}
+.ds53-task b{font-weight:600; font-size:calc(var(--u)*17)}
+.ds53-task small{font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds53-old p,.ds53-new p{margin:0}
+.ds53-old,.ds53-new{padding-right:calc(var(--u)*22); word-break:keep-all; font-size:calc(var(--u)*16)}
+/* 신구 대조 표시 규칙: 현행은 흐린 글자 + 바뀌는 말에 취소선, 개선은 진한 글자 + 바뀐 말에 밑줄 */
+.ds53-old{color:var(--ds-sub)}
+.ds53-old del{text-decoration:line-through; text-decoration-color:var(--ds-ink); text-decoration-thickness:calc(var(--u)*1.6); color:var(--ds-ink)}
+.ds53-new{color:var(--ds-ink)}
+.ds53-new ins{text-decoration:underline; text-decoration-color:var(--ds-accent2); text-decoration-thickness:calc(var(--u)*3); text-underline-offset:calc(var(--u)*5); font-weight:600; text-decoration-skip-ink:none}
+/* 처리 기간: 0~25일 선형. 빈 틀 = 현행, 채움 = 개선, 빗금 = 줄어든 기간 */
+.ds53-bar{flex-direction:row !important; align-items:center; justify-content:flex-start !important; gap:calc(var(--u)*12)}
+.ds53-track{position:relative; width:calc(var(--u)*180); height:calc(var(--u)*18); flex:none}
+.ds53-was{position:absolute; left:0; top:0; height:100%; border:calc(var(--u)*1.5) solid var(--ds-c3);
+  background:repeating-linear-gradient(135deg,var(--ds-c5) 0 calc(var(--u)*2),transparent calc(var(--u)*2) calc(var(--u)*5))}
+.ds53-now{position:absolute; left:0; top:0; height:100%; background:var(--ds-c2)}
+.ds53-num{font-family:var(--ds-font-num); font-size:calc(var(--u)*14); color:var(--ds-sub); white-space:nowrap}
+.ds53-num b{font-weight:600; color:var(--ds-ink); font-size:calc(var(--u)*16)}
+.ds53-when{font-family:var(--ds-font-num); font-size:calc(var(--u)*14); color:var(--ds-ink); text-align:right; align-items:flex-end; padding-right:calc(var(--u)*10)}
+/* 평균 줄 */
+.ds53-total{height:calc(var(--u)*60); border-top:calc(var(--u)*2) solid var(--ds-ink); margin-top:-1px}
+.ds53-total &gt; div{display:flex; flex-direction:column; justify-content:center; min-width:0}
+.ds53-total-lab{font-family:var(--ds-font-title); font-weight:700; font-size:calc(var(--u)*17); padding-left:calc(var(--u)*10)}
+.ds53-total-note{font-size:calc(var(--u)*14); color:var(--ds-sub)}
+.ds53-total .ds53-num b{font-size:calc(var(--u)*18)}
+/* ── 바닥 줄 (y 846~) ── */
+.ds53-foot{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846); display:flex; justify-content:space-between;
+  font-size:calc(var(--u)*13); color:var(--ds-sub)}
+.ds53-foot b{font-family:var(--ds-font-num); font-weight:500; color:var(--ds-ink)}
+/* 순차 등장: 머리 → 7줄 → 평균 줄 차례로(전체 1.3초, 한 번). 최종 상태 = 정지 화면 */
+@keyframes ds53-in{from{opacity:0; transform:translateY(calc(var(--u)*8))}to{opacity:1; transform:none}}
+.ds53-play [data-seq]{animation:ds53-in .4s cubic-bezier(.2,.7,.3,1) both; animation-delay:calc(var(--i) * .1s)}
+@media (prefers-reduced-motion:reduce){.ds53-play [data-seq]{animation:none}}
+&lt;/style&gt;
+
+&lt;div class="ds53" id="ds53"&gt;
+  &lt;div class="ds53-slide" role="img" aria-label="학교 행정 7개 절차 신구 대조표: 평균 처리 기간 11.3일에서 3.5일로 단축"&gt;
+    &lt;header class="ds53-head"&gt;
+      &lt;div class="ds53-sec"&gt;&lt;b&gt;Ⅲ&lt;/b&gt;세부 추진과제&lt;/div&gt;
+      &lt;div class="ds53-plan"&gt;2027 ○○교육청 학교 업무 경감 추진 계획(안)&lt;/div&gt;
+    &lt;/header&gt;
+    &lt;h2 class="ds53-title"&gt;학교 행정 7개 절차의 처리 기간을 &lt;em&gt;3분의 1&lt;/em&gt;로 줄인다&lt;/h2&gt;
+    &lt;p class="ds53-lede"&gt;&lt;span&gt;평균 처리 기간 &lt;b&gt;11.3일 → 3.5일&lt;/b&gt;&lt;/span&gt;&lt;span&gt;바뀌는 말만 표시 · 현행 &lt;del style="text-decoration-thickness:calc(var(--u)*1.6)"&gt;취소선&lt;/del&gt; → 개선 &lt;ins style="text-decoration-color:var(--ds-accent2);text-decoration-thickness:calc(var(--u)*3);text-underline-offset:calc(var(--u)*5);text-decoration-skip-ink:none"&gt;밑줄&lt;/ins&gt;&lt;/span&gt;&lt;span&gt;시행 &lt;b&gt;2027. 1.~7.&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;
+    &lt;div class="ds53-table" id="ds53-table"&gt;&lt;!-- 스크립트가 아래 데이터로 채운다 --&gt;&lt;/div&gt;
+    &lt;footer class="ds53-foot"&gt;
+      &lt;span&gt;가상 예시 · 출처: ○○교육청 학교 업무 실태조사(가상), 2026. 8. · 처리 기간 = 요청부터 완료까지 평균 근무일&lt;/span&gt;
+      &lt;b&gt;14&lt;/b&gt;
+    &lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  // ── 데이터: 한 줄 = 절차 하나. [ ] 안 = 바뀌는 말(현행은 취소선, 개선은 밑줄). 처리 기간은 근무일 ──
+  var ROWS = [
+    {field:"인사", task:"늘봄 강사 채용", dept:"교원인사과", now:"학교마다 [공고·서류·면접을 따로] 진행", next:"교육지원청 [통합 인력풀]에서 검증된 강사 매칭", d0:21, d1:7, when:"2027. 3.", key:true},
+    {field:"시설", task:"소규모 수선 요청", dept:"시설과", now:"[공문 기안 후 3단계 결재]를 거쳐 교육지원청 접수", next:"[시설 민원 창구]에 사진으로 접수, 교육지원청이 바로 처리", d0:14, d1:5, when:"2027. 3."},
+    {field:"문서", task:"공문 접수·배부", dept:"행정지원과", now:"교무행정사가 [제목을 읽고 손으로] 담당자에게 배부", next:"업무관리시스템이 [업무 분장표에 따라 자동] 배부", d0:2.4, d1:0.5, when:"2027. 1."},
+    {field:"회계", task:"방과후 수강료 정산", dept:"재무과", now:"행정실이 납부 내역을 [수작업으로 대조], 월 1회", next:"스쿨뱅킹 [자동 대사], 미납자만 확인", d0:10, d1:2, when:"2027. 5."},
+    {field:"소통", task:"가정통신문 회신", dept:"학교정책과", now:"[종이로 배부·회수]하고 담임이 집계", next:"[모바일 전자 회신], 결과는 자동 집계", d0:5, d1:1, when:"2027. 3."},
+    {field:"통계", task:"각종 조사 응답", dept:"정책기획과", now:"같은 항목을 [조사 기관마다 다시 입력]", next:"[교육 통계 자료와 연계]해 한 번만 입력", d0:18, d1:6, when:"2027. 4."},
+    {field:"복무", task:"출장 여비 정산", dept:"교원인사과", now:"[출장 보고와 여비 청구를 따로] 작성", next:"[복무 승인과 여비 청구를 한 번에] 처리", d0:9, d1:3, when:"2027. 7."}
+  ];
+  var MAX = 25;                    // 처리 기간 축 최댓값(일). 막대 길이 = 값 / MAX, 0에서 시작
+  var TICKS = [0,5,10,15,20,25];   // 열 머리 눈금
+
+  function mark(s, tag){ return s.replace(/\[([^\]]+)\]/g, '&lt;'+tag+'&gt;$1&lt;/'+tag+'&gt;'); }
+  function n(v){ return (Math.round(v*10)/10).toString(); }
+  function bar(a, b){
+    return '&lt;div class="ds53-track"&gt;&lt;span class="ds53-was" style="width:'+(a/MAX*100)+'%"&gt;&lt;/span&gt;'
+      + '&lt;span class="ds53-now" style="width:'+(b/MAX*100)+'%"&gt;&lt;/span&gt;&lt;/div&gt;';
+  }
+  var s0 = 0, s1 = 0; ROWS.forEach(function(r){ s0 += r.d0; s1 += r.d1; });
+  var a0 = s0 / ROWS.length, a1 = s1 / ROWS.length;
+
+  var h = [], seq = 0;
+  // 머리 줄
+  h.push('&lt;div class="ds53-cols ds53-thead" data-seq style="--i:'+(seq++)+'"&gt;'
+    + '&lt;div class="ds53-th" style="padding-left:calc(var(--u)*10)"&gt;분야&lt;/div&gt;'
+    + '&lt;div class="ds53-th"&gt;&lt;span class="ds53-th-name"&gt;업무 · 담당&lt;/span&gt;&lt;/div&gt;'
+    + '&lt;div class="ds53-th ds53-old-col"&gt;&lt;span class="ds53-th-old"&gt;현행&lt;/span&gt;&lt;/div&gt;'
+    + '&lt;div class="ds53-th ds53-new-col"&gt;&lt;span class="ds53-th-name"&gt;개선&lt;/span&gt;&lt;/div&gt;'
+    + '&lt;div class="ds53-th ds53-bar-col"&gt;&lt;span class="ds53-key"&gt;&lt;span class="ds53-th-name"&gt;처리 기간 (일)&lt;/span&gt;&lt;span&gt;&lt;i class="k-old"&gt;&lt;/i&gt;현행&lt;/span&gt;&lt;span&gt;&lt;i class="k-new"&gt;&lt;/i&gt;개선&lt;/span&gt;&lt;/span&gt;'
+    + '&lt;div class="ds53-ruler"&gt;' + TICKS.map(function(t){ return '&lt;i style="left:'+(t/MAX*100)+'%"&gt;'+t+'&lt;/i&gt;'; }).join('') + '&lt;/div&gt;&lt;/div&gt;'
+    + '&lt;div class="ds53-th" style="text-align:right; padding-right:calc(var(--u)*10)"&gt;시행&lt;/div&gt;'
+    + '&lt;/div&gt;');
+
+  ROWS.forEach(function(r){
+    h.push('&lt;div class="ds53-cols ds53-row'+(r.key?' is-key':'')+'" data-seq style="--i:'+(seq++)+'"&gt;'
+      + '&lt;div class="ds53-field"&gt;'+r.field+'&lt;/div&gt;'
+      + '&lt;div class="ds53-task"&gt;&lt;b&gt;'+r.task+'&lt;/b&gt;&lt;small&gt;'+r.dept+'&lt;/small&gt;&lt;/div&gt;'
+      + '&lt;div class="ds53-old ds53-old-col"&gt;&lt;p&gt;'+mark(r.now,'del')+'&lt;/p&gt;&lt;/div&gt;'
+      + '&lt;div class="ds53-new ds53-new-col"&gt;&lt;p&gt;'+mark(r.next,'ins')+'&lt;/p&gt;&lt;/div&gt;'
+      + '&lt;div class="ds53-bar ds53-bar-col"&gt;'+bar(r.d0, r.d1)+'&lt;span class="ds53-num"&gt;'+n(r.d0)+' → &lt;b&gt;'+n(r.d1)+'&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;'
+      + '&lt;div class="ds53-when"&gt;'+r.when+'&lt;/div&gt;'
+      + '&lt;/div&gt;');
+  });
+
+  // 평균 줄: 같은 축에 평균 막대
+  h.push('&lt;div class="ds53-cols ds53-total" data-seq style="--i:'+(seq++)+'"&gt;'
+    + '&lt;div class="ds53-total-lab"&gt;평균&lt;/div&gt;&lt;div class="ds53-total-note"&gt;'+ROWS.length+'개 절차&lt;/div&gt;'
+    + '&lt;div class="ds53-total-note ds53-old-col"&gt;합계 '+n(s0)+'일&lt;/div&gt;'
+    + '&lt;div class="ds53-total-note ds53-new-col"&gt;합계 '+n(s1)+'일 · '+n(s0-s1)+'일 단축&lt;/div&gt;'
+    + '&lt;div class="ds53-bar ds53-bar-col"&gt;'+bar(a0, a1)+'&lt;span class="ds53-num"&gt;'+n(a0)+' → &lt;b&gt;'+n(a1)+'&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;'
+    + '&lt;div&gt;&lt;/div&gt;&lt;/div&gt;');
+
+  var root = document.getElementById('ds53');
+  root.querySelector('#ds53-table').innerHTML = h.join('');
+
+  // 순차 등장 한 번 재생("다시 보기" 버튼이 같은 함수를 부른다)
+  var slide = root.querySelector('.ds53-slide');
+  window.ds53Play = function(){
+    slide.classList.remove('ds53-play'); void slide.offsetWidth; slide.classList.add('ds53-play');
+  };
+  window.ds53Play();
+})();
+&lt;/script&gt;
+</pre>
+    </div>
+    <p class="pg-copied" id="copied" aria-live="polite"></p>
+  </section>
+
+  <section>
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <div class="pg-two">
+      <div>
+        <h3>뼈대 자리 (슬라이드 33.867 × 19.05cm 기준)</h3>
+        <ul>
+          <li>여백: 좌우 1.69cm, 머리말 띠 0.85~1.86cm(아래 0.75pt 연회색 선). 왼쪽 "Ⅲ 세부 추진과제", 오른쪽 계획안 이름 10pt.</li>
+          <li>제목 2.3cm 위치, 28pt 굵게, "3분의 1"만 강조색. 3.6cm에 읽는 법 한 줄(12pt).</li>
+          <li>표 영역 4.7~17.4cm, 바닥 줄 17.9cm(가상 예시·출처 9pt, 쪽 번호 오른쪽).</li>
+        </ul>
+        <h3>표 만들기</h3>
+        <ol>
+          <li>[삽입 → 표] 6열 × 9행(머리 1 + 절차 7 + 평균 1). 열 너비 1.65 / 4.49 / 7.83 / 8.68 / 5.97 / 1.86cm, 행 높이 1.48cm 고정, 세로 가운데.</li>
+          <li>테두리는 가로선만: 줄 사이 0.5pt 연회색, 머리 아래·평균 위 1.5pt 남색. 현행|개선 사이에만 0.5pt 세로선.</li>
+          <li>현행 열 글자는 보조색, 바뀌는 말만 본문색 + [홈 → 글꼴 → 취소선]. 개선 열은 본문색, 바뀐 말만 굵게 + [밑줄 → 굵은 밑줄], 밑줄 색 = 보조 강조.</li>
+          <li>처리 기간: 표 위에 직사각형 두 개를 겹친다. 빈 틀 너비 = 현행 ÷ 25 × 3.81cm(테두리 1pt, 채우기는 [패턴 → 넓은 상향 대각선]), 그 위 채운 막대 너비 = 개선 ÷ 25 × 3.81cm. 높이 0.38cm, 왼쪽 끝을 같은 세로선에 맞춤([맞춤 → 왼쪽 맞춤]).</li>
+          <li>강조 줄(늘봄 강사 채용)만 흰 사각형을 행 뒤에 깔고 [그림자 → 바깥쪽 아래] 흐림 10pt, 투명도 80%.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>순차 등장</h3>
+        <ul>
+          <li>표는 한 개체라 행별로 나눌 수 없다. 행마다 바탕색 사각형으로 덮고 그 사각형에 [끝내기 → 사라지기]를 주거나, 행마다 표를 따로 만들어(1행짜리 표 9개) [나타내기 → 올라오기]를 준다.</li>
+          <li>시작 "이전 효과와 함께", 재생 0.4초, 지연 0 / 0.1 / 0.2 … 0.8초(머리 → 7줄 → 평균). 전체 1.2초 안팎.</li>
+          <li>인쇄·PDF에서 애니메이션이 빠져도 모든 문장·막대·숫자가 남는다.</li>
+        </ul>
+        <h3>계열 값 넣기</h3>
+        <ul>
+          <li>[디자인 → 적용 → 색 → 색 사용자 지정]: 텍스트/배경 어둡게 1 = <code>--ds-ink</code>, 밝게 1 = <code>--ds-bg</code>, 강조 1 = <code>--ds-accent</code>, 강조 2 = <code>--ds-accent2</code>, 강조 3~6 = <code>--ds-c1~c4</code>.</li>
+          <li>[글꼴 사용자 지정]: 제목 = 제목 글꼴, 본문 = 본문 글꼴. 처리 기간·시행 숫자만 고정폭 글꼴.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="pg-tbl-wrap"><table class="pg-tbl" id="spec"></table></div>
+    <dl class="pg-spec">
+      <dt>폰트</dt><dd>제목 Gothic A1 800, 본문 IBM Plex Sans KR 400/600, 숫자 IBM Plex Mono 500/600 (대체: 프리텐다드 → 맑은 고딕, Consolas). 계열 D는 제목 Noto Serif KR, F는 숫자 Saira Semi Condensed.</dd>
+      <dt>질감</dt><dd>평면 (강조 줄 하나만 흰 면 + 옅은 그림자)</dd>
+      <dt>어울리는 계열</dt><dd>B · C · D · E · F · G</dd>
+      <dt>모션</dt><dd>순차 등장 9단계, 각 0.4초, 0.1초 간격, 전체 1.2초, 한 번. 움직임 줄이기 설정이면 최종 상태만.</dd>
+      <dt>난이도</dt><dd>HTML 하 (배열의 문장에 [ ]만 치면 됨) · PPT 중 (글꼴 서식은 쉽고, 막대 겹치기에 손이 간다)</dd>
+      <dt>트렌드</dt><dd>전환·개선을 보여 줄 때 긴 목록 대신 전후(before/after) 대비 장표를 쓰는 흐름. 이 장표는 대비를 표 안 문장 단위로 좁혔다. 출처: <a href="https://deckary.com/blog/before-and-after-slide" target="_blank" rel="noopener">Deckary "Before and After Slide: Layouts and Design Best Practices"</a></dd>
+    </dl>
+  </section>
+</main>
+
+<script>
+(function(){
+  // ── 데이터: 한 줄 = 절차 하나. [ ] 안 = 바뀌는 말(현행은 취소선, 개선은 밑줄). 처리 기간은 근무일 ──
+  var ROWS = [
+    {field:"인사", task:"늘봄 강사 채용", dept:"교원인사과", now:"학교마다 [공고·서류·면접을 따로] 진행", next:"교육지원청 [통합 인력풀]에서 검증된 강사 매칭", d0:21, d1:7, when:"2027. 3.", key:true},
+    {field:"시설", task:"소규모 수선 요청", dept:"시설과", now:"[공문 기안 후 3단계 결재]를 거쳐 교육지원청 접수", next:"[시설 민원 창구]에 사진으로 접수, 교육지원청이 바로 처리", d0:14, d1:5, when:"2027. 3."},
+    {field:"문서", task:"공문 접수·배부", dept:"행정지원과", now:"교무행정사가 [제목을 읽고 손으로] 담당자에게 배부", next:"업무관리시스템이 [업무 분장표에 따라 자동] 배부", d0:2.4, d1:0.5, when:"2027. 1."},
+    {field:"회계", task:"방과후 수강료 정산", dept:"재무과", now:"행정실이 납부 내역을 [수작업으로 대조], 월 1회", next:"스쿨뱅킹 [자동 대사], 미납자만 확인", d0:10, d1:2, when:"2027. 5."},
+    {field:"소통", task:"가정통신문 회신", dept:"학교정책과", now:"[종이로 배부·회수]하고 담임이 집계", next:"[모바일 전자 회신], 결과는 자동 집계", d0:5, d1:1, when:"2027. 3."},
+    {field:"통계", task:"각종 조사 응답", dept:"정책기획과", now:"같은 항목을 [조사 기관마다 다시 입력]", next:"[교육 통계 자료와 연계]해 한 번만 입력", d0:18, d1:6, when:"2027. 4."},
+    {field:"복무", task:"출장 여비 정산", dept:"교원인사과", now:"[출장 보고와 여비 청구를 따로] 작성", next:"[복무 승인과 여비 청구를 한 번에] 처리", d0:9, d1:3, when:"2027. 7."}
+  ];
+  var MAX = 25;                    // 처리 기간 축 최댓값(일). 막대 길이 = 값 / MAX, 0에서 시작
+  var TICKS = [0,5,10,15,20,25];   // 열 머리 눈금
+
+  function mark(s, tag){ return s.replace(/\[([^\]]+)\]/g, '<'+tag+'>$1</'+tag+'>'); }
+  function n(v){ return (Math.round(v*10)/10).toString(); }
+  function bar(a, b){
+    return '<div class="ds53-track"><span class="ds53-was" style="width:'+(a/MAX*100)+'%"></span>'
+      + '<span class="ds53-now" style="width:'+(b/MAX*100)+'%"></span></div>';
+  }
+  var s0 = 0, s1 = 0; ROWS.forEach(function(r){ s0 += r.d0; s1 += r.d1; });
+  var a0 = s0 / ROWS.length, a1 = s1 / ROWS.length;
+
+  var h = [], seq = 0;
+  // 머리 줄
+  h.push('<div class="ds53-cols ds53-thead" data-seq style="--i:'+(seq++)+'">'
+    + '<div class="ds53-th" style="padding-left:calc(var(--u)*10)">분야</div>'
+    + '<div class="ds53-th"><span class="ds53-th-name">업무 · 담당</span></div>'
+    + '<div class="ds53-th ds53-old-col"><span class="ds53-th-old">현행</span></div>'
+    + '<div class="ds53-th ds53-new-col"><span class="ds53-th-name">개선</span></div>'
+    + '<div class="ds53-th ds53-bar-col"><span class="ds53-key"><span class="ds53-th-name">처리 기간 (일)</span><span><i class="k-old"></i>현행</span><span><i class="k-new"></i>개선</span></span>'
+    + '<div class="ds53-ruler">' + TICKS.map(function(t){ return '<i style="left:'+(t/MAX*100)+'%">'+t+'</i>'; }).join('') + '</div></div>'
+    + '<div class="ds53-th" style="text-align:right; padding-right:calc(var(--u)*10)">시행</div>'
+    + '</div>');
+
+  ROWS.forEach(function(r){
+    h.push('<div class="ds53-cols ds53-row'+(r.key?' is-key':'')+'" data-seq style="--i:'+(seq++)+'">'
+      + '<div class="ds53-field">'+r.field+'</div>'
+      + '<div class="ds53-task"><b>'+r.task+'</b><small>'+r.dept+'</small></div>'
+      + '<div class="ds53-old ds53-old-col"><p>'+mark(r.now,'del')+'</p></div>'
+      + '<div class="ds53-new ds53-new-col"><p>'+mark(r.next,'ins')+'</p></div>'
+      + '<div class="ds53-bar ds53-bar-col">'+bar(r.d0, r.d1)+'<span class="ds53-num">'+n(r.d0)+' → <b>'+n(r.d1)+'</b></span></div>'
+      + '<div class="ds53-when">'+r.when+'</div>'
+      + '</div>');
+  });
+
+  // 평균 줄: 같은 축에 평균 막대
+  h.push('<div class="ds53-cols ds53-total" data-seq style="--i:'+(seq++)+'">'
+    + '<div class="ds53-total-lab">평균</div><div class="ds53-total-note">'+ROWS.length+'개 절차</div>'
+    + '<div class="ds53-total-note ds53-old-col">합계 '+n(s0)+'일</div>'
+    + '<div class="ds53-total-note ds53-new-col">합계 '+n(s1)+'일 · '+n(s0-s1)+'일 단축</div>'
+    + '<div class="ds53-bar ds53-bar-col">'+bar(a0, a1)+'<span class="ds53-num">'+n(a0)+' → <b>'+n(a1)+'</b></span></div>'
+    + '<div></div></div>');
+
+  var root = document.getElementById('ds53');
+  root.querySelector('#ds53-table').innerHTML = h.join('');
+
+  // 순차 등장 한 번 재생("다시 보기" 버튼이 같은 함수를 부른다)
+  var slide = root.querySelector('.ds53-slide');
+  window.ds53Play = function(){
+    slide.classList.remove('ds53-play'); void slide.offsetWidth; slide.classList.add('ds53-play');
+  };
+  window.ds53Play();
+})();
+
+</script>
+<script>
+(function(){
+  // 계열 값 묶음(DB의 계열 표지 palette·fonts, 계열 키트 #46·#52 tokens에서 정함)
+  var FAM = {
+    N:{"--ds-bg":"#F6F7F9","--ds-surface":"#FFFFFF","--ds-ink":"#1C2740","--ds-sub":"#5A6478","--ds-line":"#DADFE6","--ds-accent":"#D4512A","--ds-accent2":"#2F5E8C","--ds-c1":"#24344F","--ds-c2":"#4A5F80","--ds-c3":"#7A8CA8","--ds-c4":"#AEBBCD","--ds-c5":"#D5DDE7",
+       "--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace","--ds-radius":"3px","--ds-shadow":"0 1px 0 rgba(28,39,64,.06),0 10px 24px -16px rgba(28,39,64,.28)"},
+    B:{"--ds-bg":"#EEF1F4","--ds-surface":"#FAFAF8","--ds-ink":"#1F2B36","--ds-sub":"#5E6974","--ds-line":"#CDD4DB","--ds-accent":"#E2571A","--ds-accent2":"#2F5D86","--ds-c1":"#2F4252","--ds-c2":"#4F6679","--ds-c3":"#7389A0","--ds-c4":"#9DB0C1","--ds-c5":"#C6D2DC",
+       "--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace","--ds-radius":"2px","--ds-shadow":"0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"},
+    D:{"--ds-bg":"#FBFAF7","--ds-surface":"#F1EEE6","--ds-ink":"#1B1E24","--ds-sub":"#5A5F6B","--ds-line":"#C8CBD1","--ds-accent":"#B8382C","--ds-accent2":"#23467A","--ds-c1":"#2A2E36","--ds-c2":"#4E535D","--ds-c3":"#7A7F89","--ds-c4":"#A8ACB3","--ds-c5":"#D2D4D8",
+       "--ds-font-title":"\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif","--ds-font-body":"\"Noto Sans KR\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace","--ds-radius":"0px","--ds-shadow":"none"},
+    F:{"--ds-bg":"#F3F5F8","--ds-surface":"#FFFFFF","--ds-ink":"#12203A","--ds-sub":"#556178","--ds-line":"#D3DAE4","--ds-accent":"#E5483A","--ds-accent2":"#2F64AE","--ds-c1":"#1E3A66","--ds-c2":"#34598F","--ds-c3":"#5B7DB0","--ds-c4":"#8FA8CC","--ds-c5":"#C4D2E6",
+       "--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"Saira Semi Condensed\",\"Gothic A1\",\"Arial Narrow\",\"Malgun Gothic\",sans-serif","--ds-radius":"3px","--ds-shadow":"0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)"}
+  };
+  var NAMES = {N:"중립 값",B:"B 미니멀 스튜디오",D:"D 인쇄·종이",F:"F 관측·중계"};
+  var root = document.getElementById('ds53');
+  function apply(k){
+    var t = FAM[k]; Object.keys(t).forEach(function(p){ root.style.setProperty(p, t[p]); });
+    document.querySelectorAll('[data-fam]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-fam')===k ? 'true':'false'); });
+  }
+  document.querySelectorAll('[data-fam]').forEach(function(b){ b.addEventListener('click', function(){ apply(b.getAttribute('data-fam')); }); });
+  document.getElementById('replay').addEventListener('click', function(){ window.ds53Play && window.ds53Play(); });
+  window.pgApply = apply;
+
+  // 스펙 표: 변수 × 계열
+  var keys = Object.keys(FAM.N).filter(function(k){ return k.indexOf('font')<0; });
+  var html = '<thead><tr><th>변수</th>' + ['N','B','D','F'].map(function(k){ return '<th>'+NAMES[k]+'</th>'; }).join('') + '</tr></thead><tbody>';
+  keys.forEach(function(v){
+    html += '<tr><td><code>'+v+'</code></td>' + ['N','B','D','F'].map(function(k){
+      var val = FAM[k][v]; var isHex = /^#/.test(val);
+      return '<td>' + (isHex ? '<span class="sw" style="background:'+val+'"></span>' : '') + '<code>' + val.replace(/</g,'&lt;') + '</code></td>';
+    }).join('') + '</tr>';
+  });
+  html += '<tr><td><code>제목·본문·숫자 글꼴</code></td><td>Gothic A1 · IBM Plex Sans KR · IBM Plex Mono</td><td>Gothic A1 · IBM Plex Sans KR · IBM Plex Mono</td><td>Noto Serif KR · Noto Sans KR · IBM Plex Mono</td><td>Gothic A1 · Gothic A1 · Saira Semi Condensed</td></tr>';
+  document.getElementById('spec').innerHTML = html + '</tbody>';
+
+  // 코드 복사
+  var pre = document.getElementById('code'), msg = document.getElementById('copied');
+  document.getElementById('copy').addEventListener('click', function(){
+    var text = pre.textContent;
+    function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 있어 코드 전체를 선택했습니다. Ctrl+C(⌘C)로 복사하세요.'; }
+    try{ navigator.clipboard.writeText(text).then(function(){ msg.textContent = '코드를 복사했습니다.'; }, sel); }catch(e){ sel(); }
+  });
+})();
+</script>
+
+</body></html>
