@@ -58,6 +58,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .tag.sec{background:#E3ECF8;color:#1F4E86;font-weight:700}
 .tag.fam{background:#F6E5DC;color:#8A3517;font-weight:700}
 .tag.info{background:#E3ECF8;color:#1F4E86;font-weight:700}
+.tag.mod{background:#fff;color:#1F4E86;box-shadow:inset 0 0 0 1px #BFD0E6}
 .tag.no{background:#FBE3E1;color:#A1251B;font-weight:700}
 .chips button:disabled{opacity:.45;cursor:default}
 .compat{font-size:12.5px;color:var(--soft);margin:6px 0 0}
@@ -87,6 +88,7 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
     <input id="q" type="search" placeholder="검색: 제목, 구조, 패턴, 스타일…" aria-label="검색">
     <div class="chips" id="fam" role="group" aria-label="표지 계열"><span>표지 계열</span></div>
     <div class="chips" id="info" role="group" aria-label="정보 유형"><span>정보 유형</span></div>
+    <div class="chips" id="mod" role="group" aria-label="모듈" hidden><span>모듈</span></div>
     <div class="chips" id="sec" role="group" aria-label="계획안 속 위치"><span>계획안 속 위치</span></div>
   </div>
 
@@ -99,11 +101,13 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hex = c => /^#[0-9a-f]{3,8}$/i.test(c) ? c : '#ccc';
-let all = [], type = '', sec = '', fam = '', info = '';
+let all = [], type = '', sec = '', fam = '', info = '', mod = '';
 // 표지 분위기 계열 (실험형의 family). 실무형은 families에 어울리는 계열을 적는다
 const FAMILIES = {A:'픽셀 게임', B:'미니멀 스튜디오', C:'경쾌한 놀이 오브젝트', D:'인쇄·종이 에디토리얼', E:'자연 재질', F:'관측·중계 인포그래픽', G:'어두운 콘셉트'};
 // 본문 요소의 정보 유형 (0개인 유형도 보여 빈칸을 드러낸다)
-const INFO_TYPES = ['추이', '비교·순위', '구성비', '분류·유목화', '흐름·절차', '조직·체계', '일정', '핵심 수치', '지도·분포', '표·목록'];
+const INFO_TYPES = ['비전 체계도', '현안→해결방안', '배경·목적', '분류·유목화', '흐름·절차', '조직·체계', '일정', '핵심 수치', '비교·순위', '추이', '구성비', '표·목록', '지도·분포'];
+// 장표 안의 모듈 (요소의 modules, 쓰인 것만 칩으로 보인다)
+const MODULES = ['셰브런 단계', '현안→해결 표', '위계도', '방사형', '순환', '깔때기', '매트릭스', '비교 VS', '카드 묶음', '수치 타일', '막대', '선', '도넛', '표', '타임라인', '간트', '지도'];
 // 계획안 발표 순서 (실무형의 section)
 const SECTIONS = ['현황', '목표 및 지표', '세부과제', '추진체계', '일정 및 예산'];
 const secOf = r => r.section || '';
@@ -117,8 +121,8 @@ function render(){
   const topic = $('#topic').value, q = $('#q').value.trim().toLowerCase();
   const rows = all.filter(r =>
     (!type || r.type === type) && (!topic || r.topic === topic) && (!sec || secOf(r) === sec) &&
-    (!fam || inFam(r)) && (!info || r.info_type === info) &&
-    (!q || [r.title, secOf(r), famLabel(r.family), r.info_type, r.texture, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)))
+    (!fam || inFam(r)) && (!info || r.info_type === info) && (!mod || (r.modules || []).includes(mod)) &&
+    (!q || [r.title, secOf(r), famLabel(r.family), r.info_type, (r.modules || []).join(' '), r.texture, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)))
     .sort((a, b) => fam ? (ORDER[a.type] ?? 3) - (ORDER[b.type] ?? 3) || b.no - a.no : b.no - a.no);
   $('#grid').innerHTML = rows.length ? rows.map(r => `
     <a class="card" href="${esc(r.file)}${r.v ? '?v=' + esc(r.v) : ''}" target="_blank" rel="noopener">
@@ -128,6 +132,7 @@ function render(){
           <span class="type ${r.type === '실험형' ? 'exp' : r.type === '계열키트' ? 'kit' : 'prac'}">${esc(KIND[r.type] || r.type)}</span>
           ${r.family ? `<span class="tag fam">${esc(famLabel(r.family))}</span>` : ''}
           ${r.info_type ? `<span class="tag info">${esc(r.info_type)}</span>` : ''}
+          ${(r.modules || []).map(m => `<span class="tag mod">${esc(m)}</span>`).join('')}
           ${r.texture ? `<span class="tag">${esc(r.texture)}</span>` : ''}
           ${r.deck_ok === false ? '<span class="tag no">덱 제외</span>' : ''}
           ${r.section ? `<span class="tag">${esc(r.section)}</span>` : ''}
@@ -156,6 +161,12 @@ fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
   Object.keys(FAMILIES).forEach(k => { fam = k; chip('#fam', 'f', k, famLabel(k), all.filter(r => r.family === k).length); }); fam = '';
   chip('#info', 'i', '', '전체', n('실무형'));
   INFO_TYPES.forEach(t => chip('#info', 'i', t, t, all.filter(r => r.info_type === t).length));
+  const used = MODULES.filter(m => all.some(r => (r.modules || []).includes(m)));
+  if (used.length) {
+    $('#mod').hidden = false;
+    chip('#mod', 'm', '', '전체', all.filter(r => (r.modules || []).length).length);
+    used.forEach(m => chip('#mod', 'm', m, m, all.filter(r => (r.modules || []).includes(m)).length));
+  }
   [...new Set(all.map(r => r.topic))].sort().forEach(t => $('#topic').insertAdjacentHTML('beforeend', `<option>${esc(t)}</option>`));
   ['', ...SECTIONS].forEach(s => $('#sec').insertAdjacentHTML('beforeend',
     `<button type="button" data-s="${esc(s)}" aria-pressed="${s === ''}">${s || '전체'}<em>${s ? all.filter(r => secOf(r) === s).length : all.length}</em></button>`));
@@ -182,6 +193,7 @@ const pick = (box, key, set) => $(box).addEventListener('click', e => {
 });
 pick('#fam', 'f', v => fam = v);
 pick('#info', 'i', v => info = v);
+pick('#mod', 'm', v => mod = v);
 $('#topic').addEventListener('change', render);
 $('#q').addEventListener('input', render);
 </script>
