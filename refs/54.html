@@ -1,0 +1,411 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #54 기둥과 보 체계도</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+KR:wght@600;800&family=Noto+Sans+KR:wght@400;500;700&family=Saira+Semi+Condensed:wght@600;700&display=swap">
+<style>
+/* 페이지 틀: 왼쪽 정렬 한 줄 기준, 장표가 맨 위 주인공, 아래로 설명 칸이 차례로 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB; --pg-l4:#8FA6CC;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; --pg-l4:#5F78A6; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; --pg-l4:#5F78A6; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2}
+.raw mark{background:none;color:inherit;border-bottom:2px solid currentColor;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.m1{border-color:var(--pg-l1)!important}.m1::after{color:var(--pg-l1)}
+.m2{border-color:var(--pg-l2)!important}.m2::after{color:var(--pg-l2)}
+.m4{border-color:var(--pg-l4)!important}.m4::after{color:var(--pg-l3)}
+.raw .rel{border-bottom:2px dashed var(--pg-l3)}
+.grp{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:13px;width:28px;height:28px;display:grid;place-items:center;border-radius:4px;color:#fff}
+.grp .n1{background:var(--pg-l1);color:var(--pg-panel)}.grp .n2{background:var(--pg-l2);color:var(--pg-panel)}.grp .n3{background:var(--pg-l3);color:var(--pg-panel)}.grp .n4{background:var(--pg-l4);color:var(--pg-ink)}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels dt,.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code-wrap{position:relative}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid rgba(0,0,0,.15);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){.two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}}
+</style>
+
+<!-- ===== 장표 CSS (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<style id="vs54-css">
+/* 비전 체계도 '기둥과 보' — 접두어 vs54 / 색은 --ds-* 변수로만 */
+.vs54{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.vs54 *{box-sizing:border-box}
+.vs54-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4}
+.vs54-a{position:absolute}
+/* 머리말 띠 y40~88 */
+.vs54-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.vs54-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19)}
+.vs54-sec i{font-style:normal;font-family:var(--ds-font-num);color:var(--ds-accent2)}
+.vs54-plan{font-size:calc(var(--u)*14);color:var(--ds-sub);letter-spacing:.02em}
+/* 제목 y112~ */
+.vs54-tt{left:calc(var(--u)*80);top:calc(var(--u)*112);width:calc(var(--u)*1440);margin:0;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*40);line-height:1.25;letter-spacing:-.01em;color:var(--ds-ink)}
+.vs54-tt em{font-style:normal;color:var(--ds-accent)}
+/* 왼쪽 층 머리말 */
+.vs54-rail{left:calc(var(--u)*80);width:calc(var(--u)*118);text-align:right;transform:translateY(-50%)}
+.vs54-rail b{display:block;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*18);color:var(--ds-ink)}
+.vs54-rail span{display:block;font-family:var(--ds-font-num);font-size:calc(var(--u)*12);color:var(--ds-c3);letter-spacing:.08em}
+.vs54-spine{left:calc(var(--u)*214);width:calc(var(--u)*1.5);background:var(--ds-line)}
+.vs54-tick{left:calc(var(--u)*208);width:calc(var(--u)*14);height:calc(var(--u)*1.5);background:var(--ds-c3)}
+/* 비전 띠 */
+.vs54-vis{background:var(--ds-c1);color:var(--ds-surface);border-radius:var(--ds-radius);display:flex;align-items:center;justify-content:space-between;padding:0 calc(var(--u)*28)}
+.vs54-vis b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*27);letter-spacing:-.005em}
+.vs54-vis span{font-family:var(--ds-font-num);font-size:calc(var(--u)*14);opacity:.8;letter-spacing:.1em}
+/* 전략 기둥(열) */
+.vs54-lane{background:var(--ds-surface);border:calc(var(--u)*1.5) solid var(--ds-line);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow)}
+/* 목표 보(띠): 가로 범위 = 받치는 전략 열 */
+.vs54-goal{background:var(--ds-c2);color:var(--ds-surface);border-radius:var(--ds-radius);display:flex;align-items:center;justify-content:space-between;padding:0 calc(var(--u)*22);gap:calc(var(--u)*16)}
+.vs54-gname{display:flex;align-items:baseline;gap:calc(var(--u)*12)}
+.vs54-gname i{font-style:normal;font-family:var(--ds-font-num);font-size:calc(var(--u)*13);opacity:.75;letter-spacing:.06em}
+.vs54-gname b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*22)}
+.vs54-kpi{display:flex;align-items:baseline;gap:calc(var(--u)*10);white-space:nowrap}
+.vs54-kpi small{font-size:calc(var(--u)*14);opacity:.85}
+.vs54-kpi s{text-decoration:none;font-family:var(--ds-font-num);font-size:calc(var(--u)*20);opacity:.85}
+.vs54-kpi u{text-decoration:none;font-size:calc(var(--u)*16);opacity:.7}
+.vs54-kpi strong{font-family:var(--ds-font-num);font-size:calc(var(--u)*26);font-weight:600}
+/* 기둥 다리: 보가 걸친 열에서 전략 상자로 내려오는 짧은 선 */
+.vs54-leg{width:calc(var(--u)*2);background:var(--ds-c2)}
+/* 추진전략 머리 */
+.vs54-str{background:var(--ds-c4);color:var(--ds-ink);border-radius:var(--ds-radius) var(--ds-radius) 0 0;display:flex;align-items:baseline;gap:calc(var(--u)*12);padding:calc(var(--u)*18) calc(var(--u)*20) 0}
+.vs54-str i{font-style:normal;font-family:var(--ds-font-num);font-size:calc(var(--u)*13);color:var(--ds-ink);opacity:.7;letter-spacing:.06em}
+.vs54-str b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*22)}
+/* 추진과제 줄 */
+.vs54-task{display:grid;grid-template-columns:1fr auto;align-items:center;gap:calc(var(--u)*12);padding:0 calc(var(--u)*20)}
+.vs54-task + .vs54-task{border-top:calc(var(--u)*1.5) solid var(--ds-c5)}
+.vs54-task i{font-style:normal;display:block;font-family:var(--ds-font-num);font-size:calc(var(--u)*12);color:var(--ds-c3);letter-spacing:.06em}
+.vs54-task b{display:block;font-size:calc(var(--u)*19);font-weight:700;color:var(--ds-ink);line-height:1.3}
+.vs54-task p{margin:calc(var(--u)*3) 0 0;font-size:calc(var(--u)*14);color:var(--ds-sub);line-height:1.35}
+.vs54-q{text-align:right;white-space:nowrap}
+.vs54-q strong{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*30);color:var(--ds-ink)}
+.vs54-q small{font-size:calc(var(--u)*14);color:var(--ds-sub);margin-left:calc(var(--u)*3)}
+/* 바닥 줄 y846~ */
+.vs54-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.vs54-ft span:last-child{font-family:var(--ds-font-num)}
+/* 순차 등장(나타내기): 한 번, 전체 1.4초 이내 */
+.vs54.is-play [data-d]{animation:vs54In .42s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d) * 1ms)}
+@keyframes vs54In{from{opacity:0;translate:0 calc(var(--u)*10)}to{opacity:1;translate:0 0}}
+@media (prefers-reduced-motion:reduce){.vs54.is-play [data-d]{animation:none}}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 54 · 실무형 요소 · 비전 체계도 · 가상 예시</div>
+    <h1>기둥과 보 체계도</h1>
+    <p class="pg-lead">비전 → 목표 → 추진전략 → 과제의 위계를 위에서 아래로 쌓고, 목표 띠가 가로로 걸친 범위로 "어느 전략이 어느 목표를 받치는지"를 보여 주는 본문 장표입니다.</p>
+  </header>
+
+  <!-- 1) 장표 + 계열 미리보기 -->
+  <section class="stage" aria-label="장표">
+    <div class="stage-frame">
+      <div class="vs54" id="vs54" role="img" aria-label="2027 늘봄학교 운영 기본계획 비전 체계도"></div>
+    </div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기">
+      <span>계열 값 바꿔 보기</span>
+      <button class="btn" type="button" id="fam-n" data-fam="N" aria-pressed="true">중립(기본)</button>
+      <button class="btn" type="button" id="fam-b" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+      <button class="btn" type="button" id="fam-d" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+      <button class="btn" type="button" id="fam-f" data-fam="F" aria-pressed="false">F 관측·중계</button>
+      <button class="btn btn-replay" type="button" id="replay">다시 보기</button>
+    </div>
+  </section>
+
+  <!-- 1-1) 원문 → 유목화 -->
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 줄글, 가상)</h3>
+        <p class="raw">○○교육청은 2027년 늘봄학교를 모든 초등학교로 넓히며, <mark class="m1" data-n="1">아이들이 저녁까지 안심하고 자라는 환경</mark>을 만드는 것을 최종 방향으로 삼는다. 올해 희망 학생 수용률은 88%에 머물러, 내년에는 <mark class="m2" data-n="2">희망하는 학생을 모두 받는 것(100%)</mark>을 목표로 하고 <mark class="m2" data-n="2">학부모 만족도도 3.9점에서 4.3점으로</mark> 높인다. 이를 위해 <mark class="m4" data-n="4">유휴교실 120실을 늘봄 전용교실로</mark> 바꾸고 <mark class="m4" data-n="4">초등학교 85교에 실무인력을 1명씩 배치</mark>한다. 공간·인력만으로 모자라는 부분은 <mark class="m4" data-n="4">지역 도서관·체육센터·대학과 협약해 연계 프로그램 40개</mark>를 운영하고, <mark class="m4" data-n="4">권역마다 저녁 8시까지 여는 거점형 늘봄센터 4곳</mark>을 연다. <span class="rel">지역 연계는 받을 수 있는 인원을 늘리는 동시에 프로그램 선택지를 넓혀 만족도에도 도움이 된다.</span> 프로그램 질은 <mark class="m4" data-n="4">분기별 심의위원회의 사전 심의와 강사 인력풀 600명</mark>으로 관리하고, <mark class="m4" data-n="4">6월·12월 학기말 만족도 조사 결과</mark>를 다음 학기 운영에 반영한다.</p>
+        <p style="font-size:13px;color:var(--pg-sub);margin:8px 0 0">밑줄 번호 = 장표 왼쪽 층 번호. 점선 = 묶음 사이 관계를 알려 주는 문장.</p>
+      </div>
+      <div class="panel">
+        <h3 style="margin-top:0">묶은 방법</h3>
+        <ul class="grp">
+          <li><span class="n n1">1</span><div><b>비전 — 최종 방향 한 문장</b><em>"저녁까지 안심하고 자라는 환경" → 한 줄 띠. 수치·기간이 없는 문장이 비전 자리다.</em></div></li>
+          <li><span class="n n2">2</span><div><b>목표 — 수치가 붙은 결과 문장 2개</b><em>수용률 88%→100%, 만족도 3.9→4.3점 → 목표 1·2. 현재값과 목표값을 둘 다 띠에 남긴다.</em></div></li>
+          <li><span class="n n3">3</span><div><b>추진전략 — 원문에 없는 묶음 이름</b><em>과제 6개를 성격별로 셋으로 묶고 이름을 붙였다: "이를 위해…"=공간·인력, "모자라는 부분은…"=지역 연계, "질은…"=질 관리.</em></div></li>
+          <li><span class="n n4">4</span><div><b>추진과제 — 수량이 있는 실행 문장 6개</b><em>각 문장의 수량(120실·85명·40개·4곳·600명·연 2회)을 오른쪽 숫자로 떼어 냈다.</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">1 → 2 구체화</span><span>비전을 잴 수 있는 두 결과로 나눈다(위아래로 쌓기).</span></div>
+          <div><span class="k">3 ⇢ 2 받침</span><span>공간·인력은 수용률을, 질 관리는 만족도를 받친다. 점선 문장 때문에 목표 2 띠도 가운데 열(지역 연계)까지 늘렸다.</span></div>
+          <div><span class="k">3 ⊃ 4 포함</span><span>과제는 자기 전략과 같은 열(기둥) 안에 둔다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) 구조 설명 -->
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>층은 위에서 아래로 쌓는다: 비전 띠(가장 진한 색) → 목표 띠 → 추진전략 머리 → 추진과제 줄. 색은 한 색의 농담으로만 내려가서, 진할수록 상위 층이다. 추진전략은 세로 기둥(열)이 되고, 과제는 자기 기둥 안에 들어간다.</p>
+    <p><b>가져갈 장치: 목표 띠의 가로 범위 = 그 목표를 받치는 전략 열.</b> 흔한 비전 체계도는 목표와 전략을 각각 한 줄씩 나열해서 "어느 전략이 어느 목표를 위한 것인지"가 사라진다. 여기서는 목표 띠를 보처럼 받치는 기둥들 위에만 걸치고, 띠 아래 짧은 다리 선으로 닿는 열을 한 번 더 확인시킨다. 목표 1 줄의 오른쪽 기둥 위가 비어 있으면 그 전략은 목표 1과 상관없다는 뜻이다. 두 띠가 겹쳐 지나가는 가운데 기둥이 양쪽을 다 받치는 전략이 되고, 제목의 결론도 거기서 나온다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>디지털 교육 기본계획: 목표 "AI 활용 수업 비율", "디지털 격차 해소" 두 띠 × 전략 "기기·망", "교원 연수", "콘텐츠" 세 기둥</li>
+      <li>학교폭력 예방 종합계획: 목표 "발생 건수 감소", "회복 지원 강화" 띠 × 전략 "예방 교육", "관계 회복", "사안 처리 개선" 기둥(가운데 기둥이 양쪽에 걸침)</li>
+      <li>교육 행정 혁신 계획: 목표 3개(띠 3줄)도 가능하다. 띠 줄 수가 늘면 띠 높이를 54로 줄이고 과제는 기둥마다 2개를 넘기지 않는다.</li>
+    </ul>
+  </section>
+
+  <!-- 3) HTML로 가져다 쓰기 -->
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. 목표의 <code>span:[0,1]</code>은 "1~2번째 전략 열에 걸침"이라는 뜻입니다.</li>
+      <li>계열 분위기는 <code>.vs54{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(위 스펙 표의 계열 값).</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <!-- 4) PPT로 옮기기 -->
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>뼈대</b>: 슬라이드 33.867×19.05cm 기준. 머리말 띠는 위 1.5cm~2.5cm에 텍스트 상자 2개(왼쪽 "Ⅱ 목표 및 지표", 오른쪽 계획안 이름 10pt) + 아래 0.75pt 선. 제목은 3cm 위치, 28pt 굵게, 핵심 단어만 강조색. 바닥 줄은 18cm 위치 9pt.</li>
+      <li><b>층 머리말</b>: 왼쪽 2.2cm 폭 텍스트 상자 4개(오른쪽 정렬, 13pt 굵게) + 그 오른쪽에 세로선 하나.</li>
+      <li><b>기둥 3개 먼저</b>: 둥근 모서리 직사각형(모서리 최소) 8.7×10.5cm 3개를 [맞춤 → 가로 간격 동일하게]로 0.5cm 간격 배치. 채우기 흰색, 윤곽선 연회색 0.75pt.</li>
+      <li><b>비전 띠</b>: 기둥 3개 전체 폭과 같은 직사각형, 가장 진한 남색, 흰 글자 20pt.</li>
+      <li><b>목표 띠(보)</b>: 기둥 1~2 폭(목표 1), 기둥 2~3 폭(목표 2) 직사각형을 기둥 위에 올린다. 왼쪽 끝은 첫 기둥 왼쪽 끝, 오른쪽 끝은 마지막 기둥 오른쪽 끝에 정확히 맞춘다(Alt 누른 채 끌면 정밀 이동). 띠 안 오른쪽에 "88% → 100%".</li>
+      <li><b>다리 선</b>: 띠 아래에서 닿는 기둥마다 짧은 세로선(2pt, 띠와 같은 색). 다른 띠를 지나야 하는 선은 그 띠보다 뒤로 보낸다.</li>
+      <li><b>전략 머리·과제</b>: 기둥 윗부분에 연한 남색 직사각형(전략), 그 아래 과제 2줄을 표(2행×2열, 테두리는 행 사이 가로선만)로 넣는다. 수량은 오른쪽 열 22pt.</li>
+      <li><b>[애니메이션] 나타내기 → 밝기 변화</b>: 비전 띠(클릭할 때) → 목표 1(이전 효과 다음, 지연 0.15초) → 목표 2(0.15초) → 기둥·전략 3개 묶음(이전 효과와 함께) → 과제(이전 효과 다음, 0.2초). 각 0.4초.</li>
+    </ol>
+  </section>
+
+  <!-- 5) 스펙 -->
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목) · IBM Plex Sans KR 400/700(본문) · IBM Plex Mono 500/600(번호·수치) / 대체: 프리텐다드·맑은 고딕·Consolas</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(띠 끝을 기둥 끝에 맞추는 정렬이 관건)</div>
+      <div><b>질감 · 모션</b>평면(기둥에 아주 옅은 그림자) · 위→아래 순차 등장 1.4초 한 번</div>
+      <div><b>트렌드</b>모듈형 격자: 카드·칸으로 단계와 모듈을 묶어 보여 주기 — <a href="https://www.chatslide.ai/articles/presentation-design-trends-2026" target="_blank" rel="noopener">ChatSlide, Presentation Design Trends 2026</a>. 여기서는 칸의 가로 범위 자체가 관계를 말하게 했다.</div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== 장표 스크립트 (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<script id="vs54-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅱ', sectionName: '목표 및 지표',
+    plan: '2027 ○○교육청 늘봄학교 운영 기본계획',
+    // [ ]로 감싼 단어 하나만 강조색
+    title: '세 전략이 두 목표를 나눠 받치고, [지역 연계]는 양쪽을 함께 받친다',
+    vision: '모든 아이가 저녁까지 안심하고 자라는 ○○ 늘봄', visionYears: '2027 — 2029',
+    // span: [시작 열, 끝 열] (0부터) — 이 목표를 받치는 전략 열 범위
+    goals: [
+      { id:'목표 1', name:'누구나 누리는 늘봄', kpi:'희망 학생 수용률', now:'88%', target:'100%', span:[0,1] },
+      { id:'목표 2', name:'믿고 맡기는 늘봄',   kpi:'학부모 만족도(5점)', now:'3.9점', target:'4.3점', span:[1,2] }
+    ],
+    strategies: [
+      { name:'공간·인력 기반 확충', tasks:[
+        { name:'늘봄 전용교실 확보', note:'유휴교실 전환·리모델링', q:'120', unit:'실' },
+        { name:'늘봄 실무인력 배치', note:'초등학교 85교, 학교당 1명', q:'85', unit:'명' } ] },
+      { name:'지역 연계 확대', tasks:[
+        { name:'지역기관 연계 프로그램', note:'도서관·체육센터·대학 협약', q:'40', unit:'개' },
+        { name:'거점형 늘봄센터 개소', note:'권역별, 저녁 8시까지 운영', q:'4', unit:'곳' } ] },
+      { name:'프로그램 질 관리', tasks:[
+        { name:'강사 인력풀·사전 심의', note:'분기별 프로그램 심의위원회', q:'600', unit:'명' },
+        { name:'만족도 조사·환류', note:'6월·12월 학기말 조사 반영', q:'2', unit:'회/년' } ] }
+    ],
+    source: '가상 예시 · 출처: ○○교육청 늘봄지원과 내부 자료(가상)', page: '4'
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var X0 = 236, X1 = 1520, GAP = 24;                 // 본문 오른쪽 영역
+  var n = DATA.strategies.length;
+  var CW = (X1 - X0 - GAP * (n - 1)) / n;             // 기둥 폭
+  var colX = function(i){ return X0 + i * (CW + GAP); };
+  var VIS = [232, 68], LANE_TOP = 314, BOTTOM = 812;
+  var GOAL_TOP = 322, GOAL_H = 60, GOAL_GAP = 14;
+  var gBottom = GOAL_TOP + DATA.goals.length * (GOAL_H + GOAL_GAP) - GOAL_GAP;
+  var STR_TOP = gBottom + 30, STR_H = 64;
+  var TASK_TOP = STR_TOP + STR_H;
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + (h != null ? ';height:' + u(h) : ''); };
+  var el = function(cls, style, html, d){ return '<div class="vs54-a ' + cls + '" style="' + style + (d != null ? ';--d:' + d : '') + '"' + (d != null ? ' data-d' : '') + '>' + html + '</div>'; };
+
+  function render(root){
+    var h = '';
+    // 머리말 띠
+    h += '<div class="vs54-a vs54-hd"><div class="vs54-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="vs54-plan">' + esc(DATA.plan) + '</div></div>';
+    // 제목(결론 한 문장)
+    h += '<div class="vs54-a vs54-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>';
+    // 왼쪽 층 머리말 + 세로 축
+    var rows = [['1','비전',VIS[0]+VIS[1]/2],['2','목표',(GOAL_TOP+gBottom)/2],['3','추진전략',STR_TOP+STR_H/2+6],['4','추진과제',(TASK_TOP+BOTTOM)/2]];
+    h += el('vs54-spine', box(214, VIS[0], 1.5, BOTTOM - VIS[0]), '');
+    rows.forEach(function(r){
+      h += '<div class="vs54-a vs54-rail" style="top:' + u(r[2]) + '"><span>0' + r[0] + '</span><b>' + r[1] + '</b></div>';
+      h += el('vs54-tick', 'top:' + u(r[2]), '');
+    });
+    // 1 비전 띠
+    h += el('vs54-vis', box(X0, VIS[0], X1 - X0, VIS[1]), '<b>' + esc(DATA.vision) + '</b><span>' + esc(DATA.visionYears) + '</span>', 0);
+    // 3 기둥(전략 열) — 목표 띠보다 먼저 깔아 띠가 그 위에 걸치게
+    DATA.strategies.forEach(function(s, i){
+      h += el('vs54-lane', box(colX(i), LANE_TOP, CW, BOTTOM - LANE_TOP), '', 460);
+    });
+    // 기둥 다리: 각 목표 띠 아래 → 받치는 기둥의 전략 머리까지(뒤 띠에 가려지는 구간은 띠 뒤로 지나감)
+    DATA.goals.forEach(function(g, gi){
+      var top = GOAL_TOP + gi * (GOAL_H + GOAL_GAP) + GOAL_H;
+      for (var c = g.span[0]; c <= g.span[1]; c++){
+        var x = colX(c) + CW / 2 + (gi - (DATA.goals.length - 1) / 2) * 120;
+        h += el('vs54-leg', box(x - 1, top, 2, STR_TOP - top), '', 460);
+      }
+    });
+    // 2 목표 띠(보): 가로 범위 = span
+    DATA.goals.forEach(function(g, gi){
+      var x = colX(g.span[0]), w = colX(g.span[1]) + CW - x;
+      h += el('vs54-goal', box(x, GOAL_TOP + gi * (GOAL_H + GOAL_GAP), w, GOAL_H),
+        '<div class="vs54-gname"><i>' + esc(g.id) + '</i><b>' + esc(g.name) + '</b></div>' +
+        '<div class="vs54-kpi"><small>' + esc(g.kpi) + '</small><s>' + esc(g.now) + '</s><u>→</u><strong>' + esc(g.target) + '</strong></div>', 160 + gi * 140);
+    });
+    // 3 전략 머리 + 4 과제 줄
+    DATA.strategies.forEach(function(s, i){
+      h += el('vs54-str', box(colX(i), STR_TOP, CW, STR_H), '<i>전략 ' + (i + 1) + '</i><b>' + esc(s.name) + '</b>', 520);
+      var th = (BOTTOM - TASK_TOP) / s.tasks.length;
+      s.tasks.forEach(function(t, k){
+        h += el('vs54-task', box(colX(i), TASK_TOP + k * th, CW, th),
+          '<div><i>' + (i + 1) + '-' + (k + 1) + '</i><b>' + esc(t.name) + '</b><p>' + esc(t.note) + '</p></div>' +
+          '<div class="vs54-q"><strong>' + esc(t.q) + '</strong><small>' + esc(t.unit) + '</small></div>', 760 + k * 180);
+      });
+    });
+    // 바닥 줄
+    h += '<div class="vs54-a vs54-ft"><span>' + esc(DATA.source) + '</span><span>' + esc(DATA.page) + '</span></div>';
+    root.innerHTML = '<div class="vs54-in">' + h + '</div>';
+  }
+
+  // 순차 등장: 한 번 재생(움직임 줄이기 설정이면 최종 화면만)
+  function play(root){
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    root.classList.remove('is-play'); void root.offsetWidth; root.classList.add('is-play');
+  }
+  var root = document.getElementById('vs54');
+  if (root){ render(root); play(root); window.vs54Play = function(){ play(root); }; }
+})();
+</script>
+
+<!-- ===== 페이지 전용 스크립트(계열 미리보기·코드 칸·스펙 표) ===== -->
+<script>
+(function(){
+  var slide = document.getElementById('vs54');
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  // 계열 값: DB의 각 계열 표지 palette·fonts와 B·F 키트 값에서 가져옴
+  var FAM = {
+    N: { label:'중립(기본)', v:{'--ds-bg':'#F5F7FA','--ds-surface':'#FFFFFF','--ds-ink':'#18233D','--ds-sub':'#5B6579','--ds-line':'#D5DBE4','--ds-accent':'#D2502A','--ds-accent2':'#2E5C8F','--ds-c1':'#1B2E57','--ds-c2':'#2D4D85','--ds-c3':'#5474AB','--ds-c4':'#A8BCDA','--ds-c5':'#E1E8F2','--ds-font-title':'"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-body':'"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':'"IBM Plex Mono","SFMono-Regular",Consolas,monospace','--ds-radius':'4px','--ds-shadow':'0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)'} },
+    B: { label:'B 미니멀 스튜디오', v:{'--ds-bg':'#EEF1F4','--ds-surface':'#FAFAF8','--ds-ink':'#1F2B36','--ds-sub':'#5E6974','--ds-line':'#CDD4DB','--ds-accent':'#E2571A','--ds-accent2':'#2F5D86','--ds-c1':'#2F4252','--ds-c2':'#4F6679','--ds-c3':'#7389A0','--ds-c4':'#9DB0C1','--ds-c5':'#C6D2DC','--ds-font-title':'"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-body':'"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':'"IBM Plex Mono","SFMono-Regular",Consolas,monospace','--ds-radius':'2px','--ds-shadow':'0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)'} },
+    D: { label:'D 인쇄·종이', v:{'--ds-bg':'#FBFAF7','--ds-surface':'#FFFFFF','--ds-ink':'#1B1E24','--ds-sub':'#5A5F6B','--ds-line':'#C8CBD1','--ds-accent':'#B3342A','--ds-accent2':'#23467A','--ds-c1':'#1A2C4E','--ds-c2':'#23467A','--ds-c3':'#4F6B94','--ds-c4':'#A3B2C8','--ds-c5':'#DCE2EA','--ds-font-title':'"Noto Serif KR","Nanum Myeongjo","Batang",serif','--ds-font-body':'"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':'"Noto Serif KR","Nanum Myeongjo",Georgia,serif','--ds-radius':'0px','--ds-shadow':'none'} },
+    F: { label:'F 관측·중계', v:{'--ds-bg':'#F3F5F8','--ds-surface':'#FFFFFF','--ds-ink':'#12203A','--ds-sub':'#556178','--ds-line':'#D3DAE4','--ds-accent':'#E5483A','--ds-accent2':'#2F64AE','--ds-c1':'#1E3A66','--ds-c2':'#34598F','--ds-c3':'#5B7DB0','--ds-c4':'#8FA8CC','--ds-c5':'#C4D2E6','--ds-font-title':'"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-body':'"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':'"Saira Semi Condensed","Gothic A1","Arial Narrow","Malgun Gothic",sans-serif','--ds-radius':'3px','--ds-shadow':'0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)'} }
+  };
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === 'N') slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  document.getElementById('replay').addEventListener('click', function(){ if (window.vs54Play) window.vs54Play(); });
+
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">';
+  var css = document.getElementById('vs54-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('vs54-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n<div class="vs54" id="vs54" role="img" aria-label="비전 체계도"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th><th>중립(기본)</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ['N','B','D','F'].forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  ['--ds-radius'].forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ['N','B','D','F'].forEach(function(f){ t += '<td><code>' + FAM[f].v[k] + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>제목/본문/숫자</code></td><td>Gothic A1 / IBM Plex Sans KR / IBM Plex Mono</td><td>Gothic A1 / IBM Plex Sans KR / IBM Plex Mono</td><td>Noto Serif KR / Noto Sans KR / Noto Serif KR</td><td>Gothic A1 / Gothic A1 / Saira Semi Condensed</td></tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+
+</body></html>
