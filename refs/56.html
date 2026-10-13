@@ -1,0 +1,486 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #56 나비매듭 배경·목적</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Hahmlet:wght@600;700&family=Saira+Semi+Condensed:wght@600;700&display=swap">
+<style>
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.05}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .b{border-bottom:2px solid var(--pg-l3)}.raw .b::after{color:var(--pg-l3)}
+.raw .k{border-bottom:2px dashed var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.raw .m{border-bottom:4px double var(--pg-l2)}.raw .m::after{color:var(--pg-l2)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .kb{border-bottom:2px solid var(--pg-l3)}.key .kk{border-bottom:2px dashed var(--pg-l1)}.key .km{border-bottom:4px double var(--pg-l2)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:40px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;min-width:34px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .nk{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .nm{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:14px 0 8px}
+.grp-h:first-of-type{margin-top:0}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid rgba(0,0,0,.15);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){.two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}}
+</style>
+
+<!-- ===== 장표 CSS (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<style id="ps56-css">
+/* 배경·목적 '나비매듭' — 접두어 ps56 / 색은 --ds-* 변수로만 */
+.ps56{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps56 *{box-sizing:border-box}
+.ps56-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps56-a{position:absolute}
+/* 머리말 띠 y40~88 */
+.ps56-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps56-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps56-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps56-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+/* 제목 y112~ : 결론 한 문장, 강조 단어 하나 */
+.ps56-tt{left:calc(var(--u)*80);top:calc(var(--u)*108);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*40);line-height:1.22;letter-spacing:-.01em;color:var(--ds-ink)}
+.ps56-tt em{font-style:normal;color:var(--ds-accent)}
+.ps56-lead{left:calc(var(--u)*80);top:calc(var(--u)*168);font-size:calc(var(--u)*17);color:var(--ds-sub)}
+/* 열 머리: 왜 / 문제 정의 / 무엇을 */
+.ps56-ch{top:calc(var(--u)*218);height:calc(var(--u)*30);font-size:calc(var(--u)*14);font-weight:600;color:var(--ds-sub);letter-spacing:.04em;border-bottom:calc(var(--u)*1.5) solid var(--ds-c1);white-space:nowrap}
+.ps56-ch b{color:var(--ds-c1);font-weight:700;font-family:var(--ds-font-title);font-size:calc(var(--u)*16);margin-right:calc(var(--u)*6)}
+.ps56-chk{text-align:center;border-bottom-style:dotted}
+/* 나비매듭 쐐기(배경 → 매듭 → 목적) */
+.ps56-svg{left:0;top:0;width:100%;height:100%;overflow:visible}
+.ps56-wedge{fill:var(--ds-c5)}
+.ps56-wire{fill:none;stroke:var(--ds-c3);stroke-width:1.6}
+.ps56-dot{fill:var(--ds-c3)}
+.ps56-tip{fill:var(--ds-c2)}
+/* 카드 공통 */
+.ps56-card{border-radius:var(--ds-radius);padding:calc(var(--u)*16) calc(var(--u)*22);display:flex;flex-direction:column;gap:calc(var(--u)*8)}
+.ps56-ctop{display:flex;align-items:baseline;gap:calc(var(--u)*10)}
+.ps56-no{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);color:var(--ds-c3);min-width:calc(var(--u)*22)}
+.ps56-head{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*20);color:var(--ds-c1);line-height:1.2}
+.ps56-tag{margin-left:auto;font-family:var(--ds-font-num);font-size:calc(var(--u)*12.5);color:var(--ds-sub);letter-spacing:.04em;white-space:nowrap}
+.ps56-ln{font-size:calc(var(--u)*15);line-height:1.42;color:var(--ds-ink);padding-left:calc(var(--u)*32)}
+.ps56-ln + .ps56-ln{border-top:calc(var(--u)*1) solid var(--ds-line);padding-top:calc(var(--u)*7)}
+.ps56-ln i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c1)}
+/* 배경 카드: 흰 면 + 옅은 테두리(옅은 단계) */
+.ps56-why{background:var(--ds-surface);border:calc(var(--u)*1.5) solid var(--ds-c4)}
+/* 목적 카드: 흰 면 + 진한 테두리 + 옅은 그림자(한 단계 위) */
+.ps56-what{background:var(--ds-surface);border:calc(var(--u)*2) solid var(--ds-c2);box-shadow:var(--ds-shadow)}
+.ps56-what .ps56-no{color:var(--ds-c2)}
+.ps56-what .ps56-head{font-size:calc(var(--u)*21)}
+/* 문제 정의 매듭: 가장 진한 단계, 덱 전체에서 한 문장 */
+.ps56-knot{background:var(--ds-c1);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:calc(var(--u)*24) calc(var(--u)*24);display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*14);color:var(--ds-surface)}
+.ps56-knot span{font-family:var(--ds-font-num);font-size:calc(var(--u)*13);font-weight:600;letter-spacing:.04em;color:var(--ds-c4)}
+.ps56-knot p{margin:0;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*25);line-height:1.34}
+.ps56-knot p q{quotes:"‘" "’";border-bottom:calc(var(--u)*2) solid var(--ds-c3)}
+.ps56-knot small{display:block;border-top:calc(var(--u)*1) solid var(--ds-c3);padding-top:calc(var(--u)*12);font-size:calc(var(--u)*15);line-height:1.45;color:var(--ds-c5)}
+/* 같은 자(0~12시간)로 잰 막대: 배경 01과 목적 다가 같은 눈금을 쓴다 */
+.ps56-bars{display:grid;grid-template-columns:calc(var(--u)*82) calc(var(--u)*240) auto;align-items:center;row-gap:calc(var(--u)*5);column-gap:calc(var(--u)*10);padding-left:calc(var(--u)*32)}
+.ps56-bl{font-size:calc(var(--u)*13.5);color:var(--ds-sub);white-space:nowrap}
+.ps56-tr{position:relative;height:calc(var(--u)*16);border-left:calc(var(--u)*1.5) solid var(--ds-ink);background:repeating-linear-gradient(90deg,transparent 0 calc(var(--u)*39),var(--ds-line) calc(var(--u)*39) calc(var(--u)*40))}
+.ps56-bar{position:absolute;left:0;top:0;bottom:0}
+.ps56-k1{background:var(--ds-c2)}
+.ps56-k2{background:var(--ds-c4)}
+.ps56-k3{background:var(--ds-c3)}
+.ps56-v{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);color:var(--ds-c1);white-space:nowrap}
+.ps56-v small{font-size:.78em;font-weight:500;color:var(--ds-sub);margin-left:calc(var(--u)*2)}
+.ps56-sc{grid-column:2;display:flex;justify-content:space-between;font-family:var(--ds-font-num);font-size:calc(var(--u)*11);color:var(--ds-sub);margin-top:calc(var(--u)*-2)}
+/* 낱칸: 이관 업무 수(한 칸 = 1종) */
+.ps56-units{display:flex;align-items:center;gap:calc(var(--u)*5);padding-left:calc(var(--u)*32)}
+.ps56-u{width:calc(var(--u)*17);height:calc(var(--u)*17);border-radius:calc(var(--u)*2)}
+.ps56-u0{background:var(--ds-c4)}
+.ps56-u1{background:var(--ds-c2)}
+.ps56-ul{margin-left:calc(var(--u)*8);font-size:calc(var(--u)*13.5);color:var(--ds-sub);white-space:nowrap}
+.ps56-ul b{font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c1)}
+/* 현재 → 목표 숫자 줄 */
+.ps56-to{padding-left:calc(var(--u)*32);display:flex;align-items:baseline;gap:calc(var(--u)*10);font-size:calc(var(--u)*13.5);color:var(--ds-sub)}
+.ps56-to b{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*17);color:var(--ds-c1)}
+.ps56-to s{text-decoration:none;font-family:var(--ds-font-num);font-size:calc(var(--u)*15);color:var(--ds-sub)}
+/* 바닥 줄 y846~ */
+.ps56-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*840);padding-top:calc(var(--u)*10);border-top:calc(var(--u)*1) solid var(--ds-line);display:flex;justify-content:space-between;font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.ps56-ft b{font-family:var(--ds-font-num);font-weight:600;color:var(--ds-ink)}
+/* 순차 등장(PPT 나타내기 수준, 1.5초 이내 한 번): 배경 → 매듭 → 목적 */
+.ps56.is-play [data-d]{animation:ps56In .4s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d) * 1ms)}
+@keyframes ps56In{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.ps56.is-play [data-d]{animation:none}}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 56 · 실무형 요소 · 배경·목적 · 가상 예시</div>
+    <h1>나비매듭 배경·목적</h1>
+    <p class="pg-lead">추진 배경 세 묶음이 한 문장의 문제 정의로 모였다가, 그 문장에서 추진 목적 세 가지가 갈라져 나갑니다. 각 목적 카드 오른쪽 위에는 어느 배경에서 나왔는지 번호가 남아, 매듭을 거쳐도 짝이 끊기지 않습니다.</p>
+  </header>
+
+  <!-- 1) 장표 + 계열 미리보기 -->
+  <section class="stage" aria-label="장표">
+    <div class="stage-frame">
+      <div class="ps56" id="ps56" role="img" aria-label="교원 행정업무 경감 추진계획의 추진 배경 3개, 문제 정의 한 문장, 추진 목적 3개"></div>
+    </div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기">
+      <span>계열 값 바꿔 보기</span>
+      <button class="btn" type="button" id="fam-n" data-fam="N" aria-pressed="true">중립(기본)</button>
+      <button class="btn" type="button" id="fam-b" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+      <button class="btn" type="button" id="fam-e" data-fam="E" aria-pressed="false">E 자연 재질</button>
+      <button class="btn" type="button" id="fam-f" data-fam="F" aria-pressed="false">F 관측·중계</button>
+      <button class="btn btn-replay" type="button" id="replay">다시 보기</button>
+    </div>
+  </section>
+
+  <!-- 1-1) 원문 → 유목화 -->
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅰ장 줄글, 가상)</h3>
+        <p class="raw">○○교육청이 2026년 6월 실시한 교원 업무 실태조사(교원 2,140명 응답)에 따르면 <mark class="b" data-n="01">교원 1인당 행정업무 시간은 주 9.6시간으로 수업 준비 시간(주 7.2시간)보다 많았고</mark>, <mark class="b" data-n="01">응답자의 71%가 행정업무 때문에 수업 준비가 부족하다고 답했다.</mark> 국가 차원에서도 <mark class="b" data-n="02">2026년 3월 「교원 업무 경감 방안」이 발표되어 시·도교육청에 학교 행정업무 이관 이행계획 수립을 요구</mark>하고 있으며, <mark class="b" data-n="02">학생 맞춤형 지원과 디지털 수업 등 교원에게 요구되는 교육활동은 계속 늘고 있다.</mark> 그동안 교육청은 공문 감축을 추진해 <mark class="b" data-n="03">학교 접수 공문을 2024년 대비 18% 줄였으나(학교당 연 1,860건), 그중 27%는 이미 제출한 자료를 다시 요구하는 공문</mark>이었다. 또한 <mark class="b" data-n="03">교육지원청으로 이관된 업무는 3종에 그쳐</mark> <mark class="k" data-n="핵심">업무의 건수는 줄었지만 업무 자체는 여전히 학교에 남아 있다</mark>는 지적이 많다. 이에 본 계획은 <mark class="m" data-n="가">학교 행정업무를 교육지원청 학교지원센터로 옮기고(이관 업무 12종)</mark>, <mark class="m" data-n="나">같은 자료를 거듭 요구하지 않도록 공통 자료 1회 수합과 공문 사전 심사를 도입하여 학교 접수 공문을 연 1,300건 이하로 줄이며</mark>, <mark class="m" data-n="다">교원의 행정업무 시간을 주 6시간 이하로 낮춰 수업과 학생 지도에 쓸 시간을 확보</mark>하는 것을 목적으로 한다.</p>
+        <div class="key"><span><i class="kb"></i>배경 근거</span><span><i class="kk"></i>문제 정의</span><span><i class="km"></i>목적</span><span>위첨자 = 장표의 묶음 번호</span></div>
+      </div>
+      <div class="panel">
+        <h3 style="margin-top:0">묶은 방법</h3>
+        <div class="grp-h">왜 · 추진 배경</div>
+        <ul class="grp">
+          <li><span class="n">01</span><div><b>현장 실태</b><em>행정업무 주 9.6시간 vs 수업 준비 7.2시간, 71% "수업 준비 부족"</em></div></li>
+          <li><span class="n">02</span><div><b>정책 환경</b><em>국가 「교원 업무 경감 방안」(2026. 3.)의 이관 이행계획 요구, 교육활동 요구 증가</em></div></li>
+          <li><span class="n">03</span><div><b>그간 추진의 한계</b><em>공문 −18%였지만 27%가 중복 요구, 이관 업무 3종뿐</em></div></li>
+        </ul>
+        <div class="grp-h">문제 정의 (매듭)</div>
+        <ul class="grp">
+          <li><span class="n nk">핵심</span><div><b>줄어든 것은 건수, 남은 것은 업무 자체</b><em>원문의 "지적이 많다" 문장을 결론 한 줄로 끌어올림</em></div></li>
+        </ul>
+        <div class="grp-h">무엇을 · 추진 목적</div>
+        <ul class="grp">
+          <li><span class="n nm">가</span><div><b>옮긴다</b><em>이관 업무 3종 → 12종 · 근거 02·03</em></div></li>
+          <li><span class="n nm">나</span><div><b>두 번 묻지 않는다</b><em>중복 요구 27% → 0%, 학교 접수 공문 1,860 → 1,300건 · 근거 03</em></div></li>
+          <li><span class="n nm">다</span><div><b>시간을 돌려준다</b><em>행정업무 주 9.6 → 6.0시간 · 근거 01</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">묶는 기준</span><span>"~에 따르면", "~도", "그동안"으로 시작하는 구절은 배경, "이에 본 계획은" 뒤의 동사구는 목적으로 나눈다. 배경은 출처 성격(현장 조사·정책·우리 실적)으로 다시 셋으로 묶는다.</span></div>
+          <div><span class="k">배경 → 매듭</span><span>배경 셋이 공통으로 가리키는 말을 한 문장으로 쓴다. 원문에서는 "지적이 많다" 속에 묻혀 있던 문장이다. 이 문장이 장표의 가운데 매듭이 된다.</span></div>
+          <div><span class="k">매듭 → 목적</span><span>목적은 동사 하나(옮긴다·묻지 않는다·돌려준다)로 머리말을 달고, 원문의 목표 수치를 현재값과 함께 적는다.</span></div>
+          <div><span class="k">목적 ↔ 배경</span><span>목적마다 그 목적을 정당화하는 배경 번호를 붙인다(근거 02·03). 근거 번호가 없는 목적이 생기면 배경 쪽이 비어 있다는 뜻이다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) 구조 설명 -->
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>왼쪽 세 칸은 "왜"(추진 배경), 오른쪽 세 칸은 "무엇을"(추진 목적)이고, 가운데에 둘을 잇는 문제 정의 한 문장이 있다. 왼쪽 쐐기는 세 배경이 하나로 모이는 모양, 오른쪽 쐐기는 그 문장에서 목적이 갈라지는 모양이어서 장표 전체가 나비매듭 모양이 된다. 색은 남색 한 색의 농담으로 배경(옅은 테두리) → 목적(진한 테두리·옅은 그림자) → 매듭(가장 진한 면) 순으로 위계를 준다.</p>
+    <p><b>가져갈 장치 1: 문제 정의 매듭.</b> 흔한 배경·목적 장표는 왼쪽 목록과 오른쪽 목록을 화살표 하나로 잇고 끝난다. 여기서는 배경이 결국 무엇을 말하는지를 가운데 한 문장으로 먼저 정의해, 발표자가 "그래서 문제는 이것이다"를 말하고 목적으로 넘어가게 한다. 목적 카드 오른쪽 위의 근거 번호가 매듭을 거친 뒤에도 배경과 목적의 짝을 남긴다.</p>
+    <p><b>가져갈 장치 2: 같은 자로 다시 재기.</b> 배경 01의 행정업무 막대(9.6시간)와 목적 다의 막대가 같은 0~12시간 눈금, 같은 길이 단위를 쓴다. 왼쪽에서 본 9.6시간 막대를 오른쪽에서 6.0시간까지 줄이는 그림이 되어, 목적의 크기를 배경과 같은 단위로 읽게 된다. 이관 업무는 한 칸 = 1종 낱칸으로 기존 3칸과 신규 9칸을 나눠 칠했다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>학교 공간 재구조화: 배경(노후 교실 비율 · 학생 수 감소로 생긴 유휴 교실 · 국가 사업 공모) → 매듭 "교실은 남는데 쓸 공간은 없다" → 목적(유휴 교실 전환 · 학생 참여 설계 · 지역 개방)</li>
+      <li>학생 맞춤 통합지원: 배경(위기 학생 사례 증가 · 지원 사업이 부서별로 흩어짐 · 법 시행) → 매듭 "학생 한 명에게 창구가 다섯 개" → 목적(통합 창구 · 사례 관리 · 지역 기관 연계)</li>
+      <li>디지털 교육 기반: 배경(기기 보급률 · 교원 활용 역량 조사 · 망 속도 민원) → 매듭 "기기는 있는데 수업에 안 쓰인다" → 목적(연수 · 망 개선 · 수업 사례 공유)</li>
+    </ul>
+  </section>
+
+  <!-- 3) HTML로 가져다 쓰기 -->
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. 배경·목적은 각각 3개 기준(2~4개까지 높이가 자동으로 맞춰짐), 목적의 <code>refs</code>가 근거 번호입니다. 그림 칸은 <code>bars</code>(막대, <code>max</code>까지 0 시작 선형), <code>units</code>(낱칸), <code>to</code>(현재 → 목표 숫자) 중 하나를 고릅니다.</li>
+      <li>계열 분위기는 <code>.ps56{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값).</li>
+      <li>제목의 <code>[ ]</code> 안 단어 하나만 강조색이 되고, 매듭 문장의 <code>‘ ’</code> 안 말에는 밑줄이 들어갑니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <!-- 4) PPT로 옮기기 -->
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>뼈대</b>: 슬라이드 33.867×19.05cm 기준(1cm ≈ 47px). 머리말 띠는 위 0.85~1.85cm에 텍스트 상자 2개(왼쪽 "Ⅰ. 추진 배경 및 목적" 14pt 굵게, 오른쪽 계획안 이름 10pt) + 아래 0.75pt 선. 제목 2.3cm 위치 28pt 굵게, "학교 밖으로"만 강조색. 바닥 줄 17.8cm 위치 9pt.</li>
+      <li><b>세 칸 자리</b>: 배경 카드 x 1.7~11.85cm, 매듭 x 13.95~19.9cm, 목적 카드 x 22.0~32.2cm. 열 머리 텍스트 상자 3개를 4.6cm 위치에, 아래 1pt 진한 남색 선(가운데만 점선).</li>
+      <li><b>카드</b>: 배경 = 직사각형 10.15×3.65cm, 흰 채우기, 연한 남색 윤곽 1pt. 3개를 [맞춤 → 세로 간격 동일하게]로 0.3cm 간격. 목적 = 같은 크기, 중간 남색 윤곽 1.5pt + [그림자 → 바깥쪽 아래, 흐리게 10pt, 투명도 80%]. 매듭 = 직사각형 5.95×6.4cm, 가장 진한 남색, 흰 글자 18pt 굵게, 세로 가운데 맞춤.</li>
+      <li><b>쐐기</b>: [도형 → 사다리꼴]을 90° 돌려 배경 카드 오른쪽 끝(11.85cm)과 매듭 왼쪽(13.95cm) 사이에 끼우고, 긴 변 = 배경 세 칸 전체 높이, 짧은 변 = 매듭 높이. 채우기 가장 옅은 남색, 윤곽 없음, [맨 뒤로 보내기]. 오른쪽도 좌우 대칭으로 복제. 그 위에 [선 → 곡선 연결선] 3개씩으로 카드 가운데와 매듭을 잇는다.</li>
+      <li><b>막대 · 낱칸</b>: 막대는 차트 대신 직사각형(높이 0.34cm). 길이 = 값 ÷ 12 × 5.1cm(9.6시간 = 4.08cm, 7.2시간 = 3.06cm, 6.0시간 = 2.55cm). 배경 01과 목적 다의 막대 시작선을 같은 길이 단위로 맞추는 것이 핵심. 낱칸은 0.36cm 정사각형 12개, 간격 0.1cm, 앞 3개 옅은 남색 · 뒤 9개 중간 남색.</li>
+      <li><b>[애니메이션] 나타내기 → 밝기 변화</b>(각 0.4초): 배경 카드 3개(클릭할 때, 0.12초씩 지연) → 쐐기·매듭(이전 효과 다음) → 목적 카드 3개(이전 효과 다음, 0.12초씩 지연). 전체 1.5초 안쪽.</li>
+    </ol>
+  </section>
+
+  <!-- 5) 스펙 -->
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목·머리말·매듭) · IBM Plex Sans KR 400/600(본문) · IBM Plex Mono 500/600(번호·수치) / 대체: 프리텐다드·맑은 고딕·Consolas</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(사다리꼴 쐐기와 곡선 연결선, 막대 길이 계산)</div>
+      <div><b>질감 · 모션</b>평면(목적 카드·매듭에만 옅은 그림자) · 묶음 단위 순차 등장 1.35초 한 번</div>
+      <div><b>모듈 · 위치</b>카드 묶음 + 막대 · Ⅰ 추진 배경(현황)</div>
+      <div><b>트렌드</b>목적 우선(purpose-first) 구성: 장표마다 한 줄 논지(one-line thesis)를 먼저 세우고 내용을 그 논지에 맞춤 — <a href="https://www.chatslide.ai/articles/industry-specific-presentation-design-trends-2026" target="_blank" rel="noopener">ChatSlide, Industry-Specific Presentation Design Trends 2026</a>. 여기서는 그 한 줄을 배경과 목적 사이 매듭에 두었다.</div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== 장표 스크립트 (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<script id="ps56-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅰ', sectionName: '추진 배경 및 목적',
+    plan: '2027 ○○교육청 교원 행정업무 경감 추진계획',
+    title: '공문은 줄었지만 업무는 학교에 남아, 업무를 [학교 밖으로] 옮깁니다',
+    lead: '교원 업무 실태조사와 정책 환경에서 문제를 한 문장으로 정의하고, 그 문장에서 추진 목적 세 가지를 끌어냈습니다',
+    heads: { why: '왜', whySub: '추진 배경', knot: '문제 정의', what: '무엇을', whatSub: '추진 목적 · 2027년 목표' },
+    // 추진 배경: 그림 칸(bars)은 선택
+    why: [
+      { no: '01', head: '현장 실태', tag: '실태조사 2026. 6.',
+        bars: { max: 12, unit: '시간', ticks: [0, 12], rows: [ ['행정업무', 9.6, 2], ['수업 준비', 7.2, 3] ] },
+        lines: ['응답 교원의 {71%}가 "행정업무 때문에 수업 준비가 부족하다"'] },
+      { no: '02', head: '정책 환경', tag: '2026. 3. ~',
+        lines: ['국가 「교원 업무 경감 방안」 발표, 시·도에 학교 업무 {이관 이행계획} 요구',
+                '학생 맞춤 지원·디지털 수업 등 교원의 교육활동 요구는 계속 늘어남'] },
+      { no: '03', head: '그간 추진의 한계', tag: '2024 ~ 2026',
+        lines: ['학교 접수 공문 {−18%}(연 {1,860건}), 그중 {27%}는 이미 낸 자료를 다시 요구',
+                '교육지원청으로 이관한 업무는 {3종}뿐'] }
+    ],
+    // 문제 정의 한 문장(‘ ’ 안은 밑줄)
+    knot: { label: '문제 정의', text: '줄어든 것은 공문의 ‘건수’, 학교에 남은 것은 업무 ‘자체’', note: '그래서 목적은 덜어 내기보다 옮기기입니다' },
+    // 추진 목적: refs = 근거가 되는 배경 번호
+    what: [
+      { no: '가', head: '학교 업무를 지원청으로 옮긴다', refs: ['02', '03'],
+        lines: ['교육지원청 학교지원센터가 맡는 업무'],
+        units: { now: 3, goal: 12, nowLabel: '기존', newLabel: '신규', unit: '종' } },
+      { no: '나', head: '같은 자료를 두 번 묻지 않는다', refs: ['03'],
+        lines: ['공통 자료 1회 수합, 공문 사전 심사'],
+        to: [ ['중복 요구 공문', '27%', '0%'], ['학교 접수 공문(연)', '1,860건', '1,300건'] ] },
+      { no: '다', head: '수업 준비 시간을 돌려준다', refs: ['01'],
+        bars: { max: 12, unit: '시간', ticks: [0, 12], rows: [ ['현재', 9.6, 2], ['목표', 6.0, 1] ], label: '행정업무(주)' } }
+    ],
+    source: '가상 예시 · 출처: ○○교육청 교원 업무 실태조사(2026. 6., 교원 2,140명 응답), 공문 처리 현황',
+    page: 3
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var X = { why: 80, whyW: 480, knot: 664, knotW: 272, what: 1040, whatW: 480 };
+  var TOP = 262, BOTTOM = 806, GAP = 14;
+  var KNOT_H = 312;   // 매듭 높이(가운데 정렬)
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + (h != null ? ';height:' + u(h) : ''); };
+  var el = function(cls, style, html, d){ return '<div class="ps56-a ' + cls + '" style="' + style + (d != null ? ';--d:' + d : '') + '"' + (d != null ? ' data-d' : '') + '>' + html + '</div>'; };
+  // 설명 속 { } 안 수치는 숫자 글꼴로 강조
+  var fig = function(s){ return esc(s).replace(/\{(.+?)\}/g, '<i>$1</i>'); };
+  var fmt = function(v){ return (Math.round(v * 10) / 10).toFixed(1); };
+
+  // 막대: 길이 = 값 ÷ max × 트랙 240(선형, 0 시작). 눈금 간격 40 = 2시간
+  // 색 번호: 1 진함(목표) · 2 옅음(현재 행정업무, 양쪽 같은 색) · 3 중간(비교 대상)
+  function bars(b){
+    var g = '<div class="ps56-bars">';
+    b.rows.forEach(function(r){
+      g += '<span class="ps56-bl">' + esc(r[0]) + '</span>' +
+           '<span class="ps56-tr"><span class="ps56-bar ps56-k' + r[2] + '" style="width:' + (r[1] / b.max * 100) + '%"></span></span>' +
+           '<span class="ps56-v">' + fmt(r[1]) + '<small>' + esc(b.unit) + '</small></span>';
+    });
+    g += '<span class="ps56-sc"><span>0</span><span>' + b.max + esc(b.unit) + '</span></span></div>';
+    return g;
+  }
+  // 낱칸: 한 칸 = 1. 기존(옅게) + 신규(진하게) = 목표
+  function units(m){
+    var g = '<div class="ps56-units">';
+    for (var i = 0; i < m.goal; i++) g += '<span class="ps56-u ' + (i < m.now ? 'ps56-u0' : 'ps56-u1') + '"></span>';
+    g += '<span class="ps56-ul">' + esc(m.nowLabel) + ' <b>' + m.now + '</b> + ' + esc(m.newLabel) + ' <b>' + (m.goal - m.now) + '</b> = <b>' + m.goal + esc(m.unit) + '</b></span></div>';
+    return g;
+  }
+  function tos(list){
+    return list.map(function(t){ return '<div class="ps56-to"><span>' + esc(t[0]) + '</span><s>' + esc(t[1]) + '</s><span>→</span><b>' + esc(t[2]) + '</b></div>'; }).join('');
+  }
+
+  function render(root){
+    var h = '';
+    var nW = DATA.why.length, nM = DATA.what.length;
+    var rhW = (BOTTOM - TOP - GAP * (nW - 1)) / nW, rhM = (BOTTOM - TOP - GAP * (nM - 1)) / nM;
+    var kTop = (TOP + BOTTOM) / 2 - KNOT_H / 2, kBot = kTop + KNOT_H;
+    // 머리말 띠
+    h += '<div class="ps56-a ps56-hd"><div class="ps56-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps56-plan">' + esc(DATA.plan) + '</div></div>';
+    // 제목(결론 한 문장) + 한 줄 안내
+    h += '<div class="ps56-a ps56-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>';
+    h += '<div class="ps56-a ps56-lead">' + esc(DATA.lead) + '</div>';
+    // 열 머리
+    var H = DATA.heads;
+    h += el('ps56-ch', box(X.why, 218, X.whyW), '<b>' + esc(H.why) + '</b>' + esc(H.whySub));
+    h += el('ps56-ch ps56-chk', box(X.knot, 218, X.knotW), '<b>' + esc(H.knot) + '</b>');
+    h += el('ps56-ch', box(X.what, 218, X.whatW), '<b>' + esc(H.what) + '</b>' + esc(H.whatSub));
+
+    // 쐐기 + 연결선(SVG, 1600×900 좌표)
+    var wx1 = X.why + X.whyW, kx1 = X.knot, kx2 = X.knot + X.knotW, mx = X.what;
+    var s = '<svg class="ps56-a ps56-svg" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">';
+    s += '<polygon class="ps56-wedge" points="' + [wx1, TOP, kx1, kTop, kx1, kBot, wx1, BOTTOM].join(' ') + '"/>';
+    s += '<polygon class="ps56-wedge" points="' + [kx2, kTop, mx, TOP, mx, BOTTOM, kx2, kBot].join(' ') + '"/>';
+    var kp = function(i, n){ return kTop + 56 + (KNOT_H - 112) * (n === 1 ? .5 : i / (n - 1)); };
+    var cx1 = (wx1 + kx1) / 2, cx2 = (kx2 + mx) / 2;
+    DATA.why.forEach(function(r, i){
+      var y = TOP + i * (rhW + GAP) + rhW / 2, ky = kp(i, nW);
+      s += '<path class="ps56-wire" d="M' + wx1 + ' ' + y + ' C' + cx1 + ' ' + y + ' ' + cx1 + ' ' + ky + ' ' + kx1 + ' ' + ky + '"/>';
+      s += '<circle class="ps56-dot" cx="' + wx1 + '" cy="' + y + '" r="3.5"/>';
+    });
+    DATA.what.forEach(function(r, i){
+      var y = TOP + i * (rhM + GAP) + rhM / 2, ky = kp(i, nM);
+      s += '<path class="ps56-wire" d="M' + kx2 + ' ' + ky + ' C' + cx2 + ' ' + ky + ' ' + cx2 + ' ' + y + ' ' + (mx - 8) + ' ' + y + '"/>';
+      s += '<polygon class="ps56-tip" points="' + [mx - 10, y - 6, mx, y, mx - 10, y + 6].join(' ') + '"/>';
+    });
+    s += '</svg>';
+    h += '<div data-d style="--d:380">' + s + '</div>';
+
+    // 추진 배경 카드
+    DATA.why.forEach(function(r, i){
+      var y = TOP + i * (rhW + GAP), c = '';
+      c += '<div class="ps56-ctop"><span class="ps56-no">' + esc(r.no) + '</span><span class="ps56-head">' + esc(r.head) + '</span><span class="ps56-tag">' + esc(r.tag) + '</span></div>';
+      if (r.bars) c += bars(r.bars);
+      (r.lines || []).forEach(function(l){ c += '<div class="ps56-ln">' + fig(l) + '</div>'; });
+      h += el('ps56-card ps56-why', box(X.why, y, X.whyW, rhW), c, i * 120);
+    });
+    // 문제 정의 매듭
+    var kt = esc(DATA.knot.text).replace(/‘(.+?)’/g, '<q>$1</q>');
+    h += el('ps56-knot', box(X.knot, kTop, X.knotW, KNOT_H), '<span>' + esc(DATA.knot.label) + '</span><p>' + kt + '</p><small>' + esc(DATA.knot.note) + '</small>', 420);
+    // 추진 목적 카드
+    DATA.what.forEach(function(r, i){
+      var y = TOP + i * (rhM + GAP), c = '';
+      c += '<div class="ps56-ctop"><span class="ps56-no">' + esc(r.no) + '</span><span class="ps56-head">' + esc(r.head) + '</span><span class="ps56-tag">근거 ' + r.refs.map(esc).join('·') + '</span></div>';
+      (r.lines || []).forEach(function(l){ c += '<div class="ps56-ln" style="color:var(--ds-sub)">' + fig(l) + '</div>'; });
+      if (r.bars){ c += (r.bars.label ? '<div class="ps56-ln" style="color:var(--ds-sub)">' + esc(r.bars.label) + ', 배경 01과 같은 눈금</div>' : '') + bars(r.bars); }
+      if (r.units) c += units(r.units);
+      if (r.to) c += tos(r.to);
+      h += el('ps56-card ps56-what', box(X.what, y, X.whatW, rhM), c, 700 + i * 120);
+    });
+    // 바닥 줄
+    h += '<div class="ps56-a ps56-ft"><span>' + esc(DATA.source) + '</span><b>' + esc(DATA.page) + '</b></div>';
+    root.innerHTML = '<div class="ps56-in">' + h + '</div>';
+  }
+  function play(root){ root.classList.remove('is-play'); void root.offsetWidth; root.classList.add('is-play'); }
+
+  var root = document.getElementById('ps56');
+  if (root){ render(root); play(root); window.ps56Play = function(){ play(root); }; }
+})();
+</script>
+
+<script>
+(function(){
+  var slide = document.getElementById('ps56');
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  // 계열 값: DB의 각 계열 표지 palette·fonts(E: #16·#17, B: #19·#26·#28·#37 + 키트 #46, F: #20·#25·#31 + 키트 #52)에서 가져옴
+  var SANS = '"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+  var GOTH = '"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+  var MONO = '"IBM Plex Mono","SFMono-Regular",Consolas,monospace';
+  var FAM = {
+    N: { v:{'--ds-bg':'#F5F7FA','--ds-surface':'#FFFFFF','--ds-ink':'#18233D','--ds-sub':'#5B6579','--ds-line':'#D5DBE4','--ds-accent':'#D2502A','--ds-accent2':'#2E5C8F','--ds-c1':'#1B2E57','--ds-c2':'#2D4D85','--ds-c3':'#5474AB','--ds-c4':'#A8BCDA','--ds-c5':'#E1E8F2','--ds-font-title':GOTH,'--ds-font-body':SANS,'--ds-font-num':MONO,'--ds-radius':'4px','--ds-shadow':'0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)'} },
+    B: { v:{'--ds-bg':'#EEF1F4','--ds-surface':'#FAFAF8','--ds-ink':'#1F2B36','--ds-sub':'#5E6974','--ds-line':'#CDD4DB','--ds-accent':'#E2571A','--ds-accent2':'#2F5D86','--ds-c1':'#2F4252','--ds-c2':'#4F6679','--ds-c3':'#7389A0','--ds-c4':'#9DB0C1','--ds-c5':'#DCE3E9','--ds-font-title':GOTH,'--ds-font-body':SANS,'--ds-font-num':MONO,'--ds-radius':'2px','--ds-shadow':'0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)'} },
+    E: { v:{'--ds-bg':'#F1F2EC','--ds-surface':'#FBFAF5','--ds-ink':'#24301F','--ds-sub':'#596150','--ds-line':'#D4D8CA','--ds-accent':'#B0601F','--ds-accent2':'#2C8780','--ds-c1':'#1F4F4A','--ds-c2':'#2C6E67','--ds-c3':'#4F8F86','--ds-c4':'#9CC2BA','--ds-c5':'#DCEAE4','--ds-font-title':'"Hahmlet","Nanum Myeongjo","Batang",serif','--ds-font-body':SANS,'--ds-font-num':MONO,'--ds-radius':'6px','--ds-shadow':'0 1px 2px rgba(36,48,31,.06),0 12px 26px -18px rgba(36,48,31,.30)'} },
+    F: { v:{'--ds-bg':'#F3F5F8','--ds-surface':'#FFFFFF','--ds-ink':'#12203A','--ds-sub':'#556178','--ds-line':'#D3DAE4','--ds-accent':'#E5483A','--ds-accent2':'#2F64AE','--ds-c1':'#1E3A66','--ds-c2':'#34598F','--ds-c3':'#5B7DB0','--ds-c4':'#8FA8CC','--ds-c5':'#DAE3EF','--ds-font-title':GOTH,'--ds-font-body':GOTH,'--ds-font-num':'"Saira Semi Condensed","Gothic A1","Arial Narrow","Malgun Gothic",sans-serif','--ds-radius':'3px','--ds-shadow':'0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)'} }
+  };
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === 'N') slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window.ps56Fam = apply;
+  document.getElementById('replay').addEventListener('click', function(){ if (window.ps56Play) window.ps56Play(); });
+
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">';
+  var css = document.getElementById('ps56-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps56-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n<div class="ps56" id="ps56" role="img" aria-label="추진 배경 → 문제 정의 → 추진 목적 장표"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th><th>중립(기본)</th><th>B 미니멀 스튜디오</th><th>E 자연 재질</th><th>F 관측·중계</th></tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ['N','B','E','F'].forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>';
+  ['N','B','E','F'].forEach(function(f){ t += '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; });
+  t += '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td><td>Gothic A1 / IBM Plex Sans KR / IBM Plex Mono</td><td>Gothic A1 / IBM Plex Sans KR / IBM Plex Mono</td><td>Hahmlet / IBM Plex Sans KR / IBM Plex Mono</td><td>Gothic A1 / Gothic A1 / Saira Semi Condensed</td></tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+
+</body></html>
