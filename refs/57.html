@@ -1,0 +1,490 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #57 예산 각도 동심원 체계도</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&family=Saira+Semi+Condensed:wght@600;700&display=swap">
+<style>
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.05}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .v{border-bottom:4px double var(--pg-l1)}.raw .v::after{color:var(--pg-l1)}
+.raw .g{border-bottom:2px solid var(--pg-l2)}.raw .g::after{color:var(--pg-l2)}
+.raw .s{border-bottom:2px dashed var(--pg-l3)}.raw .s::after{color:var(--pg-l3)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .kv{border-bottom:4px double var(--pg-l1)}.key .kg{border-bottom:2px solid var(--pg-l2)}.key .ks{border-bottom:2px dashed var(--pg-l3)}
+.grp{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;min-width:38px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .nv{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .ng{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:14px 0 8px}
+.grp-h:first-of-type{margin-top:0}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){.two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}}
+</style>
+
+<!-- ===== 장표 CSS (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<style id="ps57-css">
+/* 비전 체계도 '예산 각도 동심원' — 접두어 ps57 / 색은 --ds-* 변수로만 */
+.ps57{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps57 *{box-sizing:border-box}
+.ps57-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps57-a{position:absolute}
+/* 머리말 띠 y40~88 */
+.ps57-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps57-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps57-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps57-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+/* 제목 y112~ : 결론 한 문장, 강조 단어 하나 */
+.ps57-tt{left:calc(var(--u)*80);top:calc(var(--u)*108);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*40);line-height:1.22;letter-spacing:-.01em;color:var(--ds-ink)}
+.ps57-tt em{font-style:normal;color:var(--ds-accent)}
+.ps57-lead{left:calc(var(--u)*80);top:calc(var(--u)*168);font-size:calc(var(--u)*17);color:var(--ds-sub)}
+/* 동심원(SVG, 1600×900 좌표) */
+.ps57-svg{left:0;top:0;width:100%;height:100%;overflow:visible}
+.ps57-svg text{font-family:var(--ds-font-body)}
+.ps57-gap{stroke:var(--ds-bg);stroke-width:3;stroke-linejoin:round}
+.ps57-vis{fill:var(--ds-c1)}
+.ps57-gl{fill:var(--ds-c2)}
+.ps57-st{fill:var(--ds-c4)}
+.ps57-gt{fill:var(--ds-surface);font-family:var(--ds-font-title)!important;font-weight:800;font-size:18px;letter-spacing:.02em}
+.ps57-gt tspan.n{font-family:var(--ds-font-num);font-weight:600;fill:var(--ds-c5)}
+.ps57-sn{fill:var(--ds-c1);font-family:var(--ds-font-num)!important;font-weight:600;font-size:15px}
+.ps57-sv{fill:var(--ds-ink);font-family:var(--ds-font-num)!important;font-weight:500;font-size:13px}
+.ps57-ring{fill:none;stroke:var(--ds-line);stroke-width:1.5}
+.ps57-tk{stroke:var(--ds-sub);stroke-width:1}
+.ps57-tk.mj{stroke:var(--ds-ink);stroke-width:1.6}
+.ps57-tl{fill:var(--ds-sub);font-family:var(--ds-font-num)!important;font-size:13px;font-weight:500}
+.ps57-bd{stroke:var(--ds-c2);stroke-width:2}
+/* 비전 원 안 글자(HTML 겹침) */
+.ps57-vt{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:calc(var(--u)*6);color:var(--ds-surface)}
+.ps57-vt span{font-family:var(--ds-font-num);font-size:calc(var(--u)*12);font-weight:600;letter-spacing:.16em;color:var(--ds-c4)}
+.ps57-vt b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*18);line-height:1.32}
+/* 그림 모서리 설명: 읽는 법 · 층 이름 */
+.ps57-cap{font-size:calc(var(--u)*13);color:var(--ds-sub);line-height:1.45}
+.ps57-cap b{display:block;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*15);color:var(--ds-c1)}
+.ps57-lv{display:grid;grid-template-columns:calc(var(--u)*14) auto;align-items:center;column-gap:calc(var(--u)*8);row-gap:calc(var(--u)*5);font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.ps57-lv i{width:calc(var(--u)*14);height:calc(var(--u)*14);border-radius:calc(var(--u)*2)}
+.ps57-lv b{color:var(--ds-ink);font-weight:600}
+/* 오른쪽 과제표: 시계 방향 순서 = 위→아래 */
+.ps57-th{display:grid;grid-template-columns:calc(var(--u)*214) calc(var(--u)*186) calc(var(--u)*226) calc(var(--u)*150) 1fr;align-items:end;font-size:calc(var(--u)*13);font-weight:600;color:var(--ds-sub);border-bottom:calc(var(--u)*1.5) solid var(--ds-c1);padding-bottom:calc(var(--u)*6)}
+.ps57-th span{padding-left:calc(var(--u)*12)}
+.ps57-tb{display:flex;flex-direction:column;gap:calc(var(--u)*12)}
+.ps57-gp{display:grid;grid-template-columns:calc(var(--u)*214) calc(var(--u)*186) calc(var(--u)*226) calc(var(--u)*150) 1fr;grid-auto-rows:calc(var(--u)*39);border-bottom:calc(var(--u)*1) solid var(--ds-line)}
+.ps57-gc{grid-column:1;background:var(--ds-c2);color:var(--ds-surface);border-radius:var(--ds-radius);padding:calc(var(--u)*10) calc(var(--u)*14);display:flex;flex-direction:column;gap:calc(var(--u)*4);margin-right:calc(var(--u)*8)}
+.ps57-gc .h{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*18);line-height:1.2}
+.ps57-gc .h i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c5);margin-right:calc(var(--u)*6)}
+.ps57-gc .ind{font-size:calc(var(--u)*12.5);line-height:1.35;color:var(--ds-c5)}
+.ps57-gc .to{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*17)}
+.ps57-gc .to s{text-decoration:none;font-weight:500;color:var(--ds-c4)}
+.ps57-gc .sum{margin-top:auto;font-family:var(--ds-font-num);font-size:calc(var(--u)*12.5);color:var(--ds-c5);border-top:calc(var(--u)*1) solid var(--ds-c3);padding-top:calc(var(--u)*4)}
+.ps57-sc{grid-column:2;background:var(--ds-c4);border-radius:var(--ds-radius);padding:calc(var(--u)*8) calc(var(--u)*12);margin:calc(var(--u)*3) calc(var(--u)*8) calc(var(--u)*3) 0;display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*2)}
+.ps57-sc .h{font-weight:700;font-size:calc(var(--u)*15);line-height:1.25;color:var(--ds-c1)}
+.ps57-sc .h i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;margin-right:calc(var(--u)*6)}
+.ps57-sc .v{font-family:var(--ds-font-num);font-size:calc(var(--u)*13);color:var(--ds-ink)}
+.ps57-tc{grid-column:3;display:flex;align-items:center;padding-left:calc(var(--u)*4);font-size:calc(var(--u)*15);color:var(--ds-ink);border-top:calc(var(--u)*1) solid var(--ds-line)}
+.ps57-bc{grid-column:4;display:flex;align-items:center;border-top:calc(var(--u)*1) solid var(--ds-line)}
+.ps57-tr{position:relative;width:100%;height:calc(var(--u)*14);border-left:calc(var(--u)*1.5) solid var(--ds-ink);background:linear-gradient(90deg,transparent calc(50% - .5px),var(--ds-line) calc(50% - .5px) calc(50% + .5px),transparent calc(50% + .5px))}
+.ps57-bar{position:absolute;left:0;top:0;bottom:0;background:var(--ds-c3)}
+.ps57-vc{grid-column:5;display:flex;align-items:center;justify-content:flex-end;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);color:var(--ds-c1);border-top:calc(var(--u)*1) solid var(--ds-line)}
+.ps57-gp > .r1{border-top-color:transparent}
+.ps57-scale{display:grid;grid-template-columns:calc(var(--u)*626) calc(var(--u)*150) 1fr;font-family:var(--ds-font-num);font-size:calc(var(--u)*11.5);color:var(--ds-sub)}
+.ps57-scale div{grid-column:2;display:flex;justify-content:space-between}
+.ps57-scale em{grid-column:3;font-style:normal;text-align:right;white-space:nowrap;padding-left:calc(var(--u)*10)}
+/* 바닥 줄 y846~ */
+.ps57-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*840);padding-top:calc(var(--u)*10);border-top:calc(var(--u)*1) solid var(--ds-line);display:flex;justify-content:space-between;font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.ps57-ft b{font-family:var(--ds-font-num);font-weight:600;color:var(--ds-ink)}
+/* 순차 등장(PPT 나타내기 수준, 1.5초 이내 한 번): 비전 → 목표 → 전략 → 과제표 */
+.ps57.is-play [data-d]{animation:ps57In .4s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d) * 1ms)}
+@keyframes ps57In{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.ps57.is-play [data-d]{animation:none}}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 57 · 실무형 요소 · 비전 체계도 · 가상 예시</div>
+    <h1>예산 각도 동심원 체계도</h1>
+    <p class="pg-lead">비전을 가운데 두고 목표 3개, 추진전략 6개를 바깥 고리로 감쌌습니다. 부채꼴의 각도가 그 목표·전략에 드는 사업비에 비례해서, 체계도 한 장이 "무엇을 하느냐"와 "어디에 돈을 쓰느냐"를 함께 보여 줍니다. 추진과제 12개와 정확한 금액은 오른쪽 표에 시계 방향 순서대로 놓입니다.</p>
+  </header>
+
+  <!-- 1) 장표 + 계열 미리보기 -->
+  <section class="stage" aria-label="장표">
+    <div class="stage-frame">
+      <div class="ps57" id="ps57" role="img" aria-label="디지털 교육 혁신 기본계획 비전 체계도: 비전 1, 목표 3, 추진전략 6, 추진과제 12와 예산 412억 원"></div>
+    </div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기">
+      <span>계열 값 바꿔 보기</span>
+      <button class="btn" type="button" id="fam-n" data-fam="N" aria-pressed="true">중립(기본)</button>
+      <button class="btn" type="button" id="fam-b" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+      <button class="btn" type="button" id="fam-d" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+      <button class="btn" type="button" id="fam-f" data-fam="F" aria-pressed="false">F 관측·중계</button>
+      <button class="btn btn-replay" type="button" id="replay">다시 보기</button>
+    </div>
+  </section>
+
+  <!-- 1-1) 원문 → 유목화 -->
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅱ장 줄글, 가상)</h3>
+        <p class="raw">○○교육청은 <mark class="v" data-n="비전">‘디지털로 여는 맞춤 배움, 모두가 성장하는 ○○교육’</mark>을 비전으로 2027년 디지털 교육 혁신을 추진한다. 먼저 학생 한 명 한 명의 배움을 맞추기 위해 <mark class="s" data-n="1-1">AI 코스웨어를 초·중학교에 지원(68억 원)하고 학습 데이터 진단 리포트를 제공(22억 원)</mark>하며, <mark class="s" data-n="1-2">디지털 기초학력 진단(18억 원)과 보정 튜터 배치(34억 원)로 기초학력을 보정</mark>한다. 이를 통해 <mark class="g" data-n="1">AI 코스웨어를 주 1회 이상 활용하는 학급을 42%에서 70%로 늘린다.</mark> 교원의 수업 역량을 높이기 위해 <mark class="s" data-n="2-1">단계별 디지털 직무연수(26억 원)와 디지털 선도교사단 운영(14억 원)</mark>을 추진하고, <mark class="s" data-n="2-2">에듀테크 지원센터(20억 원)와 수업 나눔 공동체(8억 원)로 수업을 지원</mark>하여 <mark class="g" data-n="2">디지털 직무연수 이수율을 58%에서 85%로 높인다.</mark> 아울러 모든 수업이 끊기지 않도록 <mark class="s" data-n="3-1">무선망·스위치 교체(118억 원)와 노후 기기 교체(52억 원)로 인프라를 고도화</mark>하고, <mark class="s" data-n="3-2">디지털 시민교육(12억 원)과 개인정보·보안 점검(20억 원)을 병행</mark>하여 <mark class="g" data-n="3">무선망 고도화 학교를 61%에서 100%로 넓힌다.</mark> 총사업비는 412억 원(2027년 본예산 요구액)이다.</p>
+        <div class="key"><span><i class="kv"></i>비전</span><span><i class="kg"></i>목표(성과지표)</span><span><i class="ks"></i>추진전략(과제 2개씩)</span><span>위첨자 = 장표의 번호</span></div>
+      </div>
+      <div class="panel">
+        <h3 style="margin-top:0">묶은 방법</h3>
+        <div class="grp-h">가운데 · 비전</div>
+        <ul class="grp">
+          <li><span class="n nv">비전</span><div><b>디지털로 여는 맞춤 배움, 모두가 성장하는 ○○교육</b><em>작은따옴표 안 문장을 그대로 가운데 원에</em></div></li>
+        </ul>
+        <div class="grp-h">첫째 고리 · 목표 (각도 = 목표별 사업비 합)</div>
+        <ul class="grp">
+          <li><span class="n ng">1</span><div><b>학생 맞춤 배움</b><em>AI 코스웨어 주 1회 활용 학급 42% → 70% · 142억 원(34.5%)</em></div></li>
+          <li><span class="n ng">2</span><div><b>교원 수업 역량</b><em>디지털 직무연수 이수율 58% → 85% · 68억 원(16.5%)</em></div></li>
+          <li><span class="n ng">3</span><div><b>안전한 디지털 기반</b><em>무선망 고도화 학교 61% → 100% · 202억 원(49.0%)</em></div></li>
+        </ul>
+        <div class="grp-h">둘째 고리 · 추진전략 → 표 · 추진과제</div>
+        <ul class="grp">
+          <li><span class="n">1-1</span><div><b>맞춤형 학습 도구 확산</b><em>AI 코스웨어 68 · 진단 리포트 22 = 90억 원</em></div></li>
+          <li><span class="n">1-2</span><div><b>디지털 기초학력 보정</b><em>기초학력 진단 18 · 보정 튜터 34 = 52억 원</em></div></li>
+          <li><span class="n">2-1</span><div><b>단계별 교원 연수</b><em>직무연수 26 · 선도교사단 14 = 40억 원</em></div></li>
+          <li><span class="n">2-2</span><div><b>수업 지원 체계</b><em>지원센터 20 · 나눔 공동체 8 = 28억 원</em></div></li>
+          <li><span class="n">3-1</span><div><b>인프라 고도화</b><em>무선망·스위치 118 · 노후 기기 52 = 170억 원</em></div></li>
+          <li><span class="n">3-2</span><div><b>디지털 시민성·보안</b><em>시민교육 12 · 보안 점검 20 = 32억 원</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">묶는 기준</span><span>"~하기 위해" 앞의 말은 목표 이름, "~로 늘린다/높인다/넓힌다" 문장은 그 목표의 성과지표, 금액이 붙은 명사구는 과제다. 과제는 함께 쓰인 두 개씩 전략 하나로 묶고, 묶음에 동사 대신 명사 이름을 붙인다.</span></div>
+          <div><span class="k">비전 ⊃ 목표 ⊃ 전략</span><span>포함 관계는 안에서 밖으로 감싸는 고리로. 전략 부채꼴은 반드시 자기 목표 부채꼴 바깥에만 놓인다.</span></div>
+          <div><span class="k">각도 = 예산</span><span>원문의 억 원을 모두 더해(412억 원) 한 바퀴로 삼고, 각 부채꼴 각도 = 금액 ÷ 412 × 360°. 바깥 눈금(5%마다)으로 비중을 읽는다.</span></div>
+          <div><span class="k">고리 → 표</span><span>고리는 구조와 비중만, 정확한 금액과 과제 이름은 표로 넘긴다. 표의 위→아래 순서는 고리의 12시부터 시계 방향 순서와 같다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) 구조 설명 -->
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>가장 진한 가운데 원이 비전, 그것을 감싼 첫째 고리가 목표 3개, 둘째 고리가 추진전략 6개다. 안쪽일수록 상위이고 색도 안쪽일수록 진하다(남색 한 색 농담 세 단계). 바깥 가는 원은 예산 비중 눈금이다. 오른쪽 표는 같은 위계를 왼쪽에서 오른쪽으로 펼쳐 목표 칸 → 전략 칸 → 과제 줄 → 0~120억 원 막대로 이어지고, 목표 칸과 전략 칸은 고리와 같은 농담을 쓴다.</p>
+    <p><b>가져갈 장치 1: 부채꼴 각도 = 사업비.</b> 흔한 원형 비전도는 목표를 똑같은 크기로 나눠 장식처럼 쓴다. 여기서는 각도를 금액에 비례시켜, 같은 체계도가 "목표 3이 예산의 절반"이라는 결론을 말하게 했다. 바깥 눈금 원에서 목표 3 경계가 51%에서 시작하는 것을 바로 읽을 수 있다.</p>
+    <p><b>가져갈 장치 2: 고리는 비중, 표는 정확한 값.</b> 부채꼴 각도는 정확한 비교에 약하다. 그래서 고리에는 번호와 전략 합계만 두고, 과제 12개의 금액은 표 안에서 0에서 시작하는 같은 눈금 막대로 비교하게 나눴다. 표의 줄 순서를 고리의 시계 방향 순서와 맞춰, 눈이 고리를 한 바퀴 도는 순서대로 표를 읽어 내려가게 된다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>교육복지 종합계획: 비전 → 목표(배움 · 돌봄 · 관계) → 전략, 각도 = 대상 학생 수(명). 지원 인원이 어느 목표에 몰렸는지 체계도에서 보인다.</li>
+      <li>학교폭력 예방 기본계획: 각도 = 담당 인력(명) 또는 연간 운영 시간. 예방·대응·회복 중 어디에 손이 가장 많이 가는지 보여 준다.</li>
+      <li>교육 행정 혁신 계획: 각도 = 과제 수로 두면 "과제는 많은데 예산은 적은 목표"를 표의 막대와 대조해 찾을 수 있다.</li>
+    </ul>
+  </section>
+
+  <!-- 3) HTML로 가져다 쓰기 -->
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. 목표 3개 × 전략 2개 × 과제 2개가 기준이고, 과제의 숫자(억 원)를 바꾸면 부채꼴 각도와 막대, 합계·비중이 모두 다시 계산됩니다. 막대 눈금 끝은 <code>barMax</code>입니다.</li>
+      <li>계열 분위기는 <code>.ps57{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값).</li>
+      <li>제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <!-- 4) PPT로 옮기기 -->
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>뼈대</b>: 슬라이드 33.867×19.05cm 기준(1cm ≈ 47px). 머리말 띠는 위 0.85~1.85cm에 텍스트 상자 2개(왼쪽 "Ⅱ. 비전 및 목표" 14pt 굵게, 오른쪽 계획안 이름 10pt) + 아래 0.75pt 선. 제목 2.3cm 위치 28pt 굵게, "절반"만 강조색. 바닥 줄 17.8cm 위치 9pt.</li>
+      <li><b>고리는 차트로</b>: [삽입 → 차트 → 계층 구조 → 선버스트]를 넣고, 데이터 시트 A열 = 목표, B열 = 전략, C열 = 금액(전략 합계). 차트 크기 11.9×11.9cm, 가운데를 x 8.1cm · y 11.05cm에. 계열 서식에서 목표 조각은 중간 남색, 전략 조각은 연한 남색, 조각 윤곽선은 배경색 2pt(조각 사이 틈).</li>
+      <li><b>가운데 비전</b>: 선버스트 가운데 구멍 위에 [도형 → 타원] 3.9cm 원, 가장 진한 남색, 흰 글자 13pt 굵게 4줄. 차트 위로 [맨 앞으로 가져오기].</li>
+      <li><b>눈금 원</b>: 지름 10.5cm 원(채우기 없음, 0.75pt 회색) 위에 5%마다 짧은 선을 넣는 대신, 0·25·50·75% 네 곳만 눈금선과 숫자 상자를 둔다. 목표 3 경계(51%)에는 남색 짧은 선 하나.</li>
+      <li><b>과제표</b>: [표 삽입] 5열 × 13행(머리 1 + 과제 12). 열 너비 4.55 / 3.95 / 4.8 / 3.2 / 1.0cm, 행 높이 0.83cm. 목표 칸은 4행씩, 전략 칸은 2행씩 [셀 병합]. 막대 열은 표 위에 직사각형(높이 0.3cm)을 얹되 길이 = 금액 ÷ 120 × 3.0cm(118억 = 2.95cm, 8억 = 0.2cm), 왼쪽 끝을 한 세로선에 맞춘다.</li>
+      <li><b>[애니메이션] 나타내기 → 밝기 변화</b>(각 0.4초): 비전 원(클릭할 때) → 선버스트(이전 효과 다음, [효과 옵션 → 범주별]로 목표 → 전략 순) → 표의 목표 묶음 3개(이전 효과 다음, 0.15초씩 지연). 전체 1.5초 안쪽.</li>
+    </ol>
+  </section>
+
+  <!-- 5) 스펙 -->
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목·목표 이름·비전) · IBM Plex Sans KR 400/600/700(본문·전략) · IBM Plex Mono 500/600(번호·금액·눈금) / 대체: 프리텐다드·맑은 고딕·Consolas</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(선버스트 차트 서식, 병합 표와 막대 길이 계산)</div>
+      <div><b>질감 · 모션</b>평면 · 층 단위 순차 등장 1.45초 한 번(정지 화면에 모든 값이 남음)</div>
+      <div><b>모듈 · 위치</b>방사형 + 표 · Ⅱ 비전 및 목표(목표 및 지표)</div>
+      <div><b>트렌드</b>계층 데이터를 동심원 각도로 보여 주는 선버스트 차트(2026 BI·대시보드 활용 흐름) — <a href="https://dev.to/yenosh_v_838c53a362d23a05/sunburst-charts-in-2026-transforming-hierarchical-data-into-actionable-business-insights-1e5p" target="_blank" rel="noopener">DEV Community, Sunburst Charts in 2026</a>. 각도는 정밀 비교에 약하다는 <a href="https://flourish.studio/blog/radial-charts-guide/" target="_blank" rel="noopener">Flourish 방사형 차트 안내</a>의 지적에 따라 정확한 값은 표 막대로 넘겼다.</div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== 장표 스크립트 (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<script id="ps57-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다(금액 단위 = 억 원) ──
+  var DATA = {
+    sectionNo: 'Ⅱ', sectionName: '비전 및 목표',
+    plan: '2027 ○○교육청 디지털 교육 혁신 기본계획',
+    title: '디지털 교육 412억 원의 [절반]은 배움을 받칠 기반에 먼저 씁니다',
+    lead: '비전 아래 목표 3개와 추진전략 6개를 고리로 감싸고, 부채꼴 각도를 2027년 사업비에 비례시켰습니다',
+    vision: '디지털로 여는<br>맞춤 배움,<br>모두가 성장하는<br>○○교육',
+    goals: [
+      { no: '1', ring: '맞춤 배움', name: '학생 맞춤 배움', ind: 'AI 코스웨어 주 1회 이상 활용 학급', now: '42%', goal: '70%',
+        strategies: [
+          { no: '1-1', name: '맞춤형 학습 도구 확산', tasks: [ ['AI 코스웨어 지원(초·중)', 68], ['학습 데이터 진단 리포트', 22] ] },
+          { no: '1-2', name: '디지털 기초학력 보정', tasks: [ ['디지털 기초학력 진단', 18], ['보정 튜터 배치', 34] ] } ] },
+      { no: '2', ring: '수업 역량', name: '교원 수업 역량', ind: '디지털 직무연수 이수율', now: '58%', goal: '85%',
+        strategies: [
+          { no: '2-1', name: '단계별 교원 연수', tasks: [ ['단계별 디지털 직무연수', 26], ['디지털 선도교사단 운영', 14] ] },
+          { no: '2-2', name: '수업 지원 체계', tasks: [ ['에듀테크 지원센터', 20], ['수업 나눔 공동체', 8] ] } ] },
+      { no: '3', ring: '안전한 기반', name: '안전한 디지털 기반', ind: '무선망 고도화 학교', now: '61%', goal: '100%',
+        strategies: [
+          { no: '3-1', name: '인프라 고도화', tasks: [ ['무선망·스위치 교체', 118], ['노후 기기 교체', 52] ] },
+          { no: '3-2', name: '디지털 시민성·보안', tasks: [ ['디지털 시민교육', 12], ['개인정보·보안 점검', 20] ] } ] }
+    ],
+    barMax: 120,       // 표 막대 눈금 끝(억 원), 0에서 시작하는 선형
+    markGoal: 2,       // 바깥 눈금에 시작 경계를 표시할 목표(0부터 센 순번)
+    source: '가상 예시 · 출처: ○○교육청 2027 디지털 교육 혁신 기본계획(안), 사업비는 2027년 본예산 요구액',
+    page: 5
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var CX = 384, CY = 528;                 // 고리 중심
+  var R = { vis: 94, g0: 100, g1: 170, s0: 176, s1: 236, ring: 248, lab: 268 };
+  var TX = 700, TY = 222, TW = 820;       // 오른쪽 표 자리
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + (h != null ? ';height:' + u(h) : ''); };
+  var f1 = function(v){ return (Math.round(v * 10) / 10).toFixed(1); };
+  var sum = function(a){ return a.reduce(function(s, v){ return s + v; }, 0); };
+  // 각도: 12시 = 0°, 시계 방향
+  var pt = function(r, a){ var t = a * Math.PI / 180; return [+(CX + r * Math.sin(t)).toFixed(2), +(CY - r * Math.cos(t)).toFixed(2)]; };
+  function seg(r0, r1, a0, a1){
+    var big = (a1 - a0) > 180 ? 1 : 0, p1 = pt(r1, a0), p2 = pt(r1, a1), p3 = pt(r0, a1), p4 = pt(r0, a0);
+    return 'M' + p1 + ' A' + r1 + ' ' + r1 + ' 0 ' + big + ' 1 ' + p2 + ' L' + p3 + ' A' + r0 + ' ' + r0 + ' 0 ' + big + ' 0 ' + p4 + 'Z';
+  }
+  // 고리 위 글자 길: 아래쪽 반원은 거꾸로 그려 글자가 바로 서게
+  function arcPath(r, a0, a1){
+    var m = (a0 + a1) / 2;
+    if (m > 90 && m < 270){ var p = pt(r, a1), q = pt(r, a0); return 'M' + p + ' A' + r + ' ' + r + ' 0 0 0 ' + q; }
+    var p2 = pt(r, a0), q2 = pt(r, a1); return 'M' + p2 + ' A' + r + ' ' + r + ' 0 0 1 ' + q2;
+  }
+
+  function render(root){
+    // 합계·비중 계산
+    DATA.goals.forEach(function(g){
+      g.strategies.forEach(function(s){ s.total = sum(s.tasks.map(function(t){ return t[1]; })); });
+      g.total = sum(g.strategies.map(function(s){ return s.total; }));
+    });
+    var TOTAL = sum(DATA.goals.map(function(g){ return g.total; }));
+    var deg = function(v){ return v / TOTAL * 360; };   // 선형: 각도 ∝ 금액
+
+    var h = '';
+    // 머리말 띠
+    h += '<div class="ps57-a ps57-hd"><div class="ps57-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps57-plan">' + esc(DATA.plan) + '</div></div>';
+    // 제목(결론 한 문장) + 한 줄 안내
+    h += '<div class="ps57-a ps57-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>';
+    h += '<div class="ps57-a ps57-lead">' + esc(DATA.lead) + '</div>';
+
+    // ── 동심원 SVG ──
+    var sG = '', sS = '', sR = '', defs = '', a = 0, markA = null;
+    DATA.goals.forEach(function(g, gi){
+      var a0 = a, a1 = a + deg(g.total);
+      if (gi === DATA.markGoal) markA = a0;
+      sG += '<path class="ps57-gl ps57-gap" d="' + seg(R.g0, R.g1, a0, a1) + '"/>';
+      defs += '<path id="ps57-arc' + gi + '" d="' + arcPath((R.g0 + R.g1) / 2, a0, a1) + '"/>';
+      sG += '<text class="ps57-gt" dy="6"><textPath href="#ps57-arc' + gi + '" startOffset="50%" text-anchor="middle"><tspan class="n">' + esc(g.no) + '  </tspan>' + esc(g.ring) + '</textPath></text>';
+      var b = a0;
+      g.strategies.forEach(function(s){
+        var b1 = b + deg(s.total), m = (b + b1) / 2, c = pt((R.s0 + R.s1) / 2, m);
+        sS += '<path class="ps57-st ps57-gap" d="' + seg(R.s0, R.s1, b, b1) + '"/>';
+        sS += '<text class="ps57-sn" x="' + c[0] + '" y="' + (c[1] - 3) + '" text-anchor="middle">' + esc(s.no) + '</text>';
+        sS += '<text class="ps57-sv" x="' + c[0] + '" y="' + (c[1] + 14) + '" text-anchor="middle">' + s.total + '억</text>';
+        b = b1;
+      });
+      a = a1;
+    });
+    // 바깥 눈금: 5%마다, 25%마다 길게
+    sR += '<circle class="ps57-ring" cx="' + CX + '" cy="' + CY + '" r="' + R.ring + '"/>';
+    for (var p = 0; p < 100; p += 5){
+      var mj = p % 25 === 0, q0 = pt(R.ring - (mj ? 7 : 4), p * 3.6), q1 = pt(R.ring + (mj ? 7 : 4), p * 3.6);
+      sR += '<line class="ps57-tk' + (mj ? ' mj' : '') + '" x1="' + q0[0] + '" y1="' + q0[1] + '" x2="' + q1[0] + '" y2="' + q1[1] + '"/>';
+      if (mj && !(markA != null && Math.abs(markA / 3.6 - p) < 4)){ var lp = pt(R.lab, p * 3.6); sR += '<text class="ps57-tl" x="' + lp[0] + '" y="' + (lp[1] + 4.5) + '" text-anchor="middle">' + (p === 0 ? '0%' : p + '%') + '</text>'; }
+    }
+    if (markA != null){
+      var m0 = pt(R.s1 + 2, markA), m1 = pt(R.ring + 9, markA), ml = pt(R.ring + 22, markA);
+      sR += '<line class="ps57-bd" x1="' + m0[0] + '" y1="' + m0[1] + '" x2="' + m1[0] + '" y2="' + m1[1] + '"/>';
+      sR += '<text class="ps57-tl" x="' + ml[0] + '" y="' + (ml[1] + 6) + '" text-anchor="middle" style="fill:var(--ds-c2);font-weight:600">' + Math.round(markA / 3.6) + '%</text>';
+    }
+    var svg = function(inner, d){ return '<svg class="ps57-a ps57-svg" viewBox="0 0 1600 900" aria-hidden="true" data-d style="--d:' + d + '">' + inner + '</svg>'; };
+    h += svg('<circle class="ps57-vis" cx="' + CX + '" cy="' + CY + '" r="' + R.vis + '"/>', 0);
+    h += svg('<defs>' + defs + '</defs>' + sG, 220);
+    h += svg(sS, 440);
+    h += svg(sR, 600);
+    // 비전 글자
+    h += '<div class="ps57-a ps57-vt" data-d style="--d:0;' + box(CX - 90, CY - 90, 180, 180) + '"><span>VISION</span><b>' + DATA.vision + '</b></div>';
+    // 모서리 설명: 읽는 법(왼쪽 위) · 층 이름(왼쪽 아래)
+    h += '<div class="ps57-a ps57-cap" style="' + box(80, 230, 170) + '"><b>각도 = 사업비</b>한 바퀴 = ' + TOTAL + '억 원<br>눈금 한 칸 = 5%</div>';
+    h += '<div class="ps57-a ps57-lv" style="' + box(80, 744, 140) + '">' +
+         '<i style="background:var(--ds-c1)"></i><span><b>비전</b></span>' +
+         '<i style="background:var(--ds-c2)"></i><span><b>목표</b> ' + DATA.goals.length + '</span>' +
+         '<i style="background:var(--ds-c4)"></i><span><b>추진전략</b> ' + sum(DATA.goals.map(function(g){ return g.strategies.length; })) + '</span></div>';
+
+    // ── 오른쪽 과제표 ──
+    var t = '<div class="ps57-th"><span style="padding-left:0">목표 · 성과지표</span><span>추진전략</span><span style="padding-left:calc(var(--u)*4)">추진과제</span><span style="padding-left:0">예산</span><span style="text-align:right">억 원</span></div>';
+    t += '<div class="ps57-tb" style="margin-top:calc(var(--u)*10)">';
+    DATA.goals.forEach(function(g, gi){
+      var nT = sum(g.strategies.map(function(s){ return s.tasks.length; })), row = 1, gp = '';
+      gp += '<div class="ps57-gc" style="grid-row:1 / span ' + nT + '"><div class="h"><i>' + esc(g.no) + '</i>' + esc(g.name) + '</div><div class="ind">' + esc(g.ind) + '</div><div class="to"><s>' + esc(g.now) + '</s> → ' + esc(g.goal) + '</div><div class="sum">' + g.total + '억 원 · ' + f1(g.total / TOTAL * 100) + '%</div></div>';
+      g.strategies.forEach(function(s){
+        gp += '<div class="ps57-sc" style="grid-row:' + row + ' / span ' + s.tasks.length + '"><div class="h"><i>' + esc(s.no) + '</i>' + esc(s.name) + '</div><div class="v">' + s.total + '억 원</div></div>';
+        s.tasks.forEach(function(k){
+          var r1 = row === 1 ? ' r1' : '';
+          gp += '<div class="ps57-tc' + r1 + '" style="grid-row:' + row + '">' + esc(k[0]) + '</div>';
+          gp += '<div class="ps57-bc' + r1 + '" style="grid-row:' + row + '"><span class="ps57-tr"><span class="ps57-bar" style="width:' + (k[1] / DATA.barMax * 100) + '%"></span></span></div>';
+          gp += '<div class="ps57-vc' + r1 + '" style="grid-row:' + row + '">' + k[1] + '</div>';
+          row++;
+        });
+      });
+      t += '<div class="ps57-gp" data-d style="--d:' + (760 + gi * 150) + '">' + gp + '</div>';
+    });
+    t += '</div><div class="ps57-scale" style="margin-top:calc(var(--u)*5)"><div><span>0</span><span>' + (DATA.barMax / 2) + '</span><span>' + DATA.barMax + '</span></div><em>합계 ' + TOTAL + '</em></div>';
+    h += '<div class="ps57-a" style="' + box(TX, TY, TW) + '">' + t + '</div>';
+
+    // 바닥 줄
+    h += '<div class="ps57-a ps57-ft"><span>' + esc(DATA.source) + '</span><b>' + esc(DATA.page) + '</b></div>';
+    root.innerHTML = '<div class="ps57-in">' + h + '</div>';
+  }
+  function play(root){ root.classList.remove('is-play'); void root.offsetWidth; root.classList.add('is-play'); }
+
+  var root = document.getElementById('ps57');
+  if (root){ render(root); play(root); window.ps57Play = function(){ play(root); }; }
+})();
+</script>
+
+<script>
+(function(){
+  var slide = document.getElementById('ps57');
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  // 계열 값: DB의 각 계열 표지 palette·fonts(B: #19·#26·#28·#37 + 키트 #46, D: #4·#27·#32, F: #20·#25·#31 + 키트 #52)에서 가져옴
+  var SANS = '"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+  var GOTH = '"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+  var MONO = '"IBM Plex Mono","SFMono-Regular",Consolas,monospace';
+  var FAM = {
+    N: { v:{'--ds-bg':'#F5F7FA','--ds-surface':'#FFFFFF','--ds-ink':'#18233D','--ds-sub':'#5B6579','--ds-line':'#D5DBE4','--ds-accent':'#D2502A','--ds-accent2':'#2E5C8F','--ds-c1':'#1B2E57','--ds-c2':'#2D4D85','--ds-c3':'#5474AB','--ds-c4':'#A8BCDA','--ds-c5':'#E1E8F2','--ds-font-title':GOTH,'--ds-font-body':SANS,'--ds-font-num':MONO,'--ds-radius':'4px','--ds-shadow':'0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)'} },
+    B: { v:{'--ds-bg':'#EEF1F4','--ds-surface':'#FAFAF8','--ds-ink':'#1F2B36','--ds-sub':'#5E6974','--ds-line':'#CDD4DB','--ds-accent':'#E2571A','--ds-accent2':'#2F5D86','--ds-c1':'#2F4252','--ds-c2':'#4F6679','--ds-c3':'#7389A0','--ds-c4':'#9DB0C1','--ds-c5':'#DCE3E9','--ds-font-title':GOTH,'--ds-font-body':SANS,'--ds-font-num':MONO,'--ds-radius':'2px','--ds-shadow':'0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)'} },
+    D: { v:{'--ds-bg':'#F8F6F0','--ds-surface':'#FFFEFA','--ds-ink':'#1B1E24','--ds-sub':'#5A5F6B','--ds-line':'#D9D5CA','--ds-accent':'#B8362B','--ds-accent2':'#23467A','--ds-c1':'#1A2F55','--ds-c2':'#23467A','--ds-c3':'#4C6B9B','--ds-c4':'#A9B9D2','--ds-c5':'#E0E6EF','--ds-font-title':'"Noto Serif KR","Nanum Myeongjo","Batang",serif','--ds-font-body':'"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':MONO,'--ds-radius':'0px','--ds-shadow':'none'} },
+    F: { v:{'--ds-bg':'#F3F5F8','--ds-surface':'#FFFFFF','--ds-ink':'#12203A','--ds-sub':'#556178','--ds-line':'#D3DAE4','--ds-accent':'#E5483A','--ds-accent2':'#2F64AE','--ds-c1':'#1E3A66','--ds-c2':'#34598F','--ds-c3':'#5B7DB0','--ds-c4':'#8FA8CC','--ds-c5':'#DAE3EF','--ds-font-title':GOTH,'--ds-font-body':GOTH,'--ds-font-num':'"Saira Semi Condensed","Gothic A1","Arial Narrow","Malgun Gothic",sans-serif','--ds-radius':'3px','--ds-shadow':'0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)'} }
+  };
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === 'N') slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window.ps57Fam = apply;
+  document.getElementById('replay').addEventListener('click', function(){ if (window.ps57Play) window.ps57Play(); });
+
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">';
+  var css = document.getElementById('ps57-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps57-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n<div class="ps57" id="ps57" role="img" aria-label="비전 → 목표 → 추진전략 동심원 체계도와 추진과제 예산표"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th><th>중립(기본)</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ['N','B','D','F'].forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>';
+  ['N','B','D','F'].forEach(function(f){ t += '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; });
+  t += '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td><td>Gothic A1 / IBM Plex Sans KR / IBM Plex Mono</td><td>Gothic A1 / IBM Plex Sans KR / IBM Plex Mono</td><td>Noto Serif KR / Noto Sans KR / IBM Plex Mono</td><td>Gothic A1 / Gothic A1 / Saira Semi Condensed</td></tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+
+</body></html>
