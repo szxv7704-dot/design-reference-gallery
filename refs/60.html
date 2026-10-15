@@ -1,0 +1,768 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #60 읽는 씨앗 봉투</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&family=DotGothic16&display=swap">
+<style id="sp-css">
+/* ===== 표지: 씨앗 봉투 앞·뒷면 (16:9, cqw) ===== */
+/* 별색 2도(녹색·주홍) + 잉크젯 인자 1색. 주홍 판은 녹색 판보다 오른쪽 아래로 0.1cqw 어긋남 */
+.sp-slide,.sp-ink{--sp-table:#E3E8E1;--sp-stock:#FBF8F1;--sp-green:#1D5A44;--sp-green-2:#4F7D6B;--sp-red:#E0502C;--sp-jet:#2B2F35;
+  --sp-f-title:"Hahmlet","Noto Serif KR","Batang",serif;--sp-f-body:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --sp-f-mono:"IBM Plex Mono",Consolas,"Courier New",monospace;--sp-f-jet:"DotGothic16","IBM Plex Mono",Consolas,monospace;--sp-reg:translate(.11cqw,.07cqw)}
+.sp-slide{container-type:inline-size;position:relative;width:100%;max-width:100%;aspect-ratio:16/9;overflow:hidden;isolation:isolate;
+  background:var(--sp-table);color:var(--sp-green);font-family:var(--sp-f-body)}
+.sp-slide *,.sp-ink *{box-sizing:border-box;margin:0;padding:0}
+.sp-f-green{fill:var(--sp-green)}.sp-f-red{fill:var(--sp-red)}.sp-f-stock{fill:var(--sp-stock)}
+.sp-s-green{stroke:var(--sp-green)}.sp-s-stock{stroke:var(--sp-stock)}
+.sp-mono{font-family:var(--sp-f-mono)}
+/* 탁자 위 은은한 종이 결 */
+.sp-slide::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .2  0 0 0 0 .3  0 0 0 0 .25  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* 봉투 */
+.sp-pk{position:absolute;top:4.2cqw;width:35cqw;height:47cqw}
+.sp-pk-front{left:11.6cqw;transform:rotate(-1.6deg)}
+.sp-pk-back{left:52.6cqw;top:4.7cqw;transform:rotate(1.2deg)}
+.sp-shape{position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+  filter:drop-shadow(0 .9cqw 1.1cqw rgba(30,60,45,.15)) drop-shadow(0 .12cqw .18cqw rgba(30,60,45,.22))}
+.sp-tear{position:absolute;left:.4cqw;right:.9cqw;top:2.4cqw;border-top:.1cqw dashed var(--sp-green-2)}
+.sp-tear span{position:absolute;right:1.6cqw;top:-.42cqw;background:var(--sp-stock);padding:0 .4cqw;font:500 .6cqw/1 var(--sp-f-mono);letter-spacing:.08em;color:var(--sp-green-2)}
+
+/* 앞면 */
+.sp-fr{position:absolute;left:1.9cqw;right:1.9cqw;top:3.3cqw;bottom:1.1cqw;display:flex;flex-direction:column;gap:.5cqw}
+.sp-fr-top{display:flex;justify-content:space-between;align-items:baseline;font:700 .74cqw/1.2 var(--sp-f-body);letter-spacing:.14em;
+  border-bottom:.14cqw solid var(--sp-green);padding-bottom:.45cqw}
+.sp-fr-top .sp-mono{font-weight:500;letter-spacing:.06em}
+.sp-kind{font:500 .86cqw/1.2 var(--sp-f-body);display:flex;gap:.5cqw;align-items:baseline;margin-top:.15cqw}
+.sp-kind em{font:500 .62cqw/1 var(--sp-f-mono);font-style:normal;letter-spacing:.2em;color:var(--sp-green-2);margin-left:auto}
+.sp-title{font:800 5.5cqw/1 var(--sp-f-title);letter-spacing:-.02em;color:var(--sp-green);margin-top:.1cqw}
+.sp-sub{font:700 1.42cqw/1.25 var(--sp-f-body);letter-spacing:-.01em;color:var(--sp-green)}
+.sp-plate{position:relative;height:22.4cqw;margin-top:.35cqw;border:.14cqw solid var(--sp-green);
+  box-shadow:inset 0 0 0 .3cqw var(--sp-stock),inset 0 0 0 .38cqw var(--sp-green);
+  background:radial-gradient(circle,var(--sp-red) 0 .045cqw,transparent .062cqw) 0 0/.3cqw .3cqw,var(--sp-stock)}
+.sp-plate .sp-illu{position:absolute;inset:.6cqw;width:calc(100% - 1.2cqw);height:calc(100% - 1.2cqw)}
+.sp-plate-cap{position:absolute;left:1cqw;top:.9cqw;font:600 .6cqw/1 var(--sp-f-mono);letter-spacing:.16em;background:var(--sp-stock);padding:.2cqw .35cqw}
+.sp-band{display:flex;align-items:center;gap:.9cqw;background:var(--sp-red);color:var(--sp-stock);padding:.55cqw 1.1cqw;transform:var(--sp-reg);margin-top:.15cqw}
+.sp-band span{font:700 .86cqw/1.2 var(--sp-f-body)}
+.sp-band b{font:800 2.7cqw/1 var(--sp-f-title);letter-spacing:-.02em}
+.sp-band .sp-band-r{margin-left:auto;text-align:right;font-weight:500;font-size:.78cqw;line-height:1.35}
+.sp-maker{display:flex;justify-content:space-between;font:500 .68cqw/1.2 var(--sp-f-body);color:var(--sp-green);margin-top:auto}
+
+/* 뒷면 */
+.sp-bk{position:absolute;left:2.5cqw;top:3cqw;right:1.8cqw;height:35.6cqw;display:flex;flex-direction:column;gap:.62cqw}
+.sp-bk-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:.14cqw solid var(--sp-green);padding-bottom:.4cqw}
+.sp-bk-head b{font:700 1.5cqw/1 var(--sp-f-title)}
+.sp-bk-head span{font:500 .64cqw/1 var(--sp-f-mono);letter-spacing:.12em}
+.sp-lab{display:flex;align-items:center;gap:.35cqw;font:700 .8cqw/1.2 var(--sp-f-body);margin-bottom:.28cqw}
+.sp-lab::before{content:"";width:.5cqw;height:.5cqw;background:var(--sp-red);transform:var(--sp-reg)}
+.sp-lab i{font-style:normal;font-weight:400;color:var(--sp-green-2)}
+.sp-txt{font:400 .82cqw/1.45 var(--sp-f-body)}
+.sp-txt b{font-weight:700}
+/* 작형표 */
+.sp-cal-row{display:grid;grid-template-columns:3.4cqw repeat(12,1fr);align-items:center;height:1.22cqw}
+.sp-cal-row>*{grid-row:1}
+.sp-cal-h{height:.95cqw;font:500 .6cqw/1 var(--sp-f-mono);text-align:center}
+.sp-cal-h span:first-child{text-align:left;font-family:var(--sp-f-body);font-weight:500}
+.sp-cal-l{grid-column:1;font:700 .74cqw/1 var(--sp-f-body)}
+.sp-cal-t{grid-column:2/14;height:100%;border-left:.06cqw solid var(--sp-green-2);
+  background:repeating-linear-gradient(90deg,transparent 0 calc(100%/12 - .06cqw),rgba(29,90,68,.32) calc(100%/12 - .06cqw) calc(100%/12))}
+.sp-bar{height:.84cqw;display:flex;align-items:center;padding-left:.3cqw;font:600 .6cqw/1 var(--sp-f-mono);margin:0 .08cqw}
+.sp-bar-sow{background:var(--sp-red);color:var(--sp-stock);transform:var(--sp-reg)}
+.sp-bar-grow{background:radial-gradient(circle,var(--sp-green) 0 .07cqw,transparent .085cqw) 0 0/.24cqw .24cqw;outline:.06cqw solid var(--sp-green)}
+.sp-bar-grow i{font-style:normal;background:var(--sp-stock);padding:.08cqw .25cqw}
+.sp-bar-crop{background:var(--sp-green);color:var(--sp-stock)}
+.sp-cal-row.sp-cal-h>span{grid-row:1}
+/* 재배 방법 */
+.sp-steps{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.5cqw 1.1cqw}
+.sp-steps li{display:grid;grid-template-columns:1.35cqw 1fr;column-gap:.35cqw;font:400 .76cqw/1.38 var(--sp-f-body)}
+.sp-steps .n{grid-row:1/3;font:600 1.05cqw/1.05 var(--sp-f-mono);color:var(--sp-red)}
+.sp-steps b{grid-column:2;font-weight:700;font-size:.84cqw}
+.sp-steps li>span:last-child{grid-column:2}
+/* 발아율 */
+.sp-germ{display:grid;grid-template-columns:7cqw 1fr;column-gap:1cqw;align-items:end;border-top:.08cqw solid var(--sp-green);padding-top:.55cqw}
+.sp-germ-big b{display:block;font:800 3.3cqw/.92 var(--sp-f-title);letter-spacing:-.03em}
+.sp-germ-d{font:400 .74cqw/1.4 var(--sp-f-body)}
+.sp-gbar{position:relative;height:.95cqw;margin:.45cqw 0 1.05cqw;border:.08cqw solid var(--sp-green)}
+.sp-gfill{position:absolute;left:0;top:0;bottom:0;width:58%;background:radial-gradient(circle,var(--sp-green) 0 .08cqw,transparent .095cqw) 0 0/.24cqw .24cqw}
+.sp-ggap{position:absolute;left:58%;width:17%;top:0;bottom:0;border:.1cqw dashed var(--sp-red);border-left:0;transform:var(--sp-reg)}
+.sp-gtk{position:absolute;top:calc(100% + .22cqw);font:500 .58cqw/1 var(--sp-f-mono);transform:translateX(-50%)}
+.sp-gtk.t{color:var(--sp-red);font-weight:600}
+.sp-warn{font:400 .76cqw/1.4 var(--sp-f-body);border-left:.32cqw solid var(--sp-red);padding-left:.55cqw}
+.sp-warn b{font-weight:700;margin-right:.35cqw}
+/* 바닥 날개: 내용량·사업비·잉크젯 인자 */
+.sp-flap{position:absolute;left:2.4cqw;right:2cqw;top:39.5cqw;bottom:.8cqw;display:grid;grid-template-columns:1fr 1fr 1.25fr;column-gap:1cqw;row-gap:.3cqw;align-content:start}
+.sp-fd .k{display:block;font:500 .58cqw/1.2 var(--sp-f-mono);letter-spacing:.1em;color:var(--sp-green-2)}
+.sp-fd .v{display:block;font:700 1.2cqw/1.15 var(--sp-f-title)}
+.sp-fd .s{display:block;font:400 .62cqw/1.3 var(--sp-f-body)}
+.sp-jet{display:grid;grid-template-columns:auto 1fr;column-gap:.6cqw;row-gap:.12cqw;align-items:baseline;font:500 .58cqw/1.25 var(--sp-f-mono);color:var(--sp-green-2);letter-spacing:.06em}
+.sp-jet i{font:400 .86cqw/1.25 var(--sp-f-jet);font-style:normal;color:var(--sp-jet);letter-spacing:.04em;transform:rotate(-1.1deg) translate(.5cqw,-.08cqw);opacity:.88}
+.sp-mk{grid-column:1/-1;display:flex;align-items:center;gap:.5cqw;font:500 .62cqw/1.2 var(--sp-f-body);border-top:.06cqw solid var(--sp-green-2);padding-top:.32cqw}
+.sp-patch{margin-left:auto;display:flex;gap:.2cqw;align-items:center}
+.sp-patch i{width:.55cqw;height:.55cqw;background:var(--sp-green)}
+.sp-patch i+i{background:var(--sp-red);transform:var(--sp-reg)}
+.sp-patch svg{width:.9cqw;height:.9cqw}
+
+/* 작은 화면: 망점이 모아레로 뭉개지지 않게 같은 농도의 평망으로 바꾼다 */
+@container (max-width:720px){
+  .sp-plate,.pp-plate,.pl-plate{background:color-mix(in srgb,var(--sp-red) 9%,var(--sp-stock))}
+  .sp-bar-grow,.sp-gfill{background:color-mix(in srgb,var(--sp-green) 30%,var(--sp-stock))}
+  .sp-tint{fill:color-mix(in srgb,var(--sp-green) 30%,var(--sp-stock))}
+  .sp-tint2{fill:color-mix(in srgb,var(--sp-green) 14%,var(--sp-stock))}
+}
+
+/* 바닥 줄 */
+.sp-foot{position:absolute;left:3.4cqw;right:3.4cqw;bottom:1.25cqw;display:flex;justify-content:space-between;font:500 .78cqw/1 var(--sp-f-body);color:var(--sp-green-2)}
+.sp-foot b{color:var(--sp-green);font-weight:700;margin-right:.6cqw}
+.sp-foot .sp-mono{letter-spacing:.08em}
+</style>
+<style>
+/* ===== 페이지 ===== */
+/* Layout: 표지 → 인쇄물 견본 → 메모 칸이 한 단으로 이어지는 작업 노트 */
+:root{
+  --bg:#EEF1EC; --sheet:#FFFFFF; --fg:#1C2B24; --muted:#56655D; --line:#D2DAD3;
+  --accent:#1D5A44; --hot:#C2401F; --code-bg:#17201C; --code-fg:#E3EDE6;
+  --f-disp:"Hahmlet","Noto Serif KR","Batang",serif;
+  --f-body:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --f-mono:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);line-height:1.6;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 72px}
+.cover-frame{box-shadow:0 1px 0 rgba(0,0,0,.06),0 14px 40px -20px rgba(20,40,30,.35)}
+.head{display:flex;flex-wrap:wrap;gap:6px 24px;align-items:baseline;justify-content:space-between;margin:34px 0 4px}
+h1{font:700 clamp(25px,3.2vw,36px)/1.2 var(--f-disp);margin:0;text-wrap:balance;letter-spacing:-.01em}
+.meta{font:500 13px/1.5 var(--f-mono);color:var(--muted)}
+.lede{max-width:70ch;color:var(--muted);margin:6px 0 0}
+section{margin-top:52px}
+h2{font:700 23px/1.25 var(--f-disp);margin:0 0 8px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;text-wrap:balance}
+h2 .tag{font:600 11px/1 var(--f-mono);letter-spacing:.16em;color:var(--hot);text-transform:uppercase}
+h3{font:700 16px/1.35 var(--f-body);margin:0 0 6px}
+.note{color:var(--muted);font-size:14px;max-width:72ch;margin:0 0 18px}
+a{color:var(--accent)}
+code.i{font-family:var(--f-mono);font-size:.92em;background:var(--sheet);border:1px solid var(--line);padding:0 4px}
+
+/* 인쇄물 견본 */
+.prints{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,9fr);gap:28px;align-items:start}
+.pfig{margin:0;min-width:0}
+.pfig figcaption{margin-top:12px;font-size:14px}
+.pfig figcaption ul{margin:6px 0 0;padding-left:18px;color:var(--muted)}
+.pfig figcaption li{padding:1px 0}
+.pfig figcaption b{color:var(--fg)}
+.bleed-note{margin-top:20px;font-size:13.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.bleed-note b{color:var(--fg)}
+.cropbox{position:relative;padding:14px;background:var(--sheet);border:1px solid var(--line)}
+.cropbox .cm{position:absolute;width:10px;height:10px;border-color:var(--fg);border-style:solid;border-width:0}
+.cropbox .cm.tl{left:2px;top:2px;border-right-width:1px;border-bottom-width:1px}
+.cropbox .cm.tr{right:2px;top:2px;border-left-width:1px;border-bottom-width:1px}
+.cropbox .cm.bl{left:2px;bottom:2px;border-right-width:1px;border-top-width:1px}
+.cropbox .cm.br{right:2px;bottom:2px;border-left-width:1px;border-top-width:1px}
+
+/* A4 포스터 (도련 포함 216×303mm) */
+.pp{container-type:inline-size;position:relative;width:100%;max-width:100%;aspect-ratio:216/303;background:var(--sp-stock);color:var(--sp-green);font-family:var(--sp-f-body);overflow:hidden}
+.pp-trim{position:absolute;inset:1.39cqw;border:1px dashed rgba(194,64,31,.75);pointer-events:none;z-index:3}
+.pp-top{position:absolute;left:0;right:0;top:0;height:5.4cqw;background:radial-gradient(circle,var(--sp-green) 0 .26cqw,transparent .3cqw) 0 0/1cqw 1cqw}
+.pp-top svg{position:absolute;left:0;bottom:-.05cqw;width:100%;height:2.2cqw}
+.pp-in{position:absolute;left:5.6cqw;right:5.6cqw;top:8.4cqw;bottom:5.4cqw;display:flex;flex-direction:column;gap:1.5cqw}
+.pp-tear{position:absolute;left:1.39cqw;right:1.39cqw;top:6.6cqw;border-top:.25cqw dashed var(--sp-green-2)}
+.pp-tear span{position:absolute;right:5cqw;top:-1.1cqw;background:var(--sp-stock);padding:0 1cqw;font:500 1.6cqw/1 var(--sp-f-mono);letter-spacing:.08em;color:var(--sp-green-2)}
+.pp .sp-fr-top{font-size:1.9cqw;padding-bottom:1.1cqw;border-bottom-width:.35cqw}
+.pp .sp-kind{font-size:2.1cqw;gap:1.2cqw}.pp .sp-kind em{font-size:1.5cqw}
+.pp .sp-title{font-size:16cqw}
+.pp .sp-sub{font-size:4cqw}
+.pp-plate{position:relative;height:62cqw;border:.35cqw solid var(--sp-green);box-shadow:inset 0 0 0 .8cqw var(--sp-stock),inset 0 0 0 1cqw var(--sp-green);
+  background:radial-gradient(circle,var(--sp-red) 0 .1cqw,transparent .14cqw) 0 0/.85cqw .85cqw,var(--sp-stock)}
+.pp-plate .sp-illu{position:absolute;inset:1.6cqw;width:calc(100% - 3.2cqw);height:calc(100% - 3.2cqw)}
+.pp-band{display:flex;align-items:center;gap:2.4cqw;background:var(--sp-red);color:var(--sp-stock);padding:1.8cqw 2.8cqw;transform:translate(.3cqw,.2cqw)}
+.pp-band span{font:700 2.3cqw/1.25 var(--sp-f-body)}
+.pp-band b{font:800 8cqw/1 var(--sp-f-title);letter-spacing:-.02em}
+.pp-band .r{margin-left:auto;text-align:right;font-weight:500;font-size:2.1cqw;line-height:1.4}
+.pp-cal .sp-cal-row{grid-template-columns:8.6cqw repeat(12,1fr);height:3.2cqw}
+.pp-cal .sp-cal-h{height:2.4cqw;font-size:1.5cqw}
+.pp-cal .sp-cal-l{font-size:1.9cqw}
+.pp-cal .sp-bar{height:2.2cqw;font-size:1.5cqw;padding-left:.8cqw}
+.pp-cal .sp-bar-grow{background-size:.6cqw .6cqw;background-image:radial-gradient(circle,var(--sp-green) 0 .17cqw,transparent .21cqw)}
+.pp-cal .sp-bar-grow i{padding:.2cqw .6cqw}
+.pp-cal .sp-cal-t{background:repeating-linear-gradient(90deg,transparent 0 calc(100%/12 - .15cqw),rgba(29,90,68,.32) calc(100%/12 - .15cqw) calc(100%/12))}
+.pp-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:2cqw;border-top:.2cqw solid var(--sp-green-2);padding-top:1.4cqw;font:500 1.75cqw/1.45 var(--sp-f-body)}
+.pp-foot b{font-weight:700}
+.pp-foot i{font:400 2.1cqw/1.3 var(--sp-f-jet);font-style:normal;color:var(--sp-jet);transform:rotate(-1.2deg);display:inline-block;opacity:.88;white-space:nowrap}
+
+/* 3단 리플릿 바깥면 (도련 포함 303×216mm) */
+.pl{container-type:inline-size;position:relative;width:100%;max-width:100%;aspect-ratio:303/216;background:var(--sp-stock);color:var(--sp-green);font-family:var(--sp-f-body);overflow:hidden}
+.pl-trim{position:absolute;inset:.99cqw;border:1px dashed rgba(194,64,31,.75);pointer-events:none;z-index:3}
+.pl-grid{position:absolute;inset:.99cqw;display:grid;grid-template-columns:97fr 100fr 100fr}
+.pl-p{position:relative;padding:2.2cqw 2cqw 2.6cqw;display:flex;flex-direction:column;gap:1.5cqw;min-width:0}
+.pl-p+.pl-p{border-left:1px dashed var(--sp-green-2)}
+.pl-tag{position:absolute;left:50%;bottom:.4cqw;transform:translateX(-50%);font:500 .78cqw/1 var(--sp-f-mono);letter-spacing:.06em;color:var(--hot);white-space:nowrap}
+.pl .sp-bk-head{padding-bottom:.6cqw;border-bottom-width:.18cqw}
+.pl .sp-bk-head b{font-size:2.1cqw}.pl .sp-bk-head span{font-size:.8cqw}
+.pl .sp-lab{font-size:1.15cqw;gap:.5cqw}.pl .sp-lab::before{width:.75cqw;height:.75cqw}
+.pl .sp-txt{font-size:1.15cqw}
+.pl .sp-cal-row{grid-template-columns:3.6cqw repeat(12,1fr);height:1.7cqw}
+.pl .sp-cal-h{height:1.3cqw;font-size:.82cqw}
+.pl .sp-cal-l{font-size:1cqw}
+.pl .sp-bar{height:1.15cqw;font-size:.8cqw}
+.pl .sp-steps{grid-template-columns:1fr;gap:1.4cqw}
+.pl .sp-steps li{grid-template-columns:2.2cqw 1fr;font-size:1.12cqw}
+.pl .sp-steps .n{font-size:1.5cqw}.pl .sp-steps b{font-size:1.12cqw}
+.pl-germ b{display:block;font:800 7cqw/.9 var(--sp-f-title);letter-spacing:-.03em}
+.pl .sp-gbar{height:1.4cqw;margin:.8cqw 0 1.6cqw}
+.pl .sp-gtk{font-size:.82cqw}
+.pl .sp-warn{font-size:1.05cqw;border-left-width:.45cqw}
+.pl-flap{margin-top:auto;border-top:1px solid var(--sp-green-2);padding-top:.9cqw;display:grid;grid-template-columns:1fr 1fr;gap:.6cqw 1cqw}
+.pl .sp-fd .k{font-size:.8cqw}.pl .sp-fd .v{font-size:1.7cqw}.pl .sp-fd .s{font-size:.86cqw}
+.pl .sp-jet{grid-column:1/-1;font-size:.8cqw}.pl .sp-jet i{font-size:1.2cqw}
+.pl-contact{grid-column:1/-1;font:500 .95cqw/1.45 var(--sp-f-body)}
+.pl-front{gap:.8cqw;padding-top:0}
+.pl-zig{margin:0 -2cqw;height:3.4cqw;position:relative;background:radial-gradient(circle,var(--sp-green) 0 .17cqw,transparent .2cqw) 0 0/.66cqw .66cqw}
+.pl-zig svg{position:absolute;left:0;bottom:-.04cqw;width:100%;height:1.3cqw}
+.pl .sp-fr-top{font-size:.88cqw;padding-bottom:.5cqw;border-bottom-width:.18cqw}
+.pl .sp-title{font-size:5.6cqw}
+.pl .sp-kind{font-size:1cqw}
+.pl .sp-sub{font-size:1.45cqw}
+.pl-plate{position:relative;flex:none;height:21cqw;border:.18cqw solid var(--sp-green);box-shadow:inset 0 0 0 .4cqw var(--sp-stock),inset 0 0 0 .5cqw var(--sp-green);
+  background:radial-gradient(circle,var(--sp-red) 0 .045cqw,transparent .065cqw) 0 0/.4cqw .4cqw,var(--sp-stock)}
+.pl-plate .sp-illu{position:absolute;inset:.8cqw;width:calc(100% - 1.6cqw);height:calc(100% - 1.6cqw)}
+.pl-band{margin-top:auto;display:flex;align-items:center;gap:1cqw;background:var(--sp-red);color:var(--sp-stock);padding:.8cqw 1.2cqw;transform:translate(.14cqw,.09cqw)}
+.pl-band span{font:700 1.05cqw/1.25 var(--sp-f-body)}
+.pl-band b{font:800 3.2cqw/1 var(--sp-f-title)}
+
+/* 메모 칸 */
+.tbl-wrap{overflow-x:auto;border-top:2px solid var(--fg);border-bottom:2px solid var(--fg);background:var(--sheet)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font:600 11px/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.f{font-weight:700;white-space:nowrap}
+td.p{white-space:nowrap;color:var(--accent);font-weight:700}
+td .num{font-variant-numeric:tabular-nums}
+.devices{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:26px}
+.dev{background:var(--sheet);border:1px solid var(--line);padding:16px 18px;min-width:0}
+.dev .k{font:600 11px/1 var(--f-mono);letter-spacing:.14em;color:var(--hot)}
+.dev p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
+.cols>div{min-width:0}
+ol.check{margin:0;padding-left:22px;font-size:14px}
+ol.check li{padding:3px 0}
+ol.check li span{color:var(--muted)}
+.src{font-size:13px;padding-left:18px;margin:0}
+.src li{padding:2px 0;overflow-wrap:anywhere}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+.sw{border:1px solid var(--line);background:var(--sheet)}
+.sw i{display:block;height:54px}
+.sw div{padding:8px 10px;font-size:13px}
+.sw code{font-family:var(--f-mono);font-size:12px;display:block;color:var(--muted)}
+dl.spec{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:12px 22px;margin:0;font-size:14px}
+dl.spec dt{font:600 12px/1.7 var(--f-mono);letter-spacing:.1em;color:var(--muted)}
+dl.spec dd{margin:0;min-width:0}
+dl.spec ul{margin:0;padding-left:18px}
+.pill{display:inline-block;font:700 12px/1 var(--f-mono);letter-spacing:.1em;padding:5px 9px;background:var(--accent);color:var(--sheet);margin-right:6px}
+.codehead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.copy{font:600 13px/1 var(--f-body);background:var(--accent);color:var(--sheet);border:0;padding:10px 16px;cursor:pointer}
+.copy:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.copy-msg{font-size:13px;color:var(--muted)}
+pre.code{margin:0;max-height:520px;overflow:auto;background:var(--code-bg);color:var(--code-fg);font:12.5px/1.55 var(--f-mono);padding:16px 18px;white-space:pre}
+ul.how{margin:0 0 14px;padding-left:20px;font-size:14px}
+ul.how li{padding:2px 0}
+@media (max-width:760px){.prints{grid-template-columns:1fr}}
+@media (max-width:560px){dl.spec{grid-template-columns:1fr}dl.spec dt{margin-top:6px}}
+</style>
+
+<div class="wrap">
+
+<!-- ============ 표지 16:9 ============ -->
+<div class="cover-frame">
+<div class="sp-slide" id="sp-cover" role="img" aria-label="표지: 씨앗 봉투 앞면과 뒷면. 앞면 품종명 '읽는 씨앗', 2027 학생 독서교육 활성화 계획, 강낭콩 싹 도판, 발아율 목표 75%. 뒷면 재배 안내: 품종 특성(배경), 작형표(추진 일정), 재배 방법 4단계(세부 과제), 발아율 58%에서 75%(목표 지표), 주의사항, 내용량·사업비·로트·포장일.">
+  <!-- 앞면 -->
+  <div class="sp-pk sp-pk-front">
+    <svg class="sp-shape" viewBox="0 0 350 470" preserveAspectRatio="none" aria-hidden="true">
+      <defs><clipPath id="sp-cf"><path d="M0,6 L5,0 L10,6 L15,0 L20,6 L25,0 L30,6 L35,0 L40,6 L45,0 L50,6 L55,0 L60,6 L65,0 L70,6 L75,0 L80,6 L85,0 L90,6 L95,0 L100,6 L105,0 L110,6 L115,0 L120,6 L125,0 L130,6 L135,0 L140,6 L145,0 L150,6 L155,0 L160,6 L165,0 L170,6 L175,0 L180,6 L185,0 L190,6 L195,0 L200,6 L205,0 L210,6 L215,0 L220,6 L225,0 L230,6 L235,0 L240,6 L245,0 L250,6 L255,0 L260,6 L265,0 L270,6 L275,0 L280,6 L285,0 L290,6 L295,0 L300,6 L305,0 L310,6 L315,0 L320,6 L325,0 L330,6 L335,0 L340,6 L345,0 L350,6 L350,20 L343,24 L350,28 L350,470 L0,470 Z"/></clipPath>
+        <linearGradient id="sp-pouch-f" x1="0" y1="0" x2="0" y2="1"><stop offset=".55" stop-color="#1D5A44" stop-opacity="0"/><stop offset="1" stop-color="#1D5A44" stop-opacity=".06"/></linearGradient></defs>
+      <path d="M0,6 L5,0 L10,6 L15,0 L20,6 L25,0 L30,6 L35,0 L40,6 L45,0 L50,6 L55,0 L60,6 L65,0 L70,6 L75,0 L80,6 L85,0 L90,6 L95,0 L100,6 L105,0 L110,6 L115,0 L120,6 L125,0 L130,6 L135,0 L140,6 L145,0 L150,6 L155,0 L160,6 L165,0 L170,6 L175,0 L180,6 L185,0 L190,6 L195,0 L200,6 L205,0 L210,6 L215,0 L220,6 L225,0 L230,6 L235,0 L240,6 L245,0 L250,6 L255,0 L260,6 L265,0 L270,6 L275,0 L280,6 L285,0 L290,6 L295,0 L300,6 L305,0 L310,6 L315,0 L320,6 L325,0 L330,6 L335,0 L340,6 L345,0 L350,6 L350,20 L343,24 L350,28 L350,470 L0,470 Z" class="sp-f-stock"/>
+      <rect width="350" height="470" fill="url(#sp-pouch-f)" clip-path="url(#sp-cf)"/>
+    </svg>
+    <div class="sp-tear"><span>▼ 여기를 뜯으세요</span></div>
+    <div class="sp-fr">
+      <div class="sp-fr-top"><span>○○교육청 독서 종묘</span><span class="sp-mono">No. 2027-R01</span></div>
+      <div class="sp-kind">독서교육 종 · 초·중·고 공통<em>READING SEED</em></div>
+      <h1 class="sp-title">읽는 씨앗</h1>
+      <p class="sp-sub">2027 학생 독서교육 활성화 계획</p>
+      <div class="sp-plate">
+        <svg class="sp-illu" viewBox="0 0 314 220" aria-hidden="true">
+  <defs>
+    <!-- 망점: 별색 녹색 30% 스크린 -->
+    <pattern id="sp-dgf" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="1.6" cy="1.6" r=".95" class="sp-f-green"/></pattern>
+    <pattern id="sp-dg2f" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="1.6" cy="1.6" r=".55" class="sp-f-green"/></pattern>
+  </defs>
+  <!-- 흙 단면 블록 -->
+  <path d="M118,160 C134,157 146,161 160,158 C176,155 190,160 206,157 C222,155 236,159 252,157 C262,156 270,158 278,158 L278,212 L118,212 Z" class="sp-tint2" fill="url(#sp-dg2f)"/>
+  <path d="M118,160 C134,157 146,161 160,158 C176,155 190,160 206,157 C222,155 236,159 252,157 C262,156 270,158 278,158 M118,160 L118,212 L278,212 L278,158" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <!-- 흙 속 잔돌 -->
+  <ellipse cx="140" cy="186" rx="4.2" ry="2.6" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <ellipse cx="255" cy="174" rx="3.2" ry="2.1" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <ellipse cx="232" cy="200" rx="5" ry="2.8" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <!-- 뿌리: 원뿌리 + 곁뿌리 -->
+  <g class="sp-s-green" fill="none" stroke-linecap="round">
+    <path d="M190,159 C191,175 188,190 191,207" stroke-width="2.4"/>
+    <path d="M190,167 C182,171 175,175 168,185 M190,170 C198,174 206,178 212,189 M190,181 C184,185 179,191 174,199 M190,184 C197,188 201,194 205,201 M189,194 C185,197 183,201 182,205 M191,196 C195,199 197,202 198,206" stroke-width="1.2"/>
+    <path d="M172,180 l-3,-2 M207,183 l3,-2 M177,195 l-3,0 M202,197 l3,0" stroke-width=".8"/>
+  </g>
+  <!-- 벗겨진 씨껍질 조각(주홍 판) -->
+  <path d="M216,157.5 C219,150 230,149.5 235,155.5 C229,153.2 222,153.6 216,157.5 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M216,157.5 C219,150 230,149.5 235,155.5" class="sp-s-green" stroke-width=".9" fill="none"/>
+  <!-- 줄기 -->
+  <path d="M190,158 C188,136 192,112 190,70" class="sp-s-green" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 떡잎 두 장(두툼하게 처진 콩 반쪽) -->
+  <path d="M189,123 C184,116 171,115 164,121 C158,127 160,137 168,140 C177,143 187,135 189,123 Z" class="sp-tint" fill="url(#sp-dgf)" />
+  <path d="M189,123 C184,116 171,115 164,121 C158,127 160,137 168,140 C177,143 187,135 189,123 Z M186,125 C180,122 172,123 167,128" class="sp-s-green" stroke-width="1.4" fill="none"/>
+  <path d="M191,123 C196,116 209,115 216,121 C222,127 220,137 212,140 C203,143 193,135 191,123 Z" class="sp-tint" fill="url(#sp-dgf)"/>
+  <path d="M191,123 C196,116 209,115 216,121 C222,127 220,137 212,140 C203,143 193,135 191,123 Z M194,125 C200,122 208,123 213,128" class="sp-s-green" stroke-width="1.4" fill="none"/>
+  <!-- 본잎 한 쌍(심장꼴, 잎맥) -->
+  <path transform="translate(-7 -4)" d="M189,78 C176,84 150,80 139,66 C131,56 128,49 127,43 C136,43 152,43 164,50 C178,58 187,68 189,78 Z" class="sp-tint2" fill="url(#sp-dg2f)"/>
+  <path transform="translate(-7 -4)" d="M189,78 C176,84 150,80 139,66 C131,56 128,49 127,43 C136,43 152,43 164,50 C178,58 187,68 189,78 Z" class="sp-s-green" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+  <path transform="translate(-7 -4)" d="M189,78 Q160,63 128,44 M171,67 l-3,-10 M171,67 l-6,8 M156,58 l-1,-9 M156,58 l-8,6 M142,51 l-6,4" class="sp-s-green" stroke-width=".9" fill="none" stroke-linecap="round"/>
+  <path transform="translate(7 -4)" d="M191,78 C204,84 230,80 241,66 C249,56 252,49 253,43 C244,43 228,43 216,50 C202,58 193,68 191,78 Z" class="sp-tint2" fill="url(#sp-dg2f)"/>
+  <path transform="translate(7 -4)" d="M191,78 C204,84 230,80 241,66 C249,56 252,49 253,43 C244,43 228,43 216,50 C202,58 193,68 191,78 Z" class="sp-s-green" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+  <path transform="translate(7 -4)" d="M191,78 Q220,63 252,44 M209,67 l3,-10 M209,67 l6,8 M224,58 l1,-9 M224,58 l8,6 M238,51 l6,4" class="sp-s-green" stroke-width=".9" fill="none" stroke-linecap="round"/>
+  <path d="M190,84 C187,81 184,77 182,74 M190,84 C193,81 196,77 198,74" class="sp-s-green" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <!-- 꼭대기 눈(접힌 세 겹 잎) -->
+  <path d="M190,71 C185,63 185,55 190,47 C195,55 195,63 190,71 Z" class="sp-tint" fill="url(#sp-dgf)"/>
+  <path d="M190,71 C185,63 185,55 190,47 C195,55 195,63 190,71 Z M190,70 L190,50 M188,62 C183,60 181,56 181,52 M192,62 C197,60 199,56 199,52" class="sp-s-green" stroke-width="1.1" fill="none"/>
+  <!-- fig.1 강낭콩 씨앗(주홍 판, 배꼽) -->
+  <path d="M34,54 C34,42 46,36 58,38 C70,40 74,50 70,58 C67,64 60,62 54,64 C46,67 34,66 34,54 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M34,54 C34,42 46,36 58,38 C70,40 74,50 70,58 C67,64 60,62 54,64 C46,67 34,66 34,54 Z" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <ellipse cx="57" cy="61" rx="5.2" ry="2" class="sp-f-stock sp-s-green" stroke-width="1" transform="rotate(-8 57 61)"/>
+  <!-- fig.2 싹튼 씨앗(껍질 갈라짐 + 어린뿌리) -->
+  <path d="M36,110 C36,101 45,97 54,98 C63,100 66,107 63,113 C60,118 54,117 49,118 C43,120 36,118 36,110 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M36,110 C36,101 45,97 54,98 C63,100 66,107 63,113 C60,118 54,117 49,118 C43,120 36,118 36,110 Z" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <path d="M42,103 C48,107 55,105 61,102" class="sp-s-stock" stroke-width="1.6" fill="none"/>
+  <path d="M53,117 C55,129 48,135 52,145 C54,150 59,150 60,146" class="sp-s-green" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M51,133 l-3,1 M53,140 l3,1" class="sp-s-green" stroke-width=".7"/>
+  <!-- 도판 번호 라벨 3개(바탕을 비운 면 위) -->
+  <g class="sp-f-stock"><rect x="26" y="76" width="52" height="13"/><rect x="26" y="160" width="52" height="13"/><rect x="236" y="103" width="72" height="13"/></g>
+  <g class="sp-f-green" font-family="'IBM Plex Sans KR','Malgun Gothic',sans-serif" font-size="8.6" font-weight="500">
+    <text x="30" y="86">fig.1 씨앗</text>
+    <text x="30" y="170">fig.2 싹틈</text>
+    <text x="240" y="113">fig.3 떡잎·본잎</text>
+  </g>
+  <path d="M218,126 L238,115" class="sp-s-green" stroke-width=".6"/>
+</svg>
+        <span class="sp-plate-cap">PL. 1 · 강낭콩</span>
+      </div>
+      <div class="sp-band"><span>발아율 목표</span><b>75%</b><span class="sp-band-r">312교 · 학생 14.6만 명<br>2027. 1. ~ 12.</span></div>
+      <div class="sp-maker"><span>생산 ○○교육청 교육과정과 독서교육팀</span><span>2026. 10. 보고</span></div>
+    </div>
+  </div>
+
+  <!-- 뒷면 -->
+  <div class="sp-pk sp-pk-back">
+    <svg class="sp-shape" viewBox="0 0 350 470" preserveAspectRatio="none" aria-hidden="true">
+      <defs><clipPath id="sp-cb"><path d="M0,6 L5,0 L10,6 L15,0 L20,6 L25,0 L30,6 L35,0 L40,6 L45,0 L50,6 L55,0 L60,6 L65,0 L70,6 L75,0 L80,6 L85,0 L90,6 L95,0 L100,6 L105,0 L110,6 L115,0 L120,6 L125,0 L130,6 L135,0 L140,6 L145,0 L150,6 L155,0 L160,6 L165,0 L170,6 L175,0 L180,6 L185,0 L190,6 L195,0 L200,6 L205,0 L210,6 L215,0 L220,6 L225,0 L230,6 L235,0 L240,6 L245,0 L250,6 L255,0 L260,6 L265,0 L270,6 L275,0 L280,6 L285,0 L290,6 L295,0 L300,6 L305,0 L310,6 L315,0 L320,6 L325,0 L330,6 L335,0 L340,6 L345,0 L350,6 L350,470 L0,470 L0,28 L7,24 L0,20 Z"/></clipPath></defs>
+      <path d="M0,6 L5,0 L10,6 L15,0 L20,6 L25,0 L30,6 L35,0 L40,6 L45,0 L50,6 L55,0 L60,6 L65,0 L70,6 L75,0 L80,6 L85,0 L90,6 L95,0 L100,6 L105,0 L110,6 L115,0 L120,6 L125,0 L130,6 L135,0 L140,6 L145,0 L150,6 L155,0 L160,6 L165,0 L170,6 L175,0 L180,6 L185,0 L190,6 L195,0 L200,6 L205,0 L210,6 L215,0 L220,6 L225,0 L230,6 L235,0 L240,6 L245,0 L250,6 L255,0 L260,6 L265,0 L270,6 L275,0 L280,6 L285,0 L290,6 L295,0 L300,6 L305,0 L310,6 L315,0 L320,6 L325,0 L330,6 L335,0 L340,6 L345,0 L350,6 L350,470 L0,470 L0,28 L7,24 L0,20 Z" class="sp-f-stock"/>
+      <g clip-path="url(#sp-cb)">
+        <!-- 옆 풀칠 이음 -->
+        <rect x="336" y="0" width="14" height="384" fill="#1D5A44" fill-opacity=".035"/>
+        <path d="M336,8 L336,384" stroke="#1D5A44" stroke-opacity=".3" stroke-width=".8"/>
+        <path d="M337.2,8 L337.2,384" stroke="#000" stroke-opacity=".05" stroke-width="1.6"/>
+        <!-- 바닥 접힘 날개 -->
+        <path d="M0,396 L18,384 L332,384 L350,396 L350,470 L0,470 Z" fill="#1D5A44" fill-opacity=".03"/>
+        <path d="M0,397.5 L18,385.5 L332,385.5 L350,397.5" stroke="#000" stroke-opacity=".06" stroke-width="2" fill="none"/>
+        <path d="M0,396 L18,384 L332,384 L350,396" stroke="#1D5A44" stroke-opacity=".32" stroke-width=".8" fill="none"/>
+      </g>
+    </svg>
+    <div class="sp-bk">
+      <div class="sp-bk-head"><b>재배 안내</b><span>읽는 씨앗 · READING SEED</span></div>
+      <div>
+        <span class="sp-lab">품종 특성 <i>배경</i></span>
+        <p class="sp-txt">학생 1인 연간 독서량 <b>34권(2023) → 27권(2025)</b>. 짧은 영상 여가가 늘면서 읽기가 습관으로 남지 않습니다. 학교마다 독서 시간 운영 편차도 큽니다.</p>
+      </div>
+      <div>
+        <span class="sp-lab">작형표 <i>추진 일정 · 2027년</i></span>
+        <div class="sp-cal">
+          <div class="sp-cal-row sp-cal-h"><span>월</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+          <div class="sp-cal-row"><span class="sp-cal-l">파종</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-sow" style="grid-column:2/4">①</span></div>
+          <div class="sp-cal-row"><span class="sp-cal-l">생육</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-grow" style="grid-column:4/13"><i>②③</i></span></div>
+          <div class="sp-cal-row"><span class="sp-cal-l">수확</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-crop" style="grid-column:12/14">④</span></div>
+        </div>
+      </div>
+      <div>
+        <span class="sp-lab">재배 방법 <i>세부 과제</i></span>
+        <ol class="sp-steps">
+          <li><span class="n">①</span><b>씨 뿌리기 · 1~2월</b><span>학급문고 꾸러미 배부, 학급당 20권 · 6,200학급</span></li>
+          <li><span class="n">②</span><b>물 주기 · 3~11월</b><span>아침 10분 함께 읽기, 주 3회 이상</span></li>
+          <li><span class="n">③</span><b>북돋우기 · 4~11월</b><span>학생 독서동아리 1,200개 운영 지원</span></li>
+          <li><span class="n">④</span><b>거두기 · 11~12월</b><span>한 학기 한 권 쓰기, 학생 저자 책 300권</span></li>
+        </ol>
+      </div>
+      <div class="sp-germ">
+        <div class="sp-germ-big"><span class="sp-lab">발아율 <i>지표</i></span><b>75%</b></div>
+        <div>
+          <p class="sp-germ-d">주 3회 이상 책을 읽는 학생 비율. <b>현재 58%(2026) → 목표 75%(2027)</b>. 측정: 학생 독서실태조사, 매년 11월</p>
+          <div class="sp-gbar" aria-hidden="true"><span class="sp-gfill"></span><span class="sp-ggap"></span>
+            <span class="sp-gtk" style="left:0">0</span><span class="sp-gtk" style="left:58%">58</span><span class="sp-gtk t" style="left:75%">75</span><span class="sp-gtk" style="left:100%">100%</span></div>
+        </div>
+      </div>
+      <p class="sp-warn"><b>주의</b>읽은 권수로 학생·학급의 순위를 매기지 마십시오. 발아는 권수가 아니라 습관으로 봅니다.</p>
+    </div>
+    <div class="sp-flap">
+      <div class="sp-fd"><span class="k">내용량</span><span class="v">14.6만 립</span><span class="s">학생 14.6만 명 · 312교</span></div>
+      <div class="sp-fd"><span class="k">사업비</span><span class="v">38억 원</span><span class="s">교육청 자체 30 · 지자체 8</span></div>
+      <div class="sp-jet"><span>로트번호</span><i>26-117</i><span>포장일</span><i>2026.10.15</i><span>유효기간</span><i>2027.12.31</i></div>
+      <div class="sp-mk"><span>생산·판매 ○○교육청 교육과정과 독서교육팀 · 문의 000-000-0000</span>
+        <span class="sp-patch" aria-hidden="true"><i></i><i></i><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="3" fill="none" class="sp-s-green" stroke-width=".7"/><path d="M5,0 V10 M0,5 H10" class="sp-s-green" stroke-width=".7"/></svg></span></div>
+    </div>
+  </div>
+
+  <div class="sp-foot"><span><b>가상 예시</b>○○교육청과 수치는 설계용 가정값입니다</span><span class="sp-mono">별색 2도 · 녹색 / 주홍 + 잉크젯 인자</span></div>
+</div>
+</div>
+
+<div class="head">
+  <h1>레퍼런스 #60 읽는 씨앗 봉투</h1>
+  <div class="meta">실험형 · D 인쇄·종이 · 학생 독서교육 · 2026-10-15</div>
+</div>
+<p class="lede">씨앗 봉투 한 장의 서식을 먼저 세우고, 계획안 내용을 그 서식의 칸에 넣었습니다. 앞면 품종명이 표지 제목이고, 뒷면 재배 안내가 계획안의 배경·일정·과제·지표·예산 순서를 그대로 받습니다. 씨앗 하나를 학생 한 명으로 읽으면 내용량(립)·발아율·작형표가 모두 같은 뜻으로 이어집니다.</p>
+
+<!-- ============ 인쇄물로 옮기기 ============ -->
+<section id="print">
+  <h2><span class="tag">Print</span>인쇄물로 옮기기</h2>
+  <p class="note">같은 서식 문법을 A4 세로 포스터와 3단 접지 리플릿 바깥면에 옮긴 축소 견본입니다. 빨간 점선이 재단선이고, 그 바깥 띠가 도련 3mm입니다.</p>
+  <div class="prints">
+    <figure class="pfig">
+      <div class="cropbox"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span>
+      <div class="pp sp-ink" role="img" aria-label="A4 세로 포스터 견본: 위쪽 톱니 띠, 품종명 읽는 씨앗, 큰 강낭콩 도판, 발아율 목표 75% 띠, 작형표, 문의처와 잉크젯 로트">
+        <div class="pp-top"><svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,3 L1,0 L2,3 L3,0 L4,3 L5,0 L6,3 L7,0 L8,3 L9,0 L10,3 L11,0 L12,3 L13,0 L14,3 L15,0 L16,3 L17,0 L18,3 L19,0 L20,3 L21,0 L22,3 L23,0 L24,3 L25,0 L26,3 L27,0 L28,3 L29,0 L30,3 L31,0 L32,3 L33,0 L34,3 L35,0 L36,3 L37,0 L38,3 L39,0 L40,3 L41,0 L42,3 L43,0 L44,3 L45,0 L46,3 L47,0 L48,3 L49,0 L50,3 L51,0 L52,3 L53,0 L54,3 L55,0 L56,3 L57,0 L58,3 L59,0 L60,3 L61,0 L62,3 L63,0 L64,3 L65,0 L66,3 L67,0 L68,3 L69,0 L70,3 L71,0 L72,3 L73,0 L74,3 L75,0 L76,3 L77,0 L78,3 L79,0 L80,3 L81,0 L82,3 L83,0 L84,3 L85,0 L86,3 L87,0 L88,3 L89,0 L90,3 L91,0 L92,3 L93,0 L94,3 L95,0 L96,3 L97,0 L98,3 L99,0 L100,3 L100,10 L0,10 Z" class="sp-f-stock"/></svg></div>
+        <div class="pp-tear"><span>▼ 여기를 뜯으세요</span></div>
+        <div class="pp-in">
+          <div class="sp-fr-top"><span>○○교육청 독서 종묘</span><span class="sp-mono">No. 2027-R01</span></div>
+          <div class="sp-kind">독서교육 종 · 초·중·고 공통<em>READING SEED</em></div>
+          <div class="sp-title">읽는 씨앗</div>
+          <p class="sp-sub">2027 학생 독서교육 활성화 계획</p>
+          <div class="pp-plate"><svg class="sp-illu" viewBox="0 0 314 220" aria-hidden="true">
+  <defs>
+    <!-- 망점: 별색 녹색 30% 스크린 -->
+    <pattern id="sp-dgp" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="1.6" cy="1.6" r=".95" class="sp-f-green"/></pattern>
+    <pattern id="sp-dg2p" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="1.6" cy="1.6" r=".55" class="sp-f-green"/></pattern>
+  </defs>
+  <!-- 흙 단면 블록 -->
+  <path d="M118,160 C134,157 146,161 160,158 C176,155 190,160 206,157 C222,155 236,159 252,157 C262,156 270,158 278,158 L278,212 L118,212 Z" class="sp-tint2" fill="url(#sp-dg2p)"/>
+  <path d="M118,160 C134,157 146,161 160,158 C176,155 190,160 206,157 C222,155 236,159 252,157 C262,156 270,158 278,158 M118,160 L118,212 L278,212 L278,158" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <!-- 흙 속 잔돌 -->
+  <ellipse cx="140" cy="186" rx="4.2" ry="2.6" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <ellipse cx="255" cy="174" rx="3.2" ry="2.1" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <ellipse cx="232" cy="200" rx="5" ry="2.8" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <!-- 뿌리: 원뿌리 + 곁뿌리 -->
+  <g class="sp-s-green" fill="none" stroke-linecap="round">
+    <path d="M190,159 C191,175 188,190 191,207" stroke-width="2.4"/>
+    <path d="M190,167 C182,171 175,175 168,185 M190,170 C198,174 206,178 212,189 M190,181 C184,185 179,191 174,199 M190,184 C197,188 201,194 205,201 M189,194 C185,197 183,201 182,205 M191,196 C195,199 197,202 198,206" stroke-width="1.2"/>
+    <path d="M172,180 l-3,-2 M207,183 l3,-2 M177,195 l-3,0 M202,197 l3,0" stroke-width=".8"/>
+  </g>
+  <!-- 벗겨진 씨껍질 조각(주홍 판) -->
+  <path d="M216,157.5 C219,150 230,149.5 235,155.5 C229,153.2 222,153.6 216,157.5 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M216,157.5 C219,150 230,149.5 235,155.5" class="sp-s-green" stroke-width=".9" fill="none"/>
+  <!-- 줄기 -->
+  <path d="M190,158 C188,136 192,112 190,70" class="sp-s-green" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 떡잎 두 장(두툼하게 처진 콩 반쪽) -->
+  <path d="M189,123 C184,116 171,115 164,121 C158,127 160,137 168,140 C177,143 187,135 189,123 Z" class="sp-tint" fill="url(#sp-dgp)" />
+  <path d="M189,123 C184,116 171,115 164,121 C158,127 160,137 168,140 C177,143 187,135 189,123 Z M186,125 C180,122 172,123 167,128" class="sp-s-green" stroke-width="1.4" fill="none"/>
+  <path d="M191,123 C196,116 209,115 216,121 C222,127 220,137 212,140 C203,143 193,135 191,123 Z" class="sp-tint" fill="url(#sp-dgp)"/>
+  <path d="M191,123 C196,116 209,115 216,121 C222,127 220,137 212,140 C203,143 193,135 191,123 Z M194,125 C200,122 208,123 213,128" class="sp-s-green" stroke-width="1.4" fill="none"/>
+  <!-- 본잎 한 쌍(심장꼴, 잎맥) -->
+  <path transform="translate(-7 -4)" d="M189,78 C176,84 150,80 139,66 C131,56 128,49 127,43 C136,43 152,43 164,50 C178,58 187,68 189,78 Z" class="sp-tint2" fill="url(#sp-dg2p)"/>
+  <path transform="translate(-7 -4)" d="M189,78 C176,84 150,80 139,66 C131,56 128,49 127,43 C136,43 152,43 164,50 C178,58 187,68 189,78 Z" class="sp-s-green" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+  <path transform="translate(-7 -4)" d="M189,78 Q160,63 128,44 M171,67 l-3,-10 M171,67 l-6,8 M156,58 l-1,-9 M156,58 l-8,6 M142,51 l-6,4" class="sp-s-green" stroke-width=".9" fill="none" stroke-linecap="round"/>
+  <path transform="translate(7 -4)" d="M191,78 C204,84 230,80 241,66 C249,56 252,49 253,43 C244,43 228,43 216,50 C202,58 193,68 191,78 Z" class="sp-tint2" fill="url(#sp-dg2p)"/>
+  <path transform="translate(7 -4)" d="M191,78 C204,84 230,80 241,66 C249,56 252,49 253,43 C244,43 228,43 216,50 C202,58 193,68 191,78 Z" class="sp-s-green" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+  <path transform="translate(7 -4)" d="M191,78 Q220,63 252,44 M209,67 l3,-10 M209,67 l6,8 M224,58 l1,-9 M224,58 l8,6 M238,51 l6,4" class="sp-s-green" stroke-width=".9" fill="none" stroke-linecap="round"/>
+  <path d="M190,84 C187,81 184,77 182,74 M190,84 C193,81 196,77 198,74" class="sp-s-green" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <!-- 꼭대기 눈(접힌 세 겹 잎) -->
+  <path d="M190,71 C185,63 185,55 190,47 C195,55 195,63 190,71 Z" class="sp-tint" fill="url(#sp-dgp)"/>
+  <path d="M190,71 C185,63 185,55 190,47 C195,55 195,63 190,71 Z M190,70 L190,50 M188,62 C183,60 181,56 181,52 M192,62 C197,60 199,56 199,52" class="sp-s-green" stroke-width="1.1" fill="none"/>
+  <!-- fig.1 강낭콩 씨앗(주홍 판, 배꼽) -->
+  <path d="M34,54 C34,42 46,36 58,38 C70,40 74,50 70,58 C67,64 60,62 54,64 C46,67 34,66 34,54 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M34,54 C34,42 46,36 58,38 C70,40 74,50 70,58 C67,64 60,62 54,64 C46,67 34,66 34,54 Z" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <ellipse cx="57" cy="61" rx="5.2" ry="2" class="sp-f-stock sp-s-green" stroke-width="1" transform="rotate(-8 57 61)"/>
+  <!-- fig.2 싹튼 씨앗(껍질 갈라짐 + 어린뿌리) -->
+  <path d="M36,110 C36,101 45,97 54,98 C63,100 66,107 63,113 C60,118 54,117 49,118 C43,120 36,118 36,110 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M36,110 C36,101 45,97 54,98 C63,100 66,107 63,113 C60,118 54,117 49,118 C43,120 36,118 36,110 Z" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <path d="M42,103 C48,107 55,105 61,102" class="sp-s-stock" stroke-width="1.6" fill="none"/>
+  <path d="M53,117 C55,129 48,135 52,145 C54,150 59,150 60,146" class="sp-s-green" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M51,133 l-3,1 M53,140 l3,1" class="sp-s-green" stroke-width=".7"/>
+  <!-- 도판 번호 라벨 3개(바탕을 비운 면 위) -->
+  <g class="sp-f-stock"><rect x="26" y="76" width="52" height="13"/><rect x="26" y="160" width="52" height="13"/><rect x="236" y="103" width="72" height="13"/></g>
+  <g class="sp-f-green" font-family="'IBM Plex Sans KR','Malgun Gothic',sans-serif" font-size="8.6" font-weight="500">
+    <text x="30" y="86">fig.1 씨앗</text>
+    <text x="30" y="170">fig.2 싹틈</text>
+    <text x="240" y="113">fig.3 떡잎·본잎</text>
+  </g>
+  <path d="M218,126 L238,115" class="sp-s-green" stroke-width=".6"/>
+</svg></div>
+          <div class="pp-band"><span>발아율 목표</span><b>75%</b><span class="r">주 3회 이상 읽는 학생<br>58% → 75%</span></div>
+          <div class="pp-cal">
+            <div class="sp-cal-row sp-cal-h"><span>월</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+            <div class="sp-cal-row"><span class="sp-cal-l">파종</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-sow" style="grid-column:2/4">꾸러미</span></div>
+            <div class="sp-cal-row"><span class="sp-cal-l">생육</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-grow" style="grid-column:4/13"><i>아침 10분 · 동아리</i></span></div>
+            <div class="sp-cal-row"><span class="sp-cal-l">수확</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-crop" style="grid-column:12/14">출간</span></div>
+          </div>
+          <div class="pp-foot"><span><b>문의</b> ○○교육청 독서교육팀<br>000-000-0000</span><i>LOT 26-117 · 2026.10.15</i></div>
+        </div>
+        <div class="pp-trim"></div>
+      </div>
+      </div>
+      <figcaption><h3>① A4 세로 포스터 · 봉투 앞면 확대</h3>
+        <ul>
+          <li><b>제목</b> 품종명 자리, 폭의 75%까지 크게. 계획명은 바로 아래 한 줄</li>
+          <li><b>그림</b> 가운데 도판 한 장이 화면의 40%. 라벨은 도판 번호 3개까지</li>
+          <li><b>핵심 수치</b> 주홍 띠 하나에 지표 하나(발아율 75%)</li>
+          <li><b>일정</b> 띠 아래 작형표 3줄, 막대 안에 과제 이름</li>
+          <li><b>문의처</b> 바닥 줄 왼쪽, 오른쪽은 잉크젯 로트·날짜</li>
+        </ul>
+      </figcaption>
+    </figure>
+
+    <figure class="pfig">
+      <div class="cropbox"><span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span>
+      <div class="pl sp-ink" role="img" aria-label="3단 리플릿 바깥면 견본: 왼쪽 안쪽 접힘면에 품종 특성·작형표·재배 방법, 가운데 뒤표지에 발아율·주의·내용량·문의처, 오른쪽 앞표지에 품종명과 도판">
+        <div class="pl-grid">
+          <div class="pl-p">
+            <div class="sp-bk-head"><b>재배 안내</b><span>READING SEED</span></div>
+            <div><span class="sp-lab">품종 특성 <i>배경</i></span><p class="sp-txt">학생 1인 연간 독서량 <b>34권(2023) → 27권(2025)</b>. 짧은 영상 여가가 늘면서 읽기가 습관으로 남지 않습니다. 학교마다 독서 시간 운영 편차도 큽니다.</p></div>
+            <div><span class="sp-lab">재배 방법 <i>세부 과제</i></span>
+              <ol class="sp-steps">
+                <li><span class="n">①</span><b>씨 뿌리기 · 1~2월</b><span>학급문고 꾸러미 배부, 학급당 20권 · 6,200학급</span></li>
+                <li><span class="n">②</span><b>물 주기 · 3~11월</b><span>아침 10분 함께 읽기, 주 3회 이상</span></li>
+                <li><span class="n">③</span><b>북돋우기 · 4~11월</b><span>학생 독서동아리 1,200개 운영 지원</span></li>
+                <li><span class="n">④</span><b>거두기 · 11~12월</b><span>한 학기 한 권 쓰기, 학생 저자 책 300권</span></li>
+              </ol></div>
+            <span class="pl-tag">안쪽 접힘면 97mm</span>
+          </div>
+          <div class="pl-p">
+            <div class="pl-germ"><span class="sp-lab">발아율 <i>목표 지표</i></span><b>75%</b></div>
+            <p class="sp-txt">주 3회 이상 책을 읽는 학생 비율<br><b>58%(2026) → 75%(2027)</b> · 11월 실태조사</p>
+            <div class="sp-gbar" aria-hidden="true"><span class="sp-gfill"></span><span class="sp-ggap"></span>
+              <span class="sp-gtk" style="left:0">0</span><span class="sp-gtk" style="left:58%">58</span><span class="sp-gtk t" style="left:75%">75</span><span class="sp-gtk" style="left:100%">100%</span></div>
+            <div><span class="sp-lab">작형표 <i>일정 · 2027</i></span>
+              <div class="sp-cal-row sp-cal-h"><span>월</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+              <div class="sp-cal-row"><span class="sp-cal-l">파종</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-sow" style="grid-column:2/4">①</span></div>
+              <div class="sp-cal-row"><span class="sp-cal-l">생육</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-grow" style="grid-column:4/13"><i>②③</i></span></div>
+              <div class="sp-cal-row"><span class="sp-cal-l">수확</span><span class="sp-cal-t"></span><span class="sp-bar sp-bar-crop" style="grid-column:12/14">④</span></div>
+            </div>
+            <p class="sp-warn"><b>주의</b>읽은 권수로 순위를 매기지 마십시오.</p>
+            <div class="pl-flap">
+              <div class="sp-fd"><span class="k">내용량</span><span class="v">14.6만 립</span><span class="s">학생 14.6만 명 · 312교</span></div>
+              <div class="sp-fd"><span class="k">사업비</span><span class="v">38억 원</span><span class="s">자체 30 · 지자체 8</span></div>
+              <div class="sp-jet"><span>로트번호</span><i>26-117</i><span>포장일</span><i>2026.10.15</i></div>
+              <p class="pl-contact"><b>문의</b> ○○교육청 교육과정과 독서교육팀 · 000-000-0000</p>
+            </div>
+            <span class="pl-tag">뒤표지 100mm</span>
+          </div>
+          <div class="pl-p pl-front">
+            <div class="pl-zig"><svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,3 L1,0 L2,3 L3,0 L4,3 L5,0 L6,3 L7,0 L8,3 L9,0 L10,3 L11,0 L12,3 L13,0 L14,3 L15,0 L16,3 L17,0 L18,3 L19,0 L20,3 L21,0 L22,3 L23,0 L24,3 L25,0 L26,3 L27,0 L28,3 L29,0 L30,3 L31,0 L32,3 L33,0 L34,3 L35,0 L36,3 L37,0 L38,3 L39,0 L40,3 L41,0 L42,3 L43,0 L44,3 L45,0 L46,3 L47,0 L48,3 L49,0 L50,3 L51,0 L52,3 L53,0 L54,3 L55,0 L56,3 L57,0 L58,3 L59,0 L60,3 L61,0 L62,3 L63,0 L64,3 L65,0 L66,3 L67,0 L68,3 L69,0 L70,3 L71,0 L72,3 L73,0 L74,3 L75,0 L76,3 L77,0 L78,3 L79,0 L80,3 L81,0 L82,3 L83,0 L84,3 L85,0 L86,3 L87,0 L88,3 L89,0 L90,3 L91,0 L92,3 L93,0 L94,3 L95,0 L96,3 L97,0 L98,3 L99,0 L100,3 L100,10 L0,10 Z" class="sp-f-stock"/></svg></div>
+            <div class="sp-fr-top"><span>○○교육청 독서 종묘</span><span class="sp-mono">No. 2027-R01</span></div>
+            <div class="sp-kind">독서교육 종 · 초·중·고 공통</div>
+            <div class="sp-title">읽는 씨앗</div>
+            <p class="sp-sub">2027 학생 독서교육 활성화 계획</p>
+            <div class="pl-plate"><svg class="sp-illu" viewBox="0 0 314 220" aria-hidden="true">
+  <defs>
+    <!-- 망점: 별색 녹색 30% 스크린 -->
+    <pattern id="sp-dgl" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="1.6" cy="1.6" r=".95" class="sp-f-green"/></pattern>
+    <pattern id="sp-dg2l" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="1.6" cy="1.6" r=".55" class="sp-f-green"/></pattern>
+  </defs>
+  <!-- 흙 단면 블록 -->
+  <path d="M118,160 C134,157 146,161 160,158 C176,155 190,160 206,157 C222,155 236,159 252,157 C262,156 270,158 278,158 L278,212 L118,212 Z" class="sp-tint2" fill="url(#sp-dg2l)"/>
+  <path d="M118,160 C134,157 146,161 160,158 C176,155 190,160 206,157 C222,155 236,159 252,157 C262,156 270,158 278,158 M118,160 L118,212 L278,212 L278,158" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <!-- 흙 속 잔돌 -->
+  <ellipse cx="140" cy="186" rx="4.2" ry="2.6" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <ellipse cx="255" cy="174" rx="3.2" ry="2.1" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <ellipse cx="232" cy="200" rx="5" ry="2.8" class="sp-f-stock sp-s-green" stroke-width="1"/>
+  <!-- 뿌리: 원뿌리 + 곁뿌리 -->
+  <g class="sp-s-green" fill="none" stroke-linecap="round">
+    <path d="M190,159 C191,175 188,190 191,207" stroke-width="2.4"/>
+    <path d="M190,167 C182,171 175,175 168,185 M190,170 C198,174 206,178 212,189 M190,181 C184,185 179,191 174,199 M190,184 C197,188 201,194 205,201 M189,194 C185,197 183,201 182,205 M191,196 C195,199 197,202 198,206" stroke-width="1.2"/>
+    <path d="M172,180 l-3,-2 M207,183 l3,-2 M177,195 l-3,0 M202,197 l3,0" stroke-width=".8"/>
+  </g>
+  <!-- 벗겨진 씨껍질 조각(주홍 판) -->
+  <path d="M216,157.5 C219,150 230,149.5 235,155.5 C229,153.2 222,153.6 216,157.5 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M216,157.5 C219,150 230,149.5 235,155.5" class="sp-s-green" stroke-width=".9" fill="none"/>
+  <!-- 줄기 -->
+  <path d="M190,158 C188,136 192,112 190,70" class="sp-s-green" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- 떡잎 두 장(두툼하게 처진 콩 반쪽) -->
+  <path d="M189,123 C184,116 171,115 164,121 C158,127 160,137 168,140 C177,143 187,135 189,123 Z" class="sp-tint" fill="url(#sp-dgl)" />
+  <path d="M189,123 C184,116 171,115 164,121 C158,127 160,137 168,140 C177,143 187,135 189,123 Z M186,125 C180,122 172,123 167,128" class="sp-s-green" stroke-width="1.4" fill="none"/>
+  <path d="M191,123 C196,116 209,115 216,121 C222,127 220,137 212,140 C203,143 193,135 191,123 Z" class="sp-tint" fill="url(#sp-dgl)"/>
+  <path d="M191,123 C196,116 209,115 216,121 C222,127 220,137 212,140 C203,143 193,135 191,123 Z M194,125 C200,122 208,123 213,128" class="sp-s-green" stroke-width="1.4" fill="none"/>
+  <!-- 본잎 한 쌍(심장꼴, 잎맥) -->
+  <path transform="translate(-7 -4)" d="M189,78 C176,84 150,80 139,66 C131,56 128,49 127,43 C136,43 152,43 164,50 C178,58 187,68 189,78 Z" class="sp-tint2" fill="url(#sp-dg2l)"/>
+  <path transform="translate(-7 -4)" d="M189,78 C176,84 150,80 139,66 C131,56 128,49 127,43 C136,43 152,43 164,50 C178,58 187,68 189,78 Z" class="sp-s-green" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+  <path transform="translate(-7 -4)" d="M189,78 Q160,63 128,44 M171,67 l-3,-10 M171,67 l-6,8 M156,58 l-1,-9 M156,58 l-8,6 M142,51 l-6,4" class="sp-s-green" stroke-width=".9" fill="none" stroke-linecap="round"/>
+  <path transform="translate(7 -4)" d="M191,78 C204,84 230,80 241,66 C249,56 252,49 253,43 C244,43 228,43 216,50 C202,58 193,68 191,78 Z" class="sp-tint2" fill="url(#sp-dg2l)"/>
+  <path transform="translate(7 -4)" d="M191,78 C204,84 230,80 241,66 C249,56 252,49 253,43 C244,43 228,43 216,50 C202,58 193,68 191,78 Z" class="sp-s-green" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+  <path transform="translate(7 -4)" d="M191,78 Q220,63 252,44 M209,67 l3,-10 M209,67 l6,8 M224,58 l1,-9 M224,58 l8,6 M238,51 l6,4" class="sp-s-green" stroke-width=".9" fill="none" stroke-linecap="round"/>
+  <path d="M190,84 C187,81 184,77 182,74 M190,84 C193,81 196,77 198,74" class="sp-s-green" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <!-- 꼭대기 눈(접힌 세 겹 잎) -->
+  <path d="M190,71 C185,63 185,55 190,47 C195,55 195,63 190,71 Z" class="sp-tint" fill="url(#sp-dgl)"/>
+  <path d="M190,71 C185,63 185,55 190,47 C195,55 195,63 190,71 Z M190,70 L190,50 M188,62 C183,60 181,56 181,52 M192,62 C197,60 199,56 199,52" class="sp-s-green" stroke-width="1.1" fill="none"/>
+  <!-- fig.1 강낭콩 씨앗(주홍 판, 배꼽) -->
+  <path d="M34,54 C34,42 46,36 58,38 C70,40 74,50 70,58 C67,64 60,62 54,64 C46,67 34,66 34,54 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M34,54 C34,42 46,36 58,38 C70,40 74,50 70,58 C67,64 60,62 54,64 C46,67 34,66 34,54 Z" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <ellipse cx="57" cy="61" rx="5.2" ry="2" class="sp-f-stock sp-s-green" stroke-width="1" transform="rotate(-8 57 61)"/>
+  <!-- fig.2 싹튼 씨앗(껍질 갈라짐 + 어린뿌리) -->
+  <path d="M36,110 C36,101 45,97 54,98 C63,100 66,107 63,113 C60,118 54,117 49,118 C43,120 36,118 36,110 Z" class="sp-f-red" transform="translate(1.1 .7)"/>
+  <path d="M36,110 C36,101 45,97 54,98 C63,100 66,107 63,113 C60,118 54,117 49,118 C43,120 36,118 36,110 Z" class="sp-s-green" stroke-width="1.3" fill="none"/>
+  <path d="M42,103 C48,107 55,105 61,102" class="sp-s-stock" stroke-width="1.6" fill="none"/>
+  <path d="M53,117 C55,129 48,135 52,145 C54,150 59,150 60,146" class="sp-s-green" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M51,133 l-3,1 M53,140 l3,1" class="sp-s-green" stroke-width=".7"/>
+  <!-- 도판 번호 라벨 3개(바탕을 비운 면 위) -->
+  <g class="sp-f-stock"><rect x="26" y="76" width="52" height="13"/><rect x="26" y="160" width="52" height="13"/><rect x="236" y="103" width="72" height="13"/></g>
+  <g class="sp-f-green" font-family="'IBM Plex Sans KR','Malgun Gothic',sans-serif" font-size="8.6" font-weight="500">
+    <text x="30" y="86">fig.1 씨앗</text>
+    <text x="30" y="170">fig.2 싹틈</text>
+    <text x="240" y="113">fig.3 떡잎·본잎</text>
+  </g>
+  <path d="M218,126 L238,115" class="sp-s-green" stroke-width=".6"/>
+</svg></div>
+            <div class="pl-band"><span>발아율 목표</span><b>75%</b><span style="margin-left:auto;text-align:right;font-weight:500">312교 · 학생 14.6만 명</span></div>
+            <span class="pl-tag">앞표지 100mm</span>
+          </div>
+        </div>
+        <div class="pl-trim"></div>
+      </div>
+      </div>
+      <figcaption><h3>② 3단 접지 리플릿 · 바깥면 펼침</h3>
+        <ul>
+          <li><b>앞표지(오른쪽)</b> 봉투 앞면 그대로: 톱니 띠, 품종명 = 제목, 도판, 핵심 수치 띠</li>
+          <li><b>뒤표지(가운데)</b> 발아율 지표 → 작형표(일정) → 주의 → 날개(내용량·사업비·로트·문의처)</li>
+          <li><b>안쪽 접힘면(왼쪽)</b> 펼치면 먼저 보이는 면: 배경 → 재배 방법(과제 ①~④)</li>
+          <li>안쪽 3면에는 과제 ①~④를 한 면씩 풀어 쓰면 봉투 서식이 끝까지 이어집니다</li>
+        </ul>
+      </figcaption>
+    </figure>
+  </div>
+  <p class="bleed-note"><b>도련·여백</b> 배경 망점과 톱니 띠는 재단선 밖 3mm(도련)까지 깔고, 글자·로트 번호는 재단선 안쪽 5mm 안에 둡니다. 리플릿은 안으로 접히는 면을 97mm로 2~3mm 좁게 잡아야 접었을 때 끝이 밀려 나오지 않습니다. 접는 선 위에는 글자를 두지 않습니다.</p>
+</section>
+
+<!-- ============ 가져갈 장치 ============ -->
+<section id="devices">
+  <h2><span class="tag">Take</span>가져갈 장치</h2>
+  <div class="devices">
+    <div class="dev"><span class="k">01 · 서식이 곧 목차</span><h3>봉투 뒷면 칸 순서 = 계획안 순서</h3><p>품종 특성 → 작형표 → 재배 방법 → 발아율 → 주의 → 내용량·가격. 서식을 그대로 따르면 배경·일정·과제·지표·유의점·예산이 빠짐없이 들어갑니다.</p></div>
+    <div class="dev"><span class="k">02 · 씨앗 한 립 = 학생 한 명</span><h3>은유 하나로 단위를 통일</h3><p>내용량 14.6만 립, 발아율 75%, 수확 = 학생 저자 책. 단위를 학생으로 읽으면 봉투의 모든 숫자가 계획안의 숫자로 바로 바뀝니다.</p></div>
+    <div class="dev"><span class="k">03 · 두 단계 인쇄</span><h3>별색 판 + 따로 찍는 잉크젯</h3><p>디자인은 녹색·주홍 2도로 고정하고, 로트·포장일·유효기간만 잉크젯 글씨로 비뚤게 얹습니다. 보고일·계획 번호처럼 매번 바뀌는 값을 이 자리에 두면 됩니다.</p></div>
+  </div>
+  <h3>서식 필드 ↔ 계획안 항목 매핑</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>봉투 필드</th><th>계획안 항목</th><th>표지에 넣은 값</th><th>뜻이 맞는 이유</th></tr></thead>
+    <tbody>
+      <tr><td class="f">품종명</td><td class="p">사업명(표지 제목)</td><td>읽는 씨앗 · 2027 학생 독서교육 활성화 계획</td><td>봉투에서 가장 크게 찍히는 이름. 표지 제목과 자리·크기가 같습니다.</td></tr>
+      <tr><td class="f">종명·적응 지역</td><td class="p">사업 분야·대상</td><td>독서교육 종 · 초·중·고 공통</td><td>어떤 작물이고 어디에 맞는지 = 어떤 분야이고 누구 대상인지.</td></tr>
+      <tr><td class="f">품종 특성</td><td class="p">추진 배경</td><td class="num">연간 독서량 34권 → 27권(2023→2025)</td><td>이 씨앗이 어떤 성질을 가졌는지 = 지금 학생들이 어떤 상태인지.</td></tr>
+      <tr><td class="f">작형표</td><td class="p">추진 일정</td><td>파종 1~2월 · 생육 3~11월 · 수확 11~12월</td><td>월별 막대로 언제 뿌리고 거두는지 보여 주는 표. 분기·월별 일정표와 형식이 같습니다.</td></tr>
+      <tr><td class="f">재배 방법 ①~④</td><td class="p">세부 추진과제</td><td>꾸러미 배부 · 아침 10분 · 동아리 · 학생 저자 책</td><td>순서가 있는 단계. 번호가 작형표 막대의 번호와 같습니다.</td></tr>
+      <tr><td class="f">발아율</td><td class="p">성과 지표(현재·목표·측정)</td><td class="num">주 3회 이상 읽는 학생 58% → 75%, 11월 실태조사</td><td>뿌린 씨앗 중 싹튼 비율 = 전체 학생 중 읽는 습관이 생긴 비율. 실험실 측정 시점을 적는 관례도 측정 방법 칸과 맞습니다.</td></tr>
+      <tr><td class="f">재배 시 주의사항</td><td class="p">추진 시 유의점</td><td>읽은 권수로 순위 매기지 않기</td><td>법정 표시사항인 '재배 시 주의사항'을 그대로 빌렸습니다.</td></tr>
+      <tr><td class="f">내용량(립)</td><td class="p">대상 규모</td><td class="num">14.6만 립 = 학생 14.6만 명 · 312교</td><td>낱알 개수 표기. 씨앗 한 립 = 학생 한 명.</td></tr>
+      <tr><td class="f">가격</td><td class="p">사업비·재원</td><td class="num">38억 원(교육청 자체 30 · 지자체 8)</td><td>봉투에 찍히는 값 = 사업에 드는 값.</td></tr>
+      <tr><td class="f">로트·포장일·유효기간</td><td class="p">계획 번호·보고일·계획 기간</td><td class="num">26-117 · 2026.10.15 · 2027.12.31</td><td>포장 뒤 따로 찍는 값이라 보고마다 바뀌는 값과 성격이 같습니다. 유효기간 = 발아를 보증하는 기한 = 계획 기간 끝.</td></tr>
+      <tr><td class="f">생산·판매원</td><td class="p">담당 부서·문의처</td><td>○○교육청 교육과정과 독서교육팀</td><td>누가 만들고 누구에게 물어보는지.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============ 재현 체크 ============ -->
+<section id="check" class="cols">
+  <div>
+    <h2><span class="tag">Check</span>빌려 온 실물 요소</h2>
+    <ol class="check">
+      <li><b>핑킹 톱니 윗변 + 개봉 노치</b> <span>— 앞면 오른쪽(뒷면은 왼쪽) 노치에서 점선을 따라 뜯는 구조</span></li>
+      <li><b>뒷면 바닥 접힘 날개</b> <span>— 모서리를 비스듬히 자른 날개가 올라와 붙은 겹침선</span></li>
+      <li><b>옆 풀칠 이음</b> <span>— 뒷면 한쪽 가장자리의 겹친 띠와 그림자선</span></li>
+      <li><b>품종명·종명·적응 범위</b> <span>— 앞면 위계(기관 줄 → 종명 → 품종명)</span></li>
+      <li><b>식물 도판과 번호</b> <span>— 씨앗(배꼽) → 싹틈(어린뿌리) → 떡잎·본잎 3단, 흙 단면·잔돌·씨껍질</span></li>
+      <li><b>작형표</b> <span>— 월별 칸 위의 파종·생육·수확 막대</span></li>
+      <li><b>발아율·내용량(립)·재배 시 주의사항</b> <span>— 종자 표시사항 항목</span></li>
+      <li><b>로트번호·포장일·유효기간 잉크젯 인자</b> <span>— 인쇄 뒤 따로 찍혀 살짝 비뚤고 다른 잉크색</span></li>
+      <li><b>날개 위 색 관리 패치·맞춤표</b> <span>— 별색 2도 판 확인용 작은 사각형과 십자선</span></li>
+      <li><b>망점 스크린</b> <span>— 도판 바탕 주홍 약 10%, 잎·흙 녹색 망점, 45° 각도</span></li>
+    </ol>
+    <p class="note" style="margin-top:12px">은유 점검: 발아율은 '뿌린 것 중 싹튼 비율'이라 '전체 학생 중 습관이 생긴 비율'과 뜻이 같습니다. 반대로 '이품종률'처럼 섞임을 뜻하는 표기는 학생을 불량품처럼 읽히게 해서 뺐습니다.</p>
+  </div>
+  <div>
+    <h2><span class="tag">Sources</span>조사 출처</h2>
+    <ul class="src">
+      <li><a href="https://www.nongsaro.go.kr/portal/ps/psz/psza/contentSub.ps?menuId=PS00078&amp;cntntsNo=200027&amp;totalSearchYn=Y">농사로 — 비료와 종자의 품질표시</a> (보증표시: 품종명·로트번호·발아율·유효기간·포장일·보증기관)</li>
+      <li><a href="https://www.ulex.co.kr/%EB%B2%95%EB%A5%A0/257461-008223-%EC%A2%85%EC%9E%90%EC%82%B0%EC%97%85%EB%B2%95%EC%8B%9C%ED%96%89%EA%B7%9C%EC%B9%99">종자산업법 시행규칙</a> (유통 종자 표시: 품종명·발아율·무게 또는 낱알 개수·재배 시 주의사항·등록번호)</li>
+      <li><a href="https://ko.wikisource.org/wiki/%EC%A2%85%EC%9E%90%EC%82%B0%EC%97%85%EB%B2%95">종자산업법(위키문헌)</a> (생산 연도·포장 연월·발아 보증시한 표시)</li>
+      <li><a href="https://www.betterseed.org/wp-content/uploads/Whats-Behind-the-Label-on-a-Bag-of-Seed.pdf">ASTA — What's Behind the Label on a Bag of Seed?</a></li>
+      <li><a href="https://www.greenviewfertilizer.com/articles/how-to-read-grass-seed-label">GreenView — How to read a grass seed label</a> (발아 시험 연월 표기)</li>
+      <li><a href="https://efotg.sc.egov.usda.gov/references/public/VA/Understanding_seed_labels.pdf">USDA NRCS — Understanding seed labels</a></li>
+      <li>트렌드: <a href="https://www.itsnicethat.com/features/forward-thinking-graphic-trends-2026-graphic-design-120126">It's Nice That — Graphic trends 2026</a>, <a href="https://www.blog.catprint.com/post/print-design-trends-for-2026">Catprint — Print design trends 2026</a>, <a href="https://www.drupa.com/en/Media_News/drupa_blog/Design/Print_Design_2026_Navigating_Converging_Constraints">drupa — Print Design 2026</a></li>
+    </ul>
+    <p class="note" style="margin-top:12px">봉투 구조(톱니·노치·날개·풀칠)와 강낭콩 싹의 형태(떡잎이 흙 위로 올라오는 지상 발아, 심장꼴 첫 본잎 한 쌍, 원뿌리·곁뿌리)는 일반 관찰 지식으로 그렸습니다.</p>
+  </div>
+</section>
+
+<!-- ============ 스펙 ============ -->
+<section id="spec">
+  <h2><span class="tag">Spec</span>스펙</h2>
+  <div class="swatches">
+    <div class="sw"><i style="background:#FBF8F1"></i><div>봉투 용지<code>#FBF8F1</code></div></div>
+    <div class="sw"><i style="background:#1D5A44"></i><div>별색 1 · 녹색 (모든 글자·선)<code>#1D5A44</code></div></div>
+    <div class="sw"><i style="background:#E0502C"></i><div>별색 2 · 주홍 (띠·씨앗·번호)<code>#E0502C</code></div></div>
+    <div class="sw"><i style="background:#2B2F35"></i><div>잉크젯 인자<code>#2B2F35</code></div></div>
+    <div class="sw"><i style="background:#E3E8E1"></i><div>탁자(화면 바탕)<code>#E3E8E1</code></div></div>
+    <div class="sw"><i style="background:#4F7D6B"></i><div>녹색 보조 (라벨 글자)<code>#4F7D6B</code></div></div>
+  </div>
+  <dl class="spec">
+    <dt>폰트</dt><dd><b>Hahmlet</b> 800 품종명·수치, 700 재배 안내 머리 (대체: Noto Serif KR → 바탕)<br><b>IBM Plex Sans KR</b> 400/500/700 본문·라벨 (대체: 맑은 고딕)<br><b>IBM Plex Mono</b> 500/600 월 눈금·번호 (대체: Consolas)<br><b>DotGothic16</b> 잉크젯 로트·날짜, 숫자만 (대체: Consolas)</dd>
+    <dt>인쇄 별색</dt><dd>
+      <ul>
+        <li>2도 별색: 녹색이 주판(글자·선·망점), 주홍은 띠·씨앗·번호·주의 막대만. 견적 시 CMYK 4도가 아니라 '별색 2도'로 요청하면 단가가 낮고 색이 맑게 나옵니다.</li>
+        <li>판 어긋남은 주홍 판만, 오른쪽 아래로 같은 거리(표지 0.1cqw, 실제 인쇄 0.2~0.3mm). 녹색 글자는 절대 어긋나지 않습니다.</li>
+        <li>망점은 녹색 30%(잎·흙), 주홍 10%(도판 바탕) 두 단계만, 45°.</li>
+        <li>잉크젯 값은 실제 인쇄에서는 검정 1도로 넣고 1~2° 기울여 앉힙니다.</li>
+      </ul></dd>
+    <dt>PPT 이식</dt><dd>
+      <ul>
+        <li>슬라이드 배경 #E3E8E1, 봉투 두 장은 [자유형]으로 톱니 윗변을 그리거나 도판 SVG를 [삽입 → 그림]으로 넣고 [도형으로 변환]합니다. 그림자: 바깥쪽, 투명도 85%, 흐리게 14pt, 거리 8pt, 아래쪽.</li>
+        <li>앞면 35% 폭 × 84% 높이, -1.6° 회전 / 뒷면 같은 크기, +1.2° 회전. 두 봉투 사이 간격은 화면 폭의 6%.</li>
+        <li>작형표는 13열 표(첫 열 라벨) + 위에 올린 직사각형 막대. 막대 끝을 월 칸 경계에 맞춥니다.</li>
+        <li>발아율 막대: 0~100 직사각형 틀 안에 58% 너비 채움 + 58~75% 구간 점선 테두리. 선형 비례 유지.</li>
+        <li>움직임 없음. 정지 화면이 완결본입니다.</li>
+      </ul></dd>
+    <dt>난이도</dt><dd><span class="pill">중</span>서식 칸은 표·텍스트 상자로 바로 되고, 손이 가는 곳은 톱니 윗변과 도판(SVG 붙여 넣기로 해결)입니다.</dd>
+    <dt>반영 트렌드</dt><dd>망점·종이 질감·인쇄 흔적으로 사람 손을 드러내는 질감 흐름과, 요소를 줄이고 품질을 높이는 프리미엄 미니멀(It's Nice That·Catprint 2026). 여기서는 별색 2도 + 망점 두 단계로만 절제해 썼습니다.</dd>
+  </dl>
+</section>
+
+<!-- ============ HTML로 가져다 쓰기 ============ -->
+<section id="code">
+  <h2><span class="tag">Code</span>HTML로 가져다 쓰기</h2>
+  <ul class="how">
+    <li>표지만 떼어 낸 자기 완결 코드입니다. 빈 <code class="i">.html</code> 파일에 붙여 넣으면 같은 화면이 나옵니다.</li>
+    <li>글자는 마크업 안에서 바로 고칩니다: 품종명(<code class="i">.sp-title</code>), 재배 방법(<code class="i">.sp-steps</code>), 잉크젯 값(<code class="i">.sp-jet i</code>).</li>
+    <li>색·글꼴은 맨 위 <code class="i">.sp-slide</code>의 <code class="i">--sp-*</code> 변수만 바꿉니다. 작형표 막대 위치는 <code class="i">style="grid-column:시작월+1/끝월+2"</code>입니다.</li>
+    <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+  </ul>
+  <div class="codehead"><button class="copy" id="copyBtn" type="button">코드 복사</button><span class="copy-msg" id="copyMsg" aria-live="polite"></span></div>
+  <pre class="code" id="codeBox" tabindex="0"></pre>
+</section>
+</div>
+
+<script>
+// 코드 칸: 표지 CSS + 마크업을 그대로 꺼내 보여 준다(textContent라 자동 이스케이프)
+(function(){
+  var css=document.getElementById('sp-css').textContent.trim();
+  var slide=document.getElementById('sp-cover').outerHTML;
+  var font='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&family=DotGothic16&display=swap">';
+  var code='<meta charset="utf-8">\n'+font+'\n<style>\n'+css+'\n</style>\n'+slide+'\n';
+  var box=document.getElementById('codeBox');box.textContent=code;
+  var btn=document.getElementById('copyBtn'),msg=document.getElementById('copyMsg');
+  function selectAll(){var r=document.createRange();r.selectNodeContents(box);var s=getSelection();s.removeAllRanges();s.addRange(r);msg.textContent='전체 선택했습니다. Ctrl+C로 복사하세요.';}
+  btn.addEventListener('click',function(){
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(function(){msg.textContent='복사했습니다.';},selectAll);}else{selectAll();}
+  });
+})();
+</script>
+
+</body></html>

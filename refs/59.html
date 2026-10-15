@@ -1,0 +1,955 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #59 범 내려간다</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* 한지 위 문서: 표지 → 장치 → 설계 메모 → 재현 체크 → 스펙 → 코드. 한 가지 밝은 모습으로 고정. */
+:root{
+  --pg-bg:#F4EEE1; --pg-card:#FBF7EE; --pg-ink:#211C18; --pg-sub:#5E544A; --pg-line:#D9CDB3;
+  --pg-accent:#C9611B; --pg-code-bg:#1F1B18; --pg-code-ink:#F1E8D6;
+  --pg-f-head:"Gowun Batang","Nanum Myeongjo",serif; --pg-f-body:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --pg-f-mono:"IBM Plex Mono",Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-f-body); font-size:15px; line-height:1.7}
+.pg{max-width:1120px; margin:0 auto; padding-block:28px 64px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); display:grid; gap:44px}
+.pg-top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 20px; border-bottom:1px solid var(--pg-ink); padding-bottom:10px}
+.pg-top h1{font-family:var(--pg-f-head); font-size:26px; margin:0; text-wrap:balance}
+.pg-top p{margin:0; color:var(--pg-sub); font-size:13px; letter-spacing:.06em}
+.pg-stage{display:grid; gap:12px}
+.pg-frame{border:1px solid var(--pg-line); box-shadow:0 1px 0 var(--pg-line)}
+.pg-bar{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; color:var(--pg-sub); font-size:13px}
+.pg-btn{font:600 14px var(--pg-f-body); color:var(--pg-ink); background:var(--pg-card); border:1px solid var(--pg-ink); border-radius:999px; padding:7px 18px; cursor:pointer}
+.pg-btn:hover{background:var(--pg-ink); color:var(--pg-card)}
+.pg-btn:focus-visible{outline:3px solid var(--pg-accent); outline-offset:2px}
+section h2{font-family:var(--pg-f-head); font-size:22px; margin:0 0 14px; display:flex; gap:12px; align-items:baseline}
+section h2 span{font:500 13px var(--pg-f-mono); color:var(--pg-accent); letter-spacing:.08em}
+.pg-dev{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+.pg-dev article{background:var(--pg-card); border-top:2px solid var(--pg-ink); padding:16px 18px; min-width:0}
+.pg-dev h3{margin:0 0 6px; font-size:16px}
+.pg-dev p{margin:0; color:var(--pg-sub)}
+.pg-dev p + p{margin-top:8px; color:var(--pg-ink); font-size:14px}
+.pg-two{display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:28px}
+.pg-tbl{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:14px}
+th,td{text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--pg-line)}
+th{font-weight:600; border-bottom:1px solid var(--pg-ink); white-space:nowrap}
+td:first-child{white-space:nowrap; font-weight:600}
+ul.pg-list{margin:0; padding-left:1.2em; display:grid; gap:6px}
+.pg-note{color:var(--pg-sub); font-size:14px}
+a{color:var(--pg-accent)}
+.pg-sw{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px}
+.pg-sw div{background:var(--pg-card); border:1px solid var(--pg-line); font-size:12px; padding:0 0 8px}
+.pg-sw i{display:block; height:44px; margin-bottom:6px; border-bottom:1px solid var(--pg-line)}
+.pg-sw b,.pg-sw code{display:block; padding:0 8px}
+.pg-sw code{font-family:var(--pg-f-mono); color:var(--pg-sub)}
+.pg-code{display:grid; gap:10px}
+.pg-code pre{margin:0; max-height:520px; overflow:auto; background:var(--pg-code-bg); color:var(--pg-code-ink); font:12.5px/1.55 var(--pg-f-mono); padding:16px 18px; border-radius:6px; white-space:pre}
+.pg-code ol{margin:0; padding-left:1.3em; color:var(--pg-sub); font-size:14px}
+@media (max-width:760px){ .pg-dev,.pg-two{grid-template-columns:minmax(0,1fr)} .pg-top h1{font-size:22px} }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap">
+
+<main class="pg">
+  <header class="pg-top">
+    <h1>레퍼런스 #59 범 내려간다</h1>
+    <p>실험형 표지 · 계열 C 경쾌한 놀이 오브젝트 · 가상 예시</p>
+  </header>
+
+  <div class="pg-stage">
+    <div class="pg-frame">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Batang:wght@400;700&family=Nanum+Brush+Script&family=IBM+Plex+Sans+KR:wght@400;600&display=swap">
+<style>
+/* ── 범 내려간다 표지 ─ 가상 화면 1600×900, 1cqw = 16 단위 ── */
+.bm-cover{
+  --bm-paper:#F7F0DF;   /* 한지 미색 */
+  --bm-paper2:#EDE0C2;  /* 땅·바위 황토 */
+  --bm-ink:#211C18;     /* 먹 */
+  --bm-sub:#5B5047;     /* 옅은 먹(보조 글자) */
+  --bm-tiger:#E09A48;   /* 호랑이: 치자·황토빛 주황(민화 안료) */
+  --bm-tiger3:#B86F2C;  /* 털결(짙은 황토) */
+  --bm-mouth:#9A3426;   /* 입속 주토 */
+  --bm-tiger2:#C9611B;  /* 짙은 주황(제목 강조) */
+  --bm-belly:#FFF8EA;   /* 흰 털 */
+  --bm-eye:#F4C93B;     /* 노란 눈 */
+  --bm-pine:#2F6F5E;    /* 석록 솔잎(짙게) */
+  --bm-pine2:#A6D5C6;   /* 옅은 석록 */
+  --bm-mt1:#CDE6D8;     /* 산 윗부분 */
+  --bm-mt2:#F1E4C6;     /* 산 아랫부분 */
+  --bm-bark:#A2703F;    /* 소나무 껍질·북통 */
+  --bm-brass:#D9A441;   /* 놋쇠 북못 */
+  --bm-seal:#D2392B;    /* 낙관 주홍(강조 한 곳) */
+  --bm-f-title:"Black Han Sans","Pretendard","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --bm-f-serif:"Gowun Batang","Nanum Myeongjo","Batang",serif;
+  --bm-f-brush:"Nanum Brush Script","Gungsuh",cursive;
+  --bm-f-body:"IBM Plex Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  container-type:inline-size; background:var(--bm-paper); color:var(--bm-ink);
+  font-family:var(--bm-f-body);
+}
+.bm-cover *{box-sizing:border-box}
+.bm-art{position:absolute; inset:0; width:100%; height:100%; display:block}
+.bm-text{position:absolute; inset:0; pointer-events:none}
+/* 머리말 띠 */
+.bm-head{position:absolute; left:5cqw; width:50cqw; top:2.5cqw; display:flex; justify-content:space-between; align-items:center;
+  font-size:1.05cqw; letter-spacing:.18em; color:var(--bm-sub); border-bottom:.07cqw solid var(--bm-sub); padding-bottom:.7cqw}
+.bm-head b{font-weight:600; color:var(--bm-ink)}
+/* 반복 타이포: 같은 구절이 장단처럼 커지며 되풀이 */
+.bm-l{position:absolute; left:5cqw; margin:0; font-family:var(--bm-f-title); font-weight:400; line-height:1; white-space:nowrap; transform-origin:0 70%}
+.bm-l1{top:8.6cqw; font-size:3.6cqw; color:transparent; -webkit-text-stroke:.1cqw var(--bm-ink)}
+.bm-l2{top:13.4cqw; font-size:5cqw; color:transparent; -webkit-text-stroke:.12cqw var(--bm-ink)}
+.bm-l3{top:20.2cqw; font-size:6.4cqw; color:var(--bm-ink); letter-spacing:-.01em}
+.bm-l3 em{font-style:normal; color:var(--bm-tiger2)}
+.bm-rule{position:absolute; left:5cqw; top:29.4cqw; width:50cqw; height:.07cqw; background:var(--bm-ink)}
+.bm-sub{position:absolute; left:5cqw; top:30.4cqw; margin:0; font-family:var(--bm-f-serif); font-weight:700; font-size:1.95cqw; letter-spacing:-.01em}
+.bm-keys{position:absolute; left:5cqw; top:33.6cqw; margin:0; font-size:1.2cqw; color:var(--bm-sub); letter-spacing:.02em}
+.bm-keys i{font-style:normal; color:var(--bm-ink); font-weight:600}
+/* 추임새 */
+.bm-chu{position:absolute; left:17.6cqw; top:41.4cqw; font-family:var(--bm-f-brush); font-size:3.6cqw; line-height:1; transform:rotate(-7deg); transform-origin:0 50%; white-space:nowrap}
+.bm-chu small{font-size:.62em; margin-left:.3em}
+/* 기관 줄 */
+.bm-org{position:absolute; left:17.6cqw; top:48.6cqw; font-size:1.15cqw; color:var(--bm-sub); white-space:nowrap}
+.bm-org span{letter-spacing:.32em; color:var(--bm-ink); font-weight:600; margin-right:1.2cqw}
+@media (prefers-reduced-motion:reduce){.bm-cover *{transition:none!important}}
+</style>
+
+<!-- 표지: 글 구역(왼쪽 55%) / 그림 구역(오른쪽) -->
+<div class="bm-cover" id="bmCover" role="img" aria-label="표지: 범 내려간다 — ○○교육청 2027 찾아가는 학교 현장 지원 계획(안). 민화 까치호랑이가 장단에 맞춰 산에서 내려와 선다.">
+  <svg class="bm-art" viewBox="0 0 1600 900" aria-hidden="true">
+    <defs>
+      <!-- 한지 결: 고운 입자 -->
+      <filter id="bmGrain" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="7" result="n"/>
+        <feColorMatrix in="n" type="matrix" values="0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .26  0 0 0 .07 0"/>
+      </filter>
+      <linearGradient id="bmMt" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="var(--bm-mt1)"/><stop offset=".62" stop-color="var(--bm-mt1)"/><stop offset="1" stop-color="var(--bm-mt2)"/>
+      </linearGradient>
+      <clipPath id="bmBodyClip"><path id="bmBodyPath" d="M150,150 C176,110 230,92 278,104 C312,112 336,124 368,120 C404,116 430,144 428,186 C426,226 410,262 384,278 C356,294 316,292 284,290 C248,288 220,292 196,284 C168,274 150,252 146,222 C144,196 140,170 150,150 Z"/></clipPath>
+    </defs>
+
+    <rect width="1600" height="900" fill="var(--bm-paper)"/>
+    <rect width="1600" height="900" filter="url(#bmGrain)"/>
+    <g id="bmFibers" stroke="var(--bm-bark)" stroke-opacity=".16" fill="none" stroke-linecap="round"></g>
+
+    <!-- 산: 청록 봉우리 + 먹 윤곽 + 준법 + 태점 -->
+    <g id="bmMountain">
+      <path d="M1290,900 L1290,520 C1340,440 1395,300 1462,262 C1500,240 1528,276 1552,330 C1575,380 1600,420 1600,440 L1600,900 Z" fill="url(#bmMt)" stroke="var(--bm-ink)" stroke-width="3" stroke-linejoin="round" opacity=".85"/>
+      <path id="bmMtFront" d="M915,900 L915,760 C960,700 1010,600 1060,470 C1095,380 1120,270 1160,222 C1182,196 1206,198 1224,222 C1262,270 1290,350 1336,402 C1380,452 1430,500 1480,560 C1520,608 1560,660 1600,690 L1600,900 Z" fill="url(#bmMt)" stroke="var(--bm-ink)" stroke-width="2.4" stroke-linejoin="round"/>
+      <g id="bmCun" stroke="var(--bm-ink)" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".7"></g>
+      <g id="bmDots" fill="var(--bm-ink)"></g>
+      <!-- 디딤 바위 두 곳 -->
+      <path d="M1312,372 C1330,360 1392,360 1412,374 L1404,386 L1318,386 Z" fill="var(--bm-paper2)" stroke="var(--bm-ink)" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M1082,452 C1102,440 1166,439 1188,454 L1180,467 L1090,467 Z" fill="var(--bm-paper2)" stroke="var(--bm-ink)" stroke-width="2.6" stroke-linejoin="round"/>
+    </g>
+
+    <!-- 소나무: 거북등 껍질 + 부채꼴 솔잎 뭉치 -->
+    <g id="bmPine">
+      <path id="bmTrunk" d="M1600,900 L1528,900 C1520,790 1530,690 1512,600 C1496,520 1470,450 1478,380 C1484,320 1460,250 1420,210 L1452,188 C1500,230 1520,290 1526,350 C1534,420 1560,470 1576,540 C1592,610 1590,700 1600,760 Z" fill="var(--bm-bark)" stroke="var(--bm-ink)" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M1440,200 C1400,170 1360,160 1316,166 L1312,154 C1362,140 1414,150 1462,182 Z" fill="var(--bm-bark)" stroke="var(--bm-ink)" stroke-width="3" stroke-linejoin="round"/>
+      <g id="bmBark" fill="none" stroke="var(--bm-ink)" stroke-width="1.6" opacity=".75"></g>
+      <g id="bmNeedles"></g>
+    </g>
+
+    <!-- 까치: 기쁜 소식을 알리는 새, 왼쪽(호랑이 쪽)을 본다 -->
+    <g id="bmMagpie" transform="translate(1340,96)" stroke="var(--bm-ink)" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M78,54 C104,64 130,86 150,112 L142,118 C120,96 96,78 70,66 Z" fill="var(--bm-ink)" stroke-width="2"/>
+      <path d="M86,58 C108,70 128,88 146,112" fill="none" stroke="var(--bm-pine)" stroke-width="2.4"/>
+      <path d="M22,40 C26,22 52,16 70,30 C88,44 92,64 76,72 C58,80 30,72 22,40 Z" fill="var(--bm-ink)" stroke-width="2"/>
+      <path d="M30,50 C40,66 58,74 74,70 C66,60 52,52 30,50 Z" fill="var(--bm-belly)" stroke-width="1.6"/>
+      <path d="M50,34 C62,32 74,40 80,52 C68,50 58,44 50,34 Z" fill="var(--bm-belly)" stroke-width="1.4"/>
+      <circle cx="18" cy="30" r="13" fill="var(--bm-ink)" stroke-width="2"/>
+      <path d="M7,27 L-8,30 L7,33 Z" fill="var(--bm-ink)" stroke-width="1.6"/>
+      <circle cx="14" cy="27" r="2.6" fill="var(--bm-belly)" stroke="none"/>
+      <path d="M44,74 L42,86 M56,74 L56,86 M36,86 L48,86 M50,86 L62,86" fill="none" stroke-width="2.2"/>
+    </g>
+
+    <!-- 화제(세로 글씨)와 낙관 -->
+    <text x="0" y="0" transform="translate(958,118)" font-family="Nanum Brush Script, Gungsuh, cursive" font-size="46" fill="var(--bm-ink)" stroke="var(--bm-ink)" stroke-width=".7" writing-mode="vertical-rl" letter-spacing="4">범 내려온다</text>
+    <g transform="translate(941,412)">
+      <rect width="34" height="34" rx="3" fill="var(--bm-seal)"/>
+      <text x="17" y="15" text-anchor="middle" font-family="Gowun Batang, Batang, serif" font-weight="700" font-size="12" fill="var(--bm-paper)">現場</text>
+      <text x="17" y="29" text-anchor="middle" font-family="Gowun Batang, Batang, serif" font-weight="700" font-size="12" fill="var(--bm-paper)">支援</text>
+    </g>
+
+    <!-- 앞땅 -->
+    <path d="M880,900 L880,842 C960,826 1040,834 1120,826 C1220,816 1320,830 1420,822 C1500,816 1560,826 1600,820 L1600,900 Z" fill="var(--bm-paper2)" stroke="var(--bm-ink)" stroke-width="3" stroke-linejoin="round"/>
+    <g id="bmGrass" stroke="var(--bm-pine)" stroke-width="2.6" stroke-linecap="round" fill="none"></g>
+
+    <!-- 소리북: 놋쇠 북못 · 고리 · 북채 -->
+    <g id="bmDrum" transform="translate(80,654)">
+      <g id="bmDrumBody">
+        <path d="M18,8 C66,-10 128,-10 176,8 L176,128 C128,146 66,146 18,128 Z" fill="var(--bm-bark)" stroke="var(--bm-ink)" stroke-width="3.2" stroke-linejoin="round"/>
+        <path d="M54,2 C52,46 52,90 54,136 M97,-4 L97,141 M140,2 C142,46 142,90 140,136" fill="none" stroke="var(--bm-ink)" stroke-width="1.4" opacity=".45"/>
+        <ellipse cx="18" cy="68" rx="16" ry="60" fill="var(--bm-paper2)" stroke="var(--bm-ink)" stroke-width="3"/>
+        <ellipse cx="176" cy="68" rx="16" ry="60" fill="var(--bm-paper2)" stroke="var(--bm-ink)" stroke-width="3"/>
+        <g id="bmTacks" fill="var(--bm-brass)" stroke="var(--bm-ink)" stroke-width="1.2"></g>
+        <path d="M88,-4 C88,-20 106,-20 106,-4" fill="none" stroke="var(--bm-ink)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M88,-4 C88,-20 106,-20 106,-4" fill="none" stroke="var(--bm-brass)" stroke-width="3" stroke-linecap="round"/>
+      </g>
+      <g id="bmStick"><path d="M126,-7 L236,-64" stroke="var(--bm-ink)" stroke-width="9" stroke-linecap="round"/><path d="M126,-7 L236,-64" stroke="var(--bm-bark)" stroke-width="5" stroke-linecap="round"/></g>
+      <g id="bmRipple" fill="none" stroke="var(--bm-ink)" stroke-width="2.4" stroke-linecap="round" opacity="0">
+        <path d="M204,40 C214,56 214,80 204,96"/><path d="M220,28 C236,52 236,84 220,108"/>
+      </g>
+    </g>
+
+    <!-- 호랑이: 정면 얼굴 + 옆모습 몸, 동그란 눈, 줄무늬, 출입증 목걸이 -->
+    <g id="bmTiger" transform="translate(960,470)">
+      <g stroke="var(--bm-ink)" stroke-linejoin="round" stroke-linecap="round">
+        <!-- 꼬리 -->
+        <path d="M398,168 C446,150 456,96 432,62 C414,38 424,10 454,16" fill="none" stroke-width="24"/>
+        <path d="M398,168 C446,150 456,96 432,62 C414,38 424,10 454,16" fill="none" stroke="var(--bm-tiger)" stroke-width="16"/>
+        <g id="bmTailBands" stroke="var(--bm-ink)" stroke-width="5"></g>
+        <!-- 먼 다리 -->
+        <path d="M360,256 C376,288 378,320 372,350 L346,352 C350,324 344,296 332,276 Z" fill="var(--bm-tiger)" stroke-width="2.3"/>
+        <path d="M226,262 C234,296 230,326 220,350 L194,352 C204,326 206,296 200,270 Z" fill="var(--bm-tiger)" stroke-width="2.3"/>
+        <!-- 몸 -->
+        <use href="#bmBodyPath" fill="var(--bm-tiger)" stroke-width="2.3"/>
+        <path d="M178,272 C232,290 300,292 380,276 L372,288 C330,296 240,298 196,290 Z" fill="var(--bm-belly)" stroke="none"/>
+        <g clip-path="url(#bmBodyClip)"><g id="bmGrainFur" stroke="var(--bm-tiger3)" stroke-width="1" stroke-linecap="round" fill="none" opacity=".55"></g><g id="bmStripes" fill="var(--bm-ink)" stroke="none"></g></g>
+        <use href="#bmBodyPath" fill="none" stroke-width="2.3"/>
+        <g id="bmEdgeFur" stroke="var(--bm-ink)" stroke-width=".9" stroke-linecap="round" fill="none" opacity=".6"></g>
+        <!-- 가까운 뒷다리 -->
+        <path d="M330,184 C390,186 424,236 408,290 C402,312 398,330 404,352 L370,356 C370,336 364,318 354,302 C330,280 314,236 330,184 Z" fill="var(--bm-tiger)" stroke-width="2.3"/>
+        <path d="M346,212 C362,220 376,236 380,254 M356,264 C370,270 380,280 386,292 M368,318 C380,314 392,314 400,318 M368,336 C380,332 394,332 402,336" fill="none" stroke-width="4"/>
+        <!-- 가까운 앞다리 -->
+        <path d="M186,226 C182,262 166,300 146,336 L114,342 C132,308 148,272 156,244 Z" fill="var(--bm-tiger)" stroke-width="2.3"/>
+        <path d="M168,262 C176,262 184,266 188,272 M158,284 C166,286 174,290 178,296 M146,308 C154,310 162,316 166,322" fill="none" stroke-width="4"/>
+        <!-- 발: 넓은 발등 + 갈고리 발톱(먹) -->
+        <g fill="var(--bm-belly)" stroke-width="2.3">
+          <path d="M96,342 C96,330 140,328 144,342 C146,354 96,356 96,342 Z"/>
+          <path d="M190,348 C190,338 228,338 230,350 C232,360 190,360 190,348 Z"/>
+          <path d="M340,348 C340,338 376,338 378,350 C380,360 340,360 340,348 Z"/>
+          <path d="M366,350 C366,340 410,340 412,352 C414,364 366,364 366,350 Z"/>
+        </g>
+        <path d="M100,340 q-7,1 -9,8 M112,344 q-7,1 -9,8 M124,346 q-7,1 -9,7 M194,346 q-6,1 -8,7 M206,350 q-6,1 -8,7 M344,346 q-6,1 -8,7 M356,350 q-6,1 -8,7 M370,348 q-6,1 -8,7 M382,352 q-6,1 -8,7" fill="none" stroke-width="2.2"/>
+        <!-- 귀: 작고 둥근 삼각, 안쪽 흰 털 -->
+        <path d="M34,80 C22,52 40,34 64,42 C60,56 54,68 50,84 Z M178,80 C190,52 172,34 148,42 C152,56 158,68 162,84 Z" fill="var(--bm-tiger)" stroke-width="2.3"/>
+        <path d="M40,70 C36,56 46,48 58,50 C54,58 50,66 48,74 Z M172,70 C176,56 166,48 154,50 C158,58 162,66 164,74 Z" fill="var(--bm-belly)" stroke-width="1.4"/>
+        <!-- 머리: 볼털이 삐죽한 넓은 얼굴 -->
+        <path id="bmHead" d="M38,96 C38,62 70,48 106,48 C142,48 174,62 174,96 L194,124 L180,138 L200,160 L182,170 L192,198 C168,226 140,240 106,240 C72,240 44,226 20,198 L30,170 L12,160 L32,138 L18,124 Z" fill="var(--bm-tiger)" stroke-width="2.3"/>
+        <g id="bmFaceFur" stroke-linecap="round" fill="none"></g>
+        <!-- 이마·볼 줄무늬 -->
+        <path d="M106,52 C100,62 112,70 104,84 M86,58 C80,66 90,72 84,82 M126,58 C132,66 122,72 128,82" fill="none" stroke-width="4.2"/>
+        <path d="M24,150 L58,156 L26,162 Z M190,150 L156,156 L188,162 Z M30,184 L60,176 L40,192 Z M184,184 L154,176 L174,192 Z" fill="var(--bm-ink)" stroke-width="1.5"/>
+        <!-- 흰 눈썹과 주둥이 -->
+        <path d="M50,96 C60,84 86,84 94,96 C82,92 62,92 50,96 Z M120,96 C128,84 154,84 164,96 C152,92 132,92 120,96 Z" fill="var(--bm-belly)" stroke-width="2"/>
+        <path d="M70,166 C66,146 146,146 142,166 C152,198 132,218 106,218 C80,218 60,198 70,166 Z" fill="var(--bm-belly)" stroke-width="2.6"/>
+        <!-- 동그란 눈(흰 테 → 노란 홍채 → 먹 눈동자), 시선은 글 쪽으로 -->
+        <g id="bmEyes">
+          <circle cx="74" cy="120" r="24" fill="var(--bm-belly)" stroke-width="2.3"/>
+          <circle cx="138" cy="120" r="24" fill="var(--bm-belly)" stroke-width="2.3"/>
+          <circle cx="70" cy="121" r="16" fill="var(--bm-eye)" stroke-width="2.4"/>
+          <circle cx="134" cy="121" r="16" fill="var(--bm-eye)" stroke-width="2.4"/>
+          <circle cx="70" cy="121" r="11.5" fill="none" stroke-width="1.2"/>
+          <circle cx="134" cy="121" r="11.5" fill="none" stroke-width="1.2"/>
+          <circle cx="66" cy="122" r="8.5" fill="var(--bm-ink)" stroke="none"/>
+          <circle cx="130" cy="122" r="8.5" fill="var(--bm-ink)" stroke="none"/>
+          <circle cx="63" cy="118" r="2.6" fill="var(--bm-belly)" stroke="none"/>
+          <circle cx="127" cy="118" r="2.6" fill="var(--bm-belly)" stroke="none"/>
+          <path d="M48,110 C58,92 92,92 100,112 M112,112 C120,92 154,92 164,110" fill="none" stroke-width="2.4"/>
+        </g>
+        <!-- 코·입: 이를 드러낸 너스레 웃음 -->
+        <path d="M92,150 C98,146 114,146 120,150 L106,168 Z" fill="var(--bm-ink)" stroke-width="2"/>
+        <path d="M106,168 L106,180" fill="none" stroke-width="2.6"/>
+        <path d="M78,178 C92,206 120,206 134,178 C120,186 92,186 78,178 Z" fill="var(--bm-mouth)" stroke-width="2.2"/>
+        <path d="M86,183 L91,194 L96,185 Z M126,183 L121,194 L116,185 Z" fill="var(--bm-belly)" stroke-width="1.4"/>
+        <!-- 수염 -->
+        <path d="M72,172 L30,166 M72,180 L28,184 M140,172 L182,166 M140,180 L184,184" fill="none" stroke-width="1.8"/>
+        <g fill="var(--bm-ink)" stroke="none"><circle cx="82" cy="168" r="2"/><circle cx="88" cy="174" r="2"/><circle cx="80" cy="178" r="2"/><circle cx="130" cy="168" r="2"/><circle cx="124" cy="174" r="2"/><circle cx="132" cy="178" r="2"/></g>
+        <!-- 출입증 목걸이(전통 속 현대 사물 하나) -->
+        <path d="M78,226 L98,262 M134,226 L114,262" fill="none" stroke="var(--bm-pine)" stroke-width="5"/>
+        <rect x="84" y="256" width="44" height="40" rx="4" fill="var(--bm-belly)" stroke-width="2.6"/>
+        <rect x="84" y="256" width="44" height="11" rx="3" fill="var(--bm-pine)" stroke-width="2.6"/>
+        <rect x="100" y="259" width="12" height="4" rx="2" fill="var(--bm-belly)" stroke="none"/>
+        <text x="106" y="282" text-anchor="middle" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif" font-weight="600" font-size="11" fill="var(--bm-ink)" stroke="none">현장</text>
+        <text x="106" y="292" text-anchor="middle" font-family="IBM Plex Sans KR, Malgun Gothic, sans-serif" font-size="7.5" fill="var(--bm-ink)" stroke="none">지원단</text>
+      </g>
+    </g>
+  </svg>
+
+  <div class="bm-text">
+    <div class="bm-head"><span><b>○○교육청</b> · 2027 주요업무계획 · 현장 지원 분야</span><span>가상 예시</span></div>
+    <p class="bm-l bm-l1" data-beat="0">내려간다</p>
+    <p class="bm-l bm-l2" data-beat="1">내려간다</p>
+    <h1 class="bm-l bm-l3" data-beat="2"><em>현장으로</em> 내려간다</h1>
+    <div class="bm-rule"></div>
+    <p class="bm-sub">○○교육청 2027 찾아가는 학교 현장 지원 계획(안)</p>
+    <p class="bm-keys">부르면 사흘 안에 · <i>수업 컨설팅</i> · <i>행정업무 경감</i> · <i>시설 안전 점검</i> · <i>학부모 상담</i></p>
+    <div class="bm-chu">얼씨구!<small>좋다</small></div>
+    <div class="bm-org"><span>2027. 1.</span>○○교육청 교육지원과 · 학교현장지원단</div>
+  </div>
+</div>
+
+<script>
+/* 범 내려간다 표지 — 그림 생성 + 장단 연출(약 3초, 한 번). 끝 화면이 기본 상태다. */
+(function(){
+  var root = document.getElementById('bmCover');
+  if(!root) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var $ = function(id){ return root.querySelector('#'+id); };
+  // 고정 시드 난수(매번 같은 그림)
+  var seed = 59; function rnd(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }
+  function el(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for(var k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+
+  // 한지 섬유: 짧고 휜 실오라기
+  var fib = $('bmFibers');
+  for(var i=0;i<70;i++){
+    var x = rnd()*1600, y = rnd()*900, l = 14+rnd()*34, a = rnd()*Math.PI;
+    var x2 = x+Math.cos(a)*l, y2 = y+Math.sin(a)*l, cx = (x+x2)/2+(rnd()-.5)*14, cy = (y+y2)/2+(rnd()-.5)*14;
+    el('path', {d:'M'+x.toFixed(1)+','+y.toFixed(1)+' Q'+cx.toFixed(1)+','+cy.toFixed(1)+' '+x2.toFixed(1)+','+y2.toFixed(1), 'stroke-width':(0.6+rnd()*0.9).toFixed(2)}, fib);
+  }
+
+  // 산: 능선을 따라 태점(이끼 점) + 준법(짧은 주름 선)
+  var mt = $('bmMtFront'), dots = $('bmDots'), cun = $('bmCun');
+  var L = mt.getTotalLength();
+  for(var s=0; s<L; s+=16){
+    var p = mt.getPointAtLength(s);
+    if(p.y > 720 || p.x > 1590 || p.y < 200) continue;
+    if(rnd() < .55){ el('ellipse', {cx:(p.x+(rnd()-.5)*6).toFixed(1), cy:(p.y+4+rnd()*8).toFixed(1), rx:(2.4+rnd()*2.2).toFixed(1), ry:(1.6+rnd()*1.4).toFixed(1)}, dots); }
+  }
+  var cunList = [[1150,300,1132,360],[1188,286,1180,350],[1112,420,1094,480],[1250,330,1262,392],[1300,420,1316,470],[1060,560,1040,620],[1380,520,1398,566],[1150,620,1140,680],[1450,610,1466,650]];
+  cunList.forEach(function(c){ el('path', {d:'M'+c[0]+','+c[1]+' C'+(c[0]-6)+','+((c[1]+c[3])/2)+' '+(c[2]+6)+','+((c[1]+c[3])/2)+' '+c[2]+','+c[3]}, cun); });
+
+  // 소나무 껍질: 거북등처럼 갈라진 비늘 조각
+  var bark = $('bmBark');
+  var barkPts = [[1546,860],[1560,812],[1540,770],[1556,722],[1538,680],[1552,632],[1530,590],[1546,548],[1520,505],[1506,462],[1500,418],[1508,372],[1496,330],[1486,288]];
+  barkPts.forEach(function(b){
+    var w = 16+rnd()*8, h = 12+rnd()*6, x=b[0], y=b[1];
+    el('path', {d:'M'+(x-w)+','+y+' L'+(x-w*.4)+','+(y-h)+' L'+(x+w*.5)+','+(y-h*.9)+' L'+(x+w)+','+(y+1)+' L'+(x+w*.4)+','+(y+h)+' L'+(x-w*.5)+','+(y+h*.9)+' Z'}, bark);
+  });
+
+  // 솔잎 뭉치: 민화식 둥근 바퀴살 — 납작한 타원 안에서 사방으로 뻗는 바늘, 바탕은 옅은 석록 번짐
+  var nd = $('bmNeedles');
+  var fans = [[1318,150,56],[1392,112,64],[1478,86,70],[1566,124,62],[1440,246,54],[1560,278,58],[1506,194,50],[1604,206,54]];
+  fans.forEach(function(f){
+    var cx=f[0], cy=f[1], r=f[2], g = el('g', {}, nd);
+    el('ellipse', {cx:cx, cy:cy+2, rx:r*.98, ry:r*.5, fill:'var(--bm-pine2)', opacity:'.75'}, g);
+    var n = Math.round(r*0.9);
+    for(var k=0;k<n;k++){
+      var a = Math.PI*2*k/n + (rnd()-.5)*.08, rr = r*(0.78+rnd()*0.24);
+      var x2 = cx+Math.cos(a)*rr, y2 = cy+Math.sin(a)*rr*.5;
+      el('path', {d:'M'+cx+','+cy+' L'+x2.toFixed(1)+','+y2.toFixed(1), stroke:(k%5===0?'var(--bm-ink)':'var(--bm-pine)'), 'stroke-width':(k%5===0?'1.1':'1.5'), 'stroke-linecap':'round'}, g);
+    }
+    el('circle', {cx:cx, cy:cy, r:3.4, fill:'var(--bm-bark)', stroke:'var(--bm-ink)', 'stroke-width':'1.2'}, g);
+  });
+
+  // 앞땅 풀포기
+  var gr = $('bmGrass');
+  [[930,836],[1000,832],[1250,824],[1460,822],[1540,824]].forEach(function(p){
+    for(var k=-2;k<=2;k++){ el('path', {d:'M'+p[0]+','+p[1]+' Q'+(p[0]+k*5)+','+(p[1]-14)+' '+(p[0]+k*9)+','+(p[1]-22-rnd()*8)}, gr); }
+  });
+
+  // 북 가장자리 놋쇠 못
+  var tk = $('bmTacks');
+  [18,176].forEach(function(cx){ for(var k=0;k<11;k++){ var a = -Math.PI/2 + Math.PI*k/10; var side = cx===18 ? -1 : 1; el('circle', {cx:(cx+side*Math.cos(a)*15).toFixed(1), cy:(68+Math.sin(a)*58).toFixed(1), r:3.2}, tk); } });
+
+  // 호랑이 줄무늬: 등에서 배로 가늘어지는 먹 획(끝이 갈라진 것 섞음)
+  var st = $('bmStripes');
+  // 먹 획 하나: (x,y)에서 길이 len만큼, 굵기 w로 시작해 끝이 뾰족하게 휘어 나간다
+  function stroke(x, y, len, w, lean, dir){
+    var y2 = y+dir*len, mx = x+lean*.55, my = y+dir*len*.55;
+    return 'M'+(x-w)+','+y+' Q'+(mx-w*.4)+','+my+' '+(x+lean)+','+y2+' Q'+(mx+w*.5)+','+my+' '+(x+w)+','+y+' Z';
+  }
+  // 먹 획: 등에서 시작해 S자로 휘며 가늘어진다(민화 호랑이의 물결 줄무늬)
+  function wave(x, y, len, w, lean, dir){
+    var y2 = y+dir*len, c1x = x+lean*.9, c1y = y+dir*len*.35, c2x = x-lean*.2, c2y = y+dir*len*.7;
+    return 'M'+(x-w)+','+y+' C'+(c1x-w*.6)+','+c1y+' '+(c2x-w*.2)+','+c2y+' '+(x+lean*.5)+','+y2+' C'+(c2x+w*.5)+','+c2y+' '+(c1x+w*.7)+','+c1y+' '+(x+w)+','+y+' Z';
+  }
+  for(var k=0;k<14;k++){
+    var x = 178+k*17+(rnd()-.5)*5, w = 3.2+rnd()*2, len = 46+rnd()*52, lean = 8+rnd()*12;
+    el('path', {d:wave(x, 102, len, w, lean, 1)}, st);
+    if(k%3===1) el('path', {d:wave(x+6, 104+len*.5, len*.35, 1.6, lean+6, 1)}, st);
+    if(k<13 && k%2===0) el('path', {d:wave(x+9, 292, 20+rnd()*22, 2.6, -6-rnd()*6, -1)}, st);
+  }
+  // 털결: 몸 안쪽에 짧고 가는 세필 획을 같은 방향으로
+  var gf = $('bmGrainFur');
+  for(var k=0;k<170;k++){
+    var x = 150+rnd()*270, y = 108+rnd()*184, l = 5+rnd()*6;
+    el('path', {d:'M'+x.toFixed(1)+','+y.toFixed(1)+' l'+(l*.55).toFixed(1)+','+(l*.85).toFixed(1)}, gf);
+  }
+  // 윤곽 털: 몸·머리 가장자리에서 바깥으로 삐친 가는 털
+  function edgeHairs(path, step, len, host){
+    var L = path.getTotalLength();
+    for(var s2=0; s2<L; s2+=step){
+      var p = path.getPointAtLength(s2), q = path.getPointAtLength(Math.min(L, s2+1));
+      var dx = q.x-p.x, dy = q.y-p.y, m = Math.hypot(dx,dy)||1, nx = dy/m, ny = -dx/m;
+      var l = len*(0.6+rnd()*0.7);
+      el('path', {d:'M'+p.x.toFixed(1)+','+p.y.toFixed(1)+' q'+(nx*l*.5+dx/m*2).toFixed(1)+','+(ny*l*.5+dy/m*2).toFixed(1)+' '+(nx*l).toFixed(1)+','+(ny*l).toFixed(1)}, host);
+    }
+  }
+  edgeHairs(root.querySelector('#bmBodyPath'), 7, 7, $('bmEdgeFur'));
+  // 얼굴 털: 머리 윤곽 + 볼에서 퍼지는 세필
+  var ff = $('bmFaceFur');
+  var hg = el('g', {stroke:'var(--bm-ink)', 'stroke-width':'.9', opacity:'.6'}, ff);
+  edgeHairs($('bmHead'), 6, 6, hg);
+  var cg = el('g', {stroke:'var(--bm-tiger3)', 'stroke-width':'1', opacity:'.7'}, ff);
+  for(var k=0;k<46;k++){
+    var side = k%2 ? 1 : -1, a = (-0.9+rnd()*1.6), r0 = 40+rnd()*36;
+    var x = 106+side*(30+rnd()*48), y = 120+rnd()*92;
+    el('path', {d:'M'+x.toFixed(1)+','+y.toFixed(1)+' l'+(side*(4+rnd()*4)).toFixed(1)+','+(2+rnd()*4).toFixed(1)}, cg);
+  }
+  var tb = $('bmTailBands');
+  [[440,128,456,120],[444,96,460,94],[426,66,444,58],[426,40,440,28]].forEach(function(b){ el('path', {d:'M'+(b[0]-10)+','+(b[1]+2)+' L'+b[2]+','+b[3]}, tb); });
+
+  /* ── 장단 연출 ──
+     북 세 번(덩·덩·덩)마다 반복 구절이 하나씩 찍히고, 호랑이가 산 → 바위 → 바위 → 앞땅으로 한 번씩 내려온다.
+     발 위치(ANCHOR)를 기준점으로 크기를 키워 멀리서 가까이 오는 원근을 만든다. */
+  var tiger = $('bmTiger'), ripple = $('bmRipple'), drum = $('bmDrumBody');
+  var lines = root.querySelectorAll('[data-beat]'), chu = root.querySelector('.bm-chu');
+  var ANCHOR = [230, 356];
+  var STOPS = [ [1186,206,.26], [1362,374,.42], [1136,456,.6], [1190,826,1] ];
+  var BEATS = [.25, 1.05, 1.85];   // 북 치는 시각(초)
+  var HOP = .62, END = 3.0;
+  function ease(t){ return t<.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
+  function setTiger(x,y,s){ tiger.setAttribute('transform','translate('+(x-ANCHOR[0]*s).toFixed(1)+','+(y-ANCHOR[1]*s).toFixed(1)+') scale('+s.toFixed(3)+')'); }
+  function render(t){
+    // 호랑이
+    var x=STOPS[0][0], y=STOPS[0][1], s=STOPS[0][2];
+    for(var i=0;i<3;i++){
+      var t0 = BEATS[i]+.05, u = (t-t0)/HOP;
+      if(u>=1){ x=STOPS[i+1][0]; y=STOPS[i+1][1]; s=STOPS[i+1][2]; }
+      else if(u>0){ var e=ease(u), a=STOPS[i], b=STOPS[i+1]; x=a[0]+(b[0]-a[0])*e; y=a[1]+(b[1]-a[1])*e - Math.sin(Math.PI*u)*(26+22*i); s=a[2]+(b[2]-a[2])*e; break; }
+    }
+    setTiger(x,y,s);
+    // 반복 구절: 북 치는 순간 살짝 크게 찍혔다 자리 잡음
+    var hit = 0;
+    for(var j=0;j<lines.length;j++){
+      var v = (t-BEATS[j])/.18;
+      if(j===lines.length-1){   // 제목 줄은 처음부터 보이고, 셋째 박에 한 번 크게 울린다
+        lines[j].style.opacity=1; lines[j].style.transform='scale('+(v>0&&v<1.6 ? 1+.07*Math.sin(Math.PI*v/1.6) : 1).toFixed(3)+')';
+      }
+      else if(v<0){ lines[j].style.opacity=0; lines[j].style.transform='scale(1.12)'; }
+      else { var c=Math.min(1,v); lines[j].style.opacity=1; lines[j].style.transform='scale('+(1.12-.12*ease(c)).toFixed(3)+')'; }
+      var dv = t-BEATS[j]; if(dv>=0 && dv<.3) hit = Math.max(hit, 1-dv/.3);
+    }
+    ripple.setAttribute('opacity', hit.toFixed(2));
+    drum.setAttribute('transform', 'translate(97,68) scale('+(1+.035*hit).toFixed(3)+') translate(-97,-68)');
+    // 추임새: 착지 뒤에
+    var w = (t-2.55)/.25;
+    chu.style.opacity = w<=0 ? 0 : Math.min(1,w);
+    chu.style.transform = 'rotate(-7deg) scale('+(w<=0?1.2:(1.2-.2*Math.min(1,w))).toFixed(3)+')';
+  }
+  var raf=0;
+  function play(){
+    cancelAnimationFrame(raf);
+    if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches){ render(END); return; }
+    var start = null;
+    function step(now){ if(start===null) start=now; var t=(now-start)/1000; render(Math.min(t,END)); if(t<END) raf=requestAnimationFrame(step); }
+    raf = requestAnimationFrame(step);
+  }
+  render(END);   // 기본은 끝 화면(정지 화면에서도 모든 정보가 남음)
+  root.bmPlay = play; root.bmSeek = function(t){ cancelAnimationFrame(raf); render(t); };
+  // 폰트가 준비된 뒤 한 번 재생
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){ setTimeout(play, 150); });
+})();
+</script>
+
+    </div>
+    <div class="pg-bar"><button class="pg-btn" id="pgReplay" type="button">다시 보기</button><span>북 세 번에 맞춰 범이 산 → 바위 → 바위 → 앞땅으로 내려와 섭니다(약 3초, 한 번). 정지 화면이 기본입니다.</span></div>
+  </div>
+
+  <section>
+    <h2><span>01</span>가져갈 장치</h2>
+    <div class="pg-dev">
+      <article><h3>장단 반복 타이포</h3><p>같은 구절을 북 박자마다 한 번씩, 점점 크게 되풀이합니다. 앞의 둘은 외곽선 글자, 마지막 줄만 채운 글자라 제목이 먼저 읽힙니다.</p><p>다른 데 쓰기: “모인다 · 모인다 · 학부모가 모인다”(학부모 아카데미), “켜진다 · 켜진다 · 교실이 켜진다”(디지털 교실)</p></article>
+      <article><h3>발 고정 원근 하강</h3><p>호랑이 발끝을 기준점으로 잡고 크기를 0.26 → 1로 키우며 디딤 바위 두 곳을 거쳐 앞땅에 내려섭니다. 세 번의 착지가 세 단계(교육청 → 교육지원청 → 학교)입니다.</p><p>다른 데 쓰기: 위에서 아래로 내려가는 지원·배분 계획 전반(예산 배분, 순회 교사)</p></article>
+      <article><h3>옛 그림 속 현대 사물 하나</h3><p>민화 화풍은 먹 윤곽·맑은 평면 채색·한지 결로 지키고, 엉뚱함은 호랑이 목에 건 <b>출입증 목걸이</b> 하나에만 맡깁니다. 이 사물이 “범 = 우리 지원단”을 말해 줍니다.</p><p>지킬 것: 키치 사물은 한 개만. 둘이 되면 장난처럼 보입니다.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>02</span>흐름 설계 메모</h2>
+    <div class="pg-two">
+      <div class="pg-tbl"><table>
+        <thead><tr><th>표지의 장치</th><th>계획안의 뜻</th><th>뒤에 이어질 장</th></tr></thead>
+        <tbody>
+          <tr><td>산꼭대기 → 앞땅</td><td>교육청이 학교 현장으로 직접 간다</td><td>Ⅰ 추진 배경: 현장 요청 대비 방문까지 걸린 날</td></tr>
+          <tr><td>북 세 번</td><td>접수 → 배정 → 방문, “부르면 사흘 안에”</td><td>Ⅱ 목표: 사흘 안 방문율 현재값·목표값</td></tr>
+          <tr><td>디딤 바위 두 곳</td><td>교육지원청·현장지원단을 거치는 경로</td><td>Ⅳ 추진체계: 교육청 → 지원청 → 지원단 → 학교</td></tr>
+          <tr><td>네 낱말(부제 아래)</td><td>수업 컨설팅·행정업무 경감·시설 점검·학부모 상담</td><td>Ⅲ 세부과제 4개</td></tr>
+          <tr><td>까치</td><td>기쁜 소식 = 학교가 받는 응답</td><td>마무리 장: “얼씨구, 다음 장단에 또 가겠습니다”</td></tr>
+        </tbody>
+      </table></div>
+      <div>
+        <p class="pg-note" style="margin-top:0">본문은 이 분위기를 따르되 정지 화면으로 둡니다. 모션은 표지 한 장뿐입니다. 어울리는 기존 요소(계열 C):</p>
+        <ul class="pg-list">
+          <li><a href="https://claude.ai/artifact/UCfqhF9y9bS8uCSRndujzc" target="_blank" rel="noopener">#55 원인 꽂힌 화살표</a>: Ⅰ 현장 요청이 늦게 닿는 원인 → 해결</li>
+          <li><a href="https://claude.ai/artifact/LaASks1GbNLmNDsAvDkQF3" target="_blank" rel="noopener">#34 허브 내비게이션 업무보고</a>: Ⅱ 사흘 안 방문율 같은 핵심 수치</li>
+          <li><a href="https://claude.ai/artifact/6Lk5cgqZn4RD3oENUR6ad9" target="_blank" rel="noopener">#44 분자 결합 추진체계</a> 또는 <a href="https://claude.ai/artifact/BVYnUphnh6znAZ4ZeQaBwa" target="_blank" rel="noopener">#14 상세도 호출</a>: Ⅳ 추진체계</li>
+          <li><a href="https://claude.ai/artifact/Bzq7tLvtEZxwa5wtQekw7a" target="_blank" rel="noopener">#51 낱칸 시·군 지도</a>: 지역별 요청·방문 건수</li>
+        </ul>
+        <p class="pg-note">본문 장에 쓸 계열 값: 바탕 한지 #F7F0DF, 글자 먹 #211C18, 강조 짙은 주황 #C9611B 한 곳, 위계 농담은 석록(#2F6F5E → #A6D5C6) 한 색으로.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>03</span>재현 체크</h2>
+    <div class="pg-two">
+      <ul class="pg-list">
+        <li><b>까치호랑이(작호도) 구도</b>: 소나무 가지의 까치 + 아래의 호랑이, 까치는 기쁜 소식, 호랑이는 나쁜 기운을 막는 상징. 18~19세기 작호도에서 호랑이가 익살스러워진 흐름을 따랐습니다.</li>
+        <li><b>민화 호랑이 관찰 디테일</b>: 흰 테 → 노란 홍채 → 먹 눈동자의 동그란 겹눈, 정면 얼굴 + 옆모습 몸, 삐죽한 볼털, 흰 눈썹 털, 끝이 갈라지는 먹 줄무늬, 말려 올라간 꼬리와 고리 줄무늬, 발가락 선.</li>
+        <li><b>소나무</b>: 거북등처럼 갈라진 껍질 조각, 부채꼴로 퍼지는 솔잎 뭉치(방사선 + 옅은 석록 바탕).</li>
+        <li><b>산</b>: 청록 봉우리, 능선을 따라 찍은 태점(이끼 점), 짧은 준법 주름.</li>
+        <li><b>소리북</b>: 고수가 장단을 치는 북. 양쪽 가죽면 가장자리의 놋쇠 못, 북통 위 고리, 북통 쪽나무 이음, 북채.</li>
+        <li><b>쓰지 않은 것</b>: 실존 밴드·무용단·기관의 이름과 로고, 사람 모습, 영상 장면. 가사는 대목 이름 “범 내려온다”(화제 세로 글씨)만 썼습니다.</li>
+      </ul>
+      <div class="pg-note">
+        <p style="margin-top:0">조사 출처</p>
+        <ul class="pg-list">
+          <li><a href="https://design.co.kr/article/133221/" target="_blank" rel="noopener">월간 디자인: 430년 전 호작도(1592, 소나무 위 까치와 호랑이)</a></li>
+          <li><a href="https://maily.so/visitor.see/posts/wdr94520zlx" target="_blank" rel="noopener">민화의 매력: 18~19세기 작호도 호랑이의 익살</a></li>
+          <li><a href="https://encykorea.aks.ac.kr/Article/E0030033" target="_blank" rel="noopener">한국민족문화대백과: 소리북(고장북) 재료·치는 자리</a></li>
+          <li>트렌드: <a href="https://www.vistaprint.com/hub/graphic-design-trends" target="_blank" rel="noopener">VistaPrint ‘Elemental Folk’ 2026</a>(민속 문양을 깔끔한 현대 레이아웃에), <a href="https://learn.g2.com/graphic-design-trends" target="_blank" rel="noopener">G2 2026 키네틱 타이포그래피</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>04</span>스펙</h2>
+    <div class="pg-sw">
+      <div><i style="background:#F7F0DF"></i><b>한지</b><code>#F7F0DF</code></div>
+      <div><i style="background:#211C18"></i><b>먹</b><code>#211C18</code></div>
+      <div><i style="background:#E09A48"></i><b>호랑이 치자·황토</b><code>#E09A48</code></div>
+      <div><i style="background:#C9611B"></i><b>제목 강조</b><code>#C9611B</code></div>
+      <div><i style="background:#2F6F5E"></i><b>석록 솔잎</b><code>#2F6F5E</code></div>
+      <div><i style="background:#CDE6D8"></i><b>청록 산</b><code>#CDE6D8</code></div>
+      <div><i style="background:#A2703F"></i><b>소나무·북통</b><code>#A2703F</code></div>
+      <div><i style="background:#D2392B"></i><b>낙관(한 곳)</b><code>#D2392B</code></div>
+    </div>
+    <div class="pg-two" style="margin-top:20px">
+      <div class="pg-tbl"><table><tbody>
+        <tr><td>폰트</td><td>제목 Black Han Sans(외곽선 반복 → 채운 제목) · 부제 Gowun Batang 700 · 추임새·화제 Nanum Brush Script · 본문 IBM Plex Sans KR / 대체: 맑은 고딕, 바탕, 궁서</td></tr>
+        <tr><td>뼈대</td><td>1600×900 가상 화면, cqw 비례. 글 구역 x 80~880, 그림 구역 x 900~1600. 그림 위 글자는 화제·출입증 2개.</td></tr>
+        <tr><td>난이도</td><td>HTML 중상(그림 손질은 SVG 경로) · PPT 중</td></tr>
+        <tr><td>모션</td><td>북 3박(0.25·1.05·1.85초) + 호랑이 3회 하강 + 추임새(2.6초). 끝 화면 정지, 동작 줄이기 설정이면 끝 화면만.</td></tr>
+      </tbody></table></div>
+      <div>
+        <p style="margin-top:0"><b>PPT로 옮기기</b></p>
+        <ul class="pg-list pg-note">
+          <li>그림 구역(산·소나무·까치·호랑이)을 SVG로 저장해 삽입 → [그래픽 형식] 도형으로 변환. 호랑이는 그룹으로 묶어 둡니다.</li>
+          <li>호랑이: 끝 위치에 두고 [애니메이션] 나타내기 + 이동 경로(사용자 지정 경로, 꺾임 3번) + 강조 ‘크게/작게’ 26% → 100%, 모두 ‘이전 효과와 함께’, 길이 2.4초.</li>
+          <li>반복 구절: 1·2줄 ‘확대/축소’ 나타내기, 지연 0.25초 · 1.05초. 제목 줄은 처음부터 두고 1.85초에 ‘펄스’.</li>
+          <li>“얼씨구!”: 지연 2.6초 확대/축소 나타내기. 한지 결은 배경 서식의 질감 대신 옅은 한지 사진(투명도 85%)으로.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-code">
+    <h2><span>05</span>HTML로 가져다 쓰기</h2>
+    <ol>
+      <li>아래 코드를 빈 .html 파일로 저장하면 표지 한 장이 그대로 열립니다.</li>
+      <li>글자는 <code>.bm-text</code> 안의 문장을 바꾸면 됩니다. 기관·연도·네 낱말이 모두 거기 있습니다.</li>
+      <li>색은 <code>.bm-cover</code>의 <code>--bm-*</code> 변수에서 바꿉니다. 박자·착지 위치는 스크립트의 <code>BEATS</code>, <code>STOPS</code> 배열입니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="pg-bar"><button class="pg-btn" id="pgCopy" type="button">코드 복사</button><span id="pgCopyMsg" aria-live="polite"></span></div>
+    <pre id="pgCode" tabindex="0">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Black+Han+Sans&amp;family=Gowun+Batang:wght@400;700&amp;family=Nanum+Brush+Script&amp;family=IBM+Plex+Sans+KR:wght@400;600&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 범 내려간다 표지 ─ 가상 화면 1600×900, 1cqw = 16 단위 ── */
+.bm-cover{
+  --bm-paper:#F7F0DF;   /* 한지 미색 */
+  --bm-paper2:#EDE0C2;  /* 땅·바위 황토 */
+  --bm-ink:#211C18;     /* 먹 */
+  --bm-sub:#5B5047;     /* 옅은 먹(보조 글자) */
+  --bm-tiger:#E09A48;   /* 호랑이: 치자·황토빛 주황(민화 안료) */
+  --bm-tiger3:#B86F2C;  /* 털결(짙은 황토) */
+  --bm-mouth:#9A3426;   /* 입속 주토 */
+  --bm-tiger2:#C9611B;  /* 짙은 주황(제목 강조) */
+  --bm-belly:#FFF8EA;   /* 흰 털 */
+  --bm-eye:#F4C93B;     /* 노란 눈 */
+  --bm-pine:#2F6F5E;    /* 석록 솔잎(짙게) */
+  --bm-pine2:#A6D5C6;   /* 옅은 석록 */
+  --bm-mt1:#CDE6D8;     /* 산 윗부분 */
+  --bm-mt2:#F1E4C6;     /* 산 아랫부분 */
+  --bm-bark:#A2703F;    /* 소나무 껍질·북통 */
+  --bm-brass:#D9A441;   /* 놋쇠 북못 */
+  --bm-seal:#D2392B;    /* 낙관 주홍(강조 한 곳) */
+  --bm-f-title:&quot;Black Han Sans&quot;,&quot;Pretendard&quot;,&quot;Malgun Gothic&quot;,&quot;Apple SD Gothic Neo&quot;,sans-serif;
+  --bm-f-serif:&quot;Gowun Batang&quot;,&quot;Nanum Myeongjo&quot;,&quot;Batang&quot;,serif;
+  --bm-f-brush:&quot;Nanum Brush Script&quot;,&quot;Gungsuh&quot;,cursive;
+  --bm-f-body:&quot;IBM Plex Sans KR&quot;,&quot;Malgun Gothic&quot;,&quot;Apple SD Gothic Neo&quot;,sans-serif;
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  container-type:inline-size; background:var(--bm-paper); color:var(--bm-ink);
+  font-family:var(--bm-f-body);
+}
+.bm-cover *{box-sizing:border-box}
+.bm-art{position:absolute; inset:0; width:100%; height:100%; display:block}
+.bm-text{position:absolute; inset:0; pointer-events:none}
+/* 머리말 띠 */
+.bm-head{position:absolute; left:5cqw; width:50cqw; top:2.5cqw; display:flex; justify-content:space-between; align-items:center;
+  font-size:1.05cqw; letter-spacing:.18em; color:var(--bm-sub); border-bottom:.07cqw solid var(--bm-sub); padding-bottom:.7cqw}
+.bm-head b{font-weight:600; color:var(--bm-ink)}
+/* 반복 타이포: 같은 구절이 장단처럼 커지며 되풀이 */
+.bm-l{position:absolute; left:5cqw; margin:0; font-family:var(--bm-f-title); font-weight:400; line-height:1; white-space:nowrap; transform-origin:0 70%}
+.bm-l1{top:8.6cqw; font-size:3.6cqw; color:transparent; -webkit-text-stroke:.1cqw var(--bm-ink)}
+.bm-l2{top:13.4cqw; font-size:5cqw; color:transparent; -webkit-text-stroke:.12cqw var(--bm-ink)}
+.bm-l3{top:20.2cqw; font-size:6.4cqw; color:var(--bm-ink); letter-spacing:-.01em}
+.bm-l3 em{font-style:normal; color:var(--bm-tiger2)}
+.bm-rule{position:absolute; left:5cqw; top:29.4cqw; width:50cqw; height:.07cqw; background:var(--bm-ink)}
+.bm-sub{position:absolute; left:5cqw; top:30.4cqw; margin:0; font-family:var(--bm-f-serif); font-weight:700; font-size:1.95cqw; letter-spacing:-.01em}
+.bm-keys{position:absolute; left:5cqw; top:33.6cqw; margin:0; font-size:1.2cqw; color:var(--bm-sub); letter-spacing:.02em}
+.bm-keys i{font-style:normal; color:var(--bm-ink); font-weight:600}
+/* 추임새 */
+.bm-chu{position:absolute; left:17.6cqw; top:41.4cqw; font-family:var(--bm-f-brush); font-size:3.6cqw; line-height:1; transform:rotate(-7deg); transform-origin:0 50%; white-space:nowrap}
+.bm-chu small{font-size:.62em; margin-left:.3em}
+/* 기관 줄 */
+.bm-org{position:absolute; left:17.6cqw; top:48.6cqw; font-size:1.15cqw; color:var(--bm-sub); white-space:nowrap}
+.bm-org span{letter-spacing:.32em; color:var(--bm-ink); font-weight:600; margin-right:1.2cqw}
+@media (prefers-reduced-motion:reduce){.bm-cover *{transition:none!important}}
+&lt;/style&gt;
+
+&lt;!-- 표지: 글 구역(왼쪽 55%) / 그림 구역(오른쪽) --&gt;
+&lt;div class=&quot;bm-cover&quot; id=&quot;bmCover&quot; role=&quot;img&quot; aria-label=&quot;표지: 범 내려간다 — ○○교육청 2027 찾아가는 학교 현장 지원 계획(안). 민화 까치호랑이가 장단에 맞춰 산에서 내려와 선다.&quot;&gt;
+  &lt;svg class=&quot;bm-art&quot; viewBox=&quot;0 0 1600 900&quot; aria-hidden=&quot;true&quot;&gt;
+    &lt;defs&gt;
+      &lt;!-- 한지 결: 고운 입자 --&gt;
+      &lt;filter id=&quot;bmGrain&quot; x=&quot;0&quot; y=&quot;0&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;
+        &lt;feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;.9&quot; numOctaves=&quot;2&quot; seed=&quot;7&quot; result=&quot;n&quot;/&gt;
+        &lt;feColorMatrix in=&quot;n&quot; type=&quot;matrix&quot; values=&quot;0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .26  0 0 0 .07 0&quot;/&gt;
+      &lt;/filter&gt;
+      &lt;linearGradient id=&quot;bmMt&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;
+        &lt;stop offset=&quot;0&quot; stop-color=&quot;var(--bm-mt1)&quot;/&gt;&lt;stop offset=&quot;.62&quot; stop-color=&quot;var(--bm-mt1)&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;var(--bm-mt2)&quot;/&gt;
+      &lt;/linearGradient&gt;
+      &lt;clipPath id=&quot;bmBodyClip&quot;&gt;&lt;path id=&quot;bmBodyPath&quot; d=&quot;M150,150 C176,110 230,92 278,104 C312,112 336,124 368,120 C404,116 430,144 428,186 C426,226 410,262 384,278 C356,294 316,292 284,290 C248,288 220,292 196,284 C168,274 150,252 146,222 C144,196 140,170 150,150 Z&quot;/&gt;&lt;/clipPath&gt;
+    &lt;/defs&gt;
+
+    &lt;rect width=&quot;1600&quot; height=&quot;900&quot; fill=&quot;var(--bm-paper)&quot;/&gt;
+    &lt;rect width=&quot;1600&quot; height=&quot;900&quot; filter=&quot;url(#bmGrain)&quot;/&gt;
+    &lt;g id=&quot;bmFibers&quot; stroke=&quot;var(--bm-bark)&quot; stroke-opacity=&quot;.16&quot; fill=&quot;none&quot; stroke-linecap=&quot;round&quot;&gt;&lt;/g&gt;
+
+    &lt;!-- 산: 청록 봉우리 + 먹 윤곽 + 준법 + 태점 --&gt;
+    &lt;g id=&quot;bmMountain&quot;&gt;
+      &lt;path d=&quot;M1290,900 L1290,520 C1340,440 1395,300 1462,262 C1500,240 1528,276 1552,330 C1575,380 1600,420 1600,440 L1600,900 Z&quot; fill=&quot;url(#bmMt)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;3&quot; stroke-linejoin=&quot;round&quot; opacity=&quot;.85&quot;/&gt;
+      &lt;path id=&quot;bmMtFront&quot; d=&quot;M915,900 L915,760 C960,700 1010,600 1060,470 C1095,380 1120,270 1160,222 C1182,196 1206,198 1224,222 C1262,270 1290,350 1336,402 C1380,452 1430,500 1480,560 C1520,608 1560,660 1600,690 L1600,900 Z&quot; fill=&quot;url(#bmMt)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;2.4&quot; stroke-linejoin=&quot;round&quot;/&gt;
+      &lt;g id=&quot;bmCun&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot; opacity=&quot;.7&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;bmDots&quot; fill=&quot;var(--bm-ink)&quot;&gt;&lt;/g&gt;
+      &lt;!-- 디딤 바위 두 곳 --&gt;
+      &lt;path d=&quot;M1312,372 C1330,360 1392,360 1412,374 L1404,386 L1318,386 Z&quot; fill=&quot;var(--bm-paper2)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;2.6&quot; stroke-linejoin=&quot;round&quot;/&gt;
+      &lt;path d=&quot;M1082,452 C1102,440 1166,439 1188,454 L1180,467 L1090,467 Z&quot; fill=&quot;var(--bm-paper2)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;2.6&quot; stroke-linejoin=&quot;round&quot;/&gt;
+    &lt;/g&gt;
+
+    &lt;!-- 소나무: 거북등 껍질 + 부채꼴 솔잎 뭉치 --&gt;
+    &lt;g id=&quot;bmPine&quot;&gt;
+      &lt;path id=&quot;bmTrunk&quot; d=&quot;M1600,900 L1528,900 C1520,790 1530,690 1512,600 C1496,520 1470,450 1478,380 C1484,320 1460,250 1420,210 L1452,188 C1500,230 1520,290 1526,350 C1534,420 1560,470 1576,540 C1592,610 1590,700 1600,760 Z&quot; fill=&quot;var(--bm-bark)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;2.6&quot; stroke-linejoin=&quot;round&quot;/&gt;
+      &lt;path d=&quot;M1440,200 C1400,170 1360,160 1316,166 L1312,154 C1362,140 1414,150 1462,182 Z&quot; fill=&quot;var(--bm-bark)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;3&quot; stroke-linejoin=&quot;round&quot;/&gt;
+      &lt;g id=&quot;bmBark&quot; fill=&quot;none&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;1.6&quot; opacity=&quot;.75&quot;&gt;&lt;/g&gt;
+      &lt;g id=&quot;bmNeedles&quot;&gt;&lt;/g&gt;
+    &lt;/g&gt;
+
+    &lt;!-- 까치: 기쁜 소식을 알리는 새, 왼쪽(호랑이 쪽)을 본다 --&gt;
+    &lt;g id=&quot;bmMagpie&quot; transform=&quot;translate(1340,96)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;
+      &lt;path d=&quot;M78,54 C104,64 130,86 150,112 L142,118 C120,96 96,78 70,66 Z&quot; fill=&quot;var(--bm-ink)&quot; stroke-width=&quot;2&quot;/&gt;
+      &lt;path d=&quot;M86,58 C108,70 128,88 146,112&quot; fill=&quot;none&quot; stroke=&quot;var(--bm-pine)&quot; stroke-width=&quot;2.4&quot;/&gt;
+      &lt;path d=&quot;M22,40 C26,22 52,16 70,30 C88,44 92,64 76,72 C58,80 30,72 22,40 Z&quot; fill=&quot;var(--bm-ink)&quot; stroke-width=&quot;2&quot;/&gt;
+      &lt;path d=&quot;M30,50 C40,66 58,74 74,70 C66,60 52,52 30,50 Z&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;1.6&quot;/&gt;
+      &lt;path d=&quot;M50,34 C62,32 74,40 80,52 C68,50 58,44 50,34 Z&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;1.4&quot;/&gt;
+      &lt;circle cx=&quot;18&quot; cy=&quot;30&quot; r=&quot;13&quot; fill=&quot;var(--bm-ink)&quot; stroke-width=&quot;2&quot;/&gt;
+      &lt;path d=&quot;M7,27 L-8,30 L7,33 Z&quot; fill=&quot;var(--bm-ink)&quot; stroke-width=&quot;1.6&quot;/&gt;
+      &lt;circle cx=&quot;14&quot; cy=&quot;27&quot; r=&quot;2.6&quot; fill=&quot;var(--bm-belly)&quot; stroke=&quot;none&quot;/&gt;
+      &lt;path d=&quot;M44,74 L42,86 M56,74 L56,86 M36,86 L48,86 M50,86 L62,86&quot; fill=&quot;none&quot; stroke-width=&quot;2.2&quot;/&gt;
+    &lt;/g&gt;
+
+    &lt;!-- 화제(세로 글씨)와 낙관 --&gt;
+    &lt;text x=&quot;0&quot; y=&quot;0&quot; transform=&quot;translate(958,118)&quot; font-family=&quot;Nanum Brush Script, Gungsuh, cursive&quot; font-size=&quot;46&quot; fill=&quot;var(--bm-ink)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;.7&quot; writing-mode=&quot;vertical-rl&quot; letter-spacing=&quot;4&quot;&gt;범 내려온다&lt;/text&gt;
+    &lt;g transform=&quot;translate(941,412)&quot;&gt;
+      &lt;rect width=&quot;34&quot; height=&quot;34&quot; rx=&quot;3&quot; fill=&quot;var(--bm-seal)&quot;/&gt;
+      &lt;text x=&quot;17&quot; y=&quot;15&quot; text-anchor=&quot;middle&quot; font-family=&quot;Gowun Batang, Batang, serif&quot; font-weight=&quot;700&quot; font-size=&quot;12&quot; fill=&quot;var(--bm-paper)&quot;&gt;現場&lt;/text&gt;
+      &lt;text x=&quot;17&quot; y=&quot;29&quot; text-anchor=&quot;middle&quot; font-family=&quot;Gowun Batang, Batang, serif&quot; font-weight=&quot;700&quot; font-size=&quot;12&quot; fill=&quot;var(--bm-paper)&quot;&gt;支援&lt;/text&gt;
+    &lt;/g&gt;
+
+    &lt;!-- 앞땅 --&gt;
+    &lt;path d=&quot;M880,900 L880,842 C960,826 1040,834 1120,826 C1220,816 1320,830 1420,822 C1500,816 1560,826 1600,820 L1600,900 Z&quot; fill=&quot;var(--bm-paper2)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;3&quot; stroke-linejoin=&quot;round&quot;/&gt;
+    &lt;g id=&quot;bmGrass&quot; stroke=&quot;var(--bm-pine)&quot; stroke-width=&quot;2.6&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot;&gt;&lt;/g&gt;
+
+    &lt;!-- 소리북: 놋쇠 북못 · 고리 · 북채 --&gt;
+    &lt;g id=&quot;bmDrum&quot; transform=&quot;translate(80,654)&quot;&gt;
+      &lt;g id=&quot;bmDrumBody&quot;&gt;
+        &lt;path d=&quot;M18,8 C66,-10 128,-10 176,8 L176,128 C128,146 66,146 18,128 Z&quot; fill=&quot;var(--bm-bark)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;3.2&quot; stroke-linejoin=&quot;round&quot;/&gt;
+        &lt;path d=&quot;M54,2 C52,46 52,90 54,136 M97,-4 L97,141 M140,2 C142,46 142,90 140,136&quot; fill=&quot;none&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;1.4&quot; opacity=&quot;.45&quot;/&gt;
+        &lt;ellipse cx=&quot;18&quot; cy=&quot;68&quot; rx=&quot;16&quot; ry=&quot;60&quot; fill=&quot;var(--bm-paper2)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;3&quot;/&gt;
+        &lt;ellipse cx=&quot;176&quot; cy=&quot;68&quot; rx=&quot;16&quot; ry=&quot;60&quot; fill=&quot;var(--bm-paper2)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;3&quot;/&gt;
+        &lt;g id=&quot;bmTacks&quot; fill=&quot;var(--bm-brass)&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;1.2&quot;&gt;&lt;/g&gt;
+        &lt;path d=&quot;M88,-4 C88,-20 106,-20 106,-4&quot; fill=&quot;none&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;6&quot; stroke-linecap=&quot;round&quot;/&gt;
+        &lt;path d=&quot;M88,-4 C88,-20 106,-20 106,-4&quot; fill=&quot;none&quot; stroke=&quot;var(--bm-brass)&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot;/&gt;
+      &lt;/g&gt;
+      &lt;g id=&quot;bmStick&quot;&gt;&lt;path d=&quot;M126,-7 L236,-64&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;9&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path d=&quot;M126,-7 L236,-64&quot; stroke=&quot;var(--bm-bark)&quot; stroke-width=&quot;5&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;/g&gt;
+      &lt;g id=&quot;bmRipple&quot; fill=&quot;none&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; opacity=&quot;0&quot;&gt;
+        &lt;path d=&quot;M204,40 C214,56 214,80 204,96&quot;/&gt;&lt;path d=&quot;M220,28 C236,52 236,84 220,108&quot;/&gt;
+      &lt;/g&gt;
+    &lt;/g&gt;
+
+    &lt;!-- 호랑이: 정면 얼굴 + 옆모습 몸, 동그란 눈, 줄무늬, 출입증 목걸이 --&gt;
+    &lt;g id=&quot;bmTiger&quot; transform=&quot;translate(960,470)&quot;&gt;
+      &lt;g stroke=&quot;var(--bm-ink)&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;
+        &lt;!-- 꼬리 --&gt;
+        &lt;path d=&quot;M398,168 C446,150 456,96 432,62 C414,38 424,10 454,16&quot; fill=&quot;none&quot; stroke-width=&quot;24&quot;/&gt;
+        &lt;path d=&quot;M398,168 C446,150 456,96 432,62 C414,38 424,10 454,16&quot; fill=&quot;none&quot; stroke=&quot;var(--bm-tiger)&quot; stroke-width=&quot;16&quot;/&gt;
+        &lt;g id=&quot;bmTailBands&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;5&quot;&gt;&lt;/g&gt;
+        &lt;!-- 먼 다리 --&gt;
+        &lt;path d=&quot;M360,256 C376,288 378,320 372,350 L346,352 C350,324 344,296 332,276 Z&quot; fill=&quot;var(--bm-tiger)&quot; stroke-width=&quot;2.3&quot;/&gt;
+        &lt;path d=&quot;M226,262 C234,296 230,326 220,350 L194,352 C204,326 206,296 200,270 Z&quot; fill=&quot;var(--bm-tiger)&quot; stroke-width=&quot;2.3&quot;/&gt;
+        &lt;!-- 몸 --&gt;
+        &lt;use href=&quot;#bmBodyPath&quot; fill=&quot;var(--bm-tiger)&quot; stroke-width=&quot;2.3&quot;/&gt;
+        &lt;path d=&quot;M178,272 C232,290 300,292 380,276 L372,288 C330,296 240,298 196,290 Z&quot; fill=&quot;var(--bm-belly)&quot; stroke=&quot;none&quot;/&gt;
+        &lt;g clip-path=&quot;url(#bmBodyClip)&quot;&gt;&lt;g id=&quot;bmGrainFur&quot; stroke=&quot;var(--bm-tiger3)&quot; stroke-width=&quot;1&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot; opacity=&quot;.55&quot;&gt;&lt;/g&gt;&lt;g id=&quot;bmStripes&quot; fill=&quot;var(--bm-ink)&quot; stroke=&quot;none&quot;&gt;&lt;/g&gt;&lt;/g&gt;
+        &lt;use href=&quot;#bmBodyPath&quot; fill=&quot;none&quot; stroke-width=&quot;2.3&quot;/&gt;
+        &lt;g id=&quot;bmEdgeFur&quot; stroke=&quot;var(--bm-ink)&quot; stroke-width=&quot;.9&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot; opacity=&quot;.6&quot;&gt;&lt;/g&gt;
+        &lt;!-- 가까운 뒷다리 --&gt;
+        &lt;path d=&quot;M330,184 C390,186 424,236 408,290 C402,312 398,330 404,352 L370,356 C370,336 364,318 354,302 C330,280 314,236 330,184 Z&quot; fill=&quot;var(--bm-tiger)&quot; stroke-width=&quot;2.3&quot;/&gt;
+        &lt;path d=&quot;M346,212 C362,220 376,236 380,254 M356,264 C370,270 380,280 386,292 M368,318 C380,314 392,314 400,318 M368,336 C380,332 394,332 402,336&quot; fill=&quot;none&quot; stroke-width=&quot;4&quot;/&gt;
+        &lt;!-- 가까운 앞다리 --&gt;
+        &lt;path d=&quot;M186,226 C182,262 166,300 146,336 L114,342 C132,308 148,272 156,244 Z&quot; fill=&quot;var(--bm-tiger)&quot; stroke-width=&quot;2.3&quot;/&gt;
+        &lt;path d=&quot;M168,262 C176,262 184,266 188,272 M158,284 C166,286 174,290 178,296 M146,308 C154,310 162,316 166,322&quot; fill=&quot;none&quot; stroke-width=&quot;4&quot;/&gt;
+        &lt;!-- 발: 넓은 발등 + 갈고리 발톱(먹) --&gt;
+        &lt;g fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;2.3&quot;&gt;
+          &lt;path d=&quot;M96,342 C96,330 140,328 144,342 C146,354 96,356 96,342 Z&quot;/&gt;
+          &lt;path d=&quot;M190,348 C190,338 228,338 230,350 C232,360 190,360 190,348 Z&quot;/&gt;
+          &lt;path d=&quot;M340,348 C340,338 376,338 378,350 C380,360 340,360 340,348 Z&quot;/&gt;
+          &lt;path d=&quot;M366,350 C366,340 410,340 412,352 C414,364 366,364 366,350 Z&quot;/&gt;
+        &lt;/g&gt;
+        &lt;path d=&quot;M100,340 q-7,1 -9,8 M112,344 q-7,1 -9,8 M124,346 q-7,1 -9,7 M194,346 q-6,1 -8,7 M206,350 q-6,1 -8,7 M344,346 q-6,1 -8,7 M356,350 q-6,1 -8,7 M370,348 q-6,1 -8,7 M382,352 q-6,1 -8,7&quot; fill=&quot;none&quot; stroke-width=&quot;2.2&quot;/&gt;
+        &lt;!-- 귀: 작고 둥근 삼각, 안쪽 흰 털 --&gt;
+        &lt;path d=&quot;M34,80 C22,52 40,34 64,42 C60,56 54,68 50,84 Z M178,80 C190,52 172,34 148,42 C152,56 158,68 162,84 Z&quot; fill=&quot;var(--bm-tiger)&quot; stroke-width=&quot;2.3&quot;/&gt;
+        &lt;path d=&quot;M40,70 C36,56 46,48 58,50 C54,58 50,66 48,74 Z M172,70 C176,56 166,48 154,50 C158,58 162,66 164,74 Z&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;1.4&quot;/&gt;
+        &lt;!-- 머리: 볼털이 삐죽한 넓은 얼굴 --&gt;
+        &lt;path id=&quot;bmHead&quot; d=&quot;M38,96 C38,62 70,48 106,48 C142,48 174,62 174,96 L194,124 L180,138 L200,160 L182,170 L192,198 C168,226 140,240 106,240 C72,240 44,226 20,198 L30,170 L12,160 L32,138 L18,124 Z&quot; fill=&quot;var(--bm-tiger)&quot; stroke-width=&quot;2.3&quot;/&gt;
+        &lt;g id=&quot;bmFaceFur&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot;&gt;&lt;/g&gt;
+        &lt;!-- 이마·볼 줄무늬 --&gt;
+        &lt;path d=&quot;M106,52 C100,62 112,70 104,84 M86,58 C80,66 90,72 84,82 M126,58 C132,66 122,72 128,82&quot; fill=&quot;none&quot; stroke-width=&quot;4.2&quot;/&gt;
+        &lt;path d=&quot;M24,150 L58,156 L26,162 Z M190,150 L156,156 L188,162 Z M30,184 L60,176 L40,192 Z M184,184 L154,176 L174,192 Z&quot; fill=&quot;var(--bm-ink)&quot; stroke-width=&quot;1.5&quot;/&gt;
+        &lt;!-- 흰 눈썹과 주둥이 --&gt;
+        &lt;path d=&quot;M50,96 C60,84 86,84 94,96 C82,92 62,92 50,96 Z M120,96 C128,84 154,84 164,96 C152,92 132,92 120,96 Z&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;path d=&quot;M70,166 C66,146 146,146 142,166 C152,198 132,218 106,218 C80,218 60,198 70,166 Z&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;2.6&quot;/&gt;
+        &lt;!-- 동그란 눈(흰 테 → 노란 홍채 → 먹 눈동자), 시선은 글 쪽으로 --&gt;
+        &lt;g id=&quot;bmEyes&quot;&gt;
+          &lt;circle cx=&quot;74&quot; cy=&quot;120&quot; r=&quot;24&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;2.3&quot;/&gt;
+          &lt;circle cx=&quot;138&quot; cy=&quot;120&quot; r=&quot;24&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;2.3&quot;/&gt;
+          &lt;circle cx=&quot;70&quot; cy=&quot;121&quot; r=&quot;16&quot; fill=&quot;var(--bm-eye)&quot; stroke-width=&quot;2.4&quot;/&gt;
+          &lt;circle cx=&quot;134&quot; cy=&quot;121&quot; r=&quot;16&quot; fill=&quot;var(--bm-eye)&quot; stroke-width=&quot;2.4&quot;/&gt;
+          &lt;circle cx=&quot;70&quot; cy=&quot;121&quot; r=&quot;11.5&quot; fill=&quot;none&quot; stroke-width=&quot;1.2&quot;/&gt;
+          &lt;circle cx=&quot;134&quot; cy=&quot;121&quot; r=&quot;11.5&quot; fill=&quot;none&quot; stroke-width=&quot;1.2&quot;/&gt;
+          &lt;circle cx=&quot;66&quot; cy=&quot;122&quot; r=&quot;8.5&quot; fill=&quot;var(--bm-ink)&quot; stroke=&quot;none&quot;/&gt;
+          &lt;circle cx=&quot;130&quot; cy=&quot;122&quot; r=&quot;8.5&quot; fill=&quot;var(--bm-ink)&quot; stroke=&quot;none&quot;/&gt;
+          &lt;circle cx=&quot;63&quot; cy=&quot;118&quot; r=&quot;2.6&quot; fill=&quot;var(--bm-belly)&quot; stroke=&quot;none&quot;/&gt;
+          &lt;circle cx=&quot;127&quot; cy=&quot;118&quot; r=&quot;2.6&quot; fill=&quot;var(--bm-belly)&quot; stroke=&quot;none&quot;/&gt;
+          &lt;path d=&quot;M48,110 C58,92 92,92 100,112 M112,112 C120,92 154,92 164,110&quot; fill=&quot;none&quot; stroke-width=&quot;2.4&quot;/&gt;
+        &lt;/g&gt;
+        &lt;!-- 코·입: 이를 드러낸 너스레 웃음 --&gt;
+        &lt;path d=&quot;M92,150 C98,146 114,146 120,150 L106,168 Z&quot; fill=&quot;var(--bm-ink)&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;path d=&quot;M106,168 L106,180&quot; fill=&quot;none&quot; stroke-width=&quot;2.6&quot;/&gt;
+        &lt;path d=&quot;M78,178 C92,206 120,206 134,178 C120,186 92,186 78,178 Z&quot; fill=&quot;var(--bm-mouth)&quot; stroke-width=&quot;2.2&quot;/&gt;
+        &lt;path d=&quot;M86,183 L91,194 L96,185 Z M126,183 L121,194 L116,185 Z&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;1.4&quot;/&gt;
+        &lt;!-- 수염 --&gt;
+        &lt;path d=&quot;M72,172 L30,166 M72,180 L28,184 M140,172 L182,166 M140,180 L184,184&quot; fill=&quot;none&quot; stroke-width=&quot;1.8&quot;/&gt;
+        &lt;g fill=&quot;var(--bm-ink)&quot; stroke=&quot;none&quot;&gt;&lt;circle cx=&quot;82&quot; cy=&quot;168&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;88&quot; cy=&quot;174&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;80&quot; cy=&quot;178&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;130&quot; cy=&quot;168&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;124&quot; cy=&quot;174&quot; r=&quot;2&quot;/&gt;&lt;circle cx=&quot;132&quot; cy=&quot;178&quot; r=&quot;2&quot;/&gt;&lt;/g&gt;
+        &lt;!-- 출입증 목걸이(전통 속 현대 사물 하나) --&gt;
+        &lt;path d=&quot;M78,226 L98,262 M134,226 L114,262&quot; fill=&quot;none&quot; stroke=&quot;var(--bm-pine)&quot; stroke-width=&quot;5&quot;/&gt;
+        &lt;rect x=&quot;84&quot; y=&quot;256&quot; width=&quot;44&quot; height=&quot;40&quot; rx=&quot;4&quot; fill=&quot;var(--bm-belly)&quot; stroke-width=&quot;2.6&quot;/&gt;
+        &lt;rect x=&quot;84&quot; y=&quot;256&quot; width=&quot;44&quot; height=&quot;11&quot; rx=&quot;3&quot; fill=&quot;var(--bm-pine)&quot; stroke-width=&quot;2.6&quot;/&gt;
+        &lt;rect x=&quot;100&quot; y=&quot;259&quot; width=&quot;12&quot; height=&quot;4&quot; rx=&quot;2&quot; fill=&quot;var(--bm-belly)&quot; stroke=&quot;none&quot;/&gt;
+        &lt;text x=&quot;106&quot; y=&quot;282&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans KR, Malgun Gothic, sans-serif&quot; font-weight=&quot;600&quot; font-size=&quot;11&quot; fill=&quot;var(--bm-ink)&quot; stroke=&quot;none&quot;&gt;현장&lt;/text&gt;
+        &lt;text x=&quot;106&quot; y=&quot;292&quot; text-anchor=&quot;middle&quot; font-family=&quot;IBM Plex Sans KR, Malgun Gothic, sans-serif&quot; font-size=&quot;7.5&quot; fill=&quot;var(--bm-ink)&quot; stroke=&quot;none&quot;&gt;지원단&lt;/text&gt;
+      &lt;/g&gt;
+    &lt;/g&gt;
+  &lt;/svg&gt;
+
+  &lt;div class=&quot;bm-text&quot;&gt;
+    &lt;div class=&quot;bm-head&quot;&gt;&lt;span&gt;&lt;b&gt;○○교육청&lt;/b&gt; · 2027 주요업무계획 · 현장 지원 분야&lt;/span&gt;&lt;span&gt;가상 예시&lt;/span&gt;&lt;/div&gt;
+    &lt;p class=&quot;bm-l bm-l1&quot; data-beat=&quot;0&quot;&gt;내려간다&lt;/p&gt;
+    &lt;p class=&quot;bm-l bm-l2&quot; data-beat=&quot;1&quot;&gt;내려간다&lt;/p&gt;
+    &lt;h1 class=&quot;bm-l bm-l3&quot; data-beat=&quot;2&quot;&gt;&lt;em&gt;현장으로&lt;/em&gt; 내려간다&lt;/h1&gt;
+    &lt;div class=&quot;bm-rule&quot;&gt;&lt;/div&gt;
+    &lt;p class=&quot;bm-sub&quot;&gt;○○교육청 2027 찾아가는 학교 현장 지원 계획(안)&lt;/p&gt;
+    &lt;p class=&quot;bm-keys&quot;&gt;부르면 사흘 안에 · &lt;i&gt;수업 컨설팅&lt;/i&gt; · &lt;i&gt;행정업무 경감&lt;/i&gt; · &lt;i&gt;시설 안전 점검&lt;/i&gt; · &lt;i&gt;학부모 상담&lt;/i&gt;&lt;/p&gt;
+    &lt;div class=&quot;bm-chu&quot;&gt;얼씨구!&lt;small&gt;좋다&lt;/small&gt;&lt;/div&gt;
+    &lt;div class=&quot;bm-org&quot;&gt;&lt;span&gt;2027. 1.&lt;/span&gt;○○교육청 교육지원과 · 학교현장지원단&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+/* 범 내려간다 표지 — 그림 생성 + 장단 연출(약 3초, 한 번). 끝 화면이 기본 상태다. */
+(function(){
+  var root = document.getElementById('bmCover');
+  if(!root) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var $ = function(id){ return root.querySelector('#'+id); };
+  // 고정 시드 난수(매번 같은 그림)
+  var seed = 59; function rnd(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }
+  function el(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for(var k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+
+  // 한지 섬유: 짧고 휜 실오라기
+  var fib = $('bmFibers');
+  for(var i=0;i&lt;70;i++){
+    var x = rnd()*1600, y = rnd()*900, l = 14+rnd()*34, a = rnd()*Math.PI;
+    var x2 = x+Math.cos(a)*l, y2 = y+Math.sin(a)*l, cx = (x+x2)/2+(rnd()-.5)*14, cy = (y+y2)/2+(rnd()-.5)*14;
+    el('path', {d:'M'+x.toFixed(1)+','+y.toFixed(1)+' Q'+cx.toFixed(1)+','+cy.toFixed(1)+' '+x2.toFixed(1)+','+y2.toFixed(1), 'stroke-width':(0.6+rnd()*0.9).toFixed(2)}, fib);
+  }
+
+  // 산: 능선을 따라 태점(이끼 점) + 준법(짧은 주름 선)
+  var mt = $('bmMtFront'), dots = $('bmDots'), cun = $('bmCun');
+  var L = mt.getTotalLength();
+  for(var s=0; s&lt;L; s+=16){
+    var p = mt.getPointAtLength(s);
+    if(p.y &gt; 720 || p.x &gt; 1590 || p.y &lt; 200) continue;
+    if(rnd() &lt; .55){ el('ellipse', {cx:(p.x+(rnd()-.5)*6).toFixed(1), cy:(p.y+4+rnd()*8).toFixed(1), rx:(2.4+rnd()*2.2).toFixed(1), ry:(1.6+rnd()*1.4).toFixed(1)}, dots); }
+  }
+  var cunList = [[1150,300,1132,360],[1188,286,1180,350],[1112,420,1094,480],[1250,330,1262,392],[1300,420,1316,470],[1060,560,1040,620],[1380,520,1398,566],[1150,620,1140,680],[1450,610,1466,650]];
+  cunList.forEach(function(c){ el('path', {d:'M'+c[0]+','+c[1]+' C'+(c[0]-6)+','+((c[1]+c[3])/2)+' '+(c[2]+6)+','+((c[1]+c[3])/2)+' '+c[2]+','+c[3]}, cun); });
+
+  // 소나무 껍질: 거북등처럼 갈라진 비늘 조각
+  var bark = $('bmBark');
+  var barkPts = [[1546,860],[1560,812],[1540,770],[1556,722],[1538,680],[1552,632],[1530,590],[1546,548],[1520,505],[1506,462],[1500,418],[1508,372],[1496,330],[1486,288]];
+  barkPts.forEach(function(b){
+    var w = 16+rnd()*8, h = 12+rnd()*6, x=b[0], y=b[1];
+    el('path', {d:'M'+(x-w)+','+y+' L'+(x-w*.4)+','+(y-h)+' L'+(x+w*.5)+','+(y-h*.9)+' L'+(x+w)+','+(y+1)+' L'+(x+w*.4)+','+(y+h)+' L'+(x-w*.5)+','+(y+h*.9)+' Z'}, bark);
+  });
+
+  // 솔잎 뭉치: 민화식 둥근 바퀴살 — 납작한 타원 안에서 사방으로 뻗는 바늘, 바탕은 옅은 석록 번짐
+  var nd = $('bmNeedles');
+  var fans = [[1318,150,56],[1392,112,64],[1478,86,70],[1566,124,62],[1440,246,54],[1560,278,58],[1506,194,50],[1604,206,54]];
+  fans.forEach(function(f){
+    var cx=f[0], cy=f[1], r=f[2], g = el('g', {}, nd);
+    el('ellipse', {cx:cx, cy:cy+2, rx:r*.98, ry:r*.5, fill:'var(--bm-pine2)', opacity:'.75'}, g);
+    var n = Math.round(r*0.9);
+    for(var k=0;k&lt;n;k++){
+      var a = Math.PI*2*k/n + (rnd()-.5)*.08, rr = r*(0.78+rnd()*0.24);
+      var x2 = cx+Math.cos(a)*rr, y2 = cy+Math.sin(a)*rr*.5;
+      el('path', {d:'M'+cx+','+cy+' L'+x2.toFixed(1)+','+y2.toFixed(1), stroke:(k%5===0?'var(--bm-ink)':'var(--bm-pine)'), 'stroke-width':(k%5===0?'1.1':'1.5'), 'stroke-linecap':'round'}, g);
+    }
+    el('circle', {cx:cx, cy:cy, r:3.4, fill:'var(--bm-bark)', stroke:'var(--bm-ink)', 'stroke-width':'1.2'}, g);
+  });
+
+  // 앞땅 풀포기
+  var gr = $('bmGrass');
+  [[930,836],[1000,832],[1250,824],[1460,822],[1540,824]].forEach(function(p){
+    for(var k=-2;k&lt;=2;k++){ el('path', {d:'M'+p[0]+','+p[1]+' Q'+(p[0]+k*5)+','+(p[1]-14)+' '+(p[0]+k*9)+','+(p[1]-22-rnd()*8)}, gr); }
+  });
+
+  // 북 가장자리 놋쇠 못
+  var tk = $('bmTacks');
+  [18,176].forEach(function(cx){ for(var k=0;k&lt;11;k++){ var a = -Math.PI/2 + Math.PI*k/10; var side = cx===18 ? -1 : 1; el('circle', {cx:(cx+side*Math.cos(a)*15).toFixed(1), cy:(68+Math.sin(a)*58).toFixed(1), r:3.2}, tk); } });
+
+  // 호랑이 줄무늬: 등에서 배로 가늘어지는 먹 획(끝이 갈라진 것 섞음)
+  var st = $('bmStripes');
+  // 먹 획 하나: (x,y)에서 길이 len만큼, 굵기 w로 시작해 끝이 뾰족하게 휘어 나간다
+  function stroke(x, y, len, w, lean, dir){
+    var y2 = y+dir*len, mx = x+lean*.55, my = y+dir*len*.55;
+    return 'M'+(x-w)+','+y+' Q'+(mx-w*.4)+','+my+' '+(x+lean)+','+y2+' Q'+(mx+w*.5)+','+my+' '+(x+w)+','+y+' Z';
+  }
+  // 먹 획: 등에서 시작해 S자로 휘며 가늘어진다(민화 호랑이의 물결 줄무늬)
+  function wave(x, y, len, w, lean, dir){
+    var y2 = y+dir*len, c1x = x+lean*.9, c1y = y+dir*len*.35, c2x = x-lean*.2, c2y = y+dir*len*.7;
+    return 'M'+(x-w)+','+y+' C'+(c1x-w*.6)+','+c1y+' '+(c2x-w*.2)+','+c2y+' '+(x+lean*.5)+','+y2+' C'+(c2x+w*.5)+','+c2y+' '+(c1x+w*.7)+','+c1y+' '+(x+w)+','+y+' Z';
+  }
+  for(var k=0;k&lt;14;k++){
+    var x = 178+k*17+(rnd()-.5)*5, w = 3.2+rnd()*2, len = 46+rnd()*52, lean = 8+rnd()*12;
+    el('path', {d:wave(x, 102, len, w, lean, 1)}, st);
+    if(k%3===1) el('path', {d:wave(x+6, 104+len*.5, len*.35, 1.6, lean+6, 1)}, st);
+    if(k&lt;13 &amp;&amp; k%2===0) el('path', {d:wave(x+9, 292, 20+rnd()*22, 2.6, -6-rnd()*6, -1)}, st);
+  }
+  // 털결: 몸 안쪽에 짧고 가는 세필 획을 같은 방향으로
+  var gf = $('bmGrainFur');
+  for(var k=0;k&lt;170;k++){
+    var x = 150+rnd()*270, y = 108+rnd()*184, l = 5+rnd()*6;
+    el('path', {d:'M'+x.toFixed(1)+','+y.toFixed(1)+' l'+(l*.55).toFixed(1)+','+(l*.85).toFixed(1)}, gf);
+  }
+  // 윤곽 털: 몸·머리 가장자리에서 바깥으로 삐친 가는 털
+  function edgeHairs(path, step, len, host){
+    var L = path.getTotalLength();
+    for(var s2=0; s2&lt;L; s2+=step){
+      var p = path.getPointAtLength(s2), q = path.getPointAtLength(Math.min(L, s2+1));
+      var dx = q.x-p.x, dy = q.y-p.y, m = Math.hypot(dx,dy)||1, nx = dy/m, ny = -dx/m;
+      var l = len*(0.6+rnd()*0.7);
+      el('path', {d:'M'+p.x.toFixed(1)+','+p.y.toFixed(1)+' q'+(nx*l*.5+dx/m*2).toFixed(1)+','+(ny*l*.5+dy/m*2).toFixed(1)+' '+(nx*l).toFixed(1)+','+(ny*l).toFixed(1)}, host);
+    }
+  }
+  edgeHairs(root.querySelector('#bmBodyPath'), 7, 7, $('bmEdgeFur'));
+  // 얼굴 털: 머리 윤곽 + 볼에서 퍼지는 세필
+  var ff = $('bmFaceFur');
+  var hg = el('g', {stroke:'var(--bm-ink)', 'stroke-width':'.9', opacity:'.6'}, ff);
+  edgeHairs($('bmHead'), 6, 6, hg);
+  var cg = el('g', {stroke:'var(--bm-tiger3)', 'stroke-width':'1', opacity:'.7'}, ff);
+  for(var k=0;k&lt;46;k++){
+    var side = k%2 ? 1 : -1, a = (-0.9+rnd()*1.6), r0 = 40+rnd()*36;
+    var x = 106+side*(30+rnd()*48), y = 120+rnd()*92;
+    el('path', {d:'M'+x.toFixed(1)+','+y.toFixed(1)+' l'+(side*(4+rnd()*4)).toFixed(1)+','+(2+rnd()*4).toFixed(1)}, cg);
+  }
+  var tb = $('bmTailBands');
+  [[440,128,456,120],[444,96,460,94],[426,66,444,58],[426,40,440,28]].forEach(function(b){ el('path', {d:'M'+(b[0]-10)+','+(b[1]+2)+' L'+b[2]+','+b[3]}, tb); });
+
+  /* ── 장단 연출 ──
+     북 세 번(덩·덩·덩)마다 반복 구절이 하나씩 찍히고, 호랑이가 산 → 바위 → 바위 → 앞땅으로 한 번씩 내려온다.
+     발 위치(ANCHOR)를 기준점으로 크기를 키워 멀리서 가까이 오는 원근을 만든다. */
+  var tiger = $('bmTiger'), ripple = $('bmRipple'), drum = $('bmDrumBody');
+  var lines = root.querySelectorAll('[data-beat]'), chu = root.querySelector('.bm-chu');
+  var ANCHOR = [230, 356];
+  var STOPS = [ [1186,206,.26], [1362,374,.42], [1136,456,.6], [1190,826,1] ];
+  var BEATS = [.25, 1.05, 1.85];   // 북 치는 시각(초)
+  var HOP = .62, END = 3.0;
+  function ease(t){ return t&lt;.5 ? 2*t*t : 1-Math.pow(-2*t+2,2)/2; }
+  function setTiger(x,y,s){ tiger.setAttribute('transform','translate('+(x-ANCHOR[0]*s).toFixed(1)+','+(y-ANCHOR[1]*s).toFixed(1)+') scale('+s.toFixed(3)+')'); }
+  function render(t){
+    // 호랑이
+    var x=STOPS[0][0], y=STOPS[0][1], s=STOPS[0][2];
+    for(var i=0;i&lt;3;i++){
+      var t0 = BEATS[i]+.05, u = (t-t0)/HOP;
+      if(u&gt;=1){ x=STOPS[i+1][0]; y=STOPS[i+1][1]; s=STOPS[i+1][2]; }
+      else if(u&gt;0){ var e=ease(u), a=STOPS[i], b=STOPS[i+1]; x=a[0]+(b[0]-a[0])*e; y=a[1]+(b[1]-a[1])*e - Math.sin(Math.PI*u)*(26+22*i); s=a[2]+(b[2]-a[2])*e; break; }
+    }
+    setTiger(x,y,s);
+    // 반복 구절: 북 치는 순간 살짝 크게 찍혔다 자리 잡음
+    var hit = 0;
+    for(var j=0;j&lt;lines.length;j++){
+      var v = (t-BEATS[j])/.18;
+      if(j===lines.length-1){   // 제목 줄은 처음부터 보이고, 셋째 박에 한 번 크게 울린다
+        lines[j].style.opacity=1; lines[j].style.transform='scale('+(v&gt;0&amp;&amp;v&lt;1.6 ? 1+.07*Math.sin(Math.PI*v/1.6) : 1).toFixed(3)+')';
+      }
+      else if(v&lt;0){ lines[j].style.opacity=0; lines[j].style.transform='scale(1.12)'; }
+      else { var c=Math.min(1,v); lines[j].style.opacity=1; lines[j].style.transform='scale('+(1.12-.12*ease(c)).toFixed(3)+')'; }
+      var dv = t-BEATS[j]; if(dv&gt;=0 &amp;&amp; dv&lt;.3) hit = Math.max(hit, 1-dv/.3);
+    }
+    ripple.setAttribute('opacity', hit.toFixed(2));
+    drum.setAttribute('transform', 'translate(97,68) scale('+(1+.035*hit).toFixed(3)+') translate(-97,-68)');
+    // 추임새: 착지 뒤에
+    var w = (t-2.55)/.25;
+    chu.style.opacity = w&lt;=0 ? 0 : Math.min(1,w);
+    chu.style.transform = 'rotate(-7deg) scale('+(w&lt;=0?1.2:(1.2-.2*Math.min(1,w))).toFixed(3)+')';
+  }
+  var raf=0;
+  function play(){
+    cancelAnimationFrame(raf);
+    if(window.matchMedia &amp;&amp; matchMedia('(prefers-reduced-motion: reduce)').matches){ render(END); return; }
+    var start = null;
+    function step(now){ if(start===null) start=now; var t=(now-start)/1000; render(Math.min(t,END)); if(t&lt;END) raf=requestAnimationFrame(step); }
+    raf = requestAnimationFrame(step);
+  }
+  render(END);   // 기본은 끝 화면(정지 화면에서도 모든 정보가 남음)
+  root.bmPlay = play; root.bmSeek = function(t){ cancelAnimationFrame(raf); render(t); };
+  // 폰트가 준비된 뒤 한 번 재생
+  (document.fonts &amp;&amp; document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){ setTimeout(play, 150); });
+})();
+&lt;/script&gt;
+</pre>
+  </section>
+</main>
+<script>
+(function(){
+  var cover=document.getElementById('bmCover');
+  document.getElementById('pgReplay').addEventListener('click',function(){ if(cover && cover.bmPlay) cover.bmPlay(); });
+  var btn=document.getElementById('pgCopy'), pre=document.getElementById('pgCode'), msg=document.getElementById('pgCopyMsg');
+  function selectAll(){ var r=document.createRange(); r.selectNodeContents(pre); var s=getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent='전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  btn.addEventListener('click',function(){
+    try{ navigator.clipboard.writeText(pre.textContent).then(function(){ msg.textContent='복사했습니다.'; }, selectAll); }catch(e){ selectAll(); }
+  });
+})();
+</script>
+
+</body></html>

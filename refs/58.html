@@ -1,0 +1,1009 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #58 처마 끝 수막새</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* 한지 바탕 위 먹 글자, 회청 기와색 보조, 주홍은 표지 인장 한 곳 — 한 단 읽기 페이지 */
+:root{
+  --pg-bg:#F4F3EE; --pg-card:#FBFAF7; --pg-ink:#1F252C; --pg-sub:#5D646C; --pg-line:#D8D7D0; --pg-tile:#6E7781;
+  --pg-code-bg:#1E242B; --pg-code-ink:#E4E7EA; --pg-seal:#C2412B;
+  --pg-serif:"Nanum Myeongjo","나눔명조","Batang",serif; --pg-sans:"Noto Sans KR","Pretendard","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","Consolas",monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-sans); font-size:15px; line-height:1.7}
+.pg{max-width:1120px; margin:0 auto; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); padding-block:28px 72px}
+.pg-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:14px}
+.pg-top h1{margin:0; font-family:var(--pg-serif); font-weight:800; font-size:26px; letter-spacing:-.02em}
+.pg-top p{margin:0; color:var(--pg-sub); font-size:13px}
+.pg-frame{box-shadow:0 1px 0 var(--pg-line),0 18px 40px -24px rgba(31,37,44,.35); border:1px solid var(--pg-line)}
+.pg-bar{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-top:10px; font-size:13px; color:var(--pg-sub)}
+.pg-btn{font:inherit; font-size:13px; color:var(--pg-ink); background:var(--pg-card); border:1px solid var(--pg-line); border-radius:4px; padding:6px 14px; cursor:pointer}
+.pg-btn:hover{border-color:var(--pg-tile)} .pg-btn:focus-visible{outline:2px solid var(--pg-ink); outline-offset:2px}
+section{margin-top:56px}
+h2{font-family:var(--pg-serif); font-weight:800; font-size:21px; letter-spacing:-.01em; margin:0 0 6px; display:flex; gap:12px; align-items:baseline}
+h2 small{font-family:var(--pg-mono); font-size:12px; color:var(--pg-sub); font-weight:500; letter-spacing:.08em}
+.pg-lead{color:var(--pg-sub); margin:0 0 18px; max-width:68ch}
+.pg-cards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+.pg-card{background:var(--pg-card); border:1px solid var(--pg-line); padding:18px 18px 16px; min-width:0}
+.pg-card h3{margin:0 0 6px; font-size:15.5px; line-height:1.45}
+.pg-card p{margin:0; font-size:14px; color:var(--pg-sub)}
+.pg-card .pg-use{margin-top:10px; padding-top:10px; border-top:1px solid var(--pg-line); font-size:13px; color:var(--pg-ink)}
+.pg-tablewrap{overflow-x:auto; border:1px solid var(--pg-line); background:var(--pg-card)}
+table{border-collapse:collapse; width:100%; min-width:640px; font-size:14px}
+th,td{text-align:left; vertical-align:top; padding:10px 14px; border-bottom:1px solid var(--pg-line)}
+th{font-size:12.5px; color:var(--pg-sub); font-weight:500; letter-spacing:.04em; background:var(--pg-bg)}
+tr:last-child td{border-bottom:0}
+td:first-child{white-space:nowrap; font-weight:700}
+.pg-two{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:28px}
+.pg-list{margin:0; padding-left:18px} .pg-list li{margin:4px 0}
+.pg-list a{color:var(--pg-ink)}
+.pg-sw{display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 4px}
+.pg-sw div{width:118px; font-size:12px; font-family:var(--pg-mono); color:var(--pg-sub)}
+.pg-sw i{display:block; height:44px; border:1px solid var(--pg-line); margin-bottom:4px}
+.pg-sw b{display:block; font-family:var(--pg-sans); color:var(--pg-ink); font-weight:500}
+.pg-code{position:relative; margin-top:12px}
+.pg-code pre{margin:0; background:var(--pg-code-bg); color:var(--pg-code-ink); font-family:var(--pg-mono); font-size:12px; line-height:1.55; padding:16px; max-height:520px; overflow:auto; white-space:pre}
+.pg-code .pg-btn{position:absolute; top:10px; right:10px; background:#2B333C; color:#EEF0F2; border-color:#46505B}
+.pg-code-msg{font-size:12.5px; color:var(--pg-sub); min-height:1.5em; margin-top:6px}
+dl.pg-spec{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:6px 18px; margin:0}
+dl.pg-spec dt{color:var(--pg-sub); font-size:13.5px} dl.pg-spec dd{margin:0}
+@media (max-width:760px){.pg-cards{grid-template-columns:minmax(0,1fr)} .pg-two{grid-template-columns:minmax(0,1fr)} dl.pg-spec{grid-template-columns:minmax(0,1fr)} dl.pg-spec dd{margin-bottom:8px}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap">
+<main class="pg">
+  <header class="pg-top">
+    <h1>레퍼런스 #58 처마 끝 수막새</h1>
+    <p>실험형 표지 · H 전통 공예·문양 · 2026. 10. 15. · 가상 예시</p>
+  </header>
+
+  <div class="pg-frame"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* ── 처마 끝 수막새 표지 (접두어 hy-) ── 16:9, 가상 화면 1600×900, 1cqw = 16px */
+.hy-cover{
+  --hy-paper:#F4F3EE;      /* 한지 바탕 */
+  --hy-paper-fiber:#E6E4DC;/* 한지 섬유 */
+  --hy-ink:#1F252C;        /* 먹 글자 */
+  --hy-sub:#5D646C;        /* 보조 글자 */
+  --hy-line:#B9BCBC;       /* 가는 선 */
+  --hy-tile:#6E7781;       /* 기와 회청(팔레트 기록용, 그림은 캔버스가 계산) */
+  --hy-seal:#C2412B;       /* 단청 주홍 — 해태 인장 한 곳 */
+  --hy-font-title:"Nanum Myeongjo","나눔명조","Batang","바탕",serif;
+  --hy-font-body:"Noto Sans KR","Pretendard","Malgun Gothic","맑은 고딕",sans-serif;
+  container-type:inline-size;
+  width:100%;
+  color:var(--hy-ink);
+  font-family:var(--hy-font-body);
+}
+.hy-stage{
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--hy-paper);
+}
+.hy-fiber{position:absolute; inset:0; width:100%; height:100%; display:block}
+/* 그림 구역: 오른쪽 960×900 */
+.hy-scene{position:absolute; left:40cqw; top:0; width:60cqw; height:100%}
+.hy-scene canvas{position:absolute; inset:0; width:100%; height:100%; display:block; transform:scaleX(-1)} /* 왼쪽에서 비추는 빛으로 계산한 뒤 좌우 반전: 처마가 글 쪽으로 멀어진다 */
+.hy-label{
+  position:absolute; font-size:1.0cqw; line-height:1.35; color:var(--hy-sub);
+  letter-spacing:.02em; white-space:nowrap; transform:translate(-50%,0);
+}
+.hy-label b{display:block; color:var(--hy-ink); font-weight:700; font-size:1.06cqw; letter-spacing:.04em}
+.hy-leaders{position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none}
+.hy-leaders line{stroke:var(--hy-sub); stroke-width:1; vector-effect:non-scaling-stroke}
+.hy-leaders circle{fill:var(--hy-paper); stroke:var(--hy-ink); stroke-width:1; vector-effect:non-scaling-stroke}
+/* 글 구역: 왼쪽, 정렬선 x=80 하나 */
+.hy-text{position:absolute; left:5cqw; top:0; width:34cqw; height:100%}
+.hy-eyebrow{
+  position:absolute; top:6.5cqw; left:0; margin:0;
+  font-family:var(--hy-font-title); font-weight:700; font-size:1.25cqw;
+  letter-spacing:.42em; color:var(--hy-sub);
+}
+.hy-title{
+  position:absolute; top:10.4cqw; left:0; margin:0;
+  font-family:var(--hy-font-title); font-weight:800; font-size:6.1cqw; line-height:1.16;
+  letter-spacing:-.035em; color:var(--hy-ink); text-wrap:balance;
+}
+.hy-rule{position:absolute; top:28.6cqw; left:0; width:4.5cqw; height:0; border-top:.14cqw solid var(--hy-ink)}
+.hy-plan{
+  position:absolute; top:30.2cqw; left:0; margin:0;
+  font-size:1.95cqw; font-weight:700; letter-spacing:-.01em; color:var(--hy-ink);
+}
+.hy-lede{
+  position:absolute; top:33.6cqw; left:0; margin:0; width:31cqw;
+  font-size:1.18cqw; line-height:1.6; color:var(--hy-sub); word-break:keep-all;
+}
+.hy-sign{position:absolute; left:0; bottom:3.6cqw; display:flex; align-items:center; gap:1.4cqw}
+.hy-seal{width:7.4cqw; height:7.4cqw; display:block; flex:none}
+.hy-org{font-size:1.25cqw; line-height:1.5; color:var(--hy-ink); font-weight:500}
+.hy-org span{display:block; color:var(--hy-sub); font-weight:400; font-size:1.05cqw; letter-spacing:.12em}
+.hy-note{position:absolute; right:2.2cqw; bottom:1.6cqw; font-size:.82cqw; color:var(--hy-sub); letter-spacing:.06em}
+
+/* 좁은 화면: 그림 위 · 글 아래 세로 배치 */
+@container (max-width:640px){
+  .hy-stage{aspect-ratio:auto; display:flex; flex-direction:column}
+  .hy-scene{position:relative; left:auto; width:100%; height:auto; aspect-ratio:960/900; order:2}
+  .hy-text{position:relative; left:auto; width:auto; height:auto; padding:9cqw 6cqw 2cqw; order:1; display:flex; flex-direction:column}
+  .hy-eyebrow,.hy-title,.hy-rule,.hy-plan,.hy-lede,.hy-sign{position:static}
+  .hy-eyebrow{font-size:3.2cqw; order:-1}
+  .hy-title{font-size:12.4cqw; margin-top:2.4cqw}
+  .hy-rule{width:10cqw; border-top-width:.5cqw; margin-top:5cqw}
+  .hy-plan{font-size:5cqw; margin-top:3.4cqw}
+  .hy-lede{width:auto; font-size:3.5cqw; margin-top:2cqw}
+  .hy-sign{margin-top:7cqw; gap:3.5cqw}
+  .hy-seal{width:15cqw; height:15cqw}
+  .hy-org{font-size:3.6cqw}
+  .hy-org span{font-size:3cqw}
+  .hy-label{font-size:2.7cqw}
+  .hy-label b{font-size:3.4cqw}
+  .hy-label span{display:none}
+  .hy-note{font-size:2.6cqw; right:4cqw; bottom:3cqw}
+}
+</style>
+
+<div class="hy-cover" aria-label="표지: 처마 끝까지 빈틈없이 — ○○교육청 2027 학교 재난안전 종합계획(안)">
+  <div class="hy-stage">
+    <canvas class="hy-fiber" aria-hidden="true"></canvas>
+
+    <div class="hy-scene" aria-hidden="true">
+      <canvas class="hy-roof"></canvas>
+      <canvas class="hy-rain"></canvas>
+      <svg class="hy-leaders" preserveAspectRatio="none"></svg>
+      <div class="hy-label" data-hy="1"><b>수막새</b><span>연꽃무늬 8엽 · 기와 줄 끝을 막음</span></div>
+      <div class="hy-label" data-hy="2"><b>기왓골</b><span>빗물이 모여 흘러 떨어지는 길</span></div>
+    </div>
+
+    <div class="hy-text">
+      <p class="hy-eyebrow">○○교육청 · 2027</p>
+      <h1 class="hy-title">처마 끝까지<br>빈틈없이</h1>
+      <div class="hy-rule"></div>
+      <p class="hy-plan">2027 학교 재난안전 종합계획(안)</p>
+      <p class="hy-lede">예방 · 대비 · 대응 · 복구 4단계로<br>교실에서 통학로까지, 안전망의 끝단을 막습니다</p>
+      <div class="hy-sign">
+        <svg class="hy-seal" viewBox="0 0 100 100" role="img" aria-label="해태 인장"></svg>
+        <div class="hy-org">○○교육청 안전총괄과<span>2027. 1.</span></div>
+      </div>
+    </div>
+    <div class="hy-note">가상 예시 · 기관명은 자리표시</div>
+  </div>
+</div>
+
+<script>
+/* 처마 끝 수막새 표지 그리기 — 기와 지붕 조각을 원근 투영하고, 막새 면은 높이맵 부조로 계산한다 */
+(function(){
+  var cover = document.querySelector('.hy-cover');
+  if(!cover) return;
+  var stage = cover.querySelector('.hy-stage');
+  var roofC = cover.querySelector('.hy-roof'), rainC = cover.querySelector('.hy-rain');
+  var W = 1440, H = 1350;            /* 그림 구역 960×900을 1.5배로 */
+  roofC.width = rainC.width = W; roofC.height = rainC.height = H;
+
+  /* ── 잡음 ── */
+  function hash(x,y,s){var h=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1442695041);h=Math.imul(h^(h>>>13),1274126177);h^=h>>>16;return (h>>>0)/4294967295;}
+  function vnoise(x,y,s){var xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;var u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+    var a=hash(xi,yi,s),b=hash(xi+1,yi,s),c=hash(xi,yi+1,s),d=hash(xi+1,yi+1,s);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;}
+  function fbm(x,y,s,o){var t=0,a=.5,f=1;for(var i=0;i<(o||4);i++){t+=a*vnoise(x*f,y*f,s+i*17);f*=2.03;a*=.5;}return t;}
+  function clamp(x,a,b){return x<a?a:x>b?b:x;}
+  function sstep(a,b,x){var t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);}
+
+  /* ── 기와 단면(가로 x): 암키와 골(오목) + 수키와 등(반원) ── */
+  var RS=0.22;                                   /* 수키와 반지름 */
+  function chan(x){var c=Math.floor(x)+0.5,t=(x-c)/0.5;return -0.09*(1-t*t);}
+  function ridge(x){var k=Math.round(x),d=x-k;return Math.abs(d)<RS? -0.02+Math.sqrt(RS*RS-d*d) : -9;}
+  function prof(x){return Math.max(chan(x),ridge(x));}
+  var SLOPE=28*Math.PI/180, SA=Math.sin(SLOPE), CA=Math.cos(SLOPE);
+  function roofP(x,s){return [x, prof(x)+s*SA, -s*CA];}
+  var TILT=12*Math.PI/180;                      /* 막새 면이 아래로 숙은 각 */
+  var FN=[0,-Math.sin(TILT),Math.cos(TILT)], FUP=[0,Math.cos(TILT),Math.sin(TILT)];
+
+  /* ── 카메라 ── */
+  var E=[-2.0,1.05,1.55], T=[2.6,-0.12,-0.75];
+  function sub(a,b){return [a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+  function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+  function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+  function norm(a){var l=Math.hypot(a[0],a[1],a[2]);return [a[0]/l,a[1]/l,a[2]/l];}
+  function add(a,b,k){return [a[0]+b[0]*k,a[1]+b[1]*k,a[2]+b[2]*k];}
+  var F=norm(sub(T,E)), Rt=norm(cross(F,[0,1,0])), Up=cross(Rt,F);
+  var SC=1, OX=0, OY=0;
+  function proj(p){var d=sub(p,E),z=dot(d,F);return [OX+SC*dot(d,Rt)/z, OY-SC*dot(d,Up)/z, z];}
+  /* 주인공 수막새(x=0)가 그림 구역의 정해진 자리·크기에 오도록 맞춘다 */
+  (function fit(){var c=[0,-0.02,0.03];var a=proj(c),b=proj(add(c,[1,0,0],0.25));
+    SC=(H*0.15)/Math.hypot(b[0]-a[0],b[1]-a[1]); a=proj(c); OX=W*0.27-a[0]; OY=H*0.60-a[1];})();
+
+  var LIGHT=norm([-0.55,0.72,0.42]);
+
+  /* ── 막새 면 부조: 높이맵 → 법선 → 음영 ── */
+  function shadeTex(N,Hm,Al,seed,base,opt){
+    var cv=document.createElement('canvas');cv.width=cv.height=N;var g=cv.getContext('2d');var im=g.createImageData(N,N),px=im.data;
+    /* 가볍게 흐리기(마모된 부조), 넓게 흐린 값과 차이 = 오목한 곳 */
+    function blur(src,r){var tmp=new Float32Array(N*N),out=new Float32Array(N*N),i,j,k,acc,w=2*r+1;
+      for(j=0;j<N;j++){acc=0;for(k=-r;k<=r;k++)acc+=src[j*N+clamp(k,0,N-1)];for(i=0;i<N;i++){tmp[j*N+i]=acc/w;acc+=src[j*N+clamp(i+r+1,0,N-1)]-src[j*N+clamp(i-r,0,N-1)];}}
+      for(i=0;i<N;i++){acc=0;for(k=-r;k<=r;k++)acc+=tmp[clamp(k,0,N-1)*N+i];for(j=0;j<N;j++){out[j*N+i]=acc/w;acc+=tmp[clamp(j+r+1,0,N-1)*N+i]-tmp[clamp(j-r,0,N-1)*N+i];}}return out;}
+    var Hs=blur(blur(Hm,Math.max(1,Math.round(N/320))),Math.max(1,Math.round(N/320)));
+    var Hb=blur(blur(Hm,Math.round(N/30)),Math.round(N/30));
+    var L=[-0.5,-0.66,0.56];var l=Math.hypot(L[0],L[1],L[2]);L=[L[0]/l,L[1]/l,L[2]/l];
+    var hs=opt.hscale*N/2;
+    for(var j=1;j<N-1;j++)for(var i=1;i<N-1;i++){var id=j*N+i;var a=Al[id];if(a<=0){px[id*4+3]=0;continue;}
+      var dx=(Hs[id+1]-Hs[id-1])*hs*0.5, dy=(Hs[id+N]-Hs[id-N])*hs*0.5;
+      var nx=-dx,ny=-dy,nz=1,nl=Math.hypot(nx,ny,nz);nx/=nl;ny/=nl;nz/=nl;
+      var df=Math.max(0,nx*L[0]+ny*L[1]+nz*L[2]);
+      var rz=2*df*nz-L[2];var sp=Math.pow(Math.max(0,rz),18)*0.10;
+      var cav=Math.max(0,Hb[id]-Hs[id]);
+      var u=i/N,v=j/N;
+      var mot=(fbm(u*7,v*7,seed,4)-0.5)*0.16;
+      var sh=0.40+0.70*df-cav*1.25+mot;
+      var r=base[0]*sh,gg=base[1]*sh,b=base[2]*sh;
+      /* 오목한 곳에 남은 흰 회 자국 */
+      var lime=sstep(0.08,0.2,cav)*sstep(0.55,0.75,fbm(u*11,v*11,seed+5,3))*0.42;
+      r+=(206-r)*lime;gg+=(206-gg)*lime;b+=(200-b)*lime;
+      /* 깨진 면은 밝은 생흙색 */
+      if(opt.frac&&opt.frac[id]>0){var f=opt.frac[id];r+=(150-r)*f*0.6;gg+=(146-gg)*f*0.6;b+=(140-b)*f*0.6;}
+      var gr=(hash(i,j,seed+9)-0.5)*14; if(hash(i*3,j*7,seed+3)>0.993)gr-=40;
+      px[id*4]=clamp(r+gr+sp*255,0,255);px[id*4+1]=clamp(gg+gr+sp*255,0,255);px[id*4+2]=clamp(b+gr+sp*250,0,255);px[id*4+3]=a*255;}
+    g.putImageData(im,0,0);return cv;}
+
+  /* 수막새: 테(주연부) 구슬무늬 24 · 연판 8 · 간판 · 자방과 연자 1+8 · 이 빠진 테 */
+  function makeSumak(N,seed){
+    var Hm=new Float32Array(N*N),Al=new Float32Array(N*N),frac=new Float32Array(N*N);
+    var chipA=-0.95+hash(seed,1,2)*0.3, worn=Math.floor(hash(seed,3,4)*8);
+    for(var j=0;j<N;j++)for(var i=0;i<N;i++){var id=j*N+i;
+      var u=(i+.5)/N*2-1,v=(j+.5)/N*2-1,r=Math.hypot(u,v),th=Math.atan2(v,u);
+      var edge=0.985+0.012*(fbm(th*3+5,1,seed,2)-0.5);
+      var dA=Math.atan2(Math.sin(th-chipA),Math.cos(th-chipA));
+      var chipR=1.2; if(Math.abs(dA)<0.32){chipR=0.885+0.06*fbm(th*9,2,seed+1,3)+0.25*Math.pow(Math.abs(dA)/0.32,3);}
+      var rim=Math.min(edge,chipR);
+      Al[id]=clamp((rim-r)*N*0.5,0,1); if(Al[id]<=0)continue;
+      var h=0.10;
+      /* 테: 안쪽 벽 0.835~0.86, 바깥 모서리 둥글게 */
+      if(r>0.835) h=0.10+0.40*sstep(0.835,0.865,r);
+      if(r>rim-0.03) h-=0.18*sstep(rim-0.03,rim,r);
+      /* 구슬무늬 */
+      var st=Math.PI*2/24, ba=Math.round(th/st)*st, bx=0.917*Math.cos(ba), by=0.917*Math.sin(ba), bd=Math.hypot(u-bx,v-by);
+      if(bd<0.033) h+=0.16*Math.sqrt(1-(bd/0.033)*(bd/0.033));
+      /* 구획선 */
+      h=Math.max(h,0.10+0.14*Math.exp(-Math.pow((r-0.80)/0.009,2)));
+      /* 연판 8 */
+      var pst=Math.PI/4, pi=Math.round((th-pst/2)/pst), pa=pi*pst+pst/2, ph=th-pa, t=(r-0.295)/(0.775-0.295);
+      if(t>0&&t<1){var d=r*Math.sin(ph), hw=0.172*Math.pow(Math.sin(Math.PI*(0.08+0.92*t)),0.48)*(1-0.12*t);
+        if(Math.abs(d)<hw&&Math.cos(ph)>0){var q=d/hw,dome=Math.sqrt(1-q*q);
+          var hp=0.12+0.30*dome*Math.pow(Math.sin(Math.PI*(0.05+0.95*t)),0.3);
+          hp-=0.07*Math.exp(-Math.pow((t-0.70)/0.08,2))*dome;          /* 판단 앞 오목 */
+          hp+=0.17*Math.exp(-Math.pow((t-0.885)/0.055,2))*(1-q*q);     /* 판단 반전(살짝 들린 끝) */
+          hp+=0.03*Math.exp(-Math.pow(d/0.010,2))*t;                    /* 가운데 능선 */
+          if(((pi%8)+8)%8===worn) hp=0.10+(hp-0.10)*(0.82-0.25*sstep(0.6,1,t));
+          h=Math.max(h,hp);}}
+      /* 간판(연판 사이 가는 능선 + 끝 삼각) */
+      var ma=Math.round(th/pst)*pst, dm=r*Math.sin(th-ma);
+      if(r>0.42&&r<0.79&&Math.cos(th-ma)>0){var w=0.006+0.022*sstep(0.70,0.785,r)*(1-sstep(0.785,0.79,r));h=Math.max(h,0.10+0.15*Math.exp(-Math.pow(dm/Math.max(w,0.006),2)));}
+      /* 자방 + 연자 */
+      if(r<0.30){var hz=0.36+0.04*(1-r*r/0.09);hz*=sstep(0.30,0.265,r);hz+=0.05*Math.exp(-Math.pow((r-0.255)/0.012,2));
+        var sd=Math.hypot(u,v); if(sd<0.045) hz+=0.12*Math.sqrt(1-sd*sd/0.002025);
+        var sa=Math.PI/4, s0=Math.round(th/sa)*sa, sx=0.158*Math.cos(s0), sy=0.158*Math.sin(s0), s1=Math.hypot(u-sx,v-sy);
+        if(s1<0.04) hz+=0.11*Math.sqrt(1-s1*s1/0.0016);
+        h=Math.max(h,hz);}
+      /* 마모 */
+      h-=0.05*fbm(u*5,v*5,seed+7,4);
+      if(chipR<1.1&&r>chipR-0.05){frac[id]=sstep(chipR-0.05,chipR,r);h-=0.12*frac[id]*fbm(u*20,v*20,seed,2);}
+      Hm[id]=h;}
+    return shadeTex(N,Hm,Al,seed,[108,117,128],{hscale:0.13,frac:frac});}
+
+  /* 암막새: 조선식 역삼각 드림새, 테두리 + 가운데 연꽃 봉오리 + 양쪽 당초 */
+  function amakY(xo){var t=xo/0.5;var top=-0.09*(1-t*t)-0.012;var ua=Math.min(1,Math.abs(xo)/0.42);return [top, top-(0.07+0.16*Math.pow(1-ua,1.25))];}
+  var amakCurves=(function(){var cs=[];[-1,1].forEach(function(sg){var pts=[];
+      for(var p=0;p<=1;p+=0.02){var x=sg*(0.055+0.20*p);var yy=amakY(x);var mid=(yy[0]+yy[1])/2+0.012;pts.push([x,mid+0.018*Math.sin(p*Math.PI*1.6)]);}
+      var e=pts[pts.length-1],cx=e[0]-sg*0.0,cy=e[1]+0.028, a0=Math.PI/2;
+      for(var q=0;q<=1;q+=0.02){var ang=a0+sg*q*Math.PI*2.1, rr=0.028*(1-0.75*q);pts.push([cx+sg*rr*Math.cos(ang-Math.PI/2)*-1*0+rr*Math.sin(ang)*sg*-1, cy-rr*Math.cos(ang)]);}
+      var tail=[];for(var p2=0;p2<=1;p2+=0.05){var x2=sg*(0.27+0.10*p2);var y2=amakY(x2);tail.push([x2,(y2[0]+y2[1])/2+0.006]);}
+      cs.push(pts);cs.push(tail);});return cs;})();
+  function makeAmak(N,seed){
+    var Hm=new Float32Array(N*N),Al=new Float32Array(N*N),S=0.42;
+    for(var j=0;j<N;j++)for(var i=0;i<N;i++){var id=j*N+i;var xo=((i+.5)/N*2-1)*S, y=-((j+.5)/N*2-1)*S;
+      if(Math.abs(xo)>0.42)continue;var yy=amakY(xo);var top=yy[0],bot=yy[1];
+      var dt=top-y, db=y-bot; var ua=Math.min(1,Math.abs(xo)/0.42); var sl=0.16*1.25*Math.pow(Math.max(1e-3,1-ua),0.25)/0.42; db/=Math.sqrt(1+sl*sl);
+      var a=clamp(Math.min(dt,db)*N/(2*S),0,1); if(a<=0)continue; Al[id]=a;
+      var m=Math.min(dt,db), h=0.10;
+      if(m<0.03) h=0.10+0.32*sstep(0.03,0.022,m)-0.12*sstep(0.006,0,m);
+      /* 당초 줄기 */
+      var best=1;for(var c=0;c<amakCurves.length;c++){var P=amakCurves[c];for(var k=0;k<P.length;k+=1){var dd=Math.hypot(xo-P[k][0],y-P[k][1]);if(dd<best)best=dd;}}
+      h=Math.max(h,0.10+0.26*Math.exp(-Math.pow(best/0.0085,2)));
+      /* 가운데 연꽃 봉오리(세 잎) */
+      var cy=(amakY(0)[0]+amakY(0)[1])/2+0.01;
+      function petal(cx0,cy0,ang,a1,b1){var dx=xo-cx0,dy=y-cy0,ca=Math.cos(ang),sa=Math.sin(ang);var px1=dx*ca+dy*sa,py1=-dx*sa+dy*ca;var q=(px1*px1)/(a1*a1)+(py1*py1)/(b1*b1);return q<1?0.10+0.26*Math.sqrt(1-q):0;}
+      h=Math.max(h,petal(0,cy+0.012,Math.PI/2,0.05,0.022),petal(-0.03,cy-0.002,Math.PI/2+0.75,0.042,0.018),petal(0.03,cy-0.002,Math.PI/2-0.75,0.042,0.018));
+      h-=0.05*fbm(xo*14,y*14,seed+3,4);
+      Hm[id]=h;}
+    return shadeTex(N,Hm,Al,seed,[110,118,129],{hscale:0.10});}
+
+  /* 실루엣(두께 표현용) */
+  function silhouette(tex,col){var c=document.createElement('canvas');c.width=tex.width;c.height=tex.height;var g=c.getContext('2d');g.drawImage(tex,0,0);g.globalCompositeOperation='source-in';g.fillStyle=col;g.fillRect(0,0,c.width,c.height);return c;}
+
+  /* 면을 3D 평면에 붙이기(작은 면이라 아핀으로 근사) */
+  function drawPlane(g,img,C,half){var a=proj(C),b=proj(add(C,[1,0,0],half)),c=proj(add(C,FUP,half));
+    g.save();g.setTransform(b[0]-a[0],b[1]-a[1],-(c[0]-a[0]),-(c[1]-a[1]),a[0],a[1]);g.drawImage(img,-1,-1,2,2);g.restore();}
+
+  /* 처마 길이: 그림 구역 안에서 끝나도록 마지막 수키와 줄을 고른다 */
+  var X0=-0.235, S1=5.2, X1=(function(){for(var k=1;k<20;k++){var p=proj([k,-0.02,0.03]);if(p[0]>W*0.97)return k-1+0.235;}return 8.235;})();
+  var wetMask=document.createElement('canvas');wetMask.width=W;wetMask.height=H;
+  function render(){
+    var g=roofC.getContext('2d');g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,H);
+    var items=[];
+    /* 지붕 면: 격자 사각형 */
+    var dx=0.022, ds=0.035;
+    for(var x=X0;x<X1;x+=dx){var x2=Math.min(X1,x+dx), xm=(x+x2)/2;var isR=ridge(xm)>=chan(xm);
+      var k=isR?Math.round(xm):Math.floor(xm);
+      for(var s=0;s<S1;s+=ds){var s2=s+ds;
+        var p1=roofP(x,s),p2=roofP(x2,s),p3=roofP(x2,s2),p4=roofP(x,s2);
+        var n=norm(cross(sub(p2,p1),sub(p4,p1)));if(n[1]<0)n=[-n[0],-n[1],-n[2]];
+        var df=Math.max(0,dot(n,LIGHT));
+        var len=isR?0.40:0.30, sm=(s+s2)/2+(isR?0.13:0)*(k%2), ti=Math.floor(sm/len), f=sm/len-ti;
+        var tone=1+(hash(ti,k,isR?11:23)-0.5)*0.11;
+        var sh=(0.50+0.58*df)*tone;
+        if(f>0.91) sh*=0.86;                                  /* 윗장 앞날 아래 그늘 */
+        if(f<0.035) sh*=1.10;                                 /* 앞날 밝은 모서리 */
+        var base=isR?[112,120,131]:[121,128,138];
+        var col='rgb('+(base[0]*sh|0)+','+(base[1]*sh|0)+','+(base[2]*sh|0)+')';
+        var c=[(p1[0]+p3[0])/2,(p1[1]+p3[1])/2,(p1[2]+p3[2])/2];
+        items.push({z:dot(sub(c,E),F),pts:[p1,p2,p3,p4],col:col,wet:!isR});}}
+    /* 막새 */
+    var tex={};
+    function sumakFor(k){var C=[k,-0.02,0.03];var a=proj(C),b=proj(add(C,[1,0,0],0.25));var px=Math.hypot(b[0]-a[0],b[1]-a[1]);
+      var N=Math.min(720,Math.max(48,Math.round(px*2.6)));var t=makeSumak(N,31+k*7);return {t:t,s:silhouette(t,'rgb(78,84,93)'),s2:silhouette(t,'rgb(96,103,112)')};}
+    function amakFor(k){var C=[k+0.5,0,0.0];var a=proj(C),b=proj(add(C,[1,0,0],0.42));var px=Math.hypot(b[0]-a[0],b[1]-a[1]);
+      var N=Math.min(640,Math.max(48,Math.round(px*2.4)));var t=makeAmak(N,57+k*5);return {t:t,s:silhouette(t,'rgb(84,90,99)')};}
+    for(var k=0;k<=Math.floor(X1);k++){(function(k){
+      var C=[k,-0.02,0.03];var zc=dot(sub(C,E),F)-0.16;
+      items.push({z:zc,draw:function(g,m){var T=tex['s'+k]||(tex['s'+k]=sumakFor(k));
+        if(m){for(var q=7;q>=0;q--)drawPlane(g,T.s,add(C,FN,-0.008*q),0.25);return;}
+        for(var q=7;q>=1;q--){drawPlane(g,q>1?T.s:T.s2,add(C,FN,-0.008*q),0.25);}
+        drawPlane(g,T.t,C,0.25);}});
+      if(k+0.5<X1){var A=[k+0.5,0,0.0];items.push({z:dot(sub(A,E),F)-0.08,wet:true,draw:function(g){var T=tex['a'+k]||(tex['a'+k]=amakFor(k));
+        for(var q=5;q>=1;q--)drawPlane(g,T.s,add(A,FN,-0.008*q),0.42);drawPlane(g,T.t,A,0.42);}});}
+    })(k);}
+    items.sort(function(a,b){return b.z-a.z;});
+    g.lineJoin='round';
+    for(var i=0;i<items.length;i++){var it=items[i];
+      if(it.draw){it.draw(g);continue;}
+      var P=it.pts.map(proj);g.beginPath();g.moveTo(P[0][0],P[0][1]);for(var q=1;q<4;q++)g.lineTo(P[q][0],P[q][1]);g.closePath();
+      g.fillStyle=it.col;g.fill();g.strokeStyle=it.col;g.lineWidth=0.9;g.stroke();}
+    /* 빗물이 보일 수 있는 곳(골·암막새 앞면) 마스크: 같은 순서로 칠하고 가리는 것은 지운다 */
+    var mg=wetMask.getContext('2d');mg.clearRect(0,0,W,H);
+    for(var i=0;i<items.length;i++){var it=items[i];
+      mg.globalCompositeOperation=it.wet?'source-over':'destination-out';mg.fillStyle='#000';mg.strokeStyle='#000';
+      if(it.draw){if(it.wet)it.draw(mg);else it.draw(mg,true);continue;}
+      var P=it.pts.map(proj);mg.beginPath();mg.moveTo(P[0][0],P[0][1]);for(var q=1;q<4;q++)mg.lineTo(P[q][0],P[q][1]);mg.closePath();mg.fill();mg.lineWidth=0.9;mg.stroke();}
+    mg.globalCompositeOperation='source-over';
+    /* 기와 소성 얼룩 · 결 */
+    var nz=document.createElement('canvas');nz.width=W/2;nz.height=H/2;var ng=nz.getContext('2d');var id=ng.createImageData(nz.width,nz.height);
+    for(var y=0;y<nz.height;y++)for(var x=0;x<nz.width;x++){var o=(y*nz.width+x)*4;var v=200+fbm(x/40,y/40,5,4)*70+(hash(x,y,8)-0.5)*26;id.data[o]=id.data[o+1]=id.data[o+2]=clamp(v,0,255);id.data[o+3]=255;}
+    ng.putImageData(id,0,0);
+    var tm=document.createElement('canvas');tm.width=W;tm.height=H;var tg=tm.getContext('2d');tg.drawImage(nz,0,0,W,H);
+    tg.globalCompositeOperation='destination-in';tg.drawImage(roofC,0,0);
+    g.save();g.globalCompositeOperation='multiply';g.globalAlpha=0.55;g.drawImage(tm,0,0);g.restore();
+  }
+
+  /* ── 빗물: 기왓골을 타고 내려와 암막새 끝에서 떨어진다 ── */
+  var DROPS=[];for(var k=0;k<Math.floor(X1);k++){DROPS.push({k:k,d:0.10*k+0.0,s0:2.6});DROPS.push({k:k,d:0.10*k+0.55,s0:1.7});}
+  function dropPath(dr,t){/* t:0~1 → 3D 점, 끝 이후 낙하 */
+    var x=dr.k+0.5, yy=amakY(0), L1=dr.s0, L2=(yy[0]-yy[1]), tot=L1+L2;
+    var dpos=t*tot;
+    if(dpos<=L1){return {p:roofP(x,dr.s0-dpos),phase:0};}
+    var q=dpos-L1;return {p:platePt(x,yy[0]-q),phase:1};}
+  /* 숙인 막새 면 위의 점(면 가운데 기준 세로 위치 yl) */
+  function platePt(x,yl){return add(add([x,0,0],FUP,yl),FN,0.012);}
+  var TRAIL='rgba(28,38,50,0.19)';
+  function drawRain(prog){var g=rainC.getContext('2d');g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,H);
+    var falls=[];
+    DROPS.forEach(function(dr){var lt=clamp((prog-dr.d)/(1.75),0,1.25);
+      /* 젖은 자국: 지나간 길이 조금 어둡게 남는다 */
+      var steps=48,tm=Math.min(1,lt);if(tm>0){g.lineCap='round';g.lineJoin='round';g.strokeStyle=TRAIL;g.beginPath();
+        var w0=dropPath(dr,0).p,pw=proj(w0),pw2=proj(add(w0,[1,0,0],0.035));g.lineWidth=Math.max(1.5,Math.hypot(pw2[0]-pw[0],pw2[1]-pw[1]));
+        for(var i=0;i<=steps;i++){var q=proj(dropPath(dr,i/steps*tm).p);if(i)g.lineTo(q[0],q[1]);else g.moveTo(q[0],q[1]);}g.stroke();}
+      if(lt<=0)return;
+      if(lt<1){var c=dropPath(dr,lt);bead(g,c.p,0.017);}
+      else falls.push([dr,lt]);
+    });
+    g.save();g.globalCompositeOperation='destination-in';g.drawImage(wetMask,0,0);g.restore();
+    falls.forEach(function(f){var dr=f[0],lt=f[1],yy=amakY(0);
+      if(dr.d>0.5){bead(g,platePt(dr.k+0.5,yy[1]-0.016),0.019);}
+      else{var fall=(lt-1)/0.25;if(fall<1){g.globalAlpha=1-fall;var tp=platePt(dr.k+0.5,yy[1]-0.02);bead(g,[tp[0],tp[1]-fall*0.32,tp[2]],0.016);g.globalAlpha=1;}}});}
+  function bead(g,p,r){var a=proj(p),b=proj(add(p,[1,0,0],r));var R=Math.max(2,Math.hypot(b[0]-a[0],b[1]-a[1]));
+    g.save();g.translate(a[0],a[1]);g.scale(1,1.25);
+    g.beginPath();g.arc(0,0,R,0,Math.PI*2);g.fillStyle='rgba(58,70,84,0.55)';g.fill();
+    g.beginPath();g.arc(-R*0.28,-R*0.32,R*0.32,0,Math.PI*2);g.fillStyle='rgba(255,255,255,0.92)';g.fill();
+    g.beginPath();g.arc(R*0.15,R*0.35,R*0.62,0.2,Math.PI-0.2);g.strokeStyle='rgba(235,240,244,0.65)';g.lineWidth=Math.max(1,R*0.18);g.stroke();
+    g.restore();}
+
+  /* ── 라벨과 지시선 ── */
+  function placeLabels(){var svg=cover.querySelector('.hy-leaders');svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    var a=proj(add([0,-0.02,0.035],FUP,-0.17)), b=proj(platePt(0.5,amakY(0)[1]-0.045));
+    var l1={x:W-a[0],y:a[1]+H*0.012}, t1={x:W-a[0]+W*0.04,y:H*0.835};
+    var l2={x:W-b[0],y:b[1]+H*0.02}, t2={x:Math.min(W-b[0]-W*0.06,W-a[0]-W*0.30),y:H*0.835};
+    svg.innerHTML='<line x1="'+l1.x+'" y1="'+l1.y+'" x2="'+t1.x+'" y2="'+(t1.y-H*0.012)+'"/><circle cx="'+l1.x+'" cy="'+l1.y+'" r="4"/>'+
+      '<line x1="'+l2.x+'" y1="'+l2.y+'" x2="'+t2.x+'" y2="'+(t2.y-H*0.012)+'"/><circle cx="'+l2.x+'" cy="'+l2.y+'" r="4"/>';
+    var L1=cover.querySelector('[data-hy="1"]'),L2=cover.querySelector('[data-hy="2"]');
+    L1.style.left=(t1.x/W*100)+'%';L1.style.top=(t1.y/H*100)+'%';
+    L2.style.left=(t2.x/W*100)+'%';L2.style.top=(t2.y/H*100)+'%';}
+
+  /* ── 한지 바탕 섬유 ── */
+  function paper(){var c=cover.querySelector('.hy-fiber');var w=1600,h=900;c.width=w;c.height=h;var g=c.getContext('2d');
+    var css=getComputedStyle(cover);g.fillStyle=css.getPropertyValue('--hy-paper').trim()||'#F4F3EE';g.fillRect(0,0,w,h);
+    g.strokeStyle=css.getPropertyValue('--hy-paper-fiber').trim()||'#E6E4DC';g.lineCap='round';
+    for(var i=0;i<900;i++){var x=hash(i,1,3)*w,y=hash(i,2,3)*h,a=hash(i,3,3)*Math.PI*2,l=6+hash(i,4,3)*26;
+      g.globalAlpha=0.35+hash(i,5,3)*0.5;g.lineWidth=0.5+hash(i,6,3)*0.8;g.beginPath();g.moveTo(x,y);
+      g.quadraticCurveTo(x+Math.cos(a+0.6)*l*0.5,y+Math.sin(a+0.6)*l*0.5,x+Math.cos(a)*l,y+Math.sin(a)*l);g.stroke();}
+    g.globalAlpha=1;}
+
+  /* ── 해태 인장: 붉은 인면에 흰 선(백문)으로 앉은 해태 ── */
+  function seal(){var svg=cover.querySelector('.hy-seal');
+    function spiral(cx,cy,r,turns,dir,a0){var d='',n=40;for(var i=0;i<=n;i++){var t=i/n,a=a0+dir*t*turns*Math.PI*2,rr=r*(1-0.78*t);d+=(i?' L':'M')+(cx+rr*Math.cos(a)).toFixed(2)+' '+(cy+rr*Math.sin(a)).toFixed(2);}return d;}
+    var S=[
+      /* 이마 · 코 · 콧구멍 */'M19 29 C20 21 27 17 35 17 C41 17 45 20 47 24','M19 29 C17 30 16 33 17 36 C18 38 20 38.5 22 38',spiral(20.6,32.8,2.1,1.1,1,0),
+      /* 입 · 송곳니 */'M22 38 C25 40.5 30 41 34 40','M21 41.5 C24 45.5 30 46.5 36 44.5','M25 39.6 L25.6 42.6','M31 40.6 L31.4 43.2',
+      /* 부리부리한 눈 · 눈썹 소용돌이 */'M27.3 27.5 a3.2 3.2 0 1 0 6.4 0 a3.2 3.2 0 1 0 -6.4 0',spiral(25.8,22.2,2.5,1.05,-1,Math.PI),
+      /* 뿔 · 귀 */'M37 17.5 C37.5 12.5 40.5 9.5 44.5 8.5 C43 11.8 42.4 14.6 42 18','M44 22.5 C47 20 50.5 20.5 51 24 C49 25 46.5 25 44.5 24.5',
+      /* 곱슬 갈기 */spiral(52.6,14.8,3.8,1.2,-1,Math.PI*0.9),spiral(56,24.2,3.9,1.2,-1,Math.PI*0.75),spiral(56.4,33.8,3.9,1.2,-1,Math.PI*0.55),spiral(54,43,3.9,1.2,-1,Math.PI*0.35),
+      spiral(47.8,31.6,2.9,1.15,-1,Math.PI*0.6),spiral(47.4,40.2,2.9,1.15,-1,Math.PI*0.4),
+      /* 목띠 · 방울 */'M33 47.4 C39 50.8 45 51.2 50 49.6','M40.6 51 L40.6 51.6','M36.6 55.4 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0','M37 56 L44.2 56',
+      /* 가슴 · 앞다리 · 발가락 */'M22 44.5 C21 51 22.5 57 26 61.5 L25.6 79.5 C22 80 19.5 82 19.5 85.5 L35 85.5 C35 82.5 34 80.5 32.8 79 L33.6 64','M24.2 85.5 L24.2 83.2','M28.8 85.5 L28.8 83.2',
+      /* 다리 비늘 */'M27 67.4 q1.6 1.7 3.2 0','M27.2 71.6 q1.6 1.7 3.2 0','M27.2 75.8 q1.6 1.7 3.2 0',
+      /* 등 · 엉덩이 · 뒷발 */'M57.4 47 C63 49.6 68 54 70.5 60 C77 66 77.5 77 71.5 82.5 C68 85.3 60 85.6 48 85.5 C48 82.3 50.8 80.2 55.6 80',
+      /* 배 · 옆구리 비늘 */'M33.6 64 C40 68.8 47 70 54 68.6','M41 60.4 q1.8 1.8 3.6 0','M46.2 60.4 q1.8 1.8 3.6 0','M43.6 56.6 q1.8 1.8 3.6 0',
+      /* 넓적다리 소용돌이 */spiral(62.4,71,6.2,1.2,1,Math.PI*1.2),
+      /* 꼬리 세 갈래 */'M70.5 60.5 C76.5 56 78 49 75 43.5',spiral(76.4,40.6,3.4,1.15,-1,Math.PI*0.95),'M73.6 55.8 C80.6 53.6 83.6 47.4 82 41.6',spiral(83,38.4,3,1.15,-1,Math.PI*0.95),
+      'M72.6 58.4 C79.6 58.8 84.6 56 86.4 51.2',spiral(86.2,48.2,2.4,1.1,-1,Math.PI*0.9),
+      /* 받침 */'M14 89.2 L86 89.2'
+    ];
+    var paths=S.map(function(d){return '<path d="'+d+'"/>';}).join('');
+    svg.innerHTML='<defs><filter id="hy-ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>'+
+      '<feDisplacementMap in="SourceGraphic" in2="n" scale="1.2"/></filter>'+
+      '<filter id="hy-wear"><feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="9"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -22 16.5"/><feComposite in="SourceGraphic" operator="in"/></filter></defs>'+
+      '<g filter="url(#hy-ink)"><g filter="url(#hy-wear)"><rect x="3" y="3" width="94" height="94" rx="3.5" fill="var(--hy-seal)"/></g>'+
+      '<g fill="none" stroke="var(--hy-paper)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'+
+      '<rect x="8" y="8" width="84" height="84" rx="1.5" stroke-width="1.6"/>'+paths+'</g></g>';}
+
+  /* ── 실행 ── */
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var raf=0;
+  function play(){cancelAnimationFrame(raf);if(reduce){drawRain(3);return;}var t0=performance.now();
+    (function tick(now){var p=(now-t0)/1000;drawRain(p);if(p<3.0)raf=requestAnimationFrame(tick);else drawRain(3);})(t0);}
+  paper();seal();
+  /* 지붕은 무거우니 첫 그림 뒤로 미뤄 계산 */
+  setTimeout(function(){render();placeLabels();play();},30);
+  window.hyCover={replay:play};
+})();
+</script>
+</div>
+  <div class="pg-bar">
+    <span>빗물이 기왓골을 타고 내려와 암막새 끝에 맺히는 움직임 3초, 한 번. 멈춘 화면에는 젖은 골과 맺힌 물방울이 남습니다.</span>
+    <button class="pg-btn" id="pg-replay" type="button">다시 보기</button>
+  </div>
+
+  <section>
+    <h2>가져갈 장치 <small>3</small></h2>
+    <p class="pg-lead">표지 하나를 위한 장식이 아니라, 다른 계획안 표지에도 옮겨 쓸 수 있는 방법만 골랐습니다.</p>
+    <div class="pg-cards">
+      <article class="pg-card">
+        <h3>원근으로 물러나는 반복 사물</h3>
+        <p>같은 기와가 여러 장이지만 카메라를 처마 선을 따라 비스듬히 두어, 가장 가까운 수막새 한 장만 크게 읽히고 나머지는 리듬이 됩니다. 복제해 늘어놓은 화면이 되지 않습니다.</p>
+        <p class="pg-use">응용: 사물함 한 줄, 책상 열, 통학버스 행렬처럼 반복되는 학교 사물의 맨 앞 하나를 주인공으로.</p>
+      </article>
+      <article class="pg-card">
+        <h3>멈춘 뒤에도 남는 움직임의 흔적</h3>
+        <p>빗방울은 3초 뒤 사라지지만 지나간 골은 젖은 자국으로 어둡게 남고, 둘째 물방울은 암막새 끝에 맺혀 멈춥니다. 인쇄해도 "물은 골로 모여 끝에서 떨어진다"는 뜻이 남습니다.</p>
+        <p class="pg-use">응용: 이동 경로를 보여 주는 표지(통학로, 급식 동선)에서 움직임 대신 지나간 자국을 남기기.</p>
+      </article>
+      <article class="pg-card">
+        <h3>기관명 옆 인장 자리에 수호 상징</h3>
+        <p>해태를 붉은 인면에 흰 선(백문)으로 새겨, 문서에 도장이 찍히는 자리에 둡니다. 화면의 유일한 강조색이 이 한 곳이라, 기와 회청과 한지 사이에서 바로 눈에 들어옵니다.</p>
+        <p class="pg-use">응용: 상징 동물·꽃·문양을 기관 줄 옆 작은 인장으로. 본문 장표에서는 쪽 번호 옆 작은 인장으로 이어 쓰기.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>흐름 설계 메모</h2>
+    <p class="pg-lead">수막새는 기와 줄의 끝을 막아 빗물과 바람이 스미지 않게 하는 기와이고, 해태는 옳고 그름을 가려 궁궐 문을 지키는 상상 속 동물입니다. 둘 다 "지킨다"는 일을 하므로 학교 재난안전 계획에 맞췄습니다.</p>
+    <div class="pg-tablewrap"><table>
+      <thead><tr><th>계획안 구성</th><th>은유</th><th>이 표지 뒤 본문 장표 아이디어</th></tr></thead>
+      <tbody>
+        <tr><td>Ⅰ 추진 배경·현황</td><td>기왓장 한 장 한 장 = 학교 시설 하나하나. 소성 색이 조금씩 다른 것처럼 학교마다 노후도가 다름</td><td>핵심 수치: 30년 이상 노후 건물 비율, 최근 3년 학교 안전사고 건수(수치 타일 + 설명 카드)</td></tr>
+        <tr><td>Ⅱ 목표 및 지표</td><td>처마 끝까지 빈틈없이 = 사각지대 0</td><td>비교: 현재값 → 목표값(예: 안전점검 사각지대 37곳 → 0곳), 측정 방법 함께 적기</td></tr>
+        <tr><td>Ⅲ 세부 추진과제</td><td>기왓골 = 위험이 모이는 경로, 막새 = 경로 끝을 막는 장치</td><td>현안→해결방안: 왼쪽에 위험이 모이는 곳(통학로·과학실·노후 전기설비), 오른쪽에 끝단 대책(보행로 분리, 약품 이력제, 전기 안전진단)</td></tr>
+        <tr><td>Ⅳ 추진체계</td><td>해태 = 점검하고 가리는 눈. 기관 인장 자리에 둔 것과 같은 뜻</td><td>조직·체계: 교육감 → 재난안전대책본부 → 시설·급식·체험학습 점검반 → 학교 안전책임관</td></tr>
+        <tr><td>Ⅴ 일정 및 예산</td><td>기와는 처마 끝 줄부터 깔고 위로 올라감 = 가장 취약한 끝단부터 먼저</td><td>일정: 1분기 취약 학교 우선 정비 → 2~3분기 확대 → 4분기 전수 점검(간트 + 마일스톤)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="pg-lead" style="margin-top:14px">본문은 평면 요소에 H 계열 값을 입혀 이어 갑니다(한지 바탕, 먹 글자, 기와 회청 농담 다섯 단계, 주홍은 한 곳). 움직임은 이 표지 한 장만 씁니다.</p>
+  </section>
+
+  <section class="pg-two">
+    <div>
+      <h2>재현 체크</h2>
+      <p class="pg-lead">빌린 대표 장치와, 실물에서 확인해 넣은 관찰 디테일입니다.</p>
+      <ul class="pg-list">
+        <li><b>연화문 수막새</b>: 단판 연판 8엽(끝이 살짝 들린 판단), 연판 사이 가는 간판, 가운데 솟은 자방과 연자 1+8, 구획선, 테두리 구슬무늬(연주문) 24알</li>
+        <li><b>세월의 흔적</b>: 위쪽 테가 이 빠지듯 떨어져 나간 자리(깨진 면은 더 밝은 흙색), 연판 하나가 닳은 것, 오목한 곳에 남은 흰 회 자국, 기와마다 다른 소성 색</li>
+        <li><b>조선 암막새</b>: 아래로 처진 역삼각형 드림새, 테두리 띠, 가운데 연꽃 봉오리와 양쪽 당초 줄기</li>
+        <li><b>지붕 구조</b>: 오목한 암키와 골과 둥근 수키와 등이 번갈아 생기는 기왓골, 위 장이 아래 장을 덮는 이음 턱</li>
+        <li><b>해태</b>: 이마의 뿔, 목띠의 방울, 다리의 비늘, 곱슬 갈기와 세 갈래 꼬리, 넓적다리 소용돌이(석수 조각의 관례)를 전각 선으로</li>
+        <li><b>뺀 것</b>: 와구토(막새가 없는 수키와 끝을 막는 흙)는 막새가 이미 막고 있어 그리지 않음. 해태의 화재 방지설은 전승일 뿐 문헌 근거가 없다는 문화재청 설명이 있어, "옳고 그름을 가려 지킨다"는 뜻만 씀</li>
+      </ul>
+    </div>
+    <div>
+      <h2>조사 출처</h2>
+      <ul class="pg-list">
+        <li><a href="https://encykorea.aks.ac.kr/Article/E0008356" target="_blank" rel="noopener">한국민족문화대백과사전 — 기와</a></li>
+        <li><a href="https://namu.moe/w/%EA%B8%B0%EC%99%80" target="_blank" rel="noopener">기와 — 막새 문양, 고구려 4·6·8엽 연화문</a></li>
+        <li><a href="https://www.jjan.kr/article/20250113580031" target="_blank" rel="noopener">전북일보 — 연주문(이어진 구슬)으로 꾸민 수막새 테</a></li>
+        <li><a href="https://weekly.khan.co.kr/article/202310271120451" target="_blank" rel="noopener">주간경향 — 광화문 해치의 내력</a></li>
+        <li><a href="https://www.segye.com/newsView/20080925004357" target="_blank" rel="noopener">세계일보 — 해태 화재 방지설에 대한 문화재청 설명</a></li>
+        <li><a href="https://www.imaeil.com/page/view/2009040610184524084" target="_blank" rel="noopener">매일신문 — 해치의 뿔·방울·비늘</a></li>
+        <li>트렌드: <a href="https://weandthecolor.com/regional-craft-traditions-in-digital-layouts-are-rewriting-the-rules-of-global-design-in-2026/209167" target="_blank" rel="noopener">WE AND THE COLOR — 지역 공예 전통을 현대 레이아웃에(2026)</a>, <a href="https://www.adobe.com/express/learn/blog/design-trends-2026" target="_blank" rel="noopener">Adobe Express — Local and cultural flavor</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>스펙</h2>
+    <div class="pg-sw">
+      <div><i style="background:#F4F3EE"></i><b>한지</b>#F4F3EE</div>
+      <div><i style="background:#1F252C"></i><b>먹</b>#1F252C</div>
+      <div><i style="background:#5D646C"></i><b>보조 글자</b>#5D646C</div>
+      <div><i style="background:#6E7781"></i><b>기와 회청</b>#6E7781</div>
+      <div><i style="background:#9AA2AB"></i><b>기와 밝은 면</b>#9AA2AB</div>
+      <div><i style="background:#C2412B"></i><b>단청 주홍(인장만)</b>#C2412B</div>
+    </div>
+    <dl class="pg-spec" style="margin-top:14px">
+      <dt>글꼴</dt><dd>제목·연도 나눔명조 ExtraBold, 본문·기관 Noto Sans KR 400/500/700. PPT 대체: 나눔명조 → 바탕, Noto Sans KR → 맑은 고딕</dd>
+      <dt>조판</dt><dd>정렬선 x=80 하나. 자간 넓힌 연도 줄 → 두 줄 제목(96px) → 짧은 먹 선 → 계획안 이름 → 한 줄 설명 → 인장 + 기관 줄</dd>
+      <dt>그림</dt><dd>canvas 원근 투영: 지붕 면은 작은 사각형 4만여 개를 먼 것부터 칠하고, 막새 면은 높이맵 부조(법선 음영 + 오목 그늘 + 회 자국 + 흙 알갱이)로 계산</dd>
+      <dt>움직임</dt><dd>빗방울 10개가 골을 따라 3초 안에 한 번 흐름. 동작 줄이기 설정이면 처음부터 마지막 화면</dd>
+      <dt>PPT 이식</dt><dd>① 이 페이지에서 그림을 마우스 오른쪽 단추로 "이미지 저장"(투명 배경 PNG) → 슬라이드 오른쪽에 높이 100%로, 위·오른쪽 가장자리에 붙여 잘리게. ② 바탕 #F4F3EE, 제목 나눔명조 ExtraBold 60pt 두 줄, 왼쪽 여백 1.3cm. ③ 인장은 "해태 인장"만 따로 캡처해 그림으로. ④ 빗물 움직임은 생략하거나, 물방울 그림 하나에 [애니메이션] 이동 경로(직선, 2.5초) + 끝에서 사라지기</dd>
+      <dt>난이도</dt><dd>HTML 상(★★★★☆) · PPT 중(그림을 이미지로 쓰면 하)</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>HTML로 가져다 쓰기</h2>
+    <ul class="pg-list">
+      <li>아래 코드는 표지만 떼어 낸 자기 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 표지가 그려집니다.</li>
+      <li>글자는 <code>.hy-text</code> 안의 문장만 바꾸면 됩니다. 색과 글꼴은 맨 위 <code>.hy-cover</code>의 <code>--hy-*</code> 변수에서 바꿉니다.</li>
+      <li>기와 크기·각도는 스크립트의 <code>E</code>·<code>T</code>(카메라)와 <code>fit()</code>(주인공 수막새 자리·반지름)에서 조정합니다.</li>
+      <li>AI 채팅에 이 표지를 고쳐 달라고 할 때는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ul>
+    <div class="pg-code">
+      <button class="pg-btn" id="pg-copy" type="button">코드 복사</button>
+      <pre id="pg-src">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&amp;family=Noto+Sans+KR:wght@400;500;700&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 처마 끝 수막새 표지 (접두어 hy-) ── 16:9, 가상 화면 1600×900, 1cqw = 16px */
+.hy-cover{
+  --hy-paper:#F4F3EE;      /* 한지 바탕 */
+  --hy-paper-fiber:#E6E4DC;/* 한지 섬유 */
+  --hy-ink:#1F252C;        /* 먹 글자 */
+  --hy-sub:#5D646C;        /* 보조 글자 */
+  --hy-line:#B9BCBC;       /* 가는 선 */
+  --hy-tile:#6E7781;       /* 기와 회청(팔레트 기록용, 그림은 캔버스가 계산) */
+  --hy-seal:#C2412B;       /* 단청 주홍 — 해태 인장 한 곳 */
+  --hy-font-title:&quot;Nanum Myeongjo&quot;,&quot;나눔명조&quot;,&quot;Batang&quot;,&quot;바탕&quot;,serif;
+  --hy-font-body:&quot;Noto Sans KR&quot;,&quot;Pretendard&quot;,&quot;Malgun Gothic&quot;,&quot;맑은 고딕&quot;,sans-serif;
+  container-type:inline-size;
+  width:100%;
+  color:var(--hy-ink);
+  font-family:var(--hy-font-body);
+}
+.hy-stage{
+  position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--hy-paper);
+}
+.hy-fiber{position:absolute; inset:0; width:100%; height:100%; display:block}
+/* 그림 구역: 오른쪽 960×900 */
+.hy-scene{position:absolute; left:40cqw; top:0; width:60cqw; height:100%}
+.hy-scene canvas{position:absolute; inset:0; width:100%; height:100%; display:block; transform:scaleX(-1)} /* 왼쪽에서 비추는 빛으로 계산한 뒤 좌우 반전: 처마가 글 쪽으로 멀어진다 */
+.hy-label{
+  position:absolute; font-size:1.0cqw; line-height:1.35; color:var(--hy-sub);
+  letter-spacing:.02em; white-space:nowrap; transform:translate(-50%,0);
+}
+.hy-label b{display:block; color:var(--hy-ink); font-weight:700; font-size:1.06cqw; letter-spacing:.04em}
+.hy-leaders{position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none}
+.hy-leaders line{stroke:var(--hy-sub); stroke-width:1; vector-effect:non-scaling-stroke}
+.hy-leaders circle{fill:var(--hy-paper); stroke:var(--hy-ink); stroke-width:1; vector-effect:non-scaling-stroke}
+/* 글 구역: 왼쪽, 정렬선 x=80 하나 */
+.hy-text{position:absolute; left:5cqw; top:0; width:34cqw; height:100%}
+.hy-eyebrow{
+  position:absolute; top:6.5cqw; left:0; margin:0;
+  font-family:var(--hy-font-title); font-weight:700; font-size:1.25cqw;
+  letter-spacing:.42em; color:var(--hy-sub);
+}
+.hy-title{
+  position:absolute; top:10.4cqw; left:0; margin:0;
+  font-family:var(--hy-font-title); font-weight:800; font-size:6.1cqw; line-height:1.16;
+  letter-spacing:-.035em; color:var(--hy-ink); text-wrap:balance;
+}
+.hy-rule{position:absolute; top:28.6cqw; left:0; width:4.5cqw; height:0; border-top:.14cqw solid var(--hy-ink)}
+.hy-plan{
+  position:absolute; top:30.2cqw; left:0; margin:0;
+  font-size:1.95cqw; font-weight:700; letter-spacing:-.01em; color:var(--hy-ink);
+}
+.hy-lede{
+  position:absolute; top:33.6cqw; left:0; margin:0; width:31cqw;
+  font-size:1.18cqw; line-height:1.6; color:var(--hy-sub); word-break:keep-all;
+}
+.hy-sign{position:absolute; left:0; bottom:3.6cqw; display:flex; align-items:center; gap:1.4cqw}
+.hy-seal{width:7.4cqw; height:7.4cqw; display:block; flex:none}
+.hy-org{font-size:1.25cqw; line-height:1.5; color:var(--hy-ink); font-weight:500}
+.hy-org span{display:block; color:var(--hy-sub); font-weight:400; font-size:1.05cqw; letter-spacing:.12em}
+.hy-note{position:absolute; right:2.2cqw; bottom:1.6cqw; font-size:.82cqw; color:var(--hy-sub); letter-spacing:.06em}
+
+/* 좁은 화면: 그림 위 · 글 아래 세로 배치 */
+@container (max-width:640px){
+  .hy-stage{aspect-ratio:auto; display:flex; flex-direction:column}
+  .hy-scene{position:relative; left:auto; width:100%; height:auto; aspect-ratio:960/900; order:2}
+  .hy-text{position:relative; left:auto; width:auto; height:auto; padding:9cqw 6cqw 2cqw; order:1; display:flex; flex-direction:column}
+  .hy-eyebrow,.hy-title,.hy-rule,.hy-plan,.hy-lede,.hy-sign{position:static}
+  .hy-eyebrow{font-size:3.2cqw; order:-1}
+  .hy-title{font-size:12.4cqw; margin-top:2.4cqw}
+  .hy-rule{width:10cqw; border-top-width:.5cqw; margin-top:5cqw}
+  .hy-plan{font-size:5cqw; margin-top:3.4cqw}
+  .hy-lede{width:auto; font-size:3.5cqw; margin-top:2cqw}
+  .hy-sign{margin-top:7cqw; gap:3.5cqw}
+  .hy-seal{width:15cqw; height:15cqw}
+  .hy-org{font-size:3.6cqw}
+  .hy-org span{font-size:3cqw}
+  .hy-label{font-size:2.7cqw}
+  .hy-label b{font-size:3.4cqw}
+  .hy-label span{display:none}
+  .hy-note{font-size:2.6cqw; right:4cqw; bottom:3cqw}
+}
+&lt;/style&gt;
+
+&lt;div class=&quot;hy-cover&quot; aria-label=&quot;표지: 처마 끝까지 빈틈없이 — ○○교육청 2027 학교 재난안전 종합계획(안)&quot;&gt;
+  &lt;div class=&quot;hy-stage&quot;&gt;
+    &lt;canvas class=&quot;hy-fiber&quot; aria-hidden=&quot;true&quot;&gt;&lt;/canvas&gt;
+
+    &lt;div class=&quot;hy-scene&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;canvas class=&quot;hy-roof&quot;&gt;&lt;/canvas&gt;
+      &lt;canvas class=&quot;hy-rain&quot;&gt;&lt;/canvas&gt;
+      &lt;svg class=&quot;hy-leaders&quot; preserveAspectRatio=&quot;none&quot;&gt;&lt;/svg&gt;
+      &lt;div class=&quot;hy-label&quot; data-hy=&quot;1&quot;&gt;&lt;b&gt;수막새&lt;/b&gt;&lt;span&gt;연꽃무늬 8엽 · 기와 줄 끝을 막음&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;hy-label&quot; data-hy=&quot;2&quot;&gt;&lt;b&gt;기왓골&lt;/b&gt;&lt;span&gt;빗물이 모여 흘러 떨어지는 길&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;hy-text&quot;&gt;
+      &lt;p class=&quot;hy-eyebrow&quot;&gt;○○교육청 · 2027&lt;/p&gt;
+      &lt;h1 class=&quot;hy-title&quot;&gt;처마 끝까지&lt;br&gt;빈틈없이&lt;/h1&gt;
+      &lt;div class=&quot;hy-rule&quot;&gt;&lt;/div&gt;
+      &lt;p class=&quot;hy-plan&quot;&gt;2027 학교 재난안전 종합계획(안)&lt;/p&gt;
+      &lt;p class=&quot;hy-lede&quot;&gt;예방 · 대비 · 대응 · 복구 4단계로&lt;br&gt;교실에서 통학로까지, 안전망의 끝단을 막습니다&lt;/p&gt;
+      &lt;div class=&quot;hy-sign&quot;&gt;
+        &lt;svg class=&quot;hy-seal&quot; viewBox=&quot;0 0 100 100&quot; role=&quot;img&quot; aria-label=&quot;해태 인장&quot;&gt;&lt;/svg&gt;
+        &lt;div class=&quot;hy-org&quot;&gt;○○교육청 안전총괄과&lt;span&gt;2027. 1.&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;hy-note&quot;&gt;가상 예시 · 기관명은 자리표시&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+/* 처마 끝 수막새 표지 그리기 — 기와 지붕 조각을 원근 투영하고, 막새 면은 높이맵 부조로 계산한다 */
+(function(){
+  var cover = document.querySelector(&#x27;.hy-cover&#x27;);
+  if(!cover) return;
+  var stage = cover.querySelector(&#x27;.hy-stage&#x27;);
+  var roofC = cover.querySelector(&#x27;.hy-roof&#x27;), rainC = cover.querySelector(&#x27;.hy-rain&#x27;);
+  var W = 1440, H = 1350;            /* 그림 구역 960×900을 1.5배로 */
+  roofC.width = rainC.width = W; roofC.height = rainC.height = H;
+
+  /* ── 잡음 ── */
+  function hash(x,y,s){var h=Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul(s|0,1442695041);h=Math.imul(h^(h&gt;&gt;&gt;13),1274126177);h^=h&gt;&gt;&gt;16;return (h&gt;&gt;&gt;0)/4294967295;}
+  function vnoise(x,y,s){var xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;var u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);
+    var a=hash(xi,yi,s),b=hash(xi+1,yi,s),c=hash(xi,yi+1,s),d=hash(xi+1,yi+1,s);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;}
+  function fbm(x,y,s,o){var t=0,a=.5,f=1;for(var i=0;i&lt;(o||4);i++){t+=a*vnoise(x*f,y*f,s+i*17);f*=2.03;a*=.5;}return t;}
+  function clamp(x,a,b){return x&lt;a?a:x&gt;b?b:x;}
+  function sstep(a,b,x){var t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);}
+
+  /* ── 기와 단면(가로 x): 암키와 골(오목) + 수키와 등(반원) ── */
+  var RS=0.22;                                   /* 수키와 반지름 */
+  function chan(x){var c=Math.floor(x)+0.5,t=(x-c)/0.5;return -0.09*(1-t*t);}
+  function ridge(x){var k=Math.round(x),d=x-k;return Math.abs(d)&lt;RS? -0.02+Math.sqrt(RS*RS-d*d) : -9;}
+  function prof(x){return Math.max(chan(x),ridge(x));}
+  var SLOPE=28*Math.PI/180, SA=Math.sin(SLOPE), CA=Math.cos(SLOPE);
+  function roofP(x,s){return [x, prof(x)+s*SA, -s*CA];}
+  var TILT=12*Math.PI/180;                      /* 막새 면이 아래로 숙은 각 */
+  var FN=[0,-Math.sin(TILT),Math.cos(TILT)], FUP=[0,Math.cos(TILT),Math.sin(TILT)];
+
+  /* ── 카메라 ── */
+  var E=[-2.0,1.05,1.55], T=[2.6,-0.12,-0.75];
+  function sub(a,b){return [a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+  function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+  function cross(a,b){return [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];}
+  function norm(a){var l=Math.hypot(a[0],a[1],a[2]);return [a[0]/l,a[1]/l,a[2]/l];}
+  function add(a,b,k){return [a[0]+b[0]*k,a[1]+b[1]*k,a[2]+b[2]*k];}
+  var F=norm(sub(T,E)), Rt=norm(cross(F,[0,1,0])), Up=cross(Rt,F);
+  var SC=1, OX=0, OY=0;
+  function proj(p){var d=sub(p,E),z=dot(d,F);return [OX+SC*dot(d,Rt)/z, OY-SC*dot(d,Up)/z, z];}
+  /* 주인공 수막새(x=0)가 그림 구역의 정해진 자리·크기에 오도록 맞춘다 */
+  (function fit(){var c=[0,-0.02,0.03];var a=proj(c),b=proj(add(c,[1,0,0],0.25));
+    SC=(H*0.15)/Math.hypot(b[0]-a[0],b[1]-a[1]); a=proj(c); OX=W*0.27-a[0]; OY=H*0.60-a[1];})();
+
+  var LIGHT=norm([-0.55,0.72,0.42]);
+
+  /* ── 막새 면 부조: 높이맵 → 법선 → 음영 ── */
+  function shadeTex(N,Hm,Al,seed,base,opt){
+    var cv=document.createElement(&#x27;canvas&#x27;);cv.width=cv.height=N;var g=cv.getContext(&#x27;2d&#x27;);var im=g.createImageData(N,N),px=im.data;
+    /* 가볍게 흐리기(마모된 부조), 넓게 흐린 값과 차이 = 오목한 곳 */
+    function blur(src,r){var tmp=new Float32Array(N*N),out=new Float32Array(N*N),i,j,k,acc,w=2*r+1;
+      for(j=0;j&lt;N;j++){acc=0;for(k=-r;k&lt;=r;k++)acc+=src[j*N+clamp(k,0,N-1)];for(i=0;i&lt;N;i++){tmp[j*N+i]=acc/w;acc+=src[j*N+clamp(i+r+1,0,N-1)]-src[j*N+clamp(i-r,0,N-1)];}}
+      for(i=0;i&lt;N;i++){acc=0;for(k=-r;k&lt;=r;k++)acc+=tmp[clamp(k,0,N-1)*N+i];for(j=0;j&lt;N;j++){out[j*N+i]=acc/w;acc+=tmp[clamp(j+r+1,0,N-1)*N+i]-tmp[clamp(j-r,0,N-1)*N+i];}}return out;}
+    var Hs=blur(blur(Hm,Math.max(1,Math.round(N/320))),Math.max(1,Math.round(N/320)));
+    var Hb=blur(blur(Hm,Math.round(N/30)),Math.round(N/30));
+    var L=[-0.5,-0.66,0.56];var l=Math.hypot(L[0],L[1],L[2]);L=[L[0]/l,L[1]/l,L[2]/l];
+    var hs=opt.hscale*N/2;
+    for(var j=1;j&lt;N-1;j++)for(var i=1;i&lt;N-1;i++){var id=j*N+i;var a=Al[id];if(a&lt;=0){px[id*4+3]=0;continue;}
+      var dx=(Hs[id+1]-Hs[id-1])*hs*0.5, dy=(Hs[id+N]-Hs[id-N])*hs*0.5;
+      var nx=-dx,ny=-dy,nz=1,nl=Math.hypot(nx,ny,nz);nx/=nl;ny/=nl;nz/=nl;
+      var df=Math.max(0,nx*L[0]+ny*L[1]+nz*L[2]);
+      var rz=2*df*nz-L[2];var sp=Math.pow(Math.max(0,rz),18)*0.10;
+      var cav=Math.max(0,Hb[id]-Hs[id]);
+      var u=i/N,v=j/N;
+      var mot=(fbm(u*7,v*7,seed,4)-0.5)*0.16;
+      var sh=0.40+0.70*df-cav*1.25+mot;
+      var r=base[0]*sh,gg=base[1]*sh,b=base[2]*sh;
+      /* 오목한 곳에 남은 흰 회 자국 */
+      var lime=sstep(0.08,0.2,cav)*sstep(0.55,0.75,fbm(u*11,v*11,seed+5,3))*0.42;
+      r+=(206-r)*lime;gg+=(206-gg)*lime;b+=(200-b)*lime;
+      /* 깨진 면은 밝은 생흙색 */
+      if(opt.frac&amp;&amp;opt.frac[id]&gt;0){var f=opt.frac[id];r+=(150-r)*f*0.6;gg+=(146-gg)*f*0.6;b+=(140-b)*f*0.6;}
+      var gr=(hash(i,j,seed+9)-0.5)*14; if(hash(i*3,j*7,seed+3)&gt;0.993)gr-=40;
+      px[id*4]=clamp(r+gr+sp*255,0,255);px[id*4+1]=clamp(gg+gr+sp*255,0,255);px[id*4+2]=clamp(b+gr+sp*250,0,255);px[id*4+3]=a*255;}
+    g.putImageData(im,0,0);return cv;}
+
+  /* 수막새: 테(주연부) 구슬무늬 24 · 연판 8 · 간판 · 자방과 연자 1+8 · 이 빠진 테 */
+  function makeSumak(N,seed){
+    var Hm=new Float32Array(N*N),Al=new Float32Array(N*N),frac=new Float32Array(N*N);
+    var chipA=-0.95+hash(seed,1,2)*0.3, worn=Math.floor(hash(seed,3,4)*8);
+    for(var j=0;j&lt;N;j++)for(var i=0;i&lt;N;i++){var id=j*N+i;
+      var u=(i+.5)/N*2-1,v=(j+.5)/N*2-1,r=Math.hypot(u,v),th=Math.atan2(v,u);
+      var edge=0.985+0.012*(fbm(th*3+5,1,seed,2)-0.5);
+      var dA=Math.atan2(Math.sin(th-chipA),Math.cos(th-chipA));
+      var chipR=1.2; if(Math.abs(dA)&lt;0.32){chipR=0.885+0.06*fbm(th*9,2,seed+1,3)+0.25*Math.pow(Math.abs(dA)/0.32,3);}
+      var rim=Math.min(edge,chipR);
+      Al[id]=clamp((rim-r)*N*0.5,0,1); if(Al[id]&lt;=0)continue;
+      var h=0.10;
+      /* 테: 안쪽 벽 0.835~0.86, 바깥 모서리 둥글게 */
+      if(r&gt;0.835) h=0.10+0.40*sstep(0.835,0.865,r);
+      if(r&gt;rim-0.03) h-=0.18*sstep(rim-0.03,rim,r);
+      /* 구슬무늬 */
+      var st=Math.PI*2/24, ba=Math.round(th/st)*st, bx=0.917*Math.cos(ba), by=0.917*Math.sin(ba), bd=Math.hypot(u-bx,v-by);
+      if(bd&lt;0.033) h+=0.16*Math.sqrt(1-(bd/0.033)*(bd/0.033));
+      /* 구획선 */
+      h=Math.max(h,0.10+0.14*Math.exp(-Math.pow((r-0.80)/0.009,2)));
+      /* 연판 8 */
+      var pst=Math.PI/4, pi=Math.round((th-pst/2)/pst), pa=pi*pst+pst/2, ph=th-pa, t=(r-0.295)/(0.775-0.295);
+      if(t&gt;0&amp;&amp;t&lt;1){var d=r*Math.sin(ph), hw=0.172*Math.pow(Math.sin(Math.PI*(0.08+0.92*t)),0.48)*(1-0.12*t);
+        if(Math.abs(d)&lt;hw&amp;&amp;Math.cos(ph)&gt;0){var q=d/hw,dome=Math.sqrt(1-q*q);
+          var hp=0.12+0.30*dome*Math.pow(Math.sin(Math.PI*(0.05+0.95*t)),0.3);
+          hp-=0.07*Math.exp(-Math.pow((t-0.70)/0.08,2))*dome;          /* 판단 앞 오목 */
+          hp+=0.17*Math.exp(-Math.pow((t-0.885)/0.055,2))*(1-q*q);     /* 판단 반전(살짝 들린 끝) */
+          hp+=0.03*Math.exp(-Math.pow(d/0.010,2))*t;                    /* 가운데 능선 */
+          if(((pi%8)+8)%8===worn) hp=0.10+(hp-0.10)*(0.82-0.25*sstep(0.6,1,t));
+          h=Math.max(h,hp);}}
+      /* 간판(연판 사이 가는 능선 + 끝 삼각) */
+      var ma=Math.round(th/pst)*pst, dm=r*Math.sin(th-ma);
+      if(r&gt;0.42&amp;&amp;r&lt;0.79&amp;&amp;Math.cos(th-ma)&gt;0){var w=0.006+0.022*sstep(0.70,0.785,r)*(1-sstep(0.785,0.79,r));h=Math.max(h,0.10+0.15*Math.exp(-Math.pow(dm/Math.max(w,0.006),2)));}
+      /* 자방 + 연자 */
+      if(r&lt;0.30){var hz=0.36+0.04*(1-r*r/0.09);hz*=sstep(0.30,0.265,r);hz+=0.05*Math.exp(-Math.pow((r-0.255)/0.012,2));
+        var sd=Math.hypot(u,v); if(sd&lt;0.045) hz+=0.12*Math.sqrt(1-sd*sd/0.002025);
+        var sa=Math.PI/4, s0=Math.round(th/sa)*sa, sx=0.158*Math.cos(s0), sy=0.158*Math.sin(s0), s1=Math.hypot(u-sx,v-sy);
+        if(s1&lt;0.04) hz+=0.11*Math.sqrt(1-s1*s1/0.0016);
+        h=Math.max(h,hz);}
+      /* 마모 */
+      h-=0.05*fbm(u*5,v*5,seed+7,4);
+      if(chipR&lt;1.1&amp;&amp;r&gt;chipR-0.05){frac[id]=sstep(chipR-0.05,chipR,r);h-=0.12*frac[id]*fbm(u*20,v*20,seed,2);}
+      Hm[id]=h;}
+    return shadeTex(N,Hm,Al,seed,[108,117,128],{hscale:0.13,frac:frac});}
+
+  /* 암막새: 조선식 역삼각 드림새, 테두리 + 가운데 연꽃 봉오리 + 양쪽 당초 */
+  function amakY(xo){var t=xo/0.5;var top=-0.09*(1-t*t)-0.012;var ua=Math.min(1,Math.abs(xo)/0.42);return [top, top-(0.07+0.16*Math.pow(1-ua,1.25))];}
+  var amakCurves=(function(){var cs=[];[-1,1].forEach(function(sg){var pts=[];
+      for(var p=0;p&lt;=1;p+=0.02){var x=sg*(0.055+0.20*p);var yy=amakY(x);var mid=(yy[0]+yy[1])/2+0.012;pts.push([x,mid+0.018*Math.sin(p*Math.PI*1.6)]);}
+      var e=pts[pts.length-1],cx=e[0]-sg*0.0,cy=e[1]+0.028, a0=Math.PI/2;
+      for(var q=0;q&lt;=1;q+=0.02){var ang=a0+sg*q*Math.PI*2.1, rr=0.028*(1-0.75*q);pts.push([cx+sg*rr*Math.cos(ang-Math.PI/2)*-1*0+rr*Math.sin(ang)*sg*-1, cy-rr*Math.cos(ang)]);}
+      var tail=[];for(var p2=0;p2&lt;=1;p2+=0.05){var x2=sg*(0.27+0.10*p2);var y2=amakY(x2);tail.push([x2,(y2[0]+y2[1])/2+0.006]);}
+      cs.push(pts);cs.push(tail);});return cs;})();
+  function makeAmak(N,seed){
+    var Hm=new Float32Array(N*N),Al=new Float32Array(N*N),S=0.42;
+    for(var j=0;j&lt;N;j++)for(var i=0;i&lt;N;i++){var id=j*N+i;var xo=((i+.5)/N*2-1)*S, y=-((j+.5)/N*2-1)*S;
+      if(Math.abs(xo)&gt;0.42)continue;var yy=amakY(xo);var top=yy[0],bot=yy[1];
+      var dt=top-y, db=y-bot; var ua=Math.min(1,Math.abs(xo)/0.42); var sl=0.16*1.25*Math.pow(Math.max(1e-3,1-ua),0.25)/0.42; db/=Math.sqrt(1+sl*sl);
+      var a=clamp(Math.min(dt,db)*N/(2*S),0,1); if(a&lt;=0)continue; Al[id]=a;
+      var m=Math.min(dt,db), h=0.10;
+      if(m&lt;0.03) h=0.10+0.32*sstep(0.03,0.022,m)-0.12*sstep(0.006,0,m);
+      /* 당초 줄기 */
+      var best=1;for(var c=0;c&lt;amakCurves.length;c++){var P=amakCurves[c];for(var k=0;k&lt;P.length;k+=1){var dd=Math.hypot(xo-P[k][0],y-P[k][1]);if(dd&lt;best)best=dd;}}
+      h=Math.max(h,0.10+0.26*Math.exp(-Math.pow(best/0.0085,2)));
+      /* 가운데 연꽃 봉오리(세 잎) */
+      var cy=(amakY(0)[0]+amakY(0)[1])/2+0.01;
+      function petal(cx0,cy0,ang,a1,b1){var dx=xo-cx0,dy=y-cy0,ca=Math.cos(ang),sa=Math.sin(ang);var px1=dx*ca+dy*sa,py1=-dx*sa+dy*ca;var q=(px1*px1)/(a1*a1)+(py1*py1)/(b1*b1);return q&lt;1?0.10+0.26*Math.sqrt(1-q):0;}
+      h=Math.max(h,petal(0,cy+0.012,Math.PI/2,0.05,0.022),petal(-0.03,cy-0.002,Math.PI/2+0.75,0.042,0.018),petal(0.03,cy-0.002,Math.PI/2-0.75,0.042,0.018));
+      h-=0.05*fbm(xo*14,y*14,seed+3,4);
+      Hm[id]=h;}
+    return shadeTex(N,Hm,Al,seed,[110,118,129],{hscale:0.10});}
+
+  /* 실루엣(두께 표현용) */
+  function silhouette(tex,col){var c=document.createElement(&#x27;canvas&#x27;);c.width=tex.width;c.height=tex.height;var g=c.getContext(&#x27;2d&#x27;);g.drawImage(tex,0,0);g.globalCompositeOperation=&#x27;source-in&#x27;;g.fillStyle=col;g.fillRect(0,0,c.width,c.height);return c;}
+
+  /* 면을 3D 평면에 붙이기(작은 면이라 아핀으로 근사) */
+  function drawPlane(g,img,C,half){var a=proj(C),b=proj(add(C,[1,0,0],half)),c=proj(add(C,FUP,half));
+    g.save();g.setTransform(b[0]-a[0],b[1]-a[1],-(c[0]-a[0]),-(c[1]-a[1]),a[0],a[1]);g.drawImage(img,-1,-1,2,2);g.restore();}
+
+  /* 처마 길이: 그림 구역 안에서 끝나도록 마지막 수키와 줄을 고른다 */
+  var X0=-0.235, S1=5.2, X1=(function(){for(var k=1;k&lt;20;k++){var p=proj([k,-0.02,0.03]);if(p[0]&gt;W*0.97)return k-1+0.235;}return 8.235;})();
+  var wetMask=document.createElement(&#x27;canvas&#x27;);wetMask.width=W;wetMask.height=H;
+  function render(){
+    var g=roofC.getContext(&#x27;2d&#x27;);g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,H);
+    var items=[];
+    /* 지붕 면: 격자 사각형 */
+    var dx=0.022, ds=0.035;
+    for(var x=X0;x&lt;X1;x+=dx){var x2=Math.min(X1,x+dx), xm=(x+x2)/2;var isR=ridge(xm)&gt;=chan(xm);
+      var k=isR?Math.round(xm):Math.floor(xm);
+      for(var s=0;s&lt;S1;s+=ds){var s2=s+ds;
+        var p1=roofP(x,s),p2=roofP(x2,s),p3=roofP(x2,s2),p4=roofP(x,s2);
+        var n=norm(cross(sub(p2,p1),sub(p4,p1)));if(n[1]&lt;0)n=[-n[0],-n[1],-n[2]];
+        var df=Math.max(0,dot(n,LIGHT));
+        var len=isR?0.40:0.30, sm=(s+s2)/2+(isR?0.13:0)*(k%2), ti=Math.floor(sm/len), f=sm/len-ti;
+        var tone=1+(hash(ti,k,isR?11:23)-0.5)*0.11;
+        var sh=(0.50+0.58*df)*tone;
+        if(f&gt;0.91) sh*=0.86;                                  /* 윗장 앞날 아래 그늘 */
+        if(f&lt;0.035) sh*=1.10;                                 /* 앞날 밝은 모서리 */
+        var base=isR?[112,120,131]:[121,128,138];
+        var col=&#x27;rgb(&#x27;+(base[0]*sh|0)+&#x27;,&#x27;+(base[1]*sh|0)+&#x27;,&#x27;+(base[2]*sh|0)+&#x27;)&#x27;;
+        var c=[(p1[0]+p3[0])/2,(p1[1]+p3[1])/2,(p1[2]+p3[2])/2];
+        items.push({z:dot(sub(c,E),F),pts:[p1,p2,p3,p4],col:col,wet:!isR});}}
+    /* 막새 */
+    var tex={};
+    function sumakFor(k){var C=[k,-0.02,0.03];var a=proj(C),b=proj(add(C,[1,0,0],0.25));var px=Math.hypot(b[0]-a[0],b[1]-a[1]);
+      var N=Math.min(720,Math.max(48,Math.round(px*2.6)));var t=makeSumak(N,31+k*7);return {t:t,s:silhouette(t,&#x27;rgb(78,84,93)&#x27;),s2:silhouette(t,&#x27;rgb(96,103,112)&#x27;)};}
+    function amakFor(k){var C=[k+0.5,0,0.0];var a=proj(C),b=proj(add(C,[1,0,0],0.42));var px=Math.hypot(b[0]-a[0],b[1]-a[1]);
+      var N=Math.min(640,Math.max(48,Math.round(px*2.4)));var t=makeAmak(N,57+k*5);return {t:t,s:silhouette(t,&#x27;rgb(84,90,99)&#x27;)};}
+    for(var k=0;k&lt;=Math.floor(X1);k++){(function(k){
+      var C=[k,-0.02,0.03];var zc=dot(sub(C,E),F)-0.16;
+      items.push({z:zc,draw:function(g,m){var T=tex[&#x27;s&#x27;+k]||(tex[&#x27;s&#x27;+k]=sumakFor(k));
+        if(m){for(var q=7;q&gt;=0;q--)drawPlane(g,T.s,add(C,FN,-0.008*q),0.25);return;}
+        for(var q=7;q&gt;=1;q--){drawPlane(g,q&gt;1?T.s:T.s2,add(C,FN,-0.008*q),0.25);}
+        drawPlane(g,T.t,C,0.25);}});
+      if(k+0.5&lt;X1){var A=[k+0.5,0,0.0];items.push({z:dot(sub(A,E),F)-0.08,wet:true,draw:function(g){var T=tex[&#x27;a&#x27;+k]||(tex[&#x27;a&#x27;+k]=amakFor(k));
+        for(var q=5;q&gt;=1;q--)drawPlane(g,T.s,add(A,FN,-0.008*q),0.42);drawPlane(g,T.t,A,0.42);}});}
+    })(k);}
+    items.sort(function(a,b){return b.z-a.z;});
+    g.lineJoin=&#x27;round&#x27;;
+    for(var i=0;i&lt;items.length;i++){var it=items[i];
+      if(it.draw){it.draw(g);continue;}
+      var P=it.pts.map(proj);g.beginPath();g.moveTo(P[0][0],P[0][1]);for(var q=1;q&lt;4;q++)g.lineTo(P[q][0],P[q][1]);g.closePath();
+      g.fillStyle=it.col;g.fill();g.strokeStyle=it.col;g.lineWidth=0.9;g.stroke();}
+    /* 빗물이 보일 수 있는 곳(골·암막새 앞면) 마스크: 같은 순서로 칠하고 가리는 것은 지운다 */
+    var mg=wetMask.getContext(&#x27;2d&#x27;);mg.clearRect(0,0,W,H);
+    for(var i=0;i&lt;items.length;i++){var it=items[i];
+      mg.globalCompositeOperation=it.wet?&#x27;source-over&#x27;:&#x27;destination-out&#x27;;mg.fillStyle=&#x27;#000&#x27;;mg.strokeStyle=&#x27;#000&#x27;;
+      if(it.draw){if(it.wet)it.draw(mg);else it.draw(mg,true);continue;}
+      var P=it.pts.map(proj);mg.beginPath();mg.moveTo(P[0][0],P[0][1]);for(var q=1;q&lt;4;q++)mg.lineTo(P[q][0],P[q][1]);mg.closePath();mg.fill();mg.lineWidth=0.9;mg.stroke();}
+    mg.globalCompositeOperation=&#x27;source-over&#x27;;
+    /* 기와 소성 얼룩 · 결 */
+    var nz=document.createElement(&#x27;canvas&#x27;);nz.width=W/2;nz.height=H/2;var ng=nz.getContext(&#x27;2d&#x27;);var id=ng.createImageData(nz.width,nz.height);
+    for(var y=0;y&lt;nz.height;y++)for(var x=0;x&lt;nz.width;x++){var o=(y*nz.width+x)*4;var v=200+fbm(x/40,y/40,5,4)*70+(hash(x,y,8)-0.5)*26;id.data[o]=id.data[o+1]=id.data[o+2]=clamp(v,0,255);id.data[o+3]=255;}
+    ng.putImageData(id,0,0);
+    var tm=document.createElement(&#x27;canvas&#x27;);tm.width=W;tm.height=H;var tg=tm.getContext(&#x27;2d&#x27;);tg.drawImage(nz,0,0,W,H);
+    tg.globalCompositeOperation=&#x27;destination-in&#x27;;tg.drawImage(roofC,0,0);
+    g.save();g.globalCompositeOperation=&#x27;multiply&#x27;;g.globalAlpha=0.55;g.drawImage(tm,0,0);g.restore();
+  }
+
+  /* ── 빗물: 기왓골을 타고 내려와 암막새 끝에서 떨어진다 ── */
+  var DROPS=[];for(var k=0;k&lt;Math.floor(X1);k++){DROPS.push({k:k,d:0.10*k+0.0,s0:2.6});DROPS.push({k:k,d:0.10*k+0.55,s0:1.7});}
+  function dropPath(dr,t){/* t:0~1 → 3D 점, 끝 이후 낙하 */
+    var x=dr.k+0.5, yy=amakY(0), L1=dr.s0, L2=(yy[0]-yy[1]), tot=L1+L2;
+    var dpos=t*tot;
+    if(dpos&lt;=L1){return {p:roofP(x,dr.s0-dpos),phase:0};}
+    var q=dpos-L1;return {p:platePt(x,yy[0]-q),phase:1};}
+  /* 숙인 막새 면 위의 점(면 가운데 기준 세로 위치 yl) */
+  function platePt(x,yl){return add(add([x,0,0],FUP,yl),FN,0.012);}
+  var TRAIL=&#x27;rgba(28,38,50,0.19)&#x27;;
+  function drawRain(prog){var g=rainC.getContext(&#x27;2d&#x27;);g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,H);
+    var falls=[];
+    DROPS.forEach(function(dr){var lt=clamp((prog-dr.d)/(1.75),0,1.25);
+      /* 젖은 자국: 지나간 길이 조금 어둡게 남는다 */
+      var steps=48,tm=Math.min(1,lt);if(tm&gt;0){g.lineCap=&#x27;round&#x27;;g.lineJoin=&#x27;round&#x27;;g.strokeStyle=TRAIL;g.beginPath();
+        var w0=dropPath(dr,0).p,pw=proj(w0),pw2=proj(add(w0,[1,0,0],0.035));g.lineWidth=Math.max(1.5,Math.hypot(pw2[0]-pw[0],pw2[1]-pw[1]));
+        for(var i=0;i&lt;=steps;i++){var q=proj(dropPath(dr,i/steps*tm).p);if(i)g.lineTo(q[0],q[1]);else g.moveTo(q[0],q[1]);}g.stroke();}
+      if(lt&lt;=0)return;
+      if(lt&lt;1){var c=dropPath(dr,lt);bead(g,c.p,0.017);}
+      else falls.push([dr,lt]);
+    });
+    g.save();g.globalCompositeOperation=&#x27;destination-in&#x27;;g.drawImage(wetMask,0,0);g.restore();
+    falls.forEach(function(f){var dr=f[0],lt=f[1],yy=amakY(0);
+      if(dr.d&gt;0.5){bead(g,platePt(dr.k+0.5,yy[1]-0.016),0.019);}
+      else{var fall=(lt-1)/0.25;if(fall&lt;1){g.globalAlpha=1-fall;var tp=platePt(dr.k+0.5,yy[1]-0.02);bead(g,[tp[0],tp[1]-fall*0.32,tp[2]],0.016);g.globalAlpha=1;}}});}
+  function bead(g,p,r){var a=proj(p),b=proj(add(p,[1,0,0],r));var R=Math.max(2,Math.hypot(b[0]-a[0],b[1]-a[1]));
+    g.save();g.translate(a[0],a[1]);g.scale(1,1.25);
+    g.beginPath();g.arc(0,0,R,0,Math.PI*2);g.fillStyle=&#x27;rgba(58,70,84,0.55)&#x27;;g.fill();
+    g.beginPath();g.arc(-R*0.28,-R*0.32,R*0.32,0,Math.PI*2);g.fillStyle=&#x27;rgba(255,255,255,0.92)&#x27;;g.fill();
+    g.beginPath();g.arc(R*0.15,R*0.35,R*0.62,0.2,Math.PI-0.2);g.strokeStyle=&#x27;rgba(235,240,244,0.65)&#x27;;g.lineWidth=Math.max(1,R*0.18);g.stroke();
+    g.restore();}
+
+  /* ── 라벨과 지시선 ── */
+  function placeLabels(){var svg=cover.querySelector(&#x27;.hy-leaders&#x27;);svg.setAttribute(&#x27;viewBox&#x27;,&#x27;0 0 &#x27;+W+&#x27; &#x27;+H);
+    var a=proj(add([0,-0.02,0.035],FUP,-0.17)), b=proj(platePt(0.5,amakY(0)[1]-0.045));
+    var l1={x:W-a[0],y:a[1]+H*0.012}, t1={x:W-a[0]+W*0.04,y:H*0.835};
+    var l2={x:W-b[0],y:b[1]+H*0.02}, t2={x:Math.min(W-b[0]-W*0.06,W-a[0]-W*0.30),y:H*0.835};
+    svg.innerHTML=&#x27;&lt;line x1=&quot;&#x27;+l1.x+&#x27;&quot; y1=&quot;&#x27;+l1.y+&#x27;&quot; x2=&quot;&#x27;+t1.x+&#x27;&quot; y2=&quot;&#x27;+(t1.y-H*0.012)+&#x27;&quot;/&gt;&lt;circle cx=&quot;&#x27;+l1.x+&#x27;&quot; cy=&quot;&#x27;+l1.y+&#x27;&quot; r=&quot;4&quot;/&gt;&#x27;+
+      &#x27;&lt;line x1=&quot;&#x27;+l2.x+&#x27;&quot; y1=&quot;&#x27;+l2.y+&#x27;&quot; x2=&quot;&#x27;+t2.x+&#x27;&quot; y2=&quot;&#x27;+(t2.y-H*0.012)+&#x27;&quot;/&gt;&lt;circle cx=&quot;&#x27;+l2.x+&#x27;&quot; cy=&quot;&#x27;+l2.y+&#x27;&quot; r=&quot;4&quot;/&gt;&#x27;;
+    var L1=cover.querySelector(&#x27;[data-hy=&quot;1&quot;]&#x27;),L2=cover.querySelector(&#x27;[data-hy=&quot;2&quot;]&#x27;);
+    L1.style.left=(t1.x/W*100)+&#x27;%&#x27;;L1.style.top=(t1.y/H*100)+&#x27;%&#x27;;
+    L2.style.left=(t2.x/W*100)+&#x27;%&#x27;;L2.style.top=(t2.y/H*100)+&#x27;%&#x27;;}
+
+  /* ── 한지 바탕 섬유 ── */
+  function paper(){var c=cover.querySelector(&#x27;.hy-fiber&#x27;);var w=1600,h=900;c.width=w;c.height=h;var g=c.getContext(&#x27;2d&#x27;);
+    var css=getComputedStyle(cover);g.fillStyle=css.getPropertyValue(&#x27;--hy-paper&#x27;).trim()||&#x27;#F4F3EE&#x27;;g.fillRect(0,0,w,h);
+    g.strokeStyle=css.getPropertyValue(&#x27;--hy-paper-fiber&#x27;).trim()||&#x27;#E6E4DC&#x27;;g.lineCap=&#x27;round&#x27;;
+    for(var i=0;i&lt;900;i++){var x=hash(i,1,3)*w,y=hash(i,2,3)*h,a=hash(i,3,3)*Math.PI*2,l=6+hash(i,4,3)*26;
+      g.globalAlpha=0.35+hash(i,5,3)*0.5;g.lineWidth=0.5+hash(i,6,3)*0.8;g.beginPath();g.moveTo(x,y);
+      g.quadraticCurveTo(x+Math.cos(a+0.6)*l*0.5,y+Math.sin(a+0.6)*l*0.5,x+Math.cos(a)*l,y+Math.sin(a)*l);g.stroke();}
+    g.globalAlpha=1;}
+
+  /* ── 해태 인장: 붉은 인면에 흰 선(백문)으로 앉은 해태 ── */
+  function seal(){var svg=cover.querySelector(&#x27;.hy-seal&#x27;);
+    function spiral(cx,cy,r,turns,dir,a0){var d=&#x27;&#x27;,n=40;for(var i=0;i&lt;=n;i++){var t=i/n,a=a0+dir*t*turns*Math.PI*2,rr=r*(1-0.78*t);d+=(i?&#x27; L&#x27;:&#x27;M&#x27;)+(cx+rr*Math.cos(a)).toFixed(2)+&#x27; &#x27;+(cy+rr*Math.sin(a)).toFixed(2);}return d;}
+    var S=[
+      /* 이마 · 코 · 콧구멍 */&#x27;M19 29 C20 21 27 17 35 17 C41 17 45 20 47 24&#x27;,&#x27;M19 29 C17 30 16 33 17 36 C18 38 20 38.5 22 38&#x27;,spiral(20.6,32.8,2.1,1.1,1,0),
+      /* 입 · 송곳니 */&#x27;M22 38 C25 40.5 30 41 34 40&#x27;,&#x27;M21 41.5 C24 45.5 30 46.5 36 44.5&#x27;,&#x27;M25 39.6 L25.6 42.6&#x27;,&#x27;M31 40.6 L31.4 43.2&#x27;,
+      /* 부리부리한 눈 · 눈썹 소용돌이 */&#x27;M27.3 27.5 a3.2 3.2 0 1 0 6.4 0 a3.2 3.2 0 1 0 -6.4 0&#x27;,spiral(25.8,22.2,2.5,1.05,-1,Math.PI),
+      /* 뿔 · 귀 */&#x27;M37 17.5 C37.5 12.5 40.5 9.5 44.5 8.5 C43 11.8 42.4 14.6 42 18&#x27;,&#x27;M44 22.5 C47 20 50.5 20.5 51 24 C49 25 46.5 25 44.5 24.5&#x27;,
+      /* 곱슬 갈기 */spiral(52.6,14.8,3.8,1.2,-1,Math.PI*0.9),spiral(56,24.2,3.9,1.2,-1,Math.PI*0.75),spiral(56.4,33.8,3.9,1.2,-1,Math.PI*0.55),spiral(54,43,3.9,1.2,-1,Math.PI*0.35),
+      spiral(47.8,31.6,2.9,1.15,-1,Math.PI*0.6),spiral(47.4,40.2,2.9,1.15,-1,Math.PI*0.4),
+      /* 목띠 · 방울 */&#x27;M33 47.4 C39 50.8 45 51.2 50 49.6&#x27;,&#x27;M40.6 51 L40.6 51.6&#x27;,&#x27;M36.6 55.4 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0&#x27;,&#x27;M37 56 L44.2 56&#x27;,
+      /* 가슴 · 앞다리 · 발가락 */&#x27;M22 44.5 C21 51 22.5 57 26 61.5 L25.6 79.5 C22 80 19.5 82 19.5 85.5 L35 85.5 C35 82.5 34 80.5 32.8 79 L33.6 64&#x27;,&#x27;M24.2 85.5 L24.2 83.2&#x27;,&#x27;M28.8 85.5 L28.8 83.2&#x27;,
+      /* 다리 비늘 */&#x27;M27 67.4 q1.6 1.7 3.2 0&#x27;,&#x27;M27.2 71.6 q1.6 1.7 3.2 0&#x27;,&#x27;M27.2 75.8 q1.6 1.7 3.2 0&#x27;,
+      /* 등 · 엉덩이 · 뒷발 */&#x27;M57.4 47 C63 49.6 68 54 70.5 60 C77 66 77.5 77 71.5 82.5 C68 85.3 60 85.6 48 85.5 C48 82.3 50.8 80.2 55.6 80&#x27;,
+      /* 배 · 옆구리 비늘 */&#x27;M33.6 64 C40 68.8 47 70 54 68.6&#x27;,&#x27;M41 60.4 q1.8 1.8 3.6 0&#x27;,&#x27;M46.2 60.4 q1.8 1.8 3.6 0&#x27;,&#x27;M43.6 56.6 q1.8 1.8 3.6 0&#x27;,
+      /* 넓적다리 소용돌이 */spiral(62.4,71,6.2,1.2,1,Math.PI*1.2),
+      /* 꼬리 세 갈래 */&#x27;M70.5 60.5 C76.5 56 78 49 75 43.5&#x27;,spiral(76.4,40.6,3.4,1.15,-1,Math.PI*0.95),&#x27;M73.6 55.8 C80.6 53.6 83.6 47.4 82 41.6&#x27;,spiral(83,38.4,3,1.15,-1,Math.PI*0.95),
+      &#x27;M72.6 58.4 C79.6 58.8 84.6 56 86.4 51.2&#x27;,spiral(86.2,48.2,2.4,1.1,-1,Math.PI*0.9),
+      /* 받침 */&#x27;M14 89.2 L86 89.2&#x27;
+    ];
+    var paths=S.map(function(d){return &#x27;&lt;path d=&quot;&#x27;+d+&#x27;&quot;/&gt;&#x27;;}).join(&#x27;&#x27;);
+    svg.innerHTML=&#x27;&lt;defs&gt;&lt;filter id=&quot;hy-ink&quot; x=&quot;-5%&quot; y=&quot;-5%&quot; width=&quot;110%&quot; height=&quot;110%&quot;&gt;&lt;feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;0.9&quot; numOctaves=&quot;2&quot; seed=&quot;4&quot; result=&quot;n&quot;/&gt;&#x27;+
+      &#x27;&lt;feDisplacementMap in=&quot;SourceGraphic&quot; in2=&quot;n&quot; scale=&quot;1.2&quot;/&gt;&lt;/filter&gt;&#x27;+
+      &#x27;&lt;filter id=&quot;hy-wear&quot;&gt;&lt;feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;0.55&quot; numOctaves=&quot;2&quot; seed=&quot;9&quot;/&gt;&lt;feColorMatrix values=&quot;0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -22 16.5&quot;/&gt;&lt;feComposite in=&quot;SourceGraphic&quot; operator=&quot;in&quot;/&gt;&lt;/filter&gt;&lt;/defs&gt;&#x27;+
+      &#x27;&lt;g filter=&quot;url(#hy-ink)&quot;&gt;&lt;g filter=&quot;url(#hy-wear)&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;94&quot; height=&quot;94&quot; rx=&quot;3.5&quot; fill=&quot;var(--hy-seal)&quot;/&gt;&lt;/g&gt;&#x27;+
+      &#x27;&lt;g fill=&quot;none&quot; stroke=&quot;var(--hy-paper)&quot; stroke-width=&quot;2.2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&#x27;+
+      &#x27;&lt;rect x=&quot;8&quot; y=&quot;8&quot; width=&quot;84&quot; height=&quot;84&quot; rx=&quot;1.5&quot; stroke-width=&quot;1.6&quot;/&gt;&#x27;+paths+&#x27;&lt;/g&gt;&lt;/g&gt;&#x27;;}
+
+  /* ── 실행 ── */
+  var reduce=window.matchMedia&amp;&amp;window.matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches;
+  var raf=0;
+  function play(){cancelAnimationFrame(raf);if(reduce){drawRain(3);return;}var t0=performance.now();
+    (function tick(now){var p=(now-t0)/1000;drawRain(p);if(p&lt;3.0)raf=requestAnimationFrame(tick);else drawRain(3);})(t0);}
+  paper();seal();
+  /* 지붕은 무거우니 첫 그림 뒤로 미뤄 계산 */
+  setTimeout(function(){render();placeLabels();play();},30);
+  window.hyCover={replay:play};
+})();
+&lt;/script&gt;
+</pre>
+    </div>
+    <p class="pg-code-msg" id="pg-msg" aria-live="polite"></p>
+  </section>
+</main>
+<script>
+(function(){
+  var rp=document.getElementById('pg-replay');rp.addEventListener('click',function(){if(window.hyCover)window.hyCover.replay();});
+  var btn=document.getElementById('pg-copy'),pre=document.getElementById('pg-src'),msg=document.getElementById('pg-msg');
+  function selectAll(){var r=document.createRange();r.selectNodeContents(pre);var s=window.getSelection();s.removeAllRanges();s.addRange(r);}
+  btn.addEventListener('click',function(){var t=pre.textContent;
+    try{navigator.clipboard.writeText(t).then(function(){msg.textContent='복사했습니다. 빈 HTML 파일에 붙여 넣으세요.';},function(){selectAll();msg.textContent='자동 복사가 막혀 코드 전체를 선택했습니다. Ctrl+C로 복사하세요.';});}
+    catch(e){selectAll();msg.textContent='자동 복사가 막혀 코드 전체를 선택했습니다. Ctrl+C로 복사하세요.';}});
+})();
+</script>
+
+</body></html>
