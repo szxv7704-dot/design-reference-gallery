@@ -1,0 +1,502 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #62 인쇄·종이 에디토리얼 키트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style id="dk-tokens">
+/* D 인쇄·종이 에디토리얼 계열 값 — 이 묶음만 바꾸면 계열이 바뀝니다 */
+:root, .dk-slide{
+  --ds-bg:#FBFAF6;        /* 바탕: 밝은 백상지(누렇게 바래지 않은 흰 종이) */
+  --ds-surface:#FFFFFF;   /* 면: 알림 상자·표 칸 */
+  --ds-ink:#1B1E24;       /* 먹: 제목·본문·괘선 */
+  --ds-sub:#5C606A;       /* 보조 글자, 재단 표시 */
+  --ds-line:#CFCCC4;      /* 가는 괘선 */
+  --ds-accent:#D9482B;    /* 별색 주홍 — 한 화면 한 곳 */
+  --ds-accent2:#23467A;   /* 주판 남색 */
+  --ds-c1:#1F3E6E; --ds-c2:#3C5D8C; --ds-c3:#6D87AD; --ds-c4:#A5B5CD; --ds-c5:#D7DEE9; /* 남색 망점 100→20% */
+  --ds-font-title:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --ds-font-body:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Noto Serif KR","Nanum Myeongjo","Batang",Georgia,serif;
+  --ds-radius:0px;
+  --ds-shadow:0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32);
+}
+</style>
+<style>
+/* 페이지: 밝은 단일 테마(의도 — 종이 지면). 장표 3장을 세로로, 아래에 계열 값 카드·요소 목록·코드·PPT·스펙 */
+:root{color-scheme:light;
+  --pg-bg:#F1F0EC; --pg-paper:#FFFFFF; --pg-ink:#1B1E24; --pg-sub:#5C606A; --pg-line:#D9D6CF; --pg-code:#171A21; --pg-code-ink:#E4E2DC; --pg-acc:#C23E23; --pg-navy:#23467A;
+  --pg-serif:"Noto Serif KR","Nanum Myeongjo","Batang",serif;
+  --pg-sans:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:ui-monospace,"SFMono-Regular",Consolas,"D2Coding",monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--pg-bg);color:var(--pg-ink);font:400 15px/1.7 var(--pg-sans);-webkit-font-smoothing:antialiased;word-break:keep-all}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 72px}
+.top{border-bottom:3px solid var(--pg-ink);padding-bottom:14px;position:relative}
+.top::after{content:"";position:absolute;left:0;right:0;bottom:-7px;border-bottom:1px solid var(--pg-ink)}
+.top .k{font:700 12.5px var(--pg-sans);letter-spacing:.16em;color:var(--pg-navy);margin:0}
+.top h1{font:900 clamp(26px,4vw,42px)/1.18 var(--pg-serif);letter-spacing:-.03em;margin:8px 0 8px;text-wrap:balance}
+.top p.lede{margin:0;color:var(--pg-sub);max-width:76ch}
+.slides{margin-top:34px;display:grid;gap:30px}
+.slides figure{margin:0;min-width:0}
+.sv{min-width:0}
+.slides figcaption{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:10px;font-size:13.5px;color:var(--pg-sub)}
+.slides figcaption b{font:800 13px var(--pg-serif);color:var(--pg-ink)}
+.secbtns{display:flex;flex-wrap:wrap;gap:6px}
+.secbtns button{font:700 14px var(--pg-serif);border:1px solid var(--pg-line);background:var(--pg-paper);color:var(--pg-ink);padding:4px 12px;border-radius:0;cursor:pointer;min-width:40px}
+.secbtns button[aria-pressed=true]{border-color:var(--pg-ink);background:var(--pg-ink);color:var(--pg-paper)}
+.secbtns button:focus-visible,.copy:focus-visible,pre:focus-visible,a:focus-visible{outline:2px solid var(--pg-acc);outline-offset:2px}
+.swipe{display:none;font-size:12.5px;color:var(--pg-sub);margin:6px 0 0}
+/* 좁은 화면: 장표를 760px 폭으로 고정하고 옆으로 밀어 봄(글자 크기 유지) */
+@media (max-width:700px){.sv{overflow-x:auto;-webkit-overflow-scrolling:touch}.sv>.dk-slide{width:760px;max-width:none}.swipe{display:block}}
+section.blk{margin-top:60px}
+section.blk>h2{font:800 23px/1.3 var(--pg-serif);letter-spacing:-.02em;margin:0 0 4px;padding-top:12px;border-top:2px solid var(--pg-ink)}
+section.blk>h2 span{font:700 12px var(--pg-sans);color:var(--pg-navy);letter-spacing:.16em;margin-right:10px;vertical-align:3px}
+section.blk>p.d{margin:0 0 16px;color:var(--pg-sub);max-width:76ch}
+.card{background:var(--pg-paper);border:1px solid var(--pg-line);padding:22px;min-width:0}
+@media (max-width:560px){.card{padding:16px 14px}}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.sw div{border:1px solid var(--pg-line);background:var(--pg-paper);font-size:12px;min-width:0}
+.sw i{display:block;height:44px;border-bottom:1px solid var(--pg-line)}
+.sw p{margin:0;padding:6px 8px;line-height:1.4}
+.sw code{font:12px var(--pg-mono)}
+.typo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px;margin-top:22px}
+.typo div{border-top:2px solid var(--pg-ink);padding-top:10px;min-width:0}
+.typo .s1{font:900 30px/1.2 var(--ds-font-title);letter-spacing:-.03em}
+.typo .s2{font:400 17px/1.5 var(--ds-font-body)}
+.typo .s3{font:700 26px/1.2 var(--ds-font-num)}
+.typo small{display:block;margin-top:6px;color:var(--pg-sub);font-size:12.5px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));gap:0 28px;margin-top:22px}
+.rules dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:0}
+.rules dt,.rules dd{padding:11px 0;border-bottom:1px solid var(--pg-line);margin:0;min-width:0}
+.rules dt{font-weight:700;font-size:13.5px;color:var(--pg-sub)}
+.rules dd{font-size:14px}
+.dont{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px}
+.dont li{border:1px solid var(--pg-line);border-top:2px solid var(--pg-ink);padding:12px 14px;font-size:14px;min-width:0}
+.dont li b{display:block;font:700 12px var(--pg-sans);letter-spacing:.14em;color:var(--pg-acc);margin-bottom:4px}
+.els{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(360px,100%),1fr));gap:0 24px}
+.els li{display:grid;grid-template-columns:42px 1fr auto;gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--pg-line);font-size:14px;min-width:0}
+.els .no{font:700 14px var(--pg-serif);color:var(--pg-sub)}
+.els a{color:var(--pg-ink);font-weight:600}
+.els .it{font-size:12.5px;color:var(--pg-sub);white-space:nowrap}
+.els .tx{grid-column:2;font-size:12px;color:var(--pg-sub)}
+ol.how{margin:0 0 18px;padding-left:20px;max-width:80ch}
+ol.how li{margin:3px 0}
+ol.how code,.card code.i{font:12.5px var(--pg-mono);background:var(--pg-bg);padding:1px 4px}
+.cbs{display:grid;gap:18px}
+.cb{min-width:0}
+.cb-h{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--pg-code);color:var(--pg-code-ink);padding:8px 12px;font:600 13px var(--pg-sans)}
+.copy{font:700 12.5px var(--pg-sans);border:1px solid var(--pg-code-ink);background:transparent;color:var(--pg-code-ink);padding:4px 10px;border-radius:0;cursor:pointer}
+.cb pre{margin:0;max-height:520px;overflow:auto;background:var(--pg-code);color:var(--pg-code-ink);padding:14px 16px;font:12.5px/1.55 var(--pg-mono);border-top:1px solid #2A2E37}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:620px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--pg-line)}
+th{font-size:12.5px;color:var(--pg-sub);font-weight:700}
+td code{font:12.5px var(--pg-mono)}
+.chip{display:inline-block;width:14px;height:14px;border:1px solid var(--pg-line);vertical-align:-2px;margin-right:6px}
+.ppt{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.ppt li{display:grid;grid-template-columns:120px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--pg-line);font-size:14px;min-width:0}
+.ppt li>b{font:800 14px var(--pg-serif);color:var(--pg-navy)}
+.ppt li>div{min-width:0}
+.spec{display:grid;grid-template-columns:120px 1fr;gap:10px 16px;margin:0;font-size:14px}
+.spec dt{font-weight:700;color:var(--pg-sub);font-size:13px}
+.spec dd{margin:0;min-width:0}
+@media (max-width:560px){.spec,.rules dl,.ppt li{grid-template-columns:1fr}.rules dt{border-bottom:0;padding-bottom:0}.ppt li{gap:2px}}
+a{color:var(--pg-navy)}
+.foot{font-size:13px;color:var(--pg-sub);margin-top:14px}
+</style>
+<style id="dk-css">
+/* ===== 공통 뼈대: 1600×900 가상 화면, 1px = var(--px) ===== */
+.dk-slide{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);font-weight:400;box-shadow:var(--ds-shadow);border-radius:var(--ds-radius);word-break:keep-all}
+.dk-slide *{box-sizing:border-box}
+.dk-in{position:absolute;inset:0;--px:calc(100cqw / 1600)}
+/* 머리말 띠 (y 40~88): 신문 면 머리 — 왼쪽 섹션 번호 | 이름, 오른쪽 계획안 이름 · 발행일. 아래는 이중 괘선(굵은 3 + 가는 1) */
+.dk-band{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(40*var(--px));height:calc(44*var(--px));
+  display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:calc(9*var(--px));border-bottom:calc(3*var(--px)) solid var(--ds-ink)}
+.dk-band::after{content:"";position:absolute;left:0;right:0;bottom:calc(-7*var(--px));border-bottom:calc(1*var(--px)) solid var(--ds-ink)}
+.dk-sec{display:flex;align-items:baseline;gap:calc(12*var(--px));font:700 calc(18*var(--px))/1 var(--ds-font-body)}
+.dk-sno{font:900 calc(24*var(--px))/1 var(--ds-font-num);padding-right:calc(12*var(--px));border-right:calc(1*var(--px)) solid var(--ds-line)}
+.dk-plan{display:flex;align-items:baseline;gap:calc(12*var(--px));font-size:calc(14*var(--px));line-height:1;color:var(--ds-sub)}
+.dk-issue{font:700 calc(15*var(--px))/1 var(--ds-font-num);color:var(--ds-ink);padding-left:calc(12*var(--px));border-left:calc(1*var(--px)) solid var(--ds-line)}
+/* 제목 (y 112~) */
+.dk-title{position:absolute;left:calc(80*var(--px));top:calc(112*var(--px));width:calc(1440*var(--px));margin:0;
+  font:900 calc(50*var(--px))/1.24 var(--ds-font-title);letter-spacing:-.035em;text-wrap:balance}
+.dk-title em,.dk-end-msg em{font-style:normal;color:var(--ds-accent)}
+/* 바닥 줄 (y 846~) */
+.dk-foot{position:absolute;left:calc(80*var(--px));right:calc(80*var(--px));top:calc(846*var(--px));
+  display:flex;justify-content:space-between;align-items:baseline;font-size:calc(14*var(--px));color:var(--ds-sub)}
+.dk-pg{font:700 calc(16*var(--px))/1 var(--ds-font-num);color:var(--ds-ink)}
+.dk-kick{position:absolute;margin:0;font:700 calc(14*var(--px))/1.3 var(--ds-font-body);letter-spacing:.16em;color:var(--ds-c2)}
+
+/* ===== 목차: 지면 안내 ===== */
+/* 12단 눈금(표지 #27의 단 그리드를 축소) */
+.dk-grid12{position:absolute;left:calc(80*var(--px));top:calc(222*var(--px));width:calc(1441*var(--px));height:calc(9*var(--px));
+  border-top:calc(1*var(--px)) solid var(--ds-line);
+  background:repeating-linear-gradient(90deg,var(--ds-line) 0 calc(1*var(--px)),transparent 0 calc(120*var(--px)))}
+.dk-lead-k{left:calc(80*var(--px));top:calc(262*var(--px))}
+.dk-q{position:absolute;left:calc(74*var(--px));top:calc(282*var(--px));margin:0;font:900 calc(110*var(--px))/1 var(--ds-font-title);color:var(--ds-c4)}
+.dk-lead{position:absolute;left:calc(80*var(--px));top:calc(370*var(--px));width:calc(450*var(--px));margin:0;
+  font:800 calc(38*var(--px))/1.34 var(--ds-font-title);letter-spacing:-.03em}
+.dk-facts{position:absolute;left:calc(80*var(--px));top:calc(612*var(--px));width:calc(450*var(--px));margin:0;border-top:calc(2*var(--px)) solid var(--ds-ink)}
+.dk-facts div{display:grid;grid-template-columns:calc(90*var(--px)) 1fr;align-items:baseline;height:calc(52*var(--px));padding-top:calc(16*var(--px));
+  border-bottom:calc(1*var(--px)) solid var(--ds-line);font-size:calc(17*var(--px))}
+.dk-facts dt{color:var(--ds-sub);font-size:calc(15*var(--px))}
+.dk-facts dd{margin:0}
+.dk-facts b{font:700 calc(19*var(--px))/1 var(--ds-font-num)}
+.dk-vr{position:absolute;left:calc(568*var(--px));top:calc(262*var(--px));height:calc(548*var(--px));border-left:calc(1*var(--px)) solid var(--ds-line)}
+.dk-toc{position:absolute;left:calc(608*var(--px));top:calc(262*var(--px));width:calc(912*var(--px));margin:0;padding:0;list-style:none;border-top:calc(2*var(--px)) solid var(--ds-ink)}
+.dk-toc>li{display:grid;grid-template-columns:calc(78*var(--px)) calc(318*var(--px)) 1fr calc(108*var(--px));align-items:start;
+  padding:calc(17*var(--px)) 0 calc(16*var(--px));border-bottom:calc(1*var(--px)) solid var(--ds-line)}
+.dk-toc .n{font:900 calc(44*var(--px))/.9 var(--ds-font-num);color:var(--ds-c1)}
+.dk-toc .nm{display:block;font:800 calc(28*var(--px))/1.15 var(--ds-font-title);letter-spacing:-.03em}
+.dk-toc .sb{display:block;margin-top:calc(8*var(--px));font-size:calc(15*var(--px));line-height:1.35;color:var(--ds-sub)}
+.dk-toc ul{margin:0;padding:calc(2*var(--px)) 0 0 calc(18*var(--px));list-style:none;border-left:calc(1*var(--px)) solid var(--ds-line);display:grid;gap:calc(3*var(--px));font-size:calc(15*var(--px));line-height:1.32}
+.dk-toc ul li{display:grid;grid-template-columns:calc(74*var(--px)) 1fr}
+.dk-toc ul li span{font:700 calc(14*var(--px))/1.45 var(--ds-font-num);color:var(--ds-sub)}
+.dk-toc .pr{text-align:right;font:700 calc(20*var(--px))/1 var(--ds-font-num)}
+.dk-toc .pr small{display:block;margin-top:calc(8*var(--px));font:400 calc(13*var(--px))/1 var(--ds-font-body);color:var(--ds-sub)}
+
+/* ===== 섹션 간지: 섹션 면 표지 ===== */
+/* 재단 표시·맞춤 표지(인쇄 판의 바깥 표시) — 간지에만 */
+.dk-crop{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.dk-crop line,.dk-crop circle{stroke:var(--ds-sub);stroke-width:1;fill:none}
+.dk-num{position:absolute;left:calc(70*var(--px));top:calc(150*var(--px));width:calc(470*var(--px));height:calc(420*var(--px));
+  font:900 calc(390*var(--px))/1 var(--ds-font-num);letter-spacing:-.02em}
+.dk-num span{position:absolute;left:0;top:0}
+.dk-plate{color:var(--ds-accent);transform:translate(calc(4*var(--px)),calc(3*var(--px)))}   /* 별색 판: 0.25cqw 어긋남 */
+.dk-key{color:var(--ds-c1)}                                                                   /* 주판 남색이 위에 찍힘 */
+.dk-div-k{left:calc(600*var(--px));top:calc(176*var(--px))}
+.dk-div-name{position:absolute;left:calc(600*var(--px));top:calc(212*var(--px));width:calc(920*var(--px));margin:0;
+  font:900 calc(92*var(--px))/1.1 var(--ds-font-title);letter-spacing:-.045em;white-space:nowrap}
+.dk-div-sub{position:absolute;left:calc(600*var(--px));top:calc(350*var(--px));width:calc(920*var(--px));margin:0;padding-top:calc(18*var(--px));
+  border-top:calc(2*var(--px)) solid var(--ds-ink);font-size:calc(26*var(--px));line-height:1.35;font-weight:500}
+.dk-div-meta{position:absolute;left:calc(600*var(--px));top:calc(452*var(--px));margin:0;font-size:calc(17*var(--px));color:var(--ds-sub)}
+.dk-div-meta b{font:700 calc(19*var(--px))/1 var(--ds-font-num);color:var(--ds-ink)}
+.dk-div-ik{left:calc(80*var(--px));top:calc(612*var(--px))}
+.dk-div-items{position:absolute;left:calc(80*var(--px));top:calc(642*var(--px));width:calc(1440*var(--px));margin:0;padding:0;list-style:none;
+  display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:calc(24*var(--px))}
+.dk-div-items li{border-top:calc(2*var(--px)) solid var(--ds-ink);padding-top:calc(14*var(--px));min-height:calc(130*var(--px))}
+.dk-div-items b{display:block;font:700 calc(30*var(--px))/1 var(--ds-font-num);color:var(--ds-c1)}
+.dk-div-items span{display:block;margin-top:calc(12*var(--px));font-size:calc(21*var(--px));font-weight:600;line-height:1.35}
+.dk-prog{display:flex;gap:calc(18*var(--px));font:700 calc(16*var(--px))/1 var(--ds-font-num);color:var(--ds-c4)}
+.dk-prog i{font-style:normal;padding-bottom:calc(4*var(--px));border-bottom:calc(2*var(--px)) solid transparent}
+.dk-prog i.on{color:var(--ds-ink);border-bottom-color:var(--ds-ink)}
+/* 전환 하나: 별색 판이 어긋난 자리에서 맞춤 자리로 0.8초 */
+.dk-div .dk-plate.run{animation:dkReg .8s cubic-bezier(.3,.7,.25,1) both}
+@keyframes dkReg{from{transform:translate(calc(22*var(--px)),calc(-14*var(--px)))}to{transform:translate(calc(4*var(--px)),calc(3*var(--px)))}}
+@media (prefers-reduced-motion:reduce){.dk-div .dk-plate.run{animation:none}}
+
+/* ===== 마무리: 표지 #27의 머리기사 + 이중 괘선으로 수미상관 ===== */
+.dk-end-k{left:calc(80*var(--px));top:calc(130*var(--px))}
+.dk-end-msg{position:absolute;left:calc(80*var(--px));top:calc(162*var(--px));width:calc(1440*var(--px));margin:0;
+  font:900 calc(64*var(--px))/1.2 var(--ds-font-title);letter-spacing:-.04em}
+.dk-end-rule{position:absolute;left:calc(80*var(--px));top:calc(338*var(--px));width:calc(1440*var(--px));height:calc(8*var(--px));
+  border-top:calc(3*var(--px)) solid var(--ds-ink);border-bottom:calc(1*var(--px)) solid var(--ds-ink)}
+.dk-end-goal{position:absolute;left:calc(80*var(--px));top:calc(366*var(--px));margin:0;font-size:calc(20*var(--px));font-weight:500;color:var(--ds-sub)}
+.dk-end-goal b{font:700 calc(23*var(--px))/1 var(--ds-font-num);color:var(--ds-ink)}
+.dk-end-nk{left:calc(80*var(--px));top:calc(470*var(--px))}
+.dk-end-next{position:absolute;left:calc(80*var(--px));top:calc(500*var(--px));width:calc(880*var(--px));margin:0;padding:0;list-style:none;border-top:calc(2*var(--px)) solid var(--ds-ink)}
+.dk-end-next li{display:grid;grid-template-columns:calc(170*var(--px)) calc(260*var(--px)) 1fr;align-items:baseline;height:calc(74*var(--px));padding-top:calc(24*var(--px));
+  border-bottom:calc(1*var(--px)) solid var(--ds-line);font-size:calc(21*var(--px));font-weight:600}
+.dk-end-next li b{font:700 calc(25*var(--px))/1 var(--ds-font-num)}
+.dk-end-next li span{font-size:calc(16*var(--px));color:var(--ds-sub);font-weight:400}
+/* 알림 상자: 신문 공지란처럼 이중 테두리 */
+.dk-box{position:absolute;left:calc(1060*var(--px));top:calc(470*var(--px));width:calc(460*var(--px));height:calc(300*var(--px));
+  background:var(--ds-surface);border:calc(5*var(--px)) double var(--ds-ink);padding:calc(18*var(--px)) calc(24*var(--px))}
+.dk-box h3{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 calc(6*var(--px));padding-bottom:calc(12*var(--px));border-bottom:calc(1*var(--px)) solid var(--ds-ink);
+  font:800 calc(23*var(--px))/1 var(--ds-font-title)}
+.dk-box h3 small{font:500 calc(14*var(--px))/1 var(--ds-font-body);color:var(--ds-sub)}
+.dk-box dl{margin:0}
+.dk-box div{display:grid;grid-template-columns:calc(96*var(--px)) 1fr;align-items:baseline;padding:calc(13*var(--px)) 0;border-bottom:calc(1*var(--px)) solid var(--ds-line);font-size:calc(18*var(--px))}
+.dk-box div:last-child{border-bottom:0}
+.dk-box dt{font-size:calc(14*var(--px));color:var(--ds-sub);font-weight:600}
+.dk-box dd{margin:0;font-weight:500}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="k">레퍼런스 #62 · 계열 키트 D · 가상 예시</p>
+    <h1>D 인쇄·종이 에디토리얼 키트</h1>
+    <p class="lede">표지 #4 가온 야간편 탑승권, #27 일요판 1면 약속, #32 재생지 콜라주, #60 읽는 씨앗 봉투 뒤에 붙는 목차·섹션 간지·마무리 3장과 계열 값입니다. 흰 종이, 명조 제목, 굵은+가는 이중 괘선, 남색 주판에 주홍 별색 한 판. 덱 전체를 한 권의 지면처럼 묶습니다.</p>
+  </header>
+
+  <div class="slides">
+    <figure><div class="sv" id="mount-toc"></div><p class="swipe">장표를 옆으로 밀어 보세요.</p>
+      <figcaption><b>01 목차</b>신문 1면 아래 "지면 안내" 형식. 왼쪽에 계획의 한 줄, 오른쪽에 다섯 섹션과 면별 기사. 정지 장표.</figcaption></figure>
+    <figure><div class="sv" id="mount-div"></div><p class="swipe">장표를 옆으로 밀어 보세요.</p>
+      <figcaption><b>02 섹션 간지</b><span>번호·이름만 바꿔 다섯 번 씁니다. 큰 번호의 주홍 별색 판이 0.8초에 한 번 제자리를 찾아 맞춰집니다.</span>
+        <span class="secbtns" role="group" aria-label="간지 섹션 바꿔 보기">
+          <button type="button" data-i="0" aria-pressed="false">Ⅰ</button><button type="button" data-i="1" aria-pressed="false">Ⅱ</button><button type="button" data-i="2" aria-pressed="true">Ⅲ</button><button type="button" data-i="3" aria-pressed="false">Ⅳ</button><button type="button" data-i="4" aria-pressed="false">Ⅴ</button>
+        </span></figcaption></figure>
+    <figure><div class="sv" id="mount-end"></div><p class="swipe">장표를 옆으로 밀어 보세요.</p>
+      <figcaption><b>03 마무리</b>표지 #27의 머리기사 + 이중 괘선으로 닫고, 아래에 다음 보고 예고와 공지란식 문의처. 정지 장표.</figcaption></figure>
+  </div>
+
+  <section class="blk">
+    <h2><span>CARD</span>계열 값 카드 · D 인쇄·종이 에디토리얼</h2>
+    <p class="d">표지 4장(#4·27·32·60)의 공통점: 흰 종이 바탕 위에 잉크 색 두 가지(주판 + 별색)만 쓰고, 굵은 명조 제목이 화면을 이끌며, 괘선·단 눈금·재단 표시 같은 인쇄 공정의 흔적이 장식이 아니라 구조로 남아 있습니다. 판 어긋남(#4·60)은 아주 작게, 한 곳에서만.</p>
+    <div class="card">
+      <div class="sw">
+        <div><i style="background:var(--ds-bg)"></i><p>--ds-bg 백상지<br><code>#FBFAF6</code></p></div>
+        <div><i style="background:var(--ds-surface)"></i><p>--ds-surface 공지란 면<br><code>#FFFFFF</code></p></div>
+        <div><i style="background:var(--ds-ink)"></i><p>--ds-ink 먹<br><code>#1B1E24</code></p></div>
+        <div><i style="background:var(--ds-sub)"></i><p>--ds-sub 보조·재단 표시<br><code>#5C606A</code></p></div>
+        <div><i style="background:var(--ds-line)"></i><p>--ds-line 가는 괘선<br><code>#CFCCC4</code></p></div>
+        <div><i style="background:var(--ds-accent)"></i><p>--ds-accent 별색 주홍<br><code>#D9482B</code></p></div>
+        <div><i style="background:var(--ds-accent2)"></i><p>--ds-accent2 주판 남색<br><code>#23467A</code></p></div>
+        <div><i style="background:linear-gradient(90deg,var(--ds-c1) 0 20%,var(--ds-c2) 0 40%,var(--ds-c3) 0 60%,var(--ds-c4) 0 80%,var(--ds-c5) 0)"></i><p>--ds-c1~c5 남색 망점 100→20%<br><code>#1F3E6E → #D7DEE9</code></p></div>
+      </div>
+      <div class="typo">
+        <div><span class="s1">결론 한 문장 제목</span><small>제목 · Noto Serif KR 900/800 (대체: 나눔명조 ExtraBold → 바탕 굵게)</small></div>
+        <div><span class="s2">본문과 표의 글자는 이 크기로 읽힙니다.</span><small>본문 · IBM Plex Sans KR 400/600 (대체: Noto Sans KR → 맑은 고딕)</small></div>
+        <div><span class="s3">p.10–15 · 9.8% · 2027. 3.</span><small>숫자 · Noto Serif KR 700 (명조 숫자 — 신문 지면의 쪽·날짜 표기)</small></div>
+      </div>
+      <div class="rules">
+        <dl>
+          <dt>머리말 띠</dt><dd>왼쪽 명조 섹션 번호 | 섹션 이름, 오른쪽 계획안 이름 | 발행일(명조 숫자). 띠 아래 이중 괘선: 굵은 3px + 4px 간격 + 가는 1px.</dd>
+          <dt>강조색</dt><dd>주홍 별색은 한 장에 한 곳: 제목 핵심어, 간지 번호의 별색 판, 미달 값 중 하나. 남색(주판)은 도식·숫자·번호에 넓게.</dd>
+          <dt>질감</dt><dd>평면이 기본. 약한 입체는 종이 그림자(장표 아래 한 겹)까지. 판 어긋남은 0.25cqw(가상 4px)로 간지 번호 한 곳만.</dd>
+          <dt>모션</dt><dd>표지 은유 1, 간지의 별색 판 맞춤 0.8초. 본문은 정지 또는 순차 등장(1.5초 이내). 종이 넘김·접힘 효과는 쓰지 않습니다.</dd>
+        </dl>
+        <dl>
+          <dt>사진·그림</dt><dd>사진은 1도(남색 단색) 망점 처리 한 장, 테두리 없이 단 너비에 맞춰 넣고 아래 캡션 한 줄. 일러스트는 도판처럼 가는 선 + fig. 번호.</dd>
+          <dt>단 그리드</dt><dd>12단(단 폭 120). 목차·표는 비대칭으로 4단 : 8단. 세로 구분은 가는 괘선 하나, 상자 대신 괘선으로 묶습니다.</dd>
+          <dt>표</dt><dd>머리 행 위 굵은 괘선 2px, 행 사이 가는 괘선, 합계 행만 위에 굵은 괘선. 세로선 없음.</dd>
+          <dt>인쇄 흔적</dt><dd>재단 표시·맞춤 표지는 간지에만. 본문 장표에는 넣지 않아 본문 요소와 섞여도 어색하지 않습니다.</dd>
+        </dl>
+      </div>
+      <ul class="dont">
+        <li><b>DON'T 01</b>누렇게 바랜 종이, 얼룩·구김·비네트로 "오래된 신문" 흉내 내기. 바탕은 밝은 흰 종이입니다.</li>
+        <li><b>DON'T 02</b>판 어긋남·망점을 모든 글자와 도식에 깔기. 인쇄 흔적은 한 장에 한 곳, 읽기를 방해하지 않을 만큼만.</li>
+        <li><b>DON'T 03</b>기사 본문처럼 긴 단락을 다단으로 채우기. 신문에서 빌리는 것은 괘선·단·면 번호 문법이지 글의 양이 아닙니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span>MATCH</span>이 계열과 어울리는 기존 요소 23개</h2>
+    <p class="d">DB에서 어울리는 계열(families)에 D가 들어 있고 덱에 쓸 수 있는 요소입니다. 계열 값 묶음을 붙이면 같은 지면 분위기로 바뀝니다. 특히 #47 눈금 머리 과제표, #53 밑줄 대조표, #54 기둥과 보 체계도는 괘선 문법을 이미 갖고 있고, 재질 요소(#8·21·43)는 종이·나무 질감이라 이 계열에서만 자연스럽습니다.</p>
+    <div class="card"><ul class="els" id="els"></ul></div>
+  </section>
+
+  <section class="blk">
+    <h2><span>HTML</span>HTML로 가져다 쓰기</h2>
+    <ol class="how">
+      <li>장표마다 코드 블록 하나가 자기 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>계획안 이름·발행일은 <code>DK_PLAN</code>, <code>DK_ISSUE</code>, 섹션 번호·이름·쪽 범위·면별 기사는 <code>DK_SECTIONS</code> 배열에서 바꿉니다. 목차의 한 줄 요약은 <code>DK_LEAD</code>입니다.</li>
+      <li>간지는 코드 맨 아래 <code>dkShowSection(2)</code>의 숫자(0~4)로 섹션을 고릅니다. 마무리의 문의처·다음 보고는 <code>DK_CONTACT</code>, <code>DK_NEXT</code> 배열에 있습니다.</li>
+      <li>분위기는 맨 위 <code>--ds-*</code> 묶음만 바꿉니다. 마지막 블록의 계열 값만 따로 복사해 다른 요소 장표에 붙일 수 있습니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="cbs">
+      <div class="cb"><div class="cb-h"><span>장표 1 · 목차</span><button type="button" class="copy" data-k="toc">코드 복사</button></div><pre id="code-toc" tabindex="0"><code></code></pre></div>
+      <div class="cb"><div class="cb-h"><span>장표 2 · 섹션 간지</span><button type="button" class="copy" data-k="div">코드 복사</button></div><pre id="code-div" tabindex="0"><code></code></pre></div>
+      <div class="cb"><div class="cb-h"><span>장표 3 · 마무리</span><button type="button" class="copy" data-k="end">코드 복사</button></div><pre id="code-end" tabindex="0"><code></code></pre></div>
+      <div class="cb"><div class="cb-h"><span>계열 값 묶음만 (:root)</span><button type="button" class="copy" data-k="tok">코드 복사</button></div><pre id="code-tok" tabindex="0"><code></code></pre></div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span>PPT</span>PPT로 옮기기</h2>
+    <p class="d">슬라이드 마스터에 계열 값을 한 번 넣어 두면 어떤 본문 요소를 가져와도 같은 지면으로 맞춰집니다(한국어판 메뉴 이름).</p>
+    <div class="card">
+      <ol class="ppt">
+        <li><b>테마 색</b><div>디자인 › 적용 › 색 › 색 사용자 지정. 텍스트/배경-어둡게 1 <code class="i">#1B1E24</code>, 밝게 1 <code class="i">#FBFAF6</code>, 어둡게 2 <code class="i">#23467A</code>, 밝게 2 <code class="i">#FFFFFF</code>, 강조 1 <code class="i">#D9482B</code>, 강조 2~6 <code class="i">#1F3E6E #3C5D8C #6D87AD #A5B5CD #D7DEE9</code>. 이름 "D 인쇄·종이".</div></li>
+        <li><b>테마 글꼴</b><div>디자인 › 적용 › 글꼴 › 글꼴 사용자 지정. 제목 Noto Serif KR(없으면 나눔명조 → 바탕), 본문 IBM Plex Sans KR(없으면 맑은 고딕). 쪽 번호·날짜도 제목 글꼴로.</div></li>
+        <li><b>마스터 공통</b><div>보기 › 슬라이드 마스터. 와이드(33.867×19.05cm, 가상 1px ≈ 0.0212cm). 머리말 띠: 왼쪽 여백 1.69cm, 위 1.78cm 높이에 선 3pt(먹) 하나와 그 아래 0.08cm 띄워 선 0.75pt 하나 = 이중 괘선. 위에 섹션 번호(명조 18pt) | 이름(13pt), 오른쪽 계획안 이름(10.5pt). 바닥 줄 위 17.9cm에 "가상 예시 · 출처"와 슬라이드 번호.</div></li>
+        <li><b>레이아웃 1 · 목차</b><div>안내선 12개(단 폭 2.54cm)를 깔고 4단 : 8단으로 나눔. 왼쪽 4단에 한 줄 요약(명조 28pt), 세로 선 0.75pt(#CFCCC4), 오른쪽 8단에 표(5행, 세로선 없음, 머리 위 1.5pt 먹 선, 행 사이 0.75pt 회색 선). 열: 번호 | 섹션 이름 | 면별 기사 | 쪽.</div></li>
+        <li><b>레이아웃 2 · 간지</b><div>큰 번호(명조 290pt)를 텍스트 상자 두 개로 겹침: 아래 상자 주홍, 위 상자 남색, 아래(주홍) 상자를 오른쪽 0.08cm·아래 0.06cm 어긋나게. 재단 표시는 네 모서리에 길이 0.34cm 선 두 개씩. 애니메이션: 주홍 상자에 [이동 경로 › 선] 짧게(오른쪽 위 → 제자리), 시작 "이전 효과와 함께", 0.8초, 부드러운 끝 100%.</div></li>
+        <li><b>레이아웃 3 · 마무리</b><div>맺음 문장(명조 48pt, 2줄) 아래 이중 괘선, 왼쪽 "다음 보고" 표 3행, 오른쪽 사각형 테두리 [겹선 › 두 줄] 4.5pt로 공지란. 애니메이션 없음.</div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2><span>SPEC</span>스펙</h2>
+    <div class="card">
+      <div class="tbl"><table>
+        <thead><tr><th>변수</th><th>D 값</th><th>쓰는 곳</th></tr></thead>
+        <tbody>
+          <tr><td><code>--ds-bg</code></td><td><span class="chip" style="background:var(--ds-bg)"></span><code>#FBFAF6</code></td><td>장표 바탕(백상지)</td></tr>
+          <tr><td><code>--ds-surface</code></td><td><span class="chip" style="background:var(--ds-surface)"></span><code>#FFFFFF</code></td><td>공지란 상자, 본문 요소의 카드 면</td></tr>
+          <tr><td><code>--ds-ink</code></td><td><span class="chip" style="background:var(--ds-ink)"></span><code>#1B1E24</code></td><td>제목·본문, 이중 괘선, 굵은 괘선</td></tr>
+          <tr><td><code>--ds-sub</code></td><td><span class="chip" style="background:var(--ds-sub)"></span><code>#5C606A</code></td><td>보조 글자, 재단 표시·맞춤 표지</td></tr>
+          <tr><td><code>--ds-line</code></td><td><span class="chip" style="background:var(--ds-line)"></span><code>#CFCCC4</code></td><td>가는 괘선, 12단 눈금</td></tr>
+          <tr><td><code>--ds-accent</code></td><td><span class="chip" style="background:var(--ds-accent)"></span><code>#D9482B</code></td><td>별색: 제목 핵심어 / 간지 번호 별색 판 — 한 장 한 곳</td></tr>
+          <tr><td><code>--ds-accent2</code></td><td><span class="chip" style="background:var(--ds-accent2)"></span><code>#23467A</code></td><td>주판 남색(본문 요소의 보조 강조)</td></tr>
+          <tr><td><code>--ds-c1~c5</code></td><td><code>#1F3E6E #3C5D8C #6D87AD #A5B5CD #D7DEE9</code></td><td>남색 망점 100·80·60·40·20%. 번호·키커·위계 농담</td></tr>
+          <tr><td><code>--ds-radius</code> / <code>--ds-shadow</code></td><td><code>0px</code> / 종이 한 장 그림자</td><td>모서리 없음(재단한 종이), 장표 아래 그림자</td></tr>
+        </tbody>
+      </table></div>
+      <dl class="spec" style="margin-top:20px">
+        <dt>폰트</dt><dd>Noto Serif KR 900/800(제목), 700(숫자·번호) + IBM Plex Sans KR 400/500/600/700(본문·라벨). 대체: 나눔명조 → 바탕 / Noto Sans KR → 맑은 고딕.</dd>
+        <dt>인쇄 디테일</dt><dd>이중 괘선(굵은 3 + 가는 1, 간격 4), 12단 눈금(단 폭 120), 별색 판 어긋남(가상 오른쪽 4px·아래 3px — 남색 번호 오른쪽 아래로 주홍 가장자리만 비침), 재단 표시(모서리 밖으로 뻗는 선, 재단점과 띄움)와 위·아래 가운데 맞춤 표지(원 + 십자), 공지란 겹 테두리.</dd>
+        <dt>난이도</dt><dd>HTML 하(배열만 교체) / PPT 하~중(이중 괘선·겹선 테두리는 기본 도형, 별색 판 어긋남만 텍스트 상자 두 개).</dd>
+        <dt>반영 트렌드</dt><dd>디지털 에디토리얼의 비대칭 단 그리드와 가는 세로 괘선, 작은 대문자 키커(섹션 표지), 명조 제목 + 고딕 본문 짝 — daisyUI Trends 'Editorial Design' (<a href="https://trends.daisyui.com/trend/editorial-design/" target="_blank" rel="noopener">trends.daisyui.com</a>), Font Alternatives 'Font Pairings for Editorial & Magazine Design' (<a href="https://fontalternatives.com/blog/font-pairings-editorial-magazine-design/" target="_blank" rel="noopener">fontalternatives.com</a>).</dd>
+      </dl>
+    </div>
+    <p class="foot">가상 예시입니다. 기관명·계획명·쪽 수·연락처·수치는 모두 자리표시이거나 지어낸 값입니다.</p>
+  </section>
+</div>
+
+<!-- ===== 장표 원본(코드 칸과 화면이 같은 원본을 씀) ===== -->
+<script type="text/html" id="src-toc">
+<!-- 장표 1: 목차(지면 안내) -->
+<section class="dk-slide dk-toc-slide" aria-label="목차 장표">
+  <div class="dk-in">
+    <header class="dk-band"><div class="dk-sec"><b class="dk-sno">00</b><span>목차</span></div><div class="dk-plan"><span class="dk-planname"></span><span class="dk-issue"></span></div></header>
+    <h2 class="dk-title">다섯 면으로 읽는 <em>문해력</em> 향상 계획</h2>
+    <div class="dk-grid12" aria-hidden="true"></div>
+    <p class="dk-kick dk-lead-k">LEAD · 이 계획의 한 줄</p>
+    <p class="dk-q" aria-hidden="true">“</p>
+    <p class="dk-lead"></p>
+    <dl class="dk-facts"></dl>
+    <div class="dk-vr" aria-hidden="true"></div>
+    <ol class="dk-toc"></ol>
+    <footer class="dk-foot"><span>가상 예시 · 출처: ○○교육청 내부 자료(가상)</span><span class="dk-pg">p.02</span></footer>
+  </div>
+</section>
+</script>
+<script type="text/html" id="src-div">
+<!-- 장표 2: 섹션 간지 (번호·이름은 DK_SECTIONS에서) -->
+<section class="dk-slide dk-div" aria-label="섹션 간지 장표">
+  <div class="dk-in">
+    <svg class="dk-crop" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
+      <!-- 재단 표시: 재단점(28,28)에서 6 띄워 바깥으로 -->
+      <line x1="0" y1="28" x2="22" y2="28"/><line x1="28" y1="0" x2="28" y2="22"/>
+      <line x1="1578" y1="28" x2="1600" y2="28"/><line x1="1572" y1="0" x2="1572" y2="22"/>
+      <line x1="0" y1="872" x2="22" y2="872"/><line x1="28" y1="878" x2="28" y2="900"/>
+      <line x1="1578" y1="872" x2="1600" y2="872"/><line x1="1572" y1="878" x2="1572" y2="900"/>
+      <!-- 맞춤 표지: 위·아래 가운데 -->
+      <circle cx="800" cy="16" r="6"/><line x1="788" y1="16" x2="812" y2="16"/><line x1="800" y1="4" x2="800" y2="28"/>
+      <circle cx="800" cy="884" r="6"/><line x1="788" y1="884" x2="812" y2="884"/><line x1="800" y1="872" x2="800" y2="896"/>
+    </svg>
+    <header class="dk-band"><div class="dk-sec"><b class="dk-sno dk-div-no"></b><span class="dk-div-nm1"></span></div><div class="dk-plan"><span class="dk-planname"></span><span class="dk-issue"></span></div></header>
+    <div class="dk-num" aria-hidden="true"><span class="dk-plate"></span><span class="dk-key"></span></div>
+    <p class="dk-kick dk-div-k"></p>
+    <h2 class="dk-div-name"></h2>
+    <p class="dk-div-sub"></p>
+    <p class="dk-div-meta"></p>
+    <p class="dk-kick dk-div-ik">이 섹션의 면</p>
+    <ol class="dk-div-items"></ol>
+    <footer class="dk-foot"><span>가상 예시</span><span class="dk-prog" aria-label="섹션 위치"></span><span class="dk-pg dk-div-pg"></span></footer>
+  </div>
+</section>
+</script>
+<script type="text/html" id="src-end">
+<!-- 장표 3: 마무리 -->
+<section class="dk-slide dk-end" aria-label="마무리 장표">
+  <div class="dk-in">
+    <header class="dk-band"><div class="dk-sec"><b class="dk-sno">끝</b><span>문의 및 향후 보고</span></div><div class="dk-plan"><span class="dk-planname"></span><span class="dk-issue"></span></div></header>
+    <p class="dk-kick dk-end-k">맺음 · 보고를 마치며</p>
+    <h2 class="dk-end-msg">모든 학생이 <em>읽고 쓰는 힘</em>으로<br>배움을 넓히도록 하겠습니다</h2>
+    <div class="dk-end-rule" aria-hidden="true"></div>
+    <p class="dk-end-goal">목표 연도 <b>2029</b> · 기초 문해력 미도달 비율 <b>9.8% → 4.5%</b> (초3·중1 진단 기준)</p>
+    <p class="dk-kick dk-end-nk">다음 보고 예고</p>
+    <ol class="dk-end-next"></ol>
+    <div class="dk-box" role="region" aria-label="문의처">
+      <h3>문의 <small>평일 09:00–18:00</small></h3>
+      <dl class="dk-end-rows"></dl>
+    </div>
+    <footer class="dk-foot"><span>가상 예시</span><span class="dk-pg">p.24</span></footer>
+  </div>
+</section>
+</script>
+
+<script id="dk-js">
+/* 계획안 이름·발행일·섹션 — 세 장이 같이 씁니다 */
+const DK_PLAN='○○교육청 2027 학생 문해력 향상 종합계획(안)';
+const DK_ISSUE='2027. 3.';
+const DK_LEAD='읽고 쓰는 힘을<br>모든 교과 배움의<br>기초로 세웁니다';
+const DK_FACTS=[['본문','<b>p.03–23</b> · 21쪽'],['섹션','<b>5</b>개 · 과제 4개'],['부록','성과지표 정의서 · <b>2</b>쪽']];
+// from~to: 섹션이 차지하는 쪽(간지 포함), items: [쪽, 기사 제목]
+const DK_SECTIONS=[
+  {no:'Ⅰ', code:'01', name:'추진 배경 및 현황', sub:'기초 문해력 진단 결과와 학교 현장 의견', from:3, to:6,
+   items:[['04','최근 3년 문해력 진단 결과'],['05','학년별 미도달 비율'],['06','교원·학부모 설문']]},
+  {no:'Ⅱ', code:'02', name:'목표 및 지표', sub:'2029년 미도달 비율 4%대로', from:7, to:9,
+   items:[['08','연차별 목표'],['09','성과지표 4종과 측정 방법']]},
+  {no:'Ⅲ', code:'03', name:'세부 추진과제', sub:'읽기·쓰기·디지털·가정 연계 4대 과제', from:10, to:15,
+   items:[['11','아침 20분 함께 읽기'],['12','교과 연계 쓰기 수업'],['13–14','디지털 문해력 교육'],['15','가정·공공도서관 연계']]},
+  {no:'Ⅳ', code:'04', name:'추진체계', sub:'교육감 → 추진단 → TF → 학교', from:16, to:18,
+   items:[['17','위계와 역할 분담'],['18','지자체·도서관 협력']]},
+  {no:'Ⅴ', code:'05', name:'일정 및 예산', sub:'분기별 일정과 재원별 예산 64억 원', from:19, to:23,
+   items:[['20','분기별 추진 일정'],['21–22','연도별 예산'],['23','국비·지방비·자체 분담']]}
+];
+const dkPad=n=>String(n).padStart(2,'0');
+function dkCommon(root){
+  root.querySelectorAll('.dk-planname').forEach(e=>e.textContent=DK_PLAN);
+  root.querySelectorAll('.dk-issue').forEach(e=>e.textContent=DK_ISSUE);
+}
+</script>
+
+<script type="text/plain" id="init-toc">
+/* 목차: 왼쪽 4단 한 줄 요약 + 오른쪽 8단 지면 안내 */
+(function(){
+  const root=document.querySelector('.dk-toc-slide'); dkCommon(root);
+  root.querySelector('.dk-lead').innerHTML=DK_LEAD;
+  root.querySelector('.dk-facts').innerHTML=DK_FACTS.map(f=>`<div><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join('');
+  root.querySelector('.dk-toc').innerHTML=DK_SECTIONS.map(s=>
+    `<li><span class="n">${s.no}</span><div><span class="nm">${s.name}</span><span class="sb">${s.sub}</span></div>`+
+    `<ul>${s.items.map(it=>`<li><span>p.${it[0]}</span>${it[1]}</li>`).join('')}</ul>`+
+    `<span class="pr">p.${dkPad(s.from)}–${dkPad(s.to)}<small>${s.to-s.from+1}쪽</small></span></li>`).join('');
+})();
+</script>
+<script type="text/plain" id="init-div">
+/* 섹션 간지: dkShowSection(0~4)로 번호·이름·면별 기사·위치가 함께 바뀜 */
+function dkShowSection(i){
+  const root=document.querySelector('.dk-div'), s=DK_SECTIONS[i]; dkCommon(root);
+  root.querySelector('.dk-div-no').textContent=s.no;
+  root.querySelector('.dk-div-nm1').textContent=s.name;
+  root.querySelector('.dk-key').textContent=s.no;
+  root.querySelector('.dk-div-k').textContent=`SECTION ${s.code} / ${dkPad(DK_SECTIONS.length)}`;
+  root.querySelector('.dk-div-name').textContent=s.name;
+  root.querySelector('.dk-div-sub').textContent=s.sub;
+  root.querySelector('.dk-div-meta').innerHTML=`이 섹션 <b>p.${dkPad(s.from)}–${dkPad(s.to)}</b> · ${s.to-s.from+1}쪽 · 기사 ${s.items.length}건`;
+  root.querySelector('.dk-div-items').innerHTML=s.items.map(it=>`<li><b>p.${it[0]}</b><span>${it[1]}</span></li>`).join('');
+  root.querySelector('.dk-prog').innerHTML=DK_SECTIONS.map((t,j)=>`<i class="${j===i?'on':''}">${t.no}</i>`).join('');
+  root.querySelector('.dk-div-pg').textContent=`p.${dkPad(s.from)}`;
+  // 전환: 별색 판이 어긋난 자리에서 맞춤 자리로(한 번)
+  const plate=root.querySelector('.dk-plate');
+  plate.textContent=s.no; plate.classList.remove('run'); void plate.offsetWidth; plate.classList.add('run');
+}
+dkShowSection(2);
+</script>
+<script type="text/plain" id="init-end">
+/* 마무리: 다음 보고 예고와 문의처 */
+const DK_NEXT=[['2027. 7.','상반기 점검','1학기 기초 문해력 진단 결과'],['2027. 12.','연간 성과 보고','성과지표 4종 현재값'],['2028. 2.','차년도 계획','과제 조정안과 예산']];
+const DK_CONTACT=[['담당 부서','○○교육청 교육과정과'],['담당','○○○ 장학사 · ○○○ 주무관'],['전화','0○○-○○○-○○○○'],['전자우편','○○○○@○○○.go.kr']];
+(function(){
+  const root=document.querySelector('.dk-end'); dkCommon(root);
+  root.querySelector('.dk-end-next').innerHTML=DK_NEXT.map(r=>`<li><b>${r[0]}</b>${r[1]}<span>${r[2]}</span></li>`).join('');
+  root.querySelector('.dk-end-rows').innerHTML=DK_CONTACT.map(c=>`<div><dt>${c[0]}</dt><dd>${c[1]}</dd></div>`).join('');
+})();
+</script>
+
+<script>
+/* 페이지: 장표 원본을 화면에 넣고, 같은 원본으로 코드 칸을 만든다 */
+(function(){
+  const $=id=>document.getElementById(id), T=id=>$(id).textContent.trim();
+  const run=code=>{const s=document.createElement('script');s.textContent=code;document.body.appendChild(s);};
+  [['toc','mount-toc'],['div','mount-div'],['end','mount-end']].forEach(([k,m])=>{ $(m).innerHTML=T('src-'+k); run(T('init-'+k)); });
+
+  const ELS=[[6,'딜러의 세 더미','분류·유목화','평면','66y2jVDpPFr4e8GZ2kzvMU'],[8,'세 겹 병풍','조직·체계','재질','GCZx1CPy67A8EWvzu7KxfK'],[13,'던져 채우는 오후표','일정','평면','SerWLxavCg6tcVz91kMUJG'],[14,'상세도 호출','조직·체계','평면','BVYnUphnh6znAZ4ZeQaBwa'],[21,'세 겹의 체','흐름·절차','재질','VeTKhXvY61QEtfXcgLi6BN'],[22,'다섯 칸 다이얼','흐름·절차','평면','WeKwdAvAc3QeCh3D5bFC22'],[23,'주 경로 간트','일정','평면','4Gt3kD5ahsVZB35uRzMSdr'],[33,'쪼개지는 예산 사각형','구성비','평면','FLb4r1LqoAVHmWBugk44uh'],[34,'허브 내비게이션 업무보고','핵심 수치','평면','LaASks1GbNLmNDsAvDkQF3'],[35,'세로 스와이프 카드','핵심 수치','평면','6dbUR96MRR4MoPm5tg1dxf'],[41,'타이밍 타워 순위표','추이','평면','V7VwbpUg3F3uoyTQo8rjXE'],[43,'칸막이 벤토 상자','분류·유목화','재질','XL8mqKAT2fLoWPgGUSYyS8'],[47,'눈금 머리 과제표','표·목록','평면','H81oDuU5ZsqBDw3CBBEaVe'],[48,'세 줄 나란히 추이','추이','평면','Pi2c8RbgJEL9B3oKn5djbz'],[49,'조사 완료선 정렬 비교','비교·순위','평면','6xJeMrKJGMRSYDPZpfNAUs'],[50,'재원 지분 마리메코','구성비','평면','LovsoX736f8AasS1YounDH'],[51,'낱칸 시·군 지도','지도·분포','평면','Bzq7tLvtEZxwa5wtQekw7a'],[53,'밑줄 대조표','표·목록','평면','C21AR3G3EEr3Z3wUoNH7nJ'],[54,'기둥과 보 체계도','비전 체계도','평면','JsUkQsu9RNVPsuws4bjpL2'],[55,'원인 꽂힌 화살표','현안→해결방안','평면','UCfqhF9y9bS8uCSRndujzc'],[56,'나비매듭 배경·목적','배경·목적','평면','BNPfUTfDED6A4XAwewaASt'],[57,'예산 각도 동심원 체계도','비전 체계도','평면','53fJKKYbxWhXzsmJgtSL4X'],[61,'주 담당 대응표','현안→해결방안','평면','9ET3Pk5jqbd7prPxwL3eTt']];
+  $('els').innerHTML=ELS.map(e=>`<li><span class="no">#${e[0]}</span><a href="https://claude.ai/artifact/${e[4]}" target="_blank" rel="noopener">${e[1]}</a><span class="it">${e[2]}</span><span class="tx">${e[3]}</span></li>`).join('');
+
+  const FONT='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">';
+  const SC='<'+'/script>', ST='<'+'/style>';
+  const snip=k=>['<meta charset="utf-8">',FONT,'<style>',T('dk-tokens'),'',T('dk-css'),ST,T('src-'+k),'<script>',T('dk-js'),'',T('init-'+k),SC].join('\n');
+  const codes={toc:snip('toc'),div:snip('div'),end:snip('end'),tok:T('dk-tokens').replace(':root, .dk-slide{',':root{')};
+  Object.keys(codes).forEach(k=>{ $('code-'+k).querySelector('code').textContent=codes[k]; });
+  document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.k, pre=$('code-'+k);
+    const done=()=>{b.textContent='복사됨';setTimeout(()=>b.textContent='코드 복사',1600);};
+    const fb=()=>{const r=document.createRange();r.selectNodeContents(pre);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent='선택됨 · Ctrl+C';};
+    try{navigator.clipboard.writeText(codes[k]).then(done,fb);}catch(e){fb();}
+  }));
+  document.querySelectorAll('.secbtns button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.secbtns button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    dkShowSection(+b.dataset.i);
+  }));
+})();
+</script>
+
+</body></html>
