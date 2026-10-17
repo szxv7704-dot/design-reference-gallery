@@ -40,7 +40,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--soft)}
 .type{font-weight:700;padding:2px 8px;border-radius:999px;color:#fff}
-.type.exp{background:var(--exp)} .type.prac{background:var(--prac)} .type.kit{background:#3F6B4E}
+.type.exp{background:var(--exp)} .type.prac{background:var(--prac)} .type.kit{background:#3F6B4E} .type.print{background:#1A1A1A}
 .tag{background:var(--chip);padding:2px 8px;border-radius:999px}
 .card h2{font-size:17px;line-height:1.35;margin:0;font-weight:700}
 .topic{font-size:13px;color:var(--soft);margin:0}
@@ -73,7 +73,7 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 <div class="wrap">
   <header>
     <h1>발표자료 디자인 레퍼런스</h1>
-    <p>계획안 발표(PPT·HTML)를 위한 레퍼런스입니다. <b>표지</b>(실험형)는 덱의 분위기를 정하는 첫 장이고, 분위기에 따라 <b>계열</b> A~G로 묶었습니다. <b>요소</b>(실무형)는 표지 뒤에 오는 본문 장표이고, <b>정보 유형</b>(추이·비교·구성비 등)으로 찾습니다. 계열을 고르면 그 계열의 표지와 함께 어울리는 요소가 나옵니다. 카드를 누르면 원본 페이지(설계 메모·코드·PPT 이식법 포함)가 열립니다.</p>
+    <p>계획안 발표(PPT·HTML)를 위한 레퍼런스입니다. <b>표지</b>(실험형)는 덱의 분위기를 정하는 첫 장이고, 분위기에 따라 <b>계열</b> A~G로 묶었습니다. <b>요소</b>(실무형)는 표지 뒤에 오는 본문 장표이고, <b>정보 유형</b>(추이·비교·구성비 등)으로 찾습니다. <b>포스터·팜플렛</b>은 인쇄물 시안을 고친 점·인쇄 체크·다시 뽑는 프롬프트와 함께 모았습니다. 계열을 고르면 그 계열의 표지와 함께 어울리는 요소가 나옵니다. 카드를 누르면 원본 페이지(설계 메모·코드·PPT 이식법 포함)가 열립니다.</p>
     <div class="stats" id="stats"></div>
   </header>
 
@@ -83,6 +83,7 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
       <button type="button" data-t="실험형" aria-pressed="false">표지</button>
       <button type="button" data-t="계열키트" aria-pressed="false">계열 키트</button>
       <button type="button" data-t="실무형" aria-pressed="false">요소</button>
+      <button type="button" data-t="인쇄물" aria-pressed="false">포스터·팜플렛</button>
     </div>
     <select id="topic" aria-label="주제"><option value="">모든 주제</option></select>
     <input id="q" type="search" placeholder="검색: 제목, 구조, 패턴, 스타일…" aria-label="검색">
@@ -114,27 +115,28 @@ const secOf = r => r.section || '';
 const famLabel = k => k ? `${k} ${FAMILIES[k] || ''}` : '';
 // 계열 필터: 그 계열의 표지 + 그 계열과 어울리는 요소(덱 제외 요소는 빼고)
 const inFam = r => r.type === '실무형' ? (r.families || []).includes(fam) && r.deck_ok !== false : r.family === fam;
-const KIND = {'실험형': '표지', '계열키트': '계열 키트', '실무형': '요소'};
-const ORDER = {'실험형': 0, '계열키트': 1, '실무형': 2};
+const KIND = {'실험형': '표지', '계열키트': '계열 키트', '실무형': '요소', '인쇄물': '포스터·팜플렛'};
+const ORDER = {'실험형': 0, '계열키트': 1, '실무형': 2, '인쇄물': 3};
 
 function render(){
   const topic = $('#topic').value, q = $('#q').value.trim().toLowerCase();
   const rows = all.filter(r =>
     (!type || r.type === type) && (!topic || r.topic === topic) && (!sec || secOf(r) === sec) &&
     (!fam || inFam(r)) && (!info || r.info_type === info) && (!mod || (r.modules || []).includes(mod)) &&
-    (!q || [r.title, secOf(r), famLabel(r.family), r.info_type, (r.modules || []).join(' '), r.texture, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)))
+    (!q || [r.title, r.format, secOf(r), famLabel(r.family), r.info_type, (r.modules || []).join(' '), r.texture, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)))
     .sort((a, b) => fam ? (ORDER[a.type] ?? 3) - (ORDER[b.type] ?? 3) || b.no - a.no : b.no - a.no);
   $('#grid').innerHTML = rows.length ? rows.map(r => `
     <a class="card" href="${esc(r.file)}${r.v ? '?v=' + esc(r.v) : ''}" target="_blank" rel="noopener">
       <img class="thumb" src="${esc(r.thumb)}${r.v ? '?v=' + esc(r.v) : ''}" alt="" loading="lazy">
       <div class="body">
         <div class="meta">
-          <span class="type ${r.type === '실험형' ? 'exp' : r.type === '계열키트' ? 'kit' : 'prac'}">${esc(KIND[r.type] || r.type)}</span>
+          <span class="type ${r.type === '실험형' ? 'exp' : r.type === '계열키트' ? 'kit' : r.type === '인쇄물' ? 'print' : 'prac'}">${esc(KIND[r.type] || r.type)}</span>
           ${r.family ? `<span class="tag fam">${esc(famLabel(r.family))}</span>` : ''}
           ${r.info_type ? `<span class="tag info">${esc(r.info_type)}</span>` : ''}
           ${(r.modules || []).map(m => `<span class="tag mod">${esc(m)}</span>`).join('')}
           ${r.texture ? `<span class="tag">${esc(r.texture)}</span>` : ''}
           ${r.deck_ok === false ? '<span class="tag no">덱 제외</span>' : ''}
+          ${r.format ? `<span class="tag">${esc(r.format)}</span>` : ''}
           ${r.section ? `<span class="tag">${esc(r.section)}</span>` : ''}
           ${r.structure ? `<span class="tag">${esc(r.structure)}</span>` : ''}
           ${r.pattern ? `<span class="tag">${esc(r.pattern)}</span>` : ''}
@@ -154,7 +156,7 @@ function render(){
 fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
   all = d.sort((a, b) => b.no - a.no);
   const n = t => all.filter(r => r.type === t).length;
-  $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${n('실험형')}</b>표지</span><span><b>${n('계열키트')}</b>계열 키트</span><span><b>${n('실무형')}</b>요소</span>`;
+  $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${n('실험형')}</b>표지</span><span><b>${n('계열키트')}</b>계열 키트</span><span><b>${n('실무형')}</b>요소</span><span><b>${n('인쇄물')}</b>포스터·팜플렛</span>`;
   const chip = (box, key, val, label, cnt) => $(box).insertAdjacentHTML('beforeend',
     `<button type="button" data-${key}="${esc(val)}" aria-pressed="${val === ''}"${cnt === 0 ? ' disabled' : ''}>${esc(label)}<em>${cnt}</em></button>`);
   chip('#fam', 'f', '', '전체', all.length);
