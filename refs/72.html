@@ -1,0 +1,479 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #72 확대 지시선 배경·목적</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800;900&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+KR:wght@700;800;900&family=Saira+Semi+Condensed:wght@600;700&display=swap">
+<style>
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.05}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .b{border-bottom:2px solid var(--pg-l3)}.raw .b::after{color:var(--pg-l3)}
+.raw .m{border-bottom:4px double var(--pg-l2)}.raw .m::after{color:var(--pg-l2)}
+.raw .k{border-bottom:2px dashed var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .kb{border-bottom:2px solid var(--pg-l3)}.key .km{border-bottom:4px double var(--pg-l2)}.key .kk{border-bottom:2px dashed var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .nm{border-color:var(--pg-l2);border-width:2px}
+.grp .nk{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:14px 0 8px}
+.grp-h:first-of-type{margin-top:0}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame .ps72{min-width:880px}.stage-hint{display:block}
+}
+</style>
+
+<!-- ===== 장표 CSS (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<style id="ps72-css">
+/* 배경·목적 '확대 지시선' — 접두어 ps72 / 색은 --ds-* 변수로만 */
+.ps72{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps72 *{box-sizing:border-box}
+.ps72-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps72-a{position:absolute}
+/* 머리말 띠 y40~88 */
+.ps72-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps72-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps72-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps72-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+/* 제목 y108~ : 결론 한 문장(2줄 이내), 강조 단어 하나 */
+.ps72-tt{left:calc(var(--u)*80);top:calc(var(--u)*106);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*38);line-height:1.24;letter-spacing:-.01em;color:var(--ds-ink)}
+.ps72-tt em{font-style:normal;color:var(--ds-accent)}
+/* 열 머리: 왜(좁혀 가며) / 무엇을 */
+.ps72-ch{top:calc(var(--u)*220);height:calc(var(--u)*30);font-size:calc(var(--u)*14);font-weight:600;color:var(--ds-sub);border-bottom:calc(var(--u)*1.5) solid var(--ds-c1);white-space:nowrap}
+.ps72-ch b{color:var(--ds-c1);font-weight:700;font-family:var(--ds-font-title);font-size:calc(var(--u)*16);margin-right:calc(var(--u)*8)}
+/* 확대 지시선(투사 면)과 왜→무엇을 화살표 */
+.ps72-svg{left:0;top:0;width:100%;height:100%;overflow:visible}
+.ps72-beam{fill:var(--ds-c5)}
+.ps72-beamln{fill:none;stroke:var(--ds-c3);stroke-width:1.2;stroke-dasharray:4 4}
+.ps72-arw{fill:none;stroke:var(--ds-c2);stroke-width:1.8}
+.ps72-tip{fill:var(--ds-c2)}
+.ps72-zl{font-size:calc(var(--u)*14);color:var(--ds-c1);font-weight:600;white-space:nowrap;display:flex;align-items:center;justify-content:flex-end;gap:calc(var(--u)*6)}
+.ps72-zl i{font-style:normal;font-family:var(--ds-font-num);color:var(--ds-c3)}
+/* 배경 층: 범위 칸 | 한 줄 해석 | 같은 자 막대 */
+.ps72-layer{background:var(--ds-surface);border:calc(var(--u)*1.5) solid var(--ds-c4);border-radius:var(--ds-radius);display:grid;grid-template-columns:calc(var(--u)*150) calc(var(--u)*318) 1fr;overflow:hidden}
+.ps72-scope{background:var(--ds-c5);padding:calc(var(--u)*16) calc(var(--u)*16);display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*4);border-right:calc(var(--u)*1.5) solid var(--ds-c4)}
+.ps72-scope i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*14);color:var(--ds-c3)}
+.ps72-scope b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*22);line-height:1.15;color:var(--ds-c1)}
+.ps72-scope small{font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.ps72-say{padding:calc(var(--u)*16) calc(var(--u)*18) calc(var(--u)*14) calc(var(--u)*20);display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*6)}
+.ps72-say b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);line-height:1.28;color:var(--ds-c1)}
+.ps72-say span{font-size:calc(var(--u)*14.5);line-height:1.42;color:var(--ds-ink)}
+.ps72-say span i,.ps72-fig i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c1)}
+.ps72-data{padding:calc(var(--u)*8) calc(var(--u)*20) calc(var(--u)*6) calc(var(--u)*4);display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*2)}
+.ps72-cap{font-size:calc(var(--u)*12.5);color:var(--ds-sub);padding-left:calc(var(--u)*8)}
+/* 막대 한 줄: 길이 = 값 ÷ max (0 시작 선형). 확대 원점 줄은 점선 테두리 */
+.ps72-row{display:grid;grid-template-columns:calc(var(--u)*86) calc(var(--u)*224) auto;justify-content:start;align-items:center;column-gap:calc(var(--u)*12);padding:calc(var(--u)*1.5) calc(var(--u)*8);border:calc(var(--u)*1.5) solid transparent;border-radius:calc(var(--u)*3)}
+.ps72-row.is-zoom{border-color:var(--ds-c2);border-style:dashed}
+.ps72-bl{font-size:calc(var(--u)*13.5);color:var(--ds-sub);white-space:nowrap}
+.ps72-tr{position:relative;height:calc(var(--u)*15);border-left:calc(var(--u)*1.5) solid var(--ds-ink);border-right:calc(var(--u)*1) solid var(--ds-c4);background:repeating-linear-gradient(90deg,transparent 0 calc(var(--u)*55),var(--ds-line) calc(var(--u)*55) calc(var(--u)*56))}
+.ps72-bar{position:absolute;left:0;top:0;bottom:0}
+.ps72-k1{background:var(--ds-c1)}.ps72-k2{background:var(--ds-c2)}.ps72-k3{background:var(--ds-c3)}.ps72-k4{background:var(--ds-c4)}
+.ps72-v{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);color:var(--ds-c1);white-space:nowrap}
+.ps72-v small{font-size:.8em;font-weight:500;color:var(--ds-sub);margin-left:calc(var(--u)*4)}
+.ps72-sc{display:grid;grid-template-columns:calc(var(--u)*86) calc(var(--u)*224);column-gap:calc(var(--u)*10);padding:0 calc(var(--u)*9.5);font-family:var(--ds-font-num);font-size:calc(var(--u)*11);color:var(--ds-sub)}
+.ps72-sc span:last-child{display:flex;justify-content:space-between}
+/* 100% 띠(인원 나눔): 칸 너비 = 비율 */
+.ps72-split{display:flex;height:calc(var(--u)*34);margin:0 calc(var(--u)*8);border-radius:calc(var(--u)*2);overflow:hidden}
+.ps72-seg{display:flex;align-items:center;gap:calc(var(--u)*8);padding:0 calc(var(--u)*10);font-size:calc(var(--u)*13.5);white-space:nowrap}
+.ps72-seg b{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15)}
+.ps72-seg.ps72-k1{color:var(--ds-surface)}
+.ps72-seg.ps72-k4,.ps72-seg.ps72-k5{color:var(--ds-c1)}
+.ps72-k5{background:var(--ds-c5)}
+.ps72-figs{display:flex;gap:calc(var(--u)*22);padding:calc(var(--u)*6) calc(var(--u)*8) 0}
+.ps72-fig{font-size:calc(var(--u)*13);color:var(--ds-sub);white-space:nowrap}
+.ps72-fig i{font-size:calc(var(--u)*16);margin-left:calc(var(--u)*4)}
+/* 추진 목적 카드: 흰 면 + 진한 테두리 + 옅은 그림자(한 단계 위) */
+.ps72-goal{background:var(--ds-surface);border:calc(var(--u)*2) solid var(--ds-c2);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:calc(var(--u)*14) calc(var(--u)*20);display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*7)}
+.ps72-gtop{display:flex;align-items:baseline;gap:calc(var(--u)*10)}
+.ps72-gno{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*13.5);color:var(--ds-c2);white-space:nowrap}
+.ps72-gh{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*20);color:var(--ds-c1);line-height:1.2}
+.ps72-ref{margin-left:auto;font-family:var(--ds-font-num);font-size:calc(var(--u)*12.5);color:var(--ds-sub);white-space:nowrap}
+.ps72-kpi{display:grid;grid-template-columns:1fr auto auto auto;align-items:baseline;column-gap:calc(var(--u)*8);font-size:calc(var(--u)*13.5);color:var(--ds-sub);border-top:calc(var(--u)*1) solid var(--ds-line);padding-top:calc(var(--u)*5)}
+.ps72-kpi s{text-decoration:none;font-family:var(--ds-font-num);font-size:calc(var(--u)*14.5);color:var(--ds-sub);text-align:right}
+.ps72-kpi b{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*17);color:var(--ds-c1);min-width:calc(var(--u)*86);text-align:right}
+/* 총괄 목적 띠: 가장 진한 단계, 한 장에 한 곳 */
+.ps72-sum{background:var(--ds-c1);color:var(--ds-surface);border-radius:var(--ds-radius);display:flex;align-items:center;gap:calc(var(--u)*18);padding:0 calc(var(--u)*24)}
+.ps72-sum span{font-family:var(--ds-font-num);font-size:calc(var(--u)*13);font-weight:600;color:var(--ds-c4);white-space:nowrap;padding-right:calc(var(--u)*18);border-right:calc(var(--u)*1) solid var(--ds-c3)}
+.ps72-sum b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*20)}
+/* 바닥 줄 y846~ */
+.ps72-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*842);padding-top:calc(var(--u)*10);border-top:calc(var(--u)*1) solid var(--ds-line);display:flex;justify-content:space-between;font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.ps72-ft b{font-family:var(--ds-font-num);font-weight:600;color:var(--ds-ink)}
+/* 순차 등장(PPT 나타내기 수준, 1.5초 이내 한 번): 넓은 층 → 좁은 층 → 목적 → 총괄 */
+.ps72.is-play [data-d]{animation:ps72In .4s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d) * 1ms)}
+@keyframes ps72In{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.ps72.is-play [data-d]{animation:none}}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 72 · 실무형 요소 · 배경·목적 · 가상 예시</div>
+    <h1>확대 지시선 배경·목적</h1>
+    <p class="pg-lead">추진 배경을 전국 → 우리 교육청 → 학교 현장 순서로 세 층에 쌓고, 위 층의 한 줄(점선 테두리)이 아래 층 전체로 펼쳐지는 확대 지시선으로 잇습니다. 층마다 같은 줄에 그 층이 낳은 추진 목적이 놓여, 어느 배경이 어느 목적을 부르는지 줄 높이로 읽힙니다.</p>
+  </header>
+
+  <!-- 1) 장표 + 계열 미리보기 -->
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame">
+      <div class="ps72" id="ps72" role="img" aria-label="학생 마음건강 지원 강화 계획의 추진 배경 세 층(전국, ○○교육청, 학교 현장)과 각 층에 대응하는 추진 목적 세 가지, 총괄 목적"></div>
+    </div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기">
+      <span>계열 값 바꿔 보기</span>
+      <button class="btn" type="button" id="fam-n" data-fam="N" aria-pressed="true">중립(기본)</button>
+      <button class="btn" type="button" id="fam-b" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+      <button class="btn" type="button" id="fam-d" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+      <button class="btn" type="button" id="fam-f" data-fam="F" aria-pressed="false">F 관측·중계</button>
+      <button class="btn btn-replay" type="button" id="replay">다시 보기</button>
+    </div>
+  </section>
+
+  <!-- 1-1) 원문 → 유목화 -->
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅰ장 줄글, 가상)</h3>
+        <p class="raw">최근 학생들의 정서·행동 문제가 늘어 학교 현장의 부담이 커지고 있다. <mark class="b" data-n="①">2025년 학생정서·행동특성검사 결과 전국 관심군 비율은 4.8%로, 2023년(4.1%)·2024년(4.5%)에 이어 3년 연속 증가하였다.</mark> 또한 <mark class="b" data-n="①">2026년 3월 「학생맞춤통합지원법」이 시행되어 학교마다 위기 학생을 함께 지원하는 통합지원 체계를 갖추어야 한다.</mark> <mark class="b" data-n="②">우리 교육청의 관심군 비율은 5.6%(검사 학생 175,000명 중 9,800명)로 전국보다 0.8%p 높으며</mark>, <mark class="b" data-n="②">특히 중학교 1학년이 7.1%로 가장 높았다.</mark> 그러나 <mark class="b" data-n="③">관심군 학생 중 전문기관 연계까지 이어진 학생은 4,020명(41%)에 그쳤고</mark>, <mark class="b" data-n="③">관심군으로 확인된 뒤 첫 상담까지 평균 19일이 걸렸다.</mark> <mark class="b" data-n="③">Wee 클래스 전문상담인력 배치율은 68%로, 상담인력 1인당 학생 수가 1,140명에 이른다.</mark> 현재 통합지원팀을 꾸린 학교는 32%, 중학교 1학년 2차 심층선별을 하는 학교는 45%이다. 이에 본 계획은 <mark class="m" data-n="목적1">학교마다 통합지원팀을 구성하고 전문상담인력 배치율을 85%까지 높이며</mark>, <mark class="m" data-n="목적2">중학교 1학년 2차 심층선별을 모든 학교로 넓혀 첫 상담까지의 기간을 7일 이내로 줄이고</mark>, <mark class="m" data-n="목적3">전문기관 연계율을 70%로 높여</mark> <mark class="k" data-n="총괄">위기 징후를 일찍 찾고 회복까지 끊기지 않게 잇는 학교 단위 마음건강 안전망을 만드는 것</mark>을 목적으로 한다.</p>
+        <div class="key"><span><i class="kb"></i>배경(층 번호)</span><span><i class="km"></i>세부 목적</span><span><i class="kk"></i>총괄 목적</span><span>위첨자 = 장표의 묶음 번호</span></div>
+      </div>
+      <div class="panel">
+        <h3 style="margin-top:0">묶은 방법</h3>
+        <div class="grp-h">왜 · 추진 배경 (범위 순서로 세 층)</div>
+        <ul class="grp">
+          <li><span class="n">①</span><div><b>전국 · 정책</b><em>관심군 4.1 → 4.5 → 4.8%(3년 연속↑), 「학생맞춤통합지원법」 시행(2026. 3.)</em></div></li>
+          <li><span class="n">②</span><div><b>○○교육청</b><em>관심군 5.6%(9,800명), 전국 +0.8%p, 중1 7.1%로 최고</em></div></li>
+          <li><span class="n">③</span><div><b>학교 현장 지원</b><em>연계 41%(4,020명)에서 멈춤, 첫 상담까지 19일, 상담인력 배치율 68%·1인당 1,140명</em></div></li>
+        </ul>
+        <div class="grp-h">무엇을 · 추진 목적 (층과 같은 줄)</div>
+        <ul class="grp">
+          <li><span class="n nm">목적1</span><div><b>학교마다 통합지원팀을 둔다</b><em>구성 학교 32% → 100%, 배치율 68% → 85% · 근거 ①③</em></div></li>
+          <li><span class="n nm">목적2</span><div><b>중1부터 먼저, 빨리 찾는다</b><em>중1 2차 심층선별 45% → 100%, 첫 상담 19일 → 7일 이내 · 근거 ②③</em></div></li>
+          <li><span class="n nm">목적3</span><div><b>회복까지 끊기지 않게 잇는다</b><em>연계율 41% → 70%(4,020 → 6,860명) · 근거 ③</em></div></li>
+          <li><span class="n nk">총괄</span><div><b>학교 단위 마음건강 안전망</b><em>원문 마지막 "~을 목적으로 한다" 앞의 명사구를 맨 아래 띠로</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">묶는 기준</span><span>배경 문장의 <b>주어 범위</b>로 나눈다. "전국", "법"은 ①, "우리 교육청"은 ②, 학교에서 실제로 받은 지원(연계·상담·인력)은 ③.</span></div>
+          <div><span class="k">층 → 층</span><span>위 층의 한 값이 아래 층의 출발점이다. ①의 2025년 4.8%가 ②의 첫 줄(전국 4.8%)로, ②의 ○○ 관심군 9,800명이 ③의 100% 띠 전체로 펼쳐진다. 이 줄에 점선 테두리를 두르고 확대 지시선을 내린다.</span></div>
+          <div><span class="k">층 → 목적</span><span>"이에 본 계획은" 뒤의 동사구 셋을 층마다 하나씩 짝지어 같은 줄에 둔다. 원문의 현재값·목표값은 목적 카드에 "현재 → 목표"로 옮긴다.</span></div>
+          <div><span class="k">목적 ↔ 배경</span><span>목적이 기대는 층이 여럿이면 근거 번호로 남긴다(목적1 = ①③). 원문의 현재값(32%·45%)처럼 배경에 없던 숫자는 목적 카드에만 둔다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) 구조 설명 -->
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>왼쪽은 "왜"(추진 배경)를 범위가 넓은 것부터 좁은 것으로 세 층 쌓았고, 오른쪽은 각 층과 같은 줄에 "무엇을"(세부 목적)을 두었다. 맨 아래 가장 진한 띠가 총괄 목적이다. 색은 남색 한 색의 농담으로 배경 층(옅은 테두리) → 목적 카드(진한 테두리·옅은 그림자) → 총괄 띠(가장 진한 면) 순으로 위계를 준다.</p>
+    <p><b>가져갈 장치 1: 확대 지시선.</b> 위 층의 한 줄(점선 테두리)에서 옅은 투사 면이 아래 층 전체 너비로 벌어진다. "전국 4.8% 가운데 우리 교육청은", "그 9,800명은 지원을 받았나"처럼 발표자가 범위를 좁혀 가는 말을 그림이 대신한다. 흔한 배경 장표의 나열식 카드 세 장과 달리, 세 층이 한 이야기로 이어진다.</p>
+    <p><b>가져갈 장치 2: 같은 자 이어 쓰기.</b> ①과 ②의 막대는 같은 0~8% 눈금, 같은 길이 단위다. ①의 2025년 막대와 ②의 전국 막대가 정확히 같은 길이여서, 확대 지시선을 따라 내려가면 "같은 막대에서 우리 교육청이 얼마나 더 긴가"를 눈금 없이 비교할 수 있다. ③의 100% 띠는 ②의 9,800명 전체를 칸 너비 = 인원 비율로 나눈다.</p>
+    <p><b>가져갈 장치 3: 줄 높이로 짝짓기.</b> 목적 카드를 층과 같은 높이에 두어, 선을 엇갈려 긋지 않고도 배경-목적 짝이 읽힌다. 다른 층에도 기대는 목적만 근거 번호를 붙인다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>학생 수 감소와 적정규모 학교: ① 전국 학령인구 추이 → ② 우리 지역 소규모 학교 비율 → ③ 복식학급 운영 학교 실태 / 목적: 통합·연계 모델, 교육과정 공동 운영, 통학 지원</li>
+      <li>늘봄학교 확대: ① 국가 늘봄 정책·참여율 → ② 우리 교육청 신청 대비 수용률 → ③ 학교 공간·인력 부족 / 목적: 전용 공간, 실무인력 배치, 지역 프로그램 연계</li>
+      <li>디지털 교육 기반: ① 국가 디지털 전환 정책 → ② 우리 지역 기기 보급률·활용률 → ③ 수업 활용 실태 / 목적: 연수, 무선망 개선, 수업 사례 공유</li>
+    </ul>
+  </section>
+
+  <!-- 3) HTML로 가져다 쓰기 -->
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>layers</code>는 넓은 범위부터 세 층, 층마다 그림 칸은 <code>bars</code>(0 시작 선형 막대, <code>zoom:true</code> 줄이 확대 지시선의 출발점) 또는 <code>split</code>(100% 띠) 중 하나입니다. <code>goals</code>는 층과 같은 순서이고 <code>refs</code>가 근거 층 번호입니다.</li>
+      <li>계열 분위기는 <code>.ps72{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값).</li>
+      <li>제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다. 설명 속 <code>{ }</code> 안 숫자는 숫자 글꼴로 바뀝니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <!-- 4) PPT로 옮기기 -->
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>뼈대</b>: 슬라이드 33.867×19.05cm 기준(1cm ≈ 47px). 머리말 띠는 위 0.85~1.85cm에 텍스트 상자 2개(왼쪽 "Ⅰ. 추진 배경 및 목적" 14pt 굵게, 오른쪽 계획안 이름 10pt) + 아래 0.75pt 선. 제목 2.25cm 위치 27pt 굵게 2줄, "끝까지 잇는"만 강조색. 바닥 줄 17.85cm 위치 9pt.</li>
+      <li><b>배경 세 층</b>: 직사각형 19.5×2.95cm 3개를 x 1.7cm에, 세로 5.6 / 9.4 / 13.2cm에 둔다(층 사이 0.85cm). 흰 채우기 + 연한 남색 윤곽 1pt. 각 층 왼쪽 3.2cm 폭에 가장 옅은 남색 직사각형(범위 칸)을 겹치고, 그 오른쪽 6.7cm 폭 텍스트 상자에 굵은 한 줄 14pt + 설명 11pt.</li>
+      <li><b>확대 지시선</b>: [도형 → 사다리꼴]을 층 사이 0.85cm 틈에 넣는다. 윗변 = 위 층 막대 영역 폭(x 12.1~20.8cm), 아랫변 = 아래 층 전체 폭(x 1.7~21.2cm). 채우기 가장 옅은 남색, 윤곽 없음, [맨 뒤로 보내기]. 위 층의 출발 줄에는 둥근 사각형 + 1pt 중간 남색 [대시: 둥근 점선] 테두리를 두른다.</li>
+      <li><b>막대</b>: 차트 대신 직사각형(높이 0.32cm). 길이 = 값 ÷ 8 × 4.77cm(4.1% = 2.44cm, 4.5% = 2.68cm, 4.8% = 2.86cm, 5.6% = 3.34cm, 7.1% = 4.23cm). ①과 ②의 막대 시작선을 같은 세로선(x 14.3cm)에 맞추는 것이 핵심. ③의 100% 띠는 8.7cm 폭에서 41% = 3.57cm(진한 남색), 59% = 5.13cm(옅은 남색).</li>
+      <li><b>목적 카드</b>: 직사각형 9.35×2.95cm를 x 22.95cm, 각 층과 같은 세로 위치에. 중간 남색 윤곽 1.5pt + [그림자 → 바깥쪽 아래, 흐리게 10pt, 투명도 80%]. 층 오른쪽 끝(21.2cm)에서 카드 왼쪽(22.95cm)까지 [화살표 선] 1.25pt. 총괄 띠는 x 1.7~32.3cm, 16.6cm 위치에 높이 1.0cm, 가장 진한 남색, 흰 글자 14pt.</li>
+      <li><b>[애니메이션] 나타내기 → 밝기 변화</b>(각 0.4초): 층 ①(클릭할 때) → 지시선·층 ②(이전 효과 다음, 지연 0.1초) → 지시선·층 ③(이전 효과 다음, 0.1초) → 목적 카드 3개(이전 효과와 함께, 0.1초씩 지연) → 총괄 띠(이전 효과 다음). 전체 1.5초 안쪽.</li>
+    </ol>
+  </section>
+
+  <!-- 5) 스펙 -->
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목·머리말·층 이름) · IBM Plex Sans KR 400/600(본문) · IBM Plex Mono 500/600(번호·수치) / 대체: 프리텐다드·맑은 고딕·Consolas</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(사다리꼴 지시선 배치, 같은 단위 막대 길이 계산)</div>
+      <div><b>질감 · 모션</b>평면(목적 카드에만 옅은 그림자) · 층 단위 순차 등장 1.4초 한 번</div>
+      <div><b>모듈 · 위치</b>깔때기(범위 좁히기) + 막대 + 수치 타일 · Ⅰ 추진 배경(현황)</div>
+      <div><b>트렌드</b>맥락을 먼저 세우고 장표마다 인사이트 하나로 좁혀 가는 데이터 스토리텔링 — <a href="https://chatslide.ai/articles/data-storytelling-slide-design-trends" target="_blank" rel="noopener">ChatSlide, Data Storytelling Slide Design Trends</a>, 주석이 이야기를 이끄는 차트 — <a href="https://slidesgo.com/slidesgo-school/ai-presentations/presentation-design-trends-2026" target="_blank" rel="noopener">Slidesgo, Presentation Design Trends 2026</a>. 여기서는 "넓은 맥락 → 우리 현장"으로 좁히는 길을 확대 지시선으로 그렸다.</div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== 장표 스크립트 (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<script id="ps72-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅰ', sectionName: '추진 배경 및 목적',
+    plan: '2027 ○○교육청 학생 마음건강 지원 강화 계획',
+    title: '관심군은 전국보다 많은데 지원은 연계 전에 멈춰, 위기 학생을 [끝까지 잇는] 체계로 바꿉니다',
+    heads: { why: '왜', whySub: '추진 배경 · 넓은 범위에서 우리 학교까지', what: '무엇을', whatSub: '추진 목적 · 현재 → 2027년 목표' },
+    // 추진 배경 세 층(넓은 범위 → 좁은 범위). zoom:true 줄이 다음 층으로 펼쳐지는 출발점
+    layers: [
+      { no: '①', scope: '전국', scopeSub: '통계 · 정책',
+        head: '관심군이 3년째 늘고, 법이 학교 단위 지원을 요구',
+        line: '「학생맞춤통합지원법」 시행(2026. 3.)으로 학교마다 통합지원 체계를 갖춰야 함',
+        bars: { cap: '정서·행동특성검사 관심군 비율(전국)', max: 8, unit: '%', rows: [ ['2023', 4.1, 4], ['2024', 4.5, 4], ['2025', 4.8, 3, true] ] } },
+      { no: '②', scope: '○○교육청', scopeSub: '2025 검사 결과',
+        head: '전국보다 0.8%p 높고, 중학교 1학년에서 가장 높다',
+        line: '검사 학생 {175,000명} 중 관심군 {9,800명}',
+        bars: { cap: '관심군 비율 — ①과 같은 눈금', max: 8, unit: '%', rows: [ ['전국', 4.8, 3], ['○○ 전체', 5.6, 2, true, '9,800명'], ['○○ 중1', 7.1, 1] ] } },
+      { no: '③', scope: '학교 현장', scopeSub: '지원 실태',
+        head: '발견된 학생의 59%가 전문기관 연계 전에 멈춘다',
+        line: '관심군 확인 뒤 첫 상담까지 평균 {19일}',
+        split: { cap: '○○ 관심군 9,800명 = 100%', segs: [ ['연계', 41, '4,020명', 1], ['연계 전 멈춤', 59, '5,780명', 4] ] },
+        figs: [ ['상담인력 배치율', '68%'], ['상담인력 1인당 학생', '1,140명'] ] }
+    ],
+    // 추진 목적: 층과 같은 순서(같은 줄). refs = 근거 층
+    goals: [
+      { no: '목적 1', head: '학교마다 통합지원팀을 둔다', refs: '①③',
+        kpi: [ ['통합지원팀 구성 학교', '32%', '100%'], ['전문상담인력 배치율', '68%', '85%'] ] },
+      { no: '목적 2', head: '중1부터 먼저, 빨리 찾는다', refs: '②③',
+        kpi: [ ['중1 2차 심층선별 학교', '45%', '100%'], ['확인 → 첫 상담', '19일', '7일 이내'] ] },
+      { no: '목적 3', head: '회복까지 끊기지 않게 잇는다', refs: '③',
+        kpi: [ ['전문기관 연계율', '41%', '70%'], ['연계 학생 수', '4,020명', '6,860명'] ] }
+    ],
+    summary: { label: '총괄 목적', text: '위기 징후를 일찍 찾고 회복까지 끊기지 않게 잇는 학교 단위 마음건강 안전망' },
+    zoomLabels: [ '이 중 우리 교육청은', '그 9,800명은 지원을 받았나' ],
+    source: '가상 예시 · 출처: ○○교육청 학생정서·행동특성검사 결과(2025), Wee 클래스 운영 현황(2026. 4.)',
+    page: 4
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var L = { x: 80, w: 920, top: 264, h: 140, gap: 40 };  // 배경 층
+  var G = { x: 1080, w: 440 };                            // 목적 카드
+  var DATA_X = 80 + 150 + 318;                            // 막대 칸 왼쪽 끝(확대 지시선 윗변)
+  var SUM = { y: 778, h: 50 };                            // 총괄 띠
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + (h != null ? ';height:' + u(h) : ''); };
+  var el = function(cls, style, html, d){ return '<div class="ps72-a ' + cls + '" style="' + style + (d != null ? ';--d:' + d : '') + '"' + (d != null ? ' data-d' : '') + '>' + html + '</div>'; };
+  var fig = function(s){ return esc(s).replace(/\{(.+?)\}/g, '<i>$1</i>'); };
+  var ly = function(i){ return L.top + i * (L.h + L.gap); };
+
+  // 막대: 길이 = 값 ÷ max × 100%(0 시작 선형). 눈금 간격 56 = 2%
+  function bars(b){
+    var g = '<div class="ps72-cap">' + esc(b.cap) + '</div>';
+    b.rows.forEach(function(r){
+      g += '<div class="ps72-row' + (r[3] ? ' is-zoom' : '') + '"><span class="ps72-bl">' + esc(r[0]) + '</span>' +
+           '<span class="ps72-tr"><span class="ps72-bar ps72-k' + r[2] + '" style="width:' + (r[1] / b.max * 100) + '%"></span></span>' +
+           '<span class="ps72-v">' + r[1].toFixed(1) + esc(b.unit) + (r[4] ? '<small>' + esc(r[4]) + '</small>' : '') + '</span></div>';
+    });
+    g += '<div class="ps72-sc"><span></span><span><span>0</span><span>' + b.max + esc(b.unit) + '</span></span></div>';
+    return g;
+  }
+  // 100% 띠: 칸 너비 = 비율
+  function split(s, figs){
+    var g = '<div class="ps72-cap">' + esc(s.cap) + '</div><div class="ps72-split">';
+    s.segs.forEach(function(x){ g += '<div class="ps72-seg ps72-k' + x[3] + '" style="width:' + x[1] + '%"><b>' + x[1] + '%</b>' + esc(x[0]) + ' ' + esc(x[2]) + '</div>'; });
+    g += '</div>';
+    if (figs) g += '<div class="ps72-figs">' + figs.map(function(f){ return '<span class="ps72-fig">' + esc(f[0]) + '<i>' + esc(f[1]) + '</i></span>'; }).join('') + '</div>';
+    return g;
+  }
+
+  function render(root){
+    var h = '';
+    // 머리말 띠 + 제목
+    h += '<div class="ps72-a ps72-hd"><div class="ps72-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps72-plan">' + esc(DATA.plan) + '</div></div>';
+    h += '<div class="ps72-a ps72-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>';
+    var H = DATA.heads;
+    h += el('ps72-ch', box(L.x, 220, L.w), '<b>' + esc(H.why) + '</b>' + esc(H.whySub));
+    h += el('ps72-ch', box(G.x, 220, G.w), '<b>' + esc(H.what) + '</b>' + esc(H.whatSub));
+
+    // 확대 지시선(층 사이 투사 면) + 왜→무엇을 화살표(SVG, 1600×900 좌표)
+    var n = DATA.layers.length, x2 = L.x + L.w;
+    DATA.layers.forEach(function(r, i){
+      if (i === n - 1) return;
+      var y1 = ly(i) + L.h, y2 = ly(i + 1);
+      var s = '<svg class="ps72-a ps72-svg" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">';
+      s += '<polygon class="ps72-beam" points="' + [DATA_X, y1, x2 - 20, y1, x2, y2, L.x, y2].join(' ') + '"/>';
+      s += '<path class="ps72-beamln" d="M' + DATA_X + ' ' + y1 + ' L' + L.x + ' ' + y2 + ' M' + (x2 - 20) + ' ' + y1 + ' L' + x2 + ' ' + y2 + '"/>';
+      s += '</svg>';
+      h += '<div data-d style="--d:' + (220 + i * 300) + '">' + s + '</div>';
+      h += el('ps72-zl', box(x2 - 360, y1 + 8, 340, 24), '<i>▾</i>' + esc(DATA.zoomLabels[i] || ''), 220 + i * 300);
+    });
+    var a = '<svg class="ps72-a ps72-svg" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">';
+    DATA.goals.forEach(function(g, i){
+      var y = ly(i) + L.h / 2;
+      a += '<path class="ps72-arw" d="M' + (x2 + 8) + ' ' + y + ' L' + (G.x - 12) + ' ' + y + '"/>';
+      a += '<polygon class="ps72-tip" points="' + [G.x - 14, y - 6, G.x - 3, y, G.x - 14, y + 6].join(' ') + '"/>';
+    });
+    a += '</svg>';
+    h += '<div data-d style="--d:820">' + a + '</div>';
+
+    // 배경 층
+    DATA.layers.forEach(function(r, i){
+      var c = '<div class="ps72-scope"><i>' + esc(r.no) + '</i><b>' + esc(r.scope) + '</b><small>' + esc(r.scopeSub) + '</small></div>';
+      c += '<div class="ps72-say"><b>' + esc(r.head) + '</b><span>' + fig(r.line) + '</span></div>';
+      c += '<div class="ps72-data">' + (r.bars ? bars(r.bars) : split(r.split, r.figs)) + '</div>';
+      h += el('ps72-layer', box(L.x, ly(i), L.w, L.h), c, i * 300);
+    });
+    // 추진 목적 카드(층과 같은 줄)
+    DATA.goals.forEach(function(g, i){
+      var c = '<div class="ps72-gtop"><span class="ps72-gno">' + esc(g.no) + '</span><span class="ps72-gh">' + esc(g.head) + '</span><span class="ps72-ref">근거 ' + esc(g.refs) + '</span></div>';
+      g.kpi.forEach(function(k){ c += '<div class="ps72-kpi"><span>' + esc(k[0]) + '</span><s>' + esc(k[1]) + '</s><span>→</span><b>' + esc(k[2]) + '</b></div>'; });
+      h += el('ps72-goal', box(G.x, ly(i), G.w, L.h), c, 860 + i * 100);
+    });
+    // 총괄 목적 띠
+    h += el('ps72-sum', box(L.x, SUM.y, 1440, SUM.h), '<span>' + esc(DATA.summary.label) + '</span><b>' + esc(DATA.summary.text) + '</b>', 1060);
+    // 바닥 줄
+    h += '<div class="ps72-a ps72-ft"><span>' + esc(DATA.source) + '</span><b>' + esc(DATA.page) + '</b></div>';
+    root.innerHTML = '<div class="ps72-in">' + h + '</div>';
+  }
+  function play(root){ root.classList.remove('is-play'); void root.offsetWidth; root.classList.add('is-play'); }
+
+  var root = document.getElementById('ps72');
+  if (root){ render(root); play(root); window.ps72Play = function(){ play(root); }; }
+})();
+</script>
+
+<script>
+(function(){
+  var slide = document.getElementById('ps72');
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  // 계열 값: DB의 계열 키트 tokens(B #46, D #62, F #52)와 각 계열 표지 palette·fonts에서 가져옴. c5는 투사 면이 보이도록 키트 값 그대로
+  var SANS = '"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+  var GOTH = '"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+  var MONO = '"IBM Plex Mono","SFMono-Regular",Consolas,monospace';
+  var SERIF = '"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif';
+  var FAM = {
+    N: { name:'중립(기본)', fonts:'Gothic A1 / IBM Plex Sans KR / IBM Plex Mono', v:{'--ds-bg':'#F5F7FA','--ds-surface':'#FFFFFF','--ds-ink':'#18233D','--ds-sub':'#5B6579','--ds-line':'#D5DBE4','--ds-accent':'#D2502A','--ds-accent2':'#2E5C8F','--ds-c1':'#1B2E57','--ds-c2':'#2D4D85','--ds-c3':'#5474AB','--ds-c4':'#A8BCDA','--ds-c5':'#E1E8F2','--ds-font-title':GOTH,'--ds-font-body':SANS,'--ds-font-num':MONO,'--ds-radius':'4px','--ds-shadow':'0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)'} },
+    B: { name:'B 미니멀 스튜디오', fonts:'Gothic A1 / IBM Plex Sans KR / IBM Plex Mono', v:{'--ds-bg':'#EEF1F4','--ds-surface':'#FAFAF8','--ds-ink':'#1F2B36','--ds-sub':'#5E6974','--ds-line':'#CDD4DB','--ds-accent':'#E2571A','--ds-accent2':'#2F5D86','--ds-c1':'#2F4252','--ds-c2':'#4F6679','--ds-c3':'#7389A0','--ds-c4':'#9DB0C1','--ds-c5':'#DCE3E9','--ds-font-title':GOTH,'--ds-font-body':SANS,'--ds-font-num':MONO,'--ds-radius':'2px','--ds-shadow':'0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)'} },
+    D: { name:'D 인쇄·종이', fonts:'Noto Serif KR / IBM Plex Sans KR / Noto Serif KR', v:{'--ds-bg':'#FBFAF6','--ds-surface':'#FFFFFF','--ds-ink':'#1B1E24','--ds-sub':'#5C606A','--ds-line':'#CFCCC4','--ds-accent':'#D9482B','--ds-accent2':'#23467A','--ds-c1':'#1F3E6E','--ds-c2':'#3C5D8C','--ds-c3':'#6D87AD','--ds-c4':'#A5B5CD','--ds-c5':'#E3E8F0','--ds-font-title':SERIF,'--ds-font-body':SANS,'--ds-font-num':SERIF,'--ds-radius':'0px','--ds-shadow':'0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)'} },
+    F: { name:'F 관측·중계', fonts:'Gothic A1 / Gothic A1 / Saira Semi Condensed', v:{'--ds-bg':'#F3F5F8','--ds-surface':'#FFFFFF','--ds-ink':'#12203A','--ds-sub':'#556178','--ds-line':'#D3DAE4','--ds-accent':'#E5483A','--ds-accent2':'#2F64AE','--ds-c1':'#1E3A66','--ds-c2':'#34598F','--ds-c3':'#5B7DB0','--ds-c4':'#8FA8CC','--ds-c5':'#DAE3EF','--ds-font-title':GOTH,'--ds-font-body':GOTH,'--ds-font-num':'"Saira Semi Condensed","Gothic A1","Arial Narrow","Malgun Gothic",sans-serif','--ds-radius':'3px','--ds-shadow':'0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)'} }
+  };
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === 'N') slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window.ps72Fam = apply;
+  document.getElementById('replay').addEventListener('click', function(){ if (window.ps72Play) window.ps72Play(); });
+
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">';
+  var css = document.getElementById('ps72-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps72-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n<div class="ps72" id="ps72" role="img" aria-label="추진 배경 세 층과 층별 추진 목적 장표"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+
+  // 스펙 표: 변수 × 계열
+  var F = ['N','B','D','F'];
+  var t = '<thead><tr><th>변수</th>' + F.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    F.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + F.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + F.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+
+</body></html>
