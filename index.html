@@ -127,6 +127,18 @@ const MOTIONS = ['정지', '모션', '인터랙션'];
 const DOMAINS = ['학생·교육과정', '돌봄·유아', '특수교육', '업무·행정', '시설·안전', '지역·문화'];
 const PRINT_KINDS = ['포스터', '리플렛·소책자', '소식지', '배너', '티켓·굿즈'];
 const useOf = r => r.use || (r.type === '인쇄물' ? '인쇄·홍보물' : '발표 덱');
+// 동기화가 새 필드를 빠뜨려도 분류가 비지 않게: 움직임은 pattern, 분야는 topic 낱말로 채운다
+const DOMAIN_KEYS = [['특수교육', ['특수', '장애학생']], ['돌봄·유아', ['늘봄', '유보통합', '유치원', '유아', '돌봄']],
+  ['시설·안전', ['시설', '내진', '재난', '통학로', '공간', '탄소중립', '폭염', '집중호우', '도서관', '교육환경', '안전']],
+  ['업무·행정', ['연수', '예산', '업무', '온보딩', '민원', '행정', '공무원', '현장 지원']],
+  ['학생·교육과정', ['기초학력', '독서', '문해력', '마음건강', '학교폭력', '교육활동', '디지털', '교육과정', '학생', '학급', '진로']],
+  ['지역·문화', ['문화', '축제', '지역', '관광', '거리', '음악']]];
+function fill(r){
+  if (!r.motion) r.motion = r.pattern === '정지' ? '정지' : r.pattern ? '모션' : '정지';
+  if (!r.domain) { const hit = DOMAIN_KEYS.find(([, ks]) => ks.some(k => String(r.topic || '').includes(k))); r.domain = hit ? hit[0] : ''; }
+  r.no = Number(r.no);
+  return r;
+}
 // 분위기 필터: 그 분위기의 표지·키트·인쇄물 + 그 분위기와 어울리는 본문 요소(덱 제외 요소는 빼고)
 const inFam = r => r.type === '실무형' ? (r.families || []).includes(fam) && r.deck_ok !== false : r.family === fam;
 const KIND = {'실험형': '표지', '계열키트': '계열 키트', '실무형': '본문 요소', '인쇄물': '인쇄·홍보물'};
@@ -172,7 +184,7 @@ function render(){
 }
 
 fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
-  all = d.sort((a, b) => b.no - a.no);
+  all = d.map(fill).sort((a, b) => b.no - a.no);
   const n = t => all.filter(r => r.type === t).length;
   $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${all.filter(r => useOf(r) === '발표 덱').length}</b>발표 덱</span><span><b>${all.filter(r => useOf(r) === '인쇄·홍보물').length}</b>인쇄·홍보물</span><span><b>${all.filter(r => r.motion === '인터랙션').length}</b>인터랙션</span>`;
   const chip = (box, key, val, label, cnt) => $(box).insertAdjacentHTML('beforeend',
