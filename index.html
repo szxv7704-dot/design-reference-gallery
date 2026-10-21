@@ -57,6 +57,16 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .chips button[aria-pressed=true] em{color:#dbe7f5}
 .tag.mot{background:#1C1E22;color:#fff;font-weight:700} .tag.ser{background:#FFF1D6;color:#8A5A00;font-weight:700}
 .chips[hidden],.seg[hidden]{display:none}
+/* 세부 필터는 '자세히'를 눌러야 펼쳐진다. 접힌 채 걸린 필터 수는 단추에 표시 */
+.more-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);font:500 14px var(--f);padding:7px 14px;border-radius:999px;cursor:pointer;color:var(--ink)}
+.more-btn::after{content:'';width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.more-btn[aria-expanded=true]::after{transform:translateY(1px) rotate(-135deg)}
+.more-btn b{font-weight:700;font-size:12px;background:var(--prac);color:#fff;border-radius:999px;padding:1px 7px}
+.more-btn b:empty{display:none}
+.more{flex-basis:100%;display:flex;flex-direction:column;gap:8px;padding-top:4px}
+.more[hidden]{display:none}
+.more .chips{flex-basis:auto}
+@media (prefers-reduced-motion:reduce){.more-btn::after{transition:none}}
 .tag.sec{background:#E3ECF8;color:#1F4E86;font-weight:700}
 .tag.fam{background:#F6E5DC;color:#8A3517;font-weight:700}
 .tag.info{background:#E3ECF8;color:#1F4E86;font-weight:700}
@@ -92,14 +102,17 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
       <button type="button" data-t="실무형" aria-pressed="false">본문 요소</button>
     </div>
     <input id="q" type="search" placeholder="검색: 제목, 주제, 구조, 스타일…" aria-label="검색">
-    <div class="chips" id="fam" role="group" aria-label="분위기"><span>분위기</span></div>
-    <div class="chips" id="mot" role="group" aria-label="움직임"><span>움직임</span></div>
-    <div class="chips" id="dom" role="group" aria-label="분야"><span>분야</span></div>
-    <div class="chips deck" id="info" role="group" aria-label="정보 유형"><span>정보 유형</span></div>
-    <div class="chips deck" id="mod" role="group" aria-label="모듈" hidden><span>모듈</span></div>
-    <div class="chips deck" id="sec" role="group" aria-label="계획안 속 위치"><span>계획안 속 위치</span></div>
-    <div class="chips print" id="pk" role="group" aria-label="판형" hidden><span>판형</span></div>
-    <div class="chips" id="ser" role="group" aria-label="시리즈" hidden><span>시리즈</span></div>
+    <button type="button" class="more-btn" id="moreBtn" aria-expanded="false" aria-controls="more">자세히<b id="moreN"></b></button>
+    <div class="more" id="more" hidden>
+      <div class="chips" id="fam" role="group" aria-label="분위기"><span>분위기</span></div>
+      <div class="chips" id="mot" role="group" aria-label="움직임"><span>움직임</span></div>
+      <div class="chips" id="dom" role="group" aria-label="분야"><span>분야</span></div>
+      <div class="chips deck" id="info" role="group" aria-label="정보 유형"><span>정보 유형</span></div>
+      <div class="chips deck" id="mod" role="group" aria-label="모듈" hidden><span>모듈</span></div>
+      <div class="chips deck" id="sec" role="group" aria-label="계획안 속 위치"><span>계획안 속 위치</span></div>
+      <div class="chips print" id="pk" role="group" aria-label="판형" hidden><span>판형</span></div>
+      <div class="chips" id="ser" role="group" aria-label="시리즈" hidden><span>시리즈</span></div>
+    </div>
   </div>
 
   <div class="grid" id="grid"></div>
@@ -145,6 +158,8 @@ const KIND = {'실험형': '표지', '계열키트': '계열 키트', '실무형
 const ORDER = {'실험형': 0, '계열키트': 1, '실무형': 2, '인쇄물': 3};
 
 function render(){
+  const on = [fam, mot, dom, info, mod, sec, pk, ser].filter(Boolean).length;
+  $('#moreN').textContent = on ? on + '개 적용' : '';
   const q = $('#q').value.trim().toLowerCase();
   const rows = all.filter(r =>
     (!use || useOf(r) === use) && (!type || r.type === type) && (!sec || secOf(r) === sec) &&
@@ -260,6 +275,10 @@ pick('#dom', 'd', v => dom = v);
 pick('#pk', 'k', v => pk = v);
 pick('#ser', 'r', v => ser = v);
 $('#q').addEventListener('input', render);
+$('#moreBtn').addEventListener('click', () => {
+  const open = $('#more').hidden;
+  $('#more').hidden = !open; $('#moreBtn').setAttribute('aria-expanded', open);
+});
 </script>
 </body>
 </html>
