@@ -26,6 +26,7 @@ header p{margin:10px 0 0;color:var(--soft);line-height:1.6;max-width:62ch}
 .bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);
   margin:28px -16px 0;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .seg{display:flex;background:var(--chip);border-radius:999px;padding:3px}
+.seg button em{font-style:normal;color:var(--soft);margin-left:4px;font-size:12px}
 .seg button{border:0;background:none;font:500 14px var(--f);padding:7px 14px;border-radius:999px;cursor:pointer;color:var(--soft)}
 .seg button[aria-pressed=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 select,input{font:14px var(--f);padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);min-width:0}
@@ -40,7 +41,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
 .meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--soft)}
 .type{font-weight:700;padding:2px 8px;border-radius:999px;color:#fff}
-.type.exp{background:var(--exp)} .type.prac{background:var(--prac)} .type.kit{background:#3F6B4E} .type.print{background:#1A1A1A}
+.type.exp{background:var(--exp)} .type.prac{background:var(--prac)} .type.kit{background:#3F6B4E} .type.print{background:#1A1A1A} .type.frame{background:#6B4FA3}
 .tag{background:var(--chip);padding:2px 8px;border-radius:999px}
 .card h2{font-size:17px;line-height:1.35;margin:0;font-weight:700}
 .topic{font-size:13px;color:var(--soft);margin:0}
@@ -58,6 +59,9 @@ button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{ou
 .tag.mot{background:#1C1E22;color:#fff;font-weight:700} .tag.ser{background:#FFF1D6;color:#8A5A00;font-weight:700}
 .chips[hidden],.seg[hidden]{display:none}
 /* 세부 필터는 '자세히'를 눌러야 펼쳐진다. 접힌 채 걸린 필터 수는 단추에 표시 */
+.roles{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 18px;margin:16px 0 0;font-size:13px}
+.roles div{border-top:2px solid var(--ink);padding-top:6px}.roles dt{font-weight:700}.roles dd{margin:2px 0 0;color:var(--soft);line-height:1.5}
+.seg{flex-wrap:wrap}
 .more-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);font:500 14px var(--f);padding:7px 14px;border-radius:999px;cursor:pointer;color:var(--ink)}
 .more-btn::after{content:'';width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
 .more-btn[aria-expanded=true]::after{transform:translateY(1px) rotate(-135deg)}
@@ -85,21 +89,25 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 <div class="wrap">
   <header>
     <h1>디자인 레퍼런스</h1>
-    <p>무엇을 만드는지부터 고르세요. <b>발표 덱</b>은 표지(덱의 분위기를 정하는 첫 장)·계열 키트·본문 요소로, <b>인쇄·홍보물</b>은 포스터·리플렛·소식지·배너·티켓으로 나뉩니다. 그다음 <b>분위기</b>(A~H), <b>움직임</b>(정지·모션·인터랙션), <b>분야</b>로 좁힙니다. 카드를 누르면 원본 페이지(설계 메모·코드·이식법 포함)가 열립니다.</p>
+    <p>모든 장표를 <b>한 가지 기준</b>, "이 장표는 어디에 쓰이나"로 먼저 나눴습니다. 그다음 모든 장표에 똑같이 붙은 <b>분위기</b>(A~H), <b>움직임</b>(정지·모션·인터랙션), <b>분야</b>로 좁힙니다. 카드를 누르면 원본 페이지(설계 메모·코드·이식법 포함)가 열립니다.</p>
+    <dl class="roles">
+      <div><dt>표지</dt><dd>가장 큰 글자가 계획안 이름. 덱의 첫 장, 분위기를 정한다</dd></div>
+      <div><dt>본문</dt><dd>섹션 머리말 + 결론 한 문장 제목 + 도식. 표지 뒤 한 장</dd></div>
+      <div><dt>목차·간지</dt><dd>목차·섹션 간지·마무리. 한 분위기의 덱 뼈대(계열 키트)</dd></div>
+      <div><dt>발표 틀</dt><dd>한 장이 아니라 여러 화면을 넘기는 진행 방식(허브·스크롤·카드·지도)</dd></div>
+      <div><dt>인쇄·홍보물</dt><dd>화면 발표가 아닌 종이·게시용: 포스터·리플렛·소식지·배너·티켓</dd></div>
+    </dl>
     <div class="stats" id="stats"></div>
   </header>
 
   <div class="bar" role="search">
-    <div class="seg" id="use">
-      <button type="button" data-u="" aria-pressed="true">전체</button>
-      <button type="button" data-u="발표 덱" aria-pressed="false">발표 덱</button>
-      <button type="button" data-u="인쇄·홍보물" aria-pressed="false">인쇄·홍보물</button>
-    </div>
-    <div class="seg" id="seg" hidden>
-      <button type="button" data-t="" aria-pressed="true">덱 전체</button>
-      <button type="button" data-t="실험형" aria-pressed="false">표지</button>
-      <button type="button" data-t="계열키트" aria-pressed="false">계열 키트</button>
-      <button type="button" data-t="실무형" aria-pressed="false">본문 요소</button>
+    <div class="seg" id="role">
+      <button type="button" data-g="" aria-pressed="true">전체</button>
+      <button type="button" data-g="표지" aria-pressed="false">표지</button>
+      <button type="button" data-g="본문" aria-pressed="false">본문</button>
+      <button type="button" data-g="목차·간지" aria-pressed="false">목차·간지</button>
+      <button type="button" data-g="발표 틀" aria-pressed="false">발표 틀</button>
+      <button type="button" data-g="인쇄·홍보물" aria-pressed="false">인쇄·홍보물</button>
     </div>
     <input id="q" type="search" placeholder="검색: 제목, 주제, 구조, 스타일…" aria-label="검색">
     <button type="button" class="more-btn" id="moreBtn" aria-expanded="false" aria-controls="more">자세히<b id="moreN"></b></button>
@@ -124,7 +132,7 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hex = c => /^#[0-9a-f]{3,8}$/i.test(c) ? c : '#ccc';
-let all = [], use = '', type = '', sec = '', fam = '', info = '', mod = '', mot = '', dom = '', pk = '', ser = '';
+let all = [], role = '', sec = '', fam = '', info = '', mod = '', mot = '', dom = '', pk = '', ser = '';
 // 표지 분위기 계열 (실험형의 family). 실무형은 families에 어울리는 계열을 적는다
 const FAMILIES = {A:'픽셀 게임', B:'미니멀 스튜디오', C:'경쾌한 놀이 오브젝트', D:'인쇄·종이 에디토리얼', E:'자연 재질', F:'관측·중계 인포그래픽', G:'어두운 콘셉트', H:'전통 공예·문양'};
 // 본문 요소의 정보 유형 (0개인 유형도 보여 빈칸을 드러낸다)
@@ -139,7 +147,9 @@ const famLabel = k => k ? `${k} ${FAMILIES[k] || ''}` : '';
 const MOTIONS = ['정지', '모션', '인터랙션'];
 const DOMAINS = ['학생·교육과정', '돌봄·유아', '특수교육', '업무·행정', '시설·안전', '지역·문화'];
 const PRINT_KINDS = ['포스터', '리플렛·소책자', '소식지', '배너', '티켓·굿즈'];
-const useOf = r => r.use || (r.type === '인쇄물' ? '인쇄·홍보물' : '발표 덱');
+// 역할(어디에 쓰이나) — 모든 장표에 하나. 기록에 없으면 type으로 채운다
+const ROLE_OF_TYPE = {'실험형': '표지', '실무형': '본문', '계열키트': '목차·간지', '인쇄물': '인쇄·홍보물'};
+const roleOf = r => r.role || ROLE_OF_TYPE[r.type] || '본문';
 // 동기화가 새 필드를 빠뜨려도 분류가 비지 않게: 움직임은 pattern, 분야는 topic 낱말로 채운다
 const DOMAIN_KEYS = [['특수교육', ['특수', '장애학생']], ['돌봄·유아', ['늘봄', '유보통합', '유치원', '유아', '돌봄']],
   ['시설·안전', ['시설', '내진', '재난', '통학로', '공간', '탄소중립', '폭염', '집중호우', '도서관', '교육환경', '안전']],
@@ -150,29 +160,33 @@ function fill(r){
   if (!r.motion) r.motion = r.pattern === '정지' ? '정지' : r.pattern ? '모션' : '정지';
   if (!r.domain) { const hit = DOMAIN_KEYS.find(([, ks]) => ks.some(k => String(r.topic || '').includes(k))); r.domain = hit ? hit[0] : ''; }
   r.no = Number(r.no);
+  r.role = roleOf(r);
   return r;
 }
 // 분위기 필터: 그 분위기의 표지·키트·인쇄물 + 그 분위기와 어울리는 본문 요소(덱 제외 요소는 빼고)
-const inFam = r => r.type === '실무형' ? (r.families || []).includes(fam) && r.deck_ok !== false : r.family === fam;
-const KIND = {'실험형': '표지', '계열키트': '계열 키트', '실무형': '본문 요소', '인쇄물': '인쇄·홍보물'};
-const ORDER = {'실험형': 0, '계열키트': 1, '실무형': 2, '인쇄물': 3};
+// 분위기: 자기 분위기(family)가 있으면 그것, 중립 장표는 어울리는 분위기 목록(families)
+const famHas = (r, k) => r.family ? r.family === k : (r.families || []).includes(k) && r.deck_ok !== false;
+const inFam = r => famHas(r, fam);
+const ROLES = ['표지', '본문', '목차·간지', '발표 틀', '인쇄·홍보물'];
+const ROLE_CLS = {'표지': 'exp', '본문': 'prac', '목차·간지': 'kit', '발표 틀': 'frame', '인쇄·홍보물': 'print'};
+const ORDER = Object.fromEntries(ROLES.map((x, i) => [x, i]));
 
 function render(){
   const on = [fam, mot, dom, info, mod, sec, pk, ser].filter(Boolean).length;
   $('#moreN').textContent = on ? on + '개 적용' : '';
   const q = $('#q').value.trim().toLowerCase();
   const rows = all.filter(r =>
-    (!use || useOf(r) === use) && (!type || r.type === type) && (!sec || secOf(r) === sec) &&
+    (!role || roleOf(r) === role) && (!sec || secOf(r) === sec) &&
     (!mot || r.motion === mot) && (!dom || r.domain === dom) && (!pk || (r.print_kind || []).includes(pk)) && (!ser || r.series === ser) &&
     (!fam || inFam(r)) && (!info || r.info_type === info) && (!mod || (r.modules || []).includes(mod)) &&
     (!q || [r.title, r.topic, r.domain, r.motion, r.series, (r.print_kind || []).join(' '), r.format, secOf(r), famLabel(r.family), r.info_type, (r.modules || []).join(' '), r.texture, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)))
-    .sort((a, b) => fam ? (ORDER[a.type] ?? 3) - (ORDER[b.type] ?? 3) || b.no - a.no : b.no - a.no);
+    .sort((a, b) => fam ? (ORDER[roleOf(a)] ?? 9) - (ORDER[roleOf(b)] ?? 9) || b.no - a.no : b.no - a.no);
   $('#grid').innerHTML = rows.length ? rows.map(r => `
     <a class="card" href="${esc(r.file)}${r.v ? '?v=' + esc(r.v) : ''}" target="_blank" rel="noopener">
       <img class="thumb" src="${esc(r.thumb)}${r.v ? '?v=' + esc(r.v) : ''}" alt="" loading="lazy">
       <div class="body">
         <div class="meta">
-          <span class="type ${r.type === '실험형' ? 'exp' : r.type === '계열키트' ? 'kit' : r.type === '인쇄물' ? 'print' : 'prac'}">${esc(KIND[r.type] || r.type)}</span>
+          <span class="type ${ROLE_CLS[roleOf(r)] || 'prac'}">${esc(roleOf(r))}</span>
           ${r.motion && r.motion !== '정지' ? `<span class="tag mot">${r.motion === '인터랙션' ? '◉ 인터랙션' : '▶ 모션'}</span>` : ''}
           ${r.family ? `<span class="tag fam">${esc(famLabel(r.family))}</span>` : ''}
           ${(r.print_kind || []).map(k => `<span class="tag">${esc(k)}</span>`).join('')}
@@ -191,7 +205,7 @@ function render(){
         <h2>${esc(String(r.title).replace(/^레퍼런스\s*#\d+\s*/, ''))}</h2>
         <p class="topic">${esc(r.topic)}</p>
         ${r.takeaway ? `<p class="take"><b>가져갈 장치</b> · ${esc(r.takeaway)}</p>` : ''}
-        ${r.type === '실무형' && r.deck_ok !== false ? `<p class="compat">어울리는 계열 · ${(r.families || []).map(esc).join('·') || '—'}</p>` : ''}
+        ${roleOf(r) === '본문' && r.deck_ok !== false ? `<p class="compat">어울리는 계열 · ${(r.families || []).map(esc).join('·') || '—'}</p>` : ''}
         ${r.deck_ok === false && r.deck_note ? `<p class="note">${esc(r.deck_note)}</p>` : ''}
         <div class="sw">${(r.palette || []).slice(0, 6).map(c => `<i style="background:${hex(c)}"></i>`).join('')}</div>
       </div>
@@ -200,17 +214,17 @@ function render(){
 
 fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
   all = d.map(fill).sort((a, b) => b.no - a.no);
-  const n = t => all.filter(r => r.type === t).length;
-  $('#stats').innerHTML = `<span><b>${all.length}</b>개</span><span><b>${all.filter(r => useOf(r) === '발표 덱').length}</b>발표 덱</span><span><b>${all.filter(r => useOf(r) === '인쇄·홍보물').length}</b>인쇄·홍보물</span><span><b>${all.filter(r => r.motion === '인터랙션').length}</b>인터랙션</span>`;
+  $('#stats').innerHTML = `<span><b>${all.length}</b>개</span>` + ROLES.map(x => `<span><b>${all.filter(r => r.role === x).length}</b>${x}</span>`).join('');
+  $('#role').querySelectorAll('button').forEach(b => b.insertAdjacentHTML('beforeend', `<em>${b.dataset.g ? all.filter(r => r.role === b.dataset.g).length : all.length}</em>`));
   const chip = (box, key, val, label, cnt) => $(box).insertAdjacentHTML('beforeend',
     `<button type="button" data-${key}="${esc(val)}" aria-pressed="${val === ''}"${cnt === 0 ? ' disabled' : ''}>${esc(label)}<em>${cnt}</em></button>`);
   chip('#fam', 'f', '', '전체', all.length);
-  Object.keys(FAMILIES).forEach(k => chip('#fam', 'f', k, famLabel(k), all.filter(r => r.family === k).length));
+  Object.keys(FAMILIES).forEach(k => chip('#fam', 'f', k, famLabel(k), all.filter(r => famHas(r, k)).length));
   chip('#mot', 'o', '', '전체', all.length);
   MOTIONS.forEach(m => chip('#mot', 'o', m, m, all.filter(r => r.motion === m).length));
   chip('#dom', 'd', '', '전체', all.length);
   DOMAINS.forEach(m => chip('#dom', 'd', m, m, all.filter(r => r.domain === m).length));
-  chip('#info', 'i', '', '전체', n('실무형'));
+  chip('#info', 'i', '', '전체', all.filter(r => r.role === '본문').length);
   INFO_TYPES.forEach(t => chip('#info', 'i', t, t, all.filter(r => r.info_type === t).length));
   const used = MODULES.filter(m => all.some(r => (r.modules || []).includes(m)));
   if (used.length) {
@@ -219,8 +233,8 @@ fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
     used.forEach(m => chip('#mod', 'm', m, m, all.filter(r => (r.modules || []).includes(m)).length));
   }
   ['', ...SECTIONS].forEach(s => $('#sec').insertAdjacentHTML('beforeend',
-    `<button type="button" data-s="${esc(s)}" aria-pressed="${s === ''}">${s || '전체'}<em>${s ? all.filter(r => secOf(r) === s).length : n('실무형')}</em></button>`));
-  chip('#pk', 'k', '', '전체', all.filter(r => useOf(r) === '인쇄·홍보물').length);
+    `<button type="button" data-s="${esc(s)}" aria-pressed="${s === ''}">${s || '전체'}<em>${s ? all.filter(r => secOf(r) === s).length : all.filter(r => r.role === '본문').length}</em></button>`));
+  chip('#pk', 'k', '', '전체', all.filter(r => r.role === '인쇄·홍보물').length);
   PRINT_KINDS.forEach(k => chip('#pk', 'k', k, k, all.filter(r => (r.print_kind || []).includes(k)).length));
   const series = [...new Set(all.map(r => r.series).filter(Boolean))];
   if (series.length) {
@@ -232,30 +246,28 @@ fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
   render();
 }).catch(() => { $('#grid').innerHTML = '<p class="empty">목록을 불러오지 못했습니다.</p>'; });
 
-// 무엇을 만드나에 따라 보이는 필터가 바뀐다: 덱 전용(정보 유형·모듈·계획안 속 위치), 인쇄 전용(판형)
+// 역할에 따라 보이는 필터가 바뀐다: 본문 전용(정보 유형·모듈·계획안 속 위치), 인쇄 전용(판형)
 function reset(box, set){ set(''); document.querySelectorAll(box + ' button').forEach((x, i) => x.setAttribute('aria-pressed', i === 0)); }
-// 분위기·움직임·분야·시리즈 칩의 숫자를 지금 고른 '무엇을 만드나' 안에서 다시 센다
+// 분위기·움직임·분야·시리즈 칩의 숫자를 지금 고른 역할 안에서 다시 센다
 function recount(){
-  const base = all.filter(r => !use || useOf(r) === use);
+  const base = all.filter(r => !role || r.role === role);
   const set = (box, key, test) => document.querySelectorAll(box + ' button').forEach(b => {
     const v = b.dataset[key], c = v ? base.filter(r => test(r, v)).length : base.length;
     b.querySelector('em').textContent = c; b.disabled = !!v && c === 0;
   });
-  set('#fam', 'f', (r, v) => r.family === v);
+  set('#fam', 'f', famHas);
   set('#mot', 'o', (r, v) => r.motion === v);
   set('#dom', 'd', (r, v) => r.domain === v);
   set('#ser', 'r', (r, v) => r.series === v);
 }
 function layout(){
   recount();
-  const deck = use !== '인쇄·홍보물', print = use !== '발표 덱';
-  $('#seg').hidden = use !== '발표 덱';
-  $('#info').hidden = !deck; $('#sec').hidden = !deck; $('#mod').hidden = !deck || !$('#mod').dataset.has;
-  $('#pk').hidden = use !== '인쇄·홍보물';
-  $('#ser').hidden = !$('#ser').dataset.has || !all.some(r => r.series && (!use || useOf(r) === use));
-  if (!deck) { reset('#info', v => info = v); reset('#sec', v => sec = v); reset('#mod', v => mod = v); }
-  if (use !== '발표 덱') reset('#seg', v => type = v);
-  if (use !== '인쇄·홍보물') reset('#pk', v => pk = v);
+  const body = role === '본문';
+  $('#info').hidden = !body; $('#sec').hidden = !body; $('#mod').hidden = !body || !$('#mod').dataset.has;
+  $('#pk').hidden = role !== '인쇄·홍보물';
+  $('#ser').hidden = !$('#ser').dataset.has || !all.some(r => r.series && (!role || r.role === role));
+  if (!body) { reset('#info', v => info = v); reset('#sec', v => sec = v); reset('#mod', v => mod = v); }
+  if (role !== '인쇄·홍보물') reset('#pk', v => pk = v);
 }
 const pick = (box, key, set, after) => $(box).addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b || b.disabled) return;
@@ -264,8 +276,7 @@ const pick = (box, key, set, after) => $(box).addEventListener('click', e => {
   if (after) after();
   render();
 });
-pick('#use', 'u', v => use = v, layout);
-pick('#seg', 't', v => type = v);
+pick('#role', 'g', v => role = v, layout);
 pick('#sec', 's', v => sec = v);
 pick('#fam', 'f', v => fam = v);
 pick('#info', 'i', v => info = v);
