@@ -1,0 +1,572 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #91 나이테 다섯 겹 키트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@600;700&family=IBM+Plex+Sans+KR:wght@400;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* 페이지 틀: 장표 세 장이 맨 위 주인공, 아래로 계열 값 카드 · 어울리는 요소 · 코드 · PPT · 스펙. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#E9ECE6; --pg-panel:#F8F9F5; --pg-ink:#24302C; --pg-sub:#5B6762; --pg-line:#D3D9D2;
+  --pg-accent:#22716B; --pg-code-bg:#1C2421; --pg-code-ink:#DDE5DF;
+  --pg-l1:#4A3322; --pg-l2:#7A5434; --pg-l3:#AD7745;
+  --pg-font:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Hahmlet","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#151A18; --pg-panel:#1E2522; --pg-ink:#E5EAE4; --pg-sub:#A3AEA8; --pg-line:#33403B;
+  --pg-accent:#6CC3B8; --pg-code-bg:#0E1312; --pg-code-ink:#DDE5DF;
+  --pg-l1:#F0D9B5; --pg-l2:#DDB98A; --pg-l3:#C8975F; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#151A18; --pg-panel:#1E2522; --pg-ink:#E5EAE4; --pg-sub:#A3AEA8; --pg-line:#33403B;
+  --pg-accent:#6CC3B8; --pg-code-bg:#0E1312; --pg-code-ink:#DDE5DF;
+  --pg-l1:#F0D9B5; --pg-l2:#DDB98A; --pg-l3:#C8975F; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65;word-break:keep-all}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:700;font-size:clamp(25px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:70ch}
+.pg h2{font-family:var(--pg-head);font-weight:700;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:600}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:4px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.kit-stack{display:grid;gap:18px}
+.kit-stack > *{min-width:0}
+.kit-lab{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 6px}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:600}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:4px;padding:20px}
+.tokcard{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tokcard > *{min-width:0}
+ul.sw{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ul.sw li{display:grid;grid-template-columns:22px 150px 1fr;gap:8px;align-items:center;font-size:13px}
+ul.sw i{width:22px;height:22px;border-radius:4px;border:1px solid var(--pg-line)}
+ul.sw code{font-family:var(--pg-mono);font-size:12px}
+ul.sw span{color:var(--pg-sub);font-family:var(--pg-mono);font-size:12px}
+dl.rules{margin:0;display:grid;grid-template-columns:96px 1fr;gap:8px 14px;font-size:14px}
+dl.rules dt{font-weight:600;color:var(--pg-sub)}
+dl.rules dd{margin:0}
+ul.dont{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
+ul.dont li{font-size:14px;border-left:3px solid var(--pg-l3);padding:2px 0 2px 12px}
+ul.dont b{display:block;font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);font-weight:500}
+ul.els{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+ul.els a{display:flex;flex-direction:column;padding:9px 12px;border:1px solid var(--pg-line);border-radius:4px;text-decoration:none;color:var(--pg-ink);background:var(--pg-bg);font-size:14px}
+ul.els a:hover{border-color:var(--pg-accent)}
+ul.els b{font-family:var(--pg-mono);font-size:12px;color:var(--pg-accent);font-weight:600}
+ul.els small{color:var(--pg-sub);font-size:12px}
+.cbs{display:grid;gap:16px;margin-top:14px}
+.cbs > *{min-width:0}
+.cb-h{display:flex;gap:10px;align-items:center;margin-bottom:6px;font-weight:600;font-size:14px;flex-wrap:wrap}
+.cb-h .msg{font-weight:400;font-size:13px;color:var(--pg-sub)}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:4px;margin:0;white-space:pre}
+ol.steps{margin:0;padding-left:20px;display:grid;gap:6px;max-width:80ch}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px;min-width:0}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .tokcard{grid-template-columns:1fr} dl.rules{grid-template-columns:1fr;gap:2px 0} dl.rules dd{margin-bottom:8px}
+  ul.sw li{grid-template-columns:22px 1fr;} ul.sw span{grid-column:2}
+  .pick .btn-replay{margin-left:0}
+  .stage-frame .ps91{min-width:880px}.stage-hint{display:block}
+}
+</style>
+<style id="ps91-css">
+/* E 자연 재질 계열 키트 — 목차 · 섹션 간지 · 마무리. 접두어 ps91 / 색은 --ds-* 변수로만 */
+.ps91{
+  /* 계열 값(E). 본문 요소에 붙일 때는 --ds-* 묶음만 옮긴다 */
+  --ds-bg:#EEF0EA; --ds-surface:#F8F9F5; --ds-ink:#24302C; --ds-sub:#5B6762; --ds-line:#D3D9D2;
+  --ds-accent:#2C8780; --ds-accent2:#4E8F43;
+  /* 위계 농담: 나무색 한 줄기(심재 → 변재 → 겉면) */
+  --ds-c1:#4A3322; --ds-c2:#7A5434; --ds-c3:#AD7745; --ds-c4:#DDBA8A; --ds-c5:#F3E7D0;
+  --ds-font-title:"Hahmlet","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --ds-font-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Hahmlet","Nanum Myeongjo","Batang",serif;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(37,48,45,.10),0 10px 32px rgba(37,48,45,.12);
+  /* E 계열 확장: 목재 단면 재질 색(그림에만) */
+  --ds-wood-early:#EED6A8; --ds-wood-late:#C38B55; --ds-heart:#B27748;
+  --ds-cambium:#E8C892; --ds-bark:#8A6443; --ds-bark2:#5C4029;
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps91 *{box-sizing:border-box}
+.ps91-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps91-cv{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ps91-a{position:absolute}
+/* 머리말 띠: 짧은 나무색 선 + 섹션 이름 / 오른쪽 계획안 이름 / 아래 가는 선 하나 */
+.ps91-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.2) solid var(--ds-line)}
+.ps91-sec{font-family:var(--ds-font-title);font-weight:600;font-size:calc(var(--u)*20);display:flex;align-items:center;gap:calc(var(--u)*12)}
+.ps91-sec::before{content:"";width:calc(var(--u)*30);height:calc(var(--u)*2);background:var(--ds-c3)}
+.ps91-sec i{font-style:normal;color:var(--ds-c2)}
+.ps91-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps91-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+.ps91-ft span:last-child{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);color:var(--ds-ink)}
+.ps91-tt{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*42);line-height:1.22;letter-spacing:-.02em}
+.ps91 em{font-style:normal;color:var(--ds-accent)}
+/* 목차 */
+.ps91-row{display:grid;grid-template-columns:calc(var(--u)*76) 1fr auto;align-items:center;border-bottom:calc(var(--u)*1.2) solid var(--ds-line)}
+.ps91-no{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*24);color:var(--ds-c3)}
+.ps91-nm{display:flex;flex-direction:column;gap:calc(var(--u)*4)}
+.ps91-nm b{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*30);line-height:1.1;letter-spacing:-.01em}
+.ps91-nm small{font-size:calc(var(--u)*15);color:var(--ds-sub)}
+.ps91-pg{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*26);color:var(--ds-c2);font-variant-numeric:tabular-nums}
+.ps91-key{font-size:calc(var(--u)*14);color:var(--ds-sub);display:flex;align-items:center;gap:calc(var(--u)*10)}
+.ps91-key::before{content:"";width:calc(var(--u)*22);height:0;border-top:calc(var(--u)*1.5) solid var(--ds-sub)}
+/* 그림 위 라벨(3개 이하) */
+.ps91-tk{transform:translate(-50%,-50%);font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*17);color:var(--ds-c1);white-space:nowrap}
+.ps91-lb{transform:translate(-50%,-50%);display:flex;align-items:center;gap:calc(var(--u)*8);white-space:nowrap;padding:calc(var(--u)*5) calc(var(--u)*13);background:var(--ds-surface);border:calc(var(--u)*1.2) solid var(--ds-c4);border-radius:calc(var(--u)*99);font-size:calc(var(--u)*14);font-weight:600;color:var(--ds-ink);box-shadow:var(--ds-shadow);transition:opacity .25s}
+.ps91-lb i{width:calc(var(--u)*9);height:calc(var(--u)*9);border-radius:50%;background:var(--ds-accent)}
+/* 간지 */
+.ps91-big{font-family:var(--ds-font-num);font-weight:700;font-size:calc(var(--u)*230);line-height:1;letter-spacing:-.02em;color:var(--ds-c2)}
+.ps91-dn{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*84);line-height:1.08;letter-spacing:-.025em;white-space:nowrap}
+.ps91-ds,.ps91-cs{font-family:var(--ds-font-title);font-weight:600;font-size:calc(var(--u)*24);color:var(--ds-c2);display:flex;align-items:center;gap:calc(var(--u)*16)}
+.ps91-ds::before,.ps91-cs::before{content:"";width:calc(var(--u)*48);height:calc(var(--u)*2);background:var(--ds-c3)}
+.ps91-pts{display:grid;gap:calc(var(--u)*12)}
+.ps91-pts > span{font-size:calc(var(--u)*14);font-weight:600;color:var(--ds-sub);letter-spacing:.08em}
+.ps91-pts ul{margin:0;padding:0;list-style:none;display:grid;gap:calc(var(--u)*10)}
+.ps91-pts li{font-size:calc(var(--u)*20);padding-left:calc(var(--u)*30);position:relative}
+.ps91-pts li::before{content:"";position:absolute;left:0;top:calc(var(--u)*8);width:calc(var(--u)*13);height:calc(var(--u)*13);border-radius:50%;border:calc(var(--u)*2) solid var(--ds-c3);box-shadow:inset 0 0 0 calc(var(--u)*2.5) var(--ds-bg),inset 0 0 0 calc(var(--u)*5) var(--ds-c4)}
+/* 마무리 */
+.ps91-yr{font-weight:600;font-size:calc(var(--u)*20);letter-spacing:.3em;color:var(--ds-c2)}
+.ps91-msg{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*60);line-height:1.22;letter-spacing:-.025em;white-space:nowrap}
+.ps91-ct{margin:0;display:grid;grid-template-columns:calc(var(--u)*104) 1fr;row-gap:calc(var(--u)*11);padding-top:calc(var(--u)*22);border-top:calc(var(--u)*1.5) solid var(--ds-c3)}
+.ps91-ct dt{font-weight:600;font-size:calc(var(--u)*14);color:var(--ds-c2);padding-top:calc(var(--u)*2)}
+.ps91-ct dd{margin:0;font-size:calc(var(--u)*18)}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 91 · 계열 키트 · E 자연 재질 · 목차 · 간지 · 마무리 · 가상 예시</div>
+    <h1>나이테 다섯 겹 키트</h1>
+    <p class="pg-lead">E 계열 표지(#16 기초가 자라는 60일 · #17 두 개의 심) 뒤에 이어 쓰는 목차 · 섹션 간지 · 마무리 세 장입니다. 섹션 다섯 개가 통나무 단면의 다섯 겹이 됩니다. 목차는 다 자란 단면에 연필 눈금 다섯 개, 간지는 그 섹션의 겹까지만 자란 단면(이번 겹은 밝은 변재), 마무리는 표지와 같은 구도로 다 자란 단면을 둡니다.</p>
+  </header>
+
+  <section class="stage" aria-label="장표 3장">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="kit-stack">
+      <div><p class="kit-lab">장표 1 · 목차</p><div class="stage-frame"><div class="ps91" data-ps91="toc" role="img" aria-label="장표 1 · 목차. 왼쪽에 섹션 다섯 줄, 오른쪽에 연필 눈금 다섯 개가 찍힌 통나무 단면"></div></div></div>
+      <div><p class="kit-lab">장표 2 · 섹션 간지</p><div class="stage-frame"><div class="ps91" id="ps91div" data-ps91="div" role="img" aria-label="장표 2 · 섹션 간지. 큰 섹션 번호와 이름, 오른쪽에 그 섹션 겹까지만 자란 단면"></div></div></div>
+      <div><p class="kit-lab">장표 3 · 마무리</p><div class="stage-frame"><div class="ps91" data-ps91="end" role="img" aria-label="장표 3 · 마무리. 왼쪽에 핵심 메시지와 문의처, 오른쪽에 다 자란 단면"></div></div></div>
+    </div>
+    <div class="pick" role="group" aria-label="간지 섹션 바꾸기"><span>간지 섹션 바꾸기</span>
+      <button class="btn" type="button" data-sec="0" aria-pressed="false">I 추진 배경·현황</button>
+      <button class="btn" type="button" data-sec="1" aria-pressed="true">II 목표 및 지표</button>
+      <button class="btn" type="button" data-sec="2" aria-pressed="false">III 세부 추진과제</button>
+      <button class="btn" type="button" data-sec="3" aria-pressed="false">IV 추진체계</button>
+      <button class="btn" type="button" data-sec="4" aria-pressed="false">V 일정 및 예산</button>
+      <button class="btn btn-replay" type="button" id="replay">간지 전환 다시 보기</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>계열 값 카드 · E 자연 재질 <small>CARD</small></h2>
+    <div class="tokcard">
+      <div>
+        <h3 style="margin-top:0">공통 변수 --ds-*</h3>
+        <ul class="sw">
+          <li><i style="background:#EEF0EA"></i><code>--ds-bg</code><span>#EEF0EA · 회녹 종이</span></li>
+          <li><i style="background:#F8F9F5"></i><code>--ds-surface</code><span>#F8F9F5</span></li>
+          <li><i style="background:#24302C"></i><code>--ds-ink</code><span>#24302C · 짙은 숲 먹색</span></li>
+          <li><i style="background:#5B6762"></i><code>--ds-sub</code><span>#5B6762</span></li>
+          <li><i style="background:#D3D9D2"></i><code>--ds-line</code><span>#D3D9D2</span></li>
+          <li><i style="background:#2C8780"></i><code>--ds-accent</code><span>#2C8780 · 심 둘레 청록</span></li>
+          <li><i style="background:#4E8F43"></i><code>--ds-accent2</code><span>#4E8F43 · 잎 초록</span></li>
+          <li><i style="background:#4A3322"></i><code>--ds-c1</code><span>#4A3322 · 심재</span></li>
+          <li><i style="background:#7A5434"></i><code>--ds-c2</code><span>#7A5434</span></li>
+          <li><i style="background:#AD7745"></i><code>--ds-c3</code><span>#AD7745</span></li>
+          <li><i style="background:#DDBA8A"></i><code>--ds-c4</code><span>#DDBA8A · 변재</span></li>
+          <li><i style="background:#F3E7D0"></i><code>--ds-c5</code><span>#F3E7D0</span></li>
+        </ul>
+        <h3>E 계열 확장 · 목재 단면 재질 색(그림에만)</h3>
+        <ul class="sw">
+          <li><i style="background:#EED6A8"></i><code>--ds-wood-early</code><span>#EED6A8 · 이른 나무(밝은 테)</span></li>
+          <li><i style="background:#C38B55"></i><code>--ds-wood-late</code><span>#C38B55 · 늦은 나무(진한 테)</span></li>
+          <li><i style="background:#B27748"></i><code>--ds-heart</code><span>#B27748 · 심재 물듦</span></li>
+          <li><i style="background:#E8C892"></i><code>--ds-cambium</code><span>#E8C892 · 형성층 띠</span></li>
+          <li><i style="background:#8A6443"></i><code>--ds-bark</code><span>#8A6443 · 수피 밝은 쪽</span></li>
+          <li><i style="background:#5C4029"></i><code>--ds-bark2</code><span>#5C4029 · 수피 골 · 단면 옆면</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0">글꼴</h3>
+        <dl class="rules">
+          <dt>제목</dt><dd>Hahmlet 700(굵은 명조) · 대체 나눔명조 ExtraBold → 바탕 굵게</dd>
+          <dt>본문</dt><dd>IBM Plex Sans KR 400/600 · 대체 Apple SD 산돌고딕 Neo → 맑은 고딕</dd>
+          <dt>숫자</dt><dd>Hahmlet 600/700. 섹션 번호는 라틴 대문자 I · II · III · IV · V로 씁니다(Hahmlet에 Ⅰ 같은 로마 숫자 기호가 없어 고딕으로 바뀌기 때문).</dd>
+        </dl>
+        <h3>규칙</h3>
+        <dl class="rules">
+          <dt>머리말 띠</dt><dd>짧은 나무색 선(30×2) + 섹션 이름(명조 600, 20) · 오른쪽 계획안 이름 · 아래 1px 선 하나. 표지 #17 부제 앞의 짧은 선을 그대로 빌렸습니다.</dd>
+          <dt>강조색</dt><dd>청록(--ds-accent)은 한 장에 한 곳: 제목의 단어 하나, 또는 간지의 "이번 겹" 표시. 본문 도식의 위계는 나무색 농담 c1~c5(심재 → 변재)로 만듭니다.</dd>
+          <dt>질감</dt><dd>재질은 단면 그림 하나에만(나이테 · 방사 조직 · 톱 자국 · 수피 · 옆면 두께와 그림자). 바탕은 아주 옅은 종이 알갱이, 글 · 표 · 카드는 평면, 모서리 4px.</dd>
+          <dt>모션</dt><dd>간지에서 이번 겹이 바깥으로 한 번 자라는 0.9초. 목차 · 마무리는 정지. 동작 줄이기 설정이면 다 자란 상태로 바로 그립니다.</dd>
+          <dt>사진 · 그림</dt><dd>사진을 쓴다면 실물 재질 사진 한 장(나무 · 흙 · 잎)만, 밝게. 그림은 단면 한 종류만 쓰고 크기와 자리로 장표를 구분합니다. 잎 · 새싹 아이콘을 흩뿌리지 않습니다.</dd>
+        </dl>
+      </div>
+    </div>
+    <ul class="dont">
+      <li><b>DON'T 01</b>동심원 도형만 겹친 납작한 나이테. 이른 나무와 늦은 나무의 색 변화, 방사 조직, 수피 띠가 있어야 나무로 읽힙니다.</li>
+      <li><b>DON'T 02</b>나무색 바탕 전체 깔기 · 누렇게 바랜 빈티지 필터. 바탕은 밝은 회녹 종이로 두고 나무색은 그림과 위계 농담에만 씁니다.</li>
+      <li><b>DON'T 03</b>나이테마다 지시선 라벨을 다는 도감식 그림. 그림 위 라벨은 3개 이하, 연필 눈금과 목록의 번호로 짝을 맞춥니다.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>이 계열과 어울리는 기존 요소 37개 <small>MATCH</small></h2>
+    <p>어울리는 계열(families)에 E가 있고 덱에 쓸 수 있는 본문 요소입니다. 위 계열 값 묶음을 붙이면 나무색 농담과 명조 제목으로 바뀝니다. 재질 요소(#8 세 겹 병풍 · #21 세 겹의 체 · #43 칸막이 벤토 상자)는 이 계열과 특히 잘 맞습니다.</p>
+    <ul class="els"><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/06.html" target="_blank" rel="noopener"><b>#6</b>딜러의 세 더미<small>분류·유목화 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/08.html" target="_blank" rel="noopener"><b>#8</b>세 겹 병풍<small>조직·체계 · 재질</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/13.html" target="_blank" rel="noopener"><b>#13</b>던져 채우는 오후표<small>일정 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/14.html" target="_blank" rel="noopener"><b>#14</b>상세도 호출<small>조직·체계 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/21.html" target="_blank" rel="noopener"><b>#21</b>세 겹의 체<small>흐름·절차 · 재질</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/22.html" target="_blank" rel="noopener"><b>#22</b>다섯 칸 다이얼<small>흐름·절차 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/23.html" target="_blank" rel="noopener"><b>#23</b>주 경로 간트<small>일정 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/33.html" target="_blank" rel="noopener"><b>#33</b>쪼개지는 예산 사각형<small>구성비 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/34.html" target="_blank" rel="noopener"><b>#34</b>허브 내비게이션 업무보고<small>핵심 수치 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/35.html" target="_blank" rel="noopener"><b>#35</b>세로 스와이프 카드<small>핵심 수치 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/41.html" target="_blank" rel="noopener"><b>#41</b>타이밍 타워 순위표<small>추이 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/43.html" target="_blank" rel="noopener"><b>#43</b>칸막이 벤토 상자<small>분류·유목화 · 재질</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/47.html" target="_blank" rel="noopener"><b>#47</b>눈금 머리 과제표<small>표·목록 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/48.html" target="_blank" rel="noopener"><b>#48</b>세 줄 나란히 추이<small>추이 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/49.html" target="_blank" rel="noopener"><b>#49</b>조사 완료선 정렬 비교<small>비교·순위 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/50.html" target="_blank" rel="noopener"><b>#50</b>재원 지분 마리메코<small>구성비 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/51.html" target="_blank" rel="noopener"><b>#51</b>낱칸 시·군 지도<small>지도·분포 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/53.html" target="_blank" rel="noopener"><b>#53</b>밑줄 대조표<small>표·목록 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/54.html" target="_blank" rel="noopener"><b>#54</b>기둥과 보 체계도<small>비전 체계도 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/55.html" target="_blank" rel="noopener"><b>#55</b>원인 꽂힌 화살표<small>현안→해결방안 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/56.html" target="_blank" rel="noopener"><b>#56</b>나비매듭 배경·목적<small>배경·목적 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/57.html" target="_blank" rel="noopener"><b>#57</b>예산 각도 동심원 체계도<small>비전 체계도 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/61.html" target="_blank" rel="noopener"><b>#61</b>주 담당 대응표<small>현안→해결방안 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/72.html" target="_blank" rel="noopener"><b>#72</b>확대 지시선 배경·목적<small>배경·목적 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/73.html" target="_blank" rel="noopener"><b>#73</b>한 줄로 읽는 체계도<small>비전 체계도 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/76.html" target="_blank" rel="noopener"><b>#76</b>줄어드는 공정 띠<small>현안→해결방안 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/77.html" target="_blank" rel="noopener"><b>#77</b>기준선 격차 배경·목적<small>배경·목적 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/79.html" target="_blank" rel="noopener"><b>#79</b>이어지는 재원 비중<small>구성비 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/80.html" target="_blank" rel="noopener"><b>#80</b>백 칸 중 마흔하나<small>핵심 수치 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/81.html" target="_blank" rel="noopener"><b>#81</b>판본 목록표<small>표·목록 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/83.html" target="_blank" rel="noopener"><b>#83</b>줄마다 짝<small>현안→해결방안 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/84.html" target="_blank" rel="noopener"><b>#84</b>날짜 비례 레인<small>흐름·절차 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/85.html" target="_blank" rel="noopener"><b>#85</b>층위 표 체계도<small>비전 체계도 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/86.html" target="_blank" rel="noopener"><b>#86</b>열두 달 고리<small>일정 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/87.html" target="_blank" rel="noopener"><b>#87</b>네 칸 이관표<small>분류·유목화 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/88.html" target="_blank" rel="noopener"><b>#88</b>같은 출발 100<small>추이 · 평면</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/89.html" target="_blank" rel="noopener"><b>#89</b>펼친 조각 구성비<small>구성비 · 평면</small></a></li></ul>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>장표마다 코드 블록 하나가 자기 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>계획안 이름 · 섹션 이름 · 쪽 · 간지의 "이 장에서" 세 줄 · 마무리 문장과 문의처는 스크립트 맨 위 <code>DATA</code>에서 바꿉니다.</li>
+      <li>간지는 <code>DATA.current</code>(0~4)로 섹션을 고릅니다. 같은 틀을 다섯 번 쓰면 단면이 한 겹씩 자랍니다. 섹션 수가 다르면 <code>BAND_AT</code>의 값 개수를 섹션 수에 맞춥니다.</li>
+      <li>색은 <code>.ps91</code>의 <code>--ds-*</code> 변수만 바꿉니다. 단면 색도 <code>--ds-wood-*</code> · <code>--ds-bark*</code>에서 읽습니다. 마지막 블록은 계열 값 묶음(:root)만 떼어 낸 것으로, 다른 본문 요소에 붙이면 E 분위기가 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="cbs">
+      <div><div class="cb-h"><span>장표 1 · 목차</span><button class="btn" type="button" data-copy="toc">코드 복사</button><span class="msg" aria-live="polite"></span></div><pre class="code" id="code-toc" tabindex="0"></pre></div>
+      <div><div class="cb-h"><span>장표 2 · 섹션 간지</span><button class="btn" type="button" data-copy="div">코드 복사</button><span class="msg" aria-live="polite"></span></div><pre class="code" id="code-div" tabindex="0"></pre></div>
+      <div><div class="cb-h"><span>장표 3 · 마무리</span><button class="btn" type="button" data-copy="end">코드 복사</button><span class="msg" aria-live="polite"></span></div><pre class="code" id="code-end" tabindex="0"></pre></div>
+      <div><div class="cb-h"><span>계열 값 묶음만 (:root)</span><button class="btn" type="button" data-copy="root">코드 복사</button><span class="msg" aria-live="polite"></span></div><pre class="code" id="code-root" tabindex="0"></pre></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>테마 색</b>: 디자인 › 적용 › 색 › 색 사용자 지정. 텍스트/배경-어둡게 1 <code>#24302C</code>, 밝게 1 <code>#EEF0EA</code>, 어둡게 2 <code>#4A3322</code>, 밝게 2 <code>#F8F9F5</code>, 강조 1 <code>#2C8780</code>, 강조 2 <code>#7A5434</code>, 강조 3 <code>#AD7745</code>, 강조 4 <code>#DDBA8A</code>, 강조 5 <code>#4E8F43</code>, 강조 6 <code>#5B6762</code>.</li>
+      <li><b>테마 글꼴</b>: 디자인 › 적용 › 글꼴 › 글꼴 사용자 지정. 제목 Hahmlet(없으면 나눔명조 ExtraBold 또는 HY견명조), 본문 IBM Plex Sans KR(없으면 맑은 고딕).</li>
+      <li><b>레이아웃 3종</b>(보기 › 슬라이드 마스터): 공통으로 위 40px에 머리말 띠(짧은 선 30×2 + 섹션 이름 텍스트 상자, 아래 1pt 선 <code>#D3D9D2</code>), 아래 846px 자리에 바닥 줄. "목차"는 왼쪽 목록 5줄(줄 높이 112px, 번호 · 이름 · 쪽, 줄 아래 1pt 선) + 오른쪽 그림 자리, "간지"는 왼쪽 위 큰 번호(230pt 상당) · 섹션 이름 · 짧은 선 + 부제 · "이 장에서" 세 줄 + 오른쪽 끝에 걸친 그림 자리, "마무리"는 왼쪽 연도(자간 넓게) · 두 줄 메시지 · 문의처 4줄 + 오른쪽 그림 자리.</li>
+      <li><b>단면 그림</b>: 이 페이지의 장표 그림을 캡처해 그림 자리에 넣는 것이 가장 빠릅니다. 간지용은 섹션 버튼으로 I~V를 바꿔 가며 다섯 장을 캡처합니다. 연필 눈금은 그림에 들어 있습니다.</li>
+      <li><b>간지 전환</b>: 이전 겹 그림과 이번 겹 그림을 같은 자리에 겹치고, 이번 그림에 [애니메이션 › 나타내기 › 도형 › 효과 옵션 원형 · 바깥쪽] 0.9초, 시작 "이전 효과와 함께". 목차 · 마무리는 애니메이션 없음.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>계열</b>E 자연 재질(표지 #16 · #17)</div>
+      <div><b>주제</b>2027 ○○교육청 학교 생태전환교육 활성화 계획(가상)</div>
+      <div><b>난이도</b>HTML 상(픽셀 단위 단면 계산) · PPT 하(단면은 그림으로)</div>
+      <div><b>질감 · 모션</b>단면 그림만 재질 · 간지 겹 자람 0.9초 한 번</div>
+      <div><b>관찰 디테일</b>이른 · 늦은 나무 색 변화와 안쪽이 넓은 나이테 · 심재(짙음)와 변재(밝음)의 경계 · 방사 조직 · 원형 톱 자국 · 가장자리 방사 균열 · 형성층 띠와 골진 수피 · 옆면 두께와 그림자 · 반지름을 따라 찍은 연필 눈금</div>
+      <div><b>트렌드</b>손에 닿는 실물 재질(나무껍질 · 돌 · 흙)로 화면을 따뜻하게 하는 촉감 · 자연 재질 흐름. 참고: <a href="https://smallppt.com/blog/design-inspiration/presentation-design-trends" target="_blank" rel="noopener">SmallPPT, 9 Presentation Design Trends for 2026</a></div>
+      <div><b>재질 확인</b>나무 단면 구조(수(髓) · 심재 · 변재 · 형성층 · 수피, 이른 · 늦은 나무, 방사 조직): <a href="https://visualdictionaryonline.com/plants-gardening/plants/tree/cross-section-trunk.php" target="_blank" rel="noopener">Visual Dictionary, cross section of a trunk</a></div>
+    </div>
+  </section>
+</main>
+
+<script id="ps91-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    plan: '2027 ○○교육청 학교 생태전환교육 활성화 계획(안)',
+    tocTitle: '학교 숲에서 마을까지, 다섯 겹으로 [단단하게] 키웁니다',
+    // 섹션 5개: 목차 줄 · 간지 · 단면의 겹(안쪽 = I)이 모두 이 배열을 따른다
+    sections: [
+      { no: 'I', name: '추진 배경·현황', sub: '학교 숲 조성률 41% · 생태 수업 실태 · 교원 설문', page: 3, points: ['기후위기 대응 교육 요구와 관련 근거', '학교 숲 · 텃밭 조성 현황(312교)', '교원 설문으로 본 걸림돌 세 가지'] },
+      { no: 'II', name: '목표 및 지표', sub: '생태 수업 주 1시간 · 숲 조성률 70% · 탄소 12% 감축', page: 6, points: ['비전과 세 가지 목표', '성과지표 4개와 측정 방법', '2027 · 2029 단계 목표값'] },
+      { no: 'III', name: '세부 추진과제', sub: '숲 · 텃밭 가꾸기 · 교과 연계 수업 · 탄소 줄이기', page: 9, points: ['학교 숲 · 텃밭 조성과 관리', '교과 연계 생태 수업 자료 보급', '학교 에너지 · 급식 탄소 줄이기'] },
+      { no: 'IV', name: '추진체계', sub: '교육청 · 환경교육센터 · 학교 · 지자체', page: 16, points: ['교육청 · 센터 · 학교 역할 나눔', '생태전환교육 지원단 운영', '지자체 · 마을 숲 연계 협약'] },
+      { no: 'V', name: '일정 및 예산', sub: '분기별 일정 · 재원별 예산 18.4억 원', page: 20, points: ['분기별 추진 일정', '재원별 예산(국비 · 시비 · 교육청)', '중간 점검과 환류 시기'] }
+    ],
+    current: 1,                                   // 간지에 보일 섹션(0~4)
+    closing: { year: '2027', line1: '한 겹씩 쌓은 배움이', line2: '[함께] 자라는 숲이 되도록', sub: '학교 숲에서 마을까지, 생태전환교육',
+      contact: [['담당 부서', '○○교육청 생태전환교육과'], ['담당', '○○○ 장학사'], ['전화', '0○○-○○○-○○○○'], ['자료', '○○교육청 누리집 › 생태전환교육']] },
+    pages: { toc: 2, closing: 24 },
+    source: '가상 예시 · 출처: ○○교육청 내부 자료(가상)'
+  };
+  // 겹 경계(반지름 비율): 섹션 수만큼. 실제 경계는 가장 가까운 나이테에 맞춘다
+  var BAND_AT = [.22, .43, .62, .81, 1];
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var at = function(x, y){ return 'left:' + u(x) + ';top:' + u(y); };
+  var em = function(s){ return esc(s).replace(/\[(.+?)\]/, '<em>$1</em>'); };
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── 잡음 함수(고정 씨앗이라 늘 같은 나무) ──
+  function rng(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  var R0 = rng(91), PERM = new Uint8Array(512), VAL = new Float32Array(256), i0;
+  for (i0 = 0; i0 < 256; i0++){ PERM[i0] = i0; VAL[i0] = R0(); }
+  for (i0 = 255; i0 > 0; i0--){ var j0 = Math.floor(R0() * (i0 + 1)), t0 = PERM[i0]; PERM[i0] = PERM[j0]; PERM[j0] = t0; }
+  for (i0 = 0; i0 < 256; i0++) PERM[i0 + 256] = PERM[i0];
+  function vn(x, y){ var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, X = xi & 255, Y = yi & 255;
+    var a = xf * xf * (3 - 2 * xf), b = yf * yf * (3 - 2 * yf);
+    var p = VAL[PERM[X + PERM[Y]]], q = VAL[PERM[X + 1 + PERM[Y]]], r = VAL[PERM[X + PERM[Y + 1]]], s = VAL[PERM[X + 1 + PERM[Y + 1]]];
+    return p + (q - p) * a + (r - p) * b + (p - q - r + s) * a * b; }
+  function fbm(x, y, o){ var s = 0, a = .5, f = 1, n = 0; for (var i = 0; i < o; i++){ s += a * vn(x * f, y * f); n += a; a *= .5; f *= 2.03; } return s / n; }
+  function sst(e0, e1, x){ var t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); }
+
+  // ── 나이테: 안쪽은 넓고 바깥으로 갈수록 좁아진다(어린 나무가 빨리 자람) ──
+  var RINGS = [0], DK = [], rr = rng(7), rv = 0;
+  while (rv < 1){ rv += (.066 - .036 * Math.min(1, rv)) * (.6 + rr() * .8); RINGS.push(rv); }
+  RINGS = RINGS.map(function(v){ return v / rv; });
+  RINGS.forEach(function(){ DK.push(.72 + rr() * .5); });
+  var BAND = [0].concat(BAND_AT.map(function(t){ var best = 1; RINGS.forEach(function(v){ if (Math.abs(v - t) < Math.abs(best - t)) best = v; }); return best; }));
+
+  // 단면 모양: 수(髓)에서 잰 거리 + 둘레의 굴곡 + 결의 흔들림. 값 1 = 다 자란 나무의 바깥 나이테
+  function field(x, y){
+    var r = Math.hypot(x, y), a = Math.atan2(y, x);
+    var d = r * (1 + .045 * Math.sin(a + .8) + .026 * Math.sin(2 * a + 2.1) + .014 * Math.sin(3 * a + .3));
+    return d + (fbm(x * 2.6 + 7, y * 2.6, 3) - .5) * .06 * Math.min(1, d / .12);
+  }
+  // 반지름 방향(각 th)에서 field = target이 되는 거리(이분법)
+  function reach(th, target){ var lo = 0, hi = 1.4, c = Math.cos(th), s = Math.sin(th);
+    for (var i = 0; i < 24; i++){ var m = (lo + hi) / 2; if (field(m * c, m * s) < target) lo = m; else hi = m; } return (lo + hi) / 2; }
+
+  var ROOT;
+  function cssv(n){ return getComputedStyle(ROOT).getPropertyValue('--ds-' + n).trim(); }
+  function rgb(h){ h = h.replace('#', ''); if (h.length === 3) h = h.replace(/./g, '$&$&'); return [0, 2, 4].map(function(i){ return parseInt(h.substr(i, 2), 16); }); }
+
+  // 단면 한 장 준비: 화면 픽셀마다 나이테 값 · 나무색 · 수피 결을 미리 계산(heartTo 안쪽 = 심재, cracks = 가장자리 균열)
+  function prepare(scale, cx, cy, R, heartTo, cracks){
+    var S = R * scale, ext = 1.2;
+    var x0 = Math.max(0, Math.floor((cx - R * ext) * scale)), x1 = Math.min(Math.ceil(1600 * scale), Math.ceil((cx + R * ext) * scale));
+    var y0 = Math.max(0, Math.floor((cy - R * ext) * scale)), y1 = Math.min(Math.ceil(900 * scale), Math.ceil((cy + R * ext) * scale));
+    var w = Math.max(1, x1 - x0), h = Math.max(1, y1 - y0), n = w * h;
+    var F = new Float32Array(n), C = new Uint8ClampedArray(n * 3), BN = new Uint8ClampedArray(n), BL = new Float32Array(n);
+    var E = rgb(cssv('wood-early')), L = rgb(cssv('wood-late')), H = rgb(cssv('heart'));
+    var CR = [[-2.75, .24], [.62, .17], [2.3, .12], [-1.1, .09]];
+    var ox = cx * scale - x0, oy = cy * scale - y0;
+    for (var j = 0; j < h; j++){ var y = (j + .5 - oy) / S;
+      for (var i = 0; i < w; i++){ var x = (i + .5 - ox) / S, k = j * w + i;
+        var r = Math.hypot(x, y);
+        if (r > 1.3){ F[k] = 9; continue; }
+        var f = field(x, y); F[k] = f;
+        if (f > 1.16) continue;
+        // 나이테 찾기 → 이른 나무(밝음)에서 늦은 나무(진함)로
+        var lo = 0, hi = RINGS.length - 1; while (hi - lo > 1){ var m = (lo + hi) >> 1; if (RINGS[m] <= f) lo = m; else hi = m; }
+        if (f >= 1){ lo = RINGS.length - 2; hi = lo + 1; }
+        var q = Math.min(1, (f - RINGS[lo]) / (RINGS[hi] - RINGS[lo]));
+        var lw = sst(.5, .94, q) * DK[lo], bl = sst(.94, .995, q);
+        var cR = E[0] + (L[0] - E[0]) * lw, cG = E[1] + (L[1] - E[1]) * lw, cB = E[2] + (L[2] - E[2]) * lw;
+        var dk = 1 - .12 * bl * DK[lo]; cR *= dk; cG *= dk; cB *= dk;
+        // 심재: 안쪽이 짙게 물들고 경계는 나이테를 따라 부드럽게
+        var ht = (1 - sst(heartTo - .03, heartTo + .005, f)) * .3;
+        cR += (H[0] - cR) * ht; cG += (H[1] - cG) * ht; cB += (H[2] - cB) * ht;
+        // 방사 조직(가는 바퀴살) · 잔결 · 원형 톱 자국 · 왼쪽 위 빛
+        var a = Math.atan2(y, x);
+        var ray = Math.pow(.5 + .5 * Math.sin(a * 150 + fbm(x * 6, y * 6, 2) * 9), 36) * sst(.04, .12, f);
+        var g = .965 + .07 * vn(x * 95, y * 95) + .025 * (vn(x * 300, y * 300) - .5);
+        var saw = 1 + .028 * Math.sin(Math.hypot(x - 3.4, y + 2.6) * 70 + vn(x * 4, y * 4) * 3);
+        var lt = 1 + .05 * (-x * .35 - y * .6) + .06 * Math.exp(-((x + .45) * (x + .45) + (y + .35) * (y + .35)) / .12);
+        var mm = g * saw * lt * (1 + .05 * ray);
+        // 수(髓): 작고 짙은 점 + 가는 갈라짐
+        if (r < .03){ var pv = 1 - sst(.008, .024, r); mm *= 1 - .35 * pv; }
+        if (r < .07){ var pd = Math.abs(-Math.sin(1.1) * x + Math.cos(1.1) * y), wv = .0028 * (1 - r / .07); if (pd < wv) mm *= .55 + .3 * pd / wv; }
+        // 가장자리 방사 균열(다 자란 단면에만)
+        if (cracks) for (var c = 0; c < CR.length; c++){ var fs = 1 - CR[c][1]; if (f > fs){ var dt = a - CR[c][0] - .006 * Math.sin(f * 40); dt = Math.atan2(Math.sin(dt), Math.cos(dt));
+          var wid = .022 * Math.pow((f - fs) / CR[c][1], 1.6) + .0006, ad = Math.abs(dt);
+          if (ad < wid){ var cc = 1 - ad / wid; mm *= 1 - .5 * Math.min(1, cc * 2.2); } } }
+        C[k * 3] = cR * mm; C[k * 3 + 1] = cG * mm; C[k * 3 + 2] = cB * mm;
+        // 수피: 골진 결 + 왼쪽 위에서 받는 빛
+        if (f > .15){ var rid = 1 - Math.abs(2 * vn(a * 30 + 3, f * 9) - 1); BN[k] = (.55 * sst(.35, .85, rid) + .45 * fbm(x * 12, y * 12, 2)) * 255;
+          BL[k] = (-x * .45 - y * .85) / (r || 1); }
+      } }
+    var face = document.createElement('canvas'); face.width = w; face.height = h;
+    var side = document.createElement('canvas'); side.width = w; side.height = h;
+    return { x0: x0, y0: y0, w: w, h: h, S: S, F: F, C: C, BN: BN, BL: BL, face: face, side: side, img: face.getContext('2d').createImageData(w, h),
+      cam: rgb(cssv('cambium')), bk1: rgb(cssv('bark')), bk2: rgb(cssv('bark2')) };
+  }
+  // 나무가 rc(바깥 나이테 값)까지 자란 모습: 나무 → 형성층 띠 → 수피
+  function paint(P, rc){
+    var d = P.img.data, px = 1.3 / P.S, cam = .006, bw = .026 + .026 * rc, n = P.w * P.h;
+    for (var k = 0; k < n; k++){ var f = P.F[k], o = k * 4, dd = f - rc;
+      if (dd > cam + bw + px){ d[o + 3] = 0; continue; }
+      var a = dd > cam + bw ? 1 - (dd - cam - bw) / px : 1, R, G, B;
+      if (dd <= 0){ var ao = 1 - .09 * Math.exp(dd / .014); R = P.C[k * 3] * ao; G = P.C[k * 3 + 1] * ao; B = P.C[k * 3 + 2] * ao; }
+      else if (dd <= cam){ R = P.cam[0]; G = P.cam[1]; B = P.cam[2]; }
+      else { var nz = P.BN[k] / 255, t = (dd - cam) / bw, lg = (1 + .22 * P.BL[k]) * (.8 + .2 * sst(0, .4, t)) * (1 - .12 * sst(.75, 1, t));
+        R = (P.bk1[0] + (P.bk2[0] - P.bk1[0]) * nz) * lg; G = (P.bk1[1] + (P.bk2[1] - P.bk1[1]) * nz) * lg; B = (P.bk1[2] + (P.bk2[2] - P.bk1[2]) * nz) * lg;
+        if (t < .18){ var ib = (1 - t / .18) * .35; R += (P.cam[0] - R) * ib; G += (P.cam[1] - G) * ib; B += (P.cam[2] - B) * ib; } }
+      d[o] = R; d[o + 1] = G; d[o + 2] = B; d[o + 3] = a * 255; }
+    P.face.getContext('2d').putImageData(P.img, 0, 0);
+    var sc = P.side.getContext('2d'); sc.globalCompositeOperation = 'source-over'; sc.clearRect(0, 0, P.w, P.h); sc.drawImage(P.face, 0, 0);
+    sc.globalCompositeOperation = 'source-in'; var gr = sc.createLinearGradient(0, 0, 0, P.h); gr.addColorStop(0, cssv('bark')); gr.addColorStop(1, cssv('bark2')); sc.fillStyle = gr; sc.fillRect(0, 0, P.w, P.h);
+  }
+  // 옆면 두께 + 바닥 그림자 + 윗면
+  function compose(g, P){
+    var th = Math.max(2, P.S * .045);
+    g.save(); g.shadowColor = 'rgba(60,46,30,.24)'; g.shadowBlur = P.S * .14; g.shadowOffsetX = P.S * .035; g.shadowOffsetY = P.S * .08; g.drawImage(P.side, P.x0, P.y0 + th); g.restore();
+    g.save(); g.shadowColor = 'rgba(50,36,22,.3)'; g.shadowBlur = P.S * .02; g.shadowOffsetY = P.S * .01; g.drawImage(P.side, P.x0, P.y0 + th); g.restore();
+    for (var i = 1; i <= 3; i++) g.drawImage(P.side, P.x0, P.y0 + th * i / 4);
+    g.drawImage(P.face, P.x0, P.y0);
+  }
+  // 종이 알갱이(바탕에 아주 옅게)
+  function grain(g, w, h){
+    var c = document.createElement('canvas'); c.width = 180; c.height = 180; var x = c.getContext('2d'), d = x.createImageData(180, 180), r = rng(3), ink = rgb(cssv('ink'));
+    for (var i = 0; i < 180 * 180; i++){ var v = r(); if (v < .16){ d.data[i * 4] = ink[0]; d.data[i * 4 + 1] = ink[1]; d.data[i * 4 + 2] = ink[2]; d.data[i * 4 + 3] = Math.floor(r() * 16); } }
+    x.putImageData(d, 0, 0); g.save(); g.fillStyle = g.createPattern(c, 'repeat'); g.fillRect(0, 0, w, h); g.restore();
+  }
+  // 연필 눈금: 수에서 바깥으로 그은 선 + 겹 경계마다 짧은 눈금(done까지 실선, 그 뒤는 점선과 빈 동그라미)
+  function pencil(g, cx, cy, R, th, done, upto){
+    var c = Math.cos(th), s = Math.sin(th), nx = -s, ny = c, ink = cssv('ink');
+    var end = reach(th, upto) * R, out = reach(th, 1) * R + 34;
+    g.save(); g.strokeStyle = ink; g.fillStyle = ink; g.lineCap = 'round';
+    g.globalAlpha = .62; g.lineWidth = 1.6; g.beginPath(); g.moveTo(cx + c * 8, cy + s * 8); g.lineTo(cx + c * end, cy + s * end); g.stroke();
+    if (out > end + 4){ g.globalAlpha = .4; g.setLineDash([5, 6]); g.lineWidth = 1.3; g.beginPath(); g.moveTo(cx + c * end, cy + s * end); g.lineTo(cx + c * out, cy + s * out); g.stroke(); g.setLineDash([]); }
+    var pts = [];
+    for (var i = 1; i < BAND.length; i++){ var d = reach(th, BAND[i]) * R, x = cx + c * d, y = cy + s * d; pts.push([x, y, d]);
+      if (i <= done){ g.globalAlpha = .7; g.lineWidth = 1.8; g.beginPath(); g.moveTo(x - nx * 9, y - ny * 9); g.lineTo(x + nx * 9, y + ny * 9); g.stroke(); }
+      else { g.globalAlpha = .45; g.lineWidth = 1.4; g.beginPath(); g.arc(x, y, 4.5, 0, Math.PI * 2); g.stroke(); } }
+    g.restore();
+    return { pts: pts, out: [cx + c * out, cy + s * out], dir: [c, s], n: [nx, ny] };
+  }
+  // 다 자랄 바깥 모양(점선)
+  function outline(g, cx, cy, R){
+    g.save(); g.strokeStyle = cssv('ink'); g.globalAlpha = .28; g.lineWidth = 1.3; g.setLineDash([4, 7]); g.beginPath();
+    for (var i = 0; i <= 120; i++){ var th = i / 120 * Math.PI * 2, d = (reach(th, 1) + .045) * R; var x = cx + Math.cos(th) * d, y = cy + Math.sin(th) * d; if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke(); g.restore();
+  }
+  function fit(cv){
+    var r = cv.getBoundingClientRect(), dp = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.max(1, Math.round(r.width * dp)); cv.height = Math.max(1, Math.round(r.height * dp));
+    return { g: cv.getContext('2d'), sc: cv.width / 1600 };
+  }
+  function frame(left, page){
+    return '<div class="ps91-a ps91-hd"><div class="ps91-sec">' + left + '</div><div class="ps91-plan">' + esc(DATA.plan) + '</div></div>' +
+      '<div class="ps91-a ps91-ft"><span>' + esc(DATA.source) + '</span><span>' + page + '</span></div>';
+  }
+  function place(el, x, y){ el.style.left = u(x.toFixed(1)); el.style.top = u(y.toFixed(1)); }
+
+  // ── 장표 1: 목차 ──
+  var TOC = { cx: 1290, cy: 540, R: 236, th: -2.45 };
+  function toc(el){
+    var h = frame('목차', String(DATA.pages.toc).padStart(2, '0'));
+    h += '<div class="ps91-a ps91-tt" style="' + at(80, 112) + ';width:' + u(1440) + '">' + em(DATA.tocTitle) + '</div>';
+    DATA.sections.forEach(function(s, i){
+      h += '<div class="ps91-a ps91-row" style="' + at(80, 232 + i * 112) + ';width:' + u(860) + ';height:' + u(100) + '">' +
+        '<span class="ps91-no">' + esc(s.no) + '</span><span class="ps91-nm"><b>' + esc(s.name) + '</b><small>' + esc(s.sub) + '</small></span><span class="ps91-pg">' + String(s.page).padStart(2, '0') + '</span></div>';
+    });
+    h += '<div class="ps91-a ps91-key" style="' + at(1040, 236) + '">연필 눈금 하나 = 한 장 · 안쪽 I부터 바깥 V까지</div>';
+    h += '<div class="ps91-a ps91-tk"></div><div class="ps91-a ps91-tk"></div>';
+    el.innerHTML = '<div class="ps91-in"><canvas class="ps91-cv"></canvas>' + h + '</div>';
+    var cv = el.querySelector('canvas'), tk = el.querySelectorAll('.ps91-tk');
+    return function(){
+      ROOT = el; var F = fit(cv), g = F.g; g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height); grain(g, cv.width, cv.height);
+      var P = prepare(F.sc, TOC.cx, TOC.cy, TOC.R, BAND[3], true); paint(P, 1); compose(g, P);
+      g.setTransform(F.sc, 0, 0, F.sc, 0, 0);
+      var pc = pencil(g, TOC.cx, TOC.cy, TOC.R, TOC.th, BAND.length - 1, 1);
+      var p0 = pc.pts[0]; tk[0].textContent = DATA.sections[0].no; place(tk[0], p0[0] + pc.n[0] * 22, p0[1] + pc.n[1] * 22);
+      tk[1].textContent = DATA.sections[DATA.sections.length - 1].no; place(tk[1], pc.out[0] + pc.dir[0] * 16, pc.out[1] + pc.dir[1] * 16);
+    };
+  }
+
+  // ── 장표 2: 섹션 간지(같은 틀, current만 바꿔 다섯 번) ──
+  var DIV = { cx: 1250, cy: 478, R: 290, th: Math.PI + .42 };
+  function divider(el){
+    var s = DATA.sections[DATA.current], n = DATA.current;
+    var h = frame('<i>' + esc(s.no) + '</i>' + esc(s.name), String(s.page - 1).padStart(2, '0'));
+    h += '<div class="ps91-a ps91-big" style="' + at(72, 132) + '">' + esc(s.no) + '</div>';
+    h += '<div class="ps91-a ps91-dn" style="' + at(80, 392) + '">' + esc(s.name) + '</div>';
+    h += '<div class="ps91-a ps91-ds" style="' + at(80, 506) + '">' + esc(s.sub) + '</div>';
+    h += '<div class="ps91-a ps91-pts" style="' + at(80, 610) + ';width:' + u(780) + '"><span>이 장에서</span><ul>' + s.points.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div>';
+    h += '<div class="ps91-a ps91-lb"><i></i>' + esc(s.no) + ' · 이번 겹</div>';
+    if (n < DATA.sections.length - 1) h += '<div class="ps91-a ps91-tk"></div>';
+    el.innerHTML = '<div class="ps91-in"><canvas class="ps91-cv"></canvas>' + h + '</div>';
+    var cv = el.querySelector('canvas'), lb = el.querySelector('.ps91-lb'), tk = el.querySelector('.ps91-tk'), P = null, F = null, anim = 0;
+    function draw(rc, final){
+      var g = F.g; g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height); grain(g, cv.width, cv.height);
+      paint(P, rc); compose(g, P);
+      g.setTransform(F.sc, 0, 0, F.sc, 0, 0);
+      outline(g, DIV.cx, DIV.cy, DIV.R);
+      var pc = pencil(g, DIV.cx, DIV.cy, DIV.R, DIV.th, final ? n + 1 : n, rc);
+      var mid = reach(DIV.th, (BAND[n] + BAND[n + 1]) / 2) * DIV.R;
+      place(lb, DIV.cx + pc.dir[0] * mid - pc.n[0] * 30, DIV.cy + pc.dir[1] * mid - pc.n[1] * 30);
+      lb.style.opacity = final ? 1 : 0;
+      if (tk){ tk.textContent = DATA.sections[DATA.sections.length - 1].no; place(tk, pc.out[0] + pc.dir[0] * 16, pc.out[1] + pc.dir[1] * 16); }
+    }
+    return function(play){
+      ROOT = el; cancelAnimationFrame(anim); F = fit(cv);
+      P = prepare(F.sc, DIV.cx, DIV.cy, DIV.R, BAND[n], false);
+      var a = BAND[n], b = BAND[n + 1];
+      if (!play || reduce){ draw(b, true); return; }
+      // 전환: 이번 겹이 바깥으로 한 번 자란다(0.9초)
+      var t0 = performance.now();
+      (function tick(t){ var e = Math.min(1, (t - t0) / 900), k = 1 - Math.pow(1 - e, 3);
+        draw(a + (b - a) * k, e >= 1); if (e < 1) anim = requestAnimationFrame(tick); })(t0);
+    };
+  }
+
+  // ── 장표 3: 마무리(표지 #17과 같은 구도: 왼쪽 연도 · 제목 · 부제, 오른쪽 단면) ──
+  var END = { cx: 1235, cy: 470, R: 272, th: -2.45 };
+  function ending(el){
+    var c = DATA.closing;
+    var h = frame('맺음', DATA.pages.closing);
+    h += '<div class="ps91-a ps91-yr" style="' + at(80, 196) + '">' + esc(c.year) + '</div>';
+    h += '<div class="ps91-a ps91-msg" style="' + at(80, 240) + '">' + em(c.line1) + '<br>' + em(c.line2) + '</div>';
+    h += '<div class="ps91-a ps91-cs" style="' + at(80, 412) + '">' + esc(c.sub) + '</div>';
+    h += '<dl class="ps91-a ps91-ct" style="' + at(80, 520) + ';width:' + u(640) + '">' + c.contact.map(function(r){ return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('') + '</dl>';
+    el.innerHTML = '<div class="ps91-in"><canvas class="ps91-cv"></canvas>' + h + '</div>';
+    var cv = el.querySelector('canvas');
+    return function(){
+      ROOT = el; var F = fit(cv), g = F.g; g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cv.width, cv.height); grain(g, cv.width, cv.height);
+      var P = prepare(F.sc, END.cx, END.cy, END.R, BAND[3], true); paint(P, 1); compose(g, P);
+      g.setTransform(F.sc, 0, 0, F.sc, 0, 0); pencil(g, END.cx, END.cy, END.R, END.th, BAND.length - 1, 1);
+    };
+  }
+
+  // ── 붙이기: data-ps91="toc|div|end"인 요소를 모두 그린다 ──
+  var MAKERS = { toc: toc, div: divider, end: ending };
+  function mount(el){
+    var kind = el.getAttribute('data-ps91'), draw = MAKERS[kind](el), w = 0, timer;
+    el._ps91 = { redraw: function(play){ draw(play); } };
+    var go = function(play){ w = el.getBoundingClientRect().width; draw(play); };
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){ go(kind === 'div'); });
+    if (window.ResizeObserver) new ResizeObserver(function(){ clearTimeout(timer); timer = setTimeout(function(){ if (Math.abs(el.getBoundingClientRect().width - w) > 2) go(false); }, 160); }).observe(el);
+  }
+  window.PS91 = {
+    DATA: DATA,
+    // 간지 섹션 바꾸기(0~4): 틀을 다시 만들고 전환을 한 번 재생
+    section: function(el, i){ DATA.current = i; var d = MAKERS.div(el); el._ps91 = { redraw: d }; d(true); }
+  };
+  [].forEach.call(document.querySelectorAll('[data-ps91]'), mount);
+})();
+</script>
+
+<script>
+(function(){
+  // 페이지 전용: 간지 섹션 버튼 · 다시 보기 · 코드 칸 채우기
+  var div = document.getElementById('ps91div');
+  var btns = document.querySelectorAll('[data-sec]');
+  [].forEach.call(btns, function(b){ b.addEventListener('click', function(){
+    [].forEach.call(btns, function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    window.PS91.section(div, +b.getAttribute('data-sec'));
+  }); });
+  document.getElementById('replay').addEventListener('click', function(){ window.PS91.section(div, window.PS91.DATA.current); });
+
+  var css = document.getElementById('ps91-css').textContent.trim();
+  var js = document.getElementById('ps91-js').textContent.trim();
+  var head = '<meta charset="utf-8">\n<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@600;700&family=IBM+Plex+Sans+KR:wght@400;600&display=swap">\n';
+  function slide(kind){ return head + '<style>\n' + css + '\n</style>\n\n<div class="ps91" data-ps91="' + kind + '"></div>\n\n<script>\n' + js + '\n</' + 'script>\n'; }
+  var vars = css.match(/--ds-[\w-]+:[^;]+;/g) || [];
+  var root = '/* E 자연 재질 계열 값 — 다른 본문 요소의 장표 감싸는 요소나 :root에 붙인다 */\n:root{\n' + vars.map(function(v){ return '  ' + v; }).join('\n') + '\n}\n';
+  var CODE = { toc: slide('toc'), div: slide('div'), end: slide('end'), root: root };
+  var escH = function(s){ return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+  Object.keys(CODE).forEach(function(k){ document.getElementById('code-' + k).innerHTML = escH(CODE[k]); });
+  [].forEach.call(document.querySelectorAll('[data-copy]'), function(b){
+    b.addEventListener('click', function(){
+      var k = b.getAttribute('data-copy'), msg = b.parentNode.querySelector('.msg'), pre = document.getElementById('code-' + k);
+      var sel = function(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '전체 선택했습니다. Ctrl+C로 복사하세요.'; };
+      try { navigator.clipboard.writeText(CODE[k]).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch (e) { sel(); }
+    });
+  });
+})();
+</script>
+
+</body></html>
