@@ -1,0 +1,366 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #94 원인으로 모이는 선</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Noto+Serif+KR:wght@600;700;800&family=Saira+Semi+Condensed:wght@600;700&display=swap">
+<style>
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .k{border-bottom:4px double var(--pg-l2)}.raw .k::after{color:var(--pg-l2)}
+.raw .s{border-bottom:2px solid var(--pg-l1)}.raw .s::after{color:var(--pg-l1)}
+.raw .t{background:color-mix(in srgb,var(--pg-l3) 16%,transparent);border-radius:2px;padding:0 2px}
+.raw .t::after{content:none}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kk{border-bottom:4px double var(--pg-l2)}.key .ks{border-bottom:2px solid var(--pg-l1)}
+.key .kt{height:12px;background:color-mix(in srgb,var(--pg-l3) 16%,transparent);border-radius:2px}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px dotted var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border:1.5px solid var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border:3px double var(--pg-l2)}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+</style>
+<style id="ps94-css">
+/* 현안→해결방안 '원인으로 모이는 선' — 접두어 ps94 / 색은 --ds-* 변수로만 */
+.ps94{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps94 *{box-sizing:border-box}
+.ps94-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps94-a{position:absolute}
+.ps94-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
+/* 공통 뼈대: 머리말 띠 · 제목 · 바닥 줄 */
+.ps94-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps94-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps94-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps94-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps94-tt{left:calc(var(--u)*80);top:calc(var(--u)*108);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*36);line-height:1.24;letter-spacing:-.01em;text-wrap:balance}
+.ps94-tt em{font-style:normal;color:var(--ds-accent)}
+.ps94-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+/* 열 머리 */
+.ps94-ch{height:calc(var(--u)*30);display:flex;align-items:flex-end;gap:calc(var(--u)*8);padding-bottom:calc(var(--u)*6);border-bottom:calc(var(--u)*1.5) solid var(--ds-ink);font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*14);color:var(--ds-c1)}
+.ps94-ch span{font-family:var(--ds-font-body);font-weight:500;font-size:calc(var(--u)*12.5);color:var(--ds-sub)}
+.ps94-tk{font-family:var(--ds-font-num);font-weight:500;font-size:calc(var(--u)*12);color:var(--ds-sub);transform:translateX(-50%);white-space:nowrap}
+/* 증상 줄(가장 옅음: 면 없이 줄과 막대만) */
+.ps94-sy{display:grid;grid-template-columns:calc(var(--u)*34) calc(var(--u)*220) 1fr;align-items:center;border-bottom:calc(var(--u)*1) solid var(--ds-line)}
+.ps94-sy i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*12);color:var(--ds-c3)}
+.ps94-sy b{font-weight:500;font-size:calc(var(--u)*15.5);line-height:1.3;color:var(--ds-ink)}
+.ps94-val{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*17);color:var(--ds-ink);white-space:nowrap}
+.ps94-val small{font-size:calc(var(--u)*12);font-weight:500;color:var(--ds-sub);margin-left:calc(var(--u)*1)}
+/* 원인 칸(중간: 옅은 면 + 진한 글자) */
+.ps94-ca{background:var(--ds-c5);border-radius:var(--ds-radius);padding:calc(var(--u)*14) calc(var(--u)*18);display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*4)}
+.ps94-ca i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*12.5);color:var(--ds-c3)}
+.ps94-ca b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1);line-height:1.3}
+.ps94-ev{display:flex;align-items:baseline;gap:calc(var(--u)*10);margin-top:calc(var(--u)*6);padding-top:calc(var(--u)*8);border-top:calc(var(--u)*1) solid var(--ds-c4)}
+.ps94-ev strong{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*26);color:var(--ds-c1);white-space:nowrap;line-height:1}
+.ps94-ev strong small{font-family:var(--ds-font-body);font-size:calc(var(--u)*14);font-weight:600;margin-left:calc(var(--u)*1)}
+.ps94-ev span{font-size:calc(var(--u)*13);color:var(--ds-sub);line-height:1.35}
+/* 대책 카드(가장 진함) + 성과지표 */
+.ps94-so{background:var(--ds-c1);color:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:calc(var(--u)*14) calc(var(--u)*20);display:grid;grid-template-columns:1fr calc(var(--u)*132);column-gap:calc(var(--u)*16);align-items:center}
+.ps94-so i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*12.5);color:var(--ds-c4)}
+.ps94-so b{display:block;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);line-height:1.3;margin-top:calc(var(--u)*2)}
+.ps94-so em{display:block;font-style:normal;font-size:calc(var(--u)*13);color:var(--ds-c5);margin-top:calc(var(--u)*4);line-height:1.35}
+.ps94-kp{border-left:calc(var(--u)*1) solid var(--ds-c3);padding-left:calc(var(--u)*14);display:flex;flex-direction:column;gap:calc(var(--u)*4)}
+.ps94-kp .k{font-size:calc(var(--u)*12.5);color:var(--ds-c4);line-height:1.3}
+.ps94-kp .v{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);color:var(--ds-c4);white-space:nowrap}
+.ps94-kp .v b{display:inline;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*26);color:var(--ds-surface);margin:0}
+.ps94-kp .v small{font-family:var(--ds-font-body);font-size:calc(var(--u)*13);color:var(--ds-surface);margin-left:calc(var(--u)*1)}
+</style>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 94 · 본문 요소 · 현안→해결방안 · 정지 · 가상 예시</div>
+    <h1>원인으로 모이는 선</h1>
+    <p class="pg-lead">설문에서 나온 불편 일곱 가지를 원인별로 다시 줄 세우고, 줄 끝에서 나온 곡선이 원인 칸 하나로 모이게 했다. 대책은 증상이 아니라 원인과 1:1로 짝지어, 대책 하나가 불편 몇 가지를 한꺼번에 풀지 선 개수로 보인다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps94" id="ps94" data-slide role="img" aria-label="교원 설문 불편 7가지의 응답 비율 막대가 원인 3가지로 모이고, 원인마다 2027년 대책과 성과지표가 짝지어진 현안·해결방안 장표"></div></div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="N" aria-pressed="true">중립(기본)</button><button class="btn" type="button" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button><button class="btn" type="button" data-fam="D" aria-pressed="false">D 인쇄·종이</button><button class="btn" type="button" data-fam="F" aria-pressed="false">F 관측·중계</button></div>
+  </section>
+
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅰ장 줄글, 가상)</h3>
+        <p class="raw">2026년 6월 관내 초·중학교 교원 1,284명에게 디지털 기기 활용 수업의 어려움을 물었다(복수 응답). 가장 많은 것은 <mark class="o" data-n="2-1">학생 로그인 문제로 수업이 늦어진다는 응답(52%)</mark>이었고, <mark class="o" data-n="1-1">기기 충전이 모자라다는 응답이 47%</mark>, <mark class="o" data-n="3-1">수업에 쓸 자료를 찾기 어렵다는 응답이 44%</mark>, <mark class="o" data-n="3-2">연수가 기능 위주라 수업에 적용하기 어렵다는 응답이 41%</mark>였다. <mark class="o" data-n="1-2">교실 무선망이 자주 끊긴다(38%)</mark>, <mark class="o" data-n="1-3">고장 기기 수리에 2주 이상 걸린다(35%)</mark>, <mark class="o" data-n="2-2">플랫폼마다 비밀번호를 따로 관리해야 한다(29%)</mark>는 응답도 있었다. 원인을 살펴보면 <mark class="k" data-n="원인1">기기·망 관리를 정보 담당 교사 한 명이 겸임하는 학교가 81%로 관리 주체가 사실상 없고</mark>, <mark class="k" data-n="원인2">학교마다 쓰는 학습 플랫폼이 평균 5개로 계정이 흩어져 있으며</mark>, <mark class="k" data-n="원인3">직무연수 42시간 중 수업 적용 실습은 6시간뿐이다</mark>. 이에 2027년에는 <mark class="s" data-n="대책1">학교군별 거점 디지털 튜터를 배치하고 수리 위탁 계약을 하나로 묶어</mark> <mark class="t">수리 기간을 평균 14일에서 3일로 줄이고</mark>, <mark class="s" data-n="대책2">교육청 통합 로그인을 구축해</mark> <mark class="t">수업 시작 전 로그인 시간을 7분에서 1분으로 줄인다.</mark> 또 <mark class="s" data-n="대책3">교과별 수업 사례 꾸러미 120종을 만들고 연수 실습을 20시간으로 늘려</mark> <mark class="t">연수 만족도를 5점 만점에 3.1점에서 4.0점으로 높인다.</mark></p>
+        <div class="key"><span><i class="ko"></i>증상(설문 응답)</span><span><i class="kk"></i>원인 + 근거 수치</span><span><i class="ks"></i>대책</span><span><i class="kt"></i>"~에서 ~로" → 지표</span><span>번호 = 장표의 번호</span></div>
+      </div>
+      <div class="panel">
+        <div class="grp-h">증상 7 → 원인 3 → 대책 3 (세 층, 가지 2~3개)</div>
+        <ul class="grp">
+          <li><span class="n">1-1~3-2</span><div><b>"~다는 응답 ○%" → 왼쪽 증상 줄</b><em>설문 순서(비율 순)를 버리고 원인별로 다시 줄 세운다. 묶음 안에서만 비율 큰 순. 비율은 0부터 그린 막대로</em></div></li>
+          <li><span class="n n2">원인1~3</span><div><b>"원인을 살펴보면 ~고, ~며, ~다" → 가운데 원인 칸</b><em>문장 앞쪽은 원인 이름, 숫자(81% · 5개 · 6시간)는 칸 아래 근거로 뺀다. 칸 높이 = 딸린 증상 줄 높이</em></div></li>
+          <li><span class="n n1">대책1~3</span><div><b>"이에 ~하고 / ~해" → 오른쪽 진한 카드</b><em>대책이 어느 원인을 겨냥하는지 원문에 없으면 담당자에게 묻는다. 여기서는 동사 대상(수리·로그인·연수)으로 짝지었다</em></div></li>
+          <li><span class="n">지표</span><div><b>"~에서 ~로" → 대책 카드 오른쪽 칸</b><em>현재값(작게) → 목표값(크게). 단위가 서로 달라 막대로 겹치지 않고 숫자로만 둔다</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">수렴 (증상 → 원인)</span><span>줄 끝 곡선이 원인 칸 한 점으로 모인다. 선 개수 = 그 원인이 일으킨 증상 수(3 · 2 · 2).</span></div>
+          <div><span class="k">대응 (원인 → 대책)</span><span>원인 칸과 대책 카드가 같은 높이·같은 줄에 서고, 화살표 하나로 1:1을 잇는다.</span></div>
+          <div><span class="k">위계 (농담)</span><span>증상(면 없음) → 원인(옅은 면) → 대책(진한 면). 오른쪽으로 갈수록 짙어져 결론이 어디인지 보인다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>현안을 하나씩 받아 대책을 하나씩 붙이면 현안 일곱 개에 대책 일곱 개가 생기고, 같은 원인을 두고 대책이 겹친다. 이 장표는 가운데에 <b>원인 층</b>을 하나 끼워 넣어 세 층(증상 → 원인 → 대책)으로 읽게 했다. 이슈 트리를 옆으로 뉘어 놓은 꼴이고, 가지는 3개, 가지마다 잎은 2~3개로 한 장에 들어가는 크기를 지켰다.</p>
+    <p><b>가져갈 장치 1: 원인별로 다시 줄 세운 막대.</b> 설문 결과는 보통 비율 순으로 나오지만, 그대로 두면 52%(로그인)와 29%(비밀번호)가 서로 멀리 떨어져 같은 원인이라는 것이 안 보인다. 원인 묶음으로 다시 세우고 묶음 사이를 띄우면 막대 길이 비교는 그대로 하면서 묶음도 읽힌다.</p>
+    <p><b>가져갈 장치 2: 모이는 곡선 = 대책의 범위.</b> 줄마다 나온 곡선이 원인 칸 왼쪽 한 점으로 모인다. 대책 1은 선 세 개, 대책 2·3은 두 개를 받는다. "이 대책 하나로 무엇이 풀리나"를 따로 쓰지 않아도 선이 말한다.</p>
+    <p><b>가져갈 장치 3: 칸 높이 공유.</b> 원인 칸과 대책 카드의 높이가 딸린 증상 줄 높이와 같아, 오른쪽 카드를 보다가 왼쪽 근거 막대를 찾을 때 눈이 수평으로만 움직인다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>학부모 민원 유형 9가지 → 원인 3(안내 부족 · 처리 창구 분산 · 기한 미준수) → 개선 과제 3</li>
+      <li>늘봄학교 만족도 조사 불만 항목 6 → 원인 2(인력 · 공간) → 2학기 대책 2</li>
+      <li>학교 시설 안전점검 지적 사항 8 → 원인 3(노후 · 점검 주기 · 예산 시기) → 중기 정비 방향 3</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>groups</code>마다 원인(<code>cause</code>) · 근거(<code>ev</code>) · 대책(<code>fix</code>) · 지표(<code>kpi</code>)와 증상 <code>symptoms</code>(이름 · 비율)를 넣습니다. 증상 수에 맞춰 줄 높이와 칸 높이가 자동으로 정해집니다(합계 9줄까지 권장).</li>
+      <li>막대 눈금 끝은 <code>axisMax</code>(기본 60%)입니다. 가장 큰 비율보다 크게, 20 단위로 정하세요. 막대는 0에서 시작합니다.</li>
+      <li>계열 분위기는 <code>.ps94{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값). 제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>공통 뼈대</b>: 슬라이드 33.87 × 19.05cm 기준 좌우 여백 1.7cm. 머리말 띠는 위 0.85cm에 텍스트 상자 2개(왼쪽 "Ⅰ. 현황 및 문제점" 14pt 굵게 · 오른쪽 계획안 이름 10pt) + 아래 1pt 회색 선. 제목 26pt 굵게, 바닥 줄 9pt(설문 대상·시기·복수 응답 여부를 꼭 적는다).</li>
+      <li><b>세 열 먼저</b>: 증상 열 1.7~13.5cm, 원인 열 14.8~21.4cm, 대책 열 22.4~32.2cm. 열 머리는 11pt 굵게 + 아래 1.5pt 진한 선.</li>
+      <li><b>증상 줄</b>: 줄 높이 1.38cm, 묶음 안 줄 간격 0.17cm, 묶음 사이 0.55cm. 막대는 [삽입 → 차트 → 가로 막대형]보다 사각형이 빠르다. 눈금 0~60%를 5.1cm로 잡으면 1% = 0.085cm(52% → 4.42cm). 0 · 20 · 40 · 60 자리에 0.5pt 옅은 세로선을 깐다.</li>
+      <li><b>모이는 곡선</b>: [도형 → 선 → 곡선 연결선]으로 줄 오른쪽 끝 → 원인 칸 왼쪽 가운데. 1.25pt 중간 청색. 줄 끝에 지름 0.13cm 점.</li>
+      <li><b>원인 · 대책</b>: 원인은 옅은 회청 사각형, 대책은 진한 남색 사각형. 높이는 딸린 증상 줄을 덮도록(3줄 = 4.5cm, 2줄 = 2.93cm). 원인 → 대책은 오른쪽 화살표 1.5pt. 대책 카드 오른쪽 2.8cm는 세로선으로 나눠 지표 칸.</li>
+      <li><b>정지 장표</b>: 애니메이션 없음. 발표에서 원인을 하나씩 설명하려면 묶음(증상 줄 + 곡선 + 원인 + 대책)을 그룹으로 묶어 [나타내기 → 닦아내기(왼쪽에서)], 시작 "클릭할 때".</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목) + IBM Plex Sans KR(본문) + IBM Plex Mono 600(숫자) · 대체 프리텐다드 · 맑은 고딕 · Consolas</div>
+      <div><b>난이도</b>HTML 하 · PPT 중(줄 간격 맞추기 + 곡선 연결선)</div>
+      <div><b>질감 · 모션</b>평면 · 정지</div>
+      <div><b>모듈 · 위치</b>막대(증상 비율) + 위계도(증상 → 원인 → 대책) + 카드 묶음(대책·지표) · Ⅰ 현황</div>
+      <div><b>어울리는 계열</b>B · C · D · E · F · G (평면 도식)</div>
+      <div><b>트렌드</b>이슈 트리 한 장은 세 층 · 둘째 층 가지 3~5개로 — <a href="https://deckary.com/template/issue-tree" target="_blank" rel="noopener">Deckary, Issue Tree Template</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps94-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅰ', sectionName: '현황 및 문제점',
+    plan: '2027 ○○교육청 디지털 기반 수업 지원 내실화 계획',
+    title: '교원이 꼽은 불편 일곱 가지는 [세 가지 원인]으로 모이고, 대책도 원인마다 하나씩 겨냥합니다',
+    heads: [['현장 증상', '교원 응답 비율'], ['근본 원인', '근거'], ['2027 대책', '성과지표 2026 → 2027']],
+    axisMax: 60, unit: '%',
+    groups: [
+      { cause: '기기·망을 맡을 사람이 없다', ev: { v: '81', u: '%', t: '정보 담당 교사 한 명이 겸임하는 학교' },
+        fix: { name: '학교군 거점 디지털 튜터 · 수리 위탁 일원화', tasks: '튜터 1명이 4~5교 순회, 충전함·무선망 점검까지' },
+        kpi: { name: '고장 수리 기간', from: '14', to: '3', unit: '일' },
+        symptoms: [ { name: '기기 충전이 모자람', v: 47 }, { name: '교실 무선망이 자주 끊김', v: 38 }, { name: '고장 수리에 2주 이상', v: 35 } ] },
+      { cause: '계정이 플랫폼마다 흩어져 있다', ev: { v: '5', u: '개', t: '학교당 학습 플랫폼 평균' },
+        fix: { name: '교육청 통합 로그인 구축', tasks: '학습 플랫폼 5개를 계정 하나로' },
+        kpi: { name: '수업 전 로그인 시간', from: '7', to: '1', unit: '분' },
+        symptoms: [ { name: '학생 로그인으로 수업 지연', v: 52 }, { name: '플랫폼마다 비밀번호 따로', v: 29 } ] },
+      { cause: '연수가 수업까지 닿지 않는다', ev: { v: '6', u: '시간', t: '직무연수 42시간 중 수업 적용 실습' },
+        fix: { name: '교과별 수업 사례 꾸러미 · 실습 연수', tasks: '사례 120종 탑재, 연수 실습 6 → 20시간' },
+        kpi: { name: '연수 만족도(5점)', from: '3.1', to: '4.0', unit: '점' },
+        symptoms: [ { name: '수업에 쓸 자료 찾기 어려움', v: 44 }, { name: '연수가 기능 위주라 적용 어려움', v: 41 } ] }
+    ],
+    source: '가상 예시 · 출처: ○○교육청 디지털 기기 활용 수업 실태 설문(2026. 6., 초·중 교원 1,284명, 복수 응답) 재구성',
+    page: 3
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var TOP = 268, BOT = 810, IN = 8, OUT = 26;          // 증상 줄 범위, 묶음 안 간격, 묶음 사이 간격
+  var AX = 80, AW = 560, BX = 360, BW = 220;            // 증상 열, 막대 시작 x와 눈금 끝까지 길이
+  var CX = 700, CW = 310, SX = 1062, SW = 458;          // 원인 칸, 대책 카드
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + ';height:' + u(h); };
+  function frame(){
+    return '<div class="ps94-a ps94-hd"><div class="ps94-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps94-plan">' + esc(DATA.plan) + '</div></div>' +
+      '<div class="ps94-a ps94-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>' +
+      '<div class="ps94-a ps94-ft"><span>' + esc(DATA.source) + '</span><span>' + DATA.page + '</span></div>';
+  }
+
+  function render(root){
+    var h = frame(), svg = '';
+    var G = DATA.groups;
+    var n = G.reduce(function(a, g){ return a + g.symptoms.length; }, 0);
+    var RH = (BOT - TOP - IN * (n - G.length) - OUT * (G.length - 1)) / n;   // 줄 높이: 증상 수로 자동 계산
+    var sc = BW / DATA.axisMax;                                               // 1%당 길이(선형, 0에서 시작)
+
+    // 열 머리
+    [[AX, AW], [CX, CW], [SX, SW]].forEach(function(c, k){
+      h += '<div class="ps94-a ps94-ch" style="' + box(c[0], 222, c[1], 30) + '">' + esc(DATA.heads[k][0]) + '<span>' + esc(DATA.heads[k][1]) + '</span></div>';
+    });
+    // 눈금: 0부터 axisMax까지 20 단위, 옅은 세로선
+    for (var t = 0; t <= DATA.axisMax; t += 20) {
+      var tx = BX + t * sc;
+      h += '<div class="ps94-a ps94-tk" style="left:' + u(tx) + ';top:' + u(BOT + 3) + '">' + t + (t === DATA.axisMax ? DATA.unit : '') + '</div>';
+      svg += '<path d="M' + tx + ' ' + TOP + 'V' + BOT + '" style="stroke:var(--ds-line);stroke-width:' + (t === 0 ? 1.5 : 1) + ';fill:none' + (t === 0 ? '' : ';stroke-dasharray:3 4') + '"/>';
+    }
+
+    var y = TOP;
+    G.forEach(function(g, gi){
+      var gy = y, m = g.symptoms.length, gh = m * RH + (m - 1) * IN, gc = gy + gh / 2;
+      // 증상 줄 + 막대 + 원인 칸으로 모이는 곡선
+      g.symptoms.forEach(function(s, si){
+        var ry = y, cy = ry + RH / 2, bw = s.v * sc;
+        h += '<div class="ps94-a ps94-sy" style="' + box(AX, ry, AW, RH) + '"><i>' + (gi + 1) + '-' + (si + 1) + '</i><b>' + esc(s.name) + '</b></div>';
+        svg += '<rect x="' + BX + '" y="' + (cy - 11) + '" width="' + bw + '" height="22" style="fill:var(--ds-c3)"/>';
+        h += '<div class="ps94-a ps94-val" style="left:' + u(BX + bw + 8) + ';top:' + u(cy - 12) + '">' + s.v + '<small>' + esc(DATA.unit) + '</small></div>';
+        var x0 = AX + AW, mx = (x0 + CX) / 2;
+        svg += '<circle cx="' + x0 + '" cy="' + cy + '" r="3.5" style="fill:var(--ds-c3)"/>';
+        svg += '<path d="M' + x0 + ' ' + cy + 'C' + mx + ' ' + cy + ' ' + mx + ' ' + gc + ' ' + CX + ' ' + gc + '" style="stroke:var(--ds-c3);stroke-width:1.5;fill:none"/>';
+        y += RH + (si < m - 1 ? IN : 0);
+      });
+      // 원인 칸
+      h += '<div class="ps94-a ps94-ca" style="' + box(CX, gy, CW, gh) + '"><i>원인 ' + (gi + 1) + '</i><b>' + esc(g.cause) + '</b>' +
+        '<div class="ps94-ev"><strong>' + esc(g.ev.v) + '<small>' + esc(g.ev.u) + '</small></strong><span>' + esc(g.ev.t) + '</span></div></div>';
+      // 원인 → 대책 화살표
+      svg += '<path d="M' + (CX + CW) + ' ' + gc + 'H' + (SX - 12) + '" style="stroke:var(--ds-c2);stroke-width:2;fill:none"/>';
+      svg += '<path d="M' + (SX - 14) + ' ' + (gc - 7) + 'L' + (SX - 2) + ' ' + gc + 'L' + (SX - 14) + ' ' + (gc + 7) + 'Z" style="fill:var(--ds-c2)"/>';
+      // 대책 카드 + 지표
+      h += '<div class="ps94-a ps94-so" style="' + box(SX, gy, SW, gh) + '"><div><i>대책 ' + (gi + 1) + '</i><b>' + esc(g.fix.name) + '</b><em>' + esc(g.fix.tasks) + '</em></div>' +
+        '<div class="ps94-kp"><span class="k">' + esc(g.kpi.name) + '</span><span class="v">' + esc(g.kpi.from) + ' → <b>' + esc(g.kpi.to) + '</b><small>' + esc(g.kpi.unit) + '</small></span></div></div>';
+      y += OUT;
+    });
+    root.innerHTML = '<div class="ps94-in"><svg class="ps94-svg" viewBox="0 0 1600 900" aria-hidden="true">' + svg + '</svg>' + h + '</div>';
+  }
+  render(document.getElementById('ps94'));
+})();
+</script>
+<script>
+(function(){
+  var P = 'ps94';
+  var slide = document.getElementById(P);
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FAM = {"N": {"name": "중립(기본)", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#F5F7FA", "--ds-surface": "#FFFFFF", "--ds-ink": "#18233D", "--ds-sub": "#5B6579", "--ds-line": "#D5DBE4", "--ds-accent": "#D2502A", "--ds-accent2": "#2E5C8F", "--ds-c1": "#1B2E57", "--ds-c2": "#2D4D85", "--ds-c3": "#5474AB", "--ds-c4": "#A8BCDA", "--ds-c5": "#E1E8F2", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "4px", "--ds-shadow": "0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)"}}, "B": {"name": "B 미니멀 스튜디오", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#EEF1F4", "--ds-surface": "#FAFAF8", "--ds-ink": "#1F2B36", "--ds-sub": "#5E6974", "--ds-line": "#CDD4DB", "--ds-accent": "#E2571A", "--ds-accent2": "#2F5D86", "--ds-c1": "#2F4252", "--ds-c2": "#4F6679", "--ds-c3": "#7389A0", "--ds-c4": "#A9B9C7", "--ds-c5": "#DCE3E9", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"}}, "D": {"name": "D 인쇄·종이", "fonts": "Noto Serif KR / IBM Plex Sans KR / Noto Serif KR", "v": {"--ds-bg": "#FBFAF6", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B1E24", "--ds-sub": "#5C606A", "--ds-line": "#CFCCC4", "--ds-accent": "#D9482B", "--ds-accent2": "#23467A", "--ds-c1": "#1F3E6E", "--ds-c2": "#3C5D8C", "--ds-c3": "#6D87AD", "--ds-c4": "#A5B5CD", "--ds-c5": "#E3E8F0", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"}}, "F": {"name": "F 관측·중계", "fonts": "Gothic A1 / Gothic A1 / Saira Semi Condensed", "v": {"--ds-bg": "#F3F5F8", "--ds-surface": "#FFFFFF", "--ds-ink": "#12203A", "--ds-sub": "#556178", "--ds-line": "#D3DAE4", "--ds-accent": "#E5483A", "--ds-accent2": "#2F64AE", "--ds-c1": "#1E3A66", "--ds-c2": "#34598F", "--ds-c3": "#5B7DB0", "--ds-c4": "#9DB3D3", "--ds-c5": "#DAE3EF", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Saira Semi Condensed\",\"Gothic A1\",\"Arial Narrow\",\"Malgun Gothic\",sans-serif", "--ds-radius": "3px", "--ds-shadow": "0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)"}}};
+  var ORDER = ["N", "B", "D", "F"];
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === ORDER[0]) slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window[P + 'Fam'] = apply;
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap\">";
+  var css = document.getElementById(P + '-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById(P + '-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + slide.outerHTML.replace(/>[\s\S]*<\/div>$/, '></div>') + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+  window[P + 'Code'] = code;
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th>' + ORDER.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ORDER.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + ORDER.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + ORDER.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+
+</body></html>
