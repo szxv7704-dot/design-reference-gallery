@@ -1,0 +1,591 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #103 다섯 별 밤하늘 키트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;500&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* 페이지 틀: 밤하늘 표지(#74)와 같은 어두운 모습 하나로 고정. 장표 3장 → 계열 값 카드 → 어울리는 요소 → 코드 → PPT → 스펙 */
+:root{
+  --pg-bg:#070C19; --pg-panel:#0E1629; --pg-ink:#ECE7DB; --pg-sub:#A3ADC0; --pg-line:#232E47;
+  --pg-accent:#E6C68C; --pg-code-bg:#03060D; --pg-code-ink:#DCE3EF;
+  --pg-f-head:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --pg-f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-f-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  color-scheme:dark;
+}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-f-body);font-size:15px;line-height:1.7}
+.pg{max-width:1180px;margin:0 auto;padding-block:28px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:48px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:8px;border-bottom:1px solid var(--pg-line);padding-bottom:18px}
+.pg-kicker{font:500 12px var(--pg-f-mono);letter-spacing:.16em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-f-head);font-weight:300;font-size:clamp(26px,3.6vw,38px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:70ch}
+.pg h2{font-family:var(--pg-f-head);font-weight:500;font-size:22px;margin:0 0 16px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.pg h2 small{font:500 12px var(--pg-f-mono);color:var(--pg-accent);letter-spacing:.12em}
+.pg h3{font-size:15px;font-weight:700;margin:20px 0 6px}
+.pg p{margin:0 0 10px;max-width:74ch}
+.pg a{color:var(--pg-accent)}
+.pg code{font-family:var(--pg-f-mono);font-size:.9em;color:var(--pg-accent)}
+.st{display:grid;gap:10px}
+.st-cap{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin:0}
+.st-cap b{font-family:var(--pg-f-head);font-weight:500;font-size:17px}
+.st-cap span{font-size:13px;color:var(--pg-sub)}
+.st-frame{border:1px solid var(--pg-line);overflow-x:auto;background:var(--pg-bg)}
+.st-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar > span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 13px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:3px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);color:var(--pg-accent)}
+.btn:hover{border-color:var(--pg-sub)}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:4px;padding:22px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+.two > *{min-width:0}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:0 0 6px}
+.sw div{border:1px solid var(--pg-line);background:var(--pg-bg);font-size:12px;padding:0 0 8px;min-width:0}
+.sw i{display:block;height:46px;border-bottom:1px solid var(--pg-line);margin-bottom:6px}
+.sw b,.sw code,.sw em{display:block;padding:0 9px}
+.sw b{font-weight:500;font-size:13px}
+.sw code{color:var(--pg-sub)}
+.sw em{font-style:normal;color:var(--pg-sub);font-size:11.5px;line-height:1.4;margin-top:2px}
+.sw-h{font:500 12px var(--pg-f-mono);letter-spacing:.12em;color:var(--pg-sub);margin:18px 0 8px}
+.fonts{display:grid;gap:10px}
+.fonts div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:baseline;border-top:1px solid var(--pg-line);padding-top:10px}
+.fonts span{font-size:12px;color:var(--pg-sub)}
+.fonts p{margin:0}
+.rules{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.rules li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;border-top:1px solid var(--pg-line);padding-top:10px;font-size:14px}
+.rules li > span{font-size:12px;color:var(--pg-sub);padding-top:2px}
+.dont{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14px}
+.els{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:4px 20px;margin:0;padding:0;list-style:none;font-size:14px}
+.els li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:6px;border-bottom:1px solid var(--pg-line);padding:6px 0}
+.els li span{font:500 12px var(--pg-f-mono);color:var(--pg-sub);padding-top:2px}
+.els li em{font-style:normal;color:var(--pg-sub);font-size:12.5px;margin-left:6px}
+.code-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+pre.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font:12.5px/1.55 var(--pg-f-mono);max-height:520px;overflow:auto;padding:16px 18px;border:1px solid var(--pg-line);border-radius:4px;margin:0;white-space:pre}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:5px;max-width:80ch}
+.tbl{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:top}
+.spec th{font-weight:500;color:var(--pg-sub);font-size:12px}
+.spec td code{font-size:12px}
+.chip{display:inline-block;width:12px;height:12px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:500}
+@media (max-width:760px){
+  .two{grid-template-columns:minmax(0,1fr)}
+  .st-frame .gk{min-width:760px}.st-hint{display:block}
+  .fonts div,.rules li{grid-template-columns:minmax(0,1fr);gap:2px}
+}
+</style>
+
+<style id="gk-css">
+/* ── G 어두운 콘셉트 계열 키트 '다섯 별' ─ 접두어 gk / 색은 --ds-* 변수로만(캔버스도 변수를 읽어 그린다) ── */
+.gk{
+  /* 공통 변수: G 계열 값. 다른 계열로 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#060B19; --ds-surface:#0E1830; --ds-ink:#EFEADF; --ds-sub:#A4AEC2; --ds-line:#27344F;
+  --ds-accent:#E6C68C;   /* 금빛: 한 장에 한 곳 */
+  --ds-accent2:#FFB86E;  /* 마을 불빛: 마무리 산자락 · 본문 보조 강조 */
+  --ds-c1:#E6EDFF; --ds-c2:#B3C6EE; --ds-c3:#7D97CC; --ds-c4:#415A8C; --ds-c5:#172649;  /* 어두운 바탕: c1 가장 밝음(가장 센 위계) → c5 바탕에 가까움 */
+  --ds-font-title:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --ds-font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:2px;
+  --ds-shadow:0 0 0 1px rgba(150,175,230,.08),0 18px 40px -24px rgba(0,0,0,.8);
+  /* 계열 전용: 하늘 · 은하수 · 별빛(분광형) · 산 */
+  --ds-sky-top:#03060F; --ds-sky-low:#12233F; --ds-glow:#3F8F7C; --ds-mw:#A9B8D8;
+  --ds-star-b:#CFE0FF; --ds-star-a:#EEF1FF; --ds-star-f:#FFF2DA; --ds-star-k:#FFC98E;
+  --ds-ridge-far:#0D1A34; --ds-ridge-mid:#060D1B; --ds-ridge-near:#02040A;
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;isolation:isolate;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.gk *{box-sizing:border-box}
+.gk canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.gk-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.45;word-break:keep-all}
+.gk-a{position:absolute}
+/* 공통 뼈대: 머리말 띠(가는 선) · 바닥 줄 */
+.gk-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--ds-line)}
+.gk-sec{display:flex;align-items:baseline;gap:calc(var(--u)*12);font:500 calc(var(--u)*19) var(--ds-font-title);letter-spacing:.04em}
+.gk-sec i{font-style:normal;color:var(--ds-c2)}
+.gk-sec small{font:400 calc(var(--u)*11) var(--ds-font-num);letter-spacing:.24em;color:var(--ds-sub)}
+.gk-plan{font-size:calc(var(--u)*14);color:var(--ds-sub);letter-spacing:.02em}
+.gk-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+.gk-ft b{font:400 calc(var(--u)*12) var(--ds-font-num);color:var(--ds-ink);letter-spacing:.1em}
+.gk em{font-style:normal;color:var(--ds-accent)}
+/* 목차 */
+.gk-tt{left:calc(var(--u)*80);top:calc(var(--u)*112);font:300 calc(var(--u)*42)/1.3 var(--ds-font-title);letter-spacing:.02em;text-wrap:balance}
+.gk-col{top:calc(var(--u)*618);height:calc(var(--u)*196);width:calc(var(--u)*264);border-top:1px solid var(--ds-c4);padding-top:calc(var(--u)*14);display:flex;flex-direction:column}
+.gk-col .n{display:flex;justify-content:space-between;align-items:baseline}
+.gk-col .n b{font:200 calc(var(--u)*46)/1 var(--ds-font-title);color:var(--ds-c1)}
+.gk-col .n span{font:400 calc(var(--u)*13) var(--ds-font-num);color:var(--ds-sub);letter-spacing:.08em}
+.gk-col h3{margin:calc(var(--u)*12) 0 calc(var(--u)*10);font:500 calc(var(--u)*23)/1.3 var(--ds-font-title);color:var(--ds-ink)}
+.gk-col ul{margin:0;padding:0;list-style:none;display:grid;gap:calc(var(--u)*3);font-size:calc(var(--u)*14.5);color:var(--ds-sub)}
+.gk-col ul li::before{content:'';display:inline-block;width:calc(var(--u)*8);height:1px;background:var(--ds-c4);vertical-align:middle;margin-right:calc(var(--u)*8)}
+/* 섹션 간지 */
+.gk-big{left:calc(var(--u)*72);top:calc(var(--u)*150);font:200 calc(var(--u)*300)/1 var(--ds-font-title);color:var(--ds-c1);letter-spacing:-.02em}
+.gk-dn{left:calc(var(--u)*80);top:calc(var(--u)*520);width:calc(var(--u)*640)}
+.gk-dn small{display:block;font:400 calc(var(--u)*13) var(--ds-font-num);letter-spacing:.3em;color:var(--ds-sub)}
+.gk-dn h2{margin:calc(var(--u)*14) 0 0;font:300 calc(var(--u)*72)/1.2 var(--ds-font-title);color:var(--ds-ink);letter-spacing:.02em}
+.gk-items{left:calc(var(--u)*80);top:calc(var(--u)*730);width:calc(var(--u)*700);display:flex;flex-wrap:wrap;gap:calc(var(--u)*6) calc(var(--u)*26);border-top:1px solid var(--ds-line);padding-top:calc(var(--u)*16);font-size:calc(var(--u)*16);color:var(--ds-sub)}
+.gk-items span b{font:400 calc(var(--u)*13) var(--ds-font-num);color:var(--ds-c3);margin-right:calc(var(--u)*7)}
+.gk-lab{transform:translateY(-50%);display:flex;align-items:center;gap:calc(var(--u)*10);white-space:nowrap}
+.gk-lab i{display:block;width:calc(var(--u)*28);height:1px;background:var(--ds-accent)}
+.gk-lab span{display:flex;flex-direction:column;line-height:1.35}
+.gk-lab b{font:500 calc(var(--u)*15) var(--ds-font-title);color:var(--ds-accent)}
+.gk-lab small{font:400 calc(var(--u)*11.5) var(--ds-font-num);color:var(--ds-sub);letter-spacing:.06em}
+.gk-lab.is-in{animation:gkIn .4s ease .55s both}
+/* 마무리 */
+.gk-ek{left:calc(var(--u)*96);top:calc(var(--u)*248);font:400 calc(var(--u)*15) var(--ds-font-body);letter-spacing:.16em;color:var(--ds-sub)}
+.gk-ek::after{content:'';display:block;width:calc(var(--u)*36);height:1px;background:var(--ds-c4);margin-top:calc(var(--u)*16)}
+.gk-msg{left:calc(var(--u)*96);top:calc(var(--u)*300);font:300 calc(var(--u)*66)/1.32 var(--ds-font-title);letter-spacing:.02em;white-space:pre-line}
+.gk-ct{left:calc(var(--u)*96);top:calc(var(--u)*540);display:grid;grid-template-columns:auto auto;gap:calc(var(--u)*6) calc(var(--u)*22);font-size:calc(var(--u)*16)}
+.gk-ct span{font:400 calc(var(--u)*12.5) var(--ds-font-num);letter-spacing:.14em;color:var(--ds-sub);padding-top:calc(var(--u)*2)}
+@keyframes gkIn{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){.gk *{animation:none!important}}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 103 · 계열 키트 · G 어두운 콘셉트 · 가상 예시</div>
+    <h1>다섯 별 밤하늘 키트</h1>
+    <p class="pg-lead">표지 #74 '별을 잇다'의 오른쪽 위 카시오페이아자리 W를 덱 전체의 길잡이로 삼았습니다. W를 이루는 다섯 별이 곧 다섯 섹션입니다. 목차는 다섯 별 아래에 섹션을 하나씩 매달고, 간지는 그 섹션의 별까지만 선이 이어지며, 마무리는 표지와 같은 하늘에서 W가 다 이어집니다.</p>
+  </header>
+
+  <section class="st" aria-label="목차 장표">
+    <p class="st-cap"><b>1 · 목차</b><span>정지 · 별 아래 지시선이 섹션 칸으로 내려온다</span></p>
+    <p class="st-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="st-frame"><div class="gk" data-gk="toc" role="img" aria-label="목차: 카시오페이아자리 다섯 별 아래 Ⅰ 추진 배경·현황부터 Ⅴ 일정 및 예산까지 다섯 섹션 칸"></div></div>
+  </section>
+
+  <section class="st" aria-label="섹션 간지 장표">
+    <p class="st-cap"><b>2 · 섹션 간지</b><span>번호·이름만 바꿔 다섯 번 쓴다 · 전환 하나: 선이 이번 별로 건너감 0.8초</span></p>
+    <p class="st-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="st-frame"><div class="gk" data-gk="div" data-sec="2" role="img" aria-label="섹션 간지: 큰 로마 숫자와 섹션 이름, 오른쪽에 이번 섹션의 별까지 이어진 카시오페이아자리"></div></div>
+    <div class="bar" role="group" aria-label="간지 섹션 바꿔 보기"><span>섹션 바꿔 보기</span>
+      <button class="btn" type="button" data-sec="0" aria-pressed="false">Ⅰ</button><button class="btn" type="button" data-sec="1" aria-pressed="false">Ⅱ</button><button class="btn" type="button" data-sec="2" aria-pressed="true">Ⅲ</button><button class="btn" type="button" data-sec="3" aria-pressed="false">Ⅳ</button><button class="btn" type="button" data-sec="4" aria-pressed="false">Ⅴ</button>
+      <button class="btn" type="button" id="replay">다시 보기</button>
+    </div>
+  </section>
+
+  <section class="st" aria-label="마무리 장표">
+    <p class="st-cap"><b>3 · 마무리</b><span>정지 · 표지 #74와 같은 하늘(산 세 겹 · 마을 불빛 · 오른쪽 위 W)</span></p>
+    <p class="st-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="st-frame"><div class="gk" data-gk="end" role="img" aria-label="마무리: 산자락 마을 불빛 위 밤하늘, 다 이어진 카시오페이아자리와 핵심 메시지, 문의처"></div></div>
+  </section>
+
+  <section class="panel">
+    <h2>계열 값 카드 <small>G · DARK CONCEPT</small></h2>
+    <p>G 계열 표지 셋(#18 함께 도는 궤도 · #30 꺼지지 않는 창구 · #74 별을 잇다)에서 뽑은 공통점은 세 가지입니다. 바탕은 순흑이 아닌 깊은 남색, 빛은 화면 속 광원(별·은하·마을 불빛·네온관)에서만 나오고, 제목은 가는 획(명조 200·300, 고딕 Light)입니다. 이 키트는 그중 밤하늘(#74 · #18)을 기준으로 값을 정했습니다.</p>
+    <div class="sw-h">기본 변수</div>
+    <div class="sw" id="sw-base"></div>
+    <div class="sw-h">위계 농담 c1~c5 (어두운 바탕이라 밝을수록 센 위계)</div>
+    <div class="sw" id="sw-c"></div>
+    <div class="sw-h">계열 전용 (하늘 · 별빛 · 산)</div>
+    <div class="sw" id="sw-x"></div>
+
+    <div class="two" style="margin-top:22px">
+      <div>
+        <h3 style="margin-top:0">글꼴</h3>
+        <div class="fonts">
+          <div><span>제목</span><p style="font:300 26px var(--pg-f-head)">Noto Serif KR 200 · 300 · 500 <small style="font:12px var(--pg-f-body);color:var(--pg-sub)">대체 나눔명조 · 바탕</small></p></div>
+          <div><span>본문</span><p>Noto Sans KR 400 · 500 · 700 <small style="color:var(--pg-sub)">대체 Apple SD 산돌고딕 Neo · 맑은 고딕</small></p></div>
+          <div><span>숫자 · 영문</span><p style="font-family:var(--pg-f-mono)">IBM Plex Mono 400 · 500 <small style="color:var(--pg-sub);font-family:var(--pg-f-body)">대체 Consolas</small></p></div>
+        </div>
+        <h3>이 계열에서 하지 말 것</h3>
+        <ol class="dont">
+          <li><b>순흑 바탕 + 빛나는 카드</b>: 바탕은 #060B19 깊은 남색. 글로(번짐)는 별 같은 광원에만 쓰고 카드·글자·도형에는 쓰지 않는다.</li>
+          <li><b>본문 장표 뒤에 별 깔기</b>: 표·차트 뒤의 별은 데이터 점처럼 읽힌다. 본문 요소는 무지 바탕(--ds-bg)에 놓고, 별과 은하수는 목차·간지·마무리에서만.</li>
+          <li><b>지어낸 별자리 · 무지개 성운</b>: 별 배치는 실제 적경·적위, 별빛 색은 분광형 넷(B·A·F·K)만. 보라·분홍 성운 그라데이션으로 빈 하늘을 채우지 않는다.</li>
+        </ol>
+      </div>
+      <div>
+        <h3 style="margin-top:0">규칙</h3>
+        <ul class="rules">
+          <li><span>머리말 띠</span><div>아래 1px 선(--ds-line) 하나. 왼쪽 로마 숫자(c2) + 섹션 이름 명조 500 19px + 영문 소문자 고정폭, 오른쪽 계획안 이름 고딕 14px 보조색.</div></li>
+          <li><span>강조색</span><div>금빛 --ds-accent는 <b>한 장에 한 곳</b>: 목차는 제목 한 단어, 간지는 이번 별의 고리와 이름표, 마무리는 메시지 한 단어. 마을 불빛 --ds-accent2는 마무리 산자락과 본문의 보조 강조(범주 하나)에만.</div></li>
+          <li><span>위계 농담</span><div>밝은 바탕 계열과 거꾸로, c1이 가장 밝다. c1 면 위 글자는 --ds-surface(어두운 글자), c5 면 위 글자는 c1. 그래서 다른 요소의 '진한 띠 + 흰 글자' 문법이 그대로 성립한다.</div></li>
+          <li><span>질감</span><div>평면 + 광원의 빛 번짐만. 약한 입체는 그림자 대신 1px 밝은 테두리(--ds-shadow). 재질(나무·유리) 표현은 쓰지 않는다.</div></li>
+          <li><span>모션</span><div>등장 연출은 표지 #74 한 장. 간지는 선이 이번 별로 건너가는 전환 하나(0.8초). 목차·마무리·본문은 정지, 별 반짝임 반복도 키트에서는 끈다.</div></li>
+          <li><span>사진 · 그림</span><div>사진은 쓰지 않는다. 하늘·은하수·산은 캔버스로 그리거나 표지를 캡처한 그림 한 장. 별자리는 실제 좌표로만.</div></li>
+          <li><span>#30 네온과 잇기</span><div>같은 변수에 --ds-accent만 #FF5C9E, --ds-c2를 #8FE6F5로 바꾸고 별 캔버스를 끄면 #30 표지 뒤에 이어 쓸 수 있다.</div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>이 계열과 어울리는 기존 요소 <small>FAMILIES ∋ G · 37개</small></h2>
+    <p>평면 도식이라 계열 값만 바꾸면 이 밤하늘 덱의 본문이 됩니다. 어두운 바탕에서는 선과 점이 주인공인 요소(추이 · 흐름 · 체계도)가 특히 잘 읽히고, 칸이 빽빽한 표는 글자 크기를 한 단계 키워 쓰는 편이 낫습니다.</p>
+    <ul class="els" id="els"></ul>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 첫 코드는 장표 세 장(목차 · 간지 · 마무리)을 한 번에 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 세 장이 그려집니다. 한 장만 쓰려면 마크업에서 나머지 <code>&lt;div class="gk" data-gk="…"&gt;</code> 줄을 지우면 됩니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DECK</code> 한 곳만 바꿉니다. <code>sections</code>(번호 · 이름 · 영문 · 쪽 · 하위 항목)를 고치면 목차와 간지가 함께 바뀌고, 간지에 띄울 섹션은 <code>data-gk="div"</code> 옆 <code>data-sec="2"</code>(0~4)로 고릅니다.</li>
+      <li>색과 글꼴은 <code>.gk{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다. 하늘과 별도 이 변수를 읽어 그립니다. 둘째 코드(계열 값 묶음)는 다른 본문 요소에 G 분위기를 입힐 때 그 요소의 감싸는 클래스 자리에 붙여 넣으세요.</li>
+      <li>제목·메시지의 <code>[ ]</code> 안 단어 하나만 금빛이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar"><button class="btn" type="button" data-copy="code-all">코드 복사</button><span class="msg" aria-live="polite"></span></div>
+    <pre class="code" id="code-all" tabindex="0"></pre>
+    <h3>계열 값 묶음만 (G)</h3>
+    <div class="code-bar"><button class="btn" type="button" data-copy="code-tok">코드 복사</button><span class="msg" aria-live="polite"></span></div>
+    <pre class="code" id="code-tok" tabindex="0" style="max-height:340px"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>테마 색</b>: [디자인 → 적용 → 색 → 색 사용자 지정]에서 텍스트/배경-어둡게 1 = #060B19(바탕), 밝게 1 = #EFEADF(글자), 어둡게 2 = #0E1830(면), 밝게 2 = #A4AEC2(보조), 강조 1 = #E6C68C(금빛), 강조 2 = #FFB86E(불빛), 강조 3~6 = #E6EDFF · #B3C6EE · #7D97CC · #415A8C(농담). 이름은 'G 밤하늘'.</li>
+      <li><b>테마 글꼴</b>: [글꼴 → 글꼴 사용자 지정] 제목 글꼴(한글) Noto Serif KR Light, 본문 글꼴(한글) Noto Sans KR. 숫자는 텍스트 상자마다 IBM Plex Mono(없으면 Consolas).</li>
+      <li><b>슬라이드 마스터</b>(33.867 × 19.05cm): 배경 서식 = 단색 #060B19. 위 1.42cm에 텍스트 개체 틀 두 개(왼쪽 섹션 14pt 명조, 오른쪽 계획안 10pt 보조색) + 그 아래 0.75pt 선 #27344F, 좌우 여백 1.69cm. 아래 17.98cm에 바닥 줄(9pt 보조색 + 오른쪽 슬라이드 번호).</li>
+      <li><b>레이아웃 1 · 목차</b>: 위 절반에 이 키트 목차를 캡처한 하늘 그림(별자리 포함)을 [맨 뒤로 보내기]. 아래 13.1cm 높이부터 텍스트 상자 5개, 너비 5.6cm · 간격 0.5cm, [맞춤 → 가로 간격 동일하게]. 상자 위에 0.75pt 선 #415A8C, 로마 숫자 34pt 명조 ExtraLight.</li>
+      <li><b>레이아웃 2 · 간지</b>: 왼쪽 로마 숫자 220pt 명조 ExtraLight(#E6EDFF), 아래 이름 54pt Light. 오른쪽에 별 5개(원 지름 0.2~0.35cm, 등급이 밝을수록 크게, [네온] 효과 6pt 별빛 색)와 [연결선] 0.75pt 흰색 투명도 50%. 섹션마다 슬라이드를 복제해 지나온 선만 남기고, 이번 선에 [나타내기 → 닦아내기(지난 별 쪽에서)] 0.8초 · 시작 "이전 효과와 함께".</li>
+      <li><b>레이아웃 3 · 마무리</b>: 표지 #74를 전체 화면 캡처해 배경 그림으로 쓰고, 왼쪽 메시지 48pt 명조 Light 두 줄, 아래 문의처 표(테두리 없음, 왼쪽 열 9pt 고정폭 보조색).</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>뼈대</b>1600×900 · 머리말 띠 y40~88 · 제목 y112 · 목차 칸 y618~814(5칸 × 264, 간격 30) · 바닥 줄 y846</div>
+      <div><b>별 좌표</b>카시오페이아 W 다섯 별 실제 적경·적위(J2000) · 크기 = 겉보기 등급 · 색 = 분광형(ε B3 · δ A5 · γ B0.5 · α K0 · β F2) · 2.7등급보다 밝은 별만 십자 빛살</div>
+      <div><b>모션</b>간지 전환 하나: 지난 별 → 이번 별 선 0.8초 + 이번 별 밝아짐 · 이름표 0.4초(0.55초 뒤). 동작 줄이기 설정이면 최종 화면만</div>
+      <div><b>난이도</b>HTML 중(캔버스 하늘·별 투영) · PPT 중(마스터 3종 + 간지 닦아내기)</div>
+      <div><b>트렌드</b>순흑 대신 깊은 남색 바탕 + 강조 하나로 쓰는 다크 모드 발표, 작은 글자·복잡한 데이터는 밝은 바탕이 낫다는 단서 — <a href="https://designshack.net/articles/business-articles/dark-mode-presentations" target="_blank" rel="noopener">Design Shack, Dark Mode Presentations: Trend or Practical Shift?</a></div>
+      <div><b>별 자료</b><a href="https://en.wikipedia.org/wiki/List_of_stars_in_Cassiopeia" target="_blank" rel="noopener">List of stars in Cassiopeia</a> · <a href="https://cseligman.com/text/atlas/cassiopeia.htm" target="_blank" rel="noopener">Celestial Atlas: Cassiopeia</a></div>
+    </div>
+  </section>
+</main>
+
+<script id="gk-js">
+(function(){
+  // ── 덱 내용: 이 객체만 바꾸면 목차 · 간지 · 마무리가 함께 바뀐다 ──
+  var DECK = {
+    plan: '2027 ○○교육청 통합교육 지원 계획(안)',
+    tocTitle: '다섯 장을 [다섯 별]처럼 차례로 이어 읽습니다',
+    sections: [
+      { no: 'Ⅰ', name: '추진 배경·현황', en: 'BACKGROUND', page: 3, items: ['통합교육 여건 변화', '통합학급 운영 현황', '현장 의견 조사'] },
+      { no: 'Ⅱ', name: '목표 및 지표', en: 'GOALS · INDICATORS', page: 6, items: ['비전과 목표', '성과지표 3개', '측정 방법'] },
+      { no: 'Ⅲ', name: '세부 추진과제', en: 'TASKS', page: 9, items: ['협력수업 확대', '지원 인력 배치', '교원 역량 강화', '가정·지역 연계'] },
+      { no: 'Ⅳ', name: '추진체계', en: 'GOVERNANCE', page: 15, items: ['추진단·TF', '특수교육지원센터', '학교 협의체'] },
+      { no: 'Ⅴ', name: '일정 및 예산', en: 'SCHEDULE · BUDGET', page: 18, items: ['분기별 일정', '재원별 예산', '점검과 환류'] }
+    ],
+    closing: {
+      kicker: '함께 이어지는 우리 교육',
+      message: '서로 다른 빛이 이어져\n[하나의 교실]이 됩니다',
+      contact: [['문의', '○○교육청 특수교육과 통합교육지원팀'], ['담당', '주무관 ○○○'], ['전화', '000-000-0000']],
+      page: 21
+    },
+    source: '가상 예시 · 별 위치·밝기: 카시오페이아자리 실제 적경·적위(J2000)·겉보기 등급'
+  };
+  // ── 별 = 섹션. 카시오페이아 W를 왼쪽(세긴)부터 오른쪽(카프)으로. ra 시 · dec 도 · mag 등급 · c 분광형 색 변수 ──
+  var STARS = [
+    { name: '세긴', id: 'ε Cas', ra: 1.907, dec: 63.67, mag: 3.37, c: '--ds-star-b' },
+    { name: '루크바', id: 'δ Cas', ra: 1.430, dec: 60.24, mag: 2.68, c: '--ds-star-a' },
+    { name: '나비', id: 'γ Cas', ra: 0.945, dec: 60.72, mag: 2.47, c: '--ds-star-b' },
+    { name: '셰다르', id: 'α Cas', ra: 0.675, dec: 56.54, mag: 2.24, c: '--ds-star-k' },
+    { name: '카프', id: 'β Cas', ra: 0.153, dec: 59.15, mag: 2.27, c: '--ds-star-f' }
+  ];
+  // 장표마다 별자리 자리(가운데 x·y, 가장 긴 변, 기울기)와 하늘 설정. 마무리는 표지 #74와 같은 오른쪽 위
+  var SCENE = {
+    toc: { at: [800, 392], size: 1040, rot: -14, stars: 1500, band: [[-60, 640], [1660, 150]], clear: [548, 610] },
+    div: { at: [1185, 420], size: 600, rot: -14, stars: 1300, band: [[760, 980], [1660, -60]], dim: 780 },
+    end: { at: [1190, 236], size: 300, rot: -14, stars: 1700, band: [[120, 960], [1560, -160]], land: true }
+  };
+  var VW = 1600, VH = 900, DUR = 800;
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var mark = function(s){ return esc(s).replace(/\[(.+?)\]/, '<em>$1</em>'); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var clamp = function(v){ return v < 0 ? 0 : v > 1 ? 1 : v; };
+  function rng(seed){ return function(){ seed = (seed + 0x6D2B79F5) | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function hash(i, j){ var h = Math.imul(i, 374761393) + Math.imul(j, 668265263) | 0; h = Math.imul(h ^ h >>> 13, 1274126177); return ((h ^ h >>> 16) >>> 0) / 4294967295; }
+  function vn(x, y){ var i = Math.floor(x), j = Math.floor(y), fx = x - i, fy = y - j, a = hash(i, j), b = hash(i + 1, j), c = hash(i, j + 1), d = hash(i + 1, j + 1), ux = fx * fx * (3 - 2 * fx), uy = fy * fy * (3 - 2 * fy); return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy; }
+  function fbm(x, y, o){ var s = 0, a = .5, f = 1, n = 0; for (var k = 0; k < o; k++){ s += a * vn(x * f, y * f); n += a; a *= .5; f *= 2.03; } return s / n; }
+  // 변수 색 읽기: '#RRGGBB' → 'r,g,b'
+  function tok(el, name){ var v = getComputedStyle(el).getPropertyValue(name).trim(), n = parseInt(v.replace('#', ''), 16); return (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255); }
+
+  // ── 별자리: 실제 좌표를 평면에 펼쳐 자리·크기·기울기로 놓는다 ──
+  function layout(sc){
+    var ra0 = 0, de0 = 0; STARS.forEach(function(s){ ra0 += s.ra; de0 += s.dec; }); ra0 /= STARS.length; de0 /= STARS.length;
+    var cs = Math.cos(de0 * Math.PI / 180), r = sc.rot * Math.PI / 180;
+    var p = STARS.map(function(s){ var x = -(s.ra - ra0) * 15 * cs, y = -(s.dec - de0); return [x * Math.cos(r) - y * Math.sin(r), x * Math.sin(r) + y * Math.cos(r)]; });
+    var xs = p.map(function(v){ return v[0]; }), ys = p.map(function(v){ return v[1]; });
+    var k = sc.size / Math.max(Math.max.apply(null, xs) - Math.min.apply(null, xs), Math.max.apply(null, ys) - Math.min.apply(null, ys));
+    var cx = (Math.max.apply(null, xs) + Math.min.apply(null, xs)) / 2, cy = (Math.max.apply(null, ys) + Math.min.apply(null, ys)) / 2;
+    return p.map(function(v){ return [sc.at[0] + (v[0] - cx) * k, sc.at[1] + (v[1] - cy) * k]; });
+  }
+
+  // ── 하늘: 바탕 → 지평 대기광 → 은하수(구름결 + 먼지띠) → 잔별 → (마무리) 산 세 겹 · 마을 불빛 ──
+  function paintSky(el, cv, sc, U){
+    var g = cv.getContext('2d'); g.setTransform(U, 0, 0, U, 0, 0);
+    var top = tok(el, '--ds-sky-top'), low = tok(el, '--ds-sky-low'), mwc = tok(el, '--ds-mw').split(',');
+    var gr = g.createLinearGradient(0, 0, 0, VH);
+    gr.addColorStop(0, 'rgb(' + top + ')'); gr.addColorStop(.55, 'rgb(' + top + ')'); gr.addColorStop(1, 'rgb(' + low + ')');
+    g.fillStyle = gr; g.fillRect(0, 0, VW, VH);
+    if (sc.land){
+      var ag = g.createLinearGradient(0, 520, 0, 760), gl = tok(el, '--ds-glow');
+      ag.addColorStop(0, 'rgba(' + gl + ',0)'); ag.addColorStop(.7, 'rgba(' + gl + ',.12)'); ag.addColorStop(1, 'rgba(' + gl + ',0)');
+      g.fillStyle = ag; g.fillRect(0, 520, VW, 240);
+    }
+    // 은하수: 띠의 중심선(band 두 점) 둘레로 구름결 노이즈, 가는 먼지띠가 빛을 가린다
+    var P0 = sc.band[0], P1 = sc.band[1], L = Math.hypot(P1[0] - P0[0], P1[1] - P0[1]), dx = (P1[0] - P0[0]) / L, dy = (P1[1] - P0[1]) / L;
+    function mw(x, y){
+      var px = x - P0[0], py = y - P0[1], v = px * dy - py * dx, sig = 120;
+      var n = fbm(x * .006, y * .006, 5), lane = clamp((1 - Math.abs(vn(x * .011 + 3, y * .011 + 8) * 2 - 1) - .55) / .3) * Math.exp(-v * v / (sig * sig * .12));
+      var b = Math.exp(-v * v / (sig * sig)) * (.2 + 1.05 * Math.pow(n, 1.7)) * (1 - .42 * lane);
+      if (sc.clear) b *= 1 - clamp((y - sc.clear[0]) / (sc.clear[1] - sc.clear[0]));
+      if (sc.dim) b *= .25 + .75 * clamp((x - sc.dim + 200) / 260);
+      return { b: b, lane: lane };
+    }
+    var w = 400, h = 225, oc = document.createElement('canvas'); oc.width = w; oc.height = h;
+    var og = oc.getContext('2d'), im = og.createImageData(w, h), d = im.data;
+    for (var j = 0; j < h; j++) for (var i = 0; i < w; i++){
+      var m = mw(i * VW / w, j * VH / h), q = (j * w + i) * 4;
+      d[q] = +mwc[0]; d[q + 1] = +mwc[1]; d[q + 2] = +mwc[2]; d[q + 3] = Math.min(255, m.b * .36 * 255);
+    }
+    og.putImageData(im, 0, 0);
+    g.globalCompositeOperation = 'lighter'; g.imageSmoothingQuality = 'high'; g.drawImage(oc, 0, 0, VW, VH);
+    // 잔별: 은하수 안에 몰리고 먼지띠·글자 칸에서는 줄어든다. 지평 가까이는 대기에 묻혀 흐려진다
+    var r = rng(103), cols = [tok(el, '--ds-star-b'), tok(el, '--ds-star-a'), tok(el, '--ds-star-k')], n = 0, tries = 0;
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    while (n < sc.stars && tries < 40000){
+      tries++;
+      var x = r() * VW, y = r() * VH, mm = mw(x, y), keep = (.22 + .78 * Math.min(1, mm.b * 1.6)) * (1 - .8 * mm.lane);
+      if (sc.clear) keep *= 1 - .9 * clamp((y - sc.clear[0]) / (sc.clear[1] - sc.clear[0]));
+      if (sc.dim && x < sc.dim) keep *= .45;
+      if (sc.land && y > 640) keep *= .3;
+      if (r() > keep) continue;
+      n++;
+      var t = r(), c = t < .16 ? cols[0] : t > .9 ? cols[2] : cols[1], a = (.18 + .62 * Math.pow(r(), .7)) * (sc.land ? Math.max(.2, 1 - Math.max(0, y - 480) / 240) : 1);
+      g.fillStyle = 'rgba(' + c + ',' + a + ')';
+      g.beginPath(); g.arc(x * U, y * U, Math.max(.4, (.3 + Math.pow(r(), 9) * 1.3) * U * 1.6), 0, 6.283); g.fill();
+    }
+    g.globalCompositeOperation = 'source-over';
+    if (sc.land) paintLand(el, g, U);
+  }
+  function ridge(x, base, amp, f, seed, jag){ return base + amp * (fbm(x * f + seed, seed * .7, 4) - .5) * 2 - (jag ? jag * Math.pow(1 - Math.abs(vn(x * .085 + seed, seed * 1.3) * 2 - 1), 5) : 0); }
+  function paintLand(el, g, U){
+    g.setTransform(U, 0, 0, U, 0, 0);
+    var far = function(x){ return ridge(x, 668, 46, .0031, 3, 0); }, mid = function(x){ return ridge(x, 716, 28, .0052, 9, 4); }, near = function(x){ return ridge(x, 786, 22, .0068, 17, 14); };
+    function layer(fn, c){ g.fillStyle = 'rgb(' + c + ')'; g.beginPath(); g.moveTo(0, VH); for (var x = 0; x <= VW; x += 2) g.lineTo(x, fn(x)); g.lineTo(VW, VH); g.closePath(); g.fill(); }
+    function haze(y0, y1, a){ var hz = g.createLinearGradient(0, y0, 0, y1), c = tok(el, '--ds-c3'); hz.addColorStop(0, 'rgba(' + c + ',0)'); hz.addColorStop(.7, 'rgba(' + c + ',' + a + ')'); hz.addColorStop(1, 'rgba(' + c + ',0)'); g.fillStyle = hz; g.fillRect(0, y0, VW, y1 - y0); }
+    var lamp = tok(el, '--ds-accent2'), warm = tok(el, '--ds-star-f');
+    layer(far, tok(el, '--ds-ridge-far')); haze(646, 724, .08);
+    // 마을 불빛이 하늘에 옅게 번진 빛
+    g.save(); g.translate(560, 712); g.scale(1, .4);
+    var dome = g.createRadialGradient(0, 0, 0, 0, 0, 260); dome.addColorStop(0, 'rgba(' + lamp + ',.18)'); dome.addColorStop(1, 'rgba(' + lamp + ',0)');
+    g.fillStyle = dome; g.fillRect(-260, -260, 520, 520); g.restore();
+    layer(mid, tok(el, '--ds-ridge-mid'));
+    // 마을: 산자락 가운데 몰리고 가장자리로 갈수록 드문드문
+    var r = rng(77); g.globalCompositeOperation = 'lighter';
+    for (var k = 0; k < 38; k++){
+      var x = 560 + (r() + r() - 1) * 200, t0 = mid(x) + 9, t1 = Math.min(near(x) - 6, t0 + 32);
+      if (t1 <= t0) continue;
+      var y = t0 + Math.pow(r(), 1.8) * (t1 - t0), s = .35 + Math.pow(r(), 2) * .8, c = r() > .25 ? lamp : warm;
+      var lg = g.createRadialGradient(x, y, 0, x, y, s * 5); lg.addColorStop(0, 'rgba(' + c + ',.42)'); lg.addColorStop(1, 'rgba(' + c + ',0)');
+      g.fillStyle = lg; g.fillRect(x - s * 5, y - s * 5, s * 10, s * 10);
+      g.fillStyle = 'rgba(' + c + ',.95)'; g.beginPath(); g.arc(x, y, s * .55, 0, 6.283); g.fill();
+    }
+    g.globalCompositeOperation = 'source-over';
+    haze(726, 796, .05); layer(near, tok(el, '--ds-ridge-near'));
+  }
+
+  // ── 별 하나: 색 번짐 + 흰 심, 2.7등급보다 밝으면 끝이 흐려지는 십자 빛살. 크기는 등급에서 ──
+  function star(g, x, y, mag, col, a, k, U){
+    var b = Math.sqrt(Math.pow(10, -.4 * (mag - 1))), core = Math.min(4.6, 1.2 + 1.7 * b) * U * k, glow = (8 + 24 * b) * U * k;
+    var gl = g.createRadialGradient(x, y, 0, x, y, glow);
+    gl.addColorStop(0, 'rgba(' + col + ',' + .6 * a + ')'); gl.addColorStop(.22, 'rgba(' + col + ',' + .15 * a + ')'); gl.addColorStop(1, 'rgba(' + col + ',0)');
+    g.fillStyle = gl; g.fillRect(x - glow, y - glow, glow * 2, glow * 2);
+    if (mag < 2.7){
+      var Ls = (14 + 30 * b) * U * k; g.lineWidth = Math.max(.6, .8 * U);
+      [[1, 0], [0, 1]].forEach(function(v){
+        var sg = g.createLinearGradient(x - v[0] * Ls, y - v[1] * Ls, x + v[0] * Ls, y + v[1] * Ls);
+        sg.addColorStop(0, 'rgba(' + col + ',0)'); sg.addColorStop(.5, 'rgba(' + col + ',' + .65 * a + ')'); sg.addColorStop(1, 'rgba(' + col + ',0)');
+        g.strokeStyle = sg; g.beginPath(); g.moveTo(x - v[0] * Ls, y - v[1] * Ls); g.lineTo(x + v[0] * Ls, y + v[1] * Ls); g.stroke();
+      });
+    }
+    var cg = g.createRadialGradient(x, y, 0, x, y, core);
+    cg.addColorStop(0, 'rgba(255,255,252,' + a + ')'); cg.addColorStop(.55, 'rgba(255,253,246,' + .85 * a + ')'); cg.addColorStop(1, 'rgba(' + col + ',0)');
+    g.fillStyle = cg; g.beginPath(); g.arc(x, y, core, 0, 6.283); g.fill();
+  }
+  // 별 사이 선: 별에 닿기 전 틈을 두고, 번짐 한 겹 + 가는 선 한 겹. p = 그어진 몫(0~1)
+  function seg(g, a, b, p, rgb, al, U, dash){
+    var len = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / len, uy = (b[1] - a[1]) / len, gap = 13;
+    var sx = a[0] + ux * gap, sy = a[1] + uy * gap, e = gap + (len - gap * 2) * p, ex = a[0] + ux * e, ey = a[1] + uy * e;
+    g.setLineDash(dash ? [3 * U, 6 * U] : []); g.lineCap = 'round';
+    if (!dash){ g.strokeStyle = 'rgba(' + rgb + ',' + .07 * al + ')'; g.lineWidth = 4 * U; g.beginPath(); g.moveTo(sx * U, sy * U); g.lineTo(ex * U, ey * U); g.stroke(); }
+    g.strokeStyle = 'rgba(' + rgb + ',' + .5 * al + ')'; g.lineWidth = Math.max(.7, 1.1 * U);
+    g.beginPath(); g.moveTo(sx * U, sy * U); g.lineTo(ex * U, ey * U); g.stroke(); g.setLineDash([]);
+    return [ex, ey];
+  }
+
+  // ── 장표 틀: 캔버스 두 겹(하늘 · 별자리) + 글자 층 ──
+  function frame(el, left, page){
+    el.innerHTML = '<canvas class="gk-sky" aria-hidden="true"></canvas><canvas class="gk-con" aria-hidden="true"></canvas><div class="gk-in">' +
+      '<div class="gk-a gk-hd"><div class="gk-sec">' + left + '</div><div class="gk-plan">' + esc(DECK.plan) + '</div></div>' +
+      '<div class="gk-body"></div><div class="gk-a gk-ft"><span>' + esc(DECK.source) + '</span><b>' + page + '</b></div></div>';
+    return el.querySelector('.gk-body');
+  }
+  var KIND = {
+    // 목차: 다 이어진 W + 별마다 아래 칸으로 내려오는 지시선
+    toc: {
+      build: function(el){
+        var b = frame(el, '목차<small>CONTENTS</small>', 2), h = '<div class="gk-a gk-tt">' + mark(DECK.tocTitle) + '</div>';
+        DECK.sections.forEach(function(s, i){
+          h += '<div class="gk-a gk-col" style="left:' + u(80 + i * 294) + '"><div class="n"><b>' + esc(s.no) + '</b><span>p. ' + s.page + '</span></div><h3>' + esc(s.name) + '</h3><ul>' +
+            s.items.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+        });
+        b.innerHTML = h;
+      },
+      draw: function(el, g, U, pts){
+        var ink = tok(el, '--ds-ink'), c4 = tok(el, '--ds-c4');
+        for (var i = 0; i < 4; i++) seg(g, pts[i], pts[i + 1], 1, ink, 1, U);
+        pts.forEach(function(p, i){
+          var cx = 80 + i * 294 + 132;   // 칸 가운데
+          g.strokeStyle = 'rgba(' + c4 + ',.9)'; g.lineWidth = Math.max(.6, U);
+          g.beginPath(); g.moveTo(p[0] * U, (p[1] + 24) * U); g.lineTo(p[0] * U, 570 * U); g.lineTo(cx * U, 604 * U); g.lineTo(cx * U, 618 * U); g.stroke();
+          star(g, p[0] * U, p[1] * U, STARS[i].mag, tok(el, STARS[i].c), 1, 1.15, U);
+        });
+      }
+    },
+    // 섹션 간지: 이번 섹션의 별까지만 선이 이어지고, 이번 별에 금빛 고리 + 이름표 하나
+    div: {
+      build: function(el){
+        var i = +(el.getAttribute('data-sec') || 0), s = DECK.sections[i];
+        var b = frame(el, '<i>' + esc(s.no) + '.</i>' + esc(s.name) + '<small>' + esc(s.en) + '</small>', s.page);
+        b.innerHTML = '<div class="gk-a gk-big">' + esc(s.no) + '</div>' +
+          '<div class="gk-a gk-dn"><small>SECTION ' + String(i + 1).padStart(2, '0') + ' / ' + String(DECK.sections.length).padStart(2, '0') + '</small><h2>' + esc(s.name) + '</h2></div>' +
+          '<div class="gk-a gk-items">' + s.items.map(function(t, k){ return '<span><b>' + (i + 1) + '-' + (k + 1) + '</b>' + esc(t) + '</span>'; }).join('') + '</div>' +
+          '<div class="gk-a gk-lab"><i></i><span><b></b><small></small></span></div>';
+      },
+      draw: function(el, g, U, pts, t){
+        var i = +(el.getAttribute('data-sec') || 0), ink = tok(el, '--ds-ink'), acc = tok(el, '--ds-accent'), e = 1 - Math.pow(1 - t, 3);
+        for (var k = 0; k < 4; k++){
+          if (k < i - 1) seg(g, pts[k], pts[k + 1], 1, ink, 1, U);
+          else if (k === i - 1){ var hd = seg(g, pts[k], pts[k + 1], e, ink, 1, U);
+            if (t < 1){ var hg = g.createRadialGradient(hd[0] * U, hd[1] * U, 0, hd[0] * U, hd[1] * U, 10 * U); hg.addColorStop(0, 'rgba(' + acc + ',.9)'); hg.addColorStop(1, 'rgba(' + acc + ',0)'); g.fillStyle = hg; g.fillRect((hd[0] - 10) * U, (hd[1] - 10) * U, 20 * U, 20 * U); } }
+          else seg(g, pts[k], pts[k + 1], 1, ink, .7, U, true);   // 아직 갈 길: 옅은 점선
+        }
+        pts.forEach(function(p, k){
+          var a = k < i ? .9 : k === i ? .4 + .6 * clamp((t - .55) / .45) : .42;
+          star(g, p[0] * U, p[1] * U, STARS[k].mag, tok(el, STARS[k].c), a, k === i ? 1.25 : 1, U);
+        });
+        var ring = clamp((t - .6) / .4);
+        if (ring > 0){ g.strokeStyle = 'rgba(' + acc + ',' + .85 * ring + ')'; g.lineWidth = Math.max(.8, 1.2 * U); g.beginPath(); g.arc(pts[i][0] * U, pts[i][1] * U, 24 * U, 0, 6.283); g.stroke(); }
+      },
+      label: function(el, pts){
+        var i = +(el.getAttribute('data-sec') || 0), lb = el.querySelector('.gk-lab'), s = STARS[i];
+        lb.style.left = ((pts[i][0] + 26) / VW * 100) + '%'; lb.style.top = (pts[i][1] / VH * 100) + '%';
+        lb.querySelector('b').textContent = DECK.sections[i].no + ' · ' + s.name;
+        lb.querySelector('small').textContent = s.id + ' · ' + s.mag.toFixed(2) + '등급';
+      }
+    },
+    // 마무리: 표지와 같은 하늘(산 세 겹 · 마을 불빛)에 다 이어진 W
+    end: {
+      build: function(el){
+        var c = DECK.closing, b = frame(el, '맺음<small>CLOSING</small>', c.page);
+        b.innerHTML = '<div class="gk-a gk-ek">' + esc(c.kicker) + '</div><div class="gk-a gk-msg">' + mark(c.message) + '</div>' +
+          '<div class="gk-a gk-ct">' + c.contact.map(function(r){ return '<span>' + esc(r[0]) + '</span><div>' + esc(r[1]) + '</div>'; }).join('') + '</div>';
+      },
+      draw: function(el, g, U, pts){
+        var ink = tok(el, '--ds-ink');
+        for (var i = 0; i < 4; i++) seg(g, pts[i], pts[i + 1], 1, ink, 1, U);
+        pts.forEach(function(p, i){ star(g, p[0] * U, p[1] * U, STARS[i].mag, tok(el, STARS[i].c), 1, 1, U); });
+      }
+    }
+  };
+
+  function mount(el){
+    var kind = el.getAttribute('data-gk'), K = KIND[kind], sc = SCENE[kind], pts = layout(sc), anim = 0;
+    K.build(el);
+    var sky = el.querySelector('.gk-sky'), con = el.querySelector('.gk-con'), U = 1, ok = false;
+    function size(){
+      var r = el.getBoundingClientRect(); if (!r.width) return false;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2); U = r.width * dpr / VW;
+      [sky, con].forEach(function(c){ c.width = Math.round(r.width * dpr); c.height = Math.round(r.height * dpr); });
+      return true;
+    }
+    function paint(t){ var g = con.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, con.width, con.height); K.draw(el, g, U, pts, t); }
+    function redraw(){ ok = size(); if (!ok) return; paintSky(el, sky, sc, U); paint(1); if (K.label) K.label(el, pts); }
+    // 간지 전환: 지난 별 → 이번 별로 선이 건너간다(0.8초, 한 번)
+    function play(){
+      cancelAnimationFrame(anim); if (!ok) return;
+      var lb = el.querySelector('.gk-lab'); if (lb){ lb.classList.remove('is-in'); void lb.offsetWidth; lb.classList.add('is-in'); }
+      if (kind !== 'div' || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)){ paint(1); return; }
+      var t0 = performance.now();
+      (function step(now){ var t = Math.min(1, (now - t0) / DUR); paint(t); if (t < 1) anim = requestAnimationFrame(step); })(t0);
+    }
+    el.gkShow = function(i){ el.setAttribute('data-sec', i); K.build(el); sky = el.querySelector('.gk-sky'); con = el.querySelector('.gk-con'); redraw(); play(); };
+    el.gkPlay = play;
+    var rt = 0;
+    if (window.ResizeObserver) new ResizeObserver(function(){ clearTimeout(rt); rt = setTimeout(redraw, 100); }).observe(el);
+    redraw();
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){ redraw(); play(); });
+  }
+  document.querySelectorAll('[data-gk]').forEach(mount);
+})();
+</script>
+<script>
+(function(){
+  // 페이지 쪽: 간지 섹션 바꾸기 · 다시 보기 · 견본 · 어울리는 요소 · 코드 칸 · 스펙 표
+  var dv = document.querySelector('[data-gk="div"]');
+  var secBtns = document.querySelectorAll('[data-sec]');
+  secBtns.forEach(function(b){ if (b.tagName !== 'BUTTON') return; b.addEventListener('click', function(){
+    secBtns.forEach(function(x){ if (x.tagName === 'BUTTON') x.setAttribute('aria-pressed', String(x === b)); });
+    dv.gkShow(+b.dataset.sec);
+  }); });
+  document.getElementById('replay').addEventListener('click', function(){ dv.gkPlay(); });
+
+  var T = {
+    '--ds-bg': ['#060B19', '바탕', '순흑 대신 깊은 남색'], '--ds-surface': ['#0E1830', '면', '카드 · 표 바탕'], '--ds-ink': ['#EFEADF', '본문 글자', '별빛 미색'],
+    '--ds-sub': ['#A4AEC2', '보조 글자', '바탕 대비 8.6 : 1'], '--ds-line': ['#27344F', '구분선', '머리말 띠 · 표 선'],
+    '--ds-accent': ['#E6C68C', '강조 · 금빛', '한 장에 한 곳'], '--ds-accent2': ['#FFB86E', '보조 · 마을 불빛', '마무리 산자락 · 범주 하나'],
+    '--ds-c1': ['#E6EDFF', 'c1', '가장 센 위계 · 진한 띠'], '--ds-c2': ['#B3C6EE', 'c2', '상위 묶음 · 로마 숫자'], '--ds-c3': ['#7D97CC', 'c3', '중간 · 번호'],
+    '--ds-c4': ['#415A8C', 'c4', '지시선 · 옅은 막대'], '--ds-c5': ['#172649', 'c5', '가장 옅은 면'],
+    '--ds-sky-top': ['#03060F', '천정', '하늘 위쪽'], '--ds-sky-low': ['#12233F', '지평 하늘', '하늘 아래쪽'], '--ds-glow': ['#3F8F7C', '대기광', '지평 위 옅은 초록(12%)'],
+    '--ds-mw': ['#A9B8D8', '은하수', '구름결 빛(36%)'], '--ds-star-b': ['#CFE0FF', 'B형 별', '세긴 · 나비'], '--ds-star-a': ['#EEF1FF', 'A형 별', '루크바'],
+    '--ds-star-f': ['#FFF2DA', 'F형 별', '카프'], '--ds-star-k': ['#FFC98E', 'K형 별', '셰다르'],
+    '--ds-ridge-far': ['#0D1A34', '먼 산', '공기 원근'], '--ds-ridge-mid': ['#060D1B', '가운데 산', '마을 자리'], '--ds-ridge-near': ['#02040A', '앞산', '바닥 줄 바탕']
+  };
+  function sw(id, keys){ document.getElementById(id).innerHTML = keys.map(function(k){ var v = T[k]; return '<div><i style="background:' + v[0] + '"></i><b>' + v[1] + '</b><code>' + k + ' ' + v[0] + '</code><em>' + v[2] + '</em></div>'; }).join(''); }
+  sw('sw-base', ['--ds-bg', '--ds-surface', '--ds-ink', '--ds-sub', '--ds-line', '--ds-accent', '--ds-accent2']);
+  sw('sw-c', ['--ds-c1', '--ds-c2', '--ds-c3', '--ds-c4', '--ds-c5']);
+  sw('sw-x', ['--ds-sky-top', '--ds-sky-low', '--ds-glow', '--ds-mw', '--ds-star-b', '--ds-star-a', '--ds-star-f', '--ds-star-k', '--ds-ridge-far', '--ds-ridge-mid', '--ds-ridge-near']);
+
+  // families에 G가 든 본문 요소(DB 기준)
+  var ELS = [[6,'딜러의 세 더미','분류·유목화','66y2jVDpPFr4e8GZ2kzvMU'],[13,'던져 채우는 오후표','일정','SerWLxavCg6tcVz91kMUJG'],[14,'상세도 호출','조직·체계','BVYnUphnh6znAZ4ZeQaBwa'],[15,'연수 배선반','조직·체계','R6QhyXnViC9fX8miy7de7x'],[22,'다섯 칸 다이얼','흐름·절차','WeKwdAvAc3QeCh3D5bFC22'],[23,'주 경로 간트','일정','4Gt3kD5ahsVZB35uRzMSdr'],[33,'쪼개지는 예산 사각형','구성비','FLb4r1LqoAVHmWBugk44uh'],[34,'허브 내비게이션 업무보고','핵심 수치','LaASks1GbNLmNDsAvDkQF3'],[35,'세로 스와이프 카드','핵심 수치','6dbUR96MRR4MoPm5tg1dxf'],[41,'타이밍 타워 순위표','추이','V7VwbpUg3F3uoyTQo8rjXE'],[47,'눈금 머리 과제표','표·목록','H81oDuU5ZsqBDw3CBBEaVe'],[48,'세 줄 나란히 추이','추이','Pi2c8RbgJEL9B3oKn5djbz'],[49,'조사 완료선 정렬 비교','비교·순위','6xJeMrKJGMRSYDPZpfNAUs'],[50,'재원 지분 마리메코','구성비','LovsoX736f8AasS1YounDH'],[51,'낱칸 시·군 지도','지도·분포','Bzq7tLvtEZxwa5wtQekw7a'],[53,'밑줄 대조표','표·목록','C21AR3G3EEr3Z3wUoNH7nJ'],[54,'기둥과 보 체계도','비전 체계도','JsUkQsu9RNVPsuws4bjpL2'],[55,'원인 꽂힌 화살표','현안→해결방안','UCfqhF9y9bS8uCSRndujzc'],[56,'나비매듭 배경·목적','배경·목적','BNPfUTfDED6A4XAwewaASt'],[57,'예산 각도 동심원 체계도','비전 체계도','53fJKKYbxWhXzsmJgtSL4X'],[61,'주 담당 대응표','현안→해결방안','9ET3Pk5jqbd7prPxwL3eTt'],[72,'확대 지시선 배경·목적','배경·목적','HLMgcBKgKpJBeKJJbBh3uA'],[73,'한 줄로 읽는 체계도','비전 체계도','F3PqEJBiDGkuYpGKQ97pSQ'],[76,'줄어드는 공정 띠','현안→해결방안','H75rwFTToxL47GcXwVLU8q'],[77,'기준선 격차 배경·목적','배경·목적','9kZRf8viHx8Re7jo1HyqXg'],[79,'이어지는 재원 비중','구성비','TaNSYcvRLiAb5VHhy11xAL'],[80,'백 칸 중 마흔하나','핵심 수치','1bhuCJZHyf3VQt1884MWyT'],[83,'줄마다 짝','현안→해결방안','LnbXKLXcP8vupjgJoYvCBg'],[84,'날짜 비례 레인','흐름·절차','9gmyhadRQiMCjSdCihsijQ'],[85,'층위 표 체계도','비전 체계도','1coBeN9V5BUrR3jbSiJja7'],[86,'열두 달 고리','일정','TTSebayKqGnYuHeYEm4krU'],[87,'네 칸 이관표','분류·유목화','Y7CfUz7wYyDanPygLTfA8T'],[88,'같은 출발 100','추이','7oVJFCdhnWwaa5UH4Awt1r'],[89,'펼친 조각 구성비','구성비','QnRXdgWtyHPSr3R2MrBAXr'],[93,'줄 맞춘 연차 체계도','비전 체계도','Fa2bPpBbdjXi7wPSt6e5mw'],[94,'원인으로 모이는 선','현안→해결방안','5iUQKoJdULQy8MrpQmsVQ4'],[97,'허리 좁은 배경표','배경·목적','S1cTctmsw1xMDds95dfKUL']];
+  document.getElementById('els').innerHTML = ELS.map(function(e){ return '<li><span>#' + e[0] + '</span><div><a href="https://claude.ai/artifact/' + e[3] + '" target="_blank" rel="noopener">' + e[1] + '</a><em>' + e[2] + '</em></div></li>'; }).join('');
+
+  // 코드 칸: 장표 CSS · 스크립트를 그대로 묶는다(textContent라 자동 이스케이프)
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;500&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">';
+  var MARKUP = '<div class="gk" data-gk="toc"></div>\n<div class="gk" data-gk="div" data-sec="2"></div>\n<div class="gk" data-gk="end"></div>';
+  var css = document.getElementById('gk-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('gk-js').textContent.replace(/^\n+|\s+$/g, '');
+  var all = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + MARKUP + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var tokBlock = css.match(/\.gk\{[\s\S]*?--ds-ridge-near:[^;]+;/)[0].replace(/^\.gk\{/, '/* G 어두운 콘셉트 계열 값: 쓰려는 요소의 감싸는 클래스(예 .bp97) 또는 :root 자리에 */\n:root{') + '\n}';
+  document.getElementById('code-all').textContent = all;
+  document.getElementById('code-tok').textContent = tokBlock;
+  window.gk103Code = all;
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    var pre = document.getElementById(b.dataset.copy), msg = b.parentNode.querySelector('.msg');
+    function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+    b.addEventListener('click', function(){
+      try { navigator.clipboard.writeText(pre.textContent).then(function(){ msg.textContent = '복사했습니다.'; }, selectAll); } catch(e){ selectAll(); }
+    });
+  });
+
+  var rows = [['--ds-bg','#060B19'],['--ds-surface','#0E1830'],['--ds-ink','#EFEADF'],['--ds-sub','#A4AEC2'],['--ds-line','#27344F'],['--ds-accent','#E6C68C'],['--ds-accent2','#FFB86E'],['--ds-c1 ~ c5','#E6EDFF · #B3C6EE · #7D97CC · #415A8C · #172649'],['--ds-font-title','Noto Serif KR 200/300/500 → 나눔명조 · 바탕'],['--ds-font-body','Noto Sans KR 400/500/700 → 맑은 고딕'],['--ds-font-num','IBM Plex Mono 400/500 → Consolas'],['--ds-radius','2px'],['--ds-shadow','0 0 0 1px rgba(150,175,230,.08), 0 18px 40px -24px rgba(0,0,0,.8)']];
+  document.getElementById('spec').innerHTML = '<thead><tr><th>변수</th><th>G 계열 값</th></tr></thead><tbody>' + rows.map(function(r){
+    var chips = (r[1].match(/#[0-9A-F]{6}/g) || []).map(function(c){ return '<span class="chip" style="background:' + c + '"></span>'; }).join('');
+    return '<tr><td><code>' + r[0] + '</code></td><td>' + chips + '<code>' + r[1] + '</code></td></tr>'; }).join('') + '</tbody>';
+})();
+</script>
+
+</body></html>
