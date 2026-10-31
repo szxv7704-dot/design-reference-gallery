@@ -1,0 +1,680 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #110 처마 막새 다섯 장 키트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* 페이지 틀: 표지 #58과 같은 한지 바탕 한 가지 모습으로 고정(밝은 단일 테마). 장표 3장 → 계열 값 카드 → 어울리는 요소 → 코드 → PPT → 스펙 */
+:root{
+  --pg-bg:#F4F3EE; --pg-panel:#FBFAF6; --pg-ink:#1F252C; --pg-sub:#5D646C; --pg-line:#D6D4CB;
+  --pg-seal:#C2412B; --pg-green:#2E6B53; --pg-code-bg:#1E242B; --pg-code-ink:#E4E7EA;
+  --pg-f-head:"Nanum Myeongjo","나눔명조","AppleMyungjo","Batang",serif;
+  --pg-f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-f-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-f-body);font-size:15px;line-height:1.7}
+.pg{max-width:1180px;margin:0 auto;padding-block:28px 72px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:48px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:8px;border-bottom:3px double var(--pg-ink);padding-bottom:18px}
+.pg-kicker{font:500 12px var(--pg-f-mono);letter-spacing:.16em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-f-head);font-weight:800;font-size:clamp(26px,3.6vw,38px);line-height:1.25;margin:0;letter-spacing:-.02em;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:72ch}
+.pg h2{font-family:var(--pg-f-head);font-weight:800;font-size:22px;margin:0 0 16px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;letter-spacing:-.01em}
+.pg h2 small{font:500 12px var(--pg-f-mono);color:var(--pg-green);letter-spacing:.12em}
+.pg h3{font-size:15px;font-weight:700;margin:20px 0 6px}
+.pg p{margin:0 0 10px;max-width:74ch}
+.pg a{color:var(--pg-green)}
+.pg code{font-family:var(--pg-f-mono);font-size:.9em;color:var(--pg-green)}
+.st{display:grid;gap:10px}
+.st-cap{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;margin:0}
+.st-cap b{font-family:var(--pg-f-head);font-weight:800;font-size:17px}
+.st-cap span{font-size:13px;color:var(--pg-sub)}
+.st-frame{border:1px solid var(--pg-line);overflow-x:auto;background:var(--pg-bg);box-shadow:0 18px 40px -28px rgba(31,37,44,.45)}
+.st-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar > span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 13px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:3px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-ink);box-shadow:inset 0 -2px 0 var(--pg-ink)}
+.btn:hover{border-color:var(--pg-sub)}
+.btn:focus-visible{outline:2px solid var(--pg-ink);outline-offset:2px}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);padding:22px}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.two > *{min-width:0}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:0 0 6px}
+.sw div{border:1px solid var(--pg-line);background:var(--pg-bg);font-size:12px;padding:0 0 8px;min-width:0}
+.sw i{display:block;height:46px;border-bottom:1px solid var(--pg-line);margin-bottom:6px}
+.sw b,.sw code,.sw em{display:block;padding:0 9px}
+.sw b{font-weight:500;font-size:13px}
+.sw code{color:var(--pg-sub)!important}
+.sw em{font-style:normal;color:var(--pg-sub);font-size:11.5px;line-height:1.4;margin-top:2px}
+.sw-h{font:500 12px var(--pg-f-mono);letter-spacing:.12em;color:var(--pg-sub);margin:18px 0 8px}
+.fonts{display:grid;gap:10px}
+.fonts div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:baseline;border-top:1px solid var(--pg-line);padding-top:10px}
+.fonts span{font-size:12px;color:var(--pg-sub)}
+.fonts p{margin:0}
+.rules{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.rules li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;border-top:1px solid var(--pg-line);padding-top:10px;font-size:14px}
+.rules li > span{font-size:12px;color:var(--pg-sub);padding-top:2px}
+.dont{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14px}
+.els{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:4px 20px;margin:0;padding:0;list-style:none;font-size:14px}
+.els li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:6px;border-bottom:1px solid var(--pg-line);padding:6px 0}
+.els li span{font:500 12px var(--pg-f-mono);color:var(--pg-sub);padding-top:2px}
+.els li em{font-style:normal;color:var(--pg-sub);font-size:12.5px;margin-left:6px}
+.els li.is-h a{font-weight:700}
+.els-h{font:500 12px var(--pg-f-mono);letter-spacing:.12em;color:var(--pg-sub);margin:16px 0 6px}
+.code-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+pre.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font:12.5px/1.55 var(--pg-f-mono);max-height:520px;overflow:auto;padding:16px 18px;border-radius:3px;margin:0;white-space:pre}
+ol.steps{margin:0;padding-left:20px;display:grid;gap:6px;max-width:82ch}
+.tbl{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:top}
+.spec th{font-weight:500;color:var(--pg-sub);font-size:12px}
+.spec td code{font-size:12px}
+.chip{display:inline-block;width:12px;height:12px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:500}
+@media (max-width:760px){
+  .two{grid-template-columns:minmax(0,1fr)}
+  .st-frame .hk{min-width:760px}.st-hint{display:block}
+  .fonts div,.rules li{grid-template-columns:minmax(0,1fr);gap:2px}
+}
+</style>
+
+<style id="hk-css">
+/* ── H 전통 공예·문양 계열 키트 '처마 막새 다섯 장' ─ 접두어 hk / 색은 --ds-* 변수로만(캔버스 기와도 변수를 읽어 그린다) ── */
+.hk{
+  /* 공통 변수: H 계열 값. 다른 계열로 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F4F3EE; --ds-surface:#FBFAF6; --ds-ink:#1F252C; --ds-sub:#5D646C; --ds-line:#D3D1C8;
+  --ds-accent:#C2412B;   /* 주홍 인장색: 한 장에 한 곳 */
+  --ds-accent2:#2E6B53;  /* 단청 진녹: 범주 하나 · 운영 띠 */
+  --ds-c1:#1F4A3A; --ds-c2:#2E6B53; --ds-c3:#5E937C; --ds-c4:#A9C7B8; --ds-c5:#E2ECE5;  /* 진녹 농담: c1 가장 진함 → c5 가장 옅음 */
+  --ds-font-title:"Nanum Myeongjo","나눔명조","AppleMyungjo","Batang","바탕",serif;
+  --ds-font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",sans-serif;
+  --ds-font-num:"Nanum Myeongjo","나눔명조","Batang",serif;
+  --ds-radius:0px;
+  --ds-shadow:0 1px 0 rgba(31,37,44,.08),0 14px 30px -18px rgba(31,37,44,.35);
+  /* 계열 전용: 기와 · 회 · 한지 */
+  --ds-tile:#8C9399;     /* 기와 회청(빛 받은 면 기준) */
+  --ds-tile-deep:#3C4248;/* 기와 옆면 · 그늘 */
+  --ds-lime:#ECE8DD;     /* 흰 회 자국 */
+  --ds-fiber:#FFFFFF;    /* 한지 섬유 */
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;isolation:isolate;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.hk *{box-sizing:border-box}
+.hk canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hk-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.45;word-break:keep-all}
+.hk-a{position:absolute}
+/* 공통 뼈대: 머리말 띠(판본 쌍변: 굵은 선 + 가는 선) · 바닥 줄 */
+.hk-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;
+  border-bottom:calc(var(--u)*2.4) solid var(--ds-ink)}
+.hk-hd::after{content:"";position:absolute;left:0;right:0;bottom:calc(var(--u)*-7);border-bottom:1px solid var(--ds-ink)}
+.hk-sec{display:flex;align-items:center;gap:calc(var(--u)*12);font:800 calc(var(--u)*21) var(--ds-font-title);letter-spacing:-.01em}
+.hk-sec i{font-style:normal}
+.hk-sec small{font:400 calc(var(--u)*13) var(--ds-font-body);letter-spacing:.2em;color:var(--ds-sub)}
+.hk-fish{width:calc(var(--u)*16);height:calc(var(--u)*13);background:var(--ds-ink);clip-path:polygon(0 0,100% 0,100% 100%,50% 58%,0 100%)}  /* 흑어미: 판심의 검은 물고기 꼬리 */
+.hk-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.hk-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+.hk-ft b{font:800 calc(var(--u)*14) var(--ds-font-num);color:var(--ds-ink)}
+.hk em{font-style:normal;color:var(--ds-accent)}
+/* 목차 */
+.hk-tt{left:calc(var(--u)*80);top:calc(var(--u)*112);font:800 calc(var(--u)*42)/1.3 var(--ds-font-title);letter-spacing:-.025em}
+.hk-col{top:calc(var(--u)*600);height:calc(var(--u)*214);width:calc(var(--u)*264);border-top:1px solid var(--ds-ink);padding-top:calc(var(--u)*14);display:flex;flex-direction:column}
+.hk-col .n{display:flex;justify-content:space-between;align-items:baseline}
+.hk-col .n b{font:800 calc(var(--u)*44)/1 var(--ds-font-num);color:var(--ds-c1)}
+.hk-col .n span{font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.hk-col h3{margin:calc(var(--u)*12) 0 calc(var(--u)*10);font:800 calc(var(--u)*23)/1.3 var(--ds-font-title);letter-spacing:-.02em}
+.hk-col ul{margin:0;padding:0;list-style:none;display:grid;gap:calc(var(--u)*3);font-size:calc(var(--u)*14.5);color:var(--ds-sub)}
+.hk-col ul li::before{content:'';display:inline-block;width:calc(var(--u)*8);height:1px;background:var(--ds-c3);vertical-align:middle;margin-right:calc(var(--u)*8)}
+/* 섹션 간지 */
+.hk-big{left:calc(var(--u)*66);top:calc(var(--u)*128);font:800 calc(var(--u)*300)/1 var(--ds-font-num);color:var(--ds-c1);letter-spacing:-.04em}
+.hk-dn{left:calc(var(--u)*80);top:calc(var(--u)*506);width:calc(var(--u)*700)}
+.hk-dn small{display:block;font-size:calc(var(--u)*14);letter-spacing:.3em;color:var(--ds-sub)}
+.hk-dn h2{margin:calc(var(--u)*12) 0 0;font:800 calc(var(--u)*76)/1.18 var(--ds-font-title);letter-spacing:-.035em}
+.hk-items{left:calc(var(--u)*80);top:calc(var(--u)*720);width:calc(var(--u)*720);display:flex;flex-wrap:wrap;gap:calc(var(--u)*8) calc(var(--u)*28);border-top:1px solid var(--ds-line);padding-top:calc(var(--u)*16);font-size:calc(var(--u)*16)}
+.hk-items span b{font:800 calc(var(--u)*14) var(--ds-font-num);color:var(--ds-c2);margin-right:calc(var(--u)*7)}
+.hk-zoom{left:calc(var(--u)*1040);top:calc(var(--u)*150);width:calc(var(--u)*350);height:calc(var(--u)*350);border-radius:50%;overflow:hidden;background:var(--ds-surface);
+  box-shadow:0 0 0 calc(var(--u)*7) var(--ds-surface),0 calc(var(--u)*16) calc(var(--u)*34) calc(var(--u)*-6) rgba(31,37,44,.38)}
+.hk-zoom canvas{position:absolute;inset:0}
+.hk-zoom.is-in{animation:hkZoom .7s cubic-bezier(.16,1,.3,1) both}
+.hk-zl{transform:translateX(-50%);text-align:center;white-space:nowrap;font-size:calc(var(--u)*13);color:var(--ds-sub);line-height:1.4}
+.hk-zl b{display:block;font:800 calc(var(--u)*16) var(--ds-font-title);color:var(--ds-ink)}
+/* 마무리 */
+.hk-ek{left:calc(var(--u)*80);top:calc(var(--u)*150);font:700 calc(var(--u)*19) var(--ds-font-title);letter-spacing:.42em;color:var(--ds-sub)}
+.hk-msg{left:calc(var(--u)*80);top:calc(var(--u)*196);font:800 calc(var(--u)*76)/1.18 var(--ds-font-title);letter-spacing:-.035em;white-space:pre-line}
+.hk-rule{left:calc(var(--u)*80);top:calc(var(--u)*400);width:calc(var(--u)*72);border-top:calc(var(--u)*2.2) solid var(--ds-ink)}
+.hk-ct{left:calc(var(--u)*80);top:calc(var(--u)*424);display:grid;grid-template-columns:auto auto;gap:calc(var(--u)*6) calc(var(--u)*22);font-size:calc(var(--u)*17)}
+.hk-ct span{font-size:calc(var(--u)*13);letter-spacing:.2em;color:var(--ds-sub);padding-top:calc(var(--u)*3)}
+.hk-sign{left:calc(var(--u)*80);top:calc(var(--u)*700);display:flex;align-items:center;gap:calc(var(--u)*20)}
+.hk-seal{width:calc(var(--u)*86);height:calc(var(--u)*86);flex:none;background:var(--ds-accent);color:var(--ds-surface);border-radius:calc(var(--u)*5);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 calc(var(--u)*2.6) var(--ds-surface),inset 0 0 0 calc(var(--u)*6) var(--ds-accent);font:800 calc(var(--u)*29)/1 var(--ds-font-title)}
+.hk-org{font-size:calc(var(--u)*19);font-weight:500;line-height:1.5}
+.hk-org span{display:block;color:var(--ds-sub);font-weight:400;font-size:calc(var(--u)*15);letter-spacing:.12em}
+@keyframes hkZoom{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.hk *{animation:none!important}}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 110 · 계열 키트 · H 전통 공예·문양 · 가상 예시</div>
+    <h1>처마 막새 다섯 장 키트</h1>
+    <p class="pg-lead">표지 #58 '처마 끝까지 빈틈없이'의 수막새를 덱 전체의 길잡이로 삼았습니다. 처마 끝에 나란히 놓인 수막새 다섯 장이 곧 다섯 섹션입니다. 목차는 막새마다 아래 섹션 칸을 매달고, 간지는 지나온 막새까지 채워진 처마에서 이번 막새를 확대 원으로 끌어올리며, 마무리는 표지처럼 처마 끝선이 화면 왼쪽까지 이어지고 인장으로 끝납니다.</p>
+  </header>
+
+  <section class="st" aria-label="목차 장표">
+    <p class="st-cap"><b>1 · 목차</b><span>정지 · 막새 아래 지시선이 섹션 칸으로 내려온다</span></p>
+    <p class="st-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="st-frame"><div class="hk" data-hk="toc" role="img" aria-label="목차: 처마 끝에 나란한 수막새 다섯 장 아래 Ⅰ 추진 배경·현황부터 Ⅴ 일정 및 예산까지 다섯 섹션 칸"></div></div>
+  </section>
+
+  <section class="st" aria-label="섹션 간지 장표">
+    <p class="st-cap"><b>2 · 섹션 간지</b><span>번호·이름만 바꿔 다섯 번 쓴다 · 전환 하나: 이번 막새 확대 원이 떠오름 0.7초</span></p>
+    <p class="st-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="st-frame"><div class="hk" data-hk="div" data-sec="2" role="img" aria-label="섹션 간지: 큰 로마 숫자와 섹션 이름, 오른쪽에 이번 섹션 수막새를 확대한 원과 지나온 막새까지 채워진 처마"></div></div>
+    <div class="bar" role="group" aria-label="간지 섹션 바꿔 보기"><span>섹션 바꿔 보기</span>
+      <button class="btn" type="button" data-sec="0" aria-pressed="false">Ⅰ</button><button class="btn" type="button" data-sec="1" aria-pressed="false">Ⅱ</button><button class="btn" type="button" data-sec="2" aria-pressed="true">Ⅲ</button><button class="btn" type="button" data-sec="3" aria-pressed="false">Ⅳ</button><button class="btn" type="button" data-sec="4" aria-pressed="false">Ⅴ</button>
+      <button class="btn" type="button" id="replay">다시 보기</button>
+    </div>
+  </section>
+
+  <section class="st" aria-label="마무리 장표">
+    <p class="st-cap"><b>3 · 마무리</b><span>정지 · 표지 #58과 같은 구도(왼쪽 명조 제목 · 오른쪽 처마 · 왼쪽으로 이어지는 처마 끝선 · 해태 인장)</span></p>
+    <p class="st-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="st-frame"><div class="hk" data-hk="end" role="img" aria-label="마무리: 다섯 장이 모두 놓인 처마와 핵심 메시지, 문의처, 해태 인장"></div></div>
+  </section>
+
+  <section class="panel">
+    <h2>계열 값 카드 <small>H · CRAFT · PATTERN</small></h2>
+    <p>H 계열은 표지 #58 하나와 본문 #81 판본 목록표 · #95 판심 대조 지표가 함께 씁니다. 공통점은 셋입니다. 바탕은 한지빛 밝은 미색, 사물과 선은 먹과 기와 회청 한 계통, 색은 주홍 인장 한 곳뿐입니다. 위계는 #81 · #95가 쓴 단청 진녹의 농담으로 세웁니다.</p>
+    <div class="sw-h">기본 변수</div>
+    <div class="sw" id="sw-base"></div>
+    <div class="sw-h">위계 농담 c1~c5 (단청 진녹 한 색)</div>
+    <div class="sw" id="sw-c"></div>
+    <div class="sw-h">계열 전용 (기와 · 회 · 한지)</div>
+    <div class="sw" id="sw-x"></div>
+
+    <div class="two" style="margin-top:22px">
+      <div>
+        <h3 style="margin-top:0">글꼴</h3>
+        <div class="fonts">
+          <div><span>제목 · 숫자</span><p style="font:800 26px var(--pg-f-head);letter-spacing:-.02em">나눔명조 800 <small style="font:12px var(--pg-f-body);color:var(--pg-sub);letter-spacing:0">대체 바탕 · AppleMyungjo</small></p></div>
+          <div><span>본문</span><p>Noto Sans KR 400 · 500 · 700 <small style="color:var(--pg-sub)">대체 Apple SD 산돌고딕 Neo · 맑은 고딕</small></p></div>
+          <div><span>로마 숫자</span><p style="font:800 22px var(--pg-f-head)">I II III IV V <small style="font:12px var(--pg-f-body);color:var(--pg-sub)">명조 800 라틴 대문자로 쓴다(전각 기호 Ⅰ~Ⅴ는 큰 크기에서 획이 막대처럼 뭉개진다)</small></p></div>
+        </div>
+        <h3>이 계열에서 하지 말 것</h3>
+        <ol class="dont">
+          <li><b>단청 오방색 한꺼번에 깔기</b>: 빨강·파랑·노랑·초록을 한 화면에 함께 쓰면 관광 기념품처럼 보인다. 색은 한지·먹·기와 회청, 위계는 진녹 농담, 강조는 주홍 한 곳.</li>
+          <li><b>전통 문양을 바탕 무늬로 반복</b>: 연화문·당초문을 벽지처럼 깔지 않는다. 문양은 사물 하나(막새)에만, 실제 구조(연판 8 · 연자 1+8 · 연주문 테)를 지켜서.</li>
+          <li><b>붓글씨 흉내 제목 · 예스러운 문장</b>: 손글씨 서체와 '~하노라' 말투는 쓰지 않는다. 제목은 명조 800, 문장은 오늘 행정 문서의 말로.</li>
+        </ol>
+      </div>
+      <div>
+        <h3 style="margin-top:0">규칙</h3>
+        <ul class="rules">
+          <li><span>머리말 띠</span><div>판본의 쌍변처럼 굵은 선(2.4) + 가는 선(1) 두 줄. 왼쪽 흑어미 표식 + 로마 숫자 + 섹션 이름(명조 800 21px), 오른쪽 계획안 이름(고딕 14px 보조색).</div></li>
+          <li><span>강조색</span><div>주홍 --ds-accent는 <b>한 장에 한 곳</b>: 목차는 제목 한 단어, 간지는 이번 막새 표식, 마무리는 해태 인장. 진녹 --ds-accent2는 본문에서 범주 하나(운영 띠 · 핵심 행)에만.</div></li>
+          <li><span>위계 농담</span><div>c1(진녹 #1F4A3A)에서 c5(#E2ECE5)까지. 섹션 번호·상위 묶음은 c1, 하위 항목 점과 선은 c3, 옅은 바탕은 c5.</div></li>
+          <li><span>질감</span><div>본문 요소는 <b>평면</b>(판본 문법: 사주쌍변 · 계선 · 판심). 목차 · 간지 · 마무리만 기와 부조(빛 받은 면 · 오목한 그늘 · 흰 회 자국)와 한지 섬유를 쓴다.</div></li>
+          <li><span>모션</span><div>표지의 한 번 움직임 다음은 간지의 확대 원 하나(0.7초)뿐. 목차 · 마무리 · 본문은 정지.</div></li>
+          <li><span>사진 · 그림</span><div>표지는 출처를 밝힌 실물 사진, 키트는 캔버스로 그린 막새. 문양은 실제 유물 구조를 단순화하되 지어내지 않는다. 사진을 쓰면 오른쪽 아래에 출처 한 줄.</div></li>
+          <li><span>본문과 잇기</span><div>#81 · #95처럼 판본 틀을 쓴 요소는 그대로, 다른 평면 요소는 이 변수 묶음만 갈아 끼우면 같은 덱이 된다.</div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>이 계열과 어울리는 기존 요소 <small>FAMILIES ∋ H · D 평면</small></h2>
+    <p>H 전용으로 만든 판본 문법 요소 두 장이 먼저입니다. 그 밖에 D(인쇄·종이)와 함께 쓰도록 만든 평면 요소는 변수 묶음만 바꾸면 이 덱의 본문으로 이어집니다.</p>
+    <div class="els-h">H 전용</div>
+    <ul class="els" id="els-h"></ul>
+    <div class="els-h">D 평면 요소(변수만 바꿔 쓰기)</div>
+    <ul class="els" id="els-d"></ul>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 첫 코드는 장표 세 장(목차 · 간지 · 마무리)을 한 번에 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 세 장이 그려집니다. 한 장만 쓰려면 마크업에서 나머지 <code>&lt;div class="hk" data-hk="…"&gt;</code> 줄을 지우면 됩니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DECK</code> 한 곳만 바꿉니다. <code>sections</code>(번호 · 이름 · 쪽 · 하위 항목)를 고치면 목차와 간지가 함께 바뀌고, 간지에 띄울 섹션은 <code>data-hk="div"</code> 옆 <code>data-sec="2"</code>(0~4)로 고릅니다.</li>
+      <li>색과 글꼴은 <code>.hk{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다. 기와 · 회 · 한지도 이 변수를 읽어 그립니다. 둘째 코드(계열 값 묶음)는 다른 본문 요소에 H 분위기를 입힐 때 그 요소의 감싸는 클래스 자리에 붙여 넣으세요.</li>
+      <li>제목의 <code>[ ]</code> 안 단어 하나만 주홍이 됩니다. 마무리는 인장이 주홍을 쓰므로 메시지에는 <code>[ ]</code>를 넣지 않습니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar"><button class="btn" type="button" data-copy="code-all">코드 복사</button><span class="msg" aria-live="polite"></span></div>
+    <pre class="code" id="code-all" tabindex="0"></pre>
+    <h3>계열 값 묶음만 (H)</h3>
+    <div class="code-bar"><button class="btn" type="button" data-copy="code-tok">코드 복사</button><span class="msg" aria-live="polite"></span></div>
+    <pre class="code" id="code-tok" tabindex="0" style="max-height:340px"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>테마 색</b>: [디자인 → 적용 → 색 → 색 사용자 지정]에서 텍스트/배경-어둡게 1 = #1F252C(먹), 밝게 1 = #F4F3EE(한지), 어둡게 2 = #5D646C(보조), 밝게 2 = #FBFAF6(면), 강조 1 = #C2412B(주홍), 강조 2~6 = #1F4A3A · #2E6B53 · #5E937C · #A9C7B8 · #E2ECE5(진녹 농담). 이름은 'H 처마'.</li>
+      <li><b>테마 글꼴</b>: [글꼴 → 글꼴 사용자 지정] 제목 글꼴(한글) 나눔명조 ExtraBold, 본문 글꼴(한글) Noto Sans KR(없으면 맑은 고딕).</li>
+      <li><b>슬라이드 마스터</b>(33.867 × 19.05cm): 배경 서식 = 단색 #F4F3EE(한지 질감을 원하면 이 키트 목차를 캡처해 위쪽만 잘라 그림 채우기, 투명도 0). 위 0.85~1.86cm에 텍스트 개체 틀 두 개(왼쪽 섹션 15pt 명조, 오른쪽 계획안 10pt 보조색), 그 아래 선 두 줄(1.75pt #1F252C + 0.25cm 아래 0.75pt), 좌우 여백 1.69cm. 바닥 줄 17.9cm(9pt 보조색 + 오른쪽 슬라이드 번호 명조).</li>
+      <li><b>레이아웃 1 · 목차</b>: 이 키트 목차의 처마 부분(막새 다섯 장)을 PNG로 떠서 위쪽 4.3~9.4cm에 놓는다. 그 아래 12.7cm부터 텍스트 상자 5개, 너비 5.6cm · 간격 0.63cm, [맞춤 → 가로 간격 동일하게]. 막새 가운데에서 상자 위 선까지 0.75pt 세로선.</li>
+      <li><b>레이아웃 2 · 간지</b>: 왼쪽 로마 숫자 220pt 명조 ExtraBold(#1F4A3A), 아래 이름 56pt. 오른쪽에 원(지름 7.4cm, 흰 테두리 6pt + 그림자)에 막새 그림을 [도형에 맞춰 자르기], 그 아래 막새 다섯 장 줄(지난 막새 불투명, 남은 막새 투명도 75%), 이번 막새에 1.5pt 주홍 원. 원에 [나타내기 → 확대/축소] 0.7초 · 시작 "이전 효과와 함께".</li>
+      <li><b>레이아웃 3 · 마무리</b>: 표지 #58 오른쪽 처마 사진을 그대로 옮기거나 이 키트 마무리 처마 그림을 쓰고, 왼쪽 메시지 56pt 명조 ExtraBold 두 줄, 짧은 선, 문의처 표(테두리 없음), 왼쪽 아래 주홍 인장(정사각형 2.3cm, 안쪽 흰 테 0.75pt).</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>뼈대</b>1600×900 · 머리말 띠 y40~88(쌍변) · 제목 y112 · 목차 칸 y600~814(5칸 × 264, 간격 30) · 바닥 줄 y846</div>
+      <div><b>막새 그리기</b>캔버스 높이맵 부조: 주연부 테 · 연주문 20알 · 단판 연판 8엽(가운데 능선 · 끝 반전) · 간판 · 자방 연자 1+8 · 원권 → 법선 음영 + 오목 그늘 + 소성 얼룩 + 흰 회 자국 + 깨진 테. 암막새는 당초 넝쿨 + 위아래 연주문</div>
+      <div><b>모션</b>간지 전환 하나: 확대 원 떠오름 0.7초(불투명도 0→1, 크기 93%→100%). 동작 줄이기 설정이면 최종 화면만</div>
+      <div><b>난이도</b>HTML 상(높이맵 부조 캔버스) · PPT 중(마스터 3종 + 막새 그림 한 장)</div>
+      <div><b>트렌드</b>질감을 겹쳐 깊이를 만들고 한쪽으로 치우친 구도로 시작하는 섹션 간지('Layered Memory') — <a href="https://slidesgo.com/slidesgo-school/ai-presentations/presentation-design-trends-2026" target="_blank" rel="noopener">Slidesgo, Presentation Design Trends 2026</a></div>
+      <div><b>막새 구조 참고</b>자방 연자 1+8 배열 · 주연부 연주문: <a href="https://www.earticle.net/Article/A416184" target="_blank" rel="noopener">earticle 수막새 연구</a> · <a href="https://koreascience.or.kr/article/JAKO200671663776688.page" target="_blank" rel="noopener">헤리티지: 역사와 과학</a></div>
+    </div>
+  </section>
+</main>
+
+<script id="hk-js">
+(function(){
+  // ── 덱 내용: 이 객체만 바꾸면 목차 · 간지 · 마무리가 함께 바뀐다 ──
+  var DECK = {
+    plan: '2027 학교 재난안전 종합계획(안)',
+    tocTitle: '다섯 갈래로 처마 끝까지 [빈틈없이] 막습니다',
+    sections: [
+      { no: 'I', name: '추진 배경·현황', page: 3, items: ['최근 3년 학교 재난 발생', '시설 노후 현황', '안전교육 운영 실태'] },
+      { no: 'II', name: '목표 및 지표', page: 6, items: ['비전과 목표', '성과지표 4개', '측정 방법'] },
+      { no: 'III', name: '세부 추진과제', page: 9, items: ['예방 · 시설 점검', '대비 · 훈련과 교육', '대응 · 매뉴얼과 상황실', '복구 · 심리와 시설'] },
+      { no: 'IV', name: '추진체계', page: 15, items: ['재난안전대책본부', '교육지원청 현장지원반', '학교 안전책임관'] },
+      { no: 'V', name: '일정 및 예산', page: 18, items: ['분기별 일정', '재원별 예산', '점검과 환류'] }
+    ],
+    closing: {
+      kicker: '○○교육청 · 2027',
+      message: '다섯 갈래가 모여\n처마 끝까지 빈틈없이',
+      contact: [['문의', '○○교육청 안전총괄과 재난안전팀'], ['담당', '주무관 ○○○'], ['전화', '000-000-0000']],
+      seal: ['獬', '豸'], org: '○○교육청 안전총괄과', date: '2027. 1.',
+      page: 21
+    },
+    source: '가상 예시 · 막새: 연화문 수막새(연판 8 · 연자 1+8 · 연주문 테) 구조를 단순화해 그림'
+  };
+  // 장표마다 처마 자리: 막새 가운데 x들, 기준 y, 반지름 R, 휘어 오름(앙곡), 기와골이 올라가는 높이
+  var SCENE = {
+    toc: { xs: [212, 506, 800, 1094, 1388], y: 352, R: 72, lift: 24, mid: 800, span: 700, roofTop: 200, line: true },
+    div: { xs: [935, 1075, 1215, 1355, 1495], y: 650, R: 48, lift: 10, mid: 1215, span: 320, roofTop: 556 },
+    end: { xs: [905, 1055, 1205, 1355, 1505], y: 462, R: 64, lift: 46, mid: 905, span: 600, roofTop: 210, oneSide: true, line: true }
+  };
+  var VW = 1600, VH = 900, TAU = Math.PI * 2;
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var mark = function(s){ return esc(s).replace(/\[(.+?)\]/, '<em>$1</em>'); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var clamp = function(v){ return v < 0 ? 0 : v > 1 ? 1 : v; };
+  var ss = function(a, b, x){ var t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
+  var mod = function(a, n){ return ((a % n) + n) % n; };
+  function rng(seed){ return function(){ seed = (seed + 0x6D2B79F5) | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function hash(i, j){ var h = Math.imul(i, 374761393) + Math.imul(j, 668265263) | 0; h = Math.imul(h ^ h >>> 13, 1274126177); return ((h ^ h >>> 16) >>> 0) / 4294967295; }
+  function vn(x, y){ var i = Math.floor(x), j = Math.floor(y), fx = x - i, fy = y - j, a = hash(i, j), b = hash(i + 1, j), c = hash(i, j + 1), d = hash(i + 1, j + 1), ux = fx * fx * (3 - 2 * fx), uy = fy * fy * (3 - 2 * fy); return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy; }
+  function fbm(x, y, o){ var s = 0, a = .5, f = 1, n = 0; for (var k = 0; k < o; k++){ s += a * vn(x * f, y * f); n += a; a *= .5; f *= 2.03; } return s / n; }
+  // 변수 색 읽기: '#RRGGBB' → [r,g,b]
+  function tok(el, name){ var v = getComputedStyle(el).getPropertyValue(name).trim(), n = parseInt(v.replace('#', ''), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+  var rgba = function(c, a){ return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; };
+
+  // ── 처마 선: 가운데(mid)에서 멀어질수록 살짝 올라간다(앙곡) ──
+  function eaveY(sc, x){ var t = (x - sc.mid) / sc.span; if (sc.oneSide && t < 0) t = 0; return sc.y - sc.lift * t * t; }
+
+  // ── 한지: 바탕색 + 큰 얼룩 + 가는 섬유 ──
+  function paper(el, g, U, seed){
+    var bg = tok(el, '--ds-bg'), fb = tok(el, '--ds-fiber'), ink = tok(el, '--ds-ink');
+    g.fillStyle = rgba(bg, 1); g.fillRect(0, 0, VW * U, VH * U);
+    var w = 160, h = 90, oc = document.createElement('canvas'); oc.width = w; oc.height = h;
+    var og = oc.getContext('2d'), im = og.createImageData(w, h), d = im.data;
+    for (var j = 0; j < h; j++) for (var i = 0; i < w; i++){
+      var n = fbm(i * .06 + seed, j * .06, 4) - .5, q = (j * w + i) * 4, c = n > 0 ? fb : ink;
+      d[q] = c[0]; d[q + 1] = c[1]; d[q + 2] = c[2]; d[q + 3] = Math.abs(n) * (n > 0 ? 90 : 26);
+    }
+    og.putImageData(im, 0, 0); g.imageSmoothingQuality = 'high'; g.drawImage(oc, 0, 0, VW * U, VH * U);
+    var r = rng(seed * 31 + 7); g.lineCap = 'round';
+    for (var k = 0; k < 520; k++){
+      var x = r() * VW, y = r() * VH, L = 8 + r() * 34, a0 = r() * TAU, bend = (r() - .5) * 1.4, light = r() > .22;
+      g.strokeStyle = rgba(light ? fb : ink, light ? .28 + r() * .3 : .035 + r() * .03);
+      g.lineWidth = Math.max(.5, (.35 + r() * .5) * U);
+      g.beginPath(); g.moveTo(x * U, y * U);
+      g.quadraticCurveTo((x + Math.cos(a0 + bend) * L * .5) * U, (y + Math.sin(a0 + bend) * L * .5) * U, (x + Math.cos(a0) * L) * U, (y + Math.sin(a0) * L) * U); g.stroke();
+    }
+  }
+
+  // ── 높이맵 → 음영: 법선(빛은 왼쪽 위) · 오목한 곳 그늘 · 소성 얼룩 · 흰 회 자국 ──
+  function shade(el, W, H, hm, alpha, seed, limeFn){
+    var base = tok(el, '--ds-tile'), deep = tok(el, '--ds-tile-deep'), lime = tok(el, '--ds-lime');
+    // 오목 그늘용 흐린 높이맵(가로·세로 상자 흐림)
+    var rr = Math.max(2, Math.round(Math.min(W, H) * .028)), tmp = new Float32Array(W * H), bl = new Float32Array(W * H), i, j, k;
+    for (j = 0; j < H; j++){ var s = 0, cnt = 0; for (k = -rr; k <= rr; k++){ var x0 = Math.min(W - 1, Math.max(0, k)); s += hm[j * W + x0]; cnt++; }
+      for (i = 0; i < W; i++){ tmp[j * W + i] = s / cnt; var xa = Math.min(W - 1, i + rr + 1), xb = Math.max(0, i - rr); s += hm[j * W + xa] - hm[j * W + xb]; } }
+    for (i = 0; i < W; i++){ var s2 = 0, c2 = 0; for (k = -rr; k <= rr; k++){ var y0 = Math.min(H - 1, Math.max(0, k)); s2 += tmp[y0 * W + i]; c2++; }
+      for (j = 0; j < H; j++){ bl[j * W + i] = s2 / c2; var ya = Math.min(H - 1, j + rr + 1), yb = Math.max(0, j - rr); s2 += tmp[ya * W + i] - tmp[yb * W + i]; } }
+    var oc = document.createElement('canvas'); oc.width = W; oc.height = H;
+    var og = oc.getContext('2d'), im = og.createImageData(W, H), d = im.data, rnd = rng(seed * 97 + 3);
+    var depth = Math.min(W, H) * .085, Lx = -.52, Ly = -.62, Lz = .58, sc = 1 / Math.min(W, H);
+    for (j = 0; j < H; j++) for (i = 0; i < W; i++){
+      var p = j * W + i, a = alpha[p]; if (a <= 0) continue;
+      var hl = hm[p - (i > 0 ? 1 : 0)], hr = hm[p + (i < W - 1 ? 1 : 0)], hu = hm[p - (j > 0 ? W : 0)], hd = hm[p + (j < H - 1 ? W : 0)];
+      var gx = (hr - hl) * .5 * depth, gy = (hd - hu) * .5 * depth, inv = 1 / Math.sqrt(gx * gx + gy * gy + 1);
+      var nx = -gx * inv, ny = -gy * inv, nz = inv, dif = Math.max(0, nx * Lx + ny * Ly + nz * Lz);
+      var occ = Math.min(.5, Math.max(0, (bl[p] - hm[p]) * 2.4));
+      var X = i * sc, Y = j * sc, mot = 1 + (fbm(X * 4 + seed, Y * 4 - seed, 4) - .5) * .34 + (rnd() - .5) * .08;
+      var lit = (.34 + .86 * dif) * (1 - occ) * mot, spec = Math.pow(dif, 10) * .1;
+      var r = base[0] * lit + 255 * spec, gg = base[1] * lit + 255 * spec, b = base[2] * lit + 255 * spec;
+      var dk = clamp((.62 - lit) * 1.3) * .5; r = r * (1 - dk) + deep[0] * dk; gg = gg * (1 - dk) + deep[1] * dk; b = b * (1 - dk) + deep[2] * dk;
+      var lm = limeFn ? limeFn(i, j, hm[p], X, Y) : 0;
+      if (lm > 0){ r = r * (1 - lm) + lime[0] * lm; gg = gg * (1 - lm) + lime[1] * lm; b = b * (1 - lm) + lime[2] * lm; }
+      var q = p * 4; d[q] = r; d[q + 1] = gg; d[q + 2] = b; d[q + 3] = a * 255;
+    }
+    og.putImageData(im, 0, 0); return oc;
+  }
+
+  // ── 수막새 한 장(연화문): 주연부 테 · 연주문 20알 · 연판 8엽 · 간판 · 자방 연자 1+8 · 깨진 테 ──
+  var CACHE = {};
+  function sumak(el, D, seed){
+    var key = 's' + D + '_' + seed; if (CACHE[key]) return CACHE[key];
+    var r0 = rng(seed), rot = r0() * TAU / 8, chips = [], nc = 1 + Math.floor(r0() * 2.2);
+    for (var c = 0; c < nc; c++) chips.push({ a: r0() * TAU, w: .18 + r0() * .3, d: .06 + r0() * .1 });
+    var W = D, hm = new Float32Array(W * W), al = new Float32Array(W * W), s8 = TAU / 8;
+    for (var j = 0; j < W; j++) for (var i = 0; i < W; i++){
+      var x = (i + .5) / W * 2 - 1, y = (j + .5) / W * 2 - 1, r = Math.hypot(x, y), p = j * W + i;
+      var edge = 1 - .012 * vn(Math.atan2(y, x) * 9 + seed, 3);
+      if (r > edge){ continue; }
+      var a = Math.atan2(y, x), cut = false, frac = 0;
+      for (var k = 0; k < chips.length; k++){ var ch = chips[k], da = Math.abs(mod(a - ch.a + Math.PI, TAU) - Math.PI);
+        if (da < ch.w){ var rc = 1 - ch.d * Math.sqrt(1 - (da / ch.w) * (da / ch.w)) * (.75 + .5 * vn(a * 26 + k * 9, seed)); if (r > rc) cut = true; else if (r > rc - .025) frac = Math.max(frac, 1 - (rc - r) / .025); } }
+      if (cut) continue;
+      var h = .28;
+      h += .72 * ss(.81, .85, r); h -= .3 * ss(.93, 1, r);                       // 주연부 테와 바깥 모서리
+      h -= .2 * frac;                                                              // 깨진 면은 낮고 거칠다
+      if (r < .835){ var st = TAU / 20, aa = mod(a - rot, st) - st / 2, db = Math.hypot(r - .765, aa * .765), bb = 1 - db * db / (.034 * .034);
+        if (bb > 0) h = Math.max(h, .28 + .34 * Math.sqrt(bb)); }                  // 연주문
+      h = Math.max(h, .28 + .14 * Math.exp(-Math.pow((r - .712) / .009, 2)));     // 연판 바깥 원권
+      if (r < .705 && r > .19){
+        var ph = mod(a - rot, s8) - s8 / 2, uu = r * Math.cos(ph), vv = r * Math.sin(ph), u0 = .45, A = .235, t = (uu - (u0 - A)) / (2 * A), B = .148 * (.6 + .4 * t);
+        var e = (uu - u0) * (uu - u0) / (A * A) + vv * vv / (B * B);
+        if (e < 1){ var dm = Math.sqrt(1 - e), hp = .28 + .4 * Math.pow(dm, .7);
+          if (t > .12 && t < .78) hp += .045 * Math.exp(-vv * vv / (.013 * .013)) * dm;          // 연판 가운데 능선
+          hp += .13 * Math.exp(-Math.pow((uu - (u0 + .78 * A)) / .032, 2) - vv * vv / (.07 * .07)); // 연판 끝 반전
+          h = Math.max(h, hp); }
+        var p3 = mod(a - rot - s8 / 2, s8) - s8 / 2, u3 = r * Math.cos(p3), v3 = r * Math.sin(p3);
+        if (u3 > .35 && u3 < .69){ var wv = u3 > .6 ? .011 + (u3 - .6) / .09 * .032 : .011; if (Math.abs(v3) < wv) h = Math.max(h, .45); }  // 간판
+      }
+      h = Math.max(h, .28 + .3 * ss(.205, .185, r));                               // 자방
+      h -= .07 * Math.exp(-Math.pow((r - .222) / .008, 2));                        // 자방 둘레 홈
+      var seeds = [[0, 0]]; for (var q = 0; q < 8; q++){ var aq = rot + s8 / 2 + q * s8; seeds.push([.118 * Math.cos(aq), .118 * Math.sin(aq)]); }
+      for (q = 0; q < 9; q++){ var dq = Math.hypot(x - seeds[q][0], y - seeds[q][1]); if (dq < .03) h += .15 * Math.sqrt(1 - dq * dq / (.0009)); }  // 연자 1+8
+      h += (fbm(x * 7 + seed, y * 7, 3) - .5) * .05;                               // 닳은 표면
+      hm[p] = h; al[p] = clamp((edge - r) * W * .5);
+    }
+    var face = shade(el, W, W, hm, al, seed, function(i, j, hh, X, Y){
+      var x = X * 2 - 1, y = Y * 2 - 1, r = Math.hypot(x, y), n = fbm(X * 9 + seed * 3, Y * 9, 3);
+      return (r > .6 && r < .84 && hh < .4 && n > .6) ? Math.min(.45, (n - .6) * 4) : (n > .78 ? (n - .78) * 1.8 : 0);
+    });
+    // 옆면 두께(아래로 살짝 보임) + 앞면
+    var out = document.createElement('canvas'); out.width = W; out.height = Math.round(W * 1.07);
+    var g = out.getContext('2d'), deep = tok(el, '--ds-tile-deep'), base = tok(el, '--ds-tile');
+    var sg = g.createLinearGradient(0, W * .5, 0, W * 1.07); sg.addColorStop(0, rgba(deep, 1)); sg.addColorStop(1, rgba([deep[0] * .8, deep[1] * .8, deep[2] * .8].map(Math.round), 1));
+    g.fillStyle = sg; g.beginPath(); g.arc(W / 2, W / 2 + W * .065, W / 2 * .985, 0, TAU); g.fill();
+    g.strokeStyle = rgba(base, .35); g.lineWidth = Math.max(.6, W * .004); g.beginPath(); g.arc(W / 2, W / 2 + W * .065, W / 2 * .975, .15 * Math.PI, .85 * Math.PI); g.stroke();
+    g.drawImage(face, 0, 0);
+    CACHE[key] = out; return out;
+  }
+
+  // ── 암막새(수막새 사이 아래쪽): 처진 활 모양 드림새 · 위아래 연주문 · 가운데 당초 넝쿨 ──
+  function amak(el, W, H, seed){
+    var key = 'a' + W + '_' + H + '_' + seed; if (CACHE[key]) return CACHE[key];
+    var hm = new Float32Array(W * H), al = new Float32Array(W * H), r0 = rng(seed + 11), ph0 = r0() * TAU;
+    for (var j = 0; j < H; j++) for (var i = 0; i < W; i++){
+      var x = (i + .5) / W * 2 - 1, y = (j + .5) / H, top = .2 * (1 - x * x), bot = top + .74, p = j * W + i;
+      if (y < top || y > bot || Math.abs(x) > .985) continue;
+      var v = (y - top) / (bot - top), ex = Math.min((.985 - Math.abs(x)) * W * .5, (y - top) * H, (bot - y) * H);
+      var h = .3, bd = Math.min(v, 1 - v, (.985 - Math.abs(x)) * 2.4);
+      h += .55 * ss(.11, .06, bd) - .25 * ss(.03, 0, bd);                          // 테
+      var bx = mod(x * 11 + .5, 1) - .5;                                           // 연주문(위아래 줄)
+      [.2, .8].forEach(function(vb){ var db = Math.hypot(bx * .09 * W / H * 2, v - vb) / .05; if (db < 1 && bd > .1) h = Math.max(h, .3 + .3 * Math.sqrt(1 - db * db)); });
+      if (bd > .12){
+        var vc = .5 + .14 * Math.sin(x * 3.1 * Math.PI + ph0), dv = Math.abs(v - vc) / .04;  // 당초 줄기
+        if (dv < 1) h = Math.max(h, .3 + .28 * Math.sqrt(1 - dv * dv));
+        var lk = Math.round((x * 3.1 * Math.PI + ph0) / Math.PI - .5), lx = ((lk + .5) * Math.PI - ph0) / (3.1 * Math.PI), sgn = lk % 2 ? 1 : -1;  // 줄기 마루마다 잎 하나
+        var le = Math.pow((x - lx - .05) / .07, 2) + Math.pow((v - (.5 + sgn * .14) + sgn * .1) / .07, 2);
+        if (le < 1) h = Math.max(h, .3 + .26 * Math.sqrt(1 - le));
+      }
+      h += (fbm(x * 6 + seed, v * 3, 3) - .5) * .05;
+      hm[p] = h; al[p] = clamp(ex * .8);
+    }
+    var face = shade(el, W, H, hm, al, seed + 5, function(i, j, hh, X, Y){ var n = fbm(X * 8 + seed, Y * 8, 3); return hh < .34 && n > .6 ? Math.min(.5, (n - .6) * 4) : 0; });
+    CACHE[key] = face; return face;
+  }
+
+  // ── 기와골: 막새 위로 수키와 줄(둥근 원통 + 장마다 마디)과 암키와 골(오목)이 멀어지며 좁아지고 옅어진다 ──
+  function roof(el, g, U, sc){
+    var R = sc.R, step = sc.xs[1] - sc.xs[0], x0 = sc.xs[0] - step * .5, x1 = sc.xs[sc.xs.length - 1] + step * .5;
+    var top = sc.roofTop, bot = sc.y + R * .4, W = Math.round((x1 - x0) * U), H = Math.round((bot - top) * U); if (W < 4 || H < 4) return;
+    var base = tok(el, '--ds-tile'), deep = tok(el, '--ds-tile-deep'), lime = tok(el, '--ds-lime');
+    var oc = document.createElement('canvas'); oc.width = W; oc.height = H;
+    var og = oc.getContext('2d'), im = og.createImageData(W, H), d = im.data, sw = R * .84, J = R * 1.1, Q = .84, LQ = Math.log(Q);
+    // 멀어질수록 한 장의 길이가 Q배씩 짧아진다(원근): 아래에서 몇 번째 장인지와 장 안의 위치
+    function row(up, off){ var v = 1 - (up + off) * (1 - Q) / J; if (v <= .02) return null; var n = Math.log(v) / LQ, f = Math.floor(n); return { n: f, at: (n - f) * J * Math.pow(Q, f) }; }
+    for (var j = 0; j < H; j++){
+      var Y = top + j / U;
+      for (var i = 0; i < W; i++){
+        var X = x0 + i / U, yb0 = eaveY(sc, X), t = clamp((yb0 - Y) / (yb0 - top)), X0 = sc.mid + (X - sc.mid) / (1 - .1 * t), swt = sw * (1 - .14 * t);
+        var k = 0, best = 1e9; for (var m = 0; m < sc.xs.length; m++){ var dd = Math.abs(X0 - sc.xs[m]); if (dd < best){ best = dd; k = m; } }
+        var dx = X0 - sc.xs[k], yb = eaveY(sc, sc.xs[k]), isS = Math.abs(dx) < swt && Y <= yb, sh, lm = 0, rw;
+        if (!isS && Y > yb0 + R * .35) continue;
+        if (isS){
+          var nX = dx / swt; sh = .58 + .5 * (-.58 * nX + .8 * Math.sqrt(Math.max(0, 1 - nX * nX)));
+          rw = row(yb - Y, 0); if (!rw) continue;
+          sh *= 1 + (hash(k * 7 + 1, rw.n) - .5) * .16;                                   // 장마다 조금씩 다른 소성 빛깔
+          if (rw.at < 1.5) sh *= .55; else if (rw.at < 3.4) sh *= 1.1;                      // 마디: 윗장 미구가 아랫장에 얹힌 턱
+          if (yb - Y < R * .2) lm = .5 * (1 - (yb - Y) / (R * .2)) * (fbm(X * .25, Y * .25, 2) > .45 ? 1 : .35);  // 막새 뒤 흰 회(와구토)
+        } else {
+          var gw = step / 2 - swt, gx = clamp((Math.abs(dx) - swt) / Math.max(1, gw));
+          sh = .8 + .12 * Math.sin(gx * Math.PI);                                          // 암키와 골: 가운데가 밝은 오목면
+          if (dx > 0 && gx < .3) sh *= .7 + .3 * gx / .3;                                   // 수키와가 오른쪽 골에 드리운 그늘
+          rw = row(Math.max(0, yb0 - Y), J * .5); if (!rw) continue;
+          if (rw.at < 1.2) sh *= .72;                                                       // 암키와가 겹친 선
+          sh *= 1 + (hash(k * 7 + 3, rw.n) - .5) * .1;
+        }
+        var mot = 1 + (fbm(X * .06, Y * .06, 3) - .5) * .22;
+        var fade = Math.pow(clamp((Y - top) / ((yb0 - top) * .75)), 1.3) * clamp((X - x0) / (step * .4)) * clamp((x1 - X) / (step * .4));
+        var r = base[0] * sh * mot, gg = base[1] * sh * mot, b = base[2] * sh * mot, dk = clamp((.62 - sh) * 1.2) * .5;
+        r = r * (1 - dk) + deep[0] * dk; gg = gg * (1 - dk) + deep[1] * dk; b = b * (1 - dk) + deep[2] * dk;
+        r = r * (1 - lm) + lime[0] * lm; gg = gg * (1 - lm) + lime[1] * lm; b = b * (1 - lm) + lime[2] * lm;
+        var q = (j * W + i) * 4; d[q] = r; d[q + 1] = gg; d[q + 2] = b; d[q + 3] = fade * 240;
+      }
+    }
+    og.putImageData(im, 0, 0); g.drawImage(oc, x0 * U, top * U);
+  }
+
+  // ── 처마 한 줄: 기와골 → 암막새 → 수막새(그림자 포함). state: 1 놓임 · 0 아직(빈 자리 점선) ──
+  function eave(el, g, U, sc, state, seedBase){
+    var R = sc.R, D = Math.round(R * 2 * U), ink = tok(el, '--ds-ink'), sub = tok(el, '--ds-sub');
+    roof(el, g, U, sc);
+    var step = sc.xs[1] - sc.xs[0], aw = Math.round(step * .86 * U), ah = Math.round(R * 1.02 * U);
+    for (var i = 0; i < sc.xs.length - 1; i++){
+      if (state && !state[i + 1]) continue;                                             // 아직 놓이지 않은 막새 옆 암막새도 비운다
+      var mx = (sc.xs[i] + sc.xs[i + 1]) / 2, my = eaveY(sc, mx) + R * .12;
+      g.fillStyle = rgba(ink, .1); g.beginPath(); g.ellipse(mx * U, (my + R * .98) * U, aw * .48, R * .12 * U, 0, 0, TAU); g.fill();
+      g.drawImage(amak(el, aw, ah, seedBase + i * 13), mx * U - aw / 2, my * U);
+    }
+    sc.xs.forEach(function(x, i){
+      var y = eaveY(sc, x), on = state ? state[i] : 1;
+      // 막새가 처마 아래에 드리운 그림자
+      var sg = g.createRadialGradient(x * U + R * .1 * U, (y + R * .95) * U, 0, x * U + R * .1 * U, (y + R * .95) * U, R * 1.05 * U);
+      sg.addColorStop(0, rgba(ink, on >= 1 ? .2 : .05)); sg.addColorStop(1, rgba(ink, 0));
+      g.fillStyle = sg; g.beginPath(); g.ellipse(x * U + R * .1 * U, (y + R * .95) * U, R * 1.05 * U, R * .28 * U, 0, 0, TAU); g.fill();
+      if (on >= 1) g.drawImage(sumak(el, D, seedBase + i * 7 + 1), x * U - D / 2, y * U - D / 2);
+      else {
+        var bg = tok(el, '--ds-bg'); g.fillStyle = rgba(bg, .9); g.beginPath(); g.arc(x * U, y * U, R * 1.02 * U, 0, TAU); g.fill();  // 빈 자리
+        g.setLineDash([3 * U, 5 * U]); g.strokeStyle = rgba(sub, .8); g.lineWidth = Math.max(.8, 1.2 * U);
+        g.beginPath(); g.arc(x * U, y * U, (R - 2) * U, 0, TAU); g.stroke(); g.setLineDash([]);
+      }
+    });
+  }
+
+  // ── 장표 틀: 캔버스(한지 + 처마) + 글자 층 ──
+  function frame(el, left, page){
+    el.innerHTML = '<canvas class="hk-cv" aria-hidden="true"></canvas><div class="hk-in">' +
+      '<div class="hk-a hk-hd"><div class="hk-sec"><span class="hk-fish"></span>' + left + '</div><div class="hk-plan">' + esc(DECK.plan) + '</div></div>' +
+      '<div class="hk-body"></div><div class="hk-a hk-ft"><span>' + esc(DECK.source) + '</span><b>' + page + '</b></div></div>';
+    return el.querySelector('.hk-body');
+  }
+  var KIND = {
+    // 목차: 막새 다섯 장 아래로 지시선이 섹션 칸에 닿는다
+    toc: {
+      build: function(el){
+        var b = frame(el, '목차<small>目次</small>', 2), h = '<div class="hk-a hk-tt">' + mark(DECK.tocTitle) + '</div>';
+        DECK.sections.forEach(function(s, i){
+          h += '<div class="hk-a hk-col" style="left:' + u(80 + i * 294) + '"><div class="n"><b>' + esc(s.no) + '</b><span>' + s.page + '쪽</span></div><h3>' + esc(s.name) + '</h3><ul>' +
+            s.items.map(function(t){ return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+        });
+        b.innerHTML = h;
+      },
+      draw: function(el, g, U){
+        var sc = SCENE.toc, ink = tok(el, '--ds-ink');
+        paper(el, g, U, 3); eave(el, g, U, sc, null, 40);
+        // 처마 끝선 + 막새마다 내려오는 지시선
+        g.strokeStyle = rgba(ink, .9); g.lineWidth = Math.max(1, 1.6 * U); g.lineCap = 'round';
+        g.beginPath(); for (var x = 80; x <= 1520; x += 4){ var y = eaveY(sc, x) + sc.R + 34; x === 80 ? g.moveTo(x * U, y * U) : g.lineTo(x * U, y * U); } g.stroke();
+        g.lineWidth = Math.max(.7, 1 * U);
+        sc.xs.forEach(function(x){ var y = eaveY(sc, x) + sc.R + 34; g.beginPath(); g.moveTo(x * U, y * U); g.lineTo(x * U, 600 * U); g.stroke();
+          g.fillStyle = rgba(ink, 1); g.beginPath(); g.arc(x * U, y * U, 3.2 * U, 0, TAU); g.fill(); });
+      }
+    },
+    // 섹션 간지: 지나온 막새까지 놓인 처마 + 이번 막새 확대 원(전환 하나) + 주홍 표식
+    div: {
+      build: function(el){
+        var i = +(el.getAttribute('data-sec') || 0), s = DECK.sections[i], sc = SCENE.div, x = sc.xs[i];
+        var b = frame(el, '<i>' + esc(s.no) + '.</i> ' + esc(s.name), s.page);
+        b.innerHTML = '<div class="hk-a hk-big">' + esc(s.no) + '</div>' +
+          '<div class="hk-a hk-dn"><small>SECTION ' + String(i + 1).padStart(2, '0') + ' / ' + String(DECK.sections.length).padStart(2, '0') + '</small><h2>' + esc(s.name) + '</h2></div>' +
+          '<div class="hk-a hk-items">' + s.items.map(function(t, k){ return '<span><b>' + (i + 1) + '-' + (k + 1) + '</b>' + esc(t) + '</span>'; }).join('') + '</div>' +
+          '<div class="hk-a hk-zoom"><canvas aria-hidden="true"></canvas></div>' +
+          '<div class="hk-a hk-zl" style="left:' + u(x) + ';top:' + u(eaveY(sc, x) + sc.R + 26) + '"><b>' + esc(s.no) + ' ' + esc(s.name) + '</b>' + (i + 1) + '번째 막새 · ' + s.page + '쪽</div>';
+      },
+      draw: function(el, g, U){
+        var i = +(el.getAttribute('data-sec') || 0), sc = SCENE.div, ink = tok(el, '--ds-ink'), acc = tok(el, '--ds-accent');
+        paper(el, g, U, 5);
+        eave(el, g, U, sc, sc.xs.map(function(_, k){ return k <= i ? 1 : 0; }), 40);
+        var x = sc.xs[i], y = eaveY(sc, x);
+        g.strokeStyle = rgba(acc, 1); g.lineWidth = Math.max(1, 2 * U); g.beginPath(); g.arc(x * U, y * U, (sc.R + 9) * U, 0, TAU); g.stroke();
+        // 이번 막새 → 확대 원 지시선
+        var zx = 1215, zy = 325, zr = 182, ang = Math.atan2(y - sc.R - 9 - zy, x - zx);
+        g.strokeStyle = rgba(ink, .75); g.lineWidth = Math.max(.7, 1 * U);
+        g.beginPath(); g.moveTo((zx + Math.cos(ang) * zr) * U, (zy + Math.sin(ang) * zr) * U); g.lineTo(x * U, (y - sc.R - 9) * U); g.stroke();
+        // 확대 원 안: 같은 막새를 크게(같은 씨앗이라 같은 깨진 자리)
+        var zc = el.querySelector('.hk-zoom canvas'), zd = el.querySelector('.hk-zoom').getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+        zc.width = Math.round(zd.width * dpr); zc.height = Math.round(zd.height * dpr);
+        var zg = zc.getContext('2d'), D = Math.round(zc.width * .9), seed = 40 + i * 7 + 1;
+        var bg = tok(el, '--ds-surface'); zg.fillStyle = rgba(bg, 1); zg.fillRect(0, 0, zc.width, zc.height);
+        var sh = zg.createRadialGradient(zc.width * .53, zc.height * .56, 0, zc.width * .53, zc.height * .56, D * .55); sh.addColorStop(.75, rgba(ink, .22)); sh.addColorStop(1, rgba(ink, 0));
+        zg.fillStyle = sh; zg.fillRect(0, 0, zc.width, zc.height);
+        zg.drawImage(sumak(el, D, seed), (zc.width - D) / 2, (zc.height - D) / 2 - D * .03);
+      }
+    },
+    // 마무리: 표지 구도 — 왼쪽 명조 메시지, 오른쪽 처마, 처마 끝선이 왼쪽 끝까지, 해태 인장
+    end: {
+      build: function(el){
+        var c = DECK.closing, b = frame(el, '맺음<small>結</small>', c.page);
+        b.innerHTML = '<div class="hk-a hk-ek">' + esc(c.kicker) + '</div><div class="hk-a hk-msg">' + mark(c.message) + '</div><div class="hk-a hk-rule"></div>' +
+          '<div class="hk-a hk-ct">' + c.contact.map(function(r){ return '<span>' + esc(r[0]) + '</span><div>' + esc(r[1]) + '</div>'; }).join('') + '</div>' +
+          '<div class="hk-a hk-sign"><div class="hk-seal" aria-label="해태 인장"><span>' + esc(c.seal[0]) + '</span><span>' + esc(c.seal[1]) + '</span></div><div class="hk-org">' + esc(c.org) + '<span>' + esc(c.date) + '</span></div></div>';
+      },
+      draw: function(el, g, U){
+        var sc = SCENE.end, ink = tok(el, '--ds-ink');
+        paper(el, g, U, 9); eave(el, g, U, sc, null, 60);
+        // 처마 끝선: 처마 아래를 따라오다 화면 왼쪽 끝까지(표지와 같은 선)
+        g.strokeStyle = rgba(ink, .9); g.lineWidth = Math.max(1, 2 * U); g.lineCap = 'round'; g.beginPath();
+        var x0 = sc.xs[0], y0 = eaveY(sc, x0) + sc.R + 40;
+        g.moveTo(80 * U, 640 * U); g.bezierCurveTo(420 * U, 640 * U, 640 * U, (y0 + 6) * U, x0 * U, y0 * U);
+        for (var x = x0; x <= 1540; x += 4) g.lineTo(x * U, (eaveY(sc, x) + sc.R + 40) * U);
+        g.stroke();
+      }
+    }
+  };
+
+  function mount(el){
+    var kind = el.getAttribute('data-hk'), K = KIND[kind], cv, ok = false;
+    function redraw(){
+      cv = el.querySelector('.hk-cv'); var r = el.getBoundingClientRect(); if (!r.width) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2), U = r.width * dpr / VW;
+      cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); ok = true;
+      var g = cv.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); K.draw(el, g, U);
+    }
+    // 간지 전환: 이번 막새 확대 원이 떠오른다(0.7초, 한 번)
+    function play(){ var z = el.querySelector('.hk-zoom'); if (!z) return; z.classList.remove('is-in'); void z.offsetWidth; z.classList.add('is-in'); }
+    el.hkShow = function(i){ el.setAttribute('data-sec', i); K.build(el); redraw(); play(); };
+    el.hkPlay = play;
+    K.build(el);
+    var rt = 0, lw = 0;
+    if (window.ResizeObserver) new ResizeObserver(function(en){ var w = en[0].contentRect.width; if (Math.abs(w - lw) < 1) return; lw = w; clearTimeout(rt); rt = setTimeout(redraw, 120); }).observe(el);
+    redraw();
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){ redraw(); play(); });
+  }
+  document.querySelectorAll('[data-hk]').forEach(mount);
+})();
+</script>
+<script>
+(function(){
+  // 페이지 쪽: 간지 섹션 바꾸기 · 다시 보기 · 견본 · 어울리는 요소 · 코드 칸 · 스펙 표
+  var dv = document.querySelector('[data-hk="div"]');
+  var secBtns = document.querySelectorAll('button[data-sec]');
+  secBtns.forEach(function(b){ b.addEventListener('click', function(){
+    secBtns.forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+    dv.hkShow(+b.dataset.sec);
+  }); });
+  document.getElementById('replay').addEventListener('click', function(){ dv.hkPlay(); });
+
+  var T = {
+    '--ds-bg': ['#F4F3EE', '바탕 · 한지', '밝은 미색, 순백 아님'], '--ds-surface': ['#FBFAF6', '면', '카드 · 표 · 확대 원'], '--ds-ink': ['#1F252C', '본문 글자 · 먹', '바탕 대비 14.6 : 1'],
+    '--ds-sub': ['#5D646C', '보조 글자', '바탕 대비 5.6 : 1'], '--ds-line': ['#D3D1C8', '구분선 · 계선', '표 선 · 칸 나눔'],
+    '--ds-accent': ['#C2412B', '강조 · 주홍 인장', '한 장에 한 곳'], '--ds-accent2': ['#2E6B53', '보조 · 단청 진녹', '범주 하나 · 운영 띠'],
+    '--ds-c1': ['#1F4A3A', 'c1', '섹션 번호 · 상위 묶음'], '--ds-c2': ['#2E6B53', 'c2', '번호 · 진한 띠'], '--ds-c3': ['#5E937C', 'c3', '하위 항목 점 · 선'],
+    '--ds-c4': ['#A9C7B8', 'c4', '옅은 막대 · 실적'], '--ds-c5': ['#E2ECE5', 'c5', '핵심 행 바탕'],
+    '--ds-tile': ['#8C9399', '기와 회청', '빛 받은 면 기준'], '--ds-tile-deep': ['#3C4248', '기와 그늘', '옆면 · 오목한 곳'], '--ds-lime': ['#ECE8DD', '흰 회', '와구토 · 홈에 남은 회'], '--ds-fiber': ['#FFFFFF', '한지 섬유', '가는 섬유 · 얼룩']
+  };
+  function sw(id, keys){ document.getElementById(id).innerHTML = keys.map(function(k){ var v = T[k]; return '<div><i style="background:' + v[0] + '"></i><b>' + v[1] + '</b><code>' + k + ' ' + v[0] + '</code><em>' + v[2] + '</em></div>'; }).join(''); }
+  sw('sw-base', ['--ds-bg', '--ds-surface', '--ds-ink', '--ds-sub', '--ds-line', '--ds-accent', '--ds-accent2']);
+  sw('sw-c', ['--ds-c1', '--ds-c2', '--ds-c3', '--ds-c4', '--ds-c5']);
+  sw('sw-x', ['--ds-tile', '--ds-tile-deep', '--ds-lime', '--ds-fiber']);
+
+  // DB 기준: families에 H가 든 요소 / D가 든 평면 요소
+  var EH = [[81,'판본 목록표','표·목록','G1u78jQJvoLsg94F1MtN9X'],[95,'판심 대조 지표','핵심 수치','MDpppiWE2DTY1vWvx4mmZd']];
+  var ED = [[6,'딜러의 세 더미','분류·유목화','66y2jVDpPFr4e8GZ2kzvMU'],[13,'던져 채우는 오후표','일정','SerWLxavCg6tcVz91kMUJG'],[14,'상세도 호출','조직·체계','BVYnUphnh6znAZ4ZeQaBwa'],[22,'다섯 칸 다이얼','흐름·절차','WeKwdAvAc3QeCh3D5bFC22'],[23,'주 경로 간트','일정','4Gt3kD5ahsVZB35uRzMSdr'],[33,'쪼개지는 예산 사각형','구성비','FLb4r1LqoAVHmWBugk44uh'],[34,'허브 내비게이션 업무보고','핵심 수치','LaASks1GbNLmNDsAvDkQF3'],[35,'세로 스와이프 카드','핵심 수치','6dbUR96MRR4MoPm5tg1dxf'],[41,'타이밍 타워 순위표','추이','V7VwbpUg3F3uoyTQo8rjXE'],[47,'눈금 머리 과제표','표·목록','H81oDuU5ZsqBDw3CBBEaVe'],[48,'세 줄 나란히 추이','추이','Pi2c8RbgJEL9B3oKn5djbz'],[49,'조사 완료선 정렬 비교','비교·순위','6xJeMrKJGMRSYDPZpfNAUs'],[50,'재원 지분 마리메코','구성비','LovsoX736f8AasS1YounDH'],[51,'낱칸 시·군 지도','지도·분포','Bzq7tLvtEZxwa5wtQekw7a'],[53,'밑줄 대조표','표·목록','C21AR3G3EEr3Z3wUoNH7nJ'],[54,'기둥과 보 체계도','비전 체계도','JsUkQsu9RNVPsuws4bjpL2'],[55,'원인 꽂힌 화살표','현안→해결방안','UCfqhF9y9bS8uCSRndujzc'],[56,'나비매듭 배경·목적','배경·목적','BNPfUTfDED6A4XAwewaASt'],[57,'예산 각도 동심원 체계도','비전 체계도','53fJKKYbxWhXzsmJgtSL4X'],[61,'주 담당 대응표','현안→해결방안','9ET3Pk5jqbd7prPxwL3eTt'],[72,'확대 지시선 배경·목적','배경·목적','HLMgcBKgKpJBeKJJbBh3uA'],[73,'한 줄로 읽는 체계도','비전 체계도','F3PqEJBiDGkuYpGKQ97pSQ'],[76,'줄어드는 공정 띠','현안→해결방안','H75rwFTToxL47GcXwVLU8q'],[77,'기준선 격차 배경·목적','배경·목적','9kZRf8viHx8Re7jo1HyqXg'],[79,'이어지는 재원 비중','구성비','TaNSYcvRLiAb5VHhy11xAL'],[80,'백 칸 중 마흔하나','핵심 수치','1bhuCJZHyf3VQt1884MWyT'],[83,'줄마다 짝','현안→해결방안','LnbXKLXcP8vupjgJoYvCBg'],[84,'날짜 비례 레인','흐름·절차','9gmyhadRQiMCjSdCihsijQ'],[85,'층위 표 체계도','비전 체계도','1coBeN9V5BUrR3jbSiJja7'],[86,'열두 달 고리','일정','TTSebayKqGnYuHeYEm4krU'],[87,'네 칸 이관표','분류·유목화','Y7CfUz7wYyDanPygLTfA8T'],[88,'같은 출발 100','추이','7oVJFCdhnWwaa5UH4Awt1r'],[89,'펼친 조각 구성비','구성비','QnRXdgWtyHPSr3R2MrBAXr'],[93,'줄 맞춘 연차 체계도','비전 체계도','Fa2bPpBbdjXi7wPSt6e5mw'],[94,'원인으로 모이는 선','현안→해결방안','5iUQKoJdULQy8MrpQmsVQ4'],[97,'허리 좁은 배경표','배경·목적','S1cTctmsw1xMDds95dfKUL']];
+  function li(e, cls){ return '<li class="' + cls + '"><span>#' + e[0] + '</span><div><a href="https://claude.ai/artifact/' + e[3] + '" target="_blank" rel="noopener">' + e[1] + '</a><em>' + e[2] + '</em></div></li>'; }
+  document.getElementById('els-h').innerHTML = EH.map(function(e){ return li(e, 'is-h'); }).join('');
+  document.getElementById('els-d').innerHTML = ED.map(function(e){ return li(e, ''); }).join('');
+
+  // 코드 칸: 장표 CSS · 스크립트를 그대로 묶는다(textContent라 자동 이스케이프)
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap">';
+  var MARKUP = '<div class="hk" data-hk="toc"></div>\n<div class="hk" data-hk="div" data-sec="2"></div>\n<div class="hk" data-hk="end"></div>';
+  var css = document.getElementById('hk-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('hk-js').textContent.replace(/^\n+|\s+$/g, '');
+  var all = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + MARKUP + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var tokBlock = css.match(/\.hk\{[\s\S]*?--ds-fiber:[^;]+;[^\n]*/)[0].replace(/^\.hk\{/, '/* H 전통 공예·문양 계열 값: 쓰려는 요소의 감싸는 클래스(예 .bp81) 또는 :root 자리에 */\n:root{') + '\n}';
+  document.getElementById('code-all').textContent = all;
+  document.getElementById('code-tok').textContent = tokBlock;
+  window.hk110Code = all;
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    var pre = document.getElementById(b.dataset.copy), msg = b.parentNode.querySelector('.msg');
+    function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+    b.addEventListener('click', function(){
+      try { navigator.clipboard.writeText(pre.textContent).then(function(){ msg.textContent = '복사했습니다.'; }, selectAll); } catch(e){ selectAll(); }
+    });
+  });
+
+  var rows = [['--ds-bg','#F4F3EE'],['--ds-surface','#FBFAF6'],['--ds-ink','#1F252C'],['--ds-sub','#5D646C'],['--ds-line','#D3D1C8'],['--ds-accent','#C2412B'],['--ds-accent2','#2E6B53'],['--ds-c1 ~ c5','#1F4A3A · #2E6B53 · #5E937C · #A9C7B8 · #E2ECE5'],['--ds-font-title','나눔명조 800 → 바탕 · AppleMyungjo'],['--ds-font-body','Noto Sans KR 400/500/700 → 맑은 고딕'],['--ds-font-num','나눔명조 800 → 바탕'],['--ds-radius','0px (판본 테는 각진 모서리)'],['--ds-shadow','0 1px 0 rgba(31,37,44,.08), 0 14px 30px -18px rgba(31,37,44,.35)'],['계열 전용','--ds-tile #8C9399 · --ds-tile-deep #3C4248 · --ds-lime #ECE8DD · --ds-fiber #FFFFFF']];
+  document.getElementById('spec').innerHTML = '<thead><tr><th>변수</th><th>H 계열 값</th></tr></thead><tbody>' + rows.map(function(r){
+    var chips = (r[1].match(/#[0-9A-F]{6}/g) || []).map(function(c){ return '<span class="chip" style="background:' + c + '"></span>'; }).join('');
+    return '<tr><td><code>' + r[0] + '</code></td><td>' + chips + '<code>' + r[1] + '</code></td></tr>'; }).join('') + '</tbody>';
+})();
+</script>
+
+</body></html>
