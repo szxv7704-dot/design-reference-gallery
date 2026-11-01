@@ -1,0 +1,578 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #9 늘봄 퀘스트 일지</title>
+<style>/*@@FONTS@@*/</style>
+<style>
+/* Galmuri © Lee Minseo, SIL Open Font License 1.1 — 쓰인 글자만 잘라 내장 */
+@font-face{font-family:'G11';src:url(@@ASSET:24748feca4.woff2@@) format('woff2');font-display:block}
+@font-face{font-family:'G11B';src:url(@@ASSET:0d1399d2fb.woff2@@) format('woff2');font-display:block}
+@font-face{font-family:'G9';src:url(@@ASSET:1e00ca3184.woff2@@) format('woff2');font-display:block}
+@font-face{font-family:'G7';src:url(@@ASSET:94551faf6f.woff2@@) format('woff2');font-display:block}
+
+/* 레이아웃: 맨 위 16:9 게임 화면(384×216 캔버스를 정수배 확대) → 아래 설계 메모(같은 9-slice 창 안에 표·도식·스펙) */
+:root{
+  --ink:#0f0e1c; --navy:#1d2b53; --blue:#2b4a8f; --sky:#4a74c9;
+  --white:#f4f0e6; --grey:#a9b3c9; --gold:#ffcf4a; --orange:#ff8a3d;
+  --red:#e8475f; --green:#6cc66a; --forest:#2f7d55; --brown:#8c5a3c;
+  --skin:#f2b98a; --purple:#6b3fa0; --dim:#3a3550; --pale:#ffe9a8;
+  --dot:"G11","DotGothic16",ui-monospace,monospace;
+  --dot9:"G9","G11","DotGothic16",ui-monospace,monospace;
+  --body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color-scheme:dark;
+}
+html{background:var(--ink)}
+body{background:var(--ink);color:var(--white);font-family:var(--body);font-size:15px;line-height:1.65;margin:0}
+.page{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:20px 56px;display:grid;gap:28px}
+/* 표지 */
+.cover{container-type:inline-size}
+.bezel{background:#000;border:max(2px,.4cqw) solid var(--dim);padding:1.2cqw;display:grid;place-items:center;aspect-ratio:auto}
+.bezel canvas{display:block;width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;aspect-ratio:16/9;max-width:100%}
+.cover-cap{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;margin-top:10px;font-family:var(--dot9);font-size:13px;color:var(--grey)}
+.cover-cap b{color:var(--gold);font-weight:400}
+/* 9-slice 창 (테두리 이미지 = 캔버스 창과 같은 4겹) */
+.win{border:9px solid transparent;border-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Crect x='2' y='0' width='8' height='12' fill='%230f0e1c'/%3E%3Crect x='0' y='2' width='12' height='8' fill='%230f0e1c'/%3E%3Crect x='1' y='1' width='10' height='10' fill='%230f0e1c'/%3E%3Crect x='2' y='1' width='8' height='10' fill='%23f4f0e6'/%3E%3Crect x='1' y='2' width='10' height='8' fill='%23f4f0e6'/%3E%3Crect x='2' y='2' width='8' height='8' fill='%23a9b3c9'/%3E%3Crect x='3' y='3' width='6' height='6' fill='%231d2b53'/%3E%3C/svg%3E") 3 fill / 9px stretch;background:transparent;padding:14px 18px;min-width:0}
+h1,h2,h3{font-family:var(--dot);font-weight:400;margin:0;text-wrap:balance;letter-spacing:0}
+h2{font-size:22px;color:var(--gold);display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:10px;height:10px;background:var(--gold);box-shadow:2px 2px 0 var(--ink)}
+h3{font-size:16px;color:var(--pale)}
+.lede{font-family:var(--dot9);color:var(--grey);font-size:14px;margin:6px 0 0}
+p{margin:0}
+.sec{display:grid;gap:14px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+/* 매핑 표 */
+.tblwrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th{font-family:var(--dot9);font-weight:400;color:var(--gold);text-align:left;padding:8px 10px;border-bottom:2px solid var(--grey);white-space:nowrap}
+td{padding:10px;border-bottom:1px dashed var(--dim);vertical-align:top}
+td:first-child{font-family:var(--dot9);color:var(--pale);white-space:nowrap}
+td:nth-child(2){color:var(--white);font-weight:700}
+td:nth-child(3){color:var(--grey)}
+.mk{display:inline-block;font-family:var(--dot9);font-size:12px;padding:0 6px;margin-right:6px;background:var(--gold);color:var(--ink)}
+.mk.sub{background:var(--purple);color:var(--white)}
+/* 흐름 도식 */
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 26px;counter-reset:st}
+.flow li{position:relative;display:grid;gap:6px;counter-increment:st;min-width:0}
+.flow li:not(:last-child)::after{content:"";position:absolute;right:-19px;top:34px;width:0;height:0;border-left:10px solid var(--gold);border-top:7px solid transparent;border-bottom:7px solid transparent}
+.flow canvas{width:100%;height:auto;image-rendering:pixelated;image-rendering:crisp-edges;aspect-ratio:16/9;background:var(--ink);outline:2px solid var(--dim)}
+.flow .st{font-family:var(--dot9);font-size:13px;color:var(--gold)}
+.flow .st::before{content:counter(st) ". ";color:var(--grey)}
+.flow .mp{font-size:13px;color:var(--grey);line-height:1.5}
+.flow .mp b{color:var(--white)}
+/* 체크·스펙 */
+ul.chk{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:14px}
+ul.chk li{display:grid;grid-template-columns:18px 1fr;gap:8px;align-items:start}
+ul.chk li::before{content:"";width:10px;height:10px;margin-top:6px;background:var(--green);box-shadow:inset 0 0 0 2px var(--forest)}
+ul.chk b{color:var(--pale);font-weight:700}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.sw div{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:center;font-family:var(--dot9);font-size:12px;color:var(--grey)}
+.sw i{width:22px;height:22px;display:block;outline:2px solid var(--ink);box-shadow:0 0 0 3px var(--grey)}
+dl.spec{display:grid;grid-template-columns:max-content 1fr;gap:10px 18px;margin:0;font-size:14px}
+dl.spec dt{font-family:var(--dot9);color:var(--gold)}
+dl.spec dd{margin:0;color:var(--white);min-width:0}
+dl.spec dd small{color:var(--grey);font-size:13px}
+.src{font-size:12.5px;color:var(--grey);display:grid;gap:4px;margin:0;padding-left:18px}
+.src a{color:var(--sky)}
+.btn{font-family:var(--dot9);font-size:14px;background:var(--gold);color:var(--ink);border:0;padding:6px 14px;box-shadow:3px 3px 0 var(--orange),3px 3px 0 2px var(--ink);cursor:pointer}
+.btn:focus-visible{outline:3px solid var(--white);outline-offset:3px}
+#bigpng{max-width:100%;image-rendering:pixelated;margin-top:12px;outline:2px solid var(--dim)}
+@media (max-width:560px){dl.spec{grid-template-columns:1fr}.flow li::after{display:none}}
+</style>
+
+<div class="page">
+  <section class="cover" aria-label="표지">
+    <div class="bezel"><canvas id="scr" width="384" height="216" role="img" aria-label="픽셀 게임의 퀘스트 일지 화면으로 만든 가상 ○○교육청 2027 늘봄학교 운영 계획(안) 표지"></canvas></div>
+    <div class="cover-cap"><span><b>레퍼런스 #9</b> 늘봄 퀘스트 일지 · 실험형 · 게임 × 픽셀 아트</span><span>384×216 캔버스 · 정수배 확대 · 16색</span></div>
+  </section>
+
+  <section class="win sec">
+    <h2>흐름 설계 메모</h2>
+    <p class="lede">계획안 한 권 = 퀘스트 한 장(章). 핵심 과제는 메인 퀘스트, 연계 과제는 서브 퀘스트, 기대 효과는 보상 아이템이다.</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>계획안 구성</th><th>게임 화면 요소</th><th>안쪽 장표 레이아웃 아이디어</th></tr></thead>
+        <tbody>
+          <tr><td>표지</td><td>퀘스트 일지 전체 화면</td><td>지금 표지 그대로. 상태 바에 기관·보고일, 커서가 올라간 장(章) 이름이 계획 제목이다.</td></tr>
+          <tr><td>Ⅰ. 추진 배경</td><td>의뢰인 대화창 (초상화·이름표·▼)</td><td>화면 아래 1/3은 대화창, 위는 '마을 게시판' 창에 돌봄 수요 지표 2~3줄. ▼ 한 번에 근거 한 문장씩 넘긴다.</td></tr>
+          <tr><td>Ⅱ. 목적·방침</td><td>퀘스트 수락 창 (목표 체크박스 + 수락/거절)</td><td>가운데 큰 창 하나. 목적 한 줄이 퀘스트 이름, 방침 3개가 빈 체크박스. 마지막에 A 수락 버튼이 눌리며 다음 장으로.</td></tr>
+          <tr><td>Ⅲ. 세부 추진 과제</td><td><span class="mk">★ 메인</span>핵심 과제 <span class="mk sub">◆ 서브</span>연계 과제 + 상세 창</td><td>왼쪽 목록 창은 매 장 고정, 커서만 한 칸씩 내려간다. 오른쪽 상세 창에 과제별 세부 목표(0/3)와 담당 부서를 '파티원' 칸으로 넣는다.</td></tr>
+          <tr><td>Ⅳ. 추진 일정</td><td>진행 단계 트래커 (노드 + 연결선)</td><td>장표를 가로지르는 큰 트래커 4칸. 노드 아래 월을 적고 지금 단계 노드만 금색으로 깜빡인다.</td></tr>
+          <tr><td>Ⅴ. 기대 효과</td><td>퀘스트 완료 배너 + 보상 슬롯</td><td>'퀘스트 완료!' 띠 아래 아이템 슬롯 4칸. 아이콘이 하나씩 들어오고 각 슬롯 아래 효과 이름 한 줄.</td></tr>
+          <tr><td>맺음·문의</td><td>세이브 화면 (슬롯 3칸)</td><td>세이브 슬롯 1 담당 부서, 2 협조 부서, 3 문의처. 마지막 장은 '저장했습니다' 대화창으로 닫는다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>발표 흐름: 어떤 게임 화면이 어떤 순서로 이어지는가</h3>
+    <ol class="flow" id="flow">
+      <li><canvas width="128" height="72" data-k="log"></canvas><span class="st">퀘스트 일지</span><span class="mp"><b>표지</b> · 장 이름에 커서</span></li>
+      <li><canvas width="128" height="72" data-k="talk"></canvas><span class="st">의뢰 대화</span><span class="mp"><b>추진 배경</b> · 게시판 + 대화창</span></li>
+      <li><canvas width="128" height="72" data-k="accept"></canvas><span class="st">퀘스트 수락</span><span class="mp"><b>목적·방침</b> · 체크박스 3 + 수락</span></li>
+      <li><canvas width="128" height="72" data-k="detail"></canvas><span class="st">퀘스트 상세 ×5</span><span class="mp"><b>세부 과제</b> · 커서가 한 칸씩</span></li>
+      <li><canvas width="128" height="72" data-k="track"></canvas><span class="st">진행 단계</span><span class="mp"><b>추진 일정</b> · 노드 4칸</span></li>
+      <li><canvas width="128" height="72" data-k="reward"></canvas><span class="st">퀘스트 완료</span><span class="mp"><b>기대 효과</b> · 보상 슬롯 4칸</span></li>
+      <li><canvas width="128" height="72" data-k="save"></canvas><span class="st">세이브</span><span class="mp"><b>맺음·문의</b> · 슬롯 3칸</span></li>
+    </ol>
+  </section>
+
+  <div class="two">
+    <section class="win sec">
+      <h2>재현 체크</h2>
+      <ul class="chk">
+        <li><span><b>9-slice 창 테두리</b>: 바깥 먹선 → 흰 선 → 회색 선 4겹, 모서리 1px 깎기. 안쪽은 파랑 3단 디더 그라데이션. → 목록·상세·대화 창 3개</span></li>
+        <li><span><b>선택 커서 + 선택 테두리</b>: 화살표 커서가 1px씩 위아래로 흔들림. → 계획 전체(장 이름)를 고른 상태</span></li>
+        <li><span><b>목록 탭</b>: 전체 / 메인 3 / 서브 2. → 과제 개수</span></li>
+        <li><span><b>접이식 장 머리 + 메인 ★ / 서브 ◆ 표식 + 진행 수</b>: → 핵심 과제 3, 연계 과제 2, 세부 사업 수 0/3·0/2</span></li>
+        <li><span><b>목표 체크박스</b>: 빈 칸 3개. → 추진 방침 3개</span></li>
+        <li><span><b>보상 아이템 슬롯</b>: 집·하트·새싹·회복약 도트 아이콘. → 기대 효과 4개</span></li>
+        <li><span><b>대화창 + 초상화 + 이름표 + ▼ 대기 표시</b>: → 추진 배경(학부모 돌봄 수요)</span></li>
+        <li><span><b>상단 상태 바 + 버튼 안내</b>: 화면 이름·부서·보고일·A 수락. → 기관, 날짜, 결재 요청</span></li>
+        <li><span><b>진행 단계 트래커</b>: 노드 4칸, 지금 단계만 깜빡임. → 준비·1학기·2학기·평가</span></li>
+        <li><span><b>저해상도·제한 팔레트</b>: 384×216, 16색, 글자도 캔버스 격자에 1비트로 찍음(안티에일리어싱 제거).</span></li>
+      </ul>
+      <h3>조사 출처</h3>
+      <ul class="src">
+        <li><a href="https://www.rpgmaker.net/articles/2751" target="_blank" rel="noopener">WINDOW SKINS DISSECTED (rpgmaker.net)</a>, <a href="https://www.rpgmakerweb.com/blog/what-makes-up-a-windowskin" target="_blank" rel="noopener">What Makes up a Windowskin? (rpgmakerweb)</a>: 창 배경·프레임·커서·대기 표시 구성, 둥근 모서리 여백</li>
+        <li><a href="https://otakon273.duckdns.org/Consoles/RomHacking.net/rhdn_20240801/documents/[752]handcursor_hack.txt" target="_blank" rel="noopener">handcursor hack 문서 (RomHacking.net 보관본)</a>: 16비트 RPG 메뉴 커서 크기·그림자, 창 모서리 고정 + 변 늘림</li>
+        <li><a href="https://warcraft.wiki.gg/wiki/Quest_Log" target="_blank" rel="noopener">Quest Log (warcraft.wiki.gg)</a>: 지역별 접이식 머리, 진행 상태 목록</li>
+        <li><a href="https://moddedmc.wiki/it/project/questlog/latest/docs/questlog/quest_definition" target="_blank" rel="noopener">Quest Definition (moddedmc.wiki)</a>: 퀘스트 = 시작 조건·목표·실패 조건·보상</li>
+        <li><a href="https://develop.gbstudio.dev/docs/ui-elements" target="_blank" rel="noopener">GB Studio UI Elements</a>: 9-slice 프레임으로 대화창을 그리는 방식</li>
+      </ul>
+    </section>
+
+    <section class="win sec">
+      <h2>스펙</h2>
+      <div class="sw" id="sw"></div>
+      <dl class="spec">
+        <dt>폰트</dt><dd>Galmuri11 / Galmuri11 Bold / Galmuri9 / Galmuri7 (OFL, 쓰인 글자만 잘라 내장) <small>대체: DotGothic16 → 둥근모꼴 → 맑은 고딕. 메모 본문은 Noto Sans KR.</small></dd>
+        <dt>해상도·배율</dt><dd>384×216 (16:9). ×5 = 1920×1080이 정확히 맞는다. <small>글자 크기는 격자 기준 Galmuri11 = 12px, 9 = 10px, 7 = 8px. 제목만 2배(한 칸 = 2×2 도트).</small></dd>
+        <dt>PPT로 옮기기</dt><dd>창·아이콘·초상화는 PNG로, 글자는 Galmuri를 설치해 텍스트 상자로. <small>PPT는 작은 그림을 키우면 흐리게 보간한다. 그래서 384×216을 그대로 넣지 말고 아래 버튼으로 만든 ×5(1920×1080) PNG를 100% 크기로 넣는다. 글자 크기는 격자 12px × 5 = 60px ≈ 45pt, 10px → 37.5pt. 창을 늘릴 땐 9-slice가 없으니 모서리 4개와 변을 따로 그린 PNG를 붙이거나 창 크기별로 PNG를 따로 뽑는다. 그림 효과·그림자·둥근 모서리는 끈다.</small></dd>
+        <dt>난이도</dt><dd>상 <small>HTML은 도트 엔진이 필요하고, PPT는 PNG 배치만 하면 되니 중.</small></dd>
+        <dt>반영 트렌드</dt><dd>픽셀 이펙트: 낮은 해상도를 일부러 쓰는 굵은 표현. 디짓-큐트: 선명한 구조 + 색 많은 도트 그림 + 귀여운 캐릭터. <small>출처: <a href="https://wannathis.one/blog/graphic-design-trends-2026" target="_blank" rel="noopener">wannathis.one, Graphic Design Trends 2026</a> · <a href="https://www.organisator.ch/en/?p=42157" target="_blank" rel="noopener">organisator.ch, 10 graphic design trends for 2026</a></small></dd>
+      </dl>
+      <div><button class="btn" id="mk" type="button">×5 PNG 만들기 (1920×1080)</button>
+        <p class="lede" id="mkmsg" hidden>아래 그림을 우클릭해 저장하면 보간 없는 1920×1080 PNG가 된다.</p>
+        <img id="bigpng" alt="표지 ×5 확대 PNG" hidden></div>
+    </section>
+  </div>
+</div>
+
+<script>
+(()=>{
+const PAL={'0':'#0f0e1c','1':'#1d2b53','2':'#2b4a8f','3':'#4a74c9','4':'#f4f0e6','5':'#a9b3c9','6':'#ffcf4a','7':'#ff8a3d','8':'#e8475f','9':'#6cc66a','a':'#2f7d55','b':'#8c5a3c','c':'#f2b98a','d':'#6b3fa0','e':'#3a3550','f':'#ffe9a8'};
+const NAMES={'0':'먹','1':'밤','2':'창','3':'하늘','4':'백','5':'회','6':'금','7':'주황','8':'홍','9':'잎','a':'숲','b':'흙','c':'살','d':'보라','e':'그늘','f':'연금'};
+const RGB={};for(const k in PAL){const h=PAL[k];RGB[k]=[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+
+/* ---- surface ---- */
+function Surf(w,h){return {w,h,b:new Array(w*h).fill('0')}}
+const P=(s,x,y,c)=>{if(x>=0&&y>=0&&x<s.w&&y<s.h)s.b[y*s.w+x]=c};
+const R=(s,x,y,w,h,c)=>{for(let j=0;j<h;j++)for(let i=0;i<w;i++)P(s,x+i,y+j,c)};
+const HL=(s,x,y,w,c,dash)=>{for(let i=0;i<w;i++)if(!dash||i%2===0)P(s,x+i,y,c)};
+function OUT(s,x,y,w,h,c){HL(s,x,y,w,c);HL(s,x,y+h-1,w,c);for(let j=0;j<h;j++){P(s,x,y+j,c);P(s,x+w-1,y+j,c)}}
+function SPR(s,x,y,rows,k=1){rows.forEach((r,j)=>{[...r].forEach((c,i)=>{if(c!=='.'&&c!==' ')R(s,x+i*k,y+j*k,k,k,c)})})}
+function WIN(s,x,y,w,h){
+  // 9-slice: 먹 외곽 → 백 → 회 → 창 그라데이션(디더)
+  HL(s,x+2,y,w-4,'0');HL(s,x+2,y+h-1,w-4,'0');
+  for(let j=2;j<h-2;j++){P(s,x,y+j,'0');P(s,x+w-1,y+j,'0')}
+  P(s,x+1,y+1,'0');P(s,x+w-2,y+1,'0');P(s,x+1,y+h-2,'0');P(s,x+w-2,y+h-2,'0');
+  HL(s,x+2,y+1,w-4,'4');HL(s,x+2,y+h-2,w-4,'4');
+  for(let j=2;j<h-2;j++){P(s,x+1,y+j,'4');P(s,x+w-2,y+j,'4')}
+  HL(s,x+2,y+2,w-4,'5');HL(s,x+2,y+h-3,w-4,'5');
+  for(let j=2;j<h-2;j++){P(s,x+2,y+j,'5');P(s,x+w-3,y+j,'5')}
+  const ih=h-6;
+  for(let j=0;j<ih;j++){const t=j/ih;for(let i=0;i<w-6;i++){
+    let c;if(t<.22)c='2';else if(t<.42)c=((i+j)&1)?'2':'1';else c='1';
+    P(s,x+3+i,y+3+j,c)}}
+}
+/* ---- text: 폰트를 격자 크기 그대로 그린 뒤 알파 임계값으로 1비트화 ---- */
+const tc=document.createElement('canvas');tc.width=420;tc.height=24;const tx=tc.getContext('2d',{willReadFrequently:true});
+const FONTS={g11:['12px "G11","DotGothic16",monospace',12],gb:['12px "G11B","G11","DotGothic16",monospace',12],g9:['10px "G9","DotGothic16",monospace',10],g7:['8px "G7","DotGothic16",monospace',8]};
+const cache=new Map();
+function glyphs(str,f){const key=f+'|'+str;if(cache.has(key))return cache.get(key);
+  const [font,px]=FONTS[f];tx.clearRect(0,0,tc.width,tc.height);tx.font=font;tx.textBaseline='top';tx.fillStyle='#fff';
+  const w=Math.ceil(tx.measureText(str).width);tx.fillText(str,0,1);
+  const d=tx.getImageData(0,0,Math.max(1,w),px+4).data;const pts=[];
+  for(let j=0;j<px+4;j++)for(let i=0;i<w;i++)if(d[(j*w+i)*4+3]>=128)pts.push(i,j-1);
+  const g={w,pts};cache.set(key,g);return g}
+function T(s,str,x,y,f,c,o={}){const k=o.k||1;const g=glyphs(str,f);
+  if(o.align==='r')x-=g.w*k;if(o.align==='c')x-=Math.round(g.w*k/2);
+  const sh=o.sh===undefined?'0':o.sh;
+  if(sh)for(let n=0;n<g.pts.length;n+=2)R(s,x+(g.pts[n]+1)*k,y+(g.pts[n+1]+1)*k,k,k,sh);
+  for(let n=0;n<g.pts.length;n+=2)R(s,x+g.pts[n]*k,y+g.pts[n+1]*k,k,k,c);
+  return g.w*k}
+const TW=(str,f)=>glyphs(str,f).w;
+
+/* ---- 도트 스프라이트 ---- */
+const S={
+ cursor:["00......","0400....","044400..","04444400","044400..","0400....","00......"],
+ star:["..6..",".666.","66666",".666.",".6.6."],
+ dia:["..d..",".ddd.","ddddd",".ddd.","..d.."],
+ more:["0000000","0444440","0444440","0000000"],
+ down:["0000000",".06660.","..060..","...0..."],
+ abtn:["..00000..",".0884880.","088484880","088444880","088484880","088484880",".0888880.","..00000.."],
+ house:["....0....","...080...","..08880..",".0888880.","000000000",".0444440.",".0464b40.",".0444b40.",".0000000."],
+ heart:[".00...00.","0f80.0880","0f8888880","088888880",".0888880.","..08880..","...080...","....0...."],
+ sprout:[".00...00.","0990.0990",".0a909a0.","..00900..","...0a0...","...0a0...",".0000000.",".0bbbbb0.","..0bbb0.."],
+ potion:["...000...","...0b0...","...050...","..05550..",".0333330.","03f333330","033333330",".0333330.","..00000.."],
+ kid:["....00000000....","..006666666600..",".06f6666666666 0.".replace(' ',''),".0777777777777 0.".replace(' ',''),
+      "0bbccccccccccbb0","0bccccccccccccb0","0bcc0cccccc0ccb0","0bcc0cccccc0ccb0","0bc88cccccc88cb0",
+      ".0ccccc00ccccc0.","..0cccccccccc0..","...0000000000...","..088688886880..",".08886888868880.","0888868888688880","0000000000000000"],
+};
+/* 아이 초상화 행 길이 보정 */
+S.kid=S.kid.map(r=>r.padEnd(16,'.').slice(0,16));
+
+/* ---- 표지 ---- */
+const cv=document.getElementById('scr'),cx=cv.getContext('2d');
+const W=384,H=216;let base=null;
+function backdrop(s){for(let y=0;y<s.h;y++)for(let x=0;x<s.w;x++)s.b[y*s.w+x]=(x%4===1&&y%4===1)?'e':'0'}
+function drawBase(){
+  const s=Surf(W,H);backdrop(s);
+  // 상태 바
+  R(s,0,0,W,14,'1');HL(s,0,14,W,'0');HL(s,0,13,W,'2');
+  let x=6;x+=T(s,'퀘스트 일지',x,2,'g9','6')+8;R(s,x,4,1,7,'5');x+=8;T(s,'○○교육청 늘봄지원과',x,2,'g9','4');
+  let rx=W-5;const tagw=TW('가상 예시','g7')+6;rx-=tagw;R(s,rx,3,tagw,9,'8');T(s,'가상 예시',rx+3,3,'g7','4',{sh:''});
+  rx-=8;rx-=T(s,'2026.10.02 보고',rx,2,'g9','5',{align:'r'});rx-=10;
+  rx-=T(s,'수락',rx,2,'g9','4',{align:'r'});rx-=12;SPR(s,rx,3,S.abtn);
+  // 창 3개
+  WIN(s,4,17,136,150);WIN(s,142,17,238,150);WIN(s,4,170,376,43);
+  // 목록 탭
+  let ax=11;[['전체',1],['메인 3',0],['서브 2',0]].forEach(([t,on])=>{const w=TW(t,'g9')+8;
+    if(on){R(s,ax,22,w,13,'6');OUT(s,ax,22,w,13,'0');T(s,t,ax+4,23,'g9','0',{sh:''})}
+    else{R(s,ax,22,w,13,'0');OUT(s,ax,22,w,13,'3');T(s,t,ax+4,23,'g9','5',{sh:''})}ax+=w+3});
+  HL(s,10,37,124,'5');
+  // 장 머리 (선택됨)
+  OUT(s,17,40,117,15,'6');R(s,18,41,115,13,'0');
+  R(s,21,44,7,7,'4');OUT(s,21,44,7,7,'0');R(s,23,47,3,1,'0');
+  T(s,'2027 늘봄학교',31,41,'gb','f');
+  // 과제 목록
+  const q=[['star','맞춤 프로그램','0/3'],['star','공간 재구조화','0/2'],['star','전담 인력 배치','0/2'],['dia','지역 연계 확대','0/1'],['dia','학부모 소통','0/1']];
+  q.forEach((r,i)=>{const y=59+i*13;HL(s,25,y+5,3,'5',true);SPR(s,30,y+2,S[r[0]]);T(s,r[1],38,y,'g9','4');T(s,r[2],132,y,'g9','5',{align:'r'})});
+  HL(s,10,125,124,'3',true);
+  T(s,'진행 단계',11,129,'g9','6');T(s,"'27.3–'28.2",132,129,'g7','5',{align:'r'});
+  const nx=[20,54,88,122];HL(s,20,147,105,'5');R(s,20,146,4,3,'6');
+  ['준비','1학기','2학기','평가'].forEach((t,i)=>{T(s,t,nx[i]+3,154,'g7',i===0?'6':'5',{align:'c'});
+    if(i>0){R(s,nx[i],144,7,7,'1');OUT(s,nx[i],144,7,7,'5')}});
+  // 상세 창
+  const pill=TW('메인 퀘스트','g9')+8;R(s,149,23,pill,12,'6');T(s,'메인 퀘스트',153,23,'g9','0',{sh:''});
+  T(s,'운영 2027.3~2028.2',373,24,'g9','5',{align:'r'});
+  T(s,'2027 늘봄학교',149,38,'gb','f',{k:2});
+  T(s,'운영 계획(안)',149,63,'gb','4',{k:2});
+  HL(s,149,91,224,'3',true);
+  T(s,'원하는 아이 누구나, 저녁까지 안심',149,94,'g11','4');
+  T(s,'목표',149,109,'g9','6');
+  ['희망 학생 모두 참여','학교 업무는 가볍게','지역과 함께 운영'].forEach((t,i)=>{const y=109+i*10;
+    R(s,176,y+2,8,8,'0');OUT(s,176,y+2,8,8,'5');T(s,t,189,y,'g9','4')});
+  T(s,'보상',149,144,'g9','6');
+  [['house','공백 해소'],['heart','학부모 신뢰'],['sprout','아이 성장'],['potion','업무 경감']].forEach((r,i)=>{
+    const x=184+i*49;R(s,x,141,15,14,'0');OUT(s,x,141,15,14,'3');SPR(s,x+3,143,S[r[0]]);
+    T(s,r[1],x+7,155,'g7','5',{align:'c'})});
+  // 대화창
+  R(s,10,175,36,35,'0');OUT(s,10,175,36,35,'5');R(s,12,177,32,31,'3');
+  SPR(s,12,177,S.kid.slice(0,15),2);R(s,12,207,32,1,'8');
+  T(s,'학부모 · 의뢰인',53,177,'g9','6');
+  T(s,'학교 끝나도 저녁까지 안심하고 맡길 곳이 필요해요.',53,192,'g11','4');
+  return s}
+function blit(s,ctx){const id=ctx.createImageData(s.w,s.h),d=id.data;
+  for(let n=0;n<s.b.length;n++){const c=RGB[s.b[n]];d[n*4]=c[0];d[n*4+1]=c[1];d[n*4+2]=c[2];d[n*4+3]=255}
+  ctx.putImageData(id,0,0)}
+let tick=0;
+function frame(){
+  const s={w:W,h:H,b:base.b.slice()};
+  const still=reduce.matches;const bob=still?0:(tick%4<2?0:1),on=still||tick%4<2;
+  SPR(s,7+bob,44,S.cursor);
+  R(s,20,144,7,7,on?'6':'f');OUT(s,20,144,7,7,'0');
+  if(on)SPR(s,365,202,S.down);
+  blit(s,cx)}
+function fit(){ // 정수배 확대
+  const host=cv.parentElement;const cs=getComputedStyle(host);
+  const avail=host.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+  const dpr=window.devicePixelRatio||1;const k=Math.floor(avail*dpr/W);
+  if(k>=1){cv.style.width=(k*W/dpr)+'px';cv.style.height=(k*H/dpr)+'px'}else{cv.style.width='100%';cv.style.height='auto'}}
+
+/* ---- 흐름 도식 썸네일 (128×72) ---- */
+function bars(s,x,y,ws,c='5',gap=5){ws.forEach((w,i)=>R(s,x,y+i*gap,w,2,c))}
+const THUMB={
+ log(s){R(s,0,0,128,5,'1');R(s,2,1,14,2,'6');WIN(s,1,6,46,48);WIN(s,48,6,79,48);WIN(s,1,55,126,16);
+  OUT(s,6,11,38,6,'6');SPR(s,3,12,["0.","00","0."]);bars(s,10,20,[30,26,30,24,20]);R(s,53,11,18,4,'6');R(s,53,18,60,5,'f');R(s,53,25,50,5,'4');bars(s,53,34,[64,40,40]);R(s,5,58,9,10,'3');bars(s,18,60,[90,70])},
+ talk(s){WIN(s,14,4,100,34);R(s,20,9,30,3,'6');bars(s,20,16,[80,70,60],'4',6);WIN(s,1,42,126,29);R(s,5,46,18,20,'3');SPR(s,6,47,S.kid.slice(0,15).filter((_,i)=>i%2===0).map(r=>r.split('').filter((_,i)=>i%2===0).join('')),2);R(s,27,46,20,3,'6');bars(s,27,53,[90,70],'4',6);SPR(s,117,64,["000","060","...".replace(/\./g,'.')])},
+ accept(s){WIN(s,16,4,96,64);R(s,22,9,40,4,'6');R(s,22,16,80,4,'4');[0,1,2].forEach(i=>{OUT(s,24,26+i*9,5,5,'5');R(s,32,27+i*9,50,2,'4')});R(s,30,56,30,8,'6');OUT(s,30,56,30,8,'0');R(s,66,56,30,8,'0');OUT(s,66,56,30,8,'3')},
+ detail(s){WIN(s,1,2,46,68);WIN(s,48,2,79,68);[0,1,2,3,4].forEach(i=>{const y=10+i*10;if(i===1)OUT(s,6,y-2,38,8,'6');SPR(s,9,y,i<3?[".6.","666",".6."]:[".d.","ddd",".d."]);R(s,14,y+1,24,2,'4')});SPR(s,3,19,["0.","00","0."]);R(s,53,8,24,4,'6');R(s,53,15,60,5,'4');bars(s,53,26,[64,50,58]);[0,1,2].forEach(i=>{R(s,54+i*14,50,11,11,'0');OUT(s,54+i*14,50,11,11,'3')})},
+ track(s){WIN(s,4,8,120,56);R(s,10,14,30,3,'6');HL(s,18,38,92,'5');[18,48,78,104].forEach((x,i)=>{R(s,x-3,35,7,7,i===1?'6':i<1?'9':'1');OUT(s,x-3,35,7,7,i===1?'0':'5');R(s,x-5,46,10,2,i===1?'6':'5')})},
+ reward(s){R(s,0,8,128,12,'6');R(s,30,12,68,4,'0');WIN(s,8,24,112,44);[['house'],['heart'],['sprout'],['potion']].forEach((r,i)=>{const x=16+i*25;R(s,x,30,17,17,'0');OUT(s,x,30,17,17,'3');SPR(s,x+4,34,S[r[0]]);R(s,x,51,17,2,'5')})},
+ save(s){[0,1,2].forEach(i=>{WIN(s,6,3+i*23,116,21);R(s,12,8+i*23,10,10,i===0?'6':'3');R(s,27,9+i*23,40,3,'4');R(s,27,15+i*23,60,2,'5')})},
+};
+function drawThumbs(){document.querySelectorAll('#flow canvas').forEach(c=>{const s=Surf(128,72);backdrop(s);THUMB[c.dataset.k](s);blit(s,c.getContext('2d'))})}
+
+/* ---- 팔레트 견본 ---- */
+document.getElementById('sw').innerHTML=Object.keys(PAL).map(k=>`<div><i style="background:${PAL[k]}"></i><span>${NAMES[k]}<br>${PAL[k].toUpperCase()}</span></div>`).join('');
+
+/* ---- ×5 PNG ---- */
+document.getElementById('mk').addEventListener('click',()=>{
+  const c=document.createElement('canvas');c.width=W*5;c.height=H*5;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(cv,0,0,W*5,H*5);
+  const img=document.getElementById('bigpng');img.src=c.toDataURL('image/png');img.hidden=false;document.getElementById('mkmsg').hidden=false});
+
+const fams=['12px G11','12px G11B','10px G9','8px G7'];
+Promise.all(fams.map(f=>document.fonts.load(f).catch(()=>null))).then(()=>document.fonts.ready).then(()=>{
+  base=drawBase();frame();drawThumbs();fit();
+  new ResizeObserver(fit).observe(cv.parentElement);
+  setInterval(()=>{if(reduce.matches)return;tick++;frame()},280);
+  reduce.addEventListener?.('change',frame);
+});
+})();
+</script>
+
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/09.html" target="_blank" rel="noopener">refs/09.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #9 늘봄 퀘스트 일지 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&amp;amp;family=Noto+Sans+KR:wght@400;700&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+@font-face { font-family: G11; src: url("@@ASSET:24748feca4.woff2@@") format("woff2"); font-display: block; }
+@font-face { font-family: G11B; src: url("@@ASSET:0d1399d2fb.woff2@@") format("woff2"); font-display: block; }
+@font-face { font-family: G9; src: url("@@ASSET:1e00ca3184.woff2@@") format("woff2"); font-display: block; }
+@font-face { font-family: G7; src: url("@@ASSET:94551faf6f.woff2@@") format("woff2"); font-display: block; }
+:root { --ink: #0f0e1c; --navy: #1d2b53; --blue: #2b4a8f; --sky: #4a74c9; --white: #f4f0e6; --grey: #a9b3c9; --gold: #ffcf4a; --orange: #ff8a3d; --red: #e8475f; --green: #6cc66a; --forest: #2f7d55; --brown: #8c5a3c; --skin: #f2b98a; --purple: #6b3fa0; --dim: #3a3550; --pale: #ffe9a8; --dot: "G11","DotGothic16",ui-monospace,monospace; --dot9: "G9","G11","DotGothic16",ui-monospace,monospace; --body: "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; color-scheme: dark; }
+.page { max-width: 1120px; margin: 0px auto; padding-inline: 16px; padding-block: 20px 56px; display: grid; gap: 28px; }
+.cover { container-type: inline-size; }
+.bezel { background: rgb(0, 0, 0); border: max(2px,.4cqw) solid var(--dim); padding: 1.2cqw 1.2cqw 1.2cqw 1.2cqw; display: grid; place-items: center; aspect-ratio: auto; }
+.bezel canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; aspect-ratio: 16 / 9; max-width: 100%; }
+.win { border-width: 9px; border-style: solid; border-color: transparent; border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Crect x='2' y='0' width='8' height='12' fill='%230f0e1c'/%3E%3Crect x='0' y='2' width='12' height='8' fill='%230f0e1c'/%3E%3Crect x='1' y='1' width='10' height='10' fill='%230f0e1c'/%3E%3Crect x='2' y='1' width='8' height='10' fill='%23f4f0e6'/%3E%3Crect x='1' y='2' width='10' height='8' fill='%23f4f0e6'/%3E%3Crect x='2' y='2' width='8' height='8' fill='%23a9b3c9'/%3E%3Crect x='3' y='3' width='6' height='6' fill='%231d2b53'/%3E%3C/svg%3E") 3 fill / 9px / 0 stretch; background: transparent; padding: 14px 18px; min-width: 0px; }
+.mk { display: inline-block; font-family: var(--dot9); font-size: 12px; padding: 0px 6px; margin-right: 6px; background: var(--gold); color: var(--ink); }
+.flow { list-style: none; margin: 0px; padding: 0px; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 22px 26px; counter-reset: st 0; }
+.flow li { position: relative; display: grid; gap: 6px; counter-increment: st 1; min-width: 0px; }
+.flow li:not(:last-child)::after { content: ""; position: absolute; right: -19px; top: 34px; width: 0px; height: 0px; border-left: 10px solid var(--gold); border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+.flow canvas { width: 100%; height: auto; image-rendering: pixelated; aspect-ratio: 16 / 9; background: var(--ink); outline: 2px solid var(--dim); }
+.flow .st { font-family: var(--dot9); font-size: 13px; color: var(--gold); }
+.flow .st::before { content: counter(st) ". "; color: var(--grey); }
+.flow .mp { font-size: 13px; color: var(--grey); line-height: 1.5; }
+.flow .mp b { color: var(--white); }
+.sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; }
+.sw div { display: grid; grid-template-columns: 22px 1fr; gap: 8px; align-items: center; font-family: var(--dot9); font-size: 12px; color: var(--grey); }
+.sw i { width: 22px; height: 22px; display: block; outline: 2px solid var(--ink); box-shadow: 0 0 0 3px var(--grey); }
+.src { font-size: 12.5px; color: var(--grey); display: grid; gap: 4px; margin: 0px; padding-left: 18px; }
+.src a { color: var(--sky); }
+.btn { font-family: var(--dot9); font-size: 14px; background: var(--gold); color: var(--ink); border: 0px; padding: 6px 14px; box-shadow: 3px 3px 0 var(--orange),3px 3px 0 2px var(--ink); cursor: pointer; }
+.btn:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+#bigpng { max-width: 100%; image-rendering: pixelated; margin-top: 12px; outline: 2px solid var(--dim); }
+@media (max-width: 560px) {
+  .flow li::after { display: none; }
+}
+&lt;/style&gt;
+
+&lt;div class="page" style="font-family:'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:24.75px;color:rgb(244, 240, 230)"&gt;&lt;section class="cover"&gt;
+&lt;div class="bezel"&gt;&lt;canvas id="scr" width="384" height="216" role="img" aria-label="픽셀 게임의 퀘스트 일지 화면으로 만든 가상 ○○교육청 2027 늘봄학교 운영 계획(안) 표지"&gt;&lt;/canvas&gt;&lt;/div&gt;
+&lt;canvas width="128" height="72" data-k="log"&gt;&lt;/canvas&gt;
+&lt;canvas width="128" height="72" data-k="talk"&gt;&lt;/canvas&gt;
+&lt;canvas width="128" height="72" data-k="accept"&gt;&lt;/canvas&gt;
+&lt;canvas width="128" height="72" data-k="detail"&gt;&lt;/canvas&gt;
+&lt;canvas width="128" height="72" data-k="track"&gt;&lt;/canvas&gt;
+&lt;canvas width="128" height="72" data-k="reward"&gt;&lt;/canvas&gt;
+&lt;canvas width="128" height="72" data-k="save"&gt;&lt;/canvas&gt;
+&lt;div class="sw" id="sw"&gt;&lt;/div&gt;
+&lt;button class="btn" id="mk" type="button"&gt;×5 PNG 만들기 (1920×1080)&lt;/button&gt;
+&lt;/section&gt;&lt;/div&gt;
+
+&lt;script&gt;
+(()=&gt;{
+const PAL={'0':'#0f0e1c','1':'#1d2b53','2':'#2b4a8f','3':'#4a74c9','4':'#f4f0e6','5':'#a9b3c9','6':'#ffcf4a','7':'#ff8a3d','8':'#e8475f','9':'#6cc66a','a':'#2f7d55','b':'#8c5a3c','c':'#f2b98a','d':'#6b3fa0','e':'#3a3550','f':'#ffe9a8'};
+const NAMES={'0':'먹','1':'밤','2':'창','3':'하늘','4':'백','5':'회','6':'금','7':'주황','8':'홍','9':'잎','a':'숲','b':'흙','c':'살','d':'보라','e':'그늘','f':'연금'};
+const RGB={};for(const k in PAL){const h=PAL[k];RGB[k]=[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)]}
+const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+
+/* ---- surface ---- */
+function Surf(w,h){return {w,h,b:new Array(w*h).fill('0')}}
+const P=(s,x,y,c)=&gt;{if(x&gt;=0&amp;&amp;y&gt;=0&amp;&amp;x&lt;s.w&amp;&amp;y&lt;s.h)s.b[y*s.w+x]=c};
+const R=(s,x,y,w,h,c)=&gt;{for(let j=0;j&lt;h;j++)for(let i=0;i&lt;w;i++)P(s,x+i,y+j,c)};
+const HL=(s,x,y,w,c,dash)=&gt;{for(let i=0;i&lt;w;i++)if(!dash||i%2===0)P(s,x+i,y,c)};
+function OUT(s,x,y,w,h,c){HL(s,x,y,w,c);HL(s,x,y+h-1,w,c);for(let j=0;j&lt;h;j++){P(s,x,y+j,c);P(s,x+w-1,y+j,c)}}
+function SPR(s,x,y,rows,k=1){rows.forEach((r,j)=&gt;{[...r].forEach((c,i)=&gt;{if(c!=='.'&amp;&amp;c!==' ')R(s,x+i*k,y+j*k,k,k,c)})})}
+function WIN(s,x,y,w,h){
+  // 9-slice: 먹 외곽 → 백 → 회 → 창 그라데이션(디더)
+  HL(s,x+2,y,w-4,'0');HL(s,x+2,y+h-1,w-4,'0');
+  for(let j=2;j&lt;h-2;j++){P(s,x,y+j,'0');P(s,x+w-1,y+j,'0')}
+  P(s,x+1,y+1,'0');P(s,x+w-2,y+1,'0');P(s,x+1,y+h-2,'0');P(s,x+w-2,y+h-2,'0');
+  HL(s,x+2,y+1,w-4,'4');HL(s,x+2,y+h-2,w-4,'4');
+  for(let j=2;j&lt;h-2;j++){P(s,x+1,y+j,'4');P(s,x+w-2,y+j,'4')}
+  HL(s,x+2,y+2,w-4,'5');HL(s,x+2,y+h-3,w-4,'5');
+  for(let j=2;j&lt;h-2;j++){P(s,x+2,y+j,'5');P(s,x+w-3,y+j,'5')}
+  const ih=h-6;
+  for(let j=0;j&lt;ih;j++){const t=j/ih;for(let i=0;i&lt;w-6;i++){
+    let c;if(t&lt;.22)c='2';else if(t&lt;.42)c=((i+j)&amp;1)?'2':'1';else c='1';
+    P(s,x+3+i,y+3+j,c)}}
+}
+/* ---- text: 폰트를 격자 크기 그대로 그린 뒤 알파 임계값으로 1비트화 ---- */
+const tc=document.createElement('canvas');tc.width=420;tc.height=24;const tx=tc.getContext('2d',{willReadFrequently:true});
+const FONTS={g11:['12px "G11","DotGothic16",monospace',12],gb:['12px "G11B","G11","DotGothic16",monospace',12],g9:['10px "G9","DotGothic16",monospace',10],g7:['8px "G7","DotGothic16",monospace',8]};
+const cache=new Map();
+function glyphs(str,f){const key=f+'|'+str;if(cache.has(key))return cache.get(key);
+  const [font,px]=FONTS[f];tx.clearRect(0,0,tc.width,tc.height);tx.font=font;tx.textBaseline='top';tx.fillStyle='#fff';
+  const w=Math.ceil(tx.measureText(str).width);tx.fillText(str,0,1);
+  const d=tx.getImageData(0,0,Math.max(1,w),px+4).data;const pts=[];
+  for(let j=0;j&lt;px+4;j++)for(let i=0;i&lt;w;i++)if(d[(j*w+i)*4+3]&gt;=128)pts.push(i,j-1);
+  const g={w,pts};cache.set(key,g);return g}
+function T(s,str,x,y,f,c,o={}){const k=o.k||1;const g=glyphs(str,f);
+  if(o.align==='r')x-=g.w*k;if(o.align==='c')x-=Math.round(g.w*k/2);
+  const sh=o.sh===undefined?'0':o.sh;
+  if(sh)for(let n=0;n&lt;g.pts.length;n+=2)R(s,x+(g.pts[n]+1)*k,y+(g.pts[n+1]+1)*k,k,k,sh);
+  for(let n=0;n&lt;g.pts.length;n+=2)R(s,x+g.pts[n]*k,y+g.pts[n+1]*k,k,k,c);
+  return g.w*k}
+const TW=(str,f)=&gt;glyphs(str,f).w;
+
+/* ---- 도트 스프라이트 ---- */
+const S={
+ cursor:["00......","0400....","044400..","04444400","044400..","0400....","00......"],
+ star:["..6..",".666.","66666",".666.",".6.6."],
+ dia:["..d..",".ddd.","ddddd",".ddd.","..d.."],
+ more:["0000000","0444440","0444440","0000000"],
+ down:["0000000",".06660.","..060..","...0..."],
+ abtn:["..00000..",".0884880.","088484880","088444880","088484880","088484880",".0888880.","..00000.."],
+ house:["....0....","...080...","..08880..",".0888880.","000000000",".0444440.",".0464b40.",".0444b40.",".0000000."],
+ heart:[".00...00.","0f80.0880","0f8888880","088888880",".0888880.","..08880..","...080...","....0...."],
+ sprout:[".00...00.","0990.0990",".0a909a0.","..00900..","...0a0...","...0a0...",".0000000.",".0bbbbb0.","..0bbb0.."],
+ potion:["...000...","...0b0...","...050...","..05550..",".0333330.","03f333330","033333330",".0333330.","..00000.."],
+ kid:["....00000000....","..006666666600..",".06f6666666666 0.".replace(' ',''),".0777777777777 0.".replace(' ',''),
+      "0bbccccccccccbb0","0bccccccccccccb0","0bcc0cccccc0ccb0","0bcc0cccccc0ccb0","0bc88cccccc88cb0",
+      ".0ccccc00ccccc0.","..0cccccccccc0..","...0000000000...","..088688886880..",".08886888868880.","0888868888688880","0000000000000000"],
+};
+/* 아이 초상화 행 길이 보정 */
+S.kid=S.kid.map(r=&gt;r.padEnd(16,'.').slice(0,16));
+
+/* ---- 표지 ---- */
+const cv=document.getElementById('scr'),cx=cv.getContext('2d');
+const W=384,H=216;let base=null;
+function backdrop(s){for(let y=0;y&lt;s.h;y++)for(let x=0;x&lt;s.w;x++)s.b[y*s.w+x]=(x%4===1&amp;&amp;y%4===1)?'e':'0'}
+function drawBase(){
+  const s=Surf(W,H);backdrop(s);
+  // 상태 바
+  R(s,0,0,W,14,'1');HL(s,0,14,W,'0');HL(s,0,13,W,'2');
+  let x=6;x+=T(s,'퀘스트 일지',x,2,'g9','6')+8;R(s,x,4,1,7,'5');x+=8;T(s,'○○교육청 늘봄지원과',x,2,'g9','4');
+  let rx=W-5;const tagw=TW('가상 예시','g7')+6;rx-=tagw;R(s,rx,3,tagw,9,'8');T(s,'가상 예시',rx+3,3,'g7','4',{sh:''});
+  rx-=8;rx-=T(s,'2026.10.02 보고',rx,2,'g9','5',{align:'r'});rx-=10;
+  rx-=T(s,'수락',rx,2,'g9','4',{align:'r'});rx-=12;SPR(s,rx,3,S.abtn);
+  // 창 3개
+  WIN(s,4,17,136,150);WIN(s,142,17,238,150);WIN(s,4,170,376,43);
+  // 목록 탭
+  let ax=11;[['전체',1],['메인 3',0],['서브 2',0]].forEach(([t,on])=&gt;{const w=TW(t,'g9')+8;
+    if(on){R(s,ax,22,w,13,'6');OUT(s,ax,22,w,13,'0');T(s,t,ax+4,23,'g9','0',{sh:''})}
+    else{R(s,ax,22,w,13,'0');OUT(s,ax,22,w,13,'3');T(s,t,ax+4,23,'g9','5',{sh:''})}ax+=w+3});
+  HL(s,10,37,124,'5');
+  // 장 머리 (선택됨)
+  OUT(s,17,40,117,15,'6');R(s,18,41,115,13,'0');
+  R(s,21,44,7,7,'4');OUT(s,21,44,7,7,'0');R(s,23,47,3,1,'0');
+  T(s,'2027 늘봄학교',31,41,'gb','f');
+  // 과제 목록
+  const q=[['star','맞춤 프로그램','0/3'],['star','공간 재구조화','0/2'],['star','전담 인력 배치','0/2'],['dia','지역 연계 확대','0/1'],['dia','학부모 소통','0/1']];
+  q.forEach((r,i)=&gt;{const y=59+i*13;HL(s,25,y+5,3,'5',true);SPR(s,30,y+2,S[r[0]]);T(s,r[1],38,y,'g9','4');T(s,r[2],132,y,'g9','5',{align:'r'})});
+  HL(s,10,125,124,'3',true);
+  T(s,'진행 단계',11,129,'g9','6');T(s,"'27.3–'28.2",132,129,'g7','5',{align:'r'});
+  const nx=[20,54,88,122];HL(s,20,147,105,'5');R(s,20,146,4,3,'6');
+  ['준비','1학기','2학기','평가'].forEach((t,i)=&gt;{T(s,t,nx[i]+3,154,'g7',i===0?'6':'5',{align:'c'});
+    if(i&gt;0){R(s,nx[i],144,7,7,'1');OUT(s,nx[i],144,7,7,'5')}});
+  // 상세 창
+  const pill=TW('메인 퀘스트','g9')+8;R(s,149,23,pill,12,'6');T(s,'메인 퀘스트',153,23,'g9','0',{sh:''});
+  T(s,'운영 2027.3~2028.2',373,24,'g9','5',{align:'r'});
+  T(s,'2027 늘봄학교',149,38,'gb','f',{k:2});
+  T(s,'운영 계획(안)',149,63,'gb','4',{k:2});
+  HL(s,149,91,224,'3',true);
+  T(s,'원하는 아이 누구나, 저녁까지 안심',149,94,'g11','4');
+  T(s,'목표',149,109,'g9','6');
+  ['희망 학생 모두 참여','학교 업무는 가볍게','지역과 함께 운영'].forEach((t,i)=&gt;{const y=109+i*10;
+    R(s,176,y+2,8,8,'0');OUT(s,176,y+2,8,8,'5');T(s,t,189,y,'g9','4')});
+  T(s,'보상',149,144,'g9','6');
+  [['house','공백 해소'],['heart','학부모 신뢰'],['sprout','아이 성장'],['potion','업무 경감']].forEach((r,i)=&gt;{
+    const x=184+i*49;R(s,x,141,15,14,'0');OUT(s,x,141,15,14,'3');SPR(s,x+3,143,S[r[0]]);
+    T(s,r[1],x+7,155,'g7','5',{align:'c'})});
+  // 대화창
+  R(s,10,175,36,35,'0');OUT(s,10,175,36,35,'5');R(s,12,177,32,31,'3');
+  SPR(s,12,177,S.kid.slice(0,15),2);R(s,12,207,32,1,'8');
+  T(s,'학부모 · 의뢰인',53,177,'g9','6');
+  T(s,'학교 끝나도 저녁까지 안심하고 맡길 곳이 필요해요.',53,192,'g11','4');
+  return s}
+function blit(s,ctx){const id=ctx.createImageData(s.w,s.h),d=id.data;
+  for(let n=0;n&lt;s.b.length;n++){const c=RGB[s.b[n]];d[n*4]=c[0];d[n*4+1]=c[1];d[n*4+2]=c[2];d[n*4+3]=255}
+  ctx.putImageData(id,0,0)}
+let tick=0;
+function frame(){
+  const s={w:W,h:H,b:base.b.slice()};
+  const still=reduce.matches;const bob=still?0:(tick%4&lt;2?0:1),on=still||tick%4&lt;2;
+  SPR(s,7+bob,44,S.cursor);
+  R(s,20,144,7,7,on?'6':'f');OUT(s,20,144,7,7,'0');
+  if(on)SPR(s,365,202,S.down);
+  blit(s,cx)}
+function fit(){ // 정수배 확대
+  const host=cv.parentElement;const cs=getComputedStyle(host);
+  const avail=host.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+  const dpr=window.devicePixelRatio||1;const k=Math.floor(avail*dpr/W);
+  if(k&gt;=1){cv.style.width=(k*W/dpr)+'px';cv.style.height=(k*H/dpr)+'px'}else{cv.style.width='100%';cv.style.height='auto'}}
+
+/* ---- 흐름 도식 썸네일 (128×72) ---- */
+function bars(s,x,y,ws,c='5',gap=5){ws.forEach((w,i)=&gt;R(s,x,y+i*gap,w,2,c))}
+const THUMB={
+ log(s){R(s,0,0,128,5,'1');R(s,2,1,14,2,'6');WIN(s,1,6,46,48);WIN(s,48,6,79,48);WIN(s,1,55,126,16);
+  OUT(s,6,11,38,6,'6');SPR(s,3,12,["0.","00","0."]);bars(s,10,20,[30,26,30,24,20]);R(s,53,11,18,4,'6');R(s,53,18,60,5,'f');R(s,53,25,50,5,'4');bars(s,53,34,[64,40,40]);R(s,5,58,9,10,'3');bars(s,18,60,[90,70])},
+ talk(s){WIN(s,14,4,100,34);R(s,20,9,30,3,'6');bars(s,20,16,[80,70,60],'4',6);WIN(s,1,42,126,29);R(s,5,46,18,20,'3');SPR(s,6,47,S.kid.slice(0,15).filter((_,i)=&gt;i%2===0).map(r=&gt;r.split('').filter((_,i)=&gt;i%2===0).join('')),2);R(s,27,46,20,3,'6');bars(s,27,53,[90,70],'4',6);SPR(s,117,64,["000","060","...".replace(/\./g,'.')])},
+ accept(s){WIN(s,16,4,96,64);R(s,22,9,40,4,'6');R(s,22,16,80,4,'4');[0,1,2].forEach(i=&gt;{OUT(s,24,26+i*9,5,5,'5');R(s,32,27+i*9,50,2,'4')});R(s,30,56,30,8,'6');OUT(s,30,56,30,8,'0');R(s,66,56,30,8,'0');OUT(s,66,56,30,8,'3')},
+ detail(s){WIN(s,1,2,46,68);WIN(s,48,2,79,68);[0,1,2,3,4].forEach(i=&gt;{const y=10+i*10;if(i===1)OUT(s,6,y-2,38,8,'6');SPR(s,9,y,i&lt;3?[".6.","666",".6."]:[".d.","ddd",".d."]);R(s,14,y+1,24,2,'4')});SPR(s,3,19,["0.","00","0."]);R(s,53,8,24,4,'6');R(s,53,15,60,5,'4');bars(s,53,26,[64,50,58]);[0,1,2].forEach(i=&gt;{R(s,54+i*14,50,11,11,'0');OUT(s,54+i*14,50,11,11,'3')})},
+ track(s){WIN(s,4,8,120,56);R(s,10,14,30,3,'6');HL(s,18,38,92,'5');[18,48,78,104].forEach((x,i)=&gt;{R(s,x-3,35,7,7,i===1?'6':i&lt;1?'9':'1');OUT(s,x-3,35,7,7,i===1?'0':'5');R(s,x-5,46,10,2,i===1?'6':'5')})},
+ reward(s){R(s,0,8,128,12,'6');R(s,30,12,68,4,'0');WIN(s,8,24,112,44);[['house'],['heart'],['sprout'],['potion']].forEach((r,i)=&gt;{const x=16+i*25;R(s,x,30,17,17,'0');OUT(s,x,30,17,17,'3');SPR(s,x+4,34,S[r[0]]);R(s,x,51,17,2,'5')})},
+ save(s){[0,1,2].forEach(i=&gt;{WIN(s,6,3+i*23,116,21);R(s,12,8+i*23,10,10,i===0?'6':'3');R(s,27,9+i*23,40,3,'4');R(s,27,15+i*23,60,2,'5')})},
+};
+function drawThumbs(){document.querySelectorAll('#flow canvas').forEach(c=&gt;{const s=Surf(128,72);backdrop(s);THUMB[c.dataset.k](s);blit(s,c.getContext('2d'))})}
+
+/* ---- 팔레트 견본 ---- */
+document.getElementById('sw').innerHTML=Object.keys(PAL).map(k=&gt;`&lt;div&gt;&lt;i style="background:${PAL[k]}"&gt;&lt;/i&gt;&lt;span&gt;${NAMES[k]}&lt;br&gt;${PAL[k].toUpperCase()}&lt;/span&gt;&lt;/div&gt;`).join('');
+
+/* ---- ×5 PNG ---- */
+document.getElementById('mk').addEventListener('click',()=&gt;{
+  const c=document.createElement('canvas');c.width=W*5;c.height=H*5;const x=c.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(cv,0,0,W*5,H*5);
+  const img=document.getElementById('bigpng');img.src=c.toDataURL('image/png');img.hidden=false;document.getElementById('mkmsg').hidden=false});
+
+const fams=['12px G11','12px G11B','10px G9','8px G7'];
+Promise.all(fams.map(f=&gt;document.fonts.load(f).catch(()=&gt;null))).then(()=&gt;document.fonts.ready).then(()=&gt;{
+  base=drawBase();frame();drawThumbs();fit();
+  new ResizeObserver(fit).observe(cv.parentElement);
+  setInterval(()=&gt;{if(reduce.matches)return;tick++;frame()},280);
+  reduce.addEventListener?.('change',frame);
+});
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
+</body></html>

@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #85 층위 표 체계도</title>
+<style>
+/*@@FONTS@@*/
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+</style>
+<style id="ps85-css">
+/* 비전 체계도 '층위 표' — 접두어 ps85 / 색은 --ds-* 변수로만 */
+.ps85{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps85 *{box-sizing:border-box}
+.ps85-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps85-a{position:absolute}
+.ps85-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
+.ps85-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps85-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps85-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps85-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps85-tt{left:calc(var(--u)*80);top:calc(var(--u)*108);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*36);line-height:1.24;letter-spacing:-.01em}
+.ps85-tt em{font-style:normal;color:var(--ds-accent)}
+.ps85-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+
+.ps85-rh{display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*2);border-top:calc(var(--u)*1.5) solid var(--ds-ink);padding-top:calc(var(--u)*2)}
+.ps85-rh b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*16);color:var(--ds-c1)}
+.ps85-rh span{font-size:calc(var(--u)*12);color:var(--ds-sub)}
+.ps85-vis{background:var(--ds-c1);color:var(--ds-surface);border-radius:var(--ds-radius);display:flex;align-items:center;justify-content:center;gap:calc(var(--u)*18)}
+.ps85-vis b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*26);letter-spacing:-.01em}
+.ps85-vis span{font-size:calc(var(--u)*14);color:var(--ds-c5)}
+.ps85-gl{background:var(--ds-c2);color:var(--ds-surface);border-radius:var(--ds-radius);display:flex;align-items:center;gap:calc(var(--u)*12);padding:0 calc(var(--u)*18)}
+.ps85-gl i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);color:var(--ds-c4)}
+.ps85-gl b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*21)}
+.ps85-gl span{font-size:calc(var(--u)*13);color:var(--ds-c5);margin-left:auto;white-space:nowrap}
+.ps85-tk{background:var(--ds-surface);border:calc(var(--u)*1) solid var(--ds-line);border-radius:var(--ds-radius);display:flex;align-items:center;gap:calc(var(--u)*12);padding:0 calc(var(--u)*16)}
+.ps85-tk i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*13);color:var(--ds-c3);flex:none}
+.ps85-tk b{font-weight:600;font-size:calc(var(--u)*15.5);white-space:nowrap}
+.ps85-tk span{font-size:calc(var(--u)*12.5);color:var(--ds-sub);margin-left:auto;white-space:nowrap;font-family:var(--ds-font-num)}
+.ps85-kp{display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:calc(var(--u)*10);padding:0 calc(var(--u)*4)}
+.ps85-kp .k{font-size:calc(var(--u)*13.5);color:var(--ds-ink);line-height:1.35}
+.ps85-kp .v{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);color:var(--ds-sub);white-space:nowrap;text-align:right}
+.ps85-kp .v b{font-weight:600;font-size:calc(var(--u)*24);color:var(--ds-c1)}
+.ps85-bs{background:var(--ds-c5);border-radius:var(--ds-radius);display:flex;align-items:center;gap:calc(var(--u)*34);padding:0 calc(var(--u)*24)}
+.ps85-bs div{display:flex;align-items:baseline;gap:calc(var(--u)*10);white-space:nowrap}
+.ps85-bs b{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*15);color:var(--ds-c1)}
+.ps85-bs span{font-size:calc(var(--u)*13.5);color:var(--ds-ink)}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 85 · 본문 요소 · 비전 체계도 · 정지 · 가상 예시</div>
+    <h1>층위 표 체계도</h1>
+    <p class="pg-lead">비전 · 목표 · 과제 · 지표 · 기반을 가로 줄로, 목표 셋을 세로 칸으로 둔 층위 표. 왼쪽 머리 칸이 층위를 고정하고, 갈래마다 세로 척추선이 목표에서 지표까지 꿴다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps85" id="ps85" data-slide role="img" aria-label="마을교육공동체 비전, 목표 3개, 핵심 과제 9개, 갈래별 성과 지표, 추진 기반을 층위 표로 정리"></div></div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="N" aria-pressed="true">중립(기본)</button><button class="btn" type="button" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button><button class="btn" type="button" data-fam="D" aria-pressed="false">D 인쇄·종이</button><button class="btn" type="button" data-fam="F" aria-pressed="false">F 관측·중계</button></div>
+  </section>
+  
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅱ장 줄글, 가상)</h3>
+        <p class="raw"><mark class="k" data-n="비전">"마을이 배움터가 되고, 학교가 마을의 쉼터가 되는 교육"을 비전으로 삼고</mark> 세 가지 목표를 둔다. <mark class="o" data-n="1">첫째, 배움이 마을로 나가도록 마을 강사 300명 인력풀을 만들고 120교에서 마을 연계 교육과정을 운영하며 학년별 1회 지역 문화시설 체험을 넣어, 마을 연계 교육과정 운영 학교를 38%에서 70%로 늘린다.</mark> <mark class="o" data-n="2">둘째, 돌봄이 마을에서 이뤄지도록 마을 방과후 거점 18곳, 작은도서관 저녁 돌봄 32곳, 주말 마을학교 40개를 열어 참여 학생을 2,400명에서 5,000명으로 늘린다.</mark> <mark class="o" data-n="3">셋째, 마을이 함께 정하도록 시·군 교육협력센터를 14곳 모두에 두고 학생 마을 의회와 분기별 마을교육 협의체를 운영한다(센터 5곳 → 14곳).</mark> <mark class="g" data-n="기반">이를 위해 14개 시·군과 업무협약을 맺고, 예산은 50 : 50으로 대응투자하며, 마을교육 자원 지도를 온라인으로 공개한다.</mark></p>
+        <div class="key"><span><i class="kk"></i>비전</span><span><i class="ko"></i>목표별 문장(과제 3 + 지표 1)</span><span><i class="kg"></i>공통 기반</span><span>번호 = 장표의 갈래 번호</span></div>
+      </div>
+      <div class="panel">
+        <div class="grp-h">층위 다섯 줄 × 갈래 세 칸</div>
+        <ul class="grp">
+          <li><span class="n n1">비전</span><div><b>따옴표 안 한 문장 → 맨 위 띠</b><em>세 칸을 다 덮는 가장 진한 띠 하나</em></div></li>
+          <li><span class="n n2">1~3</span><div><b>"첫째 · 둘째 · 셋째" → 갈래 세 칸</b><em>문장마다 목표 이름(앞) · 과제 셋(가운데 동사) · 지표(끝의 "~에서 ~로")로 쪼개 같은 칸 아래로 쌓는다</em></div></li>
+          <li><span class="n">기반</span><div><b>"이를 위해" 문장 → 맨 아래 띠</b><em>특정 갈래가 아니라 셋 모두를 받치므로 세 칸을 다 덮는 옅은 띠</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">위계 (위→아래)</span><span>줄 순서가 곧 위계: 비전 → 목표 → 과제 → 지표 → 기반. 왼쪽 머리 칸에 층위 이름과 개수를 적는다.</span></div>
+          <div><span class="k">소속 (목표→과제→지표)</span><span>갈래마다 세로 척추선 하나가 목표 아래에서 과제 셋을 꿰고 지표 점에서 끝난다. 과제가 어느 목표 소속인지 선 하나로 고정된다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>비전 체계도를 그림이 아니라 <b>층위 표</b>로 짰다. 가로 줄은 층위(비전 · 목표 · 과제 · 지표 · 기반), 세로 칸은 갈래(목표 셋)다. 왼쪽 머리 칸이 층위 이름과 개수를 알려 주고, 갈래마다 세로 척추선이 목표에서 지표까지 꿰어 "이 과제는 이 목표, 이 지표로 확인한다"를 한 칸 안에서 끝낸다.</p>
+    <p><b>가져갈 장치 1: 층위 머리 칸.</b> 비전 체계도에서 가장 자주 헷갈리는 것은 "이 칸이 목표인지 전략인지"다. 왼쪽에 층위 이름을 고정하면 칸 모양을 바꿔도 위계가 흔들리지 않는다.</p>
+    <p><b>가져갈 장치 2: 갈래 척추선.</b> 목표 → 과제 → 지표를 화살표 여러 개 대신 세로선 하나로 꿴다. 선 끝 점이 지표에 닿아 "갈래마다 지표 하나"가 그림으로 보인다.</p>
+    <p><b>가져갈 장치 3: 농도 = 층위.</b> 비전(가장 진함) → 목표(진함) → 과제(흰 카드) → 기반(가장 옅음). 색 이름 없이 진하기만으로 위계를 읽는다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>교육감 공약 체계: 비전 · 정책 방향 4 · 과제 12 · 지표 4</li>
+      <li>학교 교육계획 체계: 학교 비전 · 중점 목표 3 · 실천 과제 · 평가 지표</li>
+      <li>부서 연간 업무 체계: 부서 목표 · 업무 영역 · 단위 업무 · 성과</li>
+    </ul>
+  </section>
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>goals</code>는 갈래(목표) 3개, 갈래마다 <code>tasks</code> 3개와 <code>kpi</code> 1개입니다. 갈래를 4개로 늘리면 칸 너비가 자동으로 줄어듭니다.</li>
+      <li>계열 분위기는 <code>.ps85{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값). 제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>표로 시작</b>: [삽입 → 표] 4열(머리 1 + 갈래 3) × 5행. 비전 · 기반 행은 갈래 3칸을 병합. 셀 여백 0.2cm, 행 사이 흰 간격은 테두리 대신 셀 위아래 여백으로.</li>
+      <li><b>머리 칸</b>: 채우기 없음, 위쪽 1.5pt 먹선만. 층위 이름 13pt 굵게 + 개수 9pt.</li>
+      <li><b>농도</b>: 비전 행 가장 진한 남색 · 목표 행 진한 청색 · 과제는 흰 사각형(0.75pt 회색 윤곽)을 셀 위에 얹기 · 기반 행 옅은 회청.</li>
+      <li><b>척추선</b>: 갈래마다 목표 칸 아래에서 지표 행까지 2pt 세로선, 과제 카드로 짧은 가로선, 지표 앞 지름 0.2cm 원.</li>
+      <li><b>정지 장표</b>: 애니메이션 없음. 발표에서 갈래를 하나씩 설명하려면 갈래 열 단위로 [나타내기 → 닦아내기(위에서)].</li>
+    </ol>
+  </section>
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목) + IBM Plex Sans KR(본문) + IBM Plex Mono 600(숫자) · 대체 프리텐다드 · 맑은 고딕 · Consolas</div>
+      <div><b>난이도</b>HTML 하 · PPT 하(표 병합 + 선)</div>
+      <div><b>질감 · 모션</b>평면 · 정지</div>
+      <div><b>모듈 · 위치</b>표(층위 × 갈래) + 위계도(척추선) · Ⅱ 비전 및 목표</div>
+      <div><b>어울리는 계열</b>B · C · D · E · F · G (평면 도식)</div>
+      <div><b>트렌드</b>전략 체계를 표 격자로 보여 주는 '전략 맵' 행 정렬 — <a href="https://www.balancedscorecard.org/bsc-basics/articles-videos/the-strategy-map/" target="_blank" rel="noopener">Balanced Scorecard Institute, Strategy Map</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps85-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅱ', sectionName: '비전 및 목표',
+    plan: '2027 ○○교육청 마을교육공동체 활성화 계획',
+    title: '비전 한 줄을 세 갈래 아홉 과제로 나누고, [갈래마다 지표 하나]로 확인합니다',
+    vision: { text: '마을이 배움터가 되고, 학교가 마을의 쉼터가 되는 교육', sub: '비전 2027' },
+    // 갈래(목표) 3개 × 과제 3개 + 지표 1개
+    goals: [
+      { name: '배움이 마을로', sub: '교육과정', tasks: [['마을 강사 인력풀', '300명'], ['마을 연계 교육과정', '120교'], ['지역 문화시설 체험', '학년별 1회']],
+        kpi: { name: '마을 연계 교육과정 운영 학교 비율', from: '38', to: '70', unit: '%' } },
+      { name: '돌봄이 마을에서', sub: '방과후 · 돌봄', tasks: [['마을 방과후 거점', '18곳'], ['작은도서관 저녁 돌봄', '32곳'], ['주말 마을학교', '40개']],
+        kpi: { name: '마을 돌봄 참여 학생', from: '2,400', to: '5,000', unit: '명' } },
+      { name: '마을이 함께 정함', sub: '협력 · 참여', tasks: [['시·군 교육협력센터', '14곳'], ['학생 마을 의회', '시·군별'], ['마을교육 협의체', '분기 1회']],
+        kpi: { name: '교육협력센터 설치 시·군', from: '5', to: '14', unit: '곳' } }
+    ],
+    base: [['협약', '교육청 · 14개 시·군 업무협약'], ['예산', '대응투자 50 : 50'], ['플랫폼', '마을교육 자원 지도(온라인)']],
+    heads: [['비전', ''], ['목표', '3개'], ['핵심 과제', '9개'], ['성과 지표', '2026 → 2027'], ['추진 기반', '공통']],
+    source: '가상 예시 · 출처: ○○교육청 마을교육공동체 기본계획(안) 재구성',
+    page: 7
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var HX = 80, HW = 132, GX = 232, GW = 1288, GAP = 18;
+  var R = { vis: [218, 68], goal: [320, 62], task: [398, 62, 10], kpi: [612, 90], base: [718, 70] };
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + ';height:' + u(h); };
+  var at = function(x, y){ return 'left:' + u(x) + ';top:' + u(y); };
+  var num = function(v){ return Number(v).toLocaleString('ko-KR'); };
+  function frame(){
+    return '<div class="ps85-a ps85-hd"><div class="ps85-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps85-plan">' + esc(DATA.plan) + '</div></div>' +
+      '<div class="ps85-a ps85-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>' +
+      '<div class="ps85-a ps85-ft"><span>' + esc(DATA.source) + '</span><span>' + DATA.page + '</span></div>';
+  }
+
+  function render(root){
+    var h = frame(), svg = '', n = DATA.goals.length, cw = (GW - GAP * (n - 1)) / n;
+    var cx = function(i){ return GX + i * (cw + GAP); };
+    var rows = [R.vis, R.goal, [R.task[0], R.task[1] * 3 + R.task[2] * 2], R.kpi, R.base];
+    // 왼쪽 층위 머리(위 → 아래 = 왜 → 무엇 → 얼마나)
+    DATA.heads.forEach(function(t, i){ h += '<div class="ps85-a ps85-rh" style="' + box(HX, rows[i][0], HW, Math.min(rows[i][1], 70)) + '"><b>' + esc(t[0]) + '</b>' + (t[1] ? '<span>' + esc(t[1]) + '</span>' : '') + '</div>'; });
+    // 갈래 척추선: 목표 → 과제 → 지표를 한 줄로 꿰는 세로선(카드 뒤)
+    DATA.goals.forEach(function(g, i){
+      var x = cx(i) + 26;
+      svg += '<line x1="' + x + '" x2="' + x + '" y1="' + (R.goal[0] + R.goal[1]) + '" y2="' + (R.kpi[0] + 14) + '" style="stroke:var(--ds-c3);stroke-width:2"/>';
+      svg += '<circle cx="' + x + '" cy="' + (R.kpi[0] + 18) + '" r="5" style="fill:var(--ds-c1)"/>';
+    });
+    // 비전 → 목표: 비전 띠 아래에서 갈래로 갈라지는 선
+    var my = (R.vis[0] + R.vis[1] + R.goal[0]) / 2;
+    svg += '<path d="M' + (GX + GW / 2) + ' ' + (R.vis[0] + R.vis[1]) + 'V' + my + '" style="stroke:var(--ds-c1);stroke-width:2;fill:none"/>';
+    svg += '<path d="M' + (cx(0) + cw / 2) + ' ' + R.goal[0] + 'V' + my + 'H' + (cx(n - 1) + cw / 2) + 'V' + R.goal[0] + '" style="stroke:var(--ds-c1);stroke-width:2;fill:none"/>';
+    for (var q = 1; q < n - 1; q++) svg += '<path d="M' + (cx(q) + cw / 2) + ' ' + my + 'V' + R.goal[0] + '" style="stroke:var(--ds-c1);stroke-width:2"/>';
+    h += '<div class="ps85-a ps85-vis" style="' + box(GX, R.vis[0], GW, R.vis[1]) + '"><span>' + esc(DATA.vision.sub) + '</span><b>' + esc(DATA.vision.text) + '</b></div>';
+    DATA.goals.forEach(function(g, i){
+      var x = cx(i);
+      h += '<div class="ps85-a ps85-gl" style="' + box(x, R.goal[0], cw, R.goal[1]) + '"><i>' + (i + 1) + '</i><b>' + esc(g.name) + '</b><span>' + esc(g.sub) + '</span></div>';
+      g.tasks.forEach(function(t, j){
+        var y = R.task[0] + j * (R.task[1] + R.task[2]);
+        h += '<div class="ps85-a ps85-tk" style="' + box(x + 44, y, cw - 44, R.task[1]) + '"><i>' + (i + 1) + '-' + (j + 1) + '</i><b>' + esc(t[0]) + '</b><span>' + esc(t[1]) + '</span></div>';
+        svg += '<line x1="' + (x + 26) + '" x2="' + (x + 44) + '" y1="' + (y + R.task[1] / 2) + '" y2="' + (y + R.task[1] / 2) + '" style="stroke:var(--ds-c3);stroke-width:2"/>';
+      });
+      var k = g.kpi;
+      svg += '<line x1="' + (x + 44) + '" x2="' + (x + cw) + '" y1="' + R.kpi[0] + '" y2="' + R.kpi[0] + '" style="stroke:var(--ds-line);stroke-width:1"/>';
+      h += '<div class="ps85-a ps85-kp" style="' + box(x + 44, R.kpi[0] + 4, cw - 44, R.kpi[1] - 8) + '"><span class="k">' + esc(k.name) + '</span><span class="v">' + esc(k.from) + ' → <b>' + esc(k.to) + '</b>' + esc(k.unit) + '</span></div>';
+    });
+    h += '<div class="ps85-a ps85-bs" style="' + box(GX, R.base[0], GW, R.base[1]) + '">' + DATA.base.map(function(b){ return '<div><b>' + esc(b[0]) + '</b><span>' + esc(b[1]) + '</span></div>'; }).join('') + '</div>';
+    root.innerHTML = '<div class="ps85-in"><svg class="ps85-svg" viewBox="0 0 1600 900" aria-hidden="true">' + svg + '</svg>' + h + '</div>';
+  }
+  render(document.getElementById('ps85'));
+})();
+</script>
+<script>
+(function(){
+  var P = 'ps85';
+  var slide = document.getElementById(P);
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FAM = {"N": {"name": "중립(기본)", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#F5F7FA", "--ds-surface": "#FFFFFF", "--ds-ink": "#18233D", "--ds-sub": "#5B6579", "--ds-line": "#D5DBE4", "--ds-accent": "#D2502A", "--ds-accent2": "#2E5C8F", "--ds-c1": "#1B2E57", "--ds-c2": "#2D4D85", "--ds-c3": "#5474AB", "--ds-c4": "#A8BCDA", "--ds-c5": "#E1E8F2", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "4px", "--ds-shadow": "0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)"}}, "B": {"name": "B 미니멀 스튜디오", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#EEF1F4", "--ds-surface": "#FAFAF8", "--ds-ink": "#1F2B36", "--ds-sub": "#5E6974", "--ds-line": "#CDD4DB", "--ds-accent": "#E2571A", "--ds-accent2": "#2F5D86", "--ds-c1": "#2F4252", "--ds-c2": "#4F6679", "--ds-c3": "#7389A0", "--ds-c4": "#A9B9C7", "--ds-c5": "#DCE3E9", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"}}, "D": {"name": "D 인쇄·종이", "fonts": "Noto Serif KR / IBM Plex Sans KR / Noto Serif KR", "v": {"--ds-bg": "#FBFAF6", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B1E24", "--ds-sub": "#5C606A", "--ds-line": "#CFCCC4", "--ds-accent": "#D9482B", "--ds-accent2": "#23467A", "--ds-c1": "#1F3E6E", "--ds-c2": "#3C5D8C", "--ds-c3": "#6D87AD", "--ds-c4": "#A5B5CD", "--ds-c5": "#E3E8F0", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"}}, "F": {"name": "F 관측·중계", "fonts": "Gothic A1 / Gothic A1 / Saira Semi Condensed", "v": {"--ds-bg": "#F3F5F8", "--ds-surface": "#FFFFFF", "--ds-ink": "#12203A", "--ds-sub": "#556178", "--ds-line": "#D3DAE4", "--ds-accent": "#E5483A", "--ds-accent2": "#2F64AE", "--ds-c1": "#1E3A66", "--ds-c2": "#34598F", "--ds-c3": "#5B7DB0", "--ds-c4": "#9DB3D3", "--ds-c5": "#DAE3EF", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Saira Semi Condensed\",\"Gothic A1\",\"Arial Narrow\",\"Malgun Gothic\",sans-serif", "--ds-radius": "3px", "--ds-shadow": "0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)"}}};
+  var ORDER = ["N", "B", "D", "F"];
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === ORDER[0]) slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+    if (window[P + 'Paint']) window[P + 'Paint']();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window[P + 'Fam'] = apply;
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap\">";
+  var css = document.getElementById(P + '-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById(P + '-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + "<div class=\"ps85\" id=\"ps85\" data-slide role=\"img\" aria-label=\"마을교육공동체 비전, 목표 3개, 핵심 과제 9개, 갈래별 성과 지표, 추진 기반을 층위 표로 정리\"></div>" + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+  window[P + 'Code'] = code;
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th>' + ORDER.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ORDER.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + ORDER.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + ORDER.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+</body></html>

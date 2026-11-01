@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #104 발견 영수증</title>
+<style>
+/*@@FONTS@@*/
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0;vertical-align:top}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps104{min-width:880px}}
+
+.ps104{--ps104-grain:url(@@ASSET:e674527002.png@@)}
+</style>
+<style id="ps104-css">
+/* 인쇄물 '발견 영수증' — 접두어 ps104 / 영수증 모양 병풍 접지 리플렛(80 × 128 mm 4쪽) */
+.ps104{
+  --ps104-paper:#EFE9DF; --ps104-paper2:#E6DFD3; --ps104-ink:#141414; --ps104-sub:#3C3A36; --ps104-orange:#FF5A1F;
+  --ps104-head:"Black Han Sans","Gothic A1","Malgun Gothic",sans-serif;
+  --ps104-body:"Noto Sans KR","Pretendard","Malgun Gothic",sans-serif;
+  --ps104-mono:"IBM Plex Mono","Consolas",monospace;
+  position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;cursor:pointer;user-select:none;
+  background:radial-gradient(70% 90% at 50% 40%,#3A3632,#1C1A18 80%);color:var(--ps104-ink)
+}
+.ps104:fullscreen{aspect-ratio:auto;width:100vw;height:100vh;display:grid;place-items:center}
+.ps104:fullscreen .ps104-in{inset:auto;position:relative;width:min(100vw,calc(100vh * 16 / 9));aspect-ratio:16/9}
+.ps104 *{box-sizing:border-box}
+.ps104-in{position:absolute;inset:0;overflow:hidden;container-type:inline-size}
+/* 설계 좌표: 가로 1600 = 100cqw. 판 한 쪽 400 × 640 */
+.ps104-world{position:absolute;left:0;top:0;width:100cqw;height:56.25cqw;transform-origin:0 0;transition:transform 1.3s cubic-bezier(.55,0,.2,1);font-size:1cqw}
+.ps104-strip{position:absolute;left:37.5em;top:0;width:25em;height:40em;perspective:220em;transform-style:preserve-3d}
+.ps104-copy{position:absolute;left:-1em;top:52em;width:25em;height:40em;opacity:0;transform:rotate(-4deg);transition:opacity .8s .6s,left 1.3s cubic-bezier(.55,0,.2,1);
+  box-shadow:0 .35em 0 -.05em var(--ps104-paper2),0 .7em 0 -.1em #DCD4C6,0 1.05em 0 -.15em var(--ps104-paper2),0 3em 4em rgba(0,0,0,.45)}
+.ps104.torn .ps104-copy{opacity:1;left:-38em}
+.ps104-f{position:absolute;left:0;top:0;width:25em;height:40em;transform-style:preserve-3d;transform-origin:50% 0;transition:transform 1.1s cubic-bezier(.55,0,.25,1)}
+.ps104-f .ps104-f{top:40em}
+.ps104-f.f1{box-shadow:none}
+/* 접힘: 지그재그(병풍). 겹이 서로 파고들지 않게 판마다 z 를 조금씩 비킨다 */
+.ps104-f.f2{transform:translateZ(-.3em) rotateX(-180deg)}
+.ps104-f.f3{transform:translateZ(-.3em) rotateX(180deg)}
+.ps104-f.f4{transform:translateZ(-.3em) rotateX(-180deg)}
+/* 아직 접혀 숨은 겹은 그리지 않는다(앞 판 뒤에 숨어 있음) — 펼칠 차례인 판만 앞 판 뒤에서 내려온다 */
+.ps104-f.f3,.ps104-f.f4{visibility:hidden}
+.ps104.o2 .ps104-f.f3,.ps104.o3 .ps104-f.f4{visibility:visible}
+.ps104.o1 .ps104-f.f2{transform:translateZ(-.3em) rotateX(0)}
+.ps104.o2 .ps104-f.f3{transform:translateZ(-.3em) rotateX(0)}
+.ps104.o3 .ps104-f.f4{transform:translateZ(-.3em) rotateX(0)}
+.ps104.torn .ps104-f.f4{transform:translate3d(1.2em,2.6em,-.3em) rotate(4deg);transition:transform .9s cubic-bezier(.3,1.4,.5,1)}
+.ps104.folded .face.fr.p1{box-shadow:0 .35em 0 -.05em var(--ps104-paper2),0 .7em 0 -.1em #DCD4C6,0 1.05em 0 -.15em var(--ps104-paper2),0 3em 4em rgba(0,0,0,.45)}
+.ps104 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;
+  background:var(--ps104-paper) var(--ps104-grain) 0 0/12em 12em}
+.ps104 .face.bk{transform:rotateX(180deg);background-color:var(--ps104-paper2)}
+.ps104 .face.fr{padding:3em 2.6em 2.4em;transition:box-shadow .6s}
+/* 접는 선 그늘 */
+.ps104 .face.fr::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(0,0,0,.07),transparent 6%,transparent 94%,rgba(0,0,0,.05))}
+.ps104 .face.p1::before{background:linear-gradient(transparent 94%,rgba(0,0,0,.05))}
+.ps104-strip{filter:drop-shadow(0 2.5em 3em rgba(0,0,0,.45))}
+.ps104 hr{border:0;border-top:.14em dashed #8C867C;margin:1.1em 0}
+.ps104 .h-store{font:600 1.15em/1 var(--ps104-mono);letter-spacing:.32em}
+.ps104 .h-store.sm{font-size:.82em;text-align:center;margin-top:.6em}
+.ps104 h1{margin:.6em 0 .4em;font:400 5.2em/1 var(--ps104-head);letter-spacing:-.02em}
+.ps104 .tag{display:inline-block;padding:.45em .9em .4em;background:var(--ps104-orange);font:600 1.15em/1 var(--ps104-mono);letter-spacing:.06em;color:#140A04}
+.ps104 dl{display:grid;grid-template-columns:5.5em 1fr;gap:.45em 0;margin:1.4em 0 0;font:500 .98em/1.2 var(--ps104-mono);letter-spacing:.12em}
+.ps104 dd{margin:0;font-family:var(--ps104-mono),var(--ps104-body)}
+.ps104 .foot{display:flex;justify-content:space-between;align-items:flex-end;font:500 .95em/1.7 var(--ps104-mono);letter-spacing:.16em}
+.ps104 .foot p{margin:0}
+.ps104-rings{width:3.6em;height:3em;fill:none;stroke:var(--ps104-orange);stroke-width:2.2}
+.ps104 .th{display:grid;grid-template-columns:5.1em 1fr auto;font:600 .9em/1 var(--ps104-mono);letter-spacing:.14em;padding-bottom:1em;border-bottom:.14em dashed #8C867C}
+.ps104 .it{display:grid;grid-template-columns:4.6em 1fr auto;align-items:start;padding:1.8em 0;border-bottom:.14em dashed #8C867C}
+.ps104 .it b{font:400 2.6em/1 var(--ps104-head)}
+.ps104 .it h3{margin:0 0 .35em;font:400 2.2em/1.1 var(--ps104-head)}
+.ps104 .it p{margin:0;font:500 1.15em/1.4 var(--ps104-body);color:var(--ps104-sub)}
+.ps104 .it i{font:600 1.1em/1 var(--ps104-mono);font-style:normal;padding-top:.5em;letter-spacing:.06em}
+.ps104 .ln{list-style:none;margin:1.2em 0 0;padding:0;font:500 1.15em/1 var(--ps104-mono),var(--ps104-body)}
+.ps104 .ln li{display:flex;align-items:baseline;gap:.6em;padding:.55em 0;font-family:var(--ps104-body);font-weight:500}
+.ps104 .ln em{flex:1;border-bottom:.12em dotted #8C867C;transform:translateY(-.25em)}
+.ps104 .ln li:last-child span:last-child{color:var(--ps104-orange);font-family:var(--ps104-mono);font-weight:600}
+.ps104 .tot{position:relative}
+.ps104 .tot small{font:600 1.15em/1 var(--ps104-mono);letter-spacing:.24em}
+.ps104 .tot .ps104-rings{position:absolute;right:0;top:-.4em;width:4.4em;height:3.7em}
+.ps104 .tot h2{margin:.45em 0 .4em;font:400 4.5em/1.06 var(--ps104-head);letter-spacing:-.02em}
+.ps104 .tot p{margin:0;font:500 .95em/1.8 var(--ps104-mono);letter-spacing:.2em}
+.ps104 .perf{position:absolute;left:0;right:0;top:0;height:1.6em;
+  background:radial-gradient(circle at 50% 0,#1C1A18 .45em,transparent .5em) 0 0/1.6em 1.6em repeat-x;border-bottom:.14em dashed #8C867C}
+.ps104 .face.p4{padding-top:4.2em;text-align:center}
+.ps104 .cp small{font:600 .95em/1 var(--ps104-mono);letter-spacing:.3em;color:var(--ps104-orange)}
+.ps104 .cp h4{margin:1em 0 .6em;font:400 2.8em/1.15 var(--ps104-head);word-break:keep-all}
+.ps104 .cp p{margin:0 0 2.6em;font:500 1.2em/1.4 var(--ps104-body)}
+.ps104-bar{display:block;width:100%;height:7.5em;fill:var(--ps104-ink)}
+.ps104 .code{margin-top:.6em;font:500 .95em/1 var(--ps104-mono);letter-spacing:.3em}
+.ps104 .thx{position:absolute;left:2.6em;right:2.6em;bottom:2.4em;font:500 .85em/1.5 var(--ps104-body);color:#6B665E;letter-spacing:.04em;word-break:keep-all}
+/* 설명 · 안내 */
+.ps104 .bring{position:absolute;left:2.6em;right:2.6em;bottom:2.4em;padding:1em 1.1em;border:.14em solid var(--ps104-ink);display:grid;grid-template-columns:auto 1fr;gap:.4em 1em;align-items:baseline}
+.ps104 .bring b{font:600 .9em/1 var(--ps104-mono);letter-spacing:.18em}
+.ps104 .bring span{font:500 1.05em/1.35 var(--ps104-body)}
+.ps104-cap{position:absolute;left:3%;bottom:4.5%;font:600 1cqw/1 var(--ps104-mono);letter-spacing:.16em;color:#E9E2D6;opacity:.85}
+.ps104-hint{position:absolute;right:3%;bottom:4%;padding:.5cqw 1cqw;border-radius:2cqw;background:rgba(255,90,31,.9);color:#fff;font:600 1cqw/1 var(--ps104-body);letter-spacing:.1em;opacity:0;transition:opacity .4s}
+.ps104-hint.on{opacity:1;animation:ps104-blink 2.2s ease-in-out infinite}
+@keyframes ps104-blink{50%{opacity:.5}}
+.ps104-dots{position:absolute;left:50%;bottom:2.4%;transform:translateX(-50%);display:flex;gap:.4cqw}
+.ps104-dots i{width:.45cqw;height:.45cqw;border-radius:50%;background:rgba(255,255,255,.3)}
+.ps104-dots i.on{background:var(--ps104-orange)}
+.ps104.instant *{transition:none!important}
+@media (prefers-reduced-motion:reduce){.ps104 *{transition-duration:.01s!important}}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 104 · 인쇄 · 홍보물 · 병풍 접지 리플렛 · 가상 예시</div>
+    <h1>발견 영수증</h1>
+    <p class="pg-lead">연수 안내를 가게 영수증으로. 손바닥만 한 접힌 영수증(80 × 128 mm)을 펼치면 차례 · 합계가 이어지고, 맨 끝 초대권은 점선을 따라 떼어 다음 연수에 들고 온다. 사용자 제공 시안을 다듬어 실제로 접고 펼치는 장면으로 만들었다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps104" id="ps104" role="application" aria-label="영수증 리플렛: 접힘, 차례, 합계, 떼는 초대권, 전체"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 한 쪽씩 펼치기</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button><button class="btn btn-replay" type="button" id="b-full">전체 화면</button></div>
+  </section>
+
+  <section>
+    <h2>원본에서 다듬은 것 <small>FIXES</small></h2>
+    <div class="cover-note">
+      <div><b>글 바로잡기</b><p>'STERK' → STORE, 2024 → 2026, 두 판에서 달랐던 항목을 하나로 맞췄다. 차례의 INDEX(01 · 02 · 03 반복)는 정보가 없어 TIME(10:00 · 13:30 · 15:30)으로 바꿨다.</p></div>
+      <div><b>접는 구조</b><p>원본은 접힌 판과 펼친 판의 칸 높이가 달라 실제로 접히지 않는다. 같은 크기 네 쪽(각 80 × 128 mm)으로 나눠 병풍(지그재그)으로 접히게 하고, 접힌 앞면에 표지 전체가 들어가게 배치했다.</p></div>
+      <div><b>빈칸 채우기</b><p>차례 쪽 아래 빈 곳에 준비물 · 장소 상자를, 합계 위에 영수증다운 품목 줄(시선 1 · 시도 1 · 연결 1 · 익숙함 할인 −100%)을 넣어 '영수증 말장난'을 끝까지 밀었다.</p></div>
+      <div><b>떼는 초대권</b><p>맨 끝 쪽은 위쪽 점선 · 반원 홈을 따라 뜯는 초대권. 2차 연수 날짜와 바코드(접수 번호)를 넣어 실제로 들고 오게 한다.</p></div>
+      <div><b>글꼴</b><p>제목은 굵은 검은 고딕(Black Han Sans), 영수증 숫자 · 항목은 고정폭(IBM Plex Mono), 본문은 Noto Sans KR. 강조색은 주황 하나(#FF5A1F)만.</p></div>
+      <div><b>종이</b><p>미색 감열지 느낌(#EFE9DF)에 미세한 결. 인쇄는 백상지 120g 이상 미색, 또는 크래프트 대신 모조 미색지.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>인쇄 사양 <small>PRINT</small></h2>
+    <table class="keys"><tbody>
+      <tr><td>완성 크기</td><td>펼침 80 × 512 mm(쪽당 80 × 128 mm, 4쪽) · 접힘 80 × 128 mm · 재단 여백 사방 3 mm</td></tr>
+      <tr><td>접지</td><td>병풍(지그재그) 3번 접기. 1쪽 앞면이 표지, 4쪽은 위쪽에 미싱(점선 칼선)을 넣어 떼는 초대권</td></tr>
+      <tr><td>종이 · 색</td><td>미색 모조 120~150g · 먹 + 별색 주황 1도(또는 4도 M60 Y100), 바코드는 먹 100%</td></tr>
+      <tr><td>A4에서 뽑기</td><td>A4 세로(210 × 297)에 80 × 128 mm 쪽 두 개 × 두 줄이 들어가지 않으니, A3 세로로 펼침 한 줄(80 × 512)을 두 장 앉히거나 업체 긴 띠 인쇄를 쓴다. 사무실 시험 인쇄는 쪽을 A4 한 장에 4개 앉혀 오려 이어 붙인다.</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 영수증 장면만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣고 열면 됩니다. 발표 화면에서 '이렇게 접어 나눠 드립니다'를 보여 줄 때 쓰기 좋습니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code>만 바꾸면 됩니다: 가게 이름 · 제목 두 줄 · 머리 정보 · 차례 세 칸(번호 · 주제 · 한 줄 · 시간) · 준비물 · 품목 줄 · 합계 문장 · 초대권.</li>
+      <li>바코드는 초대권 <code>code</code> 글자로 막대가 정해집니다(같은 글자면 늘 같은 모양). 실제 스캔용은 아닙니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT · 한글로 옮기기 <small>LAYOUT</small></h2>
+    <ol class="steps">
+      <li>용지를 80 × 512 mm(사용자 지정)로 두고 128 mm마다 안내선 3개. 각 칸이 한 쪽입니다.</li>
+      <li>점선 구분선: 선 1pt, 대시 '둥근 점' 또는 '파선', 색 #8C867C.</li>
+      <li>주황 꼬리표: 사각형 채우기 #FF5A1F + 고정폭 글꼴(Consolas · IBM Plex Mono) 굵게.</li>
+      <li>초대권 위 반원 홈: 지름 2.5 mm 원을 5 mm 간격으로 놓고 배경색으로 채워 위쪽 가장자리에 반쯤 걸치게.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#EFE9DF"></span>#EFE9DF 종이 · <span class="sw" style="background:#141414"></span>#141414 먹 · <span class="sw" style="background:#FF5A1F"></span>#FF5A1F 주황 · <span class="sw" style="background:#8C867C"></span>#8C867C 점선</div>
+      <div><b>글꼴</b>Black Han Sans(제목) + IBM Plex Mono 500 · 600(영수증 글자) + Noto Sans KR 500(본문) · 모두 OFL</div>
+      <div><b>장면</b>접힘 → 한 쪽씩 세 번 펼침(1.1초, 카메라가 따라 내려감) → 초대권 떼기 + 전체 보기</div>
+      <div><b>난이도</b>인쇄 하(1도 + 먹) · HTML 중(3D 병풍 접기)</div>
+      <div><b>원본</b>사용자 제공 시안 이미지를 바탕으로 글 · 구조를 다듬어 새로 조판</div>
+      <div><b>트렌드</b>영수증 · 티켓 같은 일상 서식을 빌린 '영수증 디자인(receipt layout)' — 고정폭 글자 · 점선 · 바코드로 가볍고 재치 있게</div>
+    </div>
+  </section>
+</main>
+<script id="ps104-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다(가상 예시) ──
+  var DATA = {
+    store: 'DISCOVERY STORE',
+    title: ['연수', '주제'],
+    no: 'RECEIPT No. 001',
+    meta: [['DATE', '2026. 11. 09'], ['TIME', '10:00 – 17:00'], ['STORE', '○○교육연수원 2층'], ['CLERK', '연수 담당 001'], ['ITEMS', '3']],
+    foot: ['FOR A WIDER TOMORROW', 'DISCOVER MORE'],
+    items: [   // 번호 · 주제 · 한 줄 · 시간
+      ['01', '낯선 시선', '익숙한 장면을 다시 보다', '10:00'],
+      ['02', '작은 시도', '생각을 한 걸음 옮기다', '13:30'],
+      ['03', '새로운 연결', '흩어진 경험을 이어 가다', '15:30']
+    ],
+    bring: [['BRING', '필기구 · 내 수업 사진 1장'], ['PLACE', '2층 세미나실 · 점심 제공']],
+    lines: [['시선', '1'], ['시도', '1'], ['연결', '1'], ['익숙함 할인', '−100%']],
+    total: ['발견은', '계속됩니다'],
+    totalSub: ['SAME CURIOSITY', 'A BRIGHTER TOMORROW'],
+    coupon: { head: '다음 발견에 초대합니다', when: '2차 연수 · 2026. 12. 14(월)', code: '20261214-0001', thanks: 'THANK YOU · 영수증은 연수 자료집과 함께 보관하세요' }
+  };
+  var esc = function(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+  var rings = '<svg class="ps104-rings" viewBox="0 0 60 50"><circle cx="22" cy="28" r="15"/><circle cx="36" cy="20" r="15"/></svg>';
+  // 바코드: 코드 글자로 막대 폭을 정한다(같은 코드면 늘 같은 모양)
+  function barcode(code){ var h = '', x = 0, s = 0; for (var i = 0; i < code.length; i++) s = (s * 31 + code.charCodeAt(i)) >>> 0;
+    var bars = []; for (var j = 0; j < 58; j++){ s = (s * 1103515245 + 12345) >>> 0; bars.push(1 + (s >>> 16) % 3); }
+    bars.forEach(function(w, k){ if (k % 2 === 0) h += '<rect x="' + x + '" y="0" width="' + w + '" height="40"/>'; x += w + (k % 2 ? 1 : 0); });
+    return '<svg class="ps104-bar" viewBox="0 0 ' + x + ' 40" preserveAspectRatio="none">' + h + '</svg>'; }
+  var P = [
+    // 1. 표지
+    '<div class="h-store">' + esc(DATA.store) + '</div><hr>' +
+    '<h1>' + DATA.title.map(esc).join('<br>') + '</h1><div class="tag">' + esc(DATA.no) + '</div>' +
+    '<dl>' + DATA.meta.map(function(m){ return '<dt>' + esc(m[0]) + '</dt><dd>' + esc(m[1]) + '</dd>'; }).join('') + '</dl><hr>' +
+    '<div class="foot"><p>' + DATA.foot.map(esc).join('<br>') + '</p>' + rings + '</div>',
+    // 2. 차례
+    '<div class="th"><span>NO.</span><span>CONTENTS</span><span>TIME</span></div>' +
+    DATA.items.map(function(it){ return '<div class="it"><b>' + esc(it[0]) + '</b><div><h3>' + esc(it[1]) + '</h3><p>' + esc(it[2]) + '</p></div><i>' + esc(it[3]) + '</i></div>'; }).join('') +
+    '<div class="bring">' + DATA.bring.map(function(b){ return '<b>' + esc(b[0]) + '</b><span>' + esc(b[1]) + '</span>'; }).join('') + '</div>',
+    // 3. 합계
+    '<div class="th"><span>ITEM</span><span></span><span>QTY</span></div>' +
+    '<ul class="ln">' + DATA.lines.map(function(l){ return '<li><span>' + esc(l[0]) + '</span><em></em><span>' + esc(l[1]) + '</span></li>'; }).join('') + '</ul><hr>' +
+    '<div class="tot"><small>TOTAL</small>' + rings + '<h2>' + DATA.total.map(esc).join('<br>') + '</h2><p>' + DATA.totalSub.map(esc).join('<br>') + '</p></div>',
+    // 4. 떼는 쿠폰
+    '<div class="perf"></div><div class="cp"><small>INVITATION</small><h4>' + esc(DATA.coupon.head) + '</h4><p>' + esc(DATA.coupon.when) + '</p>' + barcode(DATA.coupon.code) +
+    '<div class="code">' + esc(DATA.coupon.code) + '</div><div class="h-store sm">' + esc(DATA.store) + '</div><div class="thx">' + esc(DATA.coupon.thanks) + '</div></div>'
+  ];
+  // 접힌 겹: 판 하나 안에 다음 판을 넣어 지그재그(병풍)로 접는다
+  function nest(i){ return '<div class="ps104-f f' + (i + 1) + '"><div class="face fr p' + (i + 1) + '">' + P[i] + '</div><div class="face bk"></div>' + (i < P.length - 1 ? nest(i + 1) : '') + '</div>'; }
+  var root = document.getElementById('ps104');
+  root.innerHTML = '<div class="ps104-in"><div class="ps104-world"><div class="ps104-copy"><div class="face fr p1">' + P[0] + '</div></div><div class="ps104-strip">' + nest(0) + '</div></div>' +
+    '<div class="ps104-cap"></div><div class="ps104-hint">클릭하여 펼치기</div><div class="ps104-dots"></div></div>';
+  var world = root.querySelector('.ps104-world'), cap = root.querySelector('.ps104-cap'), dotsEl = root.querySelector('.ps104-dots');
+  // ── 박자: 접힘 → 2 · 3 · 4쪽 펼침(카메라가 따라 내려감) → 쿠폰 떼기 + 전체 ──
+  var PW = 400, PH = 640, W = 1600, H = 900;
+  var STEPS = [
+    { open: 0, cam: [800, 330, 1.2], cap: '접힌 영수증 · 80 × 128 mm' },
+    { open: 1, cam: [800, 900, 1], cap: '한 번 펼치면 · 차례' },
+    { open: 2, cam: [800, 1540, 1], cap: '두 번 펼치면 · 합계' },
+    { open: 3, cam: [800, 2180, 1], cap: '끝까지 펼치면 · 떼는 초대권' },
+    { open: 4, cam: [200, 1290, .33], cap: '펼침 80 × 512 mm · 4쪽 병풍 접지' }
+  ];
+  dotsEl.innerHTML = STEPS.map(function(){ return '<i></i>'; }).join('');
+  var step = -1;
+  function go(k, instant){ k = Math.max(0, Math.min(STEPS.length - 1, k)); if (k === step) return; step = k;
+    var S = STEPS[k];
+    root.classList.toggle('instant', !!instant);
+    for (var i = 1; i <= 4; i++) root.classList.toggle('o' + i, S.open >= i);
+    root.classList.toggle('torn', S.open >= 4); root.classList.toggle('folded', S.open === 0);
+    var c = S.cam, s = c[2];
+    world.style.transform = 'translate(' + (W / 2 - c[0] * s) / W * 100 + 'cqw,' + (H / 2 - c[1] * s) / W * 100 + 'cqw) scale(' + s + ')';
+    cap.textContent = S.cap; root.querySelector('.ps104-hint').classList.toggle('on', k === 0);
+    [].forEach.call(dotsEl.children, function(d, j){ d.classList.toggle('on', j <= k); });
+    if (instant) requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.remove('instant'); }); });
+  }
+  root.addEventListener('click', function(){ go(step + 1 >= STEPS.length ? 0 : step + 1); });
+  document.addEventListener('keydown', function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '')) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); go(step + 1); }
+    else if (['ArrowLeft', 'PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(step - 1); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'f' || e.key === 'F'){ if (document.fullscreenElement) document.exitFullscreen(); else if (root.requestFullscreen) root.requestFullscreen(); }
+  });
+  window.ps104Go = function(k){ go(k, true); }; window.ps104Steps = STEPS.length;
+  go(0, true);
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps104-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps104-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+KR:wght@500&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + ".ps104{--ps104-grain:url(@@ASSET:e674527002.png@@)}" + '\n</style>\n\n<div class="ps104" id="ps104" role="application" aria-label="영수증 리플렛"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps104');
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps104Go(0); });
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+  document.getElementById('b-full').addEventListener('click', function(){ if (root.requestFullscreen) root.requestFullscreen(); });
+})();
+</script>
+</body></html>

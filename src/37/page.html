@@ -1,0 +1,1269 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #37 분광 프리즘</title>
+<style>/*@@FONTS@@*/</style>
+<style>
+/* 레이아웃: 맨 위 16:9 표지(밝은 스튜디오 + 유리 프리즘) → 아래로 장치·흐름·재현·스펙 문서. 밝은 단일 룩으로 고정 */
+:root{
+  --paper:#F5F7FA;      /* 페이지 바탕: 아주 옅은 청백 */
+  --ink:#16202B;        /* 제목·본문 먹색 */
+  --ink-2:#4A5866;      /* 보조 글자 */
+  --line:#D6DDE5;       /* 괘선 */
+  --card:#FFFFFF;
+  --violet:#6B3FD6;     /* 포인트(스펙트럼 끝 보라) */
+  --s-red:#E8343A; --s-orange:#F28A1E; --s-yellow:#F2C81B; --s-green:#2DB36B; --s-blue:#2C7BE5; --s-violet:#7B3FE0;
+  --f-display:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"JetBrains Mono","D2Coding",Consolas,monospace;
+  color-scheme:light;
+}
+html,body{background:var(--paper);color:var(--ink)}
+body{font-family:var(--f-body);line-height:1.65;padding-inline:16px;padding-block:24px 64px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:56px}
+
+/* ── 표지 ── */
+.cover{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:#EEF2F6;border-radius:6px;box-shadow:0 1px 0 #fff inset,0 18px 40px -24px rgba(22,32,43,.35)}
+.cover canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.c-txt{position:absolute;left:4cqw;top:4.2cqw;right:30cqw;pointer-events:none}
+.c-kicker{font-family:var(--f-mono);font-weight:700;font-size:1.05cqw;letter-spacing:.32em;color:#6B7886;margin:0 0 1.4cqw}
+.c-title{font-family:var(--f-display);font-weight:900;font-size:4.7cqw;line-height:1.13;letter-spacing:-.035em;color:#121A24;margin:0;text-wrap:balance}
+.c-sub{display:flex;align-items:center;gap:1.2cqw;font-weight:500;font-size:1.55cqw;line-height:1.45;color:#3A4754;margin:2cqw 0 0;letter-spacing:-.01em}
+.c-sub::before{content:"";flex:none;width:4.2cqw;height:1px;background:#8C97A3}
+.c-sub b{font-weight:700;color:#16202B}
+.c-foot{position:absolute;left:4cqw;top:27.5cqw;font-size:1.25cqw;font-weight:500;color:#4A5866;letter-spacing:.02em}
+.c-foot b{font-weight:700;color:#16202B;margin-right:.8cqw}
+.c-tag{position:absolute;right:2.2cqw;bottom:2cqw;font-size:.95cqw;color:#7A8796;letter-spacing:.04em}
+.c-label{position:absolute;transform:translateY(-50%);display:flex;align-items:center;gap:.8cqw;
+  font-weight:700;font-size:1.45cqw;color:#2E3B48;letter-spacing:-.01em;white-space:nowrap;cursor:pointer;pointer-events:auto;
+  background:none;border:0;padding:.2cqw .3cqw;font-family:var(--f-body);transition:opacity .25s}
+.c-label i{display:block;width:1.8cqw;height:1px;background:#8C97A3}
+.c-label:focus-visible{outline:2px solid #6B3FD6;outline-offset:2px}
+.cover.focus .c-label{opacity:.35}
+.cover.focus .c-label.on{opacity:1}
+.c-btn{font:500 13px/1 var(--f-body);color:#16202B;background:#fff;border:1px solid #C7D0DA;border-radius:6px;padding:8px 14px;cursor:pointer}
+.c-btn:focus-visible{outline:2px solid #6B3FD6;outline-offset:2px}
+.under{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin-top:12px}
+
+/* ── 문서 ── */
+h1.page{font-size:clamp(22px,3vw,30px);font-weight:900;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.lead{max-width:68ch;color:var(--ink-2);margin:6px 0 0}
+section h2{font-size:clamp(18px,2.2vw,22px);font-weight:900;letter-spacing:-.02em;margin:0 0 16px;display:flex;align-items:baseline;gap:10px;text-wrap:balance}
+section h2 small{font:700 12px/1 var(--f-mono);letter-spacing:.12em;color:var(--violet)}
+.devices{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.dev{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;min-width:0}
+.dev h3{margin:0 0 6px;font-size:17px;font-weight:900;letter-spacing:-.02em}
+.dev p{margin:0;color:var(--ink-2);font-size:14.5px}
+.dev .use{margin-top:10px;font-size:13.5px;color:var(--ink);border-top:1px dashed var(--line);padding-top:10px}
+.dev .use b{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;color:var(--violet);margin-right:6px}
+.spec-strip{height:6px;border-radius:3px;margin-bottom:14px;background:linear-gradient(90deg,#E8343A,#F28A1E,#F2C81B,#2DB36B,#2C7BE5,#7B3FE0)}
+.tbl-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:700 11.5px/1.4 var(--f-mono);letter-spacing:.08em;color:var(--ink-2);background:#F9FAFC}
+tr:last-child td{border-bottom:0}
+td .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.flow{margin-top:20px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;overflow-x:auto}
+.flow-row{display:grid;grid-template-columns:1fr auto 1fr auto 1.4fr auto 1fr;align-items:center;gap:10px;min-width:720px}
+.node{border:1px solid var(--line);border-radius:6px;padding:12px;font-size:13.5px;background:#FBFCFD}
+.node b{display:block;font-size:14.5px;margin-bottom:2px}
+.node small{font-family:var(--f-mono);font-size:11px;color:var(--ink-2);letter-spacing:.06em}
+.node.beam{background:#FFFDF6;border-color:#EADFB8}
+.node.prism{background:linear-gradient(160deg,#F2F7FB,#E3ECF4);border-color:#BFD0DF}
+.node.fan{display:grid;gap:4px;padding:10px}
+.node.fan span{display:flex;align-items:center;gap:8px;font-size:13px}
+.node.fan span i{width:22px;height:5px;border-radius:2px}
+.arrow{font-family:var(--f-mono);color:var(--ink-2)}
+.flow p{margin:14px 0 0;font-size:13.5px;color:var(--ink-2)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;min-width:0;font-size:14.5px}
+.box h3{margin:0 0 8px;font-size:15px;font-weight:900}
+.box ul{margin:0;padding-left:18px}
+.box li{margin:4px 0}
+.box a{color:#3A2AA8}
+.pal{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.pal span{display:flex;align-items:center;gap:6px;font:500 12px var(--f-mono)}
+.pal span i{width:18px;height:18px;border-radius:3px;border:1px solid rgba(0,0,0,.08)}
+@media (max-width:560px){ .under{font-size:12px} }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1 class="page">레퍼런스 #37 · 분광 프리즘</h1>
+    <p class="lead">실험형 표지. 계획 보고 발표에 과학 실험(뉴턴의 프리즘 분광)을 빌렸습니다. 한 줄기 흰 빛이 유리 프리즘을 지나 다섯 색으로 펼쳐지듯, 한 번의 돌봄 신청이 창구를 거쳐 다섯 갈래 서비스로 나뉩니다.</p>
+  </header>
+
+  <div>
+    <div class="cover" id="cover" role="img" aria-label="발표 표지: 흰 빛이 유리 프리즘을 지나 다섯 색 띠로 펼쳐지고, 각 띠에 의료·요양·주거·식사·마음돌봄 라벨이 붙어 있다.">
+      <canvas id="cv"></canvas>
+      <div class="c-txt">
+        <p class="c-kicker">2027 · 정책보고회</p>
+        <h2 class="c-title">통합돌봄 원스톱 창구<br>운영 계획(안)</h2>
+        <p class="c-sub"><span>한 번의 신청이 <b>다섯 갈래 맞춤 돌봄</b>으로</span></p>
+      </div>
+      <div id="labels"></div>
+      <div class="c-foot"><b>○○시 복지정책과</b>2026. 10.</div>
+      <div class="c-tag">가상 예시</div>
+    </div>
+    <div class="under"><button class="c-btn" id="replay" type="button">다시 비추기</button><span>라벨을 누르면 그 띠만 남습니다(HTML 전용). 그림은 모두 canvas 렌더링입니다.</span></div>
+  </div>
+
+  <section>
+    <h2><small>TAKE AWAY</small>가져갈 장치</h2>
+    <div class="devices">
+      <div class="dev"><div class="spec-strip"></div>
+        <h3>분광 목차</h3>
+        <p>흰 빛 한 줄기(핵심 정책)가 프리즘(실행 체계)을 지나 색 띠(세부 과제)로 펼쳐집니다. 표지 자체가 목차가 되고, 여기서 태어난 색이 이후 장의 색이 됩니다.</p>
+        <p class="use"><b>응용</b>‘하나의 브랜드 → 여러 서비스’, ‘한 예산 → 분야별 배분’ 표지에 그대로 씁니다.</p>
+      </div>
+      <div class="dev">
+        <h3>색이 태어나는 표지</h3>
+        <p>장 구분 색을 임의로 정하지 않고 스펙트럼 순서(빨강→보라)에서 꺼냅니다. 청중은 표지에서 본 띠 색만 보고도 지금 몇 번째 과제를 듣는지 압니다.</p>
+        <p class="use"><b>응용</b>안쪽 장표 왼쪽 가장자리에 해당 색 띠 하나만 남겨 장 표시로 씁니다.</p>
+      </div>
+      <div class="dev">
+        <h3>한 갈래만 비추기</h3>
+        <p>라벨을 누르면 그 색 띠만 남고 나머지는 흐려집니다. 질의응답 때 “요양 쪽은요?”라는 질문에 표지로 돌아가 그 갈래만 비춥니다.</p>
+        <p class="use"><b>응용</b>PPT에서는 띠별 투명도만 다른 복제 슬라이드 + 모핑으로 같은 효과를 냅니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><small>FLOW</small>흐름 설계 메모</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>계획안 구성</th><th>은유</th><th>안쪽 장표 아이디어</th></tr></thead>
+        <tbody>
+          <tr><td>추진 배경</td><td>흩어진 빛(창구가 여러 곳)</td><td>방향 없이 흩어진 가는 빛줄기 여러 개 → “신청 창구 7곳, 서류 반복 제출”</td></tr>
+          <tr><td>목적·방침</td><td>슬릿을 통과한 한 줄기 흰 빛</td><td>슬릿 판 하나만 크게. “신청은 한 번, 한 곳에서”</td></tr>
+          <tr><td>운영 체계(원스톱 창구)</td><td>유리 프리즘</td><td>프리즘 단면 안에 접수 → 사례 판정 → 연계의 3면을 표기</td></tr>
+          <tr><td>세부 과제 1~5</td><td><span class="sw" style="background:#E8343A"></span>빨강 의료 ~ <span class="sw" style="background:#7B3FE0"></span>보라 마음돌봄</td><td>장마다 해당 색 띠가 왼쪽에서 들어와 화면을 가로지름</td></tr>
+          <tr><td>추진 일정</td><td>빛이 스크린에 닿기까지의 거리</td><td>빛줄기 위에 분기 눈금을 새긴 가로 타임라인</td></tr>
+          <tr><td>기대 효과</td><td>스크린 위에 맺힌 온전한 스펙트럼</td><td>다섯 띠 너비 = 서비스별 연계 건수(띠 굵기 비교)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flow" aria-label="발표 흐름 도식">
+      <div class="flow-row">
+        <div class="node beam"><small>도입</small><b>흰 빛 한 줄기</b>배경·목적</div>
+        <span class="arrow">→</span>
+        <div class="node prism"><small>전개</small><b>프리즘</b>원스톱 창구 운영 체계</div>
+        <span class="arrow">→</span>
+        <div class="node fan">
+          <span><i style="background:#E8343A"></i>의료</span>
+          <span><i style="background:#F2C81B"></i>요양</span>
+          <span><i style="background:#2DB36B"></i>주거</span>
+          <span><i style="background:#2C7BE5"></i>식사</span>
+          <span><i style="background:#7B3FE0"></i>마음돌봄</span>
+        </div>
+        <span class="arrow">→</span>
+        <div class="node"><small>마무리</small><b>스크린</b>일정·기대 효과</div>
+      </div>
+      <p>발표는 빛이 지나는 순서대로 왼쪽에서 오른쪽으로만 흐릅니다. 세부 과제 장에서는 다섯 띠 중 하나만 이어 받고, 마무리에서 다섯 띠가 스크린 위에 다시 함께 맺힙니다.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><small>CHECK</small>재현 체크</h2>
+    <div class="cols">
+      <div class="box"><h3>빌린 대표 장치</h3>
+        <ul>
+          <li>슬릿 판: 흰 빛을 한 줄기로 모으는 검은 판</li>
+          <li>삼각 유리 프리즘: 투명 면, 밝은 모서리, 초록빛 유리 단면</li>
+          <li>분산 순서: 빨강이 가장 덜, 보라가 가장 많이 꺾임(빨강 위·보라 아래)</li>
+          <li>스크린 위 스펙트럼 띠</li>
+        </ul>
+      </div>
+      <div class="box"><h3>조사 출처</h3>
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/Minimum_deviation" target="_blank" rel="noopener">Wikipedia, Minimum deviation</a>: 60° 프리즘, n=1.5일 때 최소 편향 약 37°</li>
+          <li><a href="https://phys.libretexts.org/Bookshelves/Optics/Geometric_Optics_(Tatum)/01:_Reflection_and_Refraction/1.06:_Refraction_by_a_Prism" target="_blank" rel="noopener">LibreTexts, Refraction by a Prism</a></li>
+          <li>광선은 스넬 법칙으로 계산했고, 띠가 잘 보이도록 굴절률 차이만 실제보다 크게 잡았습니다(n 1.47~1.68).</li>
+        </ul>
+      </div>
+      <div class="box"><h3>이미지</h3>
+        <ul><li>사진 없음. 프리즘·슬릿 판·스크린은 모두 canvas로 그렸습니다(좌측 광원, 반투명 유리 면, 그림자).</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><small>SPEC</small>스펙</h2>
+    <div class="cols">
+      <div class="box"><h3>팔레트</h3>
+        <div class="pal">
+          <span><i style="background:#EEF2F6"></i>#EEF2F6</span>
+          <span><i style="background:#16202B"></i>#16202B</span>
+          <span><i style="background:#E8343A"></i>#E8343A</span>
+          <span><i style="background:#F2C81B"></i>#F2C81B</span>
+          <span><i style="background:#2DB36B"></i>#2DB36B</span>
+          <span><i style="background:#7B3FE0"></i>#7B3FE0</span>
+        </div>
+        <p style="margin:10px 0 0;color:var(--ink-2);font-size:13.5px">밝은 청백 스튜디오 바탕. 채도 높은 색은 빛 띠에만 씁니다.</p>
+      </div>
+      <div class="box"><h3>폰트</h3>
+        <ul><li>Noto Sans KR 900/700/500 (대체: Apple SD Gothic Neo, 맑은 고딕)</li><li>JetBrains Mono 700 (대체: D2Coding, Consolas)</li></ul>
+      </div>
+      <div class="box"><h3>PPT 이식</h3>
+        <ul>
+          <li>프리즘: 이등변 삼각형 2개 + 사다리꼴 1개, 채우기 투명도 70~80%, 흰 윤곽 3pt, 아랫변만 연한 초록 윤곽</li>
+          <li>빛줄기: 자유형 삼각형 다섯 개, 그라데이션 채우기(프리즘 쪽 투명 90% → 스크린 쪽 20%)</li>
+          <li>흰 빛: 흰 선 6pt + 노란 ‘네온’ 효과 8pt</li>
+          <li>등장: 흰 빛 ‘닦아내기(왼쪽에서)’ 0.6초 → 띠 묶음 ‘확대/축소’ 0.8초 ‘이전 효과 다음에’</li>
+        </ul>
+      </div>
+      <div class="box"><h3>난이도 · 트렌드</h3>
+        <ul>
+          <li>난이도: 중 (HTML은 canvas 계산, PPT는 도형 근사로 30분 내)</li>
+          <li>반영 트렌드: Halo Effect 마이크로트렌드(빛 번짐·부드러운 후광·무지갯빛 색) + 하이퍼리얼 오브젝트 — <a href="https://www.adobe.com/express/learn/blog/microtrends-halo-effect" target="_blank" rel="noopener">Adobe Express, Microtrends: Halo Effect</a>, <a href="https://www.adobe.com/express/learn/blog/graphic-design-trends-2026" target="_blank" rel="noopener">Adobe Express, Graphic design trends 2026</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  // ── 데이터: 띠 라벨(파장 nm 기준 위치) ──
+  // f = 스크린에 맺힌 띠 높이 비율(0 위 빨강 ~ 1 아래 보라). 띠를 고르게 나눠 라벨이 겹치지 않게
+  const BANDS = [
+    { name: '의료',     f: .08 },
+    { name: '요양',     f: .29 },
+    { name: '주거',     f: .50 },
+    { name: '식사',     f: .71 },
+    { name: '마음돌봄', f: .92 },
+  ];
+  const W = 1600, H = 900;                       // 논리 좌표
+  const cover = document.getElementById('cover');
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  const labelBox = document.getElementById('labels');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 프리즘 앞면 삼각형과 깊이(뒤로 물러나는 방향)
+  const A = [860, 372], B = [700, 650], C = [1020, 650];
+  const D = [62, -40];
+  const SLIT = { x: 250, y: 0 };                 // y는 계산
+  const SCREEN_X = 1180;                          // 스크린 앞면 왼쪽 선
+
+  // 파장 → 굴절률(시각용 과장), 파장 → RGB
+  const nOf = nm => 1.47 + 0.21 * (700 - nm) / 300;
+  function rgbOf(nm) {
+    let r = 0, g = 0, b = 0;
+    if (nm < 440) { r = (440 - nm) / 60; b = 1; }
+    else if (nm < 490) { g = (nm - 440) / 50; b = 1; }
+    else if (nm < 510) { g = 1; b = (510 - nm) / 20; }
+    else if (nm < 580) { r = (nm - 510) / 70; g = 1; }
+    else if (nm < 645) { r = 1; g = (645 - nm) / 65; }
+    else { r = 1; }
+    const f = nm > 680 ? .75 + .25 * (700 - nm) / 20 : nm < 420 ? .6 + .4 * (nm - 380) / 40 : 1;
+    if (r < .35 && b < .35) g *= .82;              // 형광 초록을 조금 눌러 줌
+    const k = v => Math.round(255 * Math.pow(Math.min(1, v * f), .8));
+    return [k(r), k(g), k(b)];
+  }
+
+  // 벡터 도우미
+  const sub = (p, q) => [p[0] - q[0], p[1] - q[1]];
+  const norm = v => { const l = Math.hypot(v[0], v[1]); return [v[0] / l, v[1] / l]; };
+  const dot = (a, b) => a[0] * b[0] + a[1] * b[1];
+  function refract(d, n, eta) {                  // n: 입사 쪽을 향한 법선
+    const c = -dot(n, d), k = 1 - eta * eta * (1 - c * c);
+    if (k < 0) return null;
+    const t = eta * c - Math.sqrt(k);
+    return norm([eta * d[0] + t * n[0], eta * d[1] + t * n[1]]);
+  }
+  function hitSeg(p, d, a, b) {                  // 광선 p + s·d 와 선분 ab
+    const e = sub(b, a), den = d[0] * e[1] - d[1] * e[0];
+    if (Math.abs(den) < 1e-9) return null;
+    const w = sub(a, p);
+    const s = (w[0] * e[1] - w[1] * e[0]) / den, u = (w[0] * d[1] - w[1] * d[0]) / den;
+    return (s > 0 && u >= 0 && u <= 1) ? [p[0] + s * d[0], p[1] + s * d[1]] : null;
+  }
+
+  // 입사 지점과 방향(최소 편향 근처)
+  const P = [B[0] + .52 * (A[0] - B[0]), B[1] + .52 * (A[1] - B[1])];
+  const inAng = -17 * Math.PI / 180;
+  const dIn = [Math.cos(inAng), Math.sin(inAng)];
+  SLIT.y = P[1] + (SLIT.x - P[0]) * Math.tan(inAng) * -1 * -1;
+  SLIT.y = P[1] - (P[0] - SLIT.x) * Math.tan(inAng);
+  const nLeft = norm([-(A[1] - B[1]), A[0] - B[0]]);           // 바깥 법선 후보
+  const nL = dot(nLeft, dIn) < 0 ? nLeft : [-nLeft[0], -nLeft[1]];
+  const nRight0 = norm([-(C[1] - A[1]), C[0] - A[0]]);
+
+  function trace(nm) {
+    const n = nOf(nm);
+    const d1 = refract(dIn, nL, 1 / n);
+    const Q = hitSeg(P, d1, A, C);
+    let nR = dot(nRight0, d1) > 0 ? [-nRight0[0], -nRight0[1]] : nRight0;   // 안쪽(입사 쪽)을 향하도록
+    const d2 = refract(d1, nR, n);
+    const s = (SCREEN_X - Q[0]) / d2[0];
+    return { Q, d1, d2, S: [SCREEN_X, Q[1] + s * d2[1]] };
+  }
+  const NMS = []; for (let nm = 700; nm >= 400; nm -= 4) NMS.push(nm);
+  const RAYS = NMS.map(nm => ({ nm, ...trace(nm), rgb: rgbOf(nm) }));
+  const topY = RAYS[0].S[1], botY = RAYS[RAYS.length - 1].S[1];
+
+  // 스크린 카드(약간 비스듬히 선 흰 판)
+  const scr = { x0: SCREEN_X, x1: SCREEN_X + 96, top0: topY - 64, bot0: botY + 46, skew: -26 };
+
+  let focus = -1;   // 강조 띠 index
+
+  function resize() {
+    const r = cover.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+    ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+    draw(1);
+  }
+
+  function rgba(c, a) { return `rgba(${c[0]},${c[1]},${c[2]},${a})`; }
+  function bandAlpha(nm) {
+    if (focus < 0) return 1;
+    const r = RAYS.find(x => x.nm === nm), y = BANDS[focus].y;
+    return Math.abs(r.S[1] - y) <= (botY - topY) * .1 ? 1 : .12;
+  }
+
+  function draw(t) {
+    // t: 0~1 (0~.35 흰 빛 진입, .35~1 분광 펼침)
+    const tBeam = Math.min(1, t / .35), tFan = Math.max(0, (t - .35) / .65);
+    ctx.clearRect(0, 0, W, H);
+
+    // 바탕: 밝은 스튜디오 스윕
+    let g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#F8FAFC'); g.addColorStop(.55, '#EEF2F6'); g.addColorStop(1, '#DFE5EC');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    // 바닥 경계의 아주 옅은 반사광
+    g = ctx.createLinearGradient(0, 600, 0, 760);
+    g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(.5, 'rgba(255,255,255,.55)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 600, W, 160);
+
+    drawRail();
+    drawShadows(tFan);
+    drawTable();
+    drawSlit();
+    carrier(SLIT.x + 6);
+    drawScreenMount();
+    drawScreenBack();
+
+    // 흰 빛(슬릿 → 입사점)
+    const ex = SLIT.x + (P[0] - SLIT.x) * tBeam, ey = SLIT.y + (P[1] - SLIT.y) * tBeam;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = 'rgba(255,214,120,.35)'; ctx.lineWidth = 26; ctx.filter = 'blur(8px)';
+    ctx.beginPath(); ctx.moveTo(SLIT.x, SLIT.y); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.filter = 'none';
+    ctx.strokeStyle = 'rgba(205,170,90,.45)'; ctx.lineWidth = 11;
+    ctx.beginPath(); ctx.moveTo(SLIT.x, SLIT.y); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 7;
+    ctx.beginPath(); ctx.moveTo(SLIT.x, SLIT.y); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.restore();
+
+    // 분광 띠(출사점 → 스크린)
+    if (tFan > 0) {
+      ctx.save();
+      for (let i = 0; i < RAYS.length - 1; i++) {
+        const r0 = RAYS[i], r1 = RAYS[i + 1];
+        const a = bandAlpha(r0.nm);
+        const len = tFan;
+        const e0 = [r0.Q[0] + (r0.S[0] - r0.Q[0]) * len, r0.Q[1] + (r0.S[1] - r0.Q[1]) * len];
+        const e1 = [r1.Q[0] + (r1.S[0] - r1.Q[0]) * len, r1.Q[1] + (r1.S[1] - r1.Q[1]) * len];
+        const lg = ctx.createLinearGradient(r0.Q[0], 0, SCREEN_X, 0);
+        lg.addColorStop(0, rgba(r0.rgb, .1 * a)); lg.addColorStop(1, rgba(r0.rgb, .5 * a));
+        ctx.fillStyle = lg;
+        ctx.beginPath(); ctx.moveTo(r0.Q[0], r0.Q[1]); ctx.lineTo(e0[0], e0[1]); ctx.lineTo(e1[0], e1[1] + .6); ctx.lineTo(r1.Q[0], r1.Q[1] + .6); ctx.closePath(); ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    drawPrism(tBeam, tFan);
+    drawScreenFront(tFan);
+  }
+
+  function drawShadows(tFan) {
+    // 프리즘 접지 그림자 (광원이 왼쪽 → 오른쪽으로 늘어짐)
+    ctx.save();
+    ctx.filter = 'blur(14px)';
+    ctx.fillStyle = 'rgba(40,55,75,.22)';
+    ctx.beginPath(); ctx.moveTo(B[0] + 6, B[1] + 2); ctx.lineTo(C[0] + D[0] + 120, C[1] + D[1] + 22); ctx.lineTo(C[0] + 70, C[1] + 26); ctx.lineTo(B[0] + 20, B[1] + 14); ctx.closePath(); ctx.fill();
+    ctx.filter = 'blur(4px)';
+    ctx.fillStyle = 'rgba(30,40,55,.35)';
+    ctx.fillRect(B[0] + 4, B[1] - 2, C[0] - B[0] - 8, 6);
+    // 바닥 위 무지개 캐스틱
+    if (tFan > 0) {
+      ctx.filter = 'blur(16px)';
+      const cg = ctx.createLinearGradient(C[0] - 20, 0, C[0] + 190, 0);
+      cg.addColorStop(0, `rgba(242,138,30,${.0})`); cg.addColorStop(.3, `rgba(242,200,27,${.16 * tFan})`);
+      cg.addColorStop(.6, `rgba(45,179,107,${.1 * tFan})`); cg.addColorStop(1, `rgba(123,63,224,0)`);
+      ctx.fillStyle = cg;
+      ctx.beginPath(); ctx.ellipse(C[0] + 90, C[1] + 16, 110, 12, 0, 0, Math.PI * 2); ctx.fill();
+    }
+    // 스크린 그림자
+    ctx.filter = 'blur(12px)';
+    ctx.fillStyle = 'rgba(40,55,75,.2)';
+    ctx.beginPath(); ctx.moveTo(scr.x0, scr.bot0); ctx.lineTo(scr.x1 + 40, scr.bot0 + scr.skew + 6); ctx.lineTo(scr.x1 + 150, scr.bot0 + scr.skew + 28); ctx.lineTo(scr.x0 + 60, scr.bot0 + 22); ctx.closePath(); ctx.fill();
+    // 슬릿 판 그림자
+    ctx.fillStyle = 'rgba(40,55,75,.25)';
+    ctx.beginPath(); ctx.ellipse(SLIT.x + 40, SLIT.y + 118, 70, 10, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+
+  // ── 광학대: 눈금 레일 · 이동 받침 · 프리즘 테이블 · 스크린 집게 ──
+  const RAIL = { x0: 110, x1: 1530, y: 800, h: 30, dx: 14, dy: -12 };
+  function drawRail() {
+    const r = RAIL;
+    ctx.save();
+    // 레일 그림자
+    ctx.filter = 'blur(10px)'; ctx.fillStyle = 'rgba(30,45,60,.18)';
+    ctx.fillRect(r.x0 + 10, r.y + r.h - 2, r.x1 - r.x0, 14); ctx.filter = 'none';
+    // 윗면(양극산화 알루미늄)
+    let g = ctx.createLinearGradient(0, r.y + r.dy, 0, r.y);
+    g.addColorStop(0, '#E9EDF1'); g.addColorStop(1, '#C9D0D8');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.moveTo(r.x0, r.y); ctx.lineTo(r.x0 + r.dx, r.y + r.dy); ctx.lineTo(r.x1 + r.dx, r.y + r.dy); ctx.lineTo(r.x1, r.y); ctx.closePath(); ctx.fill();
+    // 윗면 가운데 홈
+    ctx.fillStyle = 'rgba(90,105,120,.35)';
+    ctx.fillRect(r.x0 + 8, r.y + r.dy / 2 - 1, r.x1 - r.x0, 2);
+    // 앞면
+    g = ctx.createLinearGradient(0, r.y, 0, r.y + r.h);
+    g.addColorStop(0, '#B7C0CA'); g.addColorStop(.18, '#DCE1E6'); g.addColorStop(1, '#A6B0BB');
+    ctx.fillStyle = g; ctx.fillRect(r.x0, r.y, r.x1 - r.x0, r.h);
+    // 오른쪽 끝면
+    ctx.fillStyle = '#8E99A5';
+    ctx.beginPath(); ctx.moveTo(r.x1, r.y); ctx.lineTo(r.x1 + r.dx, r.y + r.dy); ctx.lineTo(r.x1 + r.dx, r.y + r.dy + r.h); ctx.lineTo(r.x1, r.y + r.h); ctx.closePath(); ctx.fill();
+    // 각인 눈금(mm)
+    ctx.strokeStyle = 'rgba(40,52,64,.55)'; ctx.fillStyle = 'rgba(40,52,64,.6)';
+    ctx.font = '500 11px "JetBrains Mono", Consolas, monospace'; ctx.textAlign = 'center';
+    for (let mm = 0; mm <= 1400; mm += 10) {
+      const x = r.x0 + 10 + mm; if (x > r.x1 - 6) break;
+      const big = mm % 100 === 0, mid = mm % 50 === 0;
+      ctx.lineWidth = big ? 1.2 : .8;
+      ctx.beginPath(); ctx.moveTo(x, r.y + 1); ctx.lineTo(x, r.y + (big ? 11 : mid ? 8 : 5)); ctx.stroke();
+      if (big && mm) ctx.fillText(String(mm), x, r.y + 24);
+    }
+    ctx.restore();
+  }
+  function knurl(cx, cy, rw, h) {                  // 손잡이 나사: 세로 결 무늬가 있는 짧은 원통
+    let g = ctx.createLinearGradient(cx - rw, 0, cx + rw, 0);
+    g.addColorStop(0, '#3B444E'); g.addColorStop(.35, '#9AA4AF'); g.addColorStop(.55, '#6D7782'); g.addColorStop(1, '#2C333B');
+    ctx.fillStyle = g; ctx.fillRect(cx - rw, cy - h / 2, rw * 2, h);
+    ctx.strokeStyle = 'rgba(20,26,32,.45)'; ctx.lineWidth = 1;
+    for (let k = -rw + 3; k < rw; k += 3) { ctx.beginPath(); ctx.moveTo(cx + k, cy - h / 2 + 1); ctx.lineTo(cx + k, cy + h / 2 - 1); ctx.stroke(); }
+    ctx.fillStyle = '#B9C2CC'; ctx.beginPath(); ctx.ellipse(cx, cy - h / 2, rw, 3, 0, 0, Math.PI * 2); ctx.fill();
+  }
+  function carrier(cx) {                            // 레일 위 이동 받침(라이더)
+    const w = 128, y0 = RAIL.y - 26, y1 = RAIL.y + 8, dx = 12, dy = -10;
+    ctx.save();
+    ctx.fillStyle = '#AAB3BD';
+    ctx.beginPath(); ctx.moveTo(cx - w / 2, y0); ctx.lineTo(cx - w / 2 + dx, y0 + dy); ctx.lineTo(cx + w / 2 + dx, y0 + dy); ctx.lineTo(cx + w / 2, y0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#7F8A96';
+    ctx.beginPath(); ctx.moveTo(cx + w / 2, y0); ctx.lineTo(cx + w / 2 + dx, y0 + dy); ctx.lineTo(cx + w / 2 + dx, y1 + dy); ctx.lineTo(cx + w / 2, y1); ctx.closePath(); ctx.fill();
+    const g = ctx.createLinearGradient(0, y0, 0, y1);
+    g.addColorStop(0, '#E4E8EC'); g.addColorStop(1, '#AEB7C1');
+    ctx.fillStyle = g; ctx.fillRect(cx - w / 2, y0, w, y1 - y0);
+    ctx.strokeStyle = 'rgba(60,72,84,.35)'; ctx.lineWidth = 1; ctx.strokeRect(cx - w / 2 + .5, y0 + .5, w - 1, y1 - y0 - 1);
+    // 위치 지시선(레일 눈금을 가리키는 작은 화살)
+    ctx.fillStyle = '#C8452E';
+    ctx.beginPath(); ctx.moveTo(cx - 4, y1); ctx.lineTo(cx + 4, y1); ctx.lineTo(cx, y1 + 6); ctx.closePath(); ctx.fill();
+    // 고정 나사
+    knurl(cx + w / 2 - 18, (y0 + y1) / 2, 9, 16);
+    ctx.restore();
+  }
+  function post(cx, yTop, yBot, rw) {               // 받침 기둥(원통)
+    const g = ctx.createLinearGradient(cx - rw, 0, cx + rw, 0);
+    g.addColorStop(0, '#7C8792'); g.addColorStop(.38, '#F1F4F7'); g.addColorStop(.62, '#BAC3CC'); g.addColorStop(1, '#6E7884');
+    ctx.fillStyle = g; ctx.fillRect(cx - rw, yTop, rw * 2, yBot - yTop);
+  }
+  const TBL = { cx: 893, cy: 632, rx: 236, ry: 42, t: 12 };
+  function drawTable() {                            // 각도 눈금이 있는 프리즘 테이블
+    const t = TBL;
+    ctx.save();
+    post(t.cx, t.cy + t.ry + t.t - 4, RAIL.y - 24, 15);
+    carrier(t.cx);
+    // 테이블 두께
+    let g = ctx.createLinearGradient(t.cx - t.rx, 0, t.cx + t.rx, 0);
+    g.addColorStop(0, '#8D98A4'); g.addColorStop(.4, '#D3D9DF'); g.addColorStop(1, '#7E8994');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.ellipse(t.cx, t.cy + t.t, t.rx, t.ry, 0, 0, Math.PI); ctx.lineTo(t.cx - t.rx, t.cy); ctx.ellipse(t.cx, t.cy, t.rx, t.ry, 0, Math.PI, 0, true); ctx.closePath(); ctx.fill();
+    // 윗면
+    g = ctx.createLinearGradient(0, t.cy - t.ry, 0, t.cy + t.ry);
+    g.addColorStop(0, '#F3F5F8'); g.addColorStop(1, '#D7DDE3');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(t.cx, t.cy, t.rx, t.ry, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(80,95,110,.3)'; ctx.lineWidth = 1; ctx.stroke();
+    // 테두리 각도 눈금(앞쪽 반원)
+    ctx.strokeStyle = 'rgba(40,52,64,.5)';
+    for (let d = 0; d <= 180; d += 5) {
+      const a = d * Math.PI / 180, big = d % 30 === 0;
+      const x = t.cx + Math.cos(a) * t.rx, y = t.cy + Math.sin(a) * t.ry;
+      const k = big ? .9 : .95;
+      ctx.lineWidth = big ? 1.2 : .7;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(t.cx + Math.cos(a) * t.rx * k, t.cy + Math.sin(a) * t.ry * k); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function drawScreenMount() {                      // 스크린 받침 기둥 + 받침
+    const cx = (scr.x0 + scr.x1) / 2, yb = scr.bot0 + scr.skew / 2;
+    post(cx, yb - 4, RAIL.y - 24, 11);
+    carrier(cx);
+  }
+
+  function drawSlit() {
+    // 검은 슬릿 판: 앞면 + 두께 + 받침
+    const x = SLIT.x - 16, y0 = SLIT.y - 130, y1 = SLIT.y + 112, w = 16, dx = 22, dy = -14;
+    ctx.save();
+    let g;
+    // 옆면(빛 받는 쪽은 바깥이므로 오른쪽 옆면 어둡게)
+    ctx.fillStyle = '#1C2127';
+    ctx.beginPath(); ctx.moveTo(x + w, y0); ctx.lineTo(x + w + dx, y0 + dy); ctx.lineTo(x + w + dx, y1 + dy); ctx.lineTo(x + w, y1); ctx.closePath(); ctx.fill();
+    // 윗면
+    ctx.fillStyle = '#6B7682';
+    ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x + dx, y0 + dy); ctx.lineTo(x + w + dx, y0 + dy); ctx.lineTo(x + w, y0); ctx.closePath(); ctx.fill();
+    // 앞면
+    g = ctx.createLinearGradient(x, 0, x + w, 0);
+    g.addColorStop(0, '#46505B'); g.addColorStop(1, '#2E363F');
+    ctx.fillStyle = g; ctx.fillRect(x, y0, w, y1 - y0);
+    ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fillRect(x, y0, 2, y1 - y0);
+    // 슬릿 폭 조절 나사(위)와 눈금
+    knurl(x + w / 2 + dx / 2, y0 + dy / 2 - 16, 13, 18);
+    ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1;
+    for (let k = 0; k < 6; k++) { ctx.beginPath(); ctx.moveTo(x + 3, SLIT.y - 40 - k * 9); ctx.lineTo(x + (k % 5 ? 7 : 11), SLIT.y - 40 - k * 9); ctx.stroke(); }
+    // 슬릿(빛나는 틈)
+    ctx.shadowColor = 'rgba(255,220,140,.9)'; ctx.shadowBlur = 18;
+    ctx.fillStyle = '#FFFBEA';
+    ctx.fillRect(x + w - 2, SLIT.y - 5, dx * .7 + 2, 10);
+    ctx.restore();
+  }
+
+  function drawPrism(tBeam, tFan) {
+    const A2 = [A[0] + D[0], A[1] + D[1]], B2 = [B[0] + D[0], B[1] + D[1]], C2 = [C[0] + D[0], C[1] + D[1]];
+    const poly = (pts) => { ctx.beginPath(); ctx.moveTo(...pts[0]); for (let i = 1; i < pts.length; i++) ctx.lineTo(...pts[i]); ctx.closePath(); };
+    ctx.save();
+    // 뒷면(유리 통해 보임)
+    poly([A2, B2, C2]); ctx.fillStyle = 'rgba(200,218,232,.10)'; ctx.fill();
+    // 오른쪽 경사면 (A-C-C2-A2)
+    let g = ctx.createLinearGradient(A[0], A[1], C2[0], C2[1]);
+    g.addColorStop(0, 'rgba(250,253,255,.7)'); g.addColorStop(.45, 'rgba(160,196,214,.5)'); g.addColorStop(1, 'rgba(112,156,180,.6)');
+    poly([A, C, C2, A2]); ctx.fillStyle = g; ctx.fill();
+    // 앞면
+    g = ctx.createLinearGradient(B[0], A[1], C[0], C[1]);
+    g.addColorStop(0, 'rgba(235,245,252,.42)'); g.addColorStop(.6, 'rgba(196,218,232,.30)'); g.addColorStop(1, 'rgba(160,192,212,.40)');
+    poly([A, B, C]); ctx.fillStyle = g; ctx.fill();
+
+    // 유리 안의 빛(입사점 → 출사점), 살짝 무지갯빛
+    if (tBeam >= 1) {
+      const k = tFan > 0 ? 1 : 0;
+      ctx.save(); poly([A, B, C]); ctx.clip();
+      for (const r of RAYS) {
+        if (r.nm % 12) continue;
+        ctx.strokeStyle = rgba(r.rgb, .22 * Math.max(k, .4) * bandAlpha(r.nm));
+        ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.moveTo(P[0], P[1]); ctx.lineTo(r.Q[0], r.Q[1]); ctx.stroke();
+      }
+      ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = 4;
+      const mid = RAYS[Math.floor(RAYS.length / 2)];
+      ctx.beginPath(); ctx.moveTo(P[0], P[1]); ctx.lineTo(mid.Q[0], mid.Q[1]); ctx.stroke();
+      ctx.restore();
+      // 입사·출사점 번쩍임
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      let rg = ctx.createRadialGradient(P[0], P[1], 0, P[0], P[1], 20);
+      rg.addColorStop(0, 'rgba(255,250,230,.55)'); rg.addColorStop(1, 'rgba(255,250,230,0)');
+      ctx.fillStyle = rg; ctx.fillRect(P[0] - 40, P[1] - 40, 80, 80);
+      ctx.restore();
+    }
+
+    // 뒷 모서리(옅게)
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'rgba(110,140,165,.2)'; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(...A2); ctx.lineTo(...B2); ctx.lineTo(...C2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(...B); ctx.lineTo(...B2); ctx.stroke();
+    // 바닥 유리 단면(초록빛 두께)
+    ctx.strokeStyle = 'rgba(90,160,140,.55)'; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.moveTo(B[0] + 3, B[1] - 2); ctx.lineTo(C[0] - 3, C[1] - 2); ctx.lineTo(C2[0] - 2, C2[1] - 2); ctx.stroke();
+    // 윤곽(어두운 선)
+    ctx.strokeStyle = 'rgba(70,95,120,.55)'; ctx.lineWidth = 1.6;
+    poly([A, B, C]); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(...A); ctx.lineTo(...A2); ctx.lineTo(...C2); ctx.lineTo(...C); ctx.stroke();
+    // 하이라이트(밝은 모서리)
+    ctx.strokeStyle = 'rgba(255,255,255,.95)'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(B[0] + 5, B[1] - 6); ctx.lineTo(A[0], A[1] + 6); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(A[0] + 2, A[1] - 1); ctx.lineTo(A2[0] - 2, A2[1] + 1); ctx.stroke();
+    // 왼쪽 면 안쪽 반사띠
+    g = ctx.createLinearGradient(B[0], B[1], B[0] + 60, B[1] - 20);
+    g.addColorStop(0, 'rgba(255,255,255,.55)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    poly([[A[0], A[1] + 18], [B[0] + 16, B[1] - 8], [B[0] + 50, B[1] - 8], [A[0] + 6, A[1] + 50]]); ctx.fill();
+    // 오른쪽 면 세로 광택
+    g = ctx.createLinearGradient(A[0] + 20, 0, A[0] + 90, 0);
+    g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(.5, 'rgba(255,255,255,.45)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    poly([[A[0] + 30, A[1] + 30], [A[0] + 52, A[1] + 16], [A[0] + 150, A[1] + 186], [A[0] + 128, A[1] + 200]]); ctx.fill();
+    ctx.restore();
+  }
+
+  function scrQuad() {
+    const s = scr;
+    return [[s.x0, s.top0], [s.x1, s.top0 + s.skew], [s.x1, s.bot0 + s.skew], [s.x0, s.bot0]];
+  }
+  function drawScreenBack() {
+    // 스크린 두께(왼쪽 옆면) — 앞면보다 먼저
+    const q = scrQuad();
+    ctx.save();
+    ctx.fillStyle = '#C9D2DC';
+    ctx.beginPath(); ctx.moveTo(q[0][0], q[0][1]); ctx.lineTo(q[0][0] - 10, q[0][1] + 6); ctx.lineTo(q[3][0] - 10, q[3][1] + 6); ctx.lineTo(q[3][0], q[3][1]); ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function drawScreenFront(tFan) {
+    const q = scrQuad();
+    ctx.save();
+    let g = ctx.createLinearGradient(q[0][0], 0, q[1][0], 0);
+    g.addColorStop(0, '#FFFFFF'); g.addColorStop(1, '#F1F4F8');
+    ctx.fillStyle = g;
+    ctx.beginPath(); q.forEach((p, i) => i ? ctx.lineTo(...p) : ctx.moveTo(...p)); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(120,140,160,.35)'; ctx.lineWidth = 1.2; ctx.stroke();
+    // 스크린 위에 맺힌 스펙트럼(판의 기울기를 따라)
+    if (tFan >= .98) {
+      ctx.save();
+      ctx.beginPath(); q.forEach((p, i) => i ? ctx.lineTo(...p) : ctx.moveTo(...p)); ctx.closePath(); ctx.clip();
+      const sl = scr.skew / (scr.x1 - scr.x0);
+      for (let i = 0; i < RAYS.length - 1; i++) {
+        const r0 = RAYS[i], r1 = RAYS[i + 1], a = bandAlpha(r0.nm);
+        const w = 74;
+        const lg = ctx.createLinearGradient(SCREEN_X, 0, SCREEN_X + w, 0);
+        lg.addColorStop(0, rgba(r0.rgb, .95 * a)); lg.addColorStop(1, rgba(r0.rgb, .35 * a));
+        ctx.fillStyle = lg;
+        ctx.beginPath();
+        ctx.moveTo(SCREEN_X, r0.S[1]); ctx.lineTo(SCREEN_X + w, r0.S[1] + sl * w);
+        ctx.lineTo(SCREEN_X + w, r1.S[1] + sl * w + .8); ctx.lineTo(SCREEN_X, r1.S[1] + .8); ctx.closePath(); ctx.fill();
+      }
+      // 맺힌 빛의 번짐
+      ctx.globalCompositeOperation = 'screen';
+      ctx.filter = 'blur(10px)';
+      for (let i = 0; i < RAYS.length; i += 6) {
+        const r = RAYS[i];
+        ctx.fillStyle = rgba(r.rgb, .12 * bandAlpha(r.nm));
+        ctx.beginPath(); ctx.ellipse(SCREEN_X + 20, r.S[1], 30, 8, 0, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+    }
+    // 카드 홀더(아래 홈 받침)와 위 집게
+    ctx.fillStyle = '#8E99A5';
+    ctx.beginPath(); ctx.moveTo(q[3][0] - 6, q[3][1] - 8); ctx.lineTo(q[2][0] + 6, q[2][1] - 8); ctx.lineTo(q[2][0] + 6, q[2][1] + 4); ctx.lineTo(q[3][0] - 6, q[3][1] + 4); ctx.closePath(); ctx.fill();
+    const mx = (q[0][0] + q[1][0]) / 2, my = (q[0][1] + q[1][1]) / 2;
+    ctx.fillStyle = '#2B3138'; ctx.fillRect(mx - 16, my - 6, 32, 16);
+    ctx.strokeStyle = '#8E99A5'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(mx - 10, my - 6); ctx.lineTo(mx - 6, my - 22); ctx.lineTo(mx + 6, my - 22); ctx.lineTo(mx + 10, my - 6); ctx.stroke();
+    ctx.restore();
+  }
+
+  // ── 라벨: 스크린 오른쪽, 해당 파장 높이 ──
+  function rayAtY(y) {
+    let best = RAYS[0];
+    for (const r of RAYS) if (Math.abs(r.S[1] - y) < Math.abs(best.S[1] - y)) best = r;
+    return best;
+  }
+  const labelEls = BANDS.map((b, i) => {
+    const el = document.createElement('button');
+    el.type = 'button'; el.className = 'c-label';
+    b.y = topY + (botY - topY) * b.f;
+    const y = b.y, sl = scr.skew / (scr.x1 - scr.x0);
+    const yr = y + sl * 96;                        // 스크린 오른쪽 끝에서의 높이
+    el.style.left = ((scr.x1 + 6) / W * 100) + '%';
+    el.style.top = (yr / H * 100) + '%';
+    const c = rayAtY(b.y).rgb;
+    el.innerHTML = `<i></i>${b.name}`;
+    el.setAttribute('aria-pressed', 'false');
+    el.addEventListener('click', () => setFocus(focus === i ? -1 : i));
+    labelBox.appendChild(el);
+    return el;
+  });
+  function setFocus(i) {
+    focus = i;
+    cover.classList.toggle('focus', i >= 0);
+    labelEls.forEach((el, k) => { el.classList.toggle('on', k === i); el.setAttribute('aria-pressed', String(k === i)); });
+    draw(1);
+  }
+
+  // ── 다시 비추기 ──
+  let raf = 0;
+  function play() {
+    cancelAnimationFrame(raf);
+    if (reduce) { draw(1); return; }
+    const t0 = performance.now(), dur = 1900;
+    const step = now => {
+      const t = Math.min(1, (now - t0) / dur);
+      draw(1 - Math.pow(1 - t, 2.2));
+      if (t < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+  }
+  document.getElementById('replay').addEventListener('click', play);
+
+  new ResizeObserver(resize).observe(cover);
+  resize();
+})();
+</script>
+
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/37.html" target="_blank" rel="noopener">refs/37.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #37 분광 프리즘 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&amp;amp;family=JetBrains+Mono:wght@500;700&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+:root { --paper: #F5F7FA; --ink: #16202B; --ink-2: #4A5866; --line: #D6DDE5; --card: #FFFFFF; --violet: #6B3FD6; --s-red: #E8343A; --s-orange: #F28A1E; --s-yellow: #F2C81B; --s-green: #2DB36B; --s-blue: #2C7BE5; --s-violet: #7B3FE0; --f-display: "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-body: "Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --f-mono: "JetBrains Mono","D2Coding",Consolas,monospace; color-scheme: light; }
+.wrap { max-width: 1180px; margin: 0px auto; display: flex; flex-direction: column; gap: 56px; }
+.cover { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; container-type: inline-size; overflow: hidden; background: rgb(238, 242, 246); border-radius: 6px; box-shadow: rgb(255, 255, 255) 0px 1px 0px inset, rgba(22, 32, 43, 0.35) 0px 18px 40px -24px; }
+.cover canvas { position: absolute; inset: 0px; width: 100%; height: 100%; display: block; }
+.c-txt { position: absolute; left: 4cqw; top: 4.2cqw; right: 30cqw; pointer-events: none; }
+.c-kicker { font-family: var(--f-mono); font-weight: 700; font-size: 1.05cqw; letter-spacing: 0.32em; color: rgb(107, 120, 134); margin: 0px 0px 1.4cqw; }
+.c-title { font-family: var(--f-display); font-weight: 900; font-size: 4.7cqw; line-height: 1.13; letter-spacing: -0.035em; color: rgb(18, 26, 36); margin: 0px; text-wrap: balance; }
+.c-sub { display: flex; align-items: center; gap: 1.2cqw 1.2cqw; font-weight: 500; font-size: 1.55cqw; line-height: 1.45; color: rgb(58, 71, 84); margin: 2cqw 0px 0px; letter-spacing: -0.01em; }
+.c-sub::before { content: ""; flex: 0 0 auto; width: 4.2cqw; height: 1px; background: rgb(140, 151, 163); }
+.c-sub b { font-weight: 700; color: rgb(22, 32, 43); }
+.c-foot { position: absolute; left: 4cqw; top: 27.5cqw; font-size: 1.25cqw; font-weight: 500; color: rgb(74, 88, 102); letter-spacing: 0.02em; }
+.c-foot b { font-weight: 700; color: rgb(22, 32, 43); margin-right: 0.8cqw; }
+.c-tag { position: absolute; right: 2.2cqw; bottom: 2cqw; font-size: 0.95cqw; color: rgb(122, 135, 150); letter-spacing: 0.04em; }
+.c-label { position: absolute; transform: translateY(-50%); display: flex; align-items: center; gap: 0.8cqw 0.8cqw; font-weight: 700; font-size: 1.45cqw; color: rgb(46, 59, 72); letter-spacing: -0.01em; white-space: nowrap; cursor: pointer; pointer-events: auto; background: none; border: 0px; padding: 0.2cqw 0.3cqw 0.2cqw 0.3cqw; font-family: var(--f-body); transition: opacity 0.25s; }
+.c-label i { display: block; width: 1.8cqw; height: 1px; background: rgb(140, 151, 163); }
+.c-label:focus-visible { outline: rgb(107, 63, 214) solid 2px; outline-offset: 2px; }
+.cover.focus .c-label { opacity: 0.35; }
+.cover.focus .c-label.on { opacity: 1; }
+.c-btn { font: 500 13px/1 var(--f-body); color: rgb(22, 32, 43); background: rgb(255, 255, 255); border: 1px solid rgb(199, 208, 218); border-radius: 6px; padding: 8px 14px; cursor: pointer; }
+.c-btn:focus-visible { outline: rgb(107, 63, 214) solid 2px; outline-offset: 2px; }
+.dev { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 20px; min-width: 0px; }
+.dev h3 { margin: 0px 0px 6px; font-size: 17px; font-weight: 900; letter-spacing: -0.02em; }
+.dev p { margin: 0px; color: var(--ink-2); font-size: 14.5px; }
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:14px;line-height:23.1px;color:rgb(22, 32, 43)"&gt;&lt;div&gt;
+&lt;div class="cover" id="cover" role="img" aria-label="발표 표지: 흰 빛이 유리 프리즘을 지나 다섯 색 띠로 펼쳐지고, 각 띠에 의료·요양·주거·식사·마음돌봄 라벨이 붙어 있다."&gt;
+      &lt;canvas id="cv"&gt;&lt;/canvas&gt;
+      &lt;div class="c-txt"&gt;
+        &lt;p class="c-kicker"&gt;2027 · 정책보고회&lt;/p&gt;
+        &lt;h2 class="c-title"&gt;통합돌봄 원스톱 창구&lt;br&gt;운영 계획(안)&lt;/h2&gt;
+        &lt;p class="c-sub"&gt;&lt;span&gt;한 번의 신청이 &lt;b&gt;다섯 갈래 맞춤 돌봄&lt;/b&gt;으로&lt;/span&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div id="labels"&gt;&lt;/div&gt;
+      &lt;div class="c-foot"&gt;&lt;b&gt;○○시 복지정책과&lt;/b&gt;2026. 10.&lt;/div&gt;
+      &lt;div class="c-tag"&gt;가상 예시&lt;/div&gt;
+    &lt;/div&gt;
+&lt;button class="c-btn" id="replay" type="button"&gt;다시 비추기&lt;/button&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;script&gt;
+(() =&gt; {
+  // ── 데이터: 띠 라벨(파장 nm 기준 위치) ──
+  // f = 스크린에 맺힌 띠 높이 비율(0 위 빨강 ~ 1 아래 보라). 띠를 고르게 나눠 라벨이 겹치지 않게
+  const BANDS = [
+    { name: '의료',     f: .08 },
+    { name: '요양',     f: .29 },
+    { name: '주거',     f: .50 },
+    { name: '식사',     f: .71 },
+    { name: '마음돌봄', f: .92 },
+  ];
+  const W = 1600, H = 900;                       // 논리 좌표
+  const cover = document.getElementById('cover');
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  const labelBox = document.getElementById('labels');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 프리즘 앞면 삼각형과 깊이(뒤로 물러나는 방향)
+  const A = [860, 372], B = [700, 650], C = [1020, 650];
+  const D = [62, -40];
+  const SLIT = { x: 250, y: 0 };                 // y는 계산
+  const SCREEN_X = 1180;                          // 스크린 앞면 왼쪽 선
+
+  // 파장 → 굴절률(시각용 과장), 파장 → RGB
+  const nOf = nm =&gt; 1.47 + 0.21 * (700 - nm) / 300;
+  function rgbOf(nm) {
+    let r = 0, g = 0, b = 0;
+    if (nm &lt; 440) { r = (440 - nm) / 60; b = 1; }
+    else if (nm &lt; 490) { g = (nm - 440) / 50; b = 1; }
+    else if (nm &lt; 510) { g = 1; b = (510 - nm) / 20; }
+    else if (nm &lt; 580) { r = (nm - 510) / 70; g = 1; }
+    else if (nm &lt; 645) { r = 1; g = (645 - nm) / 65; }
+    else { r = 1; }
+    const f = nm &gt; 680 ? .75 + .25 * (700 - nm) / 20 : nm &lt; 420 ? .6 + .4 * (nm - 380) / 40 : 1;
+    if (r &lt; .35 &amp;&amp; b &lt; .35) g *= .82;              // 형광 초록을 조금 눌러 줌
+    const k = v =&gt; Math.round(255 * Math.pow(Math.min(1, v * f), .8));
+    return [k(r), k(g), k(b)];
+  }
+
+  // 벡터 도우미
+  const sub = (p, q) =&gt; [p[0] - q[0], p[1] - q[1]];
+  const norm = v =&gt; { const l = Math.hypot(v[0], v[1]); return [v[0] / l, v[1] / l]; };
+  const dot = (a, b) =&gt; a[0] * b[0] + a[1] * b[1];
+  function refract(d, n, eta) {                  // n: 입사 쪽을 향한 법선
+    const c = -dot(n, d), k = 1 - eta * eta * (1 - c * c);
+    if (k &lt; 0) return null;
+    const t = eta * c - Math.sqrt(k);
+    return norm([eta * d[0] + t * n[0], eta * d[1] + t * n[1]]);
+  }
+  function hitSeg(p, d, a, b) {                  // 광선 p + s·d 와 선분 ab
+    const e = sub(b, a), den = d[0] * e[1] - d[1] * e[0];
+    if (Math.abs(den) &lt; 1e-9) return null;
+    const w = sub(a, p);
+    const s = (w[0] * e[1] - w[1] * e[0]) / den, u = (w[0] * d[1] - w[1] * d[0]) / den;
+    return (s &gt; 0 &amp;&amp; u &gt;= 0 &amp;&amp; u &lt;= 1) ? [p[0] + s * d[0], p[1] + s * d[1]] : null;
+  }
+
+  // 입사 지점과 방향(최소 편향 근처)
+  const P = [B[0] + .52 * (A[0] - B[0]), B[1] + .52 * (A[1] - B[1])];
+  const inAng = -17 * Math.PI / 180;
+  const dIn = [Math.cos(inAng), Math.sin(inAng)];
+  SLIT.y = P[1] + (SLIT.x - P[0]) * Math.tan(inAng) * -1 * -1;
+  SLIT.y = P[1] - (P[0] - SLIT.x) * Math.tan(inAng);
+  const nLeft = norm([-(A[1] - B[1]), A[0] - B[0]]);           // 바깥 법선 후보
+  const nL = dot(nLeft, dIn) &lt; 0 ? nLeft : [-nLeft[0], -nLeft[1]];
+  const nRight0 = norm([-(C[1] - A[1]), C[0] - A[0]]);
+
+  function trace(nm) {
+    const n = nOf(nm);
+    const d1 = refract(dIn, nL, 1 / n);
+    const Q = hitSeg(P, d1, A, C);
+    let nR = dot(nRight0, d1) &gt; 0 ? [-nRight0[0], -nRight0[1]] : nRight0;   // 안쪽(입사 쪽)을 향하도록
+    const d2 = refract(d1, nR, n);
+    const s = (SCREEN_X - Q[0]) / d2[0];
+    return { Q, d1, d2, S: [SCREEN_X, Q[1] + s * d2[1]] };
+  }
+  const NMS = []; for (let nm = 700; nm &gt;= 400; nm -= 4) NMS.push(nm);
+  const RAYS = NMS.map(nm =&gt; ({ nm, ...trace(nm), rgb: rgbOf(nm) }));
+  const topY = RAYS[0].S[1], botY = RAYS[RAYS.length - 1].S[1];
+
+  // 스크린 카드(약간 비스듬히 선 흰 판)
+  const scr = { x0: SCREEN_X, x1: SCREEN_X + 96, top0: topY - 64, bot0: botY + 46, skew: -26 };
+
+  let focus = -1;   // 강조 띠 index
+
+  function resize() {
+    const r = cover.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+    cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr);
+    ctx.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+    draw(1);
+  }
+
+  function rgba(c, a) { return `rgba(${c[0]},${c[1]},${c[2]},${a})`; }
+  function bandAlpha(nm) {
+    if (focus &lt; 0) return 1;
+    const r = RAYS.find(x =&gt; x.nm === nm), y = BANDS[focus].y;
+    return Math.abs(r.S[1] - y) &lt;= (botY - topY) * .1 ? 1 : .12;
+  }
+
+  function draw(t) {
+    // t: 0~1 (0~.35 흰 빛 진입, .35~1 분광 펼침)
+    const tBeam = Math.min(1, t / .35), tFan = Math.max(0, (t - .35) / .65);
+    ctx.clearRect(0, 0, W, H);
+
+    // 바탕: 밝은 스튜디오 스윕
+    let g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, '#F8FAFC'); g.addColorStop(.55, '#EEF2F6'); g.addColorStop(1, '#DFE5EC');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    // 바닥 경계의 아주 옅은 반사광
+    g = ctx.createLinearGradient(0, 600, 0, 760);
+    g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(.5, 'rgba(255,255,255,.55)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g; ctx.fillRect(0, 600, W, 160);
+
+    drawRail();
+    drawShadows(tFan);
+    drawTable();
+    drawSlit();
+    carrier(SLIT.x + 6);
+    drawScreenMount();
+    drawScreenBack();
+
+    // 흰 빛(슬릿 → 입사점)
+    const ex = SLIT.x + (P[0] - SLIT.x) * tBeam, ey = SLIT.y + (P[1] - SLIT.y) * tBeam;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = 'rgba(255,214,120,.35)'; ctx.lineWidth = 26; ctx.filter = 'blur(8px)';
+    ctx.beginPath(); ctx.moveTo(SLIT.x, SLIT.y); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.filter = 'none';
+    ctx.strokeStyle = 'rgba(205,170,90,.45)'; ctx.lineWidth = 11;
+    ctx.beginPath(); ctx.moveTo(SLIT.x, SLIT.y); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 7;
+    ctx.beginPath(); ctx.moveTo(SLIT.x, SLIT.y); ctx.lineTo(ex, ey); ctx.stroke();
+    ctx.restore();
+
+    // 분광 띠(출사점 → 스크린)
+    if (tFan &gt; 0) {
+      ctx.save();
+      for (let i = 0; i &lt; RAYS.length - 1; i++) {
+        const r0 = RAYS[i], r1 = RAYS[i + 1];
+        const a = bandAlpha(r0.nm);
+        const len = tFan;
+        const e0 = [r0.Q[0] + (r0.S[0] - r0.Q[0]) * len, r0.Q[1] + (r0.S[1] - r0.Q[1]) * len];
+        const e1 = [r1.Q[0] + (r1.S[0] - r1.Q[0]) * len, r1.Q[1] + (r1.S[1] - r1.Q[1]) * len];
+        const lg = ctx.createLinearGradient(r0.Q[0], 0, SCREEN_X, 0);
+        lg.addColorStop(0, rgba(r0.rgb, .1 * a)); lg.addColorStop(1, rgba(r0.rgb, .5 * a));
+        ctx.fillStyle = lg;
+        ctx.beginPath(); ctx.moveTo(r0.Q[0], r0.Q[1]); ctx.lineTo(e0[0], e0[1]); ctx.lineTo(e1[0], e1[1] + .6); ctx.lineTo(r1.Q[0], r1.Q[1] + .6); ctx.closePath(); ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    drawPrism(tBeam, tFan);
+    drawScreenFront(tFan);
+  }
+
+  function drawShadows(tFan) {
+    // 프리즘 접지 그림자 (광원이 왼쪽 → 오른쪽으로 늘어짐)
+    ctx.save();
+    ctx.filter = 'blur(14px)';
+    ctx.fillStyle = 'rgba(40,55,75,.22)';
+    ctx.beginPath(); ctx.moveTo(B[0] + 6, B[1] + 2); ctx.lineTo(C[0] + D[0] + 120, C[1] + D[1] + 22); ctx.lineTo(C[0] + 70, C[1] + 26); ctx.lineTo(B[0] + 20, B[1] + 14); ctx.closePath(); ctx.fill();
+    ctx.filter = 'blur(4px)';
+    ctx.fillStyle = 'rgba(30,40,55,.35)';
+    ctx.fillRect(B[0] + 4, B[1] - 2, C[0] - B[0] - 8, 6);
+    // 바닥 위 무지개 캐스틱
+    if (tFan &gt; 0) {
+      ctx.filter = 'blur(16px)';
+      const cg = ctx.createLinearGradient(C[0] - 20, 0, C[0] + 190, 0);
+      cg.addColorStop(0, `rgba(242,138,30,${.0})`); cg.addColorStop(.3, `rgba(242,200,27,${.16 * tFan})`);
+      cg.addColorStop(.6, `rgba(45,179,107,${.1 * tFan})`); cg.addColorStop(1, `rgba(123,63,224,0)`);
+      ctx.fillStyle = cg;
+      ctx.beginPath(); ctx.ellipse(C[0] + 90, C[1] + 16, 110, 12, 0, 0, Math.PI * 2); ctx.fill();
+    }
+    // 스크린 그림자
+    ctx.filter = 'blur(12px)';
+    ctx.fillStyle = 'rgba(40,55,75,.2)';
+    ctx.beginPath(); ctx.moveTo(scr.x0, scr.bot0); ctx.lineTo(scr.x1 + 40, scr.bot0 + scr.skew + 6); ctx.lineTo(scr.x1 + 150, scr.bot0 + scr.skew + 28); ctx.lineTo(scr.x0 + 60, scr.bot0 + 22); ctx.closePath(); ctx.fill();
+    // 슬릿 판 그림자
+    ctx.fillStyle = 'rgba(40,55,75,.25)';
+    ctx.beginPath(); ctx.ellipse(SLIT.x + 40, SLIT.y + 118, 70, 10, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+
+  // ── 광학대: 눈금 레일 · 이동 받침 · 프리즘 테이블 · 스크린 집게 ──
+  const RAIL = { x0: 110, x1: 1530, y: 800, h: 30, dx: 14, dy: -12 };
+  function drawRail() {
+    const r = RAIL;
+    ctx.save();
+    // 레일 그림자
+    ctx.filter = 'blur(10px)'; ctx.fillStyle = 'rgba(30,45,60,.18)';
+    ctx.fillRect(r.x0 + 10, r.y + r.h - 2, r.x1 - r.x0, 14); ctx.filter = 'none';
+    // 윗면(양극산화 알루미늄)
+    let g = ctx.createLinearGradient(0, r.y + r.dy, 0, r.y);
+    g.addColorStop(0, '#E9EDF1'); g.addColorStop(1, '#C9D0D8');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.moveTo(r.x0, r.y); ctx.lineTo(r.x0 + r.dx, r.y + r.dy); ctx.lineTo(r.x1 + r.dx, r.y + r.dy); ctx.lineTo(r.x1, r.y); ctx.closePath(); ctx.fill();
+    // 윗면 가운데 홈
+    ctx.fillStyle = 'rgba(90,105,120,.35)';
+    ctx.fillRect(r.x0 + 8, r.y + r.dy / 2 - 1, r.x1 - r.x0, 2);
+    // 앞면
+    g = ctx.createLinearGradient(0, r.y, 0, r.y + r.h);
+    g.addColorStop(0, '#B7C0CA'); g.addColorStop(.18, '#DCE1E6'); g.addColorStop(1, '#A6B0BB');
+    ctx.fillStyle = g; ctx.fillRect(r.x0, r.y, r.x1 - r.x0, r.h);
+    // 오른쪽 끝면
+    ctx.fillStyle = '#8E99A5';
+    ctx.beginPath(); ctx.moveTo(r.x1, r.y); ctx.lineTo(r.x1 + r.dx, r.y + r.dy); ctx.lineTo(r.x1 + r.dx, r.y + r.dy + r.h); ctx.lineTo(r.x1, r.y + r.h); ctx.closePath(); ctx.fill();
+    // 각인 눈금(mm)
+    ctx.strokeStyle = 'rgba(40,52,64,.55)'; ctx.fillStyle = 'rgba(40,52,64,.6)';
+    ctx.font = '500 11px "JetBrains Mono", Consolas, monospace'; ctx.textAlign = 'center';
+    for (let mm = 0; mm &lt;= 1400; mm += 10) {
+      const x = r.x0 + 10 + mm; if (x &gt; r.x1 - 6) break;
+      const big = mm % 100 === 0, mid = mm % 50 === 0;
+      ctx.lineWidth = big ? 1.2 : .8;
+      ctx.beginPath(); ctx.moveTo(x, r.y + 1); ctx.lineTo(x, r.y + (big ? 11 : mid ? 8 : 5)); ctx.stroke();
+      if (big &amp;&amp; mm) ctx.fillText(String(mm), x, r.y + 24);
+    }
+    ctx.restore();
+  }
+  function knurl(cx, cy, rw, h) {                  // 손잡이 나사: 세로 결 무늬가 있는 짧은 원통
+    let g = ctx.createLinearGradient(cx - rw, 0, cx + rw, 0);
+    g.addColorStop(0, '#3B444E'); g.addColorStop(.35, '#9AA4AF'); g.addColorStop(.55, '#6D7782'); g.addColorStop(1, '#2C333B');
+    ctx.fillStyle = g; ctx.fillRect(cx - rw, cy - h / 2, rw * 2, h);
+    ctx.strokeStyle = 'rgba(20,26,32,.45)'; ctx.lineWidth = 1;
+    for (let k = -rw + 3; k &lt; rw; k += 3) { ctx.beginPath(); ctx.moveTo(cx + k, cy - h / 2 + 1); ctx.lineTo(cx + k, cy + h / 2 - 1); ctx.stroke(); }
+    ctx.fillStyle = '#B9C2CC'; ctx.beginPath(); ctx.ellipse(cx, cy - h / 2, rw, 3, 0, 0, Math.PI * 2); ctx.fill();
+  }
+  function carrier(cx) {                            // 레일 위 이동 받침(라이더)
+    const w = 128, y0 = RAIL.y - 26, y1 = RAIL.y + 8, dx = 12, dy = -10;
+    ctx.save();
+    ctx.fillStyle = '#AAB3BD';
+    ctx.beginPath(); ctx.moveTo(cx - w / 2, y0); ctx.lineTo(cx - w / 2 + dx, y0 + dy); ctx.lineTo(cx + w / 2 + dx, y0 + dy); ctx.lineTo(cx + w / 2, y0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#7F8A96';
+    ctx.beginPath(); ctx.moveTo(cx + w / 2, y0); ctx.lineTo(cx + w / 2 + dx, y0 + dy); ctx.lineTo(cx + w / 2 + dx, y1 + dy); ctx.lineTo(cx + w / 2, y1); ctx.closePath(); ctx.fill();
+    const g = ctx.createLinearGradient(0, y0, 0, y1);
+    g.addColorStop(0, '#E4E8EC'); g.addColorStop(1, '#AEB7C1');
+    ctx.fillStyle = g; ctx.fillRect(cx - w / 2, y0, w, y1 - y0);
+    ctx.strokeStyle = 'rgba(60,72,84,.35)'; ctx.lineWidth = 1; ctx.strokeRect(cx - w / 2 + .5, y0 + .5, w - 1, y1 - y0 - 1);
+    // 위치 지시선(레일 눈금을 가리키는 작은 화살)
+    ctx.fillStyle = '#C8452E';
+    ctx.beginPath(); ctx.moveTo(cx - 4, y1); ctx.lineTo(cx + 4, y1); ctx.lineTo(cx, y1 + 6); ctx.closePath(); ctx.fill();
+    // 고정 나사
+    knurl(cx + w / 2 - 18, (y0 + y1) / 2, 9, 16);
+    ctx.restore();
+  }
+  function post(cx, yTop, yBot, rw) {               // 받침 기둥(원통)
+    const g = ctx.createLinearGradient(cx - rw, 0, cx + rw, 0);
+    g.addColorStop(0, '#7C8792'); g.addColorStop(.38, '#F1F4F7'); g.addColorStop(.62, '#BAC3CC'); g.addColorStop(1, '#6E7884');
+    ctx.fillStyle = g; ctx.fillRect(cx - rw, yTop, rw * 2, yBot - yTop);
+  }
+  const TBL = { cx: 893, cy: 632, rx: 236, ry: 42, t: 12 };
+  function drawTable() {                            // 각도 눈금이 있는 프리즘 테이블
+    const t = TBL;
+    ctx.save();
+    post(t.cx, t.cy + t.ry + t.t - 4, RAIL.y - 24, 15);
+    carrier(t.cx);
+    // 테이블 두께
+    let g = ctx.createLinearGradient(t.cx - t.rx, 0, t.cx + t.rx, 0);
+    g.addColorStop(0, '#8D98A4'); g.addColorStop(.4, '#D3D9DF'); g.addColorStop(1, '#7E8994');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.ellipse(t.cx, t.cy + t.t, t.rx, t.ry, 0, 0, Math.PI); ctx.lineTo(t.cx - t.rx, t.cy); ctx.ellipse(t.cx, t.cy, t.rx, t.ry, 0, Math.PI, 0, true); ctx.closePath(); ctx.fill();
+    // 윗면
+    g = ctx.createLinearGradient(0, t.cy - t.ry, 0, t.cy + t.ry);
+    g.addColorStop(0, '#F3F5F8'); g.addColorStop(1, '#D7DDE3');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(t.cx, t.cy, t.rx, t.ry, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = 'rgba(80,95,110,.3)'; ctx.lineWidth = 1; ctx.stroke();
+    // 테두리 각도 눈금(앞쪽 반원)
+    ctx.strokeStyle = 'rgba(40,52,64,.5)';
+    for (let d = 0; d &lt;= 180; d += 5) {
+      const a = d * Math.PI / 180, big = d % 30 === 0;
+      const x = t.cx + Math.cos(a) * t.rx, y = t.cy + Math.sin(a) * t.ry;
+      const k = big ? .9 : .95;
+      ctx.lineWidth = big ? 1.2 : .7;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(t.cx + Math.cos(a) * t.rx * k, t.cy + Math.sin(a) * t.ry * k); ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function drawScreenMount() {                      // 스크린 받침 기둥 + 받침
+    const cx = (scr.x0 + scr.x1) / 2, yb = scr.bot0 + scr.skew / 2;
+    post(cx, yb - 4, RAIL.y - 24, 11);
+    carrier(cx);
+  }
+
+  function drawSlit() {
+    // 검은 슬릿 판: 앞면 + 두께 + 받침
+    const x = SLIT.x - 16, y0 = SLIT.y - 130, y1 = SLIT.y + 112, w = 16, dx = 22, dy = -14;
+    ctx.save();
+    let g;
+    // 옆면(빛 받는 쪽은 바깥이므로 오른쪽 옆면 어둡게)
+    ctx.fillStyle = '#1C2127';
+    ctx.beginPath(); ctx.moveTo(x + w, y0); ctx.lineTo(x + w + dx, y0 + dy); ctx.lineTo(x + w + dx, y1 + dy); ctx.lineTo(x + w, y1); ctx.closePath(); ctx.fill();
+    // 윗면
+    ctx.fillStyle = '#6B7682';
+    ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x + dx, y0 + dy); ctx.lineTo(x + w + dx, y0 + dy); ctx.lineTo(x + w, y0); ctx.closePath(); ctx.fill();
+    // 앞면
+    g = ctx.createLinearGradient(x, 0, x + w, 0);
+    g.addColorStop(0, '#46505B'); g.addColorStop(1, '#2E363F');
+    ctx.fillStyle = g; ctx.fillRect(x, y0, w, y1 - y0);
+    ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fillRect(x, y0, 2, y1 - y0);
+    // 슬릿 폭 조절 나사(위)와 눈금
+    knurl(x + w / 2 + dx / 2, y0 + dy / 2 - 16, 13, 18);
+    ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = 1;
+    for (let k = 0; k &lt; 6; k++) { ctx.beginPath(); ctx.moveTo(x + 3, SLIT.y - 40 - k * 9); ctx.lineTo(x + (k % 5 ? 7 : 11), SLIT.y - 40 - k * 9); ctx.stroke(); }
+    // 슬릿(빛나는 틈)
+    ctx.shadowColor = 'rgba(255,220,140,.9)'; ctx.shadowBlur = 18;
+    ctx.fillStyle = '#FFFBEA';
+    ctx.fillRect(x + w - 2, SLIT.y - 5, dx * .7 + 2, 10);
+    ctx.restore();
+  }
+
+  function drawPrism(tBeam, tFan) {
+    const A2 = [A[0] + D[0], A[1] + D[1]], B2 = [B[0] + D[0], B[1] + D[1]], C2 = [C[0] + D[0], C[1] + D[1]];
+    const poly = (pts) =&gt; { ctx.beginPath(); ctx.moveTo(...pts[0]); for (let i = 1; i &lt; pts.length; i++) ctx.lineTo(...pts[i]); ctx.closePath(); };
+    ctx.save();
+    // 뒷면(유리 통해 보임)
+    poly([A2, B2, C2]); ctx.fillStyle = 'rgba(200,218,232,.10)'; ctx.fill();
+    // 오른쪽 경사면 (A-C-C2-A2)
+    let g = ctx.createLinearGradient(A[0], A[1], C2[0], C2[1]);
+    g.addColorStop(0, 'rgba(250,253,255,.7)'); g.addColorStop(.45, 'rgba(160,196,214,.5)'); g.addColorStop(1, 'rgba(112,156,180,.6)');
+    poly([A, C, C2, A2]); ctx.fillStyle = g; ctx.fill();
+    // 앞면
+    g = ctx.createLinearGradient(B[0], A[1], C[0], C[1]);
+    g.addColorStop(0, 'rgba(235,245,252,.42)'); g.addColorStop(.6, 'rgba(196,218,232,.30)'); g.addColorStop(1, 'rgba(160,192,212,.40)');
+    poly([A, B, C]); ctx.fillStyle = g; ctx.fill();
+
+    // 유리 안의 빛(입사점 → 출사점), 살짝 무지갯빛
+    if (tBeam &gt;= 1) {
+      const k = tFan &gt; 0 ? 1 : 0;
+      ctx.save(); poly([A, B, C]); ctx.clip();
+      for (const r of RAYS) {
+        if (r.nm % 12) continue;
+        ctx.strokeStyle = rgba(r.rgb, .22 * Math.max(k, .4) * bandAlpha(r.nm));
+        ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.moveTo(P[0], P[1]); ctx.lineTo(r.Q[0], r.Q[1]); ctx.stroke();
+      }
+      ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = 4;
+      const mid = RAYS[Math.floor(RAYS.length / 2)];
+      ctx.beginPath(); ctx.moveTo(P[0], P[1]); ctx.lineTo(mid.Q[0], mid.Q[1]); ctx.stroke();
+      ctx.restore();
+      // 입사·출사점 번쩍임
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      let rg = ctx.createRadialGradient(P[0], P[1], 0, P[0], P[1], 20);
+      rg.addColorStop(0, 'rgba(255,250,230,.55)'); rg.addColorStop(1, 'rgba(255,250,230,0)');
+      ctx.fillStyle = rg; ctx.fillRect(P[0] - 40, P[1] - 40, 80, 80);
+      ctx.restore();
+    }
+
+    // 뒷 모서리(옅게)
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = 'rgba(110,140,165,.2)'; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(...A2); ctx.lineTo(...B2); ctx.lineTo(...C2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(...B); ctx.lineTo(...B2); ctx.stroke();
+    // 바닥 유리 단면(초록빛 두께)
+    ctx.strokeStyle = 'rgba(90,160,140,.55)'; ctx.lineWidth = 5;
+    ctx.beginPath(); ctx.moveTo(B[0] + 3, B[1] - 2); ctx.lineTo(C[0] - 3, C[1] - 2); ctx.lineTo(C2[0] - 2, C2[1] - 2); ctx.stroke();
+    // 윤곽(어두운 선)
+    ctx.strokeStyle = 'rgba(70,95,120,.55)'; ctx.lineWidth = 1.6;
+    poly([A, B, C]); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(...A); ctx.lineTo(...A2); ctx.lineTo(...C2); ctx.lineTo(...C); ctx.stroke();
+    // 하이라이트(밝은 모서리)
+    ctx.strokeStyle = 'rgba(255,255,255,.95)'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(B[0] + 5, B[1] - 6); ctx.lineTo(A[0], A[1] + 6); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(A[0] + 2, A[1] - 1); ctx.lineTo(A2[0] - 2, A2[1] + 1); ctx.stroke();
+    // 왼쪽 면 안쪽 반사띠
+    g = ctx.createLinearGradient(B[0], B[1], B[0] + 60, B[1] - 20);
+    g.addColorStop(0, 'rgba(255,255,255,.55)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    poly([[A[0], A[1] + 18], [B[0] + 16, B[1] - 8], [B[0] + 50, B[1] - 8], [A[0] + 6, A[1] + 50]]); ctx.fill();
+    // 오른쪽 면 세로 광택
+    g = ctx.createLinearGradient(A[0] + 20, 0, A[0] + 90, 0);
+    g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(.5, 'rgba(255,255,255,.45)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g;
+    poly([[A[0] + 30, A[1] + 30], [A[0] + 52, A[1] + 16], [A[0] + 150, A[1] + 186], [A[0] + 128, A[1] + 200]]); ctx.fill();
+    ctx.restore();
+  }
+
+  function scrQuad() {
+    const s = scr;
+    return [[s.x0, s.top0], [s.x1, s.top0 + s.skew], [s.x1, s.bot0 + s.skew], [s.x0, s.bot0]];
+  }
+  function drawScreenBack() {
+    // 스크린 두께(왼쪽 옆면) — 앞면보다 먼저
+    const q = scrQuad();
+    ctx.save();
+    ctx.fillStyle = '#C9D2DC';
+    ctx.beginPath(); ctx.moveTo(q[0][0], q[0][1]); ctx.lineTo(q[0][0] - 10, q[0][1] + 6); ctx.lineTo(q[3][0] - 10, q[3][1] + 6); ctx.lineTo(q[3][0], q[3][1]); ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  function drawScreenFront(tFan) {
+    const q = scrQuad();
+    ctx.save();
+    let g = ctx.createLinearGradient(q[0][0], 0, q[1][0], 0);
+    g.addColorStop(0, '#FFFFFF'); g.addColorStop(1, '#F1F4F8');
+    ctx.fillStyle = g;
+    ctx.beginPath(); q.forEach((p, i) =&gt; i ? ctx.lineTo(...p) : ctx.moveTo(...p)); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(120,140,160,.35)'; ctx.lineWidth = 1.2; ctx.stroke();
+    // 스크린 위에 맺힌 스펙트럼(판의 기울기를 따라)
+    if (tFan &gt;= .98) {
+      ctx.save();
+      ctx.beginPath(); q.forEach((p, i) =&gt; i ? ctx.lineTo(...p) : ctx.moveTo(...p)); ctx.closePath(); ctx.clip();
+      const sl = scr.skew / (scr.x1 - scr.x0);
+      for (let i = 0; i &lt; RAYS.length - 1; i++) {
+        const r0 = RAYS[i], r1 = RAYS[i + 1], a = bandAlpha(r0.nm);
+        const w = 74;
+        const lg = ctx.createLinearGradient(SCREEN_X, 0, SCREEN_X + w, 0);
+        lg.addColorStop(0, rgba(r0.rgb, .95 * a)); lg.addColorStop(1, rgba(r0.rgb, .35 * a));
+        ctx.fillStyle = lg;
+        ctx.beginPath();
+        ctx.moveTo(SCREEN_X, r0.S[1]); ctx.lineTo(SCREEN_X + w, r0.S[1] + sl * w);
+        ctx.lineTo(SCREEN_X + w, r1.S[1] + sl * w + .8); ctx.lineTo(SCREEN_X, r1.S[1] + .8); ctx.closePath(); ctx.fill();
+      }
+      // 맺힌 빛의 번짐
+      ctx.globalCompositeOperation = 'screen';
+      ctx.filter = 'blur(10px)';
+      for (let i = 0; i &lt; RAYS.length; i += 6) {
+        const r = RAYS[i];
+        ctx.fillStyle = rgba(r.rgb, .12 * bandAlpha(r.nm));
+        ctx.beginPath(); ctx.ellipse(SCREEN_X + 20, r.S[1], 30, 8, 0, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+    }
+    // 카드 홀더(아래 홈 받침)와 위 집게
+    ctx.fillStyle = '#8E99A5';
+    ctx.beginPath(); ctx.moveTo(q[3][0] - 6, q[3][1] - 8); ctx.lineTo(q[2][0] + 6, q[2][1] - 8); ctx.lineTo(q[2][0] + 6, q[2][1] + 4); ctx.lineTo(q[3][0] - 6, q[3][1] + 4); ctx.closePath(); ctx.fill();
+    const mx = (q[0][0] + q[1][0]) / 2, my = (q[0][1] + q[1][1]) / 2;
+    ctx.fillStyle = '#2B3138'; ctx.fillRect(mx - 16, my - 6, 32, 16);
+    ctx.strokeStyle = '#8E99A5'; ctx.lineWidth = 2.5;
+    ctx.beginPath(); ctx.moveTo(mx - 10, my - 6); ctx.lineTo(mx - 6, my - 22); ctx.lineTo(mx + 6, my - 22); ctx.lineTo(mx + 10, my - 6); ctx.stroke();
+    ctx.restore();
+  }
+
+  // ── 라벨: 스크린 오른쪽, 해당 파장 높이 ──
+  function rayAtY(y) {
+    let best = RAYS[0];
+    for (const r of RAYS) if (Math.abs(r.S[1] - y) &lt; Math.abs(best.S[1] - y)) best = r;
+    return best;
+  }
+  const labelEls = BANDS.map((b, i) =&gt; {
+    const el = document.createElement('button');
+    el.type = 'button'; el.className = 'c-label';
+    b.y = topY + (botY - topY) * b.f;
+    const y = b.y, sl = scr.skew / (scr.x1 - scr.x0);
+    const yr = y + sl * 96;                        // 스크린 오른쪽 끝에서의 높이
+    el.style.left = ((scr.x1 + 6) / W * 100) + '%';
+    el.style.top = (yr / H * 100) + '%';
+    const c = rayAtY(b.y).rgb;
+    el.innerHTML = `&lt;i&gt;&lt;/i&gt;${b.name}`;
+    el.setAttribute('aria-pressed', 'false');
+    el.addEventListener('click', () =&gt; setFocus(focus === i ? -1 : i));
+    labelBox.appendChild(el);
+    return el;
+  });
+  function setFocus(i) {
+    focus = i;
+    cover.classList.toggle('focus', i &gt;= 0);
+    labelEls.forEach((el, k) =&gt; { el.classList.toggle('on', k === i); el.setAttribute('aria-pressed', String(k === i)); });
+    draw(1);
+  }
+
+  // ── 다시 비추기 ──
+  let raf = 0;
+  function play() {
+    cancelAnimationFrame(raf);
+    if (reduce) { draw(1); return; }
+    const t0 = performance.now(), dur = 1900;
+    const step = now =&gt; {
+      const t = Math.min(1, (now - t0) / dur);
+      draw(1 - Math.pow(1 - t, 2.2));
+      if (t &lt; 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+  }
+  document.getElementById('replay').addEventListener('click', play);
+
+  new ResizeObserver(resize).observe(cover);
+  resize();
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
+</body></html>

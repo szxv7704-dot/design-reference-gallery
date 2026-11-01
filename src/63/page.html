@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #63 업무도구 자판기</title>
+<style>@font-face{font-family:"R-Sans";src:url(@@ASSET:642c34b6ec.woff2@@) format("woff2");font-weight:45 920;font-display:block}
+:root{--ink:#111214; --sub:#5E6066; --line:#E3E1DC; --bg:#FAFAF8; --card:#FFFFFF; color-scheme:light}
+body.dark{--ink:#F2F1EE; --sub:#A3A39E; --line:#2A2A2A; --bg:#0E0E0E; --card:#171717; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--ink); font:400 16px/1.65 "R-Sans","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif; letter-spacing:-.01em; word-break:keep-all}
+.rf{max-width:1200px; margin:0 auto; padding:56px 32px 96px; display:grid; gap:96px}
+.rf-head{display:grid; gap:20px; max-width:880px}
+.rf-kicker{margin:0; display:flex; gap:16px; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--sub)}
+.rf-kicker span:first-child{color:var(--acc)}
+.rf-head h1{margin:0; font-size:clamp(44px,7.4vw,96px); line-height:.98; font-weight:820; letter-spacing:-.045em}
+.rf-lede{margin:0; font-size:clamp(18px,2vw,22px); line-height:1.55; font-weight:450; max-width:44ch}
+.rf-meta{margin:8px 0 0; display:flex; flex-wrap:wrap; gap:8px 28px; font-size:14px}
+.rf-meta div{display:flex; gap:10px} .rf-meta dt{color:var(--sub)} .rf-meta dd{margin:0; font-weight:600}
+.rf-stage{background:var(--wall); margin:0 -32px; padding:clamp(28px,6vw,88px) clamp(16px,6vw,88px); display:grid; gap:20px; justify-items:center}
+.rf-poster{width:100%; box-shadow:0 1px 2px rgba(0,0,0,.12),0 24px 60px -12px rgba(0,0,0,.28)}
+.rf-stage.port .rf-poster{max-width:600px}
+.rf-cap{margin:0; max-width:760px; font-size:14px; line-height:1.6; color:rgba(0,0,0,.66); text-align:center}
+body.dark .rf-cap{color:rgba(255,255,255,.62)}
+.rf-cap span{display:inline-block; margin-left:6px; font-size:11px; font-weight:700; letter-spacing:.08em; padding:1px 7px; border:1px solid currentColor; border-radius:99px}
+.rf-sec{display:grid; gap:28px}
+.rf-sec h2{margin:0; display:flex; align-items:baseline; gap:14px; font-size:28px; font-weight:780; letter-spacing:-.03em; padding-bottom:16px; border-bottom:1px solid var(--ink)}
+.rf-sec h2 b{font-size:13px; font-weight:700; color:var(--acc); letter-spacing:.06em; font-variant-numeric:tabular-nums}
+.rf-sec.two{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:56px; align-items:start}
+.rf-sec.two > div{display:grid; gap:24px}
+.fx-list{display:grid; gap:48px}
+.fx{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:20px 40px; align-items:start}
+.fx-pair{grid-row:span 2; display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.fx-pair figure{margin:0; display:grid; gap:8px; align-content:start}
+.fx-pair img{display:block; width:100%; height:auto; max-height:340px; object-fit:contain; background:var(--card); border:1px solid var(--line); image-rendering:auto}
+.fx-pair.wide{grid-template-columns:minmax(0,1fr)}
+.fx-pair figcaption{font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--sub)}
+.fx-pair figure + figure figcaption{color:var(--acc)}
+.fx h3{margin:0; font-size:20px; font-weight:720; letter-spacing:-.02em}
+.fx p{margin:0; color:var(--sub); font-size:15.5px}
+.rf-keep{margin:0; padding:22px 24px; background:var(--card); border:1px solid var(--line); font-size:15px; color:var(--sub); display:grid; gap:4px}
+.rf-keep b{color:var(--ink); font-size:13px; letter-spacing:.04em}
+.rf-orig summary{cursor:pointer; font-size:14px; font-weight:600; color:var(--sub); list-style:none}
+.rf-orig summary::before{content:"+ "; color:var(--acc)} .rf-orig[open] summary::before{content:"– "}
+.rf-orig img{display:block; max-width:min(100%,720px); height:auto; margin-top:16px; border:1px solid var(--line)}
+.rf-orig p{margin:8px 0 0; font-size:13px; color:var(--sub)}
+.dev{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+.dev article{background:var(--bg); padding:28px 26px 30px; display:grid; gap:10px; align-content:start}
+.dev span{font-size:13px; font-weight:700; color:var(--acc); font-variant-numeric:tabular-nums}
+.dev h3{margin:0; font-size:21px; font-weight:740; letter-spacing:-.025em; line-height:1.3}
+.dev p{margin:0; font-size:15px; color:var(--sub)}
+.dev .use{color:var(--ink); font-size:14px; padding-top:12px; border-top:1px solid var(--line)}
+.dev .use::before{content:"이렇게도"; color:var(--sub); font-weight:600; margin-right:.6em}
+.rf-rule{margin:0; font-size:15px; color:var(--sub)} .rf-rule b{color:var(--ink)}
+.rf-prompt{display:grid; gap:12px; justify-items:start}
+.rf-prompt pre{margin:0; width:100%; white-space:pre-wrap; background:var(--card); border:1px solid var(--line); padding:18px 20px; font:13.5px/1.7 ui-monospace,"SFMono-Regular",Consolas,monospace; color:var(--ink)}
+.rf-list{margin:0; padding:0; list-style:none; display:grid; gap:0; border-top:1px solid var(--line)}
+.rf-list li{padding:14px 0; border-bottom:1px solid var(--line); font-size:15px}
+.sw{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px}
+.sw li{display:grid; gap:8px}
+.sw i{display:block; aspect-ratio:1; border-radius:2px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.sw code{font:600 13px ui-monospace,Consolas,monospace} .sw em{font-style:normal; font-size:12px; color:var(--sub)}
+.rf-note{margin:0; font-size:13px; color:var(--sub)}
+.rf-steps{margin:0; padding-left:1.2em; color:var(--sub); font-size:15px; display:grid; gap:4px}
+.rf-steps code{font-family:ui-monospace,Consolas,monospace; color:var(--ink)}
+.rf-bar{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; font-size:14px; color:var(--sub)}
+button,.rf-bar a{font:600 14px "R-Sans",sans-serif; color:var(--bg); background:var(--ink); border:0; border-radius:99px; padding:10px 20px; cursor:pointer; text-decoration:none}
+.rf-bar a{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+button:hover,.rf-bar a:hover{background:var(--acc); color:#fff; box-shadow:none}
+button:focus-visible,.rf-bar a:focus-visible,summary:focus-visible{outline:2px solid var(--acc); outline-offset:3px}
+#code{margin:0; max-height:520px; overflow:auto; background:#141518; color:#E6E4DE; font:12.5px/1.6 ui-monospace,"SFMono-Regular",Consolas,monospace; padding:20px 22px; border-radius:4px; white-space:pre}
+body.dark #code{background:#1C1C1C}
+.rf-foot{font-size:13px; color:var(--sub); border-top:1px solid var(--line); padding-top:20px}
+@media (max-width:820px){
+  .rf{padding:32px 16px 72px; gap:72px}
+  .rf-stage{margin:0 -16px}
+  .rf-sec.two,.fx{grid-template-columns:minmax(0,1fr)}
+  .fx-pair{grid-row:auto}
+  .dev{grid-template-columns:minmax(0,1fr)}
+  .sw{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rf-sec h2{font-size:24px}
+}
+@media print{ body{background:#fff} .rf > *:not(.rf-stage){display:none} .rf{padding:0; max-width:none} .rf-stage{margin:0; padding:0; background:none} .rf-cap{display:none} .rf-poster{box-shadow:none; max-width:none!important} }
+
+.rf-band{background:#0B0B0B; margin:0 -32px; padding:clamp(40px,8vw,110px) clamp(16px,5vw,64px); overflow:hidden}
+.rf-band-in{max-width:1100px; margin:0 auto; transform:rotate(-2.2deg); filter:drop-shadow(0 18px 24px rgba(0,0,0,.6))}
+.rf-pts{margin:0; padding:0; list-style:none; display:grid; gap:16px}
+.rf-pts li{display:grid; gap:2px; font-size:15px; color:var(--sub)} .rf-pts b{color:var(--ink); font-size:16px}
+@media (max-width:820px){.rf-band{margin:0 -16px}}
+
+.rf-stage.flat .rf-poster{box-shadow:none; background:transparent}
+
+.rf-series{margin:4px 0 0; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:13px}
+.rf-series b{font-size:12px; letter-spacing:.06em; color:var(--sub); margin-right:4px}
+.rf-series a{display:inline-flex; gap:6px; align-items:center; padding:6px 12px; border-radius:99px; border:1px solid var(--line); color:var(--ink); text-decoration:none; background:var(--card)}
+.rf-series a i{font-style:normal; font-weight:700; color:var(--acc)}
+.rf-series a[aria-current]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.rf-series a:hover{border-color:var(--acc)}
+
+.rf-band.flat{background:#E4E8EF} .rf-band.flat .rf-band-in{transform:none; filter:drop-shadow(0 20px 40px rgba(20,40,90,.22))}
+
+.rf{--acc:#E8462A; --wall:#E7E1D3}
+</style></head>
+<body class="">
+<main class="rf">
+  <header class="rf-head">
+    <p class="rf-kicker"><span>Print Reference</span><span>No. 63</span></p>
+    <h1>업무도구 자판기</h1>
+    <p class="rf-lede">누르면 나오는 포스터. 오른쪽 빨간 버튼(A1~B3)을 누르면 그 도구가 진열창에서 떨어져 꺼내는 곳으로 나오고, 도구 안내 장표 두 장을 본 뒤 자판기로 돌아온다. 다른 버튼을 누르면 또 같은 흐름.</p>
+    <p class="rf-series"><b>시리즈 · 업무도구 나눔</b><a href="70.html"><i>#70</i>발견 · 앱 장터</a> <a href="68.html"><i>#68</i>만들기 · 작업실</a> <a href="69.html"><i>#69</i>써 보기 · 미션북</a> <a href="63.html" aria-current="page"><i>#63</i>고르기 · 자판기</a> <a href="64.html"><i>#64</i>알리기 · 포스터</a></p>
+    <dl class="rf-meta"><div><dt>쓸 곳</dt><dd>16:9 가로 · 배너·모니터·A3 가로</dd></div><div><dt>주제</dt><dd>동료 제작 업무도구 공유</dd></div><div><dt>계열</dt><dd>C · 경쾌한 놀이 오브젝트</dd></div></dl>
+  </header>
+
+  <section class="rf-stage land">
+    <div class="rf-poster">
+<style>
+@font-face{font-family:"R-Coding";src:url(@@ASSET:d463e319e4.woff2@@) format("woff2");font-display:block}
+@font-face{font-family:"R-BHS";src:url(@@ASSET:a5daa2e46e.woff2@@) format("woff2");font-display:block}
+@font-face{font-family:"R-Pretendard";src:url(@@ASSET:f04ceb0757.woff2@@) format("woff2");font-weight:45 920;font-display:block}
+
+/* 업무도구 자판기 — 누르는 포스터(16:9). 버튼을 누르면 그 도구가 떨어져 꺼내는 곳으로 나오고, 도구 안내 장표 두 장을 본 뒤 자판기로 돌아온다.
+   그림은 원본 시안 그대로, 버튼·화면 글자·떨어지는 상자·장표만 얹었다. 단위 u = 폭÷1672 */
+.vm-wrap{container-type:inline-size; width:100%}
+.vm{--u:calc(100cqw/1672); --red:#E2472A; --green:#163F30; --yel:#F4DD4A; --cream:#F3ECDB; --ink:#17221D;
+  position:relative; width:100%; aspect-ratio:1672/941; overflow:hidden; background:#EFE7D4; color:var(--ink); font-family:"R-Pretendard","Malgun Gothic",sans-serif; user-select:none}
+.vm-stage{position:absolute; inset:0; background:center/100% 100% no-repeat; transform-origin:calc(var(--u)*663) calc(var(--u)*820); transition:transform .9s cubic-bezier(.6,0,.2,1), filter .9s}
+.vm.to-slide .vm-stage{transform:scale(3.2); filter:blur(3px) brightness(.6)}
+.vm-stage > *{position:absolute}
+.vm-foot{left:calc(var(--u)*133); top:calc(var(--u)*910); margin:0; white-space:nowrap; font:700 calc(var(--u)*17.5)/1.35 "R-Coding",monospace; letter-spacing:.02em; mix-blend-mode:multiply}
+.vm-foot b{color:var(--red)}
+/* 버튼: 그림 속 빨간 버튼 위에 투명한 진짜 버튼 */
+.vm-btn{width:calc(var(--u)*86); height:calc(var(--u)*86); margin:calc(var(--u)*-43) 0 0 calc(var(--u)*-43); border-radius:50%; border:0; padding:0; background:transparent; cursor:pointer; transition:transform .12s, box-shadow .2s}
+.vm-btn:hover{box-shadow:0 0 0 calc(var(--u)*4) rgba(244,221,74,.85), 0 0 calc(var(--u)*26) calc(var(--u)*6) rgba(244,221,74,.55)}
+.vm-btn:focus-visible{outline:calc(var(--u)*4) solid var(--yel); outline-offset:calc(var(--u)*4)}
+.vm-btn.press{transform:scale(.9); box-shadow:inset 0 calc(var(--u)*6) calc(var(--u)*14) rgba(0,0,0,.55)}
+.vm-btn.seen::after{content:""; position:absolute; right:calc(var(--u)*-2); top:calc(var(--u)*-2); width:calc(var(--u)*20); height:calc(var(--u)*20); border-radius:50%; background:var(--yel); box-shadow:0 0 0 calc(var(--u)*3) var(--green)}
+/* 화면: 누르면 그림 속 글자 위에 새 글자가 켜진다 */
+.vm-led{left:calc(var(--u)*1324); top:calc(var(--u)*246); width:calc(var(--u)*276); height:calc(var(--u)*124); border-radius:calc(var(--u)*6); background:#0F2A20; display:grid; place-items:center; text-align:center;
+  font:700 calc(var(--u)*30)/1.25 "R-Coding",monospace; color:var(--yel); text-shadow:0 0 calc(var(--u)*6) rgba(244,221,74,.8), 0 0 calc(var(--u)*18) rgba(244,221,74,.45); opacity:0; transition:opacity .15s}
+.vm-led.on{opacity:1}
+.vm-led small{display:block; font-size:calc(var(--u)*19); letter-spacing:.04em}
+/* 떨어지는 상자: 진열창 안에서만 보이게 자른다 */
+.vm-glass{left:calc(var(--u)*52); top:calc(var(--u)*206); width:calc(var(--u)*1206); height:calc(var(--u)*530); overflow:hidden; pointer-events:none}
+.vm-tray{left:calc(var(--u)*102); top:calc(var(--u)*772); width:calc(var(--u)*1122); height:calc(var(--u)*98); overflow:hidden; pointer-events:none}
+.vm-drop{position:absolute; display:block; will-change:transform}
+/* 장표 */
+.vm-show{position:absolute; inset:0; display:none; background:var(--cream); opacity:0; transition:opacity .45s}
+.vm.to-slide .vm-show{display:block}
+.vm.slide-on .vm-show{opacity:1}
+.vm-show::before{content:""; position:absolute; inset:0; pointer-events:none; opacity:.05; background-image:radial-gradient(#000 .7px,transparent .8px); background-size:5px 5px}
+.vm-deck{position:absolute; inset:0}
+.vm-sl{position:absolute; inset:0; padding:calc(var(--u)*76) calc(var(--u)*96)}
+.vm-sl header{display:flex; align-items:center; gap:calc(var(--u)*18)}
+.vm-chip{font:400 calc(var(--u)*40)/1 "R-BHS",sans-serif; color:#fff; background:var(--green); padding:calc(var(--u)*10) calc(var(--u)*16) calc(var(--u)*8); border-radius:calc(var(--u)*6)}
+.vm-sl header small{font:700 calc(var(--u)*21)/1 "R-Coding",monospace; letter-spacing:.3em; color:var(--green)}
+.vm-sl h2{margin:calc(var(--u)*30) 0 0; font:400 calc(var(--u)*170)/1 "R-BHS",sans-serif; color:var(--red); letter-spacing:.01em; text-shadow:calc(var(--u)*5) calc(var(--u)*4) 0 #3FA7A0}
+.vm-one{margin:calc(var(--u)*22) 0 0; font-size:calc(var(--u)*46); font-weight:800; letter-spacing:-.02em}
+.vm-feat{list-style:none; margin:calc(var(--u)*56) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,calc(var(--u)*272)); gap:calc(var(--u)*26)}
+.vm-feat li{border-top:calc(var(--u)*5) solid var(--green); padding-top:calc(var(--u)*16); display:grid; gap:calc(var(--u)*8)}
+.vm-feat b{font:400 calc(var(--u)*40)/1 "R-BHS",sans-serif; color:var(--green)}
+.vm-feat span{font-size:calc(var(--u)*25); line-height:1.42; font-weight:500}
+.vm-num{position:absolute; left:calc(var(--u)*96); bottom:calc(var(--u)*84); display:flex; align-items:baseline; gap:calc(var(--u)*20); font-weight:800}
+.vm-num small{font-size:calc(var(--u)*26); padding:calc(var(--u)*8) calc(var(--u)*14); background:var(--yel); border-radius:calc(var(--u)*4)}
+.vm-num s{font-size:calc(var(--u)*54); color:#8A8577; text-decoration-thickness:calc(var(--u)*4)}
+.vm-num span{font-size:calc(var(--u)*54); color:var(--red)}
+.vm-num b{font:400 calc(var(--u)*110)/1 "R-BHS",sans-serif; color:var(--green)}
+.vm-num em{font-style:normal; font-size:calc(var(--u)*17); color:#8A8577; font-weight:600}
+.vm-hero{position:absolute; right:calc(var(--u)*64); top:calc(var(--u)*250); width:calc(var(--u)*540); height:auto; transform:rotate(-4deg); filter:drop-shadow(calc(var(--u)*10) calc(var(--u)*18) calc(var(--u)*18) rgba(0,0,0,.28)); animation:vmIn .7s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes vmIn{from{transform:translateY(calc(var(--u)*-140)) rotate(-14deg); opacity:0}}
+.vm-steps{list-style:none; margin:calc(var(--u)*54) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:calc(var(--u)*30); counter-reset:s}
+.vm-steps li{position:relative; min-height:calc(var(--u)*250); align-content:start; background:#fff; border:calc(var(--u)*4) solid var(--ink); border-radius:calc(var(--u)*14); padding:calc(var(--u)*36) calc(var(--u)*36) calc(var(--u)*40); display:grid; gap:calc(var(--u)*12); box-shadow:calc(var(--u)*8) calc(var(--u)*8) 0 var(--green)}
+.vm-steps li + li::before{content:"→"; position:absolute; left:calc(var(--u)*-30); top:50%; transform:translate(-50%,-50%); font:900 calc(var(--u)*34)/1 "R-Pretendard"; color:var(--red)}
+.vm-steps i{font:400 calc(var(--u)*34)/1 "R-BHS",sans-serif; font-style:normal; color:#fff; background:var(--red); width:calc(var(--u)*72); height:calc(var(--u)*72); border-radius:50%; display:grid; place-items:center}
+.vm-steps b{font:400 calc(var(--u)*54)/1.1 "R-BHS",sans-serif; color:var(--green)}
+.vm-steps span{font-size:calc(var(--u)*27); line-height:1.45; font-weight:500}
+.vm-get{position:absolute; left:calc(var(--u)*96); right:calc(var(--u)*420); bottom:calc(var(--u)*84); display:grid; grid-template-columns:1fr 1.3fr; gap:calc(var(--u)*30)}
+.vm-get p{margin:0; font-size:calc(var(--u)*27); font-weight:600; display:grid; gap:calc(var(--u)*6)}
+.vm-get b{font:700 calc(var(--u)*19)/1 "R-Coding",monospace; letter-spacing:.2em; color:var(--red)}
+/* 장표 조작 */
+.vm-nav{position:absolute; right:calc(var(--u)*60); bottom:calc(var(--u)*52); display:flex; align-items:center; gap:calc(var(--u)*14); z-index:2}
+.vm-nav button{font:700 calc(var(--u)*24)/1 "R-Pretendard",sans-serif; border:calc(var(--u)*3) solid var(--ink); background:var(--cream); color:var(--ink); border-radius:999px; padding:calc(var(--u)*14) calc(var(--u)*24); cursor:pointer}
+.vm-nav button.main{background:var(--ink); color:var(--cream)}
+.vm-nav button:hover{background:var(--red); border-color:var(--red); color:#fff}
+.vm-nav button:focus-visible{outline:calc(var(--u)*4) solid var(--yel); outline-offset:calc(var(--u)*3)}
+.vm-dots{display:flex; gap:calc(var(--u)*8)} .vm-dots i{width:calc(var(--u)*12); height:calc(var(--u)*12); border-radius:50%; background:#C9C1AC} .vm-dots i.on{background:var(--ink)}
+.vm-sl.s1 ~ .vm-nav{}
+@media (prefers-reduced-motion:reduce){ .vm-stage,.vm-show{transition:none} .vm-hero{animation:none} }
+@media print{ .vm-show,.vm-btn,.vm-led{display:none!important} }
+</style>
+<div class="vm-wrap"><div class="vm" role="application" aria-label="업무도구 자판기 — 버튼을 누르면 그 업무도구 안내 장표가 나옵니다">
+  <div class="vm-stage" style="background-image:url(@@ASSET:2e1912bd8a.webp@@)">
+    <div class="vm-glass"></div>
+    <div class="vm-tray"></div>
+    <div class="vm-led" aria-live="polite"></div>
+    <span hidden>나오는 중… 꺼내 가세요 ↓ 다른 도구 고르기 ↩ 다음 ›</span>
+    <button type="button" class="vm-btn" data-k="A1" style="left:calc(var(--u)*1358); top:calc(var(--u)*437)" aria-label="A1 엑셀 정리"></button>
+    <button type="button" class="vm-btn" data-k="A2" style="left:calc(var(--u)*1458); top:calc(var(--u)*437)" aria-label="A2 문서 변환"></button>
+    <button type="button" class="vm-btn" data-k="A3" style="left:calc(var(--u)*1556); top:calc(var(--u)*437)" aria-label="A3 자료 검색"></button>
+    <button type="button" class="vm-btn" data-k="B1" style="left:calc(var(--u)*1358); top:calc(var(--u)*533)" aria-label="B1 설문 분석"></button>
+    <button type="button" class="vm-btn" data-k="B2" style="left:calc(var(--u)*1458); top:calc(var(--u)*533)" aria-label="B2 일정 관리"></button>
+    <button type="button" class="vm-btn" data-k="B3" style="left:calc(var(--u)*1556); top:calc(var(--u)*533)" aria-label="B3 반복 자동화"></button>
+    <p class="vm-foot"><b>받는 곳</b> 업무포털 › 자료실 › 업무도구 자판기 · <b>문의</b> ○○과(내선 0000)</p>
+  </div>
+  <div class="vm-show">
+    <section class="vm-deck" data-k="A1" hidden aria-label="A1 엑셀 정리 안내">
+      <article class="vm-sl s1">
+        <header><span class="vm-chip">A1</span><small>SPREADSHEET TOOLKIT</small></header>
+        <h2>엑셀 정리</h2><p class="vm-one">흩어진 표를 한 번에</p>
+        <ul class="vm-feat"><li><b>합치기</b><span>학교 37곳이 낸 파일을 한 표로</span></li><li><b>찾기</b><span>중복·빈칸·형식 오류를 색으로 표시</span></li><li><b>검증</b><span>합계가 원본과 맞는지 자동 대조</span></li></ul>
+        <div class="vm-num"><small>취합 한 번</small><s>3시간</s><span aria-hidden="true">→</span><b>20분</b><em>가상 수치</em></div>
+        <img class="vm-hero" src="@@ASSET:bbb6dcccfc.webp@@" alt="">
+      </article>
+      <article class="vm-sl s2" hidden>
+        <header><span class="vm-chip">A1</span><small>HOW TO USE</small></header>
+        <h2>이렇게 씁니다</h2>
+        <ol class="vm-steps"><li><i>01</i><b>파일 넣기</b><span>제출 파일을 폴더 하나에 모은다</span></li><li><i>02</i><b>실행</b><span>도구를 열고 폴더를 고른다</span></li><li><i>03</i><b>확인</b><span>합친 표와 오류 목록을 본다</span></li></ol>
+        <div class="vm-get"><p><b>이런 분께</b>공문 취합·통계 담당</p><p><b>받는 곳</b>업무포털 › 자료실 › 업무도구 자판기 › A1</p></div>
+      </article>
+    </section>
+    <section class="vm-deck" data-k="A2" hidden aria-label="A2 문서 변환 안내">
+      <article class="vm-sl s1">
+        <header><span class="vm-chip">A2</span><small>FILE CONVERSION</small></header>
+        <h2>문서 변환</h2><p class="vm-one">필요한 형식으로</p>
+        <ul class="vm-feat"><li><b>한 번에</b><span>HWP·DOCX·PDF 50개를 일괄 변환</span></li><li><b>이름 규칙</b><span>"학교명_날짜" 등 파일명 자동 정리</span></li><li><b>합본</b><span>여러 파일을 PDF 한 권으로</span></li></ul>
+        <div class="vm-num"><small>파일 50개 변환</small><s>40분</s><span aria-hidden="true">→</span><b>3분</b><em>가상 수치</em></div>
+        <img class="vm-hero" src="@@ASSET:bc16bfc069.webp@@" alt="">
+      </article>
+      <article class="vm-sl s2" hidden>
+        <header><span class="vm-chip">A2</span><small>HOW TO USE</small></header>
+        <h2>이렇게 씁니다</h2>
+        <ol class="vm-steps"><li><i>01</i><b>끌어 넣기</b><span>바꿀 파일을 창에 끌어 놓는다</span></li><li><i>02</i><b>형식 고르기</b><span>PDF·HWP·DOCX 중 선택</span></li><li><i>03</i><b>받기</b><span>바뀐 파일이 한 폴더에</span></li></ol>
+        <div class="vm-get"><p><b>이런 분께</b>공문 발송·자료집 담당</p><p><b>받는 곳</b>업무포털 › 자료실 › 업무도구 자판기 › A2</p></div>
+      </article>
+    </section>
+    <section class="vm-deck" data-k="A3" hidden aria-label="A3 자료 검색 안내">
+      <article class="vm-sl s1">
+        <header><span class="vm-chip">A3</span><small>SEARCH TOOLKIT</small></header>
+        <h2>자료 검색</h2><p class="vm-one">찾는 정보를 빠르게</p>
+        <ul class="vm-feat"><li><b>넓게</b><span>지침·공문·매뉴얼을 한 번에 검색</span></li><li><b>빠르게</b><span>키워드 + 기간 + 부서로 좁히기</span></li><li><b>정확하게</b><span>근거 조항 문장을 바로 보여 줌</span></li></ul>
+        <div class="vm-num"><small>근거 조항 찾기</small><s>15분</s><span aria-hidden="true">→</span><b>1분</b><em>가상 수치</em></div>
+        <img class="vm-hero" src="@@ASSET:9cb6acbf23.webp@@" alt="">
+      </article>
+      <article class="vm-sl s2" hidden>
+        <header><span class="vm-chip">A3</span><small>HOW TO USE</small></header>
+        <h2>이렇게 씁니다</h2>
+        <ol class="vm-steps"><li><i>01</i><b>묻기</b><span>궁금한 것을 문장으로 입력</span></li><li><i>02</i><b>좁히기</b><span>기간·부서를 고른다</span></li><li><i>03</i><b>인용</b><span>근거 문장을 복사해 쓴다</span></li></ol>
+        <div class="vm-get"><p><b>이런 분께</b>민원 회신·지침 확인이 잦은 분</p><p><b>받는 곳</b>업무포털 › 자료실 › 업무도구 자판기 › A3</p></div>
+      </article>
+    </section>
+    <section class="vm-deck" data-k="B1" hidden aria-label="B1 설문 분석 안내">
+      <article class="vm-sl s1">
+        <header><span class="vm-chip">B1</span><small>SURVEY ANALYSIS</small></header>
+        <h2>설문 분석</h2><p class="vm-one">응답을 한눈에</p>
+        <ul class="vm-feat"><li><b>집계</b><span>응답을 문항별로 자동 집계</span></li><li><b>그래프</b><span>막대·원 그래프를 바로</span></li><li><b>서술형</b><span>자주 나온 낱말을 묶어 요약</span></li></ul>
+        <div class="vm-num"><small>결과 보고서 초안</small><s>하루</s><span aria-hidden="true">→</span><b>1시간</b><em>가상 수치</em></div>
+        <img class="vm-hero" src="@@ASSET:b07f80dd83.webp@@" alt="">
+      </article>
+      <article class="vm-sl s2" hidden>
+        <header><span class="vm-chip">B1</span><small>HOW TO USE</small></header>
+        <h2>이렇게 씁니다</h2>
+        <ol class="vm-steps"><li><i>01</i><b>올리기</b><span>설문 결과 파일을 올린다</span></li><li><i>02</i><b>고르기</b><span>보고 싶은 문항을 체크</span></li><li><i>03</i><b>내보내기</b><span>표·그래프를 한글 문서로</span></li></ol>
+        <div class="vm-get"><p><b>이런 분께</b>만족도 조사·수요 조사 담당</p><p><b>받는 곳</b>업무포털 › 자료실 › 업무도구 자판기 › B1</p></div>
+      </article>
+    </section>
+    <section class="vm-deck" data-k="B2" hidden aria-label="B2 일정 관리 안내">
+      <article class="vm-sl s1">
+        <header><span class="vm-chip">B2</span><small>SCHEDULE MANAGER</small></header>
+        <h2>일정 관리</h2><p class="vm-one">놓치지 않는 일정</p>
+        <ul class="vm-feat"><li><b>등록</b><span>공문 마감일을 달력에 바로</span></li><li><b>알림</b><span>사흘 전·하루 전 미리 알림</span></li><li><b>공유</b><span>팀 일정을 한 화면에</span></li></ul>
+        <div class="vm-num"><small>마감 놓침</small><s>월 2건</s><span aria-hidden="true">→</span><b>0건</b><em>가상 수치</em></div>
+        <img class="vm-hero" src="@@ASSET:bb81e6e254.webp@@" alt="">
+      </article>
+      <article class="vm-sl s2" hidden>
+        <header><span class="vm-chip">B2</span><small>HOW TO USE</small></header>
+        <h2>이렇게 씁니다</h2>
+        <ol class="vm-steps"><li><i>01</i><b>붙여 넣기</b><span>공문 제목과 마감일을 넣는다</span></li><li><i>02</i><b>알림 켜기</b><span>언제 알려 줄지 고른다</span></li><li><i>03</i><b>함께 보기</b><span>팀원에게 일정 공유</span></li></ol>
+        <div class="vm-get"><p><b>이런 분께</b>마감이 겹치는 모든 분</p><p><b>받는 곳</b>업무포털 › 자료실 › 업무도구 자판기 › B2</p></div>
+      </article>
+    </section>
+    <section class="vm-deck" data-k="B3" hidden aria-label="B3 반복 자동화 안내">
+      <article class="vm-sl s1">
+        <header><span class="vm-chip">B3</span><small>AUTOMATION TOOLKIT</small></header>
+        <h2>반복 자동화</h2><p class="vm-one">반복 작업을 간단히</p>
+        <ul class="vm-feat"><li><b>반복 작업</b><span>매주 하는 복사·붙여넣기를 기록</span></li><li><b>자동 처리</b><span>버튼 한 번으로 다시 실행</span></li><li><b>시간 절약</b><span>남는 시간은 더 중요한 일에</span></li></ul>
+        <div class="vm-num"><small>정기 보고 작업</small><s>주 5시간</s><span aria-hidden="true">→</span><b>주 30분</b><em>가상 수치</em></div>
+        <img class="vm-hero" src="@@ASSET:4ae0e0b9ea.webp@@" alt="">
+      </article>
+      <article class="vm-sl s2" hidden>
+        <header><span class="vm-chip">B3</span><small>HOW TO USE</small></header>
+        <h2>이렇게 씁니다</h2>
+        <ol class="vm-steps"><li><i>01</i><b>보여 주기</b><span>한 번 직접 해 보이며 기록</span></li><li><i>02</i><b>저장</b><span>이름을 붙여 저장</span></li><li><i>03</i><b>실행</b><span>다음부터는 버튼 하나</span></li></ol>
+        <div class="vm-get"><p><b>이런 분께</b>매주 같은 일을 하는 분</p><p><b>받는 곳</b>업무포털 › 자료실 › 업무도구 자판기 › B3</p></div>
+      </article>
+    </section>
+    <div class="vm-nav"><span class="vm-dots"><i class="on"></i><i></i></span><button type="button" class="vm-back">자판기로</button><button type="button" class="vm-next main">다음 ›</button></div>
+  </div>
+</div></div>
+<script>
+/* 자판기: 누르기 → 화면 켜짐 → 상자 흔들림·낙하 → 꺼내는 곳 → 장표 2장 → 자판기로 */
+(function(){
+  var D={"M": {"A1": [135, 223, 321, 192], "A2": [527, 222, 295, 189], "A3": [920, 230, 256, 183], "B1": [124, 482, 312, 187], "B2": [521, 482, 298, 185], "B3": [891, 481, 309, 194]}, "T": {"A1": {"name": "엑셀 정리"}, "A2": {"name": "문서 변환"}, "A3": {"name": "자료 검색"}, "B1": {"name": "설문 분석"}, "B2": {"name": "일정 관리"}, "B3": {"name": "반복 자동화"}}};
+  document.querySelectorAll('.vm').forEach(function(root){
+    var stage=root.querySelector('.vm-stage'), glass=root.querySelector('.vm-glass'), tray=root.querySelector('.vm-tray'), led=root.querySelector('.vm-led');
+    var nav=root.querySelector('.vm-nav'), next=root.querySelector('.vm-next'), back=root.querySelector('.vm-back'), dots=root.querySelectorAll('.vm-dots i');
+    var busy=false, deck=null, idx=0, U=function(){ return root.clientWidth/1672; };
+    var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function imgOf(k){ return root.querySelector('.vm-deck[data-k="'+k+'"] .vm-hero').getAttribute('src'); }
+    function anim(el,frames,ms,ease){ return el.animate(frames,{duration:reduce?1:ms,easing:ease||'linear',fill:'forwards'}).finished; }
+    function show(i){ idx=i; var sl=deck.querySelectorAll('.vm-sl'); sl.forEach(function(s,j){ s.hidden=j!==i; });
+      dots.forEach(function(d,j){ d.classList.toggle('on',j===i); }); next.textContent=i===sl.length-1?'다른 도구 고르기 ↩':'다음 ›'; }
+    function open(k){
+      root.classList.add('to-slide'); deck=root.querySelector('.vm-deck[data-k="'+k+'"]'); deck.hidden=false; show(0);
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add('slide-on'); setTimeout(function(){ next.focus({preventScroll:true}); },500); }); });
+    }
+    function close(){
+      root.classList.remove('slide-on');
+      setTimeout(function(){ root.classList.remove('to-slide'); if(deck){ deck.hidden=true; deck=null; }
+        led.classList.remove('on'); tray.innerHTML=''; busy=false; }, reduce?0:450);
+    }
+    next.addEventListener('click',function(){ var n=deck.querySelectorAll('.vm-sl').length; if(idx<n-1) show(idx+1); else close(); });
+    back.addEventListener('click',close);
+    root.addEventListener('keydown',function(e){ if(!deck) return; if(e.key==='Escape') close(); if(e.key==='ArrowRight') next.click(); if(e.key==='ArrowLeft'&&idx>0) show(idx-1); });
+    root.querySelectorAll('.vm-btn').forEach(function(b){
+      b.addEventListener('click',function(){
+        if(busy) return; busy=true; var k=b.dataset.k, m=D.M[k], u=U();
+        b.classList.add('press'); setTimeout(function(){ b.classList.remove('press'); b.classList.add('seen'); },160);
+        led.innerHTML=k+' '+D.T[k].name+'<small>나오는 중…</small>'; led.classList.add('on');
+        // 진열창 안의 복제 상자: 흔들 → 앞으로 밀려 나와 떨어짐
+        var d=new Image(); d.src=imgOf(k); d.className='vm-drop'; d.alt='';
+        d.style.left=(m[0]-52)*u+'px'; d.style.top=(m[1]-206)*u+'px'; d.style.width=m[2]*u+'px'; glass.appendChild(d);
+        var fall=(736-m[1]+20)*u;
+        anim(d,[{transform:'translate(0,0) rotate(0)'},{transform:'translate(-3px,0) rotate(-1deg)'},{transform:'translate(3px,0) rotate(1deg)'},{transform:'translate(0,0) rotate(0)'}],380)
+        .then(function(){ return anim(d,[{transform:'translate(0,0) rotate(0) scale(1)'},{transform:'translate(0,'+fall+'px) rotate(12deg) scale(1.04)'}],520,'cubic-bezier(.55,0,1,.45)'); })
+        .then(function(){
+          d.remove();
+          // 꺼내는 곳: 위에서 툭 떨어져 비스듬히 눕는다
+          var t=new Image(); t.src=imgOf(k); t.className='vm-drop'; t.alt=''; var w=m[2]*.62*u;
+          t.style.width=w+'px'; t.style.left=((m[0]-102)+m[2]*.19)*u+'px'; t.style.top=(14*u)+'px'; tray.appendChild(t);
+          return anim(t,[{transform:'translateY(-'+(110*u)+'px) rotate(10deg)'},{transform:'translateY(0) rotate(-6deg)',offset:.7},{transform:'translateY(-'+(10*u)+'px) rotate(-4deg)',offset:.85},{transform:'translateY(0) rotate(-5deg)'}],520,'ease-in');
+        })
+        .then(function(){ led.innerHTML=k+' '+D.T[k].name+'<small>꺼내 가세요 ↓</small>'; stage.style.transformOrigin=((m[0]+m[2]/2)*u)+'px '+(820*u)+'px'; return new Promise(function(r){ setTimeout(r, reduce?0:450); }); })
+        .then(function(){ open(k); });
+      });
+    });
+  });
+})();
+</script>
+
+    </div>
+    <p class="rf-cap">원본 그림은 그대로 두고 버튼·화면 글자·떨어지는 상자(원본에서 오려 냄)·장표만 얹었다. 화면이 &quot;B1 설문 분석 나오는 중…&quot;으로 켜지고, 상자가 흔들리다 떨어져 꺼내는 곳에 눕는다. 장표는 ① 무엇을 해 주나(기능 셋 + 전·후 수치) ② 이렇게 씁니다(3단계 + 받는 곳). 본 도구 버튼에는 노란 점이 남는다. 직접 눌러 보세요. <span>가상 예시</span></p>
+  </section>
+
+
+  <section class="rf-sec">
+    <h2><b>01</b>고친 곳</h2>
+    <div class="fx-list"><article class="fx">
+      <div class="fx-pair wide"><figure><img src="@@ASSET:300e115768.webp@@" alt="고치기 전"><figcaption>Before</figcaption></figure><figure><img src="@@ASSET:9d6627e45c.webp@@" alt="고친 뒤"><figcaption>After</figcaption></figure></div>
+      <h3>꼬리말을 &quot;다음 행동&quot;으로</h3><p>&quot;도구명과 구성은 콘셉트 설명을 위한 예시입니다&quot;는 보는 사람에게 쓸모가 없다. 같은 자리·같은 서체 톤으로 받는 곳과 문의를 넣었다. 포스터에서 가장 작은 줄이 가장 실용적인 줄이어야 한다.</p></article></div>
+    <p class="rf-keep"><b>손대지 않은 것</b>제목의 청록 판 어긋남, 망점·종이 질감, 진열 상자 여섯 개의 재질 차이(종이 상자·통조림·지퍼 봉지·탁상 달력·블리스터)는 손대지 않았다. 이 포스터의 힘은 거기서 나온다.</p>
+    <details class="rf-orig"><summary>원본 시안 전체 보기</summary><img src="@@ASSET:949ac6442d.webp@@" alt="고치기 전 원본 시안" loading="lazy"><p>원본: 이미지 생성 AI로 만든 시안. 글자가 그림에 박혀 있다.</p></details>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>02</b>가져갈 장치</h2>
+    <div class="dev"><article><span>01</span><h3>누르면 다음 장으로</h3><p>포스터가 곧 메뉴판. 버튼 = 목차, 떨어지는 상자 = 장 넘김, 꺼내는 곳 = 장표로 들어가는 문. 끝나면 메뉴로 돌아온다.</p><p class="use">연수 과정 소개, 지원 사업 안내 키오스크, 발표 첫 장의 목차</p></article><article><span>02</span><h3>번호로 동선 만들기</h3><p>진열칸 A1 → 이름표 A1 → 버튼 A1. 같은 기호가 세 번 나오면 눈이 저절로 따라간다.</p><p class="use">연수 과정 메뉴판, 부스 배치도, 지원 사업 안내</p></article><article><span>03</span><h3>3도 + 판 어긋남</h3><p>주홍·짙은 녹색·노랑. 제목 한 곳만 청록 판을 2~3px 어긋나게.</p><p class="use">어긋남은 한 곳만. 작은 글자에는 금지</p></article></div>
+  </section>
+
+  <section class="rf-sec two">
+    <div>
+      <h2><b>03</b>이렇게 다시 뽑기</h2>
+      <p class="rf-rule">원칙 — <b>그림은 글자 없이 뽑고, 글자는 HTML·PPT로 얹는다.</b> AI 그림 속 작은 한글은 거의 깨지고, 박힌 글자는 고칠 수 없다.</p>
+      <div class="rf-prompt"><pre id="pp">Retro silkscreen-print poster, 16:9. A dark green vending machine with an orange-red frame fills the frame. Top header plate in cream with a big bold red Korean display title area (leave blank), a yellow pill badge on the left. Glass display with 2 rows × 3 slots: a grid-pattern box (spreadsheet), a document box with a big arrow, a tin can with search icon, a foil pouch with pie chart, a spiral desk calendar, a clear blister pack with infinity arrow. Chrome coil springs in front of each slot, cream label strips under each row. Right side control panel: small LED screen, six big red round buttons, a vent grille. Bottom: dark pickup tray. Palette: vermilion #E8462A, deep green #1E4B3A, yellow #F4E04D, cream paper. Subtle halftone, slight misregistration on the title only. No text, no letters, no numbers anywhere.</pre><button type="button" data-copy="pp">프롬프트 복사</button></div>
+    </div>
+    <div>
+      <h2><b>04</b>인쇄 전에</h2>
+      <ul class="rf-list"><li>원본 비율이 16:9라 화면·배너용으로 가장 좋다. A3 가로(1.414:1)로 뽑으면 위아래에 4% 여백이 생긴다 — 바탕 크림색으로 채우면 자연스럽다.</li><li>그림은 1672px 폭(가로 A3에서 약 100dpi). 실제 인쇄용은 같은 프롬프트로 4K 이상 다시 뽑거나 업스케일 후 사용.</li><li>주홍(#E8462A 근처)은 CMYK로 탁해진다. 교정쇄를 꼭 보고, 가능하면 별색 상담.</li></ul>
+    </div>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>05</b>색</h2>
+    <ul class="sw"><li><i style="background:#EAE6D9"></i><code>#EAE6D9</code><em>40%</em></li><li><i style="background:#0C3226"></i><code>#0C3226</code><em>24%</em></li><li><i style="background:#315848"></i><code>#315848</code><em>12%</em></li><li><i style="background:#E04E26"></i><code>#E04E26</code><em>11%</em></li><li><i style="background:#8B9281"></i><code>#8B9281</code><em>10%</em></li><li><i style="background:#E5D843"></i><code>#E5D843</code><em>3%</em></li></ul>
+    <p class="rf-note">완성본에서 뽑은 주요 색과 화면 차지 비율.</p>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>06</b>HTML 코드</h2>
+    <ol class="rf-steps"><li>코드를 빈 .html 파일로 저장하면 포스터 한 장이 그대로 열립니다(바탕 그림·글꼴 포함, 인터넷 연결 없이도).</li><li>문구는 마크업의 글자를, 위치·크기는 <code>u</code> 단위(지면 폭 기준) 숫자를 바꾸면 됩니다.</li><li>인쇄: 크롬에서 열고 인쇄 → PDF로 저장, 여백 없음, 배경 그래픽 켜기.</li><li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li></ol>
+    <div class="rf-bar"><button type="button" id="cp">코드 복사</button><a id="dl" download="vm-plate.webp">바탕 그림 받기</a><span id="msg" aria-live="polite"></span></div>
+    <pre id="code" tabindex="0"></pre>
+  </section>
+  <footer class="rf-foot">원본 시안은 이미지 생성 AI로 만든 그림이며, 인물·기관·수치·연락처는 모두 가상입니다.</footer>
+</main>
+<script>
+(function(){
+  document.querySelectorAll('.cpx').forEach(function(btn){ btn.addEventListener('click',function(){ var box=btn.closest('section'), w=box.querySelector('[class$="-wrap"]'), s=box.querySelector('style'); copy('<meta charset="utf-8">\n<style>'+s.textContent+'</style>\n'+w.outerHTML+'\n',btn,btn.parentNode.querySelector('.pg-msg')); }); });
+  var wrap=document.querySelector('.rf-poster > [class$="-wrap"]'), st=document.querySelector('.rf-poster style');
+  var sc=document.querySelector('.rf-poster script');
+  var full='<meta charset="utf-8">\n<style>'+st.textContent+'</style>\n'+wrap.outerHTML+'\n'+(sc?'<script>'+sc.textContent+'</'+'script>\n':'');
+  var shown=full.replace(/base64,[A-Za-z0-9+\/=]{200,}/g,function(m){return 'base64,'+m.slice(7,47)+'…(복사하면 전체가 들어갑니다)';});
+  document.getElementById('code').textContent=shown;
+  var bg=wrap.querySelector('[style*="background-image"]'); if(bg){ var m=bg.getAttribute('style').match(/url\((data:[^)]+)\)/); if(m) document.getElementById('dl').href=m[1]; }
+  function copy(text,btn,msg){
+    var done=function(t){ if(msg) msg.textContent=t; else { var o=btn.textContent; btn.textContent=t; setTimeout(function(){btn.textContent=o},1600); } };
+    (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(function(){done('복사했습니다');}).catch(function(){
+      var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); done('복사했습니다');}catch(e){done('복사하지 못했습니다');} ta.remove(); });
+  }
+  document.getElementById('cp').addEventListener('click',function(){copy(full,this,document.getElementById('msg'));});
+  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ copy(document.getElementById(b.dataset.copy).textContent,b,null); }); });
+})();
+</script>
+</body></html>

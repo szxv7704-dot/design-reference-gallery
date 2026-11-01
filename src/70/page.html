@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #70 모아 · 앱 장터</title>
+<style>@font-face{font-family:"R-Sans";src:url(@@ASSET:282e3f03f3.woff2@@) format("woff2");font-weight:45 920;font-display:block}
+:root{--ink:#111214; --sub:#5E6066; --line:#E3E1DC; --bg:#FAFAF8; --card:#FFFFFF; color-scheme:light}
+body.dark{--ink:#F2F1EE; --sub:#A3A39E; --line:#2A2A2A; --bg:#0E0E0E; --card:#171717; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--ink); font:400 16px/1.65 "R-Sans","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif; letter-spacing:-.01em; word-break:keep-all}
+.rf{max-width:1200px; margin:0 auto; padding:56px 32px 96px; display:grid; gap:96px}
+.rf-head{display:grid; gap:20px; max-width:880px}
+.rf-kicker{margin:0; display:flex; gap:16px; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--sub)}
+.rf-kicker span:first-child{color:var(--acc)}
+.rf-head h1{margin:0; font-size:clamp(44px,7.4vw,96px); line-height:.98; font-weight:820; letter-spacing:-.045em}
+.rf-lede{margin:0; font-size:clamp(18px,2vw,22px); line-height:1.55; font-weight:450; max-width:44ch}
+.rf-meta{margin:8px 0 0; display:flex; flex-wrap:wrap; gap:8px 28px; font-size:14px}
+.rf-meta div{display:flex; gap:10px} .rf-meta dt{color:var(--sub)} .rf-meta dd{margin:0; font-weight:600}
+.rf-stage{background:var(--wall); margin:0 -32px; padding:clamp(28px,6vw,88px) clamp(16px,6vw,88px); display:grid; gap:20px; justify-items:center}
+.rf-poster{width:100%; box-shadow:0 1px 2px rgba(0,0,0,.12),0 24px 60px -12px rgba(0,0,0,.28)}
+.rf-stage.port .rf-poster{max-width:600px}
+.rf-cap{margin:0; max-width:760px; font-size:14px; line-height:1.6; color:rgba(0,0,0,.66); text-align:center}
+body.dark .rf-cap{color:rgba(255,255,255,.62)}
+.rf-cap span{display:inline-block; margin-left:6px; font-size:11px; font-weight:700; letter-spacing:.08em; padding:1px 7px; border:1px solid currentColor; border-radius:99px}
+.rf-sec{display:grid; gap:28px}
+.rf-sec h2{margin:0; display:flex; align-items:baseline; gap:14px; font-size:28px; font-weight:780; letter-spacing:-.03em; padding-bottom:16px; border-bottom:1px solid var(--ink)}
+.rf-sec h2 b{font-size:13px; font-weight:700; color:var(--acc); letter-spacing:.06em; font-variant-numeric:tabular-nums}
+.rf-sec.two{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:56px; align-items:start}
+.rf-sec.two > div{display:grid; gap:24px}
+.fx-list{display:grid; gap:48px}
+.fx{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:20px 40px; align-items:start}
+.fx-pair{grid-row:span 2; display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.fx-pair figure{margin:0; display:grid; gap:8px; align-content:start}
+.fx-pair img{display:block; width:100%; height:auto; max-height:340px; object-fit:contain; background:var(--card); border:1px solid var(--line); image-rendering:auto}
+.fx-pair.wide{grid-template-columns:minmax(0,1fr)}
+.fx-pair figcaption{font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--sub)}
+.fx-pair figure + figure figcaption{color:var(--acc)}
+.fx h3{margin:0; font-size:20px; font-weight:720; letter-spacing:-.02em}
+.fx p{margin:0; color:var(--sub); font-size:15.5px}
+.rf-keep{margin:0; padding:22px 24px; background:var(--card); border:1px solid var(--line); font-size:15px; color:var(--sub); display:grid; gap:4px}
+.rf-keep b{color:var(--ink); font-size:13px; letter-spacing:.04em}
+.rf-orig summary{cursor:pointer; font-size:14px; font-weight:600; color:var(--sub); list-style:none}
+.rf-orig summary::before{content:"+ "; color:var(--acc)} .rf-orig[open] summary::before{content:"– "}
+.rf-orig img{display:block; max-width:min(100%,720px); height:auto; margin-top:16px; border:1px solid var(--line)}
+.rf-orig p{margin:8px 0 0; font-size:13px; color:var(--sub)}
+.dev{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+.dev article{background:var(--bg); padding:28px 26px 30px; display:grid; gap:10px; align-content:start}
+.dev span{font-size:13px; font-weight:700; color:var(--acc); font-variant-numeric:tabular-nums}
+.dev h3{margin:0; font-size:21px; font-weight:740; letter-spacing:-.025em; line-height:1.3}
+.dev p{margin:0; font-size:15px; color:var(--sub)}
+.dev .use{color:var(--ink); font-size:14px; padding-top:12px; border-top:1px solid var(--line)}
+.dev .use::before{content:"이렇게도"; color:var(--sub); font-weight:600; margin-right:.6em}
+.rf-rule{margin:0; font-size:15px; color:var(--sub)} .rf-rule b{color:var(--ink)}
+.rf-prompt{display:grid; gap:12px; justify-items:start}
+.rf-prompt pre{margin:0; width:100%; white-space:pre-wrap; background:var(--card); border:1px solid var(--line); padding:18px 20px; font:13.5px/1.7 ui-monospace,"SFMono-Regular",Consolas,monospace; color:var(--ink)}
+.rf-list{margin:0; padding:0; list-style:none; display:grid; gap:0; border-top:1px solid var(--line)}
+.rf-list li{padding:14px 0; border-bottom:1px solid var(--line); font-size:15px}
+.sw{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px}
+.sw li{display:grid; gap:8px}
+.sw i{display:block; aspect-ratio:1; border-radius:2px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.sw code{font:600 13px ui-monospace,Consolas,monospace} .sw em{font-style:normal; font-size:12px; color:var(--sub)}
+.rf-note{margin:0; font-size:13px; color:var(--sub)}
+.rf-steps{margin:0; padding-left:1.2em; color:var(--sub); font-size:15px; display:grid; gap:4px}
+.rf-steps code{font-family:ui-monospace,Consolas,monospace; color:var(--ink)}
+.rf-bar{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; font-size:14px; color:var(--sub)}
+button,.rf-bar a{font:600 14px "R-Sans",sans-serif; color:var(--bg); background:var(--ink); border:0; border-radius:99px; padding:10px 20px; cursor:pointer; text-decoration:none}
+.rf-bar a{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+button:hover,.rf-bar a:hover{background:var(--acc); color:#fff; box-shadow:none}
+button:focus-visible,.rf-bar a:focus-visible,summary:focus-visible{outline:2px solid var(--acc); outline-offset:3px}
+#code{margin:0; max-height:520px; overflow:auto; background:#141518; color:#E6E4DE; font:12.5px/1.6 ui-monospace,"SFMono-Regular",Consolas,monospace; padding:20px 22px; border-radius:4px; white-space:pre}
+body.dark #code{background:#1C1C1C}
+.rf-foot{font-size:13px; color:var(--sub); border-top:1px solid var(--line); padding-top:20px}
+@media (max-width:820px){
+  .rf{padding:32px 16px 72px; gap:72px}
+  .rf-stage{margin:0 -16px}
+  .rf-sec.two,.fx{grid-template-columns:minmax(0,1fr)}
+  .fx-pair{grid-row:auto}
+  .dev{grid-template-columns:minmax(0,1fr)}
+  .sw{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rf-sec h2{font-size:24px}
+}
+@media print{ body{background:#fff} .rf > *:not(.rf-stage){display:none} .rf{padding:0; max-width:none} .rf-stage{margin:0; padding:0; background:none} .rf-cap{display:none} .rf-poster{box-shadow:none; max-width:none!important} }
+
+.rf-band{background:#0B0B0B; margin:0 -32px; padding:clamp(40px,8vw,110px) clamp(16px,5vw,64px); overflow:hidden}
+.rf-band-in{max-width:1100px; margin:0 auto; transform:rotate(-2.2deg); filter:drop-shadow(0 18px 24px rgba(0,0,0,.6))}
+.rf-pts{margin:0; padding:0; list-style:none; display:grid; gap:16px}
+.rf-pts li{display:grid; gap:2px; font-size:15px; color:var(--sub)} .rf-pts b{color:var(--ink); font-size:16px}
+@media (max-width:820px){.rf-band{margin:0 -16px}}
+
+.rf-stage.flat .rf-poster{box-shadow:none; background:transparent}
+
+.rf-series{margin:4px 0 0; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:13px}
+.rf-series b{font-size:12px; letter-spacing:.06em; color:var(--sub); margin-right:4px}
+.rf-series a{display:inline-flex; gap:6px; align-items:center; padding:6px 12px; border-radius:99px; border:1px solid var(--line); color:var(--ink); text-decoration:none; background:var(--card)}
+.rf-series a i{font-style:normal; font-weight:700; color:var(--acc)}
+.rf-series a[aria-current]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.rf-series a:hover{border-color:var(--acc)}
+
+.rf-band.flat{background:#E4E8EF} .rf-band.flat .rf-band-in{transform:none; filter:drop-shadow(0 20px 40px rgba(20,40,90,.22))}
+
+.rf{--acc:#1A6EE0; --wall:#E9EEF6}
+</style></head>
+<body class="">
+<main class="rf">
+  <header class="rf-head">
+    <p class="rf-kicker"><span>Print Reference</span><span>No. 70</span></p>
+    <h1>모아 · 앱 장터</h1>
+    <p class="rf-lede">앱 장터의 가장 강한 두 화면을 인쇄물로. &quot;오늘의 이야기&quot; 카드는 포스터가 되고, 앱 상세 페이지(아이콘·스크린샷·평점·후기·개인정보·버전 기록)는 3단 리플렛의 면이 된다.</p>
+    <p class="rf-series"><b>시리즈 · 업무도구 나눔</b><a href="70.html" aria-current="page"><i>#70</i>발견 · 앱 장터</a> <a href="68.html"><i>#68</i>만들기 · 작업실</a> <a href="69.html"><i>#69</i>써 보기 · 미션북</a> <a href="63.html"><i>#63</i>고르기 · 자판기</a> <a href="64.html"><i>#64</i>알리기 · 포스터</a></p>
+    <dl class="rf-meta"><div><dt>쓸 곳</dt><dd>A3 세로 포스터 + A4 3단 접지 리플렛</dd></div><div><dt>주제</dt><dd>동료 제작 업무도구 앱 소개</dd></div><div><dt>계열</dt><dd>B · 미니멀 스튜디오</dd></div></dl>
+  </header>
+
+  <section class="rf-stage port flat">
+    <div class="rf-poster">
+<style>
+@font-face{font-family:"R-Pretendard";src:url(@@ASSET:1c999cf223.woff2@@) format("woff2");font-weight:45 920;font-display:block}
+
+/* 모아 · Today 포스터 — A3 세로(297×420mm) 가상 지면 1000×1414. 앱 장터의 '오늘의 이야기' 카드를 포스터로 키웠다. 단위 u = 폭÷1000 */
+.td-wrap{container-type:inline-size; width:100%}
+.td{--u:calc(100cqw/1000); --blue:#1A6EE0; --ink:#0B1020; --sub:#5B6475; position:relative; width:100%; aspect-ratio:1000/1414; overflow:hidden;
+  background:#F3F5F8; color:var(--ink); font-family:"R-Pretendard",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif; font-feature-settings:"tnum"; word-break:keep-all}
+.td *{box-sizing:border-box}
+.td > *{position:absolute; margin:0}
+.td-top{left:calc(var(--u)*64); right:calc(var(--u)*64); top:calc(var(--u)*52); display:flex; justify-content:space-between; align-items:baseline}
+.td-top b{font-size:calc(var(--u)*22); font-weight:800; letter-spacing:.14em; color:var(--blue)}
+.td-top span{font-size:calc(var(--u)*20); font-weight:600; color:var(--sub)}
+.td-top h2{position:absolute; left:0; top:calc(var(--u)*34); margin:0; font-size:calc(var(--u)*58); font-weight:860; letter-spacing:-.035em}
+/* 오늘의 이야기 카드 */
+.td-card{left:calc(var(--u)*64); right:calc(var(--u)*64); top:calc(var(--u)*198); height:calc(var(--u)*820); border-radius:calc(var(--u)*46); overflow:hidden; color:#fff;
+  background:radial-gradient(70% 55% at 85% 78%, #3D8BFF 0%, transparent 70%), radial-gradient(60% 50% at 10% 0%, #2A4FC4 0%, transparent 70%), linear-gradient(160deg,#0B2C86 0%,#0E3FB0 55%,#1559D6 100%);
+  box-shadow:0 calc(var(--u)*2) calc(var(--u)*4) rgba(10,30,90,.18), 0 calc(var(--u)*40) calc(var(--u)*80) calc(var(--u)*-30) rgba(10,40,120,.55)}
+.td-card .k{position:absolute; left:calc(var(--u)*58); top:calc(var(--u)*58); font-size:calc(var(--u)*22); font-weight:700; letter-spacing:.08em; color:#9CC2FF}
+.td-card h1{z-index:2; position:absolute; left:calc(var(--u)*56); top:calc(var(--u)*100); margin:0; font-size:calc(var(--u)*104); line-height:1.04; font-weight:880; letter-spacing:-.05em}
+.td-card h1 em{font-style:normal; color:#8EC0FF}
+.td-card p{position:absolute; left:calc(var(--u)*58); top:calc(var(--u)*346); margin:0; width:calc(var(--u)*330); z-index:2; font-size:calc(var(--u)*25); line-height:1.55; font-weight:500; color:rgba(255,255,255,.82)}
+.td-cards{position:absolute; right:calc(var(--u)*-70); bottom:calc(var(--u)*-60); width:calc(var(--u)*600); z-index:1; transform:rotate(-4deg); filter:drop-shadow(0 calc(var(--u)*30) calc(var(--u)*40) rgba(0,10,60,.45));
+  -webkit-mask-image:radial-gradient(85% 80% at 62% 52%,#000 62%,transparent 86%); mask-image:radial-gradient(85% 80% at 62% 52%,#000 62%,transparent 86%)}
+.td-cards img{display:block; width:100%; height:auto}
+.td-big{z-index:2; position:absolute; left:calc(var(--u)*58); bottom:calc(var(--u)*66); display:grid; gap:calc(var(--u)*6)}
+.td-big small{font-size:calc(var(--u)*20); font-weight:700; color:#9CC2FF; letter-spacing:.04em}
+.td-big b{font-size:calc(var(--u)*96); font-weight:900; letter-spacing:-.04em; line-height:1}
+.td-big b s{font-weight:500; color:rgba(255,255,255,.45); text-decoration-thickness:calc(var(--u)*4); font-size:.55em; margin-right:calc(var(--u)*12)}
+/* 앱 줄 */
+.td-app{left:calc(var(--u)*64); right:calc(var(--u)*64); top:calc(var(--u)*1060); display:grid; grid-template-columns:calc(var(--u)*150) 1fr auto; gap:calc(var(--u)*30); align-items:center}
+.td-ic{width:calc(var(--u)*150); height:calc(var(--u)*150); border-radius:calc(var(--u)*34); overflow:hidden; box-shadow:0 calc(var(--u)*1) calc(var(--u)*2) rgba(0,0,0,.12), 0 calc(var(--u)*18) calc(var(--u)*30) calc(var(--u)*-12) rgba(20,80,200,.45)}
+.td-ic img{display:block; width:100%; height:100%; object-fit:cover}
+.td-app h3{margin:0; font-size:calc(var(--u)*44); font-weight:840; letter-spacing:-.03em}
+.td-app h3 span{color:var(--sub); font-weight:600}
+.td-app p{margin:calc(var(--u)*6) 0 0; font-size:calc(var(--u)*24); color:var(--sub); font-weight:500}
+.td-app .st{margin-top:calc(var(--u)*12); display:flex; gap:calc(var(--u)*16); align-items:center; font-size:calc(var(--u)*20); font-weight:700; color:var(--ink)}
+.td-app .st i{font-style:normal; color:#FFB020; letter-spacing:calc(var(--u)*2)}
+.td-app .st em{font-style:normal; color:var(--sub); font-weight:600}
+.td-get{height:calc(var(--u)*68); min-width:calc(var(--u)*150); padding:0 calc(var(--u)*34); border:0; border-radius:999px; background:var(--blue); color:#fff; font:800 calc(var(--u)*28)/1 "R-Pretendard",sans-serif; cursor:pointer; display:grid; place-items:center; position:relative;
+  transition:min-width .3s cubic-bezier(.3,.7,.2,1), padding .3s, background .2s; box-shadow:0 calc(var(--u)*12) calc(var(--u)*24) calc(var(--u)*-10) rgba(26,110,224,.7)}
+.td-get:focus-visible{outline:calc(var(--u)*3) solid var(--ink); outline-offset:calc(var(--u)*3)}
+.td-get i{position:absolute; inset:calc(var(--u)*6); border-radius:50%; opacity:0; background:conic-gradient(#fff calc(var(--p,0)*1%), rgba(255,255,255,.28) 0); -webkit-mask:radial-gradient(circle,transparent 58%,#000 60%); mask:radial-gradient(circle,transparent 58%,#000 60%)}
+.td-get.load{min-width:calc(var(--u)*68); padding:0; color:transparent} .td-get.load i{opacity:1}
+.td-get.open{background:#E8F0FD; color:var(--blue); box-shadow:none}
+/* 아래 띠: 근거 세 칸 + QR */
+.td-foot{left:calc(var(--u)*64); right:calc(var(--u)*64); top:calc(var(--u)*1236); display:grid; grid-template-columns:repeat(3,1fr) calc(var(--u)*100); gap:0; border-top:calc(var(--u)*2) solid var(--ink); padding-top:calc(var(--u)*22)}
+.td-foot div{padding-right:calc(var(--u)*20)}
+.td-foot div + div{padding-left:calc(var(--u)*22); border-left:calc(var(--u)*1.5) solid #D5DAE2}
+.td-foot small{display:block; font-size:calc(var(--u)*17); font-weight:700; color:var(--sub); letter-spacing:.02em}
+.td-foot b{display:block; margin-top:calc(var(--u)*8); font-size:calc(var(--u)*31); font-weight:840; letter-spacing:-.03em}
+.td-foot .lock b{display:flex; align-items:center; gap:calc(var(--u)*10)}
+.td-foot .lock b::before{content:"✓"; width:calc(var(--u)*30); height:calc(var(--u)*30); border-radius:50%; background:#16A34A; color:#fff; font-size:calc(var(--u)*19); font-weight:900; display:grid; place-items:center}
+.td-qr{width:calc(var(--u)*100); height:calc(var(--u)*100); padding:calc(var(--u)*7); background:#fff; border-radius:calc(var(--u)*12); box-shadow:inset 0 0 0 calc(var(--u)*1.5) #D5DAE2; border-left:0!important}
+.td-qr canvas{display:block; width:100%; height:100%; image-rendering:pixelated}
+.td-note{left:calc(var(--u)*64); right:calc(var(--u)*64); bottom:calc(var(--u)*26); display:flex; justify-content:space-between; font-size:calc(var(--u)*15); color:var(--sub); font-weight:500}
+@media print{ @page{size:A3 portrait; margin:0} .td-wrap{width:297mm} }
+</style>
+<div class="td-wrap"><div class="td" role="group" aria-label="모아 · Today 포스터 — 흩어진 파일을 한 번에 모으는 업무도구">
+  <div class="td-top"><b>TODAY · 이달의 도구</b><span>2027. 3.</span><h2>동료가 만든 앱</h2></div>
+  <div class="td-card">
+    <span class="k">새롭게 만나는 앱</span>
+    <h1>흩어진 파일,<br><em>한 번에</em> 모아.</h1>
+    <p>학교마다 따로 온 PDF·한글·사진 파일을 끌어 넣으면, 중복을 걸러 한 권으로 묶어 줍니다.</p>
+    <div class="td-cards"><img src="@@ASSET:fd92cf2dc3.webp@@" alt="파일 네 개에 체크 표시가 된 모아 앱 화면"></div>
+    <div class="td-big"><small>취합 한 번에 드는 시간</small><b><s>3시간</s>20분</b></div>
+  </div>
+  <div class="td-app">
+    <div class="td-ic"><img src="@@ASSET:87e05be815.webp@@" alt="모아 앱 아이콘"></div>
+    <div><h3>모아 <span>· Moa</span></h3><p>파일 병합과 중복 확인 · 개발자 ○○중 교사 메이커</p>
+      <div class="st"><i>★★★★★</i>4.8<em>동료 후기 126</em><em>·</em><em>생산성 1위</em></div></div>
+    <button type="button" class="td-get" aria-label="모아 받기"><span class="t">받기</span><i></i></button>
+  </div>
+  <div class="td-foot">
+    <div><small>쓰고 있는 학교</small><b>37곳</b></div>
+    <div><small>설치</small><b>업무 PC 1분</b></div>
+    <div class="lock"><small>개인정보</small><b>수집하지 않음</b></div>
+    <div class="td-qr"><canvas width="25" height="25" aria-label="받는 곳 QR(예시)"></canvas></div>
+  </div>
+  <p class="td-note"><span>받는 곳 업무포털 › 자료실 › 모아 · 문의 ○○과(내선 0000)</span><span>가상 예시 · 수치는 콘셉트 설명용</span></p>
+</div></div>
+<script>
+/* 받기 → 고리가 차오름 → 열기. QR 자리는 예시 무늬(캔버스) */
+(function(){
+  document.querySelectorAll('.td').forEach(function(root){
+    var cv=root.querySelector('.td-qr canvas'), x=cv.getContext('2d'), s=17, r=function(){ s=(s*16807)%2147483647; return s/2147483647; };
+    x.fillStyle='#0B1020';
+    function fin(a,b){ x.fillRect(a,b,7,7); x.clearRect(a+1,b+1,5,5); x.fillRect(a+2,b+2,3,3); }
+    fin(0,0); fin(18,0); fin(0,18);
+    for(var j=0;j<25;j++) for(var i=0;i<25;i++){ if((i<8&&j<8)||(i>16&&j<8)||(i<8&&j>16)) continue; if(r()<.48) x.fillRect(i,j,1,1); }
+    var b=root.querySelector('.td-get'), busy=false;
+    b.addEventListener('click',function(){
+      if(busy) return;
+      if(b.classList.contains('open')){ b.querySelector('.t').textContent='여는 중…'; setTimeout(function(){ b.querySelector('.t').textContent='열기'; },900); return; }
+      busy=true; b.classList.add('load'); var p=0, t0=performance.now();
+      (function step(now){ p=Math.min(100,(now-t0)/15); b.style.setProperty('--p',p); if(p<100) requestAnimationFrame(step); else { b.classList.remove('load'); b.classList.add('open'); b.querySelector('.t').textContent='열기'; b.setAttribute('aria-label','모아 열기'); busy=false; } })(t0);
+    });
+  });
+})();
+</script>
+
+    </div>
+    <p class="rf-cap">앱 목록 화면 한 장을 옮기던 것을 버리고, 도구 하나(모아)를 주인공으로 다시 짰다. 포스터는 큰 문장 + 전후 숫자(3시간 → 20분) + 받기·QR, 리플렛은 바깥면(후기 / 개인정보·버전 / 표지)과 안쪽면(스크린샷 세 장)으로 나뉜다. 글자와 화면은 모두 HTML이라 선명하고 고칠 수 있다. <span>가상 예시</span></p>
+  </section>
+
+
+  <section class="rf-sec">
+    <h2><b>+</b>3단 접지 리플렛 — 앱 상세 페이지를 접어 넣다</h2>
+    <p class="rf-lede" style="max-width:60ch">아래 버튼으로 바깥면과 펼친 안쪽면을 오가 보세요. 세 면이 차례로 뒤집힙니다.</p>
+    <div class="rf-band flat"><div class="rf-band-in">
+<style>
+@font-face{font-family:"R-Pretendard";src:url(@@ASSET:5f5609ba3d.woff2@@) format("woff2");font-weight:45 920;font-display:block}
+
+/* 모아 · 3단 접지 리플렛 — A4 가로(297×210mm) 앞뒤, 한 면 99mm. 앱 상세 페이지의 칸(아이콘·스크린샷·평점·후기·개인정보·버전 기록)을 면에 나눠 담았다. 단위 u = 폭÷1414 */
+.lf-wrap{container-type:inline-size; width:100%}
+.lf{--u:calc(100cqw/1414); --blue:#1A6EE0; --ink:#0B1020; --sub:#5B6475; --line:#E3E7EE; position:relative; font-family:"R-Pretendard",-apple-system,"Malgun Gothic",sans-serif; color:var(--ink); word-break:keep-all; font-feature-settings:"tnum"}
+.lf *{box-sizing:border-box}
+.lf-sheet{position:relative; width:100%; aspect-ratio:1414/1000; perspective:calc(var(--u)*3000)}
+.lf-pn{position:absolute; top:0; bottom:0; width:calc(100%/3); transform-style:preserve-3d; transition:transform .9s cubic-bezier(.6,.05,.25,1)}
+.lf-pn:nth-child(1){left:0} .lf-pn:nth-child(2){left:calc(100%/3); transition-delay:.12s} .lf-pn:nth-child(3){left:calc(200%/3); transition-delay:.24s}
+.lf.in .lf-pn{transform:rotateY(180deg)}
+.lf-f{position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden; background:#fff; padding:calc(var(--u)*56) calc(var(--u)*46) calc(var(--u)*44)}
+.lf-f.b{transform:rotateY(180deg)}
+.lf-pn + .lf-pn .lf-f::before{content:""; position:absolute; left:0; top:0; bottom:0; width:calc(var(--u)*1); background:rgba(0,0,0,.08); z-index:3}
+.lf small.k{display:block; font-size:calc(var(--u)*15); font-weight:800; letter-spacing:.14em; color:var(--blue)}
+.lf h3{margin:calc(var(--u)*10) 0 0; font-size:calc(var(--u)*34); line-height:1.18; font-weight:850; letter-spacing:-.035em}
+/* ── 바깥 1: 평점·후기 */
+.lf-rate{display:grid; grid-template-columns:auto 1fr; gap:calc(var(--u)*22); align-items:center; margin-top:calc(var(--u)*26)}
+.lf-rate b{font-size:calc(var(--u)*96); font-weight:900; letter-spacing:-.05em; line-height:.9}
+.lf-rate b small{display:block; font-size:calc(var(--u)*16); font-weight:600; color:var(--sub); letter-spacing:0; margin-top:calc(var(--u)*8)}
+.lf-bars{display:grid; gap:calc(var(--u)*5)}
+.lf-bars span{display:grid; grid-template-columns:calc(var(--u)*18) 1fr; gap:calc(var(--u)*8); align-items:center; font-size:calc(var(--u)*12); color:var(--sub); font-weight:700}
+.lf-bars i{height:calc(var(--u)*7); border-radius:calc(var(--u)*9); background:linear-gradient(90deg,var(--ink) var(--w),#E6E9EF 0)}
+.lf-rev{margin-top:calc(var(--u)*26); display:grid; gap:calc(var(--u)*14)}
+.lf-rev article{background:#F4F6F9; border-radius:calc(var(--u)*20); padding:calc(var(--u)*20) calc(var(--u)*22)}
+.lf-rev header{display:flex; justify-content:space-between; font-size:calc(var(--u)*16); font-weight:800}
+.lf-rev header i{font-style:normal; color:#FFB020; letter-spacing:calc(var(--u)*1)}
+.lf-rev p{margin:calc(var(--u)*8) 0 0; font-size:calc(var(--u)*16.5); line-height:1.55; color:#2B3242}
+.lf-rev cite{display:block; margin-top:calc(var(--u)*8); font-style:normal; font-size:calc(var(--u)*13.5); color:var(--sub); font-weight:600}
+.lf-forw{position:absolute; left:calc(var(--u)*46); right:calc(var(--u)*46); bottom:calc(var(--u)*40)}
+.lf-forw h4{margin:0 0 calc(var(--u)*12); font-size:calc(var(--u)*16); font-weight:800; color:var(--sub)}
+.lf-for{margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:calc(var(--u)*8)}
+.lf-for li{font-size:calc(var(--u)*15); font-weight:700; padding:calc(var(--u)*8) calc(var(--u)*14); border-radius:calc(var(--u)*99); background:#E8F0FD; color:var(--blue)}
+/* ── 바깥 2: 개인정보·버전·정보 */
+.lf-priv{margin-top:calc(var(--u)*20); border-radius:calc(var(--u)*22); padding:calc(var(--u)*24); background:linear-gradient(160deg,#ECFDF3,#F6FEF9); box-shadow:inset 0 0 0 calc(var(--u)*1.5) #C9F0D8}
+.lf-priv b{display:flex; align-items:center; gap:calc(var(--u)*12); font-size:calc(var(--u)*24); font-weight:850; color:#0E7A3B}
+.lf-priv b::before{content:"✓"; width:calc(var(--u)*38); height:calc(var(--u)*38); flex:none; border-radius:50%; background:#16A34A; color:#fff; display:grid; place-items:center; font-size:calc(var(--u)*22)}
+.lf-priv p{margin:calc(var(--u)*10) 0 0; font-size:calc(var(--u)*16); line-height:1.55; color:#2B4A37}
+.lf-ver{margin-top:calc(var(--u)*26)}
+.lf-ver h4,.lf-info h4{margin:0 0 calc(var(--u)*10); font-size:calc(var(--u)*19); font-weight:850}
+.lf-ver ol{margin:0; padding:0; list-style:none; border-top:calc(var(--u)*1.5) solid var(--line)}
+.lf-ver li{display:grid; grid-template-columns:calc(var(--u)*62) 1fr auto; gap:calc(var(--u)*10); padding:calc(var(--u)*11) 0; border-bottom:calc(var(--u)*1.5) solid var(--line); font-size:calc(var(--u)*15.5)}
+.lf-ver li b{font-weight:800} .lf-ver li span{color:var(--sub); font-size:calc(var(--u)*13.5)}
+.lf-info{margin-top:calc(var(--u)*24)}
+.lf-info dl{margin:0; display:grid; grid-template-columns:1fr 1fr; gap:calc(var(--u)*12) calc(var(--u)*18)}
+.lf-info dt{font-size:calc(var(--u)*13); color:var(--sub); font-weight:700} .lf-info dd{margin:calc(var(--u)*2) 0 0; font-size:calc(var(--u)*17); font-weight:800}
+.lf-more{position:absolute; left:calc(var(--u)*46); right:calc(var(--u)*46); bottom:calc(var(--u)*40)}
+.lf-more h4{margin:0 0 calc(var(--u)*12); font-size:calc(var(--u)*16); font-weight:800; color:var(--sub)}
+.lf-more div{display:flex; gap:calc(var(--u)*14)}
+.lf-more img{width:calc(var(--u)*58); height:calc(var(--u)*58); border-radius:calc(var(--u)*14); display:block; box-shadow:0 calc(var(--u)*6) calc(var(--u)*12) calc(var(--u)*-6) rgba(0,0,0,.35)}
+/* ── 바깥 3: 표지 */
+.lf-cover{background:radial-gradient(80% 60% at 70% 20%,#3D8BFF,transparent 70%), linear-gradient(170deg,#0B2C86,#1559D6)!important; color:#fff; display:grid; align-content:space-between}
+.lf-cover small.k{color:#9CC2FF}
+.lf-cover .ic{width:calc(var(--u)*190); height:calc(var(--u)*190); border-radius:calc(var(--u)*44); overflow:hidden; margin-top:calc(var(--u)*56); box-shadow:0 calc(var(--u)*30) calc(var(--u)*50) calc(var(--u)*-20) rgba(0,10,50,.7), 0 0 0 calc(var(--u)*1) rgba(255,255,255,.18)}
+.lf-cover .ic img{width:100%; height:100%; object-fit:cover; display:block}
+.lf-cover h2{margin:calc(var(--u)*34) 0 0; font-size:calc(var(--u)*74); font-weight:900; letter-spacing:-.05em; line-height:1}
+.lf-cover h2 span{font-weight:500; color:#9CC2FF; font-size:.6em; margin-left:calc(var(--u)*8)}
+.lf-cover p{margin:calc(var(--u)*14) 0 0; font-size:calc(var(--u)*22); font-weight:600; color:rgba(255,255,255,.86)}
+.lf-cover .st{margin-top:calc(var(--u)*14); font-size:calc(var(--u)*17); font-weight:700; color:#fff} .lf-cover .st i{font-style:normal; color:#FFC24D}
+.lf-get{display:grid; grid-template-columns:calc(var(--u)*120) 1fr; gap:calc(var(--u)*18); align-items:center; background:rgba(255,255,255,.1); border-radius:calc(var(--u)*24); padding:calc(var(--u)*16); box-shadow:inset 0 0 0 calc(var(--u)*1.5) rgba(255,255,255,.18)}
+.lf-get canvas{width:calc(var(--u)*120); height:calc(var(--u)*120); background:#fff; border-radius:calc(var(--u)*14); padding:calc(var(--u)*8); image-rendering:pixelated; display:block}
+.lf-get b{display:inline-block; font-size:calc(var(--u)*21); font-weight:850; background:#fff; color:var(--blue); padding:calc(var(--u)*10) calc(var(--u)*26); border-radius:calc(var(--u)*99)}
+.lf-get p{margin:calc(var(--u)*10) 0 0; font-size:calc(var(--u)*14); line-height:1.5; color:rgba(255,255,255,.8)}
+/* ── 안쪽: 스크린샷 세 장(앱 장터 미리 보기 문법: 색 바탕 + 큰 문장 + 휴대폰) */
+.lf-shot{display:grid; grid-template-rows:auto 1fr; padding:calc(var(--u)*58) calc(var(--u)*40) 0!important; color:#fff}
+.lf-shot.s1{background:linear-gradient(170deg,#1559D6,#0B3DA8)} .lf-shot.s2{background:linear-gradient(170deg,#0B2C86,#0A2266)} .lf-shot.s3{background:linear-gradient(170deg,#2A7BF4,#1559D6)}
+.lf-shot small.k{color:#A9CBFF}
+.lf-shot h3{font-size:calc(var(--u)*44); line-height:1.12}
+.lf-ph{justify-self:center; align-self:end; width:calc(var(--u)*340); height:calc(var(--u)*690); margin-top:calc(var(--u)*36); border-radius:calc(var(--u)*52) calc(var(--u)*52) 0 0; background:#0B0B0D; padding:calc(var(--u)*14) calc(var(--u)*14) 0; box-shadow:0 calc(var(--u)*-10) calc(var(--u)*50) rgba(0,0,40,.4)}
+.lf-sc{height:100%; border-radius:calc(var(--u)*40) calc(var(--u)*40) 0 0; background:#F5F7FA; overflow:hidden; color:var(--ink); padding:calc(var(--u)*22) calc(var(--u)*18)}
+.lf-sc .bar{display:flex; justify-content:space-between; font-size:calc(var(--u)*12); font-weight:800; margin:0 calc(var(--u)*6) calc(var(--u)*22)}
+.lf-sc h5{margin:0 calc(var(--u)*4) calc(var(--u)*12); font-size:calc(var(--u)*24); font-weight:900; letter-spacing:-.03em}
+.lf-drop{border:calc(var(--u)*2) dashed #9DBDF0; border-radius:calc(var(--u)*16); padding:calc(var(--u)*14); text-align:center; font-size:calc(var(--u)*13); font-weight:700; color:var(--blue); background:#EEF4FE}
+.lf-fl{margin:calc(var(--u)*12) 0 0; padding:0; list-style:none; display:grid; gap:calc(var(--u)*8)}
+.lf-fl li{display:grid; grid-template-columns:calc(var(--u)*20) calc(var(--u)*30) 1fr; gap:calc(var(--u)*8); align-items:center; background:#fff; border-radius:calc(var(--u)*12); padding:calc(var(--u)*9) calc(var(--u)*10); font-size:calc(var(--u)*13.5); font-weight:600; box-shadow:0 calc(var(--u)*1) calc(var(--u)*3) rgba(0,0,0,.06)}
+.lf-fl li::before{content:"✓"; width:calc(var(--u)*20); height:calc(var(--u)*20); border-radius:calc(var(--u)*6); background:var(--blue); color:#fff; font-size:calc(var(--u)*12); font-weight:900; display:grid; place-items:center}
+.ft{width:calc(var(--u)*26); height:calc(var(--u)*30); border-radius:calc(var(--u)*5); color:#fff; font-size:calc(var(--u)*8.5); font-weight:900; display:grid; place-items:end center; padding-bottom:calc(var(--u)*4)}
+.ft.pdf{background:#E5483B} .ft.doc{background:#2B6BE0} .ft.zip{background:#F0B429} .ft.hwp{background:#1A9B8F}
+.lf-btn{margin-top:calc(var(--u)*14); border-radius:calc(var(--u)*14); background:var(--blue); color:#fff; text-align:center; font-size:calc(var(--u)*15); font-weight:800; padding:calc(var(--u)*13)}
+.lf-sum{display:grid; grid-template-columns:repeat(3,1fr); gap:calc(var(--u)*8); margin-bottom:calc(var(--u)*12)}
+.lf-sum span{background:#fff; border-radius:calc(var(--u)*12); padding:calc(var(--u)*10) calc(var(--u)*6); text-align:center; font-size:calc(var(--u)*11.5); font-weight:700; color:var(--sub)}
+.lf-sum b{display:block; font-size:calc(var(--u)*24); font-weight:900; color:var(--ink)}
+.lf-sum span.w b{color:#D97706} .lf-sum span.e b{color:#DC2626}
+.lf-tb{background:#fff; border-radius:calc(var(--u)*12); overflow:hidden; font-size:calc(var(--u)*12.5); font-weight:600}
+.lf-tb div{display:grid; grid-template-columns:1.2fr 1fr .7fr; gap:calc(var(--u)*6); padding:calc(var(--u)*9) calc(var(--u)*10); border-bottom:calc(var(--u)*1) solid #EEF1F5}
+.lf-tb div.h{font-size:calc(var(--u)*11); color:var(--sub); font-weight:800}
+.lf-tb div.dup{background:#FEF3C7} .lf-tb div.dup em{color:#B45309}
+.lf-tb div.emp{background:#FEE2E2} .lf-tb div.emp em{color:#B91C1C}
+.lf-tb em{font-style:normal; font-weight:800; font-size:calc(var(--u)*11)}
+.lf-done{text-align:center; padding-top:calc(var(--u)*24)}
+.lf-done i{display:grid; place-items:center; width:calc(var(--u)*84); height:calc(var(--u)*84); margin:0 auto; border-radius:50%; background:#16A34A; color:#fff; font-style:normal; font-size:calc(var(--u)*44); font-weight:900; box-shadow:0 calc(var(--u)*12) calc(var(--u)*24) calc(var(--u)*-8) rgba(22,163,74,.6)}
+.lf-done b{display:block; margin-top:calc(var(--u)*18); font-size:calc(var(--u)*19); font-weight:900}
+.lf-done p{margin:calc(var(--u)*6) 0 calc(var(--u)*18); font-size:calc(var(--u)*13); color:var(--sub); font-weight:600}
+.lf-done .lf-btn + .lf-btn{background:#E8F0FD; color:var(--blue); margin-top:calc(var(--u)*8)}
+/* 조작 */
+.lf-ctl{display:flex; justify-content:center; gap:calc(var(--u)*10); margin-top:calc(var(--u)*28)}
+.lf-ctl button{font:800 calc(var(--u)*20)/1 "R-Pretendard",sans-serif; border:0; border-radius:calc(var(--u)*99); padding:calc(var(--u)*16) calc(var(--u)*28); cursor:pointer; background:#E8ECF2; color:var(--ink)}
+.lf-ctl button[aria-pressed="true"]{background:var(--ink); color:#fff}
+.lf-ctl button:focus-visible{outline:calc(var(--u)*3) solid var(--blue); outline-offset:calc(var(--u)*3)}
+@media (prefers-reduced-motion:reduce){ .lf-pn{transition:none} }
+@media print{ .lf-ctl{display:none} }
+</style>
+<div class="lf-wrap"><div class="lf" role="group" aria-label="모아 3단 접지 리플렛 — 바깥면과 안쪽면">
+  <div class="lf-sheet">
+    <section class="lf-pn">
+      <div class="lf-f a">
+        <small class="k">RATINGS &amp; REVIEWS</small><h3>먼저 써 본<br>동료들의 평가</h3>
+        <div class="lf-rate"><b>4.8<small>5점 만점 · 후기 126</small></b>
+          <div class="lf-bars"><span>5<i style="--w:86%"></i></span><span>4<i style="--w:10%"></i></span><span>3<i style="--w:3%"></i></span><span>2<i style="--w:1%"></i></span><span>1<i style="--w:0%"></i></span></div></div>
+        <div class="lf-rev">
+          <article><header>취합이 20분이면 끝<i>★★★★★</i></header><p>37개교 명단을 한 번에 합치고, 중복 학생까지 표시돼서 다시 확인할 일이 없어요.</p><cite>○○교육지원청 주무관 · 3월</cite></article>
+          <article><header>설치도 1분<i>★★★★★</i></header><p>업무 PC에 바로 깔려요. 파일이 밖으로 안 나가서 안심하고 씁니다.</p><cite>○○초 교무부장 · 2월</cite></article>
+        </div>
+        <div class="lf-forw"><h4>이런 분께 추천</h4><ul class="lf-for"><li>공문 취합 담당</li><li>통계 정리</li><li>학년 말 자료집</li><li>명단 관리</li></ul></div>
+      </div>
+      <div class="lf-f b lf-shot s1">
+        <div><small class="k">01 · 끌어 넣기</small><h3>파일을 끌어 넣으면<br>준비 끝</h3></div>
+        <div class="lf-ph"><div class="lf-sc"><div class="bar"><span>9:41</span><span>●●● ▮</span></div><h5>새 묶음</h5>
+          <div class="lf-drop">여기에 파일을 끌어 놓으세요</div>
+          <ul class="lf-fl"><li><i class="ft pdf">PDF</i>수업계획서.pdf</li><li><i class="ft doc">DOC</i>활동지_최종.docx</li><li><i class="ft hwp">HWP</i>학교별_명단.hwp</li><li><i class="ft zip">ZIP</i>사진 모음.zip</li></ul>
+          <div class="lf-btn">4개 파일 병합하기</div></div></div>
+      </div>
+    </section>
+    <section class="lf-pn">
+      <div class="lf-f a">
+        <small class="k">APP PRIVACY</small><h3>개인정보, 걱정 없이</h3>
+        <div class="lf-priv"><b>수집하지 않음</b><p>모아는 어떤 정보도 밖으로 보내지 않습니다. 파일은 내 PC 안에서만 읽고 합칩니다.</p></div>
+        <div class="lf-ver"><h4>버전 기록</h4><ol><li><b>1.2</b>한글(HWP) 파일 지원<span>3월</span></li><li><b>1.1</b>중복 기준 직접 고르기<span>1월</span></li><li><b>1.0</b>첫 배포<span>11월</span></li></ol></div>
+        <div class="lf-info"><h4>정보</h4><dl><div><dt>크기</dt><dd>4.2MB</dd></div><div><dt>호환</dt><dd>Windows 10 이상</dd></div><div><dt>가격</dt><dd>무료</dd></div><div><dt>만든 사람</dt><dd>○○중 교사 메이커</dd></div></dl></div>
+        <div class="lf-more"><h4>같은 메이커의 다른 앱</h4><div><img src="@@ASSET:0d448620e9.webp@@" alt="폴드"><img src="@@ASSET:a539c4a3ab.webp@@" alt="탤리"><img src="@@ASSET:4d855df538.webp@@" alt="서랍"><img src="@@ASSET:9073b2a44d.webp@@" alt="타임핏"></div></div>
+      </div>
+      <div class="lf-f b lf-shot s2">
+        <div><small class="k">02 · 확인</small><h3>중복과 빈칸은<br>알아서 걸러요</h3></div>
+        <div class="lf-ph"><div class="lf-sc"><div class="bar"><span>9:41</span><span>●●● ▮</span></div><h5>검사 결과</h5>
+          <div class="lf-sum"><span><b>31</b>정상</span><span class="w"><b>2</b>중복</span><span class="e"><b>1</b>빈칸</span></div>
+          <div class="lf-tb"><div class="h"><span>학교</span><span>이름</span><span>상태</span></div>
+            <div><span>○○초</span><span>김하늘</span><span>정상</span></div><div class="dup"><span>○○초</span><span>이도윤</span><em>중복</em></div><div class="dup"><span>△△초</span><span>이도윤</span><em>중복</em></div>
+            <div><span>△△초</span><span>박서준</span><span>정상</span></div><div class="emp"><span>□□중</span><span>—</span><em>빈칸</em></div><div><span>□□중</span><span>최유나</span><span>정상</span></div></div>
+          <div class="lf-btn">2건 정리하고 계속</div></div></div>
+      </div>
+    </section>
+    <section class="lf-pn">
+      <div class="lf-f a lf-cover">
+        <div><small class="k">동료가 만든 앱 · 2027</small><div class="ic"><img src="@@ASSET:87e05be815.webp@@" alt="모아 앱 아이콘"></div>
+          <h2>모아<span>Moa</span></h2><p>흩어진 파일, 한 번에 모아.</p><p class="st"><i>★★★★★</i> 4.8 · 생산성 1위 · 무료</p></div>
+        <div class="lf-get"><canvas width="25" height="25" aria-label="받는 곳 QR(예시)"></canvas><div><b>받기</b><p>업무포털 › 자료실 › 모아<br>문의 ○○과(내선 0000)</p></div></div>
+      </div>
+      <div class="lf-f b lf-shot s3">
+        <div><small class="k">03 · 저장</small><h3>한 권으로,<br>바로 제출</h3></div>
+        <div class="lf-ph"><div class="lf-sc"><div class="bar"><span>9:41</span><span>●●● ▮</span></div>
+          <div class="lf-done"><i>✓</i><b>모아_합본_0315.pdf</b><p>파일 4개 · 12쪽 · 2.4MB</p><div class="lf-btn">열기</div><div class="lf-btn">공문에 첨부</div></div></div></div>
+      </div>
+    </section>
+  </div>
+  <div class="lf-ctl"><button type="button" data-f="out" aria-pressed="true">바깥면</button><button type="button" data-f="in" aria-pressed="false">펼친 안쪽면</button></div>
+</div></div>
+<script>
+/* 바깥면 ↔ 안쪽면: 세 면이 차례로 뒤집힌다. QR 자리는 예시 무늬 */
+(function(){
+  document.querySelectorAll('.lf').forEach(function(root){
+    var cv=root.querySelector('canvas'), x=cv.getContext('2d'), s=23, r=function(){ s=(s*16807)%2147483647; return s/2147483647; };
+    x.fillStyle='#0B1020'; function fin(a,b){ x.fillRect(a,b,7,7); x.clearRect(a+1,b+1,5,5); x.fillRect(a+2,b+2,3,3); }
+    fin(0,0); fin(18,0); fin(0,18);
+    for(var j=0;j<25;j++) for(var i=0;i<25;i++){ if((i<8&&j<8)||(i>16&&j<8)||(i<8&&j>16)) continue; if(r()<.48) x.fillRect(i,j,1,1); }
+    var bs=root.querySelectorAll('.lf-ctl button');
+    bs.forEach(function(b){ b.addEventListener('click',function(){ root.classList.toggle('in', b.dataset.f==='in'); bs.forEach(function(o){ o.setAttribute('aria-pressed', o===b); }); }); });
+  });
+})();
+</script>
+
+    </div></div>
+    <div class="rf-sec two" style="gap:40px"><ul class="rf-pts"><li><b>바깥면(왼→오)</b>안쪽 접힘면: 평점 4.8과 동료 후기 / 뒷면: 개인정보·버전 기록·정보·같은 메이커의 다른 앱 / 표지: 아이콘·이름·받기 QR</li><li><b>안쪽면</b>스크린샷 세 장. 색 바탕을 한 단계씩 바꿔 넘기는 맛을 주고, 문장은 두 줄 안으로.</li><li><b>화면은 HTML</b>휴대폰 속 화면(파일 목록·검사 결과·저장 완료)도 글자로 짜서 문구·파일명을 바꿀 수 있다.</li></ul><ul class="rf-list"><li>A4 가로 양면, 3단 접지(대문 접지 아님 — 말아 접기).</li><li>표지 면이 오른쪽 끝, 접힘면이 왼쪽 끝이 되도록 인쇄 순서 확인.</li><li>후기·수치는 가상이다. 실제 후기는 동의를 받아 이름 대신 직위·학교급으로.</li></ul></div>
+    <div class="rf-bar"><button type="button" class="cpx">리플렛 코드 복사</button><span class="pg-msg" aria-live="polite"></span></div>
+  </section>
+  <section class="rf-sec">
+    <h2><b>01</b>고친 곳</h2>
+    <div class="fx-list"><article class="fx">
+      <div class="fx-pair"><figure><img src="@@ASSET:bb92efaa9f.webp@@" alt="고치기 전"><figcaption>Before</figcaption></figure><figure><img src="@@ASSET:55d69fd436.webp@@" alt="고친 뒤"><figcaption>After</figcaption></figure></div>
+      <h3>목록 화면 → 주인공 하나</h3><p>목록은 모든 앱이 같은 무게라 포스터가 될 수 없다. 모아 하나를 골라 &quot;흩어진 파일, 한 번에 모아.&quot; 한 문장과 3시간 → 20분 숫자로 크게 세웠다. 원본에서는 파일 카드 그림과 아이콘만 가져왔다.</p></article></div>
+    <p class="rf-keep"><b>손대지 않은 것</b>모아 아이콘과 파일 카드 그림은 원본에서 오려 썼다(아이콘은 확대해 약간 흐림 — 인쇄용은 고해상도 아이콘으로 바꿀 것). 특정 회사의 앱 장터 로고·이름은 쓰지 않았다.</p>
+    <details class="rf-orig"><summary>원본 시안 전체 보기</summary><img src="@@ASSET:d52b25f8d8.webp@@" alt="고치기 전 원본 시안" loading="lazy"><p>원본: 이미지 생성 AI로 만든 시안. 글자가 그림에 박혀 있다.</p></details>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>02</b>가져갈 장치</h2>
+    <div class="dev"><article><span>01</span><h3>앱 상세 페이지 = 리플렛 목차</h3><p>아이콘·이름(표지) → 스크린샷(안쪽 세 면) → 평점·후기(접힘면) → 개인정보·버전 기록·정보(뒷면). 칸 순서가 이미 정해져 있다.</p><p class="use">어떤 도구·프로그램 소개 리플렛이든</p></article><article><span>02</span><h3>개인정보 라벨 = &quot;써도 되나?&quot;에 미리 답하기</h3><p>초록 &quot;수집하지 않음&quot; 배지 하나가 공공기관에서 가장 먼저 나오는 질문을 막는다.</p><p class="use">개인정보가 걱정되는 모든 도구 안내</p></article><article><span>03</span><h3>스크린샷 문법</h3><p>색 바탕 + 큰 문장 두 줄 + 아래에서 올라오는 휴대폰. 01 끌어 넣기 → 02 확인 → 03 저장.</p><p class="use">사용법 3단계, 절차 안내</p></article><article><span>04</span><h3>버전 기록 = 개선 이력</h3><p>v1.2 한글 파일 지원 / v1.1 중복 기준 / v1.0 첫 배포. 도구가 살아서 나아지고 있음을 보여 준다.</p><p class="use">사업 연차별 개선 내용</p></article></div>
+  </section>
+
+  <section class="rf-sec two">
+    <div>
+      <h2><b>03</b>이렇게 다시 뽑기</h2>
+      <p class="rf-rule">원칙 — <b>그림은 글자 없이 뽑고, 글자는 HTML·PPT로 얹는다.</b> AI 그림 속 작은 한글은 거의 깨지고, 박힌 글자는 고칠 수 없다.</p>
+      <div class="rf-prompt"><pre id="pp">App icon, 1024×1024, iOS style squircle. Vivid blue gradient background (#1A6EE0 to #0B3DA8) with a soft top-left light. A single glossy white 3D ribbon folded into the letter &quot;M&quot;, subtle inner shadow and pearlescent highlights, gentle long shadow. Clean, premium, no text other than the M shape, no border.</pre><button type="button" data-copy="pp">프롬프트 복사</button></div>
+    </div>
+    <div>
+      <h2><b>04</b>인쇄 전에</h2>
+      <ul class="rf-list"><li>포스터 A3 세로, 리플렛 A4 가로 양면 → 3단 접지(면 99mm, 접는 면은 97mm로 2mm 좁게 앉히면 깔끔).</li><li>큰 파란 면은 C100 M70 정도로 탁해지기 쉽다 — 교정쇄로 확인.</li><li>아이콘은 원본(120px) 확대본이라 인쇄 시 흐리다. 1024px 이상 아이콘을 이미지 AI로 다시 뽑아 바꿀 것(아래 프롬프트).</li><li>QR은 자리 표시용 무늬다. 실제 받는 곳 주소로 만든 QR을 2cm 이상으로.</li></ul>
+    </div>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>05</b>색</h2>
+    <ul class="sw"><li><i style="background:#EEF3F8"></i><code>#EEF3F8</code><em>53%</em></li><li><i style="background:#003EAA"></i><code>#003EAA</code><em>32%</em></li><li><i style="background:#BAC8E1"></i><code>#BAC8E1</code><em>5%</em></li><li><i style="background:#7D8CBE"></i><code>#7D8CBE</code><em>5%</em></li><li><i style="background:#1C6BE5"></i><code>#1C6BE5</code><em>4%</em></li><li><i style="background:#101222"></i><code>#101222</code><em>1%</em></li></ul>
+    <p class="rf-note">완성본에서 뽑은 주요 색과 화면 차지 비율.</p>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>06</b>HTML 코드</h2>
+    <ol class="rf-steps"><li>코드를 빈 .html 파일로 저장하면 포스터 한 장이 그대로 열립니다(바탕 그림·글꼴 포함, 인터넷 연결 없이도).</li><li>문구는 마크업의 글자를, 위치·크기는 <code>u</code> 단위(지면 폭 기준) 숫자를 바꾸면 됩니다.</li><li>인쇄: 크롬에서 열고 인쇄 → PDF로 저장, 여백 없음, 배경 그래픽 켜기.</li><li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li></ol>
+    <div class="rf-bar"><button type="button" id="cp">코드 복사</button><a id="dl" download="as-plate.webp">바탕 그림 받기</a><span id="msg" aria-live="polite"></span></div>
+    <pre id="code" tabindex="0"></pre>
+  </section>
+  <footer class="rf-foot">원본 시안은 이미지 생성 AI로 만든 그림이며, 인물·기관·수치·연락처는 모두 가상입니다.</footer>
+</main>
+<script>
+(function(){
+  document.querySelectorAll('.cpx').forEach(function(btn){ btn.addEventListener('click',function(){ var box=btn.closest('section'), w=box.querySelector('[class$="-wrap"]'), s=box.querySelector('style'); copy('<meta charset="utf-8">\n<style>'+s.textContent+'</style>\n'+w.outerHTML+'\n',btn,btn.parentNode.querySelector('.pg-msg')); }); });
+  var wrap=document.querySelector('.rf-poster > [class$="-wrap"]'), st=document.querySelector('.rf-poster style');
+  var sc=document.querySelector('.rf-poster script');
+  var full='<meta charset="utf-8">\n<style>'+st.textContent+'</style>\n'+wrap.outerHTML+'\n'+(sc?'<script>'+sc.textContent+'</'+'script>\n':'');
+  var shown=full.replace(/base64,[A-Za-z0-9+\/=]{200,}/g,function(m){return 'base64,'+m.slice(7,47)+'…(복사하면 전체가 들어갑니다)';});
+  document.getElementById('code').textContent=shown;
+  var bg=wrap.querySelector('[style*="background-image"]'); if(bg){ var m=bg.getAttribute('style').match(/url\((data:[^)]+)\)/); if(m) document.getElementById('dl').href=m[1]; }
+  function copy(text,btn,msg){
+    var done=function(t){ if(msg) msg.textContent=t; else { var o=btn.textContent; btn.textContent=t; setTimeout(function(){btn.textContent=o},1600); } };
+    (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(function(){done('복사했습니다');}).catch(function(){
+      var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); done('복사했습니다');}catch(e){done('복사하지 못했습니다');} ta.remove(); });
+  }
+  document.getElementById('cp').addEventListener('click',function(){copy(full,this,document.getElementById('msg'));});
+  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ copy(document.getElementById(b.dataset.copy).textContent,b,null); }); });
+})();
+</script>
+</body></html>

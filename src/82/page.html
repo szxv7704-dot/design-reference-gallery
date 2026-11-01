@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #82 놀이 블록 키트</title>
+<style>
+/*@@FONTS@@*/
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.kit-stack{display:grid;gap:18px}
+.kit-stack > *{min-width:0}
+.cbs > *{min-width:0}
+.kit-lab{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 6px}
+.tokcard{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.tokcard > *{min-width:0}
+ul.sw{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ul.sw li{display:grid;grid-template-columns:22px 130px 1fr;gap:8px;align-items:center;font-size:13px}
+ul.sw i{width:22px;height:22px;border-radius:5px;border:1px solid var(--pg-line)}
+ul.sw code{font-family:var(--pg-mono);font-size:12px}
+ul.sw span{color:var(--pg-sub);font-family:var(--pg-mono);font-size:12px}
+dl.rules{margin:0;display:grid;grid-template-columns:110px 1fr;gap:8px 14px;font-size:14px}
+dl.rules dt{font-weight:700;color:var(--pg-sub)}
+dl.rules dd{margin:0}
+ul.dont{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+ul.dont li{font-size:14px;border-left:3px solid var(--pg-accent);padding:2px 0 2px 12px}
+ul.dont b{display:block;font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub)}
+ul.els{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+ul.els a{display:flex;flex-direction:column;padding:10px 12px;border:1px solid var(--pg-line);border-radius:6px;text-decoration:none;color:var(--pg-ink);background:var(--pg-panel);font-size:14px}
+ul.els b{font-family:var(--pg-mono);font-size:12px;color:var(--pg-accent)}
+ul.els small{color:var(--pg-sub);font-size:12px}
+.cbs{display:grid;gap:16px;margin-top:14px}
+.cb-h{display:flex;gap:10px;align-items:center;margin-bottom:6px;font-weight:700;font-size:14px}
+.cb-h .msg{font-weight:400;font-size:13px;color:var(--pg-sub)}
+@media (max-width:760px){.tokcard{grid-template-columns:1fr}dl.rules{grid-template-columns:1fr}.stage-frame .ps82{min-width:880px}}
+
+</style>
+<style id="ps82-css">
+/* C 경쾌한 놀이 오브젝트 계열 키트 — 목차 · 섹션 간지 · 마무리. 접두어 ps82 / 색은 --ds-* 변수로만 */
+.ps82{
+  /* 계열 값(C). 본문 요소에 붙일 때는 --ds-* 묶음만 옮긴다 */
+  --ds-bg:#F3F7FC; --ds-surface:#FFFFFF; --ds-ink:#1D2B4F; --ds-sub:#56607A; --ds-line:#D3DCE8;
+  --ds-accent:#F2463C; --ds-accent2:#2F7BF5;
+  --ds-c1:#1C3B7A; --ds-c2:#2F62C8; --ds-c3:#5B8FEA; --ds-c4:#A9C7F7; --ds-c5:#DCE9FC;
+  --ds-font-title:"Black Han Sans","Gmarket Sans","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Fredoka","Arial Rounded MT Bold","Black Han Sans",sans-serif;
+  --ds-radius:14px;
+  --ds-shadow:0 2px 0 rgba(29,43,79,.06),0 18px 36px -22px rgba(29,43,79,.35);
+  /* C 계열 확장: 장난감 블록 재질 색(층 순서 Ⅰ~Ⅴ) */
+  --ds-toy1:#2F7BF5; --ds-toy2:#FFC22E; --ds-toy3:#22B573; --ds-toy4:#FF8A2A; --ds-toy5:#F2463C;
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps82 *{box-sizing:border-box}
+.ps82-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.35;word-break:keep-all}
+.ps82-cv{position:absolute;inset:0;width:100%;height:100%}
+.ps82-a{position:absolute}
+.ps82-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*3) solid var(--ds-ink)}
+.ps82-sec{font-family:var(--ds-font-title);font-size:calc(var(--u)*21);color:var(--ds-ink);display:flex;align-items:baseline;gap:calc(var(--u)*12)}
+.ps82-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*16);color:var(--ds-c3)}
+.ps82-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps82-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+.ps82-ft span:last-child{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*14);color:var(--ds-ink)}
+.ps82-tt{width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-size:calc(var(--u)*44);line-height:1.2;letter-spacing:-.01em}
+.ps82-tt em,.ps82-msg em{font-style:normal;color:var(--ds-accent)}
+/* 목차 줄 */
+.ps82-row{display:grid;grid-template-columns:calc(var(--u)*92) calc(var(--u)*60) 1fr auto;align-items:center;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps82-row::before{content:"";grid-column:1}
+.ps82-no{grid-column:2;font-weight:700;font-size:calc(var(--u)*22);color:var(--ds-c3)}
+.ps82-nm{grid-column:3;display:flex;flex-direction:column;gap:calc(var(--u)*4)}
+.ps82-nm b{font-family:var(--ds-font-title);font-weight:400;font-size:calc(var(--u)*32);line-height:1.05}
+.ps82-nm small{font-size:calc(var(--u)*15);color:var(--ds-sub)}
+.ps82-pg{grid-column:4;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*30);color:var(--ds-c2)}
+/* 블록 앞면 번호 */
+.ps82-bl{transform:translate(-50%,-50%);font-weight:700;font-size:calc(var(--u)*20);color:#fff;text-shadow:0 calc(var(--u)*1) 0 rgba(0,0,0,.18);transition:opacity .2s}
+/* 간지 */
+.ps82-big{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*260);line-height:1;letter-spacing:-.02em}
+.ps82-dn{font-family:var(--ds-font-title);font-size:calc(var(--u)*96);line-height:1.05;letter-spacing:-.01em;white-space:nowrap}
+.ps82-pts{display:flex;gap:calc(var(--u)*28);align-items:flex-start}
+.ps82-pts span{font-weight:700;font-size:calc(var(--u)*15);color:var(--ds-c2);padding-top:calc(var(--u)*3);white-space:nowrap}
+.ps82-pts ul{margin:0;padding:0;list-style:none;display:grid;gap:calc(var(--u)*8)}
+.ps82-pts li{font-size:calc(var(--u)*19);padding-left:calc(var(--u)*22);position:relative}
+.ps82-pts li::before{content:"";position:absolute;left:0;top:calc(var(--u)*9);width:calc(var(--u)*10);height:calc(var(--u)*10);border-radius:calc(var(--u)*3);background:var(--ds-c4)}
+/* 마무리 */
+.ps82-msg{font-family:var(--ds-font-title);font-size:calc(var(--u)*68);line-height:1.18;letter-spacing:-.01em;white-space:nowrap}
+.ps82-ct{margin:0;display:grid;grid-template-columns:calc(var(--u)*110) 1fr;row-gap:calc(var(--u)*12);padding:calc(var(--u)*26) calc(var(--u)*30);background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);border:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps82-ct dt{font-weight:700;font-size:calc(var(--u)*14);color:var(--ds-c2);padding-top:calc(var(--u)*2)}
+.ps82-ct dd{margin:0;font-size:calc(var(--u)*18)}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 82 · 계열 키트 · C 경쾌한 놀이 오브젝트 · 목차 · 간지 · 마무리 · 가상 예시</div>
+    <h1>놀이 블록 키트</h1>
+    <p class="pg-lead">C 계열 표지(#7 블록 빌드 유아학교 · #24 · #29 · #39 · #59) 뒤에 이어 쓰는 목차 · 섹션 간지 · 마무리 세 장. 섹션 다섯 개가 장난감 블록 다섯 층이 되어, 목차에서는 다 쌓인 탑으로, 간지에서는 지금 놓이는 층으로, 마무리에서는 깃발을 꽂은 탑으로 이어진다.</p>
+  </header>
+  <section class="stage" aria-label="장표 3장">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="kit-stack">
+      <div><p class="kit-lab">장표 1 · 목차</p><div class="stage-frame"><div class="ps82" id="ps82t" data-slide role="img" aria-label="장표 1 · 목차"></div></div></div>
+      <div><p class="kit-lab">장표 2 · 섹션 간지(Ⅱ)</p><div class="stage-frame"><div class="ps82" id="ps82d" data-slide role="img" aria-label="장표 2 · 섹션 간지(Ⅱ)"></div></div></div>
+      <div><p class="kit-lab">장표 3 · 마무리</p><div class="stage-frame"><div class="ps82" id="ps82e" data-slide role="img" aria-label="장표 3 · 마무리"></div></div></div>
+    </div>
+    <div class="pick" role="group" aria-label="간지 섹션 바꾸기"><span>간지 섹션 바꾸기</span><button class="btn" type="button" data-sec="0" aria-pressed="false">Ⅰ 추진 배경·현황</button><button class="btn" type="button" data-sec="1" aria-pressed="true">Ⅱ 목표 및 지표</button><button class="btn" type="button" data-sec="2" aria-pressed="false">Ⅲ 세부 추진과제</button><button class="btn" type="button" data-sec="3" aria-pressed="false">Ⅳ 추진체계</button><button class="btn" type="button" data-sec="4" aria-pressed="false">Ⅴ 일정 및 예산</button><button class="btn btn-replay" type="button" id="replay">다시 보기</button></div>
+  </section>
+
+  <section class="panel">
+    <h2>계열 값 카드 · C 경쾌한 놀이 오브젝트 <small>CARD</small></h2>
+    <div class="tokcard">
+      <div>
+        <h3 style="margin-top:0">공통 변수 --ds-*</h3>
+        <ul class="sw"><li><i style="background:#F3F7FC"></i><code>--ds-bg</code><span>#F3F7FC</span></li><li><i style="background:#FFFFFF"></i><code>--ds-surface</code><span>#FFFFFF</span></li><li><i style="background:#1D2B4F"></i><code>--ds-ink</code><span>#1D2B4F</span></li><li><i style="background:#56607A"></i><code>--ds-sub</code><span>#56607A</span></li><li><i style="background:#D3DCE8"></i><code>--ds-line</code><span>#D3DCE8</span></li><li><i style="background:#F2463C"></i><code>--ds-accent</code><span>#F2463C</span></li><li><i style="background:#2F7BF5"></i><code>--ds-accent2</code><span>#2F7BF5</span></li><li><i style="background:#1C3B7A"></i><code>--ds-c1</code><span>#1C3B7A</span></li><li><i style="background:#2F62C8"></i><code>--ds-c2</code><span>#2F62C8</span></li><li><i style="background:#5B8FEA"></i><code>--ds-c3</code><span>#5B8FEA</span></li><li><i style="background:#A9C7F7"></i><code>--ds-c4</code><span>#A9C7F7</span></li><li><i style="background:#DCE9FC"></i><code>--ds-c5</code><span>#DCE9FC</span></li></ul>
+        <h3>C 계열 확장 · 블록 재질 색</h3>
+        <ul class="sw"><li><i style="background:#2F7BF5"></i><code>--ds-toy1</code><span>#2F7BF5 · Ⅰ 파랑</span></li><li><i style="background:#FFC22E"></i><code>--ds-toy2</code><span>#FFC22E · Ⅱ 노랑</span></li><li><i style="background:#22B573"></i><code>--ds-toy3</code><span>#22B573 · Ⅲ 초록</span></li><li><i style="background:#FF8A2A"></i><code>--ds-toy4</code><span>#FF8A2A · Ⅳ 주황</span></li><li><i style="background:#F2463C"></i><code>--ds-toy5</code><span>#F2463C · Ⅴ 빨강</span></li></ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0">글꼴</h3>
+        <dl class="rules">
+          <dt>제목</dt><dd>Black Han Sans(굵고 둥근 고딕) · 대체 Gmarket Sans → 맑은 고딕 굵게</dd>
+          <dt>본문</dt><dd>IBM Plex Sans KR 400/600/700 · 대체 프리텐다드 → 맑은 고딕</dd>
+          <dt>숫자</dt><dd>Fredoka 600(둥근 숫자, 쪽 · 간지 번호) · 대체 Arial Rounded MT Bold</dd>
+        </dl>
+        <h3>규칙</h3>
+        <dl class="rules">
+          <dt>머리말 띠</dt><dd>3px 먹선 하나 위에 섹션 이름(제목 글꼴 21) · 오른쪽 계획안 이름. 둥근 상자 없이 선 하나로 경쾌함은 글꼴과 블록에 맡깁니다.</dd>
+          <dt>강조색</dt><dd>빨강(--ds-accent)은 한 장에 한 곳, 제목의 단어 하나. 블록 재질 색 다섯은 섹션 표시에만 쓰고 본문 도식에는 쓰지 않습니다(본문은 파랑 농담 c1~c5).</dd>
+          <dt>질감</dt><dd>블록만 약한 입체(윗면 광택 · 돌기 반사 · 접촉 그림자). 글 · 카드 · 표는 평면, 카드 모서리 14px.</dd>
+          <dt>모션</dt><dd>간지에서 그 섹션의 블록 하나가 위에서 내려와 놓이는 전환 0.65초 한 번. 목차 · 마무리는 정지. 동작 줄이기 설정이면 바로 놓인 상태.</dd>
+          <dt>그림</dt><dd>사진 대신 블록 한 종류(2×4)만. 블록 수 = 섹션 수, 층 순서 = 목차 순서. 다른 장난감을 늘어놓지 않습니다.</dd>
+        </dl>
+      </div>
+    </div>
+    <ul class="dont">
+      <li><b>DON'T 01</b>블록을 흩뿌려 장식으로 쓰기. 블록은 섹션 하나에 하나, 탑 하나로만 씁니다.</li>
+      <li><b>DON'T 02</b>원색 다섯을 본문 도식 칸 색으로 가져가기. 본문은 파랑 한 색 농담으로 위계를 만들고, 원색은 섹션 표시에만.</li>
+      <li><b>DON'T 03</b>그라데이션 공 · 반짝이 · 튀는 반동으로 "귀여움" 더하기. 경쾌함은 둥근 글꼴과 블록 재질에서 이미 나옵니다.</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>이 계열과 어울리는 기존 요소 26개 <small>MATCH</small></h2>
+    <p>어울리는 계열(families)에 C가 있고 덱에 쓸 수 있는 본문 요소입니다. 위 계열 값 묶음을 붙이면 같은 분위기로 바뀝니다. 평면 도식이라 블록 재질 없이도 섞입니다.</p>
+    <ul class="els"><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/06.html" target="_blank" rel="noopener"><b>#6</b> 딜러의 세 더미<small>분류·유목화</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/13.html" target="_blank" rel="noopener"><b>#13</b> 던져 채우는 오후표<small>일정</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/14.html" target="_blank" rel="noopener"><b>#14</b> 상세도 호출<small>조직·체계</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/15.html" target="_blank" rel="noopener"><b>#15</b> 연수 배선반<small>조직·체계</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/22.html" target="_blank" rel="noopener"><b>#22</b> 다섯 칸 다이얼<small>흐름·절차</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/23.html" target="_blank" rel="noopener"><b>#23</b> 주 경로 간트<small>일정</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/40.html" target="_blank" rel="noopener"><b>#40</b> 도미노 일정표<small>일정</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/41.html" target="_blank" rel="noopener"><b>#41</b> 타이밍 타워 순위표<small>추이</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/44.html" target="_blank" rel="noopener"><b>#44</b> 분자 결합 추진체계<small>조직·체계</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/47.html" target="_blank" rel="noopener"><b>#47</b> 눈금 머리 과제표<small>표·목록</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/48.html" target="_blank" rel="noopener"><b>#48</b> 세 줄 나란히 추이<small>추이</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/49.html" target="_blank" rel="noopener"><b>#49</b> 조사 완료선 정렬 비교<small>비교·순위</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/50.html" target="_blank" rel="noopener"><b>#50</b> 재원 지분 마리메코<small>구성비</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/51.html" target="_blank" rel="noopener"><b>#51</b> 낱칸 시·군 지도<small>지도·분포</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/53.html" target="_blank" rel="noopener"><b>#53</b> 밑줄 대조표<small>표·목록</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/54.html" target="_blank" rel="noopener"><b>#54</b> 기둥과 보 체계도<small>비전 체계도</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/55.html" target="_blank" rel="noopener"><b>#55</b> 원인 꽂힌 화살표<small>현안→해결방안</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/56.html" target="_blank" rel="noopener"><b>#56</b> 나비매듭 배경·목적<small>배경·목적</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/57.html" target="_blank" rel="noopener"><b>#57</b> 예산 각도 동심원 체계도<small>비전 체계도</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/61.html" target="_blank" rel="noopener"><b>#61</b> 주 담당 대응표<small>현안→해결방안</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/72.html" target="_blank" rel="noopener"><b>#72</b> 확대 지시선 배경·목적<small>배경·목적</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/73.html" target="_blank" rel="noopener"><b>#73</b> 한 줄로 읽는 체계도<small>비전 체계도</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/76.html" target="_blank" rel="noopener"><b>#76</b> 줄어드는 공정 띠<small>현안→해결방안</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/77.html" target="_blank" rel="noopener"><b>#77</b> 기준선 격차 배경·목적<small>배경·목적</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/79.html" target="_blank" rel="noopener"><b>#79</b> 이어지는 재원 비중<small>구성비</small></a></li><li><a href="https://szxv7704-dot.github.io/design-reference-gallery/refs/80.html" target="_blank" rel="noopener"><b>#80</b> 백 칸 중 마흔하나<small>핵심 수치</small></a></li></ul>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>장표마다 코드 블록 하나가 자기 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>계획안 이름 · 섹션 이름 · 쪽 · 간지의 "이 장에서" 세 줄은 스크립트 맨 위 <code>DATA</code>의 <code>plan</code>, <code>sections</code>에서 바꿉니다. 섹션 수가 다섯이 아니면 <code>LAYERS</code>도 같은 수로 맞춥니다.</li>
+      <li>간지는 <code>DATA.current</code>(0~4)로 섹션을 고릅니다. 같은 틀을 다섯 번 쓰면 블록이 한 층씩 올라갑니다.</li>
+      <li>마지막 블록은 계열 값 묶음(:root)만 떼어 낸 것입니다. 다른 본문 요소 장표에 붙이면 C 분위기가 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="cbs">
+      <div><div class="cb-h"><span>장표 1 · 목차</span><button class="btn" type="button" data-copy="t">코드 복사</button><span class="msg" aria-live="polite"></span></div><pre class="code" id="code-t" tabindex="0"></pre></div>
+      <div><div class="cb-h"><span>장표 2 · 섹션 간지</span><button class="btn" type="button" data-copy="d">코드 복사</button><span class="msg" aria-live="polite"></span></div><pre class="code" id="code-d" tabindex="0"></pre></div>
+      <div><div class="cb-h"><span>장표 3 · 마무리</span><button class="btn" type="button" data-copy="e">코드 복사</button><span class="msg" aria-live="polite"></span></div><pre class="code" id="code-e" tabindex="0"></pre></div>
+      <div><div class="cb-h"><span>계열 값 묶음만 (:root)</span><button class="btn" type="button" data-copy="r">코드 복사</button><span class="msg" aria-live="polite"></span></div><pre class="code" id="code-r" tabindex="0"></pre></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>테마 색</b>: 디자인 › 적용 › 색 › 색 사용자 지정. 텍스트/배경-어둡게 1 <code>#1D2B4F</code>, 밝게 1 <code>#F3F7FC</code>, 어둡게 2 <code>#1C3B7A</code>, 밝게 2 <code>#FFFFFF</code>, 강조 1 <code>#F2463C</code>, 강조 2~6 <code>#2F62C8 #5B8FEA #A9C7F7 #FFC22E #22B573</code>. 이름 "C 놀이 오브젝트".</li>
+      <li><b>테마 글꼴</b>: 제목 Black Han Sans(없으면 맑은 고딕 굵게), 본문 IBM Plex Sans KR(없으면 맑은 고딕). 쪽 · 간지 번호는 Fredoka(없으면 Arial Rounded MT Bold).</li>
+      <li><b>레이아웃 3종</b>: 보기 › 슬라이드 마스터에서 "목차"(왼쪽 목록 5줄 · 오른쪽 그림 자리), "간지"(왼쪽 위 큰 번호 · 아래 섹션 이름 · 오른쪽 그림 자리), "마무리"(왼쪽 두 줄 메시지 · 문의처 상자 · 오른쪽 그림 자리). 머리말 띠는 3pt 선 하나.</li>
+      <li><b>블록 그림</b>: 이 페이지의 장표를 PNG로 저장해 그림 자리에 넣는 것이 가장 빠릅니다(브라우저에서 장표 우클릭 › 이미지로 저장이 안 되면 화면 캡처). 직접 그리려면 [도형 › 직육면체] 깊이 40%를 층마다 색만 바꿔 쌓고, 윗면에 [타원] 돌기를 2×4로.</li>
+      <li><b>간지 전환</b>: 블록 그림만 [애니메이션 › 나타내기 › 날아오기(위에서)] 0.6초, 시작 "이전 효과와 함께". 목차 · 마무리는 애니메이션 없음.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>계열</b>C 경쾌한 놀이 오브젝트(표지 #7 · #24 · #29 · #39 · #59)</div>
+      <div><b>주제</b>2027 놀이중심 유아교육과정 지원 계획(가상)</div>
+      <div><b>난이도</b>HTML 중 · PPT 하(블록 그림은 이미지로)</div>
+      <div><b>질감 · 모션</b>블록만 약한 입체 · 간지 블록 놓기 0.65초 한 번</div>
+      <div><b>관찰 디테일</b>돌기 윗면의 초승달 반사 · 윗면 광택과 아래 모서리 그늘 · 위층이 아래층 윗면에 드리우는 접촉 그림자 · 엇갈려 쌓은 2×4 결</div>
+      <div><b>트렌드</b>촉각적인 3D 오브젝트 하나로 브랜드 분위기를 정하는 '토이 3D' — 장식이 아니라 구조(섹션 = 층)를 맡긴다. 참고: <a href="https://www.behance.net/search/projects/toy%203d%20illustration" target="_blank" rel="noopener">Behance, toy 3D illustration</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps82-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    plan: '2027 ○○교육청 놀이중심 유아교육과정 지원 계획',
+    tocTitle: '놀이가 배움이 되는 유아학교, 다섯 단계로 [쌓습니다]',
+    // 섹션 5개: 목차 줄 · 간지 · 블록 탑의 층이 모두 이 배열을 따른다(아래층 = Ⅰ)
+    sections: [
+      { no: 'Ⅰ', name: '추진 배경·현황', sub: '놀이 시간 실태 · 교사 설문 · 학부모 요구', page: 3, points: ['하루 자유놀이 시간 실태(유치원 148원)', '교사가 꼽은 걸림돌 세 가지', '학부모가 바라는 유아학교'] },
+      { no: 'Ⅱ', name: '목표 및 지표', sub: '바깥놀이 60분 · 놀이 기록 · 만족도', page: 6, points: ['비전과 세 가지 목표', '성과지표 네 개와 측정 방법', '2027 · 2028 단계 목표'] },
+      { no: 'Ⅲ', name: '세부 추진과제', sub: '놀이 공간 · 교사 연수 · 놀이 꾸러미', page: 9, points: ['실내외 놀이 공간 바꾸기', '놀이 관찰·기록 연수', '권역별 놀이 꾸러미 순회'] },
+      { no: 'Ⅳ', name: '추진체계', sub: '유아교육진흥원 · 권역 지원단 · 유치원', page: 16, points: ['교육청 · 진흥원 · 권역 지원단 역할', '유치원 놀이 지원 협의회', '지자체 · 육아종합지원센터 협력'] },
+      { no: 'Ⅴ', name: '일정 및 예산', sub: '분기별 일정 · 재원별 예산 12.6억', page: 20, points: ['분기별 추진 일정', '재원별 예산(국비 · 시 · 교육청)', '점검과 환류 시기'] }
+    ],
+    current: 1,                                   // 간지에 보일 섹션(0~4)
+    closing: { line1: '아이의 놀이가 배움이 되도록', line2: '[함께] 쌓아 가겠습니다',
+      contact: [['담당 부서', '○○교육청 유아교육과'], ['담당', '○○○ 장학사'], ['전화', '0○○-○○○-○○○○'], ['자료', '○○교육청 누리집 › 유아교육 › 놀이중심']] },
+    pages: { toc: 2, closing: 24 },
+    source: '가상 예시'
+  };
+
+  var C30 = Math.cos(Math.PI / 6), S30 = .5;
+  // 탑 블록: 2×4 블록을 같은 자리에 곧게 쌓는다(층마다 x·y를 바꾸면 엇갈려 쌓기). 층 높이 1.2
+  var LAYERS = [{ x: [0, 4], y: [0, 2] }, { x: [0, 4], y: [0, 2] }, { x: [0, 4], y: [0, 2] }, { x: [0, 4], y: [0, 2] }, { x: [0, 4], y: [0, 2] }];
+  var LH = 1.2;
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var at = function(x, y){ return 'left:' + u(x) + ';top:' + u(y); };
+  var em = function(s){ return esc(s).replace(/\[(.+?)\]/, '<em>$1</em>'); };
+
+  // ── 블록 그리기(축측 투영, 왼쪽 위 광원) ──
+  function hex(h){ h = h.trim(); if (h.indexOf('rgb') === 0) return h.match(/\d+/g).slice(0, 3).map(Number); h = h.replace('#', ''); if (h.length === 3) h = h.replace(/./g, '$&$&'); return [0, 2, 4].map(function(i){ return parseInt(h.substr(i, 2), 16); }); }
+  function mix(h, t){ var c = hex(h), k = t > 0 ? 255 : 0, a = Math.abs(t); return 'rgb(' + c.map(function(v){ return Math.round(v + (k - v) * a); }).join(',') + ')'; }
+  function proj(o, U, x, y, z){ return [o[0] + (x - y) * C30 * U, o[1] + (x + y) * S30 * U - z * U]; }
+  function poly(g, p){ g.beginPath(); g.moveTo(p[0][0], p[0][1]); for (var i = 1; i < p.length; i++) g.lineTo(p[i][0], p[i][1]); g.closePath(); }
+  function face(g, p, col, gloss){
+    poly(g, p); g.fillStyle = col; g.fill();
+    var ys = p.map(function(q){ return q[1]; }), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+    var gr = g.createLinearGradient(0, y0, 0, y1);
+    gr.addColorStop(0, 'rgba(255,255,255,' + gloss + ')'); gr.addColorStop(.55, 'rgba(255,255,255,0)'); gr.addColorStop(1, 'rgba(0,0,0,.06)');
+    g.fillStyle = gr; g.fill();
+  }
+  function box(o, U, b, dz){
+    var P = function(x, y, z){ return proj(o, U, x, y, z + dz); };
+    var x0 = b.x[0], x1 = b.x[1], y0 = b.y[0], y1 = b.y[1], z0 = b.z, z1 = b.z + LH;
+    return { top: [P(x0, y0, z1), P(x1, y0, z1), P(x1, y1, z1), P(x0, y1, z1)],
+      right: [P(x1, y0, z0), P(x1, y1, z0), P(x1, y1, z1), P(x1, y0, z1)],
+      front: [P(x0, y1, z0), P(x1, y1, z0), P(x1, y1, z1), P(x0, y1, z1)],
+      fc: P((x0 + x1) / 2, y1, (z0 + z1) / 2), P: P };
+  }
+  function stud(g, o, U, x, y, z, col){
+    var r = .3 * U, h = .2 * U, c = proj(o, U, x, y, z), rx = r * 1.2247, ry = r * .7071;
+    g.beginPath(); g.ellipse(c[0], c[1], rx, ry, 0, 0, Math.PI); g.lineTo(c[0] - rx, c[1] - h); g.ellipse(c[0], c[1] - h, rx, ry, 0, Math.PI, 0, true); g.closePath();
+    var gr = g.createLinearGradient(c[0] - rx, 0, c[0] + rx, 0); gr.addColorStop(0, mix(col, -.02)); gr.addColorStop(.35, mix(col, .15)); gr.addColorStop(1, mix(col, -.25));
+    g.fillStyle = gr; g.fill();
+    g.beginPath(); g.ellipse(c[0], c[1] - h, rx, ry, 0, 0, Math.PI * 2); g.fillStyle = mix(col, .28); g.fill();
+    // 돌기 윗면의 초승달 반사(관찰 디테일 1)
+    g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = Math.max(.8, U * .05);
+    g.beginPath(); g.ellipse(c[0], c[1] - h, rx * .7, ry * .6, 0, Math.PI * 1.05, Math.PI * 1.6); g.stroke();
+  }
+  function brick(g, o, U, b, col, dz, alpha){
+    var p = box(o, U, b, dz || 0), lw = Math.max(1, U * .05);
+    g.save(); g.globalAlpha = alpha == null ? 1 : alpha;
+    face(g, p.front, col, .3);
+    face(g, p.right, mix(col, -.2), .16);
+    face(g, p.top, mix(col, .2), .32);
+    // 모서리: 윗면 테두리 밝게, 아래 모서리 어둡게, 앞·옆 맞닿는 세로 모서리에 반사(관찰 디테일 2)
+    poly(g, p.top); g.strokeStyle = 'rgba(255,255,255,.8)'; g.lineWidth = lw * 1.1; g.stroke();
+    g.beginPath(); g.moveTo(p.front[0][0], p.front[0][1]); g.lineTo(p.front[1][0], p.front[1][1]); g.lineTo(p.right[1][0], p.right[1][1]);
+    g.strokeStyle = 'rgba(20,30,60,.2)'; g.lineWidth = lw; g.stroke();
+    g.beginPath(); g.moveTo(p.front[1][0], p.front[1][1]); g.lineTo(p.front[2][0], p.front[2][1]); g.strokeStyle = 'rgba(255,255,255,.4)'; g.stroke();
+    for (var x = b.x[0] + .5; x < b.x[1]; x++) for (var y = b.y[0] + .5; y < b.y[1]; y++) stud(g, o, U, x, y, b.z + LH + (dz || 0), mix(col, .04));
+    g.restore();
+  }
+  // 위층이 아래층 윗면에 드리우는 접촉 그림자(관찰 디테일 3)
+  function contact(g, o, U, b){
+    var P = function(x, y){ return proj(o, U, x, y, b.z); };
+    g.save(); g.filter = 'blur(' + Math.max(1, U * .1) + 'px)'; g.fillStyle = 'rgba(20,32,70,.28)';
+    poly(g, [P(b.x[0], b.y[0] + .15), P(b.x[1] + .18, b.y[0] + .15), P(b.x[1] + .18, b.y[1] + .2), P(b.x[0], b.y[1] + .2)]); g.fill(); g.restore();
+  }
+  function ghost(g, o, U, b){
+    var p = box(o, U, b, 0);
+    g.save(); g.setLineDash([U * .14, U * .12]); g.lineWidth = Math.max(1, U * .04); g.strokeStyle = cssv('c3');
+    [p.top, p.front, p.right].forEach(function(f){ poly(g, f); g.fillStyle = 'rgba(255,255,255,.14)'; g.fill(); g.stroke(); });
+    g.restore();
+  }
+  var ROOT;
+  function cssv(n){ return getComputedStyle(ROOT).getPropertyValue('--ds-' + n).trim(); }
+  function toy(i){ return cssv('toy' + (i + 1)); }
+  // 탑: placed = 놓인 층 수, cur = 지금 놓는 층(없으면 -1), t = 놓이는 진행(0~1)
+  function tower(g, o, U, placed, cur, t, labels, flag){
+    var B = LAYERS.map(function(L, i){ return { x: L.x, y: L.y, z: i * LH }; });
+    // 바닥 그림자
+    g.save(); g.filter = 'blur(' + U * .35 + 'px)'; g.fillStyle = 'rgba(20,32,70,.18)';
+    var P = function(x, y){ return proj(o, U, x, y, 0); };
+    poly(g, [P(-.4, -.3), P(4.6, -.3), P(4.6, 2.8), P(-.4, 2.8)]); g.fill(); g.restore();
+    var pos = [];
+    B.forEach(function(b, i){
+      if (i < placed){ if (i > 0) contact(g, o, U, b); brick(g, o, U, b, toy(i)); }
+      else if (i === cur){ var e = 1 - Math.pow(1 - t, 3); if (t > .85) contact(g, o, U, b); brick(g, o, U, b, toy(i), (1 - e) * 1.8, Math.min(1, t * 4)); }
+      else ghost(g, o, U, b);
+      var p = box(o, U, b, i === cur ? (1 - (1 - Math.pow(1 - t, 3))) * 1.8 : 0);
+      pos.push(p.fc);
+    });
+    if (flag && placed >= B.length){ // 꼭대기 깃발 조각: 막대 + 삼각 깃발
+      var top = B[B.length - 1], base = proj(o, U, 3, 1, top.z + LH + .2), tip = proj(o, U, 3, 1, top.z + LH + 2.4);
+      g.strokeStyle = cssv('ink'); g.lineWidth = U * .09; g.lineCap = 'round'; g.beginPath(); g.moveTo(base[0], base[1]); g.lineTo(tip[0], tip[1]); g.stroke();
+      var f1 = proj(o, U, 4.4, 1, top.z + LH + 1.95), f2 = proj(o, U, 3, 1, top.z + LH + 1.5);
+      poly(g, [tip, f1, f2]); g.fillStyle = cssv('accent'); g.fill();
+      poly(g, [tip, f1, f2]); g.fillStyle = 'rgba(255,255,255,.18)'; g.fill();
+    }
+    if (labels) labels.forEach(function(l, i){ l.style.left = u(pos[i][0]); l.style.top = u(pos[i][1]); l.style.opacity = i < placed || i === cur ? 1 : 0; });
+  }
+  // 캔버스: 가상 1600×900 좌표를 그대로 쓰고 실제 픽셀로 키운다
+  function fit(cv){
+    var r = cv.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(r.width * d); cv.height = Math.round(r.height * d);
+    var g = cv.getContext('2d'); g.setTransform(cv.width / 1600, 0, 0, cv.height / 900, 0, 0); return g;
+  }
+  function frame(no, left, right, page){
+    return '<div class="ps82-a ps82-hd"><div class="ps82-sec">' + left + '</div><div class="ps82-plan">' + esc(DATA.plan) + '</div></div>' +
+      '<div class="ps82-a ps82-ft"><span>' + esc(DATA.source) + '</span><span>' + page + '</span></div>';
+  }
+  function labelsHTML(){ return DATA.sections.map(function(s){ return '<div class="ps82-a ps82-bl">' + esc(s.no) + '</div>'; }).join(''); }
+
+  // ── 장표 1: 목차 ──
+  function toc(el){
+    var h = frame(0, '목차', '', DATA.pages.toc);
+    h += '<div class="ps82-a ps82-tt" style="' + at(80, 108) + '">' + em(DATA.tocTitle) + '</div>';
+    DATA.sections.forEach(function(s, i){
+      var y = 240 + i * 108;
+      h += '<div class="ps82-a ps82-row" style="' + at(80, y) + ';width:' + u(940) + ';height:' + u(96) + '">' +
+        '<span class="ps82-no">' + esc(s.no) + '</span><span class="ps82-nm"><b>' + esc(s.name) + '</b><small>' + esc(s.sub) + '</small></span><span class="ps82-pg">' + (s.page < 10 ? '0' : '') + s.page + '</span></div>';
+    });
+    el.innerHTML = '<div class="ps82-in"><canvas class="ps82-cv"></canvas>' + h + labelsHTML() + '</div>';
+    var cv = el.querySelector('canvas'), labs = el.querySelectorAll('.ps82-bl');
+    return function(){
+      ROOT = el; var g = fit(cv); g.clearRect(0, 0, 1600, 900);
+      // 목차 줄 머리: 해당 층 색의 작은 2×2 블록
+      DATA.sections.forEach(function(s, i){ brick(g, [116, 240 + i * 108 + 44], 17, { x: [0, 2], y: [0, 2], z: 0 }, toy(i)); });
+      tower(g, [1250, 600], 52, 5, -1, 1, labs, false);
+    };
+  }
+  // ── 장표 2: 섹션 간지(DATA.current만 바꿔 다섯 번 쓴다) ──
+  var divPaint, divEl;
+  function divider(el){
+    divEl = el;
+    var s = DATA.sections[DATA.current], i = DATA.current;
+    var h = frame(0, '<i>' + (i + 1) + ' / ' + DATA.sections.length + '</i>' + esc(s.no) + '. ' + esc(s.name), '', s.page - 1);
+    h += '<div class="ps82-a ps82-big" style="' + at(72, 196) + ';color:var(--ds-toy' + (i + 1) + ')">' + (i + 1 < 10 ? '0' : '') + (i + 1) + '</div>';
+    h += '<div class="ps82-a ps82-dn" style="' + at(80, 452) + '">' + esc(s.name) + '</div>';
+    h += '<div class="ps82-a ps82-pts" style="' + at(84, 600) + '"><span>이 장에서</span><ul>' + s.points.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div>';
+    el.innerHTML = '<div class="ps82-in"><canvas class="ps82-cv"></canvas>' + h + labelsHTML() + '</div>';
+    var cv = el.querySelector('canvas'), labs = el.querySelectorAll('.ps82-bl'), t = 1;
+    divPaint = function(){ ROOT = el; var g = fit(cv); g.clearRect(0, 0, 1600, 900); tower(g, [1230, 620], 54, i, i, t, labs, false); };
+    divPaint.play = function(){
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches){ t = 1; divPaint(); return; }
+      var t0 = performance.now();
+      (function step(now){ t = Math.min(1, (now - t0) / 650); divPaint(); if (t < 1) requestAnimationFrame(step); })(t0);
+    };
+    return divPaint;
+  }
+  // ── 장표 3: 마무리(표지 #7 '블록 빌드'와 수미상관: 다 쌓은 탑 + 깃발) ──
+  function closing(el){
+    var c = DATA.closing;
+    var h = frame(0, '맺음', '', DATA.pages.closing);
+    h += '<div class="ps82-a ps82-msg" style="' + at(80, 200) + '">' + esc(c.line1) + '<br>' + em(c.line2) + '</div>';
+    h += '<dl class="ps82-a ps82-ct" style="' + at(80, 480) + ';width:' + u(700) + '">' + c.contact.map(function(r){ return '<dt>' + esc(r[0]) + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('') + '</dl>';
+    el.innerHTML = '<div class="ps82-in"><canvas class="ps82-cv"></canvas>' + h + labelsHTML() + '</div>';
+    var cv = el.querySelector('canvas'), labs = el.querySelectorAll('.ps82-bl');
+    return function(){ ROOT = el; var g = fit(cv); g.clearRect(0, 0, 1600, 900); tower(g, [1230, 680], 48, 5, -1, 1, labs, true); };
+  }
+
+  var P = [];
+  [['ps82t', toc], ['ps82d', divider], ['ps82e', closing]].forEach(function(a){
+    var el = document.getElementById(a[0]); if (!el) return; ROOT = el; P.push([el, a[1](el)]);
+  });
+  function paintAll(){ P.forEach(function(p){ ROOT = p[0]; p[1](); }); }
+  paintAll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintAll);
+  if (window.ResizeObserver){ var ro = new ResizeObserver(paintAll); P.forEach(function(p){ ro.observe(p[0]); }); }
+  // 간지 섹션 바꾸기(0~4) + 놓이는 전환 다시 보기
+  window.ps82Show = function(k){ DATA.current = k; ROOT = divEl; var f = divider(divEl); P.forEach(function(p){ if (p[0] === divEl) p[1] = f; }); ROOT = divEl; f.play(); };
+  window.ps82Play = function(){ ROOT = divEl; divPaint.play(); };
+  window.ps82Paint = paintAll;
+  if (divEl){ ROOT = divEl; divPaint.play(); }
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps82-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps82-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;600;700&family=Fredoka:wght@600&display=swap\">";
+  var mk = function(id, label){ return '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n<div class="ps82" id="' + id + '" role="img" aria-label="' + label + '"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n'; };
+  var CODE = { t: mk('ps82t', '목차'), d: mk('ps82d', '섹션 간지'), e: mk('ps82e', '마무리'), r: ":root{\n  --ds-bg:#F3F7FC;\n  --ds-surface:#FFFFFF;\n  --ds-ink:#1D2B4F;\n  --ds-sub:#56607A;\n  --ds-line:#D3DCE8;\n  --ds-accent:#F2463C;\n  --ds-accent2:#2F7BF5;\n  --ds-c1:#1C3B7A;\n  --ds-c2:#2F62C8;\n  --ds-c3:#5B8FEA;\n  --ds-c4:#A9C7F7;\n  --ds-c5:#DCE9FC;\n  --ds-font-title:\"Black Han Sans\",\"Gmarket Sans\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif;\n  --ds-font-body:\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif;\n  --ds-font-num:\"Fredoka\",\"Arial Rounded MT Bold\",\"Black Han Sans\",sans-serif;\n  --ds-radius:14px;\n  --ds-shadow:0 2px 0 rgba(29,43,79,.06),0 18px 36px -22px rgba(29,43,79,.35);\n  --ds-toy1:#2F7BF5;\n  --ds-toy2:#FFC22E;\n  --ds-toy3:#22B573;\n  --ds-toy4:#FF8A2A;\n  --ds-toy5:#F2463C;\n}" };
+  Object.keys(CODE).forEach(function(k){ document.getElementById('code-' + k).textContent = CODE[k]; });
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    var k = b.dataset.copy, pre = document.getElementById('code-' + k), msg = b.nextElementSibling;
+    var sel = function(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; };
+    b.addEventListener('click', function(){ try { navigator.clipboard.writeText(CODE[k]).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  });
+  var sb = document.querySelectorAll('[data-sec]');
+  sb.forEach(function(b){ b.addEventListener('click', function(){ sb.forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); }); window.ps82Show(+b.dataset.sec); }); });
+  document.getElementById('replay').addEventListener('click', function(){ window.ps82Play(); });
+  window.ps82Codes = CODE;
+})();
+</script>
+</body></html>

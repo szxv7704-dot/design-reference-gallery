@@ -58,3 +58,24 @@ claude.ai 루틴이 새 레퍼런스를 만들 때마다 `refs/`, `thumbs/`, `da
 `data/rounds.json`의 각 항목에는 `v`(HTML·썸네일 내용의 sha1 앞 8자리)가 있습니다. 갤러리는 링크와 썸네일 주소 뒤에 `?v=`를 붙여, 같은 번호를 재작업해도 브라우저 캐시 때문에 옛 버전이 보이지 않게 합니다.
 
 새 회차를 `refs/`에 넣은 뒤에는 `node scripts/add-code.js refs/NN.html`을 실행해 코드 칸을 붙이고, `v`를 다시 계산합니다.
+
+## 소스와 빌드 (인터넷 없이 도는 장표)
+
+`refs/{번호}.html`은 **빌드 결과물**입니다. 직접 고치지 말고 `src/{번호}/`를 고친 뒤 빌드합니다.
+
+| 위치 | 내용 |
+|---|---|
+| `src/{번호}/page.html` | 페이지 원본. 글꼴 · 큰 그림 · 외부 라이브러리 자리는 `/*@@FONTS@@*/` · `@@ASSET:이름@@` · `@@IMPORTMAP:three@@` 자리표시 |
+| `src/{번호}/assets/` | 페이지에 들어가는 사진 · 조각 그림 원본 |
+| `src/{번호}/build.json` | 쓰는 글꼴(가족 · 굵기) · 자산 목록 · 외부 라이브러리 |
+| `fonts/*.woff2` | 글꼴 원본(OFL). 한글 2,350자 + 영문 · 문장부호 + 갤러리에 쓰인 글자 |
+| `vendor/three/` | three.js r160(MIT) 사본 |
+
+```
+python3 scripts/build.py 109        # src/109 → refs/109.html  (all = 전부)
+node scripts/check.js refs          # 바깥 연결을 막고 전 장표 검사 → check/report.json
+python3 scripts/extract.py 110      # (옛 장표를 src/ 로 옮길 때만) refs → src
+```
+
+- 빌드는 페이지에 쓰인 글자만 잘라 글꼴을 박아 넣고, 그림 · 라이브러리도 파일 안에 넣습니다. 결과물에 바깥 주소가 없습니다(‘코드 복사’ 안의 글은 예외).
+- 새 글꼴이 필요하면 `fonts/needed.json`에 적고 `scripts/fetch_fonts.py` → `scripts/pack_fonts.py`(원본 ttf는 저장소 밖).

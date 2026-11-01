@@ -1,0 +1,1488 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #11 디딤 타워</title>
+<style>/*@@FONTS@@*/</style>
+<style>
+@font-face{font-family:"G11";src:url(@@ASSET:dd9c4b4013.woff2@@) format("woff2");font-display:block}
+@font-face{font-family:"G11B";src:url(@@ASSET:0d432438a4.woff2@@) format("woff2");font-display:block}
+@font-face{font-family:"G9";src:url(@@ASSET:a6355e651d.woff2@@) format("woff2");font-display:block}
+@font-face{font-family:"G7";src:url(@@ASSET:5af34c85dc.woff2@@) format("woff2");font-display:block}
+@font-face{font-family:"G14";src:url(@@ASSET:e9de2c7055.woff2@@) format("woff2");font-display:block}
+
+/* Layout: 탑 단면 표지를 맨 위에 정수배로 세우고, 그 아래 조작판 → 층 정보 → 설계 메모가 한 줄기로 내려간다.
+   단일 테마(밤의 탑). 모든 색은 표지 캔버스와 같은 16색 팔레트에서 가져온다. */
+:root{
+  color-scheme:dark;
+  --ink:#150f24; --night:#302643; --stone:#4a3a63; --stone-2:#5a4870; --mist:#a797b6;
+  --paper:#ece8f4; --gold:#ffd45e; --torch:#e0892f; --wood:#6e412b; --brick:#a85a3c;
+  --oak:#c98e5a; --skin:#f0b896; --deep:#285b7c; --teal:#3a86a8; --sky:#92d6ea; --ember:#ee6e7e;
+  --f-dot:"G11","Galmuri11",ui-monospace,monospace;
+  --f-dotb:"G11B","G11","Galmuri11",ui-monospace,monospace;
+  --f-ui:"G14","G11","Galmuri14",ui-monospace,monospace;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+html{background:var(--ink)}
+body{background:var(--ink);color:var(--paper);font-family:var(--f-body);font-size:15px;line-height:1.7;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px;padding-block:14px 72px;display:flex;flex-direction:column;gap:28px}
+a{color:var(--sky)}
+a:focus-visible,button:focus-visible,.frame:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.px{clip-path:polygon(3px 0,calc(100% - 3px) 0,100% 3px,100% calc(100% - 3px),calc(100% - 3px) 100%,3px 100%,0 calc(100% - 3px),0 3px)}
+
+/* 머리 */
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 16px}
+.eyebrow{font-family:var(--f-dot);font-size:12px;letter-spacing:.06em;color:var(--mist)}
+.eyebrow b{color:var(--gold);font-weight:400}
+
+/* 표지 무대 */
+.stage{container-type:inline-size;display:flex;flex-direction:column;gap:14px}
+.frame{margin-inline:auto;max-width:100%;background:var(--ink);padding:.9cqw;box-shadow:0 0 0 2px var(--stone-2),0 0 0 4px var(--ink),0 0 0 6px var(--stone);outline:none}
+.frame canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;max-width:100%}
+.under{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;font-family:var(--f-dot);font-size:12px;color:var(--mist);padding-inline:2px}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font-family:var(--f-ui);font-size:15px;line-height:1;color:var(--paper);background:var(--stone);border:0;padding:12px 16px;cursor:pointer;box-shadow:inset 0 0 0 2px var(--stone-2),inset 0 -4px 0 var(--night)}
+.btn:hover{background:var(--stone-2)}
+.btn.main{background:var(--torch);color:var(--ink);box-shadow:inset 0 0 0 2px var(--gold),inset 0 -4px 0 var(--brick)}
+.btn.main:hover{background:var(--gold)}
+.btn[disabled]{opacity:.45;cursor:default}
+.floors{display:flex;gap:4px;flex-wrap:wrap}
+.floors .btn{padding:12px 11px;min-width:44px}
+.floors .btn[aria-pressed="true"]{background:var(--gold);color:var(--ink);box-shadow:inset 0 0 0 2px var(--paper),inset 0 -4px 0 var(--torch)}
+.kbd{font-family:var(--f-dot);font-size:12px;color:var(--mist)}
+.kbd kbd{font-family:var(--f-dot);background:var(--night);color:var(--paper);padding:2px 6px;box-shadow:inset 0 0 0 1px var(--stone-2)}
+
+.info{background:var(--night);padding:18px 20px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px 28px}
+.info h2{margin:0;font-family:var(--f-dotb);font-weight:400;font-size:24px;line-height:1.25;color:var(--gold);text-wrap:balance}
+.info .sec{font-family:var(--f-ui);font-size:15px;color:var(--sky);margin:0 0 6px}
+.info ul{margin:10px 0 0;padding-left:1.1em}
+.info li{margin:2px 0}
+.info dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;align-content:start}
+.info dt{font-family:var(--f-ui);font-size:15px;color:var(--mist);white-space:nowrap}
+.info dd{margin:0}
+.tag-obs{color:var(--ember)} .tag-rew{color:var(--gold)}
+
+/* 메모 */
+.memo{display:flex;flex-direction:column;gap:40px}
+section > h2{font-family:var(--f-dotb);font-weight:400;font-size:24px;line-height:1.3;color:var(--gold);margin:0 0 6px;text-wrap:balance}
+section > .lede{color:var(--mist);margin:0 0 16px;max-width:68ch}
+.concept{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px 32px}
+.concept p{margin:0 0 10px;max-width:62ch}
+.namecard{background:var(--night);padding:16px 18px;font-family:var(--f-ui);font-size:15px;line-height:1.6;display:flex;flex-direction:column;gap:6px}
+.namecard .nm{font-family:var(--f-dotb);font-size:24px;color:var(--gold);line-height:1.2}
+.namecard span{color:var(--mist)}
+
+.tbl{overflow-x:auto;background:var(--night)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px;line-height:1.6}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:2px solid var(--ink)}
+thead th{font-family:var(--f-ui);font-weight:400;font-size:15px;color:var(--gold);background:var(--stone);white-space:nowrap}
+tbody th{font-family:var(--f-ui);font-weight:400;font-size:15px;color:var(--paper);white-space:nowrap}
+td.where{color:var(--sky)}
+.cmp table{min-width:640px}
+.cmp tbody tr:last-child td,.cmp tbody tr:last-child th{border-bottom:0}
+.cmp td.now{color:var(--paper);background:var(--stone)}
+.cmp thead th.now{background:var(--torch);color:var(--ink)}
+
+/* 발표 흐름 도식 */
+.flow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:20px;align-items:start}
+.tower{display:flex;flex-direction:column-reverse;gap:0;list-style:none;margin:0;padding:0}
+.tower li{display:grid;grid-template-columns:52px minmax(0,1fr);align-items:stretch}
+.tower .fl{font-family:var(--f-dotb);font-size:12px;color:var(--ink);background:var(--mist);display:flex;align-items:center;justify-content:center;border-bottom:2px solid var(--ink)}
+.tower .body{padding:9px 14px;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.tower .no{font-family:var(--f-dot);font-size:12px;color:var(--ink);background:var(--gold);padding:1px 6px}
+.tower .t{font-family:var(--f-ui);font-size:15px}
+.tower .d{color:var(--mist);font-size:14px;flex-basis:100%}
+.tower li.f0 .body{background:#2b2240} .tower li.f0 .fl{background:var(--stone-2);color:var(--paper)}
+.tower li.f1 .body{background:#33231f} .tower li.f1 .fl{background:var(--wood);color:var(--paper)}
+.tower li.f2 .body{background:#18334a} .tower li.f2 .fl{background:var(--deep);color:var(--paper)}
+.tower li.f3 .body{background:#3d2420} .tower li.f3 .fl{background:var(--brick);color:var(--paper)}
+.tower li.f4 .body{background:#1a2a44} .tower li.f4 .fl{background:var(--teal);color:var(--ink)}
+.tower li.f5 .body{background:#1f3f52} .tower li.f5 .fl{background:var(--sky);color:var(--ink)}
+.tower li.cover .body{background:var(--ink);box-shadow:inset 0 0 0 2px var(--stone)} .tower li.cover .fl{background:var(--ink);color:var(--mist)}
+.tower li.gate .body{background:#3a2b1d} .tower li.gate .fl{background:var(--oak);color:var(--ink)}
+.stairs{display:block;height:10px;background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 12px);opacity:.6}
+.side{display:flex;flex-direction:column;gap:12px}
+.side .card{background:var(--night);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.side .card .t{font-family:var(--f-ui);font-size:15px}
+.side .card p{margin:0;color:var(--mist);font-size:14px}
+.side .axis{font-family:var(--f-dot);font-size:12px;color:var(--sky)}
+.flow-note{font-family:var(--f-dot);font-size:12px;color:var(--mist);margin-top:8px}
+
+/* 재현 체크 */
+.checks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:8px}
+.checks li{background:var(--night);padding:10px 12px 10px 40px;position:relative;font-size:14px;line-height:1.55}
+.checks li::before{content:"";position:absolute;left:14px;top:14px;width:12px;height:12px;background:var(--gold);box-shadow:inset -3px -3px 0 var(--torch)}
+.checks b{font-family:var(--f-ui);font-weight:400;font-size:15px;color:var(--paper);display:block}
+.checks span{color:var(--mist)}
+
+/* 스펙 */
+.spec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.spec .card{background:var(--night);padding:14px 16px;min-width:0}
+.spec h3{font-family:var(--f-ui);font-weight:400;font-size:15px;color:var(--gold);margin:0 0 8px}
+.spec p,.spec li{font-size:14px}
+.spec p{margin:0 0 8px}
+.spec ol,.spec ul{margin:0;padding-left:1.2em}
+.sw{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}
+.sw li{display:flex;flex-direction:column;gap:2px;font-family:var(--f-dot);font-size:12px;color:var(--mist);line-height:1.3}
+.sw i{display:block;height:22px;box-shadow:inset 0 0 0 1px rgba(236,232,244,.18)}
+.sw b{font-weight:400;color:var(--paper)}
+.wide{grid-column:1/-1}
+.export{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.export img{max-width:100%;image-rendering:pixelated;box-shadow:0 0 0 2px var(--stone-2)}
+.export figcaption{font-family:var(--f-dot);font-size:12px;color:var(--mist)}
+.src{font-size:13px;color:var(--mist);line-height:1.6}
+.src li{margin:2px 0;word-break:break-all}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:720px){
+  .info,.concept,.flow,.spec{grid-template-columns:minmax(0,1fr)}
+  .sw{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .info h2,section > h2{font-size:24px}
+}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <span class="eyebrow"><b>레퍼런스 #11</b> · 실험형 · 게임 · 픽셀 아트 · 2026-10-02</span>
+    <span class="eyebrow">디딤 타워 · 층을 오르는 탑 단면도</span>
+  </div>
+
+  <section class="stage" id="stage" aria-label="표지와 조작">
+    <div class="frame px" id="frame" tabindex="0" aria-describedby="sceneDesc">
+      <canvas id="cv" width="480" height="270" role="img" aria-label="표지: 가상 게임 디딤 타워의 탑 단면. 장애학생 진로·직업교육 계획을 지하 기초층부터 옥상까지 층으로 쌓았고, 일행이 3층 현장 실습실까지 올라와 있다."></canvas>
+    </div>
+    <p class="sr" id="sceneDesc">옆에서 자른 탑. 맨 아래 지하 기초층은 추진 배경, 1층 진로 탐색, 2층 직업 체험, 3층 현장 실습·직무 훈련, 4층 취업·전환 지원, 옥상은 자립과 기대 효과다. 층마다 걸림돌 몬스터와 성과 보물 상자가 있고 오른쪽 창에 파티(학생·교사·직무지도원·보호자), 진척, 일정이 보인다. 위쪽 화살표로 한 층 오르고 아래쪽 화살표로 내려간다.</p>
+    <div class="under"><span id="scaleNote">논리 해상도 480×270 · 정수배 확대</span><span>가상 예시 · 실존 게임·기관과 무관</span></div>
+
+    <div class="controls">
+      <button class="btn main" id="btnUp" type="button">▲ 한 층 오르기</button>
+      <button class="btn" id="btnReplay" type="button">↺ 다시 보기</button>
+      <div class="floors" role="group" aria-label="층 선택" id="floorBtns"></div>
+      <span class="kbd">키보드 <kbd>↑</kbd> <kbd>↓</kbd></span>
+    </div>
+
+    <div class="info px" id="info" aria-live="polite">
+      <div>
+        <p class="sec" id="iSec">Ⅲ-3. 세부 추진 과제</p>
+        <h2 id="iTitle">3F 현장 실습·직무 훈련</h2>
+        <ul id="iList"></ul>
+      </div>
+      <dl>
+        <dt>걸림돌</dt><dd id="iObs" class="tag-obs"></dd>
+        <dt>보물(성과)</dt><dd id="iRew" class="tag-rew"></dd>
+        <dt>일정</dt><dd id="iWhen"></dd>
+        <dt>파티</dt><dd id="iParty"></dd>
+      </dl>
+    </div>
+  </section>
+
+  <div class="memo">
+    <section aria-labelledby="h-concept">
+      <h2 id="h-concept">컨셉 · 디딤 타워</h2>
+      <div class="concept">
+        <div>
+          <p>계획안을 <b>옆에서 자른 탑</b>으로 바꿨습니다. 맨 아래 기초층에서 옥상까지 층이 쌓이고, 학생이 이끄는 일행이 계단을 따라 한 층씩 오릅니다. 층은 진로 단계이고 위로 갈수록 학교 밖, 삶 쪽으로 가까워집니다.</p>
+          <p>아직 오르지 않은 층은 디더링으로 어둡게 두고, 도착하면 횃불이 켜지며 방이 밝아집니다. 하늘도 아래는 밤, 꼭대기는 새벽입니다. 걸림돌은 학생이 아니라 <b>제도와 환경 쪽 문제</b>(정보 부족, 체험처 부족, 연계 단절, 취업 뒤 적응)로만 그렸습니다.</p>
+          <p>표지는 첫 화면부터 3층에 멈춘 상태입니다. 지난 층은 상자가 열려 있고, 지금 층은 몬스터와 마주 서 있고, 위층은 아직 어둡습니다. 한 장으로 계획 전체와 진행 위치를 함께 보여 줍니다.</p>
+        </div>
+        <div class="namecard px">
+          <span>가상 게임</span>
+          <div class="nm">디딤 타워</div>
+          <div>○○교육청 2027 장애학생 진로·직업교육 내실화 계획(안)</div>
+          <span>표지 1장 + 흐름 설계 메모 · 가상 예시</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-cmp" class="cmp">
+      <h2 id="h-cmp">원작과 무엇이 다른가</h2>
+      <p class="lede">같은 날 만든 두 방향과 시점·구조가 모두 겹치지 않도록 잡았습니다.</p>
+      <div class="tbl px">
+        <table>
+          <thead><tr><th scope="col">구분</th><th scope="col">원작 「픽셀 교육과정 여정」</th><th scope="col">안개형 월드맵</th><th scope="col" class="now">이번 #11 디딤 타워</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">시점</th><td>마을을 위에서 내려다봄</td><td>위에서 본 평면 지도</td><td class="now">옆에서 자른 단면(사이드뷰)</td></tr>
+            <tr><th scope="row">구조</th><td>장소를 순서대로 잇는 선형 여정</td><td>안개가 걷히며 면이 넓어짐</td><td class="now">아래에서 위로 쌓이는 수직 상승. 단계·위계가 높이로 읽힘</td></tr>
+            <tr><th scope="row">색감</th><td>파스텔 녹색 들판, 크림 말풍선</td><td>지도 면 위 안개의 명암</td><td class="now">돌·나무·타일·벽돌 재질, 횃불·창문 빛, 밤에서 새벽으로 바뀌는 하늘. 녹색·크림 없음</td></tr>
+            <tr><th scope="row">상호작용</th><td>장소를 따라 걷기</td><td>영역이 드러남</td><td class="now">한 층 오르기·층 선택·↑↓ 키. 도착한 층만 밝아지고 몬스터가 사라지며 상자가 열림</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-map">
+      <h2 id="h-map">계획안 구성 ↔ 탑 요소 매핑</h2>
+      <p class="lede">계획안 다섯 덩어리가 탑 UI 어디에 놓였는지, 안쪽 장표는 어떻게 펼칠지 적었습니다.</p>
+      <div class="tbl px">
+        <table>
+          <thead><tr><th scope="col">계획안 구성</th><th scope="col">탑 요소</th><th scope="col">표지에서 보이는 곳</th><th scope="col">안쪽 장표 레이아웃 아이디어</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Ⅰ. 추진 배경</th><td>지하 기초층(B1)</td><td class="where">맨 아래 돌 비석, 기록 상자, 뿌리</td><td>탑 아래쪽만 크게 잘라 보여 준다. 비석 3개에 현황 3가지를 새기고, 위층은 디더링으로 어둡게 남겨 “아직 오르지 않은 곳”을 예고한다.</td></tr>
+            <tr><th scope="row">Ⅱ. 목적·방침</th><td>입구 표지판</td><td class="where">탑 왼쪽 땅 위 나무 표지판</td><td>표지판을 화면 가운데로 확대한다. 맨 위 판자에 목적 1줄, 아래 판자 3장에 방침 3가지(학생 주도·단계 연계·지역 협력).</td></tr>
+            <tr><th scope="row">Ⅲ. 세부 추진 과제</th><td>1F~4F 층별 방</td><td class="where">층마다 다른 벽 재질과 소품(책장·공방·컨베이어·사무실)</td><td>한 장 = 한 층. 위 2/3에 그 층 단면을 크게, 아래 1/3 대화창에 과제 2~3개, 오른쪽 상태 창에 담당과 기간을 둔다.</td></tr>
+            <tr><th scope="row">문제·걸림돌</th><td>몬스터(4F는 보스)</td><td class="where">일행 앞을 막은 몬스터, 오른쪽 “걸림돌” 창</td><td>과제 장표 안 “전투 창”. 왼쪽에 걸림돌 이름, 오른쪽에 해결 방법을 2단으로 맞세운다.</td></tr>
+            <tr><th scope="row">Ⅳ. 추진 일정</th><td>층 표시기·일정 바</td><td class="where">오른쪽 승강기식 층 표시창, 12칸 월 바</td><td>탑 전체를 세로 타임라인으로 줄여 층마다 운영 시기를 붙인다. 지금 층에만 불을 켠다.</td></tr>
+            <tr><th scope="row">Ⅴ. 기대 효과</th><td>옥상 보물 상자</td><td class="where">옥상 큰 상자, 깃발, 집</td><td>상자가 열린 장면 + 보물 3개(효과 3가지)를 아이템 칸 3개로 나열한다.</td></tr>
+            <tr><th scope="row">성과(과제별)</th><td>층별 보물 상자</td><td class="where">지난 층의 열린 상자</td><td>과제 장표 오른쪽 아래 “획득 아이템” 칸에 성과 1개를 넣는다.</td></tr>
+            <tr><th scope="row">협력 기관·역할</th><td>파티 초상화</td><td class="where">오른쪽 위 파티 창 4칸</td><td>파티 편성 화면. 초상화 4칸 아래 역할과 소속(학교·고용 기관·가정)을 쓰고, 층별로 함께하는 구성원에 테두리를 켠다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-flow">
+      <h2 id="h-flow">발표 흐름 도식</h2>
+      <p class="lede">장표는 아래에서 위로 읽습니다. 왼쪽은 탑을 오르는 본 줄기, 오른쪽은 모든 층에 걸친 장표입니다.</p>
+      <div class="flow">
+        <ol class="tower" aria-label="장표 순서, 아래에서 위로">
+          <li class="cover"><span class="fl">표지</span><div class="body"><span class="no">1</span><span class="t">탑 전경 · 3층에 멈춘 장면</span><span class="d">계획안 제목·기관·날짜가 퀘스트 바에 들어간다.</span></div></li>
+          <li class="f0"><span class="fl">B1</span><div class="body"><span class="no">2</span><span class="t">추진 배경</span><span class="d">기초층의 비석 3개 = 현황 3가지.</span></div></li>
+          <li class="gate"><span class="fl">입구</span><div class="body"><span class="no">3</span><span class="t">목적·방침</span><span class="d">표지판 확대. 목적 1줄과 방침 3가지.</span></div></li>
+          <li class="f1"><span class="fl">1F</span><div class="body"><span class="no">4</span><span class="t">과제 1 · 진로 탐색</span><span class="d">걸림돌 “정보 안개” → 보물 “진로 포트폴리오”.</span></div></li>
+          <li class="f2"><span class="fl">2F</span><div class="body"><span class="no">5</span><span class="t">과제 2 · 직업 체험</span><span class="d">걸림돌 “빈 공방” → 보물 “체험 이력 카드”.</span></div></li>
+          <li class="f3"><span class="fl">3F</span><div class="body"><span class="no">6</span><span class="t">과제 3 · 현장 실습·직무 훈련</span><span class="d">걸림돌 “끊긴 사슬” → 보물 “실습 협약”.</span></div></li>
+          <li class="f4"><span class="fl">4F</span><div class="body"><span class="no">7</span><span class="t">과제 4 · 취업·전환 지원</span><span class="d">보스 “적응의 벽”과 전환의 문.</span></div></li>
+          <li class="f5"><span class="fl">RF</span><div class="body"><span class="no">9</span><span class="t">기대 효과 · 옥상 보물 상자</span><span class="d">자립의 새벽. 효과 3가지를 아이템 3칸으로.</span></div></li>
+          <li class="f5"><span class="fl">끝</span><div class="body"><span class="no">11</span><span class="t">마무리 · 다음 층</span><span class="d">옥상 위 빈 하늘 = 향후 과제. 질의응답.</span></div></li>
+        </ol>
+        <div class="side">
+          <div class="card px"><span class="axis">전 층 공통 · 세로축</span><span class="t"><span class="no" style="font-family:var(--f-dot);font-size:12px;color:var(--ink);background:var(--gold);padding:1px 6px">8</span> 추진 일정</span><p>층 표시기와 12칸 월 바. 4층 다음, 옥상 직전에 넣어 “언제 어디까지”를 한 번에 정리한다.</p></div>
+          <div class="card px"><span class="axis">전 층 공통 · 사람</span><span class="t"><span class="no" style="font-family:var(--f-dot);font-size:12px;color:var(--ink);background:var(--gold);padding:1px 6px">10</span> 협력 체계</span><p>파티 편성 화면. 학생(주인공)·교사·직무지도원·보호자와 소속 기관, 층별 동행 구성.</p></div>
+          <div class="card px"><span class="axis">진행 규칙</span><p>장표가 넘어갈 때마다 일행이 한 층 오르고 그 층만 밝아진다. 발표자는 ↑ 키 하나로 진행한다.</p></div>
+        </div>
+      </div>
+      <p class="flow-note">흐름: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10 → 11</p>
+    </section>
+
+    <section aria-labelledby="h-check">
+      <h2 id="h-check">실물 요소 재현 체크</h2>
+      <p class="lede">사이드뷰 탑·던전 게임 화면에서 가져온 관례 12가지와 각각 실어 나르는 계획안 내용입니다. 장식용 가짜 글자는 없습니다.</p>
+      <ul class="checks">
+        <li><b>단면(사이드뷰) 층 구성</b><span>지하 1층~옥상 6단 → 계획 전체 구조</span></li>
+        <li><b>층 번호 표시판</b><span>탑 바깥벽 B1~RF 명판 → 진로 단계</span></li>
+        <li><b>지그재그 계단과 천장 구멍</b><span>층 사이 연계(다음 단계로 넘어가는 길)</span></li>
+        <li><b>층마다 다른 방 타일</b><span>돌·나무·타일·벽돌·벽지 → 과제의 성격</span></li>
+        <li><b>횃불 깜빡임·창문 빛</b><span>불 켜진 층 = 도착한 단계, 어두운 층 = 예정</span></li>
+        <li><b>몬스터</b><span>층별 걸림돌(정보 부족·체험처 부족·연계 단절)</span></li>
+        <li><b>보스 방 문</b><span>4층 “전환의 문” → 취업 뒤 적응이라는 큰 고비</span></li>
+        <li><b>보물 상자</b><span>층별 성과, 옥상 큰 상자 = 기대 효과</span></li>
+        <li><b>진척·일정 바(HP/MP 대신)</b><span>단계 6칸, 월 12칸 → 추진 일정</span></li>
+        <li><b>파티 초상화</b><span>학생·교사·직무지도원·보호자 → 협력 체계</span></li>
+        <li><b>대화창(초상·이름·▼)</b><span>그 층의 과제를 학생 목소리로 요약</span></li>
+        <li><b>승강기식 층 표시창 · 퀘스트 바</b><span>지금 층 / 계획안 제목·기관·날짜</span></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="h-spec">
+      <h2 id="h-spec">스펙</h2>
+      <div class="spec">
+        <div class="card px wide">
+          <h3>팔레트 · 16색 고정</h3>
+          <ul class="sw" id="swatches"></ul>
+        </div>
+        <div class="card px">
+          <h3>폰트</h3>
+          <p>도트 한글은 <b>Galmuri</b>(이민서, SIL OFL 1.1). 이 페이지에 쓰인 글자만 잘라 base64로 내장했습니다.</p>
+          <ul>
+            <li>Galmuri11 Bold 12px: 게임 이름, 계획안 제목</li>
+            <li>Galmuri11 12px: 대화창 본문</li>
+            <li>Galmuri9 10px: 층 이름, 상태 창</li>
+            <li>Galmuri7 8px: 층 명판, 표지판, 이름표</li>
+            <li>Galmuri14 15px: 이 페이지 버튼·표 머리</li>
+            <li>메모 본문: IBM Plex Sans KR(Google Fonts)</li>
+          </ul>
+          <p>캔버스 글자는 원래 크기로 그린 뒤 반투명 픽셀을 0/1로 잘라 격자에 맞췄습니다.</p>
+        </div>
+        <div class="card px">
+          <h3>해상도 · 배율</h3>
+          <p>논리 해상도 480×270(16:9). 한글 도트 글꼴이 10px 아래로 내려가지 않게 320×180 대신 골랐습니다. ×4 = 1920×1080.</p>
+          <p>화면에서는 <b>장치 픽셀 기준 정수배</b>로만 키웁니다(nearest-neighbor, image-rendering: pixelated). 지금 이 화면: <b id="scaleNow">×2</b>.</p>
+          <p>캐릭터 8×12, 초상화 16×16, 몬스터 12×9, 보스 16×14, 층 높이 28+바닥 4.</p>
+        </div>
+        <div class="card px">
+          <h3>PPT로 옮기는 방법</h3>
+          <ol>
+            <li>아래 버튼으로 1920×1080 이미지를 만들고 길게 누르거나 우클릭해 저장합니다.</li>
+            <li>16:9 슬라이드에 배경으로 넣고 크기 100%를 유지합니다.</li>
+            <li>바꿀 글자는 그림 위 텍스트 상자로 올립니다. 1 도트 = 2pt이므로 Galmuri11은 24pt, Galmuri9는 20pt, Galmuri7은 16pt로 두면 격자에 맞습니다.</li>
+            <li>층 이동은 같은 장표를 층 수만큼 복제해 단계별로 만들고, 전환 효과는 “없음” 또는 짧은 “밀어내기(위로)”로 둡니다.</li>
+          </ol>
+        </div>
+        <div class="card px">
+          <h3>주의점</h3>
+          <ul>
+            <li>그림을 비정수 배율로 늘리거나 줄이면 도트가 뭉개집니다. 크기는 25%·50%·100% 중에서만 고릅니다.</li>
+            <li>파일 › 옵션 › 고급에서 “파일의 이미지를 압축 안 함”을 켜야 저장 때 흐려지지 않습니다.</li>
+            <li>다른 PC에서 열 때는 Galmuri를 설치하거나 글꼴 포함 저장을 확인합니다.</li>
+            <li>그라데이션·그림자·반투명 효과는 쓰지 않습니다. 명암은 디더링(체크 무늬)으로만 냅니다.</li>
+          </ul>
+        </div>
+        <div class="card px">
+          <h3>난이도 · 반영 트렌드</h3>
+          <p><b>난이도 중상.</b> 타일·캐릭터·소품을 직접 찍는 품이 크고, 층마다 재질을 바꿔야 합니다. PPT 이식은 “이미지 + 텍스트 상자” 방식이라 중간 정도입니다.</p>
+          <p><b>Retro-tech:</b> Canva 2026 디자인 트렌드 리포트는 스프레드시트·드롭다운 같은 일상 화면을 레트로하게 비튼 시각이 48.9% 늘었다고 했습니다. 행정 문서(계획안)를 게임 창 UI로 옮긴 이번 컨셉의 근거입니다.</p>
+          <p><b>Lo-fi:</b> 같은 리포트의 lo-fi 미감 검색 527% 증가. 그라데이션 대신 2색 디더링으로 하늘과 어둠을 표현했습니다.</p>
+        </div>
+        <div class="card px wide export">
+          <h3>PPT용 4배 이미지</h3>
+          <button class="btn" id="btnExport" type="button">지금 화면을 1920×1080으로 만들기</button>
+          <figure id="exportFig" hidden style="margin:0">
+            <img id="exportImg" alt="표지를 4배로 키운 1920×1080 이미지">
+            <figcaption>이미지를 길게 누르거나 우클릭해 저장하세요.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-src">
+      <h2 id="h-src">조사 출처</h2>
+      <ul class="src">
+        <li>사이드뷰 다층 단면, 층 간 승강기 이동 관례: <a href="https://fallout.wiki/wiki/Elevator_(Fallout_Shelter)" target="_blank" rel="noopener">Fallout Shelter 승강기(fallout.wiki)</a>, <a href="https://en.wikipedia.org/wiki/Tiny_Tower" target="_blank" rel="noopener">Tiny Tower(Wikipedia)</a>, <a href="https://www.gamezebo.com/walkthroughs/tiny-tower-walkthrough/" target="_blank" rel="noopener">Tiny Tower 공략(Gamezebo, ▲▼ 층 이동 버튼)</a></li>
+        <li>탑 단면을 층 선택 화면으로 쓰고 화면이 위로 스크롤되는 연출: <a href="https://kangaroogames.atlassian.net/wiki/spaces/KPT/pages/1323433985/Level+Select+Background+Brief" target="_blank" rel="noopener">Level Select Background Brief</a></li>
+        <li>320×180 기준과 정수배 확대, 16~32색 고정 팔레트, 캐릭터 16~32px: <a href="https://www.summerengine.com/es/blog/how-to-make-a-pixel-art-game" target="_blank" rel="noopener">How to make a pixel art game in 2026(SummerEngine)</a>, <a href="https://pixnote.net/en/learn/resolution" target="_blank" rel="noopener">Pixel Art Resolution Guide(pixnote)</a></li>
+        <li>트렌드: <a href="https://www.businesswire.com/news/home/20251210696597/en" target="_blank" rel="noopener">Canva 2026 Design Trends Report 보도자료(Business Wire, 2025-12-10)</a>, <a href="https://ecommercenews.com.au/story/canva-backs-imperfect-by-design-trend-in-2026-report" target="_blank" rel="noopener">eCommerceNews 보도</a></li>
+        <li>폰트: Galmuri 2.40.3(npm galmuri), SIL Open Font License 1.1</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<script>
+(() => {
+"use strict";
+const W = 480, H = 270;
+const PAL = {k:"#150f24",n:"#302643",d:"#4a3a63",m:"#5a4870",l:"#a797b6",w:"#ece8f4",b:"#6e412b",r:"#a85a3c",
+             o:"#e0892f",y:"#ffd45e",v:"#c98e5a",p:"#f0b896",z:"#285b7c",t:"#3a86a8",c:"#92d6ea",e:"#ee6e7e"};
+const ROLE = {k:"잉크·윤곽",n:"밤·창 바탕",d:"돌 어둠",m:"돌",l:"돌 밝음",w:"글자·별",b:"나무·몰탈",r:"벽돌",
+              o:"횃불",y:"금·강조",v:"밝은 나무",p:"피부",z:"깊은 청",t:"청록 타일",c:"새벽 하늘",e:"걸림돌·경고"};
+const U32 = {};
+for (const [k,h] of Object.entries(PAL)) {
+  const r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16);
+  U32[k] = ((255<<24)|(b<<16)|(g<<8)|r) >>> 0;
+}
+const mk = (w,h) => { const c = document.createElement("canvas"); c.width = w; c.height = h; return c; };
+class Buf {
+  constructor(w,h){ this.w=w; this.h=h; this.c=mk(w,h); this.g=this.c.getContext("2d");
+    this.img=this.g.createImageData(w,h); this.d=new Uint32Array(this.img.data.buffer); }
+  set(x,y,k){ x|=0; y|=0; if(x<0||y<0||x>=this.w||y>=this.h) return; this.d[y*this.w+x] = k ? U32[k] : 0; }
+  rect(x,y,w,h,k){ for(let j=y;j<y+h;j++) for(let i=x;i<x+w;i++) this.set(i,j,k); }
+  rows(x,y,rows,map,flip){
+    for(let j=0;j<rows.length;j++){ const r=rows[j];
+      for(let i=0;i<r.length;i++){ let ch=r[i]; if(ch===".") continue;
+        if(map && map[ch]!==undefined) ch=map[ch]; if(!ch||ch===".") continue;
+        this.set(flip ? x+r.length-1-i : x+i, y+j, ch); } } }
+  done(){ this.g.putImageData(this.img,0,0); return this.c; }
+}
+const spr = (rows,map,flip) => { const b=new Buf(rows[0].length,rows.length); b.rows(0,0,rows,map,flip); return b.done(); };
+let seed = 11; const rnd = () => (seed = (seed*1103515245+12345) & 0x7fffffff) / 0x7fffffff;
+const hash = (x,y) => { let h = x*374761393 + y*668265263; h = (h^(h>>>13))*1274126177; return ((h^(h>>>16))>>>0)/4294967295; };
+
+/* ---------- 도트 글자: 원래 크기로 그린 뒤 0/1로 자른다 ---------- */
+const FONTS = {G11:{f:'12px "G11"',a:12,h:15},G11B:{f:'12px "G11B"',a:12,h:15},G9:{f:'10px "G9"',a:10,h:12},G7:{f:'8px "G7"',a:8,h:10}};
+const tcache = new Map();
+function textSpr(str,font,col,shadow){
+  const key = str+"|"+font+"|"+col+"|"+(shadow||"");
+  if (tcache.has(key)) return tcache.get(key);
+  const F = FONTS[font], tmp = mk(4,4), g = tmp.getContext("2d");
+  g.font = F.f; const w = Math.max(1, Math.ceil(g.measureText(str).width));
+  tmp.width = w+2; tmp.height = F.h; g.font = F.f; g.textBaseline = "alphabetic"; g.fillStyle = "#000"; g.fillText(str,0,F.a);
+  const a = g.getImageData(0,0,w+2,F.h).data, b = new Buf(w+3,F.h+1);
+  const on = (x,y) => a[(y*(w+2)+x)*4+3] >= 128;
+  if (shadow) for(let y=0;y<F.h;y++) for(let x=0;x<w+2;x++) if(on(x,y)) b.set(x+1,y+1,shadow);
+  for(let y=0;y<F.h;y++) for(let x=0;x<w+2;x++) if(on(x,y)) b.set(x,y,col);
+  const out = {c:b.done(), w};
+  tcache.set(key,out); return out;
+}
+function txt(g,str,x,y,font,col,shadow,scale){
+  const s = textSpr(str,font,col,shadow), k = scale||1;
+  g.drawImage(s.c, 0,0,s.c.width,s.c.height, x|0, y|0, s.c.width*k, s.c.height*k);
+  return s.w*k;
+}
+const tw = (str,font) => textSpr(str,font,"w").w;
+
+/* ---------- 탑 구조 ---------- */
+const F = [222,190,158,126,94,62];              // 층별 바닥 높이(발 위치)
+const top = i => i<5 ? F[i+1]+4 : 34;
+const IX0 = 62, IX1 = 330;
+const LV = [
+  {id:"B1", label:"기초층 · 추진 배경", sec:"Ⅰ. 추진 배경", title:"B1 기초층 · 추진 배경",
+   list:["고교·전공과 졸업 뒤 진로 연계가 끊기는 공백","학교 안 진로교육과 지역 고용·복지 자원의 연결 부족","학생이 스스로 진로를 고르는 경험의 부족"],
+   obsH:"출발점(현황)", obs:"진로 공백", obsD:"졸업 뒤 연계 단절", rewH:"기초석", rew:"계획 수립", rewD:"현황 진단 결과",
+   when:"2027. 1.~2. 현황 진단·계획 수립", m:[1,2], party:[1,1,0,1], spk:1,
+   talk:["탑을 쌓기 전에 기초를 살펴요. 고교 졸업 뒤 진로가","끊기는 공백과 학교 밖 연계 부족이 이 계획의 출발점이에요."]},
+  {id:"1F", label:"진로 탐색", sec:"Ⅲ-1. 세부 추진 과제", title:"1F 진로 탐색",
+   list:["초·중학교 단계 진로 흥미·강점 탐색","1인 1 진로 포트폴리오 작성","보호자와 함께하는 진로 상담 주간"],
+   obsH:"이 층의 걸림돌", obs:"정보 안개", obsD:"진로 정보 부족", rewH:"획득할 보물", rew:"진로 포트폴리오", rewD:"1인 1포트폴리오",
+   when:"2027. 3.~4.", m:[3,4], party:[1,1,0,1], spk:0,
+   talk:["1층 진로 탐색실. 내가 좋아하는 일과 잘하는 일을","찾아 포트폴리오에 모은다. 길을 가린 건 '정보 안개'."]},
+  {id:"2F", label:"직업 체험", sec:"Ⅲ-2. 세부 추진 과제", title:"2F 직업 체험",
+   list:["학교 안 직업체험실(바리스타·제과·사무 보조) 운영","지역 체험처와 함께하는 체험의 날","체험 이력 카드로 좋아하는 직종 기록"],
+   obsH:"이 층의 걸림돌", obs:"빈 공방", obsD:"체험처 부족", rewH:"획득할 보물", rew:"체험 이력 카드", rewD:"체험 직종 확대",
+   when:"2027. 5.~6.", m:[5,6], party:[1,1,0,0], spk:0,
+   talk:["2층 직업 체험 공방. 바리스타·제과·사무 보조를","직접 해 보고 고른다. '빈 공방'은 지역 체험처로 채운다."]},
+  {id:"3F", label:"현장 실습·직무 훈련", sec:"Ⅲ-3. 세부 추진 과제", title:"3F 현장 실습·직무 훈련",
+   list:["고등학교·전공과 지역 사업체 현장 실습","직무지도원이 동행하는 직무 훈련","실습 사업체 협약 확대"],
+   obsH:"이 층의 걸림돌", obs:"끊긴 사슬", obsD:"실습처 연계 단절", rewH:"획득할 보물", rew:"실습 협약", rewD:"지역 사업체 협약",
+   when:"2027. 7.~9.", m:[7,9], party:[1,1,1,0], spk:0,
+   talk:["3층 현장 실습실. 직무지도원 선생님과 지역 사업체에서","실제 일을 익힌다. '끊긴 사슬'은 실습 협약으로 잇는다."]},
+  {id:"4F", label:"취업·전환 지원", sec:"Ⅲ-4. 세부 추진 과제", title:"4F 취업·전환 지원",
+   list:["학교·고용 기관·가정이 함께하는 취업 연계 사례 회의","취업 뒤 적응을 돕는 사후 지도","지역사회 전환 기관 연결"],
+   obsH:"보스 걸림돌", obs:"적응의 벽", obsD:"취업 뒤 적응 어려움", rewH:"획득할 보물", rew:"전환 지원 계획", rewD:"개인별 사후 지도",
+   when:"2027. 10.~11.", m:[10,11], party:[1,1,1,1], spk:0,
+   talk:["4층 전환 지원실. 취업 연계와 취업 뒤 적응 지원을","함께 준비한다. '적응의 벽'을 넘으면 옥상 문이 열린다."]},
+  {id:"RF", label:"옥상 · 자립", sec:"Ⅴ. 기대 효과", title:"RF 옥상 · 자립",
+   list:["학생이 고른 진로가 졸업 뒤까지 이어지는 전환","학교·기관·가정 협력 체계 정착","지역사회 안에서 자립 생활 기반 마련"],
+   obsH:"걸림돌", obs:"모두 통과", obsD:"남은 걸림돌 없음", rewH:"최종 보물", rew:"기대 효과", rewD:"학생 주도 자립",
+   when:"2027. 12. 성과 공유회", m:[12,12], party:[1,1,1,1], spk:0,
+   talk:["옥상에 올랐다. 내가 고른 일터와 우리 동네에서","스스로 살아갈 길이 보인다. 다음 층은 내가 설계한다."]}
+];
+const PARTY = [
+  {name:"학생", full:"학생 · 주인공", org:"주인공"},
+  {name:"교사", full:"특수교사", org:"학교·특수교육지원센터"},
+  {name:"지도원", full:"직무지도원", org:"고용 기관"},
+  {name:"보호자", full:"보호자", org:"가정"}
+];
+
+/* ---------- 스프라이트 ---------- */
+const BODY_A = ["..HHHH..",".HHHHHH.",".HHSSSS.",".HSSSkS.","..SSSS..","..TTTT..",".ATTTTT.",".ATTTTS.",".ATTTT..","..PPPP..","..PP.PP.","..KK.KK."];
+const BODY_B = BODY_A.slice(0,9).concat(["..PPPP..",".PP..PP.",".KK..KK."]);
+const CAP = rows => ["..CCCC..",".CCCCCCC"].concat(rows.slice(2));
+const LONG = rows => rows.map((r,i)=> i===3 ? ".HSSSkS." : i===4 ? ".HSSSS.." : r);
+const MEM = [
+  {H:"k",S:"p",T:"t",P:"z",K:"k",A:"o"},             // 학생: 청록 후드, 주황 가방
+  {H:"b",S:"p",T:"l",P:"d",K:"k",A:"l"},             // 교사
+  {H:"k",S:"p",T:"o",P:"z",K:"k",A:"o",C:"z",cap:1},  // 직무지도원: 모자, 안전 조끼
+  {H:"m",S:"p",T:"e",P:"b",K:"k",A:"e",long:1}       // 보호자
+];
+function personSprites(m){
+  const f = rows => { let r = rows; if (m.cap) r = CAP(r); if (m.long) r = LONG(r); return r; };
+  const a = f(BODY_A), b = f(BODY_B);
+  return {R:[spr(a,m),spr(b,m)], L:[spr(a,m,true),spr(b,m,true)]};
+}
+const FACE = ["................",".....HHHHHH.....","....HHHHHHHH....","...HHHHHHHHHH...","...HHSSSSSSHH...","...HSSSSSSSSH...",
+  "...HSkSSSSkSH...","...HSkSSSSkSH...","...SSSSSSSSSS...","....SSSrrSSS....","....SSSSSSSS....",".....SSSSSS.....","......SSSS......",
+  "...TTTTTTTTTT...","..TTTTTTTTTTTT..","..TTTTTTTTTTTT.."];
+function face(i){
+  let r = FACE.slice(); const m = MEM[i];
+  if (i===0){ r[13]="...TATTTTTTAT..."; r[14]="..TTATTTTTTATT.."; r[15]="..TTATTTTTTATT.."; }
+  if (i===1){ r[6]="...HlklSSlklH..."; r[7]="...HSSSSSSSSH..."; r[13]="...TTTTwwTTTT..."; }
+  if (i===2){ r[1]=".....CCCCCC....."; r[2]="....CCCCCCCC...."; r[3]="...CCCCCCCCCC..."; r[4]="...CCCCCCCCCCCCC"; r[14]="..TTTTyyyyTTTT..";}
+  if (i===3){ r[8]="...HSSSSSSSSH..."; r[9]="...HSSSrrSSSH..."; r[10]="...HSSSSSSSSH..."; r[11]="...HHSSSSSSHH..."; }
+  return spr(r,{H:m.H,S:m.S,T:m.T,A:m.A,C:m.C||"z"});
+}
+const MON = {
+  1:["...wwww.....","..wllllww...",".wllllllllw.","wllkllllkllw","wllkllllkllw","wlllllllllll",".llllllllll.","..ll.ll.ll..","..l...l...l."],
+  2:["....dddd....","..ddmmmmdd..",".dmmmmmmmmd.",".dmwkmmwkmd.","dmmwkmmwkmmd","dmmmmmmmmmmd","dmmmmeemmmmd","dmmmmmmmmmmd",".dddddddddd."],
+  3:["....eeee....","..eeeeeeee..",".eewkeewkee.",".eewkeewkee.","lleeeeeeeell","l.lleeeell.l",".eeeeeeeeee.","..eeeeeeee..","...e....e..."],
+  4:["....bbbbbbbb....","...brrrbrrrrb...","..brrrrbrrrrrb..","..bbbbbbbbbbbb..","..brrbyyrbyyrb..","..brrbykrbykrb..","..bbbbbbbbbbbb..",
+     ".brrrrbrrrrbrrb.","brrrrrbrrrrbrrrb","bbbbbbbbbbbbbbbb","brrbrrrrbrrrrbrb","brrbrrrrbrrrrbrb",".bbbb......bbbb.",".bbb........bbb."]
+};
+function chest(w,h,open){
+  const b = new Buf(w,h+6), oy = 6;
+  if (!open){
+    b.rect(1,oy,w-2,1,"b"); b.rect(0,oy+1,w,h-1,"b"); b.rect(1,oy+1,w-2,h-2,"v");
+    const band = oy+Math.floor(h*0.4); b.rect(1,band,w-2,1,"y");
+    const cx = (w>>1)-1; b.rect(cx,band,2,3,"y"); b.set(cx,band+1,"k");
+  } else {
+    b.rect(1,oy-4,w-2,4,"b"); b.rect(2,oy-3,w-4,2,"v");
+    b.rect(0,oy,w,h,"b"); b.rect(1,oy,w-2,2,"k");
+    for (let x=2;x<w-2;x+=2) b.set(x,oy+1,"y");
+    b.rect(1,oy+2,w-2,h-3,"v"); b.rect(1,oy+2+Math.floor(h*0.3),w-2,1,"y");
+    b.set(w>>1,0,"w"); b.set((w>>1)-1,1,"y"); b.set((w>>1)+1,1,"y"); b.set(2,2,"w"); b.set(w-3,1,"y");
+  }
+  return b.done();
+}
+function door(open){
+  const b = new Buf(24,24);
+  const inside = (x,y) => y>=12 || ((x-11.5)**2 + (y-12)**2) <= 144;
+  for (let y=0;y<24;y++) for (let x=0;x<24;x++){
+    if (!inside(x,y)) continue;
+    const edge = !inside(x-1,y)||!inside(x+1,y)||!inside(x,y-1)||x===0||x===23;
+    if (edge){ b.set(x,y,"y"); continue; }
+    if (open) b.set(x,y, y>19 ? ((x+y)&1 ? "o":"k") : "k");
+    else b.set(x,y, (x%6===0) ? "b" : (y===13 ? "b" : "r"));
+  }
+  if (!open){ b.rect(15,14,2,3,"y"); b.set(15,15,"k"); }
+  return b.done();
+}
+const STELE = ["..llll..",".llllll.","llmmmmll","llllllll","llmmmmll","llllllll","llmmmlll","llllllll"];
+const STAR = ["...y...","..yyy..","yyyyyyy",".yyyyy.","..y.y..",".y...y."];
+const ICON_TOWER = ["y.y.y.y.y","yyyyyyyyy",".yyyyyyy.",".yykykyy.",".yyyyyyy.",".yykykyy.",".yyyyyyy.",".yykykyy.",".yyyyyyy.",".yyykyyy.",".yyykyyy.","yyyyyyyyy"];
+const FLAME = [["..y.",".yy.",".yoy","yooo",".oo."],[".y..",".yy.","yoy.","ooyo",".oo."],["....","..y.",".yoy","yooy",".oo."]];
+const TORCH = {0:[220],1:[226],2:[242],3:[222],4:[222,262]};
+
+/* ---------- 배경(정적) ---------- */
+function skyCol(x,y){
+  if (y<46) return (x+y)&1 ? "c" : "t";
+  if (y<58) return "t";
+  if (y<70) return (x+y)&1 ? "t" : "z";
+  if (y<100) return "z";
+  if (y<128) return (x+y)&1 ? "z" : "n";
+  return "n";
+}
+function wallPx(i,x,y){
+  const ly = y-top(i), lx = x-IX0;
+  if (i===0){ const row=Math.floor(ly/7), off=(row&1)?5:0, bx=(lx+off)%10, by=ly%7;
+    if (by===6||bx===9) return "n"; if (by===0||bx===0) return "m"; return "d"; }
+  if (i===1){ if (ly>=18){ if (ly===18) return "v"; return (lx%6===5)?"n":"b"; }
+    if (lx%8===7) return "n"; return hash(x,y)<0.06 ? "r" : "b"; }
+  if (i===2){ const bx=lx%7, by=ly%7; if (bx===6||by===6) return "n"; if (bx===0&&by===0) return "t"; return "z"; }
+  if (i===3){ const row=Math.floor(ly/4), off=(row&1)?4:0, bx=(lx+off)%8, by=ly%4;
+    if (by===3||bx===7) return "b"; return "r"; }
+  if (ly>=17){ if (ly===17) return "l"; return (lx%10===9)?"n":"d"; }
+  return (lx%6===0) ? "n" : "z";
+}
+function stoneWall(x,y,x0){
+  const ly=y-50; if (ly%4===3) return "d";
+  const off=((ly>>2)&1)?3:0; if (((x-x0+off)%6)===5) return "d";
+  return (ly%4===0) ? "l" : "m";
+}
+function buildBase(){
+  const b = new Buf(W,H);
+  b.rect(0,0,W,H,"k");
+  for (let y=34;y<190;y++) for (let x=0;x<342;x++) b.set(x,y,skyCol(x,y));
+  for (let i=0;i<46;i++){ const x=(rnd()*340)|0, y=(84+rnd()*104)|0; b.set(x,y, rnd()<0.6?"w":"l"); }
+  for (let dy=-7;dy<=7;dy++) for (let dx=-7;dx<=7;dx++){ const d=dx*dx+dy*dy; if (d<=30) b.set(24+dx,47+dy,"y"); else if (d<=49) b.set(24+dx,47+dy,"o"); }
+  for (let y=190;y<227;y++) for (const [x0,x1] of [[0,56],[336,342]]) for (let x=x0;x<x1;x++){
+    let c = y===190 ? "m" : y===191 ? "d" : "b"; if (y>191){ const h=hash(x,y); if (h<0.12) c="n"; else if (h<0.16) c="r"; } b.set(x,y,c); }
+  // 목적·방침 표지판
+  b.rect(20,176,3,14,"b"); b.rect(2,145,40,32,"b"); b.rect(3,146,38,30,"v"); b.rect(3,156,38,1,"r");
+  // 탑 바깥벽
+  for (let y=50;y<227;y++){ for (let x=56;x<62;x++) b.set(x,y,stoneWall(x,y,56)); for (let x=330;x<336;x++) b.set(x,y,stoneWall(x,y,330)); b.set(56,y,"n"); b.set(335,y,"n"); }
+  for (let y=50;y<53;y++){ b.set(58,y,skyCol(58,y)); b.set(59,y,skyCol(59,y)); b.set(332,y,skyCol(332,y)); b.set(333,y,skyCol(333,y)); }
+  // 층 내부 벽
+  for (let i=0;i<5;i++) for (let y=top(i);y<F[i];y++) for (let x=IX0;x<IX1;x++) b.set(x,y,wallPx(i,x,y));
+  // 바닥판
+  for (let i=0;i<6;i++){ const cols=["l","m","m","d"]; for (let r=0;r<4;r++) b.rect(56,F[i]+r,280,1,cols[r]); }
+  // 창(바깥벽 슬릿) 자리
+  for (let i=0;i<5;i++){ b.rect(58,top(i)+9,2,7,"n"); b.rect(332,top(i)+9,2,7,"n"); }
+  // 계단 + 천장 구멍
+  for (let i=0;i<5;i++){
+    const right = i%2===0, hx = right ? 302 : 74; b.rect(hx,F[i+1],16,4,"k");
+    for (let k=0;k<8;k++){ const sx = right ? 286+4*k : 106-4*(k+1), sy = F[i]-4*(k+1);
+      b.rect(sx,sy,4,4*(k+1),"b"); b.rect(sx,sy,4,1,"v"); b.set(right?sx:sx+3,sy+1,"n"); }
+  }
+  // 횃불 받침
+  for (const [i,xs] of Object.entries(TORCH)) for (const x of xs){ const tp=top(+i); b.rect(x,tp+11,2,5,"b"); b.rect(x-1,tp+11,4,1,"l"); }
+  // B1 소품: 비석, 기록 상자, 뿌리
+  b.rect(71,201,14,21,"l"); b.rect(72,200,12,1,"l"); b.rect(83,201,2,21,"m");
+  for (const [yy,ww] of [[205,8],[208,8],[211,6],[214,8],[217,5]]) b.rect(74,yy,ww,1,"m");
+  b.rect(68,219,20,3,"m");
+  b.rect(92,212,12,10,"b"); b.rect(92,212,12,1,"v"); b.rect(92,216,12,1,"n"); b.rect(97,204,8,8,"b"); b.rect(97,204,8,1,"v");
+  for (const [x,len] of [[238,7],[262,9],[180,5]]) for (let j=0;j<len;j++) b.set(x+((j>>1)&1),194+j,"b");
+  // 1F 소품: 진로 지도, 창, 책장
+  b.rect(176,165,30,12,"v"); b.rect(177,166,28,10,"l");
+  for (const [x,y] of [[179,174],[181,173],[183,172],[186,172],[188,171],[191,170],[194,170],[196,169]]) b.set(x,y,"d");
+  b.rect(180,168,5,1,"m"); b.rect(181,167,3,1,"m");
+  for (const [x,y] of [[199,167],[201,167],[200,168],[199,169],[201,169]]) b.set(x,y,"e");
+  b.rect(236,166,20,14,"v"); b.rect(237,167,18,12,"z"); b.rect(246,167,1,12,"v"); b.rect(237,173,18,1,"v");
+  b.set(239,169,"c"); b.set(251,170,"c"); b.set(242,176,"w");
+  b.rect(268,168,16,22,"n"); b.rect(268,168,16,1,"v"); b.rect(268,168,1,22,"v"); b.rect(283,168,1,22,"v");
+  for (const y of [175,182,189]) b.rect(268,y,16,1,"v");
+  { const cs=["t","e","y","c","o","l","w"]; let ci=0;
+    for (const y0 of [169,176,183]) for (let x=270;x<282;x+=2){ const hgt=4+((ci*7)%3); b.rect(x,y0+6-hgt,1,hgt,cs[ci%cs.length]); ci++; } }
+  // 2F 소품: 선반, 오븐
+  b.rect(176,138,54,1,"v"); b.rect(176,139,54,1,"b"); b.set(178,140,"b"); b.set(227,140,"b");
+  for (const x of [180,186,216,222]){ b.rect(x,135,3,3,"w"); b.set(x+3,136,"w"); }
+  for (const x of [194,198]){ b.rect(x,134,3,4,"t"); b.rect(x,134,3,1,"c"); }
+  b.rect(205,135,7,3,"o"); b.rect(206,134,5,1,"v");
+  b.rect(262,142,18,16,"l"); b.rect(262,142,18,1,"w"); b.rect(265,147,12,7,"k"); b.rect(267,149,8,3,"o"); b.set(266,144,"e"); b.set(269,144,"y");
+  // 3F 소품: 컨베이어, 상자, 공장 창
+  b.rect(236,120,60,1,"l"); b.rect(236,121,60,4,"d"); for (let x=238;x<296;x+=6) b.set(x,122,"k");
+  b.rect(238,125,2,1,"k"); b.rect(292,125,2,1,"k");
+  for (const [x,y,w,h] of [[244,113,9,7],[262,114,8,6],[278,112,10,8]]){ b.rect(x,y,w,h,"v"); b.rect(x+(w>>1),y,1,h,"b"); b.rect(x,y,w,1,"y"); }
+  b.rect(288,101,30,11,"k"); for (let px=0;px<4;px++) for (let py=0;py<2;py++){ b.rect(289+px*7,102+py*5,6,4,"z"); b.set(290+px*7,102+py*5,"c"); }
+  // 4F 소품: 도시 창
+  b.rect(66,69,32,17,"l"); b.rect(67,70,30,15,"n");
+  for (const [x,y,w,h] of [[68,78,5,7],[74,75,6,10],[81,79,5,6],[87,73,7,12],[94,77,3,8]]) b.rect(x,y,w,h,"d");
+  for (const [x,y] of [[69,80],[76,77],[78,80],[89,75],[91,78],[83,81],[95,79]]) b.set(x,y,"y");
+  b.set(71,72,"w"); b.set(84,72,"w");
+  // 옥상: 집, 깃발
+  b.rect(78,50,20,12,"l"); b.rect(78,61,20,1,"m"); b.rect(85,55,5,7,"b"); b.rect(91,53,4,4,"y");
+  for (let r=0;r<8;r++){ const half=Math.round((r+1)*12/8); b.rect(88-half,42+r,half*2,1, r===0?"o":"r"); }
+  b.rect(93,43,3,5,"b");
+  b.rect(126,38,1,24,"l"); b.set(126,37,"y"); b.rect(127,38,10,6,"y"); b.rect(127,41,10,1,"o"); b.set(136,39,"o");
+  // 층 명판(바깥벽)
+  for (let i=0;i<6;i++){ const y = i<5 ? top(i)+1 : 36; b.rect(43,y,13,11,"l"); b.rect(44,y+1,11,9,"k"); }
+  BASE_D = b.d.slice();
+  const c = b.done(), g = c.getContext("2d");
+  for (let i=0;i<6;i++){ const y = i<5 ? top(i)+1 : 36, s = LV[i].id; txt(g,s,49-((tw(s,"G7"))>>1)+1,y+2,"G7","w"); }
+  txt(g,"목적·방침",5,147,"G7","k"); txt(g,"학생 주도",5,158,"G7","b"); txt(g,"단계 연계",5,167,"G7","b");
+  return c;
+}
+
+/* ---------- 횃불·창문 빛 번짐: 반경 안 벽 픽셀을 팔레트 한 단계 밝게, 가장자리는 체크 디더 ---------- */
+let BASE_D, GLOW = [];
+const LIFT = {k:"n",n:"d",d:"m",m:"l",z:"t",b:"r"};
+function glowLayer(i){
+  const b = new Buf(W,H), y0 = top(i), y1 = F[i], key = {};
+  for (const [k,v] of Object.entries(U32)) key[v] = k;
+  const src = TORCH[i].map(x => [x, y0+8, 13, 22]).concat([[61, y0+12, 6, 12], [330, y0+12, 6, 12]]);
+  for (let y=y0;y<y1;y++) for (let x=IX0;x<IX1;x++){
+    let on = false;
+    for (const [cx,cy,r1,r2] of src){ const d = Math.hypot(x-cx,(y-cy)*1.3); if (d<=r1 || (d<=r2 && ((x+y)&1)===0)){ on = true; break; } }
+    if (!on) continue;
+    const k = key[BASE_D[y*W+x]], to = LIFT[k]; if (to) b.set(x,y,to);
+  }
+  return b.done();
+}
+
+/* ---------- 어둠(디더링) ---------- */
+function darkLayer(i,density){
+  const b = new Buf(W,H), y0 = top(i), y1 = i<5 ? F[i] : 62, x0 = i<5 ? IX0 : 62, x1 = IX1;
+  for (let y=y0;y<y1;y++) for (let x=x0;x<x1;x++){
+    const on = density===2 ? ((x+y)&1)===0 : ((x&1)===0 && (y&1)===0);
+    if (on) b.set(x,y,"k");
+  }
+  return b.done();
+}
+
+/* ---------- UI 창(층마다 캐시) ---------- */
+function win(b,x,y,w,h){ b.rect(x,y,w,h,"l"); b.rect(x+1,y+1,w-2,h-2,"d"); b.rect(x+2,y+2,w-4,h-4,"n");
+  for (const [cx,cy] of [[x,y],[x+w-1,y],[x,y+h-1],[x+w-1,y+h-1]]) b.set(cx,cy,"k"); }
+let FACES, MONS, MONS_L, CH_S, CH_O, CH_BS, CH_BO, DOOR_C, DOOR_O, PEOPLE, STELE_S, STAR_S, BASE, DARK2 = [], DARK1 = [];
+const uiCache = [];
+function buildUI(L){
+  if (uiCache[L]) return uiCache[L];
+  const lv = LV[L], b = new Buf(W,H);
+  b.rect(0,0,W,32,"k"); b.rect(0,32,W,1,"m"); b.rect(0,33,W,1,"d");
+  b.rows(8,10,ICON_TOWER); b.rect(100,5,1,23,"d");
+  b.rect(340,34,140,193,"k");
+  win(b,342,36,134,48); win(b,342,88,134,58); win(b,342,150,134,74); win(b,4,227,472,43);
+  for (let j=0;j<4;j++){ const x=348+32*j, on=lv.party[j]; b.rect(x,50,20,20,on?"y":"m"); b.rect(x+1,51,18,18,"k"); }
+  b.rect(428,91,44,26,"m"); b.rect(429,92,42,24,"k");
+  for (let s=0;s<6;s++) b.rect(374+s*8,108,7,6, s<L ? "y" : s===L ? "o" : "d");
+  for (let mth=1;mth<=12;mth++) b.rect(374+(mth-1)*7,123,6,6, mth<lv.m[0] ? "y" : mth<=lv.m[1] ? "o" : "d");
+  b.rect(10,232,20,20,"y"); b.rect(11,233,18,18,"k");
+  const c = b.done(), g = c.getContext("2d");
+  g.imageSmoothingEnabled = false;
+  // 퀘스트 바
+  txt(g,"디딤 타워",22,4,"G11B","y");
+  txt(g,"가상 게임 · 진로의 탑",22,19,"G7","l");
+  txt(g,"2027 장애학생 진로·직업교육 내실화 계획(안)",106,4,"G11B","w");
+  txt(g,"○○교육청 특수교육과 · 2026. 12. · 퀘스트 11",106,19,"G9","l");
+  const cw = tw("가상 예시","G9")+8; const cx = W-6-cw;
+  g.fillStyle = PAL.e; g.fillRect(cx,7,cw,14); txt(g,"가상 예시",cx+4,9,"G9","k");
+  // 파티 창
+  txt(g,"파티 · 협력",348,39,"G9","y");
+  for (let j=0;j<4;j++){ const x=348+32*j; g.drawImage(FACES[j],x+2,52);
+    if (!lv.party[j]){ const d=new Buf(16,16); for(let yy=0;yy<16;yy++) for(let xx=0;xx<16;xx++) if(((xx+yy)&1)===0) d.set(xx,yy,"k"); g.drawImage(d.done(),x+2,52); }
+    const nm=PARTY[j].name, w=tw(nm,"G7"); txt(g,nm,x+10-(w>>1),73,"G7", lv.party[j]?"w":"l"); }
+  // 진척·일정
+  txt(g,"진척 · 일정",348,91,"G9","y");
+  txt(g,lv.id,433,93,"G11B","o",null,2);
+  txt(g,"단계",348,106,"G9","w");
+  txt(g,"일정",348,121,"G9","w");
+  txt(g,lv.when.replace(/ 현황.*| 성과.*/,""),374,132,"G9","l");
+  // 걸림돌·보물
+  txt(g,lv.obsH,348,153,"G9", L===5 ? "c" : L===0 ? "o" : "e");
+  if (L>=1 && L<=4) g.drawImage(MONS_L[L], 348+((12-MONS_L[L].width)>>1)+ (L===4?-2:0), L===4?163:166, L===4?12:MONS_L[L].width, L===4?11:MONS_L[L].height);
+  else if (L===0) g.drawImage(STELE_S,350,165); else g.drawImage(STAR_S,350,167);
+  txt(g,lv.obs,364,165,"G9","w"); txt(g,lv.obsD,364,177,"G7","l");
+  txt(g,lv.rewH,348,190,"G9","y");
+  g.drawImage(CH_S,348,200);
+  txt(g,lv.rew,364,202,"G9","w"); txt(g,lv.rewD,364,214,"G7","l");
+  // 대화창
+  g.drawImage(FACES[lv.spk],12,234);
+  txt(g,PARTY[lv.spk].full,36,230,"G9","y");
+  txt(g,lv.talk[0],36,241,"G11","w"); txt(g,lv.talk[1],36,254,"G11","w");
+  uiCache[L] = c; return c;
+}
+
+/* ---------- 경로와 상태 ---------- */
+const P = [[120,F[0]],[286,F[0]],[318,F[1]],[106,F[1]],[74,F[2]],[286,F[2]],[318,F[3]],[106,F[3]],[74,F[4]],[286,F[4]],[318,F[5]],[110,F[5]]];
+const CD = [0]; for (let i=1;i<P.length;i++) CD.push(CD[i-1]+Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]));
+const ARR = [0,CD[2],CD[4],CD[6],CD[8],CD[10]];
+const ARRX = [120,P[2][0],P[4][0],P[6][0],P[8][0],P[10][0]];
+const SPOT_X = [196,210,180,210,150,236];
+const SPOT = SPOT_X.map((x,i)=> ARR[i] + Math.abs(x-ARRX[i]));
+const MON_X = [null,176,214,176,196,null];
+const CH_X = [null,140,250,140,270,196];
+function posAt(d){
+  if (d<=0) return {x:Math.round(P[0][0]+d), y:P[0][1], dir:1};
+  for (let i=1;i<P.length;i++){
+    if (d<=CD[i] || i===P.length-1){
+      const s=CD[i-1], L=CD[i]-s, t=L?Math.min(1,(d-s)/L):0, [x0,y0]=P[i-1], [x1,y1]=P[i];
+      const x = x0+(x1-x0)*t; let y = y0;
+      if (y0!==y1 && t>0){ const k=Math.min(7,Math.floor(t*8)); y = y0-4*(k+1); }
+      return {x:Math.round(x), y, dir: x1>=x0 ? 1 : -1};
+    }
+  }
+}
+const reduceMQ = matchMedia("(prefers-reduced-motion: reduce)");
+let reduce = reduceMQ.matches;
+reduceMQ.addEventListener?.("change", e => { reduce = e.matches; if (reduce){ lead = target; } });
+let lead = SPOT[3], target = SPOT[3], speed = 120, tgtLevel = 3, lastT = 0;
+const lightAt = [0,0,0,0,0,0];
+let prevLit = 3, prevCleared = [false,false,false,false,false,false]; const poofAt = [0,0,0,0,0,0];
+const litOf = d => { let L=0; for (let i=1;i<6;i++) if (d >= ARR[i]-0.5) L=i; return L; };
+const cleared = (i,d) => i>=1 && i<=4 && d > SPOT[i]+4;
+
+/* ---------- 그리기 ---------- */
+const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+function draw(now){
+  const L = litOf(lead), moving = Math.abs(target-lead) > 0.01;
+  ctx.drawImage(BASE,0,0);
+  // 불 켜진 층의 빛 번짐
+  for (let i=0;i<=Math.min(L,4);i++) ctx.drawImage(GLOW[i],0,0);
+  // 불 켜진 층의 바깥 창
+  ctx.fillStyle = PAL.y;
+  for (let i=0;i<=Math.min(L,4);i++){ ctx.fillRect(58,top(i)+9,2,7); ctx.fillRect(332,top(i)+9,2,7); }
+  // 상자·문·몬스터
+  for (let i=1;i<=5;i++){
+    if (i<5){ const open = cleared(i,lead), s = open ? CH_O : CH_S; ctx.drawImage(s, CH_X[i]-(s.width>>1), F[i]-s.height); }
+    else { const open = L===5 && lead >= SPOT[5]-1, s = open ? CH_BO : CH_BS; ctx.drawImage(s, CH_X[5]-(s.width>>1), F[5]-s.height); }
+  }
+  ctx.drawImage(cleared(4,lead) ? DOOR_O : DOOR_C, 230, F[4]-24);
+  for (let i=1;i<=4;i++){
+    const c = cleared(i,lead);
+    if (c && !prevCleared[i]) poofAt[i] = now;
+    prevCleared[i] = c;
+    if (!c){ const m = MONS[i], bob = (!reduce && ((now/450|0)+i)%2) ? 1 : 0;
+      ctx.drawImage(m, MON_X[i]-(m.width>>1), F[i]-m.height-bob); }
+    else if (!reduce && now-poofAt[i] < 420){
+      const f = Math.floor((now-poofAt[i])/105), cx = MON_X[i], cy = F[i]-6, r = 3+f*2;
+      ctx.fillStyle = f%2 ? PAL.y : PAL.w;
+      for (const [dx,dy] of [[r,0],[-r,0],[0,r],[0,-r],[r-1,r-1],[-r+1,r-1],[r-1,-r+1],[-r+1,-r+1]]) ctx.fillRect(cx+dx,cy+dy,1,1);
+    }
+  }
+  // 어둠
+  if (L !== prevLit){ if (L>prevLit) for (let i=prevLit+1;i<=L;i++) lightAt[i]=now; prevLit = L; }
+  for (let i=0;i<6;i++){
+    if (i>L) ctx.drawImage(DARK2[i],0,0);
+    else if (!reduce && lightAt[i] && now-lightAt[i] < 260) ctx.drawImage(now-lightAt[i] < 130 ? DARK2[i] : DARK1[i],0,0);
+  }
+  // 층 이름
+  for (let i=0;i<6;i++){
+    const col = i===L ? "y" : i<L ? "w" : "l", y = i<5 ? top(i)+2 : 36, x = i<5 ? 112 : 140;
+    txt(ctx,LV[i].label,x,y,"G9",col,"k");
+  }
+  // 지금 층 명판 테두리
+  { const y = L<5 ? top(L)+1 : 36; ctx.fillStyle = PAL.y; ctx.fillRect(43,y,13,1); ctx.fillRect(43,y+10,13,1); ctx.fillRect(43,y,1,11); ctx.fillRect(55,y,1,11); }
+  // 횃불
+  const fr = reduce ? 0 : Math.floor(now/170)%3;
+  for (const [i,xs] of Object.entries(TORCH)) if (+i<=L) for (const x of xs) ctx.drawImage(FLAMES[(fr+x)%3], x-1, top(+i)+6);
+  // 일행
+  const step = Math.floor(lead/5)%2;
+  for (let j=3;j>=0;j--){
+    const p = posAt(lead-11*j), set = PEOPLE[j][p.dir>0?"R":"L"], s = set[moving ? (step+j)%2 : 0];
+    ctx.drawImage(s, p.x-4, p.y-12);
+  }
+  if (!moving && (reduce || Math.floor(now/500)%2===0)){ const p=posAt(lead); ctx.fillStyle=PAL.y; ctx.fillRect(p.x-2,p.y-17,5,1); ctx.fillRect(p.x-1,p.y-16,3,1); ctx.fillRect(p.x,p.y-15,1,1); }
+  // UI
+  ctx.drawImage(buildUI(L),0,0);
+  if (moving && Math.floor(now/200)%2===0){ ctx.fillStyle = PAL.o; const up = target>lead;
+    for (let r=0;r<3;r++) ctx.fillRect(432-r, up ? 112+r : 114-r, 1+r*2, 1); }
+  if (reduce || Math.floor(now/450)%2===0){ ctx.fillStyle = PAL.y; ctx.fillRect(464,260,5,1); ctx.fillRect(465,261,3,1); ctx.fillRect(466,262,1,1); }
+  return L;
+}
+let FLAMES;
+let shownLevel = -1;
+function tick(now){
+  const dt = lastT ? Math.min(0.05,(now-lastT)/1000) : 0; lastT = now;
+  if (reduce) lead = target;
+  else if (lead !== target){ const s = speed*dt; lead = Math.abs(target-lead) <= s ? target : lead + Math.sign(target-lead)*s; }
+  const L = draw(now);
+  if (L !== shownLevel){ shownLevel = L; updateInfo(L); }
+  requestAnimationFrame(tick);
+}
+
+/* ---------- 조작 ---------- */
+const btnUp = document.getElementById("btnUp"), btnReplay = document.getElementById("btnReplay"), floorBox = document.getElementById("floorBtns");
+const fbtns = LV.map((lv,i) => { const b = document.createElement("button"); b.type="button"; b.className="btn"; b.id="floor-"+lv.id; b.textContent=lv.id;
+  b.setAttribute("aria-label", lv.id+" "+lv.label); b.addEventListener("click", () => goTo(i)); floorBox.appendChild(b); return b; });
+function goTo(i, fromD){
+  i = Math.max(0,Math.min(5,i)); tgtLevel = i;
+  if (fromD !== undefined) lead = fromD;
+  target = SPOT[i];
+  const dist = Math.abs(target-lead); speed = Math.max(110, dist/Math.min(4.2, Math.max(0.9, dist/110)));
+  syncButtons();
+}
+function syncButtons(){
+  fbtns.forEach((b,i) => b.setAttribute("aria-pressed", i===tgtLevel ? "true" : "false"));
+  btnUp.disabled = tgtLevel>=5; btnUp.textContent = tgtLevel>=5 ? "▲ 옥상 도착" : "▲ 한 층 오르기";
+}
+btnUp.addEventListener("click", () => goTo(tgtLevel+1));
+btnReplay.addEventListener("click", () => { const back = tgtLevel===0 ? 5 : tgtLevel; for (let i=0;i<6;i++) lightAt[i]=0; prevLit = 0; goTo(back, -36); });
+const stage = document.getElementById("stage");
+document.addEventListener("keydown", e => {
+  if (e.key!=="ArrowUp" && e.key!=="ArrowDown") return;
+  const a = document.activeElement; if (!(a===document.body || a===null || stage.contains(a))) return;
+  e.preventDefault(); goTo(tgtLevel + (e.key==="ArrowUp" ? 1 : -1));
+});
+const $ = id => document.getElementById(id);
+function updateInfo(L){
+  const lv = LV[L];
+  $("iSec").textContent = lv.sec; $("iTitle").textContent = lv.title;
+  $("iList").replaceChildren(...lv.list.map(t => { const li=document.createElement("li"); li.textContent=t; return li; }));
+  $("iObs").textContent = lv.obs + " · " + lv.obsD;
+  $("iRew").textContent = lv.rew + " · " + lv.rewD;
+  $("iWhen").textContent = lv.when;
+  $("iParty").textContent = PARTY.filter((p,j)=>lv.party[j]).map(p=>p.name+"("+p.org+")").join(", ");
+}
+
+/* ---------- 정수배 맞춤 ---------- */
+const frame = $("frame");
+function fit(){
+  const dpr = window.devicePixelRatio || 1, cs = getComputedStyle(frame);
+  const pad = parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
+  const avail = stage.clientWidth - pad;
+  let k = Math.floor(avail*dpr/W); if (k<1) k = 1;
+  const cssW = W*k/dpr; cv.style.width = cssW+"px"; cv.style.height = (H*k/dpr)+"px";
+  const note = (avail*dpr < W) ? "화면이 좁아 1배로 표시" : "×"+k+" (장치 픽셀 기준)";
+  $("scaleNote").textContent = "논리 해상도 480×270 · 정수배 " + note; $("scaleNow").textContent = "×"+k;
+}
+new ResizeObserver(fit).observe(stage); addEventListener("resize", fit); fit();
+
+/* ---------- 팔레트 표 ---------- */
+$("swatches").replaceChildren(...Object.entries(PAL).map(([k,h]) => { const li=document.createElement("li");
+  li.innerHTML = '<i style="background:'+h+'"></i><b>'+h+'</b>'+ROLE[k]; return li; }));
+
+/* ---------- PPT용 이미지 ---------- */
+$("btnExport").addEventListener("click", () => {
+  const o = mk(W*4,H*4), g = o.getContext("2d"); g.imageSmoothingEnabled = false; g.drawImage(cv,0,0,W*4,H*4);
+  $("exportImg").src = o.toDataURL("image/png"); $("exportFig").hidden = false;
+});
+
+/* ---------- 시작 ---------- */
+function start(){
+  FACES = [0,1,2,3].map(face);
+  PEOPLE = MEM.map(personSprites);
+  MONS = {}; MONS_L = {}; for (const i of [1,2,3,4]){ MONS[i] = spr(MON[i]); MONS_L[i] = spr(MON[i]); }
+  CH_S = chest(12,9,false); CH_O = chest(12,9,true); CH_BS = chest(18,12,false); CH_BO = chest(18,12,true);
+  DOOR_C = door(false); DOOR_O = door(true); STELE_S = spr(STELE); STAR_S = spr(STAR);
+  FLAMES = FLAME.map(f => spr(f));
+  BASE = buildBase();
+  for (let i=0;i<6;i++){ DARK2[i] = darkLayer(i,2); DARK1[i] = darkLayer(i,1); }
+  for (let i=0;i<5;i++) GLOW[i] = glowLayer(i);
+  for (let i=0;i<6;i++) buildUI(i);
+  syncButtons();
+  requestAnimationFrame(tick);
+}
+const fontsReady = Promise.all(["12px G11","12px G11B","10px G9","8px G7"].map(f => document.fonts.load(f, "가")));
+Promise.race([fontsReady, new Promise(r => setTimeout(r, 2500))]).then(start, start);
+})();
+</script>
+
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/11.html" target="_blank" rel="noopener">refs/11.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #11 디딤 타워 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+@font-face { font-family: G11; src: url("@@ASSET:dd9c4b4013.woff2@@") format("woff2"); font-display: block; }
+@font-face { font-family: G11B; src: url("@@ASSET:0d432438a4.woff2@@") format("woff2"); font-display: block; }
+@font-face { font-family: G9; src: url("@@ASSET:a6355e651d.woff2@@") format("woff2"); font-display: block; }
+@font-face { font-family: G7; src: url("@@ASSET:5af34c85dc.woff2@@") format("woff2"); font-display: block; }
+@font-face { font-family: G14; src: url("@@ASSET:e9de2c7055.woff2@@") format("woff2"); font-display: block; }
+:root { color-scheme: dark; --ink: #150f24; --night: #302643; --stone: #4a3a63; --stone-2: #5a4870; --mist: #a797b6; --paper: #ece8f4; --gold: #ffd45e; --torch: #e0892f; --wood: #6e412b; --brick: #a85a3c; --oak: #c98e5a; --skin: #f0b896; --deep: #285b7c; --teal: #3a86a8; --sky: #92d6ea; --ember: #ee6e7e; --f-dot: "G11","Galmuri11",ui-monospace,monospace; --f-dotb: "G11B","G11","Galmuri11",ui-monospace,monospace; --f-ui: "G14","G11","Galmuri14",ui-monospace,monospace; --f-body: "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif; }
+.wrap { max-width: 1040px; margin: 0px auto; padding-inline: 16px; padding-block: 14px 72px; display: flex; flex-direction: column; gap: 28px; }
+a:focus-visible, button:focus-visible, .frame:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.px { clip-path: polygon(3px 0px, calc(100% - 3px) 0px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 0px calc(100% - 3px), 0px 3px); }
+.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.stage { container-type: inline-size; display: flex; flex-direction: column; gap: 14px; }
+.frame { margin-inline: auto; max-width: 100%; background: var(--ink); padding: 0.9cqw 0.9cqw 0.9cqw 0.9cqw; box-shadow: 0 0 0 2px var(--stone-2),0 0 0 4px var(--ink),0 0 0 6px var(--stone); outline: none; }
+.frame canvas { display: block; image-rendering: pixelated; max-width: 100%; }
+.btn { font-family: var(--f-ui); font-size: 15px; line-height: 1; color: var(--paper); background: var(--stone); border: 0px; padding: 12px 16px; cursor: pointer; box-shadow: inset 0 0 0 2px var(--stone-2),inset 0 -4px 0 var(--night); }
+.btn:hover { background: var(--stone-2); }
+.btn.main { background: var(--torch); color: var(--ink); box-shadow: inset 0 0 0 2px var(--gold),inset 0 -4px 0 var(--brick); }
+.btn.main:hover { background: var(--gold); }
+.btn[disabled] { opacity: 0.45; cursor: default; }
+.floors { display: flex; gap: 4px; flex-wrap: wrap; }
+.floors .btn { padding: 12px 11px; min-width: 44px; }
+.floors .btn[aria-pressed="true"] { background: var(--gold); color: var(--ink); box-shadow: inset 0 0 0 2px var(--paper),inset 0 -4px 0 var(--torch); }
+.tag-obs { color: var(--ember); }
+.tag-rew { color: var(--gold); }
+.side { display: flex; flex-direction: column; gap: 12px; }
+.sw { display: grid; grid-template-columns: repeat(4, minmax(0px, 1fr)); gap: 6px; list-style: none; margin: 0px; padding: 0px; }
+.sw li { display: flex; flex-direction: column; gap: 2px; font-family: var(--f-dot); font-size: 12px; color: var(--mist); line-height: 1.3; }
+.sw i { display: block; height: 22px; box-shadow: rgba(236, 232, 244, 0.18) 0px 0px 0px 1px inset; }
+.sw b { font-weight: 400; color: var(--paper); }
+.export { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.export img { max-width: 100%; image-rendering: pixelated; box-shadow: 0 0 0 2px var(--stone-2); }
+.export figcaption { font-family: var(--f-dot); font-size: 12px; color: var(--mist); }
+.src { font-size: 13px; color: var(--mist); line-height: 1.6; }
+.src li { margin: 2px 0px; word-break: break-all; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; }
+@media (max-width: 720px) {
+  .sw { grid-template-columns: repeat(2, minmax(0px, 1fr)); }
+}
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;font-size:15px;line-height:25.5px;color:rgb(236, 232, 244)"&gt;&lt;section class="stage" id="stage"&gt;
+&lt;div class="frame px" id="frame" tabindex="0" aria-describedby="sceneDesc"&gt;
+      &lt;canvas id="cv" width="480" height="270" role="img" aria-label="표지: 가상 게임 디딤 타워의 탑 단면. 장애학생 진로·직업교육 계획을 지하 기초층부터 옥상까지 층으로 쌓았고, 일행이 3층 현장 실습실까지 올라와 있다."&gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+&lt;span id="scaleNote"&gt;논리 해상도 480×270 · 정수배 확대&lt;/span&gt;
+&lt;button class="btn main" id="btnUp" type="button"&gt;▲ 한 층 오르기&lt;/button&gt;
+&lt;button class="btn" id="btnReplay" type="button"&gt;↺ 다시 보기&lt;/button&gt;
+&lt;div class="floors" role="group" aria-label="층 선택" id="floorBtns"&gt;&lt;/div&gt;
+&lt;p class="sec" id="iSec"&gt;Ⅲ-3. 세부 추진 과제&lt;/p&gt;
+&lt;h2 id="iTitle"&gt;3F 현장 실습·직무 훈련&lt;/h2&gt;
+&lt;ul id="iList"&gt;&lt;/ul&gt;
+&lt;dd id="iObs" class="tag-obs"&gt;&lt;/dd&gt;
+&lt;dd id="iRew" class="tag-rew"&gt;&lt;/dd&gt;
+&lt;dd id="iWhen"&gt;&lt;/dd&gt;
+&lt;dd id="iParty"&gt;&lt;/dd&gt;
+&lt;ul class="sw" id="swatches"&gt;&lt;/ul&gt;
+&lt;b id="scaleNow"&gt;×2&lt;/b&gt;
+&lt;button class="btn" id="btnExport" type="button"&gt;지금 화면을 1920×1080으로 만들기&lt;/button&gt;
+&lt;/section&gt;&lt;/div&gt;
+
+&lt;script&gt;
+(() =&gt; {
+"use strict";
+const W = 480, H = 270;
+const PAL = {k:"#150f24",n:"#302643",d:"#4a3a63",m:"#5a4870",l:"#a797b6",w:"#ece8f4",b:"#6e412b",r:"#a85a3c",
+             o:"#e0892f",y:"#ffd45e",v:"#c98e5a",p:"#f0b896",z:"#285b7c",t:"#3a86a8",c:"#92d6ea",e:"#ee6e7e"};
+const ROLE = {k:"잉크·윤곽",n:"밤·창 바탕",d:"돌 어둠",m:"돌",l:"돌 밝음",w:"글자·별",b:"나무·몰탈",r:"벽돌",
+              o:"횃불",y:"금·강조",v:"밝은 나무",p:"피부",z:"깊은 청",t:"청록 타일",c:"새벽 하늘",e:"걸림돌·경고"};
+const U32 = {};
+for (const [k,h] of Object.entries(PAL)) {
+  const r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16);
+  U32[k] = ((255&lt;&lt;24)|(b&lt;&lt;16)|(g&lt;&lt;8)|r) &gt;&gt;&gt; 0;
+}
+const mk = (w,h) =&gt; { const c = document.createElement("canvas"); c.width = w; c.height = h; return c; };
+class Buf {
+  constructor(w,h){ this.w=w; this.h=h; this.c=mk(w,h); this.g=this.c.getContext("2d");
+    this.img=this.g.createImageData(w,h); this.d=new Uint32Array(this.img.data.buffer); }
+  set(x,y,k){ x|=0; y|=0; if(x&lt;0||y&lt;0||x&gt;=this.w||y&gt;=this.h) return; this.d[y*this.w+x] = k ? U32[k] : 0; }
+  rect(x,y,w,h,k){ for(let j=y;j&lt;y+h;j++) for(let i=x;i&lt;x+w;i++) this.set(i,j,k); }
+  rows(x,y,rows,map,flip){
+    for(let j=0;j&lt;rows.length;j++){ const r=rows[j];
+      for(let i=0;i&lt;r.length;i++){ let ch=r[i]; if(ch===".") continue;
+        if(map &amp;&amp; map[ch]!==undefined) ch=map[ch]; if(!ch||ch===".") continue;
+        this.set(flip ? x+r.length-1-i : x+i, y+j, ch); } } }
+  done(){ this.g.putImageData(this.img,0,0); return this.c; }
+}
+const spr = (rows,map,flip) =&gt; { const b=new Buf(rows[0].length,rows.length); b.rows(0,0,rows,map,flip); return b.done(); };
+let seed = 11; const rnd = () =&gt; (seed = (seed*1103515245+12345) &amp; 0x7fffffff) / 0x7fffffff;
+const hash = (x,y) =&gt; { let h = x*374761393 + y*668265263; h = (h^(h&gt;&gt;&gt;13))*1274126177; return ((h^(h&gt;&gt;&gt;16))&gt;&gt;&gt;0)/4294967295; };
+
+/* ---------- 도트 글자: 원래 크기로 그린 뒤 0/1로 자른다 ---------- */
+const FONTS = {G11:{f:'12px "G11"',a:12,h:15},G11B:{f:'12px "G11B"',a:12,h:15},G9:{f:'10px "G9"',a:10,h:12},G7:{f:'8px "G7"',a:8,h:10}};
+const tcache = new Map();
+function textSpr(str,font,col,shadow){
+  const key = str+"|"+font+"|"+col+"|"+(shadow||"");
+  if (tcache.has(key)) return tcache.get(key);
+  const F = FONTS[font], tmp = mk(4,4), g = tmp.getContext("2d");
+  g.font = F.f; const w = Math.max(1, Math.ceil(g.measureText(str).width));
+  tmp.width = w+2; tmp.height = F.h; g.font = F.f; g.textBaseline = "alphabetic"; g.fillStyle = "#000"; g.fillText(str,0,F.a);
+  const a = g.getImageData(0,0,w+2,F.h).data, b = new Buf(w+3,F.h+1);
+  const on = (x,y) =&gt; a[(y*(w+2)+x)*4+3] &gt;= 128;
+  if (shadow) for(let y=0;y&lt;F.h;y++) for(let x=0;x&lt;w+2;x++) if(on(x,y)) b.set(x+1,y+1,shadow);
+  for(let y=0;y&lt;F.h;y++) for(let x=0;x&lt;w+2;x++) if(on(x,y)) b.set(x,y,col);
+  const out = {c:b.done(), w};
+  tcache.set(key,out); return out;
+}
+function txt(g,str,x,y,font,col,shadow,scale){
+  const s = textSpr(str,font,col,shadow), k = scale||1;
+  g.drawImage(s.c, 0,0,s.c.width,s.c.height, x|0, y|0, s.c.width*k, s.c.height*k);
+  return s.w*k;
+}
+const tw = (str,font) =&gt; textSpr(str,font,"w").w;
+
+/* ---------- 탑 구조 ---------- */
+const F = [222,190,158,126,94,62];              // 층별 바닥 높이(발 위치)
+const top = i =&gt; i&lt;5 ? F[i+1]+4 : 34;
+const IX0 = 62, IX1 = 330;
+const LV = [
+  {id:"B1", label:"기초층 · 추진 배경", sec:"Ⅰ. 추진 배경", title:"B1 기초층 · 추진 배경",
+   list:["고교·전공과 졸업 뒤 진로 연계가 끊기는 공백","학교 안 진로교육과 지역 고용·복지 자원의 연결 부족","학생이 스스로 진로를 고르는 경험의 부족"],
+   obsH:"출발점(현황)", obs:"진로 공백", obsD:"졸업 뒤 연계 단절", rewH:"기초석", rew:"계획 수립", rewD:"현황 진단 결과",
+   when:"2027. 1.~2. 현황 진단·계획 수립", m:[1,2], party:[1,1,0,1], spk:1,
+   talk:["탑을 쌓기 전에 기초를 살펴요. 고교 졸업 뒤 진로가","끊기는 공백과 학교 밖 연계 부족이 이 계획의 출발점이에요."]},
+  {id:"1F", label:"진로 탐색", sec:"Ⅲ-1. 세부 추진 과제", title:"1F 진로 탐색",
+   list:["초·중학교 단계 진로 흥미·강점 탐색","1인 1 진로 포트폴리오 작성","보호자와 함께하는 진로 상담 주간"],
+   obsH:"이 층의 걸림돌", obs:"정보 안개", obsD:"진로 정보 부족", rewH:"획득할 보물", rew:"진로 포트폴리오", rewD:"1인 1포트폴리오",
+   when:"2027. 3.~4.", m:[3,4], party:[1,1,0,1], spk:0,
+   talk:["1층 진로 탐색실. 내가 좋아하는 일과 잘하는 일을","찾아 포트폴리오에 모은다. 길을 가린 건 '정보 안개'."]},
+  {id:"2F", label:"직업 체험", sec:"Ⅲ-2. 세부 추진 과제", title:"2F 직업 체험",
+   list:["학교 안 직업체험실(바리스타·제과·사무 보조) 운영","지역 체험처와 함께하는 체험의 날","체험 이력 카드로 좋아하는 직종 기록"],
+   obsH:"이 층의 걸림돌", obs:"빈 공방", obsD:"체험처 부족", rewH:"획득할 보물", rew:"체험 이력 카드", rewD:"체험 직종 확대",
+   when:"2027. 5.~6.", m:[5,6], party:[1,1,0,0], spk:0,
+   talk:["2층 직업 체험 공방. 바리스타·제과·사무 보조를","직접 해 보고 고른다. '빈 공방'은 지역 체험처로 채운다."]},
+  {id:"3F", label:"현장 실습·직무 훈련", sec:"Ⅲ-3. 세부 추진 과제", title:"3F 현장 실습·직무 훈련",
+   list:["고등학교·전공과 지역 사업체 현장 실습","직무지도원이 동행하는 직무 훈련","실습 사업체 협약 확대"],
+   obsH:"이 층의 걸림돌", obs:"끊긴 사슬", obsD:"실습처 연계 단절", rewH:"획득할 보물", rew:"실습 협약", rewD:"지역 사업체 협약",
+   when:"2027. 7.~9.", m:[7,9], party:[1,1,1,0], spk:0,
+   talk:["3층 현장 실습실. 직무지도원 선생님과 지역 사업체에서","실제 일을 익힌다. '끊긴 사슬'은 실습 협약으로 잇는다."]},
+  {id:"4F", label:"취업·전환 지원", sec:"Ⅲ-4. 세부 추진 과제", title:"4F 취업·전환 지원",
+   list:["학교·고용 기관·가정이 함께하는 취업 연계 사례 회의","취업 뒤 적응을 돕는 사후 지도","지역사회 전환 기관 연결"],
+   obsH:"보스 걸림돌", obs:"적응의 벽", obsD:"취업 뒤 적응 어려움", rewH:"획득할 보물", rew:"전환 지원 계획", rewD:"개인별 사후 지도",
+   when:"2027. 10.~11.", m:[10,11], party:[1,1,1,1], spk:0,
+   talk:["4층 전환 지원실. 취업 연계와 취업 뒤 적응 지원을","함께 준비한다. '적응의 벽'을 넘으면 옥상 문이 열린다."]},
+  {id:"RF", label:"옥상 · 자립", sec:"Ⅴ. 기대 효과", title:"RF 옥상 · 자립",
+   list:["학생이 고른 진로가 졸업 뒤까지 이어지는 전환","학교·기관·가정 협력 체계 정착","지역사회 안에서 자립 생활 기반 마련"],
+   obsH:"걸림돌", obs:"모두 통과", obsD:"남은 걸림돌 없음", rewH:"최종 보물", rew:"기대 효과", rewD:"학생 주도 자립",
+   when:"2027. 12. 성과 공유회", m:[12,12], party:[1,1,1,1], spk:0,
+   talk:["옥상에 올랐다. 내가 고른 일터와 우리 동네에서","스스로 살아갈 길이 보인다. 다음 층은 내가 설계한다."]}
+];
+const PARTY = [
+  {name:"학생", full:"학생 · 주인공", org:"주인공"},
+  {name:"교사", full:"특수교사", org:"학교·특수교육지원센터"},
+  {name:"지도원", full:"직무지도원", org:"고용 기관"},
+  {name:"보호자", full:"보호자", org:"가정"}
+];
+
+/* ---------- 스프라이트 ---------- */
+const BODY_A = ["..HHHH..",".HHHHHH.",".HHSSSS.",".HSSSkS.","..SSSS..","..TTTT..",".ATTTTT.",".ATTTTS.",".ATTTT..","..PPPP..","..PP.PP.","..KK.KK."];
+const BODY_B = BODY_A.slice(0,9).concat(["..PPPP..",".PP..PP.",".KK..KK."]);
+const CAP = rows =&gt; ["..CCCC..",".CCCCCCC"].concat(rows.slice(2));
+const LONG = rows =&gt; rows.map((r,i)=&gt; i===3 ? ".HSSSkS." : i===4 ? ".HSSSS.." : r);
+const MEM = [
+  {H:"k",S:"p",T:"t",P:"z",K:"k",A:"o"},             // 학생: 청록 후드, 주황 가방
+  {H:"b",S:"p",T:"l",P:"d",K:"k",A:"l"},             // 교사
+  {H:"k",S:"p",T:"o",P:"z",K:"k",A:"o",C:"z",cap:1},  // 직무지도원: 모자, 안전 조끼
+  {H:"m",S:"p",T:"e",P:"b",K:"k",A:"e",long:1}       // 보호자
+];
+function personSprites(m){
+  const f = rows =&gt; { let r = rows; if (m.cap) r = CAP(r); if (m.long) r = LONG(r); return r; };
+  const a = f(BODY_A), b = f(BODY_B);
+  return {R:[spr(a,m),spr(b,m)], L:[spr(a,m,true),spr(b,m,true)]};
+}
+const FACE = ["................",".....HHHHHH.....","....HHHHHHHH....","...HHHHHHHHHH...","...HHSSSSSSHH...","...HSSSSSSSSH...",
+  "...HSkSSSSkSH...","...HSkSSSSkSH...","...SSSSSSSSSS...","....SSSrrSSS....","....SSSSSSSS....",".....SSSSSS.....","......SSSS......",
+  "...TTTTTTTTTT...","..TTTTTTTTTTTT..","..TTTTTTTTTTTT.."];
+function face(i){
+  let r = FACE.slice(); const m = MEM[i];
+  if (i===0){ r[13]="...TATTTTTTAT..."; r[14]="..TTATTTTTTATT.."; r[15]="..TTATTTTTTATT.."; }
+  if (i===1){ r[6]="...HlklSSlklH..."; r[7]="...HSSSSSSSSH..."; r[13]="...TTTTwwTTTT..."; }
+  if (i===2){ r[1]=".....CCCCCC....."; r[2]="....CCCCCCCC...."; r[3]="...CCCCCCCCCC..."; r[4]="...CCCCCCCCCCCCC"; r[14]="..TTTTyyyyTTTT..";}
+  if (i===3){ r[8]="...HSSSSSSSSH..."; r[9]="...HSSSrrSSSH..."; r[10]="...HSSSSSSSSH..."; r[11]="...HHSSSSSSHH..."; }
+  return spr(r,{H:m.H,S:m.S,T:m.T,A:m.A,C:m.C||"z"});
+}
+const MON = {
+  1:["...wwww.....","..wllllww...",".wllllllllw.","wllkllllkllw","wllkllllkllw","wlllllllllll",".llllllllll.","..ll.ll.ll..","..l...l...l."],
+  2:["....dddd....","..ddmmmmdd..",".dmmmmmmmmd.",".dmwkmmwkmd.","dmmwkmmwkmmd","dmmmmmmmmmmd","dmmmmeemmmmd","dmmmmmmmmmmd",".dddddddddd."],
+  3:["....eeee....","..eeeeeeee..",".eewkeewkee.",".eewkeewkee.","lleeeeeeeell","l.lleeeell.l",".eeeeeeeeee.","..eeeeeeee..","...e....e..."],
+  4:["....bbbbbbbb....","...brrrbrrrrb...","..brrrrbrrrrrb..","..bbbbbbbbbbbb..","..brrbyyrbyyrb..","..brrbykrbykrb..","..bbbbbbbbbbbb..",
+     ".brrrrbrrrrbrrb.","brrrrrbrrrrbrrrb","bbbbbbbbbbbbbbbb","brrbrrrrbrrrrbrb","brrbrrrrbrrrrbrb",".bbbb......bbbb.",".bbb........bbb."]
+};
+function chest(w,h,open){
+  const b = new Buf(w,h+6), oy = 6;
+  if (!open){
+    b.rect(1,oy,w-2,1,"b"); b.rect(0,oy+1,w,h-1,"b"); b.rect(1,oy+1,w-2,h-2,"v");
+    const band = oy+Math.floor(h*0.4); b.rect(1,band,w-2,1,"y");
+    const cx = (w&gt;&gt;1)-1; b.rect(cx,band,2,3,"y"); b.set(cx,band+1,"k");
+  } else {
+    b.rect(1,oy-4,w-2,4,"b"); b.rect(2,oy-3,w-4,2,"v");
+    b.rect(0,oy,w,h,"b"); b.rect(1,oy,w-2,2,"k");
+    for (let x=2;x&lt;w-2;x+=2) b.set(x,oy+1,"y");
+    b.rect(1,oy+2,w-2,h-3,"v"); b.rect(1,oy+2+Math.floor(h*0.3),w-2,1,"y");
+    b.set(w&gt;&gt;1,0,"w"); b.set((w&gt;&gt;1)-1,1,"y"); b.set((w&gt;&gt;1)+1,1,"y"); b.set(2,2,"w"); b.set(w-3,1,"y");
+  }
+  return b.done();
+}
+function door(open){
+  const b = new Buf(24,24);
+  const inside = (x,y) =&gt; y&gt;=12 || ((x-11.5)**2 + (y-12)**2) &lt;= 144;
+  for (let y=0;y&lt;24;y++) for (let x=0;x&lt;24;x++){
+    if (!inside(x,y)) continue;
+    const edge = !inside(x-1,y)||!inside(x+1,y)||!inside(x,y-1)||x===0||x===23;
+    if (edge){ b.set(x,y,"y"); continue; }
+    if (open) b.set(x,y, y&gt;19 ? ((x+y)&amp;1 ? "o":"k") : "k");
+    else b.set(x,y, (x%6===0) ? "b" : (y===13 ? "b" : "r"));
+  }
+  if (!open){ b.rect(15,14,2,3,"y"); b.set(15,15,"k"); }
+  return b.done();
+}
+const STELE = ["..llll..",".llllll.","llmmmmll","llllllll","llmmmmll","llllllll","llmmmlll","llllllll"];
+const STAR = ["...y...","..yyy..","yyyyyyy",".yyyyy.","..y.y..",".y...y."];
+const ICON_TOWER = ["y.y.y.y.y","yyyyyyyyy",".yyyyyyy.",".yykykyy.",".yyyyyyy.",".yykykyy.",".yyyyyyy.",".yykykyy.",".yyyyyyy.",".yyykyyy.",".yyykyyy.","yyyyyyyyy"];
+const FLAME = [["..y.",".yy.",".yoy","yooo",".oo."],[".y..",".yy.","yoy.","ooyo",".oo."],["....","..y.",".yoy","yooy",".oo."]];
+const TORCH = {0:[220],1:[226],2:[242],3:[222],4:[222,262]};
+
+/* ---------- 배경(정적) ---------- */
+function skyCol(x,y){
+  if (y&lt;46) return (x+y)&amp;1 ? "c" : "t";
+  if (y&lt;58) return "t";
+  if (y&lt;70) return (x+y)&amp;1 ? "t" : "z";
+  if (y&lt;100) return "z";
+  if (y&lt;128) return (x+y)&amp;1 ? "z" : "n";
+  return "n";
+}
+function wallPx(i,x,y){
+  const ly = y-top(i), lx = x-IX0;
+  if (i===0){ const row=Math.floor(ly/7), off=(row&amp;1)?5:0, bx=(lx+off)%10, by=ly%7;
+    if (by===6||bx===9) return "n"; if (by===0||bx===0) return "m"; return "d"; }
+  if (i===1){ if (ly&gt;=18){ if (ly===18) return "v"; return (lx%6===5)?"n":"b"; }
+    if (lx%8===7) return "n"; return hash(x,y)&lt;0.06 ? "r" : "b"; }
+  if (i===2){ const bx=lx%7, by=ly%7; if (bx===6||by===6) return "n"; if (bx===0&amp;&amp;by===0) return "t"; return "z"; }
+  if (i===3){ const row=Math.floor(ly/4), off=(row&amp;1)?4:0, bx=(lx+off)%8, by=ly%4;
+    if (by===3||bx===7) return "b"; return "r"; }
+  if (ly&gt;=17){ if (ly===17) return "l"; return (lx%10===9)?"n":"d"; }
+  return (lx%6===0) ? "n" : "z";
+}
+function stoneWall(x,y,x0){
+  const ly=y-50; if (ly%4===3) return "d";
+  const off=((ly&gt;&gt;2)&amp;1)?3:0; if (((x-x0+off)%6)===5) return "d";
+  return (ly%4===0) ? "l" : "m";
+}
+function buildBase(){
+  const b = new Buf(W,H);
+  b.rect(0,0,W,H,"k");
+  for (let y=34;y&lt;190;y++) for (let x=0;x&lt;342;x++) b.set(x,y,skyCol(x,y));
+  for (let i=0;i&lt;46;i++){ const x=(rnd()*340)|0, y=(84+rnd()*104)|0; b.set(x,y, rnd()&lt;0.6?"w":"l"); }
+  for (let dy=-7;dy&lt;=7;dy++) for (let dx=-7;dx&lt;=7;dx++){ const d=dx*dx+dy*dy; if (d&lt;=30) b.set(24+dx,47+dy,"y"); else if (d&lt;=49) b.set(24+dx,47+dy,"o"); }
+  for (let y=190;y&lt;227;y++) for (const [x0,x1] of [[0,56],[336,342]]) for (let x=x0;x&lt;x1;x++){
+    let c = y===190 ? "m" : y===191 ? "d" : "b"; if (y&gt;191){ const h=hash(x,y); if (h&lt;0.12) c="n"; else if (h&lt;0.16) c="r"; } b.set(x,y,c); }
+  // 목적·방침 표지판
+  b.rect(20,176,3,14,"b"); b.rect(2,145,40,32,"b"); b.rect(3,146,38,30,"v"); b.rect(3,156,38,1,"r");
+  // 탑 바깥벽
+  for (let y=50;y&lt;227;y++){ for (let x=56;x&lt;62;x++) b.set(x,y,stoneWall(x,y,56)); for (let x=330;x&lt;336;x++) b.set(x,y,stoneWall(x,y,330)); b.set(56,y,"n"); b.set(335,y,"n"); }
+  for (let y=50;y&lt;53;y++){ b.set(58,y,skyCol(58,y)); b.set(59,y,skyCol(59,y)); b.set(332,y,skyCol(332,y)); b.set(333,y,skyCol(333,y)); }
+  // 층 내부 벽
+  for (let i=0;i&lt;5;i++) for (let y=top(i);y&lt;F[i];y++) for (let x=IX0;x&lt;IX1;x++) b.set(x,y,wallPx(i,x,y));
+  // 바닥판
+  for (let i=0;i&lt;6;i++){ const cols=["l","m","m","d"]; for (let r=0;r&lt;4;r++) b.rect(56,F[i]+r,280,1,cols[r]); }
+  // 창(바깥벽 슬릿) 자리
+  for (let i=0;i&lt;5;i++){ b.rect(58,top(i)+9,2,7,"n"); b.rect(332,top(i)+9,2,7,"n"); }
+  // 계단 + 천장 구멍
+  for (let i=0;i&lt;5;i++){
+    const right = i%2===0, hx = right ? 302 : 74; b.rect(hx,F[i+1],16,4,"k");
+    for (let k=0;k&lt;8;k++){ const sx = right ? 286+4*k : 106-4*(k+1), sy = F[i]-4*(k+1);
+      b.rect(sx,sy,4,4*(k+1),"b"); b.rect(sx,sy,4,1,"v"); b.set(right?sx:sx+3,sy+1,"n"); }
+  }
+  // 횃불 받침
+  for (const [i,xs] of Object.entries(TORCH)) for (const x of xs){ const tp=top(+i); b.rect(x,tp+11,2,5,"b"); b.rect(x-1,tp+11,4,1,"l"); }
+  // B1 소품: 비석, 기록 상자, 뿌리
+  b.rect(71,201,14,21,"l"); b.rect(72,200,12,1,"l"); b.rect(83,201,2,21,"m");
+  for (const [yy,ww] of [[205,8],[208,8],[211,6],[214,8],[217,5]]) b.rect(74,yy,ww,1,"m");
+  b.rect(68,219,20,3,"m");
+  b.rect(92,212,12,10,"b"); b.rect(92,212,12,1,"v"); b.rect(92,216,12,1,"n"); b.rect(97,204,8,8,"b"); b.rect(97,204,8,1,"v");
+  for (const [x,len] of [[238,7],[262,9],[180,5]]) for (let j=0;j&lt;len;j++) b.set(x+((j&gt;&gt;1)&amp;1),194+j,"b");
+  // 1F 소품: 진로 지도, 창, 책장
+  b.rect(176,165,30,12,"v"); b.rect(177,166,28,10,"l");
+  for (const [x,y] of [[179,174],[181,173],[183,172],[186,172],[188,171],[191,170],[194,170],[196,169]]) b.set(x,y,"d");
+  b.rect(180,168,5,1,"m"); b.rect(181,167,3,1,"m");
+  for (const [x,y] of [[199,167],[201,167],[200,168],[199,169],[201,169]]) b.set(x,y,"e");
+  b.rect(236,166,20,14,"v"); b.rect(237,167,18,12,"z"); b.rect(246,167,1,12,"v"); b.rect(237,173,18,1,"v");
+  b.set(239,169,"c"); b.set(251,170,"c"); b.set(242,176,"w");
+  b.rect(268,168,16,22,"n"); b.rect(268,168,16,1,"v"); b.rect(268,168,1,22,"v"); b.rect(283,168,1,22,"v");
+  for (const y of [175,182,189]) b.rect(268,y,16,1,"v");
+  { const cs=["t","e","y","c","o","l","w"]; let ci=0;
+    for (const y0 of [169,176,183]) for (let x=270;x&lt;282;x+=2){ const hgt=4+((ci*7)%3); b.rect(x,y0+6-hgt,1,hgt,cs[ci%cs.length]); ci++; } }
+  // 2F 소품: 선반, 오븐
+  b.rect(176,138,54,1,"v"); b.rect(176,139,54,1,"b"); b.set(178,140,"b"); b.set(227,140,"b");
+  for (const x of [180,186,216,222]){ b.rect(x,135,3,3,"w"); b.set(x+3,136,"w"); }
+  for (const x of [194,198]){ b.rect(x,134,3,4,"t"); b.rect(x,134,3,1,"c"); }
+  b.rect(205,135,7,3,"o"); b.rect(206,134,5,1,"v");
+  b.rect(262,142,18,16,"l"); b.rect(262,142,18,1,"w"); b.rect(265,147,12,7,"k"); b.rect(267,149,8,3,"o"); b.set(266,144,"e"); b.set(269,144,"y");
+  // 3F 소품: 컨베이어, 상자, 공장 창
+  b.rect(236,120,60,1,"l"); b.rect(236,121,60,4,"d"); for (let x=238;x&lt;296;x+=6) b.set(x,122,"k");
+  b.rect(238,125,2,1,"k"); b.rect(292,125,2,1,"k");
+  for (const [x,y,w,h] of [[244,113,9,7],[262,114,8,6],[278,112,10,8]]){ b.rect(x,y,w,h,"v"); b.rect(x+(w&gt;&gt;1),y,1,h,"b"); b.rect(x,y,w,1,"y"); }
+  b.rect(288,101,30,11,"k"); for (let px=0;px&lt;4;px++) for (let py=0;py&lt;2;py++){ b.rect(289+px*7,102+py*5,6,4,"z"); b.set(290+px*7,102+py*5,"c"); }
+  // 4F 소품: 도시 창
+  b.rect(66,69,32,17,"l"); b.rect(67,70,30,15,"n");
+  for (const [x,y,w,h] of [[68,78,5,7],[74,75,6,10],[81,79,5,6],[87,73,7,12],[94,77,3,8]]) b.rect(x,y,w,h,"d");
+  for (const [x,y] of [[69,80],[76,77],[78,80],[89,75],[91,78],[83,81],[95,79]]) b.set(x,y,"y");
+  b.set(71,72,"w"); b.set(84,72,"w");
+  // 옥상: 집, 깃발
+  b.rect(78,50,20,12,"l"); b.rect(78,61,20,1,"m"); b.rect(85,55,5,7,"b"); b.rect(91,53,4,4,"y");
+  for (let r=0;r&lt;8;r++){ const half=Math.round((r+1)*12/8); b.rect(88-half,42+r,half*2,1, r===0?"o":"r"); }
+  b.rect(93,43,3,5,"b");
+  b.rect(126,38,1,24,"l"); b.set(126,37,"y"); b.rect(127,38,10,6,"y"); b.rect(127,41,10,1,"o"); b.set(136,39,"o");
+  // 층 명판(바깥벽)
+  for (let i=0;i&lt;6;i++){ const y = i&lt;5 ? top(i)+1 : 36; b.rect(43,y,13,11,"l"); b.rect(44,y+1,11,9,"k"); }
+  BASE_D = b.d.slice();
+  const c = b.done(), g = c.getContext("2d");
+  for (let i=0;i&lt;6;i++){ const y = i&lt;5 ? top(i)+1 : 36, s = LV[i].id; txt(g,s,49-((tw(s,"G7"))&gt;&gt;1)+1,y+2,"G7","w"); }
+  txt(g,"목적·방침",5,147,"G7","k"); txt(g,"학생 주도",5,158,"G7","b"); txt(g,"단계 연계",5,167,"G7","b");
+  return c;
+}
+
+/* ---------- 횃불·창문 빛 번짐: 반경 안 벽 픽셀을 팔레트 한 단계 밝게, 가장자리는 체크 디더 ---------- */
+let BASE_D, GLOW = [];
+const LIFT = {k:"n",n:"d",d:"m",m:"l",z:"t",b:"r"};
+function glowLayer(i){
+  const b = new Buf(W,H), y0 = top(i), y1 = F[i], key = {};
+  for (const [k,v] of Object.entries(U32)) key[v] = k;
+  const src = TORCH[i].map(x =&gt; [x, y0+8, 13, 22]).concat([[61, y0+12, 6, 12], [330, y0+12, 6, 12]]);
+  for (let y=y0;y&lt;y1;y++) for (let x=IX0;x&lt;IX1;x++){
+    let on = false;
+    for (const [cx,cy,r1,r2] of src){ const d = Math.hypot(x-cx,(y-cy)*1.3); if (d&lt;=r1 || (d&lt;=r2 &amp;&amp; ((x+y)&amp;1)===0)){ on = true; break; } }
+    if (!on) continue;
+    const k = key[BASE_D[y*W+x]], to = LIFT[k]; if (to) b.set(x,y,to);
+  }
+  return b.done();
+}
+
+/* ---------- 어둠(디더링) ---------- */
+function darkLayer(i,density){
+  const b = new Buf(W,H), y0 = top(i), y1 = i&lt;5 ? F[i] : 62, x0 = i&lt;5 ? IX0 : 62, x1 = IX1;
+  for (let y=y0;y&lt;y1;y++) for (let x=x0;x&lt;x1;x++){
+    const on = density===2 ? ((x+y)&amp;1)===0 : ((x&amp;1)===0 &amp;&amp; (y&amp;1)===0);
+    if (on) b.set(x,y,"k");
+  }
+  return b.done();
+}
+
+/* ---------- UI 창(층마다 캐시) ---------- */
+function win(b,x,y,w,h){ b.rect(x,y,w,h,"l"); b.rect(x+1,y+1,w-2,h-2,"d"); b.rect(x+2,y+2,w-4,h-4,"n");
+  for (const [cx,cy] of [[x,y],[x+w-1,y],[x,y+h-1],[x+w-1,y+h-1]]) b.set(cx,cy,"k"); }
+let FACES, MONS, MONS_L, CH_S, CH_O, CH_BS, CH_BO, DOOR_C, DOOR_O, PEOPLE, STELE_S, STAR_S, BASE, DARK2 = [], DARK1 = [];
+const uiCache = [];
+function buildUI(L){
+  if (uiCache[L]) return uiCache[L];
+  const lv = LV[L], b = new Buf(W,H);
+  b.rect(0,0,W,32,"k"); b.rect(0,32,W,1,"m"); b.rect(0,33,W,1,"d");
+  b.rows(8,10,ICON_TOWER); b.rect(100,5,1,23,"d");
+  b.rect(340,34,140,193,"k");
+  win(b,342,36,134,48); win(b,342,88,134,58); win(b,342,150,134,74); win(b,4,227,472,43);
+  for (let j=0;j&lt;4;j++){ const x=348+32*j, on=lv.party[j]; b.rect(x,50,20,20,on?"y":"m"); b.rect(x+1,51,18,18,"k"); }
+  b.rect(428,91,44,26,"m"); b.rect(429,92,42,24,"k");
+  for (let s=0;s&lt;6;s++) b.rect(374+s*8,108,7,6, s&lt;L ? "y" : s===L ? "o" : "d");
+  for (let mth=1;mth&lt;=12;mth++) b.rect(374+(mth-1)*7,123,6,6, mth&lt;lv.m[0] ? "y" : mth&lt;=lv.m[1] ? "o" : "d");
+  b.rect(10,232,20,20,"y"); b.rect(11,233,18,18,"k");
+  const c = b.done(), g = c.getContext("2d");
+  g.imageSmoothingEnabled = false;
+  // 퀘스트 바
+  txt(g,"디딤 타워",22,4,"G11B","y");
+  txt(g,"가상 게임 · 진로의 탑",22,19,"G7","l");
+  txt(g,"2027 장애학생 진로·직업교육 내실화 계획(안)",106,4,"G11B","w");
+  txt(g,"○○교육청 특수교육과 · 2026. 12. · 퀘스트 11",106,19,"G9","l");
+  const cw = tw("가상 예시","G9")+8; const cx = W-6-cw;
+  g.fillStyle = PAL.e; g.fillRect(cx,7,cw,14); txt(g,"가상 예시",cx+4,9,"G9","k");
+  // 파티 창
+  txt(g,"파티 · 협력",348,39,"G9","y");
+  for (let j=0;j&lt;4;j++){ const x=348+32*j; g.drawImage(FACES[j],x+2,52);
+    if (!lv.party[j]){ const d=new Buf(16,16); for(let yy=0;yy&lt;16;yy++) for(let xx=0;xx&lt;16;xx++) if(((xx+yy)&amp;1)===0) d.set(xx,yy,"k"); g.drawImage(d.done(),x+2,52); }
+    const nm=PARTY[j].name, w=tw(nm,"G7"); txt(g,nm,x+10-(w&gt;&gt;1),73,"G7", lv.party[j]?"w":"l"); }
+  // 진척·일정
+  txt(g,"진척 · 일정",348,91,"G9","y");
+  txt(g,lv.id,433,93,"G11B","o",null,2);
+  txt(g,"단계",348,106,"G9","w");
+  txt(g,"일정",348,121,"G9","w");
+  txt(g,lv.when.replace(/ 현황.*| 성과.*/,""),374,132,"G9","l");
+  // 걸림돌·보물
+  txt(g,lv.obsH,348,153,"G9", L===5 ? "c" : L===0 ? "o" : "e");
+  if (L&gt;=1 &amp;&amp; L&lt;=4) g.drawImage(MONS_L[L], 348+((12-MONS_L[L].width)&gt;&gt;1)+ (L===4?-2:0), L===4?163:166, L===4?12:MONS_L[L].width, L===4?11:MONS_L[L].height);
+  else if (L===0) g.drawImage(STELE_S,350,165); else g.drawImage(STAR_S,350,167);
+  txt(g,lv.obs,364,165,"G9","w"); txt(g,lv.obsD,364,177,"G7","l");
+  txt(g,lv.rewH,348,190,"G9","y");
+  g.drawImage(CH_S,348,200);
+  txt(g,lv.rew,364,202,"G9","w"); txt(g,lv.rewD,364,214,"G7","l");
+  // 대화창
+  g.drawImage(FACES[lv.spk],12,234);
+  txt(g,PARTY[lv.spk].full,36,230,"G9","y");
+  txt(g,lv.talk[0],36,241,"G11","w"); txt(g,lv.talk[1],36,254,"G11","w");
+  uiCache[L] = c; return c;
+}
+
+/* ---------- 경로와 상태 ---------- */
+const P = [[120,F[0]],[286,F[0]],[318,F[1]],[106,F[1]],[74,F[2]],[286,F[2]],[318,F[3]],[106,F[3]],[74,F[4]],[286,F[4]],[318,F[5]],[110,F[5]]];
+const CD = [0]; for (let i=1;i&lt;P.length;i++) CD.push(CD[i-1]+Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]));
+const ARR = [0,CD[2],CD[4],CD[6],CD[8],CD[10]];
+const ARRX = [120,P[2][0],P[4][0],P[6][0],P[8][0],P[10][0]];
+const SPOT_X = [196,210,180,210,150,236];
+const SPOT = SPOT_X.map((x,i)=&gt; ARR[i] + Math.abs(x-ARRX[i]));
+const MON_X = [null,176,214,176,196,null];
+const CH_X = [null,140,250,140,270,196];
+function posAt(d){
+  if (d&lt;=0) return {x:Math.round(P[0][0]+d), y:P[0][1], dir:1};
+  for (let i=1;i&lt;P.length;i++){
+    if (d&lt;=CD[i] || i===P.length-1){
+      const s=CD[i-1], L=CD[i]-s, t=L?Math.min(1,(d-s)/L):0, [x0,y0]=P[i-1], [x1,y1]=P[i];
+      const x = x0+(x1-x0)*t; let y = y0;
+      if (y0!==y1 &amp;&amp; t&gt;0){ const k=Math.min(7,Math.floor(t*8)); y = y0-4*(k+1); }
+      return {x:Math.round(x), y, dir: x1&gt;=x0 ? 1 : -1};
+    }
+  }
+}
+const reduceMQ = matchMedia("(prefers-reduced-motion: reduce)");
+let reduce = reduceMQ.matches;
+reduceMQ.addEventListener?.("change", e =&gt; { reduce = e.matches; if (reduce){ lead = target; } });
+let lead = SPOT[3], target = SPOT[3], speed = 120, tgtLevel = 3, lastT = 0;
+const lightAt = [0,0,0,0,0,0];
+let prevLit = 3, prevCleared = [false,false,false,false,false,false]; const poofAt = [0,0,0,0,0,0];
+const litOf = d =&gt; { let L=0; for (let i=1;i&lt;6;i++) if (d &gt;= ARR[i]-0.5) L=i; return L; };
+const cleared = (i,d) =&gt; i&gt;=1 &amp;&amp; i&lt;=4 &amp;&amp; d &gt; SPOT[i]+4;
+
+/* ---------- 그리기 ---------- */
+const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+function draw(now){
+  const L = litOf(lead), moving = Math.abs(target-lead) &gt; 0.01;
+  ctx.drawImage(BASE,0,0);
+  // 불 켜진 층의 빛 번짐
+  for (let i=0;i&lt;=Math.min(L,4);i++) ctx.drawImage(GLOW[i],0,0);
+  // 불 켜진 층의 바깥 창
+  ctx.fillStyle = PAL.y;
+  for (let i=0;i&lt;=Math.min(L,4);i++){ ctx.fillRect(58,top(i)+9,2,7); ctx.fillRect(332,top(i)+9,2,7); }
+  // 상자·문·몬스터
+  for (let i=1;i&lt;=5;i++){
+    if (i&lt;5){ const open = cleared(i,lead), s = open ? CH_O : CH_S; ctx.drawImage(s, CH_X[i]-(s.width&gt;&gt;1), F[i]-s.height); }
+    else { const open = L===5 &amp;&amp; lead &gt;= SPOT[5]-1, s = open ? CH_BO : CH_BS; ctx.drawImage(s, CH_X[5]-(s.width&gt;&gt;1), F[5]-s.height); }
+  }
+  ctx.drawImage(cleared(4,lead) ? DOOR_O : DOOR_C, 230, F[4]-24);
+  for (let i=1;i&lt;=4;i++){
+    const c = cleared(i,lead);
+    if (c &amp;&amp; !prevCleared[i]) poofAt[i] = now;
+    prevCleared[i] = c;
+    if (!c){ const m = MONS[i], bob = (!reduce &amp;&amp; ((now/450|0)+i)%2) ? 1 : 0;
+      ctx.drawImage(m, MON_X[i]-(m.width&gt;&gt;1), F[i]-m.height-bob); }
+    else if (!reduce &amp;&amp; now-poofAt[i] &lt; 420){
+      const f = Math.floor((now-poofAt[i])/105), cx = MON_X[i], cy = F[i]-6, r = 3+f*2;
+      ctx.fillStyle = f%2 ? PAL.y : PAL.w;
+      for (const [dx,dy] of [[r,0],[-r,0],[0,r],[0,-r],[r-1,r-1],[-r+1,r-1],[r-1,-r+1],[-r+1,-r+1]]) ctx.fillRect(cx+dx,cy+dy,1,1);
+    }
+  }
+  // 어둠
+  if (L !== prevLit){ if (L&gt;prevLit) for (let i=prevLit+1;i&lt;=L;i++) lightAt[i]=now; prevLit = L; }
+  for (let i=0;i&lt;6;i++){
+    if (i&gt;L) ctx.drawImage(DARK2[i],0,0);
+    else if (!reduce &amp;&amp; lightAt[i] &amp;&amp; now-lightAt[i] &lt; 260) ctx.drawImage(now-lightAt[i] &lt; 130 ? DARK2[i] : DARK1[i],0,0);
+  }
+  // 층 이름
+  for (let i=0;i&lt;6;i++){
+    const col = i===L ? "y" : i&lt;L ? "w" : "l", y = i&lt;5 ? top(i)+2 : 36, x = i&lt;5 ? 112 : 140;
+    txt(ctx,LV[i].label,x,y,"G9",col,"k");
+  }
+  // 지금 층 명판 테두리
+  { const y = L&lt;5 ? top(L)+1 : 36; ctx.fillStyle = PAL.y; ctx.fillRect(43,y,13,1); ctx.fillRect(43,y+10,13,1); ctx.fillRect(43,y,1,11); ctx.fillRect(55,y,1,11); }
+  // 횃불
+  const fr = reduce ? 0 : Math.floor(now/170)%3;
+  for (const [i,xs] of Object.entries(TORCH)) if (+i&lt;=L) for (const x of xs) ctx.drawImage(FLAMES[(fr+x)%3], x-1, top(+i)+6);
+  // 일행
+  const step = Math.floor(lead/5)%2;
+  for (let j=3;j&gt;=0;j--){
+    const p = posAt(lead-11*j), set = PEOPLE[j][p.dir&gt;0?"R":"L"], s = set[moving ? (step+j)%2 : 0];
+    ctx.drawImage(s, p.x-4, p.y-12);
+  }
+  if (!moving &amp;&amp; (reduce || Math.floor(now/500)%2===0)){ const p=posAt(lead); ctx.fillStyle=PAL.y; ctx.fillRect(p.x-2,p.y-17,5,1); ctx.fillRect(p.x-1,p.y-16,3,1); ctx.fillRect(p.x,p.y-15,1,1); }
+  // UI
+  ctx.drawImage(buildUI(L),0,0);
+  if (moving &amp;&amp; Math.floor(now/200)%2===0){ ctx.fillStyle = PAL.o; const up = target&gt;lead;
+    for (let r=0;r&lt;3;r++) ctx.fillRect(432-r, up ? 112+r : 114-r, 1+r*2, 1); }
+  if (reduce || Math.floor(now/450)%2===0){ ctx.fillStyle = PAL.y; ctx.fillRect(464,260,5,1); ctx.fillRect(465,261,3,1); ctx.fillRect(466,262,1,1); }
+  return L;
+}
+let FLAMES;
+let shownLevel = -1;
+function tick(now){
+  const dt = lastT ? Math.min(0.05,(now-lastT)/1000) : 0; lastT = now;
+  if (reduce) lead = target;
+  else if (lead !== target){ const s = speed*dt; lead = Math.abs(target-lead) &lt;= s ? target : lead + Math.sign(target-lead)*s; }
+  const L = draw(now);
+  if (L !== shownLevel){ shownLevel = L; updateInfo(L); }
+  requestAnimationFrame(tick);
+}
+
+/* ---------- 조작 ---------- */
+const btnUp = document.getElementById("btnUp"), btnReplay = document.getElementById("btnReplay"), floorBox = document.getElementById("floorBtns");
+const fbtns = LV.map((lv,i) =&gt; { const b = document.createElement("button"); b.type="button"; b.className="btn"; b.id="floor-"+lv.id; b.textContent=lv.id;
+  b.setAttribute("aria-label", lv.id+" "+lv.label); b.addEventListener("click", () =&gt; goTo(i)); floorBox.appendChild(b); return b; });
+function goTo(i, fromD){
+  i = Math.max(0,Math.min(5,i)); tgtLevel = i;
+  if (fromD !== undefined) lead = fromD;
+  target = SPOT[i];
+  const dist = Math.abs(target-lead); speed = Math.max(110, dist/Math.min(4.2, Math.max(0.9, dist/110)));
+  syncButtons();
+}
+function syncButtons(){
+  fbtns.forEach((b,i) =&gt; b.setAttribute("aria-pressed", i===tgtLevel ? "true" : "false"));
+  btnUp.disabled = tgtLevel&gt;=5; btnUp.textContent = tgtLevel&gt;=5 ? "▲ 옥상 도착" : "▲ 한 층 오르기";
+}
+btnUp.addEventListener("click", () =&gt; goTo(tgtLevel+1));
+btnReplay.addEventListener("click", () =&gt; { const back = tgtLevel===0 ? 5 : tgtLevel; for (let i=0;i&lt;6;i++) lightAt[i]=0; prevLit = 0; goTo(back, -36); });
+const stage = document.getElementById("stage");
+document.addEventListener("keydown", e =&gt; {
+  if (e.key!=="ArrowUp" &amp;&amp; e.key!=="ArrowDown") return;
+  const a = document.activeElement; if (!(a===document.body || a===null || stage.contains(a))) return;
+  e.preventDefault(); goTo(tgtLevel + (e.key==="ArrowUp" ? 1 : -1));
+});
+const $ = id =&gt; document.getElementById(id);
+function updateInfo(L){
+  const lv = LV[L];
+  $("iSec").textContent = lv.sec; $("iTitle").textContent = lv.title;
+  $("iList").replaceChildren(...lv.list.map(t =&gt; { const li=document.createElement("li"); li.textContent=t; return li; }));
+  $("iObs").textContent = lv.obs + " · " + lv.obsD;
+  $("iRew").textContent = lv.rew + " · " + lv.rewD;
+  $("iWhen").textContent = lv.when;
+  $("iParty").textContent = PARTY.filter((p,j)=&gt;lv.party[j]).map(p=&gt;p.name+"("+p.org+")").join(", ");
+}
+
+/* ---------- 정수배 맞춤 ---------- */
+const frame = $("frame");
+function fit(){
+  const dpr = window.devicePixelRatio || 1, cs = getComputedStyle(frame);
+  const pad = parseFloat(cs.paddingLeft)+parseFloat(cs.paddingRight);
+  const avail = stage.clientWidth - pad;
+  let k = Math.floor(avail*dpr/W); if (k&lt;1) k = 1;
+  const cssW = W*k/dpr; cv.style.width = cssW+"px"; cv.style.height = (H*k/dpr)+"px";
+  const note = (avail*dpr &lt; W) ? "화면이 좁아 1배로 표시" : "×"+k+" (장치 픽셀 기준)";
+  $("scaleNote").textContent = "논리 해상도 480×270 · 정수배 " + note; $("scaleNow").textContent = "×"+k;
+}
+new ResizeObserver(fit).observe(stage); addEventListener("resize", fit); fit();
+
+/* ---------- 팔레트 표 ---------- */
+$("swatches").replaceChildren(...Object.entries(PAL).map(([k,h]) =&gt; { const li=document.createElement("li");
+  li.innerHTML = '&lt;i style="background:'+h+'"&gt;&lt;/i&gt;&lt;b&gt;'+h+'&lt;/b&gt;'+ROLE[k]; return li; }));
+
+/* ---------- PPT용 이미지 ---------- */
+$("btnExport").addEventListener("click", () =&gt; {
+  const o = mk(W*4,H*4), g = o.getContext("2d"); g.imageSmoothingEnabled = false; g.drawImage(cv,0,0,W*4,H*4);
+  $("exportImg").src = o.toDataURL("image/png"); $("exportFig").hidden = false;
+});
+
+/* ---------- 시작 ---------- */
+function start(){
+  FACES = [0,1,2,3].map(face);
+  PEOPLE = MEM.map(personSprites);
+  MONS = {}; MONS_L = {}; for (const i of [1,2,3,4]){ MONS[i] = spr(MON[i]); MONS_L[i] = spr(MON[i]); }
+  CH_S = chest(12,9,false); CH_O = chest(12,9,true); CH_BS = chest(18,12,false); CH_BO = chest(18,12,true);
+  DOOR_C = door(false); DOOR_O = door(true); STELE_S = spr(STELE); STAR_S = spr(STAR);
+  FLAMES = FLAME.map(f =&gt; spr(f));
+  BASE = buildBase();
+  for (let i=0;i&lt;6;i++){ DARK2[i] = darkLayer(i,2); DARK1[i] = darkLayer(i,1); }
+  for (let i=0;i&lt;5;i++) GLOW[i] = glowLayer(i);
+  for (let i=0;i&lt;6;i++) buildUI(i);
+  syncButtons();
+  requestAnimationFrame(tick);
+}
+const fontsReady = Promise.all(["12px G11","12px G11B","10px G9","8px G7"].map(f =&gt; document.fonts.load(f, "가")));
+Promise.race([fontsReady, new Promise(r =&gt; setTimeout(r, 2500))]).then(start, start);
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
+</body></html>

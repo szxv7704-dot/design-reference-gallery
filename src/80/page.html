@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #80 백 칸 중 마흔하나</title>
+<style>
+/*@@FONTS@@*/
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+</style>
+<style id="ps80-css">
+/* 핵심 수치 '백 칸 중 마흔하나' — 접두어 ps80 / 색은 --ds-* 변수로만 */
+.ps80{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps80 *{box-sizing:border-box}
+.ps80-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps80-a{position:absolute}
+.ps80-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps80-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps80-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps80-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps80-tt{left:calc(var(--u)*80);top:calc(var(--u)*108);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*36);line-height:1.24;letter-spacing:-.01em}
+.ps80-tt em{font-style:normal;color:var(--ds-accent)}
+/* 왼쪽 주인공: 100칸 + 큰 숫자 */
+.ps80-cell{border-radius:calc(var(--u)*2)}
+.ps80-kick{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*16);color:var(--ds-c1)}
+.ps80-hero{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*112);line-height:.9;letter-spacing:-.04em;color:var(--ds-c1)}
+.ps80-hero small{font-size:calc(var(--u)*44);letter-spacing:0;margin-left:calc(var(--u)*4)}
+.ps80-hs{font-size:calc(var(--u)*15);color:var(--ds-sub);line-height:1.45}
+.ps80-hs b{font-family:var(--ds-font-num);font-weight:600;color:var(--ds-ink)}
+/* 반복 질문 표 */
+.ps80-tbl{border-collapse:collapse;font-size:calc(var(--u)*14)}
+.ps80-tbl th{font-weight:600;font-size:calc(var(--u)*12);color:var(--ds-sub);text-align:left;padding:0 0 calc(var(--u)*6);border-bottom:calc(var(--u)*1.5) solid var(--ds-ink)}
+.ps80-tbl th.r,.ps80-tbl td.r{text-align:right}
+.ps80-tbl td{padding:calc(var(--u)*7) 0;border-bottom:calc(var(--u)*1) solid var(--ds-line);vertical-align:middle;white-space:nowrap}
+.ps80-tbl td.n{font-family:var(--ds-font-num);font-weight:600;padding-right:calc(var(--u)*12)}
+.ps80-bar{display:block;height:calc(var(--u)*10);background:var(--ds-c3);border-radius:calc(var(--u)*1)}
+/* 오른쪽 받치는 수치 3 */
+.ps80-tile{border-top:calc(var(--u)*1.5) solid var(--ds-ink)}
+.ps80-tl{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*16);color:var(--ds-ink)}
+.ps80-tl i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3);margin-right:calc(var(--u)*8)}
+.ps80-tn{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*52);line-height:1;letter-spacing:-.03em;color:var(--ds-c1);white-space:nowrap}
+.ps80-tn small{font-size:calc(var(--u)*20);letter-spacing:0;margin-left:calc(var(--u)*3);color:var(--ds-ink)}
+.ps80-so{font-size:calc(var(--u)*14);color:var(--ds-sub);line-height:1.4}
+.ps80-cl{font-size:calc(var(--u)*13);color:var(--ds-sub);white-space:nowrap;transform:translateY(-50%)}
+.ps80-cv{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*13);white-space:nowrap;transform:translateY(-50%)}
+.ps80-ax{font-family:var(--ds-font-num);font-size:calc(var(--u)*11);color:var(--ds-sub);white-space:nowrap}
+.ps80-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 80 · 본문 요소 · 핵심 수치 · 정지 · 가상 예시</div>
+    <h1>백 칸 중 마흔하나</h1>
+    <p class="pg-lead">현황 수치 넷을 같은 크기로 늘어놓지 않고, 원문이 강조한 숫자 하나를 100칸 그림과 큰 숫자로 키운 뒤 나머지 셋은 비교 꼬리표를 단 받침으로 세운 장표.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps80" id="ps80" data-slide role="img" aria-label="민원 현황: 반복 민원 41%(100칸 중 41칸)와 반복 질문 내역, 연간 접수·평균 처리 기간·온라인 접수 비율과 비교값"></div></div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="N" aria-pressed="true">중립(기본)</button><button class="btn" type="button" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button><button class="btn" type="button" data-fam="D" aria-pressed="false">D 인쇄·종이</button><button class="btn" type="button" data-fam="F" aria-pressed="false">F 관측·중계</button></div>
+  </section>
+  
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅰ장 줄글, 가상)</h3>
+        <p class="raw"><mark class="g" data-n="1">2026년 우리 교육청에 접수된 민원은 18,400건으로 전년(15,900건)보다 16% 늘었다.</mark> <mark class="g" data-n="2">평균 처리 기간은 6.2일로 법정 기한(7일)에 가까우며, 2027년에는 4일 이내로 줄이는 것이 목표다.</mark> <mark class="g" data-n="3">온라인 접수 비율은 72%로 시도 평균(64%)보다 높다.</mark> <mark class="k" data-n="주인공">특히 전체의 41%인 7,540건은 같은 질문이 학교와 부서를 바꿔 다시 들어온 반복 민원이었고</mark>, <mark class="o" data-n="표">전학·학적 서류(2,140건), 늘봄·방과후 신청(1,860건), 급식비·교육비 지원(1,520건) 순으로 많았다(그 밖의 반복 2,020건).</mark></p>
+        <div class="key"><span><i class="kk"></i>주인공 수치</span><span><i class="ko"></i>주인공의 내역</span><span><i class="kg"></i>받치는 수치</span><span>번호 = 장표의 같은 번호</span></div>
+      </div>
+      <div class="panel">
+        <div class="grp-h">세 묶음 (왼쪽 주인공 · 오른쪽 받침)</div>
+        <ul class="grp">
+          <li><span class="n n1">주인공</span><div><b>"특히 ~%" 문장 → 100칸 + 큰 숫자</b><em>원문이 "특히"로 따로 강조한 숫자 하나를 주인공으로 뽑는다. 전체 중 몇인가를 말하는 숫자라 100칸에 칠한다</em></div></li>
+          <li><span class="n">표</span><div><b>주인공의 내역 → 큰 숫자 아래 작은 표</b><em>"~순으로 많았다"는 주인공을 쪼갠 것이므로 주인공 바로 아래에, 건수와 같은 눈금 막대로</em></div></li>
+          <li><span class="n">1~3</span><div><b>나머지 수치 문장 → 받치는 칸 셋</b><em>문장마다 "숫자 하나 + 견줄 값 하나 + 뜻 한 줄"로 쪼갠다. 견줄 값(전년 · 목표 · 시도 평균)이 문장 안에 이미 있다</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">위계 (주인공↔받침)</span><span>주인공은 왼쪽 절반을 다 쓰고 숫자 크기 112. 받치는 수치는 52. 크기 차이가 곧 읽는 순서다.</span></div>
+          <div><span class="k">비교 (숫자↔기준)</span><span>받치는 수치마다 0에서 시작하는 같은 눈금 막대 두 개(우리 · 견줄 값). 진한 막대가 이 장표의 숫자다.</span></div>
+          <div><span class="k">원인 (주인공→받침)</span><span>뜻 한 줄이 주인공(반복 질문)으로 되돌아오게 썼다: 늘어난 몫 · 줄일 방법 · 붙일 창구.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>현황 장표에 숫자 네 개를 같은 크기 타일로 늘어놓지 않고, 원문이 "특히"로 강조한 숫자 하나를 <b>주인공</b>으로 키웠다. 주인공은 100칸 그림과 큰 숫자, 그 내역 표까지 왼쪽 절반을 쓴다. 나머지 셋은 오른쪽에 <b>받치는 수치</b>로 줄 세우고, 숫자마다 견줄 값과 뜻 한 줄을 붙였다.</p>
+    <p><b>가져갈 장치 1: 100칸.</b> "41%"를 10×10 칸 중 41칸으로 칠한다. 세로줄 단위로 채워서 한 덩어리로 읽힌다. 1칸이 몇 건인지 아래에 적어 비율과 건수를 함께 잡는다.</p>
+    <p><b>가져갈 장치 2: 숫자마다 비교 꼬리표.</b> 받치는 수치 옆에 0에서 시작하는 같은 눈금 막대 두 개(우리 · 견줄 값)를 둔다. "6.2일"이 많은지 적은지는 법정 기한 7일 눈금 위에서야 보인다.</p>
+    <p><b>가져갈 장치 3: 뜻 한 줄을 주인공으로 되돌리기.</b> 받치는 수치의 설명이 각자 따로 놀지 않고 모두 "반복 질문"으로 돌아오게 써서, 장표 전체가 제목 한 문장을 받친다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>학교폭력 실태: 주인공 = "피해 응답 중 사이버 비율", 받침 = 응답률 · 신고율 · 재발률</li>
+      <li>교원 업무 실태: 주인공 = "공문 처리에 쓰는 시간 비율", 받침 = 공문 수 · 담당 업무 수 · 초과근무</li>
+      <li>학교 시설 노후도: 주인공 = "30년 넘은 건물 비율", 받침 = 연면적 · 개축 대기 · 안전 등급</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>hero</code>의 <code>part / total</code>로 100칸이 자동으로 칠해지고, <code>repeats</code>는 주인공 내역 표, <code>tiles</code>는 받치는 수치 3개(<code>max</code> = 비교 막대 눈금 끝)입니다.</li>
+      <li>계열 분위기는 <code>.ps80{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값).</li>
+      <li>제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>100칸</b>: 0.8×0.8cm 둥근 사각형(둥글기 최소) 하나 → Ctrl+D로 9번(세로 간격 0.13cm) → 열 하나를 그룹으로 묶어 Ctrl+D 9번. 앞에서부터 41칸만 진한 색으로 칠한다(세로줄 4개 + 1칸).</li>
+      <li><b>큰 숫자</b>: 숫자 80pt · % 32pt, 고정폭 글꼴(Consolas · IBM Plex Mono)로 자릿수가 흔들리지 않게. 아래 보조 줄 11pt.</li>
+      <li><b>내역 표</b>: 3열 표(이름 · 건수 · 막대), 막대 열에는 표 대신 사각형을 얹는다. 막대 길이 = 건수 ÷ 가장 큰 건수 × 4cm.</li>
+      <li><b>받치는 수치</b>: 위쪽 1.5pt 선 하나로 칸을 가르고(테두리 상자 없음), 왼쪽에 숫자 40pt, 오른쪽에 [가로 막대형 차트] 2항목 — 축 최솟값 0, 최댓값 = 눈금 끝(7, 100, 20,000)으로 고정.</li>
+      <li><b>정지 장표</b>: 애니메이션 없음. 머리말 띠 · 제목 · 바닥 줄은 다른 본문 장표와 같은 자리.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목) + IBM Plex Sans KR(본문) + IBM Plex Mono 600(숫자) · 대체 프리텐다드 · 맑은 고딕 · Consolas</div>
+      <div><b>난이도</b>HTML 하 · PPT 중(100칸 복제)</div>
+      <div><b>질감 · 모션</b>평면 · 정지</div>
+      <div><b>모듈 · 위치</b>수치 타일(주인공 1 + 받침 3) + 표(내역) + 막대(비교 꼬리표) · Ⅰ 추진 배경·현황</div>
+      <div><b>어울리는 계열</b>B · C · D · E · F · G (평면 도식)</div>
+      <div><b>트렌드</b>숫자 하나를 주인공으로 키우는 '히어로 넘버' 레이아웃과 100칸 단위 차트(waffle) — <a href="https://datavizproject.com/data-type/waffle-chart/" target="_blank" rel="noopener">Data Viz Project, Waffle chart</a> · <a href="https://www.storytellingwithdata.com/blog/2020/4/9/what-is-a-big-number" target="_blank" rel="noopener">storytelling with data, big numbers</a></div>
+    </div>
+  </section>
+
+</main>
+<script id="ps80-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅰ', sectionName: '추진 배경·현황',
+    plan: '2027 ○○교육청 민원 처리 기간 단축 계획',
+    title: '민원 10건 중 4건은 [같은 질문]의 반복, 처리 기간을 줄일 곳은 여기입니다',
+    // 주인공 수치: 전체 중 몇 건인가 → 100칸에 비례해 칠한다
+    hero: { kicker: '2026 반복 민원 비율', part: 7540, total: 18400, unit: '건', what: '같은 질문이 학교·부서를 바꿔 다시 들어온 민원' },
+    // 반복 질문 묶음(건수 합 = hero.part)
+    repeats: [
+      { name: '전학·학적 서류', n: 2140 },
+      { name: '늘봄·방과후 신청', n: 1860 },
+      { name: '급식비·교육비 지원', n: 1520 },
+      { name: '그 밖의 반복 질문', n: 2020 }
+    ],
+    // 받치는 수치: 큰 숫자 + 같은 눈금(0부터)의 비교 막대 두 개 + 한 줄 뜻
+    tiles: [
+      { label: '연간 민원 접수', value: '18,400', unit: '건', max: 20000, axis: '0 ~ 2만 건',
+        bars: [{ name: '2025', v: 15900, text: '15,900' }, { name: '2026', v: 18400, text: '18,400', main: true }],
+        so: '한 해 사이 16% 늘었고, 느는 몫 대부분이 반복 질문' },
+      { label: '평균 처리 기간', value: '6.2', unit: '일', max: 7, axis: '0 ~ 7일(법정 기한)',
+        bars: [{ name: '현재', v: 6.2, text: '6.2일', main: true }, { name: '2027 목표', v: 4, text: '4.0일' }],
+        so: '법정 기한 7일에 바짝 붙음. 반복 질문을 미리 안내하면 접수 자체가 준다' },
+      { label: '온라인 접수 비율', value: '72', unit: '%', max: 100, axis: '0 ~ 100%',
+        bars: [{ name: '○○교육청', v: 72, text: '72%', main: true }, { name: '시도 평균', v: 64, text: '64%' }],
+        so: '접수 창구는 이미 온라인이 주력, 자동 안내를 붙이기 좋은 조건' }
+    ],
+    source: '가상 예시 · 출처: ○○교육청 2026 민원 처리 실적(1~12월, 국민신문고·전화·방문 합산) 재구성',
+    page: 4
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var GX = 80, GY = 236, CELL = 30, GAP = 5;            // 100칸(10×10)
+  var HX = 460;                                         // 큰 숫자·표
+  var TX = 920, TW = 600, TY = 236, TH = 190;            // 받치는 수치 3
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + ';height:' + u(h); };
+  var at = function(x, y){ return 'left:' + u(x) + ';top:' + u(y); };
+  var num = function(v){ return v.toLocaleString('ko-KR'); };
+
+  function render(root){
+    var H = DATA.hero, h = '';
+    var pct = H.part / H.total * 100, filled = Math.round(pct);
+    h += '<div class="ps80-a ps80-hd"><div class="ps80-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps80-plan">' + esc(DATA.plan) + '</div></div>';
+    h += '<div class="ps80-a ps80-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>';
+    // 100칸: 왼쪽 위부터 세로줄 단위로 채워 '덩어리'로 읽히게(1칸 = 전체의 1%)
+    for (var k = 0; k < 100; k++){
+      var col = Math.floor(k / 10), row = k % 10;
+      h += '<div class="ps80-a ps80-cell" style="' + box(GX + col * (CELL + GAP), GY + row * (CELL + GAP), CELL, CELL) + ';background:' + (k < filled ? 'var(--ds-c1)' : 'var(--ds-c5)') + '"></div>';
+    }
+    var gH = 10 * CELL + 9 * GAP;
+    h += '<div class="ps80-a ps80-ax" style="' + at(GX, GY + gH + 10) + '">1칸 = 전체 민원의 1% (' + num(Math.round(H.total / 100)) + H.unit + ')</div>';
+    // 큰 숫자
+    h += '<div class="ps80-a ps80-kick" style="' + at(HX, GY - 2) + '">' + esc(H.kicker) + '</div>';
+    h += '<div class="ps80-a ps80-hero" style="' + at(HX - 6, GY + 30) + '">' + (Math.round(pct * 10) / 10) + '<small>%</small></div>';
+    h += '<div class="ps80-a ps80-hs" style="' + box(HX, GY + 140, 400, 60) + '"><b>' + num(H.part) + '</b>' + esc(H.unit) + ' / 전체 <b>' + num(H.total) + '</b>' + esc(H.unit) + '<br>' + esc(H.what) + '</div>';
+    // 반복 질문 표(막대 길이 = 건수, 같은 눈금)
+    var mx = Math.max.apply(null, DATA.repeats.map(function(r){ return r.n; })), BW = 150;
+    var t = '<table class="ps80-tbl" style="width:' + u(380) + '"><thead><tr><th>반복 질문 묶음</th><th class="r" style="padding-right:' + u(12) + '">건수</th><th>반복 민원 중</th></tr></thead><tbody>';
+    DATA.repeats.forEach(function(r){
+      t += '<tr><td>' + esc(r.name) + '</td><td class="n r">' + num(r.n) + '</td><td><span class="ps80-bar" style="width:' + u(r.n / mx * BW * (mx / H.part) / (mx / H.part)) + ';max-width:' + u(BW) + '"></span></td></tr>';
+    });
+    t += '</tbody></table>';
+    h += '<div class="ps80-a" style="' + at(HX, GY + 216) + '">' + t + '</div>';
+
+    // 받치는 수치 3: 큰 숫자 | 비교 막대(0부터, 같은 눈금 둘)
+    DATA.tiles.forEach(function(T, i){
+      var y = TY + i * (TH + 10), BX = TX + 250, BWID = TW - 250 - 70;
+      h += '<div class="ps80-a ps80-tile" style="' + box(TX, y, TW, TH) + '"></div>';
+      h += '<div class="ps80-a ps80-tl" style="' + at(TX, y + 14) + '"><i>' + (i + 1) + '</i>' + esc(T.label) + '</div>';
+      h += '<div class="ps80-a ps80-tn" style="' + at(TX, y + 50) + '">' + esc(T.value) + '<small>' + esc(T.unit) + '</small></div>';
+      h += '<div class="ps80-a ps80-so" style="' + box(TX, y + 118, 230, 60) + '">' + esc(T.so) + '</div>';
+      T.bars.forEach(function(b, j){
+        var by = y + 40 + j * 46, w = b.v / T.max * BWID;
+        h += '<div class="ps80-a ps80-cl" style="' + at(BX, by + 9) + '">' + esc(b.name) + '</div>';
+        h += '<div class="ps80-a" style="' + box(BX + 90, by, w, 18) + ';background:' + (b.main ? 'var(--ds-c1)' : 'var(--ds-c4)') + ';border-radius:' + u(1) + '"></div>';
+        h += '<div class="ps80-a ps80-cv" style="' + at(BX + 90 + w + 8, by + 9) + ';color:' + (b.main ? 'var(--ds-ink)' : 'var(--ds-sub)') + '">' + esc(b.text) + '</div>';
+      });
+      // 눈금: 0과 끝값 세로선(같은 눈금이라는 표시)
+      var axY = y + 40 - 8, axH = 46 + 18 + 16;
+      h += '<div class="ps80-a" style="' + box(BX + 90, axY, 1.5, axH) + ';background:var(--ds-ink)"></div>';
+      h += '<div class="ps80-a" style="' + box(BX + 90 + BWID, axY, 1, axH) + ';background:var(--ds-line)"></div>';
+      h += '<div class="ps80-a ps80-ax" style="' + at(BX + 90, axY + axH + 6) + '">' + esc(T.axis) + '</div>';
+    });
+    h += '<div class="ps80-a ps80-ft"><span>' + esc(DATA.source) + '</span><span>' + DATA.page + '</span></div>';
+    root.innerHTML = '<div class="ps80-in">' + h + '</div>';
+  }
+  render(document.getElementById('ps80'));
+})();
+</script>
+<script>
+(function(){
+  var P = 'ps80';
+  var slide = document.getElementById(P);
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FAM = {"N": {"name": "중립(기본)", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#F5F7FA", "--ds-surface": "#FFFFFF", "--ds-ink": "#18233D", "--ds-sub": "#5B6579", "--ds-line": "#D5DBE4", "--ds-accent": "#D2502A", "--ds-accent2": "#2E5C8F", "--ds-c1": "#1B2E57", "--ds-c2": "#2D4D85", "--ds-c3": "#5474AB", "--ds-c4": "#A8BCDA", "--ds-c5": "#E1E8F2", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "4px", "--ds-shadow": "0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)"}}, "B": {"name": "B 미니멀 스튜디오", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#EEF1F4", "--ds-surface": "#FAFAF8", "--ds-ink": "#1F2B36", "--ds-sub": "#5E6974", "--ds-line": "#CDD4DB", "--ds-accent": "#E2571A", "--ds-accent2": "#2F5D86", "--ds-c1": "#2F4252", "--ds-c2": "#4F6679", "--ds-c3": "#7389A0", "--ds-c4": "#A9B9C7", "--ds-c5": "#DCE3E9", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"}}, "D": {"name": "D 인쇄·종이", "fonts": "Noto Serif KR / IBM Plex Sans KR / Noto Serif KR", "v": {"--ds-bg": "#FBFAF6", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B1E24", "--ds-sub": "#5C606A", "--ds-line": "#CFCCC4", "--ds-accent": "#D9482B", "--ds-accent2": "#23467A", "--ds-c1": "#1F3E6E", "--ds-c2": "#3C5D8C", "--ds-c3": "#6D87AD", "--ds-c4": "#A5B5CD", "--ds-c5": "#E3E8F0", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"}}, "F": {"name": "F 관측·중계", "fonts": "Gothic A1 / Gothic A1 / Saira Semi Condensed", "v": {"--ds-bg": "#F3F5F8", "--ds-surface": "#FFFFFF", "--ds-ink": "#12203A", "--ds-sub": "#556178", "--ds-line": "#D3DAE4", "--ds-accent": "#E5483A", "--ds-accent2": "#2F64AE", "--ds-c1": "#1E3A66", "--ds-c2": "#34598F", "--ds-c3": "#5B7DB0", "--ds-c4": "#9DB3D3", "--ds-c5": "#DAE3EF", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Saira Semi Condensed\",\"Gothic A1\",\"Arial Narrow\",\"Malgun Gothic\",sans-serif", "--ds-radius": "3px", "--ds-shadow": "0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)"}}};
+  var ORDER = ["N", "B", "D", "F"];
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === ORDER[0]) slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+    if (window[P + 'Paint']) window[P + 'Paint']();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window[P + 'Fam'] = apply;
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap\">";
+  var css = document.getElementById(P + '-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById(P + '-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + "<div class=\"ps80\" id=\"ps80\" data-slide role=\"img\" aria-label=\"민원 현황: 반복 민원 41%(100칸 중 41칸)와 반복 질문 내역, 연간 접수·평균 처리 기간·온라인 접수 비율과 비교값\"></div>" + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+  window[P + 'Code'] = code;
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th>' + ORDER.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ORDER.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + ORDER.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + ORDER.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+</body></html>

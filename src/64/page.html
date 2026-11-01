@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #64 TOOL MARKET</title>
+<style>@font-face{font-family:"R-Sans";src:url(@@ASSET:dfb6e56fb1.woff2@@) format("woff2");font-weight:45 920;font-display:block}
+:root{--ink:#111214; --sub:#5E6066; --line:#E3E1DC; --bg:#FAFAF8; --card:#FFFFFF; color-scheme:light}
+body.dark{--ink:#F2F1EE; --sub:#A3A39E; --line:#2A2A2A; --bg:#0E0E0E; --card:#171717; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--ink); font:400 16px/1.65 "R-Sans","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif; letter-spacing:-.01em; word-break:keep-all}
+.rf{max-width:1200px; margin:0 auto; padding:56px 32px 96px; display:grid; gap:96px}
+.rf-head{display:grid; gap:20px; max-width:880px}
+.rf-kicker{margin:0; display:flex; gap:16px; font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--sub)}
+.rf-kicker span:first-child{color:var(--acc)}
+.rf-head h1{margin:0; font-size:clamp(44px,7.4vw,96px); line-height:.98; font-weight:820; letter-spacing:-.045em}
+.rf-lede{margin:0; font-size:clamp(18px,2vw,22px); line-height:1.55; font-weight:450; max-width:44ch}
+.rf-meta{margin:8px 0 0; display:flex; flex-wrap:wrap; gap:8px 28px; font-size:14px}
+.rf-meta div{display:flex; gap:10px} .rf-meta dt{color:var(--sub)} .rf-meta dd{margin:0; font-weight:600}
+.rf-stage{background:var(--wall); margin:0 -32px; padding:clamp(28px,6vw,88px) clamp(16px,6vw,88px); display:grid; gap:20px; justify-items:center}
+.rf-poster{width:100%; box-shadow:0 1px 2px rgba(0,0,0,.12),0 24px 60px -12px rgba(0,0,0,.28)}
+.rf-stage.port .rf-poster{max-width:600px}
+.rf-cap{margin:0; max-width:760px; font-size:14px; line-height:1.6; color:rgba(0,0,0,.66); text-align:center}
+body.dark .rf-cap{color:rgba(255,255,255,.62)}
+.rf-cap span{display:inline-block; margin-left:6px; font-size:11px; font-weight:700; letter-spacing:.08em; padding:1px 7px; border:1px solid currentColor; border-radius:99px}
+.rf-sec{display:grid; gap:28px}
+.rf-sec h2{margin:0; display:flex; align-items:baseline; gap:14px; font-size:28px; font-weight:780; letter-spacing:-.03em; padding-bottom:16px; border-bottom:1px solid var(--ink)}
+.rf-sec h2 b{font-size:13px; font-weight:700; color:var(--acc); letter-spacing:.06em; font-variant-numeric:tabular-nums}
+.rf-sec.two{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:56px; align-items:start}
+.rf-sec.two > div{display:grid; gap:24px}
+.fx-list{display:grid; gap:48px}
+.fx{display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:20px 40px; align-items:start}
+.fx-pair{grid-row:span 2; display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.fx-pair figure{margin:0; display:grid; gap:8px; align-content:start}
+.fx-pair img{display:block; width:100%; height:auto; max-height:340px; object-fit:contain; background:var(--card); border:1px solid var(--line); image-rendering:auto}
+.fx-pair.wide{grid-template-columns:minmax(0,1fr)}
+.fx-pair figcaption{font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--sub)}
+.fx-pair figure + figure figcaption{color:var(--acc)}
+.fx h3{margin:0; font-size:20px; font-weight:720; letter-spacing:-.02em}
+.fx p{margin:0; color:var(--sub); font-size:15.5px}
+.rf-keep{margin:0; padding:22px 24px; background:var(--card); border:1px solid var(--line); font-size:15px; color:var(--sub); display:grid; gap:4px}
+.rf-keep b{color:var(--ink); font-size:13px; letter-spacing:.04em}
+.rf-orig summary{cursor:pointer; font-size:14px; font-weight:600; color:var(--sub); list-style:none}
+.rf-orig summary::before{content:"+ "; color:var(--acc)} .rf-orig[open] summary::before{content:"– "}
+.rf-orig img{display:block; max-width:min(100%,720px); height:auto; margin-top:16px; border:1px solid var(--line)}
+.rf-orig p{margin:8px 0 0; font-size:13px; color:var(--sub)}
+.dev{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line)}
+.dev article{background:var(--bg); padding:28px 26px 30px; display:grid; gap:10px; align-content:start}
+.dev span{font-size:13px; font-weight:700; color:var(--acc); font-variant-numeric:tabular-nums}
+.dev h3{margin:0; font-size:21px; font-weight:740; letter-spacing:-.025em; line-height:1.3}
+.dev p{margin:0; font-size:15px; color:var(--sub)}
+.dev .use{color:var(--ink); font-size:14px; padding-top:12px; border-top:1px solid var(--line)}
+.dev .use::before{content:"이렇게도"; color:var(--sub); font-weight:600; margin-right:.6em}
+.rf-rule{margin:0; font-size:15px; color:var(--sub)} .rf-rule b{color:var(--ink)}
+.rf-prompt{display:grid; gap:12px; justify-items:start}
+.rf-prompt pre{margin:0; width:100%; white-space:pre-wrap; background:var(--card); border:1px solid var(--line); padding:18px 20px; font:13.5px/1.7 ui-monospace,"SFMono-Regular",Consolas,monospace; color:var(--ink)}
+.rf-list{margin:0; padding:0; list-style:none; display:grid; gap:0; border-top:1px solid var(--line)}
+.rf-list li{padding:14px 0; border-bottom:1px solid var(--line); font-size:15px}
+.sw{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:12px}
+.sw li{display:grid; gap:8px}
+.sw i{display:block; aspect-ratio:1; border-radius:2px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.sw code{font:600 13px ui-monospace,Consolas,monospace} .sw em{font-style:normal; font-size:12px; color:var(--sub)}
+.rf-note{margin:0; font-size:13px; color:var(--sub)}
+.rf-steps{margin:0; padding-left:1.2em; color:var(--sub); font-size:15px; display:grid; gap:4px}
+.rf-steps code{font-family:ui-monospace,Consolas,monospace; color:var(--ink)}
+.rf-bar{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; font-size:14px; color:var(--sub)}
+button,.rf-bar a{font:600 14px "R-Sans",sans-serif; color:var(--bg); background:var(--ink); border:0; border-radius:99px; padding:10px 20px; cursor:pointer; text-decoration:none}
+.rf-bar a{background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink)}
+button:hover,.rf-bar a:hover{background:var(--acc); color:#fff; box-shadow:none}
+button:focus-visible,.rf-bar a:focus-visible,summary:focus-visible{outline:2px solid var(--acc); outline-offset:3px}
+#code{margin:0; max-height:520px; overflow:auto; background:#141518; color:#E6E4DE; font:12.5px/1.6 ui-monospace,"SFMono-Regular",Consolas,monospace; padding:20px 22px; border-radius:4px; white-space:pre}
+body.dark #code{background:#1C1C1C}
+.rf-foot{font-size:13px; color:var(--sub); border-top:1px solid var(--line); padding-top:20px}
+@media (max-width:820px){
+  .rf{padding:32px 16px 72px; gap:72px}
+  .rf-stage{margin:0 -16px}
+  .rf-sec.two,.fx{grid-template-columns:minmax(0,1fr)}
+  .fx-pair{grid-row:auto}
+  .dev{grid-template-columns:minmax(0,1fr)}
+  .sw{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rf-sec h2{font-size:24px}
+}
+@media print{ body{background:#fff} .rf > *:not(.rf-stage){display:none} .rf{padding:0; max-width:none} .rf-stage{margin:0; padding:0; background:none} .rf-cap{display:none} .rf-poster{box-shadow:none; max-width:none!important} }
+
+.rf-band{background:#0B0B0B; margin:0 -32px; padding:clamp(40px,8vw,110px) clamp(16px,5vw,64px); overflow:hidden}
+.rf-band-in{max-width:1100px; margin:0 auto; transform:rotate(-2.2deg); filter:drop-shadow(0 18px 24px rgba(0,0,0,.6))}
+.rf-pts{margin:0; padding:0; list-style:none; display:grid; gap:16px}
+.rf-pts li{display:grid; gap:2px; font-size:15px; color:var(--sub)} .rf-pts b{color:var(--ink); font-size:16px}
+@media (max-width:820px){.rf-band{margin:0 -16px}}
+
+.rf-stage.flat .rf-poster{box-shadow:none; background:transparent}
+
+.rf-series{margin:4px 0 0; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:13px}
+.rf-series b{font-size:12px; letter-spacing:.06em; color:var(--sub); margin-right:4px}
+.rf-series a{display:inline-flex; gap:6px; align-items:center; padding:6px 12px; border-radius:99px; border:1px solid var(--line); color:var(--ink); text-decoration:none; background:var(--card)}
+.rf-series a i{font-style:normal; font-weight:700; color:var(--acc)}
+.rf-series a[aria-current]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.rf-series a:hover{border-color:var(--acc)}
+
+.rf-band.flat{background:#E4E8EF} .rf-band.flat .rf-band-in{transform:none; filter:drop-shadow(0 20px 40px rgba(20,40,90,.22))}
+
+.rf{--acc:#EE6A2C; --wall:#E9DCB8}
+</style></head>
+<body class="">
+<main class="rf">
+  <header class="rf-head">
+    <p class="rf-kicker"><span>Print Reference</span><span>No. 64</span></p>
+    <h1>TOOL MARKET</h1>
+    <p class="rf-lede">명령형 두 줄 제목 + 사물 한 대 + 3단 흐름. 큰 여백 위에 실물 같은 자판기 하나로 끝내는 제품 광고 문법.</p>
+    <p class="rf-series"><b>시리즈 · 업무도구 나눔</b><a href="70.html"><i>#70</i>발견 · 앱 장터</a> <a href="68.html"><i>#68</i>만들기 · 작업실</a> <a href="69.html"><i>#69</i>써 보기 · 미션북</a> <a href="63.html"><i>#63</i>고르기 · 자판기</a> <a href="64.html" aria-current="page"><i>#64</i>알리기 · 포스터</a></p>
+    <dl class="rf-meta"><div><dt>쓸 곳</dt><dd>2:3 세로 · A3·B3 세로 포스터</dd></div><div><dt>주제</dt><dd>동료 제작 업무도구 공유</dd></div><div><dt>계열</dt><dd>B · 미니멀 스튜디오</dd></div></dl>
+  </header>
+
+  <section class="rf-stage port">
+    <div class="rf-poster">
+<style>
+@font-face{font-family:"R-Pretendard";src:url(@@ASSET:01d21483f6.woff2@@) format("woff2");font-weight:45 920;font-display:block}
+
+/* TOOL MARKET — 세로 2:3 포스터. 바탕 그림(글자 뺀 클린 플레이트) 위에 정보 글자를 얹는다. 단위 u = 지면 폭÷1024 */
+.tm-wrap{container-type:inline-size; width:100%}
+.tm{--u:calc(100cqw/1024); --tm-green:#163B2B; --tm-orange:#EE6A2C; --tm-ink:#152019;
+  --tm-f:"R-Pretendard",Pretendard,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  position:relative; width:100%; aspect-ratio:2/3; overflow:hidden; background:#F1E4C2 center/100% 100% no-repeat; font-family:var(--tm-f); color:var(--tm-ink)}
+.tm > *{position:absolute; margin:0; white-space:nowrap}
+.tm-sub{left:calc(var(--u)*282); top:calc(var(--u)*276); font-size:calc(var(--u)*34); font-weight:800; letter-spacing:.17em; line-height:1.2}
+.tm-flow{left:0; top:calc(var(--u)*1438); width:100%; height:calc(var(--u)*40); font-size:calc(var(--u)*29.6); font-weight:800; letter-spacing:.04em; line-height:1.2}
+.tm-flow span{position:absolute; top:0}
+.tm-flow i{position:absolute; top:calc(var(--u)*-1); font-style:normal; font-weight:900; color:var(--tm-orange)}
+.tm-tag{left:calc(var(--u)*373); top:calc(var(--u)*1483); font-size:calc(var(--u)*15); font-weight:500; letter-spacing:.235em; line-height:1.2}
+/* 일정 관리 상자: 깨진 글자를 지운 자리 */
+.tm-fix{left:calc(var(--u)*281); top:calc(var(--u)*1024); font-size:calc(var(--u)*10.4); font-weight:600; line-height:1.3; color:#2F2B27; letter-spacing:-.02em; word-spacing:.25em}
+</style>
+<div class="tm-wrap"><div class="tm" style="background-image:url(@@ASSET:7aaed24c2b.webp@@)" role="img" aria-label="필요한 도구, 골라 쓰세요. 동료가 만든 업무도구 자판기 포스터">
+  <p class="tm-sub">동료가 만든 업무도구 자판기</p>
+  <p class="tm-fix">중요한 일을<br>놓치지 않게</p>
+  <p class="tm-flow"><span style="left:calc(var(--u)*257)">도구 선택</span><i style="left:calc(var(--u)*389)">→</i><span style="left:calc(var(--u)*431)">기능 확인</span><i style="left:calc(var(--u)*559)">→</i><span style="left:calc(var(--u)*603)">업무에 활용</span></p>
+  <p class="tm-tag">GOOD TOOLS. SHARED WORK.</p>
+</div></div>
+
+    </div>
+    <p class="rf-cap">크림 벽 앞에 선 자판기 한 대와 &quot;필요한 도구, 골라 쓰세요.&quot; 두 줄. 그림 속에서 깨진 작은 한글을 지우고, 부제·흐름·태그 줄을 살아 있는 글자로 바꿨다. <span>가상 예시</span></p>
+  </section>
+
+
+  <section class="rf-sec">
+    <h2><b>01</b>고친 곳</h2>
+    <div class="fx-list"><article class="fx">
+      <div class="fx-pair"><figure><img src="@@ASSET:901cde644b.webp@@" alt="고치기 전"><figcaption>Before</figcaption></figure><figure><img src="@@ASSET:34fedb592d.webp@@" alt="고친 뒤"><figcaption>After</figcaption></figure></div>
+      <h3>깨진 한글 고치기</h3><p>일정 관리 상자의 부제가 &quot;종요한 읾을 놓치지 앏게&quot;로 깨져 있었다. 글자만 지우고 &quot;중요한 일을 / 놓치지 않게&quot;를 같은 크기로 다시 얹었다. AI 그림의 작은 한글은 거의 항상 이렇게 깨진다 — 반드시 확대해서 볼 것.</p></article><article class="fx">
+      <div class="fx-pair wide"><figure><img src="@@ASSET:259dc168dc.webp@@" alt="고치기 전"><figcaption>Before</figcaption></figure><figure><img src="@@ASSET:561b8c5ee5.webp@@" alt="고친 뒤"><figcaption>After</figcaption></figure></div>
+      <h3>읽을 수 없는 글자는 지우기</h3><p>문서 변환 상자 윗단의 알아볼 수 없는 주황 글씨를 지웠다. 읽히지 않는 글자는 장식이 아니라 오류로 보인다.</p></article></div>
+    <p class="rf-keep"><b>손대지 않은 것</b>&quot;필요한 도구, 골라 쓰세요.&quot; 제목과 자판기 그림은 원본 그대로다. 부제·흐름·영문 태그는 같은 자리·같은 크기로 글자를 다시 얹어, 문구를 바꿔도 그림을 다시 뽑을 필요가 없게 했다.</p>
+    <details class="rf-orig"><summary>원본 시안 전체 보기</summary><img src="@@ASSET:e8b766305e.webp@@" alt="고치기 전 원본 시안" loading="lazy"><p>원본: 이미지 생성 AI로 만든 시안. 글자가 그림에 박혀 있다.</p></details>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>02</b>가져갈 장치</h2>
+    <div class="dev"><article><span>01</span><h3>명령형 두 줄</h3><p>쉼표에서 줄을 바꾸고 마침표 하나만 주황. 문장이 곧 로고가 된다.</p><p class="use">&quot;궁금한 점, 바로 물어보세요.&quot; &quot;읽고 싶은 책, 골라 가세요.&quot;</p></article><article><span>02</span><h3>사물 하나, 여백 많이</h3><p>배경을 비우고 사물을 크게. 사물이 은유를 혼자 설명한다.</p><p class="use">사물 주위 여백은 지면 폭의 15% 이상</p></article><article><span>03</span><h3>위 → 가운데 → 아래</h3><p>무엇을(제목) → 어디서(사물) → 어떻게(흐름 3단).</p><p class="use">신청 절차, 이용 안내 포스터</p></article></div>
+  </section>
+
+  <section class="rf-sec two">
+    <div>
+      <h2><b>03</b>이렇게 다시 뽑기</h2>
+      <p class="rf-rule">원칙 — <b>그림은 글자 없이 뽑고, 글자는 HTML·PPT로 얹는다.</b> AI 그림 속 작은 한글은 거의 깨지고, 박힌 글자는 고칠 수 없다.</p>
+      <div class="rf-prompt"><pre id="pp">Minimal product-ad poster, 2:3 vertical. A retro vending machine stands front-facing on a warm cream floor against a cream wall, soft studio light, gentle floor shadow. Cream and deep green #173F2E body, orange #F26A2E round buttons, small dark screen, a top marquee sign. Behind the glass, 3 rows × 2 slots of work-tool packages (grid box, arrow box, green tin with magnifier, orange box with bar chart, calendar in blister pack, green box with cycle arrows) with chrome coil springs. Stainless pickup tray at the bottom. Leave the top 22% and bottom 8% empty for typography. No text, no letters, no logos on the machine or packages.</pre><button type="button" data-copy="pp">프롬프트 복사</button></div>
+    </div>
+    <div>
+      <h2><b>04</b>인쇄 전에</h2>
+      <ul class="rf-list"><li>2:3은 B3(364×515mm)·A3에 위아래만 살짝 잘린다. 제목 위·흐름 아래 여백이 넉넉해 잘려도 안전하다.</li><li>그림 1024px 폭은 인쇄용으로 작다(A3에서 약 90dpi). 같은 프롬프트로 고해상도 재생성 권장.</li><li>짙은 녹색 제목은 인쇄하면 먹처럼 보일 수 있다 — 교정쇄로 녹색 기운 확인.</li></ul>
+    </div>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>05</b>색</h2>
+    <ul class="sw"><li><i style="background:#EFE2C1"></i><code>#EFE2C1</code><em>53%</em></li><li><i style="background:#263928"></i><code>#263928</code><em>18%</em></li><li><i style="background:#161D17"></i><code>#161D17</code><em>16%</em></li><li><i style="background:#676454"></i><code>#676454</code><em>6%</em></li><li><i style="background:#B0A38B"></i><code>#B0A38B</code><em>6%</em></li><li><i style="background:#EE702E"></i><code>#EE702E</code><em>2%</em></li></ul>
+    <p class="rf-note">완성본에서 뽑은 주요 색과 화면 차지 비율.</p>
+  </section>
+
+  <section class="rf-sec">
+    <h2><b>06</b>HTML 코드</h2>
+    <ol class="rf-steps"><li>코드를 빈 .html 파일로 저장하면 포스터 한 장이 그대로 열립니다(바탕 그림·글꼴 포함, 인터넷 연결 없이도).</li><li>문구는 마크업의 글자를, 위치·크기는 <code>u</code> 단위(지면 폭 기준) 숫자를 바꾸면 됩니다.</li><li>인쇄: 크롬에서 열고 인쇄 → PDF로 저장, 여백 없음, 배경 그래픽 켜기.</li><li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li></ol>
+    <div class="rf-bar"><button type="button" id="cp">코드 복사</button><a id="dl" download="tm-plate.webp">바탕 그림 받기</a><span id="msg" aria-live="polite"></span></div>
+    <pre id="code" tabindex="0"></pre>
+  </section>
+  <footer class="rf-foot">원본 시안은 이미지 생성 AI로 만든 그림이며, 인물·기관·수치·연락처는 모두 가상입니다.</footer>
+</main>
+<script>
+(function(){
+  document.querySelectorAll('.cpx').forEach(function(btn){ btn.addEventListener('click',function(){ var box=btn.closest('section'), w=box.querySelector('[class$="-wrap"]'), s=box.querySelector('style'); copy('<meta charset="utf-8">\n<style>'+s.textContent+'</style>\n'+w.outerHTML+'\n',btn,btn.parentNode.querySelector('.pg-msg')); }); });
+  var wrap=document.querySelector('.rf-poster > [class$="-wrap"]'), st=document.querySelector('.rf-poster style');
+  var sc=document.querySelector('.rf-poster script');
+  var full='<meta charset="utf-8">\n<style>'+st.textContent+'</style>\n'+wrap.outerHTML+'\n'+(sc?'<script>'+sc.textContent+'</'+'script>\n':'');
+  var shown=full.replace(/base64,[A-Za-z0-9+\/=]{200,}/g,function(m){return 'base64,'+m.slice(7,47)+'…(복사하면 전체가 들어갑니다)';});
+  document.getElementById('code').textContent=shown;
+  var bg=wrap.querySelector('[style*="background-image"]'); if(bg){ var m=bg.getAttribute('style').match(/url\((data:[^)]+)\)/); if(m) document.getElementById('dl').href=m[1]; }
+  function copy(text,btn,msg){
+    var done=function(t){ if(msg) msg.textContent=t; else { var o=btn.textContent; btn.textContent=t; setTimeout(function(){btn.textContent=o},1600); } };
+    (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(function(){done('복사했습니다');}).catch(function(){
+      var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy'); done('복사했습니다');}catch(e){done('복사하지 못했습니다');} ta.remove(); });
+  }
+  document.getElementById('cp').addEventListener('click',function(){copy(full,this,document.getElementById('msg'));});
+  document.querySelectorAll('[data-copy]').forEach(function(b){ b.addEventListener('click',function(){ copy(document.getElementById(b.dataset.copy).textContent,b,null); }); });
+})();
+</script>
+</body></html>

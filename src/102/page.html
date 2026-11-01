@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #102 익숙함에 틈을 내다</title>
+<style>
+/*@@FONTS@@*/
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0}
+.keys kbd{font-family:var(--pg-mono);font-size:12px;border:1px solid var(--pg-line);border-bottom-width:2px;border-radius:4px;padding:1px 6px;background:var(--pg-panel)}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps102{min-width:880px}}
+
+.ps102{--ps102-city_c:url(@@ASSET:efe464fadd.jpg@@);--ps102-sea_c:url(@@ASSET:5044ed0364.jpg@@);--ps102-sea_o:url(@@ASSET:571b27ec1e.jpg@@);--ps102-school_o:url(@@ASSET:3a6ef9d20c.jpg@@);--ps102-forest_o:url(@@ASSET:d4532dc35f.jpg@@);--ps102-city_o:url(@@ASSET:5f83c45704.jpg@@);--ps102-adwall:url(@@ASSET:80d7281bde.jpg@@);--ps102-beach:url(@@ASSET:90f65bbc52.jpg@@);--ps102-route:url(@@ASSET:302ef6daa7.jpg@@);--ps102-leafL:url(@@ASSET:9a5b90dc92.png@@);--ps102-leafR:url(@@ASSET:e7dcb82cc8.png@@)}
+</style>
+<style id="ps102-css">
+/* 발표 틀 '익숙함에 틈을 내다' — 접두어 ps102 / 지하철 칸 하나로 끝까지: 문이 열릴 때마다 다음 장 */
+.ps102{
+  --ps102-ink:#3A342D; --ps102-led:#FFB547; --ps102-line:#FF8A3D;
+  --ps102-font:"Noto Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  position:relative;width:100%;aspect-ratio:1672/941;container-type:inline-size;overflow:hidden;background:#2A2520;cursor:pointer;user-select:none;outline:none;
+  color:var(--ps102-ink);font-family:var(--ps102-font)
+}
+.ps102:fullscreen{aspect-ratio:auto;width:100vw;height:100vh;display:grid;place-items:center;background:#000}
+.ps102:fullscreen .ps102-in{inset:auto;position:relative;width:min(100vw,calc(100vh * 1672 / 941));aspect-ratio:1672/941}
+.ps102 *{box-sizing:border-box}
+.ps102-in{position:absolute;inset:0;overflow:hidden;container-type:inline-size}
+.ps102-cam{position:absolute;inset:0;transform-origin:64% 46%}
+.ps102-ph{position:absolute;inset:0;background:0 0/100% 100% no-repeat;opacity:0}
+.ps102-glint{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
+.ps102-door{position:absolute;inset:0;pointer-events:none;transition:opacity .4s}
+.ps102-dest{position:absolute;left:0;top:0;width:1672px;height:941px;transform-origin:0 0;background:0 0/100% 100% no-repeat}
+.ps102-run{position:absolute;inset:0;opacity:0;background:
+  repeating-linear-gradient(90deg,rgba(255,236,200,0) 0 9%,rgba(255,236,200,.55) 10%,rgba(255,236,200,0) 13%),
+  linear-gradient(#5d6a78,#2e3640 55%,#1b2027);background-size:38% 100%,100% 100%}
+.ps102.is-run .ps102-run{animation:ps102-run .35s linear infinite}
+@keyframes ps102-run{to{background-position:-38% 0,0 0}}
+.ps102.is-run .ps102-cam{animation:ps102-sway 1.1s ease-in-out infinite}
+@keyframes ps102-sway{50%{transform:translate(.15%,.12%)}}
+.ps102-leaf{position:absolute;left:0;top:0;width:420px;height:1200px;transform-origin:0 0;background:center/100% 100% no-repeat;backface-visibility:hidden}
+.ps102-leaf.L{background-image:var(--ps102-leafL)}.ps102-leaf.R{background-image:var(--ps102-leafR)}
+/* 문 틈 빛 */
+.ps102-seam{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0}
+.ps102-seam line{stroke:#FFF6DC;stroke-linecap:round}.ps102-seam .g{stroke-width:30}.ps102-seam .c{stroke-width:4}
+.ps102.seam-on .ps102-seam{animation:ps102-seam 1.9s ease forwards}
+@keyframes ps102-seam{0%{opacity:0}25%{opacity:1}70%{opacity:1}100%{opacity:0}}
+/* 벽 글씨(사진 속 원래 자리 · 크기 · 기울기) */
+.ps102-wall{position:absolute;left:35.3%;top:11.2%;transform:rotate(-3.2deg) skewY(-1.5deg);transform-origin:0 0;pointer-events:none;mix-blend-mode:multiply}
+.ps102-wall{font-size:2.05cqw}
+.ps102-wall p{margin:0;font:500 1em/1.42 var(--ps102-font);letter-spacing:.02em;white-space:nowrap;opacity:.9;min-height:1.42em}
+.ps102-wall .b span{display:inline-block;opacity:0;transform:translateY(.12em);transition:opacity .45s,transform .45s}
+.ps102.wall-b .ps102-wall .b span{opacity:1;transform:none}
+/* 광고판 */
+.ps102-posters{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s}
+.ps102.show-posters .ps102-posters{opacity:1}
+.ps102-poster{position:absolute;padding:2.2% 2.4%;mix-blend-mode:multiply;display:flex;flex-direction:column;opacity:0;transform:scale(.97);transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1)}
+.ps102-poster.on{opacity:1;transform:none}
+.ps102-poster span{align-self:flex-start;padding:.3cqw .7cqw;background:#2E9E6A;color:#fff;font:600 .95cqw/1 var(--ps102-font);letter-spacing:.1em;border-radius:.2cqw}
+.ps102-poster[data-i="1"] span{background:#2E6FB0}.ps102-poster[data-i="2"] span{background:#C8572B}
+.ps102-poster h4{margin:1.1cqw 0 .9cqw;font:600 1.75cqw/1.28 var(--ps102-font);letter-spacing:-.02em;color:#1E1A16;word-break:keep-all}
+.ps102-poster ul{margin:auto 0 0;padding:0;list-style:none}
+.ps102-poster li{font:500 1.18cqw/1.45 var(--ps102-font);color:#3A342D;padding:.45cqw 0;border-top:1px solid #B9AE9E;word-break:keep-all}
+/* 행선 안내 표시기(LCD) */
+.ps102-lcd{position:absolute;left:50%;top:2.2%;width:58%;transform:translate(-50%,-160%);transition:transform .6s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ps102.show-lcd .ps102-lcd{transform:translate(-50%,0)}
+.ps102-lcd-in{overflow:hidden;padding:.9cqw 1.4cqw;border-radius:.6cqw;background:#121212;border:.25cqw solid #4A4640;box-shadow:0 .6cqw 1.6cqw rgba(0,0,0,.45),inset 0 0 1.4cqw rgba(0,0,0,.9)}
+.ps102-lcd span{display:inline-block;white-space:nowrap;color:var(--ps102-led);font:600 2cqw/1.2 var(--ps102-font);letter-spacing:.08em;text-shadow:0 0 .5cqw rgba(255,170,60,.8)}
+.ps102.show-lcd .ps102-lcd span{animation:ps102-scroll 7s linear .6s infinite}
+@keyframes ps102-scroll{0%{transform:translateX(100%)}15%,85%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+/* 노선도 */
+.ps102-map{position:absolute;left:50%;top:50%;width:76%;padding:2.2cqw 3cqw 2.6cqw;border-radius:1cqw;background:rgba(10,27,58,.92);box-shadow:0 1.6cqw 4cqw rgba(30,20,10,.35);
+  transform:translate(-50%,-44%);opacity:0;transition:opacity .5s,transform .7s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ps102.show-map .ps102-map{opacity:1;transform:translate(-50%,-50%)}
+.ps102.show-lcd .ps102-map{top:auto;bottom:6%;transform:translate(-50%,0);width:70%;padding:1.2cqw 2cqw 1.6cqw}
+.ps102.show-lcd .ps102-map h3{display:none}
+.ps102-map h3{margin:0 0 1.8cqw;font:600 1.15cqw/1 var(--ps102-font);letter-spacing:.3em;color:#6B6157}
+.ps102-map ol{position:relative;display:flex;justify-content:space-between;margin:0;padding:0;list-style:none}
+.ps102-map ol::before{content:"";position:absolute;left:3%;right:3%;top:.75cqw;height:.55cqw;border-radius:1cqw;background:#3A4A6B}
+.ps102-map li{position:relative;flex:1;text-align:center}
+.ps102-map i{position:relative;display:block;width:2cqw;height:2cqw;margin:0 auto .8cqw;border-radius:50%;background:#fff;border:.4cqw solid #3A4A6B}
+.ps102-map b{font:600 1.35cqw/1.2 var(--ps102-font);color:#7F8BA6;white-space:nowrap}
+.ps102-map li.done i{border-color:var(--ps102-line);background:var(--ps102-line)}.ps102-map li.done b{color:#fff}
+.ps102-map li.now i{border-color:var(--ps102-line);animation:ps102-now 1.2s ease-in-out infinite}.ps102-map li.now b{color:var(--ps102-line)}
+@keyframes ps102-now{50%{box-shadow:0 0 0 .7cqw rgba(255,138,61,.3);background:var(--ps102-line)}}
+/* 표지 꼬리표 · 마무리 · 안내 */
+.ps102-kicker{position:absolute;left:3.2%;bottom:5%;font:600 1.15cqw/1 var(--ps102-font);letter-spacing:.14em;color:#FFF8EC;text-shadow:0 .1cqw .6cqw rgba(40,30,20,.6);opacity:0;transition:opacity .8s}
+.ps102.show-kicker .ps102-kicker{opacity:1}
+.ps102-end{position:absolute;right:6%;top:13%;text-align:right;color:#fff;text-shadow:0 .2cqw 1.2cqw rgba(120,70,20,.45);opacity:0;transform:translateY(1cqw);transition:opacity 1.2s,transform 1.4s cubic-bezier(.2,.8,.2,1)}
+.ps102.show-end .ps102-end{opacity:1;transform:none}
+.ps102-end h2{margin:0;font:600 4.6cqw/1.2 var(--ps102-font);letter-spacing:-.02em}
+.ps102-end p{margin:1.4cqw 0 0;font:500 1.4cqw/1.3 var(--ps102-font);letter-spacing:.08em}
+.ps102-hint{position:absolute;right:3%;bottom:4%;padding:.5cqw 1cqw;border-radius:2cqw;background:rgba(40,32,24,.55);color:#fff;font:600 1cqw/1 var(--ps102-font);letter-spacing:.12em;opacity:0;transition:opacity .4s}
+.ps102-hint.on{opacity:1;animation:ps102-blink 2.2s ease-in-out infinite}
+@keyframes ps102-blink{50%{opacity:.45}}
+.ps102-dots{position:absolute;left:50%;bottom:1.4%;transform:translateX(-50%);display:flex;gap:.3cqw}
+.ps102-dots i{width:.38cqw;height:.38cqw;border-radius:50%;background:rgba(255,255,255,.35)}
+.ps102-dots i.on{background:#FFE2A8}
+@media (prefers-reduced-motion:reduce){.ps102.is-run .ps102-cam{animation:none}}
+
+/* 노선도 사진 위 역 표시: 장 순서대로 고리가 퍼진다 */
+.ps102-rings{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .5s}
+.ps102.show-route .ps102-rings{opacity:1}
+.ps102-rings i{position:absolute;width:5.2%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%) scale(.6);border:.25cqw solid #fff;opacity:0}
+.ps102.show-route .ps102-rings i{animation:ps102-ring 2.4s ease-out infinite}
+@keyframes ps102-ring{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}15%{opacity:.95}100%{opacity:0;transform:translate(-50%,-50%) scale(1.6)}}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 102 · 발표 틀 · 표지부터 마무리까지 · 이동형 장표 · 가상 예시</div>
+    <h1>익숙함에 틈을 내다</h1>
+    <p class="pg-lead">지하철 칸 하나로 계획안 전체를. 지친 회색 도시 앞에서 닫힌 문 틈으로 빛이 새어 바다로 바뀌고 문이 열린다(표지). 노선도가 목차가 되고, 역마다 행선 안내가 흐른 뒤 문이 열려 그 장의 풍경과 제목이 보이며, 맞은편 광고판 세 칸에 지금 · 바꿀 것 · 도착점이 하나씩 붙는다. 종착역에서 문을 나서면 해변에 선 열차와 마무리 문장.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps102" id="ps102" role="application" aria-label="혁신 계획 발표: 표지, 노선도 목차, 네 개 역(장), 종착역"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 진행</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button><button class="btn btn-replay" type="button" id="b-full">전체 화면</button></div>
+  </section>
+
+  <section>
+    <h2>설계 메모 <small>NOTES</small></h2>
+    <div class="cover-note">
+      <div><b>표지: 지친 도시 → 틈 → 바다</b><p>문 창 밖은 회색 도시. 누르면 두 문짝 사이 이음매에 빛이 새어 나오고, 그 빛이 번지며 창밖이 바다로 바뀐 뒤 문이 덜컹 열린다. 벽 글씨가 '익숙함에'에서 '틈을 내다'까지 이어진다.</p></div>
+      <div><b>목차 = 노선도</b><p>문이 다시 닫히고 화면이 남색 노선도 '변화를 잇는 노선'으로 넘어간다. 현장 · 사람 · 디지털 · 마을역에 흰 고리가 차례로 퍼진다. 차 안 위쪽에는 같은 남색 · 주황으로 작은 노선 안내가 나와 지나온 역을 칠한다.</p></div>
+      <div><b>장마다 세 박자</b><p>① 창밖이 흐르며 달리다 멈추고 위에 '이번 역은 ○○역' 안내가 흐른다. 닫힌 문 창으로 그 장의 풍경이 비친다. ② 문이 열려 풍경과 장 제목(벽 글씨). ③ 맞은편 광고판으로 돌아서 지금 · 바꿀 것 · 도착점 세 칸이 한 번에 하나씩.</p></div>
+      <div><b>사진은 같은 칸 · 같은 각도</b><p>닫힌 문 · 열린 문 사진이 모두 같은 구도라, 닫힌 문 사진에서 문짝 두 개를 펴서 오려 내고 문틀 원근(matrix3d)에 맞춰 밀어 열었다. 창은 투명하게 뚫어 뒤에 그 장의 풍경을 원근 맞춰 비친다.</p></div>
+      <div><b>광고판 = 본문</b><p>빈 액자 세 개에 글을 곱하기(multiply)로 얹어 인쇄된 광고처럼 보인다. 꼬리표 색은 지금(초록) · 바꿀 것(파랑) · 도착점(주황)으로 장마다 같다.</p></div>
+      <div><b>종착역</b><p>'이번 역은 종착역, 바다역입니다. 내리실 문은 오른쪽입니다.' 문이 열려 표지의 그 바다가 다시 보이고, 문 밖으로 나가면 해변에 선 열차를 배경으로 '틈은 이미 열렸습니다'.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>발표할 때 <small>CONTROLS</small></h2>
+    <table class="keys"><tbody>
+      <tr><td><kbd>→</kbd> <kbd>PageDown</kbd> <kbd>Space</kbd> · 리모컨 다음 · 화면 클릭</td><td>다음 박자(표지 → 틈 → 노선도 → [도착 → 문 열림 → 광고판 1 · 2 · 3] × 4 → 종착역 → 해변) 26박자</td></tr>
+      <tr><td><kbd>←</kbd> <kbd>PageUp</kbd></td><td>이전 박자(움직임 없이 바로)</td></tr>
+      <tr><td><kbd>F</kbd> · <kbd>Home</kbd></td><td>전체 화면 · 표지로</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>인터넷 없이 쓰기 <small>OFFLINE FILE</small></h2>
+    <p>사진 · 글꼴이 모두 들어 있는 HTML 파일 하나입니다. USB에 담아 크롬 · 엣지로 열고 F(전체 화면)만 누르면 됩니다. 갤러리 사이트에서 받으세요.</p>
+    <div class="code-bar" style="margin-top:14px"><a class="btn" href="https://szxv7704-dot.github.io/design-reference-gallery/assets/102-offline.html" download="익숙함에틈을내다_오프라인.html">파일 받기</a></div>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣고 크롬 · 엣지로 열어 F(전체 화면) 후 발표합니다(사진은 갤러리 주소에서 불러옵니다).</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code>만 바꾸면 됩니다. <code>stations</code> 한 칸이 한 장(역 이름 · 벽 제목 두 줄 · 광고판 세 칸)입니다. 장을 늘리고 줄이면 노선도와 박자가 저절로 맞춰집니다.</li><li>장마다 풍경은 <code>scene</code>으로 고릅니다(학교 · 숲 · 도시 · 바다). 새 풍경은 같은 칸 · 같은 각도로 문이 열린 사진을 만들어 <code>PHOTOS</code>에 이름을 넣고 CSS에 <code>--ps102-이름</code>으로 겁니다. 노선도 사진을 바꾸면 <code>route</code>에 역 자리(사진 픽셀)를 다시 적습니다.</li><li>벽 글씨는 벽 판이 좁아 길면 저절로 작아집니다. 한 줄 6자 안팎이 알맞습니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>문 열림</b>: 닫힌 문 사진 → 열린 문 사진을 [전환 → 페이드] 0.9초가 가장 간단하다. 문이 미끄러지게 하려면 닫힌 문 사진에서 문짝만 오려(<code>assets/102-door-L.png</code> · <code>-R.png</code>) 열린 사진 위에 얹고 [끝내기 → 날아가기(왼쪽 · 오른쪽)].</li>
+      <li><b>노선도</b>: 노선도 사진(<code>assets/102-route.jpg</code>)을 한 장으로 넣고, 역 자리에 흰 원 테두리 + [강조 → 펄스]를 차례로.</li>
+      <li><b>행선 안내</b>: 검은 둥근 사각형 + 주황 글자(#FFB547) + [나타내기 → 날아오기(오른쪽)].</li>
+      <li><b>광고판</b>: 광고판 사진(<code>assets/102-adwall.jpg</code>) 위 액자 자리에 글 상자 세 개, 클릭마다 [나타내기 → 밝기 변화].</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#3A342D"></span>#3A342D 벽 글씨 · <span class="sw" style="background:#FFB547"></span>#FFB547 행선 안내 · <span class="sw" style="background:#0A1B3A"></span>#0A1B3A · <span class="sw" style="background:#FF8A3D"></span>#FF8A3D 노선 · 광고 꼬리표 #2E9E6A · #2E6FB0 · #C8572B</div>
+      <div><b>글꼴</b>Noto Sans KR 500 · 600 · 대체 맑은 고딕</div>
+      <div><b>장면</b>26박자: 표지 2 + 노선도 1 + 장 4 × 5 + 종착 2 + 해변 1, 문 열림 1.7초 · 달리기 2.2초</div>
+      <div><b>난이도</b>HTML 중(원근 행렬 · 겹치기) · PPT 중</div>
+      <div><b>원본</b>사용자 제공 AI 생성 이미지 10장(1672×941, 같은 칸 · 같은 각도 + 노선도), 첫 사진의 벽 글씨는 지우고 HTML 글씨로 교체</div>
+      <div><b>트렌드</b>일상 공간에 낯선 풍경을 붙이는 초현실 합성(surreal everyday) — 익숙한 틀은 그대로, 한 군데만 비튼다</div>
+    </div>
+  </section>
+</main>
+<script id="ps102-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다(가상 예시) ──
+  // scene: 문이 열렸을 때의 사진(sea_o 바다 · school_o 학교 · forest_o 숲 · city_o 도시 — 사진을 더 넣으면 PHOTOS 에 이름을 추가)
+  // route: 노선도 사진 위에서 각 역(장)이 있는 자리(사진 픽셀) — stations 순서대로
+  var DATA = {
+    cover: { line1: '익숙함에', line2: '틈을 내다', kicker: '2027 ○○교육청 혁신 계획(안)' },
+    start: '익숙역', end: '바다역',
+    stations: [
+      { name: '현장역', wall: ['학교가', '스스로 정한다'], scene: 'school_o',
+        posters: [
+          { tag: '지금', title: '위에서 정하고 아래서 따르는 구조', lines: ['교육청 지정 사업 학교당 평균 23개', '학교 자체 기획 사업 비율 18%'] },
+          { tag: '바꿀 것', title: '학교 자율 예산 · 과제 선택제', lines: ['지정 사업 30% 줄여 자율 예산으로', '학교가 과제를 골라 신청'] },
+          { tag: '도착점', title: '자율 과제 학교 100%', lines: ['2027년 모든 학교가 자체 과제 1개 이상', '사업 보고서 분량 절반으로'] } ] },
+      { name: '사람역', wall: ['교원이', '자라는 시간'], scene: 'forest_o',
+        posters: [
+          { tag: '지금', title: '연수는 많은데 성장은 더디다', lines: ['교원 1인 연간 연수 62시간', '수업 개선으로 이어졌다 응답 31%'] },
+          { tag: '바꿀 것', title: '학교 안 배움 공동체', lines: ['수업 나눔 시간을 근무 시간 안으로', '선배 교사 짝 맺기(멘토링) 전 학교'] },
+          { tag: '도착점', title: '서로 배우는 학교 80%', lines: ['학교 안 공동체 운영 학교 80%', '수업 개선 체감 60% 이상'] } ] },
+      { name: '디지털역', wall: ['데이터로', '여는 교실'], scene: 'city_o',
+        posters: [
+          { tag: '지금', title: '기기는 있는데 쓰임이 없다', lines: ['1인 1기기 보급률 96%', '수업 활용 주 1회 미만 44%'] },
+          { tag: '바꿀 것', title: '배움 기록 한곳에 모으기', lines: ['학생별 배움 기록판 도입', '교사 행정 입력 한 번으로 끝'] },
+          { tag: '도착점', title: '데이터로 돕는 수업', lines: ['기초학력 조기 발견 2주 → 2일', '교사 행정 시간 주 3시간 줄이기'] } ] },
+      { name: '마을역', wall: ['지역과 함께', '크는 학교'], scene: 'forest_o',
+        posters: [
+          { tag: '지금', title: '학교 담장 안에 갇힌 배움', lines: ['지역 연계 수업 학교당 연 2회', '방과 후 돌봄 대기 1,240명'] },
+          { tag: '바꿀 것', title: '마을이 교실이 되는 과정', lines: ['지자체 · 기관 협약 40곳', '마을 강사 은행 운영'] },
+          { tag: '도착점', title: '돌봄 대기 0명', lines: ['지역 연계 수업 학기당 1회 이상', '돌봄 대기 해소'] } ] }
+    ],
+    route: [[390, 533], [686, 533], [1032, 560], [1317, 380]],
+    ending: { lcd: '이번 역은 종착역, 바다역입니다. 내리실 문은 오른쪽입니다.', line1: '틈은 이미', line2: '열렸습니다', sub: '함께 내려 주셔서 고맙습니다' }
+  };
+  var W = 1672, H = 941;
+  // 사진 이름 → CSS 변수(--ps102-이름)
+  var PHOTOS = ['city_c', 'sea_c', 'sea_o', 'school_o', 'forest_o', 'city_o', 'adwall', 'beach', 'route'];
+  // 닫힌 문 사진의 문 자리(두 짝 합친 면): 왼쪽 위 · 오른쪽 위 · 오른쪽 아래 · 왼쪽 아래, 가운데 이음매 비율
+  var CQ = [[808, 72], [1305, -40], [1305, 815], [808, 690]], US = 0.5256;
+  // 문이 열린 사진의 문틀 안쪽(바깥 풍경이 보이는 자리)
+  var GAP = [[849, 80], [1306, -56], [1306, 788], [849, 684]];
+  // 광고판 액자 안쪽(광고판 사진)
+  var FRAMES = [[235, 160, 602, 477], [652, 160, 1019, 477], [1068, 160, 1438, 477]];
+
+  var root = document.getElementById('ps102');
+  var esc = function(s){ return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+  root.innerHTML = '<div class="ps102-in"><div class="ps102-cam">' +
+    PHOTOS.map(function(p){ return '<div class="ps102-ph" data-p="' + p + '" style="background-image:var(--ps102-' + p + ')"></div>'; }).join('') +
+    '<canvas class="ps102-glint"></canvas>' +
+    '<div class="ps102-door"><div class="ps102-dest"></div><div class="ps102-run"></div><div class="ps102-leaf L"></div><div class="ps102-leaf R"></div></div>' +
+    '<svg class="ps102-seam" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none"><defs><filter id="ps102-bl"><feGaussianBlur stdDeviation="9"/></filter></defs><line class="g" filter="url(#ps102-bl)"/><line class="c"/></svg>' +
+    '<div class="ps102-rings">' + DATA.route.map(function(p, i){ return '<i style="left:' + p[0] / W * 100 + '%;top:' + p[1] / H * 100 + '%;animation-delay:' + (.6 + i * .45) + 's"></i>'; }).join('') + '</div>' +
+    '<div class="ps102-wall"><p class="a"></p><p class="b"></p></div>' +
+    '<div class="ps102-posters">' + FRAMES.map(function(f, i){ return '<div class="ps102-poster" data-i="' + i + '" style="left:' + f[0] / W * 100 + '%;top:' + f[1] / H * 100 + '%;width:' + (f[2] - f[0]) / W * 100 + '%;height:' + (f[3] - f[1]) / H * 100 + '%"></div>'; }).join('') + '</div>' +
+    '</div>' +
+    '<div class="ps102-lcd"><div class="ps102-lcd-in"><span></span></div></div>' +
+    '<div class="ps102-map"><h3>노선 안내</h3><ol></ol></div>' +
+    '<div class="ps102-kicker"></div><div class="ps102-end"><h2></h2><p></p></div><div class="ps102-hint">클릭하여 시작</div><div class="ps102-dots"></div></div>';
+  var $ = function(s){ return root.querySelector(s); };
+  var cam = $('.ps102-cam'), door = $('.ps102-door'), dest = $('.ps102-dest'), run = $('.ps102-run'), leafL = $('.ps102-leaf.L'), leafR = $('.ps102-leaf.R');
+  var ph = {}; [].forEach.call(root.querySelectorAll('.ps102-ph'), function(e){ ph[e.dataset.p] = e; });
+  var wallA = $('.ps102-wall .a'), wallB = $('.ps102-wall .b'), lcd = $('.ps102-lcd'), lcdT = $('.ps102-lcd span'), map = $('.ps102-map'), mapOl = $('.ps102-map ol');
+  var posters = root.querySelectorAll('.ps102-poster'), seam = $('.ps102-seam'), kicker = $('.ps102-kicker'), endEl = $('.ps102-end'), hint = $('.ps102-hint'), dotsEl = $('.ps102-dots');
+  var cv = $('.ps102-glint'), ctx = cv.getContext('2d');
+  var pct = function(p){ return p[0] / W * 100 + '% ' + p[1] / H * 100 + '%'; };
+  door.style.clipPath = 'polygon(' + CQ.map(pct).join(',') + ')';
+  var NAMES = [DATA.start].concat(DATA.stations.map(function(s){ return s.name; }), [DATA.end]);
+  mapOl.innerHTML = NAMES.map(function(n){ return '<li><i></i><b>' + esc(n) + '</b></li>'; }).join('');
+
+  // ── 원근 행렬 ──
+  function solve(A, b){ var n = b.length, i, r, c; for (i = 0; i < n; i++){ var m = i; for (r = i + 1; r < n; r++) if (Math.abs(A[r][i]) > Math.abs(A[m][i])) m = r;
+      var t = A[i]; A[i] = A[m]; A[m] = t; t = b[i]; b[i] = b[m]; b[m] = t;
+      for (r = i + 1; r < n; r++){ var f = A[r][i] / A[i][i]; for (c = i; c < n; c++) A[r][c] -= f * A[i][c]; b[r] -= f * b[i]; } }
+    var x = new Array(n); for (i = n - 1; i >= 0; i--){ var s = b[i]; for (c = i + 1; c < n; c++) s -= A[i][c] * x[c]; x[i] = s / A[i][i]; } return x; }
+  function homo(src, dst){ var A = [], b = [];
+    for (var i = 0; i < 4; i++){ var x = src[i][0], y = src[i][1], X = dst[i][0], Y = dst[i][1];
+      A.push([x, y, 1, 0, 0, 0, -x * X, -y * X]); b.push(X); A.push([0, 0, 0, x, y, 1, -x * Y, -y * Y]); b.push(Y); }
+    var h = solve(A, b); return [h[0], h[1], h[2], h[3], h[4], h[5], h[6], h[7], 1]; }
+  var m3 = function(h){ return 'matrix3d(' + [h[0], h[3], 0, h[6], h[1], h[4], 0, h[7], 0, 0, 1, 0, h[2], h[5], 0, h[8]].join(',') + ')'; };
+  var G = homo([[0, 0], [1, 0], [1, 1], [0, 1]], CQ);
+  function P(u, v){ var w = G[6] * u + G[7] * v + 1; return [(G[0] * u + G[1] * v + G[2]) / w, (G[3] * u + G[4] * v + G[5]) / w]; }
+  function leafTo(el, u0, u1, k){ var lw = el.offsetWidth, lh = el.offsetHeight;
+    el.style.transform = m3(homo([[0, 0], [lw, 0], [lw, lh], [0, lh]], [P(u0, 0), P(u1, 0), P(u1, 1), P(u0, 1)].map(function(p){ return [p[0] * k, p[1] * k]; }))); }
+  var DEST = homo(GAP, CQ);   // 열린 사진의 바깥 풍경을 닫힌 사진의 문 자리로
+  var open = 0;
+  function layout(){ var k = root.clientWidth / W, s = open;
+    leafTo(leafL, -US * s, US - US * s, k); leafTo(leafR, US + (1 - US) * s, 1 + (1 - US) * s, k);
+    dest.style.transform = 'scale(' + k + ') ' + m3(DEST); }
+
+  // ── 사진 · 글 상태 ──
+  var shown = {};
+  function photo(p, ms){ PHOTOS.forEach(function(q){ ph[q].style.transition = 'opacity ' + (ms || 0) + 'ms ease'; ph[q].style.opacity = q === p ? 1 : 0; }); shown = p; }
+  // 벽 판(기둥 사이)이 좁아 긴 줄은 글자를 줄인다
+  function wallFit(a, b){ var n = Math.max((a || '').length, (b || '').length, 1), fs = Math.min(2.05, 9.4 / (n * .98));
+    root.querySelector('.ps102-wall').style.fontSize = fs + 'cqw'; }
+  function wall(a, b, typed){ wallFit(a, b); wallA.textContent = a || ''; wallB.innerHTML = (b || '').split('').map(function(c, i){ return '<span style="transition-delay:' + (typed ? .25 + i * .09 : 0) + 's">' + (c === ' ' ? '&nbsp;' : esc(c)) + '</span>'; }).join('');
+    root.classList.remove('wall-b'); if (b) requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add('wall-b'); }); }); }
+  function setDest(p){ dest.style.backgroundImage = p ? 'var(--ps102-' + p + ')' : 'none'; }
+  function poster(i, d){ var e = posters[i]; e.innerHTML = d ? '<span>' + esc(d.tag) + '</span><h4>' + esc(d.title) + '</h4><ul>' + d.lines.map(function(l){ return '<li>' + esc(l) + '</li>'; }).join('') + '</ul>' : ''; }
+  function mapAt(i){ [].forEach.call(mapOl.children, function(li, j){ li.className = j < i ? 'done' : j === i ? 'now' : ''; }); }
+  function camTo(t, ms){ cam.style.transition = 'transform ' + (ms || 0) + 'ms cubic-bezier(.45,.05,.25,1)'; cam.style.transform = t || 'none'; }
+
+  // ── 박자 목록 ──
+  var STEPS = [{ t: 'cover' }, { t: 'gap' }, { t: 'map' }];
+  DATA.stations.forEach(function(s, i){ STEPS.push({ t: 'arrive', i: i }, { t: 'open', i: i }, { t: 'poster', i: i, n: 1 }, { t: 'poster', i: i, n: 2 }, { t: 'poster', i: i, n: 3 }); });
+  STEPS.push({ t: 'arrive', i: DATA.stations.length }, { t: 'open', i: DATA.stations.length }, { t: 'beach' });
+  dotsEl.innerHTML = STEPS.map(function(){ return '<i></i>'; }).join('');
+  var LAST = DATA.stations.length;
+  var stOf = function(i){ return i >= LAST ? null : DATA.stations[i]; };
+  var sceneOf = function(i){ return i >= LAST ? 'sea_o' : DATA.stations[i].scene; };
+
+  // 끝 상태(움직임 없이)
+  function still(k){
+    var S = STEPS[k], st;
+    anims.forEach(function(a){ a.cancel && a.cancel(); clearTimeout(a); }); anims = [];
+    root.classList.remove('is-run', 'seam-on', 'show-map', 'show-lcd', 'show-end', 'show-kicker', 'show-posters', 'show-route');
+    door.style.opacity = 1; open = 0; setDest(null); run.style.opacity = 0; leafL.style.opacity = leafR.style.opacity = 1;
+    ph.sea_c.style.webkitMaskImage = ph.sea_c.style.maskImage = '';
+    [0, 1, 2].forEach(function(i){ poster(i, null); posters[i].classList.remove('on'); });
+    camTo('none', 0); hint.classList.toggle('on', k === 0);
+    if (S.t === 'cover'){ photo('city_c'); door.style.opacity = 0; wall(DATA.cover.line1, ''); }
+    else if (S.t === 'gap'){ photo('sea_o'); door.style.opacity = 0; wall(DATA.cover.line1, DATA.cover.line2); root.classList.add('show-kicker'); }
+    else if (S.t === 'map'){ photo('route'); door.style.opacity = 0; wall('', ''); root.classList.add('show-route'); mapAt(0); }
+    else if (S.t === 'arrive'){ photo('sea_c'); setDest(sceneOf(S.i)); wall('', ''); mapAt(S.i + 1); lcdT.textContent = S.i >= LAST ? DATA.ending.lcd : '이번 역은 ' + DATA.stations[S.i].name + ', ' + DATA.stations[S.i].name + '입니다.';
+      root.classList.add('show-lcd'); if (S.i >= LAST) root.classList.add('show-map'); }
+    else if (S.t === 'open'){ photo(sceneOf(S.i)); door.style.opacity = 0; st = stOf(S.i); wall(st ? st.wall[0] : DATA.cover.line1, st ? st.wall[1] : DATA.cover.line2); mapAt(S.i + 1); }
+    else if (S.t === 'poster'){ photo('adwall'); door.style.opacity = 0; wall('', ''); root.classList.add('show-posters');
+      st = DATA.stations[S.i]; for (var j = 0; j < 3; j++){ poster(j, st.posters[j]); posters[j].classList.toggle('on', j < S.n); } }
+    else if (S.t === 'beach'){ photo('beach'); door.style.opacity = 0; wall('', ''); root.classList.add('show-end'); }
+    layout();
+    [].forEach.call(dotsEl.children, function(d, j){ d.classList.toggle('on', j <= k); });
+  }
+  // ── 움직임 ──
+  var anims = [];
+  var later = function(fn, ms){ var t = setTimeout(fn, ms); anims.push(t); return t; };
+  var ease = function(p){ return p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; };
+  function tween(ms, fn, done){ var t0 = performance.now(), stop = false; anims.push({ cancel: function(){ stop = true; } });
+    (function f(t){ if (stop) return; var p = Math.min(1, (t - t0) / ms); fn(p); if (p < 1) requestAnimationFrame(f); else if (done) done(); })(t0); }
+  function openDoors(scene, then){   // 닫힌 문(바다 사진) → 열림 → 그 장의 열린 사진으로
+    photo('sea_c'); door.style.opacity = 1; setDest(scene); run.style.opacity = 0;
+    tween(1700, function(p){ var q = p < .17 ? Math.sin(p / .17 * Math.PI * 3) * .004 : ease((p - .17) / .83); open = q; layout(); }, function(){
+      photo(scene, 900); later(function(){ door.style.opacity = 0; if (then) then(); }, 900); });
+  }
+  function closeDoors(fromScene, then){   // 열린 사진 → 닫힘(바다 사진) → 달리기
+    photo(fromScene); door.style.opacity = 1; setDest(fromScene); open = 1; layout();
+    photo('sea_c', 600);
+    later(function(){ tween(1300, function(p){ open = 1 - ease(p); layout(); }, then); }, 500);
+  }
+  function runTrain(ms, then){   // 창밖이 흐르며 달린다
+    run.style.transition = 'opacity .5s'; run.style.opacity = 1; root.classList.add('is-run');
+    later(function(){ root.classList.remove('is-run'); run.style.opacity = 0; if (then) then(); }, ms);
+  }
+  var step = -1;
+  function go(k, instant){
+    k = Math.max(0, Math.min(STEPS.length - 1, k)); if (k === step) return;
+    var prev = step, fwd = k === prev + 1 && !instant && k > 0; step = k; still(k);
+    if (!fwd) return;
+    var S = STEPS[k], P0 = STEPS[prev];
+    [].forEach.call(dotsEl.children, function(d, j){ d.classList.toggle('on', j <= k); });
+    if (S.t === 'gap'){   // 지친 도시 → 문 틈에 빛 → 바다로 번짐 → 문이 열림
+      root.classList.remove('show-kicker'); photo('city_c'); door.style.opacity = 0; wall(DATA.cover.line1, '');
+      ph.sea_c.style.transition = 'none'; ph.sea_c.style.opacity = 1;
+      var cx = 61.5, cy = 42;
+      tween(2000, function(p){ var r = p < .3 ? 0 : ease((p - .3) / .7) * 140;
+        var m = 'radial-gradient(ellipse ' + (r * .55) + '% ' + r + '% at ' + cx + '% ' + cy + '%,#000 60%,transparent 100%)';
+        ph.sea_c.style.webkitMaskImage = ph.sea_c.style.maskImage = r > 0 ? m : 'linear-gradient(transparent,transparent)'; });
+      root.classList.add('seam-on'); later(function(){ root.classList.remove('seam-on'); }, 1900);
+      later(function(){ ph.city_c.style.opacity = 0; ph.sea_c.style.webkitMaskImage = ph.sea_c.style.maskImage = ''; wall(DATA.cover.line1, DATA.cover.line2, true);
+        openDoors('sea_o', function(){ root.classList.add('show-kicker'); camTo('scale(1.04)', 5000); }); }, 2200);
+    } else if (S.t === 'map'){
+      photo('sea_o'); door.style.opacity = 0; root.classList.remove('show-map', 'show-route'); wall(DATA.cover.line1, DATA.cover.line2);
+      closeDoors('sea_o', function(){ later(function(){ door.style.opacity = 0; wall('', ''); photo('route', 1000); camTo('scale(1.06)', 0); later(function(){ camTo('none', 1400); }, 30);
+        later(function(){ root.classList.add('show-route'); }, 700); }, 300); });
+    } else if (S.t === 'arrive'){
+      root.classList.remove('show-lcd', 'show-map'); setDest(null);
+      var go2 = function(){ runTrain(2200, function(){ setDest(sceneOf(S.i)); root.classList.add('show-lcd'); if (S.i >= LAST) root.classList.add('show-map'); }); };
+      if (P0.t === 'map'){ mapAt(0); photo('route'); door.style.opacity = 0; root.classList.add('show-route');
+        later(function(){ root.classList.remove('show-route'); photo('sea_c', 900); later(function(){ door.style.opacity = 1; go2(); }, 900); }, 400); }
+      else { // 광고판에서 문 쪽으로 돌아와 닫힘
+        photo('adwall'); root.classList.add('show-posters'); var stp = DATA.stations[S.i - 1]; for (var j = 0; j < 3; j++){ poster(j, stp.posters[j]); posters[j].classList.add('on'); }
+        door.style.opacity = 0; later(function(){ root.classList.remove('show-posters'); photo(sceneOf(S.i - 1), 700); var s1 = stOf(S.i - 1); wall(s1.wall[0], s1.wall[1]); }, 10);
+        later(function(){ wall('', ''); closeDoors(sceneOf(S.i - 1), go2); }, 900);
+      }
+    } else if (S.t === 'open'){
+      root.classList.add('show-lcd'); if (S.i >= LAST) root.classList.add('show-map'); wall('', ''); photo('sea_c'); door.style.opacity = 1; setDest(sceneOf(S.i));
+      later(function(){ root.classList.remove('show-lcd', 'show-map'); }, 300);
+      var st = stOf(S.i);
+      openDoors(sceneOf(S.i), function(){ if (st) wall(st.wall[0], st.wall[1], true); else wall(DATA.cover.line1, DATA.cover.line2, true); });
+    } else if (S.t === 'poster'){
+      if (S.n === 1){ // 맞은편 벽으로 돌아선다
+        var st2 = DATA.stations[S.i]; photo(sceneOf(S.i)); wall(st2.wall[0], st2.wall[1]); door.style.opacity = 0; root.classList.remove('show-posters');
+        posters[0].classList.remove('on');
+        camTo('translateX(-6%) scale(1.06)', 700);
+        later(function(){ camTo('translateX(6%) scale(1.06)', 0); wall('', ''); photo('adwall'); root.classList.add('show-posters'); camTo('none', 900); }, 650);
+        later(function(){ posters[0].classList.add('on'); }, 1500);
+      }
+    } else if (S.t === 'beach'){
+      photo('sea_o'); wall(DATA.cover.line1, DATA.cover.line2); root.classList.remove('show-end');
+      camTo('translate(-14%,-4%) scale(1.5)', 1600);
+      later(function(){ photo('beach', 1000); camTo('scale(1.12)', 0); later(function(){ camTo('none', 3000); }, 30); wall('', ''); }, 1450);
+      later(function(){ root.classList.add('show-end'); }, 2400);
+    }
+  }
+  // ── 바다 반짝임(열린 바다 사진일 때) ──
+  var glints = []; for (var i = 0; i < 46; i++) glints.push({ x: 1000 + Math.random() * 300, y: 395 + Math.pow(Math.random(), 1.4) * 150, ph: Math.random() * 6.3, sp: 1.5 + Math.random() * 2.5, r: .8 + Math.random() * 1.8 });
+  function glint(t){ var w = cv.width, k = w / W; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, w, cv.height);
+    var o = parseFloat(getComputedStyle(ph.sea_o).opacity) || 0; if (o < .05) return; ctx.setTransform(k, 0, 0, k, 0, 0);
+    glints.forEach(function(g){ var a = Math.max(0, Math.sin(t / 1000 * g.sp + g.ph)); a = a * a * a * o; if (a < .05) return;
+      ctx.globalAlpha = a * .9; var gr = ctx.createRadialGradient(g.x, g.y, 0, g.x, g.y, g.r * 5); gr.addColorStop(0, '#fff'); gr.addColorStop(.25, 'rgba(255,250,230,.8)'); gr.addColorStop(1, 'rgba(255,250,230,0)');
+      ctx.fillStyle = gr; ctx.fillRect(g.x - g.r * 5, g.y - g.r * 5, g.r * 10, g.r * 10); ctx.fillRect(g.x - g.r * 7, g.y - .4, g.r * 14, .8); });
+    ctx.globalAlpha = 1; }
+  (function loop(t){ glint(t); requestAnimationFrame(loop); })(0);
+  // 이음매 빛(문 틈)
+  var s0 = P(US, 0), s1 = P(US, 1);
+  [].forEach.call(seam.querySelectorAll('line'), function(l){ l.setAttribute('x1', s0[0]); l.setAttribute('y1', Math.max(0, s0[1])); l.setAttribute('x2', s1[0]); l.setAttribute('y2', s1[1]); });
+  kicker.textContent = DATA.cover.kicker;
+  endEl.querySelector('h2').innerHTML = esc(DATA.ending.line1) + '<br>' + esc(DATA.ending.line2); endEl.querySelector('p').textContent = DATA.ending.sub;
+  function fit(){ var r = Math.min(2, window.devicePixelRatio || 1); cv.width = root.clientWidth * r; cv.height = root.clientHeight * r; layout(); }
+  new ResizeObserver(fit).observe(root);
+  root.addEventListener('click', function(){ go(step + 1); });
+  document.addEventListener('keydown', function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '')) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); go(step + 1); }
+    else if (['ArrowLeft', 'PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(step - 1); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'f' || e.key === 'F'){ if (document.fullscreenElement) document.exitFullscreen(); else if (root.requestFullscreen) root.requestFullscreen(); }
+  });
+  window.ps102Go = function(k){ go(k, true); }; window.ps102Steps = STEPS.length;
+  fit(); go(0, true);
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps102-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps102-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;600&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + "/* 사진 6장 · 닫힌 문 두 짝 — 갤러리 주소에서 불러온다 */\n.ps102{--ps102-city_c:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-city_c.jpg);--ps102-sea_c:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-sea_c.jpg);--ps102-sea_o:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-sea_o.jpg);--ps102-school_o:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-school_o.jpg);--ps102-forest_o:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-forest_o.jpg);--ps102-city_o:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-city_o.jpg);--ps102-adwall:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-adwall.jpg);--ps102-beach:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-beach.jpg);--ps102-route:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-route.jpg);--ps102-leafL:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-door-L.png);--ps102-leafR:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/102-door-R.png)}" + '\n</style>\n\n<div class="ps102" id="ps102" role="application" aria-label="표지"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps102');
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps102Go(0); });
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+    document.getElementById('b-full').addEventListener('click', function(){ if (root.requestFullscreen) root.requestFullscreen(); });
+})();
+</script>
+</body></html>

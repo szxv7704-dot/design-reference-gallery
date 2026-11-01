@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #105 오늘 밤, 한 판</title>
+<style>
+/*@@FONTS@@*/
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0;vertical-align:top}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps105{min-width:880px}}
+
+.ps105{--ps105-poster:url(@@ASSET:8722e2e517.jpg@@)}
+</style>
+<style id="ps105-css">
+/* 포스터 해부 '오늘 밤, 한 판' — 접두어 ps105 / 사용자 제공 포스터를 영역별로 비추며 읽는다 */
+.ps105{
+  --ps105-yellow:#F2E23A; --ps105-ink:#F1EEE6; --ps105-sub:#A8A49A; --ps105-bg:#141414;
+  --ps105-head:"Black Han Sans","Gothic A1","Malgun Gothic",sans-serif; --ps105-body:"Noto Sans KR","Malgun Gothic",sans-serif; --ps105-mono:"IBM Plex Mono",Consolas,monospace;
+  position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;cursor:pointer;user-select:none;
+  background:radial-gradient(80% 100% at 30% 50%,#26241F,#0E0E0D 75%);color:var(--ps105-ink);font-family:var(--ps105-body)
+}
+.ps105 *{box-sizing:border-box}
+.ps105-in{position:absolute;inset:0}
+.ps105-poster{position:absolute;left:4%;top:4%;height:92%;aspect-ratio:1122/1402;box-shadow:0 2cqw 4cqw rgba(0,0,0,.6)}
+.ps105-img{position:absolute;inset:0;background:var(--ps105-poster) 0 0/100% 100% no-repeat}
+.ps105-spot{position:absolute;left:0;top:0;width:100%;height:100%;border:.18cqw solid var(--ps105-yellow);border-radius:.3cqw;opacity:0;
+  box-shadow:0 0 0 200cqw rgba(8,8,8,.72);transition:left .7s cubic-bezier(.55,0,.2,1),top .7s cubic-bezier(.55,0,.2,1),width .7s cubic-bezier(.55,0,.2,1),height .7s cubic-bezier(.55,0,.2,1),opacity .4s}
+.ps105.on .ps105-spot{opacity:1}
+.ps105-spot.edge{background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(8,8,8,.75) 70%,rgba(8,8,8,0) 100%)}
+.ps105-note{position:absolute;left:50%;top:12%;width:50%;opacity:0;transition:opacity .4s}
+.ps105.on .ps105-note{opacity:1}
+.ps105-note.in{animation:ps105-in .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes ps105-in{from{opacity:0;transform:translateX(1.2cqw)}to{opacity:1;transform:none}}
+.ps105-num{font:600 1.05cqw/1 var(--ps105-mono);letter-spacing:.24em;color:var(--ps105-yellow)}
+.ps105-note h3{margin:1.2cqw 0 .8cqw;font:400 4.4cqw/1.05 var(--ps105-head);letter-spacing:-.01em}
+.ps105-note b{display:inline-block;padding:.35cqw .8cqw;background:var(--ps105-yellow);color:#111;font:600 1.15cqw/1.2 var(--ps105-mono);letter-spacing:.04em}
+.ps105-note p{margin:1.6cqw 0 0;font:500 1.55cqw/1.65 var(--ps105-body);color:#D9D5CB;word-break:keep-all;max-width:42cqw}
+.ps105-list{position:absolute;left:50%;bottom:8%;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,auto);gap:.7cqw 2.2cqw;font:500 1.05cqw/1.2 var(--ps105-body);color:var(--ps105-sub)}
+.ps105-list li{cursor:pointer;transition:color .3s}
+.ps105-list span{font:600 .9cqw/1 var(--ps105-mono);margin-right:.6cqw;color:#666}
+.ps105-list li.now{color:var(--ps105-ink)}.ps105-list li.now span{color:var(--ps105-yellow)}
+.ps105-hint{position:absolute;left:50%;top:14%;opacity:0;transition:opacity .4s}
+.ps105-hint.show{opacity:1}
+.ps105-hint::before{content:"POSTER ANATOMY";display:block;font:600 1.05cqw/1 var(--ps105-mono);letter-spacing:.3em;color:var(--ps105-yellow);margin-bottom:1.4cqw}
+.ps105-hint{font:400 4.4cqw/1.1 var(--ps105-head)}
+.ps105-hint::after{content:"노랑 한 색 · 마주 보는 대칭 · 찢긴 벽보 — 아홉 군데로 읽기";display:block;margin-top:1.4cqw;font:500 1.45cqw/1.5 var(--ps105-body);color:#BDB8AD}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 105 · 인쇄 · 홍보물 · 대결 포스터 · 포스터 해부</div>
+    <h1>오늘 밤, 한 판</h1>
+    <p class="pg-lead">거리 벽보 질감의 대결 포스터. 흑백 인물 둘이 마주 보고, 색은 노랑 하나뿐. 누를 때마다 포스터의 아홉 군데를 비추며 왜 그렇게 놓였는지 읽는다. 학교 스포츠클럽 결승 · 토론 대회 · 학년 대항전 홍보에 그대로 빌려 쓸 수 있는 틀.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps105" id="ps105" role="application" aria-label="대결 포스터 해부: 머리 띠, 큰 제목, VS, 두 인물, 이름, 날짜 띠, 장소, 스티커, 찢긴 벽보"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 한 군데씩, 오른쪽 목록을 눌러 바로 가기</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button></div>
+  </section>
+
+  <section>
+    <h2>학교 · 교육청에 빌려 쓰기 <small>ADAPT</small></h2>
+    <div class="cover-note">
+      <div><b>학교스포츠클럽 결승</b><p>'오늘, 결승' · 두 학교 이름을 IRON · STORM 자리에, 날짜 띠는 그대로. 인물 대신 두 학교 유니폼 등판이나 공을 마주 놓으면 초상권 걱정이 없다.</p></div>
+      <div><b>토론 대회</b><p>'오늘, 한 판' + 찬성 · 반대(RED · BLUE CORNER). 마주 보는 두 마이크 사진, 스티커는 '말로 이긴다'.</p></div>
+      <div><b>학년 대항전 · 체육대회</b><p>머리 띠를 'ONE DAY / TWO TEAMS / ALL IN'으로. 장소 · 세부 세 줄에 집결 시간 · 종목 수 · 우천 시 장소.</p></div>
+      <div><b>꼭 지킬 것</b><p>노랑 한 색만, 사진은 흑백. 날짜 · 장소는 반듯한 상자 안에, 비튼 것은 스티커 하나만.</p></div>
+      <div><b>사진 주의</b><p>학생 얼굴을 대결 구도로 크게 쓰면 '싸움'으로 읽히거나 초상권 문제가 생긴다. 실루엣 · 뒷모습 · 손 · 물건으로 바꾸는 편이 안전하다.</p></div>
+      <div><b>AI로 바탕 만들기</b><p>'흑백 사진 두 개를 좌우 대칭으로 마주 보게, 찢긴 벽보 질감, 위쪽 1/3과 아래쪽 1/4은 비어 있는 검은 바탕, 글자 없이'로 바탕만 받고 글자는 직접 얹는다.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>인쇄 사양 <small>PRINT</small></h2>
+    <table class="keys"><tbody>
+      <tr><td>비율 · 크기</td><td>4:5 세로(원본 1122 × 1402) · A3(297 × 420)이면 위아래 여백을 검정으로 늘린다 · 게시판용 B3</td></tr>
+      <tr><td>색</td><td>먹 + 노랑(#F2E23A, 인쇄 Y100 M5) 1도. 흑백 사진은 먹 1도로 바꿔 인쇄비를 줄인다</td></tr>
+      <tr><td>글꼴</td><td>제목 Black Han Sans · 영문 이름 Anton 계열 굵은 압축 고딕 · 고정폭 세부 · 한글 장소 굵은 고딕</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 '포스터 해부' 장면만 떼어 낸 완결 코드입니다. 다른 포스터를 해부하려면 사진 주소와 <code>ZONES</code>의 영역(사진 픽셀) · 설명만 바꾸면 됩니다. 디자인 연수에서 '이 포스터는 왜 잘 읽히나'를 설명할 때 쓰기 좋습니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#F2E23A"></span>#F2E23A 노랑 · <span class="sw" style="background:#111111"></span>#111111 검정 · <span class="sw" style="background:#E9E4D8"></span>#E9E4D8 빛바랜 흰</div>
+      <div><b>구도</b>위 1/3 제목 · 가운데 마주 보는 대칭 + VS · 아래 1/4 정보 상자 · 오른쪽 아래 비튼 스티커</div>
+      <div><b>난이도</b>인쇄 하(1~2도) · 바탕 사진은 AI 생성 필요</div>
+      <div><b>원본</b>사용자 제공 AI 생성 포스터(1122 × 1402) 그대로, 등장인물 · 선수 이름 · 장소는 가상</div>
+      <div><b>트렌드</b>복싱 · 격투기 대결 포스터(fight poster) 문법 — 대칭 · 한 색 · 거리 벽보 질감</div>
+    </div>
+  </section>
+</main>
+<script id="ps105-js">
+(function(){
+  // ── 포스터 해부: 영역(포스터 사진 1122 × 1402 픽셀) · 이름 · 설명 ──
+  var PW = 1122, PH = 1402;
+  var ZONES = [
+    { r: [250, 26, 860, 70], n: '머리 띠', t: 'ONE NIGHT / TWO FIGHTERS / NO EXCUSES', d: '작은 고정폭 대문자를 슬래시로 끊어 리듬을 만든다. 제목보다 먼저 읽히지 않게 작게, 하지만 맨 위에서 분위기를 깐다.' },
+    { r: [150, 86, 975, 472], n: '큰 제목', t: '오늘 밤, 한 판', d: '화면 폭의 70%를 쓰는 노랑 굵은 고딕. 쉼표 하나로 숨을 끊고 두 줄로 쌓았다. 아래 줄은 인물 머리 뒤로 깔려 사진과 글이 한 덩어리가 된다.' },
+    { r: [560, 590, 640, 700], n: 'VS', t: '가운데 한 점', d: '두 인물의 시선이 만나는 자리에 작은 기울임 VS. 크게 쓰지 않아도 마주 보는 구도가 이미 대결을 말한다.' },
+    { r: [20, 290, 1110, 1020], n: '마주 보는 두 사람', t: '대칭 · 흑백', d: '좌우 대칭으로 화면 끝에서 안쪽을 본다. 사진을 흑백으로 눌러 노랑 한 색만 남겼다. 색을 하나로 줄이면 거친 질감에서도 정보가 산다.' },
+    { r: [70, 880, 1060, 1062], n: '이름 · 코너', t: 'IRON · STORM', d: '빛바랜 흰 덩어리 영문 이름 아래 가는 선 + 띄어 쓴 RED / BLUE CORNER. 두 이름의 폭을 비슷하게 맞춰 저울처럼 균형을 잡는다.' },
+    { r: [58, 1066, 1062, 1202], n: '날짜 띠', t: '12.12 / 20:00 · MAIN EVENT', d: '노랑 칸(날짜)과 검정 칸(행사 이름)을 한 줄 상자로 붙였다. 가장 필요한 정보가 가장 단단한 모양에 들어 있다.' },
+    { r: [70, 1204, 700, 1326], n: '장소 · 세부', t: '도시체육관 | DOORS OPEN 19:00', d: '장소는 크게 한글로, 세부는 세로줄 뒤 작은 고정폭 세 줄. 크기 차이로 읽는 순서를 정한다.' },
+    { r: [700, 1130, 1112, 1345], n: '비스듬한 스티커', t: '승부는 지금부터', d: '테이프로 붙인 듯 기운 노랑 띠. 반듯한 격자에서 한 군데만 비틀어 시선을 마지막에 붙잡는다.' },
+    { r: [0, 0, 1122, 1402], n: '찢긴 벽보', t: '질감 = 장소', d: '가장자리가 뜯기고 덧붙은 벽보 위에 붙인 모습. 거리 포스터라는 장소감을 질감 하나로 만든다.', edge: true }
+  ];
+  var root = document.getElementById('ps105');
+  root.innerHTML = '<div class="ps105-in"><div class="ps105-poster"><div class="ps105-img"></div><div class="ps105-spot"></div></div>' +
+    '<div class="ps105-note"><div class="ps105-num"></div><h3></h3><b></b><p></p></div>' +
+    '<ol class="ps105-list">' + ZONES.map(function(z, i){ return '<li><span>' + String(i + 1).padStart(2, '0') + '</span>' + z.n + '</li>'; }).join('') + '</ol>' +
+    '<div class="ps105-hint">클릭하여 하나씩 보기</div></div>';
+  var spot = root.querySelector('.ps105-spot'), note = root.querySelector('.ps105-note'), list = root.querySelectorAll('.ps105-list li');
+  var step = -1, N = ZONES.length + 1;
+  function go(k){ k = ((k % N) + N) % N; step = k; var z = ZONES[k - 1];
+    root.classList.toggle('on', k > 0);
+    if (z){ var r = z.r, pad = z.edge ? 0 : 10;
+      spot.style.left = (r[0] - pad) / PW * 100 + '%'; spot.style.top = (r[1] - pad) / PH * 100 + '%';
+      spot.style.width = (r[2] - r[0] + pad * 2) / PW * 100 + '%'; spot.style.height = (r[3] - r[1] + pad * 2) / PH * 100 + '%';
+      spot.classList.toggle('edge', !!z.edge);
+      note.querySelector('.ps105-num').textContent = String(k).padStart(2, '0') + ' / ' + String(ZONES.length).padStart(2, '0');
+      note.querySelector('h3').textContent = z.n; note.querySelector('b').textContent = z.t; note.querySelector('p').textContent = z.d;
+      note.classList.remove('in'); void note.offsetWidth; note.classList.add('in'); }
+    [].forEach.call(list, function(li, i){ li.classList.toggle('now', i === k - 1); });
+    root.querySelector('.ps105-hint').classList.toggle('show', k === 0);
+  }
+  root.addEventListener('click', function(e){ var li = e.target.closest && e.target.closest('.ps105-list li');
+    if (li){ go([].indexOf.call(list, li) + 1); return; } go(step + 1); });
+  document.addEventListener('keydown', function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '')) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); go(step + 1); }
+    else if (['ArrowLeft', 'PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(step - 1); }
+    else if (e.key === 'Home') go(0);
+  });
+  window.ps105Go = go; go(0);
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps105-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps105-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@600&family=Noto+Sans+KR:wght@500&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + ".ps105{--ps105-poster:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/105-poster.jpg)}" + '\n</style>\n\n<div class="ps105" id="ps105" role="application" aria-label="포스터 해부"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps105');
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps105Go(0); });
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+  })();
+</script>
+</body></html>

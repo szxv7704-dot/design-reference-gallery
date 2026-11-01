@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #86 열두 달 고리</title>
+<style>
+/*@@FONTS@@*/
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+</style>
+<style id="ps86-css">
+/* 일정 '열두 달 고리' — 접두어 ps86 / 색은 --ds-* 변수로만 */
+.ps86{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps86 *{box-sizing:border-box}
+.ps86-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps86-a{position:absolute}
+.ps86-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
+.ps86-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps86-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps86-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps86-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps86-tt{left:calc(var(--u)*80);top:calc(var(--u)*108);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*36);line-height:1.24;letter-spacing:-.01em}
+.ps86-tt em{font-style:normal;color:var(--ds-accent)}
+.ps86-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+
+.ps86-mo{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*14);color:var(--ds-ink);transform:translate(-50%,-50%);white-space:nowrap}
+.ps86-mo.v{color:var(--ds-sub);font-weight:500}
+.ps86-ctr{transform:translate(-50%,-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:calc(var(--u)*2)}
+.ps86-ctr b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*17);color:var(--ds-c1);line-height:1.2}
+.ps86-ctr span{font-size:calc(var(--u)*12);color:var(--ds-sub)}
+.ps86-it{font-size:calc(var(--u)*12);font-weight:600;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none}
+.ps86-lg{display:grid;grid-template-columns:calc(var(--u)*30) 1fr auto;column-gap:calc(var(--u)*12);align-items:start;border-top:calc(var(--u)*1) solid var(--ds-line);padding-top:calc(var(--u)*10)}
+.ps86-lg .r{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*13);height:calc(var(--u)*22);display:grid;place-items:center;border-radius:calc(var(--u)*3)}
+.ps86-lg b{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*16.5);display:block}
+.ps86-lg .s{font-size:calc(var(--u)*13);color:var(--ds-sub);line-height:1.45}
+.ps86-lg .q{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*14);color:var(--ds-ink);white-space:nowrap;text-align:right}
+.ps86-lg .q small{display:block;font-family:var(--ds-font-body);font-weight:400;font-size:calc(var(--u)*11.5);color:var(--ds-sub)}
+.ps86-ch{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*15);color:var(--ds-c1)}
+.ps86-cn{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*12);text-align:center}
+.ps86-cm{font-family:var(--ds-font-num);font-size:calc(var(--u)*11);color:var(--ds-sub);text-align:center}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 86 · 본문 요소 · 일정 · 정지 · 가상 예시</div>
+    <h1>열두 달 고리</h1>
+    <p class="pg-lead">해마다 되풀이되는 점검 아홉 가지를 열두 달 고리 위에 갈래별 호로 놓아, 같은 각도에 겹친 호로 그 달의 부담을 보이고 달별 막대로 "한 달 두 가지 이하"를 확인한 연간 일정 장표.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps86" id="ps86" data-slide role="img" aria-label="학교 시설 안전점검 네 갈래(정기 · 계절 · 정밀 · 훈련)의 운영 달을 열두 달 고리로, 달별 겹치는 점검 수를 막대로"></div></div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="N" aria-pressed="true">중립(기본)</button><button class="btn" type="button" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button><button class="btn" type="button" data-fam="D" aria-pressed="false">D 인쇄·종이</button><button class="btn" type="button" data-fam="F" aria-pressed="false">F 관측·중계</button></div>
+  </section>
+  
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅴ장 줄글, 가상)</h3>
+        <p class="raw"><mark class="o" data-n="1">전 학교 시설 1,120동은 3~4월과 9~10월에 법정 정기점검을 받고</mark>, <mark class="o" data-n="2">노후 시설을 중심으로 해빙기(2~3월), 우기·태풍(6~7월), 겨울철(11~12월) 대비 점검을 한다.</mark> <mark class="k" data-n="3">안전등급 C 이하 86동은 학생이 없는 여름방학(7~8월)에 전문기관 정밀점검과 보수를 함께 하고, 남은 보수는 1월에 마친다.</mark> <mark class="o" data-n="4">5월에는 재난대응 훈련, 11월에는 소방 합동훈련을 한다.</mark> <mark class="g" data-n="결론">한 달에 점검이 세 가지 이상 겹치지 않게 나누고, 공사가 따르는 정밀점검과 보수는 학생이 없는 방학으로 몰아 한 번에 처리한다.</mark></p>
+        <div class="key"><span><i class="ko"></i>점검 갈래(대상 · 달)</span><span><i class="kk"></i>주인공 갈래</span><span><i class="kg"></i>결론</span><span>번호 = 장표의 고리 번호</span></div>
+      </div>
+      <div class="panel">
+        <div class="grp-h">문장 하나 = 고리 하나, 괄호 안 달 = 고리 위 호</div>
+        <ul class="grp">
+          <li><span class="n">1~4</span><div><b>점검 문장 네 개 → 고리 네 개</b><em>문장마다 갈래 이름 · 대상 규모 · 운영 달을 뽑는다. 달은 고리 위 호의 길이가 된다(1달 = 30°)</em></div></li>
+          <li><span class="n n1">3</span><div><b>제목이 말하는 갈래 → 가장 진한 고리</b><em>정밀점검 · 보수만 가장 진하게. 나머지는 연파랑 두 단계를 번갈아</em></div></li>
+          <li><span class="n">결론</span><div><b>"세 가지 이상 겹치지 않게" → 오른쪽 아래 달별 막대</b><em>고리를 세로로 더한 개수. 어느 달도 2를 넘지 않는 것이 결론의 근거, 정밀점검 · 보수가 있는 달만 진하게</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">순환 (12월→1월)</span><span>한 해를 고리로 그리면 12월 겨울철 점검과 1월 보수가 끊기지 않고 이어진다. 연간 반복 업무에 맞는 꼴이다.</span></div>
+          <div><span class="k">겹침 (고리↔고리)</span><span>같은 각도(같은 달)에 칠한 호가 여러 겹이면 그 달에 점검이 겹친다. 바깥 테의 방학 표시와 견주어 읽는다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>해마다 되풀이되는 점검 일정을 가로 간트 대신 <b>열두 달 고리</b>로 그렸다. 안쪽부터 갈래 네 개가 고리 하나씩을 맡고, 운영하는 달만 호로 칠한다. 같은 각도에 겹친 호가 그 달의 부담이다. 오른쪽에 갈래 설명과 규모를, 그 아래에 달별 겹침 수를 막대로 두어 고리에서 본 인상을 숫자로 확인한다.</p>
+    <p><b>가져갈 장치 1: 고리 = 갈래, 각도 = 달.</b> 연간 반복 업무는 12월과 1월이 붙어 있어야 자연스럽다. 고리는 끝과 처음이 이어진다.</p>
+    <p><b>가져갈 장치 2: 방학 테.</b> 바깥 테에 방학 달만 옅은 띠를 둘러, 학생이 없는 달에 점검을 옮긴다는 결론과 맞대어 본다.</p>
+    <p><b>가져갈 장치 3: 고리를 세로로 더한 막대.</b> 원형 그림은 겹침의 크기를 정확히 읽기 어렵다. 같은 내용을 달별 막대로 한 번 더 보여 준다(선형).</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>학사 일정의 연간 평가 · 행사 · 연수 배치</li>
+      <li>교육청 연간 공모 사업 일정(공고 · 선정 · 운영 · 정산)</li>
+      <li>급식 위생 점검 · 교육 · 검사 연간 주기</li>
+    </ul>
+  </section>
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>rings</code>가 안쪽부터 고리 순서이고, <code>items</code>마다 이름과 운영 달 배열(<code>[7, 8]</code>)을 적으면 호와 달별 막대가 자동으로 그려집니다. 고리는 3~5개 권장.</li>
+      <li>계열 분위기는 <code>.ps86{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값). 제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>고리</b>: [도형 → 막힌 원호(Block Arc)]를 같은 중심에 네 개, 안쪽 반지름부터 4.2 · 6.2 · 8.2 · 10.2cm, 두께 1.8cm. 바탕 고리는 흰색 + 0.5pt 회색 윤곽.</li>
+      <li><b>호</b>: 막힌 원호를 복제해 노란 조절점으로 시작 · 끝 각도를 맞춘다. 1달 = 30°, 1월 = 12시 방향. 각도가 정확해야 하면 [도넛형 차트] 12칸에 값 1씩, 해당 달만 채우기.</li>
+      <li><b>달 이름</b>: 텍스트 상자 12개를 원 둘레에 — [정렬 → 가운데] 후 회전 복제보다 차트 데이터 레이블을 쓰는 편이 정확하다.</li>
+      <li><b>달별 막대</b>: [세로 막대형 차트] 12항목, 7 · 8월 막대만 진한 남색.</li>
+      <li><b>정지 장표</b>: 애니메이션 없음.</li>
+    </ol>
+  </section>
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목) + IBM Plex Sans KR(본문) + IBM Plex Mono 600(숫자) · 대체 프리텐다드 · 맑은 고딕 · Consolas</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(원호 각도 맞추기)</div>
+      <div><b>질감 · 모션</b>평면 · 정지</div>
+      <div><b>모듈 · 위치</b>순환(열두 달 고리) + 막대(달별 겹침) · Ⅴ 일정 및 예산</div>
+      <div><b>어울리는 계열</b>B · C · D · E · F · G (평면 도식)</div>
+      <div><b>트렌드</b>연간 반복 일정을 원형 달력으로 보이는 '래디얼 캘린더' — <a href="https://datavizcatalogue.com/methods/nightingale_rose_chart.html" target="_blank" rel="noopener">Data Viz Catalogue, Radial charts</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps86-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅴ', sectionName: '일정 및 예산',
+    plan: '2027 ○○교육청 학교 시설 안전점검 계획',
+    title: '점검 아홉 가지를 한 달에 두 가지 이하로 나누고, 정밀점검·보수만 [방학]에 묶습니다',
+    center: ['연간 점검', '4갈래 · 9가지'],
+    vacation: [1, 2, 8],                       // 방학 달(바깥 달 이름을 옅게)
+    // 고리: 안쪽부터 바깥쪽. key: true 고리가 주인공(가장 진함)
+    rings: [
+      { name: '법정 정기점검', what: '전 학교 시설 1,120동 · 시설물안전법', qty: '1,120동', qtyLabel: '대상', items: [['상반기', [3, 4]], ['하반기', [9, 10]]] },
+      { name: '계절 대비 점검', what: '노후 시설 우선 · 해빙기 · 우기·태풍 · 겨울철', qty: '3회', qtyLabel: '연간', items: [['해빙기', [2, 3]], ['우기·태풍', [6, 7]], ['겨울철', [11, 12]]] },
+      { name: '정밀점검 · 보수', what: '안전등급 C 이하 86동 · 전문기관 위탁', qty: '86동', qtyLabel: '대상', key: true, items: [['정밀점검 · 보수', [7, 8]], ['겨울 보수', [1]]] },
+      { name: '훈련 · 교육', what: '재난대응 훈련(5월) · 소방 합동훈련(11월)', qty: '2회', qtyLabel: '연간', items: [['재난 훈련', [5]], ['소방 훈련', [11]]] }
+    ],
+    source: '가상 예시 · 출처: ○○교육청 2026 학교 시설 안전점검 실적 · 시설물 안전등급 현황 재구성',
+    page: 22
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var CX = 500, CY = 520, R0 = 82, RW = 38, RG = 5, LR = 278;    // 고리 중심 · 안쪽 반지름 · 고리 두께 · 간격 · 달 이름 반지름
+  var LX = 900, LW = 620;
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + ';height:' + u(h); };
+  var at = function(x, y){ return 'left:' + u(x) + ';top:' + u(y); };
+  var num = function(v){ return Number(v).toLocaleString('ko-KR'); };
+  function frame(){
+    return '<div class="ps86-a ps86-hd"><div class="ps86-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps86-plan">' + esc(DATA.plan) + '</div></div>' +
+      '<div class="ps86-a ps86-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>' +
+      '<div class="ps86-a ps86-ft"><span>' + esc(DATA.source) + '</span><span>' + DATA.page + '</span></div>';
+  }
+
+  var ang = function(m){ return (m - 1) / 12 * Math.PI * 2 - Math.PI / 2; };          // 1월 = 12시
+  var pt = function(a, r){ return [CX + Math.cos(a) * r, CY + Math.sin(a) * r]; };
+  function arc(a0, a1, r0, r1){
+    var p0 = pt(a0, r1), p1 = pt(a1, r1), p2 = pt(a1, r0), p3 = pt(a0, r0), lg = a1 - a0 > Math.PI ? 1 : 0;
+    return 'M' + p0 + 'A' + r1 + ' ' + r1 + ' 0 ' + lg + ' 1 ' + p1 + 'L' + p2 + 'A' + r0 + ' ' + r0 + ' 0 ' + lg + ' 0 ' + p3 + 'Z';
+  }
+  function render(root){
+    var h = frame(), svg = '', N = DATA.rings.length, cnt = new Array(13).fill(0);
+    var rr = function(i){ return [R0 + i * (RW + RG), R0 + i * (RW + RG) + RW]; };
+    var tone = function(r, i){ return r.key ? 'var(--ds-c1)' : ['var(--ds-c3)', 'var(--ds-c4)', 'var(--ds-c3)', 'var(--ds-c4)'][i % 4]; };
+    // 바탕 고리 + 달 칸 금
+    DATA.rings.forEach(function(r, i){ var q = rr(i); svg += '<path d="' + arc(-Math.PI / 2, Math.PI * 1.5 - .0001, q[0], q[1]) + '" style="fill:var(--ds-surface);stroke:var(--ds-line);stroke-width:1"/>'; });
+    for (var m = 1; m <= 12; m++){
+      var a = ang(m), p0 = pt(a, R0 - 4), p1 = pt(a, rr(N - 1)[1] + 6);
+      svg += '<line x1="' + p0[0] + '" y1="' + p0[1] + '" x2="' + p1[0] + '" y2="' + p1[1] + '" style="stroke:var(--ds-line);stroke-width:1"/>';
+      var lp = pt(ang(m + .5), LR), vac = DATA.vacation.indexOf(m) >= 0;
+      h += '<div class="ps86-a ps86-mo' + (vac ? ' v' : '') + '" style="' + at(lp[0], lp[1]) + '">' + m + '월' + (vac ? '<br><span style="font-size:' + u(10) + '">방학</span>' : '') + '</div>';
+    }
+    // 방학 달: 바깥 테 옅게
+    DATA.vacation.forEach(function(m){ svg += '<path d="' + arc(ang(m), ang(m + 1), rr(N - 1)[1] + 8, rr(N - 1)[1] + 14) + '" style="fill:var(--ds-c4)"/>'; });
+    // 점검 칸(달 단위 호)
+    DATA.rings.forEach(function(r, i){
+      var q = rr(i);
+      r.items.forEach(function(it){
+        var ms = it[1], a0 = ang(ms[0]) + .012, a1 = ang(ms[ms.length - 1] + 1) - .012;
+        svg += '<path d="' + arc(a0, a1, q[0] + 3, q[1] - 3) + '" style="fill:' + tone(r, i) + '"/>';
+        ms.forEach(function(mm){ cnt[mm]++; });
+        if (ms.length >= 2 || r.key){
+          var mid = pt((a0 + a1) / 2, (q[0] + q[1]) / 2);
+          h += '<div class="ps86-a ps86-it" style="' + at(mid[0], mid[1]) + ';color:' + (r.key || i % 2 === 0 ? 'var(--ds-surface)' : 'var(--ds-ink)') + ';font-size:' + u(ms.length >= 2 ? 12 : 10.5) + '">' + esc(it[0].split(' · ')[0]) + '</div>';
+        }
+      });
+      // 고리 번호(12시 바로 왼쪽)
+      var np = pt(-Math.PI / 2 - .09, (q[0] + q[1]) / 2);
+      h += '<div class="ps86-a ps86-it" style="' + at(np[0], np[1]) + ';color:var(--ds-sub);font-family:var(--ds-font-num)">' + (i + 1) + '</div>';
+    });
+    h += '<div class="ps86-a ps86-ctr" style="' + at(CX, CY) + '"><span>' + esc(DATA.center[0]) + '</span><b>' + esc(DATA.center[1]) + '</b></div>';
+    // 오른쪽: 고리 설명(안쪽부터)
+    DATA.rings.forEach(function(r, i){
+      var y = 232 + i * 92;
+      h += '<div class="ps86-a ps86-lg" style="' + box(LX, y, LW, 84) + '"><span class="r" style="background:' + tone(r, i) + ';color:' + (r.key || i % 2 === 0 ? 'var(--ds-surface)' : 'var(--ds-ink)') + '">' + (i + 1) + '</span><div><b>' + esc(r.name) + '</b><span class="s">' + esc(r.what) + '</span></div><span class="q">' + esc(r.qty) + '<small>' + esc(r.qtyLabel) + '</small></span></div>';
+    });
+    // 달마다 겹치는 점검 수(막대 높이 = 개수)
+    var keyMonths = []; DATA.rings.forEach(function(r){ if (r.key) r.items.forEach(function(it){ keyMonths = keyMonths.concat(it[1]); }); });
+    var by = 640, bh = 90, mx = Math.max.apply(null, cnt), cw = LW / 12;
+    h += '<div class="ps86-a ps86-ch" style="' + at(LX, by - 30) + '">달마다 겹치는 점검 수 <span style="font-family:var(--ds-font-body);font-weight:400;font-size:' + u(12.5) + ';color:var(--ds-sub)">· 진한 막대 = 정밀점검 · 보수가 있는 달</span></div>';
+    for (var k = 1; k <= 12; k++){
+      var hh = cnt[k] / mx * bh, x = LX + (k - 1) * cw, hot = keyMonths.indexOf(k) >= 0;
+      svg += '<rect x="' + (x + cw * .2) + '" y="' + (by + bh - hh + 8) + '" width="' + (cw * .6) + '" height="' + hh + '" style="fill:' + (hot ? 'var(--ds-c1)' : 'var(--ds-c4)') + '"/>';
+      h += '<div class="ps86-a ps86-cn" style="' + box(x, by + bh - hh - 12, cw, 18) + '">' + cnt[k] + '</div>';
+      h += '<div class="ps86-a ps86-cm" style="' + box(x, by + bh + 14, cw, 16) + '">' + k + '월</div>';
+    }
+    svg += '<line x1="' + LX + '" x2="' + (LX + LW) + '" y1="' + (by + bh + 8) + '" y2="' + (by + bh + 8) + '" style="stroke:var(--ds-ink);stroke-width:1.5"/>';
+    root.innerHTML = '<div class="ps86-in"><svg class="ps86-svg" viewBox="0 0 1600 900" aria-hidden="true">' + svg + '</svg>' + h + '</div>';
+  }
+  render(document.getElementById('ps86'));
+})();
+</script>
+<script>
+(function(){
+  var P = 'ps86';
+  var slide = document.getElementById(P);
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FAM = {"N": {"name": "중립(기본)", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#F5F7FA", "--ds-surface": "#FFFFFF", "--ds-ink": "#18233D", "--ds-sub": "#5B6579", "--ds-line": "#D5DBE4", "--ds-accent": "#D2502A", "--ds-accent2": "#2E5C8F", "--ds-c1": "#1B2E57", "--ds-c2": "#2D4D85", "--ds-c3": "#5474AB", "--ds-c4": "#A8BCDA", "--ds-c5": "#E1E8F2", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "4px", "--ds-shadow": "0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)"}}, "B": {"name": "B 미니멀 스튜디오", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#EEF1F4", "--ds-surface": "#FAFAF8", "--ds-ink": "#1F2B36", "--ds-sub": "#5E6974", "--ds-line": "#CDD4DB", "--ds-accent": "#E2571A", "--ds-accent2": "#2F5D86", "--ds-c1": "#2F4252", "--ds-c2": "#4F6679", "--ds-c3": "#7389A0", "--ds-c4": "#A9B9C7", "--ds-c5": "#DCE3E9", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"}}, "D": {"name": "D 인쇄·종이", "fonts": "Noto Serif KR / IBM Plex Sans KR / Noto Serif KR", "v": {"--ds-bg": "#FBFAF6", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B1E24", "--ds-sub": "#5C606A", "--ds-line": "#CFCCC4", "--ds-accent": "#D9482B", "--ds-accent2": "#23467A", "--ds-c1": "#1F3E6E", "--ds-c2": "#3C5D8C", "--ds-c3": "#6D87AD", "--ds-c4": "#A5B5CD", "--ds-c5": "#E3E8F0", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"}}, "F": {"name": "F 관측·중계", "fonts": "Gothic A1 / Gothic A1 / Saira Semi Condensed", "v": {"--ds-bg": "#F3F5F8", "--ds-surface": "#FFFFFF", "--ds-ink": "#12203A", "--ds-sub": "#556178", "--ds-line": "#D3DAE4", "--ds-accent": "#E5483A", "--ds-accent2": "#2F64AE", "--ds-c1": "#1E3A66", "--ds-c2": "#34598F", "--ds-c3": "#5B7DB0", "--ds-c4": "#9DB3D3", "--ds-c5": "#DAE3EF", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Saira Semi Condensed\",\"Gothic A1\",\"Arial Narrow\",\"Malgun Gothic\",sans-serif", "--ds-radius": "3px", "--ds-shadow": "0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)"}}};
+  var ORDER = ["N", "B", "D", "F"];
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === ORDER[0]) slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+    if (window[P + 'Paint']) window[P + 'Paint']();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window[P + 'Fam'] = apply;
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap\">";
+  var css = document.getElementById(P + '-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById(P + '-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + "<div class=\"ps86\" id=\"ps86\" data-slide role=\"img\" aria-label=\"학교 시설 안전점검 네 갈래(정기 · 계절 · 정밀 · 훈련)의 운영 달을 열두 달 고리로, 달별 겹치는 점검 수를 막대로\"></div>" + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+  window[P + 'Code'] = code;
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th>' + ORDER.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ORDER.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + ORDER.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + ORDER.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+</body></html>
