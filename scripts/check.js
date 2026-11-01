@@ -24,5 +24,6 @@ const ROOT = path.resolve(__dirname, '..');
   fs.writeFileSync(path.join(out, 'report.json'), JSON.stringify(report, null, 1));
   const bad = Object.entries(report).filter(([, r]) => !r.ok);
   console.log('검사', Object.keys(report).length, '통과', Object.keys(report).length - bad.length, '문제', bad.length);
+  process.exitCode = bad.length ? 1 : 0;
   bad.forEach(([n, r]) => console.log(' #' + n, r.external.length ? '바깥 ' + r.external.length + ' ' + r.external.slice(0, 2).join(' ') : '', r.errors.length ? '오류 ' + r.errors.slice(0, 2).join(' | ') : '', r.font_errors.length ? '글꼴 ' + r.font_errors.join(',') : ''));
 })();

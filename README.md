@@ -55,9 +55,9 @@
 claude.ai 루틴이 새 레퍼런스를 만들 때마다 `refs/`, `thumbs/`, `data/rounds.json`을 갱신해 `main`에 푸시합니다.
 푸시되면 GitHub Pages가 자동으로 다시 배포합니다.
 
-`data/rounds.json`의 각 항목에는 `v`(HTML·썸네일 내용의 sha1 앞 8자리)가 있습니다. 갤러리는 링크와 썸네일 주소 뒤에 `?v=`를 붙여, 같은 번호를 재작업해도 브라우저 캐시 때문에 옛 버전이 보이지 않게 합니다.
+`data/rounds.json`의 각 항목에는 `v`(HTML·썸네일 내용의 md5 앞 8자리)가 있습니다. 갤러리는 링크와 썸네일 주소 뒤에 `?v=`를 붙여, 같은 번호를 재작업해도 브라우저 캐시 때문에 옛 버전이 보이지 않게 합니다.
 
-새 회차를 `refs/`에 넣은 뒤에는 `node scripts/add-code.js refs/NN.html`을 실행해 코드 칸을 붙이고, `v`를 다시 계산합니다.
+새 회차를 `refs/`에 넣은 뒤에는 `node scripts/add-code.js refs/NN.html`로 코드 칸을 붙이고, `python3 scripts/ingest.py NN`으로 `src/` 추출 → 빌드 → 오프라인 검사 → `v` 재계산을 한 번에 합니다.
 
 ## 소스와 빌드 (인터넷 없이 도는 장표)
 
@@ -75,6 +75,7 @@ claude.ai 루틴이 새 레퍼런스를 만들 때마다 `refs/`, `thumbs/`, `da
 python3 scripts/build.py 109        # src/109 → refs/109.html  (all = 전부)
 node scripts/check.js refs          # 바깥 연결을 막고 전 장표 검사 → check/report.json
 python3 scripts/extract.py 110      # (옛 장표를 src/ 로 옮길 때만) refs → src
+python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받기 → 빌드 → 검사 → v 재계산 (실패 시 종료 코드 1)
 ```
 
 - 빌드는 페이지에 쓰인 글자만 잘라 글꼴을 박아 넣고, 그림 · 라이브러리도 파일 안에 넣습니다. 결과물에 바깥 주소가 없습니다(‘코드 복사’ 안의 글은 예외).

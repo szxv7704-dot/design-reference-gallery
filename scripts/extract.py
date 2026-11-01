@@ -23,7 +23,7 @@ def extract(no):
         fonts.add((m.group(1), m.group(2)))
         if first[0]: first[0] = False; return '/*@@FONTS@@*/\n'
         return ''
-    s = FACE.sub(face, s)
+    s = FACE.sub(face, s).replace('/*@@FONTS@@*/\n</style>', '/*@@FONTS@@*/</style>', 1)  # 빌드 결과를 다시 추출해도 원본과 같게
     # ② 실시간 구글 글꼴(스크립트 문자열 안에 든 것은 '코드 복사'용이라 그대로 둔다)
     rs = script_ranges(s); parts = []; last = 0; placed = '/*@@FONTS@@*/' in s
     for m in GLINK.finditer(s):
