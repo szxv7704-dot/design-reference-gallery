@@ -1,0 +1,606 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #113 옮겨 간 칸 분담표</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>/*@@FONTS@@*/</style>
+<style>
+/* 페이지 바탕: 한 가지 밝은 모습으로 고정(장표가 계열 값을 갈아 끼우므로 주변은 조용히) */
+:root{--pg-bg:#ECEFF3; --pg-ink:#18233A; --pg-sub:#5A6477; --pg-line:#D3D9E2; --pg-card:#FFFFFF; --pg-ac:#C9502A; --pg-code:#121A2B; --pg-codeink:#DCE4F2; --pg-chip:#E1E7EF;
+  --pg-sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --pg-head:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif; --pg-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace; color-scheme:light}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-sans); font-size:15px; line-height:1.65}
+.pg{max-width:1180px; margin:0 auto; padding-block:28px 64px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.pg-top{display:flex; flex-wrap:wrap; gap:6px 16px; align-items:baseline; margin-bottom:14px}
+.pg-top h1{font-family:var(--pg-head); font-weight:800; font-size:22px; margin:0; letter-spacing:-.01em}
+.pg-top .meta{color:var(--pg-sub); font-size:13px}
+.pg-stage{border-radius:6px; overflow:hidden; box-shadow:0 1px 0 rgba(24,35,58,.06),0 20px 44px -28px rgba(24,35,58,.45)}
+.pg-swap{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0 0}
+.pg-swap span{font-size:13px; color:var(--pg-sub); margin-right:4px}
+.pg-swap button{font:inherit; font-size:13px; padding:6px 12px; border:1px solid var(--pg-line); background:var(--pg-card); color:var(--pg-ink); border-radius:999px; cursor:pointer}
+.pg-swap button[aria-pressed="true"]{background:var(--pg-ink); color:var(--pg-card); border-color:var(--pg-ink)}
+.pg-swap button:focus-visible,.pg-copy:focus-visible{outline:2px solid var(--pg-ac); outline-offset:2px}
+.pg h2{font-family:var(--pg-head); font-weight:800; font-size:19px; margin:44px 0 12px; padding-top:14px; border-top:1.5px solid var(--pg-ink); text-wrap:balance}
+.pg h2 small{font-weight:400; font-size:13px; color:var(--pg-sub); margin-left:8px}
+.pg p{margin:0 0 10px; max-width:70ch}
+.pg-two{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.pg-two > *{min-width:0}
+.pg-card{background:var(--pg-card); border-radius:6px; padding:18px 20px}
+.pg-card h3{font-size:13px; letter-spacing:.08em; color:var(--pg-sub); margin:0 0 8px; font-weight:600}
+.src{font-family:"Noto Serif KR","Nanum Myeongjo",serif; font-size:15px; line-height:1.95}
+.src mark{background:none; color:inherit; border-bottom:2px solid var(--pg-chip); padding:0 1px}
+.src sup,.grp sup{font-family:var(--pg-sans); font-size:11px; font-weight:700; color:var(--pg-card); background:var(--pg-ink); border-radius:3px; padding:0 4px; margin:0 2px; vertical-align:2px}
+.src sup.hot,.grp sup.hot{background:var(--pg-ac)}
+.grp ol{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+.grp li{border-top:1px solid var(--pg-line); padding-top:10px}
+.grp li b{font-weight:600}
+.grp .q{color:var(--pg-sub); font-size:14px}
+.grp .rel{font-size:14px; margin-top:2px}
+.pg ul.tight{margin:6px 0 0; padding-left:18px; max-width:70ch}
+.pg ul.tight li{margin:3px 0}
+.pg-code{position:relative; background:var(--pg-code); border-radius:6px}
+.pg-code pre{margin:0; max-height:520px; overflow:auto; padding:18px 18px; color:var(--pg-codeink); font-family:var(--pg-mono); font-size:12.5px; line-height:1.6; white-space:pre}
+.pg-copy{position:absolute; top:10px; right:12px; font:inherit; font-size:13px; padding:6px 12px; border-radius:4px; border:0; background:var(--pg-card); color:var(--pg-ink); cursor:pointer}
+table.pg-t{border-collapse:collapse; width:100%; font-size:13.5px}
+.pg-tw{overflow-x:auto; background:var(--pg-card); border-radius:6px}
+table.pg-t th,table.pg-t td{border-bottom:1px solid var(--pg-line); padding:7px 10px; text-align:left; vertical-align:middle; white-space:nowrap}
+table.pg-t th{font-size:12px; color:var(--pg-sub); font-weight:600}
+.sw{display:inline-block; width:14px; height:14px; border-radius:3px; vertical-align:-2px; margin-right:6px; border:1px solid rgba(0,0,0,.12)}
+.pg-t code,.pg code{font-family:var(--pg-mono); font-size:12.5px}
+.pg-hint{display:none}
+@media (max-width:720px){
+  .pg .pg-hint{display:block; font-size:12px; color:var(--pg-sub); margin:6px 0 0}
+  .pg-two{grid-template-columns:1fr}
+  .pg-scroll{overflow-x:auto; border-radius:6px}
+  .pg-scroll .pg-stage{width:760px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+/* ── 업무 분담표(bt-) : 공통 뼈대 1600×900, 색은 --ds-* 변수로만 ── */
+.bt{
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#172744; --ds-sub:#566179; --ds-line:#D6DCE5;
+  --ds-accent:#E0592A; --ds-accent2:#2F5D9E;
+  --ds-c1:#1C3461; --ds-c2:#2F5D9E; --ds-c3:#6488BE; --ds-c4:#A8BEDD; --ds-c5:#E6EDF7;
+  --ds-font-title:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif;
+  --ds-radius:4px; --ds-shadow:0 1px 0 rgba(23,39,68,.05),0 16px 36px -22px rgba(23,39,68,.32);
+  container-type:inline-size; position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+}
+.bt *{box-sizing:border-box}
+.bt-in{position:absolute; inset:0; --u:calc(100cqw / 1600)}
+.bt-a{position:absolute}
+.bt svg.bt-g{position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible}
+/* 머리말 띠 y40~88 */
+.bt-head{left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:calc(var(--u)*1.5) solid var(--ds-ink)}
+.bt-sec{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*20); color:var(--ds-c1); letter-spacing:.02em}
+.bt-sec b{color:var(--ds-ink); font-weight:700; margin-left:calc(var(--u)*10)}
+.bt-plan{font-size:calc(var(--u)*15); color:var(--ds-sub); letter-spacing:.04em}
+/* 제목 y112~ */
+.bt .bt-title{left:calc(var(--u)*80); top:calc(var(--u)*108); width:calc(var(--u)*1440); margin:0;
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*44); line-height:1.25; letter-spacing:-.01em; color:var(--ds-ink)}
+.bt .bt-title em{font-style:normal; color:var(--ds-accent)}
+.bt-legend{left:calc(var(--u)*80); top:calc(var(--u)*178); display:flex; gap:calc(var(--u)*28); align-items:center;
+  font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.bt-legend span{display:inline-flex; align-items:center; gap:calc(var(--u)*8)}
+.bt-legend svg{width:calc(var(--u)*40); height:calc(var(--u)*18); overflow:visible}
+/* 표 글자 */
+.bt-oh{text-align:center; line-height:1.2}
+.bt-oh b{display:block; font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*18)}
+.bt-oh i{display:block; font-style:normal; font-size:calc(var(--u)*13); color:var(--ds-sub); margin-top:calc(var(--u)*3)}
+.bt-oh.is-focus b{color:var(--ds-c1)}
+.bt-oh.is-focus i{color:var(--ds-c2)}
+.bt-th{font-size:calc(var(--u)*13); color:var(--ds-sub); letter-spacing:.08em}
+.bt-stage{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*17); color:var(--ds-c2); letter-spacing:.1em}
+.bt-stage i{display:block; font-style:normal; font-weight:400; font-family:var(--ds-font-body); font-size:calc(var(--u)*12); letter-spacing:0; color:var(--ds-sub); margin-top:calc(var(--u)*2)}
+.bt-n{display:inline-flex; align-items:center; justify-content:center; width:calc(var(--u)*24); height:calc(var(--u)*24); border:calc(var(--u)*1.5) solid var(--ds-c3); border-radius:50%;
+  font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*13); line-height:1; color:var(--ds-c2); font-variant-numeric:tabular-nums}
+.bt-task{display:flex; align-items:baseline; gap:calc(var(--u)*10); white-space:nowrap}
+.bt-task b{font-weight:600; font-size:calc(var(--u)*17); color:var(--ds-ink)}
+.bt-task i{font-style:normal; font-size:calc(var(--u)*14); color:var(--ds-sub)}
+.bt-yr{font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.bt-yr.is-now{color:var(--ds-ink)}
+.bt-cnt{font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-sub); font-variant-numeric:tabular-nums}
+.bt-cnt.is-now{color:var(--ds-ink)}
+.bt-cnt.is-hot{color:var(--ds-accent)}
+/* 오른쪽: 수치 타일 + 묶음 카드 */
+.bt-tile{background:var(--ds-surface); border-radius:var(--ds-radius); box-shadow:var(--ds-shadow); padding:calc(var(--u)*18) calc(var(--u)*22)}
+.bt-tile .k{font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.bt-tile .v{display:flex; align-items:baseline; gap:calc(var(--u)*12); margin-top:calc(var(--u)*4); font-family:var(--ds-font-num); font-weight:600; line-height:1}
+.bt-tile .v .was{font-size:calc(var(--u)*56); color:var(--ds-c4)}
+.bt-tile .v .ar{font-size:calc(var(--u)*30); color:var(--ds-c3)}
+.bt-tile .v .now{font-size:calc(var(--u)*88); color:var(--ds-c1)}
+.bt-tile .v .un{font-family:var(--ds-font-body); font-size:calc(var(--u)*22); color:var(--ds-ink); font-weight:600}
+.bt-tile .s{font-size:calc(var(--u)*14); color:var(--ds-sub); margin-top:calc(var(--u)*8)}
+.bt-rule{border-top:calc(var(--u)*1.5) solid var(--ds-ink); padding-top:calc(var(--u)*10)}
+.bt-rule .h{display:flex; align-items:center; gap:calc(var(--u)*10); font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*17)}
+.bt-rule .h svg{width:calc(var(--u)*22); height:calc(var(--u)*22); flex:none; overflow:visible}
+.bt-rule .h .n{margin-left:auto; font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*20)}
+.bt-rule .d{font-size:calc(var(--u)*14); color:var(--ds-sub); margin-top:calc(var(--u)*4); padding-left:calc(var(--u)*32)}
+.bt-rule .r{display:flex; gap:calc(var(--u)*6); margin-top:calc(var(--u)*8); padding-left:calc(var(--u)*32)}
+.bt-rule.is-hot .h .n{color:var(--ds-accent)}
+/* 바닥 줄 y846~ */
+.bt-foot{left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846); display:flex; justify-content:space-between;
+  font-size:calc(var(--u)*13); color:var(--ds-sub); border-top:calc(var(--u)*1) solid var(--ds-line); padding-top:calc(var(--u)*10)}
+.bt-foot b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+/* SVG 칠 — 변수만 */
+.bt .f-c1{fill:var(--ds-c1)} .bt .f-c4{fill:var(--ds-c4)} .bt .f-c5{fill:var(--ds-c5)} .bt .f-ac{fill:var(--ds-accent)} .bt .f-sf{fill:var(--ds-surface)}
+.bt .s-line{stroke:var(--ds-line)} .bt .s-ink{stroke:var(--ds-ink)} .bt .s-c3{stroke:var(--ds-c3)} .bt .s-c4{stroke:var(--ds-c4)} .bt .s-ac{stroke:var(--ds-accent)}
+
+</style>
+
+<div class="pg">
+  <div class="pg-top"><h1>#113 옮겨 간 칸 분담표</h1><span class="meta">본문 요소 · 표·목록 · 추진체계 · 정지 화면 · 가상 예시</span></div>
+
+  <div class="pg-scroll"><div class="pg-stage">
+<div class="bt" id="bt">
+  <div class="bt-in">
+    <svg class="bt-g" id="bt-g" viewBox="0 0 1600 900" aria-hidden="true"></svg>
+    <div class="bt-a bt-head"><div class="bt-sec">Ⅳ.<b>추진체계</b></div><div class="bt-plan">2027 거점형 유치원 방과후 과정 운영 계획</div></div>
+    <div class="bt-a bt-title" role="heading" aria-level="2">거점 유치원이 맡던 공통 행정 <em>5개</em>를 교육지원청이 가져간다</div>
+    <div class="bt-a bt-legend" id="bt-legend"></div>
+    <div id="bt-cells"></div>
+    <div class="bt-a bt-foot"><span>가상 예시 · 출처: ○○교육청 2026 거점 유치원 현장 의견 수렴(가상)</span><b>14</b></div>
+  </div>
+</div>
+
+  </div></div>
+  <p class="pg-hint">장표를 옆으로 밀어 끝까지 볼 수 있습니다.</p>
+  <div class="pg-swap" role="group" aria-label="계열 값 바꿔 보기">
+    <span>계열 값 바꿔 보기</span>
+    <button type="button" id="sw-n" data-f="N" aria-pressed="true">중립 값</button>
+    <button type="button" id="sw-b" data-f="B" aria-pressed="false">B 미니멀 스튜디오</button>
+    <button type="button" id="sw-d" data-f="D" aria-pressed="false">D 인쇄·종이</button>
+    <button type="button" id="sw-f" data-f="F" aria-pressed="false">F 관측·중계</button>
+  </div>
+
+  <h2>원문 → 유목화 <small>정리 전 문단을 어떻게 묶었나</small></h2>
+  <div class="pg-two">
+    <div class="pg-card src">
+      <h3>원문 (계획안 정리 전, 가상)</h3>
+      ○○교육청은 2026년 현재 거점형 방과후 과정(07:30–19:30)을 거점 유치원 12곳에서 운영하고 있다. <sup>다</sup><mark>교육청은 매년 2월 운영 계획을 수립하고 거점 유치원을 지정하며, 지자체와 함께 연 2회 합동 안전 점검을 실시한다.</mark> 그러나 <sup class="hot">가</sup><mark>돌봄 전담사 24명 채용, 특성화 강사 36명 섭외·계약, 연 2회 유아 신청 접수·배정, 원당 연 1.2억 원의 예산 집행·정산, 학기말 만족도 조사는 유치원마다 따로 처리하고 있어</mark> 같은 행정이 12번 되풀이되고, 교원 업무 부담의 주된 원인으로 꼽혔다. 이에 2027년부터 교육지원청에 '돌봄 지원 창구'를 새로 두어 위 다섯 가지 공통 행정을 한곳에서 처리하고, 유치원은 협조만 한다. <sup>나</sup><mark>유치원은 프로그램 운영, 오후 간식·저녁 급식 제공, 귀가 차량 9대의 차량·귀가 안전 지도처럼 유아와 직접 닿는 업무를 계속 맡으며,</mark> 귀가 안전은 지자체가 협조한다. 교육지원청은 운영 계획 수립과 거점 지정, 프로그램 운영도 지원한다. 이로써 유치원이 주관하는 업무는 8개에서 3개로 줄어든다.
+    </div>
+    <div class="pg-card grp">
+      <h3>묶은 방법</h3>
+      <ol>
+        <li><b>줄 = 업무 11개, 시기로 묶음</b><div class="q">원문에 흩어진 업무를 한 줄씩 뽑고 규모(명·대·회·원)는 옆에 짧게 → 준비 ①–④ · 운영 ⑤–⑧ · 점검 ⑨–⑪</div></li>
+        <li><b>열 = 기관 4곳, 칸 = 주관 ● / 협조 ○</b><div class="q">"수립한다·처리한다·맡는다"는 주관, "협조한다·지원한다"는 협조로 읽음</div></li>
+        <li><sup class="hot">가</sup><b>교육지원청으로 옮김</b> → ③④⑤⑨⑩<div class="rel">관계: 이관. 옛 주관(유치원 ○)에서 새 주관(지원청 ●)으로 화살표</div></li>
+        <li><sup>나</sup><b>유치원에 남김</b> → ⑥⑦⑧<div class="rel">관계: 그대로. 유치원 열에 ●만</div></li>
+        <li><sup>다</sup><b>교육청이 계속 주관</b> → ①②⑪<div class="rel">관계: 그대로. 교육청 열에 ●</div></li>
+        <li><b>결론 문장 "8개에서 3개로"</b> → 수치 타일 + 표 바닥 집계(1칸 = 1개)<div class="rel">원문에서 뺀 것 없음. 집계는 표에서 저절로 세어짐</div></li>
+      </ol>
+    </div>
+  </div>
+
+  <h2>구조 설명</h2>
+  <p>업무 분담표(주관·협조 매트릭스)를 줄은 시기, 열은 기관으로 짜고, 올해 주관이 바뀐 줄에만 옛 주관 칸에서 새 주관 칸으로 짧은 화살표를 그었다. 표 바닥에는 기관별 주관 업무 수를 2026·2027 두 줄의 칸(1칸 = 업무 1개)으로 세어, 화살표 다섯 개가 "유치원 8 → 3, 지원청 0 → 5"라는 결과로 모이게 했다. 오른쪽 묶음 카드는 표의 줄 번호만 다시 불러 이관 기준을 말로 정리한다.</p>
+  <p><b>가져갈 장치:</b> 옮겨 간 칸 화살표 + 열 바닥 칸 집계. 분담표 한 장이 "누가 맡나"와 "무엇이 바뀌나"를 같이 보여 주고, 바뀐 결과는 같은 열 아래에서 칸 수로 확인된다. 강조색은 옮겨 간 업무(화살표·새 ●·받은 몫 칸)에만 쓴다.</p>
+  <ul class="tight">
+    <li>학교 업무 정상화: 학교 행정 업무를 교육지원청 학교지원센터로 이관하는 분담표</li>
+    <li>늘봄학교 추진체계: 교육청·교육지원청·학교·지자체 역할 분담과 올해 바뀐 주관</li>
+    <li>학교폭력 사안 처리: 학교 → 교육지원청 심의로 옮겨 간 단계 표시</li>
+  </ul>
+
+  <h2>HTML로 가져다 쓰기 <small>장표만 떼어 낸 자기 완결 코드</small></h2>
+  <ul class="tight">
+    <li>데이터: 스크립트 맨 위 <code>ORGS</code>(기관 열), <code>STAGES</code>(시기), <code>ROWS</code>(업무 줄: <code>marks</code>에 'J' 주관 · 'H' 협조, 옮겨 온 업무는 <code>from</code>에 옛 주관 기관)만 고치면 화살표·바닥 집계·오른쪽 묶음 번호가 함께 바뀝니다.</li>
+    <li>분위기: <code>.bt { --ds-… }</code> 변수 묶음만 바꾸면 계열 값이 바뀝니다(위 버튼 값은 아래 스펙 표).</li>
+    <li>인터넷이 없어도 글꼴 줄 끝의 대체 글꼴로 읽힙니다.</li>
+    <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+  </ul>
+  <div class="pg-code"><button type="button" class="pg-copy" id="pg-copy">코드 복사</button><pre id="pg-pre">&lt;meta charset="utf-8"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700;800&amp;family=IBM+Plex+Sans+KR:wght@400;500;600&amp;family=Saira+Semi+Condensed:wght@500;600&amp;display=swap"&gt;
+&lt;style&gt;
+/* ── 업무 분담표(bt-) : 공통 뼈대 1600×900, 색은 --ds-* 변수로만 ── */
+.bt{
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#172744; --ds-sub:#566179; --ds-line:#D6DCE5;
+  --ds-accent:#E0592A; --ds-accent2:#2F5D9E;
+  --ds-c1:#1C3461; --ds-c2:#2F5D9E; --ds-c3:#6488BE; --ds-c4:#A8BEDD; --ds-c5:#E6EDF7;
+  --ds-font-title:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif;
+  --ds-radius:4px; --ds-shadow:0 1px 0 rgba(23,39,68,.05),0 16px 36px -22px rgba(23,39,68,.32);
+  container-type:inline-size; position:relative; width:100%; aspect-ratio:16/9; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+}
+.bt *{box-sizing:border-box}
+.bt-in{position:absolute; inset:0; --u:calc(100cqw / 1600)}
+.bt-a{position:absolute}
+.bt svg.bt-g{position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible}
+/* 머리말 띠 y40~88 */
+.bt-head{left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:calc(var(--u)*1.5) solid var(--ds-ink)}
+.bt-sec{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*20); color:var(--ds-c1); letter-spacing:.02em}
+.bt-sec b{color:var(--ds-ink); font-weight:700; margin-left:calc(var(--u)*10)}
+.bt-plan{font-size:calc(var(--u)*15); color:var(--ds-sub); letter-spacing:.04em}
+/* 제목 y112~ */
+.bt .bt-title{left:calc(var(--u)*80); top:calc(var(--u)*108); width:calc(var(--u)*1440); margin:0;
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*44); line-height:1.25; letter-spacing:-.01em; color:var(--ds-ink)}
+.bt .bt-title em{font-style:normal; color:var(--ds-accent)}
+.bt-legend{left:calc(var(--u)*80); top:calc(var(--u)*178); display:flex; gap:calc(var(--u)*28); align-items:center;
+  font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.bt-legend span{display:inline-flex; align-items:center; gap:calc(var(--u)*8)}
+.bt-legend svg{width:calc(var(--u)*40); height:calc(var(--u)*18); overflow:visible}
+/* 표 글자 */
+.bt-oh{text-align:center; line-height:1.2}
+.bt-oh b{display:block; font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*18)}
+.bt-oh i{display:block; font-style:normal; font-size:calc(var(--u)*13); color:var(--ds-sub); margin-top:calc(var(--u)*3)}
+.bt-oh.is-focus b{color:var(--ds-c1)}
+.bt-oh.is-focus i{color:var(--ds-c2)}
+.bt-th{font-size:calc(var(--u)*13); color:var(--ds-sub); letter-spacing:.08em}
+.bt-stage{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*17); color:var(--ds-c2); letter-spacing:.1em}
+.bt-stage i{display:block; font-style:normal; font-weight:400; font-family:var(--ds-font-body); font-size:calc(var(--u)*12); letter-spacing:0; color:var(--ds-sub); margin-top:calc(var(--u)*2)}
+.bt-n{display:inline-flex; align-items:center; justify-content:center; width:calc(var(--u)*24); height:calc(var(--u)*24); border:calc(var(--u)*1.5) solid var(--ds-c3); border-radius:50%;
+  font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*13); line-height:1; color:var(--ds-c2); font-variant-numeric:tabular-nums}
+.bt-task{display:flex; align-items:baseline; gap:calc(var(--u)*10); white-space:nowrap}
+.bt-task b{font-weight:600; font-size:calc(var(--u)*17); color:var(--ds-ink)}
+.bt-task i{font-style:normal; font-size:calc(var(--u)*14); color:var(--ds-sub)}
+.bt-yr{font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.bt-yr.is-now{color:var(--ds-ink)}
+.bt-cnt{font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*15); color:var(--ds-sub); font-variant-numeric:tabular-nums}
+.bt-cnt.is-now{color:var(--ds-ink)}
+.bt-cnt.is-hot{color:var(--ds-accent)}
+/* 오른쪽: 수치 타일 + 묶음 카드 */
+.bt-tile{background:var(--ds-surface); border-radius:var(--ds-radius); box-shadow:var(--ds-shadow); padding:calc(var(--u)*18) calc(var(--u)*22)}
+.bt-tile .k{font-size:calc(var(--u)*15); color:var(--ds-sub)}
+.bt-tile .v{display:flex; align-items:baseline; gap:calc(var(--u)*12); margin-top:calc(var(--u)*4); font-family:var(--ds-font-num); font-weight:600; line-height:1}
+.bt-tile .v .was{font-size:calc(var(--u)*56); color:var(--ds-c4)}
+.bt-tile .v .ar{font-size:calc(var(--u)*30); color:var(--ds-c3)}
+.bt-tile .v .now{font-size:calc(var(--u)*88); color:var(--ds-c1)}
+.bt-tile .v .un{font-family:var(--ds-font-body); font-size:calc(var(--u)*22); color:var(--ds-ink); font-weight:600}
+.bt-tile .s{font-size:calc(var(--u)*14); color:var(--ds-sub); margin-top:calc(var(--u)*8)}
+.bt-rule{border-top:calc(var(--u)*1.5) solid var(--ds-ink); padding-top:calc(var(--u)*10)}
+.bt-rule .h{display:flex; align-items:center; gap:calc(var(--u)*10); font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*17)}
+.bt-rule .h svg{width:calc(var(--u)*22); height:calc(var(--u)*22); flex:none; overflow:visible}
+.bt-rule .h .n{margin-left:auto; font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*20)}
+.bt-rule .d{font-size:calc(var(--u)*14); color:var(--ds-sub); margin-top:calc(var(--u)*4); padding-left:calc(var(--u)*32)}
+.bt-rule .r{display:flex; gap:calc(var(--u)*6); margin-top:calc(var(--u)*8); padding-left:calc(var(--u)*32)}
+.bt-rule.is-hot .h .n{color:var(--ds-accent)}
+/* 바닥 줄 y846~ */
+.bt-foot{left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846); display:flex; justify-content:space-between;
+  font-size:calc(var(--u)*13); color:var(--ds-sub); border-top:calc(var(--u)*1) solid var(--ds-line); padding-top:calc(var(--u)*10)}
+.bt-foot b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+/* SVG 칠 — 변수만 */
+.bt .f-c1{fill:var(--ds-c1)} .bt .f-c4{fill:var(--ds-c4)} .bt .f-c5{fill:var(--ds-c5)} .bt .f-ac{fill:var(--ds-accent)} .bt .f-sf{fill:var(--ds-surface)}
+.bt .s-line{stroke:var(--ds-line)} .bt .s-ink{stroke:var(--ds-ink)} .bt .s-c3{stroke:var(--ds-c3)} .bt .s-c4{stroke:var(--ds-c4)} .bt .s-ac{stroke:var(--ds-accent)}
+&lt;/style&gt;
+
+&lt;div class="bt" id="bt"&gt;
+  &lt;div class="bt-in"&gt;
+    &lt;svg class="bt-g" id="bt-g" viewBox="0 0 1600 900" aria-hidden="true"&gt;&lt;/svg&gt;
+    &lt;div class="bt-a bt-head"&gt;&lt;div class="bt-sec"&gt;Ⅳ.&lt;b&gt;추진체계&lt;/b&gt;&lt;/div&gt;&lt;div class="bt-plan"&gt;2027 거점형 유치원 방과후 과정 운영 계획&lt;/div&gt;&lt;/div&gt;
+    &lt;div class="bt-a bt-title" role="heading" aria-level="2"&gt;거점 유치원이 맡던 공통 행정 &lt;em&gt;5개&lt;/em&gt;를 교육지원청이 가져간다&lt;/div&gt;
+    &lt;div class="bt-a bt-legend" id="bt-legend"&gt;&lt;/div&gt;
+    &lt;div id="bt-cells"&gt;&lt;/div&gt;
+    &lt;div class="bt-a bt-foot"&gt;&lt;span&gt;가상 예시 · 출처: ○○교육청 2026 거점 유치원 현장 의견 수렴(가상)&lt;/span&gt;&lt;b&gt;14&lt;/b&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  /* ── 데이터: 여기만 바꾸면 표·집계·오른쪽 묶음이 함께 바뀝니다 ──
+     marks: 기관 키 → 'J'(주관) 또는 'H'(협조)
+     from : 2026년에 주관하던 기관 키(올해 옮겨 온 업무만) */
+  var ORGS = [
+    {k:'hq',    name:'교육청',     sub:'유아교육과'},
+    {k:'dist',  name:'교육지원청', sub:'돌봄 지원 창구 신설', focus:true},
+    {k:'kg',    name:'거점 유치원', sub:'12곳'},
+    {k:'local', name:'지자체',     sub:'시·군·구'}
+  ];
+  var STAGES = [{name:'준비', sub:'1~2월'},{name:'운영', sub:'3~12월'},{name:'점검', sub:'7·12월'}];
+  var ROWS = [
+    {s:0, task:'운영 계획 수립',      note:'연 1회 · 2월',        marks:{hq:'J', dist:'H'}},
+    {s:0, task:'거점 유치원 지정',    note:'12곳',               marks:{hq:'J', dist:'H', kg:'H'}},
+    {s:0, task:'전담 인력 채용',      note:'돌봄 전담사 24명',     marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:0, task:'강사 섭외·계약',      note:'특성화 강사 36명',     marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:1, task:'유아 신청 접수·배정', note:'연 2회 통합 접수',     marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:1, task:'프로그램 운영',       note:'07:30–19:30',        marks:{dist:'H', kg:'J'}},
+    {s:1, task:'간식·급식 제공',      note:'오후 간식 · 저녁',     marks:{kg:'J'}},
+    {s:1, task:'차량·귀가 안전 지도', note:'귀가 차량 9대',        marks:{kg:'J', local:'H'}},
+    {s:2, task:'예산 집행·정산',      note:'원당 연 1.2억 원',     marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:2, task:'만족도 조사',         note:'학기말 연 2회',        marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:2, task:'합동 안전 점검',      note:'연 2회',              marks:{hq:'J', kg:'H', local:'H'}}
+  ];
+  /* 오른쪽 묶음: 줄을 고르는 규칙 */
+  var GROUPS = [
+    {id:'가', title:'교육지원청으로 옮김', desc:'원마다 12번 되풀이되던 공통 행정', pick:function(r){return r.from;}, mark:'move', hot:true},
+    {id:'나', title:'유치원에 남김',       desc:'유아와 직접 닿는 업무',            pick:function(r){return !r.from &amp;&amp; r.marks.kg==='J';}, mark:'J'},
+    {id:'다', title:'교육청이 계속 주관',   desc:'계획·지정·점검',                   pick:function(r){return r.marks.hq==='J';}, mark:'J'}
+  ];
+  var FOCUS_ORG = 'kg';      /* 수치 타일이 세는 기관 */
+  function circ(n){ return '&lt;span class="bt-n"&gt;'+n+'&lt;/span&gt;'; }   /* 줄 번호: 글꼴에 없는 ⑩⑪ 대신 테 두른 숫자 */
+
+  /* ── 배치(가상 화면 1600×900 기준 수치) ── */
+  var X0=80, W_STAGE=78, W_NO=40, W_TASK=352, W_ORG=148;   /* 표 너비 1062 */
+  var XO = X0+W_STAGE+W_NO+W_TASK;                           /* 기관 열 시작 x */
+  var Y_HEAD=232, H_HEAD=50, ROW=40, H_TALLY=32;
+  var Y_ROW = Y_HEAD+H_HEAD;
+  var Y_END = Y_ROW + ROW*ROWS.length;
+  var TBL_R = XO + W_ORG*ORGS.length;
+  var SIDE_X = 1190, SIDE_W = 330;
+
+  var NS='http://www.w3.org/2000/svg';
+  var g=document.getElementById('bt-g'), cells=document.getElementById('bt-cells'), lg=document.getElementById('bt-legend');
+  g.innerHTML=''; cells.innerHTML=''; lg.innerHTML='';
+  function sv(tag, at, par){var e=document.createElementNS(NS,tag); for(var k in at) e.setAttribute(k,at[k]); (par||g).appendChild(e); return e;}
+  function box(x,y,w,h,cls,html){var d=document.createElement('div'); d.className='bt-a '+cls;
+    d.style.cssText='left:calc(var(--u)*'+x+');top:calc(var(--u)*'+y+');width:calc(var(--u)*'+w+');height:calc(var(--u)*'+h+');display:flex;align-items:center';
+    d.innerHTML=html; cells.appendChild(d); return d;}
+  function cx(i){return XO + W_ORG*i + W_ORG/2;}
+  function cy(j){return Y_ROW + ROW*j + ROW/2;}
+  /* 표시 기호: 주관 = 채운 원, 협조 = 빈 원 */
+  function mark(par, x, y, type, hot){
+    if(type==='J') sv('circle',{cx:x,cy:y,r:9,'class':hot?'f-ac':'f-c1'},par);
+    else sv('circle',{cx:x,cy:y,r:8,'class':'f-sf s-c3','stroke-width':2.2},par);
+  }
+  function arrow(par, x1, x2, y){ /* x1(옛 주관) → x2(새 주관), 왼쪽으로 */
+    sv('line',{x1:x1,y1:y,x2:x2+7,y2:y,'class':'s-ac','stroke-width':2},par);
+    sv('path',{d:'M'+x2+' '+y+' l9 -5.5 v11 z','class':'f-ac'},par);
+  }
+
+  /* 범례 */
+  var L=[['J','주관'],['H','협조'],['move','2026년 유치원 주관 → 2027년 이관']];
+  L.forEach(function(it){
+    var s=document.createElement('span'), m=document.createElementNS(NS,'svg');
+    m.setAttribute('viewBox', it[0]==='move'?'0 0 40 18':'0 0 18 18');
+    m.style.width = it[0]==='move' ? 'calc(var(--u)*40)' : 'calc(var(--u)*18)';
+    if(it[0]==='move'){ mark(m,10,9,'J',true); arrow(m,36,20,9); sv('circle',{cx:36,cy:9,r:3,'class':'f-ac'},m); }
+    else mark(m,9,9,it[0]);
+    s.appendChild(m); s.appendChild(document.createTextNode(it[1])); lg.appendChild(s);
+  });
+
+  /* 기관 열 강조 바탕(새로 생긴 창구) */
+  ORGS.forEach(function(o,i){ if(o.focus) sv('rect',{x:XO+W_ORG*i+4,y:Y_HEAD,width:W_ORG-8,height:Y_END-Y_HEAD+H_TALLY*2+10,'class':'f-c5'}); });
+  /* 머리 줄 */
+  sv('line',{x1:X0,y1:Y_HEAD,x2:TBL_R,y2:Y_HEAD,'class':'s-ink','stroke-width':2});
+  sv('line',{x1:X0,y1:Y_ROW,x2:TBL_R,y2:Y_ROW,'class':'s-ink','stroke-width':1});
+  box(X0,Y_HEAD,W_STAGE,H_HEAD,'bt-th','시기');
+  box(X0+W_STAGE,Y_HEAD,W_NO+W_TASK,H_HEAD,'bt-th','업무 · 규모');
+  ORGS.forEach(function(o,i){
+    var d=box(XO+W_ORG*i,Y_HEAD,W_ORG,H_HEAD,'bt-oh'+(o.focus?' is-focus':''),'&lt;div style="width:100%"&gt;&lt;b&gt;'+o.name+'&lt;/b&gt;&lt;i&gt;'+o.sub+'&lt;/i&gt;&lt;/div&gt;');
+    d.style.justifyContent='center';
+  });
+
+  /* 본문 줄 */
+  ROWS.forEach(function(r,j){
+    var y=Y_ROW+ROW*j, last=(j===ROWS.length-1)||(ROWS[j+1].s!==r.s);
+    sv('line',{x1:last?X0:X0+W_STAGE,y1:y+ROW,x2:TBL_R,y2:y+ROW,'class':last?'s-ink':'s-line','stroke-width':last?1:1});
+    box(X0+W_STAGE,y,W_NO,ROW,'bt-no',circ(j+1)).style.justifyContent='center';
+    box(X0+W_STAGE+W_NO+6,y,W_TASK-6,ROW,'bt-task','&lt;b&gt;'+r.task+'&lt;/b&gt;&lt;i&gt;'+r.note+'&lt;/i&gt;');
+    ORGS.forEach(function(o,i){ var t=r.marks[o.k]; if(t) mark(g,cx(i),cy(j),t, t==='J' &amp;&amp; !!r.from); });
+    if(r.from){ var fi=ORGS.map(function(o){return o.k;}).indexOf(r.from), ti=ORGS.map(function(o){return o.k;}).indexOf(Object.keys(r.marks).filter(function(k){return r.marks[k]==='J';})[0]);
+      arrow(g, cx(fi)-12, cx(ti)+12, cy(j)); }
+  });
+  /* 시기 묶음 머리말 */
+  STAGES.forEach(function(st,si){
+    var js=ROWS.map(function(r,j){return r.s===si?j:-1;}).filter(function(j){return j&gt;=0;});
+    var y1=Y_ROW+ROW*js[0], y2=Y_ROW+ROW*(js[js.length-1]+1);
+    var d=box(X0,y1+8,W_STAGE-12,30,'bt-stage','&lt;div&gt;'+st.name+'&lt;i&gt;'+st.sub+'&lt;/i&gt;&lt;/div&gt;'); d.style.alignItems='flex-start'; d.style.height='auto';
+    sv('line',{x1:X0+W_STAGE-6,y1:y1+8,x2:X0+W_STAGE-6,y2:y2-8,'class':'s-c4','stroke-width':3});
+  });
+
+  /* 바닥 집계: 기관별 주관 업무 수(1칸 = 1개, 선형) */
+  function count(k, year){ return ROWS.filter(function(r){
+      if(year===2026) return r.from ? r.from===k : r.marks[k]==='J';
+      return r.marks[k]==='J'; }).length; }
+  function got(k){ return ROWS.filter(function(r){return r.from &amp;&amp; r.marks[k]==='J';}).length; }
+  [2026,2027].forEach(function(yr,yi){
+    var y=Y_END+6+H_TALLY*yi;
+    box(X0+W_STAGE+W_NO+6,y,W_TASK-6,H_TALLY,'bt-yr'+(yi?' is-now':''),'주관 업무 수 · '+yr);
+    ORGS.forEach(function(o,i){
+      var n=count(o.k,yr), q=12, gap=3, x=XO+W_ORG*i+16;
+      for(var m=0;m&lt;n;m++){
+        var hot = yi===1 &amp;&amp; m &gt;= n - got(o.k);   /* 올해 옮겨 받은 몫은 강조색 */
+        sv('rect',{x:x+m*(q+gap),y:y+H_TALLY/2-q/2,width:q,height:q,'class':yi?(hot?'f-ac':'f-c1'):'f-c4'});
+      }
+      box(x+n*(q+gap)+(n?4:0),y,30,H_TALLY,'bt-cnt'+(yi?' is-now':'')+(yi&amp;&amp;got(o.k)?' is-hot':''),String(n));
+    });
+  });
+  sv('line',{x1:X0,y1:Y_END+6+H_TALLY*2+4,x2:TBL_R,y2:Y_END+6+H_TALLY*2+4,'class':'s-ink','stroke-width':2});
+
+  /* 오른쪽: 수치 타일 */
+  var was=count(FOCUS_ORG,2026), now=count(FOCUS_ORG,2027), fo=ORGS.filter(function(o){return o.k===FOCUS_ORG;})[0];
+  var t=box(SIDE_X,Y_HEAD,SIDE_W,168,'bt-tile','&lt;div style="width:100%"&gt;&lt;div class="k"&gt;'+fo.name+'이 주관하는 업무&lt;/div&gt;&lt;div class="v"&gt;&lt;span class="was"&gt;'+was+'&lt;/span&gt;&lt;span class="ar"&gt;→&lt;/span&gt;&lt;span class="now"&gt;'+now+'&lt;/span&gt;&lt;span class="un"&gt;개&lt;/span&gt;&lt;/div&gt;&lt;div class="s"&gt;2026 → 2027 · 전체 '+ROWS.length+'개 업무 중&lt;/div&gt;&lt;/div&gt;');
+  t.style.display='block';
+  /* 오른쪽: 묶음 카드 3개 */
+  GROUPS.forEach(function(gp,gi){
+    var nos=ROWS.map(function(r,j){return gp.pick(r)?circ(j+1):'';}).filter(String);
+    var icon = gp.mark==='move' ? '&lt;svg viewBox="0 0 22 22"&gt;&lt;circle cx="11" cy="11" r="9" class="f-ac"/&gt;&lt;/svg&gt;' : '&lt;svg viewBox="0 0 22 22"&gt;&lt;circle cx="11" cy="11" r="9" class="f-c1"/&gt;&lt;/svg&gt;';
+    var d=box(SIDE_X,436+gi*128,SIDE_W,116,'bt-rule'+(gp.hot?' is-hot':''),'&lt;div style="width:100%"&gt;&lt;div class="h"&gt;'+icon+'&lt;span&gt;'+gp.id+' · '+gp.title+'&lt;/span&gt;&lt;span class="n"&gt;'+nos.length+'&lt;/span&gt;&lt;/div&gt;&lt;div class="d"&gt;'+gp.desc+'&lt;/div&gt;&lt;div class="r"&gt;'+nos.join('')+'&lt;/div&gt;&lt;/div&gt;');
+    d.style.alignItems='flex-start';
+  });
+})();
+&lt;/script&gt;
+</pre></div>
+
+  <h2>PPT로 옮기기</h2>
+  <ul class="tight">
+    <li><b>공통 뼈대</b>: 16:9(33.867×19.05cm). 머리말 띠 위 2.6cm 아래 가는 실선(1.5pt), 왼쪽 "Ⅳ. 추진체계", 오른쪽 계획안 이름 11pt. 제목 32pt 굵게 한 줄, "5개"만 강조색. 바닥 줄 위 17.9cm, 9pt.</li>
+    <li><b>표</b>: [삽입 → 표] 7열 × 12행(머리 1 + 업무 11). 열 너비 시기 1.6 · 번호 0.85 · 업무 7.5 · 기관 각 3.15cm, 행 높이 0.85cm. 테두리는 가로선만: 머리 위 2pt, 시기 묶음 끝 1pt, 줄 사이 0.5pt 회색. 시기 칸은 묶음별로 셀 병합.</li>
+    <li><b>기호</b>: 주관 = 원(0.38cm, 채움 c1), 협조 = 원(0.34cm, 흰 채움 + c3 윤곽 1.75pt). [정렬 → 가운데 맞춤 · 중간 맞춤]으로 칸 가운데에 놓고, 옮겨 온 줄은 원을 강조색으로 바꾼 뒤 유치원 칸에서 지원청 칸으로 화살표 선(1.5pt, 끝 삼각형).</li>
+    <li><b>지원청 열 바탕</b>: 표 뒤에 c5 직사각형을 열 너비보다 0.15cm 좁게 깔고 [맨 뒤로 보내기].</li>
+    <li><b>바닥 집계</b>: 0.25cm 정사각형을 0.06cm 간격으로 개수만큼(2026 = c4, 2027 = c1, 옮겨 받은 몫 = 강조색) + 숫자. 오른쪽은 흰 사각형 수치 타일(8 → 3개) 하나와 위 실선 1.5pt 묶음 카드 3개.</li>
+    <li>정지 장표라 애니메이션은 넣지 않습니다.</li>
+  </ul>
+
+  <h2>스펙</h2>
+  <div class="pg-tw"><table class="pg-t" id="pg-spec"></table></div>
+  <ul class="tight" style="margin-top:12px">
+    <li>글꼴: 제목 Gothic A1 800 · 본문 IBM Plex Sans KR · 숫자 Saira Semi Condensed (모두 대체 글꼴 포함)</li>
+    <li>난이도: HTML 중 · PPT 중 (표 + 원 기호 + 화살표 5개)</li>
+    <li>모션: 없음(정지). 질감: 평면. 어울리는 계열: B · C · D · E · F · G</li>
+    <li>트렌드: 책임 분담 매트릭스(RACI)를 글자 대신 기호로 채우고, 바뀐 분담을 표 안에서 표시하는 '수정 상태 RACI' 구성 — infodiagram <a href="https://www.infodiagram.com/slides/easy-modified-status-raci-matrix-graphics" target="_blank" rel="noopener">Easy modified status RACI matrix graphics</a></li>
+  </ul>
+</div>
+
+<script>
+(function(){
+  /* ── 데이터: 여기만 바꾸면 표·집계·오른쪽 묶음이 함께 바뀝니다 ──
+     marks: 기관 키 → 'J'(주관) 또는 'H'(협조)
+     from : 2026년에 주관하던 기관 키(올해 옮겨 온 업무만) */
+  var ORGS = [
+    {k:'hq',    name:'교육청',     sub:'유아교육과'},
+    {k:'dist',  name:'교육지원청', sub:'돌봄 지원 창구 신설', focus:true},
+    {k:'kg',    name:'거점 유치원', sub:'12곳'},
+    {k:'local', name:'지자체',     sub:'시·군·구'}
+  ];
+  var STAGES = [{name:'준비', sub:'1~2월'},{name:'운영', sub:'3~12월'},{name:'점검', sub:'7·12월'}];
+  var ROWS = [
+    {s:0, task:'운영 계획 수립',      note:'연 1회 · 2월',        marks:{hq:'J', dist:'H'}},
+    {s:0, task:'거점 유치원 지정',    note:'12곳',               marks:{hq:'J', dist:'H', kg:'H'}},
+    {s:0, task:'전담 인력 채용',      note:'돌봄 전담사 24명',     marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:0, task:'강사 섭외·계약',      note:'특성화 강사 36명',     marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:1, task:'유아 신청 접수·배정', note:'연 2회 통합 접수',     marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:1, task:'프로그램 운영',       note:'07:30–19:30',        marks:{dist:'H', kg:'J'}},
+    {s:1, task:'간식·급식 제공',      note:'오후 간식 · 저녁',     marks:{kg:'J'}},
+    {s:1, task:'차량·귀가 안전 지도', note:'귀가 차량 9대',        marks:{kg:'J', local:'H'}},
+    {s:2, task:'예산 집행·정산',      note:'원당 연 1.2억 원',     marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:2, task:'만족도 조사',         note:'학기말 연 2회',        marks:{dist:'J', kg:'H'}, from:'kg'},
+    {s:2, task:'합동 안전 점검',      note:'연 2회',              marks:{hq:'J', kg:'H', local:'H'}}
+  ];
+  /* 오른쪽 묶음: 줄을 고르는 규칙 */
+  var GROUPS = [
+    {id:'가', title:'교육지원청으로 옮김', desc:'원마다 12번 되풀이되던 공통 행정', pick:function(r){return r.from;}, mark:'move', hot:true},
+    {id:'나', title:'유치원에 남김',       desc:'유아와 직접 닿는 업무',            pick:function(r){return !r.from && r.marks.kg==='J';}, mark:'J'},
+    {id:'다', title:'교육청이 계속 주관',   desc:'계획·지정·점검',                   pick:function(r){return r.marks.hq==='J';}, mark:'J'}
+  ];
+  var FOCUS_ORG = 'kg';      /* 수치 타일이 세는 기관 */
+  function circ(n){ return '<span class="bt-n">'+n+'</span>'; }   /* 줄 번호: 글꼴에 없는 ⑩⑪ 대신 테 두른 숫자 */
+
+  /* ── 배치(가상 화면 1600×900 기준 수치) ── */
+  var X0=80, W_STAGE=78, W_NO=40, W_TASK=352, W_ORG=148;   /* 표 너비 1062 */
+  var XO = X0+W_STAGE+W_NO+W_TASK;                           /* 기관 열 시작 x */
+  var Y_HEAD=232, H_HEAD=50, ROW=40, H_TALLY=32;
+  var Y_ROW = Y_HEAD+H_HEAD;
+  var Y_END = Y_ROW + ROW*ROWS.length;
+  var TBL_R = XO + W_ORG*ORGS.length;
+  var SIDE_X = 1190, SIDE_W = 330;
+
+  var NS='http://www.w3.org/2000/svg';
+  var g=document.getElementById('bt-g'), cells=document.getElementById('bt-cells'), lg=document.getElementById('bt-legend');
+  g.innerHTML=''; cells.innerHTML=''; lg.innerHTML='';
+  function sv(tag, at, par){var e=document.createElementNS(NS,tag); for(var k in at) e.setAttribute(k,at[k]); (par||g).appendChild(e); return e;}
+  function box(x,y,w,h,cls,html){var d=document.createElement('div'); d.className='bt-a '+cls;
+    d.style.cssText='left:calc(var(--u)*'+x+');top:calc(var(--u)*'+y+');width:calc(var(--u)*'+w+');height:calc(var(--u)*'+h+');display:flex;align-items:center';
+    d.innerHTML=html; cells.appendChild(d); return d;}
+  function cx(i){return XO + W_ORG*i + W_ORG/2;}
+  function cy(j){return Y_ROW + ROW*j + ROW/2;}
+  /* 표시 기호: 주관 = 채운 원, 협조 = 빈 원 */
+  function mark(par, x, y, type, hot){
+    if(type==='J') sv('circle',{cx:x,cy:y,r:9,'class':hot?'f-ac':'f-c1'},par);
+    else sv('circle',{cx:x,cy:y,r:8,'class':'f-sf s-c3','stroke-width':2.2},par);
+  }
+  function arrow(par, x1, x2, y){ /* x1(옛 주관) → x2(새 주관), 왼쪽으로 */
+    sv('line',{x1:x1,y1:y,x2:x2+7,y2:y,'class':'s-ac','stroke-width':2},par);
+    sv('path',{d:'M'+x2+' '+y+' l9 -5.5 v11 z','class':'f-ac'},par);
+  }
+
+  /* 범례 */
+  var L=[['J','주관'],['H','협조'],['move','2026년 유치원 주관 → 2027년 이관']];
+  L.forEach(function(it){
+    var s=document.createElement('span'), m=document.createElementNS(NS,'svg');
+    m.setAttribute('viewBox', it[0]==='move'?'0 0 40 18':'0 0 18 18');
+    m.style.width = it[0]==='move' ? 'calc(var(--u)*40)' : 'calc(var(--u)*18)';
+    if(it[0]==='move'){ mark(m,10,9,'J',true); arrow(m,36,20,9); sv('circle',{cx:36,cy:9,r:3,'class':'f-ac'},m); }
+    else mark(m,9,9,it[0]);
+    s.appendChild(m); s.appendChild(document.createTextNode(it[1])); lg.appendChild(s);
+  });
+
+  /* 기관 열 강조 바탕(새로 생긴 창구) */
+  ORGS.forEach(function(o,i){ if(o.focus) sv('rect',{x:XO+W_ORG*i+4,y:Y_HEAD,width:W_ORG-8,height:Y_END-Y_HEAD+H_TALLY*2+10,'class':'f-c5'}); });
+  /* 머리 줄 */
+  sv('line',{x1:X0,y1:Y_HEAD,x2:TBL_R,y2:Y_HEAD,'class':'s-ink','stroke-width':2});
+  sv('line',{x1:X0,y1:Y_ROW,x2:TBL_R,y2:Y_ROW,'class':'s-ink','stroke-width':1});
+  box(X0,Y_HEAD,W_STAGE,H_HEAD,'bt-th','시기');
+  box(X0+W_STAGE,Y_HEAD,W_NO+W_TASK,H_HEAD,'bt-th','업무 · 규모');
+  ORGS.forEach(function(o,i){
+    var d=box(XO+W_ORG*i,Y_HEAD,W_ORG,H_HEAD,'bt-oh'+(o.focus?' is-focus':''),'<div style="width:100%"><b>'+o.name+'</b><i>'+o.sub+'</i></div>');
+    d.style.justifyContent='center';
+  });
+
+  /* 본문 줄 */
+  ROWS.forEach(function(r,j){
+    var y=Y_ROW+ROW*j, last=(j===ROWS.length-1)||(ROWS[j+1].s!==r.s);
+    sv('line',{x1:last?X0:X0+W_STAGE,y1:y+ROW,x2:TBL_R,y2:y+ROW,'class':last?'s-ink':'s-line','stroke-width':last?1:1});
+    box(X0+W_STAGE,y,W_NO,ROW,'bt-no',circ(j+1)).style.justifyContent='center';
+    box(X0+W_STAGE+W_NO+6,y,W_TASK-6,ROW,'bt-task','<b>'+r.task+'</b><i>'+r.note+'</i>');
+    ORGS.forEach(function(o,i){ var t=r.marks[o.k]; if(t) mark(g,cx(i),cy(j),t, t==='J' && !!r.from); });
+    if(r.from){ var fi=ORGS.map(function(o){return o.k;}).indexOf(r.from), ti=ORGS.map(function(o){return o.k;}).indexOf(Object.keys(r.marks).filter(function(k){return r.marks[k]==='J';})[0]);
+      arrow(g, cx(fi)-12, cx(ti)+12, cy(j)); }
+  });
+  /* 시기 묶음 머리말 */
+  STAGES.forEach(function(st,si){
+    var js=ROWS.map(function(r,j){return r.s===si?j:-1;}).filter(function(j){return j>=0;});
+    var y1=Y_ROW+ROW*js[0], y2=Y_ROW+ROW*(js[js.length-1]+1);
+    var d=box(X0,y1+8,W_STAGE-12,30,'bt-stage','<div>'+st.name+'<i>'+st.sub+'</i></div>'); d.style.alignItems='flex-start'; d.style.height='auto';
+    sv('line',{x1:X0+W_STAGE-6,y1:y1+8,x2:X0+W_STAGE-6,y2:y2-8,'class':'s-c4','stroke-width':3});
+  });
+
+  /* 바닥 집계: 기관별 주관 업무 수(1칸 = 1개, 선형) */
+  function count(k, year){ return ROWS.filter(function(r){
+      if(year===2026) return r.from ? r.from===k : r.marks[k]==='J';
+      return r.marks[k]==='J'; }).length; }
+  function got(k){ return ROWS.filter(function(r){return r.from && r.marks[k]==='J';}).length; }
+  [2026,2027].forEach(function(yr,yi){
+    var y=Y_END+6+H_TALLY*yi;
+    box(X0+W_STAGE+W_NO+6,y,W_TASK-6,H_TALLY,'bt-yr'+(yi?' is-now':''),'주관 업무 수 · '+yr);
+    ORGS.forEach(function(o,i){
+      var n=count(o.k,yr), q=12, gap=3, x=XO+W_ORG*i+16;
+      for(var m=0;m<n;m++){
+        var hot = yi===1 && m >= n - got(o.k);   /* 올해 옮겨 받은 몫은 강조색 */
+        sv('rect',{x:x+m*(q+gap),y:y+H_TALLY/2-q/2,width:q,height:q,'class':yi?(hot?'f-ac':'f-c1'):'f-c4'});
+      }
+      box(x+n*(q+gap)+(n?4:0),y,30,H_TALLY,'bt-cnt'+(yi?' is-now':'')+(yi&&got(o.k)?' is-hot':''),String(n));
+    });
+  });
+  sv('line',{x1:X0,y1:Y_END+6+H_TALLY*2+4,x2:TBL_R,y2:Y_END+6+H_TALLY*2+4,'class':'s-ink','stroke-width':2});
+
+  /* 오른쪽: 수치 타일 */
+  var was=count(FOCUS_ORG,2026), now=count(FOCUS_ORG,2027), fo=ORGS.filter(function(o){return o.k===FOCUS_ORG;})[0];
+  var t=box(SIDE_X,Y_HEAD,SIDE_W,168,'bt-tile','<div style="width:100%"><div class="k">'+fo.name+'이 주관하는 업무</div><div class="v"><span class="was">'+was+'</span><span class="ar">→</span><span class="now">'+now+'</span><span class="un">개</span></div><div class="s">2026 → 2027 · 전체 '+ROWS.length+'개 업무 중</div></div>');
+  t.style.display='block';
+  /* 오른쪽: 묶음 카드 3개 */
+  GROUPS.forEach(function(gp,gi){
+    var nos=ROWS.map(function(r,j){return gp.pick(r)?circ(j+1):'';}).filter(String);
+    var icon = gp.mark==='move' ? '<svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" class="f-ac"/></svg>' : '<svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" class="f-c1"/></svg>';
+    var d=box(SIDE_X,436+gi*128,SIDE_W,116,'bt-rule'+(gp.hot?' is-hot':''),'<div style="width:100%"><div class="h">'+icon+'<span>'+gp.id+' · '+gp.title+'</span><span class="n">'+nos.length+'</span></div><div class="d">'+gp.desc+'</div><div class="r">'+nos.join('')+'</div></div>');
+    d.style.alignItems='flex-start';
+  });
+})();
+
+</script>
+<script>
+(function(){
+  /* 계열 값: DB의 계열 키트(#46 B · #62 D · #52 F) 값을 그대로 씀 */
+  var FAM = {
+    N:{'--ds-bg':'#F5F7FA','--ds-surface':'#FFFFFF','--ds-ink':'#172744','--ds-sub':'#566179','--ds-line':'#D6DCE5','--ds-accent':'#E0592A','--ds-accent2':'#2F5D9E','--ds-c1':'#1C3461','--ds-c2':'#2F5D9E','--ds-c3':'#6488BE','--ds-c4':'#A8BEDD','--ds-c5':'#E6EDF7',
+       '--ds-font-title':'"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-body':'"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':'"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif','--ds-radius':'4px'},
+    B:{'--ds-bg':'#EEF1F4','--ds-surface':'#FAFAF8','--ds-ink':'#1F2B36','--ds-sub':'#5E6974','--ds-line':'#CDD4DB','--ds-accent':'#E2571A','--ds-accent2':'#2F5D86','--ds-c1':'#2F4252','--ds-c2':'#4F6679','--ds-c3':'#7389A0','--ds-c4':'#9DB0C1','--ds-c5':'#C6D2DC',
+       '--ds-font-title':'"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-body':'"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':'"IBM Plex Mono",Consolas,monospace','--ds-radius':'2px'},
+    D:{'--ds-bg':'#FBFAF6','--ds-surface':'#FFFFFF','--ds-ink':'#1B1E24','--ds-sub':'#5C606A','--ds-line':'#CFCCC4','--ds-accent':'#D9482B','--ds-accent2':'#23467A','--ds-c1':'#1F3E6E','--ds-c2':'#3C5D8C','--ds-c3':'#6D87AD','--ds-c4':'#A5B5CD','--ds-c5':'#D7DEE9',
+       '--ds-font-title':'"Noto Serif KR","Nanum Myeongjo","Batang",serif','--ds-font-body':'"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':'"Noto Serif KR","Nanum Myeongjo",Georgia,serif','--ds-radius':'0px'},
+    F:{'--ds-bg':'#F3F5F8','--ds-surface':'#FFFFFF','--ds-ink':'#12203A','--ds-sub':'#556178','--ds-line':'#D3DAE4','--ds-accent':'#E5483A','--ds-accent2':'#2F64AE','--ds-c1':'#1E3A66','--ds-c2':'#34598F','--ds-c3':'#5B7DB0','--ds-c4':'#8FA8CC','--ds-c5':'#C4D2E6',
+       '--ds-font-title':'"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-body':'"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif','--ds-font-num':'"Saira Semi Condensed","Arial Narrow",sans-serif','--ds-radius':'3px'}
+  };
+  var NAMES={N:'중립 값',B:'B 미니멀 스튜디오',D:'D 인쇄·종이',F:'F 관측·중계'};
+  var bt=document.getElementById('bt');
+  var btns=document.querySelectorAll('.pg-swap button');
+  btns.forEach(function(b){ b.addEventListener('click',function(){
+    var v=FAM[b.getAttribute('data-f')]; for(var k in v) bt.style.setProperty(k,v[k]);
+    btns.forEach(function(o){o.setAttribute('aria-pressed', o===b?'true':'false');});
+  });});
+  /* 스펙 표 */
+  var keys=Object.keys(FAM.N).filter(function(k){return k.indexOf('font')<0;});
+  var h='<tr><th>변수</th>'+Object.keys(FAM).map(function(f){return '<th>'+NAMES[f]+'</th>';}).join('')+'</tr>';
+  keys.forEach(function(k){ h+='<tr><td><code>'+k+'</code></td>'+Object.keys(FAM).map(function(f){var v=FAM[f][k]; return '<td>'+(v.charAt(0)==='#'?'<span class="sw" style="background:'+v+'"></span>':'')+'<code>'+v+'</code></td>';}).join('')+'</tr>'; });
+  document.getElementById('pg-spec').innerHTML=h;
+  /* 코드 복사 */
+  var pre=document.getElementById('pg-pre');
+  document.getElementById('pg-copy').addEventListener('click',function(){
+    var btn=this;
+    function sel(){var r=document.createRange(); r.selectNodeContents(pre); var s=getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='선택됨 · Ctrl+C';}
+    try{ navigator.clipboard.writeText(pre.textContent).then(function(){btn.textContent='복사됨';},sel); }catch(e){ sel(); }
+  });
+})();
+</script>
+
+</body></html>
