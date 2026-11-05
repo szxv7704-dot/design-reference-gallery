@@ -80,3 +80,13 @@ python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받�
 
 - 빌드는 페이지에 쓰인 글자만 잘라 글꼴을 박아 넣고, 그림 · 라이브러리도 파일 안에 넣습니다. 결과물에 바깥 주소가 없습니다(‘코드 복사’ 안의 글은 예외).
 - 새 글꼴이 필요하면 `fonts/needed.json`에 적고 `scripts/fetch_fonts.py` → `scripts/pack_fonts.py`(원본 ttf는 저장소 밖).
+
+## 공통 부품: 아이콘 세트
+
+`icons/icons.html`(갤러리에서 열림) · `icons/icons.json` · 원본 페이지 `src/icons/`.
+
+- 85개, 12묶음(사람 · 학교·교육 · 목표·성과 · 분석·자료 · 예산·재정 · 일정·시간 · 행정·문서 · 안전·복지 · 시설·환경 · 디지털 · 소통·홍보 · 체계·흐름).
+- 규격: 24×24, 선 1.75, 둥근 끝, `currentColor`. 배지 4종(평행사변형·원·사각·선만)은 `--ds-*` 변수를 따른다.
+- 원본 [Tabler Icons](https://tabler.io/icons) © Paweł Kuna, MIT(`icons/LICENSE-tabler.txt`). 선 굵기만 2→1.75로 조정.
+- 루틴은 인덱스 DB `icons` 모음(`_set` = 규칙·CSS·SVG 틀, `g01`~`g12` = 묶음별 아이콘)에서 읽어 SVG를 페이지 안에 넣는다.
+- 아이콘을 더할 때: `icons/icons.json`에 같은 규격으로 넣고 `src/icons/page.html`의 데이터도 바꾼 뒤 `python3 -c "import sys;sys.path.insert(0,'scripts');import build;build.build('icons','icons')"`로 다시 만든다. 인덱스 DB도 함께 고친다.
