@@ -340,12 +340,11 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .fw{position:absolute;inset:0;overflow:hidden;container-type:size;background:#03050A}
 .fw .fwbg{position:absolute;inset:0;background-image:var(--img-N),radial-gradient(120% 90% at 50% 100%,#16223C 0%,#070B16 55%,#020308 100%);background-size:cover,100% 100%;background-position:center bottom,center}
 .fw canvas{position:absolute;inset:0;width:100%;height:100%}
-.fw canvas.gl{filter:blur(.7cqw) brightness(1.4);opacity:.85;mix-blend-mode:screen}
+.fw canvas.gl{filter:blur(.7cqw) brightness(1.15);opacity:.55;mix-blend-mode:screen}
 .fw .fwt{position:absolute;left:0;right:0;top:60%;transform:translateY(-50%);text-align:center;opacity:0;transition:opacity .9s ease;pointer-events:none}
 .fw .fwt.on{opacity:1}
-.fw .fwt b{display:block;font:900 6cqw/1 var(--ft);letter-spacing:0;color:#FFF6E0;white-space:nowrap;text-shadow:0 0 1cqw rgba(255,190,110,.9),0 0 4cqw rgba(255,160,60,.45)}
-.fw .fwt b em{font-style:normal;color:#FFC46B}
-.fw .fwt span{position:absolute;left:0;right:0;top:100%;display:block;margin-top:1.4cqw;font:600 max(1.6cqw,10px) var(--fb);color:#D8DCE4;letter-spacing:.04em}
+.fw .fwt b{display:inline-block;font:400 6cqw/1 var(--ft);letter-spacing:.2em;margin-right:-.2em;color:#F6F4EF;white-space:nowrap;text-shadow:0 0 1.2cqw rgba(255,255,255,.28)}
+.fw .fwt span{position:absolute;left:0;right:0;top:100%;display:block;margin-top:2.2cqw;font:500 max(1.2cqw,9px) var(--fb);color:rgba(246,244,239,.62);letter-spacing:.42em;padding-left:.42em}
 .demo .fw .fwt b{font-size:10cqw}
 .fullbtn{position:absolute;right:3%;top:3%;z-index:3;font:600 13px var(--fb);color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:6px 12px;cursor:pointer}
 .fullbtn:hover{background:rgba(255,255,255,.26)}
@@ -687,8 +686,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   <div class="head"><div><span class="chip"><b>6</b>소리가 보이는 모션</span><h2>소리가 들리는 듯 움직이면 눈이 따라간다</h2></div><div class="meta">기법 4 · 소리 없이 움직임만으로</div></div>
   <div class="cards c4">
     <article class="card"><div class="demo d-pop">
-        <div class="fw" data-js="fw" data-text="목표 달성!"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas>
-          <div class="fwt"><b>목표 <em>달성!</em></b><span>2027 참여 목표 100%</span></div></div>
+        <div class="fw" data-js="fw" data-text="목표 달성"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas>
+          <div class="fwt"><b>목표 달성</b><span>2027 · 참여 목표 100%</span></div></div>
         <button type="button" class="fullbtn" data-open="pop">⤢ 크게 보기</button>
       </div><p class="steps"><i>①</i> 하늘 가득 팡 → <i>②</i> 불꽃 획이 뒤섞여 탁탁 바뀜 → <i>③</i> 아래부터 맞물려 "아!"</p>
       <h3>팡! 터뜨리기<small>뒤섞인 획이 맞물려 글자로</small></h3><p class="why">"무슨 글자지?" 하다가 획이 정돈되는 순간 "아!" 하게 된다.</p>
@@ -726,8 +725,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   </div>
   <div class="fullv" id="fullv">
     <span class="fvtag">⑥ 팡! 터뜨리기 · 크게 보기</span>
-    <div class="fw" data-text="목표 달성!"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas>
-      <div class="fwt"><b>목표 <em>달성!</em></b><span>2027 참여 목표 100%</span></div></div>
+    <div class="fw" data-text="목표 달성"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas>
+      <div class="fwt"><b>목표 달성</b><span>2027 · 참여 목표 100%</span></div></div>
     <div class="fvbar"><button type="button" data-fv="replay">↻ 다시</button><button type="button" data-fv="close">✕ 닫기 (Esc)</button></div>
   </div>
   <div class="foot"><span>와우 포인트 23 · ⑥ 소리가 보이는 모션</span><span>8 / 9</span></div>
@@ -845,8 +844,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     const g = fx.getContext('2d'), s = sm.getContext('2d'), gx = gc.getContext('2d'), TEXT = root.dataset.text || '목표 달성!';
     let W = 0, H = 0, u = 1, qf = 1, slow = 0, parts = [], rockets = [], puffs = [], flashes = [], tps = [], syl = {}, raf = 0, T = 0, last = 0, ev = [], textAt = 0, running = false;
     const rnd = (a, b) => a + Math.random() * (b - a);
-    const col = { gold: () => [rnd(34, 46), rnd(85, 100), rnd(58, 70)], white: () => [rnd(40, 50), rnd(25, 55), rnd(86, 95)],
-      blue: () => [rnd(200, 220), rnd(70, 95), rnd(62, 76)], pale: () => [rnd(30, 40), rnd(60, 90), rnd(72, 84)] };
+    const col = { gold: () => [rnd(36, 44), rnd(35, 55), rnd(72, 82)], white: () => [rnd(30, 220), rnd(5, 15), rnd(90, 97)],
+      blue: () => [rnd(205, 218), rnd(25, 45), rnd(78, 88)], pale: () => [rnd(38, 44), rnd(20, 35), rnd(84, 92)] };
     const size = () => {
       W = root.offsetWidth; H = root.offsetHeight; u = W / 1600;
       const R = Math.min(2, Math.max(1, (devicePixelRatio || 1) * (window.__k || 1)));
@@ -860,7 +859,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       const base = { big: 13.5, peony: 10.5, blue: 9.8, willow: 8 }[type] * u * k;
       for (let i = 0; i < n; i++) {
         const a = Math.random() * 6.2832, sp = base * (.18 + .82 * Math.sqrt(Math.random()));
-        const kind = type === 'blue' ? (Math.random() < .55 ? 'blue' : 'white') : type === 'willow' ? 'gold' : (Math.random() < .7 ? 'gold' : Math.random() < .5 ? 'white' : 'pale');
+        const kind = type === 'blue' ? (Math.random() < .45 ? 'blue' : 'white') : type === 'willow' ? (Math.random() < .6 ? 'gold' : 'pale') : (Math.random() < .55 ? 'white' : Math.random() < .6 ? 'pale' : 'gold');
         parts.push({ x, y, px: x, py: y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, decay: rnd(.006, .0105) * (type === 'willow' ? .55 : 1),
           drag: type === 'willow' ? .958 : .972, gr: (type === 'willow' ? .05 : .032) * u, c: col[kind](), w: rnd(1.3, 2.7) * Math.max(.45, u), gl: Math.random() < .45 });
       }
@@ -871,11 +870,11 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     const strokes = () => {
       const fs = Math.round(W * (W < 800 ? .1 : .06)), cw = Math.ceil(W), ch = Math.ceil(fs * 1.6), oy = H * .6 - ch / 2, st = Math.max(2, Math.round(fs / 30));
       const c = document.createElement('canvas'), x = c.getContext('2d', { willReadFrequently: true }); c.width = cw; c.height = ch;
-      x.font = '900 ' + fs + 'px "Gothic A1"'; x.textAlign = 'left'; x.textBaseline = 'alphabetic'; x.fillStyle = '#fff';
+      x.font = '400 ' + fs + 'px "Gothic A1"'; x.textAlign = 'left'; x.textBaseline = 'alphabetic'; x.fillStyle = '#fff';
       const fm = x.measureText('목'), base = ch / 2 + ((fm.fontBoundingBoxAscent || fs * .88) - (fm.fontBoundingBoxDescent || fs * .22)) / 2;
-      const chars = [...TEXT], ws = chars.map(t => x.measureText(t).width), lefts = [];
-      let cx = (cw - ws.reduce((a, b2) => a + b2, 0)) / 2;
-      chars.forEach((t, i) => { lefts.push(cx); x.fillText(t, cx, base); cx += ws[i]; });
+      const chars = [...TEXT], ws = chars.map(t => x.measureText(t).width), lefts = [], ls = fs * .2;   // 자간 .2em(화면 글자와 같게)
+      let cx = (cw - ws.reduce((a, b2) => a + b2, 0) - ls * (chars.length - 1)) / 2;
+      chars.forEach((t, i) => { lefts.push(cx); x.fillText(t, cx, base); cx += ws[i] + ls; });
       const d = x.getImageData(0, 0, cw, ch).data, N = cw * ch, M = new Uint8Array(N);
       for (let i = 0; i < N; i++) M[i] = d[i * 4 + 3] >= 128 ? 1 : 0;
       const nb4 = j => { const jx = j % cw; return [jx > 0 ? j - 1 : -1, jx < cw - 1 ? j + 1 : -1, j >= cw ? j - cw : -1, j + cw < N ? j + cw : -1]; };
@@ -921,7 +920,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
         let x0 = cw, y0 = ch, x1 = 0, y1 = 0; px.forEach(j => { const jx = j % cw, jy = (j / cw) | 0; if (jx < x0) x0 = jx; if (jx > x1) x1 = jx; if (jy < y0) y0 = jy; if (jy > y1) y1 = jy; });
         const w = x1 - x0 + 3, h = y1 - y0 + 3, sp = document.createElement('canvas'); sp.width = w; sp.height = h;
         const sx = sp.getContext('2d'), im = sx.createImageData(w, h);
-        px.forEach(j => { const k = ((((j / cw) | 0) - y0 + 1) * w + (j % cw) - x0 + 1) * 4; im.data[k] = 255; im.data[k + 1] = 238; im.data[k + 2] = 205; im.data[k + 3] = 255; });
+        px.forEach(j => { const k = ((((j / cw) | 0) - y0 + 1) * w + (j % cw) - x0 + 1) * 4; im.data[k] = 247; im.data[k + 1] = 245; im.data[k + 2] = 240; im.data[k + 3] = 255; });
         sx.putImageData(im, 0, 0);
         out.push({ sp, w, h, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 + oy, bot: y1 + oy, len: Math.max(w, h) });
       });
@@ -963,7 +962,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       g.globalCompositeOperation = 'lighter';
       rockets = rockets.filter(r => {
         const px = r.x, py = r.y; r.vy += r.gR * f; r.x += r.vx * f; r.y += r.vy * f;
-        g.strokeStyle = 'rgba(255,214,150,.9)'; g.lineWidth = 2.2 * Math.max(.5, u); g.beginPath(); g.moveTo(px, py); g.lineTo(r.x, r.y); g.stroke();
+        g.strokeStyle = 'rgba(245,240,228,.85)'; g.lineWidth = 2.2 * Math.max(.5, u); g.beginPath(); g.moveTo(px, py); g.lineTo(r.x, r.y); g.stroke();
         if (Math.random() < .7) parts.push({ x: r.x, y: r.y, px: r.x, py: r.y, vx: rnd(-.5, .5) * u, vy: rnd(.4, 1.6) * u, life: .55, decay: .03, drag: .95, gr: .02 * u, c: col.gold(), w: 1.1 * Math.max(.5, u), gl: false });
         if (r.vy > -1.2 * u) { burst(r.x, r.y, r.type, r.k); if (r.text) spawnText(); return false; }
         return true;
@@ -971,7 +970,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       flashes = flashes.filter(fl => (fl.a -= .07 * f) > 0);
       for (const fl of flashes) {
         const gr = g.createRadialGradient(fl.x, fl.y, 0, fl.x, fl.y, fl.r);
-        gr.addColorStop(0, 'rgba(255,240,210,' + .28 * fl.a + ')'); gr.addColorStop(1, 'rgba(255,200,120,0)');
+        gr.addColorStop(0, 'rgba(250,248,242,' + .18 * fl.a + ')'); gr.addColorStop(1, 'rgba(250,248,242,0)');
         g.fillStyle = gr; g.fillRect(fl.x - fl.r, fl.y - fl.r, fl.r * 2, fl.r * 2);
       }
       parts = parts.filter(p => (p.life -= p.decay * f) > 0);
@@ -994,13 +993,13 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
             if (T >= q.nx) {
               q.nx = T + rnd(.07, .14);
               q.dx = rnd(-1, 1) * q.fs * 1.1 * m; q.dy = rnd(-1, 1) * q.fs * .7 * m; q.rot = rnd(-1.7, 1.7) * m; q.sc = 1 + rnd(-.45, .45) * m;
-              if (Math.random() < .5) for (let i = 0; i < 2; i++) parts.push({ x: q.cx + q.dx, y: q.cy + q.dy, px: q.cx + q.dx, py: q.cy + q.dy, vx: rnd(-2, 2) * u, vy: rnd(-2.2, .5) * u, life: .45, decay: .06, drag: .94, gr: .08 * u, c: col.gold(), w: Math.max(.6, u), gl: false });
+              if (Math.random() < .2) for (let i = 0; i < 1; i++) parts.push({ x: q.cx + q.dx, y: q.cy + q.dy, px: q.cx + q.dx, py: q.cy + q.dy, vx: rnd(-2, 2) * u, vy: rnd(-2.2, .5) * u, life: .45, decay: .06, drag: .94, gr: .08 * u, c: col.gold(), w: Math.max(.6, u), gl: false });
             }
             alpha = .55 + .45 * Math.random();
           } else if (!q.done) {
             q.done = true; q.dx = q.dy = q.rot = 0; q.sc = 1;
-            flashes.push({ x: q.cx, y: q.cy, r: 8 * Math.max(.5, u) + q.len * .35, a: .8 });
-            for (let i = 0; i < 4; i++) parts.push({ x: q.cx + rnd(-.5, .5) * q.w, y: q.cy + rnd(-.5, .5) * q.h, px: q.cx, py: q.cy, vx: rnd(-2.5, 2.5) * u, vy: rnd(-3, -.5) * u, life: .5, decay: .05, drag: .95, gr: .1 * u, c: col.white(), w: Math.max(.6, u), gl: false });
+            flashes.push({ x: q.cx, y: q.cy, r: 6 * Math.max(.5, u) + q.len * .25, a: .5 });
+            for (let i = 0; i < 2; i++) parts.push({ x: q.cx + rnd(-.5, .5) * q.w, y: q.cy + rnd(-.5, .5) * q.h, px: q.cx, py: q.cy, vx: rnd(-2.5, 2.5) * u, vy: rnd(-3, -.5) * u, life: .5, decay: .05, drag: .95, gr: .1 * u, c: col.white(), w: Math.max(.6, u), gl: false });
           } else alpha = .85 + .15 * Math.random();
           // 맞물린 직후 0.12초 동안 살짝 넘쳤다 돌아옴
           const ov = q.done ? Math.max(0, 1 - (T - q.set) / .12) : 0;
@@ -1012,7 +1011,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
         if (syl.flash && T - syl.flash < .6) {
           // 빛줄기가 글자 획 위만 왼→오로 훑음(획을 한 번 더 겹쳐 그려 밝게)
           const k = (T - syl.flash) / .6, bx = syl.xl - syl.fs * .5 + (syl.xr - syl.xl + syl.fs) * k, bw = syl.fs * .9;
-          for (const q of syl.list) { const dd = Math.abs(q.cx - bx); if (dd < bw) { g.save(); g.globalAlpha = (1 - dd / bw) * .9 * fade; g.translate(q.cx, q.cy); g.drawImage(q.sp, -q.w / 2, -q.h / 2); g.restore(); } }
+          for (const q of syl.list) { const dd = Math.abs(q.cx - bx); if (dd < bw) { g.save(); g.globalAlpha = (1 - dd / bw) * .55 * fade; g.translate(q.cx, q.cy); g.drawImage(q.sp, -q.w / 2, -q.h / 2); g.restore(); } }
         }
       }
       gx.clearRect(0, 0, gc.width, gc.height); gx.drawImage(fx, 0, 0, gc.width, gc.height);
