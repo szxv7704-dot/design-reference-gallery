@@ -17,7 +17,8 @@
   --fb:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fm:"IBM Plex Mono",ui-monospace,monospace;
   /* 이미지 자리(받으면 채움) */
-  --img-A:none; --img-B:none; --img-C1:none; --img-C2:none; --img-D:none; --img-E:none; --img-F:none; --img-H:none;
+  --img-A:url(@@ASSET:wow-a.webp@@); --img-B:url(@@ASSET:wow-b.webp@@); --img-C1:url(@@ASSET:wow-c1.webp@@); --img-C2:url(@@ASSET:wow-c2.webp@@);
+  --img-D:url(@@ASSET:wow-d.webp@@); --img-E:url(@@ASSET:wow-e.webp@@); --img-F:url(@@ASSET:wow-f.webp@@); --img-H:url(@@ASSET:wow-h.webp@@);
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:var(--fb);-webkit-font-smoothing:antialiased}
@@ -120,10 +121,10 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-build .cur{position:absolute;right:4%;top:5%;font:600 4cqw var(--fm);color:var(--g1)}
 
 /* ── ① 줌 인 ── */
-.d-zoom .world{position:absolute;inset:0;transform-origin:70% 32%}
+.d-zoom .world{position:absolute;inset:0;transform-origin:74% 25%}
 .play .d-zoom .world{animation:zoom 5s cubic-bezier(.65,0,.25,1) .4s both}
 @keyframes zoom{0%,18%{transform:none}38%,72%{transform:scale(2.4)}92%,100%{transform:none}}
-.d-zoom .spot{position:absolute;left:57%;top:18%;width:26%;height:28%;border:.6cqw solid var(--accent);border-radius:1.4cqw;opacity:0}
+.d-zoom .spot{position:absolute;left:50%;top:5%;width:47%;height:42%;border:.6cqw solid var(--accent);border-radius:1.4cqw;opacity:0}
 .play .d-zoom .spot{animation:fadeIn .4s .5s both}
 .d-zoom .zl{position:absolute;left:4%;bottom:6%;background:#fff;border-radius:1.4cqw;padding:2.4cqw 3cqw;font:600 4cqw/1.35 var(--fb);box-shadow:0 6px 18px -8px rgba(0,0,0,.4);opacity:0}
 .d-zoom .zl b{display:block;font:800 5.4cqw var(--ft);color:var(--accent)}
@@ -237,9 +238,9 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-meta .call{position:absolute;font:700 3.6cqw/1.3 var(--fb);background:#fff;border-radius:1cqw;padding:1cqw 1.8cqw;box-shadow:0 4px 14px -6px rgba(0,0,0,.35);opacity:0;white-space:nowrap}
 .d-meta .call b{color:var(--g4)}
 .d-meta .call::after{content:"";position:absolute;width:1.4cqw;height:1.4cqw;border-radius:50%;background:var(--g4);box-shadow:0 0 0 .6cqw rgba(46,125,91,.25)}
-.d-meta .c1{left:4%;top:8%} .d-meta .c1::after{left:30%;top:calc(100% + 6cqw)}
-.d-meta .c2{left:36%;top:4%} .d-meta .c2::after{left:45%;top:calc(100% + 9cqw)}
-.d-meta .c3{right:4%;top:8%} .d-meta .c3::after{left:60%;top:calc(100% + 6cqw)}
+.d-meta .c1{left:3%;top:22%} .d-meta .c1::after{left:45%;top:calc(100% + 3cqw)}
+.d-meta .c2{left:31%;top:12%} .d-meta .c2::after{left:47%;top:calc(100% + 13cqw)}
+.d-meta .c3{right:3%;top:22%} .d-meta .c3::after{left:50%;top:calc(100% + 3.5cqw)}
 .play .d-meta .call{animation:fadeUp .5s both;animation-delay:calc(var(--i)*.5s + .6s)}
 
 /* ── ④ 생활 서식(탑승권) ── */
@@ -278,7 +279,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-game .xp i{display:block;height:100%;width:40%;background:var(--g4)}
 .play .d-game .xp i{animation:xp 1.2s cubic-bezier(.6,0,.3,1) .7s both}
 @keyframes xp{from{width:40%}to{width:60%}}
-.d-game .lv{position:absolute;right:5%;top:8%;background:var(--accent);color:#fff;font:800 5cqw var(--ft);padding:1cqw 2.4cqw;border-radius:1cqw;transform:rotate(4deg);opacity:0;box-shadow:.6cqw .6cqw 0 rgba(43,38,32,.35)}
+.d-game .lv{position:absolute;right:6%;top:46%;background:var(--accent);color:#fff;font:800 5cqw var(--ft);padding:1cqw 2.4cqw;border-radius:1cqw;transform:rotate(4deg);opacity:0;box-shadow:.6cqw .6cqw 0 rgba(43,38,32,.35)}
 .play .d-game .lv{animation:stamp2 .45s cubic-bezier(.3,1.7,.5,1) 2s both}
 @keyframes stamp2{from{opacity:0;transform:rotate(4deg) scale(.3)}to{opacity:1;transform:rotate(4deg) scale(1)}}
 
@@ -402,7 +403,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   <div class="head"><div><span class="chip"><b>1</b>드러내기·이동</span><h2>보여 줄 순서를 정하면 놀람이 생긴다</h2></div><div class="meta">기법 4</div></div>
   <div class="cards c4">
     <article class="card"><div class="demo d-reveal">
-        <div class="img need" data-img="A" data-need="이미지 A · 열리면 드러날 장면" style="background-image:var(--img-A)"></div>
+        <div class="img" data-img="A" style="background-image:var(--img-A);background-position:60% center"></div>
         <div class="after">새로운 시작</div>
         <div class="door l">가려 둔</div><div class="door r">장면</div>
       </div><p class="steps"><i>①</i> 닫힌 면 → <i>②</i> 갈라짐 → <i>③</i> 장면 공개</p>
@@ -426,7 +427,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>점진적 공개<small>한 층씩</small></h3><p class="why">청중이 발표자 속도로 읽게 된다.</p>
       <dl><dt>쓰는 곳</dt><dd>비전 체계도, 단계 절차, 복잡한 구조</dd><dt>주의</dt><dd>지난 층은 지우지 말고 흐리게 남겨 위치를 잃지 않게</dd><dt>PPT</dt><dd>나타내기 + 효과 옵션 '애니메이션 후 흐리게'</dd></dl></article>
     <article class="card"><div class="demo d-zoom">
-        <div class="world"><div class="img need" data-img="B" data-need="이미지 B · 확대해 볼 전체 그림" style="background-image:var(--img-B)"></div><div class="spot"></div></div>
+        <div class="world"><div class="img" data-img="B" style="background-image:var(--img-B);background-position:70% center;background-color:#fff"></div><div class="spot"></div></div>
         <div class="zl"><b>② 체육관</b>세부 내용이 여기서 펼쳐진다</div><div class="back">전체로 ↺</div>
       </div><p class="steps"><i>①</i> 전체 → <i>②</i> 한 곳 확대 → <i>③</i> 다시 전체</p>
       <h3>줌 인<small>전체 → 부분</small></h3><p class="why">지도를 먼저 쥐여 주고 한 곳으로 데려간다.</p>
@@ -450,8 +451,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   <div class="head"><div><span class="chip"><b>2</b>대비·전환</span><h2>같은 자리에서 보여 줘야 차이가 보인다</h2></div><div class="meta">기법 3</div></div>
   <div class="cards c3">
     <article class="card"><div class="demo d-ba" data-js="ba">
-        <div class="img need" data-img="C1" data-need="이미지 C1 · 바뀌기 전" style="background-image:var(--img-C1)"></div>
-        <div class="img need after" data-img="C2" data-need="이미지 C2 · 바뀐 뒤(같은 구도)" style="background-image:var(--img-C2);background-color:#DCE8DF"></div>
+        <div class="img" data-img="C1" style="background-image:var(--img-C1)"></div>
+        <div class="img after" data-img="C2" style="background-image:var(--img-C2)"></div>
         <span class="tag b">전</span><span class="tag a">후</span><div class="handle"></div>
       </div><p class="steps"><i>①</i> 전 → <i>②</i> 후 → <i>③</i> 반반 (끌어서 직접 비교)</p>
       <h3>비포/애프터<small>같은 구도, 바뀐 것만</small></h3><p class="why">구도가 같으면 눈은 바뀐 곳만 본다.</p>
@@ -517,7 +518,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   <div class="head"><div><span class="chip"><b>4</b>은유·세계관</span><h2>정책을 익숙한 사물과 이야기로 옮긴다</h2></div><div class="meta">기법 4</div></div>
   <div class="cards c4">
     <article class="card"><div class="demo d-meta">
-        <div class="img need" data-img="D" data-need="이미지 D · 은유가 될 사물 하나" style="background-image:var(--img-D)"></div>
+        <div class="img" data-img="D" style="background-image:var(--img-D);background-size:100% auto;background-repeat:no-repeat;background-color:#fff"></div>
         <span class="call c1" style="--i:0"><b>블록</b> = 학교</span><span class="call c2" style="--i:1"><b>다리</b> = 연계 사업</span><span class="call c3" style="--i:2"><b>블록</b> = 지역</span>
       </div><p class="steps"><i>①</i> 사물 하나 → <i>②</i> 부분마다 뜻 붙이기</p>
       <h3>시각 은유<small>개념을 사물로</small></h3><p class="why">추상적인 정책이 사물 하나로 한 번에 이해된다.</p>
@@ -532,7 +533,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>생활 서식 빌려 오기<small>탑승권·영수증</small></h3><p class="why">익숙한 틀을 엉뚱한 자리에 두면 눈이 멈춘다.</p>
       <dl><dt>쓰는 곳</dt><dd>표지, 홍보물, 연수 안내</dd><dt>주의</dt><dd>서식 디테일이 진짜 같아야 한다. 정보는 서식 칸 안에</dd><dt>PPT</dt><dd>표 · 점선 · 바코드 글꼴로 서식 재현</dd></dl></article>
     <article class="card"><div class="demo d-game">
-        <div class="img need" data-img="E" data-need="이미지 E · 게임 월드맵" style="background-image:var(--img-E)"></div>
+        <div class="img" data-img="E" style="background-image:var(--img-E);background-position:70% center"></div>
         <div class="qw"><div class="t"><span>QUEST 3 / 5</span><span>2028</span></div>
           <ul><li class="ok">1단계 시범 운영</li><li class="nx">2단계 확대</li><li>3단계 전역</li></ul>
           <div class="xp"><i></i></div></div>
@@ -566,7 +567,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>키네틱 타이포<small>글자가 연출</small></h3><p class="why">그림 없이 글자만으로 장면이 된다.</p>
       <dl><dt>쓰는 곳</dt><dd>제목, 슬로건, 간지</dd><dt>주의</dt><dd>덱 전체에서 한 번. 본문 글자는 움직이지 않는다</dd><dt>PPT</dt><dd>나타내기 + '텍스트 애니메이션: 문자 단위'</dd></dl></article>
     <article class="card"><div class="demo d-tex">
-        <div class="img need" data-img="F" data-need="이미지 F · 종이 콜라주 바탕" style="background-image:var(--img-F)"></div>
+        <div class="img" data-img="F" style="background-image:var(--img-F)"></div>
         <div class="tape"></div><div class="strip">다시 쓰는 학교</div><div class="strip2">2027 탄소중립 실천 계획</div>
       </div><p class="steps"><i>①</i> 재질 바탕 → <i>②</i> 종이 조각 제목이 붙음</p>
       <h3>재질·질감<small>화면에 손맛</small></h3><p class="why">매끈한 화면 사이에서 만질 수 있을 것 같은 장면.</p>
@@ -579,7 +580,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>3D·깊이<small>쌓임을 진짜 층으로</small></h3><p class="why">평면 장표들 사이에서 깊이 하나가 튀어 오른다.</p>
       <dl><dt>쓰는 곳</dt><dd>누적 지원, 층위 구조, 지형·분포</dd><dt>주의</dt><dd>기울기 때문에 크기가 왜곡된다. 숫자를 같이 적는다</dd><dt>PPT</dt><dd>3D 회전 도형 + 위에서 날아오기</dd></dl></article>
     <article class="card"><div class="demo d-blank">
-        <div class="img need" data-img="H" data-need="이미지 H · 거의 빈 화면 + 작은 사물 하나" style="background-image:var(--img-H)"></div>
+        <div class="img" data-img="H" style="background-image:var(--img-H)"></div>
         <div class="tt">멀리, 가볍게<small>2027 진로교육 기본계획(안)</small></div>
       </div><p class="steps"><i>①</i> 빈 화면 → <i>②</i> 제목 한 줄과 사물 하나</p>
       <h3>극단적 여백<small>비울수록 강해짐</small></h3><p class="why">남은 하나에 시선이 전부 모인다.</p>

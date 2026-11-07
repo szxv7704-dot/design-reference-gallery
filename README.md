@@ -95,5 +95,5 @@ python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받�
 
 `wow/wow.html`(갤러리에서 열림) · 원본 `src/wow/`. 발표 와우 기법 19가지를 다섯 묶음(드러내기·이동 / 대비·전환 / 숫자 체감 / 은유·세계관 / 감각·형식)으로 모은 8장 덱. 장마다 기법이 실제로 움직이고(← → 넘기기 · R 다시 재생), 인쇄하면 끝 화면으로 한 장씩 나온다.
 
-- 이미지 자리 7곳(A·B·C1·C2·D·E·F·H)은 `src/wow/assets/`에 사진을 넣고 `build.json`의 `assets`와 `page.html`의 `--img-*` 변수에 연결한다. 비어 있으면 점선 자리표시가 보인다.
+- 사진 8장(`src/wow/assets/wow-*.webp`, 가로 1100~1400px WebP)은 `page.html` 맨 위 `--img-A`~`--img-H` 변수로 연결한다. 바꿀 때는 같은 이름으로 덮어쓰고 다시 만든다. 변수를 `none`으로 두고 요소에 `need` 클래스를 붙이면 점선 자리표시가 된다.
 - 다시 만들기: `python3 -c "import sys;sys.path.insert(0,'scripts');import build;build.build('wow','wow')"`
