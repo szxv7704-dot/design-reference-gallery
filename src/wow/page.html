@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>와우 포인트 19</title>
+<title>와우 포인트 23</title>
 <style>/*@@FONTS@@*/</style>
 <style>
-/* 와우 포인트 19 — 발표 와우 기법을 다섯 묶음으로 모은 8장 덱.
+/* 와우 포인트 23 — 발표 와우 기법을 여섯 묶음으로 모은 9장 덱.
    이미지 자리: --img-A … --img-H 에 사진을 넣으면 바뀐다(없으면 점선 자리표시). */
 @property --x { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
 :root{
   --bg:#ECE9E3; --paper:#F7F5F1; --surface:#FFFFFF; --ink:#1C2128; --sub:#5C636C; --mute:#9AA0A7; --line:#DAD5CC;
   --accent:#E2571A;
-  --g1:#2F5D86; --g2:#7B4F9E; --g3:#C4471A; --g4:#2E7D5B; --g5:#A87C00;
+  --g1:#2F5D86; --g2:#7B4F9E; --g3:#C4471A; --g4:#2E7D5B; --g5:#A87C00; --g6:#B0306A;
   --ft:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fb:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fm:"IBM Plex Mono",ui-monospace,monospace;
@@ -57,7 +57,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .c3 .card dl{font-size:16px}
 .card dt{font-weight:700;color:var(--gc);white-space:nowrap}
 .card dd{margin:0;color:#343A42}
-.g1{--gc:var(--g1)} .g2{--gc:var(--g2)} .g3{--gc:var(--g3)} .g4{--gc:var(--g4)} .g5{--gc:var(--g5)}
+.g1{--gc:var(--g1)} .g2{--gc:var(--g2)} .g3{--gc:var(--g3)} .g4{--gc:var(--g4)} .g5{--gc:var(--g5)} .g6{--gc:var(--g6)}
 
 /* 이미지 자리 */
 .img{position:absolute;inset:0;background-size:cover;background-position:center}
@@ -79,15 +79,15 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 @keyframes pop{from{opacity:0;transform:translateY(40px) scale(.85)}to{opacity:1;transform:none}}
 
 /* ── 2 한눈에 ── */
-.map{position:absolute;left:64px;right:64px;top:232px;bottom:150px;display:grid;grid-template-columns:repeat(5,1fr);gap:20px}
-.grp{background:var(--surface);border-radius:14px;padding:22px 22px 18px;border-top:6px solid var(--gc);display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s}
+.map{position:absolute;left:64px;right:64px;top:232px;bottom:150px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.grp{background:var(--surface);border-radius:14px;padding:18px 16px 16px;border-top:6px solid var(--gc);display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s}
 .grp:hover{transform:translateY(-4px)}
 .grp .n{font:700 16px var(--fm);color:var(--gc)}
-.grp h3{margin:6px 0 4px;font:800 30px/1.2 var(--ft);letter-spacing:-.02em}
-.grp p{margin:0 0 16px;font:400 16px/1.45 var(--fb);color:var(--sub)}
+.grp h3{margin:6px 0 4px;font:800 25px/1.2 var(--ft);letter-spacing:-.02em}
+.grp p{margin:0 0 14px;font:400 14px/1.45 var(--fb);min-height:41px;color:var(--sub)}
 .grp ol{margin:0;padding:0;list-style:none;display:grid;gap:10px}
-.grp li{font:600 20px/1.3 var(--fb);padding:10px 12px;border-radius:8px;background:#F4F2EE}
-.grp li small{display:block;font:400 14px var(--fb);color:var(--sub);margin-top:2px}
+.grp li{font:600 17px/1.3 var(--fb);padding:9px 11px;border-radius:8px;background:#F4F2EE}
+.grp li small{display:block;font:400 13px var(--fb);color:var(--sub);margin-top:2px}
 .grp .go{margin-top:auto;padding-top:14px;font:500 14px var(--fm);color:var(--gc)}
 .offs{position:absolute;left:64px;right:64px;bottom:62px;height:66px;display:flex;align-items:center;gap:18px;padding:0 24px;border:1.5px dashed #B9B3A8;border-radius:12px;font:500 18px var(--fb);color:var(--sub)}
 .offs b{color:var(--ink)}
@@ -334,12 +334,108 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-blank .tt small{display:block;font:500 3.2cqw var(--fb);color:var(--sub);margin-top:1.4cqw;letter-spacing:0}
 .play .d-blank .tt{animation:fadeIn 1.2s .4s both}
 
-/* ── 8 고르는 법 ── */
+
+/* ── ⑥ 팡! 터뜨리기 ── */
+.d-pop{background:radial-gradient(circle at 50% 45%,#2A3140,#161A21)}
+.d-pop .rk{position:absolute;left:50%;bottom:0;width:.6cqw;height:12cqw;margin-left:-.3cqw;border-radius:99px;background:linear-gradient(transparent,#FFD58A);opacity:0}
+.play .d-pop .rk{animation:rocket .55s cubic-bezier(.3,.6,.6,1) .1s both}
+@keyframes rocket{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-34cqh)}}
+.d-pop .flash{position:absolute;left:50%;top:45%;width:30cqw;height:30cqw;margin:-15cqw 0 0 -15cqw;border-radius:50%;background:radial-gradient(#FFF6D8,rgba(255,200,120,.35) 40%,transparent 70%);opacity:0}
+.play .d-pop .flash{animation:flash .6s .62s both}
+@keyframes flash{0%{opacity:0;transform:scale(.2)}25%{opacity:1}100%{opacity:0;transform:scale(1.8)}}
+.d-pop .pt{position:absolute;left:50%;top:45%;width:1.6cqw;height:1.6cqw;margin:-.8cqw;border-radius:50%;background:var(--c);opacity:0}
+.play .d-pop .pt{animation:spark 1.3s cubic-bezier(.1,.7,.3,1) .65s both}
+@keyframes spark{0%{opacity:1;transform:rotate(var(--a)) translateX(0) scale(1.2)}70%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) translateY(6cqw) scale(.4)}}
+.d-pop .cf{position:absolute;top:-6%;width:1.4cqw;height:2.4cqw;background:var(--c);opacity:0}
+.play .d-pop .cf{animation:confetti 2.6s linear both;animation-delay:var(--t)}
+@keyframes confetti{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:.9;transform:translateY(120cqh) rotate(540deg)}}
+.d-pop .word{position:absolute;left:0;right:0;top:34%;text-align:center;font:900 15cqw/1 var(--ft);color:#fff;letter-spacing:-.03em;white-space:nowrap}
+.d-pop .word span{display:inline-block;opacity:0}
+.d-pop .word .hl{color:#FFB48A}
+.play .d-pop .word span{animation:scatter 1.8s cubic-bezier(.3,1.25,.4,1) .66s both}
+@keyframes scatter{0%{opacity:0;transform:translate(var(--cx),0) scale(.1) rotate(0)}
+  30%{opacity:1;transform:translate(var(--x),var(--y)) scale(.85) rotate(var(--r))}
+  45%{opacity:1;transform:translate(var(--x),var(--y)) scale(.85) rotate(var(--r))}
+  100%{opacity:1;transform:none}}
+.d-pop .sub{position:absolute;left:0;right:0;top:62%;text-align:center;font:600 4cqw var(--fb);color:#C9CED5;opacity:0}
+.play .d-pop .sub{animation:fadeUp .5s 2.3s both}
+.d-pop .ono{position:absolute;left:58%;top:16%;font:900 8cqw var(--ft);color:#FFD58A;transform:rotate(12deg);opacity:0}
+.play .d-pop .ono{animation:ono .7s .62s both}
+@keyframes ono{0%{opacity:0;transform:rotate(12deg) scale(.3)}30%{opacity:1;transform:rotate(12deg) scale(1.15)}100%{opacity:0;transform:rotate(12deg) scale(1.3)}}
+
+/* ── ⑥ 칙칙폭폭 지나가기 ── */
+.d-train{background:linear-gradient(#E6F0F6 0 70%,#EDE6D8 70%)}
+.d-train .rail{position:absolute;left:0;right:0;top:73%;height:3cqw;background:repeating-linear-gradient(90deg,#9C8F7B 0 1.2cqw,transparent 1.2cqw 4cqw);border-top:.6cqw solid #6E665A;border-bottom:.6cqw solid #6E665A}
+.d-train .trn{position:absolute;left:4cqw;top:42%;height:30%;display:flex;align-items:flex-end;gap:1.4cqw}
+.play .d-train .trn{animation:chug 2.6s cubic-bezier(.25,.6,.3,1) .2s both}
+@keyframes chug{from{transform:translateX(-120cqw)}to{transform:none}}
+.d-train .car{position:relative;width:20cqw;height:85%;border-radius:1.4cqw 1.4cqw .6cqw .6cqw;background:var(--c);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font:900 6.4cqw/1 var(--ft);letter-spacing:-.03em}
+.d-train .car small{font:600 2.8cqw var(--fb);opacity:.9;margin-top:.8cqw;letter-spacing:0}
+.d-train .car::before,.d-train .car::after{content:"";position:absolute;bottom:-2.6cqw;width:4.4cqw;height:4.4cqw;border-radius:50%;background:#2B2620;border:1cqw solid #8B8172}
+.d-train .car::before{left:2.4cqw} .d-train .car::after{right:2.4cqw}
+.play .d-train .car{animation:bob .26s ease-in-out 9 alternate;animation-delay:calc(var(--i)*.06s + .2s)}
+@keyframes bob{to{transform:translateY(-.8cqw)}}
+.d-train .loco{width:22cqw;height:100%;background:linear-gradient(90deg,#B0306A 0 70%,#8E2455 70%);border-radius:1.4cqw 4cqw .6cqw .6cqw}
+.d-train .loco .chim{position:absolute;left:3cqw;top:-6cqw;width:4cqw;height:6cqw;background:#3A2B33;border-radius:.6cqw .6cqw 0 0}
+.d-train .loco .win{position:absolute;right:3cqw;top:2.4cqw;width:7cqw;height:6cqw;border-radius:1cqw;background:#F7E7EF}
+.d-train .puff{position:absolute;left:1.5cqw;top:-12cqw;width:7cqw;height:7cqw;border-radius:50%;background:#fff;color:#8E2455;display:grid;place-items:center;font:800 3cqw var(--ft);opacity:0;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.play .d-train .puff{animation:puff 1.1s ease-out both;animation-delay:var(--t)}
+@keyframes puff{0%{opacity:0;transform:translate(0,2cqw) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(-14cqw,-12cqw) scale(1.4)}}
+.d-train .speed{position:absolute;left:0;top:48%;width:16cqw;height:12%;background:repeating-linear-gradient(transparent 0 1.6cqw,rgba(110,102,90,.5) 1.6cqw 2cqw);opacity:0}
+.play .d-train .speed{animation:speed 2.4s .2s both}
+@keyframes speed{0%,70%{opacity:1}100%{opacity:0}}
+
+/* ── ⑥ 또롱또롱 떨어지기 ── */
+.d-drop{background:linear-gradient(#F3F8FB 0 66%,#CFE3EE 66%,#B6D3E3)}
+.d-drop .surf{position:absolute;left:0;right:0;top:66%;height:.4cqw;background:#9CC3D8}
+.d-drop .dp{position:absolute;top:-8%;width:4.4cqw;height:4.4cqw;margin-left:-2.2cqw;background:#4F9CC4;border-radius:0 50% 50% 50%;transform:rotate(45deg);opacity:0}
+.play .d-drop .dp{animation:fall .55s cubic-bezier(.55,0,1,.45) both;animation-delay:calc(var(--i)*.6s + .3s)}
+@keyframes fall{0%{opacity:1;transform:translateY(0) rotate(45deg)}99%{opacity:1;transform:translateY(68cqh) rotate(45deg)}100%{opacity:0;transform:translateY(68cqh) rotate(45deg)}}
+.d-drop .rp{position:absolute;top:66%;width:16cqw;height:4.4cqw;margin:-2.2cqw 0 0 -8cqw;border:.5cqw solid #4F9CC4;border-radius:50%;opacity:0}
+.play .d-drop .rp{animation:ripple 1.1s ease-out both;animation-delay:calc(var(--i)*.6s + .85s)}
+.play .d-drop .rp.r2{animation-delay:calc(var(--i)*.6s + 1.05s)}
+@keyframes ripple{0%{opacity:.9;transform:scale(.15)}100%{opacity:0;transform:scale(1.4)}}
+.d-drop .lb{position:absolute;top:44%;transform:translateX(-50%);opacity:0}
+.d-drop .lb b{display:block;padding:1.2cqw 2.4cqw;border-radius:99px;background:#fff;color:#1F5E80;font:800 4.4cqw var(--ft);box-shadow:0 3px 10px -4px rgba(31,94,128,.5);white-space:nowrap}
+.play .d-drop .lb{animation:lbIn .5s cubic-bezier(.2,1.6,.4,1) both;animation-delay:calc(var(--i)*.6s + .86s)}
+@keyframes lbIn{from{opacity:0;transform:translate(-50%,40%) scale(.5)}to{opacity:1;transform:translate(-50%,0)}}
+.d-drop .tt{position:absolute;top:28%;transform:translateX(-50%);font:800 4.6cqw var(--ft);color:#4F9CC4;opacity:0;white-space:nowrap}
+.play .d-drop .tt{animation:ono2 .8s both;animation-delay:calc(var(--i)*.6s + .84s)}
+@keyframes ono2{0%{opacity:0;transform:translate(-50%,2cqw)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,-3cqw)}}
+.d-drop .cap{position:absolute;left:0;right:0;bottom:8%;text-align:center;font:600 3.6cqw var(--fb);color:#1F5E80;opacity:0}
+.play .d-drop .cap{animation:fadeIn .5s 3.3s both}
+
+/* ── ⑥ 쿵! 내려앉기 ── */
+.d-thud{background:#F6F4EF}
+.d-thud .scene{position:absolute;inset:0}
+.play .d-thud .scene{animation:shake .4s linear .62s both}
+@keyframes shake{0%,100%{transform:none}15%{transform:translate(-1.4cqw,.8cqw)}30%{transform:translate(1.2cqw,-.6cqw)}45%{transform:translate(-.9cqw,.4cqw)}60%{transform:translate(.6cqw,-.3cqw)}80%{transform:translate(-.3cqw,0)}}
+.d-thud .ground{position:absolute;left:6%;right:6%;top:72%;height:.6cqw;background:#2B2620;border-radius:99px}
+.d-thud .blk{position:absolute;left:12%;right:12%;bottom:28%;text-align:center;transform-origin:50% 100%}
+.d-thud .blk small{display:block;font:700 4.4cqw var(--fb);color:var(--sub);margin-bottom:3cqw}
+.d-thud .blk b{display:block;font:900 15cqw/1 var(--ft);letter-spacing:-.04em;color:var(--ink)}
+.d-thud .blk b em{font-style:normal;color:var(--g6)}
+.play .d-thud .blk{animation:slam .62s cubic-bezier(.6,0,1,.6) both,squash .35s .62s ease-out both}
+@keyframes slam{from{transform:translateY(-120cqh)}to{transform:none}}
+@keyframes squash{0%{transform:scale(1.08,.86)}60%{transform:scale(.97,1.04)}100%{transform:none}}
+.d-thud .dust{position:absolute;top:66%;width:7cqw;height:7cqw;border-radius:50%;background:#CFC8BC;opacity:0}
+.play .d-thud .dust{animation:dust .8s ease-out .62s both}
+.d-thud .dust.l{left:14%;--dx:-10cqw} .d-thud .dust.r{right:14%;--dx:10cqw}
+.d-thud .dust.l2{left:22%;--dx:-6cqw;width:5cqw;height:5cqw} .d-thud .dust.r2{right:22%;--dx:6cqw;width:5cqw;height:5cqw}
+@keyframes dust{0%{opacity:.9;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--dx),-4cqw) scale(1.6)}}
+.d-thud .ono{position:absolute;right:7%;top:10%;font:900 9cqw var(--ft);color:var(--g6);transform:rotate(-10deg);opacity:0}
+.play .d-thud .ono{animation:ono3 .9s .6s both}
+@keyframes ono3{0%{opacity:0;transform:rotate(-10deg) scale(.4)}20%{opacity:1;transform:rotate(-10deg) scale(1.15)}70%{opacity:1;transform:rotate(-10deg) scale(1)}100%{opacity:0;transform:rotate(-10deg) scale(1)}}
+.d-thud .shadow{position:absolute;left:24%;right:24%;top:70%;height:3cqw;border-radius:50%;background:rgba(43,38,32,.18);transform-origin:center}
+.play .d-thud .shadow{animation:shadow .62s cubic-bezier(.6,0,1,.6) both}
+@keyframes shadow{from{transform:scaleX(.2);opacity:0}to{transform:none;opacity:1}}
+
+/* ── 9 고르는 법 ── */
 .pick{position:absolute;left:64px;top:232px;width:860px;bottom:62px;background:var(--surface);border-radius:14px;padding:26px 30px}
 .pick h3,.rules h3{margin:0 0 14px;font:800 26px var(--ft)}
-.pick table{width:100%;border-collapse:collapse;font:500 19px/1.4 var(--fb)}
+.pick table{width:100%;border-collapse:collapse;font:500 18px/1.4 var(--fb)}
 .pick th{text-align:left;font:600 14px var(--fm);color:var(--sub);padding:0 0 8px;border-bottom:2px solid var(--ink)}
-.pick td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.pick td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
 .pick td:first-child{font-weight:700;width:46%;padding-right:20px}
 .pick .tg{display:inline-block;margin:0 6px 4px 0;padding:3px 10px;border-radius:99px;font:600 15px var(--fb);color:#fff;background:var(--gc)}
 .rules{position:absolute;left:950px;right:64px;top:232px;bottom:62px;display:flex;flex-direction:column;gap:14px}
@@ -372,30 +468,32 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 <!-- 1 표지 -->
 <section class="slide cover" data-title="표지">
   <div class="kick">PRESENTATION TECHNIQUES · 디자인 레퍼런스 갤러리</div>
-  <h1>와우<br>포인트 <em>19</em></h1>
-  <p class="sub">청중이 "와" 하는 순간을 만드는 기법 19가지를 다섯 묶음으로 모았습니다. 장마다 기법이 실제로 움직입니다.</p>
+  <h1>와우<br>포인트 <em>23</em></h1>
+  <p class="sub">청중이 "와" 하는 순간을 만드는 기법 23가지를 여섯 묶음으로 모았습니다. 장마다 기법이 실제로 움직입니다.</p>
   <div class="burst" aria-hidden="true">
-    <div class="blk" style="--i:0;left:0;top:0;width:265px;height:330px;background:var(--g1)"><b>4</b>드러내기·이동<span>REVEAL</span></div>
-    <div class="blk" style="--i:1;left:285px;top:0;width:275px;height:200px;background:var(--g2)"><b>3</b>대비·전환<span>CONTRAST</span></div>
-    <div class="blk" style="--i:2;left:285px;top:220px;width:275px;height:250px;background:var(--g3)"><b>4</b>숫자 체감<span>NUMBERS</span></div>
-    <div class="blk" style="--i:3;left:0;top:350px;width:265px;height:310px;background:var(--g4)"><b>4</b>은유·세계관<span>METAPHOR</span></div>
-    <div class="blk" style="--i:4;left:285px;top:490px;width:275px;height:170px;background:var(--g5)"><b>4</b>감각·형식<span>SENSE</span></div>
+    <div class="blk" style="--i:0;left:0;top:0;width:265px;height:210px;background:var(--g1)"><b>4</b>드러내기·이동<span>REVEAL</span></div>
+    <div class="blk" style="--i:1;left:285px;top:0;width:275px;height:165px;background:var(--g2)"><b>3</b>대비·전환<span>CONTRAST</span></div>
+    <div class="blk" style="--i:2;left:0;top:225px;width:265px;height:215px;background:var(--g3)"><b>4</b>숫자 체감<span>NUMBERS</span></div>
+    <div class="blk" style="--i:3;left:285px;top:180px;width:275px;height:245px;background:var(--g4)"><b>4</b>은유·세계관<span>METAPHOR</span></div>
+    <div class="blk" style="--i:4;left:0;top:455px;width:265px;height:205px;background:var(--g5)"><b>4</b>감각·형식<span>SENSE</span></div>
+    <div class="blk" style="--i:5;left:285px;top:440px;width:275px;height:220px;background:var(--g6)"><b>4</b>소리가 보이는 모션<span>팡 · 칙칙폭폭 · 또롱</span></div>
   </div>
-  <div class="by">2026. 11. · 8장 · ← → 키로 넘기기 · R 다시 재생</div>
+  <div class="by">2026. 11. · 9장 · ← → 키로 넘기기 · R 다시 재생</div>
 </section>
 
 <!-- 2 한눈에 -->
 <section class="slide" data-title="한눈에">
-  <div class="head"><div><span class="chip" style="--gc:var(--ink)"><b>i</b>한눈에 보기</span><h2>와우는 다섯 가지 길로 온다</h2></div><div class="meta">묶음을 누르면 그 장으로</div></div>
+  <div class="head"><div><span class="chip" style="--gc:var(--ink)"><b>i</b>한눈에 보기</span><h2>와우는 여섯 가지 길로 온다</h2></div><div class="meta">묶음을 누르면 그 장으로</div></div>
   <div class="map">
     <a class="grp g1" style="--i:0" data-go="3"><span class="n">① · 3쪽</span><h3>드러내기·이동</h3><p>보여 주는 순서와 위치를 설계한다</p><ol><li>리빌<small>가렸다가 열기</small></li><li>점진적 공개<small>한 층씩 쌓기</small></li><li>줌 인<small>전체 → 부분 → 전체</small></li><li>허브 이동<small>목차가 곧 지도</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g2" style="--i:1" data-go="4"><span class="n">② · 4쪽</span><h3>대비·전환</h3><p>같은 자리에서 차이를 보여 준다</p><ol><li>비포/애프터<small>같은 구도, 바뀐 것만</small></li><li>연속 변형<small>같은 도형이 모양을 바꿈</small></li><li>수미상관<small>처음으로 돌아와 닫기</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g3" style="--i:2" data-go="5"><span class="n">③ · 5쪽</span><h3>숫자 체감</h3><p>숫자를 보이고 셀 수 있게 만든다</p><ol><li>큰 숫자 하나<small>나머지는 조연</small></li><li>단위 차트<small>100칸 중 41칸</small></li><li>카운트업<small>올라가는 긴장</small></li><li>데이터 레이스<small>순위가 뒤집히는 순간</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g4" style="--i:3" data-go="6"><span class="n">④ · 6쪽</span><h3>은유·세계관</h3><p>정책을 익숙한 사물·이야기로 옮긴다</p><ol><li>시각 은유<small>개념을 사물 하나로</small></li><li>생활 서식 빌려 오기<small>탑승권·영수증·신문</small></li><li>게임화<small>과제 = 퀘스트</small></li><li>물리 모션<small>튕김·낙하·연쇄</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g5" style="--i:4" data-go="7"><span class="n">⑤ · 7쪽</span><h3>감각·형식</h3><p>다른 장표와 결이 달라 눈이 멈춘다</p><ol><li>키네틱 타이포<small>글자가 연출</small></li><li>재질·질감<small>화면에 손맛</small></li><li>3D·깊이<small>쌓임을 진짜 층으로</small></li><li>극단적 여백<small>비울수록 강해짐</small></li></ol><span class="go">열기 →</span></a>
+    <a class="grp g6" style="--i:5" data-go="8"><span class="n">⑥ · 8쪽</span><h3>소리 모션</h3><p>팡·칙칙폭폭처럼 소리가 보이게 움직인다</p><ol><li>팡! 터뜨리기<small>흩어졌다 정돈</small></li><li>칙칙폭폭 지나가기<small>글자·숫자 열차</small></li><li>또롱또롱 떨어지기<small>한 방울씩 생김</small></li><li>쿵! 내려앉기<small>무게로 결론</small></li></ol><span class="go">열기 →</span></a>
   </div>
-  <div class="offs"><b>8쪽</b> 무엇을 고를까 · 쓰는 원칙 4가지 · 화면 밖 와우(청중 참여 · 실물 시연)</div>
-  <div class="foot"><span>와우 포인트 19</span><span>2 / 8</span></div>
+  <div class="offs"><b>9쪽</b> 무엇을 고를까 · 쓰는 원칙 4가지 · 화면 밖 와우(청중 참여 · 실물 시연)</div>
+  <div class="foot"><span>와우 포인트 23</span><span>2 / 9</span></div>
 </section>
 
 <!-- 3 ① 드러내기·이동 -->
@@ -443,7 +541,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>허브 이동<small>목차가 곧 지도</small></h3><p class="why">고른 곳으로 들어갔다 나온다. 질문에 바로 답한다.</p>
       <dl><dt>쓰는 곳</dt><dd>업무보고, 질의응답이 많은 자리</dd><dt>주의</dt><dd>순서가 정해진 심사 발표에는 맞지 않는다</dd><dt>PPT</dt><dd>'요약 확대/축소' 또는 도형 하이퍼링크</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 19 · ① 드러내기·이동</span><span>3 / 8</span></div>
+  <div class="foot"><span>와우 포인트 23 · ① 드러내기·이동</span><span>3 / 9</span></div>
 </section>
 
 <!-- 4 ② 대비·전환 -->
@@ -479,7 +577,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>수미상관<small>처음으로 돌아오기</small></h3><p class="why">첫 장면으로 돌아오면 이야기가 닫힌다.</p>
       <dl><dt>쓰는 곳</dt><dd>순환·환류 체계, 덱의 마지막 장</dd><dt>주의</dt><dd>돌아올 '표식'을 첫 장면에 미리 심어 둔다</dd><dt>PPT</dt><dd>첫 슬라이드를 복제해 끝에 두고 모핑</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 19 · ② 대비·전환</span><span>4 / 8</span></div>
+  <div class="foot"><span>와우 포인트 23 · ② 대비·전환</span><span>4 / 9</span></div>
 </section>
 
 <!-- 5 ③ 숫자 체감 -->
@@ -510,7 +608,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>데이터 레이스<small>순위 경주</small></h3><p class="why">순위가 뒤집히는 순간이 곧 드라마다.</p>
       <dl><dt>쓰는 곳</dt><dd>연도별 추이, 기관·지역 순위 변화</dd><dt>주의</dt><dd>끝 화면에 결론 한 줄을 남겨야 '구경'으로 안 끝난다</dd><dt>PPT</dt><dd>Flourish 등으로 영상을 만들어 삽입</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 19 · ③ 숫자 체감 · 수치는 모두 가상 예시</span><span>5 / 8</span></div>
+  <div class="foot"><span>와우 포인트 23 · ③ 숫자 체감 · 수치는 모두 가상 예시</span><span>5 / 9</span></div>
 </section>
 
 <!-- 6 ④ 은유·세계관 -->
@@ -553,7 +651,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>물리 모션<small>튕김·낙하·연쇄</small></h3><p class="why">무게와 충돌이 '진짜 같다'는 실감을 준다.</p>
       <dl><dt>쓰는 곳</dt><dd>분류, 선후 관계, 결합 구조</dd><dt>주의</dt><dd>움직임에 뜻이 있어야 한다(튕겨 나감 = 제외)</dd><dt>PPT</dt><dd>이동 경로 + 효과 옵션 '바운스 끝'</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 19 · ④ 은유·세계관</span><span>6 / 8</span></div>
+  <div class="foot"><span>와우 포인트 23 · ④ 은유·세계관</span><span>6 / 9</span></div>
 </section>
 
 <!-- 7 ⑤ 감각·형식 -->
@@ -586,10 +684,55 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>극단적 여백<small>비울수록 강해짐</small></h3><p class="why">남은 하나에 시선이 전부 모인다.</p>
       <dl><dt>쓰는 곳</dt><dd>표지, 간지, 결론 한 문장</dd><dt>주의</dt><dd>앞뒤 장표가 빽빽할 때 효과가 난다. 연달아 쓰면 약해진다</dd><dt>PPT</dt><dd>개체 하나 + 제목 한 줄. 나머지는 지운다</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 19 · ⑤ 감각·형식</span><span>7 / 8</span></div>
+  <div class="foot"><span>와우 포인트 23 · ⑤ 감각·형식</span><span>7 / 9</span></div>
 </section>
 
-<!-- 8 고르는 법 -->
+<!-- 8 ⑥ 소리가 보이는 모션 -->
+<section class="slide g6" data-title="⑥ 소리가 보이는 모션">
+  <div class="head"><div><span class="chip"><b>6</b>소리가 보이는 모션</span><h2>소리가 들리는 듯 움직이면 눈이 따라간다</h2></div><div class="meta">기법 4 · 소리 없이 움직임만으로</div></div>
+  <div class="cards c4">
+    <article class="card"><div class="demo d-pop">
+        <i class="rk"></i><i class="flash"></i><i class="pt" style="--a:0deg;--d:40cqw;--c:#FFB48A"></i><i class="pt" style="--a:15deg;--d:30cqw;--c:#FFD58A"></i><i class="pt" style="--a:30deg;--d:40cqw;--c:#8FD3E8"></i><i class="pt" style="--a:45deg;--d:30cqw;--c:#F48FB1"></i><i class="pt" style="--a:60deg;--d:40cqw;--c:#B39DDB"></i><i class="pt" style="--a:75deg;--d:30cqw;--c:#A5D6A7"></i><i class="pt" style="--a:90deg;--d:40cqw;--c:#FFB48A"></i><i class="pt" style="--a:105deg;--d:30cqw;--c:#FFD58A"></i><i class="pt" style="--a:120deg;--d:40cqw;--c:#8FD3E8"></i><i class="pt" style="--a:135deg;--d:30cqw;--c:#F48FB1"></i><i class="pt" style="--a:150deg;--d:40cqw;--c:#B39DDB"></i><i class="pt" style="--a:165deg;--d:30cqw;--c:#A5D6A7"></i><i class="pt" style="--a:180deg;--d:40cqw;--c:#FFB48A"></i><i class="pt" style="--a:195deg;--d:30cqw;--c:#FFD58A"></i><i class="pt" style="--a:210deg;--d:40cqw;--c:#8FD3E8"></i><i class="pt" style="--a:225deg;--d:30cqw;--c:#F48FB1"></i><i class="pt" style="--a:240deg;--d:40cqw;--c:#B39DDB"></i><i class="pt" style="--a:255deg;--d:30cqw;--c:#A5D6A7"></i><i class="pt" style="--a:270deg;--d:40cqw;--c:#FFB48A"></i><i class="pt" style="--a:285deg;--d:30cqw;--c:#FFD58A"></i><i class="pt" style="--a:300deg;--d:40cqw;--c:#8FD3E8"></i><i class="pt" style="--a:315deg;--d:30cqw;--c:#F48FB1"></i><i class="pt" style="--a:330deg;--d:40cqw;--c:#B39DDB"></i><i class="pt" style="--a:345deg;--d:30cqw;--c:#A5D6A7"></i><i class="cf" style="left:8%;--c:#FFB48A;--t:1.10s"></i><i class="cf" style="left:19%;--c:#FFD58A;--t:1.28s"></i><i class="cf" style="left:31%;--c:#8FD3E8;--t:1.46s"></i><i class="cf" style="left:44%;--c:#F48FB1;--t:1.64s"></i><i class="cf" style="left:57%;--c:#B39DDB;--t:1.82s"></i><i class="cf" style="left:69%;--c:#A5D6A7;--t:1.10s"></i><i class="cf" style="left:82%;--c:#FFB48A;--t:1.28s"></i><i class="cf" style="left:92%;--c:#FFD58A;--t:1.46s"></i><i class="cf" style="left:25%;--c:#8FD3E8;--t:1.64s"></i><i class="cf" style="left:63%;--c:#F48FB1;--t:1.82s"></i>
+        <div class="ono">팡!</div>
+        <div class="word"><span style="--cx:1.55em;--x:34cqw;--y:-28cqh;--r:35deg">목</span><span style="--cx:0.93em;--x:-36cqw;--y:-8cqh;--r:-70deg">표</span><span style="--cx:0.31em;--x:0;--y:0;--r:0"> </span><span class="hl" style="--cx:-0.31em;--x:30cqw;--y:24cqh;--r:80deg">달</span><span class="hl" style="--cx:-0.93em;--x:6cqw;--y:30cqh;--r:-30deg">성</span><span class="hl" style="--cx:-1.55em;--x:-26cqw;--y:20cqh;--r:60deg">!</span></div><div class="sub">2027 참여 목표 100%</div>
+      </div><p class="steps"><i>①</i> 쏘아 올림 → <i>②</i> 팡! 글자가 흩날림 → <i>③</i> 제자리로 정돈</p>
+      <h3>팡! 터뜨리기<small>흩어졌다 정돈</small></h3><p class="why">터지는 순간 시선이 모이고, 정돈되며 메시지가 남는다.</p>
+      <dl><dt>쓰는 곳</dt><dd>목표 달성, 결과 발표, 개막 표지</dd><dt>주의</dt><dd>흩어진 채 끝내지 않는다. 마지막은 반드시 정돈된 글자</dd><dt>PPT</dt><dd>글자를 낱자로 흩은 장 → 정돈된 장, 모핑 전환</dd></dl></article>
+    <article class="card"><div class="demo d-train">
+        <div class="rail"></div><i class="speed"></i>
+        <div class="trn">
+          <div class="car" style="--i:3;--c:#D9799E">2027<small>시범</small></div>
+          <div class="car" style="--i:2;--c:#C9507F">2028<small>확대</small></div>
+          <div class="car" style="--i:1;--c:#B0306A">2029<small>전역</small></div>
+          <div class="car loco" style="--i:0"><i class="chim"></i><i class="win"></i>
+            <span class="puff" style="--t:.3s">칙</span><span class="puff" style="--t:.75s">칙</span><span class="puff" style="--t:1.2s">폭</span><span class="puff" style="--t:1.65s">폭</span></div>
+        </div>
+      </div><p class="steps"><i>①</i> 칙칙 들어옴 → <i>②</i> 칸마다 숫자가 지나감 → <i>③</i> 멈춰서 읽힘</p>
+      <h3>칙칙폭폭 지나가기<small>글자·숫자 열차</small></h3><p class="why">칸에 실린 글자·숫자가 차례로 지나가며 읽힌다.</p>
+      <dl><dt>쓰는 곳</dt><dd>연도별 일정, 단계 전환, 슬로건 공개</dd><dt>주의</dt><dd>지나가기만 하면 못 읽는다. 멈춰서 읽힐 시간을 준다</dd><dt>PPT</dt><dd>기차를 그룹으로 묶어 이동 경로 + '부드럽게 끝'</dd></dl></article>
+    <article class="card"><div class="demo d-drop">
+        <div class="surf"></div>
+        <i class="dp" style="--i:0;left:17%"></i><i class="dp" style="--i:1;left:39%"></i><i class="dp" style="--i:2;left:61%"></i><i class="dp" style="--i:3;left:83%"></i>
+        <i class="rp" style="--i:0;left:17%"></i><i class="rp r2" style="--i:0;left:17%"></i><i class="rp" style="--i:1;left:39%"></i><i class="rp r2" style="--i:1;left:39%"></i><i class="rp" style="--i:2;left:61%"></i><i class="rp r2" style="--i:2;left:61%"></i><i class="rp" style="--i:3;left:83%"></i><i class="rp r2" style="--i:3;left:83%"></i>
+        <span class="tt" style="--i:0;left:17%">또롱</span><span class="tt" style="--i:1;left:39%">또롱</span><span class="tt" style="--i:2;left:61%">또롱</span><span class="tt" style="--i:3;left:83%">또롱</span>
+        <span class="lb" style="--i:0;left:17%"><b>진단</b></span><span class="lb" style="--i:1;left:39%"><b>지원</b></span><span class="lb" style="--i:2;left:61%"><b>점검</b></span><span class="lb" style="--i:3;left:83%"><b>환류</b></span>
+        <div class="cap">한 방울 = 한 단계</div>
+      </div><p class="steps"><i>①</i> 한 방울 떨어짐 → <i>②</i> 물결과 함께 항목이 생김 → <i>③</i> 같은 박자로 반복</p>
+      <h3>또롱또롱 떨어지기<small>한 방울씩</small></h3><p class="why">같은 박자로 하나씩 생겨 개수와 순서가 몸에 남는다.</p>
+      <dl><dt>쓰는 곳</dt><dd>과제 목록, 절차 단계, 핵심어 나열</dd><dt>주의</dt><dd>박자를 일정하게, 4~5개까지. 길어지면 지루하다</dd><dt>PPT</dt><dd>나타내기 '떨어지기' + '이전 효과 다음' 0.5초 간격</dd></dl></article>
+    <article class="card"><div class="demo d-thud"><div class="scene">
+        <div class="shadow"></div><div class="ground"></div>
+        <i class="dust l"></i><i class="dust l2"></i><i class="dust r"></i><i class="dust r2"></i>
+        <div class="blk"><small>그래서 결론은</small><b>기간 <em>절반</em></b></div>
+        <div class="ono">쿵!</div></div>
+      </div><p class="steps"><i>①</i> 위에서 떨어짐 → <i>②</i> 쿵! 화면이 흔들림 → <i>③</i> 먼지가 걷히고 남음</p>
+      <h3>쿵! 내려앉기<small>무게로 결론</small></h3><p class="why">무거운 착지와 흔들림이 '이게 결론'이라고 알린다.</p>
+      <dl><dt>쓰는 곳</dt><dd>결론 한 문장, 핵심 숫자</dd><dt>주의</dt><dd>덱에서 한 번, 결론에만. 흔들림은 0.5초 안에 끝낸다</dd><dt>PPT</dt><dd>나타내기 '확대/축소'(크게→원래) + 강조 효과로 짧게 흔들기</dd></dl></article>
+  </div>
+  <div class="foot"><span>와우 포인트 23 · ⑥ 소리가 보이는 모션</span><span>8 / 9</span></div>
+</section>
+
+<!-- 9 고르는 법 -->
 <section class="slide" data-title="고르는 법">
   <div class="head"><div><span class="chip" style="--gc:var(--accent)"><b>✓</b>고르는 법</span><h2>하고 싶은 말이 기법을 정한다</h2></div><div class="meta">기법보다 메시지가 먼저</div></div>
   <div class="pick"><h3>하고 싶은 말 → 맞는 기법</h3>
@@ -598,9 +741,11 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <tbody>
         <tr><td>"이만큼 바뀝니다"</td><td><span class="tg g2">비포/애프터</span><span class="tg g2">연속 변형</span></td></tr>
         <tr><td>"이 숫자가 심각합니다"</td><td><span class="tg g3">큰 숫자</span><span class="tg g3">단위 차트</span></td></tr>
-        <tr><td>"목표에 닿았습니다(닿을 겁니다)"</td><td><span class="tg g3">카운트업</span><span class="tg g4">게임화</span></td></tr>
+        <tr><td>"목표에 닿았습니다(닿을 겁니다)"</td><td><span class="tg g6">팡! 터뜨리기</span><span class="tg g3">카운트업</span><span class="tg g4">게임화</span></td></tr>
         <tr><td>"순위·흐름이 뒤집혔습니다"</td><td><span class="tg g3">데이터 레이스</span></td></tr>
-        <tr><td>"구조가 복잡하지만 따라오세요"</td><td><span class="tg g1">점진적 공개</span><span class="tg g1">줌 인</span></td></tr>
+        <tr><td>"구조가 복잡하지만 따라오세요"</td><td><span class="tg g1">점진적 공개</span><span class="tg g1">줌 인</span><span class="tg g6">또롱또롱</span></td></tr>
+        <tr><td>"다음 단계로 넘어갑니다"</td><td><span class="tg g6">칙칙폭폭 지나가기</span><span class="tg g1">리빌</span></td></tr>
+        <tr><td>"이게 결론입니다"</td><td><span class="tg g6">쿵! 내려앉기</span><span class="tg g3">큰 숫자</span></td></tr>
         <tr><td>"여럿이 함께 만듭니다"</td><td><span class="tg g4">시각 은유</span><span class="tg g4">물리 모션</span></td></tr>
         <tr><td>"새로 시작합니다"</td><td><span class="tg g1">리빌</span><span class="tg g5">키네틱 타이포</span><span class="tg g5">극단적 여백</span></td></tr>
         <tr><td>"해마다 돌며 나아집니다"</td><td><span class="tg g2">수미상관</span><span class="tg g5">3D·깊이</span></td></tr>
@@ -615,13 +760,13 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     </ol>
     <div class="off"><b>화면 밖 와우</b> · 청중 참여(QR 실시간 투표 → 결과를 바로 장표에) · 실물 소품과 현장 시연. 화면 기법보다 강하지만 준비와 리허설 비용이 크다.</div>
   </div>
-  <div class="foot"><span>와우 포인트 19 · 고르는 법</span><span>8 / 8</span></div>
+  <div class="foot"><span>와우 포인트 23 · 고르는 법</span><span>9 / 9</span></div>
 </section>
 
 </div></div>
 <nav class="bar" aria-label="장표 넘기기">
   <button type="button" id="prev" aria-label="이전 장">←</button>
-  <span class="count" id="count">1 / 8</span>
+  <span class="count" id="count">1 / 9</span>
   <button type="button" id="next" aria-label="다음 장">→</button>
   <button type="button" id="replay">↻ 다시 재생</button>
   <a href="../index.html">갤러리로</a>

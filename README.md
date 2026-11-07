@@ -91,9 +91,9 @@ python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받�
 - 루틴은 인덱스 DB `icons` 모음(`_set` = 규칙·CSS·SVG 틀, `g01`~`g12` = 묶음별 아이콘)에서 읽어 SVG를 페이지 안에 넣는다.
 - 아이콘을 더할 때: `icons/icons.json`에 같은 규격으로 넣고 `src/icons/page.html`의 데이터도 바꾼 뒤 `python3 -c "import sys;sys.path.insert(0,'scripts');import build;build.build('icons','icons')"`로 다시 만든다. 인덱스 DB도 함께 고친다.
 
-## 공통 부품: 와우 포인트 19
+## 공통 부품: 와우 포인트 23
 
-`wow/wow.html`(갤러리에서 열림) · 원본 `src/wow/`. 발표 와우 기법 19가지를 다섯 묶음(드러내기·이동 / 대비·전환 / 숫자 체감 / 은유·세계관 / 감각·형식)으로 모은 8장 덱. 장마다 기법이 실제로 움직이고(← → 넘기기 · R 다시 재생), 인쇄하면 끝 화면으로 한 장씩 나온다.
+`wow/wow.html`(갤러리에서 열림) · 원본 `src/wow/`. 발표 와우 기법 23가지를 여섯 묶음(드러내기·이동 / 대비·전환 / 숫자 체감 / 은유·세계관 / 감각·형식 / 소리가 보이는 모션)으로 모은 9장 덱. 장마다 기법이 실제로 움직이고(← → 넘기기 · R 다시 재생), 인쇄하면 끝 화면으로 한 장씩 나온다.
 
 - 사진 8장(`src/wow/assets/wow-*.webp`, 가로 1100~1400px WebP)은 `page.html` 맨 위 `--img-A`~`--img-H` 변수로 연결한다. 바꿀 때는 같은 이름으로 덮어쓰고 다시 만든다. 변수를 `none`으로 두고 요소에 `need` 클래스를 붙이면 점선 자리표시가 된다.
 - 다시 만들기: `python3 -c "import sys;sys.path.insert(0,'scripts');import build;build.build('wow','wow')"`
