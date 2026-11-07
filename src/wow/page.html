@@ -358,7 +358,9 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .fullbtn:hover{background:rgba(255,255,255,.26)}
 .fullv{position:absolute;inset:0;z-index:40;display:none;background:#020308}
 .fullv [data-kind]{display:none}
-.fullv.k-pop [data-kind=pop],.fullv.k-asm [data-kind=asm]{display:block}
+.fullv [data-kind].on{display:block}
+.cv3{position:absolute;inset:0;container-type:size;background:#0D0C0E}
+.cv3 canvas{position:absolute;inset:0;width:100%;height:100%}
 .asm{position:absolute;inset:0;background:#0B0E12;container-type:size}
 .asm canvas{position:absolute;inset:0;width:100%;height:100%}
 .fullv.open{display:block}
@@ -366,28 +368,6 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .fvbar{position:absolute;right:24px;bottom:20px;z-index:3;display:flex;gap:8px}
 .fvbar button{font:600 15px var(--fb);color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);border-radius:8px;padding:9px 16px;cursor:pointer}
 .fvbar button:hover{background:rgba(255,255,255,.24)}
-
-/* ── ⑥ 칙칙폭폭 지나가기 ── */
-.d-train{background:linear-gradient(#E6F0F6 0 70%,#EDE6D8 70%)}
-.d-train .rail{position:absolute;left:0;right:0;top:73%;height:3cqw;background:repeating-linear-gradient(90deg,#9C8F7B 0 1.2cqw,transparent 1.2cqw 4cqw);border-top:.6cqw solid #6E665A;border-bottom:.6cqw solid #6E665A}
-.d-train .trn{position:absolute;left:4cqw;top:42%;height:30%;display:flex;align-items:flex-end;gap:1.4cqw}
-.play .d-train .trn{animation:chug 2.6s cubic-bezier(.25,.6,.3,1) .2s both}
-@keyframes chug{from{transform:translateX(-120cqw)}to{transform:none}}
-.d-train .car{position:relative;width:20cqw;height:85%;border-radius:1.4cqw 1.4cqw .6cqw .6cqw;background:var(--c);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font:900 6.4cqw/1 var(--ft);letter-spacing:-.03em}
-.d-train .car small{font:600 2.8cqw var(--fb);opacity:.9;margin-top:.8cqw;letter-spacing:0}
-.d-train .car::before,.d-train .car::after{content:"";position:absolute;bottom:-2.6cqw;width:4.4cqw;height:4.4cqw;border-radius:50%;background:#2B2620;border:1cqw solid #8B8172}
-.d-train .car::before{left:2.4cqw} .d-train .car::after{right:2.4cqw}
-.play .d-train .car{animation:bob .26s ease-in-out 9 alternate;animation-delay:calc(var(--i)*.06s + .2s)}
-@keyframes bob{to{transform:translateY(-.8cqw)}}
-.d-train .loco{width:22cqw;height:100%;background:linear-gradient(90deg,#B0306A 0 70%,#8E2455 70%);border-radius:1.4cqw 4cqw .6cqw .6cqw}
-.d-train .loco .chim{position:absolute;left:3cqw;top:-6cqw;width:4cqw;height:6cqw;background:#3A2B33;border-radius:.6cqw .6cqw 0 0}
-.d-train .loco .win{position:absolute;right:3cqw;top:2.4cqw;width:7cqw;height:6cqw;border-radius:1cqw;background:#F7E7EF}
-.d-train .puff{position:absolute;left:1.5cqw;top:-12cqw;width:7cqw;height:7cqw;border-radius:50%;background:#fff;color:#8E2455;display:grid;place-items:center;font:800 3cqw var(--ft);opacity:0;box-shadow:0 1px 4px rgba(0,0,0,.12)}
-.play .d-train .puff{animation:puff 1.1s ease-out both;animation-delay:var(--t)}
-@keyframes puff{0%{opacity:0;transform:translate(0,2cqw) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(-14cqw,-12cqw) scale(1.4)}}
-.d-train .speed{position:absolute;left:0;top:48%;width:16cqw;height:12%;background:repeating-linear-gradient(transparent 0 1.6cqw,rgba(110,102,90,.5) 1.6cqw 2cqw);opacity:0}
-.play .d-train .speed{animation:speed 2.4s .2s both}
-@keyframes speed{0%,70%{opacity:1}100%{opacity:0}}
 
 /* ── ⑥ 또롱또롱 떨어지기 ── */
 .d-drop{background:linear-gradient(#F3F8FB 0 66%,#CFE3EE 66%,#B6D3E3)}
@@ -408,31 +388,6 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 @keyframes ono2{0%{opacity:0;transform:translate(-50%,2cqw)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,-3cqw)}}
 .d-drop .cap{position:absolute;left:0;right:0;bottom:8%;text-align:center;font:600 3.6cqw var(--fb);color:#1F5E80;opacity:0}
 .play .d-drop .cap{animation:fadeIn .5s 3.3s both}
-
-/* ── ⑥ 쿵! 내려앉기 ── */
-.d-thud{background:#F6F4EF}
-.d-thud .scene{position:absolute;inset:0}
-.play .d-thud .scene{animation:shake .4s linear .62s both}
-@keyframes shake{0%,100%{transform:none}15%{transform:translate(-1.4cqw,.8cqw)}30%{transform:translate(1.2cqw,-.6cqw)}45%{transform:translate(-.9cqw,.4cqw)}60%{transform:translate(.6cqw,-.3cqw)}80%{transform:translate(-.3cqw,0)}}
-.d-thud .ground{position:absolute;left:6%;right:6%;top:72%;height:.6cqw;background:#2B2620;border-radius:99px}
-.d-thud .blk{position:absolute;left:12%;right:12%;bottom:28%;text-align:center;transform-origin:50% 100%}
-.d-thud .blk small{display:block;font:700 4.4cqw var(--fb);color:var(--sub);margin-bottom:3cqw}
-.d-thud .blk b{display:block;font:900 15cqw/1 var(--ft);letter-spacing:-.04em;color:var(--ink)}
-.d-thud .blk b em{font-style:normal;color:var(--g6)}
-.play .d-thud .blk{animation:slam .62s cubic-bezier(.6,0,1,.6) both,squash .35s .62s ease-out both}
-@keyframes slam{from{transform:translateY(-120cqh)}to{transform:none}}
-@keyframes squash{0%{transform:scale(1.08,.86)}60%{transform:scale(.97,1.04)}100%{transform:none}}
-.d-thud .dust{position:absolute;top:66%;width:7cqw;height:7cqw;border-radius:50%;background:#CFC8BC;opacity:0}
-.play .d-thud .dust{animation:dust .8s ease-out .62s both}
-.d-thud .dust.l{left:14%;--dx:-10cqw} .d-thud .dust.r{right:14%;--dx:10cqw}
-.d-thud .dust.l2{left:22%;--dx:-6cqw;width:5cqw;height:5cqw} .d-thud .dust.r2{right:22%;--dx:6cqw;width:5cqw;height:5cqw}
-@keyframes dust{0%{opacity:.9;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--dx),-4cqw) scale(1.6)}}
-.d-thud .ono{position:absolute;right:7%;top:10%;font:900 9cqw var(--ft);color:var(--g6);transform:rotate(-10deg);opacity:0}
-.play .d-thud .ono{animation:ono3 .9s .6s both}
-@keyframes ono3{0%{opacity:0;transform:rotate(-10deg) scale(.4)}20%{opacity:1;transform:rotate(-10deg) scale(1.15)}70%{opacity:1;transform:rotate(-10deg) scale(1)}100%{opacity:0;transform:rotate(-10deg) scale(1)}}
-.d-thud .shadow{position:absolute;left:24%;right:24%;top:70%;height:3cqw;border-radius:50%;background:rgba(43,38,32,.18);transform-origin:center}
-.play .d-thud .shadow{animation:shadow .62s cubic-bezier(.6,0,1,.6) both}
-@keyframes shadow{from{transform:scaleX(.2);opacity:0}to{transform:none;opacity:1}}
 
 /* ── 9 고르는 법 ── */
 .pick{position:absolute;left:64px;top:232px;width:860px;bottom:62px;background:var(--surface);border-radius:14px;padding:26px 30px}
@@ -704,17 +659,11 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>팡! 터뜨리기<small>하늘 가득 불꽃</small></h3><p class="why">터지는 순간 화면이 축제가 된다.</p>
       <dl><dt>쓰는 곳</dt><dd>목표 달성, 개막, 마무리 장</dd><dt>주의</dt><dd>덱에서 한 번. 불꽃 위에 긴 글을 얹지 않는다</dd><dt>PPT</dt><dd>불꽃 영상을 배경으로 넣고 자동 재생</dd></dl></article>
     <article class="card"><div class="demo d-train">
-        <div class="rail"></div><i class="speed"></i>
-        <div class="trn">
-          <div class="car" style="--i:3;--c:#D9799E">2027<small>시범</small></div>
-          <div class="car" style="--i:2;--c:#C9507F">2028<small>확대</small></div>
-          <div class="car" style="--i:1;--c:#B0306A">2029<small>전역</small></div>
-          <div class="car loco" style="--i:0"><i class="chim"></i><i class="win"></i>
-            <span class="puff" style="--t:.3s">칙</span><span class="puff" style="--t:.75s">칙</span><span class="puff" style="--t:1.2s">폭</span><span class="puff" style="--t:1.65s">폭</span></div>
-        </div>
-      </div><p class="steps"><i>①</i> 칙칙 들어옴 → <i>②</i> 칸마다 숫자가 지나감 → <i>③</i> 멈춰서 읽힘</p>
-      <h3>칙칙폭폭 지나가기<small>글자·숫자 열차</small></h3><p class="why">칸에 실린 글자·숫자가 차례로 지나가며 읽힌다.</p>
-      <dl><dt>쓰는 곳</dt><dd>연도별 일정, 단계 전환, 슬로건 공개</dd><dt>주의</dt><dd>지나가기만 하면 못 읽는다. 멈춰서 읽힐 시간을 준다</dd><dt>PPT</dt><dd>기차를 그룹으로 묶어 이동 경로 + '부드럽게 끝'</dd></dl></article>
+        <div class="cv3" data-js="train"><canvas></canvas></div>
+        <button type="button" class="fullbtn" data-open="train">⤢ 크게 보기</button>
+      </div><p class="steps"><i>①</i> 글자 열차가 들어옴 → <i>②</i> 이음매마다 덜컹 → <i>③</i> 멈춰서 읽힘</p>
+      <h3>칙칙폭폭 지나가기<small>음절 한 량씩</small></h3><p class="why">입체 글자 하나하나가 객차가 되어 들어와 멈추며 읽힌다.</p>
+      <dl><dt>쓰는 곳</dt><dd>연도별 일정, 단계 전환, 슬로건 공개</dd><dt>주의</dt><dd>지나가기만 하면 못 읽는다. 멈춰서 읽힐 시간을 준다</dd><dt>PPT</dt><dd>글자마다 3차원 서식 + 그룹 이동 경로 '부드럽게 끝'</dd></dl></article>
     <article class="card"><div class="demo d-drop">
         <div class="surf"></div>
         <i class="dp" style="--i:0;left:17%"></i><i class="dp" style="--i:1;left:39%"></i><i class="dp" style="--i:2;left:61%"></i><i class="dp" style="--i:3;left:83%"></i>
@@ -725,14 +674,12 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       </div><p class="steps"><i>①</i> 한 방울 떨어짐 → <i>②</i> 물결과 함께 항목이 생김 → <i>③</i> 같은 박자로 반복</p>
       <h3>또롱또롱 떨어지기<small>한 방울씩</small></h3><p class="why">같은 박자로 하나씩 생겨 개수와 순서가 몸에 남는다.</p>
       <dl><dt>쓰는 곳</dt><dd>과제 목록, 절차 단계, 핵심어 나열</dd><dt>주의</dt><dd>박자를 일정하게, 4~5개까지. 길어지면 지루하다</dd><dt>PPT</dt><dd>나타내기 '떨어지기' + '이전 효과 다음' 0.5초 간격</dd></dl></article>
-    <article class="card"><div class="demo d-thud"><div class="scene">
-        <div class="shadow"></div><div class="ground"></div>
-        <i class="dust l"></i><i class="dust l2"></i><i class="dust r"></i><i class="dust r2"></i>
-        <div class="blk"><small>그래서 결론은</small><b>기간 <em>절반</em></b></div>
-        <div class="ono">쿵!</div></div>
-      </div><p class="steps"><i>①</i> 위에서 떨어짐 → <i>②</i> 쿵! 화면이 흔들림 → <i>③</i> 먼지가 걷히고 남음</p>
+    <article class="card"><div class="demo d-thud">
+        <div class="cv3" data-js="thud"><canvas></canvas></div>
+        <button type="button" class="fullbtn" data-open="thud">⤢ 크게 보기</button>
+      </div><p class="steps"><i>①</i> 그림자가 먼저 커짐 → <i>②</i> 쿵! 흔들리고 바닥이 갈라짐 → <i>③</i> 먼지가 가라앉고 결론만</p>
       <h3>쿵! 내려앉기<small>무게로 결론</small></h3><p class="why">무거운 착지와 흔들림이 '이게 결론'이라고 알린다.</p>
-      <dl><dt>쓰는 곳</dt><dd>결론 한 문장, 핵심 숫자</dd><dt>주의</dt><dd>덱에서 한 번, 결론에만. 흔들림은 0.5초 안에 끝낸다</dd><dt>PPT</dt><dd>나타내기 '확대/축소'(크게→원래) + 강조 효과로 짧게 흔들기</dd></dl></article>
+      <dl><dt>쓰는 곳</dt><dd>결론 한 문장, 핵심 숫자</dd><dt>주의</dt><dd>덱에서 한 번, 결론에만. 흔들림은 0.5초 안에 끝낸다</dd><dt>PPT</dt><dd>3차원 서식 글자 + '날아오기'(바운스 끝), 흔들림·먼지는 영상으로</dd></dl></article>
     <article class="card"><div class="demo d-asm">
         <div class="asm" data-js="asm"><canvas></canvas></div>
         <button type="button" class="fullbtn" data-open="asm">⤢ 크게 보기</button>
@@ -744,6 +691,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     <span class="fvtag" id="fvtag"></span>
     <div class="fw" data-kind="pop"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas></div>
     <div class="asm" data-kind="asm"><canvas></canvas></div>
+    <div class="cv3" data-kind="train"><canvas></canvas></div>
+    <div class="cv3" data-kind="thud"><canvas></canvas></div>
     <div class="fvbar"><button type="button" data-fv="replay">↻ 다시</button><button type="button" data-fv="close">✕ 닫기 (Esc)</button></div>
   </div>
   <div class="foot"><span>와우 포인트 24 · ⑥ 소리가 보이는 모션</span><span>8 / 9</span></div>
@@ -845,7 +794,9 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     },
     ba(el) { /* 자동 훑기는 CSS. 끌면 직접 비교 */ },
     fw(el, end) { el._e = el._e || Fireworks(el); end ? el._e.final() : el._e.run(); },
-    asm(el, end) { el._e = el._e || Assembly(el); end ? el._e.final() : el._e.run(); }
+    asm(el, end) { el._e = el._e || Assembly(el); end ? el._e.final() : el._e.run(); },
+    train(el, end) { el._e = el._e || Train(el); end ? el._e.final() : el._e.run(); },
+    thud(el, end) { el._e = el._e || Thud(el); end ? el._e.final() : el._e.run(); }
   };
 
 
@@ -1038,6 +989,178 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     };
   }
 
+
+  // ── 캔버스 장면 공용: 크기 맞추기 · 재생 고리 · 글꼴 기다리기 ──
+  const fitCanvas = (root, cv, g) => { const W = root.offsetWidth, H = root.offsetHeight, R = Math.min(2, Math.max(1, (devicePixelRatio || 1) * (window.__k || 1))); cv.width = Math.round(W * R); cv.height = Math.round(H * R); g.setTransform(R, 0, 0, R, 0, 0); return [W, H]; };
+  const Loop = (build, draw, dur, fonts) => {
+    let raf = 0, t0 = 0, running = false;
+    const ready = cb => (document.fonts ? Promise.all(fonts.map(f => document.fonts.load(f))).then(cb, cb) : cb());
+    const frame = now => { const t = (now - t0) / 1000; draw(t); if (running && t < dur) raf = requestAnimationFrame(frame); else running = false; };
+    return {
+      run() { this.stop(); ready(() => { build(); if (RM) return draw(99); running = true; t0 = performance.now(); raf = requestAnimationFrame(frame); }); },
+      stop() { running = false; cancelAnimationFrame(raf); },
+      final() { this.stop(); ready(() => { build(); draw(99); }); }
+    };
+  };
+  // ── 입체 글자(공용): 아주 굵은 글자에 두께를 줘 덩어리처럼. 앞면은 위가 밝은 그러데이션, 옆면은 두 톤 ──
+  const BHS = '"Black Han Sans"';
+  const extrude = (text, f, front, side, depth) => {
+    const font = '400 ' + f + 'px ' + BHS, mc = document.createElement('canvas').getContext('2d'); mc.font = font;
+    const tm = mc.measureText(text), asc = Math.ceil(tm.actualBoundingBoxAscent || f * .8), desc = Math.ceil(tm.actualBoundingBoxDescent || f * .06);
+    const D = Math.max(2, Math.round(f * depth)), ex = .62, ey = -.5, pad = 4;
+    const cw = Math.ceil(tm.width) + pad * 2 + Math.ceil(D * ex), ch = asc + desc + pad * 2 + Math.ceil(D * -ey), ox = pad, oy = pad + Math.ceil(D * -ey) + asc;
+    const tint = col => { const c = document.createElement('canvas'); c.width = cw; c.height = ch; const x = c.getContext('2d'); x.font = font; x.textBaseline = 'alphabetic'; x.fillStyle = col; x.fillText(text, ox, oy); return c; };
+    const c = document.createElement('canvas'); c.width = cw; c.height = ch; const x = c.getContext('2d');
+    const sA = tint(side[1]), sB = tint(side[0]);
+    for (let i = D; i >= 1; i--) x.drawImage(i > D * .45 ? sA : sB, i * ex, i * ey);
+    x.drawImage(tint('rgba(255,255,255,.5)'), 0, -1);
+    const fc = tint('#000'), fx = fc.getContext('2d'); fx.globalCompositeOperation = 'source-in';
+    const gr = fx.createLinearGradient(0, oy - asc, 0, oy + desc); gr.addColorStop(0, front[0]); gr.addColorStop(1, front[1]); fx.fillStyle = gr; fx.fillRect(0, 0, cw, ch);
+    x.drawImage(fc, 0, 0);
+    return { cv: c, w: cw, h: ch, ox, oy, adv: tm.width, asc, desc };
+  };
+  const IVORY = [['#FAF5EC', '#D8CDBC'], ['#8C7F6E', '#5A5045']];
+
+  // ── 칙칙폭폭 지나가기: 음절 하나 = 객차 한 량. 입체 글자 열차가 오른쪽에서 들어와 덜컹이며 멈춤 ──
+  function Train(root) {
+    const cv = root.querySelector('canvas'), g = cv.getContext('2d'), TEXT = '새로운 출발';
+    let W, H, f, u, railY, cars, len, endX, startX, bg, r, plate, chTop;
+    const MOVE = 3.8, T0 = .25;
+    const build = () => {
+      [W, H] = fitCanvas(root, cv, g); u = W / 1600; f = Math.round(W * (W < 800 ? .15 : .118)); railY = H * .7;
+      r = f * .088; plate = f * .085; chTop = railY - r * 2 - plate;
+      cars = []; let x = 0;
+      [...TEXT].forEach(ch => { if (!ch.trim()) { x += f * .34; return; } const sp = extrude(ch, f, ...IVORY, .2); cars.push({ sp, x, w: sp.adv }); x += sp.adv + f * .17; });
+      len = x - f * .17; endX = (W - len) / 2; startX = W + f * .8;
+      // 배경: 해 질 녘 하늘 · 먼 지평선 · 레일과 침목(한 번만 그려 둠)
+      bg = document.createElement('canvas'); bg.width = cv.width; bg.height = cv.height; const b = bg.getContext('2d'); b.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+      const hz = railY - f * .42, sky = b.createLinearGradient(0, 0, 0, hz);
+      sky.addColorStop(0, '#0F1219'); sky.addColorStop(.62, '#231F24'); sky.addColorStop(.9, '#4A3830'); sky.addColorStop(1, '#6A4A36');
+      b.fillStyle = sky; b.fillRect(0, 0, W, hz);
+      b.fillStyle = '#16141A'; b.beginPath(); b.moveTo(0, hz);
+      for (let k = 0; k <= 24; k++) { const xx = W * k / 24; b.lineTo(xx, hz - f * (.12 + .1 * Math.abs(Math.sin(k * 1.7)) + .06 * Math.sin(k * .6))); }
+      b.lineTo(W, hz); b.closePath(); b.fill();
+      const gd = b.createLinearGradient(0, hz, 0, H); gd.addColorStop(0, '#1D1A18'); gd.addColorStop(1, '#090808'); b.fillStyle = gd; b.fillRect(0, hz, W, H - hz);
+      for (let xx = -f; xx < W + f; xx += f * .42) { b.fillStyle = '#2A2521'; b.fillRect(xx, railY + f * .03, f * .22, f * .05); }
+      b.fillStyle = '#3B3631'; b.fillRect(0, railY - f * .015, W, f * .045);
+      b.fillStyle = '#9A9085'; b.fillRect(0, railY - f * .015, W, Math.max(1, f * .008));
+    };
+    const pos = t => { const p = Math.max(0, Math.min(1, (t - T0) / MOVE)); return [endX + (startX - endX) * Math.pow(1 - p, 2.4), (p < 1 ? 2.4 * Math.pow(1 - p, 1.4) : 0)]; };
+    const wheel = (x, y, ang) => {
+      g.fillStyle = '#151311'; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill();
+      g.strokeStyle = '#6F665C'; g.lineWidth = Math.max(1, r * .18); g.beginPath(); g.arc(x, y, r * .82, 0, 6.2832); g.stroke();
+      g.strokeStyle = '#4A443E'; g.lineWidth = Math.max(1, r * .14); g.beginPath(); for (let k = 0; k < 3; k++) { const a = ang + k * 2.094; g.moveTo(x, y); g.lineTo(x + Math.cos(a) * r * .75, y + Math.sin(a) * r * .75); } g.stroke();
+      g.fillStyle = '#8A8076'; g.beginPath(); g.arc(x, y, r * .18, 0, 6.2832); g.fill();
+    };
+    const draw = t => {
+      g.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0); g.drawImage(bg, 0, 0, W, H);
+      const [X, sp] = pos(t), ds = t - T0 - MOVE, J = f * 1.05;
+      // 그림자
+      g.fillStyle = 'rgba(0,0,0,.45)'; g.beginPath(); g.ellipse(X + len / 2, railY + f * .05, len / 2 + f * .1, f * .06, 0, 0, 6.2832); g.fill();
+      // 전조등 빛(맨 앞 칸 왼쪽)
+      const hx = X - f * .04, hy = chTop - f * .12, cone = g.createLinearGradient(hx, 0, hx - f * 3, 0);
+      cone.addColorStop(0, 'rgba(255,236,200,.28)'); cone.addColorStop(1, 'rgba(255,236,200,0)');
+      g.fillStyle = cone; g.beginPath(); g.moveTo(hx, hy - f * .03); g.lineTo(hx - f * 3, hy - f * .5); g.lineTo(hx - f * 3, railY); g.lineTo(hx, hy + f * .05); g.closePath(); g.fill();
+      cars.forEach((c, i) => {
+        const slack = ds > 0 ? f * .07 * Math.exp(-ds * 3.5) * Math.sin(ds * 13 - i * .5) * (i / Math.max(1, cars.length - 1)) : 0;
+        const cx = X + c.x + slack, b1x = cx + c.w * .2, b2x = cx + c.w * .8;
+        const bump = bx => { const ph = ((bx % J) + J) % J; return Math.exp(-ph / (f * .05)); };
+        const k1 = bump(b1x), k2 = bump(b2x), lift = -(k1 + k2) / 2 * f * .045 * sp, tilt = (k2 - k1) * .02 * sp;
+        // 연결고리
+        if (i < cars.length - 1) { const nx = X + cars[i + 1].x; g.fillStyle = '#2B2723'; g.fillRect(cx + c.w, chTop + plate * .35 + lift, nx - cx - c.w, plate * .3); }
+        g.save(); g.translate(cx + c.w / 2, chTop + lift); g.rotate(tilt);
+        // 속도가 빠를 때 뒤로 잔상
+        if (sp > .2) for (let k = 3; k >= 1; k--) { g.globalAlpha = .1 * sp; g.drawImage(c.sp.cv, -c.w / 2 - c.sp.ox + k * f * .07 * sp, -c.sp.oy - c.sp.desc * .2); }
+        g.globalAlpha = 1; g.drawImage(c.sp.cv, -c.w / 2 - c.sp.ox, -c.sp.oy - c.sp.desc * .2);
+        // 차대
+        g.fillStyle = '#26221F'; g.fillRect(-c.w / 2 - f * .03, 0, c.w + f * .06, plate);
+        g.fillStyle = 'rgba(255,255,255,.2)'; g.fillRect(-c.w / 2 - f * .03, 0, c.w + f * .06, Math.max(1, plate * .16));
+        g.restore();
+        const ang = (X + slack) / r;
+        [b1x, b2x].forEach(bx => { wheel(bx - r * 1.05, railY - r, ang); wheel(bx + r * 1.05, railY - r, ang); });
+        if (i === 0) { g.fillStyle = '#FFF4DC'; g.beginPath(); g.arc(hx, hy + lift, f * .035, 0, 6.2832); g.fill(); }
+      });
+    };
+    return Loop(build, draw, T0 + MOVE + 1.6, ['400 40px ' + BHS]);
+  }
+
+  // ── 쿵! 내려앉기: 그림자가 먼저 커지고 → 무거운 입체 글자가 떨어져 쿵 → 흔들림·바닥 균열·먼지 → 결론만 남음 ──
+  function Thud(root) {
+    const cv = root.querySelector('canvas'), g = cv.getContext('2d');
+    let W, H, f, u, gy, words, total, x0, bg, cracks, dust, chips, lastT, spawned, puff, beam;
+    const TL = 1.05, FALL = .5;
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const build = () => {
+      [W, H] = fitCanvas(root, cv, g); u = W / 1600; f = Math.round(W * (W < 800 ? .17 : .105)); gy = H * .7;
+      words = [extrude('기간', f, ...IVORY, .22), extrude('절반', f, ['#F6B48C', '#D96A3E'], ['#8E4C31', '#5E3222'], .22)];
+      const gap = f * .3; total = words[0].adv + gap + words[1].adv; x0 = (W - total) / 2; words[1].dx = words[0].adv + gap; words[0].dx = 0;
+      bg = document.createElement('canvas'); bg.width = cv.width; bg.height = cv.height; const b = bg.getContext('2d'); b.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+      const wall = b.createLinearGradient(0, 0, 0, gy); wall.addColorStop(0, '#0B0B0E'); wall.addColorStop(1, '#1A1817'); b.fillStyle = wall; b.fillRect(0, 0, W, gy);
+      const fl = b.createLinearGradient(0, gy, 0, H); fl.addColorStop(0, '#24211E'); fl.addColorStop(1, '#0A0909'); b.fillStyle = fl; b.fillRect(0, gy, W, H - gy);
+      b.fillStyle = 'rgba(255,255,255,.05)'; b.fillRect(0, gy, W, 1);
+      // 균열: 착지면에서 바깥으로 갈라지는 선
+      cracks = []; const cx = W / 2;
+      for (let i = 0; i < 9; i++) {
+        let x = rnd(x0 + total * .05, x0 + total * .95), y = gy + 1, side = x < cx ? -1 : 1, head = side < 0 ? Math.PI - rnd(-.05, .3) : rnd(-.05, .3), pts = [[x, y]];
+        const n = 6 + (Math.random() * 5 | 0);
+        for (let k = 0; k < n; k++) { head += rnd(-.45, .45); head = side < 0 ? Math.min(Math.PI + .05, Math.max(Math.PI - .5, head)) : Math.max(-.05, Math.min(.5, head)); const L = f * rnd(.07, .17); x += Math.cos(head) * L; y += Math.abs(Math.sin(head)) * L * .55; pts.push([x, y]); }
+        cracks.push({ pts, w: f * rnd(.014, .026) });
+      }
+      // 먼지 알갱이 그림(부드러운 점)
+      puff = document.createElement('canvas'); puff.width = puff.height = 64; const pc = puff.getContext('2d'), pg = pc.createRadialGradient(32, 32, 0, 32, 32, 32);
+      pg.addColorStop(0, 'rgba(200,190,176,1)'); pg.addColorStop(1, 'rgba(200,190,176,0)'); pc.fillStyle = pg; pc.fillRect(0, 0, 64, 64);
+      beam = document.createElement('canvas'); beam.width = Math.ceil(W * .9); beam.height = Math.ceil(gy); const bc = beam.getContext('2d'), bw2 = beam.width / 2;
+      bc.filter = 'blur(' + Math.round(f * .25) + 'px)'; const bgd = bc.createLinearGradient(0, 0, 0, gy); bgd.addColorStop(0, 'rgba(255,238,215,0)'); bgd.addColorStop(1, 'rgba(255,238,215,.075)');
+      bc.fillStyle = bgd; bc.beginPath(); bc.moveTo(bw2 - f * .35, 0); bc.lineTo(bw2 + f * .35, 0); bc.lineTo(bw2 + total * .62, gy); bc.lineTo(bw2 - total * .62, gy); bc.closePath(); bc.fill();
+      dust = []; chips = []; lastT = 0; spawned = false;
+    };
+    const spawn = () => {
+      spawned = true; const cx = x0 + total / 2;
+      for (let i = 0; i < 300; i++) { const x = rnd(x0 - f * .1, x0 + total + f * .1), dir = Math.sign(x - cx) || 1; dust.push({ x, y: gy - rnd(0, f * .15), vx: dir * rnd(2, 13) * u * (.4 + Math.abs(x - cx) / total), vy: -rnd(.3, 2.4) * u, r: rnd(12, 28) * u, a: rnd(.14, .28), life: rnd(1.8, 3), age: 0 }); }
+      for (let i = 0; i < 26; i++) chips.push({ x: rnd(x0, x0 + total), y: gy - 2, vx: rnd(-6, 6) * u, vy: -rnd(3, 8) * u, s: rnd(2, 5) * u, rot: rnd(0, 6), vr: rnd(-.3, .3), bounced: 0 });
+    };
+    const draw = t => {
+      const dt = Math.min(.05, Math.max(0, t - lastT)), fr = dt * 60; lastT = t;
+      if (t >= TL && !spawned && t < TL + 3) spawn();
+      const at = t - TL, shake = at > 0 && at < .55 ? f * .07 * Math.exp(-at * 8) : 0;
+      g.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0);
+      g.translate(rnd(-1, 1) * shake, rnd(-1, 1) * shake * .7);
+      g.drawImage(bg, -f * .2, -f * .2, W + f * .4, H + f * .4);
+      // 위에서 떨어지는 조명(착지 뒤 살짝 흔들림)
+      const sway = at > 0 ? f * .3 * Math.sin(at * 2.6) * Math.exp(-at * .9) : 0, lx = W / 2 + sway;
+      const spot = g.createRadialGradient(lx, gy + f * .2, 0, lx, gy + f * .2, total * .75); spot.addColorStop(0, 'rgba(255,238,215,.24)'); spot.addColorStop(1, 'rgba(255,238,215,0)');
+      g.save(); g.translate(lx, gy + f * .2); g.scale(1, .32); g.translate(-lx, -(gy + f * .2)); g.fillStyle = spot; g.beginPath(); g.arc(lx, gy + f * .2, total * .75, 0, 6.2832); g.fill(); g.restore();
+      g.drawImage(beam, lx - beam.width / 2, 0);
+      // 균열
+      if (at > 0) {
+        const rev = Math.min(1, at / .22), fade = at > 1.5 ? .55 : 1;
+        cracks.forEach(c => { const n = Math.max(1, Math.round((c.pts.length - 1) * rev)); g.strokeStyle = 'rgba(0,0,0,' + .8 * fade + ')'; g.lineWidth = c.w; g.lineJoin = 'round'; g.beginPath(); g.moveTo(c.pts[0][0], c.pts[0][1]); for (let k = 1; k <= n; k++) g.lineTo(c.pts[k][0], c.pts[k][1]); g.stroke();
+          g.strokeStyle = 'rgba(255,240,220,' + .16 * fade + ')'; g.lineWidth = Math.max(.6, c.w * .4); g.beginPath(); g.moveTo(c.pts[0][0], c.pts[0][1] + c.w); for (let k = 1; k <= n; k++) g.lineTo(c.pts[k][0], c.pts[k][1] + c.w); g.stroke(); });
+      }
+      // 떨어지는 동안: 위치(가속) · 그림자는 점점 커지고 진해짐
+      const p = Math.max(0, Math.min(1, (t - (TL - FALL)) / FALL)), yOff = t < TL ? -(H * .95) * (1 - p * p) : 0;
+      const sh = t < TL - FALL ? .08 : t < TL ? .08 + .5 * p : .58, sw = t < TL ? .45 + .55 * p : 1;
+      g.fillStyle = 'rgba(0,0,0,' + sh + ')'; g.beginPath(); g.ellipse(x0 + total / 2 + f * .08, gy + f * .04, total / 2 * sw + f * .1, f * .07 * sw, 0, 0, 6.2832); g.fill();
+      if (t >= TL - FALL) {
+        const s = at > 0 ? Math.exp(-at * 9) : 0, sy = 1 - .13 * s * Math.cos(at * 26), sx = 1 + .055 * s * Math.cos(at * 26);
+        const drawWords = (dy, al) => { g.save(); g.globalAlpha = al; g.translate(x0 + total / 2, gy + dy); g.scale(sx, sy); words.forEach(w => g.drawImage(w.cv, -total / 2 + w.dx - w.ox, -w.oy - w.desc)); g.restore(); };
+        if (t < TL) for (let k = 3; k >= 1; k--) drawWords(yOff - k * f * .16 * p, .1);
+        drawWords(yOff, 1);
+      }
+      // 먼지 · 파편
+      if (spawned && at < 3) {
+        g.save(); dust.forEach(d => { d.age += dt; if (d.age > d.life) return; const k = Math.pow(.955, fr); d.vx *= k; d.vy = d.vy * k - .01 * u * fr; d.x += d.vx * fr; d.y += d.vy * fr; d.r += .35 * u * fr;
+          g.globalAlpha = d.a * (1 - d.age / d.life); g.drawImage(puff, d.x - d.r, d.y - d.r, d.r * 2, d.r * 2); }); g.restore();
+        chips.forEach(c => { if (c.bounced < 2) { c.vy += .35 * u * fr; c.x += c.vx * fr; c.y += c.vy * fr; c.rot += c.vr * fr; if (c.y > gy - c.s / 2 && c.vy > 0) { c.y = gy - c.s / 2; c.vy *= -.3; c.vx *= .5; c.bounced++; } }
+          g.save(); g.translate(c.x, c.y); g.rotate(c.rot); g.fillStyle = '#3A342E'; g.fillRect(-c.s / 2, -c.s / 2, c.s, c.s); g.restore(); });
+      }
+      // 말머리: 쿵 다음에 조용히
+      const la = Math.max(0, Math.min(1, (at - .65) / .5));
+      if (la > 0) { g.save(); g.globalAlpha = la; g.fillStyle = '#B9B0A3'; g.font = '600 ' + Math.round(f * .16) + 'px "Noto Sans KR"'; g.textAlign = 'center'; try { g.letterSpacing = Math.round(f * .05) + 'px'; } catch (e) {} g.fillText('그래서 결론은', W / 2, gy - words[0].asc - f * .42); g.restore(); }
+    };
+    return Loop(build, draw, TL + 3.2, ['400 40px ' + BHS, '600 20px "Noto Sans KR"']);
+  }
+
   // 비포/애프터 끌기
   document.querySelectorAll('.d-ba').forEach(el => {
     const move = e => { const r = el.getBoundingClientRect(); el.style.setProperty('--x', Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)) + '%'); };
@@ -1052,11 +1175,11 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   };
   const count = document.getElementById('count');
   // 크게 보기(화면 전체 재생)
-  const fv = document.getElementById('fullv'), ENG = { pop: Fireworks, asm: Assembly }, TAG = { pop: '⑥ 팡! 터뜨리기 · 크게 보기', asm: '⑥ 타이포 조립 · 크게 보기' };
+  const fv = document.getElementById('fullv'), ENG = { pop: Fireworks, asm: Assembly, train: Train, thud: Thud }, TAG = { pop: '⑥ 팡! 터뜨리기 · 크게 보기', asm: '⑥ 타이포 조립 · 크게 보기', train: '⑥ 칙칙폭폭 지나가기 · 크게 보기', thud: '⑥ 쿵! 내려앉기 · 크게 보기' };
   let fvk = null; const fvEl = () => fv.querySelector('[data-kind=' + fvk + ']');
   const openFull = kind => {
     slides[cur].querySelectorAll('.demo [data-js]').forEach(e => e._e && e._e.stop());
-    fvk = kind; fv.className = 'fullv open k-' + kind; document.getElementById('fvtag').textContent = TAG[kind];
+    fvk = kind; fv.className = 'fullv open'; fv.querySelectorAll('[data-kind]').forEach(e => e.classList.toggle('on', e.dataset.kind === kind)); document.getElementById('fvtag').textContent = TAG[kind];
     const el = fvEl(); el._e = el._e || ENG[kind](el); el._e.run();
   };
   const closeFull = () => { if (!fv.classList.contains('open')) return; const el = fvEl(); el._e && el._e.stop(); fv.className = 'fullv'; };
