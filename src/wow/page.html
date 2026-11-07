@@ -343,9 +343,10 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .fw canvas.gl{filter:blur(.7cqw) brightness(1.4);opacity:.85;mix-blend-mode:screen}
 .fw .fwt{position:absolute;left:0;right:0;top:60%;transform:translateY(-50%);text-align:center;opacity:0;transition:opacity .9s ease;pointer-events:none}
 .fw .fwt.on{opacity:1}
-.fw .fwt b{display:block;font:900 10cqw/1 var(--ft);letter-spacing:0;color:#FFF6E0;white-space:nowrap;text-shadow:0 0 1cqw rgba(255,190,110,.9),0 0 4cqw rgba(255,160,60,.45)}
+.fw .fwt b{display:block;font:900 6cqw/1 var(--ft);letter-spacing:0;color:#FFF6E0;white-space:nowrap;text-shadow:0 0 1cqw rgba(255,190,110,.9),0 0 4cqw rgba(255,160,60,.45)}
 .fw .fwt b em{font-style:normal;color:#FFC46B}
-.fw .fwt span{position:absolute;left:0;right:0;top:100%;display:block;margin-top:2cqw;font:600 max(2.2cqw,11px) var(--fb);color:#D8DCE4;letter-spacing:.04em}
+.fw .fwt span{position:absolute;left:0;right:0;top:100%;display:block;margin-top:1.4cqw;font:600 max(1.6cqw,10px) var(--fb);color:#D8DCE4;letter-spacing:.04em}
+.demo .fw .fwt b{font-size:10cqw}
 .fullbtn{position:absolute;right:3%;top:3%;z-index:3;font:600 13px var(--fb);color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:6px 12px;cursor:pointer}
 .fullbtn:hover{background:rgba(255,255,255,.26)}
 .fullv{position:absolute;inset:0;z-index:40;display:none;background:#020308}
@@ -689,8 +690,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
         <div class="fw" data-js="fw" data-text="목표 달성!"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas>
           <div class="fwt"><b>목표 <em>달성!</em></b><span>2027 참여 목표 100%</span></div></div>
         <button type="button" class="fullbtn" data-open="pop">⤢ 크게 보기</button>
-      </div><p class="steps"><i>①</i> 여러 발 팡 → <i>②</i> 불티가 ㅁ·ㅗ·ㄱ 같은 음운으로 → <i>③</i> 하나씩 떨어져 맞물려 음절로</p>
-      <h3>팡! 터뜨리기<small>음운이 모여 음절로</small></h3><p class="why">불티가 자음·모음이 되어 하나씩 떨어지고, 맞물려 글자가 된다.</p>
+      </div><p class="steps"><i>①</i> 여러 발 팡 → <i>②</i> 불티가 가로획·세로획으로 → <i>③</i> 한꺼번에 제자리로 떨어져 조립</p>
+      <h3>팡! 터뜨리기<small>획이 모여 글자로</small></h3><p class="why">떨어지는 불티 획이 한꺼번에 끼워져 음운·음절·어절이 된다.</p>
       <dl><dt>쓰는 곳</dt><dd>목표 달성, 결과 발표, 개막 표지</dd><dt>주의</dt><dd>덱에서 한 번. 불꽃이 끝나면 정돈된 글자만 남긴다</dd><dt>PPT</dt><dd>불꽃 영상 삽입 + 글자 '나타내기: 서서히'. 입자가 모이는 건 HTML로</dd></dl></article>
     <article class="card"><div class="demo d-train">
         <div class="rail"></div><i class="speed"></i>
@@ -866,101 +867,110 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       flashes.push({ x, y, r: 80 * u * k, a: 1 });
       for (let i = 0; i < 5; i++) puffs.push({ x: x + rnd(-160, 160) * u * k, y: y + rnd(-80, 180) * u * k, r: rnd(70, 130) * u, gr: rnd(.3, .6) * u, a: rnd(.02, .04) });
     };
-    // ── 음운 조각: 음절을 초성·중성·종성 자리로 나누고, 조각마다 홑 자모(ㅁ·ㅗ·ㄱ) 모양을 만든다 ──
-    const CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ', JUNG = 'ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ', JONG = ' ㄱㄲㄳㄴㄵㄶㄷㄹㄺㄻㄼㄽㄾㄿㅀㅁㅂㅄㅅㅆㅇㅈㅊㅋㅌㅍㅎ';
-    const band = (p, st) => Math.round(p[1] / (st * 3)) * 1e5 + p[0];
-    const shapeCache = {};
-    // 홑 자모를 (rw × rh) 상자에 맞춰 그린 점들(상자 가운데 기준)
-    const shape = (nm, rw, rh, st) => {
-      const key = nm + rw + 'x' + rh + 's' + st; if (shapeCache[key]) return shapeCache[key];
-      const S = Math.ceil(Math.max(rw, rh) * 1.7) + 8, c = document.createElement('canvas'), x = c.getContext('2d', { willReadFrequently: true });
-      c.width = c.height = S; x.font = '900 ' + Math.round(S * .78) + 'px "Gothic A1"'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff'; x.fillText(nm, S / 2, S / 2);
-      const d = x.getImageData(0, 0, S, S).data; let x0 = S, y0 = S, x1 = -1, y1 = -1;
-      for (let i = 0; i < S * S; i++) if (d[i * 4 + 3] >= 128) { const px = i % S, py = (i / S) | 0; if (px < x0) x0 = px; if (px > x1) x1 = px; if (py < y0) y0 = py; if (py > y1) y1 = py; }
-      const out = [];
-      if (x1 >= x0) { const kx = (x1 - x0 + 1) / rw, ky = (y1 - y0 + 1) / rh;
-        for (let ty = 0; ty < rh; ty += st) for (let tx = 0; tx < rw; tx += st) { const px = Math.floor(x0 + tx * kx), py = Math.floor(y0 + ty * ky); if (d[(py * S + px) * 4 + 3] >= 128) out.push([tx - rw / 2, ty - rh / 2]); } }
-      out.sort((a, b) => band(a, st) - band(b, st));
-      return shapeCache[key] = out;
-    };
-    const jamo = () => {
-      const fs = Math.round(W * .1), c = document.createElement('canvas'), x = c.getContext('2d', { willReadFrequently: true });
-      const cw = Math.ceil(W), ch = Math.ceil(fs * 1.5), oy = H * .6 - ch / 2, st = Math.max(2, Math.round(fs / 34));
-      c.width = cw; c.height = ch;
+    // ── 낱획 조립: 글자를 가로획·세로획·고리 같은 낱획으로 나누고, 낱획마다 음운·음절·어절을 기록 ──
+    const strokes = () => {
+      const fs = Math.round(W * (W < 800 ? .1 : .06)), cw = Math.ceil(W), ch = Math.ceil(fs * 1.6), oy = H * .6 - ch / 2, st = Math.max(2, Math.round(fs / 30));
+      const c = document.createElement('canvas'), x = c.getContext('2d', { willReadFrequently: true }); c.width = cw; c.height = ch;
       x.font = '900 ' + fs + 'px "Gothic A1"'; x.textAlign = 'left'; x.textBaseline = 'alphabetic'; x.fillStyle = '#fff';
       const fm = x.measureText('목'), base = ch / 2 + ((fm.fontBoundingBoxAscent || fs * .88) - (fm.fontBoundingBoxDescent || fs * .22)) / 2;
-      const chars = [...TEXT], ws = chars.map(t => x.measureText(t).width), out = [];
-      let cx = (cw - ws.reduce((a, b) => a + b, 0)) / 2;
-      chars.forEach((t, si) => {
-        const left = cx, w = ws[si]; cx += w;
-        if (!t.trim()) return;
-        const X0 = Math.max(0, Math.floor(left) - 2), gw = Math.min(cw - X0, Math.ceil(w) + 4);
-        x.clearRect(0, 0, cw, ch); x.fillText(t, left, base);
-        const d = x.getImageData(X0, 0, gw, ch).data, M = new Uint8Array(gw * ch);
-        let bx0 = gw, by0 = ch, bx1 = -1, by1 = -1;
-        for (let i = 0; i < M.length; i++) if (d[i * 4 + 3] >= 128) { M[i] = 1; const px = i % gw, py = (i / gw) | 0; if (px < bx0) bx0 = px; if (px > bx1) bx1 = px; if (py < by0) by0 = py; if (py > by1) by1 = py; }
-        if (bx1 < 0) return;
+      const chars = [...TEXT], ws = chars.map(t => x.measureText(t).width), lefts = [];
+      let cx = (cw - ws.reduce((a, b2) => a + b2, 0)) / 2;
+      chars.forEach((t, i) => { lefts.push(cx); x.fillText(t, cx, base); cx += ws[i]; });
+      const d = x.getImageData(0, 0, cw, ch).data, N = cw * ch, M = new Uint8Array(N);
+      for (let i = 0; i < N; i++) M[i] = d[i * 4 + 3] >= 128 ? 1 : 0;
+      const nb4 = j => { const jx = j % cw; return [jx > 0 ? j - 1 : -1, jx < cw - 1 ? j + 1 : -1, j >= cw ? j - cw : -1, j + cw < N ? j + cw : -1]; };
+      // 1) 점마다 가로로 이어진 길이·세로로 이어진 길이 → 가로획(1)·세로획(2)·꺾임·사선(3)
+      const hr = new Uint16Array(N), vr = new Uint16Array(N);
+      for (let y = 0; y < ch; y++) { let s0 = -1; for (let k = 0; k <= cw; k++) { const on = k < cw && M[y * cw + k]; if (on && s0 < 0) s0 = k; else if (!on && s0 >= 0) { for (let j = s0; j < k; j++) hr[y * cw + j] = k - s0; s0 = -1; } } }
+      for (let k = 0; k < cw; k++) { let s0 = -1; for (let y = 0; y <= ch; y++) { const on = y < ch && M[y * cw + k]; if (on && s0 < 0) s0 = y; else if (!on && s0 >= 0) { for (let j = s0; j < y; j++) vr[j * cw + k] = y - s0; s0 = -1; } } }
+      const cls = new Uint8Array(N);
+      for (let i = 0; i < N; i++) if (M[i]) cls[i] = hr[i] > vr[i] * 1.25 ? 1 : vr[i] > hr[i] * 1.25 ? 2 : 3;
+      const id = new Int32Array(N).fill(-1), comps = [];
+      for (let i = 0; i < N; i++) if (M[i] && id[i] < 0) {
+        const k = comps.length, q = [i], px = []; id[i] = k;
+        while (q.length) { const j = q.pop(); px.push(j); for (const n of nb4(j)) if (n >= 0 && M[n] && id[n] < 0 && cls[n] === cls[i]) { id[n] = k; q.push(n); } }
+        comps.push(px);
+      }
+      const merge = (from, to) => { if (from === to || !comps[from] || !comps[to]) return; comps[from].forEach(j => id[j] = to); comps[to] = comps[to].concat(comps[from]); comps[from] = null; };
+      // 2) 너무 작은 조각(획이 만나는 모서리 등)은 가장 많이 맞닿은 획에 붙임
+      const minP = fs * fs * .006;
+      for (let pass = 0; pass < 3; pass++) comps.forEach((px, ci) => {
+        if (!px || px.length >= minP) return; const cnt = {};
+        px.forEach(j => nb4(j).forEach(n => { if (n >= 0 && M[n] && id[n] !== ci) cnt[id[n]] = (cnt[id[n]] || 0) + 1; }));
+        let best = -1, bn = 0; for (const k in cnt) if (cnt[k] > bn) { bn = cnt[k]; best = +k; }
+        if (best >= 0) merge(ci, best);
+      });
+      // 3) 고리(ㅇ, ㅎ의 동그라미): 구멍이 있고 곧은 줄이 짧은 잉크 덩어리는 획 하나로
+      const ink = new Int32Array(N).fill(-1);
+      for (let i = 0; i < N; i++) if (M[i] && ink[i] < 0) {
+        const q = [i], px = []; ink[i] = i; let x0 = cw, y0 = ch, x1 = 0, y1 = 0, mh = 0, mv = 0;
+        while (q.length) { const j = q.pop(); px.push(j); const jx = j % cw, jy = (j / cw) | 0; if (jx < x0) x0 = jx; if (jx > x1) x1 = jx; if (jy < y0) y0 = jy; if (jy > y1) y1 = jy; if (hr[j] > mh) mh = hr[j]; if (vr[j] > mv) mv = vr[j];
+          for (const n of nb4(j)) if (n >= 0 && M[n] && ink[n] < 0) { ink[n] = i; q.push(n); } }
+        const bw = x1 - x0 + 1, bh = y1 - y0 + 1;
+        if (mh / bw > .78 || mv / bh > .78 || bw < fs * .2) continue;
+        const seen = new Uint8Array(bw * bh), qq = [];
+        for (let yy = 0; yy < bh; yy++) for (let xx = 0; xx < bw; xx++) if (xx === 0 || yy === 0 || xx === bw - 1 || yy === bh - 1) { const g0 = (y0 + yy) * cw + x0 + xx; if (ink[g0] !== i) { seen[yy * bw + xx] = 1; qq.push(yy * bw + xx); } }
+        while (qq.length) { const l = qq.pop(), lx = l % bw, ly = (l / bw) | 0; for (const [ax, ay] of [[lx - 1, ly], [lx + 1, ly], [lx, ly - 1], [lx, ly + 1]]) { if (ax < 0 || ay < 0 || ax >= bw || ay >= bh) continue; const li = ay * bw + ax; if (!seen[li] && ink[(y0 + ay) * cw + x0 + ax] !== i) { seen[li] = 1; qq.push(li); } } }
+        let hole = 0; for (let l = 0; l < bw * bh; l++) if (!seen[l] && ink[(y0 + ((l / bw) | 0)) * cw + x0 + l % bw] !== i) hole++;
+        if (hole > fs * fs * .002) { const ids = [...new Set(px.map(j => id[j]))]; ids.slice(1).forEach(k => merge(k, ids[0])); }
+      }
+      // 4) 음절 안에서 초성·중성·종성 자리(잉크가 가장 적은 줄 = 자모 사이 틈)
+      const sylOf = xx => { for (let i = chars.length - 1; i >= 0; i--) if (xx >= lefts[i]) return i; return 0; };
+      const labelers = chars.map((t, si) => {
+        const code = t.charCodeAt(0) - 0xAC00;
+        if (code < 0 || code > 11171) return () => 0;
+        const X0 = Math.max(0, Math.floor(lefts[si])), X1 = Math.min(cw - 1, Math.ceil(lefts[si] + ws[si]));
+        let bx0 = X1, by0 = ch, bx1 = X0, by1 = 0;
+        for (let y = 0; y < ch; y++) for (let k = X0; k <= X1; k++) if (M[y * cw + k]) { if (k < bx0) bx0 = k; if (k > bx1) bx1 = k; if (y < by0) by0 = y; if (y > by1) by1 = y; }
         const bw = bx1 - bx0 + 1, bh = by1 - by0 + 1;
-        const row = (y, xa, xb) => { let n = 0; for (let k = xa; k <= xb; k++) n += M[y * gw + k]; return n; };
-        const col = (k, ya, yb) => { let n = 0; for (let y = ya; y <= yb; y++) n += M[y * gw + k]; return n; };
-        // 창 안에서 잉크가 가장 적은 줄 = 두 자모 사이 틈(붙어 있어도 가장 가는 곳)
-        const gap = (a, b2, f, pick) => {
-          a = Math.round(a); b2 = Math.round(b2); const v = []; let mn = 1e9;
-          for (let k = a; k <= b2; k++) { const n = f(k); v.push(n); if (n < mn) mn = n; }
-          const idx = []; v.forEach((n, i) => { if (n <= mn + Math.max(1, bw * .02)) idx.push(a + i); });
-          return pick === 'first' ? idx[0] : idx[(idx.length / 2) | 0];
-        };
-        const code = t.charCodeAt(0) - 0xAC00, lab = new Int8Array(M.length).fill(-1);
-        let names;
-        if (code < 0 || code > 11171) { for (let i = 0; i < M.length; i++) if (M[i]) lab[i] = 0; names = [t]; }
-        else {
-          const ci = (code / 588) | 0, vi = ((code % 588) / 28) | 0, fi = code % 28;
-          const vert = vi <= 7 || vi === 20, horz = vi === 8 || vi === 12 || vi === 13 || vi === 17 || vi === 18;
-          const jy = fi ? gap(by0 + bh * .48, by0 + bh * .86, y => row(y, bx0, bx1), 'mid') : by1 + 1;
-          const top1 = jy - 1, th = top1 - by0 + 1;
-          let isCho;
-          if (vert) { const cs = gap(bx0 + bw * .35, bx0 + bw * .75, k => col(k, by0, top1), 'mid'); isCho = px => px < cs; }
-          else if (horz) { const rs = gap(by0 + th * .25, by0 + th * .75, y => row(y, bx0, bx1), 'first'); isCho = (px, py) => py < rs; }
-          else { const cs = gap(bx0 + bw * .55, bx0 + bw * .88, k => col(k, by0, top1), 'mid'), rs = gap(by0 + th * .3, by0 + th * .78, y => row(y, bx0, cs), 'first'); isCho = (px, py) => px < cs && py < rs; }
-          for (let i = 0; i < M.length; i++) if (M[i]) { const px = i % gw, py = (i / gw) | 0; lab[i] = py >= jy ? 2 : isCho(px, py) ? 0 : 1; }
-          names = [CHO[ci], JUNG[vi], fi ? JONG[fi] : ''];
-        }
-        names.forEach((nm, L) => {
-          if (!nm) return;
-          const P = []; let ax0 = 1e9, ay0 = 1e9, ax1 = -1, ay1 = -1;
-          for (let i = 0; i < M.length; i++) if (lab[i] === L) { const px = i % gw, py = (i / gw) | 0; if (px < ax0) ax0 = px; if (px > ax1) ax1 = px; if (py < ay0) ay0 = py; if (py > ay1) ay1 = py; if (px % st === 0 && py % st === 0) P.push([px, py]); }
-          if (P.length < 4) return;
-          const mx = (ax0 + ax1) / 2, my = (ay0 + ay1) / 2, J = shape(nm, ax1 - ax0 + 1, ay1 - ay0 + 1, st);
-          P.sort((a, b) => band(a, st) - band(b, st));
-          out.push({ si, L, nm, tx: X0 + mx, ty: my + oy, pts: P.map((p, i) => { const j = J.length ? J[Math.floor(i * J.length / P.length)] : [p[0] - mx, p[1] - my]; return { ox: j[0], oy: j[1], fx: X0 + p[0] + rnd(-.4, .4) * st, fy: p[1] + oy + rnd(-.4, .4) * st }; }) });
-        });
+        const row = (y, xa, xb) => { let n = 0; for (let k = xa; k <= xb; k++) n += M[y * cw + k]; return n; };
+        const col = (k, ya, yb) => { let n = 0; for (let y = ya; y <= yb; y++) n += M[y * cw + k]; return n; };
+        const gap = (a2, b2, f, pick) => { a2 = Math.round(a2); b2 = Math.round(b2); const v = []; let mn = 1e9; for (let k = a2; k <= b2; k++) { const n = f(k); v.push(n); if (n < mn) mn = n; } const idx = []; v.forEach((n, i) => { if (n <= mn + Math.max(1, bw * .02)) idx.push(a2 + i); }); return pick === 'first' ? idx[0] : idx[(idx.length / 2) | 0]; };
+        const vi = ((code % 588) / 28) | 0, fi = code % 28, vert = vi <= 7 || vi === 20, horz = [8, 12, 13, 17, 18].includes(vi);
+        const jy = fi ? gap(by0 + bh * .48, by0 + bh * .86, y => row(y, bx0, bx1), 'mid') : by1 + 1, top1 = jy - 1, th = top1 - by0 + 1;
+        let isCho;
+        if (vert) { const cs = gap(bx0 + bw * .35, bx0 + bw * .75, k => col(k, by0, top1), 'mid'); isCho = px => px < cs; }
+        else if (horz) { const rs = gap(by0 + th * .25, by0 + th * .75, y => row(y, bx0, bx1), 'first'); isCho = (px, py) => py < rs; }
+        else { const cs = gap(bx0 + bw * .55, bx0 + bw * .88, k => col(k, by0, top1), 'mid'), rs = gap(by0 + th * .3, by0 + th * .78, y => row(y, bx0, cs), 'first'); isCho = (px, py) => px < cs && py < rs; }
+        return (px, py) => py >= jy ? 2 : isCho(px, py) ? 0 : 1;
+      });
+      let wi = 0; const wordOf = chars.map(t => { if (!t.trim()) wi++; return wi; });
+      const out = [];
+      comps.forEach(px => {
+        if (!px || px.length < 4) return;
+        let x0 = cw, y0 = ch, x1 = 0, y1 = 0; px.forEach(j => { const jx = j % cw, jy = (j / cw) | 0; if (jx < x0) x0 = jx; if (jx > x1) x1 = jx; if (jy < y0) y0 = jy; if (jy > y1) y1 = jy; });
+        const mx = (x0 + x1) / 2, my = (y0 + y1) / 2, si = sylOf(mx), cnt = [0, 0, 0];
+        const pts = [];
+        px.forEach(j => { const jx = j % cw, jy = (j / cw) | 0; cnt[labelers[si](jx, jy)]++; if (jx % st === 0 && jy % st === 0) pts.push({ ox: jx - mx, oy: jy - my, fx: jx + rnd(-.3, .3) * st, fy: jy + oy + rnd(-.3, .3) * st }); });
+        if (pts.length < 2) return;
+        const L = cnt.indexOf(Math.max(...cnt));
+        out.push({ si, L, wi: wordOf[si], tx: mx, ty: my + oy, len: Math.max(x1 - x0, y1 - y0), pts });
       });
       return out;
     };
-    // 터진 자리에서 불티가 퍼졌다가 → 홑 자모(ㅁ·ㅗ·ㄱ) 모양으로 모이고 → 하나씩 수르륵 떨어져 → 맞물려 음절이 됨
+    // 터진 불꽃이 떨어지며 낱획이 되고 → 모두 동시에 제자리로 차라라락 떨어져 → 음운·음절·어절이 한꺼번에 맞춰짐
     const spawnText = (bx, by) => {
-      const ps = jamo(), fsz = W * .1, DIR = [-1, 1, .3]; let lastLand = 0;
-      ps.forEach((q, k) => {
-        const dir = DIR[q.L] || 0;
-        q.t0 = T + .25 + k * .03; q.fs = T + 1.2 + q.si * .5 + q.L * .24; q.fd = rnd(.75, .9);
-        // 화면 폭에 고르게 두 줄로 흩어 띄움(순서 = 왼→오, 그래서 떨어질 때 서로 엇갈리지 않음)
-        q.ax = W * (.07 + .86 * (k + .5) / ps.length) + rnd(-.25, .25) * fsz * .5;
-        q.ay = H * (k % 2 ? .33 : .17) + rnd(-.03, .03) * H; q.r0 = (dir || (Math.random() < .5 ? -1 : 1)) * rnd(.2, .45); q.landed = false;
+      const ps = strokes(), fsz = W * (W < 800 ? .1 : .06); let lastLand = 0;
+      ps.forEach(q => {
+        q.t0 = T + .15 + rnd(0, .35); q.fs = T + .95 + rnd(0, 1.1); q.fd = rnd(.35, .55);
+        q.ax = q.tx + rnd(-1, 1) * fsz * 1.6; q.ay = Math.max(by - 30 * u, q.ty - rnd(130, 300) * u); q.r0 = rnd(-1.3, 1.3); q.landed = false;
         lastLand = Math.max(lastLand, q.fs + q.fd);
         q.pts.forEach(pt => {
           const a = Math.random() * 6.2832, sp = rnd(2, 10) * u;
-          tps.push({ q, ox: pt.ox, oy: pt.oy, fx: pt.fx, fy: pt.fy, x: bx, y: by, px: bx, py: by, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 2 * u, c: Math.random() < .65 ? col.gold() : col.white(), w: rnd(1.3, 2.2) * Math.max(.5, u) });
+          tps.push({ q, ox: pt.ox, oy: pt.oy, fx: pt.fx, fy: pt.fy, x: bx, y: by, px: bx, py: by, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 2 * u, c: Math.random() < .65 ? col.gold() : col.white(), w: rnd(1.2, 2) * Math.max(.5, u) });
         });
       });
-      syl = {}; ps.forEach(q => { (syl[q.si] = syl[q.si] || []).push(q); });
-      textAt = lastLand + .6;
+      // 완성 단위: 음운(작게) · 음절 · 어절(크게)
+      const grp = (key, r) => { const m = {}; ps.forEach(q => { (m[key(q)] = m[key(q)] || []).push(q); }); return Object.values(m).map(qs => ({ qs, r, done: false })); };
+      syl = { strokes: ps, levels: [...grp(q => q.si + ':' + q.L, 30 * u), ...grp(q => q.si, 55 * u), ...grp(q => 'w' + q.wi, 120 * u)] };
+      textAt = lastLand + .55;
     };
     // 조각의 현재 자리·기울기
     const anchor = (q, t) => {
       if (t < q.fs) { const k = Math.max(0, Math.min(1, (t - q.t0) / (q.fs - q.t0))); return [q.ax, q.ay + k * 26 * u, q.r0 * (1 - .25 * k)]; }
       const k = Math.min(1, (t - q.fs) / q.fd), ex = .5 - .5 * Math.cos(Math.PI * k), ey = k * k * (1.7 - .7 * k);
       let y = q.ay + 26 * u + (q.ty - q.ay - 26 * u) * ey;
-      if (k >= 1) { const d = t - q.fs - q.fd; y -= Math.exp(-d * 9) * Math.sin(d * 24) * 7 * u; }
+      if (k >= 1) { const d = t - q.fs - q.fd; y -= Math.exp(-d * 11) * Math.sin(d * 26) * 4 * u; }
       return [q.ax + (q.tx - q.ax) * ex, y, q.r0 * .75 * (1 - ex) + Math.sin(k * Math.PI * 2) * .07 * (1 - k)];
     };
     const launch = (x, ty, type, k, text) => {
@@ -1005,10 +1015,9 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
         if (p.gl && L < .45 && Math.random() < .25) { const r = (1 + Math.random() * 1.6) * Math.max(.5, u); g.fillStyle = 'rgba(255,248,225,' + (.5 + Math.random() * .5) + ')'; g.fillRect(p.x - r / 2, p.y - r / 2, r, r); }
       }
       // 자모 불티: 조각 모양을 따라가며 떨어지고, 닿으면 반짝, 음절이 다 모이면 크게 반짝
-      for (const k in syl) {
-        const qs = syl[k];
-        qs.forEach(q => { if (!q.landed && T >= q.fs + q.fd) { q.landed = true; flashes.push({ x: q.tx, y: q.ty, r: 60 * u, a: .8 }); } });
-        if (!qs.done && qs.every(q => q.landed)) { qs.done = true; const mx = qs.reduce((a, q) => a + q.tx, 0) / qs.length, my = qs.reduce((a, q) => a + q.ty, 0) / qs.length; flashes.push({ x: mx, y: my, r: 150 * u, a: 1 }); }
+      if (syl.strokes) {
+        syl.strokes.forEach(q => { if (!q.landed && T >= q.fs + q.fd) { q.landed = true; flashes.push({ x: q.tx, y: q.ty, r: 6 * u + q.len * .3, a: .7 }); } });
+        syl.levels.forEach(gp => { if (!gp.done && gp.qs.every(q => q.landed)) { gp.done = true; const mx = gp.qs.reduce((a, q) => a + q.tx, 0) / gp.qs.length, my = gp.qs.reduce((a, q) => a + q.ty, 0) / gp.qs.length; flashes.push({ x: mx, y: my, r: gp.r, a: .75 }); } });
       }
       const fade = textAt && T > textAt ? Math.max(0, 1 - (T - textAt) / 1.1) : 1;
       if (fade > 0) {
@@ -1025,8 +1034,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
           }
           p.x += p.vx * f; p.y += p.vy * f;
           const sp = Math.abs(p.vx) + Math.abs(p.vy), set = q.landed;
-          const l = set ? p.c[2] + 8 : p.c[2], a = fade * (set ? .6 + .25 * Math.random() : .78);
-          g.strokeStyle = 'hsla(' + p.c[0] + ',' + p.c[1] + '%,' + l + '%,' + a + ')'; g.lineWidth = p.w * (set ? 1.25 : 1);
+          const fall = !set && T >= q.fs, l = set ? p.c[2] + 8 : p.c[2], a = fade * (set ? .6 + .25 * Math.random() : fall ? .42 : .78);
+          g.strokeStyle = 'hsla(' + p.c[0] + ',' + p.c[1] + '%,' + l + '%,' + a + ')'; g.lineWidth = p.w * (set ? 1.25 : fall ? .7 : 1);
           g.beginPath(); g.moveTo(p.px, p.py); g.lineTo(p.x + (sp < .3 ? .6 : 0), p.y); g.stroke();
           if (!set && Math.random() < .05) { g.fillStyle = 'rgba(255,250,230,.95)'; g.fillRect(p.x - p.w, p.y - p.w, p.w * 2, p.w * 2); }
         }
