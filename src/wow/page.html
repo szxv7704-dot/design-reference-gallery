@@ -1021,14 +1021,14 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   };
   const IVORY = [['#FAF5EC', '#D8CDBC'], ['#8C7F6E', '#5A5045']];
 
-  // ── 칙칙폭폭 지나가기: 음절 하나 = 객차 한 량. 입체 글자 열차가 오른쪽에서 들어와 덜컹이며 멈춤 ──
+  // ── 칙칙폭폭 지나가기: 음절 하나 = 객차 한 량. 바퀴 없는 입체 글자 열차가 오른쪽에서 들어와 덜컹이며 멈춤 ──
   function Train(root) {
     const cv = root.querySelector('canvas'), g = cv.getContext('2d'), TEXT = '새로운 출발';
     let W, H, f, u, railY, cars, len, endX, startX, bg, r, plate, chTop;
     const MOVE = 3.8, T0 = .25;
     const build = () => {
       [W, H] = fitCanvas(root, cv, g); u = W / 1600; f = Math.round(W * (W < 800 ? .15 : .118)); railY = H * .7;
-      r = f * .088; plate = f * .085; chTop = railY - r * 2 - plate;
+      r = f * .088; plate = f * .085; chTop = railY - plate - f * .02;
       cars = []; let x = 0;
       [...TEXT].forEach(ch => { if (!ch.trim()) { x += f * .34; return; } const sp = extrude(ch, f, ...IVORY, .2); cars.push({ sp, x, w: sp.adv }); x += sp.adv + f * .17; });
       len = x - f * .17; endX = (W - len) / 2; startX = W + f * .8;
@@ -1046,12 +1046,6 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       b.fillStyle = '#9A9085'; b.fillRect(0, railY - f * .015, W, Math.max(1, f * .008));
     };
     const pos = t => { const p = Math.max(0, Math.min(1, (t - T0) / MOVE)); return [endX + (startX - endX) * Math.pow(1 - p, 2.4), (p < 1 ? 2.4 * Math.pow(1 - p, 1.4) : 0)]; };
-    const wheel = (x, y, ang) => {
-      g.fillStyle = '#151311'; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill();
-      g.strokeStyle = '#6F665C'; g.lineWidth = Math.max(1, r * .18); g.beginPath(); g.arc(x, y, r * .82, 0, 6.2832); g.stroke();
-      g.strokeStyle = '#4A443E'; g.lineWidth = Math.max(1, r * .14); g.beginPath(); for (let k = 0; k < 3; k++) { const a = ang + k * 2.094; g.moveTo(x, y); g.lineTo(x + Math.cos(a) * r * .75, y + Math.sin(a) * r * .75); } g.stroke();
-      g.fillStyle = '#8A8076'; g.beginPath(); g.arc(x, y, r * .18, 0, 6.2832); g.fill();
-    };
     const draw = t => {
       g.setTransform(cv.width / W, 0, 0, cv.height / H, 0, 0); g.drawImage(bg, 0, 0, W, H);
       const [X, sp] = pos(t), ds = t - T0 - MOVE, J = f * 1.05;
@@ -1076,8 +1070,6 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
         g.fillStyle = '#26221F'; g.fillRect(-c.w / 2 - f * .03, 0, c.w + f * .06, plate);
         g.fillStyle = 'rgba(255,255,255,.2)'; g.fillRect(-c.w / 2 - f * .03, 0, c.w + f * .06, Math.max(1, plate * .16));
         g.restore();
-        const ang = (X + slack) / r;
-        [b1x, b2x].forEach(bx => { wheel(bx - r * 1.05, railY - r, ang); wheel(bx + r * 1.05, railY - r, ang); });
         if (i === 0) { g.fillStyle = '#FFF4DC'; g.beginPath(); g.arc(hx, hy + lift, f * .035, 0, 6.2832); g.fill(); }
       });
     };
