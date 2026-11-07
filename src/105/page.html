@@ -93,6 +93,21 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 @media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps105{min-width:880px}}
 
 .ps105{--ps105-poster:url(@@ASSET:8722e2e517.jpg@@)}
+/* 인쇄: 지금 보이는 장면 한 장 + 인쇄 사양만, A4 가로. 다크 모드여도 밝게 */
+@media print{
+  @page{size:A4 landscape;margin:10mm}
+  :root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--pg-bg:#fff;--pg-panel:#fff;--pg-ink:#17213A;--pg-sub:#596379;--pg-line:#D3D9E2;color-scheme:light}
+  html,body{background:#fff}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pg{display:block;max-width:none;padding:0}
+  .pg > :not(.stage):not(.print-spec){display:none!important}
+  .stage-hint,.pick,[class*="-hint"]{display:none!important}
+  .stage-frame{border:0;padding:0;overflow:visible}
+  .stage-frame > *{min-width:0!important}
+  .stage{break-after:page;break-inside:avoid}
+  .print-spec{break-inside:avoid;border:0;padding:0}
+  .print-spec td:first-child{white-space:nowrap}
+}
 </style>
 <style id="ps105-css">
 /* 포스터 해부 '오늘 밤, 한 판' — 접두어 ps105 / 사용자 제공 포스터를 영역별로 비추며 읽는다 */
@@ -127,6 +142,8 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 .ps105-hint::before{content:"POSTER ANATOMY";display:block;font:600 1.05cqw/1 var(--ps105-mono);letter-spacing:.3em;color:var(--ps105-yellow);margin-bottom:1.4cqw}
 .ps105-hint{font:400 4.4cqw/1.1 var(--ps105-head)}
 .ps105-hint::after{content:"노랑 한 색 · 마주 보는 대칭 · 찢긴 벽보 — 아홉 군데로 읽기";display:block;margin-top:1.4cqw;font:500 1.45cqw/1.5 var(--ps105-body);color:#BDB8AD}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps105 *,.ps105 *::before,.ps105 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
 </style>
 </head><body>
 <main class="pg">
@@ -153,7 +170,7 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
     </div>
   </section>
 
-  <section class="panel">
+  <section class="panel print-spec">
     <h2>인쇄 사양 <small>PRINT</small></h2>
     <table class="keys"><tbody>
       <tr><td>비율 · 크기</td><td>4:5 세로(원본 1122 × 1402) · A3(297 × 420)이면 위아래 여백을 검정으로 늘린다 · 게시판용 B3</td></tr>

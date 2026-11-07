@@ -93,6 +93,21 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 @media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps104{min-width:880px}}
 
 .ps104{--ps104-grain:url(@@ASSET:e674527002.png@@)}
+/* 인쇄: 지금 보이는 장면 한 장 + 인쇄 사양만, A4 가로. 다크 모드여도 밝게 */
+@media print{
+  @page{size:A4 landscape;margin:10mm}
+  :root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--pg-bg:#fff;--pg-panel:#fff;--pg-ink:#17213A;--pg-sub:#596379;--pg-line:#D3D9E2;color-scheme:light}
+  html,body{background:#fff}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pg{display:block;max-width:none;padding:0}
+  .pg > :not(.stage):not(.print-spec){display:none!important}
+  .stage-hint,.pick,[class*="-hint"]{display:none!important}
+  .stage-frame{border:0;padding:0;overflow:visible}
+  .stage-frame > *{min-width:0!important}
+  .stage{break-after:page;break-inside:avoid}
+  .print-spec{break-inside:avoid;border:0;padding:0}
+  .print-spec td:first-child{white-space:nowrap}
+}
 </style>
 <style id="ps104-css">
 /* 인쇄물 '발견 영수증' — 접두어 ps104 / 영수증 모양 병풍 접지 리플렛(80 × 128 mm 4쪽) */
@@ -183,7 +198,8 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 .ps104-dots i{width:.45cqw;height:.45cqw;border-radius:50%;background:rgba(255,255,255,.3)}
 .ps104-dots i.on{background:var(--ps104-orange)}
 .ps104.instant *{transition:none!important}
-@media (prefers-reduced-motion:reduce){.ps104 *{transition-duration:.01s!important}}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps104 *,.ps104 *::before,.ps104 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
 </style>
 </head><body>
 <main class="pg">
@@ -210,7 +226,7 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
     </div>
   </section>
 
-  <section class="panel">
+  <section class="panel print-spec">
     <h2>인쇄 사양 <small>PRINT</small></h2>
     <table class="keys"><tbody>
       <tr><td>완성 크기</td><td>펼침 80 × 512 mm(쪽당 80 × 128 mm, 4쪽) · 접힘 80 × 128 mm · 재단 여백 사방 3 mm</td></tr>
