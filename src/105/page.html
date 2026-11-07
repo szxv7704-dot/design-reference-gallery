@@ -92,7 +92,22 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 .keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0;vertical-align:top}
 @media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps105{min-width:880px}}
 
-.ps105{--ps105-poster:url(@@ASSET:8722e2e517.jpg@@)}
+.ps105,.ps105-print{--ps105-poster:url(@@ASSET:8722e2e517.jpg@@)}
+/* 인쇄: 해부 화면이 아니라 포스터 원본만 A3 세로 한 장. 4:5라 위아래 남는 곳은 검정(인쇄 사양) */
+.ps105-print{display:none}
+@media print{
+  @page{size:A3 portrait;margin:0}
+  :root,:root:not([data-theme="light"]),:root[data-theme="dark"]{color-scheme:light}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{margin:0;background:#fff}
+  .pg{display:block;max-width:none;padding:0}
+  .pg > :not(.stage){display:none!important}
+  .stage-hint,.pick{display:none!important}
+  .stage-frame{border:0;padding:0;margin:0;overflow:visible;background:none}
+  html,body{background:#000}
+  .stage-frame > .ps105{display:none!important}
+  .ps105-print{display:block;width:297mm;height:420mm;background:#000 var(--ps105-poster) center/contain no-repeat;break-inside:avoid}
+}
 </style>
 <style id="ps105-css">
 /* 포스터 해부 '오늘 밤, 한 판' — 접두어 ps105 / 사용자 제공 포스터를 영역별로 비추며 읽는다 */
@@ -127,6 +142,8 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 .ps105-hint::before{content:"POSTER ANATOMY";display:block;font:600 1.05cqw/1 var(--ps105-mono);letter-spacing:.3em;color:var(--ps105-yellow);margin-bottom:1.4cqw}
 .ps105-hint{font:400 4.4cqw/1.1 var(--ps105-head)}
 .ps105-hint::after{content:"노랑 한 색 · 마주 보는 대칭 · 찢긴 벽보 — 아홉 군데로 읽기";display:block;margin-top:1.4cqw;font:500 1.45cqw/1.5 var(--ps105-body);color:#BDB8AD}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps105 *,.ps105 *::before,.ps105 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
 </style>
 </head><body>
 <main class="pg">
@@ -137,7 +154,7 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
   </header>
   <section class="stage" aria-label="장표">
     <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
-    <div class="stage-frame"><div class="ps105" id="ps105" role="application" aria-label="대결 포스터 해부: 머리 띠, 큰 제목, VS, 두 인물, 이름, 날짜 띠, 장소, 스티커, 찢긴 벽보"></div></div>
+    <div class="stage-frame"><div class="ps105" id="ps105" role="application" aria-label="대결 포스터 해부: 머리 띠, 큰 제목, VS, 두 인물, 이름, 날짜 띠, 장소, 스티커, 찢긴 벽보"></div><div class="ps105-print" aria-hidden="true"></div></div>
     <div class="pick"><span>장표를 누르거나 → 키로 한 군데씩, 오른쪽 목록을 눌러 바로 가기</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button></div>
   </section>
 

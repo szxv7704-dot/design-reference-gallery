@@ -143,6 +143,8 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 .ps106-dots i{width:.45cqw;height:.45cqw;border-radius:50%;background:rgba(0,0,0,.2)}
 .ps106-dots i.on{background:var(--ps106-orange)}
 .ps106.instant *{transition:none!important;animation:none!important}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps106 *,.ps106 *::before,.ps106 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
 </style>
 </head><body>
 <main class="pg">

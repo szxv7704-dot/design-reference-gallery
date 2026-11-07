@@ -158,6 +158,8 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 .ps108-hint{position:absolute;left:53%;top:50%;font:400 3.6cqw/1.2 var(--ps108-head);color:var(--ps108-ink)}
 .ps108-hint::before{content:"BARCODE SCANNER";display:block;margin-bottom:1cqw;font:600 1cqw/1 var(--ps108-mono);letter-spacing:.3em;color:var(--ps108-red)}
 .ps108-hint::after{content:"사람을 훑어도, 가방을 훑어도 — 무엇이 인식될까요?";display:block;margin-top:1cqw;font:500 1.3cqw/1.5 var(--ps108-body);color:var(--ps108-sub)}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps108 *,.ps108 *::before,.ps108 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
 </style>
 </head><body>
 <main class="pg">
@@ -259,7 +261,8 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
     [].forEach.call(tags, function(g, i){ g.classList.toggle('now', !!it && i === k - 3); });
     $('.ps108-hint').style.display = k === 0 ? '' : 'none';
   }
-  function go(k, instant){ k = ((k % N) + N) % N; var fwd = k === step + 1 && !instant; step = k; still(k); if (!fwd) return;
+  var RM = function(){ return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); };
+  function go(k, instant){ k = ((k % N) + N) % N; var fwd = k === step + 1 && !instant && !RM(); step = k; still(k); if (!fwd) return;
     if (k === 1){ st.textContent = 'SCANNING…'; st.className = 'st';
       sweep(PERSON, 2400, 'SCANNING · · ·', 'red');
       later(function(){ lab.textContent = '인식할 수 없음'; laser.classList.add('fail'); }, 1500);

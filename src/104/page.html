@@ -93,6 +93,23 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 @media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps104{min-width:880px}}
 
 .ps104{--ps104-grain:url(@@ASSET:e674527002.png@@)}
+/* 인쇄: 접히는 장면이 아니라 실제 인쇄물 — 펼침 80 × 512 mm(80 × 128 mm 쪽 4개를 위에서 아래로) + 재단 여백 사방 3 mm.
+   1em = 3.2 mm 로 두면 판 한 쪽(25 × 40em)이 정확히 80 × 128 mm */
+.ps104-print{display:none}
+@media print{
+  @page{size:86mm 518mm;margin:0}
+  :root,:root:not([data-theme="light"]),:root[data-theme="dark"]{color-scheme:light}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{margin:0;background:#fff}
+  .pg{display:block;max-width:none;padding:0}
+  .pg > :not(.stage){display:none!important}
+  .stage-hint,.pick{display:none!important}
+  .stage-frame{border:0;padding:0;margin:0;overflow:visible;background:none}
+  .stage-frame > .ps104:not(.ps104-print){display:none!important}
+  .ps104.ps104-print{display:block;aspect-ratio:auto;width:86mm;height:518mm;padding:3mm;font-size:3.2mm;cursor:auto;overflow:hidden;
+    background:var(--ps104-paper) var(--ps104-grain) 0 0/12em 12em}
+  .ps104-print .ps104-sheet-p{position:relative;width:25em;height:40em}
+}
 </style>
 <style id="ps104-css">
 /* 인쇄물 '발견 영수증' — 접두어 ps104 / 영수증 모양 병풍 접지 리플렛(80 × 128 mm 4쪽) */
@@ -183,7 +200,8 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
 .ps104-dots i{width:.45cqw;height:.45cqw;border-radius:50%;background:rgba(255,255,255,.3)}
 .ps104-dots i.on{background:var(--ps104-orange)}
 .ps104.instant *{transition:none!important}
-@media (prefers-reduced-motion:reduce){.ps104 *{transition-duration:.01s!important}}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps104 *,.ps104 *::before,.ps104 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
 </style>
 </head><body>
 <main class="pg">
@@ -337,6 +355,18 @@ table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
   });
   window.ps104Go = function(k){ go(k, true); }; window.ps104Steps = STEPS.length;
   go(0, true);
+})();
+</script>
+<script>
+// 인쇄용 펼침 판: 장면의 쪽 앞면 4개(.ps104-strip .face.fr)를 떼어 위→아래로 쌓는다
+(function(){
+  var root = document.getElementById('ps104'); if (!root) return;
+  var sheet = document.createElement('div'); sheet.className = 'ps104 ps104-print'; sheet.setAttribute('aria-hidden', 'true');
+  root.parentNode.appendChild(sheet);
+  function fill(){ sheet.innerHTML = '';
+    [].forEach.call(root.querySelectorAll('.ps104-strip .face.fr'), function(f){
+      var w = document.createElement('div'); w.className = 'ps104-sheet-p'; w.appendChild(f.cloneNode(true)); sheet.appendChild(w); }); }
+  fill(); window.addEventListener('beforeprint', fill);
 })();
 </script>
 <script>
