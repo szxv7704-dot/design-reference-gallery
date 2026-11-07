@@ -23,8 +23,9 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:var(--fb);-webkit-font-smoothing:antialiased}
-.viewport{position:fixed;inset:0 0 56px 0;display:grid;place-items:center;overflow:hidden}
-.stage{width:1600px;height:900px;position:relative;transform-origin:center center;flex:none}
+.viewport{position:fixed;inset:0 0 56px 0;overflow:hidden}
+/* 무대는 화면 정중앙 기준으로 줄임(화면이 1600px보다 좁아도 밀리지 않게) */
+.stage{width:1600px;height:900px;position:absolute;left:50%;top:50%;transform-origin:center center}
 .slide{position:absolute;inset:0;background:var(--paper);overflow:hidden;visibility:hidden;opacity:0;transition:opacity .35s}
 .slide.on{visibility:visible;opacity:1}
 .bar{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;justify-content:center;gap:10px;color:#C9CDD2;font:500 14px var(--fm)}
@@ -412,7 +413,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   html,body{background:#fff;height:auto}
   .bar{display:none}
   .viewport{position:static;display:block}
-  .stage{transform:none!important;width:auto;height:auto}
+  .stage{transform:none!important;width:auto;height:auto;position:static}
   .slide{position:relative;visibility:visible;opacity:1;width:1600px;height:900px;break-after:page}
   *,*::before,*::after{animation-duration:0s!important;animation-delay:0s!important;transition:none!important}
   .fw .fwt{opacity:1}
@@ -741,7 +742,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 (() => {
   const stage = document.getElementById('stage'), slides = [...document.querySelectorAll('.slide')];
   let cur = 0;
-  const fit = () => { const k = Math.min(innerWidth / 1600, (innerHeight - 56) / 900); window.__k = k; stage.style.transform = 'scale(' + k + ')'; };
+  const fit = () => { const k = Math.min(innerWidth / 1600, (innerHeight - 56) / 900); window.__k = k; stage.style.transform = 'translate(-50%,-50%) scale(' + k + ')'; };
   addEventListener('resize', fit); fit();
 
   // 100칸
