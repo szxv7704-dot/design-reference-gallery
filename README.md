@@ -78,6 +78,12 @@ python3 scripts/extract.py 110      # (옛 장표를 src/ 로 옮길 때만) ref
 python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받기 → 빌드 → 검사 → v 재계산 (실패 시 종료 코드 1)
 ```
 
+- `check.js`는 바깥 연결 · 콘솔 오류 · 글꼴 외에 **장표 규칙**도 봅니다(`data/rounds.json`의 `motion`·`role` 기준, 하나라도 걸리면 실패 → `ingest.py`도 실패).
+  - `reduced_motion`: 모션·인터랙션 장표에 `prefers-reduced-motion` 처리가 없음
+  - `infinite_under_reduce`: 움직임 줄이기를 켜도 무한 반복 애니메이션(안내 깜빡임 등)이 계속 돎
+  - `print_css`: 인쇄·홍보물에 `@media print`가 없음
+  - `stage_ratio` · `stage_overflow`: 덱 장표(`.stage-frame` 안 무대)가 16:9가 아니거나 내용이 무대 밖으로 넘침
+  - 움직임 줄이기는 장표 CSS(`#psNN-css`) 안에 `animation:none` · 전환 0.01초로 두고, 단계 연출을 스크립트로 돌리는 장표는 `go()`에서 그 단계의 끝 모습으로 바로 보낸다(코드 복사 칸에도 그대로 실림).
 - 빌드는 페이지에 쓰인 글자만 잘라 글꼴을 박아 넣고, 그림 · 라이브러리도 파일 안에 넣습니다. 결과물에 바깥 주소가 없습니다(‘코드 복사’ 안의 글은 예외).
 - 새 글꼴이 필요하면 `fonts/needed.json`에 적고 `scripts/fetch_fonts.py` → `scripts/pack_fonts.py`(원본 ttf는 저장소 밖).
 
