@@ -96,3 +96,31 @@ python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받�
 - 원본 [Tabler Icons](https://tabler.io/icons) © Paweł Kuna, MIT(`icons/LICENSE-tabler.txt`). 선 굵기만 2→1.75로 조정.
 - 루틴은 인덱스 DB `icons` 모음(`_set` = 규칙·CSS·SVG 틀, `g01`~`g12` = 묶음별 아이콘)에서 읽어 SVG를 페이지 안에 넣는다.
 - 아이콘을 더할 때: `icons/icons.json`에 같은 규격으로 넣고 `src/icons/page.html`의 데이터도 바꾼 뒤 `python3 -c "import sys;sys.path.insert(0,'scripts');import build;build.build('icons','icons')"`로 다시 만든다. 인덱스 DB도 함께 고친다.
+
+## 덱 키트 (분위기 계열 하나로 새 덱 찍어 내기)
+
+레퍼런스는 "보고 베끼는" 장표이고, 키트는 그 계열로 **새 계획안 덱을 만들게 하는** 묶음입니다. 지금은 B(미니멀 스튜디오)만 있습니다.
+
+| 위치 | 내용 |
+|---|---|
+| `kit/deck.css` · `kit/deck.js` | 모든 계열 공용 바탕 · 엔진: 1920 × 1080 무대 통째 줄이기, ← → · Space · F, 장 수 · 점 · 쪽 표시 자동, `data-steps` 단계 공개, 인쇄 장당 1쪽(16:9), 움직임 줄이기 |
+| `kit/B.css` | B 계열 토큰(`--ds-*`)과 계획안 부품(표지 · 목차 · 간지 · 마무리 · 매스 · 카드 · 수치 타일 · 막대 · 현안→해결 · 간트 · 표) |
+| `kit/B.design.md` | B 계열 디자인 규칙(한글 기준, 손으로 씀) |
+| `src/kit-B/` | 예시 덱 원본(공통 가상 계획안 8장 — 계열이 늘어도 같은 내용으로 비교) |
+| `kit/B.html` · `kit/B.md` · `kit/v1/` | **만든 것**: 인터넷 없이 도는 예시 덱 · 채팅 AI 지시서 · 배포용 CSS/엔진 |
+
+```
+python3 scripts/kit.py B                         # v1/B.css · B.md · B.html 다시 만들기
+python3 scripts/kit.py inline B 슬라이드.html      # AI가 만든 덱을 인터넷 없이 도는 파일 하나로(업무망 발표용)
+node scripts/check.js kit B                      # 장마다 1920 × 1080 안에 들어가는지 · 글자 22px 이상인지
+```
+
+- 지시서는 AI와의 계약입니다: 구성안 먼저 확인, **숫자 · 출처 지어내기 금지**, 결론 한 문장 제목, 주황 한 곳, 높이 예산, 생략 없이 출력, 내보내기 전 점검 7개.
+- 배포판은 `https://szxv7704-dot.github.io/design-reference-gallery/kit/v1/B.css`를 불러오므로 `kit/v1/`은 GitHub Pages에 올라가야 동작합니다. 고칠 때는 버전을 새로(`v2`) 만들어 이미 나간 덱이 깨지지 않게 합니다.
+
+## 글꼴 라이선스
+
+모든 글꼴은 SIL OFL 1.1입니다. 표는 `fonts/LICENSES.md`, 전문은 `fonts/OFL.txt`.
+- 빌드는 줄인 글꼴에도 저작권 · 라이선스 이름표(0 · 13 · 14)를 남기고, 장표 글꼴 앞에 고지 주석을 붙입니다.
+- 저작권 문구의 예약 이름(Saira)이 글꼴 이름에 있으면 수정본 이름에서 `DRG`로 바꿉니다(장표 CSS의 이름은 그대로). 도우미: `scripts/fontlic.py`.
+

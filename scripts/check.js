@@ -5,6 +5,8 @@
 //     - infinite_under_reduce: 움직임 줄이기를 켜도 무한 반복 애니메이션이 계속 돎(안내 깜빡임 등)
 //     - print_css: 인쇄·홍보물인데 @media print 가 없음
 //     - stage_ratio · stage_overflow: 덱 장표(.stage-frame 안 무대)가 16:9가 아니거나 내용이 무대 밖으로 넘침
+//     - slide_overflow · small_text: 덱 키트로 만든 덱(.deck-stage)의 장마다 내용이 1920 × 1080 밖으로 나가거나 글자가 22px 미만
+//       (키트 덱: node scripts/check.js kit B)
 // 실행: node scripts/check.js [폴더=refs] [번호...]  → check/report.json, check/shots/{번호}.png
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
@@ -25,6 +27,16 @@ const DECK = new Set(['표지', '본문', '목차·간지', '발표 틀']);
     const bad = Object.entries(fonts).filter(([, v]) => v === 'error').map(([k]) => k);
     await p.screenshot({ path: path.join(out, 'shots', no + '.png') }).catch(() => {});
     const rules = [], m = META[Number(no)], src = fs.readFileSync(path.join(dir, no + '.html'), 'utf8');
+    const deck = await p.evaluate(async () => {
+      if (!document.querySelector('.deck-stage') || !window.DECK) return null; const out = [];
+      for (let i = 0; i < DECK.count; i++) { DECK.go(i, 99); await new Promise(r => setTimeout(r, 450));
+        const s = document.querySelector('.slide.is-on'), R = s.getBoundingClientRect(), k = R.width / 1920;
+        s.querySelectorAll('*').forEach(e => { const r = e.getBoundingClientRect(); if (!r.width && !r.height) return;
+          if (r.right > R.right + 1 || r.bottom > R.bottom + 1 || r.left < R.left - 1 || r.top < R.top - 1) out.push('slide_overflow ' + (i + 1) + ' .' + String(e.className).split(' ')[0]);
+          const fs = parseFloat(getComputedStyle(e).fontSize);
+          if (fs < 22 && [...e.childNodes].some(t => t.nodeType === 3 && t.textContent.trim())) out.push('small_text ' + (i + 1) + ' ' + fs + 'px'); }); }
+      DECK.go(0, 0); return [...new Set(out)]; }).catch(e => ['deck_check ' + e.message]);
+    if (deck) rules.push(...deck.slice(0, 5));
     if (m) {
       if (m.role === '인쇄·홍보물' && !/@media\s+print/.test(src)) rules.push('print_css');
       if (DECK.has(m.role)) {
