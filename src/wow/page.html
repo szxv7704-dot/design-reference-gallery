@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>와우 포인트 23</title>
+<title>와우 포인트 24</title>
 <style>/*@@FONTS@@*/</style>
 <style>
-/* 와우 포인트 23 — 발표 와우 기법을 여섯 묶음으로 모은 9장 덱.
+/* 와우 포인트 24 — 발표 와우 기법을 여섯 묶음으로 모은 9장 덱.
    이미지 자리: --img-A … --img-H 에 사진을 넣으면 바뀐다(없으면 점선 자리표시). */
 @property --x { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
 :root{
@@ -46,6 +46,14 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .cards{position:absolute;left:64px;right:64px;top:232px;bottom:62px;display:grid;gap:26px}
 .cards.c3{grid-template-columns:repeat(3,1fr)}
 .cards.c4{grid-template-columns:repeat(4,1fr)}
+.cards.c5{grid-template-columns:repeat(5,1fr);gap:18px}
+.c5 .card{padding:12px 12px 14px}
+.c5 .demo{aspect-ratio:4/3}
+.c5 .steps{font-size:12.5px}
+.c5 .card h3{font-size:22px;margin-top:10px}
+.c5 .card h3 small{font-size:13px}
+.c5 .card .why{font-size:15px;margin-top:6px}
+.c5 .card dl{font-size:13.5px;gap:5px 9px;padding-top:10px}
 .card{background:var(--surface);border-radius:14px;padding:14px 14px 18px;display:flex;flex-direction:column;box-shadow:0 1px 0 var(--line),0 10px 24px -18px rgba(28,33,40,.35);border-top:4px solid var(--gc)}
 .demo{position:relative;border-radius:8px;overflow:hidden;background:#F1EEE8;container-type:size;aspect-ratio:1/.9;flex:none}
 .c3 .demo{aspect-ratio:4/3}
@@ -349,6 +357,10 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .fullbtn{position:absolute;right:3%;top:3%;z-index:3;font:600 13px var(--fb);color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:6px 12px;cursor:pointer}
 .fullbtn:hover{background:rgba(255,255,255,.26)}
 .fullv{position:absolute;inset:0;z-index:40;display:none;background:#020308}
+.fullv [data-kind]{display:none}
+.fullv.k-pop [data-kind=pop],.fullv.k-asm [data-kind=asm]{display:block}
+.asm{position:absolute;inset:0;background:#0B0E12;container-type:size}
+.asm canvas{position:absolute;inset:0;width:100%;height:100%}
 .fullv.open{display:block}
 .fvtag{position:absolute;left:28px;top:22px;z-index:3;font:600 15px var(--fm);color:rgba(255,255,255,.72)}
 .fvbar{position:absolute;right:24px;bottom:20px;z-index:3;display:flex;gap:8px}
@@ -462,15 +474,15 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 <!-- 1 표지 -->
 <section class="slide cover" data-title="표지">
   <div class="kick">PRESENTATION TECHNIQUES · 디자인 레퍼런스 갤러리</div>
-  <h1>와우<br>포인트 <em>23</em></h1>
-  <p class="sub">청중이 "와" 하는 순간을 만드는 기법 23가지를 여섯 묶음으로 모았습니다. 장마다 기법이 실제로 움직입니다.</p>
+  <h1>와우<br>포인트 <em>24</em></h1>
+  <p class="sub">청중이 "와" 하는 순간을 만드는 기법 24가지를 여섯 묶음으로 모았습니다. 장마다 기법이 실제로 움직입니다.</p>
   <div class="burst" aria-hidden="true">
     <div class="blk" style="--i:0;left:0;top:0;width:265px;height:210px;background:var(--g1)"><b>4</b>드러내기·이동<span>REVEAL</span></div>
     <div class="blk" style="--i:1;left:285px;top:0;width:275px;height:165px;background:var(--g2)"><b>3</b>대비·전환<span>CONTRAST</span></div>
     <div class="blk" style="--i:2;left:0;top:225px;width:265px;height:215px;background:var(--g3)"><b>4</b>숫자 체감<span>NUMBERS</span></div>
     <div class="blk" style="--i:3;left:285px;top:180px;width:275px;height:245px;background:var(--g4)"><b>4</b>은유·세계관<span>METAPHOR</span></div>
     <div class="blk" style="--i:4;left:0;top:455px;width:265px;height:205px;background:var(--g5)"><b>4</b>감각·형식<span>SENSE</span></div>
-    <div class="blk" style="--i:5;left:285px;top:440px;width:275px;height:220px;background:var(--g6)"><b>4</b>소리가 보이는 모션<span>팡 · 칙칙폭폭 · 또롱</span></div>
+    <div class="blk" style="--i:5;left:285px;top:440px;width:275px;height:220px;background:var(--g6)"><b>5</b>소리가 보이는 모션<span>팡 · 칙칙폭폭 · 또롱 · 탁탁</span></div>
   </div>
   <div class="by">2026. 11. · 9장 · ← → 키로 넘기기 · R 다시 재생</div>
 </section>
@@ -484,10 +496,10 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     <a class="grp g3" style="--i:2" data-go="5"><span class="n">③ · 5쪽</span><h3>숫자 체감</h3><p>숫자를 보이고 셀 수 있게 만든다</p><ol><li>큰 숫자 하나<small>나머지는 조연</small></li><li>단위 차트<small>100칸 중 41칸</small></li><li>카운트업<small>올라가는 긴장</small></li><li>데이터 레이스<small>순위가 뒤집히는 순간</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g4" style="--i:3" data-go="6"><span class="n">④ · 6쪽</span><h3>은유·세계관</h3><p>정책을 익숙한 사물·이야기로 옮긴다</p><ol><li>시각 은유<small>개념을 사물 하나로</small></li><li>생활 서식 빌려 오기<small>탑승권·영수증·신문</small></li><li>게임화<small>과제 = 퀘스트</small></li><li>물리 모션<small>튕김·낙하·연쇄</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g5" style="--i:4" data-go="7"><span class="n">⑤ · 7쪽</span><h3>감각·형식</h3><p>다른 장표와 결이 달라 눈이 멈춘다</p><ol><li>키네틱 타이포<small>글자가 연출</small></li><li>재질·질감<small>화면에 손맛</small></li><li>3D·깊이<small>쌓임을 진짜 층으로</small></li><li>극단적 여백<small>비울수록 강해짐</small></li></ol><span class="go">열기 →</span></a>
-    <a class="grp g6" style="--i:5" data-go="8"><span class="n">⑥ · 8쪽</span><h3>소리 모션</h3><p>팡·칙칙폭폭처럼 소리가 보이게 움직인다</p><ol><li>팡! 터뜨리기<small>흩어졌다 정돈</small></li><li>칙칙폭폭 지나가기<small>글자·숫자 열차</small></li><li>또롱또롱 떨어지기<small>한 방울씩 생김</small></li><li>쿵! 내려앉기<small>무게로 결론</small></li></ol><span class="go">열기 →</span></a>
+    <a class="grp g6" style="--i:5" data-go="8"><span class="n">⑥ · 8쪽</span><h3>소리 모션</h3><p>팡·칙칙폭폭처럼 소리가 보이게 움직인다</p><ol><li>팡! 터뜨리기<small>하늘 가득 불꽃</small></li><li>칙칙폭폭 지나가기<small>글자·숫자 열차</small></li><li>또롱또롱 떨어지기<small>한 방울씩 생김</small></li><li>쿵! 내려앉기<small>무게로 결론</small></li><li>타이포 조립<small>탁탁 맞춰지는 글자</small></li></ol><span class="go">열기 →</span></a>
   </div>
   <div class="offs"><b>9쪽</b> 무엇을 고를까 · 쓰는 원칙 4가지 · 화면 밖 와우(청중 참여 · 실물 시연)</div>
-  <div class="foot"><span>와우 포인트 23</span><span>2 / 9</span></div>
+  <div class="foot"><span>와우 포인트 24</span><span>2 / 9</span></div>
 </section>
 
 <!-- 3 ① 드러내기·이동 -->
@@ -535,7 +547,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>허브 이동<small>목차가 곧 지도</small></h3><p class="why">고른 곳으로 들어갔다 나온다. 질문에 바로 답한다.</p>
       <dl><dt>쓰는 곳</dt><dd>업무보고, 질의응답이 많은 자리</dd><dt>주의</dt><dd>순서가 정해진 심사 발표에는 맞지 않는다</dd><dt>PPT</dt><dd>'요약 확대/축소' 또는 도형 하이퍼링크</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 23 · ① 드러내기·이동</span><span>3 / 9</span></div>
+  <div class="foot"><span>와우 포인트 24 · ① 드러내기·이동</span><span>3 / 9</span></div>
 </section>
 
 <!-- 4 ② 대비·전환 -->
@@ -571,7 +583,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>수미상관<small>처음으로 돌아오기</small></h3><p class="why">첫 장면으로 돌아오면 이야기가 닫힌다.</p>
       <dl><dt>쓰는 곳</dt><dd>순환·환류 체계, 덱의 마지막 장</dd><dt>주의</dt><dd>돌아올 '표식'을 첫 장면에 미리 심어 둔다</dd><dt>PPT</dt><dd>첫 슬라이드를 복제해 끝에 두고 모핑</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 23 · ② 대비·전환</span><span>4 / 9</span></div>
+  <div class="foot"><span>와우 포인트 24 · ② 대비·전환</span><span>4 / 9</span></div>
 </section>
 
 <!-- 5 ③ 숫자 체감 -->
@@ -602,7 +614,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>데이터 레이스<small>순위 경주</small></h3><p class="why">순위가 뒤집히는 순간이 곧 드라마다.</p>
       <dl><dt>쓰는 곳</dt><dd>연도별 추이, 기관·지역 순위 변화</dd><dt>주의</dt><dd>끝 화면에 결론 한 줄을 남겨야 '구경'으로 안 끝난다</dd><dt>PPT</dt><dd>Flourish 등으로 영상을 만들어 삽입</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 23 · ③ 숫자 체감 · 수치는 모두 가상 예시</span><span>5 / 9</span></div>
+  <div class="foot"><span>와우 포인트 24 · ③ 숫자 체감 · 수치는 모두 가상 예시</span><span>5 / 9</span></div>
 </section>
 
 <!-- 6 ④ 은유·세계관 -->
@@ -645,7 +657,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>물리 모션<small>튕김·낙하·연쇄</small></h3><p class="why">무게와 충돌이 '진짜 같다'는 실감을 준다.</p>
       <dl><dt>쓰는 곳</dt><dd>분류, 선후 관계, 결합 구조</dd><dt>주의</dt><dd>움직임에 뜻이 있어야 한다(튕겨 나감 = 제외)</dd><dt>PPT</dt><dd>이동 경로 + 효과 옵션 '바운스 끝'</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 23 · ④ 은유·세계관</span><span>6 / 9</span></div>
+  <div class="foot"><span>와우 포인트 24 · ④ 은유·세계관</span><span>6 / 9</span></div>
 </section>
 
 <!-- 7 ⑤ 감각·형식 -->
@@ -678,20 +690,19 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>극단적 여백<small>비울수록 강해짐</small></h3><p class="why">남은 하나에 시선이 전부 모인다.</p>
       <dl><dt>쓰는 곳</dt><dd>표지, 간지, 결론 한 문장</dd><dt>주의</dt><dd>앞뒤 장표가 빽빽할 때 효과가 난다. 연달아 쓰면 약해진다</dd><dt>PPT</dt><dd>개체 하나 + 제목 한 줄. 나머지는 지운다</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 23 · ⑤ 감각·형식</span><span>7 / 9</span></div>
+  <div class="foot"><span>와우 포인트 24 · ⑤ 감각·형식</span><span>7 / 9</span></div>
 </section>
 
 <!-- 8 ⑥ 소리가 보이는 모션 -->
 <section class="slide g6" data-title="⑥ 소리가 보이는 모션">
-  <div class="head"><div><span class="chip"><b>6</b>소리가 보이는 모션</span><h2>소리가 들리는 듯 움직이면 눈이 따라간다</h2></div><div class="meta">기법 4 · 소리 없이 움직임만으로</div></div>
-  <div class="cards c4">
+  <div class="head"><div><span class="chip"><b>6</b>소리가 보이는 모션</span><h2>소리가 들리는 듯 움직이면 눈이 따라간다</h2></div><div class="meta">기법 5 · 소리 없이 움직임만으로</div></div>
+  <div class="cards c5">
     <article class="card"><div class="demo d-pop">
-        <div class="fw" data-js="fw" data-text="목표 달성"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas>
-          <div class="fwt"><b>목표 달성</b><span>2027 · 참여 목표 100%</span></div></div>
+        <div class="fw" data-js="fw"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas></div>
         <button type="button" class="fullbtn" data-open="pop">⤢ 크게 보기</button>
-      </div><p class="steps"><i>①</i> 하늘 가득 팡 → <i>②</i> 불꽃 획이 뒤섞여 탁탁 바뀜 → <i>③</i> 아래부터 맞물려 "아!"</p>
-      <h3>팡! 터뜨리기<small>뒤섞인 획이 맞물려 글자로</small></h3><p class="why">"무슨 글자지?" 하다가 획이 정돈되는 순간 "아!" 하게 된다.</p>
-      <dl><dt>쓰는 곳</dt><dd>목표 달성, 결과 발표, 개막 표지</dd><dt>주의</dt><dd>덱에서 한 번. 불꽃이 끝나면 정돈된 글자만 남긴다</dd><dt>PPT</dt><dd>불꽃 영상 삽입 + 글자 '나타내기: 서서히'. 입자가 모이는 건 HTML로</dd></dl></article>
+      </div><p class="steps"><i>①</i> 쏘아 올림 → <i>②</i> 하늘 가득 팡 → <i>③</i> 불티가 흘러내림</p>
+      <h3>팡! 터뜨리기<small>하늘 가득 불꽃</small></h3><p class="why">터지는 순간 화면이 축제가 된다.</p>
+      <dl><dt>쓰는 곳</dt><dd>목표 달성, 개막, 마무리 장</dd><dt>주의</dt><dd>덱에서 한 번. 불꽃 위에 긴 글을 얹지 않는다</dd><dt>PPT</dt><dd>불꽃 영상을 배경으로 넣고 자동 재생</dd></dl></article>
     <article class="card"><div class="demo d-train">
         <div class="rail"></div><i class="speed"></i>
         <div class="trn">
@@ -722,14 +733,20 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       </div><p class="steps"><i>①</i> 위에서 떨어짐 → <i>②</i> 쿵! 화면이 흔들림 → <i>③</i> 먼지가 걷히고 남음</p>
       <h3>쿵! 내려앉기<small>무게로 결론</small></h3><p class="why">무거운 착지와 흔들림이 '이게 결론'이라고 알린다.</p>
       <dl><dt>쓰는 곳</dt><dd>결론 한 문장, 핵심 숫자</dd><dt>주의</dt><dd>덱에서 한 번, 결론에만. 흔들림은 0.5초 안에 끝낸다</dd><dt>PPT</dt><dd>나타내기 '확대/축소'(크게→원래) + 강조 효과로 짧게 흔들기</dd></dl></article>
+    <article class="card"><div class="demo d-asm">
+        <div class="asm" data-js="asm"><canvas></canvas></div>
+        <button type="button" class="fullbtn" data-open="asm">⤢ 크게 보기</button>
+      </div><p class="steps"><i>①</i> 획 조각이 뒤섞임 → <i>②</i> 탁탁 돌고 자리를 바꿈 → <i>③</i> 한순간 글자로 정렬</p>
+      <h3>타이포 조립<small>탁탁 맞춰지는 글자</small></h3><p class="why">"무슨 글자지?" 하다가 한순간 맞춰지며 "아!" 하게 된다.</p>
+      <dl><dt>쓰는 곳</dt><dd>표지 제목, 연도·슬로건 공개, 간지</dd><dt>주의</dt><dd>뒤섞이는 시간은 2초 안팎. 맞춰진 뒤에는 움직이지 않는다</dd><dt>PPT</dt><dd>획을 도형으로 잘라 돌려 놓은 장 → 맞춘 장, 모핑 전환</dd></dl></article>
   </div>
   <div class="fullv" id="fullv">
-    <span class="fvtag">⑥ 팡! 터뜨리기 · 크게 보기</span>
-    <div class="fw" data-text="목표 달성"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas>
-      <div class="fwt"><b>목표 달성</b><span>2027 · 참여 목표 100%</span></div></div>
+    <span class="fvtag" id="fvtag"></span>
+    <div class="fw" data-kind="pop"><div class="fwbg"></div><canvas class="sm"></canvas><canvas class="gl"></canvas><canvas class="fx"></canvas></div>
+    <div class="asm" data-kind="asm"><canvas></canvas></div>
     <div class="fvbar"><button type="button" data-fv="replay">↻ 다시</button><button type="button" data-fv="close">✕ 닫기 (Esc)</button></div>
   </div>
-  <div class="foot"><span>와우 포인트 23 · ⑥ 소리가 보이는 모션</span><span>8 / 9</span></div>
+  <div class="foot"><span>와우 포인트 24 · ⑥ 소리가 보이는 모션</span><span>8 / 9</span></div>
 </section>
 
 <!-- 9 고르는 법 -->
@@ -747,7 +764,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
         <tr><td>"다음 단계로 넘어갑니다"</td><td><span class="tg g6">칙칙폭폭 지나가기</span><span class="tg g1">리빌</span></td></tr>
         <tr><td>"이게 결론입니다"</td><td><span class="tg g6">쿵! 내려앉기</span><span class="tg g3">큰 숫자</span></td></tr>
         <tr><td>"여럿이 함께 만듭니다"</td><td><span class="tg g4">시각 은유</span><span class="tg g4">물리 모션</span></td></tr>
-        <tr><td>"새로 시작합니다"</td><td><span class="tg g1">리빌</span><span class="tg g5">키네틱 타이포</span><span class="tg g5">극단적 여백</span></td></tr>
+        <tr><td>"새로 시작합니다"</td><td><span class="tg g1">리빌</span><span class="tg g6">타이포 조립</span><span class="tg g5">극단적 여백</span></td></tr>
         <tr><td>"해마다 돌며 나아집니다"</td><td><span class="tg g2">수미상관</span><span class="tg g5">3D·깊이</span></td></tr>
       </tbody>
     </table></div>
@@ -760,7 +777,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     </ol>
     <div class="off"><b>화면 밖 와우</b> · 청중 참여(QR 실시간 투표 → 결과를 바로 장표에) · 실물 소품과 현장 시연. 화면 기법보다 강하지만 준비와 리허설 비용이 크다.</div>
   </div>
-  <div class="foot"><span>와우 포인트 23 · 고르는 법</span><span>9 / 9</span></div>
+  <div class="foot"><span>와우 포인트 24 · 고르는 법</span><span>9 / 9</span></div>
 </section>
 
 </div></div>
@@ -827,7 +844,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       setTimeout(tick, 1400);
     },
     ba(el) { /* 자동 훑기는 CSS. 끌면 직접 비교 */ },
-    fw(el, end) { el._fw = el._fw || Fireworks(el); end ? el._fw.final() : el._fw.run(); }
+    fw(el, end) { el._e = el._e || Fireworks(el); end ? el._e.final() : el._e.run(); },
+    asm(el, end) { el._e = el._e || Assembly(el); end ? el._e.final() : el._e.run(); }
   };
 
 
@@ -837,10 +855,10 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   // [발사 시각(초), x, 터질 높이(y), 종류, 크기, 글자 만들기]
   const SHOW = [[0, .3, .3, 'peony', 1], [.2, .7, .27, 'blue', 1], [.5, .5, .17, 'big', 1],
     [.95, .14, .38, 'willow', 1], [1.05, .86, .36, 'willow', 1], [1.25, .36, .22, 'peony', .95], [1.35, .64, .23, 'peony', .95],
-    [1.5, .22, .3, 'blue', .85], [1.6, .78, .29, 'peony', .85], [2.3, .5, .24, 'big', 1.15, true],
+    [1.5, .22, .3, 'blue', .85], [1.6, .78, .29, 'peony', .85], [2.3, .5, .24, 'big', 1.15],
     [3.3, .17, .2, 'blue', .8], [3.6, .83, .19, 'peony', .8], [4.4, .32, .15, 'willow', .8], [4.7, .68, .16, 'blue', .8]];
   function Fireworks(root) {
-    const fx = root.querySelector('canvas.fx'), sm = root.querySelector('canvas.sm'), gc = root.querySelector('canvas.gl'), txt = root.querySelector('.fwt');
+    const fx = root.querySelector('canvas.fx'), sm = root.querySelector('canvas.sm'), gc = root.querySelector('canvas.gl');
     const g = fx.getContext('2d'), s = sm.getContext('2d'), gx = gc.getContext('2d'), TEXT = root.dataset.text || '목표 달성!';
     let W = 0, H = 0, u = 1, qf = 1, slow = 0, parts = [], rockets = [], puffs = [], flashes = [], tps = [], syl = {}, raf = 0, T = 0, last = 0, ev = [], textAt = 0, running = false;
     const rnd = (a, b) => a + Math.random() * (b - a);
@@ -866,80 +884,6 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       flashes.push({ x, y, r: 80 * u * k, a: 1 });
       for (let i = 0; i < 5; i++) puffs.push({ x: x + rnd(-160, 160) * u * k, y: y + rnd(-80, 180) * u * k, r: rnd(70, 130) * u, gr: rnd(.3, .6) * u, a: rnd(.02, .04) });
     };
-    // ── 스크램블 → 정렬(영화 오프닝 타이틀): 글자를 낱획으로 나누고, 낱획이 엉뚱한 자리에서 탁탁 바뀌다 제자리에 맞물림 ──
-    const strokes = () => {
-      const fs = Math.round(W * (W < 800 ? .1 : .06)), cw = Math.ceil(W), ch = Math.ceil(fs * 1.6), oy = H * .6 - ch / 2, st = Math.max(2, Math.round(fs / 30));
-      const c = document.createElement('canvas'), x = c.getContext('2d', { willReadFrequently: true }); c.width = cw; c.height = ch;
-      x.font = '400 ' + fs + 'px "Gothic A1"'; x.textAlign = 'left'; x.textBaseline = 'alphabetic'; x.fillStyle = '#fff';
-      const fm = x.measureText('목'), base = ch / 2 + ((fm.fontBoundingBoxAscent || fs * .88) - (fm.fontBoundingBoxDescent || fs * .22)) / 2;
-      const chars = [...TEXT], ws = chars.map(t => x.measureText(t).width), lefts = [], ls = fs * .2;   // 자간 .2em(화면 글자와 같게)
-      let cx = (cw - ws.reduce((a, b2) => a + b2, 0) - ls * (chars.length - 1)) / 2;
-      chars.forEach((t, i) => { lefts.push(cx); x.fillText(t, cx, base); cx += ws[i] + ls; });
-      const d = x.getImageData(0, 0, cw, ch).data, N = cw * ch, M = new Uint8Array(N);
-      for (let i = 0; i < N; i++) M[i] = d[i * 4 + 3] >= 128 ? 1 : 0;
-      const nb4 = j => { const jx = j % cw; return [jx > 0 ? j - 1 : -1, jx < cw - 1 ? j + 1 : -1, j >= cw ? j - cw : -1, j + cw < N ? j + cw : -1]; };
-      // 1) 점마다 가로로 이어진 길이·세로로 이어진 길이 → 가로획(1)·세로획(2)·꺾임·사선(3)
-      const hr = new Uint16Array(N), vr = new Uint16Array(N);
-      for (let y = 0; y < ch; y++) { let s0 = -1; for (let k = 0; k <= cw; k++) { const on = k < cw && M[y * cw + k]; if (on && s0 < 0) s0 = k; else if (!on && s0 >= 0) { for (let j = s0; j < k; j++) hr[y * cw + j] = k - s0; s0 = -1; } } }
-      for (let k = 0; k < cw; k++) { let s0 = -1; for (let y = 0; y <= ch; y++) { const on = y < ch && M[y * cw + k]; if (on && s0 < 0) s0 = y; else if (!on && s0 >= 0) { for (let j = s0; j < y; j++) vr[j * cw + k] = y - s0; s0 = -1; } } }
-      const cls = new Uint8Array(N);
-      for (let i = 0; i < N; i++) if (M[i]) cls[i] = hr[i] > vr[i] * 1.25 ? 1 : vr[i] > hr[i] * 1.25 ? 2 : 3;
-      const id = new Int32Array(N).fill(-1), comps = [];
-      for (let i = 0; i < N; i++) if (M[i] && id[i] < 0) {
-        const k = comps.length, q = [i], px = []; id[i] = k;
-        while (q.length) { const j = q.pop(); px.push(j); for (const n of nb4(j)) if (n >= 0 && M[n] && id[n] < 0 && cls[n] === cls[i]) { id[n] = k; q.push(n); } }
-        comps.push(px);
-      }
-      const merge = (from, to) => { if (from === to || !comps[from] || !comps[to]) return; comps[from].forEach(j => id[j] = to); comps[to] = comps[to].concat(comps[from]); comps[from] = null; };
-      // 2) 너무 작은 조각(획이 만나는 모서리 등)은 가장 많이 맞닿은 획에 붙임
-      const minP = fs * fs * .006;
-      for (let pass = 0; pass < 3; pass++) comps.forEach((px, ci) => {
-        if (!px || px.length >= minP) return; const cnt = {};
-        px.forEach(j => nb4(j).forEach(n => { if (n >= 0 && M[n] && id[n] !== ci) cnt[id[n]] = (cnt[id[n]] || 0) + 1; }));
-        let best = -1, bn = 0; for (const k in cnt) if (cnt[k] > bn) { bn = cnt[k]; best = +k; }
-        if (best >= 0) merge(ci, best);
-      });
-      // 3) 고리(ㅇ, ㅎ의 동그라미): 구멍이 있고 곧은 줄이 짧은 잉크 덩어리는 획 하나로
-      const ink = new Int32Array(N).fill(-1);
-      for (let i = 0; i < N; i++) if (M[i] && ink[i] < 0) {
-        const q = [i], px = []; ink[i] = i; let x0 = cw, y0 = ch, x1 = 0, y1 = 0, mh = 0, mv = 0;
-        while (q.length) { const j = q.pop(); px.push(j); const jx = j % cw, jy = (j / cw) | 0; if (jx < x0) x0 = jx; if (jx > x1) x1 = jx; if (jy < y0) y0 = jy; if (jy > y1) y1 = jy; if (hr[j] > mh) mh = hr[j]; if (vr[j] > mv) mv = vr[j];
-          for (const n of nb4(j)) if (n >= 0 && M[n] && ink[n] < 0) { ink[n] = i; q.push(n); } }
-        const bw = x1 - x0 + 1, bh = y1 - y0 + 1;
-        if (mh / bw > .78 || mv / bh > .78 || bw < fs * .2) continue;
-        const seen = new Uint8Array(bw * bh), qq = [];
-        for (let yy = 0; yy < bh; yy++) for (let xx = 0; xx < bw; xx++) if (xx === 0 || yy === 0 || xx === bw - 1 || yy === bh - 1) { const g0 = (y0 + yy) * cw + x0 + xx; if (ink[g0] !== i) { seen[yy * bw + xx] = 1; qq.push(yy * bw + xx); } }
-        while (qq.length) { const l = qq.pop(), lx = l % bw, ly = (l / bw) | 0; for (const [ax, ay] of [[lx - 1, ly], [lx + 1, ly], [lx, ly - 1], [lx, ly + 1]]) { if (ax < 0 || ay < 0 || ax >= bw || ay >= bh) continue; const li = ay * bw + ax; if (!seen[li] && ink[(y0 + ay) * cw + x0 + ax] !== i) { seen[li] = 1; qq.push(li); } } }
-        let hole = 0; for (let l = 0; l < bw * bh; l++) if (!seen[l] && ink[(y0 + ((l / bw) | 0)) * cw + x0 + l % bw] !== i) hole++;
-        if (hole > fs * fs * .002) { const ids = [...new Set(px.map(j => id[j]))]; ids.slice(1).forEach(k => merge(k, ids[0])); }
-      }
-      // 4) 낱획마다 빛나는 그림 조각(스프라이트)
-      const out = [];
-      comps.forEach(px => {
-        if (!px || px.length < 6) return;
-        let x0 = cw, y0 = ch, x1 = 0, y1 = 0; px.forEach(j => { const jx = j % cw, jy = (j / cw) | 0; if (jx < x0) x0 = jx; if (jx > x1) x1 = jx; if (jy < y0) y0 = jy; if (jy > y1) y1 = jy; });
-        const w = x1 - x0 + 3, h = y1 - y0 + 3, sp = document.createElement('canvas'); sp.width = w; sp.height = h;
-        const sx = sp.getContext('2d'), im = sx.createImageData(w, h);
-        px.forEach(j => { const k = ((((j / cw) | 0) - y0 + 1) * w + (j % cw) - x0 + 1) * 4; im.data[k] = 247; im.data[k + 1] = 245; im.data[k + 2] = 240; im.data[k + 3] = 255; });
-        sx.putImageData(im, 0, 0);
-        out.push({ sp, w, h, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 + oy, bot: y1 + oy, len: Math.max(w, h) });
-      });
-      return { list: out, fs };
-    };
-    const spawnText = () => {
-      const { list, fs } = strokes(); if (!list.length) return;
-      let yb = -1e9, yt = 1e9; list.forEach(q => { if (q.bot > yb) yb = q.bot; if (q.bot < yt) yt = q.bot; });
-      const span = Math.max(1, yb - yt); let lastSet = 0;
-      list.forEach(q => {
-        const h = (yb - q.bot) / span;                       // 0 = 맨 아래 획
-        q.ap = T + .15 + h * .9 + rnd(0, .25);               // 나타나는 시각(아래부터)
-        q.set = T + 1.5 + h * 1.3 + rnd(0, .3);              // 제자리에 맞물리는 시각(아래부터)
-        q.fs = fs; q.nx = 0; q.dx = 0; q.dy = 0; q.rot = 0; q.sc = 1; q.done = false;
-        if (q.set > lastSet) lastSet = q.set;
-      });
-      syl = { list, yb, yt, xl: Math.min(...list.map(q => q.cx - q.w / 2)), xr: Math.max(...list.map(q => q.cx + q.w / 2)), fs };
-      textAt = lastSet + .55;
-    };
     const launch = (x, ty, type, k, text) => {
       const gR = .22 * u; rockets.push({ x, y: H, vx: rnd(-.25, .25) * u, vy: -Math.sqrt(2 * gR * (H - ty)), gR, type, k, text });
     };
@@ -947,7 +891,6 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       const dt = Math.min(50, now - last) || 16.7, f = dt / 16.667; last = now; T += dt / 1000;
       if (dt > 30) { if (++slow > 15 && qf > .45) { qf *= .8; slow = 0; } } else slow = Math.max(0, slow - 1);
       while (ev.length && ev[0][0] <= T) { const e = ev.shift(); launch(e[1] * W, e[2] * H, e[3], e[4], e[5]); }
-      if (textAt && T >= textAt) txt.classList.add('on');
       // 연기: 매 장 새로 그림
       s.clearRect(0, 0, W, H);
       puffs = puffs.filter(p => (p.a -= .00035 * f) > 0);
@@ -964,7 +907,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
         const px = r.x, py = r.y; r.vy += r.gR * f; r.x += r.vx * f; r.y += r.vy * f;
         g.strokeStyle = 'rgba(245,240,228,.85)'; g.lineWidth = 2.2 * Math.max(.5, u); g.beginPath(); g.moveTo(px, py); g.lineTo(r.x, r.y); g.stroke();
         if (Math.random() < .7) parts.push({ x: r.x, y: r.y, px: r.x, py: r.y, vx: rnd(-.5, .5) * u, vy: rnd(.4, 1.6) * u, life: .55, decay: .03, drag: .95, gr: .02 * u, c: col.gold(), w: 1.1 * Math.max(.5, u), gl: false });
-        if (r.vy > -1.2 * u) { burst(r.x, r.y, r.type, r.k); if (r.text) spawnText(); return false; }
+        if (r.vy > -1.2 * u) { burst(r.x, r.y, r.type, r.k); return false; }
         return true;
       });
       flashes = flashes.filter(fl => (fl.a -= .07 * f) > 0);
@@ -982,46 +925,116 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
         if (p.gl && L < .45 && Math.random() < .25) { const r = (1 + Math.random() * 1.6) * Math.max(.5, u); g.fillStyle = 'rgba(255,248,225,' + (.5 + Math.random() * .5) + ')'; g.fillRect(p.x - r / 2, p.y - r / 2, r, r); }
       }
       // 자모 불티: 조각 모양을 따라가며 떨어지고, 닿으면 반짝, 음절이 다 모이면 크게 반짝
-      // 스크램블: 나타난 획은 탁탁(0.07~0.14초마다) 엉뚱한 자리·기울기로 바뀌고, 흔들림은 점점 줄어 제자리에 맞물림
-      const fade = textAt && T > textAt ? Math.max(0, 1 - (T - textAt) / 1.1) : 1;
-      if (syl.list && fade > 0) {
-        for (const q of syl.list) {
-          if (T < q.ap) continue;
-          let alpha = 1;
-          if (T < q.set) {
-            const pr = (T - q.ap) / (q.set - q.ap), m = Math.pow(1 - pr, 1.6);
-            if (T >= q.nx) {
-              q.nx = T + rnd(.07, .14);
-              q.dx = rnd(-1, 1) * q.fs * 1.1 * m; q.dy = rnd(-1, 1) * q.fs * .7 * m; q.rot = rnd(-1.7, 1.7) * m; q.sc = 1 + rnd(-.45, .45) * m;
-              if (Math.random() < .2) for (let i = 0; i < 1; i++) parts.push({ x: q.cx + q.dx, y: q.cy + q.dy, px: q.cx + q.dx, py: q.cy + q.dy, vx: rnd(-2, 2) * u, vy: rnd(-2.2, .5) * u, life: .45, decay: .06, drag: .94, gr: .08 * u, c: col.gold(), w: Math.max(.6, u), gl: false });
-            }
-            alpha = .55 + .45 * Math.random();
-          } else if (!q.done) {
-            q.done = true; q.dx = q.dy = q.rot = 0; q.sc = 1;
-            flashes.push({ x: q.cx, y: q.cy, r: 6 * Math.max(.5, u) + q.len * .25, a: .5 });
-            for (let i = 0; i < 2; i++) parts.push({ x: q.cx + rnd(-.5, .5) * q.w, y: q.cy + rnd(-.5, .5) * q.h, px: q.cx, py: q.cy, vx: rnd(-2.5, 2.5) * u, vy: rnd(-3, -.5) * u, life: .5, decay: .05, drag: .95, gr: .1 * u, c: col.white(), w: Math.max(.6, u), gl: false });
-          } else alpha = .85 + .15 * Math.random();
-          // 맞물린 직후 0.12초 동안 살짝 넘쳤다 돌아옴
-          const ov = q.done ? Math.max(0, 1 - (T - q.set) / .12) : 0;
-          g.save(); g.globalAlpha = alpha * fade; g.translate(q.cx + q.dx, q.cy + q.dy); g.rotate(q.rot); g.scale(q.sc * (1 + ov * .12), q.sc * (1 + ov * .12));
-          g.drawImage(q.sp, -q.w / 2, -q.h / 2); g.restore();
-        }
-        // 모두 맞물리는 순간 "아!": 글자 전체가 한 번 크게 반짝
-        if (!syl.flash && syl.list.every(q => q.done)) syl.flash = T;
-        if (syl.flash && T - syl.flash < .6) {
-          // 빛줄기가 글자 획 위만 왼→오로 훑음(획을 한 번 더 겹쳐 그려 밝게)
-          const k = (T - syl.flash) / .6, bx = syl.xl - syl.fs * .5 + (syl.xr - syl.xl + syl.fs) * k, bw = syl.fs * .9;
-          for (const q of syl.list) { const dd = Math.abs(q.cx - bx); if (dd < bw) { g.save(); g.globalAlpha = (1 - dd / bw) * .55 * fade; g.translate(q.cx, q.cy); g.drawImage(q.sp, -q.w / 2, -q.h / 2); g.restore(); } }
-        }
-      }
       gx.clearRect(0, 0, gc.width, gc.height); gx.drawImage(fx, 0, 0, gc.width, gc.height);
       if (running) raf = requestAnimationFrame(frame);
     };
-    const reset = () => { cancelAnimationFrame(raf); running = false; size(); g.clearRect(0, 0, W, H); s.clearRect(0, 0, W, H); gx.clearRect(0, 0, gc.width, gc.height); parts = []; rockets = []; puffs = []; flashes = []; tps = []; syl = {}; T = 0; textAt = 0; txt.classList.remove('on'); };
+    const reset = () => { cancelAnimationFrame(raf); running = false; size(); g.clearRect(0, 0, W, H); s.clearRect(0, 0, W, H); gx.clearRect(0, 0, gc.width, gc.height); parts = []; rockets = []; puffs = []; flashes = []; T = 0; };
     return {
       run() { if (RM) return this.final(); reset(); ev = SHOW.map(e => e.slice()); running = true; last = performance.now(); raf = requestAnimationFrame(frame); },
       stop() { running = false; cancelAnimationFrame(raf); },
-      final() { reset(); txt.classList.add('on'); }
+      // 인쇄·움직임 줄이기: 2.4초 시점까지 한꺼번에 계산해 터진 장면 한 장을 남김
+      final() { reset(); ev = SHOW.map(e => e.slice()); let t = performance.now(); last = t; for (let i = 0; i < 145; i++) frame(t += 16.7); }
+    };
+  }
+
+  // ── 낱획 나누기(공용): 글자 그림(M)을 가로획·세로획·고리 조각으로 ──
+  const segment = (M, cw, ch, fs) => {
+    const N = cw * ch;
+    const nb4 = j => { const jx = j % cw; return [jx > 0 ? j - 1 : -1, jx < cw - 1 ? j + 1 : -1, j >= cw ? j - cw : -1, j + cw < N ? j + cw : -1]; };
+    // 1) 점마다 가로로 이어진 길이·세로로 이어진 길이 → 가로획(1)·세로획(2)·꺾임·사선(3)
+    const hr = new Uint16Array(N), vr = new Uint16Array(N);
+    for (let y = 0; y < ch; y++) { let s0 = -1; for (let k = 0; k <= cw; k++) { const on = k < cw && M[y * cw + k]; if (on && s0 < 0) s0 = k; else if (!on && s0 >= 0) { for (let j = s0; j < k; j++) hr[y * cw + j] = k - s0; s0 = -1; } } }
+    for (let k = 0; k < cw; k++) { let s0 = -1; for (let y = 0; y <= ch; y++) { const on = y < ch && M[y * cw + k]; if (on && s0 < 0) s0 = y; else if (!on && s0 >= 0) { for (let j = s0; j < y; j++) vr[j * cw + k] = y - s0; s0 = -1; } } }
+    const cls = new Uint8Array(N);
+    for (let i = 0; i < N; i++) if (M[i]) cls[i] = hr[i] > vr[i] * 1.25 ? 1 : vr[i] > hr[i] * 1.25 ? 2 : 3;
+    const id = new Int32Array(N).fill(-1), comps = [];
+    for (let i = 0; i < N; i++) if (M[i] && id[i] < 0) {
+      const k = comps.length, q = [i], px = []; id[i] = k;
+      while (q.length) { const j = q.pop(); px.push(j); for (const n of nb4(j)) if (n >= 0 && M[n] && id[n] < 0 && cls[n] === cls[i]) { id[n] = k; q.push(n); } }
+      comps.push(px);
+    }
+    const merge = (from, to) => { if (from === to || !comps[from] || !comps[to]) return; comps[from].forEach(j => id[j] = to); comps[to] = comps[to].concat(comps[from]); comps[from] = null; };
+    // 2) 너무 작은 조각(획이 만나는 모서리 등)은 가장 많이 맞닿은 획에 붙임
+    const minP = fs * fs * .006;
+    for (let pass = 0; pass < 3; pass++) comps.forEach((px, ci) => {
+      if (!px || px.length >= minP) return; const cnt = {};
+      px.forEach(j => nb4(j).forEach(n => { if (n >= 0 && M[n] && id[n] !== ci) cnt[id[n]] = (cnt[id[n]] || 0) + 1; }));
+      let best = -1, bn = 0; for (const k in cnt) if (cnt[k] > bn) { bn = cnt[k]; best = +k; }
+      if (best >= 0) merge(ci, best);
+    });
+    // 3) 고리(ㅇ, ㅎ의 동그라미): 구멍이 있고 곧은 줄이 짧은 잉크 덩어리는 획 하나로
+    const ink = new Int32Array(N).fill(-1);
+    for (let i = 0; i < N; i++) if (M[i] && ink[i] < 0) {
+      const q = [i], px = []; ink[i] = i; let x0 = cw, y0 = ch, x1 = 0, y1 = 0, mh = 0, mv = 0;
+      while (q.length) { const j = q.pop(); px.push(j); const jx = j % cw, jy = (j / cw) | 0; if (jx < x0) x0 = jx; if (jx > x1) x1 = jx; if (jy < y0) y0 = jy; if (jy > y1) y1 = jy; if (hr[j] > mh) mh = hr[j]; if (vr[j] > mv) mv = vr[j];
+        for (const n of nb4(j)) if (n >= 0 && M[n] && ink[n] < 0) { ink[n] = i; q.push(n); } }
+      const bw = x1 - x0 + 1, bh = y1 - y0 + 1;
+      if (mh / bw > .78 || mv / bh > .78 || bw < fs * .2) continue;
+      const seen = new Uint8Array(bw * bh), qq = [];
+      for (let yy = 0; yy < bh; yy++) for (let xx = 0; xx < bw; xx++) if (xx === 0 || yy === 0 || xx === bw - 1 || yy === bh - 1) { const g0 = (y0 + yy) * cw + x0 + xx; if (ink[g0] !== i) { seen[yy * bw + xx] = 1; qq.push(yy * bw + xx); } }
+      while (qq.length) { const l = qq.pop(), lx = l % bw, ly = (l / bw) | 0; for (const [ax, ay] of [[lx - 1, ly], [lx + 1, ly], [lx, ly - 1], [lx, ly + 1]]) { if (ax < 0 || ay < 0 || ax >= bw || ay >= bh) continue; const li = ay * bw + ax; if (!seen[li] && ink[(y0 + ay) * cw + x0 + ax] !== i) { seen[li] = 1; qq.push(li); } } }
+      let hole = 0; for (let l = 0; l < bw * bh; l++) if (!seen[l] && ink[(y0 + ((l / bw) | 0)) * cw + x0 + l % bw] !== i) hole++;
+      if (hole > fs * fs * .002) { const ids = [...new Set(px.map(j => id[j]))]; ids.slice(1).forEach(k => merge(k, ids[0])); }
+    }
+    return comps.filter(Boolean);
+  };
+
+  // ── 타이포 조립(타이포그래피 어셈블리): 글자를 획 조각으로 나눠, 자기 칸 안에서 탁탁 돌고 자리를 바꾸다 한순간 맞춘다 ──
+  function Assembly(root) {
+    const cv = root.querySelector('canvas'), g = cv.getContext('2d');
+    const LINES = [{ t: '2027', k: .8, ls: .95 }, { t: '새로운 시작', k: 1, ls: .3 }], ROT = [0, 90, -90, 180, 45, -45, 135, -135].map(d => d * Math.PI / 180);
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    let W = 0, H = 0, fs = 0, ps = [], raf = 0, t0 = 0, end = 0, running = false;
+    const build = () => {
+      W = root.offsetWidth; H = root.offsetHeight;
+      const R = Math.min(2, Math.max(1, (devicePixelRatio || 1) * (window.__k || 1)));
+      cv.width = Math.round(W * R); cv.height = Math.round(H * R); g.setTransform(R, 0, 0, R, 0, 0);
+      fs = Math.round(W * (W < 800 ? .085 : .05));
+      const cw = Math.ceil(W), ch = Math.ceil(H), c = document.createElement('canvas'), x = c.getContext('2d', { willReadFrequently: true });
+      c.width = cw; c.height = ch; x.fillStyle = '#fff'; x.textBaseline = 'alphabetic';
+      const lh = fs * 1.5, top = H / 2 - lh * LINES.length / 2;
+      LINES.forEach((ln, li) => {
+        const f = Math.round(fs * ln.k); x.font = '600 ' + f + 'px "Noto Sans KR"';
+        const chars = [...ln.t], ws = chars.map(t => x.measureText(t).width), sp = f * ln.ls, fm = x.measureText('국');
+        const base = top + lh * li + lh / 2 + ((fm.fontBoundingBoxAscent || f * .88) - (fm.fontBoundingBoxDescent || f * .22)) / 2;
+        let cx = (W - ws.reduce((a, b) => a + b, 0) - sp * (chars.length - 1)) / 2;
+        chars.forEach((t, i) => { x.fillText(t, cx, base); cx += ws[i] + sp; });
+      });
+      const d = x.getImageData(0, 0, cw, ch).data, M = new Uint8Array(cw * ch);
+      for (let i = 0; i < M.length; i++) M[i] = d[i * 4 + 3] >= 128 ? 1 : 0;
+      // 긴 획은 반으로 나눠 조각을 잘게(영상처럼 '무슨 글자지?')
+      const comps = []; segment(M, cw, ch, fs).forEach(px => {
+        let x0 = cw, y0 = ch, x1 = 0, y1 = 0; px.forEach(j => { const jx = j % cw, jy = (j / cw) | 0; if (jx < x0) x0 = jx; if (jx > x1) x1 = jx; if (jy < y0) y0 = jy; if (jy > y1) y1 = jy; });
+        const w = x1 - x0 + 1, h = y1 - y0 + 1;
+        if (w > h * 1.8 && w > fs * .5) { const m = (x0 + x1) / 2; comps.push(px.filter(j => j % cw < m), px.filter(j => j % cw >= m)); }
+        else if (h > w * 1.8 && h > fs * .5) { const m = (y0 + y1) / 2; comps.push(px.filter(j => ((j / cw) | 0) < m), px.filter(j => ((j / cw) | 0) >= m)); }
+        else comps.push(px);
+      });
+      ps = comps.filter(px => px.length > 3).map(px => {
+        let x0 = cw, y0 = ch, x1 = 0, y1 = 0; px.forEach(j => { const jx = j % cw, jy = (j / cw) | 0; if (jx < x0) x0 = jx; if (jx > x1) x1 = jx; if (jy < y0) y0 = jy; if (jy > y1) y1 = jy; });
+        const w = x1 - x0 + 3, h = y1 - y0 + 3, sp = document.createElement('canvas'); sp.width = w; sp.height = h;
+        const sx = sp.getContext('2d'), im = sx.createImageData(w, h);
+        px.forEach(j => { const k = ((((j / cw) | 0) - y0 + 1) * w + (j % cw) - x0 + 1) * 4; im.data[k] = 242; im.data[k + 1] = 239; im.data[k + 2] = 232; im.data[k + 3] = 255; });
+        sx.putImageData(im, 0, 0);
+        return { sp, w, h, hx: (x0 + x1) / 2, hy: (y0 + y1) / 2, nx: 0, dx: 0, dy: 0, r: 0, set: rnd(2, 2.7) };
+      });
+      end = Math.max(...ps.map(p => p.set)) + .2;
+    };
+    const draw = t => {
+      g.clearRect(0, 0, W, H);
+      for (const p of ps) {
+        if (t < p.set) {
+          if (t >= p.nx) { p.nx = t + rnd(.14, .3); p.dx = rnd(-1, 1) * fs * .3; p.dy = rnd(-1, 1) * fs * .24; p.r = ROT[(Math.random() * ROT.length) | 0]; }
+          g.save(); g.translate(p.hx + p.dx, p.hy + p.dy); g.rotate(p.r); g.drawImage(p.sp, -p.w / 2, -p.h / 2); g.restore();
+        } else g.drawImage(p.sp, p.hx - p.w / 2, p.hy - p.h / 2);
+      }
+    };
+    const frame = now => { const t = (now - t0) / 1000; draw(t); if (running && t < end) raf = requestAnimationFrame(frame); else running = false; };
+    const ready = cb => (document.fonts ? document.fonts.load('600 40px "Noto Sans KR"').then(cb, cb) : cb());
+    return {
+      run() { this.stop(); ready(() => { build(); if (RM) return draw(99); ps.forEach(p => p.nx = 0); running = true; t0 = performance.now(); raf = requestAnimationFrame(frame); }); },
+      stop() { running = false; cancelAnimationFrame(raf); },
+      final() { this.stop(); ready(() => { build(); draw(99); }); }
     };
   }
 
@@ -1039,28 +1052,34 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   };
   const count = document.getElementById('count');
   // 크게 보기(화면 전체 재생)
-  const fv = document.getElementById('fullv'), fvw = fv.querySelector('.fw');
-  const openFull = () => { slides[cur].querySelectorAll('.demo .fw').forEach(e => e._fw && e._fw.stop()); fv.classList.add('open'); fvw._fw = fvw._fw || Fireworks(fvw); fvw._fw.run(); };
-  const closeFull = () => { if (!fv.classList.contains('open')) return; fvw._fw && fvw._fw.stop(); fv.classList.remove('open'); };
-  document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', openFull));
-  fv.querySelector('[data-fv=replay]').onclick = () => fvw._fw.run();
+  const fv = document.getElementById('fullv'), ENG = { pop: Fireworks, asm: Assembly }, TAG = { pop: '⑥ 팡! 터뜨리기 · 크게 보기', asm: '⑥ 타이포 조립 · 크게 보기' };
+  let fvk = null; const fvEl = () => fv.querySelector('[data-kind=' + fvk + ']');
+  const openFull = kind => {
+    slides[cur].querySelectorAll('.demo [data-js]').forEach(e => e._e && e._e.stop());
+    fvk = kind; fv.className = 'fullv open k-' + kind; document.getElementById('fvtag').textContent = TAG[kind];
+    const el = fvEl(); el._e = el._e || ENG[kind](el); el._e.run();
+  };
+  const closeFull = () => { if (!fv.classList.contains('open')) return; const el = fvEl(); el._e && el._e.stop(); fv.className = 'fullv'; };
+  const replayFull = () => fvEl()._e.run();
+  document.querySelectorAll('[data-open]').forEach(b => b.addEventListener('click', () => openFull(b.dataset.open)));
+  fv.querySelector('[data-fv=replay]').onclick = replayFull;
   fv.querySelector('[data-fv=close]').onclick = closeFull;
   const go = i => {
     i = Math.max(0, Math.min(slides.length - 1, i));
-    closeFull(); slides[cur].querySelectorAll('.fw').forEach(e => e._fw && e._fw.stop());
+    closeFull(); slides[cur].querySelectorAll('[data-js]').forEach(e => e._e && e._e.stop());
     slides[cur].classList.remove('on', 'play'); cur = i; slides[cur].classList.add('on'); play(slides[cur]);
     count.textContent = (cur + 1) + ' / ' + slides.length;
     history.replaceState(null, '', '#' + (cur + 1));
   };
   document.getElementById('prev').onclick = () => go(cur - 1);
   document.getElementById('next').onclick = () => go(cur + 1);
-  document.getElementById('replay').onclick = () => fv.classList.contains('open') ? fvw._fw.run() : play(slides[cur]);
+  document.getElementById('replay').onclick = () => fv.classList.contains('open') ? replayFull() : play(slides[cur]);
   document.querySelectorAll('[data-go]').forEach(a => a.addEventListener('click', () => go(+a.dataset.go - 1)));
   addEventListener('keydown', e => {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     const k = e.key;
     if (fv.classList.contains('open')) {
-      if (k === 'Escape') closeFull(); else if (k === 'r' || k === 'R' || k === ' ') fvw._fw.run(); else return;
+      if (k === 'Escape') closeFull(); else if (k === 'r' || k === 'R' || k === ' ') replayFull(); else return;
       e.preventDefault(); return;
     }
     if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { go(cur + 1); e.preventDefault(); }
