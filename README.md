@@ -7,7 +7,8 @@
 
 | 경로 | 내용 |
 |---|---|
-| `index.html` | 갤러리 첫 화면 (`data/rounds.json`을 읽어 카드 목록 표시) |
+| `index.html` | 갤러리 첫 화면: 위는 **무엇을 하려고 하나요?**(목적 6개 — 덱 키트 · 표지 · 본문 · 인쇄·홍보물 · 와우 포인트 · 아이콘), 아래는 `data/rounds.json` 카드 목록. 고른 필터는 주소에 남는다(`?role=본문&fam=B&q=간트`) |
+| `scripts/hub_thumbs.js` | 목적 타일 미리보기 중 따로 있는 페이지(와우 포인트 · 아이콘 세트)를 찍어 `thumbs/hub-*.jpg`로: `node scripts/hub_thumbs.js` (그 페이지를 고친 뒤). 표지 · 본문 · 인쇄물 타일은 최근 장표 썸네일, 덱 키트는 `kit/thumbs/`를 쓴다 |
 | `refs/NN.html` | 레퍼런스 원본 페이지 (NN = 회차 번호, 두 자리) |
 | `thumbs/NN.jpg` | 표지 썸네일 (640px 폭) |
 | `data/rounds.json` | 회차 목록 데이터 |
