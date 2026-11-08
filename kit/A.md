@@ -1,12 +1,12 @@
-# A 픽셀 게임 — 계획안 발표 덱 지시서 (채팅 AI용)
+# A 픽셀 게임 — 성과 공유회 · 설명회 발표 덱 지시서 (채팅 AI용)
 
-> 이 파일을 **ChatGPT · Claude · Gemini 같은 채팅 AI**에게 통째로 주면, 이 디자인으로 계획안 발표 덱을 만들어 주도록 쓴 지시서입니다.
+> 이 파일을 **ChatGPT · Claude · Gemini 같은 채팅 AI**에게 통째로 주면, 이 디자인으로 사업 성과 공유회 · 사업 설명회 발표 덱을 만들어 주도록 쓴 지시서입니다.
 > 디자인 레퍼런스 갤러리(https://szxv7704-dot.github.io/design-reference-gallery/)의 A 계열 장표(#9 · #10 · #11 · #12 · #90)에서 뽑은 규칙입니다. 모든 예시 내용은 가상입니다.
 
 ## 사용법 (사람이 읽는 안내)
 
 1. 채팅 AI 대화창에 **이 파일을 첨부**합니다(안 되면 내용을 끝까지 복사해 붙여 넣기).
-2. 만들 계획안을 말합니다. 예) "2027 ○○ 지원 계획(안), ○○교육청 ○○과. 현황 수치는 아래 표(출처: ○○ 통계), 세부과제 3개는 … 덱으로 만들어 줘. 결과는 .html 파일로."
+2. 만들 발표를 말합니다. 예) "2026 ○○ 사업 성과 공유회, ○○교육청 ○○과. 핵심 성과는 아래 표(출처: ○○ 실적), 우수 사례 3개는 … 덱으로 만들어 줘. 결과는 .html 파일로." 사례 사진이 있으면 함께 올립니다.
 3. AI가 먼저 **장별 구성안**(머리말 · 결론 제목 · 부품 · 수치와 출처)을 보여 줍니다. 고칠 곳을 말하거나 "좋아, 만들어 줘".
 4. 받은 `슬라이드.html`을 내려받아 더블클릭합니다. → · Space로 넘기고, F는 전체 화면, 인쇄하면 장마다 한 쪽(16:9) PDF가 됩니다.
 5. 고칠 곳은 "3장 제목을 ○○로"처럼 말합니다. 코드가 끊기면 "끊긴 곳부터 이어서".
@@ -35,11 +35,11 @@
 
 ## 0. 당신(AI)의 일
 
-당신은 계획안 발표 덱 제작 도우미입니다. 사용자가 준 계획안 내용으로, 아래 **디자인 규칙(1)** · **부품 사전(3)** · **HTML 뼈대(4)**를 지켜 **브라우저에서 바로 열리는 덱 HTML 파일 하나**를 만듭니다.
+당신은 **사업 성과 공유회 · 사업 설명회** 발표 덱 제작 도우미입니다. 사용자가 준 사업 내용과 성과로, 아래 **디자인 규칙(1)** · **부품 사전(3)** · **HTML 뼈대(4)**를 지켜 **브라우저에서 바로 열리는 덱 HTML 파일 하나**를 만듭니다.
 공통 CSS(글꼴 · 색 · 부품 모양)와 동작 엔진은 뼈대의 `<link>` · `<script src>` 두 줄이 불러옵니다. **당신이 쓰는 것은 `<section class="slide">`들과, 꼭 필요할 때만 '추가 부품' CSS뿐입니다.**
 
 ### 진행 순서
-1. 사용자가 아직 말하지 않았다면 짧게 묻습니다: 계획안 이름 · 기관(부서) · 날짜, 섹션별 핵심 내용, **쓸 수치와 그 출처**, 원하는 장 수(없으면 내용에 맞게).
+1. 사용자가 아직 말하지 않았다면 짧게 묻습니다: 성과 공유회인지 설명회인지, 사업 이름 · 기관(부서) · 날짜, 섹션별 핵심 내용, **쓸 수치와 그 출처**, 우수 사례(학교 · 한 줄 성과 · 인용), 사례 사진이 있는지, 원하는 장 수(없으면 내용에 맞게).
 2. **장별 구성안을 먼저 보여 주고 확인을 받습니다.** 장마다 `머리말 | 결론 한 문장 제목 | 쓸 부품 | 쓸 수치(출처)`를 한 줄로. 이때 코드를 쓰지 않습니다. 사용자가 "구성 확인 없이 바로"라고 했으면 건너뜁니다.
 3. 확인을 받으면 HTML을 만들고, 아래 '내보내기 전 점검'을 하나씩 확인한 뒤 내보냅니다.
 
@@ -58,12 +58,12 @@
    - 카드 · 타일을 4개 이상 놓으면 칸마다 글 **3줄 이하**. 글 칸 너비는 400px 이상.
    - 제목은 **두 줄 이내**, 표지 제목은 한 줄에 13자 안팎. 넘치면 글자를 줄이지 말고 문장을 줄입니다.
    - 내용이 적은 장은 장을 합치거나 부품을 키워 큰 빈 곳을 남기지 않습니다.
-10. 인라인 `style`은 막대 값(`style="--v:42"`, 가장 큰 값 = 100) · 간트 기간(`style="--from:3;--to:6"`, 1~12월)에만 씁니다.
-11. 그림 파일을 만들지 않습니다. 필요한 그림은 HTML 안에서 SVG로 그리되 색은 토큰만 씁니다.
+10. 인라인 `style`은 막대 값(`style="--v:42"`, 가장 큰 값 = 100) · 목표선(`--t`) · 간트 기간(`style="--from:3;--to:6"`, 1~12월)에만 씁니다. 만족도 막대는 `<i style="--v:%">` 다섯 개(합 100).
+11. **그림을 코드로 그리지 않습니다.** SVG · CSS · 캔버스로 사물 · 인물 · 풍경 · 캐릭터를 그리지 마세요. 그림이 필요하면 만들지 말고 **사용자에게 이미지를 요청**합니다(무엇 · 쓰는 자리 · 비율 · 배경). 사진은 `.ph` 자리에 사용자가 준 이미지를 `<img>`로 넣고, 아직 없으면 `<div class="ph" data-need="사진 자리 · 4:3 · 무슨 장면"></div>`로 자리만 둡니다. 막대 · 표 같은 데이터 도식은 부품 CSS로 만듭니다.
 
 ### 구성은 내용이 정합니다
-- 뼈대(4)의 8장은 **부품 견본**입니다. 장 순서 · 장 수 · 문장을 따라 하지 마세요. 예시 문구는 하나도 남기지 않습니다.
-- 계획안의 흐름(현황 → 목표 및 지표 → 세부과제 → 추진체계 → 일정 및 예산)을 따르되, 내용이 없는 섹션은 빼고 목차도 그에 맞춥니다.
+- 뼈대(4)의 13장은 **부품 견본**입니다. 장 순서 · 장 수 · 문장을 따라 하지 마세요. 예시 문구는 하나도 남기지 않습니다.
+- **성과 공유회** 흐름: 사업 개요(`.brief`) → 추진 경과(`.mile`) → 핵심 성과(`.tile` + `.delta`) · 목표 대비 달성(`.goal`) · 만족도(`.likert`) · 전후 비교(`.ba`) → 우수 사례 · 참여자 목소리(`.case`) → 시사점(`.fix`) → 향후 계획(`.road`). **사업 설명회** 흐름: 사업 개요 → 지원 내용(`.tbl`) → 신청 자격 · 절차 → 주요 일정(`.mile`) → 유의사항 → 문의. 내용이 없는 자리는 빼고 목차도 그에 맞춥니다.
 - 표지 · 목차 · 간지 · 마무리에는 이 계열의 상징 부품인 진행 칸(`.prog`)을 씁니다. 칸 수 = 섹션 수, 목차는 다음 칸 `.next`, 간지는 지난 칸 `.done` · 지금 칸 `.now`, 마무리는 모두 `.done`.
 - 같은 모양의 장이 연달아 나오지 않게 합니다. 누를 때마다 하나씩 보이는 장(`data-steps`)은 덱 전체에서 1~2장.
 
@@ -76,7 +76,7 @@
 1. 사용자가 주지 않았고 확인도 받지 않은 수치 · 사실이 없는가? 수치가 있는 장마다 `.src`가 있는가?
 2. 모든 본문 장의 제목이 결론 한 문장이고, 두 줄 이내인가?
 3. 강조(`<em>` · `.is-key`)가 장마다 한 곳이고, 둘을 함께 썼다면 같은 내용을 가리키는가?
-4. 쓴 클래스가 모두 부품 사전(3) 또는 '추가 부품' 칸에 있는가? 인라인 style은 `--v` · `--from` · `--to`뿐인가?
+4. 쓴 클래스가 모두 부품 사전(3) 또는 '추가 부품' 칸에 있는가? 인라인 style은 `--v` · `--t` · `--from` · `--to`뿐인가? 코드로 그린 그림(SVG · CSS 도형)이 없는가?
 5. 공통 파일 두 줄이 그대로이고, 장 번호 · 쪽 표시 · 점을 손으로 쓰지 않았는가?
 6. 모든 장이 1920 × 1080 안에 들어가는가(높이 예산 · 카드 규칙)? 큰 빈 곳이 없는가?
 7. 뼈대의 예시 문구가 남아 있지 않은가? 생략 없이 끝까지 썼는가?
@@ -111,7 +111,7 @@ shadow: none
 ---
 
 ## 분위기
-밝은 크림 바탕 위에 남색 게임 창이 뜬다. 16비트 RPG의 대화창 · 메뉴 · 진행 칸으로 계획안을 읽게 한다.
+밝은 크림 바탕 위에 남색 게임 창이 뜬다. 16비트 RPG의 대화창 · 메뉴 · 진행 칸으로 사업의 1년을 읽게 한다.
 - 정보는 모두 **게임 창** 안에 둔다(카드 · 수치 타일 · 막대 판 · 간트 · 표). 창 밖 크림 바탕에는 머리말 · 제목 · 출처만.
 - 강조는 두 자리뿐이고 **같은 내용**을 가리킨다: 바탕 위 제목의 한 낱말은 빨강(`<em>`), 창 안의 선택 한 곳은 금색(`.is-key`).
 - 근거 장표: 표지 #9 · #10 · #11 · #12, 목차 · 간지 키트 #90.
@@ -136,9 +136,10 @@ shadow: none
 - 자간은 0. 글꼴을 바꾸지 않는다(픽셀 글꼴과 매끈한 글꼴을 섞지 않는다).
 - 한글 줄바꿈은 낱말 단위(공통 CSS).
 
-## 장의 짜임 (계획안 본문)
+## 장의 짜임 (성과 공유회 · 설명회 본문)
 모든 본문 장은 같은 순서다: **머리말(`.kicker`, 아래 점선) → 결론 한 문장 제목(`.title`) → 창 1~2개 → 출처(`.src`)**.
-- 제목은 결론 문장이다. "현황"(×) → "참여 학교는 늘었지만, 지역 공간과 잇는 학교는 3곳 중 1곳뿐입니다"(○).
+- 제목은 결론 문장이다. "핵심 성과"(×) → "참여 학교 138교, 연계 수업 1,240회가 열렸습니다"(○).
+- 머리말은 덱 목차와 같은 말을 쓴다. 성과 공유회: 01 사업 개요 · 02 추진 경과 · 03 핵심 성과 · 04 우수 사례 · 05 시사점 · 향후 계획.
 - 창 하나에 메시지 하나. 창 머리줄(`.c-no` · `h3`)에 그 창이 무엇인지 쓴다.
 
 ## 게임 창
@@ -155,6 +156,10 @@ shadow: none
 ## 커서와 기호
 - ▶ = 지금 고른 것(목차 지금 줄, 표지 머리말), ▼ = 계속(간지 설명 끝, 표지 대화창). 공통 CSS가 붙인다. 다른 기호를 더하지 않는다.
 
+## 성과 공유회 부품(공용 parts.css)
+사업 개요 `.brief` · 추진 경과 `.mile` · 증감 `.delta` · 목표 대비 달성 `.goal` · 만족도 `.likert` · 전후 비교 `.ba` · 우수 사례 `.case`(사진 `.ph` + 목소리) · 향후 계획 `.road`. 모양은 이 계열의 토큰을 따른다.
+- **그림을 코드로 그리지 않는다.** 사물 · 인물 · 풍경 · 캐릭터가 필요하면 사용자에게 이미지를 요청하고, 사진은 `.ph` 자리에 넣는다(docs/criteria.md 4).
+
 ## 해야 할 것
 1. 장마다 결론 한 문장 제목.
 2. 정보는 창 안에, 창마다 머리줄.
@@ -168,7 +173,8 @@ shadow: none
 3. 창 밖 바탕에 정보 상자 늘어놓기.
 4. 장 번호 · 쪽 표시 · 점을 손으로 쓰기(엔진이 채운다).
 5. 공통 CSS · 엔진을 HTML 안에 옮겨 쓰기, `@font-face` 새로 쓰기.
-6. 인라인 `style`은 `--v` · `--from` · `--to`만.
+6. 인라인 `style`은 `--v` · `--t` · `--from` · `--to`만.
+7. 사물 · 인물 · 풍경을 SVG · CSS로 그리기(이미지를 요청한다).
 
 ## 새 부품을 만들 때
 1. 먼저 `.grid` · `.split` · `.stack`과 기존 창으로 될지 본다.
@@ -177,7 +183,7 @@ shadow: none
 4. 강조는 `.is-key` 한 곳, 창 안이면 금색.
 
 ## 알려진 한계 (v1)
-- 도트 그림(캐릭터 · 지도 · 아이템)은 키트에 없다. 근거 표지(#9~#12)처럼 그림이 필요하면 SVG로 4px 격자에 맞춰 그리되 16색 안에서.
+- 도트 그림(캐릭터 · 지도 · 아이템)은 키트에 없고 코드로 그리지 않는다. 필요하면 16색 도트 이미지를 사용자에게 요청한다.
 - 막대는 가로뿐. 세로 막대 · 선 · 도넛 · 지도 부품은 없다.
 - Galmuri11은 KS X 1001 한글 2,350자 범위(갤러리 글꼴 파일 기준)라 드문 글자는 대체 글꼴로 보인다.
 - 밤 색(#9 표지 색) 바꿔 보기는 아직 키트에 없다(#90 장표에는 있음).
@@ -201,21 +207,21 @@ shadow: none
 - `.kicker` — 예: `<p class="kicker">`
 - `.title` — 예: `<h2 class="title">`
 - `.lead`
-- `.fill` — 예: `<div class="split fill">`
+- `.fill` — 예: `<div class="brief fill">`
 - `.src` — 예: `<p class="src">`
 - `.page-no` — 예: `<span class="page-no">`
 
 **게임 창: 먹 테 + 크림 안테 + 모서리 깎기 + 디더 머리줄. 카드 · 타일 · 막대 판 · 간트 · 표가 모두 이 창**
-- `.card` — 예: `<div class="card">`
-- `.tile` — 예: `<div class="tile">`
-- `.bars` — 예: `<div class="bars">`
-- `.gantt` — 예: `<div class="gantt">`
-- `.tbl` — 예: `<table class="tbl">`
+- `.card`
+- `.tile` — 예: `<div class="tile is-key">`
+- `.bars`
+- `.gantt`
+- `.tbl`
 - `.fix` — 예: `<div class="fix" data-step="1">`
 - `.a` — 예: `<p class="a">`
 - `.toc-list` — 예: `<ol class="toc-list">`
 - `.win-head`
-- `.c-no` — 예: `<span class="c-no">`
+- `.c-no`
 
 **진행 칸: 칸 수 = 섹션 수. .done 지남(채움) · .now 지금(금색 테) · .next 다음(금색 테)**
 - `.prog` — 예: `<div class="prog" aria-hidden="true">`
@@ -247,50 +253,102 @@ shadow: none
 - `.prog` — 예: `<div class="prog" aria-hidden="true">`
 
 **배치 격자**
-- `.grid` — 예: `<div class="grid g2">`
-- `.center` — 예: `<div class="grid g3 fill center">`
-- `.g2` — 예: `<div class="grid g2">`
-- `.g3` — 예: `<div class="grid g3 fill center">`
-- `.g4`
-- `.split` — 예: `<div class="split fill">`
+- `.grid` — 예: `<div class="grid g4 fill center">`
+- `.center` — 예: `<div class="grid g4 fill center">`
+- `.g2`
+- `.g3`
+- `.g4` — 예: `<div class="grid g4 fill center">`
+- `.split`
 - `.stack` — 예: `<div class="fill stack">`
 
 **카드 묶음(창 하나 = 카드 하나)**
-- `.card` — 예: `<div class="card">`
-- `.c-no` — 예: `<span class="c-no">`
-- `.c-foot` — 예: `<p class="c-foot">`
-- `.is-key` — 예: `<div class="tile is-key">`
+- `.card`
+- `.c-no`
+- `.c-foot`
+- `.is-key` — 예: `<div class="is-key">`
 
 **수치 타일**
-- `.tile` — 예: `<div class="tile">`
-- `.is-key` — 예: `<div class="tile is-key">`
+- `.tile` — 예: `<div class="tile is-key">`
+- `.is-key` — 예: `<div class="is-key">`
 
 **막대: 칸으로 끊긴 체력 막대. style="--v:42" 는 최댓값 대비 %**
-- `.bars` — 예: `<div class="bars">`
-- `.bar` — 예: `<div class="bar" style="--v:69">`
-- `.is-key` — 예: `<div class="tile is-key">`
+- `.bars`
+- `.bar`
+- `.is-key` — 예: `<div class="is-key">`
 
 **현안 → 해결: 왼쪽은 크림 쪽지, 오른쪽은 남색 창**
 - `.fix` — 예: `<div class="fix" data-step="1">`
 - `.q` — 예: `<p class="q">`
 - `.a` — 예: `<p class="a">`
-- `.is-key` — 예: `<div class="tile is-key">`
+- `.is-key` — 예: `<div class="is-key">`
 
 **간트(월 1~12): style="--from:3;--to:6"**
-- `.gantt` — 예: `<div class="gantt">`
-- `.g-h` — 예: `<span class="g-h">`
-- `.g-name` — 예: `<span class="g-name">`
-- `.g-bar` — 예: `<i class="g-bar" style="--from:1;--to:3">`
-- `.is-key` — 예: `<div class="tile is-key">`
+- `.gantt`
+- `.g-h`
+- `.g-name`
+- `.g-bar`
+- `.is-key` — 예: `<div class="is-key">`
 
 **표**
-- `.tbl` — 예: `<table class="tbl">`
-- `.n` — 예: `<td class="n">`
-- `.is-key` — 예: `<div class="tile is-key">`
+- `.tbl`
+- `.n`
+- `.is-key` — 예: `<div class="is-key">`
+- `.brief` — 예: `<div class="brief fill">`
+- `.goal` — 예: `<div class="goal fill">`
+- `.likert` — 예: `<div class="likert fill">`
+- `.ba` — 예: `<div class="ba">`
+- `.case` — 예: `<div class="case fill">`
+- `.g-row` — 예: `<div class="g-row" style="--v:88.5;--t:76.9">`
+- `.lk` — 예: `<div class="lk is-key">`
+- `.lk-key` — 예: `<p class="lk-key">`
+- `.mile` — 예: `<ol class="mile fill">`
+- `.road` — 예: `<div class="road fill">`
+- `.ph` — 예: `<div class="ph" data-need="사진 자리 · 4:3 · 공방에서 도자기를 빚는 초등학생">`
+
+**사업 개요: 목적 · 대상 · 기간 · 규모 네 칸**
+- `.brief` — 예: `<div class="brief fill">`
+- `.is-key` — 예: `<div class="is-key">`
+
+**추진 경과: 가로 시간선 위 이정표. 날짜는 <time>**
+- `.mile` — 예: `<ol class="mile fill">`
+- `.is-key` — 예: `<div class="is-key">`
+
+**증감 표시: 수치 타일 안 <span class="delta">▲ 38교</span> (줄면 .down)**
+- `.delta` — 예: `<span class="delta">`
+- `.down`
+
+**목표 대비 달성: 실적 막대 + 목표선. style="--v:92;--t:80"(최댓값 대비 %)**
+- `.goal` — 예: `<div class="goal fill">`
+- `.g-row` — 예: `<div class="g-row" style="--v:88.5;--t:76.9">`
+- `.is-key` — 예: `<div class="is-key">`
+- `.g-key` — 예: `<p class="g-key">`
+- `.v` — 예: `<i class="v">`
+- `.t` — 예: `<i class="t">`
+
+**만족도: 문항마다 다섯 단계 100% 막대. <i style="--v:%"> 다섯 개(매우 불만 → 매우 만족)**
+- `.likert` — 예: `<div class="likert fill">`
+- `.lk` — 예: `<div class="lk is-key">`
+- `.is-key` — 예: `<div class="is-key">`
+- `.lk-key` — 예: `<p class="lk-key">`
+
+**전후 비교: 사업 전 → 사업 후, 짝마다 한 줄**
+- `.ba` — 예: `<div class="ba">`
+- `.is-key` — 예: `<div class="is-key">`
+- `.ba-head` — 예: `<p class="ba-head">`
+
+**우수 사례: 사진 자리 + 학교 · 한 줄 성과 + 참여자 목소리**
+- `.case` — 예: `<div class="case fill">`
+- `.ph` — 예: `<div class="ph" data-need="사진 자리 · 4:3 · 공방에서 도자기를 빚는 초등학생">`
+- `.c-body` — 예: `<div class="c-body">`
+- `.is-key` — 예: `<div class="is-key">`
+
+**향후 계획: 단계 머리(화살 띠) + 단계별 할 일**
+- `.road` — 예: `<div class="road fill">`
+- `.is-key` — 예: `<div class="is-key">`
 
 ---
 
-## 4. HTML 뼈대 (예시 덱 8장 — 부품 견본입니다. 장 구성은 따라 하지 말고, 공통 파일 두 줄은 그대로 두며, 장은 내용에 맞게 새로)
+## 4. HTML 뼈대 (예시 덱 13장 — 부품 견본입니다. 장 구성은 따라 하지 말고, 공통 파일 두 줄은 그대로 두며, 장은 내용에 맞게 새로)
 
 ```html
 <!DOCTYPE html>
@@ -298,7 +356,7 @@ shadow: none
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>덱 키트 A · 픽셀 게임 — 예시 덱</title>
+<title>덱 키트 A · 픽셀 게임 — 성과 공유회 예시 덱</title>
 <!-- 이 계열의 공통 CSS(글꼴 · 색 · 부품). 이 줄은 지우거나 바꾸지 마세요 -->
 <link rel="stylesheet" href="https://szxv7704-dot.github.io/design-reference-gallery/kit/v1/A.css">
 <style>
@@ -311,12 +369,12 @@ shadow: none
 <!-- 1. 표지 -->
 <section class="slide cover">
   <div class="c-text">
-    <span class="c-tag">2027 · 가상 예시</span>
-    <h1>학교 문화예술교육<br><em>지역 연계</em> 지원 계획(안)</h1>
-    <p class="c-sub">학교 안 수업을 지역 예술 공간과 잇는 3년 계획</p>
+    <span class="c-tag">2026 성과 공유회 · 가상 예시</span>
+    <h1>학교 문화예술교육<br><em>지역 연계</em> 사업 성과</h1>
+    <p class="c-sub">1년 동안 학교 밖 교실 46곳에서 일어난 일</p>
   </div>
   <div class="prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-  <p class="c-org"><span>○○교육청 교육과정과</span><span>2026. 12.</span></p>
+  <p class="c-org"><span>○○교육청 교육과정과</span><span>2026. 12. 18.</span></p>
 </section>
 
 <!-- 2. 목차 -->
@@ -325,110 +383,171 @@ shadow: none
     <p class="kicker">CONTENTS</p>
     <h2 class="title">차례</h2>
     <ol class="toc-list">
-      <li class="is-now"><b>01</b><span>현황</span><span>03</span></li>
-      <li><b>02</b><span>목표 및 지표</span><span>—</span></li>
-      <li><b>03</b><span>세부과제</span><span>05</span></li>
-      <li><b>04</b><span>추진체계</span><span>06</span></li>
-      <li><b>05</b><span>일정 및 예산</span><span>07</span></li>
+      <li class="is-now"><b>01</b><span>사업 개요</span><span>03</span></li>
+      <li><b>02</b><span>추진 경과</span><span>04</span></li>
+      <li><b>03</b><span>핵심 성과</span><span>05</span></li>
+      <li><b>04</b><span>우수 사례</span><span>10</span></li>
+      <li><b>05</b><span>시사점 · 향후 계획</span><span>11</span></li>
     </ol>
   </div>
   <div class="prog" aria-hidden="true"><i class="next"></i><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 3. 간지 -->
-<section class="slide divider">
-  <div class="d-no"><small>SECTION</small>01</div>
-  <h2>현황</h2>
-  <p>참여는 늘었지만 학교 밖과 이어지는 수업은 아직 적습니다.</p>
-  <div class="prog" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i><i></i></div>
+<!-- 3. 사업 개요 -->
+<section class="slide">
+  <div class="s-body">
+    <p class="kicker">01 사업 개요</p>
+    <h2 class="title">학교 수업을 <em>지역 예술 공간</em>과 이어 10개월을 운영했습니다</h2>
+    <div class="brief fill">
+      <div class="is-key"><span>목적</span><b>학교 밖 예술 공간을 교실로</b><p>교과 수업과 이어지는 체험</p></div>
+      <div><span>대상</span><b>초 · 중학교 138교</b><p>희망 학교 공모(목표 120교)</p></div>
+      <div><span>기간</span><b>2026. 3. ~ 12.</b><p>1 · 2학기 10개월</p></div>
+      <div><span>규모</span><b>9억 5천만 원</b><p>교육청 · 지자체 7 : 3</p></div>
+    </div>
+  </div>
+  <p class="src">가상 예시</p>
   <span class="page-no"></span>
 </section>
 
-<!-- 4. 본문 · 현황: 수치 타일 + 막대 -->
+<!-- 4. 추진 경과 -->
 <section class="slide">
   <div class="s-body">
-    <p class="kicker">Ⅰ. 현황</p>
-    <h2 class="title">참여 학교는 늘었지만, 지역 공간과 잇는 학교는 <em>3곳 중 1곳</em>뿐입니다</h2>
-    <div class="split fill">
-      <div class="grid g2">
-        <div class="tile"><span>참여 학교</span><b>214<small>교</small></b><p>2024년보다 38교 늘어남</p></div>
-        <div class="tile is-key"><span>지역 공간 연계</span><b>33<small>%</small></b><p>214교 중 71교</p></div>
-        <div class="tile"><span>연계 예술 공간</span><b>46<small>곳</small></b><p>공연장 · 전시관 · 공방</p></div>
-        <div class="tile"><span>학생 만족도</span><b>4.2<small>/ 5</small></b><p>연계 수업 참여 학생</p></div>
-      </div>
-      <div class="bars">
-        <h3>연도별 참여 학교(교)</h3>
-        <div class="bar" style="--v:69"><span>2023</span><b>148</b></div>
-        <div class="bar" style="--v:82"><span>2024</span><b>176</b></div>
-        <div class="bar is-key" style="--v:100"><span>2025</span><b>214</b></div>
+    <p class="kicker">02 추진 경과</p>
+    <h2 class="title">봄에 판을 깔고, <em>2학기</em>에 연계 수업이 본격화됐습니다</h2>
+    <ol class="mile fill">
+      <li><time>2026. 3.</time><b>공간 협약</b><p>공연장 · 전시관 · 공방 46곳</p></li>
+      <li><time>4.</time><b>공동 설계 연수</b><p>예술가 · 교사 6시간</p></li>
+      <li><time>5.</time><b>연계 수업 시작</b><p>1학기 62교</p></li>
+      <li class="is-key"><time>9.</time><b>2학기 확대</b><p>138교로 늘어남</p></li>
+      <li><time>12.</time><b>성과 공유회</b><p>사례 발표 · 내년 계획</p></li>
+    </ol>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 5. 간지 -->
+<section class="slide divider">
+  <div class="d-no"><small>SECTION</small>03</div>
+  <h2>핵심 성과</h2>
+  <p>목표보다 많이 열렸고, 한 곳은 아직 모자랍니다.</p>
+  <div class="prog" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 6. 핵심 성과: 수치 타일 + 증감 -->
+<section class="slide">
+  <div class="s-body">
+    <p class="kicker">03 핵심 성과</p>
+    <h2 class="title">참여 학교 <em>138교</em>, 연계 수업 1,240회가 열렸습니다</h2>
+    <div class="grid g4 fill center">
+      <div class="tile is-key"><span>참여 학교</span><b>138<small>교</small></b><span class="delta">▲ 64교</span><p>2025 시범 대비</p></div>
+      <div class="tile"><span>연계 수업</span><b>1,240<small>회</small></b><span class="delta">▲ 702회</span><p>2025 시범 대비</p></div>
+      <div class="tile"><span>참여 학생</span><b>2.1<small>만 명</small></b><span class="delta">▲ 1.2만 명</span><p>2025 시범 대비</p></div>
+      <div class="tile"><span>예술 공간</span><b>46<small>곳</small></b><span class="delta">▲ 19곳</span><p>2025 시범 대비</p></div>
+    </div>
+  </div>
+  <p class="src">자료: ○○교육청 운영 실적(가상 예시)</p>
+  <span class="page-no"></span>
+</section>
+
+<!-- 7. 목표 대비 달성 -->
+<section class="slide">
+  <div class="s-body">
+    <p class="kicker">03 핵심 성과</p>
+    <h2 class="title">네 지표 중 셋은 목표를 넘었고, <em>예술 공간</em>은 92%입니다</h2>
+    <div class="goal fill">
+      <div class="g-row" style="--v:88.5;--t:76.9"><span>참여 학교</span><i></i><b>115%<small>138 / 120교</small></b></div>
+      <div class="g-row" style="--v:95.4;--t:76.9"><span>연계 수업</span><i></i><b>124%<small>1,240 / 1,000회</small></b></div>
+      <div class="g-row" style="--v:80.8;--t:76.9"><span>참여 학생</span><i></i><b>105%<small>2.1 / 2만 명</small></b></div>
+      <div class="g-row is-key" style="--v:70.8;--t:76.9"><span>예술 공간</span><i></i><b>92%<small>46 / 50곳</small></b></div>
+      <p class="g-key"><span><i class="v"></i>달성률</span><span><i class="t"></i>목표(100%)</span></p>
+    </div>
+  </div>
+  <p class="src">자료: ○○교육청 운영 실적(가상 예시)</p>
+  <span class="page-no"></span>
+</section>
+
+<!-- 8. 만족도 -->
+<section class="slide">
+  <div class="s-body">
+    <p class="kicker">03 핵심 성과</p>
+    <h2 class="title">학생 <em>10명 중 9명</em>이 다시 하고 싶다고 답했습니다</h2>
+    <div class="likert fill">
+      <div class="lk is-key"><span>다시 참여하고 싶다</span><div><i style="--v:2"></i><i style="--v:3"></i><i style="--v:6"></i><i style="--v:27"></i><i style="--v:62"></i></div><b>4.5<small> / 5</small></b></div>
+      <div class="lk"><span>예술가 선생님과 함께해 좋았다</span><div><i style="--v:1"></i><i style="--v:2"></i><i style="--v:8"></i><i style="--v:30"></i><i style="--v:59"></i></div><b>4.4<small> / 5</small></b></div>
+      <div class="lk"><span>교과 내용이 더 잘 이해됐다</span><div><i style="--v:3"></i><i style="--v:6"></i><i style="--v:15"></i><i style="--v:38"></i><i style="--v:38"></i></div><b>4.0<small> / 5</small></b></div>
+      <div class="lk"><span>이동 · 안전이 걱정되지 않았다</span><div><i style="--v:4"></i><i style="--v:9"></i><i style="--v:21"></i><i style="--v:36"></i><i style="--v:30"></i></div><b>3.8<small> / 5</small></b></div>
+      <p class="lk-key"><span><i></i>전혀 아니다</span><span><i></i>아니다</span><span><i></i>보통</span><span><i></i>그렇다</span><span><i></i>매우 그렇다</span></p>
+    </div>
+  </div>
+  <p class="src">학생 설문 1,860명(가상 예시)</p>
+  <span class="page-no"></span>
+</section>
+
+<!-- 9. 전후 비교 -->
+<section class="slide">
+  <div class="s-body">
+    <p class="kicker">03 핵심 성과</p>
+    <h2 class="title">참여 뒤, <em>학교 밖 수업을 계획한 학교</em>가 두 배로 늘었습니다</h2>
+    <div class="fill stack">
+      <p class="ba-head"><span>사업 전(2025)</span><span>사업 후(2026)</span></p>
+      <div class="ba">
+        <div><span>학교 밖 수업을 계획한 학교</span><p>참여교 중</p><b>31<small>%</small></b></div><i aria-hidden="true"></i><div class="is-key"><span>학교 밖 수업을 계획한 학교</span><p>참여교 중</p><b>64<small>%</small></b></div>
+        <div><span>교사 1명당 연계 수업</span><p>한 해</p><b>1.4<small>회</small></b></div><i aria-hidden="true"></i><div><span>교사 1명당 연계 수업</span><p>한 해</p><b>3.2<small>회</small></b></div>
+        <div><span>예술가와 수업해 본 교사</span><p>참여교 교사 중</p><b>18<small>%</small></b></div><i aria-hidden="true"></i><div><span>예술가와 수업해 본 교사</span><p>참여교 교사 중</p><b>47<small>%</small></b></div>
       </div>
     </div>
   </div>
-  <p class="src">자료: ○○교육청 내부 집계(가상 예시 수치)</p>
+  <p class="src">교사 설문 412명(가상 예시)</p>
   <span class="page-no"></span>
 </section>
 
-<!-- 5. 본문 · 세부과제: 현안 → 해결 (누를 때마다 한 줄씩) -->
+<!-- 10. 우수 사례 + 참여자 목소리 -->
+<section class="slide">
+  <div class="s-body">
+    <p class="kicker">04 우수 사례</p>
+    <h2 class="title">세 학교는 <em>교과 시간 안에서</em> 학교 밖 수업을 정례화했습니다</h2>
+    <div class="case fill">
+      <div><div class="ph" data-need="사진 자리 · 4:3 · 공방에서 도자기를 빚는 초등학생"></div><div class="c-body"><span>○○초 · 5학년 미술</span><b>공방에서 빚은 도자기로 학년 전시</b><blockquote>흙을 직접 만져 보니 교과서 사진이 달라 보였어요.<cite>5학년 학생</cite></blockquote></div></div>
+      <div class="is-key"><div class="ph" data-need="사진 자리 · 4:3 · 극장 무대에서 낭독하는 중학생"></div><div class="c-body"><span>△△중 · 2학년 국어</span><b>극장 무대에서 낭독극 발표</b><blockquote>무대에 서 보니 글을 읽는 목소리가 달라졌어요.<cite>2학년 학생</cite></blockquote></div></div>
+      <div><div class="ph" data-need="사진 자리 · 4:3 · 오케스트라와 함께 연주하는 초등학생"></div><div class="c-body"><span>□□초 · 4학년 음악</span><b>지역 오케스트라와 합동 연주</b><blockquote>아이들이 처음으로 진짜 악기 소리를 가까이에서 들었습니다.<cite>담당 교사</cite></blockquote></div></div>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 11. 시사점: 현안 → 해결(누를 때마다 한 줄) -->
 <section class="slide" data-steps="3">
   <div class="s-body">
-    <p class="kicker">Ⅲ. 세부과제</p>
-    <h2 class="title">막힌 곳 세 군데를 풀어 <em>학교 밖 수업</em>을 기본값으로 만듭니다</h2>
+    <p class="kicker">05 시사점 · 향후 계획</p>
+    <h2 class="title">막힌 곳은 <em>이동 · 안전</em>이었고, 내년엔 묶어서 지원합니다</h2>
     <div class="fill stack">
-      <div class="fix" data-step="1"><p class="q"><b>현안 1</b>예술 공간 정보가 흩어져 학교가 직접 찾아야 함</p><i aria-hidden="true"></i><p class="a"><b>해결 1</b>지역 예술 공간 지도와 예약 창구를 한곳으로</p></div>
-      <div class="fix is-key" data-step="2"><p class="q"><b>현안 2</b>이동 · 안전 부담으로 교외 수업을 꺼림</p><i aria-hidden="true"></i><p class="a"><b>해결 2</b>버스 · 보험 · 인솔 보조를 교육청이 묶어서 지원</p></div>
-      <div class="fix" data-step="3"><p class="q"><b>현안 3</b>예술가와 교사가 수업을 함께 설계할 시간이 없음</p><i aria-hidden="true"></i><p class="a"><b>해결 3</b>학기 초 공동 설계 연수(6시간)를 연수 시간으로 인정</p></div>
+      <div class="fix" data-step="1"><p class="q"><b>막힌 곳 1</b>예술 공간이 시 지역에 몰려 군 지역 학교는 이동이 깁니다</p><i aria-hidden="true"></i><p class="a"><b>고칠 방법 1</b>군 지역에 찾아오는 예술 공간 버스 2대</p></div>
+      <div class="fix is-key" data-step="2"><p class="q"><b>막힌 곳 2</b>학교마다 버스 · 보험을 따로 준비해야 했습니다</p><i aria-hidden="true"></i><p class="a"><b>고칠 방법 2</b>이동 · 보험 · 인솔 보조를 교육청이 한꺼번에 계약</p></div>
+      <div class="fix" data-step="3"><p class="q"><b>막힌 곳 3</b>예술가 · 교사 설계 시간이 학기 초에 몰렸습니다</p><i aria-hidden="true"></i><p class="a"><b>고칠 방법 3</b>공동 설계 연수를 학기마다 두 번으로 나눔</p></div>
     </div>
   </div>
   <span class="page-no"></span>
 </section>
 
-<!-- 6. 본문 · 추진체계: 카드 묶음 -->
+<!-- 12. 향후 계획 -->
 <section class="slide">
   <div class="s-body">
-    <p class="kicker">Ⅳ. 추진체계</p>
-    <h2 class="title">교육청이 잇고, 지원청이 묶고, 학교는 <em>수업만</em> 맡습니다</h2>
-    <div class="grid g3 fill center">
-      <div class="card"><span class="c-no">01 · 교육청</span><h3>잇기</h3><p>예술 공간 협약, 예산 배분, 공동 설계 연수 운영</p><p class="c-foot">협약 공간 <b>46</b>곳</p></div>
-      <div class="card"><span class="c-no">02 · 교육지원청</span><h3>묶기</h3><p>권역별 이동 · 안전 지원, 학교와 공간 짝 맺기</p><p class="c-foot">권역 <b>6</b>곳</p></div>
-      <div class="card is-key"><span class="c-no">03 · 학교</span><h3>수업하기</h3><p>교육과정에 연계 수업을 넣고 결과를 나눔</p><p class="c-foot">목표 학교 <b>120</b>교</p></div>
+    <p class="kicker">05 시사점 · 향후 계획</p>
+    <h2 class="title">2027년엔 <em>군 지역</em>부터 넓혀 200교로 갑니다</h2>
+    <div class="road fill">
+      <div class="is-key"><h3><small>2027 상반기</small>군 지역 넓히기</h3><ul><li>찾아오는 예술 공간 버스 2대</li><li>군 지역 학교 우선 선정</li><li>이동 · 보험 일괄 계약</li></ul></div>
+      <div><h3><small>2027 하반기</small>200교로 확대</h3><ul><li>예술 공간 60곳 협약</li><li>학기별 공동 설계 연수</li><li>연계 수업 2,000회</li></ul></div>
+      <div><h3><small>2028</small>교육과정에 넣기</h3><ul><li>학년별 연계 수업 모델</li><li>교육과정 편성 안내</li><li>성과 지표 정례 조사</li></ul></div>
     </div>
   </div>
   <span class="page-no"></span>
 </section>
 
-<!-- 7. 본문 · 일정 및 예산: 간트 + 표 -->
-<section class="slide">
-  <div class="s-body">
-    <p class="kicker">Ⅴ. 일정 및 예산</p>
-    <h2 class="title">상반기에 판을 깔고, 2학기에 <em>연계 수업</em>을 엽니다</h2>
-    <div class="split fill">
-      <div class="gantt">
-        <span class="g-h">과제</span><span class="g-h">1</span><span class="g-h">2</span><span class="g-h">3</span><span class="g-h">4</span><span class="g-h">5</span><span class="g-h">6</span><span class="g-h">7</span><span class="g-h">8</span><span class="g-h">9</span><span class="g-h">10</span><span class="g-h">11</span><span class="g-h">12</span>
-        <span class="g-name">공간 협약</span><i class="g-bar" style="--from:1;--to:3"></i>
-        <span class="g-name">공동 설계 연수</span><i class="g-bar" style="--from:3;--to:4"></i>
-        <span class="g-name">이동 · 안전 지원</span><i class="g-bar" style="--from:3;--to:12"></i>
-        <span class="g-name">연계 수업</span><i class="g-bar is-key" style="--from:9;--to:12"></i>
-        <span class="g-name">결과 나눔</span><i class="g-bar" style="--from:12;--to:12"></i>
-      </div>
-      <table class="tbl">
-        <thead><tr><th>항목</th><th style="text-align:right">백만 원</th></tr></thead>
-        <tbody>
-          <tr><td>공간 협약 · 운영</td><td class="n">320</td></tr>
-          <tr class="is-key"><td>이동 · 안전 지원</td><td class="n">540</td></tr>
-          <tr><td>공동 설계 연수</td><td class="n">90</td></tr>
-        </tbody>
-        <tfoot><tr><td>합계</td><td class="n">950</td></tr></tfoot>
-      </table>
-    </div>
-  </div>
-  <p class="src">예산은 가상 예시</p>
-  <span class="page-no"></span>
-</section>
-
-<!-- 8. 마무리 -->
+<!-- 13. 마무리 -->
 <section class="slide close">
-  <h2>학교 밖도<br>교실입니다</h2>
+  <h2>학교 밖도<br>교실이었습니다</h2>
   <p>문의 · ○○교육청 교육과정과 문화예술교육 담당</p>
   <div class="prog" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>
   <span class="page-no"></span>
@@ -604,4 +723,22 @@ shadow: none
 .tbl td.n{text-align:right;font:700 33px/1 var(--ds-font-num)}
 .tbl tr.is-key td{color:var(--ds-hi)}
 .tbl tfoot td{background:var(--ds-c2);color:var(--ds-c5);font-weight:700}
+
+/* 성과 공유회 부품(parts.css) 계열 조정: 정보는 남색 창 안, 창 안 강조는 금색, 글자는 11의 배수 */
+:root{--ds-on:#F7F2E4;--ds-on-sub:#A9C8F5;--ds-key:#FFCF4A;--ds-track:#2F3E6B;
+  --ds-fs-body:33px;--ds-fs-label:22px;--ds-fs-sub:22px;--ds-fs-h:44px;--ds-fs-num:88px;--ds-fs-num-s:44px}
+.brief > div,.goal,.likert,.ba > div,.case > div{border:var(--px) solid var(--ds-ink);box-shadow:inset 0 0 0 var(--px) var(--ds-c1),inset 0 0 0 calc(var(--px) * 2) var(--ds-c5);
+  clip-path:polygon(var(--px) 0,calc(100% - var(--px)) 0,100% var(--px),100% calc(100% - var(--px)),calc(100% - var(--px)) 100%,var(--px) 100%,0 calc(100% - var(--px)),0 var(--px))}
+.brief > div.is-key,.case > div.is-key,.ba > div.is-key{border-color:var(--ds-hi)}
+.g-row > i::before{background:repeating-linear-gradient(90deg,var(--ds-c3) 0 20px,transparent 20px 24px)}
+.g-row.is-key > i::before{background:repeating-linear-gradient(90deg,var(--ds-hi) 0 20px,transparent 20px 24px)}
+.lk > div i:nth-child(1),.lk-key i:nth-of-type(1){background:#2F3E6B}.lk > div i:nth-child(2),.lk-key i:nth-of-type(2){background:#3B5A9E}
+.lk > div i:nth-child(3),.lk-key i:nth-of-type(3){background:#5A82D0}.lk > div i:nth-child(4),.lk-key i:nth-of-type(4){background:#A9C8F5}
+.lk > div i:nth-child(5),.lk-key i:nth-of-type(5){background:#F7F2E4}
+.case blockquote{border-left-style:dashed}
+.mile li::before{border-radius:0}.mile li.is-key::before{background:var(--ds-accent);border-color:var(--ds-accent)}
+.road h3{background:var(--ds-c1);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 50%,calc(100% - 28px) 100%,0 100%,20px 50%)}
+.road > div:first-child h3{clip-path:polygon(0 0,calc(100% - 28px) 0,100% 50%,calc(100% - 28px) 100%,0 100%)}
+.road li::before{border-radius:0}
+.ph:empty::after{border-style:dashed;border-width:var(--px)}
 ```

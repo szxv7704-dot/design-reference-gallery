@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>디자인 레퍼런스</title>
-<meta name="description" content="발표 덱(표지·계열 키트·본문 요소)과 인쇄·홍보물(포스터·리플렛·소식지·배너·티켓) 디자인 레퍼런스 모음. 모든 내용은 가상 예시입니다.">
+<meta name="description" content="사업 성과 공유회 · 사업 설명회 발표 자료와 인쇄·홍보물을 만들 때 쓰는 디자인 레퍼런스. 모든 내용은 가상 예시입니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
@@ -50,77 +50,77 @@ header p{margin:10px 0 0;color:var(--soft);line-height:1.6;max-width:62ch}
 @media (max-width:1000px){.hub-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tile small{display:none}}
 @media (prefers-reduced-motion:reduce){.tile,.peek,.peek .big img{transition:none}.tile:hover,.tile:focus-visible{transform:none}}
-.role-note{margin:14px 0 0;font-size:13.5px;color:var(--soft);min-height:1.4em}
-.role-note b{color:var(--ink);margin-right:6px}
-
-.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);
-  margin:28px -16px 0;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.seg{display:flex;background:var(--chip);border-radius:999px;padding:3px}
-.seg button em{font-style:normal;color:var(--soft);margin-left:4px;font-size:12px}
+.note{margin:10px 0 0;font-size:13.5px;color:var(--soft);min-height:1.4em}
+.note b{color:var(--ink);margin-right:6px}
+/* 고르기 띠: 쓰임새 + 검색 / 무엇을 보여 주나 / 분위기 — 세 가지뿐 */
+.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);
+  margin:28px -16px 0;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:flex;flex-wrap:wrap;background:var(--chip);border-radius:999px;padding:3px}
 .seg button{border:0;background:none;font:500 14px var(--f);padding:7px 14px;border-radius:999px;cursor:pointer;color:var(--soft)}
+.seg button em{font-style:normal;color:var(--soft);margin-left:4px;font-size:12px}
 .seg button[aria-pressed=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
-select,input{font:14px var(--f);padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);min-width:0}
-input{flex:1 1 180px}
-button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--prac);outline-offset:2px}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:22px;margin-top:14px}
-.card{background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;
-  text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
-.card:hover{transform:translateY(-2px);box-shadow:0 10px 28px -14px rgba(0,0,0,.25)}
-.thumb{aspect-ratio:16/9;background:var(--chip);display:block;width:100%;object-fit:cover;border-bottom:1px solid var(--line)}
-.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
-.meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--soft)}
-.type{font-weight:700;padding:2px 8px;border-radius:999px;color:#fff}
-.type.exp{background:var(--exp)} .type.prac{background:var(--prac)} .type.kit{background:#3F6B4E} .type.print{background:#1A1A1A} .type.frame{background:#6B4FA3}
-.tag{background:var(--chip);padding:2px 8px;border-radius:999px}
-.card h2{font-size:17px;line-height:1.35;margin:0;font-weight:700}
-.topic{font-size:13px;color:var(--soft);margin:0}
-.take{font-size:13px;line-height:1.55;margin:0;padding-top:8px;border-top:1px dashed var(--line)}
-.take b{color:var(--ink)}
-.sw{display:flex;margin-top:auto;padding-top:6px;height:12px}
-.sw i{flex:1;height:8px}
-.sw i:first-child{border-radius:4px 0 0 4px}.sw i:last-child{border-radius:0 4px 4px 0}
-.chips{flex-basis:100%;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--soft)}
-.chips span{margin-right:2px}
-.chips button{border:1px solid var(--line);background:var(--card);font:500 13px var(--f);padding:5px 12px;border-radius:999px;cursor:pointer;color:var(--ink)}
-.chips button em{font-style:normal;color:var(--soft);margin-left:4px;font-size:12px}
-.chips button[aria-pressed=true]{background:var(--prac);border-color:var(--prac);color:#fff}
-.chips button[aria-pressed=true] em{color:#dbe7f5}
-.tag.mot{background:#1C1E22;color:#fff;font-weight:700} .tag.ser{background:#FFF1D6;color:#8A5A00;font-weight:700}
-.chips[hidden],.seg[hidden]{display:none}
-/* 세부 필터는 '자세히'를 눌러야 펼쳐진다. 접힌 채 걸린 필터 수는 단추에 표시 */
-.seg{flex-wrap:wrap}
-.more-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);font:500 14px var(--f);padding:7px 14px;border-radius:999px;cursor:pointer;color:var(--ink)}
-.more-btn::after{content:'';width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
-.more-btn[aria-expanded=true]::after{transform:translateY(1px) rotate(-135deg)}
-.more-btn b{font-weight:700;font-size:12px;background:var(--prac);color:#fff;border-radius:999px;padding:1px 7px}
-.more-btn b:empty{display:none}
-.more{flex-basis:100%;display:flex;flex-direction:column;gap:8px;padding-top:4px}
-.more[hidden]{display:none}
-.more .chips{flex-basis:auto}
-@media (prefers-reduced-motion:reduce){.more-btn::after{transition:none}}
-.tag.sec{background:#E3ECF8;color:#1F4E86;font-weight:700}
-.tag.fam{background:#F6E5DC;color:#8A3517;font-weight:700}
-.tag.info{background:#E3ECF8;color:#1F4E86;font-weight:700}
-.tag.mod{background:#fff;color:#1F4E86;box-shadow:inset 0 0 0 1px #BFD0E6}
-.tag.no{background:#FBE3E1;color:#A1251B;font-weight:700}
-.tag.still{background:#E6ECF4;color:#33415C}
-.card.fail .thumb{filter:grayscale(.85);opacity:.7}
-.card.fail{border-style:dashed}
-.chips button:disabled{opacity:.45;cursor:default}
-.compat{font-size:12.5px;color:var(--soft);margin:6px 0 0}
-.note{font-size:12.5px;color:#A1251B;margin:6px 0 0}
+input{flex:1 1 200px;min-width:0;font:14px var(--f);padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
+.lbl{font-size:12.5px;font-weight:700;color:var(--soft);margin-right:2px;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chips[hidden]{display:none}
+.chips button{border:1px solid var(--line);background:var(--card);font:500 13px var(--f);padding:5px 11px;border-radius:999px;cursor:pointer;color:var(--ink)}
+.chips button em{font-style:normal;color:var(--soft);margin-left:4px;font-size:11.5px}
+.chips button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chips button[aria-pressed=true] em{color:#ddd}
+.chips button:disabled{opacity:.4;cursor:default}
+.chips button.gap{border-style:dashed}
+/* 분위기: 이름 대신 그 계열 표지 한 장 */
+.fams button{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 3px}
+.fams img{width:44px;height:25px;object-fit:cover;border-radius:6px;display:block;background:var(--chip)}
+.fams button.all{padding:5px 11px}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--prac);outline-offset:2px}
+@media (max-width:600px){.bar{position:static}
+  /* 좁은 화면: 칩 줄은 옆으로 밀어 보는 한 줄(페이지 가로 스크롤은 없음) */
+  .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+  .chips::-webkit-scrollbar{display:none}
+  .chips button,.lbl{flex:none}}
+/* 카드: 썸네일 · 제목 한 줄 · 움직임 기호. 나머지는 누르면 뜨는 빠르게 보기 창에 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:18px;margin-top:22px}
+.card{display:block;text-decoration:none;color:var(--ink);border-radius:12px;background:var(--card);border:1px solid var(--line);overflow:hidden;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px -14px rgba(0,0,0,.28)}
+.card .th{position:relative;display:block;aspect-ratio:16/9;background:var(--chip)}
+.card .th img{width:100%;height:100%;object-fit:cover;display:block}
+.card .mo{position:absolute;left:8px;top:8px;min-width:26px;height:26px;padding:0 7px;border-radius:13px;background:rgba(20,22,26,.78);color:#fff;font-size:12px;line-height:26px;text-align:center}
+.card .cap{display:flex;gap:8px;align-items:baseline;padding:10px 12px 12px}
+.card .cap b{flex:1;min-width:0;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .cap small{flex:none;font-size:12px;color:var(--soft)}
+.card.fail .th img,.card.hid .th img{filter:grayscale(.85);opacity:.6}
+.card.fail,.card.hid{border-style:dashed}
+.card .why{display:block;padding:0 12px 12px;margin-top:-6px;font-size:12px;line-height:1.5;color:#A1251B}
 .empty{padding:60px 0;text-align:center;color:var(--soft)}
-footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
-@media (max-width:600px){.bar{position:static}}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
+/* 빠르게 보기 */
+dialog.ql{width:min(1180px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:0;border:0;border-radius:16px;background:var(--card);color:var(--ink);box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
+dialog.ql::backdrop{background:rgba(20,22,26,.55)}
+.ql-in{display:grid;grid-template-columns:minmax(0,1fr) 300px;max-height:calc(100vh - 32px)}
+.ql-view{background:#111;min-height:0}
+.ql-view iframe{display:block;width:100%;height:min(72vh,720px);border:0;background:#fff}
+.ql-side{padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;overflow:auto}
+.ql-side h2{margin:0;font-size:18px;line-height:1.35}
+.ql-side .tags{display:flex;flex-wrap:wrap;gap:5px}
+.ql-side .tags span{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--chip)}
+.ql-side p{margin:0;font-size:13.5px;line-height:1.6;color:var(--soft)}
+.ql-side p b{color:var(--ink)}
+.ql-side .sw{display:flex;height:10px;border-radius:5px;overflow:hidden}.ql-side .sw i{flex:1}
+.ql-side .acts{display:flex;gap:8px;margin-top:auto;padding-top:6px}
+.ql-side .acts a,.ql-side .acts button{flex:1;display:inline-flex;justify-content:center;align-items:center;min-height:40px;border-radius:999px;border:1px solid var(--line);background:var(--card);font:700 14px var(--f);text-decoration:none;color:var(--ink);cursor:pointer}
+.ql-side .acts a{background:var(--ink);border-color:var(--ink);color:#fff}
+@media (max-width:860px){dialog.ql{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;border-radius:0}.ql-in{grid-template-columns:1fr;max-height:100dvh;height:100%;grid-template-rows:auto 1fr}.ql-view iframe{height:56vh}}
+footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
+footer button{border:0;background:none;padding:0;font:inherit;color:var(--ink);text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <h1>디자인 레퍼런스</h1>
-    <p>계획안 발표 덱과 인쇄·홍보물을 만들 때 쓰는 디자인 레퍼런스입니다. <b>하려는 일</b>을 먼저 고르세요. 장표 목록은 아래에서 쓰임새 · 분위기 · 움직임 · 분야로 좁힐 수 있고, 카드를 누르면 원본 페이지(설계 메모 · 코드 · 이식법)가 열립니다.</p>
+    <p>사업 <b>성과 공유회</b> · <b>사업 설명회</b> 발표 자료와 인쇄·홍보물을 만들 때 쓰는 레퍼런스입니다. 하려는 일을 먼저 고르세요. 장표를 누르면 그 자리에서 움직여 볼 수 있습니다.</p>
     <section class="hub" aria-labelledby="hubTitle">
       <h2 id="hubTitle">무엇을 하려고 하나요?</h2>
       <div class="hub-grid" id="hub"></div>
@@ -128,88 +128,77 @@ footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
   </header>
 
   <div class="bar" role="search" id="list">
-    <div class="seg" id="role">
-      <button type="button" data-g="" aria-pressed="true">전체</button>
-      <button type="button" data-g="표지" aria-pressed="false">표지</button>
-      <button type="button" data-g="본문" aria-pressed="false">본문</button>
-      <button type="button" data-g="목차·간지" aria-pressed="false">목차·간지</button>
-      <button type="button" data-g="발표 틀" aria-pressed="false">발표 틀</button>
-      <button type="button" data-g="인쇄·홍보물" aria-pressed="false">인쇄·홍보물</button>
+    <div class="row">
+      <div class="seg" id="role" role="group" aria-label="쓰임새">
+        <button type="button" data-g="" aria-pressed="true">전체</button>
+        <button type="button" data-g="표지" aria-pressed="false">표지</button>
+        <button type="button" data-g="본문" aria-pressed="false">본문</button>
+        <button type="button" data-g="목차·간지" aria-pressed="false">목차·간지</button>
+        <button type="button" data-g="발표 틀" aria-pressed="false">발표 틀</button>
+        <button type="button" data-g="인쇄·홍보물" aria-pressed="false">인쇄·홍보물</button>
+      </div>
+      <input id="q" type="search" placeholder="검색: 제목 · 주제 · 장치 · 번호(#109)" aria-label="검색">
     </div>
-    <input id="q" type="search" placeholder="검색: 제목, 주제, 구조, 스타일…" aria-label="검색">
-    <button type="button" class="more-btn" id="moreBtn" aria-expanded="false" aria-controls="more">자세히<b id="moreN"></b></button>
-    <div class="more" id="more" hidden>
-      <div class="chips" id="fam" role="group" aria-label="분위기"><span>분위기</span></div>
-      <div class="chips" id="mot" role="group" aria-label="움직임"><span>움직임</span></div>
-      <div class="chips" id="dom" role="group" aria-label="분야"><span>분야</span></div>
-      <div class="chips deck" id="info" role="group" aria-label="정보 유형"><span>정보 유형</span></div>
-      <div class="chips deck" id="mod" role="group" aria-label="모듈" hidden><span>모듈</span></div>
-      <div class="chips deck" id="sec" role="group" aria-label="계획안 속 위치"><span>계획안 속 위치</span></div>
-      <div class="chips print" id="pk" role="group" aria-label="판형" hidden><span>판형</span></div>
-      <div class="chips" id="ser" role="group" aria-label="시리즈" hidden><span>시리즈</span></div>
-    </div>
+    <div class="row chips" id="kind" role="group" aria-label="무엇을 보여 주나"><span class="lbl">무엇을 보여 주나</span></div>
+    <div class="row chips fams" id="fam" role="group" aria-label="분위기"><span class="lbl">분위기</span></div>
   </div>
 
-  <p class="role-note" id="roleNote"></p>
+  <p class="note" id="note"></p>
   <div class="grid" id="grid"></div>
 
-  <footer>모든 장표의 기관명·계획안·수치는 가상 예시입니다. 실제 기관과 관계없습니다. 사진 출처와 라이선스는 각 원본 페이지에 적혀 있습니다. 아이콘 세트는 Tabler Icons(MIT) 기반입니다.</footer>
+  <footer>
+    모든 장표의 기관명 · 수치는 가상 예시이고, 사진은 AI로 만든 것입니다. 만드는 기준은 <a href="docs/criteria.md">제작 기준</a>에 있습니다.
+    <span id="hidNote"></span>
+  </footer>
 </div>
+
+<dialog class="ql" id="ql" aria-labelledby="qlTitle">
+  <div class="ql-in">
+    <div class="ql-view"><iframe id="qlFrame" title="장표 미리보기" loading="lazy"></iframe></div>
+    <div class="ql-side" id="qlSide"></div>
+  </div>
+</dialog>
 
 <script>
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hex = c => /^#[0-9a-f]{3,8}$/i.test(c) ? c : '#ccc';
-let all = [], role = '', sec = '', fam = '', info = '', mod = '', mot = '', dom = '', pk = '', ser = '';
-// 표지 분위기 계열 (실험형의 family). 실무형은 families에 어울리는 계열을 적는다
+let all = [], role = '', kind = '', fam = '', showHidden = false;
 const FAMILIES = {A:'픽셀 게임', B:'미니멀 스튜디오', C:'경쾌한 놀이 오브젝트', D:'인쇄·종이 에디토리얼', E:'자연 재질', F:'관측·중계 인포그래픽', G:'어두운 콘셉트', H:'전통 공예·문양'};
-// 본문 요소의 정보 유형 (0개인 유형도 보여 빈칸을 드러낸다)
-const INFO_TYPES = ['비전 체계도', '현안→해결방안', '배경·목적', '분류·유목화', '흐름·절차', '조직·체계', '일정', '핵심 수치', '비교·순위', '추이', '구성비', '표·목록', '지도·분포'];
-// 장표 안의 모듈 (요소의 modules, 쓰인 것만 칩으로 보인다)
-const MODULES = ['셰브런 단계', '현안→해결 표', '위계도', '방사형', '순환', '깔때기', '매트릭스', '비교 VS', '카드 묶음', '수치 타일', '막대', '선', '도넛', '표', '타임라인', '간트', '지도'];
-// 계획안 발표 순서 (실무형의 section)
-const SECTIONS = ['현황', '목표 및 지표', '세부과제', '추진체계', '일정 및 예산'];
-const secOf = r => r.section || '';
-const famLabel = k => k ? `${k} ${FAMILIES[k] || ''}` : '';
-// 공통 필터: 움직임·분야, 인쇄·홍보물 전용: 판형
-const MOTIONS = ['정지', '모션', '인터랙션'];
-const DOMAINS = ['학생·교육과정', '돌봄·유아', '특수교육', '업무·행정', '시설·안전', '지역·문화'];
-const PRINT_KINDS = ['포스터', '리플렛·소책자', '소식지', '배너', '티켓·굿즈'];
-// 역할(어디에 쓰이나) — 모든 장표에 하나. 기록에 없으면 type으로 채운다
+// 분위기 칩에 붙는 그 계열 대표 표지
+const FAM_COVER = {A: 9, B: 19, C: 7, D: 27, E: 17, F: 25, G: 74, H: 58};
+// 무엇을 보여 주나 — 성과 공유회 흐름 순서의 정형 장표 유형(docs/criteria.md 3). 0개도 보여 빈칸을 드러낸다
+const KINDS = ['사업 개요', '추진 체계', '추진 경과', '주요 추진 내용', '핵심 성과', '목표 대비 달성', '전년 대비·비교', '추이', '구성비', '참여 분포',
+  '우수 사례', '참여자 목소리', '만족도', '전후 비교', '시사점·과제', '향후 계획', '단계·절차', '요약표', '자주 묻는 질문'];
+const KIND_OF_INFO = {'배경·목적': '사업 개요', '비전 체계도': '사업 개요', '조직·체계': '추진 체계', '일정': '추진 경과', '분류·유목화': '주요 추진 내용',
+  '핵심 수치': '핵심 성과', '비교·순위': '전년 대비·비교', '추이': '추이', '구성비': '구성비', '지도·분포': '참여 분포', '현안→해결방안': '시사점·과제',
+  '흐름·절차': '단계·절차', '표·목록': '요약표'};
+const kindOf = r => r.kind || KIND_OF_INFO[r.info_type] || '';
 const ROLE_OF_TYPE = {'실험형': '표지', '실무형': '본문', '계열키트': '목차·간지', '인쇄물': '인쇄·홍보물'};
-const roleOf = r => r.role || ROLE_OF_TYPE[r.type] || '본문';
-// 동기화가 새 필드를 빠뜨려도 분류가 비지 않게: 움직임은 pattern, 분야는 topic 낱말로 채운다
-const DOMAIN_KEYS = [['특수교육', ['특수', '장애학생']], ['돌봄·유아', ['늘봄', '유보통합', '유치원', '유아', '돌봄']],
-  ['시설·안전', ['시설', '내진', '재난', '통학로', '공간', '탄소중립', '폭염', '집중호우', '도서관', '교육환경', '안전']],
-  ['업무·행정', ['연수', '예산', '업무', '온보딩', '민원', '행정', '공무원', '현장 지원']],
-  ['학생·교육과정', ['기초학력', '독서', '문해력', '마음건강', '학교폭력', '교육활동', '디지털', '교육과정', '학생', '학급', '진로']],
-  ['지역·문화', ['문화', '축제', '지역', '관광', '거리', '음악']]];
+const ROLES = ['표지', '본문', '목차·간지', '발표 틀', '인쇄·홍보물'];
+const ORDER = Object.fromEntries(ROLES.map((x, i) => [x, i]));
+const ROLE_DESC = {'표지': '가장 큰 글자가 사업 이름. 덱의 첫 장, 분위기를 정한다', '본문': '머리말 + 결론 한 문장 제목 + 정형 장표 하나',
+  '목차·간지': '목차 · 섹션 간지 · 마무리. 한 분위기의 덱 뼈대(계열 키트)', '발표 틀': '한 장이 아니라 여러 화면을 넘기는 진행 방식(허브 · 스크롤 · 카드 · 지도)',
+  '인쇄·홍보물': '화면 발표가 아닌 종이 · 게시용: 포스터 · 리플렛 · 소식지 · 배너 · 티켓'};
+const MO = {'모션': '▶', '인터랙션': '◉', '정지': ''};
+const famHas = (r, k) => r.family ? r.family === k : (r.families || []).includes(k) && r.deck_ok !== false;
 function fill(r){
-  if (!r.motion) r.motion = r.pattern === '정지' ? '정지' : r.pattern ? '모션' : '정지';
-  if (!r.domain) { const hit = DOMAIN_KEYS.find(([, ks]) => ks.some(k => String(r.topic || '').includes(k))); r.domain = hit ? hit[0] : ''; }
-  r.no = Number(r.no);
-  r.role = roleOf(r);
+  if (!r.motion) r.motion = r.pattern && r.pattern !== '정지' ? '모션' : '정지';
+  r.role = r.role || ROLE_OF_TYPE[r.type] || '본문';
+  r.kindL = kindOf(r);
+  r.no = r.kit ? r.no : Number(r.no);
   return r;
 }
-// 분위기 필터: 그 분위기의 표지·키트·인쇄물 + 그 분위기와 어울리는 본문 요소(덱 제외 요소는 빼고)
-// 분위기: 자기 분위기(family)가 있으면 그것, 중립 장표는 어울리는 분위기 목록(families)
-const famHas = (r, k) => r.family ? r.family === k : (r.families || []).includes(k) && r.deck_ok !== false;
-const inFam = r => famHas(r, fam);
-const ROLES = ['표지', '본문', '목차·간지', '발표 틀', '인쇄·홍보물'];
-const ROLE_CLS = {'표지': 'exp', '본문': 'prac', '목차·간지': 'kit', '발표 틀': 'frame', '인쇄·홍보물': 'print'};
-const ORDER = Object.fromEntries(ROLES.map((x, i) => [x, i]));
-// 쓰임새 설명: 고른 쓰임새의 설명 한 줄만 필터 아래에 보인다
-const ROLE_DESC = {'표지': '가장 큰 글자가 계획안 이름. 덱의 첫 장, 분위기를 정한다', '본문': '섹션 머리말 + 결론 한 문장 제목 + 도식. 표지 뒤 한 장',
-  '목차·간지': '목차·섹션 간지·마무리. 한 분위기의 덱 뼈대(계열 키트)', '발표 틀': '한 장이 아니라 여러 화면을 넘기는 진행 방식(허브·스크롤·카드·지도)',
-  '인쇄·홍보물': '화면 발표가 아닌 종이·게시용: 포스터·리플렛·소식지·배너·티켓'};
-
+const visible = r => showHidden || !r.hidden;
+const label = r => r.kit ? `키트 ${r.kit} · ${r.slide}장` : '#' + r.no;
+const url = r => esc(r.file) + (r.v ? '?v=' + esc(r.v) : '') + (r.hash ? '#' + esc(r.hash) : '');
 // 무엇을 하려고 하나요? — 목적 하나 = 타일 하나. 페이지로 가거나(href), 아래 목록을 그 쓰임새로 좁힌다(role)
 const PURPOSES = [
   {key: 'kit', title: '덱을 새로 만든다', sub: '분위기 하나 골라 채팅 AI로', href: 'kit/index.html', go: '누르면 덱 키트 페이지가 열립니다',
    imgs: ['kit/thumbs/A-1.jpg', 'kit/thumbs/B-1.jpg', 'kit/thumbs/C-1.jpg', 'kit/thumbs/D-1.jpg'],
-   desc: '네 분위기(픽셀 게임 · 미니멀 스튜디오 · 놀이 오브젝트 · 인쇄·종이) 중 하나의 지시서를 채팅 AI에 주면, 같은 부품으로 새 계획안 덱(.html)을 만들어 줍니다.'},
+   desc: '네 분위기(픽셀 게임 · 미니멀 스튜디오 · 놀이 오브젝트 · 인쇄·종이) 중 하나의 지시서를 채팅 AI에 주면, 같은 부품으로 새 발표 덱(.html)을 만들어 줍니다.'},
   {key: '표지', role: '표지', title: '표지 고르기', sub: '덱 첫 장, 분위기 정하기'},
-  {key: '본문', role: '본문', title: '본문 도식 찾기', sub: '현황 · 과제 · 일정 한 장'},
+  {key: '본문', role: '본문', title: '본문 장표 찾기', sub: '성과 · 사례 · 경과 한 장'},
   {key: '인쇄·홍보물', role: '인쇄·홍보물', title: '인쇄·홍보물 만들기', sub: '포스터 · 리플렛 · 소식지'},
   {key: 'wow', title: '발표에 연출 더하기', sub: '와우 기법 24가지 · 9장 덱', href: 'wow/wow.html', go: '누르면 와우 포인트 덱이 열립니다',
    imgs: ['thumbs/hub-wow-1.jpg', 'thumbs/hub-wow-2.jpg', 'thumbs/hub-wow-3.jpg'],
@@ -221,7 +210,7 @@ const PURPOSES = [
 const thumbOf = r => esc(r.thumb) + (r.v ? '?v=' + esc(r.v) : '');
 function buildHub(){
   PURPOSES.forEach(p => { if (p.role) {
-    const rs = all.filter(r => r.role === p.role);
+    const rs = all.filter(r => r.role === p.role && !r.hidden && !r.kit);
     p.count = rs.length; p.imgs = rs.filter(r => r.deck_ok !== false).slice(0, 6).map(thumbOf);   // 미리보기에는 실패 사례를 빼고
     p.desc = ROLE_DESC[p.role] + '. 최근 장표부터 보여 줍니다.'; p.go = `누르면 아래 목록이 '${p.role}' ${p.count}개로 좁혀집니다`;
   } });
@@ -265,149 +254,98 @@ $('#hub').addEventListener('click', e => {
   e.preventDefault(); hidePeek(); setRole(p.role);
   $('#list').scrollIntoView({behavior: still.matches ? 'auto' : 'smooth', block: 'start'});
 });
-function setRole(v){
-  role = v;
-  document.querySelectorAll('#role button').forEach(x => x.setAttribute('aria-pressed', x.dataset.g === v));
-  layout(); render();
-}
-// 주소에 지금 고른 것을 남긴다: 새로고침 · 뒤로 가기 · 링크 보내기에서 그대로(?role=본문&fam=B&q=간트)
-const URL_KEYS = {role: v => role = v, fam: v => fam = v, mot: v => mot = v, dom: v => dom = v, q: v => $('#q').value = v};
+function setRole(v){ role = v; mark('#role', 'g', v); render(); }
+// 주소에 지금 고른 것을 남긴다: 새로고침 · 링크 보내기에서 그대로(?role=본문&kind=핵심 성과&fam=B&q=간트)
 function syncURL(){
   const u = new URLSearchParams();
-  [['role', role], ['fam', fam], ['mot', mot], ['dom', dom], ['q', $('#q').value.trim()]].forEach(([k, v]) => v && u.set(k, v));
+  [['role', role], ['kind', kind], ['fam', fam], ['q', $('#q').value.trim()]].forEach(([k, v]) => v && u.set(k, v));
+  if (showHidden) u.set('hidden', '1');
   const qs = u.toString(); history.replaceState(null, '', qs ? '?' + qs + location.hash : location.pathname + location.hash);
 }
 function readURL(){
   const u = new URLSearchParams(location.search);
-  Object.entries(URL_KEYS).forEach(([k, set]) => { const v = u.get(k); if (v) set(v); });
-  const mark = (box, key, v) => document.querySelectorAll(box + ' button').forEach(x => x.setAttribute('aria-pressed', (x.dataset[key] || '') === v));
-  mark('#role', 'g', role); mark('#fam', 'f', fam); mark('#mot', 'o', mot); mark('#dom', 'd', dom);
+  role = u.get('role') || ''; kind = u.get('kind') || ''; fam = u.get('fam') || ''; $('#q').value = u.get('q') || ''; showHidden = u.get('hidden') === '1';
 }
+const mark = (box, key, v) => document.querySelectorAll(box + ' button').forEach(x => x.setAttribute('aria-pressed', (x.dataset[key] || '') === v));
 
-function render(){
-  document.querySelectorAll('#hub .tile').forEach(t => t.setAttribute('aria-current', !!role && t.dataset.k === role));
-  syncURL();
-  $('#roleNote').innerHTML = role ? `<b>${esc(role)}</b> ${esc(ROLE_DESC[role] || '')}` : '';
-  const on = [fam, mot, dom, info, mod, sec, pk, ser].filter(Boolean).length;
-  $('#moreN').textContent = on ? on + '개 적용' : '';
+function matches(r, skip){
   const q = $('#q').value.trim().toLowerCase();
-  const rows = all.filter(r =>
-    (!role || roleOf(r) === role) && (!sec || secOf(r) === sec) &&
-    (!mot || r.motion === mot) && (!dom || r.domain === dom) && (!pk || (r.print_kind || []).includes(pk)) && (!ser || r.series === ser) &&
-    (!fam || inFam(r)) && (!info || r.info_type === info) && (!mod || (r.modules || []).includes(mod)) &&
-    (!q || [r.title, r.topic, r.domain, r.motion, r.series, (r.print_kind || []).join(' '), r.format, secOf(r), famLabel(r.family), r.info_type, (r.modules || []).join(' '), r.texture, r.structure, r.pattern, r.style, r.field, r.metaphor, r.takeaway, r.summary].join(' ').toLowerCase().includes(q)))
-    .sort((a, b) => fam ? (ORDER[roleOf(a)] ?? 9) - (ORDER[roleOf(b)] ?? 9) || b.no - a.no : b.no - a.no);
-  $('#grid').innerHTML = rows.length ? rows.map(r => `
-    <a class="card${r.deck_ok === false ? ' fail' : ''}" href="${esc(r.file)}${r.v ? '?v=' + esc(r.v) : ''}" target="_blank" rel="noopener">
-      <img class="thumb" src="${esc(r.thumb)}${r.v ? '?v=' + esc(r.v) : ''}" alt="" loading="lazy">
-      <div class="body">
-        <div class="meta">
-          <span class="type ${ROLE_CLS[roleOf(r)] || 'prac'}">${esc(roleOf(r))}</span>
-          ${r.motion ? `<span class="tag ${r.motion === '정지' ? 'still' : 'mot'}">${r.motion === '인터랙션' ? '◉ 인터랙션' : r.motion === '모션' ? '▶ 모션' : '■ 정지'}</span>` : ''}
-          ${r.family ? `<span class="tag fam">${esc(famLabel(r.family))}</span>` : ''}
-          ${(r.print_kind || []).map(k => `<span class="tag">${esc(k)}</span>`).join('')}
-          ${r.series ? `<span class="tag ser">시리즈 · ${esc(r.series)}</span>` : ''}
-          ${r.info_type ? `<span class="tag info">${esc(r.info_type)}</span>` : ''}
-          ${(r.modules || []).map(m => `<span class="tag mod">${esc(m)}</span>`).join('')}
-          ${r.texture ? `<span class="tag">${esc(r.texture)}</span>` : ''}
-          ${r.deck_ok === false ? '<span class="tag no">실패 사례 · 덱 제외</span>' : ''}
-          ${r.format ? `<span class="tag">${esc(r.format)}</span>` : ''}
-          ${r.section ? `<span class="tag">${esc(r.section)}</span>` : ''}
-          ${r.structure ? `<span class="tag">${esc(r.structure)}</span>` : ''}
-          ${r.pattern && r.pattern !== '정지' ? `<span class="tag">${esc(r.pattern)}</span>` : ''}
-          ${r.field ? `<span class="tag">${esc(r.field)}</span>` : ''}
-          <span>#${r.no} · ${esc(r.domain || '')}</span>
-        </div>
-        <h2>${esc(String(r.title).replace(/^레퍼런스\s*#\d+\s*/, ''))}</h2>
-        <p class="topic">${esc(r.topic)}</p>
-        ${r.takeaway ? `<p class="take"><b>가져갈 장치</b> · ${esc(r.takeaway)}</p>` : ''}
-        ${roleOf(r) === '본문' && r.deck_ok !== false ? `<p class="compat">어울리는 계열 · ${(r.families || []).map(esc).join('·') || '—'}</p>` : ''}
-        ${r.deck_ok === false && r.deck_note ? `<p class="note">${esc(r.deck_note)}</p>` : ''}
-        <div class="sw">${(r.palette || []).slice(0, 6).map(c => `<i style="background:${hex(c)}"></i>`).join('')}</div>
-      </div>
-    </a>`).join('') : '<p class="empty">조건에 맞는 레퍼런스가 없습니다.</p>';
+  return visible(r) && (skip === 'role' || !role || r.role === role) && (skip === 'kind' || !kind || r.kindL === kind) && (skip === 'fam' || !fam || famHas(r, fam)) &&
+    (!q || [label(r), r.title, r.topic, r.kindL, r.info_type, (r.modules || []).join(' '), r.style, r.takeaway, r.metaphor, r.pattern, FAMILIES[r.family]].join(' ').toLowerCase().includes(q));
 }
+function counts(){
+  document.querySelectorAll('#role button').forEach(b => { b.querySelector('em').textContent = all.filter(r => matches(r, 'role') && (!b.dataset.g || r.role === b.dataset.g)).length; });
+  document.querySelectorAll('#kind button').forEach(b => { const v = b.dataset.k; const c = all.filter(r => matches(r, 'kind') && (!v || r.kindL === v)).length;
+    b.querySelector('em').textContent = c; b.disabled = !!v && c === 0 && kind !== v;
+    b.classList.toggle('gap', !!v && all.filter(r => visible(r) && r.kindL === v).length === 0); });
+  document.querySelectorAll('#fam button').forEach(b => { const v = b.dataset.f; const c = all.filter(r => matches(r, 'fam') && (!v || famHas(r, v))).length;
+    b.querySelector('em').textContent = c; b.disabled = !!v && c === 0 && fam !== v; });
+  $('#kind').hidden = !!role && role !== '본문';
+}
+function render(){
+  counts();
+  if ($('#kind').hidden && kind) { kind = ''; mark('#kind', 'k', ''); counts(); }
+  document.querySelectorAll('#hub .tile').forEach(t => t.setAttribute('aria-current', !!role && t.dataset.k === role));
+  $('#note').innerHTML = kind ? `<b>${esc(kind)}</b>${all.filter(r => visible(r) && r.kindL === kind).length ? '' : ' 아직 없습니다. 채울 빈칸입니다.'}` : role ? `<b>${esc(role)}</b> ${esc(ROLE_DESC[role] || '')}` : '';
+  const rows = all.filter(r => matches(r)).sort((a, b) => (a.kit ? 1 : 0) - (b.kit ? 1 : 0) || (fam ? (ORDER[a.role] ?? 9) - (ORDER[b.role] ?? 9) : 0) || (b.kit ? 0 : b.no - a.no));
+  $('#grid').innerHTML = rows.length ? rows.map((r, i) => `
+    <a class="card${r.deck_ok === false ? ' fail' : ''}${r.hidden ? ' hid' : ''}" href="${url(r)}" target="_blank" rel="noopener" data-i="${all.indexOf(r)}">
+      <span class="th"><img src="${thumbOf(r)}" alt="" loading="lazy">${MO[r.motion] ? `<span class="mo" title="${esc(r.motion)}">${MO[r.motion]}</span>` : ''}</span>
+      <span class="cap"><b>${esc(String(r.title).replace(/^레퍼런스\s*#\d+\s*/, ''))}</b><small>${esc(label(r))}</small></span>
+      ${r.hidden ? `<span class="why">숨김 · ${esc(r.hide_reason || '')}</span>` : ''}
+    </a>`).join('') : '<p class="empty">조건에 맞는 장표가 없습니다.</p>';
+  const nh = all.filter(r => r.hidden).length;
+  $('#hidNote').innerHTML = nh ? ` 기준에 걸려 숨긴 장표 ${nh}개 · <button type="button" id="hidBtn">${showHidden ? '숨기기' : '보기'}</button>` : '';
+  syncURL();
+}
+// 빠르게 보기: 카드를 누르면 그 자리에서 원본을 띄워 움직여 본다(새 탭 · 가운데 단추는 그대로 원본)
+function openQL(r){
+  $('#qlFrame').src = url(r);
+  const tags = [r.role, r.kindL, r.family && `${r.family} ${FAMILIES[r.family]}`, r.motion !== '정지' && `${MO[r.motion]} ${r.motion}`].filter(Boolean);
+  $('#qlSide').innerHTML = `<h2 id="qlTitle">${esc(String(r.title).replace(/^레퍼런스\s*#\d+\s*/, ''))} <small style="color:var(--soft);font-size:13px">${esc(label(r))}</small></h2>
+    <div class="tags">${tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>
+    ${r.takeaway ? `<p><b>가져갈 장치</b> · ${esc(r.takeaway)}</p>` : r.summary ? `<p>${esc(String(r.summary).slice(0, 180))}${String(r.summary).length > 180 ? '…' : ''}</p>` : ''}
+    ${r.deck_note && r.deck_ok === false ? `<p style="color:#A1251B">${esc(r.deck_note)}</p>` : ''}
+    ${r.hidden ? `<p style="color:#A1251B">숨김 · ${esc(r.hide_reason || '')}</p>` : ''}
+    ${(r.palette || []).length ? `<div class="sw">${r.palette.slice(0, 6).map(c => `<i style="background:${hex(c)}"></i>`).join('')}</div>` : ''}
+    <div class="acts"><a href="${url(r)}" target="_blank" rel="noopener">새 창으로 열기</a><button type="button" id="qlClose">닫기</button></div>`;
+  $('#ql').showModal(); $('#qlClose').focus();
+}
+// 미리보기 안을 눌러 초점이 들어가도 Esc 로 닫히게(같은 출처 페이지)
+$('#qlFrame').addEventListener('load', () => { try { $('#qlFrame').contentWindow.addEventListener('keydown', e => { if (e.key === 'Escape') $('#ql').close(); }); } catch (e) {} });
+$('#ql').addEventListener('close', () => { $('#qlFrame').src = 'about:blank'; });
+$('#ql').addEventListener('click', e => { if (e.target.id === 'qlClose' || e.target === $('#ql')) $('#ql').close(); });
+$('#grid').addEventListener('click', e => {
+  const c = e.target.closest('.card'); if (!c || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+  e.preventDefault(); openQL(all[+c.dataset.i]);
+});
+document.addEventListener('click', e => { if (e.target.id === 'hidBtn') { showHidden = !showHidden; render(); } });
 
-fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
-  all = d.map(fill).sort((a, b) => b.no - a.no);
-  $('#role').querySelectorAll('button').forEach(b => b.insertAdjacentHTML('beforeend', `<em>${b.dataset.g ? all.filter(r => r.role === b.dataset.g).length : all.length}</em>`));
-  const chip = (box, key, val, label, cnt) => $(box).insertAdjacentHTML('beforeend',
-    `<button type="button" data-${key}="${esc(val)}" aria-pressed="${val === ''}"${cnt === 0 ? ' disabled' : ''}>${esc(label)}<em>${cnt}</em></button>`);
-  chip('#fam', 'f', '', '전체', all.length);
-  Object.keys(FAMILIES).forEach(k => chip('#fam', 'f', k, famLabel(k), all.filter(r => famHas(r, k)).length));
-  chip('#mot', 'o', '', '전체', all.length);
-  MOTIONS.forEach(m => chip('#mot', 'o', m, m, all.filter(r => r.motion === m).length));
-  chip('#dom', 'd', '', '전체', all.length);
-  DOMAINS.forEach(m => chip('#dom', 'd', m, m, all.filter(r => r.domain === m).length));
-  chip('#info', 'i', '', '전체', all.filter(r => r.role === '본문').length);
-  INFO_TYPES.forEach(t => chip('#info', 'i', t, t, all.filter(r => r.info_type === t).length));
-  const used = MODULES.filter(m => all.some(r => (r.modules || []).includes(m)));
-  if (used.length) {
-    $('#mod').dataset.has = '1';
-    chip('#mod', 'm', '', '전체', all.filter(r => (r.modules || []).length).length);
-    used.forEach(m => chip('#mod', 'm', m, m, all.filter(r => (r.modules || []).includes(m)).length));
-  }
-  ['', ...SECTIONS].forEach(s => $('#sec').insertAdjacentHTML('beforeend',
-    `<button type="button" data-s="${esc(s)}" aria-pressed="${s === ''}">${s || '전체'}<em>${s ? all.filter(r => secOf(r) === s).length : all.filter(r => r.role === '본문').length}</em></button>`));
-  chip('#pk', 'k', '', '전체', all.filter(r => r.role === '인쇄·홍보물').length);
-  PRINT_KINDS.forEach(k => chip('#pk', 'k', k, k, all.filter(r => (r.print_kind || []).includes(k)).length));
-  const series = [...new Set(all.map(r => r.series).filter(Boolean))];
-  if (series.length) {
-    $('#ser').dataset.has = '1';
-    chip('#ser', 'r', '', '전체', all.length);
-    series.forEach(x => chip('#ser', 'r', x, x, all.filter(r => r.series === x).length));
-  }
+Promise.all([
+  fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()),
+  fetch('data/kit_slides.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : []).catch(() => [])
+]).then(([d, ks]) => {
+  all = d.map(fill).concat(ks.map(fill));
+  document.querySelectorAll('#role button').forEach(b => b.insertAdjacentHTML('beforeend', '<em></em>'));
+  $('#kind').insertAdjacentHTML('beforeend', `<button type="button" data-k="" aria-pressed="true">전체<em></em></button>` +
+    KINDS.map(k => `<button type="button" data-k="${esc(k)}" aria-pressed="false">${esc(k)}<em></em></button>`).join(''));
+  const cov = no => all.find(r => r.no === no);
+  $('#fam').insertAdjacentHTML('beforeend', `<button type="button" class="all" data-f="" aria-pressed="true">전체<em></em></button>` +
+    Object.keys(FAMILIES).map(k => { const c = cov(FAM_COVER[k]); return `<button type="button" data-f="${k}" aria-pressed="false" title="${esc(FAMILIES[k])}">${c ? `<img src="${thumbOf(c)}" alt="">` : ''}${k} ${esc(FAMILIES[k].split(/[ ·]/)[0])}<em></em></button>`; }).join(''));
   buildHub();
-  readURL();
-  layout();
+  readURL(); mark('#role', 'g', role); mark('#kind', 'k', kind); mark('#fam', 'f', fam);
   render();
   if (location.hash === '#list') $('#list').scrollIntoView();
 }).catch(() => { $('#grid').innerHTML = '<p class="empty">목록을 불러오지 못했습니다.</p>'; });
 
-// 역할에 따라 보이는 필터가 바뀐다: 본문 전용(정보 유형·모듈·계획안 속 위치), 인쇄 전용(판형)
-function reset(box, set){ set(''); document.querySelectorAll(box + ' button').forEach((x, i) => x.setAttribute('aria-pressed', i === 0)); }
-// 분위기·움직임·분야·시리즈 칩의 숫자를 지금 고른 역할 안에서 다시 센다
-function recount(){
-  const base = all.filter(r => !role || r.role === role);
-  const set = (box, key, test) => document.querySelectorAll(box + ' button').forEach(b => {
-    const v = b.dataset[key], c = v ? base.filter(r => test(r, v)).length : base.length;
-    b.querySelector('em').textContent = c; b.disabled = !!v && c === 0;
-  });
-  set('#fam', 'f', famHas);
-  set('#mot', 'o', (r, v) => r.motion === v);
-  set('#dom', 'd', (r, v) => r.domain === v);
-  set('#ser', 'r', (r, v) => r.series === v);
-}
-function layout(){
-  recount();
-  const body = role === '본문';
-  $('#info').hidden = !body; $('#sec').hidden = !body; $('#mod').hidden = !body || !$('#mod').dataset.has;
-  $('#pk').hidden = role !== '인쇄·홍보물';
-  $('#ser').hidden = !$('#ser').dataset.has || !all.some(r => r.series && (!role || r.role === role));
-  if (!body) { reset('#info', v => info = v); reset('#sec', v => sec = v); reset('#mod', v => mod = v); }
-  if (role !== '인쇄·홍보물') reset('#pk', v => pk = v);
-}
-const pick = (box, key, set, after) => $(box).addEventListener('click', e => {
+const pick = (box, key, set) => $(box).addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b || b.disabled) return;
-  set(b.dataset[key]);
-  document.querySelectorAll(box + ' button').forEach(x => x.setAttribute('aria-pressed', x === b));
-  if (after) after();
-  render();
+  set(b.dataset[key] || ''); mark(box, key, b.dataset[key] || ''); render();
 });
-pick('#role', 'g', v => role = v, layout);
-pick('#sec', 's', v => sec = v);
+pick('#role', 'g', v => role = v);
+pick('#kind', 'k', v => kind = v);
 pick('#fam', 'f', v => fam = v);
-pick('#info', 'i', v => info = v);
-pick('#mod', 'm', v => mod = v);
-pick('#mot', 'o', v => mot = v);
-pick('#dom', 'd', v => dom = v);
-pick('#pk', 'k', v => pk = v);
-pick('#ser', 'r', v => ser = v);
 $('#q').addEventListener('input', render);
-$('#moreBtn').addEventListener('click', () => {
-  const open = $('#more').hidden;
-  $('#more').hidden = !open; $('#moreBtn').setAttribute('aria-expanded', open);
-});
 </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 #  글꼴: fonts/{가족}-{굵기}.woff2 에서 이 페이지에 쓰인 글자만 잘라 박아 넣는다
 #        (OFL: 저작권 · 라이선스 이름표를 남기고 예약 이름은 바꾸며, 글꼴 앞에 고지 주석 — scripts/fontlic.py)
 #  자산: assets/ 파일을 data: 로 · 외부 라이브러리: vendor/ 를 data: 로
-#  덱 키트: /*@@KIT:B@@*/ = kit/deck.css + kit/B.css(주석 뺌) · /*@@KITJS@@*/ = kit/deck.js
+#  덱 키트: /*@@KIT:B@@*/ = kit/deck.css + kit/parts.css + kit/B.css(주석 뺌) · /*@@KITJS@@*/ = kit/deck.js
 # 실행: python3 scripts/build.py 99 100 … | all   (--out 폴더 로 다른 곳에 쓰기)
 import base64, io, json, os, re, sys
 from fontTools.ttLib import TTFont
@@ -30,7 +30,7 @@ def importmap_three():
         'three/addons/environments/RoomEnvironment.js': js('examples/jsm/environments/RoomEnvironment.js')}})
 def kit_css(fam):
     K = os.path.join(ROOT, 'kit')
-    css = open(os.path.join(K, 'deck.css'), encoding='utf-8').read() + '\n' + open(os.path.join(K, fam + '.css'), encoding='utf-8').read()
+    css = '\n'.join(open(os.path.join(K, f), encoding='utf-8').read() for f in ('deck.css', 'parts.css', fam + '.css'))
     return re.sub(r'/\*.*?\*/\n?', '', css, flags=re.S)
 def build(no, outdir, name=None):
     d = os.path.join(ROOT, 'src', str(no)); cfg = json.load(open(os.path.join(d, 'build.json')))
