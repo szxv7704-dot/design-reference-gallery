@@ -1,0 +1,402 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #118 곱셈 줄 붙은 겸용 차트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>/*@@FONTS@@*/</style>
+<style>
+/* 페이지 틀: 장표를 맨 위에, 아래로 설명 칸을 한 줄 세로 흐름으로 */
+:root{
+  --pg-bg:#EEF2F7; --pg-panel:#FFFFFF; --pg-ink:#16243B; --pg-sub:#56657C; --pg-line:#D3DBE6;
+  --pg-accent:#C9482A; --pg-chip:#E3EAF3; --pg-code:#121A27; --pg-code-ink:#D9E2EE;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;
+  --pg-title:"Gothic A1","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111824; --pg-panel:#18222F; --pg-ink:#E4EAF2; --pg-sub:#9DAABD; --pg-line:#2B3949;
+  --pg-accent:#F07A5C; --pg-chip:#223042; --pg-code:#0B111A; --pg-code-ink:#D9E2EE; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111824; --pg-panel:#18222F; --pg-ink:#E4EAF2; --pg-sub:#9DAABD; --pg-line:#2B3949;
+  --pg-accent:#F07A5C; --pg-chip:#223042; --pg-code:#0B111A; --pg-code-ink:#D9E2EE; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65;word-break:keep-all}
+.pg{max-width:1180px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.pg-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin-bottom:18px}
+.pg-head h1{font:800 26px/1.25 var(--pg-title);margin:0;text-wrap:balance}
+.pg-head p{margin:0;color:var(--pg-sub);font-size:14px}
+.pg-tag{display:inline-flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.pg-tag li{background:var(--pg-chip);border-radius:3px;padding:2px 9px;font-size:12.5px;color:var(--pg-sub)}
+.stage{overflow-x:auto;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 18px 40px -24px rgba(16,30,52,.35)}
+.fam{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 6px}
+.fam span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.fam button,.copy{font:600 13px/1 var(--pg-font);padding:9px 13px;border-radius:3px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);cursor:pointer}
+.fam button[aria-pressed="true"]{background:var(--pg-ink);color:var(--pg-panel);border-color:var(--pg-ink)}
+.fam button:focus-visible,.copy:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.sec{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:4px;padding:22px 24px;margin-top:18px}
+.sec h2{font:800 18px/1.3 var(--pg-title);margin:0 0 12px;display:flex;gap:10px;align-items:baseline}
+.sec h2 small{font:600 12px/1 var(--pg-mono);color:var(--pg-sub);letter-spacing:.06em}
+.sec h3{font:700 15px/1.4 var(--pg-font);margin:16px 0 6px}
+.sec p{margin:0 0 10px;max-width:70ch}
+.sec ul,.sec ol{margin:0 0 10px;padding-left:20px}
+.sec li{margin:3px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.two>*{min-width:0}
+.raw{background:var(--pg-bg);border-radius:3px;padding:14px 16px;font-size:14.5px;line-height:1.85}
+.raw mark{background:none;color:inherit;border-bottom:2px solid var(--pg-line)}
+.raw sup,.grp b.n{font:700 11px/1 var(--pg-mono);color:var(--pg-accent)}
+.grp{list-style:none;padding:0!important}
+.grp li{border-top:1px solid var(--pg-line);padding:8px 0}
+.grp li:first-child{border-top:0}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:13.5px}
+.rel{background:var(--pg-bg);border-radius:3px;padding:10px 14px;font-size:14px}
+.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pick>div{min-width:0;border-top:2px solid var(--pg-ink);padding-top:8px}
+.pick>div:last-child{border-top-color:var(--pg-accent)}
+.pick h3{margin-top:0}
+.code-wrap{position:relative;margin-top:10px}
+.code-wrap pre{background:var(--pg-code);color:var(--pg-code-ink);font:12.5px/1.6 var(--pg-mono);padding:16px;border-radius:4px;max-height:520px;overflow:auto;margin:0;white-space:pre}
+.copy{position:absolute;top:10px;right:10px}
+table.spec{border-collapse:collapse;width:100%;font-size:13px}
+.tbl{overflow-x:auto}
+table.spec th,table.spec td{border-bottom:1px solid var(--pg-line);padding:6px 8px;text-align:left;vertical-align:middle;white-space:nowrap}
+table.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:6px;border:1px solid rgba(0,0,0,.15)}
+.mono{font-family:var(--pg-mono);font-size:12.5px}
+@media (max-width:760px){
+  .two,.pick{grid-template-columns:1fr}
+  .stage .ch-root{width:760px}
+  .sec{padding:18px 16px}
+}
+</style>
+
+<style id="ch-css">
+/* ===== 장표: 곱셈 줄 붙은 겸용 차트 (접두어 ch-) =====
+   가상 화면 1600×900. 1px = 1/16 cqw. 색·글꼴은 아래 --ds-* 변수로만 쓴다. */
+.ch-root{
+  --ds-bg:#F6F8FB; --ds-surface:#FFFFFF; --ds-ink:#172A46; --ds-sub:#5A6880; --ds-line:#D5DDE8;
+  --ds-accent:#D24E2B; --ds-accent2:#2E6BB0;
+  --ds-c1:#1B3560; --ds-c2:#36578A; --ds-c3:#5E7FB0; --ds-c4:#A3B8D6; --ds-c5:#D9E3F0;
+  --ds-font-title:"Gothic A1","Pretendard","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif;
+  --ds-radius:4px; --ds-shadow:0 1px 0 rgba(23,42,70,.05),0 16px 34px -22px rgba(23,42,70,.32);
+  container-type:inline-size; width:100%; color:var(--ds-ink); font-family:var(--ds-font-body);
+}
+.ch-root *{box-sizing:border-box}
+.ch-slide{position:relative;aspect-ratio:16/9;background:var(--ds-bg);overflow:hidden;line-height:1.5;word-break:keep-all}
+/* 머리말 띠 y40~88 */
+.ch-band{position:absolute;left:5cqw;right:5cqw;top:2.5cqw;height:3cqw;display:flex;align-items:center;justify-content:space-between;border-bottom:.0625cqw solid var(--ds-line);font-size:1cqw}
+.ch-sec{display:flex;align-items:center;gap:.75cqw;font-weight:700;color:var(--ds-ink)}
+.ch-sec b{display:inline-grid;place-items:center;width:1.75cqw;height:1.75cqw;background:var(--ds-c1);color:var(--ds-surface);border-radius:var(--ds-radius);font:700 1cqw/1 var(--ds-font-num)}
+.ch-plan{color:var(--ds-sub);letter-spacing:.04em}
+/* 제목 y112~ : 결론 한 문장, 강조 한 곳 */
+.ch-title{position:absolute;left:5cqw;right:5cqw;top:7cqw;margin:0;font:800 2.5cqw/1.25 var(--ds-font-title);letter-spacing:-.01em;color:var(--ds-ink)}
+.ch-title em{font-style:normal;color:var(--ds-accent)}
+.ch-meta{position:absolute;left:5cqw;top:10.75cqw;margin:0;font-size:1cqw;color:var(--ds-sub)}
+/* 본문 y220~820 : 왼쪽 차트 1010 + 오른쪽 설명 묶음 390 */
+.ch-chart{position:absolute;left:5cqw;top:13.75cqw;width:63.125cqw;height:37.5cqw}
+.ch-chart svg{display:block;width:100%;height:100%;overflow:visible}
+.ch-side{position:absolute;left:70.625cqw;top:13.75cqw;width:24.375cqw;height:37.5cqw;background:var(--ds-surface);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius);padding:2cqw 1.75cqw;display:flex;flex-direction:column;justify-content:space-between}
+.ch-grp+.ch-grp{border-top:.0625cqw solid var(--ds-line);padding-top:1.75cqw}
+.ch-gh{display:flex;align-items:center;gap:.875cqw;margin:0 0 1cqw;font:700 1.5cqw/1.2 var(--ds-font-title);color:var(--ds-ink)}
+.ch-gh .ds-badge{--s:3cqw;color:var(--ds-c1)}
+.ch-grp ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.75cqw}
+.ch-grp li{position:relative;padding-left:1.125cqw;font-size:1.1875cqw;line-height:1.5;color:var(--ds-ink)}
+.ch-grp li::before{content:"";position:absolute;left:0;top:.75cqw;width:.375cqw;height:.375cqw;background:var(--ds-c3)}
+.ch-grp li b{font-weight:700;color:var(--ds-c1)}
+/* 바닥 줄 y846~ */
+.ch-foot{position:absolute;left:5cqw;right:5cqw;top:52.875cqw;display:flex;justify-content:space-between;font-size:1cqw;color:var(--ds-sub)}
+.ch-foot b{font:600 1cqw/1 var(--ds-font-num);color:var(--ds-ink)}
+/* 아이콘 세트 공통 CSS (그대로) */
+.ds-ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.ds-badge{--s:48px;width:var(--s);height:var(--s);display:grid;place-items:center;font-size:calc(var(--s)*.54);color:var(--ds-accent)}
+.ds-badge.is-line{width:auto;height:auto;font-size:var(--s)}
+.ds-badge.is-round{border-radius:50%;background:var(--ds-c5)}
+.ds-badge.is-square{border-radius:calc(var(--s)*.18);background:var(--ds-c5)}
+.ds-badge.is-slant{background:var(--ds-accent);color:var(--ds-surface);clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);width:calc(var(--s)*1.25)}
+</style>
+
+<div class="pg">
+  <header class="pg-head">
+    <h1>레퍼런스 #118 곱셈 줄 붙은 겸용 차트</h1>
+    <p>본문 요소 · 월요일 차트 장표 · 가상 예시</p>
+  </header>
+  <ul class="pg-tag">
+    <li>차트: 막대+꺾은선 겸용</li><li>정보 유형: 추이</li><li>위치: 현황</li><li>분야: 지역·문화</li><li>정지</li><li>평면</li><li>어울리는 계열 B·C·D·E·F·G</li>
+  </ul>
+
+  <div class="stage" id="stage">
+<div class="ch-root" id="ch-root">
+  <div class="ch-slide">
+    <div class="ch-band">
+      <span class="ch-sec"><b>Ⅰ</b>추진 배경 및 현황</span>
+      <span class="ch-plan">2026 학교시설 주민 개방 운영 계획</span>
+    </div>
+    <h2 class="ch-title">개방 학교는 2.2배로 늘었지만, 주민 이용은 <em>4년째 75만 명 안팎</em>이다</h2>
+    <p class="ch-meta">○○교육청 관내 초·중·고 300교 · 2021~2025년 · 각 연도 12월 31일 기준 · 체육관·운동장 개방</p>
+    <div class="ch-chart" data-ch-chart><svg viewBox="0 0 1010 600" role="img" aria-label="연도별 개방 학교 수 막대와 학교당 이용 인원 꺾은선, 아래에 총 이용 인원"></svg></div>
+    <div class="ch-side">
+      <section class="ch-grp">
+        <h3 class="ch-gh"><span class="ds-badge is-square"><svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/></svg></span>원인 점검</h3>
+        <ul>
+          <li>새로 연 134교 중 <b>81교(60%)</b>가 평일 저녁 2시간만 개방</li>
+          <li>학교마다 전화 예약 — 빈 시간을 미리 볼 수 없음</li>
+          <li>이용 상위 <b>20교</b>가 전체 이용의 <b>48%</b></li>
+        </ul>
+      </section>
+      <section class="ch-grp">
+        <h3 class="ch-gh"><span class="ds-badge is-square"><svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/></svg></span>2026 운영 방향</h3>
+        <ul>
+          <li>성과 지표를 개방 학교 수에서 <b>학교당 이용</b>으로</li>
+          <li>주말·방학 개방 확대, 통합 예약 누리집 <b>3월</b> 개통</li>
+          <li>목표: 학교당 <b>3,600명</b>, 총 약 89만 명</li>
+        </ul>
+      </section>
+    </div>
+    <div class="ch-foot"><span>가상 예시 · 출처: ○○교육청 학교시설 개방 현황(2021~2025) · 아이콘: Tabler Icons(MIT)</span><b>7</b></div>
+  </div>
+</div>
+  </div>
+
+  <div class="fam" role="group" aria-label="계열 값 바꿔 보기">
+    <span>계열 값 바꿔 보기</span>
+    <button type="button" id="fam-n" data-fam="N" aria-pressed="true">중립 값</button>
+    <button type="button" id="fam-b" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+    <button type="button" id="fam-d" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+    <button type="button" id="fam-f" data-fam="F" aria-pressed="false">F 관측·중계</button>
+  </div>
+
+  <section class="sec">
+    <h2><small>1-1</small>원문 → 유목화</h2>
+    <div class="two">
+      <div>
+        <h3 style="margin-top:0">정리 전 원문(계획안 '현황' 문단, 가상)</h3>
+        <div class="raw">
+          우리 교육청은 <mark>2022년 3월 학교시설 개방 조례를 개정해 개방을 권고에서 원칙으로 바꾸었다<sup>④</sup></mark>. 그 결과 <mark>체육관·운동장을 주민에게 개방한 학교는 2021년 112교에서 2025년 246교로 늘어 관내 300교의 82%에 이르렀다<sup>①</sup></mark>. 그러나 <mark>학교당 연간 이용 인원은 같은 기간 4,800명에서 3,050명으로 줄었고<sup>②</sup></mark>, <mark>총 이용 인원은 2022년 73만 1천 명 이후 75만 명 안팎에 머물러 있다<sup>③</sup></mark>. <mark>새로 개방한 134교 가운데 81교(60%)는 평일 저녁 2시간만 문을 열고, 예약은 학교마다 전화로 받아 주민이 빈 시간을 확인하기 어렵다. 이용 상위 20교가 전체 이용의 48%를 차지한다<sup>⑤</sup></mark>. 이에 <mark>2026년에는 성과 지표를 '개방 학교 수'에서 '학교당 이용 인원'으로 바꾸고, 주말·방학 개방을 늘리며, 3월에 통합 예약 누리집을 연다. 학교당 이용 목표는 3,600명이다<sup>⑥</sup></mark>.
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-top:0">묶은 방법</h3>
+        <ol class="grp">
+          <li><b class="n">①</b> <b>공급: 개방 학교 수</b> — "112교 → 246교, 300교의 82%" <em>→ 장표: 막대 · 왼쪽 축(맨 위 300 = 전체 학교)</em></li>
+          <li><b class="n">②</b> <b>학교당 이용</b> — "4,800명 → 3,050명" <em>→ 장표: 꺾은선 · 오른쪽 축</em></li>
+          <li><b class="n">③</b> <b>결과: 총 이용 = ① × ②</b> — "73만 1천 명 이후 75만 명 안팎" <em>→ 장표: 연도 아래 곱셈 줄 + 정체 괄호(제목의 결론)</em></li>
+          <li><b class="n">④</b> <b>계기</b> — "2022년 3월 조례 개정" <em>→ 장표: 2021·2022 사이 점선 주석</em></li>
+          <li><b class="n">⑤</b> <b>원인 점검</b> — 평일 저녁만 개방 · 전화 예약 · 상위 20교 쏠림 <em>→ 장표: 오른쪽 위 묶음</em></li>
+          <li><b class="n">⑥</b> <b>2026 운영 방향</b> — 지표 전환 · 주말·방학 · 통합 예약 · 3,600명 <em>→ 장표: 오른쪽 아래 묶음</em></li>
+        </ol>
+        <div class="rel"><b>관계</b> ④가 ①을 끌어올렸다 → ①은 오르고 ②는 내려 ③이 평평하다(곱셈) → ⑤가 ②가 내려간 까닭 → ⑥은 ⑤에 대응하고 지표를 ①에서 ②로 옮긴다.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2><small>2</small>구조 설명</h2>
+    <p>단위가 다른 두 추이(공급 = 개방 학교 수, 효율 = 학교당 이용)를 한 축의 연도 위에 겹치고, 두 값을 곱한 결과(총 이용)를 연도 줄 바로 아래 한 줄로 붙였다. 읽는 순서는 막대가 오르고 → 선이 내리고 → 곱이 멈췄다는 것이고, 제목이 그 마지막 줄을 말한다. 오른쪽 묶음은 원인과 대응을 나란히 둔다.</p>
+    <h3>가져갈 장치</h3>
+    <ul>
+      <li><b>축 아래 곱셈 줄</b>: 겸용 차트의 두 계열이 곱(또는 비율)으로 하나의 결과를 만들 때, 그 결과를 세 번째 계열로 그리지 않고 연도 열에 맞춘 숫자 한 줄로 붙인다. 정체 구간만 강조색 괄호로 묶는다.</li>
+      <li><b>눈금 수를 맞춘 두 축</b>: 왼쪽 0~300(50 간격), 오른쪽 0~6,000(1,000 간격)으로 둘 다 0에서 시작하고 6칸으로 나눠 격자선을 하나로 쓴다. 왼쪽 축 맨 위 300은 관내 전체 학교 수라서 막대 높이가 곧 개방률이다.</li>
+    </ul>
+    <h3>응용 예</h3>
+    <ul>
+      <li>방과후학교: 개설 강좌 수(막대) × 강좌당 수강생(꺾은선) = 총 수강 인원</li>
+      <li>스쿨버스: 운행 노선 수(막대) × 노선당 탑승 학생(꺾은선) = 총 이용 학생</li>
+      <li>교원 연수: 개설 과정 수(막대) × 과정당 이수 인원(꺾은선) = 총 이수 인원</li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <h2><small>2-1</small>차트 고르는 법</h2>
+    <div class="pick">
+      <div><h3>이 차트를 쓰는 때</h3><p>같은 연도 축에서 단위가 다른 두 지표가 서로 영향을 주는 관계일 때(양과 비율, 공급과 효율). 하나는 양(막대), 하나는 비율·평균(꺾은선)으로 나뉠 때 가장 잘 읽힌다.</p></div>
+      <div><h3>쓰지 말아야 할 때</h3><p>두 지표가 관계없을 때, 계열이 셋 이상일 때, 축을 0에서 시작할 수 없을 때. 두 선이 만나는 점에 뜻이 생기는 것처럼 보이므로, 교차를 결론으로 말하고 싶다면 겸용 차트가 아니라 지수(기준 해 = 100) 선 하나가 맞다.</p></div>
+      <div><h3>흔히 잘못 고르는 차트</h3><p>두 계열을 같은 축의 묶은 막대로 그리면 4,800과 246이 한 축에 놓여 개방 학교 수가 바닥에 붙는다. 두 축의 0을 다르게 잡으면 선과 막대가 일부러 교차한 것처럼 보인다. 곱의 결과를 세 번째 선으로 더하면 축이 셋이 된다.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2><small>3</small>HTML로 가져다 쓰기</h2>
+    <ul>
+      <li>데이터는 코드 맨 아래 스크립트의 <span class="mono">CH_DATA</span> 하나에 있다. 연도·막대·꺾은선 값, 축 최댓값·간격, 주석, 정체 구간을 여기서 바꾼다. 총 이용 줄은 두 값을 곱해 저절로 계산된다.</li>
+      <li>색·글꼴은 <span class="mono">.ch-root</span>의 <span class="mono">--ds-*</span> 변수만 바꾼다. 아래 스펙 표의 계열 값을 그대로 붙여 넣으면 된다.</li>
+      <li>두 축의 칸 수(최댓값 ÷ 간격)는 같게 둔다. 그래야 격자선이 하나로 맞는다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요. 인터넷이 없으면 글꼴은 대체 글꼴(맑은 고딕 등)로 그려진다.</li>
+    </ul>
+    <div class="code-wrap"><button type="button" class="copy" id="copy-btn">코드 복사</button><pre id="code-box" tabindex="0"></pre></div>
+  </section>
+
+  <section class="sec">
+    <h2><small>4</small>PPT로 옮기기</h2>
+    <h3>공통 뼈대 자리 (와이드 33.867 × 19.05cm, 1px = 0.0212cm)</h3>
+    <ul>
+      <li>좌우 여백 1.69cm. 머리말 띠 세로 0.85~1.86cm, 아래 0.75pt 선. 제목 텍스트 상자 위치 세로 2.37cm, 24pt 굵게. 출처 줄 세로 3.64cm, 9.6pt.</li>
+      <li>본문 영역 세로 4.66~17.36cm. 차트 개체: 가로 1.69cm, 너비 21.38cm, 높이 12.7cm. 오른쪽 설명 상자: 가로 23.92cm, 너비 8.26cm, 높이 12.7cm. 바닥 줄 세로 17.91cm.</li>
+    </ul>
+    <h3>차트</h3>
+    <ul>
+      <li>[삽입 → 차트 → 콤보] 에서 '묶은 세로 막대 - 꺾은선형, 보조 축'. 막대 = 개방 학교 수, 꺾은선(표식 있음) = 학교당 이용, 꺾은선에 '보조 축' 체크.</li>
+      <li>기본 축: 최소 0, 최대 300, 주 단위 50. 보조 축: 최소 0, 최대 6000, 주 단위 1000. 두 축 모두 6칸이라 격자선이 겹친다. 보조 축의 격자선은 끈다.</li>
+      <li>막대 간격 너비 129%(막대 76 : 빈칸 98). 막대 채우기 = c4, 데이터 레이블 '바깥쪽 끝'. 꺾은선 2.25pt, c1, 표식 원 9pt 흰 채우기, 데이터 레이블 '아래쪽'.</li>
+      <li>범례는 지우고 두 축 제목을 축 위 끝에 가로로 둔다(왼쪽 "개방 학교 수(교)", 오른쪽 "학교당 연간 이용(명)").</li>
+      <li>총 이용 줄: 차트 아래에 1행 5열 표(테두리 없음)를 그림 영역 너비에 맞춰 놓고 열 가운데를 막대 가운데에 맞춘다. 값은 14.4pt 굵게. 2022~2025 아래에 강조색 1.5pt 선(양끝 짧은 세로선)과 "4년째 75만 명 안팎".</li>
+      <li>조례 개정 주석: 2021·2022 막대 사이에 0.75pt 점선 세로선 + 9.6pt 텍스트 상자.</li>
+    </ul>
+    <h3>아이콘</h3>
+    <p>아이콘 세트 페이지에서 search·target의 SVG를 복사해 [붙여넣기] 후 [그래픽 형식 → 도형으로 변환] 하거나 그대로 둔 채 선 색을 c1로 바꾼다. 배지는 둥근 사각형 1.02cm, 채우기 c5, 아이콘 0.55cm.</p>
+  </section>
+
+  <section class="sec">
+    <h2><small>5</small>스펙</h2>
+    <div class="tbl"><table class="spec" id="spec-tbl"><thead><tr><th>변수</th><th>중립 값</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead><tbody></tbody></table></div>
+    <h3>글꼴</h3>
+    <p>중립: Gothic A1 800(제목) · IBM Plex Sans KR 400/700(본문) · Saira Semi Condensed 600/700(숫자). 계열별 글꼴은 위 표. 모든 글꼴 줄 끝에 대체 글꼴.</p>
+    <h3>글자 단계 (1600×900 기준)</h3>
+    <p>제목 40 · 묶음 머리·곱셈 줄 값 24 · 본문·데이터 레이블 19 · 축 눈금·머리말 띠·출처 16.</p>
+    <h3>쓴 아이콘</h3>
+    <p><span class="mono">search</span> 조사·분석(원인 점검) · <span class="mono">target</span> 목표(2026 운영 방향) — 사각 배지(is-square) 한 종류, 색 --ds-c1, 48px. 아이콘: Tabler Icons(MIT).</p>
+    <h3>난이도</h3>
+    <p>HTML 중 · PPT 중(콤보 차트 보조 축 설정과 곱셈 줄 표 맞추기).</p>
+    <h3>트렌드</h3>
+    <p>두 축의 최솟값·최댓값·눈금 수를 맞춰 격자선을 하나로 쓰는 겸용 차트, 축 제목에 단위와 계열 표시 — CDC COVE 'Combination Bar/Line Chart' <a href="https://www.cdc.gov/cove/data-visualization-types/combo-bar-line.html" target="_blank" rel="noopener">cdc.gov/cove</a></p>
+  </section>
+</div>
+
+<script id="ch-js">
+/* ===== 장표 차트 그리기: 데이터는 CH_DATA 하나 ===== */
+(function(){
+  var CH_DATA = {
+    years:  ['2021','2022','2023','2024','2025'],
+    bars:   [112, 168, 205, 231, 246],          // 개방 학교 수(교)
+    line:   [4800, 4350, 3700, 3250, 3050],     // 학교당 연간 이용(명)
+    barMax: 300, barStep: 50, barUnit: '교',     // 왼쪽 축: 맨 위 = 관내 전체 학교
+    lineMax: 6000, lineStep: 1000, lineUnit: '명', // 오른쪽 축: 칸 수를 왼쪽과 같게(6칸)
+    barTitle: '개방 학교 수(교) · 맨 위 300 = 관내 전체',
+    lineTitle: '학교당 연간 이용(명)',
+    event: { after: 0, text: '2022.3 개방 조례 개정 · 권고 → 원칙' },
+    totalTitle: '총 이용 인원(만 명) = 개방 학교 수 × 학교당 이용',
+    plateau: { from: 1, to: 4, text: '4년째 75만 명 안팎' }
+  };
+  // 그림 영역 좌표(가상 px, viewBox 1010×600)
+  var W = 1010, PL = 70, PR = 940, PT = 46, PB = 440, PH = PB - PT;
+  var n = CH_DATA.years.length, BW = (PR - PL) / n, BAR = 76;
+  function yL(v){ return PB - v / CH_DATA.barMax * PH; }   // 왼쪽 축척(선형, 0 시작)
+  function yR(v){ return PB - v / CH_DATA.lineMax * PH; }  // 오른쪽 축척(선형, 0 시작)
+  function cx(i){ return PL + BW * (i + 0.5); }
+  function f(v){ return v.toLocaleString('ko-KR'); }
+  function t(x, y, s, a){ // a: 속성 문자열
+    return '<text x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" ' + (a || '') + '>' + s + '</text>';
+  }
+  var NUM = 'font-family="var(--ds-font-num)"';
+  function draw(svg){
+    var o = '', k, i;
+    var ticks = CH_DATA.barMax / CH_DATA.barStep;
+    // 격자선 + 두 축 눈금(같은 높이를 공유)
+    for (k = 0; k <= ticks; k++){
+      var y = yL(k * CH_DATA.barStep);
+      o += '<line x1="' + PL + '" x2="' + PR + '" y1="' + y + '" y2="' + y + '" stroke="var(--ds-' + (k ? 'line' : 'c3') + ')" stroke-width="' + (k ? 1 : 1.5) + '"/>';
+      o += t(PL - 12, y + 6, f(k * CH_DATA.barStep), 'text-anchor="end" font-size="16" fill="var(--ds-sub)" ' + NUM);
+      o += t(PR + 12, y + 6, f(k * CH_DATA.lineStep), 'text-anchor="start" font-size="16" fill="var(--ds-sub)" ' + NUM);
+    }
+    // 축 제목 = 계열 직접 라벨(범례 대신)
+    o += '<rect x="0" y="8" width="14" height="14" fill="var(--ds-c4)"/>';
+    o += t(22, 21, CH_DATA.barTitle, 'font-size="16" font-weight="700" fill="var(--ds-ink)"');
+    o += '<line x1="' + (W - 30) + '" x2="' + W + '" y1="15" y2="15" stroke="var(--ds-c1)" stroke-width="3"/><circle cx="' + (W - 15) + '" cy="15" r="5" fill="var(--ds-surface)" stroke="var(--ds-c1)" stroke-width="2.5"/>';
+    o += t(W - 40, 21, CH_DATA.lineTitle, 'text-anchor="end" font-size="16" font-weight="700" fill="var(--ds-ink)"');
+    // 계기 주석(점선 하나)
+    var ex = PL + BW * (CH_DATA.event.after + 1);
+    o += '<line x1="' + ex + '" x2="' + ex + '" y1="' + (PT - 4) + '" y2="' + PB + '" stroke="var(--ds-sub)" stroke-width="1" stroke-dasharray="4 5"/>';
+    o += t(ex + 10, PT + 14, CH_DATA.event.text, 'font-size="16" fill="var(--ds-sub)"');
+    // 막대(선형) + 값 라벨(위)
+    for (i = 0; i < n; i++){
+      var v = CH_DATA.bars[i], top = yL(v);
+      o += '<rect x="' + (cx(i) - BAR / 2) + '" y="' + top.toFixed(1) + '" width="' + BAR + '" height="' + (PB - top).toFixed(1) + '" fill="var(--ds-c4)"/>';
+      o += t(cx(i), top - 10, f(v) + (i === n - 1 ? CH_DATA.barUnit : ''), 'text-anchor="middle" font-size="19" font-weight="600" fill="var(--ds-ink)" ' + NUM);
+    }
+    // 꺾은선 + 점 + 값 라벨(아래)
+    var d = '';
+    for (i = 0; i < n; i++) d += (i ? 'L' : 'M') + cx(i).toFixed(1) + ' ' + yR(CH_DATA.line[i]).toFixed(1);
+    o += '<path d="' + d + '" fill="none" stroke="var(--ds-c1)" stroke-width="3" stroke-linejoin="round"/>';
+    for (i = 0; i < n; i++){
+      var ly = yR(CH_DATA.line[i]);
+      o += '<circle cx="' + cx(i).toFixed(1) + '" cy="' + ly.toFixed(1) + '" r="6" fill="var(--ds-surface)" stroke="var(--ds-c1)" stroke-width="2.5"/>';
+      // 점이 막대 위로 충분히 떠 있으면 라벨을 점 위에, 아니면 점 아래(막대 안)에 둔다
+      var above = ly < yL(CH_DATA.bars[i]) - 40;
+      o += t(cx(i), above ? ly - 16 : ly + 31, f(CH_DATA.line[i]) + (i === n - 1 ? CH_DATA.lineUnit : ''), 'text-anchor="middle" font-size="19" font-weight="700" fill="var(--ds-c1)" ' + NUM);
+    }
+    // 연도
+    for (i = 0; i < n; i++) o += t(cx(i), PB + 30, CH_DATA.years[i], 'text-anchor="middle" font-size="19" fill="var(--ds-ink)" ' + NUM);
+    // 곱셈 줄: 총 이용 = 막대 × 꺾은선 (만 명, 소수 첫째 자리)
+    o += '<line x1="' + PL + '" x2="' + PR + '" y1="' + (PB + 50) + '" y2="' + (PB + 50) + '" stroke="var(--ds-line)" stroke-width="1"/>';
+    o += t(PL, PB + 74, CH_DATA.totalTitle, 'font-size="16" fill="var(--ds-sub)"');
+    for (i = 0; i < n; i++){
+      var tot = Math.round(CH_DATA.bars[i] * CH_DATA.line[i] / 1000) / 10;
+      o += t(cx(i), PB + 112, tot.toFixed(1) + (i === n - 1 ? '만 명' : ''), 'text-anchor="middle" font-size="24" font-weight="700" fill="var(--ds-ink)" ' + NUM);
+    }
+    // 정체 구간 괄호(강조색은 여기 한 계열)
+    var p = CH_DATA.plateau, bx1 = cx(p.from) - 56, bx2 = cx(p.to) + 56, by = PB + 128;
+    o += '<path d="M' + bx1 + ' ' + (by - 9) + 'V' + by + 'H' + bx2 + 'V' + (by - 9) + '" fill="none" stroke="var(--ds-accent)" stroke-width="2.5"/>';
+    o += t((bx1 + bx2) / 2, by + 26, p.text, 'text-anchor="middle" font-size="16" font-weight="700" fill="var(--ds-accent)"');
+    svg.innerHTML = o;
+  }
+  var els = document.querySelectorAll('.ch-root [data-ch-chart] svg');
+  for (var j = 0; j < els.length; j++) draw(els[j]);
+})();
+</script>
+
+<script>
+/* ===== 페이지 전용: 코드 칸 만들기, 계열 값 바꿔 보기, 스펙 표 ===== */
+(function(){
+  var root = document.getElementById('ch-root');
+  // 코드 칸: 장표 원본 마크업(차트 그리기 전) + 장표 CSS + 장표 스크립트
+  var tmp = root.cloneNode(true);
+  tmp.querySelector('[data-ch-chart] svg').innerHTML = '';
+  tmp.removeAttribute('id');
+  tmp.removeAttribute('style');
+  var code = '<meta charset="utf-8">\n' +
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@800&family=IBM+Plex+Sans+KR:wght@400;700&family=Saira+Semi+Condensed:wght@600;700&display=swap">\n' +
+    '<style>' + document.getElementById('ch-css').textContent + '</style>\n\n' +
+    tmp.outerHTML + '\n\n<script>' + document.getElementById('ch-js').textContent + '<\/script>\n';
+  var box = document.getElementById('code-box');
+  box.textContent = code;   // textContent = HTML 이스케이프
+  document.getElementById('copy-btn').addEventListener('click', function(){
+    var btn = this;
+    function sel(){ var r = document.createRange(); r.selectNodeContents(box); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨 · Ctrl+C'; }
+    try {
+      navigator.clipboard.writeText(code).then(function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1600); }, sel);
+    } catch(e){ sel(); }
+  });
+
+  // 계열 값: 인덱스 DB의 계열 키트(B #46 · D #62 · F #117) 토큰
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius'];
+  var FAM = {
+    N: ['#F6F8FB','#FFFFFF','#172A46','#5A6880','#D5DDE8','#D24E2B','#2E6BB0','#1B3560','#36578A','#5E7FB0','#A3B8D6','#D9E3F0',
+        '"Gothic A1","Pretendard","Malgun Gothic",sans-serif','"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif','"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif','4px'],
+    B: ['#EEF1F4','#FAFAF8','#1F2B36','#5E6974','#CDD4DB','#E2571A','#2F5D86','#2F4252','#4F6679','#7389A0','#9DB0C1','#C6D2DC',
+        '"Gothic A1","Pretendard","Malgun Gothic",sans-serif','"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif','"IBM Plex Mono",Consolas,monospace','2px'],
+    D: ['#FBFAF6','#FFFFFF','#1B1E24','#5C606A','#CFCCC4','#D9482B','#23467A','#1F3E6E','#3C5D8C','#6D87AD','#A5B5CD','#D7DEE9',
+        '"Noto Serif KR","Nanum Myeongjo","Batang",serif','"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic",sans-serif','"Noto Serif KR","Nanum Myeongjo",Georgia,serif','0px'],
+    F: ['#F1F4F8','#FFFFFF','#13233A','#55647A','#D2DAE4','#DE4430','#2A6CB4','#1B3A63','#335C8F','#5F84B4','#9BB3D2','#D3E0EF',
+        '"Gothic A1","Pretendard","Malgun Gothic",sans-serif','"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif','"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif','3px']
+  };
+  var btns = document.querySelectorAll('.fam button');
+  function apply(k){
+    for (var i = 0; i < KEYS.length; i++){ if (k === 'N') root.style.removeProperty(KEYS[i]); else root.style.setProperty(KEYS[i], FAM[k][i]); }
+    for (var b = 0; b < btns.length; b++) btns[b].setAttribute('aria-pressed', btns[b].getAttribute('data-fam') === k ? 'true' : 'false');
+  }
+  for (var b = 0; b < btns.length; b++) btns[b].addEventListener('click', function(){ apply(this.getAttribute('data-fam')); });
+
+  // 스펙 표
+  var tb = document.querySelector('#spec-tbl tbody'), h = '';
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+  for (var i = 0; i < KEYS.length; i++){
+    h += '<tr><td class="mono">' + KEYS[i] + '</td>';
+    ['N','B','D','F'].forEach(function(k){
+      var v = FAM[k][i], isC = v.charAt(0) === '#';
+      h += '<td class="mono">' + (isC ? '<span class="sw" style="background:' + v + '"></span>' : '') + esc(isC ? v : v.split(',')[0]) + '</td>';
+    });
+    h += '</tr>';
+  }
+  tb.innerHTML = h;
+})();
+</script>
+
+</body></html>
