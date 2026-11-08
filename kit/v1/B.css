@@ -48,6 +48,108 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
   .deck *,.deck *::before,.deck *::after{transition-duration:.01s!important;transition-delay:0s!important;animation-duration:.01s!important;animation-delay:0s!important;animation-iteration-count:1!important}
 }
 
+/* 성과 공유회 정형 부품 v1 — 모든 계열 공용(deck.css 다음, 계열 CSS 앞에 불러옴)
+   모양은 토큰(--ds-*)만 써서, 계열 CSS가 색 · 글꼴 · 테두리를 바꾼다. 그림은 그리지 않는다(사진은 .ph 자리에 이미지로).
+   부품: 사업 개요 · 추진 경과 · 증감 표시 · 목표 대비 달성 · 만족도 · 전후 비교 · 우수 사례(사진 + 목소리) · 향후 계획 */
+:root{
+  --ds-on:var(--ds-ink); --ds-on-sub:var(--ds-sub); --ds-key:var(--ds-accent); --ds-track:var(--ds-c5,#E3E8ED);
+  --ds-fs-body:28px; --ds-fs-label:24px; --ds-fs-sub:22px; --ds-fs-h:40px; --ds-fs-num:88px; --ds-fs-num-s:48px;
+}
+
+/* ── 사업 개요: 목적 · 대상 · 기간 · 규모 네 칸 ─────────────────────── */
+.brief{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-content:center}
+.brief > div{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:44px 36px;display:flex;flex-direction:column;gap:18px;min-width:0;min-height:460px;color:var(--ds-on)}
+.brief span{font:700 var(--ds-fs-label)/1.2 var(--ds-font-body);color:var(--ds-on-sub)}
+.brief b{font:700 calc(var(--ds-fs-h) * 1.15)/1.3 var(--ds-font-title)}
+.brief p{margin:auto 0 0;font-size:var(--ds-fs-label);line-height:1.5;color:var(--ds-on-sub)}
+.brief > div.is-key b{color:var(--ds-key)}
+
+/* ── 추진 경과: 가로 시간선 위 이정표. 날짜는 <time> ──────────────────── */
+.mile{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:0;align-content:center;position:relative}
+.mile li{position:relative;padding:0 28px 0 0;display:flex;flex-direction:column;gap:14px;min-width:0}
+/* 시간선: 이정표 점 높이(날짜 64 + 간격 14 + 점 반지름)에 맞춰 칸마다 이어 긋는다 */
+.mile li::after{content:"";position:absolute;left:0;right:0;top:94px;height:4px;background:var(--ds-c3)}
+.mile li:last-child::after{right:auto;width:20px}
+.mile time{order:0}.mile li::before{order:1}.mile b{order:2}.mile p{order:3}
+.mile time{font:600 30px/1 var(--ds-font-num);color:var(--ds-sub);height:64px;display:flex;align-items:flex-end}
+.mile li::before{content:"";flex:none;width:36px;height:36px;margin:0 0 10px;border-radius:50%;background:var(--ds-bg);border:7px solid var(--ds-c3);box-sizing:border-box;position:relative;z-index:1}
+.mile b{font:700 calc(var(--ds-fs-h) * 1.05)/1.3 var(--ds-font-title)}
+.mile p{margin:0;font-size:var(--ds-fs-label);line-height:1.5;color:var(--ds-sub)}
+.mile li.is-key::before{border-color:var(--ds-accent);background:var(--ds-accent)}
+.mile li.is-key b{color:var(--ds-accent)}
+
+/* ── 증감 표시: 수치 타일 안 <span class="delta">▲ 38교</span> (줄면 .down) ───── */
+.delta{display:inline-flex;align-items:center;gap:6px;font:700 var(--ds-fs-sub)/1 var(--ds-font-body);color:var(--ds-key)}
+.delta.down{color:var(--ds-on-sub)}
+
+/* ── 목표 대비 달성: 실적 막대 + 목표선. style="--v:92;--t:80"(최댓값 대비 %) ── */
+.goal{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:40px 44px;display:flex;flex-direction:column;justify-content:center;gap:40px;color:var(--ds-on);min-width:0}
+.g-row{display:grid;grid-template-columns:300px 1fr 190px;align-items:center;gap:28px}
+.g-row > span{font:700 var(--ds-fs-body)/1.3 var(--ds-font-body)}
+.g-row > i{position:relative;display:block;height:48px;background:var(--ds-track)}
+.g-row > i::before{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--v) * 1%);background:var(--ds-c3)}
+.g-row > i::after{content:"";position:absolute;left:calc(var(--t) * 1%);top:-12px;bottom:-12px;width:4px;margin-left:-2px;background:var(--ds-on)}
+.g-row > b{justify-self:end;text-align:right;font:600 var(--ds-fs-num-s)/1 var(--ds-font-num)}
+.g-row > b small{display:block;margin-top:8px;font:500 var(--ds-fs-sub)/1 var(--ds-font-body);color:var(--ds-on-sub)}
+.g-row.is-key > i::before{background:var(--ds-key)}.g-row.is-key > b{color:var(--ds-key)}
+.g-key{display:flex;gap:28px;font-size:var(--ds-fs-sub);color:var(--ds-on-sub)}
+.g-key i{display:inline-block;vertical-align:middle;margin-right:8px}
+.g-key .v{width:28px;height:16px;background:var(--ds-c3)}.g-key .t{width:4px;height:28px;background:var(--ds-on)}
+
+/* ── 만족도: 문항마다 다섯 단계 100% 막대. <i style="--v:%"> 다섯 개(매우 불만 → 매우 만족) ── */
+.likert{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:36px 44px;display:flex;flex-direction:column;justify-content:center;gap:30px;color:var(--ds-on);min-width:0}
+.lk{display:grid;grid-template-columns:360px 1fr 130px;align-items:center;gap:28px}
+.lk > span{font:600 var(--ds-fs-body)/1.35 var(--ds-font-body)}
+.lk > div{display:flex;height:52px}
+.lk > div i{width:calc(var(--v) * 1%);display:block}
+.lk > div i:nth-child(1){background:var(--ds-track)}.lk > div i:nth-child(2){background:var(--ds-c5)}.lk > div i:nth-child(3){background:var(--ds-c4)}
+.lk > div i:nth-child(4){background:var(--ds-c2)}.lk > div i:nth-child(5){background:var(--ds-c1)}
+.lk > b{justify-self:end;font:600 var(--ds-fs-num-s)/1 var(--ds-font-num)}
+.lk > b small{font:500 var(--ds-fs-sub)/1 var(--ds-font-body);color:var(--ds-on-sub)}
+.lk.is-key > b{color:var(--ds-key)}
+.lk-key{display:flex;flex-wrap:wrap;gap:8px 24px;margin-left:388px;font-size:var(--ds-fs-sub);color:var(--ds-on-sub)}
+.lk-key i{display:inline-block;width:22px;height:16px;margin-right:8px;vertical-align:middle}
+.lk-key i:nth-of-type(1){background:var(--ds-track)}.lk-key i:nth-of-type(2){background:var(--ds-c5)}.lk-key i:nth-of-type(3){background:var(--ds-c4)}.lk-key i:nth-of-type(4){background:var(--ds-c2)}.lk-key i:nth-of-type(5){background:var(--ds-c1)}
+
+/* ── 전후 비교: 사업 전 → 사업 후, 짝마다 한 줄 ───────────────────────── */
+.ba{display:grid;grid-template-columns:1fr 96px 1fr;align-items:stretch;align-content:center;row-gap:20px}
+.ba > div{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:28px 36px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px 20px;color:var(--ds-on);min-width:0}
+.ba > div span{grid-column:1 / -1;font:700 var(--ds-fs-label)/1 var(--ds-font-body);color:var(--ds-on-sub)}
+.ba > div p{margin:0;font-size:var(--ds-fs-body);line-height:1.4}
+.ba > div b{font:600 var(--ds-fs-num-s)/1 var(--ds-font-num)}
+.ba > div b small{margin-left:4px;font:600 var(--ds-fs-sub)/1 var(--ds-font-body);color:var(--ds-on-sub)}
+.ba > div.is-key b{color:var(--ds-key)}
+.ba > i{position:relative}
+.ba > i::after{content:"";position:absolute;left:22px;right:30px;top:50%;height:4px;margin-top:-2px;background:var(--ds-c3)}
+.ba > i::before{content:"";position:absolute;right:24px;top:50%;width:22px;height:22px;margin-top:-11px;border-top:4px solid var(--ds-c3);border-right:4px solid var(--ds-c3);transform:rotate(45deg)}
+.ba-head{display:grid;grid-template-columns:1fr 96px 1fr;font:700 var(--ds-fs-label)/1 var(--ds-font-body);color:var(--ds-sub)}
+.ba-head span:last-child{grid-column:3}
+
+/* ── 우수 사례: 사진 자리 + 학교 · 한 줄 성과 + 참여자 목소리 ──────────────── */
+.case{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;align-content:center}
+.case > div{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);overflow:hidden;display:flex;flex-direction:column;color:var(--ds-on);min-width:0}
+.ph{position:relative;aspect-ratio:4 / 3;background:var(--ds-track);overflow:hidden}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ph:empty::after{content:attr(data-need);position:absolute;inset:16px;display:grid;place-items:center;text-align:center;border:3px dashed var(--ds-c4);font:600 var(--ds-fs-sub)/1.5 var(--ds-font-body);color:var(--ds-on-sub)}
+.case .c-body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:10px}
+.case .c-body span{font:700 var(--ds-fs-sub)/1.2 var(--ds-font-body);color:var(--ds-on-sub)}
+.case .c-body b{font:700 calc(var(--ds-fs-h) * .85)/1.3 var(--ds-font-title)}
+.case blockquote{margin:6px 0 0;padding-left:18px;border-left:4px solid var(--ds-c3);font-size:var(--ds-fs-sub);line-height:1.55}
+.case cite{display:block;margin-top:6px;font-style:normal;font-size:var(--ds-fs-sub);color:var(--ds-on-sub)}
+.case > div.is-key blockquote{border-left-color:var(--ds-key)}.case > div.is-key b{color:var(--ds-key)}
+
+/* ── 향후 계획: 단계 머리(화살 띠) + 단계별 할 일 ──────────────────────── */
+.road{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:16px;align-content:center}
+.road > div{display:flex;flex-direction:column;gap:18px;min-width:0}
+.road h3{margin:0;padding:26px 60px 26px 40px;background:var(--ds-c3);color:#fff;font:700 calc(var(--ds-fs-h) * .95)/1.2 var(--ds-font-title);
+  clip-path:polygon(0 0,calc(100% - 32px) 0,100% 50%,calc(100% - 32px) 100%,0 100%,24px 50%)}
+.road > div:first-child h3{clip-path:polygon(0 0,calc(100% - 32px) 0,100% 50%,calc(100% - 32px) 100%,0 100%)}
+.road h3 small{display:block;margin-bottom:6px;font:600 var(--ds-fs-sub)/1 var(--ds-font-num);opacity:.85}
+.road ul{margin:8px 0 0;padding:0 12px;list-style:none;display:flex;flex-direction:column;gap:22px}
+.road li{position:relative;padding-left:26px;font-size:calc(var(--ds-fs-body) * 1.1);line-height:1.45;color:var(--ds-ink)}
+.road li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:10px;background:var(--ds-c3)}
+.road > div.is-key h3{background:var(--ds-accent)}.road > div.is-key li::before{background:var(--ds-accent)}
+
 /* B 미니멀 스튜디오 — 덱 키트 v1 (deck.css 다음에 불러옴)
    전시관 모형대 · 촬영 스튜디오처럼 밝은 청백 무광. 사물은 한 덩어리, 주황은 한 장에 한 곳.
    근거 장표: #19 · #26 · #28 · #37(표지), #46 · #116(목차·간지 키트) */
