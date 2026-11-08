@@ -1,0 +1,140 @@
+/* C 경쾌한 놀이 오브젝트 — 덱 키트 v1 (deck.css 다음에 불러옴)
+   밝은 하늘빛 흰 바탕 + 장난감 블록. 원색 다섯은 섹션 표시에만, 빨강 강조는 한 곳.
+   근거 장표: #7 · #24 · #29 · #39(표지), #82(목차·간지 키트) */
+:root{
+  --ds-stage:#DCE6F2;
+  --ds-bg:#F3F7FC; --ds-surface:#FFFFFF; --ds-ink:#1D2B4F; --ds-sub:#56607A; --ds-line:#D3DCE8;
+  --ds-accent:#F2463C; --ds-accent2:#2F7BF5;
+  --ds-c1:#1C3B7A; --ds-c2:#2F62C8; --ds-c3:#5B8FEA; --ds-c4:#A9C7F7; --ds-c5:#DCE9FC;
+  --ds-toy1:#2F7BF5; --ds-toy2:#FFC22E; --ds-toy3:#22B573; --ds-toy4:#FF8A2A; --ds-toy5:#F2463C;
+  --ds-radius:14px; --ds-shadow:0 2px 0 rgba(29,43,79,.06),0 18px 36px -22px rgba(29,43,79,.35);
+  --ds-font-title:"Black Han Sans","Gmarket Sans","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Fredoka","Arial Rounded MT Bold","Black Han Sans",sans-serif;
+}
+.slide{isolation:isolate;background:var(--ds-bg);color:var(--ds-ink);font:400 28px/1.55 var(--ds-font-body)}
+.slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(70% 55% at 75% 70%,rgba(255,255,255,.9),rgba(255,255,255,0) 70%)}
+
+/* ── 공통: 머리말 띠(3px 먹선) · 결론 제목 · 쪽 번호 · 출처 ─────────── */
+.s-body{position:absolute;inset:80px 120px 96px;display:flex;flex-direction:column;gap:36px}
+.kicker{margin:0;padding-bottom:16px;border-bottom:3px solid var(--ds-ink);font:700 24px/1 var(--ds-font-body);color:var(--ds-ink)}
+.title{margin:0;max-width:1600px;font:400 58px/1.3 var(--ds-font-title);letter-spacing:-.01em;text-wrap:balance}
+.title em{font-style:normal;color:var(--ds-accent)}
+.lead{margin:-12px 0 0;max-width:1400px;font-size:28px;color:var(--ds-sub)}
+.fill{flex:1;min-height:0}
+.src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
+.page-no{position:absolute;right:120px;bottom:40px;font:600 24px/1 var(--ds-font-num);color:var(--ds-c2)}
+
+/* ── 블록 탑: 블록 수 = 섹션 수, 아래가 1섹션. .ghost 아직 안 놓인 층(점선), .flag 깃발(마무리) ── */
+.blocks{display:flex;flex-direction:column-reverse;align-items:center}
+.blocks i{--c:var(--ds-toy1);position:relative;display:block;width:320px;height:84px;margin-top:-2px;border-radius:12px;background:var(--c);
+  box-shadow:inset 0 -14px 0 rgba(0,0,0,.16),inset 0 10px 0 rgba(255,255,255,.28),0 2px 0 rgba(29,43,79,.08)}
+.blocks i::before{content:"";position:absolute;left:30px;right:30px;top:-20px;height:26px;
+  background:radial-gradient(ellipse 25px 13px at 50% 40%,rgba(255,255,255,.35),transparent 70%) 0 0/25% 100%,
+             radial-gradient(ellipse 25px 13px at 50% 50%,var(--c) 92%,transparent 100%) 0 0/25% 100%,
+             radial-gradient(ellipse 25px 13px at 50% 75%,rgba(0,0,0,.22) 92%,transparent 100%) 0 0/25% 100%}
+.blocks i:nth-child(2){--c:var(--ds-toy2)}.blocks i:nth-child(3){--c:var(--ds-toy3)}.blocks i:nth-child(4){--c:var(--ds-toy4)}.blocks i:nth-child(5){--c:var(--ds-toy5)}
+.blocks i.ghost{background:transparent;box-shadow:none;border:4px dashed var(--ds-c4)}
+.blocks i.ghost::before{display:none}
+.blocks::before{content:"";order:-1;width:440px;height:26px;margin-top:-6px;background:radial-gradient(50% 100% at 50% 0,rgba(29,43,79,.22),transparent 70%)}
+.blocks.flag::after{content:"";width:130px;height:180px;margin:0 0 -6px 100px;
+  background:linear-gradient(var(--ds-ink),var(--ds-ink)) 0 0/8px 100% no-repeat,linear-gradient(var(--ds-accent),var(--ds-accent)) 8px 6px/112px 76px no-repeat;
+  clip-path:polygon(0 0,8px 0,8px 6px,120px 44px,8px 82px,8px 100%,0 100%)}
+
+/* 섹션 색 칩(목차 줄 · 카드 머리): 작은 블록 하나 */
+.toc-list li::before,.card .c-no::before{content:"";flex:none;width:44px;height:32px;border-radius:7px;background:var(--c,var(--ds-toy1));
+  box-shadow:inset 0 -6px 0 rgba(0,0,0,.16),inset 0 4px 0 rgba(255,255,255,.3)}
+.toc-list li:nth-child(2),.grid > .card:nth-child(2){--c:var(--ds-toy2)}
+.toc-list li:nth-child(3),.grid > .card:nth-child(3){--c:var(--ds-toy3)}
+.toc-list li:nth-child(4),.grid > .card:nth-child(4){--c:var(--ds-toy4)}
+.toc-list li:nth-child(5),.grid > .card:nth-child(5){--c:var(--ds-toy5)}
+
+/* ── 표지 ─────────────────────────────────────────── */
+.cover .c-text{position:absolute;left:120px;top:170px;width:1180px;display:flex;flex-direction:column;gap:28px}
+.cover .c-tag{font:600 26px/1 var(--ds-font-num);color:var(--ds-c2)}
+.cover h1{margin:0;font:400 100px/1.16 var(--ds-font-title);letter-spacing:-.01em}
+.cover h1 em{font-style:normal;color:var(--ds-accent)}
+.cover .c-sub{margin:0;font-size:32px;color:var(--ds-sub);max-width:900px}
+.cover .c-org{position:absolute;left:120px;bottom:96px;display:flex;gap:40px;margin:0;padding:24px 36px;border-radius:var(--ds-radius);background:var(--ds-surface);box-shadow:var(--ds-shadow);font:600 26px/1.4 var(--ds-font-body);color:var(--ds-ink)}
+.cover .blocks{position:absolute;right:220px;bottom:170px}
+
+/* ── 목차: 줄마다 섹션 색 블록 칩 ─────────────────────────── */
+.toc-list{list-style:none;margin:0;padding:0;width:1100px}
+.toc-list li{display:grid;grid-template-columns:44px 90px 1fr 100px;column-gap:28px;align-items:center;height:108px;border-bottom:2px solid var(--ds-line);font:400 40px/1.2 var(--ds-font-title)}
+.toc-list li b{font:600 34px/1 var(--ds-font-num);color:var(--ds-c2)}
+.toc-list li span:last-child{justify-self:end;font:600 34px/1 var(--ds-font-num);color:var(--ds-c2)}
+.toc-list li.is-now{color:var(--ds-accent)}.toc-list li.is-now b,.toc-list li.is-now span:last-child{color:var(--ds-accent)}
+.toc .blocks{position:absolute;right:190px;bottom:170px}
+
+/* ── 간지: 지금 층까지만 놓이고 남은 층은 점선 ─────────────────── */
+.divider .d-no{position:absolute;left:120px;top:190px;font:600 240px/1 var(--ds-font-num);color:var(--ds-toy1)}
+.divider .d-no small{display:block;margin-bottom:20px;font-size:26px;letter-spacing:.08em;color:var(--ds-sub)}
+.divider h2{position:absolute;left:120px;top:560px;margin:0;font:400 96px/1.2 var(--ds-font-title)}
+.divider p{position:absolute;left:120px;top:700px;margin:0;width:900px;font-size:30px;color:var(--ds-sub)}
+.divider .blocks{position:absolute;right:240px;bottom:170px}
+
+/* ── 마무리: 깃발 꽂은 탑 ───────────────────────────────── */
+.close h2{position:absolute;left:120px;top:360px;margin:0;font:400 96px/1.2 var(--ds-font-title)}
+.close p{position:absolute;left:120px;top:620px;margin:0;padding:22px 32px;border-radius:var(--ds-radius);background:var(--ds-surface);box-shadow:var(--ds-shadow);font-size:28px;color:var(--ds-ink)}
+.close .blocks{position:absolute;right:240px;bottom:150px}
+
+/* ── 배치 격자 ─────────────────────────────────────── */
+.grid{display:grid;gap:32px;align-items:stretch}
+.grid.center{align-content:center}
+.grid.g2{grid-template-columns:repeat(2,1fr)}.grid.g3{grid-template-columns:repeat(3,1fr)}.grid.g4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:stretch}
+.stack{display:flex;flex-direction:column;justify-content:center;gap:24px}
+
+/* ── 카드 묶음 ─────────────────────────────────────── */
+.card{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:40px 40px 36px;display:flex;flex-direction:column;gap:18px;min-width:0;min-height:440px}
+.card .c-no{display:flex;align-items:center;gap:16px;font:700 24px/1 var(--ds-font-body);color:var(--ds-sub)}
+.card h3{margin:0;font:400 48px/1.25 var(--ds-font-title)}
+.card p{margin:0;font-size:28px;line-height:1.5;color:var(--ds-ink)}
+.card .c-foot{margin-top:auto;padding-top:20px;border-top:2px dashed var(--ds-line);font-size:24px;color:var(--ds-sub)}
+.card .c-foot b{font:600 36px/1 var(--ds-font-num);color:var(--ds-c2)}
+.card.is-key{box-shadow:inset 0 0 0 4px var(--ds-accent),var(--ds-shadow)}.card.is-key .c-foot b{color:var(--ds-accent)}
+
+/* ── 수치 타일 ─────────────────────────────────────── */
+.tile{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:36px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tile span{font-size:26px;font-weight:700;color:var(--ds-sub)}
+.tile b{font:600 92px/1 var(--ds-font-num);color:var(--ds-ink)}
+.tile b small{margin-left:8px;font:700 32px/1 var(--ds-font-body);color:var(--ds-sub)}
+.tile p{margin:0;font-size:24px;color:var(--ds-sub)}
+.tile.is-key b{color:var(--ds-accent)}
+
+/* ── 막대(가로, 둥근 끝): style="--v:42" 는 최댓값 대비 % ───────────── */
+.bars{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:40px;display:flex;flex-direction:column;justify-content:center;gap:44px;min-width:0}
+.bars h3{margin:0;font:400 34px/1.3 var(--ds-font-title)}
+.bar{display:grid;grid-template-columns:110px 1fr 120px;align-items:center;gap:20px;font-size:28px}
+.bar::before{content:"";grid-column:2;grid-row:1;height:60px;width:calc(var(--v) * 1%);border-radius:30px;background:var(--ds-c4);box-shadow:inset 0 -8px 0 rgba(0,0,0,.08)}
+.bar span{grid-column:1;grid-row:1;font:600 30px/1 var(--ds-font-num);color:var(--ds-sub)}
+.bar b{grid-column:3;grid-row:1;justify-self:end;font:600 36px/1 var(--ds-font-num);color:var(--ds-c2)}
+.bar.is-key::before{background:var(--ds-accent)}.bar.is-key b{color:var(--ds-accent)}
+
+/* ── 현안 → 해결 ───────────────────────────────────── */
+.fix{display:grid;grid-template-columns:1fr 80px 1.25fr;gap:0;align-items:stretch}
+.fix > p{margin:0;padding:32px 36px;font-size:30px;line-height:1.45;border-radius:var(--ds-radius)}
+.fix .q{background:var(--ds-c5);color:var(--ds-c1)}
+.fix .a{background:var(--ds-surface);box-shadow:var(--ds-shadow);font-weight:600}
+.fix .q b,.fix .a b{display:block;margin-bottom:10px;font:700 24px/1 var(--ds-font-body);color:var(--ds-c2)}
+.fix i{position:relative}
+.fix i::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:var(--ds-toy2);box-shadow:inset 0 -5px 0 rgba(0,0,0,.14)}
+.fix i::before{content:"";position:absolute;left:50%;top:50%;z-index:1;width:12px;height:12px;margin:-7px 0 0 -9px;border-top:4px solid var(--ds-ink);border-right:4px solid var(--ds-ink);transform:rotate(45deg)}
+.fix.is-key .a{box-shadow:inset 0 0 0 4px var(--ds-accent),var(--ds-shadow)}
+
+/* ── 간트(월 1~12, 둥근 막대): style="--from:3;--to:6" ───────────────── */
+.gantt{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:32px 36px;display:grid;grid-template-columns:250px repeat(12,1fr);row-gap:20px;align-items:center;min-width:0}
+.gantt .g-h{font:600 24px/1 var(--ds-font-num);color:var(--ds-sub);text-align:center}
+.gantt .g-h:first-child{text-align:left;font:700 24px/1 var(--ds-font-body)}
+.gantt .g-name{grid-column:1;font-size:26px;line-height:1.3;font-weight:700}
+.gantt .g-bar{grid-column:calc(var(--from) + 1) / calc(var(--to) + 2);height:34px;border-radius:17px;background:var(--ds-c3)}
+.gantt .g-bar.is-key{background:var(--ds-accent)}
+
+/* ── 표 ────────────────────────────────────────────── */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);overflow:hidden;font-size:28px}
+.tbl th{padding:22px 28px;text-align:left;font:700 24px/1.2 var(--ds-font-body);color:var(--ds-sub);background:var(--ds-c5)}
+.tbl td{padding:20px 28px;border-bottom:2px solid var(--ds-line)}
+.tbl td.n{text-align:right;font:600 32px/1 var(--ds-font-num);color:var(--ds-c2)}
+.tbl tr.is-key td{color:var(--ds-accent);font-weight:700}.tbl tr.is-key td.n{color:var(--ds-accent)}
+.tbl tfoot td{font-weight:700;border-bottom:0;background:var(--ds-c5)}
