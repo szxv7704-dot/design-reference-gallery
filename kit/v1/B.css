@@ -11,8 +11,9 @@
 html,body{margin:0;height:100%;background:var(--ds-stage,#1b1f24)}
 body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-smoothing:antialiased;font-synthesis:none}
 .deck,.deck *{box-sizing:border-box}
-.deck{position:fixed;inset:0;display:grid;place-items:center;overflow:hidden}
-.deck-stage{position:relative;width:1920px;height:1080px;flex:none;transform-origin:50% 50%;background:var(--ds-bg,#fff);overflow:hidden}
+.deck{position:fixed;inset:0;overflow:hidden}
+/* 무대는 화면 정중앙 기준(화면이 1920px보다 좁아도 밀리지 않게) */
+.deck-stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:50% 50%;background:var(--ds-bg,#fff);overflow:hidden}
 .slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;visibility:hidden;opacity:0;transition:opacity .35s ease,visibility 0s linear .35s}
 .slide.is-on{visibility:visible;opacity:1;transition:opacity .35s ease}
 .slide img,.slide svg,.slide video{max-width:100%}
@@ -35,7 +36,7 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
   html,body{height:auto;overflow:visible;background:#fff}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .deck{position:static;display:block}
-  .deck-stage{transform:none!important;width:auto;height:auto;background:none;overflow:visible}
+  .deck-stage{position:static;transform:none!important;width:auto;height:auto;background:none;overflow:visible}
   .slide{position:relative;visibility:visible;opacity:1;transition:none;break-inside:avoid;break-after:page;
     zoom:.6666;background:var(--ds-bg,#fff)}
   .slide:last-child{break-after:auto}

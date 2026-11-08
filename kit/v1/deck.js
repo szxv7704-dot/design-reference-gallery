@@ -36,7 +36,7 @@
   function go(n, k) { cur = Math.max(0, Math.min(N - 1, n)); step = Math.max(0, Math.min(stepsOf(slides[cur]), k || 0)); paint(); }
   function next() { if (step < stepsOf(slides[cur])) { step++; paint(); } else if (cur < N - 1) go(cur + 1, 0); }
   function prev() { if (step > 0) { step--; paint(); } else if (cur > 0) go(cur - 1, 99); }
-  function fit() { var s = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = 'scale(' + s + ')'; }
+  function fit() { var s = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')'; }
   var busy = function (t) { return t && t.closest && t.closest('button,a,input,select,textarea,label,[data-no-advance]'); };
   document.addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
