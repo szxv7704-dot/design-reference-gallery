@@ -1,0 +1,140 @@
+/* D 인쇄·종이 에디토리얼 — 덱 키트 v1 (deck.css 다음에 불러옴)
+   밝은 백상지 + 먹 명조 제목 + 남색 주판 · 주홍 별색 2도. 이중 괘선(굵은 3 + 가는 1)과 12단 눈금으로 지면을 짠다.
+   판 어긋남 · 재단 표시는 간지에만, 주홍은 한 장에 한 곳.
+   근거 장표: #4 · #27 · #32 · #60(표지), #62(목차·간지 키트) */
+:root{
+  --ds-stage:#E4E1D8;
+  --ds-bg:#FBFAF6; --ds-surface:#FFFFFF; --ds-ink:#1B1E24; --ds-sub:#5C606A; --ds-line:#CFCCC4;
+  --ds-accent:#D9482B; --ds-accent2:#23467A;
+  --ds-c1:#1F3E6E; --ds-c2:#3C5D8C; --ds-c3:#6D87AD; --ds-c4:#A5B5CD; --ds-c5:#D7DEE9;
+  --ds-paper2:#F1EEE6;
+  --ds-radius:0px; --ds-shadow:0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32);
+  --ds-font-title:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --ds-font-body:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Noto Serif KR","Nanum Myeongjo","Batang",Georgia,serif;
+  --rule2:linear-gradient(var(--ds-ink),var(--ds-ink)) left top/100% 3px no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) left 7px/100% 1px no-repeat;
+}
+.slide{isolation:isolate;background:var(--ds-bg);color:var(--ds-ink);font:400 28px/1.6 var(--ds-font-body)}
+
+/* ── 공통: 머리말 띠(이중 괘선) · 결론 제목 · 쪽 번호 · 출처 ─────────── */
+.s-body{position:absolute;inset:80px 120px 96px;display:flex;flex-direction:column;gap:36px}
+.kicker{margin:0;padding-bottom:18px;font:600 24px/1 var(--ds-font-body);color:var(--ds-ink);
+  background:linear-gradient(var(--ds-ink),var(--ds-ink)) left calc(100% - 5px)/100% 3px no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) left bottom/100% 1px no-repeat}
+.title{margin:0;max-width:1600px;font:900 58px/1.32 var(--ds-font-title);letter-spacing:-.02em;text-wrap:balance}
+.title em{font-style:normal;color:var(--ds-accent)}
+.lead{margin:-12px 0 0;max-width:1400px;font-size:28px;color:var(--ds-sub)}
+.fill{flex:1;min-height:0}
+.src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
+.page-no{position:absolute;right:120px;bottom:40px;font:700 24px/1 var(--ds-font-num);color:var(--ds-ink)}
+
+/* ── 판 번호(.reg): 큰 명조 숫자 + 맞춤 표지(⊕). 간지는 재단 표시 + 주홍 판 어긋남 ── */
+.reg{position:absolute;pointer-events:none}
+.reg b{display:block;font:900 300px/1 var(--ds-font-num);letter-spacing:-.04em;color:var(--ds-c1)}
+.reg::after{content:"";position:absolute;width:56px;height:56px;border:2px solid var(--ds-ink);border-radius:50%;
+  background:linear-gradient(var(--ds-ink),var(--ds-ink)) center/2px 100% no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) center/100% 2px no-repeat}
+.reg .crop{position:absolute;inset:-36px;
+  background:
+    linear-gradient(var(--ds-ink),var(--ds-ink)) 0 36px/28px 1px no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) 36px 0/1px 28px no-repeat,
+    linear-gradient(var(--ds-ink),var(--ds-ink)) 100% 36px/28px 1px no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) calc(100% - 36px) 0/1px 28px no-repeat,
+    linear-gradient(var(--ds-ink),var(--ds-ink)) 0 calc(100% - 36px)/28px 1px no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) 36px 100%/1px 28px no-repeat,
+    linear-gradient(var(--ds-ink),var(--ds-ink)) 100% calc(100% - 36px)/28px 1px no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) calc(100% - 36px) 100%/1px 28px no-repeat}
+
+/* ── 표지: 신문 1면처럼 제호 띠 → 큰 명조 → 날짜 줄 ─────────────────── */
+.cover .c-text{position:absolute;left:120px;right:120px;top:110px;display:flex;flex-direction:column;gap:32px}
+.cover .c-tag{padding-bottom:20px;font:600 24px/1 var(--ds-font-body);color:var(--ds-ink);
+  background:linear-gradient(var(--ds-ink),var(--ds-ink)) left calc(100% - 5px)/100% 3px no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) left bottom/100% 1px no-repeat}
+.cover h1{margin:24px 0 0;max-width:1240px;font:900 104px/1.22 var(--ds-font-title);letter-spacing:-.03em}
+.cover h1 em{font-style:normal;color:var(--ds-accent)}
+.cover .c-sub{margin:0;max-width:1000px;font:400 34px/1.5 var(--ds-font-title);color:var(--ds-sub)}
+.cover .c-org{position:absolute;left:120px;right:120px;bottom:96px;display:flex;gap:40px;margin:0;padding:22px 0;border-top:1px solid var(--ds-ink);border-bottom:1px solid var(--ds-ink);font:600 26px/1.4 var(--ds-font-body)}
+.cover .reg{right:150px;bottom:210px}
+.cover .reg::after{right:-12px;top:-40px}
+
+/* ── 목차: 12단 눈금 위 지면 안내. 로마 숫자 대신 큰 명조 번호 ───────────── */
+.toc-list{list-style:none;margin:0;padding:0;width:1240px;align-self:flex-end;border-top:3px solid var(--ds-ink)}
+.toc-list li{display:grid;grid-template-columns:120px 1fr 140px;align-items:center;height:104px;border-bottom:1px solid var(--ds-line);font:700 40px/1.2 var(--ds-font-title)}
+.toc-list li b{font:900 48px/1 var(--ds-font-num);color:var(--ds-c1)}
+.toc-list li span:last-child{justify-self:end;font:700 28px/1 var(--ds-font-num)}
+.toc-list li span:last-child::before{content:"p.";font-size:24px;color:var(--ds-sub)}
+.toc-list li.is-now{color:var(--ds-accent)}.toc-list li.is-now b{color:var(--ds-accent)}
+.toc .reg{left:120px;right:120px;top:246px;height:14px;
+  background:repeating-linear-gradient(90deg,var(--ds-line) 0 1px,transparent 1px calc((1920px - 240px) / 12))}
+.toc .reg b{display:none}
+.toc .reg::after{left:0;top:200px}
+
+/* ── 간지: 큰 명조 번호에 주홍 판 어긋남 한 곳 + 재단 표시 ──────────────── */
+.divider .d-no{position:absolute;left:150px;top:150px;font:900 280px/1 var(--ds-font-num);letter-spacing:-.04em;color:var(--ds-c1);text-shadow:6px 5px 0 rgba(217,72,43,.8)}
+.divider .d-no small{display:block;margin-bottom:24px;font:600 24px/1 var(--ds-font-body);letter-spacing:.06em;color:var(--ds-sub);text-shadow:none}
+.divider h2{position:absolute;left:150px;top:560px;margin:0;font:900 96px/1.2 var(--ds-font-title);letter-spacing:-.02em}
+.divider p{position:absolute;left:150px;top:700px;margin:0;width:1000px;font:400 32px/1.5 var(--ds-font-title);color:var(--ds-sub)}
+.divider .reg{left:110px;top:110px;width:1700px;height:860px}
+.divider .reg b{display:none}
+.divider .reg::after{right:40px;top:40px}
+
+/* ── 마무리: 공지란 겹 테두리 ───────────────────────────── */
+.close h2{position:absolute;left:120px;top:330px;margin:0;font:900 96px/1.25 var(--ds-font-title);letter-spacing:-.02em}
+.close p{position:absolute;left:120px;top:620px;margin:0;padding:24px 36px;border:4px double var(--ds-ink);font-size:28px}
+.close .reg{right:160px;bottom:140px;width:56px;height:56px}
+.close .reg b{display:none}
+.close .reg::after{left:0;top:0}
+
+/* ── 배치 격자 ─────────────────────────────────────── */
+.grid{display:grid;gap:40px;align-items:stretch}
+.grid.center{align-content:center}
+.grid.g2{grid-template-columns:repeat(2,1fr)}.grid.g3{grid-template-columns:repeat(3,1fr)}.grid.g4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:stretch}
+.stack{display:flex;flex-direction:column;justify-content:center;gap:24px}
+
+/* ── 카드 묶음: 상자 대신 지면의 단(이중 괘선 머리) ─────────────────── */
+.card{background:var(--rule2);padding:30px 0 0;display:flex;flex-direction:column;gap:18px;min-width:0;min-height:440px}
+.card .c-no{font:600 24px/1 var(--ds-font-body);color:var(--ds-c1)}
+.card h3{margin:0;font:900 48px/1.25 var(--ds-font-title);letter-spacing:-.02em}
+.card p{margin:0;font-size:28px;line-height:1.6;color:var(--ds-ink)}
+.card .c-foot{margin-top:auto;padding-top:20px;border-top:1px solid var(--ds-line);font-size:24px;color:var(--ds-sub)}
+.card .c-foot b{font:900 36px/1 var(--ds-font-num);color:var(--ds-c1)}
+.card.is-key{background:linear-gradient(var(--ds-accent),var(--ds-accent)) left top/100% 3px no-repeat,linear-gradient(var(--ds-ink),var(--ds-ink)) left 7px/100% 1px no-repeat}
+.card.is-key .c-no,.card.is-key .c-foot b{color:var(--ds-accent)}
+
+/* ── 수치 타일: 큰 명조 숫자 ─────────────────────────────── */
+.tile{background:var(--rule2);padding:28px 0 0;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tile span{font:600 24px/1.2 var(--ds-font-body);color:var(--ds-sub)}
+.tile b{font:900 96px/1 var(--ds-font-num);letter-spacing:-.03em;color:var(--ds-c1)}
+.tile b small{margin-left:8px;font:600 32px/1 var(--ds-font-body);letter-spacing:0;color:var(--ds-sub)}
+.tile p{margin:0;font-size:24px;color:var(--ds-sub)}
+.tile.is-key b{color:var(--ds-accent)}
+
+/* ── 막대(가로, 남색 한 판): style="--v:42" 는 최댓값 대비 % ───────────── */
+.bars{background:var(--ds-surface);box-shadow:var(--ds-shadow);border-top:3px solid var(--ds-ink);padding:40px;display:flex;flex-direction:column;justify-content:center;gap:44px;min-width:0}
+.bars h3{margin:0;font:900 32px/1.3 var(--ds-font-title)}
+.bar{display:grid;grid-template-columns:110px 1fr 120px;align-items:center;gap:20px;font-size:28px}
+.bar::before{content:"";grid-column:2;grid-row:1;height:56px;width:calc(var(--v) * 1%);background:var(--ds-c3)}
+.bar span{grid-column:1;grid-row:1;font:700 30px/1 var(--ds-font-num);color:var(--ds-sub)}
+.bar b{grid-column:3;grid-row:1;justify-self:end;font:900 36px/1 var(--ds-font-num);color:var(--ds-c1)}
+.bar.is-key::before{background:var(--ds-accent)}.bar.is-key b{color:var(--ds-accent)}
+
+/* ── 현안 → 해결 ───────────────────────────────────── */
+.fix{display:grid;grid-template-columns:1fr 72px 1.25fr;gap:0;align-items:stretch}
+.fix > p{margin:0;padding:30px 34px;font-size:30px;line-height:1.5}
+.fix .q{background:var(--ds-paper2);color:var(--ds-ink)}
+.fix .a{background:var(--ds-surface);border:1px solid var(--ds-ink);font-weight:600}
+.fix .q b,.fix .a b{display:block;margin-bottom:10px;font:700 24px/1 var(--ds-font-num);color:var(--ds-c1)}
+.fix i{position:relative}
+.fix i::after{content:"";position:absolute;left:16px;right:16px;top:50%;height:1px;background:var(--ds-ink)}
+.fix i::before{content:"";position:absolute;right:14px;top:50%;width:14px;height:14px;margin-top:-7px;border-top:1px solid var(--ds-ink);border-right:1px solid var(--ds-ink);transform:rotate(45deg)}
+.fix.is-key .a{border-color:var(--ds-accent);box-shadow:inset 3px 0 0 var(--ds-accent)}
+
+/* ── 간트(월 1~12): style="--from:3;--to:6" ────────────────────── */
+.gantt{background:var(--ds-surface);box-shadow:var(--ds-shadow);border-top:3px solid var(--ds-ink);padding:28px 36px;display:grid;grid-template-columns:250px repeat(12,1fr);row-gap:20px;align-items:center;min-width:0}
+.gantt .g-h{font:700 24px/1 var(--ds-font-num);color:var(--ds-sub);text-align:center}
+.gantt .g-h:first-child{text-align:left;font:600 24px/1 var(--ds-font-body)}
+.gantt .g-name{grid-column:1;font-size:26px;line-height:1.3}
+.gantt .g-bar{grid-column:calc(var(--from) + 1) / calc(var(--to) + 2);height:28px;background:var(--ds-c3)}
+.gantt .g-bar.is-key{background:var(--ds-accent)}
+
+/* ── 표: 신문 표(위 굵은 선 · 가는 줄 · 합계 위 이중 괘선) ─────────────── */
+.tbl{width:100%;border-collapse:collapse;background:var(--ds-surface);box-shadow:var(--ds-shadow);border-top:3px solid var(--ds-ink);font-size:28px}
+.tbl th{padding:20px 28px;text-align:left;font:600 24px/1.2 var(--ds-font-body);color:var(--ds-sub);border-bottom:1px solid var(--ds-ink)}
+.tbl td{padding:18px 28px;border-bottom:1px solid var(--ds-line)}
+.tbl td.n{text-align:right;font:900 32px/1 var(--ds-font-num);color:var(--ds-c1)}
+.tbl tr.is-key td{color:var(--ds-accent);font-weight:600}.tbl tr.is-key td.n{color:var(--ds-accent)}
+.tbl tfoot td{font-weight:700;border-bottom:0;border-top:4px double var(--ds-ink)}
