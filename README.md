@@ -15,6 +15,7 @@
 | `refs/NN.html` | 레퍼런스 원본 페이지 (NN = 회차 번호, 두 자리) |
 | `thumbs/NN.jpg` | 표지 썸네일 (640px 폭) |
 | `data/rounds.json` | 회차 목록 데이터 |
+| `lectures/index.html` · `data/lectures.json` | 강의자료 모음(아래 '강의자료') |
 | `assets/` | 코드 칸에서 불러오는 사진(20KB 넘는 내장 사진을 뺀 것) |
 | `scripts/add-code.js` | 표지 장표만 떼어 낸 "HTML로 가져다 쓰기" 코드 칸을 페이지 끝에 붙임: `node scripts/add-code.js refs/NN.html` (실무형처럼 원래 코드 칸이 있으면 건너뜀, 다시 실행하면 새로 만듦) |
 | `scripts/thumb.js` | 썸네일 생성: `node scripts/thumb.js refs/NN.html thumbs/NN.jpg` (Playwright 필요) |
@@ -129,6 +130,23 @@ node scripts/check.js kit A B C D                # 장마다 1920 × 1080 안에
 
 - 지시서는 AI와의 계약입니다: 구성안 먼저 확인, **숫자 · 출처 지어내기 금지**, **그림은 코드로 그리지 않고 이미지를 요청**, 결론 한 문장 제목, 강조색 한 곳, 높이 예산, 생략 없이 출력, 내보내기 전 점검 7개.
 - 배포판은 `https://szxv7704-dot.github.io/design-reference-gallery/kit/v1/{계열}.css`를 불러오므로 `kit/v1/`은 GitHub Pages에 올라가야 동작합니다. 고칠 때는 버전을 새로(`v2`) 만들어 이미 나간 덱이 깨지지 않게 합니다.
+
+## 강의자료 (`lectures/`)
+
+`lectures/index.html`(위 탭 '강의자료') · 데이터 `data/lectures.json` · 파일 `lectures/files/{강의 id}/`. 갤러리 첫 화면과 서로 탭으로 오간다.
+
+- **예정 · 오늘 · 완료는 적지 않는다.** 강의 날짜(`date`)와 보는 날짜를 견주어 저절로 붙고, 목록은 예정(가까운 순) → 완료(최근 순). 위의 `강의 N개 · 완료 · 예정` 개수도 저절로 센다.
+- 소통방: `chat` 항목이 있으면 맨 위에 보인다. `url`이 비면 '준비 중', 항목을 지우면 사라진다.
+- `sample: true`인 강의는 형식을 보여 주는 가상 예시(꼬리표 '예시'). 실제 강의를 넣으면 지운다.
+- 개인정보가 담긴 원본 · 수강생 명단 · 결과 파일은 올리지 않는다. 실습파일은 가상 자료로 만든다.
+
+| 필드 | 뜻 |
+|---|---|
+| `updated` | 위 띠의 'YYYY. M. D. 기준' |
+| `title` · `title_em` | 머리 제목(뒤쪽 `title_em`만 강조색) |
+| `lectures[].date` | `YYYY-MM-DD` (필수) · `time` · `place` · `audience` · `desc` · `tags` |
+| `lectures[].deck` | 강의안 주소: 저장소 뿌리 기준 경로(`lectures/files/L07/강의안.html`) 또는 바깥 주소. 있으면 '강의안 열기' |
+| `lectures[].files[]` | `{name, href, kind}` 내려받기 단추. 둘 다 없으면 '강의 후 올라옵니다'(예정) · '자료 정리 중'(완료) |
 
 ## 글꼴 라이선스
 
