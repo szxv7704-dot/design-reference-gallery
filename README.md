@@ -15,7 +15,7 @@
 | `refs/NN.html` | 레퍼런스 원본 페이지 (NN = 회차 번호, 두 자리) |
 | `thumbs/NN.jpg` | 표지 썸네일 (640px 폭) |
 | `data/rounds.json` | 회차 목록 데이터 |
-| `lectures/index.html` · `data/lectures.json` | 강의자료 모음(아래 '강의자료') |
+| `lectures/` · `data/{lectures,videos,tools}.json` | 강의안 · 강의 영상 · 업무도구 세 페이지(아래) |
 | `assets/` | 코드 칸에서 불러오는 사진(20KB 넘는 내장 사진을 뺀 것) |
 | `scripts/add-code.js` | 표지 장표만 떼어 낸 "HTML로 가져다 쓰기" 코드 칸을 페이지 끝에 붙임: `node scripts/add-code.js refs/NN.html` (실무형처럼 원래 코드 칸이 있으면 건너뜀, 다시 실행하면 새로 만듦) |
 | `scripts/thumb.js` | 썸네일 생성: `node scripts/thumb.js refs/NN.html thumbs/NN.jpg` (Playwright 필요) |
@@ -131,22 +131,24 @@ node scripts/check.js kit A B C D                # 장마다 1920 × 1080 안에
 - 지시서는 AI와의 계약입니다: 구성안 먼저 확인, **숫자 · 출처 지어내기 금지**, **그림은 코드로 그리지 않고 이미지를 요청**, 결론 한 문장 제목, 강조색 한 곳, 높이 예산, 생략 없이 출력, 내보내기 전 점검 7개.
 - 배포판은 `https://szxv7704-dot.github.io/design-reference-gallery/kit/v1/{계열}.css`를 불러오므로 `kit/v1/`은 GitHub Pages에 올라가야 동작합니다. 고칠 때는 버전을 새로(`v2`) 만들어 이미 나간 덱이 깨지지 않게 합니다.
 
-## 강의자료 (`lectures/`)
+## 강의안 · 강의 영상 · 업무도구 (`lectures/`)
 
-`lectures/index.html`(위 탭 '강의자료') · 데이터 `data/lectures.json` · 파일 `lectures/files/{강의 id}/`. 갤러리 첫 화면과 서로 탭으로 오간다.
+세 페이지가 한 묶음이고 위 탭으로 서로, 그리고 갤러리 첫 화면과 오간다. 화면 틀은 `lectures/lec.css` · `lectures/lec.js` 하나를 같이 쓰고, 내용은 데이터 파일에만 적는다(비어 있으면 빈 화면 안내).
 
-- **예정 · 오늘 · 완료는 적지 않는다.** 강의 날짜(`date`)와 보는 날짜를 견주어 저절로 붙고, 목록은 예정(가까운 순) → 완료(최근 순). 위의 `강의 N개 · 완료 · 예정` 개수도 저절로 센다.
-- 소통방: `chat` 항목이 있으면 맨 위에 보인다. `url`이 비면 '준비 중', 항목을 지우면 사라진다.
-- `sample: true`인 강의는 형식을 보여 주는 가상 예시(꼬리표 '예시'). 실제 강의를 넣으면 지운다.
-- 개인정보가 담긴 원본 · 수강생 명단 · 결과 파일은 올리지 않는다. 실습파일은 가상 자료로 만든다.
+| 페이지 | 데이터 | 파일 둘 곳 |
+|---|---|---|
+| `lectures/index.html` 강의안 | `data/lectures.json` | `lectures/files/{id}/` (강의 html · 실습파일) |
+| `lectures/videos.html` 강의 영상 | `data/videos.json` | 영상은 저장소에 넣지 않고 유튜브(일부 공개) 주소로 |
+| `lectures/tools.html` 업무도구 | `data/tools.json` | `lectures/files/{id}/` (예제파일 · 웹 도구) |
 
-| 필드 | 뜻 |
-|---|---|
-| `updated` | 위 띠의 'YYYY. M. D. 기준' |
-| `title` · `title_em` | 머리 제목(뒤쪽 `title_em`만 강조색) |
-| `lectures[].date` | `YYYY-MM-DD` (필수) · `time` · `place` · `audience` · `desc` · `tags` |
-| `lectures[].deck` | 강의안 주소: 저장소 뿌리 기준 경로(`lectures/files/L07/강의안.html`) 또는 바깥 주소. 있으면 '강의안 열기' |
-| `lectures[].files[]` | `{name, href, kind}` 내려받기 단추. 둘 다 없으면 '강의 후 올라옵니다'(예정) · '자료 정리 중'(완료) |
+세 파일 모두 `{"updated": "YYYY-MM-DD", "items": [...]}`. 경로는 저장소 뿌리 기준(`lectures/files/L01/강의안.html`)이거나 바깥 주소.
+
+- 강의안 항목: `id` · `title`(필수) · `date` · `time` · `place` · `audience` · `desc` · `tags` · `deck`(강의 html → '강의안 열기') · `video`(영상 `id` → '강의 영상') · `files[]` `{name, href, kind}`(내려받기). 소통방은 맨 위 `chat` `{title, desc, url}`(없으면 안 보임).
+  - **예정 · 오늘 · 완료는 적지 않는다.** `date`와 보는 날짜로 저절로 붙고, 예정(가까운 순) → 완료(최근 순). 둘이 섞일 때만 전체/예정/완료 나누기가 보인다.
+- 영상 항목: `id` · `title` · `date` · `desc` · `duration` · `speaker` · `youtube`(주소나 아이디: 누르면 그 자리 재생, youtube-nocookie) 또는 `src`(mp4) 또는 `url`(그 밖의 바깥 링크 → '영상 보기') · `thumb` · `lecture`(강의안 `id`) · `files[]`.
+- 업무도구 항목: `id` · `title` · `desc` · `version` · `date`(갱신일) · `how`(한 줄 사용법) · `href`(웹 도구 · 바깥 주소 → `open` 글자, 기본 '도구 열기') · `files[]`(예제파일).
+- 올리지 않는 것(작업 원칙): 개인정보가 담긴 원본 · 수강생 명단 · 결과 파일 · **실행 파일(.exe 등)**. 실행 파일은 GitHub 릴리스나 바깥 주소를 `href`로 건다. 예제파일은 가상 자료로.
+- 영상 파일은 GitHub가 한 파일 100MB에서 막고 저장소 전체가 무거워지므로 넣지 않는다.
 
 ## 글꼴 라이선스
 
