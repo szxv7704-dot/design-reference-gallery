@@ -1,0 +1,412 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #120 경계선 이은 100% 막대</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>/*@@FONTS@@*/</style>
+<style>
+/* 페이지 틀: 장표를 맨 위에, 아래로 설명 칸을 한 줄 세로 흐름으로 */
+:root{
+  --pg-bg:#EEF2F7; --pg-panel:#FFFFFF; --pg-ink:#16243B; --pg-sub:#56657C; --pg-line:#D3DBE6;
+  --pg-accent:#C9482A; --pg-chip:#E3EAF3; --pg-code:#121A27; --pg-code-ink:#D9E2EE;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;
+  --pg-title:"Gothic A1","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111824; --pg-panel:#18222F; --pg-ink:#E4EAF2; --pg-sub:#9DAABD; --pg-line:#2B3949;
+  --pg-accent:#F07A5C; --pg-chip:#223042; --pg-code:#0B111A; --pg-code-ink:#D9E2EE; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111824; --pg-panel:#18222F; --pg-ink:#E4EAF2; --pg-sub:#9DAABD; --pg-line:#2B3949;
+  --pg-accent:#F07A5C; --pg-chip:#223042; --pg-code:#0B111A; --pg-code-ink:#D9E2EE; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65;word-break:keep-all}
+.pg{max-width:1180px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.pg-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin-bottom:18px}
+.pg-head h1{font:800 26px/1.25 var(--pg-title);margin:0;text-wrap:balance}
+.pg-head p{margin:0;color:var(--pg-sub);font-size:14px}
+.pg-tag{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;padding:0;list-style:none}
+.pg-tag li{background:var(--pg-chip);border-radius:3px;padding:2px 9px;font-size:12.5px;color:var(--pg-sub)}
+.stage{overflow-x:auto;border-radius:4px;box-shadow:0 1px 0 rgba(0,0,0,.04),0 18px 40px -24px rgba(16,30,52,.35)}
+.fam{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 6px}
+.fam span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.fam button,.copy{font:600 13px/1 var(--pg-font);padding:9px 13px;border-radius:3px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);cursor:pointer}
+.fam button[aria-pressed="true"]{background:var(--pg-ink);color:var(--pg-panel);border-color:var(--pg-ink)}
+.fam button:focus-visible,.copy:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.sec{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:4px;padding:22px 24px;margin-top:18px}
+.sec h2{font:800 18px/1.3 var(--pg-title);margin:0 0 12px;display:flex;gap:10px;align-items:baseline}
+.sec h2 small{font:600 12px/1 var(--pg-mono);color:var(--pg-sub);letter-spacing:.06em}
+.sec h3{font:700 15px/1.4 var(--pg-font);margin:16px 0 6px}
+.sec p{margin:0 0 10px;max-width:70ch}
+.sec ul,.sec ol{margin:0 0 10px;padding-left:20px}
+.sec li{margin:3px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.two>*{min-width:0}
+.raw{background:var(--pg-bg);border-radius:3px;padding:14px 16px;font-size:14.5px;line-height:1.85}
+.raw mark{background:none;color:inherit;border-bottom:2px solid var(--pg-line)}
+.raw sup,.grp b.n{font:700 11px/1 var(--pg-mono);color:var(--pg-accent)}
+.grp{list-style:none;padding:0!important}
+.grp li{border-top:1px solid var(--pg-line);padding:8px 0}
+.grp li:first-child{border-top:0}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:13.5px}
+.rel{background:var(--pg-bg);border-radius:3px;padding:10px 14px;font-size:14px}
+.pick{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pick>div{min-width:0;border-top:2px solid var(--pg-ink);padding-top:8px}
+.pick>div:last-child{border-top-color:var(--pg-accent)}
+.pick h3{margin-top:0}
+.code-wrap{position:relative;margin-top:10px}
+.code-wrap pre{background:var(--pg-code);color:var(--pg-code-ink);font:12.5px/1.6 var(--pg-mono);padding:16px;border-radius:4px;max-height:520px;overflow:auto;margin:0;white-space:pre}
+.copy{position:absolute;top:10px;right:10px}
+table.spec{border-collapse:collapse;width:100%;font-size:13px}
+.tbl{overflow-x:auto}
+table.spec th,table.spec td{border-bottom:1px solid var(--pg-line);padding:6px 8px;text-align:left;vertical-align:middle;white-space:nowrap}
+table.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:6px;border:1px solid rgba(0,0,0,.15)}
+.mono{font-family:var(--pg-mono);font-size:12.5px}
+@media (max-width:760px){
+  .two,.pick{grid-template-columns:1fr}
+  .stage .ch-root{width:760px}
+  .sec{padding:18px 16px}
+}
+</style>
+
+<style id="ch-css">
+/* ===== 장표: 경계선 이은 100% 누적 막대 (접두어 ch-) =====
+   가상 화면 1600×900. 1px = 1/16 cqw. 색·글꼴은 아래 --ds-* 변수로만 쓴다. */
+.ch-root{
+  --ds-bg:#F6F8FB; --ds-surface:#FFFFFF; --ds-ink:#172A46; --ds-sub:#5A6880; --ds-line:#D5DDE8;
+  --ds-accent:#D24E2B; --ds-accent2:#2E6BB0;
+  --ds-c1:#1B3560; --ds-c2:#36578A; --ds-c3:#5E7FB0; --ds-c4:#A3B8D6; --ds-c5:#D9E3F0;
+  --ds-font-title:"Gothic A1","Pretendard","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif;
+  --ds-radius:4px; --ds-shadow:0 1px 0 rgba(23,42,70,.05),0 16px 34px -22px rgba(23,42,70,.32);
+  container-type:inline-size; width:100%; color:var(--ds-ink); font-family:var(--ds-font-body);
+}
+.ch-root *{box-sizing:border-box}
+.ch-slide{position:relative;aspect-ratio:16/9;background:var(--ds-bg);overflow:hidden;line-height:1.5;word-break:keep-all}
+/* 머리말 띠 y40~88 */
+.ch-band{position:absolute;left:5cqw;right:5cqw;top:2.5cqw;height:3cqw;display:flex;align-items:center;justify-content:space-between;border-bottom:.0625cqw solid var(--ds-line);font-size:1cqw}
+.ch-sec{display:flex;align-items:center;gap:.75cqw;font-weight:700;color:var(--ds-ink)}
+.ch-sec b{display:inline-grid;place-items:center;width:1.75cqw;height:1.75cqw;background:var(--ds-c1);color:var(--ds-surface);border-radius:var(--ds-radius);font:700 1cqw/1 var(--ds-font-num)}
+.ch-plan{color:var(--ds-sub);letter-spacing:.04em}
+/* 제목 y112~ : 결론 한 문장, 강조 한 곳 */
+.ch-title{position:absolute;left:5cqw;right:5cqw;top:7cqw;margin:0;font:800 2.5cqw/1.25 var(--ds-font-title);letter-spacing:-.01em;color:var(--ds-ink)}
+.ch-title em{font-style:normal;color:var(--ds-accent)}
+.ch-meta{position:absolute;left:5cqw;top:10.75cqw;margin:0;font-size:1cqw;color:var(--ds-sub)}
+/* 본문 y220~820 : 왼쪽 차트 1010 + 오른쪽 설명 묶음 390 */
+.ch-chart{position:absolute;left:5cqw;top:13.75cqw;width:63.125cqw;height:37.5cqw}
+.ch-chart svg{display:block;width:100%;height:100%;overflow:visible}
+.ch-side{position:absolute;left:70.625cqw;top:13.75cqw;width:24.375cqw;height:37.5cqw;background:var(--ds-surface);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius);padding:1.75cqw 1.75cqw;display:flex;flex-direction:column;justify-content:space-between}
+.ch-grp+.ch-grp{border-top:.0625cqw solid var(--ds-line);padding-top:1.5cqw}
+.ch-gh{display:flex;align-items:center;gap:.875cqw;margin:0 0 1cqw;font:700 1.5cqw/1.2 var(--ds-font-title);color:var(--ds-ink)}
+.ch-gh .ds-badge{--s:3cqw;color:var(--ds-c1)}
+/* 수치 타일: 큰 숫자 열 + 한 줄 해석 */
+.ch-tiles{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.ch-tiles li{display:grid;grid-template-columns:8.25cqw 1fr;align-items:baseline;gap:1cqw;padding:.625cqw 0;border-top:.0625cqw solid var(--ds-line)}
+.ch-tiles li:first-child{border-top:0;padding-top:0}
+.ch-num{font:700 2.125cqw/1 var(--ds-font-num);color:var(--ds-c1);white-space:nowrap}
+.ch-num small{font:600 1.1875cqw/1 var(--ds-font-body);margin-left:.125cqw}
+.ch-tiles span{font-size:1.1875cqw;line-height:1.45;color:var(--ds-ink)}
+.ch-tiles span i{font-style:normal;color:var(--ds-sub)}
+.ch-grp ul.ch-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.625cqw}
+.ch-list li{position:relative;padding-left:1.125cqw;font-size:1.1875cqw;line-height:1.5;color:var(--ds-ink)}
+.ch-list li::before{content:"";position:absolute;left:0;top:.75cqw;width:.375cqw;height:.375cqw;background:var(--ds-c3)}
+.ch-list li b{font-weight:700;color:var(--ds-c1)}
+/* 바닥 줄 y846~ */
+.ch-foot{position:absolute;left:5cqw;right:5cqw;top:52.875cqw;display:flex;justify-content:space-between;font-size:1cqw;color:var(--ds-sub)}
+.ch-foot b{font:600 1cqw/1 var(--ds-font-num);color:var(--ds-ink)}
+/* 아이콘 세트 공통 CSS (그대로) */
+.ds-ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.ds-badge{--s:48px;width:var(--s);height:var(--s);display:grid;place-items:center;font-size:calc(var(--s)*.54);color:var(--ds-accent)}
+.ds-badge.is-line{width:auto;height:auto;font-size:var(--s)}
+.ds-badge.is-round{border-radius:50%;background:var(--ds-c5)}
+.ds-badge.is-square{border-radius:calc(var(--s)*.18);background:var(--ds-c5)}
+.ds-badge.is-slant{background:var(--ds-accent);color:var(--ds-surface);clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);width:calc(var(--s)*1.25)}
+</style>
+
+<div class="pg">
+  <header class="pg-head">
+    <h1>레퍼런스 #120 경계선 이은 100% 막대</h1>
+    <p>본문 요소 · 수요일 차트 장표 · 가상 예시</p>
+  </header>
+  <ul class="pg-tag">
+    <li>차트: 100% 누적 막대</li><li>정보 유형: 구성비</li><li>위치: 현황</li><li>분야: 학생·교육과정</li><li>정지</li><li>평면</li><li>어울리는 계열 B·C·D·E·F·G</li>
+  </ul>
+
+  <div class="stage" id="stage">
+<div class="ch-root" id="ch-root">
+  <div class="ch-slide">
+    <div class="ch-band">
+      <span class="ch-sec"><b>Ⅰ</b>추진 배경 및 현황</span>
+      <span class="ch-plan">2026 고교학점제 공동교육과정 운영 계획</span>
+    </div>
+    <h2 class="ch-title">학교 밖 수강은 9%→23%, 늘어난 14%p 중 <em>12%p가 온라인</em>이다</h2>
+    <p class="ch-meta">○○교육청 관내 일반고 48교 · 2·3학년 선택과목 수강 신청 건 기준 구성비(%) · 2021~2025년 · 각 연도 3월 1일 기준</p>
+    <div class="ch-chart" data-ch-chart><svg viewBox="0 0 1010 600" role="img" aria-label="연도별 선택과목 수강 신청의 개설 방식 구성비: 온라인 공동교육과정, 거점 공동교육과정, 학교 내 개설"></svg></div>
+    <div class="ch-side">
+      <section class="ch-grp">
+        <h3 class="ch-gh"><span class="ds-badge is-square"><svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6"/><path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10"/><path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14"/><path d="M4 20h14"/></svg></span>2025 학교 밖 수강 현황</h3>
+        <ul class="ch-tiles">
+          <li><b class="ch-num">126<small>과목</small></b><span>온라인 개설 과목 <i>(2021년 38과목)</i></span></li>
+          <li><b class="ch-num">6,870<small>명</small></b><span>학교 밖 과목 수강 학생 <i>(2·3학년의 21%)</i></span></li>
+          <li><b class="ch-num">4<small>권역</small></b><span>거점 공동교육과정 <i>(14교, 4년째 그대로)</i></span></li>
+        </ul>
+      </section>
+      <section class="ch-grp">
+        <h3 class="ch-gh"><span class="ds-badge is-square"><svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/></svg></span>2026 운영 목표</h3>
+        <ul class="ch-list">
+          <li>학교 밖 수강 비중 <b>28%</b></li>
+          <li>거점 공동교육과정 <b>4 → 6권역</b> 확대</li>
+          <li>화·목 7~8교시 <b>공동 시간표</b> 도입</li>
+        </ul>
+      </section>
+    </div>
+    <div class="ch-foot"><span>가상 예시 · 출처: ○○교육청 선택과목 수강 신청 현황(2021~2025) · 아이콘: Tabler Icons(MIT)</span><b>5</b></div>
+  </div>
+</div>
+  </div>
+
+  <div class="fam" role="group" aria-label="계열 값 바꿔 보기">
+    <span>계열 값 바꿔 보기</span>
+    <button type="button" id="fam-n" data-fam="N" aria-pressed="true">중립 값</button>
+    <button type="button" id="fam-b" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+    <button type="button" id="fam-d" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+    <button type="button" id="fam-f" data-fam="F" aria-pressed="false">F 관측·중계</button>
+  </div>
+
+  <section class="sec">
+    <h2><small>1-1</small>원문 → 유목화</h2>
+    <div class="two">
+      <div>
+        <h3 style="margin-top:0">정리 전 원문(계획안 '현황' 문단, 가상)</h3>
+        <div class="raw">
+          고교학점제 시행에 따라 <mark>관내 일반고 48교 2·3학년의 선택과목 수강 신청 가운데 자기 학교가 아닌 곳에서 개설된 과목의 비중은 2021년 9%에서 2025년 23%로 늘었다<sup>①</sup></mark>. <mark>이 가운데 온라인 공동교육과정은 4%에서 16%로 커졌으나<sup>②</sup></mark>, <mark>학교 간 거점 공동교육과정은 5~7%에 머물렀다<sup>③</sup></mark>. <mark>같은 기간 수강 신청 건수는 학생 수 감소로 6만 1,200건에서 5만 8,100건으로 줄었다<sup>④</sup></mark>. <mark>2025년 온라인 개설 과목은 126과목(2021년 38과목)이고, 학교 밖 과목을 1개 이상 듣는 학생은 6,870명으로 2·3학년의 21%이다. 거점 공동교육과정은 4개 권역 14교에서 4년째 같은 규모로 운영 중이다<sup>⑤</sup></mark>. 이에 <mark>2026년에는 학교 밖 수강 비중 28%를 목표로 거점 권역을 6개로 늘리고, 화·목 7~8교시를 공동 시간표로 묶어 학교 간 이동 수업이 가능하게 한다<sup>⑥</sup></mark>.
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-top:0">묶은 방법</h3>
+        <ol class="grp">
+          <li><b class="n">①</b> <b>전체 구성: 학교 밖 계</b> — "9% → 23%" <em>→ 장표: 학교 안·밖 경계선과 그 경계를 잇는 점선, 오른쪽 '학교 밖 계' 열</em></li>
+          <li><b class="n">②</b> <b>온라인 공동교육과정</b> — "4% → 16%" <em>→ 장표: 막대 맨 왼쪽(0 기준선) 강조색 조각 · 제목의 결론</em></li>
+          <li><b class="n">③</b> <b>거점 공동교육과정</b> — "5~7%" <em>→ 장표: 가운데 조각(c3)</em></li>
+          <li><b class="n">④</b> <b>모수(전체 건수)</b> — "6만 1,200건 → 5만 8,100건" <em>→ 장표: 오른쪽 '전체 신청' 열(100% 막대가 숨기는 총량)</em></li>
+          <li><b class="n">⑤</b> <b>2025 현황 수치</b> — 126과목 · 6,870명(21%) · 4권역 14교 <em>→ 장표: 오른쪽 위 수치 타일</em></li>
+          <li><b class="n">⑥</b> <b>2026 운영 목표</b> — 28% · 6권역 · 공동 시간표 <em>→ 장표: 오른쪽 아래 묶음</em></li>
+        </ol>
+        <div class="rel"><b>관계</b> ① = ② + ③(포함) → 늘어난 몫은 거의 ②에서 나왔고 ③은 멈춰 있다(대비) → ④는 비중이 오른 것이 총량 감소 탓이 아님을 확인하는 모수 → ⑤는 2025년 끝값을 다른 단위로 → ⑥은 멈춘 ③을 움직이는 대응.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2><small>2</small>구조 설명</h2>
+    <p>연도별 막대 하나가 100%이고, 조각은 학교 밖 두 갈래(온라인·거점)와 학교 내 개설로 나뉜다. 관심 조각인 온라인을 0 기준선에 붙여 길이를 바로 비교하게 하고, 학교 안·밖이 갈리는 자리에 진한 경계선을 그어 연도마다 잇는다. 오른쪽 두 숫자 열은 학교 밖 소계와 100% 막대가 지워 버리는 전체 건수를 되살린다.</p>
+    <h3>가져갈 장치</h3>
+    <ul>
+      <li><b>경계를 잇는 점선 하나</b>: 조각 경계 가운데 결론에 해당하는 경계 하나(학교 안·밖)만 c1 굵은 선으로 긋고 연도 사이를 점선으로 이어, 소계 9 → 23%가 계단처럼 오른쪽으로 밀려나는 것이 보이게 한다. 모든 경계를 잇지 않는다.</li>
+      <li><b>초점 조각을 0 기준선에</b>: 강조색 조각을 맨 왼쪽에 두어 연도 간 길이 비교가 공통 기준선에서 이뤄진다. 가운데 낀 조각은 길이 비교가 어렵기 때문에, 변하지 않는 거점 조각을 가운데로 보냈다.</li>
+      <li><b>모수 열</b>: 100% 막대는 총량을 지우므로, 막대 오른쪽에 전체 건수를 적어 '비중이 오른 이유가 분모가 줄어서인가'를 바로 확인하게 한다.</li>
+    </ul>
+    <h3>응용 예</h3>
+    <ul>
+      <li>교육 예산: 연도별 재원 구성(교육청 자체 · 지방비 · 국비) — 국비 의존도를 0 기준선에, 외부 재원 경계를 잇는 선</li>
+      <li>늘봄학교: 연도별 프로그램 운영 주체(학교 자체 · 지역 연계 · 위탁) — 지역 연계를 0 기준선에</li>
+      <li>교원 연수: 연수 방식 구성(집합 · 원격 · 혼합) — 원격을 0 기준선에, 대면/비대면 경계를 잇는 선</li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <h2><small>2-1</small>차트 고르는 법</h2>
+    <div class="pick">
+      <div><h3>이 차트를 쓰는 때</h3><p>같은 전체를 나눈 몫이 여러 시점·묶음 사이에서 어떻게 바뀌었는지가 결론일 때. 조각은 2~4개, 그중 하나가 주인공일 때 가장 잘 읽힌다. 주인공 조각을 0 기준선에 둔다.</p></div>
+      <div><h3>쓰지 말아야 할 때</h3><p>총량 자체가 결론일 때(그때는 일반 누적 막대나 막대), 조각이 5개를 넘을 때, 막대가 1개뿐일 때(그때는 수치 타일이나 한 줄 막대). 총량이 크게 변했는데 비중만 보여 주면 오해가 생기므로 모수를 함께 적는다.</p></div>
+      <div><h3>흔히 잘못 고르는 차트</h3><p>연도마다 원그래프 5개를 늘어놓으면 4%와 6% 같은 각도 차이를 읽을 수 없다. 일반 누적 막대로 그리면 총량이 줄어 막대 끝이 들쭉날쭉해 비중 변화가 가려진다. 묶은 막대로 그리면 학교 내 개설(77~91%)이 축을 차지해 작은 두 조각이 바닥에 붙는다.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2><small>3</small>HTML로 가져다 쓰기</h2>
+    <ul>
+      <li>데이터는 코드 맨 아래 스크립트의 <span class="mono">CH_DATA</span> 하나에 있다. 연도, 조각 이름·값(각 연도 합이 100), 전체 건수, 경계를 이을 조각 위치(<span class="mono">splitAfter</span>)를 여기서 바꾼다. 학교 밖 계는 앞 조각들을 더해 저절로 계산된다.</li>
+      <li>조각 색은 <span class="mono">fill</span>에 변수 이름으로 적는다(주인공 하나만 <span class="mono">--ds-accent</span>, 나머지는 c3·c5처럼 농담). 계열 색은 <span class="mono">.ch-root</span>의 <span class="mono">--ds-*</span> 변수만 바꾼다.</li>
+      <li>조각 값 라벨은 조각 너비가 24px보다 좁으면 막대 위로 올라간다. 4% 아래 조각이 많다면 차트 종류를 다시 고른다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요. 인터넷이 없으면 글꼴은 대체 글꼴(맑은 고딕 등)로 그려진다.</li>
+    </ul>
+    <div class="code-wrap"><button type="button" class="copy" id="copy-btn">코드 복사</button><pre id="code-box" tabindex="0"></pre></div>
+  </section>
+
+  <section class="sec">
+    <h2><small>4</small>PPT로 옮기기</h2>
+    <h3>공통 뼈대 자리 (와이드 33.867 × 19.05cm, 1px = 0.0212cm)</h3>
+    <ul>
+      <li>좌우 여백 1.69cm. 머리말 띠 세로 0.85~1.86cm, 아래 0.75pt 선. 제목 텍스트 상자 세로 2.37cm, 24pt 굵게. 출처 줄 세로 3.64cm, 9.6pt.</li>
+      <li>본문 영역 세로 4.66~17.36cm. 차트 개체: 가로 1.69cm, 너비 21.38cm, 높이 12.7cm. 오른쪽 설명 상자: 가로 23.92cm, 너비 8.26cm, 높이 12.7cm. 바닥 줄 세로 17.91cm.</li>
+    </ul>
+    <h3>차트</h3>
+    <ul>
+      <li>[삽입 → 차트 → 가로 막대형 → 100% 기준 누적 가로 막대형]. 계열 순서: 온라인 → 거점 → 학교 내(첫 계열이 0 기준선에 붙는다). 세로 축 [축 서식 → 항목을 거꾸로]로 2021이 위에 오게.</li>
+      <li>가로 축: 최소 0, 최대 1(100%), 주 단위 0.2, 축 위치 '위쪽'(세로 축 교차 '최대 항목'). 세로 격자선 0.5pt 연한 선.</li>
+      <li>간격 너비 65%(막대 46 : 빈칸 30). 테두리 흰색 1pt로 조각 구분. 데이터 레이블 '가운데', 표시 형식 0(% 기호 없이), 온라인·거점 레이블은 흰 글자.</li>
+      <li>범례는 지우고 2025 막대 아래 텍스트 상자 3개 + 0.75pt 세로 지시선으로 조각 이름을 단다. 온라인 이름만 강조색.</li>
+      <li>경계선: 학교 안·밖 경계 자리에 2pt c1 직선을 막대마다 놓고, 경계끼리 1pt 점선으로 잇는다(꺾은선 계열을 덧쓰는 대신 직선 도형이 간단하다. 위치 = 차트 그림 영역 왼쪽 + 그림 영역 너비 × 학교 밖 계).</li>
+      <li>오른쪽 두 열: 5행 2열 표(테두리 없음)를 막대 행 높이에 맞춰 놓는다. 학교 밖 계는 14.4pt 굵게 c1, 전체 신청은 14.4pt 보통.</li>
+    </ul>
+    <h3>아이콘</h3>
+    <p>아이콘 세트 페이지에서 chart-bar·target의 SVG를 복사해 붙여 넣고 [그래픽 형식 → 그래픽 윤곽선]을 c1으로 바꾼다. 배지는 둥근 사각형 1.02cm(모서리 18%), 채우기 c5, 아이콘 0.55cm.</p>
+  </section>
+
+  <section class="sec">
+    <h2><small>5</small>스펙</h2>
+    <div class="tbl"><table class="spec" id="spec-tbl"><thead><tr><th>변수</th><th>중립 값</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead><tbody></tbody></table></div>
+    <h3>글꼴</h3>
+    <p>중립: Gothic A1 800(제목) · IBM Plex Sans KR 400/700(본문) · Saira Semi Condensed 600/700(숫자). 계열별 글꼴은 위 표. 모든 글꼴 줄 끝에 대체 글꼴.</p>
+    <h3>글자 단계 (1600×900 기준)</h3>
+    <p>제목 40 · 수치 타일 숫자 34 · 묶음 머리 24 · 본문·조각 값·연도 19 · 축 눈금·조각 이름·머리말 띠·출처 16.</p>
+    <h3>쓴 아이콘</h3>
+    <p><span class="mono">chart-bar</span> 막대 통계(현황 묶음) · <span class="mono">target</span> 목표(2026 운영 목표) — 사각 배지(is-square) 한 종류, 색 --ds-c1, 48px. 아이콘: Tabler Icons(MIT).</p>
+    <h3>난이도</h3>
+    <p>HTML 중 · PPT 중(100% 누적 막대 자체는 쉽고, 경계선 도형 위치 맞추기가 손이 간다).</p>
+    <h3>트렌드</h3>
+    <p>누적 막대의 조각 순서를 모든 막대에서 고정하고, 비교할 조각을 공통 기준선 쪽에 두며 조각에 직접 라벨을 다는 정부 통계 차트 지침 — ONS(영국 통계청) 디자인 시스템 'Stacked horizontal bar chart' <a href="https://ons-design.notion.site/Stacked-horizontal-bar-chart-1e900b7f117a443da9e74325459ae492" target="_blank" rel="noopener">ons-design.notion.site</a></p>
+  </section>
+</div>
+
+<script id="ch-js">
+/* ===== 장표 차트 그리기: 데이터는 CH_DATA 하나 ===== */
+(function(){
+  var CH_DATA = {
+    years: ['2021','2022','2023','2024','2025'],
+    // 조각: 왼쪽(0 기준선)부터. 각 연도 합 = 100. 강조색은 주인공 조각 하나만
+    parts: [
+      { name: '온라인 공동교육과정', fill: 'accent', ink: 'surface', vals: [4, 6, 9, 12, 16] },
+      { name: '거점 공동교육과정(학교 간)', fill: 'c3', ink: 'surface', vals: [5, 6, 6, 7, 7] },
+      { name: '학교 내 개설', fill: 'c5', ink: 'ink', vals: [91, 88, 85, 81, 77] }
+    ],
+    splitAfter: 2,            // 앞 2개 조각 = 학교 밖. 이 경계만 진하게 긋고 연도 사이를 잇는다
+    splitTitle: '학교 밖 계',
+    totals: [61200, 62400, 60800, 59300, 58100], // 전체 수강 신청(건) = 100%의 모수
+    totalTitle: '전체 신청(건)',
+    axisTitle: '선택과목 수강 신청 건 구성비(%)'
+  };
+  // 그림 영역 좌표(가상 px, viewBox 1010×600)
+  var PL = 96, PR = 736, PW = PR - PL, TOP = 74, PITCH = 76, BH = 46;
+  var n = CH_DATA.years.length;
+  function x(p){ return PL + p / 100 * PW; }               // 축척(선형, 0 시작, 0~100%)
+  function ry(i){ return TOP + i * PITCH; }                // i번째 막대 윗변
+  function f(v){ return v.toLocaleString('ko-KR'); }
+  function t(px, py, s, a){ return '<text x="' + px.toFixed(1) + '" y="' + py.toFixed(1) + '" ' + (a || '') + '>' + s + '</text>'; }
+  function c(k){ return 'var(--ds-' + k + ')'; }
+  var NUM = 'font-family="var(--ds-font-num)"';
+  function draw(svg){
+    var o = '', i, k, p;
+    // 축 제목 + 위쪽 눈금(0~100, 20 간격) + 세로 격자선
+    o += t(PL, 22, CH_DATA.axisTitle, 'font-size="16" font-weight="700" fill="' + c('ink') + '"');
+    for (p = 0; p <= 100; p += 20){
+      o += '<line x1="' + x(p) + '" x2="' + x(p) + '" y1="' + (TOP - 14) + '" y2="' + (ry(n - 1) + BH + 6) + '" stroke="' + c(p ? 'line' : 'c3') + '" stroke-width="' + (p ? 1 : 1.5) + '"/>';
+      o += t(x(p), TOP - 22, p, 'text-anchor="middle" font-size="16" fill="' + c('sub') + '" ' + NUM);
+    }
+    // 오른쪽 두 열 머리
+    o += t(836, TOP - 22, CH_DATA.splitTitle + '(%)', 'text-anchor="middle" font-size="16" font-weight="700" fill="' + c('c1') + '"');
+    o += t(950, TOP - 22, CH_DATA.totalTitle, 'text-anchor="middle" font-size="16" fill="' + c('sub') + '"');
+    var splitX = [];
+    for (i = 0; i < n; i++){
+      var y0 = ry(i), cum = 0, outside = 0;
+      // 연도
+      o += t(PL - 16, y0 + BH / 2 + 7, CH_DATA.years[i], 'text-anchor="end" font-size="19" fill="' + c('ink') + '" ' + NUM);
+      for (k = 0; k < CH_DATA.parts.length; k++){
+        var pt = CH_DATA.parts[k], v = pt.vals[i], xa = x(cum), w = x(cum + v) - xa;
+        o += '<rect x="' + xa.toFixed(1) + '" y="' + y0 + '" width="' + w.toFixed(1) + '" height="' + BH + '" fill="' + c(pt.fill) + '" stroke="' + c('bg') + '" stroke-width="1.5"/>';
+        // 값 라벨: 조각 가운데. 너비 24 미만이면 막대 위로
+        if (w >= 24) o += t(xa + w / 2, y0 + BH / 2 + 7, v, 'text-anchor="middle" font-size="19" font-weight="700" fill="' + c(pt.ink) + '" ' + NUM);
+        else o += t(xa + w / 2, y0 - 5, v, 'text-anchor="middle" font-size="16" font-weight="700" fill="' + c('ink') + '" ' + NUM);
+        cum += v;
+        if (k < CH_DATA.splitAfter) outside += v;
+      }
+      // 학교 안·밖 경계선(진한 선 하나)
+      var sx = x(outside); splitX.push(sx);
+      o += '<line x1="' + sx.toFixed(1) + '" x2="' + sx.toFixed(1) + '" y1="' + (y0 - 4) + '" y2="' + (y0 + BH + 4) + '" stroke="' + c('c1') + '" stroke-width="3"/>';
+      // 오른쪽 열: 학교 밖 계, 전체 신청
+      o += t(836, y0 + BH / 2 + 8, outside, 'text-anchor="middle" font-size="24" font-weight="700" fill="' + c('c1') + '" ' + NUM);
+      o += t(950, y0 + BH / 2 + 7, f(CH_DATA.totals[i]), 'text-anchor="middle" font-size="19" fill="' + c('ink') + '" ' + NUM);
+    }
+    // 경계끼리 잇는 점선(연도 사이)
+    for (i = 0; i < n - 1; i++){
+      o += '<line x1="' + splitX[i].toFixed(1) + '" y1="' + (ry(i) + BH + 4) + '" x2="' + splitX[i + 1].toFixed(1) + '" y2="' + (ry(i + 1) - 4) + '" stroke="' + c('c1') + '" stroke-width="1.5" stroke-dasharray="3 4"/>';
+    }
+    // 오른쪽 열 구분선
+    o += '<line x1="780" x2="780" y1="' + (TOP - 40) + '" y2="' + (ry(n - 1) + BH + 6) + '" stroke="' + c('line') + '" stroke-width="1"/>';
+    // 조각 이름: 마지막 막대 아래에 지시선으로(범례 대신 직접 라벨)
+    var last = n - 1, yb = ry(last) + BH, cum2 = 0, rowY = [yb + 40, yb + 72, yb + 40];
+    for (k = 0; k < CH_DATA.parts.length; k++){
+      var v2 = CH_DATA.parts[k].vals[last], mid = x(cum2 + v2 / 2), ly = rowY[k];
+      var hot = CH_DATA.parts[k].fill === 'accent';
+      o += '<line x1="' + mid.toFixed(1) + '" x2="' + mid.toFixed(1) + '" y1="' + (yb + 6) + '" y2="' + (ly - 15) + '" stroke="' + c('sub') + '" stroke-width="1"/>';
+      var anchor = k === 0 ? 'start' : (k === CH_DATA.parts.length - 1 ? 'middle' : 'start');
+      var lx = k === 0 ? PL : (anchor === 'start' ? mid - 6 : mid);
+      o += t(lx, ly, CH_DATA.parts[k].name, 'text-anchor="' + anchor + '" font-size="16" font-weight="' + (hot ? 700 : 400) + '" fill="' + c(hot ? 'accent' : 'ink') + '"');
+      cum2 += v2;
+    }
+    // 경계선 읽는 법(한 줄)
+    o += '<line x1="' + PL + '" x2="' + (PL + 22) + '" y1="' + (yb + 113) + '" y2="' + (yb + 113) + '" stroke="' + c('c1') + '" stroke-width="3"/>';
+    o += t(PL + 32, yb + 119, '굵은 선 = 학교 안·밖 경계 · 점선이 오른쪽으로 갈수록 학교 밖 수강이 늘었다는 뜻', 'font-size="16" fill="' + c('sub') + '"');
+    svg.innerHTML = o;
+  }
+  var els = document.querySelectorAll('.ch-root [data-ch-chart] svg');
+  for (var j = 0; j < els.length; j++) draw(els[j]);
+})();
+</script>
+
+<script>
+/* ===== 페이지 전용: 코드 칸 만들기, 계열 값 바꿔 보기, 스펙 표 ===== */
+(function(){
+  var root = document.getElementById('ch-root');
+  var tmp = root.cloneNode(true);
+  tmp.querySelector('[data-ch-chart] svg').innerHTML = '';
+  tmp.removeAttribute('id');
+  tmp.removeAttribute('style');
+  var code = '<meta charset="utf-8">\n' +
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@800&family=IBM+Plex+Sans+KR:wght@400;700&family=Saira+Semi+Condensed:wght@600;700&display=swap">\n' +
+    '<style>' + document.getElementById('ch-css').textContent + '</style>\n\n' +
+    tmp.outerHTML + '\n\n<script>' + document.getElementById('ch-js').textContent + '<\/script>\n';
+  var box = document.getElementById('code-box');
+  box.textContent = code;   // textContent = HTML 이스케이프
+  document.getElementById('copy-btn').addEventListener('click', function(){
+    var btn = this;
+    function sel(){ var r = document.createRange(); r.selectNodeContents(box); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '선택됨 · Ctrl+C'; }
+    try {
+      navigator.clipboard.writeText(code).then(function(){ btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = '코드 복사'; }, 1600); }, sel);
+    } catch(e){ sel(); }
+  });
+
+  // 계열 값: 인덱스 DB의 계열 키트(B #46 · D #62 · F #117) 토큰
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius'];
+  var FAM = {
+    N: ['#F6F8FB','#FFFFFF','#172A46','#5A6880','#D5DDE8','#D24E2B','#2E6BB0','#1B3560','#36578A','#5E7FB0','#A3B8D6','#D9E3F0',
+        '"Gothic A1","Pretendard","Malgun Gothic",sans-serif','"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif','"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif','4px'],
+    B: ['#EEF1F4','#FAFAF8','#1F2B36','#5E6974','#CDD4DB','#E2571A','#2F5D86','#2F4252','#4F6679','#7389A0','#9DB0C1','#C6D2DC',
+        '"Gothic A1","Pretendard","Malgun Gothic",sans-serif','"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif','"IBM Plex Mono",Consolas,monospace','2px'],
+    D: ['#FBFAF6','#FFFFFF','#1B1E24','#5C606A','#CFCCC4','#D9482B','#23467A','#1F3E6E','#3C5D8C','#6D87AD','#A5B5CD','#D7DEE9',
+        '"Noto Serif KR","Nanum Myeongjo","Batang",serif','"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic",sans-serif','"Noto Serif KR","Nanum Myeongjo",Georgia,serif','0px'],
+    F: ['#F1F4F8','#FFFFFF','#13233A','#55647A','#D2DAE4','#DE4430','#2A6CB4','#1B3A63','#335C8F','#5F84B4','#9BB3D2','#D3E0EF',
+        '"Gothic A1","Pretendard","Malgun Gothic",sans-serif','"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif','"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif','3px']
+  };
+  var btns = document.querySelectorAll('.fam button');
+  function apply(k){
+    for (var i = 0; i < KEYS.length; i++){ if (k === 'N') root.style.removeProperty(KEYS[i]); else root.style.setProperty(KEYS[i], FAM[k][i]); }
+    for (var b = 0; b < btns.length; b++) btns[b].setAttribute('aria-pressed', btns[b].getAttribute('data-fam') === k ? 'true' : 'false');
+  }
+  for (var b = 0; b < btns.length; b++) btns[b].addEventListener('click', function(){ apply(this.getAttribute('data-fam')); });
+
+  var tb = document.querySelector('#spec-tbl tbody'), h = '';
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+  for (var i = 0; i < KEYS.length; i++){
+    h += '<tr><td class="mono">' + KEYS[i] + '</td>';
+    ['N','B','D','F'].forEach(function(k){
+      var v = FAM[k][i], isC = v.charAt(0) === '#';
+      h += '<td class="mono">' + (isC ? '<span class="sw" style="background:' + v + '"></span>' : '') + esc(isC ? v : v.split(',')[0]) + '</td>';
+    });
+    h += '</tr>';
+  }
+  tb.innerHTML = h;
+})();
+</script>
+
+</body></html>
