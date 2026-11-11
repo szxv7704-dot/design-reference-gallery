@@ -1,0 +1,643 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #121 현안·해결 줄 맞춤 비교</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>/*@@FONTS@@*/</style>
+<style>
+/* 페이지 틀: 왼쪽 정렬 한 단, 장표가 주인공. 페이지 색은 장표 밖에서만 쓴다. */
+:root{
+  --pg-bg:#EEF2F7; --pg-panel:#FFFFFF; --pg-ink:#16243B; --pg-sub:#566479; --pg-line:#D3DCE8; --pg-key:#1B3560; --pg-hi:#E4ECF7;
+  --pg-code-bg:#121A28; --pg-code-ink:#D7E0EE;
+  --pg-f-title:"Gothic A1","Pretendard","Malgun Gothic",sans-serif;
+  --pg-f-body:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;
+  --pg-f-mono:"IBM Plex Mono","Consolas",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#0F1724; --pg-panel:#172234; --pg-ink:#E3EAF5; --pg-sub:#9AA8BE; --pg-line:#2B3A52; --pg-key:#9DB9E6; --pg-hi:#22324B; color-scheme:dark}}
+:root[data-theme="dark"]{--pg-bg:#0F1724; --pg-panel:#172234; --pg-ink:#E3EAF5; --pg-sub:#9AA8BE; --pg-line:#2B3A52; --pg-key:#9DB9E6; --pg-hi:#22324B; color-scheme:dark}
+body{word-break:keep-all; overflow-wrap:anywhere; background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-f-body); font-size:15px; line-height:1.65}
+.pg{max-width:1180px; margin:0 auto; padding-block:28px 64px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.pg-top{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 16px; margin-bottom:16px}
+.pg-top h1{font-family:var(--pg-f-title); font-weight:800; font-size:clamp(22px,3vw,30px); margin:0; text-wrap:balance}
+.pg-top p{margin:0; color:var(--pg-sub); font-size:14px}
+.pg-tags{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 18px; padding:0; list-style:none}
+.pg-tags li{font-size:12.5px; padding:2px 10px; border:1px solid var(--pg-line); border-radius:99px; color:var(--pg-sub); background:var(--pg-panel)}
+.pg-stage{border-radius:8px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,.06),0 20px 50px -30px rgba(10,25,50,.45)}
+.pg-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin-top:12px}
+.pg-ctrl>span{font-size:13px; color:var(--pg-sub); min-width:96px}
+.pg-btn{font:inherit; font-size:13.5px; padding:6px 12px; border-radius:6px; border:1px solid var(--pg-line); background:var(--pg-panel); color:var(--pg-ink); cursor:pointer}
+.pg-btn[aria-pressed="true"]{background:var(--pg-key); color:var(--pg-panel); border-color:var(--pg-key)}
+.pg-btn:focus-visible{outline:2px solid var(--pg-key); outline-offset:2px}
+.pg-btn.is-replay{margin-left:auto}
+section.pg-sec{margin-top:44px}
+.pg-sec h2{font-family:var(--pg-f-title); font-weight:800; font-size:20px; margin:0 0 4px}
+.pg-sec h2 small{font-family:var(--pg-f-body); font-weight:500; font-size:13px; color:var(--pg-sub); margin-left:8px}
+.pg-sec>p.lead{color:var(--pg-sub); margin:0 0 16px; max-width:70ch}
+.pg-two{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px}
+.pg-card{background:var(--pg-panel); border:1px solid var(--pg-line); border-radius:8px; padding:20px 22px; min-width:0}
+.pg-card h3{font-size:14px; letter-spacing:.04em; color:var(--pg-sub); margin:0 0 10px; font-weight:700}
+.pg-src{margin:0; line-height:1.95}
+.pg-src mark{background:var(--pg-hi); color:var(--pg-ink); padding:1px 2px; border-radius:3px}
+.pg-src mark sup,.pg-grp b.n{font-family:var(--pg-f-mono); font-weight:600; color:var(--pg-key)}
+.pg-src mark sup{font-size:11px; margin-right:2px}
+.pg-grp{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+.pg-grp li{display:grid; grid-template-columns:28px 1fr; gap:2px 8px; padding-bottom:12px; border-bottom:1px dashed var(--pg-line)}
+.pg-grp li:last-child{border-bottom:0; padding-bottom:0}
+.pg-grp b.n{grid-row:span 2; font-size:15px}
+.pg-grp strong{font-weight:700}
+.pg-grp span{color:var(--pg-sub); font-size:14px}
+.pg-rel{margin:16px 0 0; padding:12px 14px; background:var(--pg-hi); border-radius:6px; font-size:14px}
+.pg-rel p{margin:0}
+.pg-rel p+p{margin-top:4px}
+.pg-list{margin:0; padding-left:20px}
+.pg-list li+li{margin-top:4px}
+.pg-tbl-wrap{overflow-x:auto}
+table.pg-tbl{border-collapse:collapse; width:100%; font-size:14px; min-width:560px}
+.pg-tbl th,.pg-tbl td{border-bottom:1px solid var(--pg-line); padding:8px 10px; text-align:left; vertical-align:top}
+.pg-tbl th{font-weight:700; color:var(--pg-sub); font-size:12.5px; letter-spacing:.03em}
+.pg-tbl td.num,.pg-tbl code{font-family:var(--pg-f-mono); font-size:13px; font-variant-numeric:tabular-nums}
+.sw{display:inline-block; width:12px; height:12px; border-radius:2px; vertical-align:-1px; margin-right:6px; border:1px solid rgba(0,0,0,.15)}
+.pg-code{position:relative; margin-top:12px}
+.pg-code pre{margin:0; background:var(--pg-code-bg); color:var(--pg-code-ink); font-family:var(--pg-f-mono); font-size:12.5px; line-height:1.55; padding:18px; border-radius:8px; max-height:520px; overflow:auto; white-space:pre}
+.pg-code button{position:absolute; top:10px; right:10px; font:inherit; font-size:13px; padding:6px 12px; border-radius:6px; border:1px solid #3A4B66; background:#1E2B40; color:#E6EDF8; cursor:pointer}
+.pg-code button:focus-visible{outline:2px solid #9DB9E6; outline-offset:2px}
+.pg-foot{margin-top:56px; font-size:12.5px; color:var(--pg-sub)}
+@media (max-width:760px){ .pg-two{grid-template-columns:minmax(0,1fr)} .pg-ctrl>span{min-width:0; width:100%} .pg-btn.is-replay{margin-left:0} }
+</style>
+
+<div class="pg">
+  <div class="pg-top">
+    <h1>레퍼런스 #121 현안·해결 줄 맞춤 비교</h1>
+    <p>기본 틀 정석판 · 2단 비교 · 현안→해결방안</p>
+  </div>
+  <ul class="pg-tags">
+    <li>본문</li><li>발표 덱</li><li>모션(순차 등장)</li><li>특수교육</li><li>Ⅲ 세부과제</li><li>평면</li><li>아이콘 세트</li>
+  </ul>
+
+  <div class="pg-stage">
+<style>
+/* ── 2단 비교 (정석판) · 접두어 tw2- ──
+   가상 화면 1600×900 기준. 1단위(--u) = 1600분의 1 화면 폭.
+   색은 아래 --ds-* 변수만 쓴다. 계열을 바꾸려면 이 묶음만 갈아 끼운다. */
+.tw2-wrap{
+  --ds-bg:#F6F8FB; --ds-surface:#FFFFFF; --ds-ink:#172A46; --ds-sub:#56667F; --ds-line:#D5DEEA;
+  --ds-accent:#D24E2B; --ds-accent2:#2F64AE;
+  --ds-c1:#1B3560; --ds-c2:#2F5A93; --ds-c3:#5E7FB0; --ds-c4:#A3B8D6; --ds-c5:#E4EBF5;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif;
+  --ds-radius:6px;
+  --ds-shadow:0 1px 0 rgba(23,42,70,.05),0 14px 32px -22px rgba(23,42,70,.30);
+  container-type:inline-size; width:100%;
+}
+.tw2-slide{
+  --u:calc(100cqw / 1600);
+  position:relative; aspect-ratio:16/9; width:100%; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*22); line-height:1.4;
+}
+.tw2-slide *{box-sizing:border-box; margin:0; padding:0}
+/* 공통 아이콘 CSS (아이콘 세트 _set.css 그대로) */
+.ds-ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.ds-badge{--s:48px;width:var(--s);height:var(--s);display:grid;place-items:center;font-size:calc(var(--s)*.54);color:var(--ds-accent)}
+.ds-badge.is-line{width:auto;height:auto;font-size:var(--s)}
+.ds-badge.is-round{border-radius:50%;background:var(--ds-c5)}
+.ds-badge.is-square{border-radius:calc(var(--s)*.18);background:var(--ds-c5)}
+.ds-badge.is-slant{background:var(--ds-accent);color:var(--ds-surface);clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);width:calc(var(--s)*1.25)}
+
+/* 머리말 띠 y40~88 */
+.tw2-head{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:calc(var(--u)*1.5) solid var(--ds-ink)}
+.tw2-sec{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*22); letter-spacing:.02em}
+.tw2-sec b{color:var(--ds-c2); margin-right:calc(var(--u)*8)}
+.tw2-plan{font-size:calc(var(--u)*17); color:var(--ds-sub); letter-spacing:.02em}
+/* 제목 y112~ (결론 한 문장, 강조 한 곳) */
+.tw2-title{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*112);
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*44); line-height:1.3; letter-spacing:-.01em}
+.tw2-title em{font-style:normal; color:var(--ds-accent)}
+.tw2-note{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*178);
+  font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tw2-note span+span::before{content:"·"; margin:0 calc(var(--u)*8); color:var(--ds-c4)}
+
+/* 본문 y232~820 : 비교 표(머리 + 4줄) + 예산·측정 띠 */
+.tw2-body{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*232); bottom:calc(var(--u)*80);
+  display:flex; flex-direction:column; gap:calc(var(--u)*16)}
+/* 열: 항목 이름 176 | 현안 1fr | 화살표 72 | 해결방안 1fr  (각 596) */
+.tw2-grid{flex:1; display:grid; grid-template-columns:calc(var(--u)*176) 1fr calc(var(--u)*72) 1fr;
+  grid-template-rows:calc(var(--u)*64) repeat(4, 1fr); row-gap:calc(var(--u)*8)}
+.tw2-row{display:contents}
+.tw2-corner,.tw2-colhead{grid-row:1}
+/* 열 머리말 */
+.tw2-colhead{display:flex; align-items:center; gap:calc(var(--u)*16); padding:0 calc(var(--u)*24) calc(var(--u)*8);
+  border-bottom:calc(var(--u)*3) solid var(--k)}
+.tw2-colhead.is-now{--k:var(--ds-c4); grid-column:2}
+.tw2-colhead.is-fix{--k:var(--ds-c1); grid-column:4}
+.tw2-colhead .ds-badge{--s:calc(var(--u)*48); color:var(--ds-c1)}
+.tw2-colhead strong{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*26)}
+.tw2-colhead.is-now strong{color:var(--ds-c2)}
+.tw2-colhead span.s{margin-left:auto; font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tw2-corner{grid-column:1; align-self:end; padding-bottom:calc(var(--u)*12); font-size:calc(var(--u)*17); color:var(--ds-sub); border-bottom:calc(var(--u)*3) solid var(--ds-line)}
+/* 항목 이름 칸 */
+.tw2-key{grid-column:1; display:flex; flex-direction:column; justify-content:center; padding-right:calc(var(--u)*16);
+  border-bottom:calc(var(--u)*1) solid var(--ds-line)}
+.tw2-key i{font-style:normal; font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*17); color:var(--ds-c3)}
+.tw2-key b{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*26); line-height:1.2}
+/* 현안·해결 칸 : 수치 160 + 글 */
+.tw2-cell{display:grid; grid-template-columns:calc(var(--u)*168) 1fr; column-gap:calc(var(--u)*16); align-items:center;
+  padding:0 calc(var(--u)*24); border-radius:var(--ds-radius)}
+.tw2-cell.is-now{grid-column:2; background:var(--ds-surface); box-shadow:inset 0 0 0 calc(var(--u)*1) var(--ds-line)}
+.tw2-cell.is-fix{grid-column:4; background:var(--ds-c5)}
+.tw2-num{display:flex; align-items:baseline; gap:calc(var(--u)*4); white-space:nowrap}
+.tw2-num b{font-family:var(--ds-font-num); font-weight:700; font-size:calc(var(--u)*44); line-height:1; font-variant-numeric:tabular-nums}
+.tw2-num small{font-size:calc(var(--u)*17); font-weight:700}
+.tw2-cell.is-now .tw2-num{color:var(--ds-sub)}
+.tw2-cell.is-fix .tw2-num{color:var(--ds-c1)}
+.tw2-txt strong{display:block; font-weight:700; line-height:1.3}
+.tw2-txt span{display:block; font-size:calc(var(--u)*17); color:var(--ds-sub); margin-top:calc(var(--u)*4)}
+.tw2-arrow{grid-column:3; display:grid; place-items:center; color:var(--ds-c3)}
+.tw2-arrow svg{width:calc(var(--u)*32); height:calc(var(--u)*32)}
+/* 예산·측정 띠 */
+.tw2-band{display:flex; align-items:center; gap:calc(var(--u)*16); height:calc(var(--u)*64); padding:0 calc(var(--u)*24);
+  border:calc(var(--u)*1) solid var(--ds-line); border-radius:var(--ds-radius); background:var(--ds-surface)}
+.tw2-band .ds-badge{--s:calc(var(--u)*40); color:var(--ds-c1)}
+.tw2-band strong{font-family:var(--ds-font-title); font-weight:800; white-space:nowrap}
+.tw2-band dl{display:flex; flex-wrap:wrap; gap:calc(var(--u)*8) calc(var(--u)*32); margin-left:calc(var(--u)*8)}
+.tw2-band dl div{display:flex; gap:calc(var(--u)*8); align-items:baseline}
+.tw2-band dt{font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tw2-band dd{font-weight:700}
+/* 바닥 줄 y846~ */
+.tw2-base{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846);
+  display:flex; justify-content:space-between; font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tw2-base b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+
+/* ── 순차 등장 (PPT '나타내기' 수준, 전체 1.43초, 한 번) ── */
+@keyframes tw2-in{from{opacity:0; transform:translateX(calc(var(--u)*-12))} to{opacity:1; transform:none}}
+.tw2-wrap.is-play [data-step]{animation:tw2-in .35s ease-out both; animation-delay:calc(var(--step) * 120ms)}
+@media (prefers-reduced-motion: reduce){ .tw2-wrap.is-play [data-step]{animation:none} }
+
+/* ── 변주 1: 강조 위치 — 제목 단어 → 가장 급한 한 줄 ── */
+.tw2-wrap[data-variant="focus"] .tw2-title em{color:inherit}
+.tw2-wrap[data-variant="focus"] .tw2-row.is-focus .tw2-cell.is-fix{box-shadow:inset 0 0 0 calc(var(--u)*2) var(--ds-accent)}
+.tw2-wrap[data-variant="focus"] .tw2-row.is-focus .tw2-cell.is-fix .tw2-num{color:var(--ds-accent)}
+.tw2-wrap[data-variant="focus"] .tw2-row.is-focus .tw2-key b{color:var(--ds-accent)}
+/* ── 변주 2: 항목 이름 열 왼쪽 → 가운데 (화살표 자리) ── */
+.tw2-wrap[data-variant="center"] .tw2-grid{grid-template-columns:1fr calc(var(--u)*176) 1fr; column-gap:calc(var(--u)*16)}
+.tw2-wrap[data-variant="center"] .tw2-arrow{display:none}
+.tw2-wrap[data-variant="center"] .tw2-corner{grid-column:2; text-align:center}
+.tw2-wrap[data-variant="center"] .tw2-colhead.is-now{grid-column:1}
+.tw2-wrap[data-variant="center"] .tw2-colhead.is-fix{grid-column:3}
+.tw2-wrap[data-variant="center"] .tw2-key{grid-column:2; align-items:center; text-align:center; padding:0; border-bottom:0;
+  background:var(--ds-surface); border-radius:var(--ds-radius); box-shadow:inset 0 0 0 calc(var(--u)*1) var(--ds-line)}
+.tw2-wrap[data-variant="center"] .tw2-cell.is-now{grid-column:1; grid-template-columns:1fr calc(var(--u)*168); text-align:right}
+.tw2-wrap[data-variant="center"] .tw2-cell.is-now .tw2-num{order:2; justify-content:flex-end}
+.tw2-wrap[data-variant="center"] .tw2-cell.is-fix{grid-column:3}
+</style>
+
+<div class="tw2-wrap" data-variant="base">
+  <div class="tw2-slide" role="img" aria-label="통합학급 특수교육 지원의 현안 네 가지와 해결방안 네 가지를 같은 줄에 맞춘 2단 비교 장표">
+    <header class="tw2-head">
+      <div class="tw2-sec"><b>Ⅲ.</b>세부 추진과제</div>
+      <div class="tw2-plan">2027 통합교육 지원 내실화 계획</div>
+    </header>
+    <h2 class="tw2-title">통합학급 현안 넷, <em>같은 줄의 방안</em>으로 하나씩 풉니다</h2>
+    <p class="tw2-note"><span>2026년 4월 특수교육 실태조사 · 통합학급 특수교육대상학생 2,184명</span><span>왼쪽 = 현재값, 오른쪽 = 목표값</span></p>
+    <div class="tw2-body">
+      <div class="tw2-grid" id="tw2-grid"></div>
+      <div class="tw2-band" data-step style="--step:9">
+        <span class="ds-badge is-round"><svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1"/><path d="M12 7v10"/></svg></span>
+        <strong>예산·측정</strong>
+        <dl>
+          <div><dt>총사업비</dt><dd>214억 원 (2027~2029)</dd></div>
+          <div><dt>성과 측정</dt><dd>매년 4월 실태조사</dd></div>
+          <div><dt>담당</dt><dd>특수교육과</dd></div>
+        </dl>
+      </div>
+    </div>
+    <footer class="tw2-base"><span>가상 예시 · 출처: ○○교육청 특수교육과 특수교육 실태조사(가상) · 아이콘: Tabler Icons(MIT)</span><b>14</b></footer>
+  </div>
+</div>
+
+<script>
+/* ── 데이터: 여기만 바꾸면 줄 내용이 바뀝니다 ──
+   key = 항목 이름, now = [현재값, 단위, 현안 한 줄, 근거], fix = [목표값, 단위, 방안 한 줄, 시기]
+   focus:true = 변주 1(강조 위치)에서 강조할 줄 하나 */
+(function(){
+  var TW2_DATA = [
+    { key:"인력",   now:["7.8","명","실무사 1명이 맡는 학생 수","이동·급식 시간에 지원 공백"],
+                    fix:["5.5","명","특수교육실무사 120명 증원","2027년 3월 배치"] },
+    { key:"전문성", now:["38","%","통합학급 담임 연수 이수율","개별화교육 협의 참여 저조"],
+                    fix:["80","%","담임 직무연수 15시간 의무화","2027년 말까지"] },
+    { key:"행동지원", focus:true,
+                    now:["21","일","위기 요청 후 전문가 지원까지","도전행동 위기 요청 연 412건"],
+                    fix:["7","일 이내","권역별 행동지원센터 4곳","2027년 9월 개소"] },
+    { key:"접근성", now:["46","교","승강기가 없는 학교","지체장애 학생 교실 이동 제한"],
+                    fix:["30","교","승강기 설치","남은 16교는 경사로·저층 교실 · 2028년"] }
+  ];
+  /* 아이콘 세트에서 가져온 SVG (Tabler Icons, MIT) */
+  var IC = function(p){ return '<svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'; };
+  var TW2_ICON = {
+    "search":IC('<path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/>'),
+    "bulb":IC('<path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7"/><path d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3"/><path d="M9.7 17l4.6 0"/>')
+  };
+  var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M12 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function cell(side, v, step, r){
+    return '<div class="tw2-cell is-'+side+'" data-step style="--step:'+step+';grid-row:'+r+'"><div class="tw2-num"><b>'+v[0]+'</b><small>'+v[1]+'</small></div>'
+      + '<div class="tw2-txt"><strong>'+v[2]+'</strong><span>'+v[3]+'</span></div></div>';
+  }
+  var host = document.getElementById("tw2-grid");
+  if(!host) return;
+  var html = '<div class="tw2-corner" data-step style="--step:0">항목</div>'
+    + '<div class="tw2-colhead is-now" data-step style="--step:0"><span class="ds-badge is-round">'+TW2_ICON.search+'</span><strong>현안</strong><span class="s">2026 실태조사</span></div>'
+    + '<div class="tw2-colhead is-fix" data-step style="--step:0"><span class="ds-badge is-round">'+TW2_ICON.bulb+'</span><strong>해결방안</strong><span class="s">목표 · 시기</span></div>';
+  html += TW2_DATA.map(function(d,i){
+    var s = 1 + i*2, r = i + 2; /* r = 그리드 줄 번호(1은 열 머리) */
+    return '<div class="tw2-row'+(d.focus?' is-focus':'')+'">'
+      + '<div class="tw2-key" data-step style="--step:'+s+';grid-row:'+r+'"><i>0'+(i+1)+'</i><b>'+d.key+'</b></div>'
+      + cell('now', d.now, s, r)
+      + '<div class="tw2-arrow" data-step style="--step:'+(s+1)+';grid-row:'+r+'">'+ARROW+'</div>'
+      + cell('fix', d.fix, s+1, r) + '</div>';
+  }).join('');
+  host.innerHTML = html;
+  /* 순차 등장: 처음 한 번. 다시 보려면 tw2Replay() */
+  var wrap = host.closest(".tw2-wrap");
+  window.tw2Replay = function(){ wrap.classList.remove("is-play"); void wrap.offsetWidth; wrap.classList.add("is-play"); };
+  window.tw2Replay();
+})();
+</script>
+
+  </div>
+
+  <div class="pg-ctrl" role="group" aria-label="계열 값 바꿔 보기">
+    <span>계열 값 바꿔 보기</span>
+    <button class="pg-btn" data-fam="N" aria-pressed="true">중립 값</button>
+    <button class="pg-btn" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+    <button class="pg-btn" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+    <button class="pg-btn" data-fam="F" aria-pressed="false">F 관측·중계</button>
+    <button class="pg-btn is-replay" id="pg-replay" type="button">다시 보기</button>
+  </div>
+  <div class="pg-ctrl" role="group" aria-label="변주 보기">
+    <span>변주 보기</span>
+    <button class="pg-btn" data-var="base" aria-pressed="true">기본형</button>
+    <button class="pg-btn" data-var="focus" aria-pressed="false">변주 1 · 강조: 제목 단어 → 한 줄</button>
+    <button class="pg-btn" data-var="center" aria-pressed="false">변주 2 · 항목 이름 왼쪽 → 가운데</button>
+  </div>
+
+  <section class="pg-sec">
+    <h2>원문 → 유목화<small>줄글 한 문단을 짝 넷 + 띠 하나로</small></h2>
+    <p class="lead">왼쪽은 정리 전 계획안 문단, 오른쪽은 묶은 방법입니다. 같은 번호가 장표의 같은 줄(①~④)과 아래 띠(⑤)입니다.</p>
+    <div class="pg-two">
+      <div class="pg-card">
+        <h3>정리 전 원문 (가상)</h3>
+        <p class="pg-src">2026년 4월 특수교육 실태조사 결과 관내 일반학교 통합학급에 배치된 특수교육대상학생은 2,184명이다. <mark><sup>①</sup>특수교육실무사 1명이 평균 7.8명을 지원하고 있어 이동·급식 시간에 지원 공백이 생긴다는 의견이 많다</mark>. 이에 <mark><sup>①</sup>실무사 120명을 증원하여 2027년 3월 배치하고 1명당 5.5명으로 낮춘다</mark>. <mark><sup>②</sup>통합학급 담임교사의 특수교육 연수 이수율은 38%에 그쳐 개별화교육 협의 참여가 저조하다</mark>. <mark><sup>②</sup>담임 직무연수 15시간을 의무화하여 2027년 말까지 이수율 80%를 달성한다</mark>. <mark><sup>③</sup>도전행동으로 인한 위기 지원 요청은 연 412건이며 외부 전문가 지원까지 평균 21일이 걸린다</mark>. <mark><sup>③</sup>2027년 9월 권역별 행동지원센터 4곳을 열어 요청 후 7일 이내 현장 지원한다</mark>. <mark><sup>④</sup>승강기가 없는 학교가 46교로 지체장애 학생의 교실 이동이 제한된다</mark>. <mark><sup>④</sup>2028년까지 30교에 승강기를 설치하고, 나머지 16교는 경사로와 저층 교실 배치로 대신한다</mark>. <mark><sup>⑤</sup>소요 예산은 2027~2029년 총 214억 원이며, 성과는 매년 4월 실태조사로 측정하고 특수교육과가 총괄한다</mark>.</p>
+      </div>
+      <div class="pg-card">
+        <h3>묶은 방법</h3>
+        <ol class="pg-grp">
+          <li><b class="n">①</b><strong>인력</strong><span>현안 “1명이 7.8명” → 현재값 7.8명 / 방안 “120명 증원·3월 배치” → 목표값 5.5명</span></li>
+          <li><b class="n">②</b><strong>전문성</strong><span>현안 “이수율 38%” → 38% / 방안 “15시간 의무화·2027년 말” → 80%</span></li>
+          <li><b class="n">③</b><strong>행동지원</strong><span>현안 “평균 21일, 연 412건” → 21일 / 방안 “센터 4곳·9월 개소” → 7일 이내</span></li>
+          <li><b class="n">④</b><strong>접근성</strong><span>현안 “승강기 없는 46교” → 46교 / 방안 “30교 설치 + 16교 대체” → 30교(남은 16교는 근거 줄에)</span></li>
+          <li><b class="n">⑤</b><strong>예산·측정</strong><span>네 줄 모두에 걸리는 총사업비·측정·담당은 표 밖 띠 하나로</span></li>
+        </ol>
+        <div class="pg-rel">
+          <p><b>①~④ 줄</b> 현안과 방안을 1:1로 짝지어 같은 높이에 놓습니다. 화살표는 “이 현안을 이 방안으로”라는 대응 하나만 뜻합니다.</p>
+          <p><b>줄 순서</b> 원문 순서(사람 → 역량 → 위기 → 시설) 그대로. 위계가 아니라 나열이라 줄 색은 모두 같습니다.</p>
+          <p><b>뺀 것 없음</b> 대상 학생 2,184명과 조사 시점은 제목 아래 기준 줄로 옮겼습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>구조 설명</h2>
+    <div class="pg-two">
+      <div class="pg-card">
+        <h3>정보 구조</h3>
+        <p style="margin:0">현안과 해결방안을 두 열로 나누고, 같은 주제의 현안·방안을 <b>같은 줄</b>에 놓습니다. 두 칸은 똑같이 <b>수치(160) + 한 줄 + 근거·시기</b>로 짜여 있어 가로로 읽으면 “7.8명 → 5.5명”처럼 현재값과 목표값이 같은 기준선에서 비교되고, 세로로 읽으면 현안 목록과 방안 목록이 됩니다. 해결방안 열이 결론이므로 열 머리 밑줄과 칸 바탕을 진한 쪽(c1·c5)으로, 현안 열은 옅은 쪽(c4·흰 바탕)으로 둡니다.</p>
+      </div>
+      <div class="pg-card">
+        <h3>가져갈 장치 · 응용 예</h3>
+        <ul class="pg-list">
+          <li><b>칸 문법 통일</b>: 왼쪽·오른쪽 칸이 같은 순서(숫자 → 한 줄 → 근거)라서 숫자끼리, 문장끼리 같은 높이에 맞습니다. 현재값과 목표값이 생기는 계획안이면 지표 표를 따로 만들 필요가 없습니다.</li>
+          <li><b>열의 무게는 농담으로</b>: 결론 쪽 열만 c5 바탕을 깔아 시선이 오른쪽에서 끝나게 합니다.</li>
+          <li>응용: 학교폭력 사안 처리 지연 → 개선(처리 기간 일수) / 늘봄 대기 학생 → 프로그램 확충(명) / 노후 교실 → 그린스마트 개축(교)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>정석 수치<small>1600×900 기준 px · 간격은 8의 단계(8·16·24·32·56·80)에서만</small></h2>
+    <div class="pg-tbl-wrap">
+      <table class="pg-tbl">
+        <thead><tr><th>항목</th><th>값</th><th>메모</th></tr></thead>
+        <tbody>
+          <tr><td>바깥 여백</td><td class="num">좌우 80 · 머리말 띠 y40~88 · 본문 y232~820 · 바닥 줄 y846</td><td>공통 뼈대 그대로</td></tr>
+          <tr><td>열 폭</td><td class="num">항목 이름 176 · 현안 596 · 화살표 72 · 해결방안 596 (합 1440)</td><td>두 비교 열은 반드시 같은 폭</td></tr>
+          <tr><td>줄 높이·간격</td><td class="num">열 머리 64 · 항목 줄 4개 각 103 · 줄 사이 8 · 표 ↔ 띠 16 · 띠 64</td><td>줄 높이 = (588 − 16 − 64 − 64 − 8×4) ÷ 4</td></tr>
+          <tr><td>칸 안쪽 여백</td><td class="num">좌우 24 · 수치 칸 168 + 간격 16 · 근거 줄 위 4</td><td>위아래는 가운데 맞춤(줄 높이가 여백을 정함)</td></tr>
+          <tr><td>글자 크기 단계</td><td class="num">제목 44 · 열 머리·항목 이름 26 · 본문 22 · 보조 17 (수치 44 = 제목 크기)</td><td>보조 글자는 22·17 두 단계</td></tr>
+          <tr><td>아이콘·배지</td><td class="num">열 머리 배지 48 (아이콘 26) · 띠 배지 40 (아이콘 22)</td><td>원 배지 한 종류, 색 --ds-c1 하나</td></tr>
+          <tr><td>선 굵기</td><td class="num">머리말 밑줄 1.5 · 열 머리 밑줄 3 · 현안 칸 테두리 1 · 항목 이름 밑줄 1 · 화살표 32</td><td>모서리 6, 그림자 없음(줄 맞춤이 주인공)</td></tr>
+          <tr><td>높이 맞춤</td><td class="num">현안·방안 칸 모두 “수치 + 2줄 글”로 같은 분량</td><td>한쪽만 긴 문장이면 줄이 들쭉날쭉해지므로 근거·시기로 잘라 둠</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>이 틀을 변주하는 법</h2>
+    <ul class="pg-list">
+      <li><b>강조 위치 하나만</b>: 결론이 “모두 고르게”면 제목 단어에, “이 하나가 급하다”면 그 줄에 강조색을 둡니다. 둘 다 쓰지 않습니다(변주 1).</li>
+      <li><b>항목 이름 자리</b>: 비교가 대칭(전·후, 우리·타 시도)이면 항목 이름을 가운데로 옮겨 좌우가 마주 보게 합니다. 이때 화살표는 뺍니다(변주 2).</li>
+      <li><b>줄 수</b>: 3~5줄까지. 6줄 이상이면 근거 줄을 빼고 수치 + 한 줄만, 그래도 넘치면 표 + 요약 상자 틀로 바꿉니다.</li>
+    </ul>
+  </section>
+
+  <section class="pg-sec">
+    <h2>HTML로 가져다 쓰기</h2>
+    <ul class="pg-list">
+      <li>내용은 코드 아래쪽 <code>TW2_DATA</code> 배열만 바꾸면 됩니다(now = [현재값, 단위, 현안, 근거], fix = [목표값, 단위, 방안, 시기], focus = 변주 1에서 강조할 줄).</li>
+      <li>색·글꼴은 맨 위 <code>.tw2-wrap</code>의 <code>--ds-*</code> 변수만 바꿉니다. 변주는 <code>data-variant</code>를 <code>base</code> · <code>focus</code> · <code>center</code> 중 하나로.</li>
+      <li>순차 등장이 필요 없으면 맨 아래 <code>window.tw2Replay();</code> 한 줄을 지우면 정지 장표가 됩니다.</li>
+      <li>인터넷이 없으면 글꼴만 대체 글꼴(맑은 고딕 등)로 바뀌고 나머지는 그대로 그려집니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ul>
+    <div class="pg-code">
+      <button type="button" id="pg-copy">코드 복사</button>
+      <pre id="pg-codebox" tabindex="0">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;800&amp;family=IBM+Plex+Sans+KR:wght@400;500;700&amp;family=Saira+Semi+Condensed:wght@600;700&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 2단 비교 (정석판) · 접두어 tw2- ──
+   가상 화면 1600×900 기준. 1단위(--u) = 1600분의 1 화면 폭.
+   색은 아래 --ds-* 변수만 쓴다. 계열을 바꾸려면 이 묶음만 갈아 끼운다. */
+.tw2-wrap{
+  --ds-bg:#F6F8FB; --ds-surface:#FFFFFF; --ds-ink:#172A46; --ds-sub:#56667F; --ds-line:#D5DEEA;
+  --ds-accent:#D24E2B; --ds-accent2:#2F64AE;
+  --ds-c1:#1B3560; --ds-c2:#2F5A93; --ds-c3:#5E7FB0; --ds-c4:#A3B8D6; --ds-c5:#E4EBF5;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;Saira Semi Condensed&quot;,&quot;Arial Narrow&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-radius:6px;
+  --ds-shadow:0 1px 0 rgba(23,42,70,.05),0 14px 32px -22px rgba(23,42,70,.30);
+  container-type:inline-size; width:100%;
+}
+.tw2-slide{
+  --u:calc(100cqw / 1600);
+  position:relative; aspect-ratio:16/9; width:100%; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*22); line-height:1.4;
+}
+.tw2-slide *{box-sizing:border-box; margin:0; padding:0}
+/* 공통 아이콘 CSS (아이콘 세트 _set.css 그대로) */
+.ds-ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.ds-badge{--s:48px;width:var(--s);height:var(--s);display:grid;place-items:center;font-size:calc(var(--s)*.54);color:var(--ds-accent)}
+.ds-badge.is-line{width:auto;height:auto;font-size:var(--s)}
+.ds-badge.is-round{border-radius:50%;background:var(--ds-c5)}
+.ds-badge.is-square{border-radius:calc(var(--s)*.18);background:var(--ds-c5)}
+.ds-badge.is-slant{background:var(--ds-accent);color:var(--ds-surface);clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);width:calc(var(--s)*1.25)}
+
+/* 머리말 띠 y40~88 */
+.tw2-head{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:calc(var(--u)*1.5) solid var(--ds-ink)}
+.tw2-sec{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*22); letter-spacing:.02em}
+.tw2-sec b{color:var(--ds-c2); margin-right:calc(var(--u)*8)}
+.tw2-plan{font-size:calc(var(--u)*17); color:var(--ds-sub); letter-spacing:.02em}
+/* 제목 y112~ (결론 한 문장, 강조 한 곳) */
+.tw2-title{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*112);
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*44); line-height:1.3; letter-spacing:-.01em}
+.tw2-title em{font-style:normal; color:var(--ds-accent)}
+.tw2-note{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*178);
+  font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tw2-note span+span::before{content:&quot;·&quot;; margin:0 calc(var(--u)*8); color:var(--ds-c4)}
+
+/* 본문 y232~820 : 비교 표(머리 + 4줄) + 예산·측정 띠 */
+.tw2-body{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*232); bottom:calc(var(--u)*80);
+  display:flex; flex-direction:column; gap:calc(var(--u)*16)}
+/* 열: 항목 이름 176 | 현안 1fr | 화살표 72 | 해결방안 1fr  (각 596) */
+.tw2-grid{flex:1; display:grid; grid-template-columns:calc(var(--u)*176) 1fr calc(var(--u)*72) 1fr;
+  grid-template-rows:calc(var(--u)*64) repeat(4, 1fr); row-gap:calc(var(--u)*8)}
+.tw2-row{display:contents}
+.tw2-corner,.tw2-colhead{grid-row:1}
+/* 열 머리말 */
+.tw2-colhead{display:flex; align-items:center; gap:calc(var(--u)*16); padding:0 calc(var(--u)*24) calc(var(--u)*8);
+  border-bottom:calc(var(--u)*3) solid var(--k)}
+.tw2-colhead.is-now{--k:var(--ds-c4); grid-column:2}
+.tw2-colhead.is-fix{--k:var(--ds-c1); grid-column:4}
+.tw2-colhead .ds-badge{--s:calc(var(--u)*48); color:var(--ds-c1)}
+.tw2-colhead strong{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*26)}
+.tw2-colhead.is-now strong{color:var(--ds-c2)}
+.tw2-colhead span.s{margin-left:auto; font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tw2-corner{grid-column:1; align-self:end; padding-bottom:calc(var(--u)*12); font-size:calc(var(--u)*17); color:var(--ds-sub); border-bottom:calc(var(--u)*3) solid var(--ds-line)}
+/* 항목 이름 칸 */
+.tw2-key{grid-column:1; display:flex; flex-direction:column; justify-content:center; padding-right:calc(var(--u)*16);
+  border-bottom:calc(var(--u)*1) solid var(--ds-line)}
+.tw2-key i{font-style:normal; font-family:var(--ds-font-num); font-weight:600; font-size:calc(var(--u)*17); color:var(--ds-c3)}
+.tw2-key b{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*26); line-height:1.2}
+/* 현안·해결 칸 : 수치 160 + 글 */
+.tw2-cell{display:grid; grid-template-columns:calc(var(--u)*168) 1fr; column-gap:calc(var(--u)*16); align-items:center;
+  padding:0 calc(var(--u)*24); border-radius:var(--ds-radius)}
+.tw2-cell.is-now{grid-column:2; background:var(--ds-surface); box-shadow:inset 0 0 0 calc(var(--u)*1) var(--ds-line)}
+.tw2-cell.is-fix{grid-column:4; background:var(--ds-c5)}
+.tw2-num{display:flex; align-items:baseline; gap:calc(var(--u)*4); white-space:nowrap}
+.tw2-num b{font-family:var(--ds-font-num); font-weight:700; font-size:calc(var(--u)*44); line-height:1; font-variant-numeric:tabular-nums}
+.tw2-num small{font-size:calc(var(--u)*17); font-weight:700}
+.tw2-cell.is-now .tw2-num{color:var(--ds-sub)}
+.tw2-cell.is-fix .tw2-num{color:var(--ds-c1)}
+.tw2-txt strong{display:block; font-weight:700; line-height:1.3}
+.tw2-txt span{display:block; font-size:calc(var(--u)*17); color:var(--ds-sub); margin-top:calc(var(--u)*4)}
+.tw2-arrow{grid-column:3; display:grid; place-items:center; color:var(--ds-c3)}
+.tw2-arrow svg{width:calc(var(--u)*32); height:calc(var(--u)*32)}
+/* 예산·측정 띠 */
+.tw2-band{display:flex; align-items:center; gap:calc(var(--u)*16); height:calc(var(--u)*64); padding:0 calc(var(--u)*24);
+  border:calc(var(--u)*1) solid var(--ds-line); border-radius:var(--ds-radius); background:var(--ds-surface)}
+.tw2-band .ds-badge{--s:calc(var(--u)*40); color:var(--ds-c1)}
+.tw2-band strong{font-family:var(--ds-font-title); font-weight:800; white-space:nowrap}
+.tw2-band dl{display:flex; flex-wrap:wrap; gap:calc(var(--u)*8) calc(var(--u)*32); margin-left:calc(var(--u)*8)}
+.tw2-band dl div{display:flex; gap:calc(var(--u)*8); align-items:baseline}
+.tw2-band dt{font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tw2-band dd{font-weight:700}
+/* 바닥 줄 y846~ */
+.tw2-base{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846);
+  display:flex; justify-content:space-between; font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tw2-base b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+
+/* ── 순차 등장 (PPT &#x27;나타내기&#x27; 수준, 전체 1.43초, 한 번) ── */
+@keyframes tw2-in{from{opacity:0; transform:translateX(calc(var(--u)*-12))} to{opacity:1; transform:none}}
+.tw2-wrap.is-play [data-step]{animation:tw2-in .35s ease-out both; animation-delay:calc(var(--step) * 120ms)}
+@media (prefers-reduced-motion: reduce){ .tw2-wrap.is-play [data-step]{animation:none} }
+
+/* ── 변주 1: 강조 위치 — 제목 단어 → 가장 급한 한 줄 ── */
+.tw2-wrap[data-variant=&quot;focus&quot;] .tw2-title em{color:inherit}
+.tw2-wrap[data-variant=&quot;focus&quot;] .tw2-row.is-focus .tw2-cell.is-fix{box-shadow:inset 0 0 0 calc(var(--u)*2) var(--ds-accent)}
+.tw2-wrap[data-variant=&quot;focus&quot;] .tw2-row.is-focus .tw2-cell.is-fix .tw2-num{color:var(--ds-accent)}
+.tw2-wrap[data-variant=&quot;focus&quot;] .tw2-row.is-focus .tw2-key b{color:var(--ds-accent)}
+/* ── 변주 2: 항목 이름 열 왼쪽 → 가운데 (화살표 자리) ── */
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-grid{grid-template-columns:1fr calc(var(--u)*176) 1fr; column-gap:calc(var(--u)*16)}
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-arrow{display:none}
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-corner{grid-column:2; text-align:center}
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-colhead.is-now{grid-column:1}
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-colhead.is-fix{grid-column:3}
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-key{grid-column:2; align-items:center; text-align:center; padding:0; border-bottom:0;
+  background:var(--ds-surface); border-radius:var(--ds-radius); box-shadow:inset 0 0 0 calc(var(--u)*1) var(--ds-line)}
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-cell.is-now{grid-column:1; grid-template-columns:1fr calc(var(--u)*168); text-align:right}
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-cell.is-now .tw2-num{order:2; justify-content:flex-end}
+.tw2-wrap[data-variant=&quot;center&quot;] .tw2-cell.is-fix{grid-column:3}
+&lt;/style&gt;
+
+&lt;div class=&quot;tw2-wrap&quot; data-variant=&quot;base&quot;&gt;
+  &lt;div class=&quot;tw2-slide&quot; role=&quot;img&quot; aria-label=&quot;통합학급 특수교육 지원의 현안 네 가지와 해결방안 네 가지를 같은 줄에 맞춘 2단 비교 장표&quot;&gt;
+    &lt;header class=&quot;tw2-head&quot;&gt;
+      &lt;div class=&quot;tw2-sec&quot;&gt;&lt;b&gt;Ⅲ.&lt;/b&gt;세부 추진과제&lt;/div&gt;
+      &lt;div class=&quot;tw2-plan&quot;&gt;2027 통합교육 지원 내실화 계획&lt;/div&gt;
+    &lt;/header&gt;
+    &lt;h2 class=&quot;tw2-title&quot;&gt;통합학급 현안 넷, &lt;em&gt;같은 줄의 방안&lt;/em&gt;으로 하나씩 풉니다&lt;/h2&gt;
+    &lt;p class=&quot;tw2-note&quot;&gt;&lt;span&gt;2026년 4월 특수교육 실태조사 · 통합학급 특수교육대상학생 2,184명&lt;/span&gt;&lt;span&gt;왼쪽 = 현재값, 오른쪽 = 목표값&lt;/span&gt;&lt;/p&gt;
+    &lt;div class=&quot;tw2-body&quot;&gt;
+      &lt;div class=&quot;tw2-grid&quot; id=&quot;tw2-grid&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;tw2-band&quot; data-step style=&quot;--step:9&quot;&gt;
+        &lt;span class=&quot;ds-badge is-round&quot;&gt;&lt;svg class=&quot;ds-ic&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.75&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0&quot;/&gt;&lt;path d=&quot;M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1&quot;/&gt;&lt;path d=&quot;M12 7v10&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;
+        &lt;strong&gt;예산·측정&lt;/strong&gt;
+        &lt;dl&gt;
+          &lt;div&gt;&lt;dt&gt;총사업비&lt;/dt&gt;&lt;dd&gt;214억 원 (2027~2029)&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;성과 측정&lt;/dt&gt;&lt;dd&gt;매년 4월 실태조사&lt;/dd&gt;&lt;/div&gt;
+          &lt;div&gt;&lt;dt&gt;담당&lt;/dt&gt;&lt;dd&gt;특수교육과&lt;/dd&gt;&lt;/div&gt;
+        &lt;/dl&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;tw2-base&quot;&gt;&lt;span&gt;가상 예시 · 출처: ○○교육청 특수교육과 특수교육 실태조사(가상) · 아이콘: Tabler Icons(MIT)&lt;/span&gt;&lt;b&gt;14&lt;/b&gt;&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+/* ── 데이터: 여기만 바꾸면 줄 내용이 바뀝니다 ──
+   key = 항목 이름, now = [현재값, 단위, 현안 한 줄, 근거], fix = [목표값, 단위, 방안 한 줄, 시기]
+   focus:true = 변주 1(강조 위치)에서 강조할 줄 하나 */
+(function(){
+  var TW2_DATA = [
+    { key:&quot;인력&quot;,   now:[&quot;7.8&quot;,&quot;명&quot;,&quot;실무사 1명이 맡는 학생 수&quot;,&quot;이동·급식 시간에 지원 공백&quot;],
+                    fix:[&quot;5.5&quot;,&quot;명&quot;,&quot;특수교육실무사 120명 증원&quot;,&quot;2027년 3월 배치&quot;] },
+    { key:&quot;전문성&quot;, now:[&quot;38&quot;,&quot;%&quot;,&quot;통합학급 담임 연수 이수율&quot;,&quot;개별화교육 협의 참여 저조&quot;],
+                    fix:[&quot;80&quot;,&quot;%&quot;,&quot;담임 직무연수 15시간 의무화&quot;,&quot;2027년 말까지&quot;] },
+    { key:&quot;행동지원&quot;, focus:true,
+                    now:[&quot;21&quot;,&quot;일&quot;,&quot;위기 요청 후 전문가 지원까지&quot;,&quot;도전행동 위기 요청 연 412건&quot;],
+                    fix:[&quot;7&quot;,&quot;일 이내&quot;,&quot;권역별 행동지원센터 4곳&quot;,&quot;2027년 9월 개소&quot;] },
+    { key:&quot;접근성&quot;, now:[&quot;46&quot;,&quot;교&quot;,&quot;승강기가 없는 학교&quot;,&quot;지체장애 학생 교실 이동 제한&quot;],
+                    fix:[&quot;30&quot;,&quot;교&quot;,&quot;승강기 설치&quot;,&quot;남은 16교는 경사로·저층 교실 · 2028년&quot;] }
+  ];
+  /* 아이콘 세트에서 가져온 SVG (Tabler Icons, MIT) */
+  var IC = function(p){ return &#x27;&lt;svg class=&quot;ds-ic&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.75&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&#x27;+p+&#x27;&lt;/svg&gt;&#x27;; };
+  var TW2_ICON = {
+    &quot;search&quot;:IC(&#x27;&lt;path d=&quot;M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0&quot;/&gt;&lt;path d=&quot;M21 21l-6 -6&quot;/&gt;&#x27;),
+    &quot;bulb&quot;:IC(&#x27;&lt;path d=&quot;M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7&quot;/&gt;&lt;path d=&quot;M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3&quot;/&gt;&lt;path d=&quot;M9.7 17l4.6 0&quot;/&gt;&#x27;)
+  };
+  var ARROW = &#x27;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M5 12h12M12 6l6 6-6 6&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+  function cell(side, v, step, r){
+    return &#x27;&lt;div class=&quot;tw2-cell is-&#x27;+side+&#x27;&quot; data-step style=&quot;--step:&#x27;+step+&#x27;;grid-row:&#x27;+r+&#x27;&quot;&gt;&lt;div class=&quot;tw2-num&quot;&gt;&lt;b&gt;&#x27;+v[0]+&#x27;&lt;/b&gt;&lt;small&gt;&#x27;+v[1]+&#x27;&lt;/small&gt;&lt;/div&gt;&#x27;
+      + &#x27;&lt;div class=&quot;tw2-txt&quot;&gt;&lt;strong&gt;&#x27;+v[2]+&#x27;&lt;/strong&gt;&lt;span&gt;&#x27;+v[3]+&#x27;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27;;
+  }
+  var host = document.getElementById(&quot;tw2-grid&quot;);
+  if(!host) return;
+  var html = &#x27;&lt;div class=&quot;tw2-corner&quot; data-step style=&quot;--step:0&quot;&gt;항목&lt;/div&gt;&#x27;
+    + &#x27;&lt;div class=&quot;tw2-colhead is-now&quot; data-step style=&quot;--step:0&quot;&gt;&lt;span class=&quot;ds-badge is-round&quot;&gt;&#x27;+TW2_ICON.search+&#x27;&lt;/span&gt;&lt;strong&gt;현안&lt;/strong&gt;&lt;span class=&quot;s&quot;&gt;2026 실태조사&lt;/span&gt;&lt;/div&gt;&#x27;
+    + &#x27;&lt;div class=&quot;tw2-colhead is-fix&quot; data-step style=&quot;--step:0&quot;&gt;&lt;span class=&quot;ds-badge is-round&quot;&gt;&#x27;+TW2_ICON.bulb+&#x27;&lt;/span&gt;&lt;strong&gt;해결방안&lt;/strong&gt;&lt;span class=&quot;s&quot;&gt;목표 · 시기&lt;/span&gt;&lt;/div&gt;&#x27;;
+  html += TW2_DATA.map(function(d,i){
+    var s = 1 + i*2, r = i + 2; /* r = 그리드 줄 번호(1은 열 머리) */
+    return &#x27;&lt;div class=&quot;tw2-row&#x27;+(d.focus?&#x27; is-focus&#x27;:&#x27;&#x27;)+&#x27;&quot;&gt;&#x27;
+      + &#x27;&lt;div class=&quot;tw2-key&quot; data-step style=&quot;--step:&#x27;+s+&#x27;;grid-row:&#x27;+r+&#x27;&quot;&gt;&lt;i&gt;0&#x27;+(i+1)+&#x27;&lt;/i&gt;&lt;b&gt;&#x27;+d.key+&#x27;&lt;/b&gt;&lt;/div&gt;&#x27;
+      + cell(&#x27;now&#x27;, d.now, s, r)
+      + &#x27;&lt;div class=&quot;tw2-arrow&quot; data-step style=&quot;--step:&#x27;+(s+1)+&#x27;;grid-row:&#x27;+r+&#x27;&quot;&gt;&#x27;+ARROW+&#x27;&lt;/div&gt;&#x27;
+      + cell(&#x27;fix&#x27;, d.fix, s+1, r) + &#x27;&lt;/div&gt;&#x27;;
+  }).join(&#x27;&#x27;);
+  host.innerHTML = html;
+  /* 순차 등장: 처음 한 번. 다시 보려면 tw2Replay() */
+  var wrap = host.closest(&quot;.tw2-wrap&quot;);
+  window.tw2Replay = function(){ wrap.classList.remove(&quot;is-play&quot;); void wrap.offsetWidth; wrap.classList.add(&quot;is-play&quot;); };
+  window.tw2Replay();
+})();
+&lt;/script&gt;
+</pre>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>PPT로 옮기기<small>와이드 16:9 (33.867 × 19.05 cm), 1px ≈ 0.0212 cm · 0.6 pt</small></h2>
+    <div class="pg-two">
+      <div class="pg-card">
+        <h3>도형 크기·간격</h3>
+        <ul class="pg-list">
+          <li>안내선: 좌우 1.69 cm, 머리말 밑줄 y 1.86 cm, 본문 시작 y 4.91 cm, 바닥 줄 y 17.9 cm.</li>
+          <li>열: 항목 이름 3.73 cm · 현안 12.62 cm · 화살표 1.52 cm · 해결방안 12.62 cm. [표]로 만들지 말고 칸마다 사각형을 두어야 바탕 농담을 따로 줄 수 있습니다.</li>
+          <li>칸: [사각형: 둥근 모서리] 12.62 × 2.18 cm, 줄 사이 0.17 cm. 현안 칸 = 흰 바탕 + 테두리 0.75pt(구분선 색), 해결 칸 = c5 바탕·테두리 없음.</li>
+          <li>칸 안: 왼쪽 여백 0.51 cm, 수치 텍스트 상자 3.56 cm(26 pt, 숫자 글꼴) + 글 상자(13 pt / 10 pt). 한 줄의 세 칸을 선택 → [맞춤] 중간 맞춤.</li>
+          <li>열 머리: 높이 1.35 cm, 아래 선 2.25pt(현안 c4, 해결 c1). 글자: 제목 26 pt · 열 머리·항목 이름 16 pt · 본문 13 pt · 보조 10 pt.</li>
+        </ul>
+      </div>
+      <div class="pg-card">
+        <h3>아이콘·뼈대·애니메이션</h3>
+        <ul class="pg-list">
+          <li>아이콘: 아이콘 세트 페이지에서 svg 복사 → PPT에 [붙여넣기] → [그래픽 형식]에서 선 색 = c1. 배지는 1.02 cm 원(바탕 c5) 위에 아이콘 0.55 cm를 가운데 맞춤 후 그룹.</li>
+          <li>예산·측정 띠: 30.48 × 1.35 cm 둥근 사각형(테두리 0.75pt), 배지 0.85 cm.</li>
+          <li>머리말 띠·제목·바닥 줄은 슬라이드 마스터 레이아웃 “본문”에 넣고, 장표마다 섹션 이름·쪽 번호만 바꿉니다.</li>
+          <li>[애니메이션] 나타내기 → 닦아내기(왼쪽에서), 0.35초. 열 머리 3개 묶음 = 클릭할 때, 이후 줄마다 “항목 이름 + 현안 칸” 그룹 → “화살표 + 해결 칸” 그룹을 이전 효과 다음에 · 지연 0.12초, 마지막 띠도 같게. 전체 1.5초 안에 끝납니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>스펙</h2>
+    <div class="pg-tbl-wrap">
+      <table class="pg-tbl" id="pg-spec">
+        <thead><tr><th>변수</th><th>중립 값</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <ul class="pg-list" style="margin-top:14px">
+      <li>글꼴: Gothic A1 800(제목) + IBM Plex Sans KR 400/500/700(본문) + Saira Semi Condensed 600/700(숫자) / 대체 Pretendard · 맑은 고딕 · Arial Narrow. 계열 값에서는 D = Noto Serif KR(제목·숫자), B = IBM Plex Mono(숫자).</li>
+      <li>아이콘: search(조사 · 분석) — 현안 열 머리, bulb(아이디어 · 개선) — 해결방안 열 머리, coin(예산) — 예산·측정 띠. 원 배지 · 색 --ds-c1 · Tabler Icons(MIT).</li>
+      <li>모션: 순차 등장 1회(열 머리 → 줄마다 현안 → 방안 → 띠, 간격 0.12초, 전체 약 1.43초). 줄이는 동작 설정이면 처음부터 최종 상태.</li>
+      <li>난이도: HTML 하 · PPT 하. 질감 평면. 어울리는 계열 B · C · D · E · F · G.</li>
+      <li>트렌드: 설명과 근거를 두 열로 나눠 읽는 부담을 줄이는 2단 배치를 장표의 기본 틀로 쓰기 (presentations.ai, “Presentation Design Best Practices”, https://www.presentations.ai/blog/presentation-design-best-practices).</li>
+    </ul>
+  </section>
+
+  <p class="pg-foot">가상 예시 · 기관명·수치는 모두 가상입니다. ○○교육청 자리표시.</p>
+</div>
+
+<script>
+/* 페이지 전용: 계열 미리보기 · 변주 · 다시 보기 · 코드 복사 · 스펙 표 */
+(function(){
+  var FAM = {
+    N:null,
+    B:{"--ds-bg":"#EEF1F4","--ds-surface":"#FAFAF8","--ds-ink":"#1F2B36","--ds-sub":"#5E6974","--ds-line":"#CDD4DB","--ds-accent":"#E2571A","--ds-accent2":"#2F5D86","--ds-c1":"#2F4252","--ds-c2":"#4F6679","--ds-c3":"#7389A0","--ds-c4":"#9DB0C1","--ds-c5":"#DCE3E9","--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Pretendard\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"IBM Plex Mono\",Consolas,monospace","--ds-radius":"2px","--ds-shadow":"0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"},
+    D:{"--ds-bg":"#FBFAF6","--ds-surface":"#FFFFFF","--ds-ink":"#1B1E24","--ds-sub":"#5C606A","--ds-line":"#CFCCC4","--ds-accent":"#D9482B","--ds-accent2":"#23467A","--ds-c1":"#1F3E6E","--ds-c2":"#3C5D8C","--ds-c3":"#6D87AD","--ds-c4":"#A5B5CD","--ds-c5":"#E2E7EF","--ds-font-title":"\"Noto Serif KR\",\"Nanum Myeongjo\",\"Batang\",serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Noto Sans KR\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"Noto Serif KR\",\"Nanum Myeongjo\",Georgia,serif","--ds-radius":"0px","--ds-shadow":"0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"},
+    F:{"--ds-bg":"#F1F4F8","--ds-surface":"#FFFFFF","--ds-ink":"#13233A","--ds-sub":"#55647A","--ds-line":"#D2DAE4","--ds-accent":"#DE4430","--ds-accent2":"#2A6CB4","--ds-c1":"#1B3A63","--ds-c2":"#335C8F","--ds-c3":"#5F84B4","--ds-c4":"#9BB3D2","--ds-c5":"#DCE6F2","--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Pretendard\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"Saira Semi Condensed\",\"Arial Narrow\",sans-serif","--ds-radius":"3px","--ds-shadow":"0 1px 0 rgba(19,35,58,.06),0 16px 36px -20px rgba(19,35,58,.32)"}
+  };
+  var NEU = {"--ds-bg":"#F6F8FB","--ds-surface":"#FFFFFF","--ds-ink":"#172A46","--ds-sub":"#56667F","--ds-line":"#D5DEEA","--ds-accent":"#D24E2B","--ds-accent2":"#2F64AE","--ds-c1":"#1B3560","--ds-c2":"#2F5A93","--ds-c3":"#5E7FB0","--ds-c4":"#A3B8D6","--ds-c5":"#E4EBF5","--ds-radius":"6px"};
+  var wrap = document.querySelector(".tw2-wrap");
+  function press(sel, btn){ document.querySelectorAll(sel).forEach(function(b){ b.setAttribute("aria-pressed", b===btn ? "true":"false"); }); }
+  document.querySelectorAll("[data-fam]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      Object.keys(FAM.B).forEach(function(k){ wrap.style.removeProperty(k); });
+      var v = FAM[btn.dataset.fam]; if(v) Object.keys(v).forEach(function(k){ wrap.style.setProperty(k, v[k]); });
+      press("[data-fam]", btn);
+    });
+  });
+  document.querySelectorAll("[data-var]").forEach(function(btn){
+    btn.addEventListener("click", function(){ wrap.dataset.variant = btn.dataset.var; press("[data-var]", btn); });
+  });
+  document.getElementById("pg-replay").addEventListener("click", function(){ if(window.tw2Replay) window.tw2Replay(); });
+  var copyBtn = document.getElementById("pg-copy"), box = document.getElementById("pg-codebox");
+  copyBtn.addEventListener("click", function(){
+    function sel(){ var r=document.createRange(); r.selectNodeContents(box); var s=getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent="선택됨 · Ctrl+C"; }
+    try{ navigator.clipboard.writeText(box.textContent).then(function(){ copyBtn.textContent="복사됨"; setTimeout(function(){copyBtn.textContent="코드 복사";},1600); }, sel); }catch(e){ sel(); }
+  });
+  var rows = ["--ds-bg","--ds-surface","--ds-ink","--ds-sub","--ds-line","--ds-accent","--ds-accent2","--ds-c1","--ds-c2","--ds-c3","--ds-c4","--ds-c5","--ds-radius"];
+  function cell(v){ return (v && v.charAt(0)==="#" ? '<span class="sw" style="background:'+v+'"></span>' : '') + (v||"—"); }
+  document.querySelector("#pg-spec tbody").innerHTML = rows.map(function(k){
+    return "<tr><td><code>"+k+"</code></td><td class=\"num\">"+cell(NEU[k])+"</td><td class=\"num\">"+cell(FAM.B[k])+"</td><td class=\"num\">"+cell(FAM.D[k])+"</td><td class=\"num\">"+cell(FAM.F[k])+"</td></tr>";
+  }).join("");
+})();
+</script>
+
+</body></html>
