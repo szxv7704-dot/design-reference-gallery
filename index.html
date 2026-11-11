@@ -17,7 +17,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all}
 a{color:inherit}
-.wrap{max-width:1240px;margin:0 auto;padding:8px 16px 80px}
+.wrap{max-width:1240px;margin:0 auto;padding:40px 16px 80px}
 header h1{font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:-.02em;margin:0}
 header p{margin:10px 0 0;color:var(--soft);line-height:1.6;max-width:62ch}
 /* 무엇을 하려고 하나요? — 목적 하나 = 타일 하나. 미리보기는 늘 보이고(터치에서도), 마우스 · 키보드로 올리면 크게 보기 */
@@ -112,23 +112,12 @@ dialog.ql::backdrop{background:rgba(20,22,26,.55)}
 .ql-side .acts a,.ql-side .acts button{flex:1;display:inline-flex;justify-content:center;align-items:center;min-height:40px;border-radius:999px;border:1px solid var(--line);background:var(--card);font:700 14px var(--f);text-decoration:none;color:var(--ink);cursor:pointer}
 .ql-side .acts a{background:var(--ink);border-color:var(--ink);color:#fff}
 @media (max-width:860px){dialog.ql{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;border-radius:0}.ql-in{grid-template-columns:1fr;max-height:100dvh;height:100%;grid-template-rows:auto 1fr}.ql-view iframe{height:56vh}}
-/* 사이트 안 이동: 디자인 레퍼런스 ↔ 강의자료 */
-.tabs{display:flex;gap:4px;margin:0 -16px 26px;padding:0 16px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tabs a{flex:none;padding:12px 14px 13px;font-size:16px;font-weight:700;text-decoration:none;color:var(--soft);border-bottom:3px solid transparent;margin-bottom:-1px}
-.tabs a[aria-current=page]{color:var(--prac);border-bottom-color:var(--prac)}
 footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
 footer button{border:0;background:none;padding:0;font:inherit;color:var(--ink);text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav class="tabs" aria-label="사이트">
-    <a href="./" aria-current="page">디자인 레퍼런스</a>
-    <a href="lectures/">강의안</a>
-    <a href="lectures/videos.html">강의 영상</a>
-    <a href="lectures/tools.html">업무도구</a>
-  </nav>
   <header>
     <h1>디자인 레퍼런스</h1>
     <p>사업 <b>성과 공유회</b> · <b>사업 설명회</b> 발표 자료와 인쇄·홍보물을 만들 때 쓰는 레퍼런스입니다. 하려는 일을 먼저 고르세요. 장표를 누르면 그 자리에서 움직여 볼 수 있습니다.</p>
