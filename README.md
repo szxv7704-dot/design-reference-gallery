@@ -2,6 +2,7 @@
 
 사업 **성과 공유회**(중심) · **사업 설명회** 발표 자료와 인쇄·홍보물을 위한 디자인 레퍼런스 모음입니다. GitHub Pages로 공개됩니다.
 만드는 기준은 [`docs/criteria.md`](docs/criteria.md)(목적 · 덱 흐름 · 정형 장표 유형 · 그림 규칙 · 피할 것 · 루틴에 붙일 규칙), 채울 빈칸은 [`docs/gaps.md`](docs/gaps.md).
+분류를 "내용의 모양" 기준으로 다시 세우는 중입니다: [`docs/patterns.md`](docs/patterns.md)(기본 장표 틀 초안) · [`docs/triage.md`](docs/triage.md)(기존 장표 판정표 초안, `python3 scripts/triage.py`).
 모든 기관명 · 사업 · 수치는 **가상 예시**이고, 사진은 AI로 만든 것입니다.
 
 ## 구조
