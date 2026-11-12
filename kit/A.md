@@ -129,7 +129,7 @@
 | 향후 계획 | 순서·단계 |
 | 맺는 장 | 맺음 |
 
-**사업 설명회** — 지원 사업을 안내하고 신청을 받을 때
+**사업 설명회** — 지원 사업을 안내하고 신청을 받을 때 · 예시 덱 https://szxv7704-dot.github.io/design-reference-gallery/kit/A-brief.html
 
 | 자리 | 기본 장표 |
 | --- | --- |
@@ -963,7 +963,7 @@ shadow: none
 - `.t-top` — 예: `<div class="t-top">`
 - `.a-q` — 예: `<p class="a-q">`
 - `.t-do` — 예: `<p class="t-do">`
-- `.a-a` — 예: `<p class="a-a" data-step="1">`
+- `.a-a` — 예: `<p class="a-a">`
 - `.shot` — 예: `<div class="shot fill">`
 - `.shot-img` — 예: `<div class="shot-img">`
 - `.sh-bar` — 예: `<div class="sh-bar">`
@@ -1047,7 +1047,7 @@ shadow: none
 **질문: 큰 질문(.a-q) + 보기(ol, 4개까지) 또는 답(.a-a). 답은 data-step 으로 가렸다 연다**
 - `.ask` — 예: `<div class="ask fill">`
 - `.a-q` — 예: `<p class="a-q">`
-- `.a-a` — 예: `<p class="a-a" data-step="1">`
+- `.a-a` — 예: `<p class="a-a">`
 
 **할 일: 지금 할 일 한 문장(.t-do) + 시간 · 결과물 · 도움 받을 곳 같은 조건 칸(dl)**
 - `.todo` — 예: `<div class="todo fill">`

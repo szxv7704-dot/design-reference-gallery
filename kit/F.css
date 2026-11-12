@@ -1,0 +1,130 @@
+/* F 관측·중계 인포그래픽 — 덱 키트 v1 (deck.css 다음에 불러옴)
+   맑은 낮 경기장의 청백 바탕과 남색 기록판. 빨강은 한 장에 한 곳. 구간 띠로 덱의 위치를 보인다.
+   근거 장표: #20 · #25 · #31 · #71(표지 · 본문), #52(목차·간지 키트) */
+:root{
+  --ds-stage:#D9DFE8;
+  --ds-bg:#F3F5F8; --ds-surface:#FFFFFF; --ds-ink:#12203A; --ds-sub:#55627A; --ds-line:#D3DAE4;
+  --ds-accent:#DC3B2D; --ds-accent2:#2F64AE;
+  --ds-c1:#172B52; --ds-c2:#2F64AE; --ds-c3:#4C7FC6; --ds-c4:#9DB9E3; --ds-c5:#DCE6F4;
+  --ds-radius:0px; --ds-shadow:0 0 0 1px var(--ds-line),0 14px 30px -22px rgba(18,32,58,.35);
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow","Gothic A1",sans-serif;
+}
+.slide{isolation:isolate;background:var(--ds-bg);color:var(--ds-ink);font:400 28px/1.55 var(--ds-font-body)}
+
+
+/* ── 공통: 머리말 · 결론 제목 · 쪽 번호 · 출처 ─────────────────── */
+.s-body{position:absolute;inset:84px 120px 96px;display:flex;flex-direction:column;gap:38px}
+/* 머리말 띠: 아래에 눈금자(20px마다 눈금) */
+.kicker{margin:0;padding-bottom:20px;font:700 24px/1 var(--ds-font-body);color:var(--ds-ink);
+  background:linear-gradient(var(--ds-ink),var(--ds-ink)) left bottom/100% 2px no-repeat,repeating-linear-gradient(90deg,var(--ds-ink) 0 2px,transparent 2px 20px) left bottom/100% 10px no-repeat}
+.title{margin:0;max-width:1600px;font:800 56px/1.3 var(--ds-font-title);letter-spacing:-.01em;text-wrap:balance}
+.title em{font-style:normal;color:var(--ds-accent)}
+.lead{margin:-14px 0 0;max-width:1400px;font-size:28px;color:var(--ds-sub)}
+.fill{flex:1;min-height:0}
+.src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
+.page-no{position:absolute;right:120px;bottom:40px;font:500 22px/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
+
+/* ── 구간 띠: 칸 수 = 섹션 수. .done 지난 구간(남색) · .now 지금 구간(빨강) · .ghost 남은 구간(옅음) ── */
+.lane{display:flex;width:660px;height:84px;counter-reset:ln;border-top:5px solid #fff;border-bottom:5px solid #fff;box-shadow:0 0 0 2px var(--ds-c1)}
+.lane i{flex:1;position:relative;background:var(--ds-c2);counter-increment:ln}
+.lane i + i{border-left:5px solid #fff}
+.lane i::after{content:counter(ln);position:absolute;left:14px;bottom:8px;font:700 28px/1 var(--ds-font-num);color:#fff}
+.lane i.done{background:var(--ds-c1)}
+.lane i.now{background:var(--ds-accent)}
+.lane i.ghost{background:var(--ds-c4)}
+
+/* ── 표지 ─────────────────────────────────────────── */
+.cover .c-text{position:absolute;left:120px;top:170px;width:1240px;display:flex;flex-direction:column;gap:28px}
+.cover .c-tag{font:600 24px/1 var(--ds-font-body);letter-spacing:.02em;color:var(--ds-sub)}
+.cover h1{margin:0;font:800 96px/1.18 var(--ds-font-title);letter-spacing:-.02em}
+.cover h1 em{font-style:normal;color:var(--ds-accent)}
+.cover .c-sub{margin:0;font-size:32px;color:var(--ds-sub);max-width:900px}
+.cover .c-org{position:absolute;left:120px;bottom:96px;display:flex;gap:40px;margin:0;font:500 26px/1.4 var(--ds-font-body);color:var(--ds-ink)}
+.cover .lane{position:absolute;right:120px;bottom:210px}
+
+/* ── 목차: 줄 높이 112px, 지금 장 한 줄만 강조색 ────────────────── */
+.toc-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ds-ink);width:1080px}
+.toc-list li{display:grid;grid-template-columns:120px 1fr 120px;align-items:center;height:112px;border-bottom:1px solid var(--ds-line);font:800 36px/1.2 var(--ds-font-title)}
+.toc-list li b{font:600 28px/1 var(--ds-font-num);color:var(--ds-sub)}
+.toc-list li span:last-child{justify-self:end;font:500 24px/1 var(--ds-font-num);color:var(--ds-sub)}
+.toc-list li.is-now{color:var(--ds-accent)}.toc-list li.is-now b{color:var(--ds-accent)}
+.toc .lane{position:absolute;right:120px;bottom:200px}
+
+/* ── 간지: 큰 번호 + 섹션 이름 + 상징 부품 ──────────────────── */
+.divider .d-no{position:absolute;left:120px;top:200px;font:600 220px/1 var(--ds-font-num);letter-spacing:-.03em;color:var(--ds-ink)}
+.divider .d-no small{display:block;margin-bottom:24px;font:600 24px/1 var(--ds-font-body);letter-spacing:.12em;color:var(--ds-sub)}
+.divider h2{position:absolute;left:120px;top:560px;margin:0;font:800 88px/1.2 var(--ds-font-title)}
+.divider p{position:absolute;left:120px;top:690px;margin:0;width:900px;font-size:30px;color:var(--ds-sub)}
+.divider .lane{position:absolute;right:120px;bottom:210px}
+
+/* ── 마무리 ────────────────────────────────────────── */
+.close h2{position:absolute;left:120px;top:380px;margin:0;font:800 80px/1.25 var(--ds-font-title)}
+.close p{position:absolute;left:120px;top:600px;margin:0;font-size:30px;color:var(--ds-sub)}
+.close .lane{position:absolute;right:120px;top:440px}
+
+/* ── 배치 격자 ─────────────────────────────────────── */
+.grid{display:grid;gap:32px;align-items:stretch}
+.grid.center{align-content:center}
+.grid.g2{grid-template-columns:repeat(2,1fr)}.grid.g3{grid-template-columns:repeat(3,1fr)}.grid.g4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:stretch}
+
+/* ── 카드 묶음 ─────────────────────────────────────── */
+.card{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);border-top:10px solid var(--ds-c1);padding:40px 40px 36px;display:flex;flex-direction:column;gap:18px;min-width:0;min-height:440px}
+.card .c-foot{margin-top:auto;padding-top:20px;border-top:1px solid var(--ds-line);font-size:24px;color:var(--ds-sub)}
+.card .c-foot b{font:600 30px/1 var(--ds-font-num);color:var(--ds-ink)}
+.card .c-no{font:600 24px/1 var(--ds-font-body);color:var(--ds-sub)}
+.card h3{margin:0;font:800 44px/1.25 var(--ds-font-title)}
+.card p{margin:0;font-size:28px;line-height:1.5;color:var(--ds-ink)}
+.card.is-key{border-top-color:var(--ds-accent)}.card.is-key .c-no{color:var(--ds-accent)}
+
+/* ── 수치 타일 ─────────────────────────────────────── */
+.tile{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:36px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tile span{font-size:26px;color:var(--ds-sub)}
+.tile b{font:600 88px/1 var(--ds-font-num);letter-spacing:-.02em;color:var(--ds-ink)}
+.tile b small{margin-left:8px;font:500 32px/1 var(--ds-font-body);letter-spacing:0;color:var(--ds-sub)}
+.tile p{margin:0;font-size:24px;color:var(--ds-sub)}
+.tile.is-key b{color:var(--ds-accent)}
+
+/* ── 막대(가로): style="--v:42" 는 최댓값 대비 % ─────────────────── */
+.bars{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:40px;display:flex;flex-direction:column;justify-content:center;gap:44px;min-width:0}
+.bars h3{margin:0;font:800 30px/1.3 var(--ds-font-title)}
+.bar{display:grid;grid-template-columns:110px 1fr 120px;align-items:center;gap:20px;font-size:28px}
+.bar::before{content:"";grid-column:2;grid-row:1;height:64px;width:calc(var(--v) * 1%);background:var(--ds-c4)}
+.bar span{grid-column:1;grid-row:1;font-family:var(--ds-font-num);color:var(--ds-sub)}
+.bar b{grid-column:3;grid-row:1;justify-self:end;font:600 30px/1 var(--ds-font-num)}
+.bar.is-key::before{background:var(--ds-accent)}.bar.is-key b{color:var(--ds-accent)}
+
+/* ── 현안 → 해결 표 ─────────────────────────────────── */
+.fix{display:grid;grid-template-columns:1fr 72px 1.25fr;gap:0;align-items:stretch}
+.stack{display:flex;flex-direction:column;justify-content:center;gap:28px}
+.fix > p{margin:0;padding:34px 36px;font-size:30px;line-height:1.45;border-radius:var(--ds-radius)}
+.fix .q{background:var(--ds-c5);color:var(--ds-ink)}
+.fix .a{background:var(--ds-surface);box-shadow:var(--ds-shadow);font-weight:600}
+.fix .q b,.fix .a b{display:block;margin-bottom:10px;font:600 24px/1 var(--ds-font-body);color:var(--ds-sub)}
+.fix i{position:relative}
+.fix i::after{content:"";position:absolute;left:18px;right:18px;top:50%;height:2px;background:var(--ds-ink)}
+.fix i::before{content:"";position:absolute;right:16px;top:50%;width:14px;height:14px;margin-top:-7px;border-top:2px solid var(--ds-ink);border-right:2px solid var(--ds-ink);transform:rotate(45deg)}
+.fix.is-key .a{box-shadow:inset 6px 0 0 var(--ds-accent),var(--ds-shadow)}
+
+/* ── 간트(월 1~12): style="--from:3;--to:6" ────────────────────── */
+.gantt{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:32px 36px;display:grid;grid-template-columns:260px repeat(12,1fr);row-gap:18px;align-items:center;min-width:0}
+.gantt .g-h{font:500 22px/1 var(--ds-font-num);color:var(--ds-sub);text-align:center}
+.gantt .g-h:first-child{text-align:left;font-family:var(--ds-font-body)}
+.gantt .g-name{grid-column:1;font-size:26px;line-height:1.3}
+.gantt .g-bar{grid-column:calc(var(--from) + 1) / calc(var(--to) + 2);height:30px;background:var(--ds-c3)}
+.gantt .g-bar.is-key{background:var(--ds-accent)}
+
+/* ── 표 ────────────────────────────────────────────── */
+.tbl{width:100%;border-collapse:collapse;background:var(--ds-surface);box-shadow:var(--ds-shadow);font-size:28px}
+.tbl th{padding:20px 28px;text-align:left;font:600 24px/1.2 var(--ds-font-body);color:var(--ds-sub);border-bottom:2px solid var(--ds-ink)}
+.tbl td{padding:18px 24px;border-bottom:1px solid var(--ds-line)}
+.tbl td.n{text-align:right;font:500 28px/1 var(--ds-font-num)}
+.tbl tr.is-key td{color:var(--ds-accent);font-weight:600}
+.tbl tfoot td{font-weight:700;border-bottom:0;border-top:2px solid var(--ds-ink)}
+
+/* 공용 부품(parts.css) 계열 조정 */
+.tile{border-left:10px solid var(--ds-c1)}.tile.is-key{border-left-color:var(--ds-accent)}
+.tbl th{background:var(--ds-c1);color:#fff;border-bottom:0}
+.road li::before,.tree li::before{border-radius:0}

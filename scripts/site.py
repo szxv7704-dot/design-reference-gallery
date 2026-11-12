@@ -48,10 +48,11 @@ for part in re.split(r'\n(?=## )', kit.guide()):
     m = re.match(r'## (\d+)\. (.+?)\n(.*)', part, re.S)
     if m: sec[int(m.group(1))] = (m.group(2).strip(), m.group(3).strip())
 
-thumb = lambda fid, n: 'kit/thumbs/B%s-%d.jpg' % (next(f['deck'] for f in F if f['id'] == fid), n)
+DK = {d['id']: d for d in kit.DECKS}
+thumb = lambda fid, n: 'kit/thumbs/B%s-%d.jpg' % (DK[fid]['deck'], n)
 kimg = lambda fid, n, alt='': '<img src="%s" data-k="%s" alt="%s" loading="lazy" width="640" height="360">' % (
     thumb(fid, n), thumb(fid, n).replace('thumbs/B', 'thumbs/{k}'), E(alt))
-deck_url = lambda fid, n=0: 'kit/B%s.html%s' % (next(f['deck'] for f in F if f['id'] == fid), '#%d' % n if n else '')
+deck_url = lambda fid, n=0: 'kit/B%s.html%s' % (DK[fid]['deck'], '#%d' % n if n else '')
 name_of = lambda r: re.sub(r'^레퍼런스\s*#\d+\s*', '', r['title'])
 vis = [r for r in rounds if not r.get('hidden')]
 def judged(j): return [r for r in vis if tri.get(str(r['no']), {}).get('judge') == j]
@@ -67,7 +68,7 @@ prompt = '%s 을(를) 읽고, 첨부한 문서를 16:9 발표 덱 HTML로 만들
 H.append('''<header>
   <h1>디자인 레퍼런스</h1>
   <p class="lead">한글 문서(계획안 · 연수 강의안 · 성과 보고)를 <b>16:9 발표 덱</b>으로 바꿀 때 채팅 AI가 읽는 디자인 안내이자 재료입니다.
-  이 주소와 문서를 AI에게 주면, 여기 있는 기본 장표 23가지와 분위기 넷으로 덱을 만듭니다.</p>
+  이 주소와 문서를 AI에게 주면, 여기 있는 기본 장표 23가지와 분위기 여덟으로 덱을 만듭니다.</p>
   <ol class="how">
     <li><b>문서를 올립니다</b><span>Claude · ChatGPT 대화창에 한글 문서(또는 PDF)를 첨부합니다. 개인정보는 지우고.</span></li>
     <li><b>이 주소를 줍니다</b><span>아래 문장을 붙여 넣습니다. 분위기를 정했으면 "B 분위기로"를 덧붙입니다.</span></li>
@@ -75,11 +76,11 @@ H.append('''<header>
   </ol>
   <div class="prompt"><code id="prompt">%s</code><button type="button" id="copy">복사</button></div>
   <p class="ai">AI에게: 이 페이지 전체가 안내입니다. <a href="#rules">지킬 것</a> → <a href="#flows">흐름</a> → <a href="#patterns">기본 장표와 견본 코드</a> → <a href="#shell">뼈대</a> 순서로 읽으세요.
-  같은 내용의 글 파일은 <a href="guide.md">guide.md</a>, 계열 하나만 쓰는 지시서는 <a href="kit/A.md">A</a> · <a href="kit/B.md">B</a> · <a href="kit/C.md">C</a> · <a href="kit/D.md">D</a>입니다. 모든 예시 내용은 가상입니다.</p>
-</header>''' % E(prompt))
+  같은 내용의 글 파일은 <a href="guide.md">guide.md</a>, 계열 하나만 쓰는 지시서는 %s입니다. 모든 예시 내용은 가상입니다.</p>
+</header>''' % (E(prompt), ' · '.join('<a href="kit/%s.md">%s</a>' % (f, f) for f in kit.FAMS)))
 
 # ── 분위기(화면의 견본 그림을 바꾸는 스위치이기도 하다) ──
-H.append('<section id="moods"><h2>분위기 넷 <small>겉모습만 다르고 부품 이름은 같습니다. 고르면 아래 견본 그림이 그 분위기로 바뀝니다</small></h2><div class="moods">')
+H.append('<section id="moods"><h2>분위기 여덟 <small>겉모습만 다르고 부품 이름은 같습니다. 고르면 아래 견본 그림이 그 분위기로 바뀝니다</small></h2><div class="moods">')
 for f in kit.FAMS:
     m = kit.META[f]
     H.append('''<article class="mood" data-fam="%s">
@@ -104,15 +105,13 @@ for f in F:
     for sname, pids in f['slots']:
         H.append('<li><b>%s</b>%s</li>' % (E(sname), ''.join('<a href="#p-%s">%s</a>' % (x, E(kit.PNAME[x])) for x in pids)))
     H.append('</ol>')
-    if f['deck'] is not None:
-        mine = [s for s in slides if s['flow'] == f['id']]
-        H.append('<p class="decknote">예시 덱 %d장 — 가상 내용 하나로 처음부터 끝까지 엮은 것입니다. 누르면 그 장에서 열립니다.</p><div class="strip">' % len(mine))
+    for d in [d for d in kit.DECKS if d['flow'] == f['id']]:
+        mine = [s for s in slides if s['id'] == d['id']]
+        H.append('<p class="decknote"><b>%s</b> 예시 덱 %d장 — 가상 내용 하나로 처음부터 끝까지 엮은 것입니다. 누르면 그 장에서 열립니다.</p><div class="strip">' % (E(d['name']), len(mine)))
         for s in mine:
             H.append('<a href="%s" data-ql data-k="%s" title="%s">%s<span>%d. %s</span></a>' % (
-                deck_url(f['id'], s['n']), deck_url(f['id'], s['n']).replace('kit/B', 'kit/{k}'), E(s['title']), kimg(f['id'], s['n']), s['n'], E(kit.PNAME[s['pattern']])))
+                deck_url(d['id'], s['n']), deck_url(d['id'], s['n']).replace('kit/B', 'kit/{k}'), E(s['title']), kimg(d['id'], s['n']), s['n'], E(kit.PNAME[s['pattern']])))
         H.append('</div>')
-    else:
-        H.append('<p class="decknote">예시 덱은 아직 없습니다. 위 자리 순서대로 기본 장표를 엮습니다.</p>')
     H.append('</article>')
 H.append('<p class="decknote">여러 차시 과정이면 맨 앞에 일정 장표를 과정 지도로 쓰고(차시마다 이정표 하나), 차시마다 연수 한 차시 흐름을 되풀이합니다.</p></section>')
 
@@ -207,7 +206,7 @@ th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;verti
 .slots li b{font-size:14px}
 .slots a{display:inline-block;margin-right:4px;padding:1px 8px;border-radius:999px;background:var(--card);border:1px solid var(--line);text-decoration:none;white-space:nowrap}
 .slots a:hover{border-color:var(--ink)}
-.decknote{margin:12px 0 8px;font-size:13px;color:var(--soft)}
+.decknote{margin:12px 0 8px;font-size:13px;color:var(--soft)}.decknote b{color:var(--ink)}
 .strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity}
 .strip a{flex:0 0 190px;text-decoration:none;font-size:12px;color:var(--soft);scroll-snap-align:start}
 .strip img{border-radius:6px;border:1px solid var(--line);aspect-ratio:16/9;object-fit:cover}
@@ -248,7 +247,7 @@ function setFam(k){
   history.replaceState(null, '', (k === 'B' ? location.pathname : '?fam=' + k) + location.hash);
 }
 $$('.pick').forEach(b => b.addEventListener('click', () => setFam(b.dataset.fam)));
-const f0 = new URLSearchParams(location.search).get('fam'); if (f0 && 'ABCD'.includes(f0) && f0.length === 1) setFam(f0);
+const f0 = new URLSearchParams(location.search).get('fam'); if (f0 && $('.pick[data-fam="' + f0.replace(/[^A-Z]/g, '') + '"]')) setFam(f0);
 // 복사
 $('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('#prompt').textContent); $('#copy').textContent = '복사됨'; setTimeout(() => $('#copy').textContent = '복사', 1500); } catch (e) {} });
 // 빠르게 보기: 장표 · 예시 덱을 그 자리에서 띄운다(새 탭 · 가운데 단추는 그대로 원본)
@@ -269,7 +268,7 @@ page = '''<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>디자인 레퍼런스 — 문서를 발표 덱으로</title>
-<meta name="description" content="한글 문서를 16:9 발표 덱 HTML로 바꿀 때 채팅 AI가 읽는 디자인 안내와 재료. 기본 장표 23가지 · 흐름 넷 · 분위기 넷. 모든 내용은 가상 예시입니다.">
+<meta name="description" content="한글 문서를 16:9 발표 덱 HTML로 바꿀 때 채팅 AI가 읽는 디자인 안내와 재료. 기본 장표 23가지 · 흐름 넷 · 분위기 여덟. 모든 내용은 가상 예시입니다.">
 <link rel="alternate" type="text/markdown" href="guide.md" title="AI용 안내(글)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

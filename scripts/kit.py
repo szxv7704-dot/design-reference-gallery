@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import build
 BASE = 'https://szxv7704-dot.github.io/design-reference-gallery/'
 K = os.path.join(ROOT, 'kit')
-FAMS = ['A', 'B', 'C', 'D']
+FAMS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 NAMES = {'A': '픽셀 게임', 'B': '미니멀 스튜디오', 'C': '경쾌한 놀이 오브젝트', 'D': '인쇄·종이 에디토리얼', 'E': '자연 재질', 'F': '관측·중계 인포그래픽', 'G': '어두운 콘셉트', 'H': '전통 공예·문양'}
 # 계열마다 다른 것: 근거 장표 · 글꼴 역할 · 한 줄 소개 · 어울리는 자리 · 상징 부품(표지 · 목차 · 간지 · 맺음에 쓰는 이 계열의 얼굴)
 META = {
@@ -30,6 +30,18 @@ META = {
  'D': {'refs': '#4 · #27 · #32 · #60 · #62', 'roles': ('Noto Serif KR', 'IBM Plex Sans KR', 'Noto Serif KR'),
        'desc': '백상지에 먹 명조 제목, 남색과 주홍 2도. 이중 괘선으로 지면을 짠다', 'fit': '계획안 · 정책 보고, 차분한 자리',
        'sig': '판 번호(`.reg`)를 씁니다. 큰 명조 숫자 하나에 주홍 판이 4px 어긋나는 곳은 덱 전체에서 간지뿐, 재단 표시(`.crop`)도 간지에만.'},
+ 'E': {'refs': '#17 · #91', 'roles': ('Hahmlet', 'IBM Plex Sans KR', 'Hahmlet'),
+       'desc': '밝은 회녹 종이에 따뜻한 나무색 농담, 명조 제목. 청록 강조 한 곳', 'fit': '환경 · 생태 · 마을 교육, 차분하고 따뜻한 자리',
+       'sig': '나이테(`.rings`)를 씁니다. 겹 수 = 섹션 수(안쪽이 1섹션), 지금 겹은 `.now`, 간지에서 아직 안 간 겹은 `.ghost`.'},
+ 'F': {'refs': '#20 · #25 · #31 · #52 · #71', 'roles': ('Gothic A1', 'Gothic A1', 'Saira Semi Condensed'),
+       'desc': '맑은 청백 바탕에 남색 기록판, 좁은 숫자 글꼴. 빨강 강조 한 곳', 'fit': '실적 · 통계가 많은 성과 보고, 체육 · 진로 행사',
+       'sig': '구간 띠(`.lane`)를 씁니다. 칸 수 = 섹션 수, 지난 구간 `.done` · 지금 구간 `.now` · 남은 구간 `.ghost`.'},
+ 'G': {'refs': '#18 · #30 · #74 · #103', 'roles': ('Noto Serif KR', 'Noto Sans KR', 'IBM Plex Mono'),
+       'desc': '깊은 남색 밤하늘에 따뜻한 흰 글자, 명조 제목. 금빛 강조 한 곳', 'fit': '저녁 행사 · 비전 선포, 불을 끄고 하는 발표(밝은 회의실에는 맞지 않음)',
+       'sig': '별 잇기(`.stars`)를 씁니다. 별 수 = 섹션 수, 지금 별 `.now`, 아직 안 간 별 `.ghost`.'},
+ 'H': {'refs': '#58 · #59 · #110', 'roles': ('Nanum Myeongjo', 'Noto Sans KR', 'Nanum Myeongjo'),
+       'desc': '밝은 한지에 먹 명조 제목, 면마다 쌍변, 진녹 농담. 주홍 강조 한 곳', 'fit': '역사 · 문화 · 지역 행사, 격식 있는 자리',
+       'sig': '막새 줄(`.tiles`)을 씁니다. 막새 수 = 섹션 수, 지금 막새 `.now`, 아직 안 놓인 자리 `.ghost`.'},
 }
 rd = lambda *p: open(os.path.join(*p), encoding='utf-8').read()
 def wr(p, s): os.makedirs(os.path.dirname(p), exist_ok=True); open(p, 'w', encoding='utf-8').write(s)
@@ -39,7 +51,11 @@ SCRIPT = '<script src="%skit/v1/deck.js"></script>' % BASE
 PATTERNS = json.load(open(os.path.join(ROOT, 'data', 'patterns.json'), encoding='utf-8'))
 FLOWS = json.load(open(os.path.join(ROOT, 'data', 'flows.json'), encoding='utf-8'))
 PNAME = {p['id']: p['name'] for p in PATTERNS}
-DECKS = [f for f in FLOWS if f['deck'] is not None]   # 예시 덱이 있는 흐름
+# 예시 덱: 흐름마다 하나 + 'more'(같은 흐름의 다른 덱 — 연수 2 · 3차시). id = src/flows/{id}.html, deck = 파일 이름 꼬리
+DECKS = []
+for _f in FLOWS:
+    if _f['deck'] is not None: DECKS.append({'id': _f['id'], 'name': _f['name'], 'deck': _f['deck'], 'flow': _f['id']})
+    for _m in _f.get('more', []): DECKS.append({'id': _m['id'], 'name': _m['name'], 'deck': _m['deck'], 'flow': _f['id']})
 
 # ── 상징 부품: 계열마다 다른 표지 · 목차 · 간지 · 맺음의 얼굴 ──
 def sig(fam, kind, i=0, n=5, num=''):
@@ -56,6 +72,9 @@ def sig(fam, kind, i=0, n=5, num=''):
     if fam == 'C':
         f = {'cover': lambda k: '', 'toc': lambda k: 'now' if k == i else '', 'divider': lambda k: 'now' if k == i else 'ghost' if k > i else '', 'close': lambda k: ''}[kind]
         return '<div class="blocks%s"%s>%s</div>' % (' flag' if kind == 'close' else '', hid, cells(f))
+    if fam in 'EFGH':   # 같은 규칙: 목차는 지금 칸 .now, 간지는 지난 칸 .done · 지금 .now · 남은 칸 .ghost, 맺음은 모두 .done
+        f = {'cover': lambda k: '', 'toc': lambda k: 'now' if k == i else '', 'divider': lambda k: 'done' if k < i else 'now' if k == i else 'ghost', 'close': lambda k: 'done'}[kind]
+        return '<div class="%s"%s>%s</div>' % ({'E': 'rings', 'F': 'lane', 'G': 'stars', 'H': 'tiles'}[fam], hid, cells(f))
     if fam == 'D':
         if kind == 'divider': return '<div class="reg is-off"%s><b>%02d</b><i class="crop"></i></div>' % (hid, i)
         return '<div class="reg"%s><b>%s</b></div>' % (hid, {'cover': num, 'toc': '%02d' % i, 'close': '끝'}[kind])
@@ -90,7 +109,7 @@ HEAD = '''<!DOCTYPE html>
 </html>
 '''
 def page(fam, fid):
-    name = next(f['name'] for f in FLOWS if f['id'] == fid)
+    name = next(f['name'] for f in DECKS if f['id'] == fid)
     return HEAD % {'fam': fam, 'title': '덱 키트 %s · %s — %s 예시 덱' % (fam, NAMES[fam], name), 'body': sections(fam, fid),
                    'css': '<style>\n/*@@FONTS@@*/\n/*@@KIT:%s@@*/\n</style>' % fam, 'js': '<script>\n/*@@KITJS@@*/\n</script>'}
 def shell(fam=None):
@@ -124,7 +143,7 @@ def parts(fam, sample):
     return '\n\n'.join(out)
 
 # ── AI용 안내: 계열 공통(guide.md · 첫 화면) 또는 계열 하나(kit/{계열}.md) ──
-SNIPPET_FROM = ['lecture', 'plan', 'share']   # 기본 장표의 견본 코드를 찾는 순서
+SNIPPET_FROM = ['lecture', 'plan', 'share', 'brief', 'lecture2', 'lecture3']   # 기본 장표의 견본 코드를 찾는 순서
 def samples(pid):
     """그 기본 장표의 견본 장: [(흐름 id, (장 번호, 기본 장표 id, 장 이름, HTML))]. 질문은 보기형 + 답 공개형 둘"""
     hit = [(fid, s) for fid in SNIPPET_FROM for s in slides_of(fid) if s[1] == pid]
@@ -190,12 +209,12 @@ def guide(fam=None):
     if one:
         L += ['## 5. 분위기 계열: %s %s' % (fam, NAMES[fam]), '', '%s. 어울리는 자리: %s. 자세한 규칙은 아래 \'디자인 규칙\'.' % (META[fam]['desc'], META[fam]['fit']), '']
     else:
-        L += ['## 5. 분위기 계열 넷 (겉모습만 다르고 부품 이름은 같습니다)', '',
+        L += ['## 5. 분위기 계열 여덟 (겉모습만 다르고 부품 이름은 같습니다)', '',
               T([['계열', '겉모습', '어울리는 자리', '자세한 규칙 · 지시서']] + [['---'] * 4] +
                 [['**%s %s**' % (f, NAMES[f]), META[f]['desc'], META[f]['fit'], '%skit/%s.md' % (BASE, f)] for f in FAMS]), '',
               '계열을 정하면 그 계열의 지시서(위 주소)를 읽을 수 있을 때 읽고 \'디자인 규칙\'을 따릅니다. 읽을 수 없으면 이 안내만으로 만듭니다.', '']
     L += ['## 6. HTML 뼈대', '', '```html', shell(fam).strip(), '```', '',
-          '- `{계열}` 두 곳을 A · B · C · D 중 하나로 바꿉니다.' if not one else '- 공통 파일 두 줄은 그대로 둡니다.',
+          '- `{계열}` 두 곳을 A ~ H 중 하나로 바꿉니다.' if not one else '- 공통 파일 두 줄은 그대로 둡니다.',
           '- 열 때 인터넷이 필요합니다. AI 화면 안 미리보기에서 색 · 모양이 안 보여도 고치지 마세요(바깥 파일을 막는 미리보기가 있습니다). 내려받아 브라우저로 열면 정상입니다.', '',
           '## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)', '']
     if one:
@@ -266,7 +285,7 @@ def write_slides():
     out = []
     for f in DECKS:
         for n, pid, title, _ in slides_of(f['id']):
-            out.append({'flow': f['id'], 'flow_name': f['name'], 'n': n, 'pattern': pid, 'title': title, 'deck': f['deck']})
+            out.append({'flow': f['flow'], 'id': f['id'], 'flow_name': f['name'], 'n': n, 'pattern': pid, 'title': title, 'deck': f['deck']})
     wr(os.path.join(ROOT, 'data', 'kit_slides.json'), json.dumps(out, ensure_ascii=False, indent=1) + '\n')
     return len(out)
 

@@ -1,0 +1,171 @@
+<!-- 흐름: 연수 3차시 · 섹션 5 · 표지 숫자 3
+     계열마다 다른 상징 부품은 @@SIG:…@@ 자리에 scripts/kit.py 가 넣는다. 장마다 data-pattern = 기본 장표(docs/patterns.md) -->
+
+<!-- 1. 표지(차시 제목) -->
+<section data-pattern="cover" class="slide cover">
+  <div class="c-text">
+    <span class="c-tag">교직원 연수 · 3차시 / 3차시 · 가상 예시</span>
+    <h1>AI로 발표 자료 만들기<br><em>고쳐서</em> 발표하기</h1>
+    <p class="c-sub">받은 덱을 믿을 수 있는 덱으로</p>
+  </div>
+  @@SIG:cover@@
+  <p class="c-org"><span>○○교육청 교육연수원</span><span>2027. 3. 26.</span></p>
+</section>
+
+<!-- 2. 과정 지도: 일정(이정표) -->
+<section data-pattern="timeline" class="slide">
+  <div class="s-body">
+    <p class="kicker">과정 지도</p>
+    <h2 class="title">마지막 시간, <em>고쳐서 발표</em>까지 갑니다</h2>
+    <ol class="mile fill">
+      <li><time>1차시</time><b>문서를 장표로 나누기</b><p>문단마다 모양을 고른다</p></li>
+      <li><time>2차시</time><b>AI에게 맡기기</b><p>주소와 문서를 주고 덱을 받는다</p></li>
+      <li class="is-key"><time>3차시</time><b>고쳐서 발표하기</b><p>숫자를 대조하고 다듬는다</p></li>
+    </ol>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 3. 차시 순서: 목차 -->
+<section data-pattern="toc" class="slide toc">
+  <div class="s-body">
+    <p class="kicker">3차시 · 50분</p>
+    <h2 class="title">오늘의 순서</h2>
+    <ol class="toc-list">
+      <li class="is-now"><b>01</b><span>되짚기</span><span>5분</span></li>
+      <li><b>02</b><span>점검하기</span><span>10분</span></li>
+      <li><b>03</b><span>고치기</span><span>10분</span></li>
+      <li><b>04</b><span>발표해 보기</span><span>20분</span></li>
+      <li><b>05</b><span>과정 닫기</span><span>5분</span></li>
+    </ol>
+  </div>
+  @@SIG:toc:1@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 4. 여는 질문: 질문(보기) -->
+<section data-pattern="ask" class="slide">
+  <div class="s-body">
+    <p class="kicker">01 되짚기 · 과제 확인</p>
+    <div class="ask fill">
+      <p class="a-q">받은 덱에서 원문과 다른 곳을 어디서 찾았나요?</p>
+      <ol>
+        <li>숫자 · 단위</li>
+        <li>날짜 · 기한</li>
+        <li>기관 · 사람 이름</li>
+        <li>찾지 못했다</li>
+      </ol>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 5. 간지 -->
+<section data-pattern="divider" class="slide divider">
+  <div class="d-no"><small>SECTION</small>02</div>
+  <h2>점검하기</h2>
+  <p>발표 전에 사람이 꼭 봐야 하는 곳을 짚습니다.</p>
+  @@SIG:divider:2@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 6. 점검표: 표 -->
+<section data-pattern="table" class="slide">
+  <div class="s-body">
+    <p class="kicker">02 점검하기</p>
+    <h2 class="title">네 가지를 보되, <em>숫자</em>만은 반드시 사람이 봅니다</h2>
+    <div class="fill stack">
+      <table class="tbl">
+        <thead><tr><th>볼 곳</th><th>무엇을 보나</th><th>어떻게</th></tr></thead>
+        <tbody>
+          <tr class="is-key"><td>숫자</td><td>원문과 같은가, 단위가 맞는가</td><td>원문을 옆에 두고 하나씩</td></tr>
+          <tr><td>제목</td><td>결론 한 문장인가</td><td>제목만 이어 읽어 보기</td></tr>
+          <tr><td>넘침</td><td>잘린 글자가 없는가</td><td>모든 장을 한 번 넘겨 보기</td></tr>
+          <tr><td>사진 자리</td><td>비어 있는 자리가 없는가</td><td>점선 상자 찾기</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 7. 용어: 용어 정의 -->
+<section data-pattern="define" class="slide">
+  <div class="s-body">
+    <p class="kicker">02 점검하기 · 용어</p>
+    <h2 class="title">인터넷이 없는 곳에서는 <em>오프라인 파일</em>이 필요합니다</h2>
+    <dl class="define fill">
+      <dt>오프라인 파일<small>글꼴 · 모양을 파일 안에 넣은 덱</small></dt>
+      <dd>
+        <p>인터넷 없이도 똑같이 열리도록 모든 것을 한 파일에 담은 덱입니다.</p>
+        <ul><li>강당 컴퓨터에 인터넷이 안 될 때</li><li>파일을 메신저로 보내 줄 때</li></ul>
+      </dd>
+    </dl>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 8. 고치는 말: 둘 비교 -->
+<section data-pattern="compare" class="slide" data-steps="2">
+  <div class="s-body">
+    <p class="kicker">03 고치기</p>
+    <h2 class="title">고칠 때는 <em>몇 장의 무엇을</em> 어떻게 바꿀지 말합니다</h2>
+    <div class="fill stack">
+      <div class="fix" data-step="1"><p class="q"><b>찾은 문제</b>5장 숫자가 원문과 다르다</p><i aria-hidden="true"></i><p class="a"><b>하는 말</b>5장 참여 학교를 138교로 고쳐 줘. 원문 3쪽에 있어</p></div>
+      <div class="fix is-key" data-step="2"><p class="q"><b>찾은 문제</b>7장 항목이 일곱 개라 빽빽하다</p><i aria-hidden="true"></i><p class="a"><b>하는 말</b>7장을 두 장으로 나눠 줘. 네 개와 세 개로</p></div>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 9. 발표 전 준비: 순서 · 단계 -->
+<section data-pattern="steps" class="slide">
+  <div class="s-body">
+    <p class="kicker">03 고치기 · 발표 전</p>
+    <h2 class="title">발표 전 <em>세 걸음</em>, 전날까지 끝냅니다</h2>
+    <div class="road fill">
+      <div class="is-key"><h3><small>1</small>숫자 대조</h3><ul><li>원문과 하나씩</li><li>출처 줄 확인</li><li>틀리면 바로 고치기</li></ul></div>
+      <div><h3><small>2</small>사진 넣기</h3><ul><li>점선 자리 채우기</li><li>초상권 확인</li><li>없으면 그 장 빼기</li></ul></div>
+      <div><h3><small>3</small>현장 확인</h3><ul><li>강당 화면에 띄워 보기</li><li>인터넷 되는지 보기</li><li>안 되면 오프라인 파일</li></ul></div>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 10. 실습 안내: 할 일 -->
+<section data-pattern="todo" class="slide">
+  <div class="s-body">
+    <p class="kicker">04 발표해 보기</p>
+    <div class="todo fill">
+      <p class="t-do">고친 덱으로 옆 사람에게<br><em>3분</em> 동안 발표해 봅니다</p>
+      <dl>
+        <div><dt>시간</dt><dd>20분<small>고치기 10분, 발표 3분씩, 말해 주기 2분씩</small></dd></div>
+        <div><dt>듣는 사람은</dt><dd>제목만 받아 적기<small>제목만 읽어도 흐름이 보이는지</small></dd></div>
+        <div><dt>막히면</dt><dd>점검표 네 줄<small>실습지 1쪽에 있습니다</small></dd></div>
+      </dl>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 11. 과정 정리: 항목 -->
+<section data-pattern="points" class="slide">
+  <div class="s-body">
+    <p class="kicker">05 과정 닫기 · 세 차시 정리</p>
+    <h2 class="title">세 차시를 세 줄로, <em>사람이 할 일</em>은 처음과 끝에 있습니다</h2>
+    <ol class="points fill">
+      <li class="is-key"><b>모양은 사람이</b><p>문단마다 기본 장표를 고르는 눈</p></li>
+      <li><b>꾸미기는 AI와 부품이</b><p>주소와 문서를 주고 구성안을 고친다</p></li>
+      <li><b>숫자는 다시 사람이</b><p>원문과 대조하고 발표 전 세 걸음</p></li>
+    </ol>
+  </div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 12. 마무리 -->
+<section data-pattern="closing" class="slide close">
+  <h2>다음 발표는<br>내 문서로</h2>
+  <p>연수 자료 · 문의 — ○○교육청 교육연수원</p>
+  @@SIG:close@@
+  <span class="page-no"></span>
+</section>

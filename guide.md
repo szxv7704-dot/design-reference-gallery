@@ -100,7 +100,7 @@
 | 향후 계획 | 순서·단계 |
 | 맺는 장 | 맺음 |
 
-**사업 설명회** — 지원 사업을 안내하고 신청을 받을 때
+**사업 설명회** — 지원 사업을 안내하고 신청을 받을 때 · 예시 덱 https://szxv7704-dot.github.io/design-reference-gallery/kit/B-brief.html
 
 | 자리 | 기본 장표 |
 | --- | --- |
@@ -127,7 +127,7 @@
 
 여러 차시 과정이면 맨 앞에 일정(`.mile`) 장표를 과정 지도로 쓰고(차시마다 이정표 하나, 지금 차시만 `.is-key`), 차시마다 연수 한 차시 흐름을 되풀이합니다.
 
-## 5. 분위기 계열 넷 (겉모습만 다르고 부품 이름은 같습니다)
+## 5. 분위기 계열 여덟 (겉모습만 다르고 부품 이름은 같습니다)
 
 | 계열 | 겉모습 | 어울리는 자리 | 자세한 규칙 · 지시서 |
 | --- | --- | --- | --- |
@@ -135,6 +135,10 @@
 | **B 미니멀 스튜디오** | 전시관 모형대처럼 밝은 청백 무광. 주황은 한 장에 한 곳 | 어디에나 무난하다. 정하지 않았으면 이것 | https://szxv7704-dot.github.io/design-reference-gallery/kit/B.md |
 | **C 경쾌한 놀이 오브젝트** | 하늘빛 흰 바탕에 장난감 블록, 굵은 제목. 빨강 강조 한 곳 | 유아 · 초등, 밝은 분위기의 행사 | https://szxv7704-dot.github.io/design-reference-gallery/kit/C.md |
 | **D 인쇄·종이 에디토리얼** | 백상지에 먹 명조 제목, 남색과 주홍 2도. 이중 괘선으로 지면을 짠다 | 계획안 · 정책 보고, 차분한 자리 | https://szxv7704-dot.github.io/design-reference-gallery/kit/D.md |
+| **E 자연 재질** | 밝은 회녹 종이에 따뜻한 나무색 농담, 명조 제목. 청록 강조 한 곳 | 환경 · 생태 · 마을 교육, 차분하고 따뜻한 자리 | https://szxv7704-dot.github.io/design-reference-gallery/kit/E.md |
+| **F 관측·중계 인포그래픽** | 맑은 청백 바탕에 남색 기록판, 좁은 숫자 글꼴. 빨강 강조 한 곳 | 실적 · 통계가 많은 성과 보고, 체육 · 진로 행사 | https://szxv7704-dot.github.io/design-reference-gallery/kit/F.md |
+| **G 어두운 콘셉트** | 깊은 남색 밤하늘에 따뜻한 흰 글자, 명조 제목. 금빛 강조 한 곳 | 저녁 행사 · 비전 선포, 불을 끄고 하는 발표(밝은 회의실에는 맞지 않음) | https://szxv7704-dot.github.io/design-reference-gallery/kit/G.md |
+| **H 전통 공예·문양** | 밝은 한지에 먹 명조 제목, 면마다 쌍변, 진녹 농담. 주홍 강조 한 곳 | 역사 · 문화 · 지역 행사, 격식 있는 자리 | https://szxv7704-dot.github.io/design-reference-gallery/kit/H.md |
 
 계열을 정하면 그 계열의 지시서(위 주소)를 읽을 수 있을 때 읽고 '디자인 규칙'을 따릅니다. 읽을 수 없으면 이 안내만으로 만듭니다.
 
@@ -165,7 +169,7 @@
 </html>
 ```
 
-- `{계열}` 두 곳을 A · B · C · D 중 하나로 바꿉니다.
+- `{계열}` 두 곳을 A ~ H 중 하나로 바꿉니다.
 - 열 때 인터넷이 필요합니다. AI 화면 안 미리보기에서 색 · 모양이 안 보여도 고치지 마세요(바깥 파일을 막는 미리보기가 있습니다). 내려받아 브라우저로 열면 정상입니다.
 
 ## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)
@@ -178,11 +182,19 @@
 | B | `<div class="mass" aria-hidden="true"><i></i><i></i><i class="lit"></i><i></i><i></i></div>` | `<div class="mass" aria-hidden="true"><i></i><i class="lit"></i><i></i><i></i><i></i></div>` | `<div class="mass" aria-hidden="true"><i></i><i class="lit"></i><i></i><i></i><i></i></div>` | `<div class="spot" aria-hidden="true"></div>` |
 | C | `<div class="blocks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="blocks" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="blocks" aria-hidden="true"><i></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="blocks flag" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` |
 | D | `<div class="reg" aria-hidden="true"><b>2027</b></div>` | `<div class="reg" aria-hidden="true"><b>02</b></div>` | `<div class="reg is-off" aria-hidden="true"><b>02</b><i class="crop"></i></div>` | `<div class="reg" aria-hidden="true"><b>끝</b></div>` |
+| E | `<div class="rings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="rings" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="rings" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="rings" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>` |
+| F | `<div class="lane" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="lane" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="lane" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="lane" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>` |
+| G | `<div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="stars" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="stars" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="stars" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>` |
+| H | `<div class="tiles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="tiles" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="tiles" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="tiles" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>` |
 
 - A: 진행 칸(`.prog`)을 씁니다. 칸 수 = 섹션 수, 목차는 다음 칸 `.next`, 간지는 지난 칸 `.done` · 지금 칸 `.now`, 맺음은 모두 `.done`.
 - B: 모형대 매스(`.mass`)를 씁니다. 목차 · 간지의 `.lit` 층 = 지금 섹션(아래층이 1섹션). 맺음은 `.spot`.
 - C: 블록 탑(`.blocks`)을 씁니다. 블록 수 = 섹션 수(아래가 1섹션), 간지는 지금 층까지만 놓고 남은 층은 `.ghost`, 맺음은 `.flag`.
 - D: 판 번호(`.reg`)를 씁니다. 큰 명조 숫자 하나에 주홍 판이 4px 어긋나는 곳은 덱 전체에서 간지뿐, 재단 표시(`.crop`)도 간지에만.
+- E: 나이테(`.rings`)를 씁니다. 겹 수 = 섹션 수(안쪽이 1섹션), 지금 겹은 `.now`, 간지에서 아직 안 간 겹은 `.ghost`.
+- F: 구간 띠(`.lane`)를 씁니다. 칸 수 = 섹션 수, 지난 구간 `.done` · 지금 구간 `.now` · 남은 구간 `.ghost`.
+- G: 별 잇기(`.stars`)를 씁니다. 별 수 = 섹션 수, 지금 별 `.now`, 아직 안 간 별 `.ghost`.
+- H: 막새 줄(`.tiles`)을 씁니다. 막새 수 = 섹션 수, 지금 막새 `.now`, 아직 안 놓인 자리 `.ghost`.
 
 ## 8. 기본 장표별 견본 코드
 
