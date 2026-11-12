@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>덱 키트</title>
-<meta name="description" content="분위기 계열 하나로 사업 성과 공유회 · 설명회 발표 덱을 만드는 키트 네 가지(A 픽셀 게임 · B 미니멀 스튜디오 · C 경쾌한 놀이 오브젝트 · D 인쇄·종이 에디토리얼). 예시 덱과 채팅 AI 지시서.">
+<meta name="description" content="분위기 계열 하나로 16:9 발표 덱을 만드는 키트 네 가지(A 픽셀 게임 · B 미니멀 스튜디오 · C 경쾌한 놀이 오브젝트 · D 인쇄·종이 에디토리얼). 모든 내용은 가상 예시입니다.">
 <style>
 :root{--bg:#F5F4F0;--card:#FFFFFF;--ink:#1C1E22;--soft:#62666E;--line:#E2E0DA;--chip:#ECEAE4;--acc:#2563A8;
   --f:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif}
@@ -37,10 +37,10 @@ footer code{background:var(--chip);padding:1px 6px;border-radius:4px}
 <div class="wrap">
   <a class="back" href="../index.html">← 디자인 레퍼런스</a>
   <h1>덱 키트</h1>
-  <p class="lead">레퍼런스 장표는 보고 베끼는 것이고, 키트는 그 분위기로 <b>성과 공유회 · 설명회 덱을 새로 만들게 하는</b> 묶음입니다. 네 키트는 같은 가상 성과 공유회 13장(사업 개요 · 추진 경과 · 핵심 성과 · 목표 대비 달성 · 만족도 · 전후 비교 · 우수 사례 · 시사점 · 향후 계획)을 같은 부품 이름으로 만들어, 분위기만 나란히 비교할 수 있습니다.</p>
+  <p class="lead">키트는 한 분위기로 <b>발표 덱을 새로 만들게 하는</b> 묶음입니다. 네 키트는 부품 이름이 같아서(기본 장표 23가지), 같은 가상 내용의 예시 덱 셋(성과 공유회 13장 · 계획안 발표 12장 · 연수 한 차시 16장)을 분위기만 바꿔 나란히 볼 수 있습니다. 분위기를 정하지 않았으면 <a href="../index.html">첫 화면</a> 주소를 그대로 AI에게 주면 됩니다.</p>
   <ul class="how">
-    <li><b>1. 지시서 받기</b>고른 계열의 .md를 채팅 AI(ChatGPT · Claude · Gemini)에 첨부합니다.</li>
-    <li><b>2. 구성안 확인</b>사업 내용 · 성과 수치와 출처 · 사례(사진)를 주면, AI가 장별 구성안을 먼저 보여 줍니다.</li>
+    <li><b>1. 지시서 받기</b>고른 계열의 .md와 발표할 문서를 채팅 AI(Claude · ChatGPT)에 첨부합니다.</li>
+    <li><b>2. 구성안 확인</b>AI가 문서를 읽고 장별 구성안(자리 · 기본 장표 · 제목)을 먼저 보여 줍니다.</li>
     <li><b>3. .html 받기</b>내려받아 열면 덱입니다. ← → 로 넘기고, 인쇄하면 장당 1쪽 PDF.</li>
     <li><b>4. 업무망에서는</b>저장소에서 <code>kit.py inline</code>으로 인터넷 없이 도는 파일 하나로 바꿉니다.</li>
   </ul>
@@ -52,7 +52,7 @@ footer code{background:var(--chip);padding:1px 6px;border-radius:4px}
         <h2><span>A</span>픽셀 게임</h2>
         <p>크림 바탕 위 남색 게임 창. 글자는 모두 Galmuri11(11의 배수 크기), 진행 칸으로 덱의 위치를 보입니다.</p>
         <p class="meta">근거 장표 #9 · #10 · #11 · #12 · #90</p>
-        <div class="acts"><a class="main" href="A.html">예시 덱 보기</a><a href="A.md" download>지시서 .md 받기</a></div>
+        <div class="acts"><a class="main" href="A.html">성과 공유회</a><a href="A-plan.html">계획안 발표</a><a href="A-lecture.html">연수 한 차시</a><a href="A.md" download>지시서 .md 받기</a></div>
       </div>
     </article>
     <article class="kit">
@@ -61,7 +61,7 @@ footer code{background:var(--chip);padding:1px 6px;border-radius:4px}
         <h2><span>B</span>미니멀 스튜디오</h2>
         <p>전시관 모형대처럼 밝은 청백 무광. 흰 덩어리 하나, 주황은 한 장에 한 곳.</p>
         <p class="meta">근거 장표 #19 · #26 · #28 · #37 · #46 · #116</p>
-        <div class="acts"><a class="main" href="B.html">예시 덱 보기</a><a href="B.md" download>지시서 .md 받기</a></div>
+        <div class="acts"><a class="main" href="B.html">성과 공유회</a><a href="B-plan.html">계획안 발표</a><a href="B-lecture.html">연수 한 차시</a><a href="B.md" download>지시서 .md 받기</a></div>
       </div>
     </article>
     <article class="kit">
@@ -70,7 +70,7 @@ footer code{background:var(--chip);padding:1px 6px;border-radius:4px}
         <h2><span>C</span>경쾌한 놀이 오브젝트</h2>
         <p>하늘빛 바탕에 장난감 블록. 섹션 수 = 블록 수, 원색 다섯은 섹션 표시에만.</p>
         <p class="meta">근거 장표 #7 · #24 · #29 · #39 · #82</p>
-        <div class="acts"><a class="main" href="C.html">예시 덱 보기</a><a href="C.md" download>지시서 .md 받기</a></div>
+        <div class="acts"><a class="main" href="C.html">성과 공유회</a><a href="C-plan.html">계획안 발표</a><a href="C-lecture.html">연수 한 차시</a><a href="C.md" download>지시서 .md 받기</a></div>
       </div>
     </article>
     <article class="kit">
@@ -79,7 +79,7 @@ footer code{background:var(--chip);padding:1px 6px;border-radius:4px}
         <h2><span>D</span>인쇄·종이 에디토리얼</h2>
         <p>백상지에 명조 제목과 이중 괘선. 남색 주판 · 주홍 별색 2도, 재단 표시와 판 어긋남은 간지에만.</p>
         <p class="meta">근거 장표 #4 · #27 · #32 · #60 · #62</p>
-        <div class="acts"><a class="main" href="D.html">예시 덱 보기</a><a href="D.md" download>지시서 .md 받기</a></div>
+        <div class="acts"><a class="main" href="D.html">성과 공유회</a><a href="D-plan.html">계획안 발표</a><a href="D-lecture.html">연수 한 차시</a><a href="D.md" download>지시서 .md 받기</a></div>
       </div>
     </article>
   </div>

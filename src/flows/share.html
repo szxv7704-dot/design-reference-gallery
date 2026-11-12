@@ -1,30 +1,19 @@
-<!DOCTYPE html>
-<html lang="ko" data-kit="C">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>덱 키트 C · 경쾌한 놀이 오브젝트 — 성과 공유회 예시 덱</title>
-<style>
-/*@@FONTS@@*/
-/*@@KIT:C@@*/
-</style>
-</head>
-<body>
-<div class="deck"><main class="deck-stage">
+<!-- 흐름: 성과 공유회 · 섹션 5 · 표지 숫자 2026
+     계열마다 다른 상징 부품은 @@SIG:…@@ 자리에 scripts/kit.py 가 넣는다. 장마다 data-pattern = 기본 장표(docs/patterns.md) -->
 
 <!-- 1. 표지 -->
-<section class="slide cover">
+<section data-pattern="cover" class="slide cover">
   <div class="c-text">
     <span class="c-tag">2026 성과 공유회 · 가상 예시</span>
     <h1>학교 문화예술교육<br><em>지역 연계</em> 사업 성과</h1>
     <p class="c-sub">1년 동안 학교 밖 교실 46곳에서 일어난 일</p>
   </div>
-  <div class="blocks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  @@SIG:cover@@
   <p class="c-org"><span>○○교육청 교육과정과</span><span>2026. 12. 18.</span></p>
 </section>
 
 <!-- 2. 목차 -->
-<section class="slide toc">
+<section data-pattern="toc" class="slide toc">
   <div class="s-body">
     <p class="kicker">CONTENTS</p>
     <h2 class="title">차례</h2>
@@ -36,12 +25,12 @@
       <li><b>05</b><span>시사점 · 향후 계획</span><span>11</span></li>
     </ol>
   </div>
-  <div class="blocks" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i><i></i></div>
+  @@SIG:toc:1@@
   <span class="page-no"></span>
 </section>
 
 <!-- 3. 사업 개요 -->
-<section class="slide">
+<section data-pattern="points" class="slide">
   <div class="s-body">
     <p class="kicker">01 사업 개요</p>
     <h2 class="title">학교 수업을 <em>지역 예술 공간</em>과 이어 10개월을 운영했습니다</h2>
@@ -57,7 +46,7 @@
 </section>
 
 <!-- 4. 추진 경과 -->
-<section class="slide">
+<section data-pattern="timeline" class="slide">
   <div class="s-body">
     <p class="kicker">02 추진 경과</p>
     <h2 class="title">봄에 판을 깔고, <em>2학기</em>에 연계 수업이 본격화됐습니다</h2>
@@ -73,16 +62,16 @@
 </section>
 
 <!-- 5. 간지 -->
-<section class="slide divider">
+<section data-pattern="divider" class="slide divider">
   <div class="d-no"><small>SECTION</small>03</div>
   <h2>핵심 성과</h2>
   <p>목표보다 많이 열렸고, 한 곳은 아직 모자랍니다.</p>
-  <div class="blocks" aria-hidden="true"><i></i><i></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i></div>
+  @@SIG:divider:3@@
   <span class="page-no"></span>
 </section>
 
 <!-- 6. 핵심 성과: 수치 타일 + 증감 -->
-<section class="slide">
+<section data-pattern="numbers" class="slide">
   <div class="s-body">
     <p class="kicker">03 핵심 성과</p>
     <h2 class="title">참여 학교 <em>138교</em>, 연계 수업 1,240회가 열렸습니다</h2>
@@ -98,7 +87,7 @@
 </section>
 
 <!-- 7. 목표 대비 달성 -->
-<section class="slide">
+<section data-pattern="bars" class="slide">
   <div class="s-body">
     <p class="kicker">03 핵심 성과</p>
     <h2 class="title">네 지표 중 셋은 목표를 넘었고, <em>예술 공간</em>은 92%입니다</h2>
@@ -115,7 +104,7 @@
 </section>
 
 <!-- 8. 만족도 -->
-<section class="slide">
+<section data-pattern="share" class="slide">
   <div class="s-body">
     <p class="kicker">03 핵심 성과</p>
     <h2 class="title">학생 <em>10명 중 9명</em>이 다시 하고 싶다고 답했습니다</h2>
@@ -132,7 +121,7 @@
 </section>
 
 <!-- 9. 전후 비교 -->
-<section class="slide">
+<section data-pattern="before-after" class="slide">
   <div class="s-body">
     <p class="kicker">03 핵심 성과</p>
     <h2 class="title">참여 뒤, <em>학교 밖 수업을 계획한 학교</em>가 두 배로 늘었습니다</h2>
@@ -150,7 +139,7 @@
 </section>
 
 <!-- 10. 우수 사례 + 참여자 목소리 -->
-<section class="slide">
+<section data-pattern="photo" class="slide">
   <div class="s-body">
     <p class="kicker">04 우수 사례</p>
     <h2 class="title">세 학교는 <em>교과 시간 안에서</em> 학교 밖 수업을 정례화했습니다</h2>
@@ -164,7 +153,7 @@
 </section>
 
 <!-- 11. 시사점: 현안 → 해결(누를 때마다 한 줄) -->
-<section class="slide" data-steps="3">
+<section data-pattern="compare" class="slide" data-steps="3">
   <div class="s-body">
     <p class="kicker">05 시사점 · 향후 계획</p>
     <h2 class="title">막힌 곳은 <em>이동 · 안전</em>이었고, 내년엔 묶어서 지원합니다</h2>
@@ -178,7 +167,7 @@
 </section>
 
 <!-- 12. 향후 계획 -->
-<section class="slide">
+<section data-pattern="steps" class="slide">
   <div class="s-body">
     <p class="kicker">05 시사점 · 향후 계획</p>
     <h2 class="title">2027년엔 <em>군 지역</em>부터 넓혀 200교로 갑니다</h2>
@@ -192,16 +181,9 @@
 </section>
 
 <!-- 13. 마무리 -->
-<section class="slide close">
+<section data-pattern="closing" class="slide close">
   <h2>학교 밖도<br>교실이었습니다</h2>
   <p>문의 · ○○교육청 교육과정과 문화예술교육 담당</p>
-  <div class="blocks flag" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  @@SIG:close@@
   <span class="page-no"></span>
 </section>
-
-</main></div>
-<script>
-/*@@KITJS@@*/
-</script>
-</body>
-</html>

@@ -1,0 +1,232 @@
+[
+ {
+  "id": "cover",
+  "name": "표지",
+  "group": "뼈대",
+  "when": "문서 제목 · 기관 · 날짜",
+  "cond": "제목 2줄 이하, 부제 1줄",
+  "overflow": "부제를 뺀다",
+  "part": ".cover",
+  "note": ""
+ },
+ {
+  "id": "toc",
+  "name": "목차",
+  "group": "뼈대",
+  "when": "문서의 큰 번호(Ⅰ · Ⅱ · Ⅲ), 차시 순서",
+  "cond": "3~5줄",
+  "overflow": "큰 묶음으로 합친다",
+  "part": ".toc + .toc-list",
+  "note": ""
+ },
+ {
+  "id": "divider",
+  "name": "간지",
+  "group": "뼈대",
+  "when": "큰 번호가 바뀌는 자리",
+  "cond": "번호 + 이름 + 한 줄",
+  "overflow": "—",
+  "part": ".divider",
+  "note": ""
+ },
+ {
+  "id": "closing",
+  "name": "맺음",
+  "group": "뼈대",
+  "when": "문의처 · 담당 · 다음 차시 예고",
+  "cond": "두 줄 문장 + 연락처 한 줄",
+  "overflow": "—",
+  "part": ".close",
+  "note": ""
+ },
+ {
+  "id": "statement",
+  "name": "한 문장",
+  "group": "글",
+  "when": "목적 · 비전 · 결론처럼 한 문장이 전부인 곳",
+  "cond": "40자 이하 한 문장 + 받치는 말 1줄",
+  "overflow": "받치는 말을 다음 장으로",
+  "part": ".say",
+  "note": "이 장만 .title 없이 .kicker 아래에 둔다"
+ },
+ {
+  "id": "points",
+  "name": "항목",
+  "group": "글",
+  "when": "개조식(□ · ○ · -) 항목 3~5개, 학습 목표, 기대 효과",
+  "cond": "3~5개, 이름 + 설명 1~2줄(5개면 1줄)",
+  "overflow": "6개부터 두 장, 또는 묶음·분류로",
+  "part": ".points",
+  "note": "네 칸으로 한눈에 보일 때는 .brief(목적 · 대상 · 기간 · 규모)"
+ },
+ {
+  "id": "define",
+  "name": "용어 정의",
+  "group": "글",
+  "when": "\"○○란\", 용어 풀이, 개념 설명",
+  "cond": "용어 1개 + 뜻 한 문장 + 예 1~2개",
+  "overflow": "용어마다 한 장",
+  "part": ".define",
+  "note": ""
+ },
+ {
+  "id": "quote",
+  "name": "인용",
+  "group": "글",
+  "when": "참여자 말 · 설문 서술 답 · 법령 조문",
+  "cond": "1~3개, 각 60자 이하, 말한 사람",
+  "overflow": "가장 강한 것 하나만",
+  "part": ".quote",
+  "note": ""
+ },
+ {
+  "id": "steps",
+  "name": "순서·단계",
+  "group": "관계",
+  "when": "절차 · 신청 방법 · 따라 하기 · 단계별 추진 · 향후 계획",
+  "cond": "3~4단계, 단계마다 이름 + 할 일 3줄 이하",
+  "overflow": "5단계부터 두 장",
+  "part": ".road",
+  "note": ""
+ },
+ {
+  "id": "compare",
+  "name": "둘 비교",
+  "group": "관계",
+  "when": "문제점 ↔ 개선 방안, 문단 ↔ 고른 장표, 기존안 ↔ 새 안",
+  "cond": "2~3줄, 줄마다 왼쪽 · 오른쪽 한 짝",
+  "overflow": "4줄부터 두 장",
+  "part": ".fix (+ .stack)",
+  "note": "누를 때마다 한 줄씩 보이려면 data-step"
+ },
+ {
+  "id": "before-after",
+  "name": "전→후",
+  "group": "관계",
+  "when": "현행 → 개선, 사업 전 → 사업 후(숫자가 있는 짝)",
+  "cond": "2~3짝, 같은 기준 · 같은 단위",
+  "overflow": "가장 큰 변화 3짝만",
+  "part": ".ba (+ .ba-head)",
+  "note": ""
+ },
+ {
+  "id": "groups",
+  "name": "묶음·분류",
+  "group": "관계",
+  "when": "과제 · 프로그램을 갈래로 나눈 것",
+  "cond": "2~4묶음, 묶음마다 3줄 이하",
+  "overflow": "묶음마다 한 장",
+  "part": ".card + .grid.g2/.g3/.g4",
+  "note": ""
+ },
+ {
+  "id": "tree",
+  "name": "체계",
+  "group": "관계",
+  "when": "비전 → 전략 → 과제, 추진 체계, 조직도",
+  "cond": "맨 위 1 + 갈래 2~4 + 갈래마다 2~3줄",
+  "overflow": "갈래마다 한 장, 또는 표로",
+  "part": ".tree",
+  "note": "갈래 수는 style=\"--n:3\""
+ },
+ {
+  "id": "numbers",
+  "name": "큰 숫자",
+  "group": "수",
+  "when": "핵심 실적 · 규모 · 예산 총액",
+  "cond": "1~4개, 숫자마다 단위 + 한 줄",
+  "overflow": "가장 중요한 3개만",
+  "part": ".tile (+ .delta)",
+  "note": ""
+ },
+ {
+  "id": "bars",
+  "name": "막대 비교",
+  "group": "수",
+  "when": "항목 간 크기 비교 · 순위 · 목표 대비 실적",
+  "cond": "3~5줄, 한 가지 단위",
+  "overflow": "위 4개 + 나머지 합",
+  "part": ".goal + .g-row",
+  "note": "목표선이 없으면 .bars + .bar"
+ },
+ {
+  "id": "trend",
+  "name": "추이",
+  "group": "수",
+  "when": "여러 해 · 여러 달에 걸친 변화",
+  "cond": "3~8시점, 한 가지 값",
+  "overflow": "시점을 줄인다",
+  "part": ".trend",
+  "note": "가장 큰 값 = --v:100"
+ },
+ {
+  "id": "share",
+  "name": "구성비",
+  "group": "수",
+  "when": "전체 중 몫 · 재원 비율",
+  "cond": "2~5조각, 합 100%",
+  "overflow": "작은 조각은 기타로",
+  "part": ".share + .sh-bar",
+  "note": "설문 다섯 단계 응답은 .likert"
+ },
+ {
+  "id": "table",
+  "name": "표",
+  "group": "수",
+  "when": "표로 된 지원 내용 · 항목 목록 · 예산 내역",
+  "cond": "3~5행 × 3~4열, 칸마다 1줄",
+  "overflow": "6행부터 두 장, 또는 핵심 열만",
+  "part": ".tbl",
+  "note": ""
+ },
+ {
+  "id": "timeline",
+  "name": "일정",
+  "group": "시간",
+  "when": "추진 일정 · 연혁 · 과정 지도",
+  "cond": "이정표 3~5개(.mile) 또는 줄 3~5개 × 12달(.gantt)",
+  "overflow": "분기 · 학기로 묶는다",
+  "part": ".mile",
+  "note": "달 단위 기간이 겹치면 .gantt"
+ },
+ {
+  "id": "photo",
+  "name": "사진+글",
+  "group": "그림",
+  "when": "사례 · 현장 사진 · 활동 모습",
+  "cond": "사진 1~3장, 사진마다 제목 + 한 줄 + 말 한마디",
+  "overflow": "사진마다 한 장",
+  "part": ".case + .ph",
+  "note": "사진은 사용자에게 받는다. 없으면 .ph data-need 로 자리만"
+ },
+ {
+  "id": "screen",
+  "name": "화면 짚기",
+  "group": "그림",
+  "when": "프로그램 화면 · 서식 · 누리집 사용법",
+  "cond": "캡처 1장 + 번호 표시 3개 이하",
+  "overflow": "동작 하나에 한 장",
+  "part": ".shot + .shot-img",
+  "note": "번호 자리는 style=\"--x:%;--y:%\""
+ },
+ {
+  "id": "ask",
+  "name": "질문",
+  "group": "청중에게",
+  "when": "여는 질문 · 토의 주제 · 퀴즈 · 자주 묻는 질문",
+  "cond": "질문 1개 + 보기 4개 이하(ol) 또는 답 1개(.a-a)",
+  "overflow": "질문마다 한 장",
+  "part": ".ask",
+  "note": "퀴즈 답은 .a-a 에 data-step=\"1\" 을 붙여 가렸다 연다. 이 장은 .title 없이"
+ },
+ {
+  "id": "todo",
+  "name": "할 일",
+  "group": "청중에게",
+  "when": "실습 안내 · 과제 · 제출 서류 · 신청 기한",
+  "cond": "할 일 한 문장 + 조건 칸 2~3개(시간 · 결과물 · 도움)",
+  "overflow": "할 일마다 한 장",
+  "part": ".todo",
+  "note": "이 장은 .title 없이"
+ }
+]

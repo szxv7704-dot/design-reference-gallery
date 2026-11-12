@@ -1,26 +1,50 @@
 # 발표자료 디자인 레퍼런스 갤러리
 
-사업 **성과 공유회**(중심) · **사업 설명회** 발표 자료와 인쇄·홍보물을 위한 디자인 레퍼런스 모음입니다. GitHub Pages로 공개됩니다.
-만드는 기준은 [`docs/criteria.md`](docs/criteria.md)(목적 · 덱 흐름 · 정형 장표 유형 · 그림 규칙 · 피할 것 · 루틴에 붙일 규칙), 채울 빈칸은 [`docs/gaps.md`](docs/gaps.md).
-분류를 "내용의 모양" 기준으로 다시 세우는 중입니다: [`docs/patterns.md`](docs/patterns.md)(기본 장표 틀 초안) · [`docs/triage.md`](docs/triage.md)(기존 장표 판정표 초안, `python3 scripts/triage.py`).
+한글 문서(계획안 · 연수 강의안 · 성과 보고)를 **16:9 발표 덱**으로 바꿀 때 **채팅 AI가 읽는 디자인 안내이자 재료**입니다. GitHub Pages로 공개됩니다.
+쓰는 법: Claude · ChatGPT에 문서를 올리고 이 갤러리 주소(https://szxv7704-dot.github.io/design-reference-gallery/)를 주면, AI가 첫 화면의 안내를 읽고 덱 HTML을 만듭니다.
+분류 틀은 [`docs/patterns.md`](docs/patterns.md), 기존 장표 판정은 [`docs/triage.md`](docs/triage.md), 만드는 규칙은 [`docs/criteria.md`](docs/criteria.md).
 모든 기관명 · 사업 · 수치는 **가상 예시**이고, 사진은 AI로 만든 것입니다.
+
+## 세 층
+
+| 층 | 무엇 | 원본 |
+|---|---|---|
+| 기본 장표 | 내용의 모양 23가지(표지 · 항목 · 둘 비교 · 추이 · 화면 짚기 …). 한 장에 하나 | `data/patterns.json` · 부품 `kit/parts.css` + `kit/{계열}.css` |
+| 흐름 | 기본 장표를 순서대로 엮은 것: 계획안 발표 · 성과 공유회 · 사업 설명회 · 연수 한 차시 | `data/flows.json` · 예시 덱 `src/flows/{plan,share,lecture}.html` |
+| 분위기 | 색 · 글꼴 · 상징 부품: A 픽셀 게임 · B 미니멀 스튜디오 · C 경쾌한 놀이 오브젝트 · D 인쇄·종이 에디토리얼 | `kit/{계열}.css` · `kit/{계열}.design.md` |
+
+자료는 **재료**(AI가 그대로 조립하는 덱 키트 부품)와 **참고**(기존 레퍼런스 장표 — 변주 · 영감)로 나뉩니다.
 
 ## 구조
 
 | 경로 | 내용 |
 |---|---|
-| `index.html` | 갤러리 첫 화면: 위는 **무엇을 하려고 하나요?**(목적 6개), 아래는 장표 목록. 고르는 축은 **쓰임새 · 무엇을 보여 주나(정형 유형) · 분위기(표지 그림 칩)** 셋뿐이고, 카드는 썸네일 · 제목 · 번호 · 움직임 기호만. 카드를 누르면 **빠르게 보기** 창에서 원본이 움직인다(Esc로 닫기). 고른 것은 주소에 남는다(`?role=본문&kind=만족도&fam=B&q=간트`). 숨긴 장표는 맨 아래 '보기'로만 |
-| `data/kit_slides.json` | 목록에 함께 나오는 덱 키트 장표(정형 유형마다 한 장): `scripts/kit.py`가 만든다 |
-| `docs/criteria.md` · `docs/gaps.md` | 제작 기준 · 정형 장표 빈칸 표(`python3 scripts/gaps.py`로 다시 만듦) |
-| `scripts/hub_thumbs.js` | 목적 타일 미리보기 중 따로 있는 페이지(와우 포인트 · 아이콘 세트)를 찍어 `thumbs/hub-*.jpg`로: `node scripts/hub_thumbs.js` (그 페이지를 고친 뒤). 표지 · 본문 · 인쇄물 타일은 최근 장표 썸네일, 덱 키트는 `kit/thumbs/`를 쓴다 |
-| `refs/NN.html` | 레퍼런스 원본 페이지 (NN = 회차 번호, 두 자리) |
-| `thumbs/NN.jpg` | 표지 썸네일 (640px 폭) |
-| `data/rounds.json` | 회차 목록 데이터 |
+| `index.html` | 첫 화면. **`scripts/site.py`가 만든다(손으로 고치지 말 것).** 내용이 모두 HTML 안에 들어 있어 AI가 주소만으로 글로 읽는다. 순서: 쓰는 법 → 분위기 넷 → AI가 지킬 것 → 흐름(자리 띠 + 예시 덱 장들) → 기본 장표 23(견본 그림 · 내용 조건 · 견본 코드 · 참고할 변주) → 뼈대 · 상징 부품 · 점검 → 참고 서랍(영감 · 인쇄물). 분위기를 고르면 견본 그림이 그 계열로 바뀐다(`?fam=A`) |
+| `guide.md` | 첫 화면과 같은 내용의 AI용 안내(글). `scripts/kit.py`가 만든다. 주소를 못 읽는 AI에는 이 파일을 첨부 |
+| `kit/` | 덱 키트: 공용 부품 · 계열 CSS · 예시 덱(`{계열}.html` 성과 공유회 · `{계열}-plan.html` · `{계열}-lecture.html`) · 계열별 지시서 `{계열}.md` · 배포판 `v1/` |
+| `data/patterns.json` · `data/flows.json` | 기본 장표 23 · 흐름 넷의 정의(안내문 · 첫 화면 · 판정표가 모두 이것을 읽는다) |
+| `data/triage.json` · `docs/triage.md` | 기존 장표 판정(기본 후보 · 변주 · 영감 · 범위 밖): `python3 scripts/triage.py`. 판정은 스크립트 안 `BODY`와 규칙을 고친다 |
+| `data/kit_slides.json` | 예시 덱의 장 목록(흐름 · 장 · 기본 장표): `scripts/kit.py`가 만든다 |
+| `docs/criteria.md` | 제작 기준(대상 · 그림 규칙 · 피할 것 · 루틴에 붙일 규칙) |
+| `refs/NN.html` · `thumbs/NN.jpg` · `data/rounds.json` | 레퍼런스 장표 원본 · 썸네일 · 목록(루틴이 갱신). 첫 화면에서는 '참고할 변주'와 참고 서랍에 나온다 |
 | `assets/` | 코드 칸에서 불러오는 사진(20KB 넘는 내장 사진을 뺀 것) |
-| `scripts/add-code.js` | 표지 장표만 떼어 낸 "HTML로 가져다 쓰기" 코드 칸을 페이지 끝에 붙임: `node scripts/add-code.js refs/NN.html` (실무형처럼 원래 코드 칸이 있으면 건너뜀, 다시 실행하면 새로 만듦) |
+| `scripts/add-code.js` | 표지 장표만 떼어 낸 "HTML로 가져다 쓰기" 코드 칸을 페이지 끝에 붙임: `node scripts/add-code.js refs/NN.html` |
 | `scripts/thumb.js` | 썸네일 생성: `node scripts/thumb.js refs/NN.html thumbs/NN.jpg` (Playwright 필요) |
 
-## 분류 체계
+다시 만드는 순서(키트 · 흐름 · 판정 · 화면):
+
+```
+python3 scripts/kit.py A B C D     # 배포 CSS · 예시 덱 12개 · 지시서 · guide.md · data/kit_slides.json
+node scripts/kit_thumbs.js         # 예시 덱 썸네일
+python3 scripts/triage.py          # 판정표
+python3 scripts/site.py            # 첫 화면
+node scripts/check.js kit A A-plan A-lecture B B-plan B-lecture C C-plan C-lecture D D-plan D-lecture   # 넘침 · 글자 크기
+```
+
+## 레퍼런스 장표의 옛 분류 (rounds.json 필드)
+
+아래는 `data/rounds.json`에 남아 있는 필드의 뜻입니다. 첫 화면은 이 분류 대신 기본 장표(`pattern`)와 판정을 씁니다. 새 장표에는 `pattern`을 적습니다.
+
 
 맨 위는 **무엇을 만드나**(`use`), 그 아래는 모든 장표에 공통인 필터, 마지막으로 용도별 전용 필터.
 
@@ -89,6 +113,7 @@ python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받�
   - `reduced_motion`: 모션·인터랙션 장표에 `prefers-reduced-motion` 처리가 없음
   - `infinite_under_reduce`: 움직임 줄이기를 켜도 무한 반복 애니메이션(안내 깜빡임 등)이 계속 돎
   - `print_css`: 인쇄·홍보물에 `@media print`가 없음
+  - `slide_overflow` · `small_text`: 덱 키트 예시 덱의 장마다 내용이 1920 × 1080 밖으로 나가거나 글자가 22px 미만
   - `stage_ratio` · `stage_overflow`: 덱 장표(`.stage-frame` 안 무대)가 16:9가 아니거나 내용이 무대 밖으로 넘침
   - 움직임 줄이기는 장표 CSS(`#psNN-css`) 안에 `animation:none` · 전환 0.01초로 두고, 단계 연출을 스크립트로 돌리는 장표는 `go()`에서 그 단계의 끝 모습으로 바로 보낸다(코드 복사 칸에도 그대로 실림).
 - 빌드는 페이지에 쓰인 글자만 잘라 글꼴을 박아 넣고, 그림 · 라이브러리도 파일 안에 넣습니다. 결과물에 바깥 주소가 없습니다(‘코드 복사’ 안의 글은 예외).
@@ -104,32 +129,32 @@ python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받�
 - 루틴은 인덱스 DB `icons` 모음(`_set` = 규칙·CSS·SVG 틀, `g01`~`g12` = 묶음별 아이콘)에서 읽어 SVG를 페이지 안에 넣는다.
 - 아이콘을 더할 때: `icons/icons.json`에 같은 규격으로 넣고 `src/icons/page.html`의 데이터도 바꾼 뒤 `python3 -c "import sys;sys.path.insert(0,'scripts');import build;build.build('icons','icons')"`로 다시 만든다. 인덱스 DB도 함께 고친다.
 
-## 덱 키트 (분위기 계열 하나로 새 덱 찍어 내기)
+## 덱 키트 (재료)
 
-레퍼런스는 "보고 베끼는" 장표이고, 키트는 그 계열로 **성과 공유회 · 설명회 덱을 새로 만들게 하는** 묶음입니다. A(픽셀 게임) · B(미니멀 스튜디오) · C(경쾌한 놀이 오브젝트) · D(인쇄·종이 에디토리얼) 넷이 있고, 모음 화면은 `kit/index.html`입니다.
-네 키트는 **같은 부품 이름**과 **같은 성과 공유회 예시 덱 13장**(사업 개요 · 추진 경과 · 핵심 성과 · 목표 대비 달성 · 만족도 · 전후 비교 · 우수 사례 · 시사점 · 향후 계획)을 쓰고, 계열마다 모양과 상징 부품만 다릅니다(A 진행 칸 `.prog` · B 모형대 매스 `.mass` · C 블록 탑 `.blocks` · D 판 번호 `.reg`). 성과 공유회 정형 부품은 `kit/parts.css` 한 곳에 있고 계열 토큰을 따릅니다.
+A(픽셀 게임) · B(미니멀 스튜디오) · C(경쾌한 놀이 오브젝트) · D(인쇄·종이 에디토리얼) 넷이 있고, 모음 화면은 `kit/index.html`입니다.
+네 키트는 **같은 부품 이름**(기본 장표 23가지)을 쓰고, 계열마다 모양과 상징 부품만 다릅니다(A 진행 칸 `.prog` · B 모형대 매스 `.mass` · C 블록 탑 `.blocks` · D 판 번호 `.reg`).
+예시 덱의 원본은 계열 공용이고(`src/flows/`), 상징 부품 자리(`@@SIG:cover@@` · `@@SIG:toc:1@@` · `@@SIG:divider:3@@` · `@@SIG:close@@`)만 `scripts/kit.py`가 계열별로 채웁니다.
 
 | 위치 | 내용 |
 |---|---|
 | `kit/deck.css` · `kit/deck.js` | 모든 계열 공용 바탕 · 엔진: 1920 × 1080 무대 통째 줄이기, ← → · Space · F, 장 수 · 점 · 쪽 표시 자동, `data-steps` 단계 공개, 인쇄 장당 1쪽(16:9), 움직임 줄이기 |
-| `kit/parts.css` | 성과 공유회 정형 부품(공용): 사업 개요 `.brief` · 추진 경과 `.mile` · 증감 `.delta` · 목표 대비 달성 `.goal` · 만족도 `.likert` · 전후 비교 `.ba` · 우수 사례 `.case`(사진 자리 `.ph`) · 향후 계획 `.road`. 그림은 그리지 않고 사진은 이미지로 |
+| `kit/parts.css` | 공용 정형 부품(계열 토큰을 따름). 성과 공유회: `.brief` · `.mile` · `.delta` · `.goal` · `.likert` · `.ba` · `.case`(사진 자리 `.ph`) · `.road`. 기본 장표: 한 문장 `.say` · 항목 `.points` · 용어 정의 `.define` · 인용 `.quote` · 체계 `.tree` · 추이 `.trend` · 구성비 `.share` · 화면 짚기 `.shot` · 질문 `.ask` · 할 일 `.todo` |
 | `kit/{A,B,C,D}.css` | 계열 토큰(`--ds-*`)과 계열 부품(표지 · 목차 · 간지 · 마무리 · 상징 부품 · 카드 · 수치 타일 · 막대 · 현안→해결 · 간트 · 표) + 공용 부품 계열 조정 |
-| `kit/{A,B,C,D}.design.md` | 계열 디자인 규칙(한글 기준, 손으로 씀). 근거 키트: A #90 · B #46 · #116 · C #82 · D #62 |
-| `src/kit-{A,B,C,D}/` | 예시 덱 원본(공통 가상 성과 공유회 13장) |
-| `scripts/kit_thumbs.js` | 키트 장표 썸네일 `kit/thumbs/{계열}-{장}.jpg`: `node scripts/kit_thumbs.js` (예시 덱을 고친 뒤, `kit.py` 앞에) |
-| `kit/{A,B,C,D}.html` · `kit/{A,B,C,D}.md` · `kit/v1/` · `kit/thumbs/` | **만든 것**: 인터넷 없이 도는 예시 덱 · 채팅 AI 지시서 · 배포용 CSS/엔진 · 모음 화면 썸네일 |
-| `scripts/kit.py`의 `META` | 계열마다 다른 것(근거 장표 · 글꼴 역할 · 상징 부품 설명) |
+| `kit/{A,B,C,D}.design.md` | 계열 디자인 규칙(한글 기준, 손으로 씀) |
+| `src/flows/{share,plan,lecture}.html` | 예시 덱 원본(계열 공용). 장마다 `data-pattern` = 기본 장표 id, 장 앞 주석 `<!-- 3. 이름 -->` |
+| `src/kit-{A,B,C,D}/build.json` | 계열이 쓰는 글꼴(가족 · 굵기) |
+| `kit/{계열}.html` · `-plan.html` · `-lecture.html` · `kit/{계열}.md` · `kit/v1/` · `kit/thumbs/` · `guide.md` | **만든 것**: 인터넷 없이 도는 예시 덱 · 계열 지시서 · 배포용 CSS/엔진 · 썸네일 · AI용 안내 |
+| `scripts/kit.py`의 `META` | 계열마다 다른 것(근거 장표 · 글꼴 역할 · 한 줄 소개 · 상징 부품 설명) |
 
 ```
-node scripts/kit_thumbs.js                       # 키트 장표 썸네일
-python3 scripts/kit.py A B C D                   # v1/{계열}.css · {계열}.md · {계열}.html · data/kit_slides.json 다시 만들기
-python3 scripts/gaps.py                          # docs/gaps.md 빈칸 표
-python3 scripts/kit.py inline B 슬라이드.html      # AI가 만든 덱을 인터넷 없이 도는 파일 하나로(업무망 발표용)
-node scripts/check.js kit A B C D                # 장마다 1920 × 1080 안에 들어가는지 · 글자 22px 이상인지
+python3 scripts/kit.py A B C D                   # 전부 다시 만들기
+node scripts/kit_thumbs.js                       # 예시 덱 썸네일 kit/thumbs/{계열}{-흐름}-{장}.jpg
+python3 scripts/kit.py inline B 슬라이드.html      # AI가 만든 덱을 인터넷 없이 도는 파일 하나로
 ```
 
-- 지시서는 AI와의 계약입니다: 구성안 먼저 확인, **숫자 · 출처 지어내기 금지**, **그림은 코드로 그리지 않고 이미지를 요청**, 결론 한 문장 제목, 강조색 한 곳, 높이 예산, 생략 없이 출력, 내보내기 전 점검 7개.
-- 배포판은 `https://szxv7704-dot.github.io/design-reference-gallery/kit/v1/{계열}.css`를 불러오므로 `kit/v1/`은 GitHub Pages에 올라가야 동작합니다. 고칠 때는 버전을 새로(`v2`) 만들어 이미 나간 덱이 깨지지 않게 합니다.
+- 안내문(`guide.md` · 첫 화면 · 지시서)은 AI와의 계약입니다: 문서 읽기 → 흐름 → 문단마다 기본 장표 → 구성안 확인 → HTML. **문서에 없는 숫자 지어내기 금지**, **한 장에 기본 장표 하나**, **그림은 코드로 그리지 않고 이미지를 요청**, 결론 한 문장 제목, 강조색 한 곳, 높이 예산, 생략 없이 출력, 내보내기 전 점검 7개.
+- 기본 장표를 더하거나 고칠 때: `data/patterns.json` → 부품 CSS(`kit/parts.css`) → 예시 덱 원본에 그 장 추가(`data-pattern`) → 위 명령으로 다시 만들기. 견본 코드는 예시 덱에서 그 기본 장표가 처음 나오는 장을 그대로 씁니다.
+- 배포판은 `https://szxv7704-dot.github.io/design-reference-gallery/kit/v1/{계열}.css`를 불러오므로 `kit/v1/`은 GitHub Pages에 올라가야 동작합니다. 이미 나간 덱이 깨지지 않게 **있는 클래스의 모양은 바꾸지 않고 더하기만** 합니다. 모양을 바꿔야 하면 버전을 새로(`v2`) 만듭니다.
 
 ## 글꼴 라이선스
 

@@ -1,9 +1,12 @@
-# 덱 키트 만들기: kit/deck.css · kit/deck.js · kit/{계열}.css · kit/{계열}.design.md · src/kit-{계열}/ 에서
-#   kit/v1/{계열}.css  배포용 묶음(글꼴 @font-face + 공용 바탕 + 계열 부품) — 채팅 AI가 만든 덱이 불러옴
-#   kit/v1/deck.js     공용 엔진
-#   kit/{계열}.md      채팅 AI용 지시서(사람 안내 · 계약 · 디자인 규칙 · 부품 사전 · 뼈대 · 엔진 사용법)
-#   kit/{계열}.html    인터넷 없이 도는 예시 덱(글꼴 · CSS · 엔진을 파일 안에)
-# 실행: python3 scripts/kit.py B
+# 덱 키트 만들기: kit/deck.css · kit/deck.js · kit/parts.css · kit/{계열}.css · kit/{계열}.design.md · src/flows/{흐름}.html 에서
+#   kit/v1/{계열}.css        배포용 묶음(글꼴 @font-face + 공용 바탕 + 부품) — 채팅 AI가 만든 덱이 불러옴
+#   kit/v1/deck.js           공용 엔진
+#   kit/{계열}.html           성과 공유회 예시 덱 · kit/{계열}-plan.html 계획안 발표 · kit/{계열}-lecture.html 연수 한 차시 (인터넷 없이 돎)
+#   kit/{계열}.md             그 계열 하나로 덱을 만드는 채팅 AI용 지시서(첨부용)
+#   guide.md                 AI용 안내(계열 공통) — scripts/guide.py 가 첫 화면(index.html)에도 넣는다
+#   data/kit_slides.json     예시 덱의 장 목록(흐름 · 장 · 기본 장표)
+# 예시 덱 원본은 계열 공용(src/flows/)이고, 계열마다 다른 상징 부품은 @@SIG:…@@ 자리에 넣는다.
+# 실행: python3 scripts/kit.py A B C D
 #       python3 scripts/kit.py inline B 슬라이드.html [결과.html]   ← AI가 만든 덱을 인터넷 없이 도는 파일 하나로
 import json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,16 +14,21 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import build
 BASE = 'https://szxv7704-dot.github.io/design-reference-gallery/'
 K = os.path.join(ROOT, 'kit')
+FAMS = ['A', 'B', 'C', 'D']
 NAMES = {'A': '픽셀 게임', 'B': '미니멀 스튜디오', 'C': '경쾌한 놀이 오브젝트', 'D': '인쇄·종이 에디토리얼', 'E': '자연 재질', 'F': '관측·중계 인포그래픽', 'G': '어두운 콘셉트', 'H': '전통 공예·문양'}
-# 계열마다 다른 것: 근거 장표 · 글꼴 역할 · 상징 부품(표지 · 목차 · 간지 · 마무리에 쓰는 이 계열의 얼굴)
+# 계열마다 다른 것: 근거 장표 · 글꼴 역할 · 한 줄 소개 · 어울리는 자리 · 상징 부품(표지 · 목차 · 간지 · 맺음에 쓰는 이 계열의 얼굴)
 META = {
  'A': {'refs': '#9 · #10 · #11 · #12 · #90', 'roles': ('Galmuri11', 'Galmuri11', 'Galmuri11'),
-       'sig': '진행 칸(`.prog`)을 씁니다. 칸 수 = 섹션 수, 목차는 다음 칸 `.next`, 간지는 지난 칸 `.done` · 지금 칸 `.now`, 마무리는 모두 `.done`.'},
+       'desc': '크림 바탕 위 남색 게임 창, 픽셀 글꼴. 강조는 빨강 낱말 하나와 창 안 금색 한 곳', 'fit': '학생 · 체험 행사, 가벼운 연수',
+       'sig': '진행 칸(`.prog`)을 씁니다. 칸 수 = 섹션 수, 목차는 다음 칸 `.next`, 간지는 지난 칸 `.done` · 지금 칸 `.now`, 맺음은 모두 `.done`.'},
  'B': {'refs': '#19 · #26 · #28 · #37 · #46 · #116', 'roles': ('Gothic A1', 'IBM Plex Sans KR', 'IBM Plex Mono'),
-       'sig': '모형대 매스(`.mass`)를 씁니다. 목차 · 간지의 `.lit` 층 = 지금 섹션(아래층이 1섹션).'},
+       'desc': '전시관 모형대처럼 밝은 청백 무광. 주황은 한 장에 한 곳', 'fit': '어디에나 무난하다. 정하지 않았으면 이것',
+       'sig': '모형대 매스(`.mass`)를 씁니다. 목차 · 간지의 `.lit` 층 = 지금 섹션(아래층이 1섹션). 맺음은 `.spot`.'},
  'C': {'refs': '#7 · #24 · #29 · #39 · #82', 'roles': ('Black Han Sans', 'IBM Plex Sans KR', 'Fredoka'),
-       'sig': '블록 탑(`.blocks`)을 씁니다. 블록 수 = 섹션 수(아래가 1섹션), 간지는 지금 층까지만 놓고 남은 층은 `.ghost`, 마무리는 `.flag`.'},
+       'desc': '하늘빛 흰 바탕에 장난감 블록, 굵은 제목. 빨강 강조 한 곳', 'fit': '유아 · 초등, 밝은 분위기의 행사',
+       'sig': '블록 탑(`.blocks`)을 씁니다. 블록 수 = 섹션 수(아래가 1섹션), 간지는 지금 층까지만 놓고 남은 층은 `.ghost`, 맺음은 `.flag`.'},
  'D': {'refs': '#4 · #27 · #32 · #60 · #62', 'roles': ('Noto Serif KR', 'IBM Plex Sans KR', 'Noto Serif KR'),
+       'desc': '백상지에 먹 명조 제목, 남색과 주홍 2도. 이중 괘선으로 지면을 짠다', 'fit': '계획안 · 정책 보고, 차분한 자리',
        'sig': '판 번호(`.reg`)를 씁니다. 큰 명조 숫자 하나에 주홍 판이 4px 어긋나는 곳은 덱 전체에서 간지뿐, 재단 표시(`.crop`)도 간지에만.'},
 }
 rd = lambda *p: open(os.path.join(*p), encoding='utf-8').read()
@@ -28,6 +36,70 @@ def wr(p, s): os.makedirs(os.path.dirname(p), exist_ok=True); open(p, 'w', encod
 def fonts_of(fam): return json.load(open(os.path.join(ROOT, 'src', 'kit-' + fam, 'build.json')))['fonts']
 LINK = lambda fam: '<link rel="stylesheet" href="%skit/v1/%s.css">' % (BASE, fam)
 SCRIPT = '<script src="%skit/v1/deck.js"></script>' % BASE
+PATTERNS = json.load(open(os.path.join(ROOT, 'data', 'patterns.json'), encoding='utf-8'))
+FLOWS = json.load(open(os.path.join(ROOT, 'data', 'flows.json'), encoding='utf-8'))
+PNAME = {p['id']: p['name'] for p in PATTERNS}
+DECKS = [f for f in FLOWS if f['deck'] is not None]   # 예시 덱이 있는 흐름
+
+# ── 상징 부품: 계열마다 다른 표지 · 목차 · 간지 · 맺음의 얼굴 ──
+def sig(fam, kind, i=0, n=5, num=''):
+    """kind = cover | toc | divider | close, i = 지금 섹션(1부터), n = 섹션 수, num = 표지에 놓는 숫자(D)"""
+    cells = lambda f: ''.join('<i%s></i>' % (' class="%s"' % f(k) if f(k) else '') for k in range(1, n + 1))
+    hid = ' aria-hidden="true"'
+    if fam == 'A':
+        f = {'cover': lambda k: '', 'toc': lambda k: 'next' if k == i else '', 'divider': lambda k: 'done' if k < i else 'now' if k == i else '', 'close': lambda k: 'done'}[kind]
+        return '<div class="prog"%s>%s</div>' % (hid, cells(f))
+    if fam == 'B':
+        if kind == 'close': return '<div class="spot"%s></div>' % hid
+        at = (n + 1) // 2 if kind == 'cover' else i
+        return '<div class="mass"%s>%s</div>' % (hid, cells(lambda k: 'lit' if k == at else ''))
+    if fam == 'C':
+        f = {'cover': lambda k: '', 'toc': lambda k: 'now' if k == i else '', 'divider': lambda k: 'now' if k == i else 'ghost' if k > i else '', 'close': lambda k: ''}[kind]
+        return '<div class="blocks%s"%s>%s</div>' % (' flag' if kind == 'close' else '', hid, cells(f))
+    if fam == 'D':
+        if kind == 'divider': return '<div class="reg is-off"%s><b>%02d</b><i class="crop"></i></div>' % (hid, i)
+        return '<div class="reg"%s><b>%s</b></div>' % (hid, {'cover': num, 'toc': '%02d' % i, 'close': '끝'}[kind])
+def flow_src(fid):
+    s = rd(ROOT, 'src', 'flows', fid + '.html'); m = re.match(r'<!-- 흐름: (.+?) · 섹션 (\d+) · 표지 숫자 (\S+)', s)
+    return s.split('-->', 1)[1].strip(), int(m.group(2)), m.group(3)
+def sections(fam, fid):
+    body, n, num = flow_src(fid)
+    return re.sub(r'@@SIG:(\w+)(?::(\d+))?@@', lambda m: sig(fam, m.group(1), int(m.group(2) or 0), n, num), body)
+def slides_of(fid):
+    """[(장 번호, 기본 장표 id, 원본 주석의 장 이름, 그 장의 원본 HTML)]"""
+    body = flow_src(fid)[0]; out = []
+    for m in re.finditer(r'<!-- (\d+)\. (.+?) -->\n(<section data-pattern="([\w-]+)".*?</section>)', body, re.S):
+        out.append((int(m.group(1)), m.group(4), m.group(2), m.group(3)))
+    return out
+HEAD = '''<!DOCTYPE html>
+<html lang="ko" data-kit="%(fam)s">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>%(title)s</title>
+%(css)s
+</head>
+<body>
+<div class="deck"><main class="deck-stage">
+
+%(body)s
+
+</main></div>
+%(js)s
+</body>
+</html>
+'''
+def page(fam, fid):
+    name = next(f['name'] for f in FLOWS if f['id'] == fid)
+    return HEAD % {'fam': fam, 'title': '덱 키트 %s · %s — %s 예시 덱' % (fam, NAMES[fam], name), 'body': sections(fam, fid),
+                   'css': '<style>\n/*@@FONTS@@*/\n/*@@KIT:%s@@*/\n</style>' % fam, 'js': '<script>\n/*@@KITJS@@*/\n</script>'}
+def shell(fam=None):
+    """AI가 채울 빈 뼈대. fam 이 없으면 계열 자리는 {계열}"""
+    link = LINK(fam) if fam else LINK('{계열}')
+    return HEAD % {'fam': fam or '{계열}', 'title': '발표 제목', 'body': '<!-- 여기에 <section class="slide"> 를 장 수만큼 -->',
+                   'css': '<!-- 이 계열의 공통 CSS(글꼴 · 색 · 부품). 주소를 바꾸지 마세요 -->\n' + link +
+                          '\n<style>\n/* === 추가 부품: 새 클래스가 꼭 필요할 때만 이 줄 아래에(토큰 변수만 사용) === */\n</style>',
+                   'js': '<!-- 동작 엔진. 주소를 바꾸지 마세요 -->\n' + SCRIPT}
 
 def hosted(fam):
     faces = ''.join('@font-face{font-family:"%s";font-weight:%s;font-display:swap;src:url("../../fonts/%s-%s.woff2") format("woff2")}\n' % (f, w, f.replace(' ', ''), w) for f, w in fonts_of(fam))
@@ -35,18 +107,9 @@ def hosted(fam):
     wr(os.path.join(K, 'v1', fam + '.css'), head + faces + rd(K, 'deck.css') + '\n' + rd(K, 'parts.css') + '\n' + rd(K, fam + '.css'))
     wr(os.path.join(K, 'v1', 'deck.js'), rd(K, 'deck.js'))
 
-def skeleton(fam):
-    s = rd(ROOT, 'src', 'kit-' + fam, 'page.html')
-    s = s.replace('<style>\n/*@@FONTS@@*/\n/*@@KIT:%s@@*/\n</style>' % fam,
-                  '<!-- 이 계열의 공통 CSS(글꼴 · 색 · 부품). 이 줄은 지우거나 바꾸지 마세요 -->\n' + LINK(fam) +
-                  '\n<style>\n/* === 추가 부품: 새 클래스가 꼭 필요할 때만 이 줄 아래에(토큰 변수만 사용) === */\n</style>')
-    s = s.replace('<script>\n/*@@KITJS@@*/\n</script>', '<!-- 동작 엔진. 이 줄은 지우거나 바꾸지 마세요 -->\n' + SCRIPT)
-    assert LINK(fam) in s and SCRIPT in s, '뼈대 자리표시를 못 찾음'
-    return s
-
 def parts(fam, sample):
-    """계열 CSS의 '── 이름 ──' 묶음마다 클래스 목록과, 예시 덱에서 그 클래스를 처음 쓴 태그"""
-    css = rd(K, fam + '.css') + '\n' + rd(K, 'parts.css'); out = []   # 계열 부품 + 공용 성과 공유회 부품
+    """계열 CSS + 공용 부품의 '── 이름 ──' 묶음마다 클래스 목록과, 예시 덱에서 그 클래스를 처음 쓴 태그"""
+    css = rd(K, fam + '.css') + '\n' + rd(K, 'parts.css'); out = []
     for m in re.finditer(r'/\* ── (.+?) ─+.*?\*/\n(.*?)(?=/\* ── |\Z)', css, re.S):
         title, body = m.group(1).strip(), re.sub(r'/\*.*?\*/', '', m.group(2), flags=re.S)
         sel = ' '.join(re.findall(r'([^{}]+)\{', body))
@@ -60,74 +123,120 @@ def parts(fam, sample):
         out.append('**%s**\n%s' % (title, '\n'.join(rows)))
     return '\n\n'.join(out)
 
-CONTRACT = '''## 0. 당신(AI)의 일
+# ── AI용 안내: 계열 공통(guide.md · 첫 화면) 또는 계열 하나(kit/{계열}.md) ──
+SNIPPET_FROM = ['lecture', 'plan', 'share']   # 기본 장표의 견본 코드를 찾는 순서
+def samples(pid):
+    """그 기본 장표의 견본 장: [(흐름 id, (장 번호, 기본 장표 id, 장 이름, HTML))]. 질문은 보기형 + 답 공개형 둘"""
+    hit = [(fid, s) for fid in SNIPPET_FROM for s in slides_of(fid) if s[1] == pid]
+    if not hit: raise SystemExit('견본 장이 없는 기본 장표: ' + pid)
+    if pid == 'ask': return [h for h in hit if 'a-a' not in h[1][3]][:1] + [h for h in hit if 'a-a' in h[1][3]][:1]
+    return hit[:1]
+def code_of(fam, fid, s):
+    _, n, num = flow_src(fid)
+    return re.sub(r'@@SIG:(\w+)(?::(\d+))?@@', (lambda m: sig(fam, m.group(1), int(m.group(2) or 0), n, num)) if fam else
+                  (lambda m: '<!-- 상징 부품: 7의 계열 표에서 %s 코드 -->' % {'cover': '표지', 'toc': '목차', 'divider': '간지', 'close': '맺음'}[m.group(1)]), s[3])
+def part_md(p): return ' '.join('`%s`' % w if w.startswith('.') else w for w in p['part'].replace('(', '( ').replace(')', ' )').split()).replace('( ', '(').replace(' )', ')')
+def snippets(fam=None):
+    L = []
+    for p in PATTERNS:
+        L += ['### %s · `%s`' % (p['name'], p['id']), '', '- 이런 내용일 때: %s' % p['when'], '- 내용 조건: %s. 넘치면: %s' % (p['cond'], p['overflow']),
+              '- 부품: %s%s' % (part_md(p), (' — ' + p['note']) if p['note'] else ''), '']
+        for fid, s in samples(p['id']): L += ['```html', code_of(fam, fid, s), '```', '']
+    return '\n'.join(L)
 
-당신은 **사업 성과 공유회 · 사업 설명회** 발표 덱 제작 도우미입니다. 사용자가 준 사업 내용과 성과로, 아래 **디자인 규칙(1)** · **부품 사전(3)** · **HTML 뼈대(4)**를 지켜 **브라우저에서 바로 열리는 덱 HTML 파일 하나**를 만듭니다.
-공통 CSS(글꼴 · 색 · 부품 모양)와 동작 엔진은 뼈대의 `<link>` · `<script src>` 두 줄이 불러옵니다. **당신이 쓰는 것은 `<section class="slide">`들과, 꼭 필요할 때만 '추가 부품' CSS뿐입니다.**
-
-### 진행 순서
-1. 사용자가 아직 말하지 않았다면 짧게 묻습니다: 성과 공유회인지 설명회인지, 사업 이름 · 기관(부서) · 날짜, 섹션별 핵심 내용, **쓸 수치와 그 출처**, 우수 사례(학교 · 한 줄 성과 · 인용), 사례 사진이 있는지, 원하는 장 수(없으면 내용에 맞게).
-2. **장별 구성안을 먼저 보여 주고 확인을 받습니다.** 장마다 `머리말 | 결론 한 문장 제목 | 쓸 부품 | 쓸 수치(출처)`를 한 줄로. 이때 코드를 쓰지 않습니다. 사용자가 "구성 확인 없이 바로"라고 했으면 건너뜁니다.
-3. 확인을 받으면 HTML을 만들고, 아래 '내보내기 전 점검'을 하나씩 확인한 뒤 내보냅니다.
-
-### 반드시 지킬 것
-1. **숫자 · 연도 · 예산 · 순위 · 출처를 지어내지 않습니다.** 사용자가 준 것만 씁니다. 모르면 묻거나 "(예시)"를 붙입니다. 사용자가 주지 않은 사실을 넣고 싶으면 구성안에 '추가 사실'로 따로 적어 확인을 받습니다.
-2. **장 제목은 결론 한 문장**(`.title`)입니다. "현황" 같은 이름표는 머리말(`.kicker`)에 씁니다.
-3. 수치가 있는 장에는 출처(`.src`)를 씁니다.
-4. **강조색은 한 장에 한 곳**: 제목의 `<em>` 하나 또는 부품의 `.is-key` 하나(둘 다 쓰면 같은 내용을 가리켜야 함).
-5. 디자인 규칙(1)의 '하지 말 것'을 어기지 않습니다. 규칙에 없는 색 · 장식 · 애니메이션을 더하지 않습니다.
-6. **클래스는 부품 사전(3)에 있는 것만** 씁니다. 없는 클래스는 아무 모양도 없어 배치가 무너집니다. 새 부품이 꼭 필요하면 `<style>`의 '추가 부품' 줄 아래에 정의합니다(토큰 변수만).
-7. 뼈대의 공통 파일 두 줄(`<link>` · `<script src>`)은 주소 한 글자도 바꾸지 않습니다. 공통 CSS · 엔진을 HTML 안에 옮겨 쓰거나 `@font-face`를 새로 쓰지 않습니다.
-8. **장 번호 · 쪽 표시 · 점은 쓰지 않습니다.** 엔진이 장 개수로 채웁니다(`<span class="page-no"></span>`는 빈 칸 그대로).
-9. 글자 크기와 화면 채우기(무대는 1920 × 1080, 화면에 맞게 통째로 줄어듦)
-   - 읽는 글 28px 이상, 보조 글 22px 이상(부품 CSS가 이미 지킴 — 크기를 줄이지 마세요).
-   - **높이 예산**: 머리말과 두 줄 제목 아래 본문에 쓸 수 있는 높이는 약 **600~680px**. 넘친 부분은 잘려 보이지 않습니다.
-   - 카드 · 타일을 4개 이상 놓으면 칸마다 글 **3줄 이하**. 글 칸 너비는 400px 이상.
-   - 제목은 **두 줄 이내**, 표지 제목은 한 줄에 13자 안팎. 넘치면 글자를 줄이지 말고 문장을 줄입니다.
-   - 내용이 적은 장은 장을 합치거나 부품을 키워 큰 빈 곳을 남기지 않습니다.
-10. 인라인 `style`은 막대 값(`style="--v:42"`, 가장 큰 값 = 100) · 목표선(`--t`) · 간트 기간(`style="--from:3;--to:6"`, 1~12월)에만 씁니다. 만족도 막대는 `<i style="--v:%">` 다섯 개(합 100).
-11. **그림을 코드로 그리지 않습니다.** SVG · CSS · 캔버스로 사물 · 인물 · 풍경 · 캐릭터를 그리지 마세요. 그림이 필요하면 만들지 말고 **사용자에게 이미지를 요청**합니다(무엇 · 쓰는 자리 · 비율 · 배경). 사진은 `.ph` 자리에 사용자가 준 이미지를 `<img>`로 넣고, 아직 없으면 `<div class="ph" data-need="사진 자리 · 4:3 · 무슨 장면"></div>`로 자리만 둡니다. 막대 · 표 같은 데이터 도식은 부품 CSS로 만듭니다.
-
-### 구성은 내용이 정합니다
-- 뼈대(4)의 13장은 **부품 견본**입니다. 장 순서 · 장 수 · 문장을 따라 하지 마세요. 예시 문구는 하나도 남기지 않습니다.
-- **성과 공유회** 흐름: 사업 개요(`.brief`) → 추진 경과(`.mile`) → 핵심 성과(`.tile` + `.delta`) · 목표 대비 달성(`.goal`) · 만족도(`.likert`) · 전후 비교(`.ba`) → 우수 사례 · 참여자 목소리(`.case`) → 시사점(`.fix`) → 향후 계획(`.road`). **사업 설명회** 흐름: 사업 개요 → 지원 내용(`.tbl`) → 신청 자격 · 절차 → 주요 일정(`.mile`) → 유의사항 → 문의. 내용이 없는 자리는 빼고 목차도 그에 맞춥니다.
-- 표지 · 목차 · 간지 · 마무리에는 이 계열의 상징 부품인 @@SIG@@
-- 같은 모양의 장이 연달아 나오지 않게 합니다. 누를 때마다 하나씩 보이는 장(`data-steps`)은 덱 전체에서 1~2장.
-
-### 출력 방식
-- 결과는 **`.html` 파일 하나**(UTF-8)로 줍니다. 파일을 만들 수 있는 기능(아티팩트 · 캔버스 · 파일 첨부)이 있으면 반드시 그것으로 줍니다. 없을 때만 완성된 HTML 전체를 ```html 코드 블록 하나로 출력합니다.
-- `...`, "(생략)", "(이하 동일)"을 쓰지 않습니다. `<!DOCTYPE html>`부터 `</html>`까지 전부 씁니다. 끊기면 사용자가 "이어서"라고 할 때 끊긴 글자 바로 다음부터 씁니다.
-- **미리보기 창에서 색 · 모양이 안 보여도 고치지 마세요.** 공통 CSS · 엔진을 인터넷에서 불러오는데, 일부 미리보기는 바깥 파일을 막습니다. 내려받아 브라우저로 열면 정상입니다.
-
-### 내보내기 전 점검 (하나라도 아니면 고친 뒤 내보내기)
-1. 사용자가 주지 않았고 확인도 받지 않은 수치 · 사실이 없는가? 수치가 있는 장마다 `.src`가 있는가?
-2. 모든 본문 장의 제목이 결론 한 문장이고, 두 줄 이내인가?
-3. 강조(`<em>` · `.is-key`)가 장마다 한 곳이고, 둘을 함께 썼다면 같은 내용을 가리키는가?
-4. 쓴 클래스가 모두 부품 사전(3) 또는 '추가 부품' 칸에 있는가? 인라인 style은 `--v` · `--t` · `--from` · `--to`뿐인가? 코드로 그린 그림(SVG · CSS 도형)이 없는가?
-5. 공통 파일 두 줄이 그대로이고, 장 번호 · 쪽 표시 · 점을 손으로 쓰지 않았는가?
-6. 모든 장이 1920 × 1080 안에 들어가는가(높이 예산 · 카드 규칙)? 큰 빈 곳이 없는가?
-7. 뼈대의 예시 문구가 남아 있지 않은가? 생략 없이 끝까지 썼는가?
-'''
+def guide(fam=None):
+    one = bool(fam)
+    T = lambda rows: '\n'.join('| ' + ' | '.join(r) + ' |' for r in rows)
+    L = []
+    L += ['## 0. 당신(AI)의 일', '',
+          '사용자가 준 **문서**(한글 계획안 · 연수 강의안 · 성과 보고 등)의 내용으로 **16:9 발표 덱 HTML 파일 하나**를 만듭니다.',
+          '이 안내의 **기본 장표(3)** · **흐름(4)** · **견본 코드(8)**를 재료로 씁니다. 색 · 글꼴 · 부품 모양은 뼈대(6)의 두 줄이 인터넷에서 불러오므로, **당신이 쓰는 것은 `<section class="slide">`들뿐**입니다.', '',
+          '## 1. 진행 순서', '',
+          '1. **문서를 읽습니다.** 문서가 없으면 달라고 합니다. 발표 자리(계획안 발표 · 성과 공유회 · 설명회 · 연수)와 발표 시간을 모르면 짧게 묻습니다.',
+          '2. **흐름을 고릅니다(4).** 문서 종류에 맞는 흐름의 자리 순서를 따르되, 문서에 없는 자리는 뺍니다.',
+          '3. **문단마다 기본 장표를 고릅니다(3).** 한 장에 기본 장표 하나. 내용 조건을 넘치면 장을 나눕니다.',
+          '4. **분위기 계열을 정합니다(5).** 사용자가 정하지 않았으면 B를 권하고 한 번 묻습니다.' if not one else '4. 분위기 계열은 **%s %s**입니다.' % (fam, NAMES[fam]),
+          '5. **구성안을 먼저 보여 주고 확인을 받습니다.** 장마다 `자리 | 기본 장표 | 제목 한 문장 | 쓸 내용(문서의 어느 부분) | 수치와 출처`를 표 한 줄로. 이때 코드를 쓰지 않습니다. 사용자가 "구성 확인 없이 바로"라고 했으면 건너뜁니다.',
+          '6. 확인을 받으면 HTML을 만들고, 점검(9)을 거쳐 내보냅니다.', '',
+          '## 2. 반드시 지킬 것', '',
+          '1. **문서에 없는 숫자 · 연도 · 예산 · 이름 · 출처를 지어내지 않습니다.** 비어 있으면 묻거나 그 장을 뺍니다. 문서에 없는 사실을 넣고 싶으면 구성안에 \'추가 사실\'로 따로 적어 확인을 받습니다.',
+          '2. **한 장에 기본 장표 하나.** 도식 두 개가 필요하면 두 장으로 나눕니다. 글자를 줄여 한 장에 밀어 넣지 않습니다.',
+          '3. 본문 장은 `머리말(.kicker) + 제목(.title) + 부품` 순서입니다. **제목은 결론 한 문장**, 두 줄 이내. "현황" 같은 이름표는 머리말에 씁니다. 한 문장 · 질문 · 할 일 장만 제목 없이 머리말 아래에 부품을 둡니다.',
+          '4. 수치가 있는 장에는 출처(`.src`)를 씁니다.',
+          '5. **강조색은 한 장에 한 곳**: 제목의 `<em>` 하나 또는 부품의 `.is-key` 하나(둘 다 쓰면 같은 내용을 가리켜야 함).',
+          '6. **클래스는 견본 코드(8)에 나온 것만** 씁니다. 없는 클래스는 모양이 없어 배치가 무너집니다. 새 부품이 꼭 필요하면 뼈대 `<style>`의 \'추가 부품\' 줄 아래에 토큰 변수(`--ds-*`)만으로 정의합니다.',
+          '7. 뼈대의 공통 파일 두 줄(`<link>` · `<script src>`)은 주소 한 글자도 바꾸지 않습니다. 공통 CSS · 엔진을 HTML 안에 옮겨 쓰거나 `@font-face`를 새로 쓰지 않습니다.',
+          '8. 장 번호 · 쪽 표시 · 점은 쓰지 않습니다. 엔진이 채웁니다(`<span class="page-no"></span>`는 빈 칸 그대로).',
+          '9. 무대는 1920 × 1080이고 화면에 맞게 통째로 줄어듭니다. 글자 크기를 바꾸지 않습니다. 머리말과 두 줄 제목 아래 **본문 높이는 약 600~680px**이고 넘친 부분은 잘립니다. 넘치면 문장을 줄이거나 장을 나눕니다.',
+          '10. 인라인 `style`은 값 전달에만 씁니다: 막대 `--v`(가장 큰 값 = 100) · 목표선 `--t` · 간트 `--from` `--to`(1~12월) · 체계 갈래 수 `--n` · 화면 짚기 번호 자리 `--x` `--y`(%).',
+          '11. **그림을 코드로 그리지 않습니다.** SVG · CSS · 캔버스로 사물 · 인물 · 풍경 · 캐릭터 · 지도를 그리지 마세요. 사진 · 화면 캡처는 사용자가 준 이미지를 `.ph` 안에 `<img>`로 넣고, 없으면 `<div class="ph" data-need="사진 자리 · 4:3 · 무슨 장면"></div>`로 자리만 두고 무엇이 필요한지 말해 줍니다.',
+          '12. 누를 때마다 하나씩 보이는 장(`data-steps` + `data-step`)은 덱 전체에서 1~3장. 같은 기본 장표가 세 장 넘게 연달아 나오지 않게 합니다.', '',
+          '## 3. 기본 장표 23가지 (내용의 모양으로 고릅니다)', '',
+          T([['기본 장표', '`id`', '문서에서 이런 내용이면', '내용 조건', '부품']] + [['---'] * 5] +
+            [[p['name'], '`%s`' % p['id'], p['when'], p['cond'], part_md(p)] for p in PATTERNS]), '',
+          '**고르는 순서** — 한 문단이 둘 이상에 맞으면 위에서부터 먼저 맞는 것:', '',
+          '1. 숫자가 주인공이면 수 묶음(하나면 큰 숫자, 시간 축이 있으면 추이, 합이 100%면 구성비, 나머지는 막대 비교).',
+          '2. 날짜가 주인공이면 일정.',
+          '3. 두 쪽이 맞서면 둘 비교, 같은 것이 달라졌으면 전→후.',
+          '4. 차례가 있으면 순서·단계, 위아래가 있으면 체계, 갈래만 있으면 묶음·분류.',
+          '5. 칸이 3열 이상 필요하면 표.',
+          '6. 어디에도 안 맞으면 항목. 항목이 한 개면 한 문장.', '',
+          '## 4. 흐름 (문서 종류에 맞는 자리 순서)', '',
+          '자리 이름은 머리말(`.kicker`)과 목차에 씁니다. 장 수는 내용이 정하고, 문서에 없는 자리는 뺍니다.', '']
+    for f in FLOWS:
+        L += ['**%s** — %s%s' % (f['name'], f['say'], ' · 예시 덱 %skit/%s%s.html' % (BASE, fam or 'B', f['deck']) if f['deck'] is not None else ''), '',
+              T([['자리', '기본 장표']] + [['---'] * 2] + [[s[0], ' · '.join(PNAME[x] for x in s[1])] for s in f['slots']]), '']
+    L += ['여러 차시 과정이면 맨 앞에 일정(`.mile`) 장표를 과정 지도로 쓰고(차시마다 이정표 하나, 지금 차시만 `.is-key`), 차시마다 연수 한 차시 흐름을 되풀이합니다.', '']
+    if one:
+        L += ['## 5. 분위기 계열: %s %s' % (fam, NAMES[fam]), '', '%s. 어울리는 자리: %s. 자세한 규칙은 아래 \'디자인 규칙\'.' % (META[fam]['desc'], META[fam]['fit']), '']
+    else:
+        L += ['## 5. 분위기 계열 넷 (겉모습만 다르고 부품 이름은 같습니다)', '',
+              T([['계열', '겉모습', '어울리는 자리', '자세한 규칙 · 지시서']] + [['---'] * 4] +
+                [['**%s %s**' % (f, NAMES[f]), META[f]['desc'], META[f]['fit'], '%skit/%s.md' % (BASE, f)] for f in FAMS]), '',
+              '계열을 정하면 그 계열의 지시서(위 주소)를 읽을 수 있을 때 읽고 \'디자인 규칙\'을 따릅니다. 읽을 수 없으면 이 안내만으로 만듭니다.', '']
+    L += ['## 6. HTML 뼈대', '', '```html', shell(fam).strip(), '```', '',
+          '- `{계열}` 두 곳을 A · B · C · D 중 하나로 바꿉니다.' if not one else '- 공통 파일 두 줄은 그대로 둡니다.',
+          '- 열 때 인터넷이 필요합니다. AI 화면 안 미리보기에서 색 · 모양이 안 보여도 고치지 마세요(바깥 파일을 막는 미리보기가 있습니다). 내려받아 브라우저로 열면 정상입니다.', '',
+          '## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)', '']
+    if one:
+        L += ['이 계열은 ' + META[fam]['sig'], '']
+    else:
+        L += ['견본 코드(8)의 `<!-- 상징 부품 -->` 자리에 고른 계열의 코드를 넣습니다. 아래는 섹션이 5개이고 지금 2섹션일 때입니다. 칸(`<i>`) 수 = 섹션 수(5개까지).', '',
+              T([['계열', '표지', '목차(지금 2섹션)', '간지(지금 2섹션)', '맺음']] + [['---'] * 5] +
+                [['%s' % f] + ['`%s`' % sig(f, k, 2, 5, '2027') for k in ('cover', 'toc', 'divider', 'close')] for f in FAMS]), '',
+              '\n'.join('- %s: %s' % (f, META[f]['sig']) for f in FAMS), '']
+    L += ['## 8. 기본 장표별 견본 코드', '', '문구는 모두 가상 예시입니다. **구조와 클래스만 가져오고 문구는 하나도 남기지 않습니다.**', '', snippets(fam),
+          '## 9. 출력과 점검', '',
+          '- 결과는 **`.html` 파일 하나**(UTF-8)로 줍니다. 파일을 만들 수 있는 기능(아티팩트 · 캔버스 · 파일 첨부)이 있으면 그것으로, 없을 때만 HTML 전체를 코드 블록 하나로 출력합니다.',
+          '- `...`, "(생략)", "(이하 동일)"을 쓰지 않습니다. `<!DOCTYPE html>`부터 `</html>`까지 전부 씁니다.', '',
+          '내보내기 전에 하나씩 확인합니다.', '',
+          '1. 문서에 없고 확인도 받지 않은 숫자 · 사실이 없는가? 수치가 있는 장마다 `.src`가 있는가?',
+          '2. 장마다 기본 장표가 하나이고, 내용 조건(항목 수 · 줄 수)을 넘지 않는가?',
+          '3. 제목이 결론 한 문장이고 두 줄 이내인가? 강조(`<em>` · `.is-key`)가 장마다 한 곳인가?',
+          '4. 쓴 클래스가 모두 견본 코드(8) 또는 \'추가 부품\' 칸에 있는가? 인라인 style은 허용된 값뿐인가? 코드로 그린 그림이 없는가?',
+          '5. 공통 파일 두 줄이 그대로이고, 장 번호 · 쪽 표시를 손으로 쓰지 않았는가?',
+          '6. 견본의 예시 문구가 남아 있지 않은가? 생략 없이 끝까지 썼는가?',
+          '7. 사진 · 캡처 자리(`data-need`)가 있으면, 어떤 이미지가 필요한지 사용자에게 목록으로 알려 주었는가?', '']
+    return '\n'.join(L)
 
 def md(fam):
-    sample = rd(ROOT, 'src', 'kit-' + fam, 'page.html')
+    sample = '\n'.join(sections(fam, f['id']) for f in DECKS)
     lic = rd(ROOT, 'fonts', 'LICENSES.md')
     fl = [l for l in lic.splitlines() if l.startswith('| ') and any(l.startswith('| %s ' % f.replace(' ', '')) for f, _ in fonts_of(fam))]
     eng = re.match(r'/\*(.*?)\*/', rd(K, 'deck.js'), re.S).group(1).strip()
-    parts_txt = parts(fam, sample)
-    L = ['# %s %s — 성과 공유회 · 설명회 발표 덱 지시서 (채팅 AI용)' % (fam, NAMES[fam]), '',
-         '> 이 파일을 **ChatGPT · Claude · Gemini 같은 채팅 AI**에게 통째로 주면, 이 디자인으로 사업 성과 공유회 · 사업 설명회 발표 덱을 만들어 주도록 쓴 지시서입니다.',
+    roles = META[fam]['roles']
+    L = ['# %s %s — 발표 덱 지시서 (채팅 AI용)' % (fam, NAMES[fam]), '',
+         '> 이 파일을 **Claude · ChatGPT 같은 채팅 AI**에게 자기 문서와 함께 주면, 문서 내용을 이 디자인의 16:9 발표 덱으로 만들어 주도록 쓴 지시서입니다.',
          '> 디자인 레퍼런스 갤러리(%s)의 %s 계열 장표(%s)에서 뽑은 규칙입니다. 모든 예시 내용은 가상입니다.' % (BASE, fam, META[fam]['refs']), '',
          '## 사용법 (사람이 읽는 안내)', '',
-         '1. 채팅 AI 대화창에 **이 파일을 첨부**합니다(안 되면 내용을 끝까지 복사해 붙여 넣기).',
-         '2. 만들 발표를 말합니다. 예) "2026 ○○ 사업 성과 공유회, ○○교육청 ○○과. 핵심 성과는 아래 표(출처: ○○ 실적), 우수 사례 3개는 … 덱으로 만들어 줘. 결과는 .html 파일로." 사례 사진이 있으면 함께 올립니다.',
-         '3. AI가 먼저 **장별 구성안**(머리말 · 결론 제목 · 부품 · 수치와 출처)을 보여 줍니다. 고칠 곳을 말하거나 "좋아, 만들어 줘".',
-         '4. 받은 `슬라이드.html`을 내려받아 더블클릭합니다. → · Space로 넘기고, F는 전체 화면, 인쇄하면 장마다 한 쪽(16:9) PDF가 됩니다.',
+         '1. 채팅 AI 대화창에 **이 파일과 발표할 문서**(한글 · PDF · 붙여 넣은 글)를 넣습니다.',
+         '2. 어떤 자리인지 말합니다. 예) "이 계획안으로 10분짜리 발표 덱을 만들어 줘. 결과는 .html 파일로."',
+         '3. AI가 먼저 **장별 구성안**을 보여 줍니다. 고칠 곳을 말하거나 "좋아, 만들어 줘".',
+         '4. 받은 `.html`을 내려받아 더블클릭합니다. → · Space로 넘기고, F는 전체 화면, 인쇄하면 장마다 한 쪽(16:9) PDF가 됩니다.',
          '5. 고칠 곳은 "3장 제목을 ○○로"처럼 말합니다. 코드가 끊기면 "끊긴 곳부터 이어서".', '',
          '알아 둘 점',
-         '- 열 때 **인터넷이 필요**합니다(공통 CSS · 엔진 · 글꼴을 `szxv7704-dot.github.io`에서 불러옴). 업무망처럼 인터넷이 막힌 곳에서 발표하려면 저장소에서 `python3 scripts/kit.py inline %s 슬라이드.html`을 실행해 모든 것이 파일 안에 든 판을 만드세요.' % fam,
-         '- AI 화면 안의 미리보기에서는 색 · 모양이 안 나올 수 있습니다. 내려받아 브라우저(크롬 · 엣지)로 열면 정상입니다.',
-         '- 수치는 AI가 지어내지 않도록 계약에 적어 두었지만, **받은 덱의 숫자를 원자료와 꼭 대조**하세요.',
+         '- 열 때 **인터넷이 필요**합니다(공통 CSS · 엔진 · 글꼴을 `szxv7704-dot.github.io`에서 불러옴). 인터넷이 막힌 곳에서 발표하려면 저장소에서 `python3 scripts/kit.py inline %s 슬라이드.html`을 실행해 모든 것이 파일 안에 든 판을 만드세요.' % fam,
+         '- 수치는 AI가 지어내지 않도록 적어 두었지만, **받은 덱의 숫자를 원문과 꼭 대조**하세요.',
          '- 개인정보(학생 이름 · 사진 등)는 AI에게 넣지 마세요.', '',
          '## 라이선스', '',
          '- 글꼴: 모두 SIL Open Font License 1.1(전문 %sfonts/OFL.txt). 이 계열이 쓰는 글꼴의 저작권 고지:' % BASE, '',
@@ -135,44 +244,29 @@ def md(fam):
          '- 공통 CSS · 엔진 · 이 지시서: 디자인 레퍼런스 갤러리 저장소의 일부(가상 예시 자료).', '',
          '---', '', '# ▼▼▼ 여기부터 AI에게 주는 지시서 ▼▼▼', '',
          '(위의 "사용법"과 "라이선스"는 사람을 위한 안내입니다. AI는 아래를 따르세요.)', '',
-         CONTRACT.replace('@@SIG@@', META[fam]['sig']), '---', '',
-         '## 1. 디자인 규칙 (`%s` design.md)' % fam, '', '````markdown', rd(K, fam + '.design.md').strip(), '````', '', '---', '',
-         '## 2. 글씨체', '',
-         ('- 모든 글자(제목 · 본문 · 숫자) %s' if len(set(META[fam]['roles'])) == 1 else '- 제목 %s · 본문 %s · 숫자 %s') % tuple(
-             '%s(%s)' % (n, '/'.join(w for f, w in fonts_of(fam) if f == n)) for n in (META[fam]['roles'][:1] if len(set(META[fam]['roles'])) == 1 else META[fam]['roles'])) + '. 공통 CSS가 불러오므로 설치하지 않아도 됩니다(열 때 인터넷 필요).',
+         guide(fam), '---', '',
+         '## 디자인 규칙 (`%s` design.md)' % fam, '', '````markdown', rd(K, fam + '.design.md').strip(), '````', '',
+         ('- 글꼴: 모든 글자(제목 · 본문 · 숫자) %s' if len(set(roles)) == 1 else '- 글꼴: 제목 %s · 본문 %s · 숫자 %s') % tuple(
+             '%s(%s)' % (n, '/'.join(w for f, w in fonts_of(fam) if f == n)) for n in (roles[:1] if len(set(roles)) == 1 else roles)) + '. 공통 CSS가 불러오므로 설치하지 않아도 됩니다.',
          '- 글꼴은 변수로만 지정합니다: `var(--ds-font-title)` · `var(--ds-font-body)` · `var(--ds-font-num)`(숫자 · 영문에만).', '', '---', '',
-         '## 3. 부품 사전 (이 계열 CSS에 정의된 클래스)', '',
-         '이 목록에 있는 클래스만 씁니다. "예"는 뼈대(4)에서 그 클래스를 처음 쓴 태그입니다. 공용 클래스: `.slide`(장 하나) · `data-steps="n"`(장) + `data-step="k"`(안의 요소, 누를 때마다 하나씩) · `.page-no`(빈 칸, 엔진이 채움).', '',
-         parts_txt, '', '---', '',
-         '## 4. HTML 뼈대 (예시 덱 13장 — 부품 견본입니다. 장 구성은 따라 하지 말고, 공통 파일 두 줄은 그대로 두며, 장은 내용에 맞게 새로)', '',
-         '```html', skeleton(fam).strip(), '```', '', '---', '',
-         '## 5. 참고: 엔진 사용법과 계열 CSS (뼈대가 이미 불러옴 — HTML에 옮겨 쓰지 마세요)', '',
-         '```text', eng, '```', '',
-         '부품 모양 · 크기를 이해하는 데만 쓰세요(`%skit/v1/%s.css`의 계열 부분).' % (BASE, fam), '',
-         '```css', rd(K, fam + '.css').strip(), '```', '']
+         '## 부품 사전 (이 계열 CSS에 정의된 클래스 전부)', '',
+         '"예"는 예시 덱에서 그 클래스를 처음 쓴 태그입니다. 공용: `.slide`(장 하나) · `data-steps="n"`(장) + `data-step="k"`(안의 요소, 누를 때마다 하나씩) · `.page-no`(빈 칸, 엔진이 채움).', '',
+         parts(fam, sample), '', '---', '',
+         '## 참고: 엔진 사용법', '', '```text', eng, '```', '',
+         '부품 모양 · 크기가 궁금하면 `%skit/v1/%s.css`를 봅니다(HTML에 옮겨 쓰지 마세요).' % (BASE, fam), '']
     wr(os.path.join(K, fam + '.md'), '\n'.join(L))
 
-# 갤러리 목록에 넣는 키트 장표: 정형 유형마다 한 장, 계열을 돌려 가며(같은 내용 · 다른 분위기). data/kit_slides.json
-KIT_SLIDES = [
-  ('B', 3, '사업 개요', '목적 · 대상 · 기간 · 규모 네 칸', '네 칸 중 핵심 한 칸만 강조색 — 사업을 한 장으로 소개'),
-  ('D', 4, '추진 경과', '가로 시간선 위 이정표 다섯', '이정표 하나만 강조해 "언제 커졌나"를 짚는다'),
-  ('C', 6, '핵심 성과', '큰 숫자 넷 + 전년 대비 증감', '숫자 아래 ▲ 증감과 비교 기준을 한 줄로'),
-  ('A', 7, '목표 대비 달성', '달성률 막대 + 목표선', '모자란 지표를 숨기지 않고 강조해 다음 해 과제로 잇는다'),
-  ('B', 8, '만족도', '문항별 다섯 단계 100% 막대', '가장 높은 문항 하나를 제목 숫자로 뽑는다'),
-  ('D', 9, '전후 비교', '사업 전 → 사업 후 세 짝', '가장 크게 바뀐 짝 하나만 강조'),
-  ('C', 10, '우수 사례', '사진 자리 + 학교 · 한 줄 성과 + 인용', '사진은 이미지로 받아 넣고(코드로 그리지 않음), 목소리를 붙인다'),
-  ('A', 10, '참여자 목소리', '사례 카드 속 인용 세 개', '학생 · 교사 목소리를 성과 숫자 옆에 둔다'),
-  ('B', 12, '향후 계획', '단계 머리 띠 + 단계별 할 일', '다음 해 첫 단계만 강조'),
-]
+def write_guide():
+    L = ['# 디자인 레퍼런스 — AI용 안내', '',
+         '> 이 문서는 **채팅 AI가 읽고 따르는 안내**입니다. 사용자가 이 문서(또는 %s 주소)와 자기 문서를 주면, 아래를 따라 16:9 발표 덱 HTML을 만듭니다.' % BASE,
+         '> 모든 예시 내용은 가상입니다. `scripts/kit.py`가 만든 파일이므로 손으로 고치지 않습니다.', '', guide(), '']
+    wr(os.path.join(ROOT, 'guide.md'), '\n'.join(L)); return len('\n'.join(L).encode('utf-8'))
+
 def write_slides():
-    import hashlib
     out = []
-    for fam, n, kind, title, take in KIT_SLIDES:
-        th = 'kit/thumbs/%s-%d.jpg' % (fam, n)
-        v = hashlib.md5(open(os.path.join(ROOT, th), 'rb').read()).hexdigest()[:8] if os.path.exists(os.path.join(ROOT, th)) else ''
-        out.append({'kit': fam, 'slide': n, 'no': '%s%d' % (fam, n), 'title': title, 'kind': kind, 'role': '본문', 'family': fam,
-                    'motion': '정지', 'file': 'kit/%s.html' % fam, 'hash': str(n), 'thumb': th, 'v': v,
-                    'takeaway': take, 'topic': '덱 키트 %s %s · 성과 공유회 예시 덱 %d장' % (fam, NAMES[fam], n)})
+    for f in DECKS:
+        for n, pid, title, _ in slides_of(f['id']):
+            out.append({'flow': f['id'], 'flow_name': f['name'], 'n': n, 'pattern': pid, 'title': title, 'deck': f['deck']})
     wr(os.path.join(ROOT, 'data', 'kit_slides.json'), json.dumps(out, ensure_ascii=False, indent=1) + '\n')
     return len(out)
 
@@ -191,7 +285,8 @@ if __name__ == '__main__':
     if a[:1] == ['inline']:
         fam, src = a[1], a[2]; inline(fam, src, a[3] if len(a) > 3 else re.sub(r'\.html?$', '', src) + '-오프라인.html')
     else:
-        print('data/kit_slides.json', write_slides())
-        for fam in a or ['B']:
-            hosted(fam); md(fam); n = build.build('kit-' + fam, K, fam)
-            print(fam, 'v1/%s.css' % fam, '%s.md' % fam, os.path.getsize(os.path.join(K, fam + '.md')) // 1024, 'KB', '%s.html' % fam, n // 1024, 'KB')
+        print('data/kit_slides.json', write_slides(), '· guide.md', write_guide() // 1024, 'KB')
+        for fam in a or FAMS:
+            hosted(fam); md(fam)
+            sizes = [build.build('kit-' + fam, K, fam + f['deck'], page=page(fam, f['id'])) // 1024 for f in DECKS]
+            print(fam, 'v1/%s.css' % fam, '%s.md' % fam, os.path.getsize(os.path.join(K, fam + '.md')) // 1024, 'KB', '예시 덱', sizes, 'KB')

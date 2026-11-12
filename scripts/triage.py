@@ -1,15 +1,13 @@
 # 기존 레퍼런스 장표 판정표: data/rounds.json 을 기본 장표 틀(docs/patterns.md)에 대어 docs/triage.md 로.
-# 본문 장표는 아래 BODY 에 손으로 적은 판정을, 나머지는 역할(role)에 따른 규칙을 쓴다. rounds.json 은 고치지 않는다(검토 전 초안).
+# 본문 장표는 아래 BODY 에 손으로 적은 판정을, 나머지는 역할(role)에 따른 규칙을 쓴다. 판정은 data/triage.json 에 따로 쓴다(rounds.json 은 고치지 않는다).
+# BODY 에 없는 새 본문 장표는 '변주 · 판정 전'으로 둔다.
 # 실행: python3 scripts/triage.py
 import json, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# (이름, 지금 키트에 재료가 있나: ● 있음 · ◐ 대신 쓰는 것 · ○ 없음)
-PATTERNS = [('표지', '●'), ('목차', '●'), ('간지', '●'), ('맺음', '●'),
-            ('한 문장', '○'), ('항목', '◐'), ('용어 정의', '○'), ('인용', '◐'),
-            ('순서·단계', '●'), ('둘 비교', '●'), ('전→후', '●'), ('묶음·분류', '●'), ('체계', '○'),
-            ('큰 숫자', '●'), ('막대 비교', '●'), ('추이', '○'), ('구성비', '◐'), ('표', '●'),
-            ('일정', '●'), ('사진+글', '●'), ('화면 짚기', '○'), ('질문', '○'), ('할 일', '○')]
+# (이름, 지금 키트에 재료가 있나) — 23개 모두 있다
+PATTERNS = [(p['name'], '●') for p in json.load(open(os.path.join(ROOT, 'data', 'patterns.json'), encoding='utf-8'))]
+PNAME = {p['id']: p['name'] for p in json.load(open(os.path.join(ROOT, 'data', 'patterns.json'), encoding='utf-8'))}
 JUDGES = ['기본 후보', '변주', '영감', '범위 밖']
 
 DENSE = '한 장에 도식이 둘 이상이라 발표 화면에서는 글자가 작다. 기법만 참고'
@@ -61,7 +59,7 @@ def judge(r):
     if role == '목차·간지':
         if no in KIT_OF: return ('목차·간지·맺음', '기본 후보', '덱 키트 %s의 근거. 이미 재료로 옮겨졌다' % KIT_OF[no])
         return ('목차·간지·맺음', '변주', '%s 분위기 뼈대. 이 분위기의 덱 키트는 아직 없다' % r.get('family'))
-    return BODY[no]
+    return BODY.get(no, (PNAME.get(r.get('pattern'), '—'), '변주', '판정 전(새 회차)'))
 
 rounds = json.load(open(os.path.join(ROOT, 'data', 'rounds.json')))
 hidden = [r for r in rounds if r.get('hidden')]
@@ -71,7 +69,7 @@ cnt = lambda p, j: sum(1 for _, pp, jj, _ in rows if jj == j and (pp == p or (p 
 
 L = ['# 기존 장표 판정표', '',
      '`python3 scripts/triage.py`로 만든다(판정은 스크립트 안 `BODY`와 규칙을 고친다). 틀은 [기본 장표 틀](patterns.md).', '',
-     '상태: **초안(검토 전)**. `data/rounds.json`에는 아직 적지 않았다. 밀도 판정은 썸네일을 눈으로 본 것이고 글자 크기를 재지는 않았다.', '',
+     '판정은 `data/triage.json`에 따로 저장하고 첫 화면이 그것을 읽는다(`data/rounds.json`은 루틴이 계속 고치므로 건드리지 않는다). 밀도 판정은 썸네일을 눈으로 본 것이고 글자 크기를 재지는 않았다.', '',
      '## 판정 넷', '',
      '| 판정 | 뜻 | AI에게 넘기는 것 |', '|---|---|---|',
      '| 기본 후보 | 그 기본 장표의 대표로 삼을 만큼 담백하다. 키트 부품으로 옮길 본보기 | 키트 부품(재료) |',
@@ -82,13 +80,11 @@ L = ['# 기존 장표 판정표', '',
 for j in JUDGES: L.append('| %s | %d |' % (j, sum(1 for x in rows if x[2] == j)))
 L += ['| (숨김 — 제작 기준에 걸림) | %d |' % len(hidden), '| 합계 | %d |' % len(rounds), '',
       '## 기본 장표별 현황', '',
-      '재료는 지금 덱 키트에 부품이 있는지(● 있음 · ◐ 다른 용도 부품으로 대신 · ○ 없음). 목차 · 간지 · 맺음은 계열 키트 한 벌로 함께 센다.', '',
-      '| 기본 장표 | 재료 | 기본 후보 | 변주 | 영감 | 할 일 |', '|---|---|---|---|---|---|']
+      '재료(덱 키트 부품)는 23개 모두 있다. 아래는 참고 장표의 수다. 목차 · 간지 · 맺음은 계열 키트 한 벌로 함께 센다. **루틴은 기본 후보 + 변주가 가장 적은 것부터 채운다.**', '',
+      '| 기본 장표 | 기본 후보 | 변주 | 영감 |', '|---|---|---|---|']
 for p, m in PATTERNS:
     b, v, i = cnt(p, '기본 후보'), cnt(p, '변주'), cnt(p, '영감')
-    todo = '부품을 새로 만든다' if m == '○' else '전용 부품을 만든다' if m == '◐' else '—'
-    if m != '●' and b + v == 0: todo += ' · 본보기도 없다'
-    L.append('| %s | %s | %d | %d | %d | %s |' % (p, m, b, v, i, todo))
+    L.append('| %s | %d | %d | %d |' % (p, b, v, i))
 L += ['', '## 장표별 판정', '']
 groups = [('목차·간지·맺음', '목차 · 간지 · 맺음')] + [(p, p) for p, _ in PATTERNS if p not in ('목차', '간지', '맺음')] + [('—', '기본 장표에 해당 없음')]
 for key, title in sorted(groups, key=lambda g: (g[0] == '—', g[0] != '표지' and g[0] != '목차·간지·맺음')):
@@ -100,4 +96,6 @@ for key, title in sorted(groups, key=lambda g: (g[0] == '—', g[0] != '표지' 
     L.append('')
 L += ['### 숨김 (%d)' % len(hidden), '', ' · '.join('#%s' % r['no'] for r in hidden) + ' — 제작 기준에 걸려 이미 숨긴 장표. 판정하지 않는다.']
 open(os.path.join(ROOT, 'docs', 'triage.md'), 'w', encoding='utf-8').write('\n'.join(L) + '\n')
+# 화면(scripts/site.py)이 읽는 판정 데이터. rounds.json 은 루틴이 계속 고치므로 따로 둔다
+json.dump({str(r['no']): {'pattern': p, 'judge': j, 'why': w} for r, p, j, w in rows}, open(os.path.join(ROOT, 'data', 'triage.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('\n'.join(L[14:50]))

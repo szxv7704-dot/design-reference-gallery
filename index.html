@@ -3,349 +3,767 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>디자인 레퍼런스</title>
-<meta name="description" content="사업 성과 공유회 · 사업 설명회 발표 자료와 인쇄·홍보물을 만들 때 쓰는 디자인 레퍼런스. 모든 내용은 가상 예시입니다.">
+<title>디자인 레퍼런스 — 문서를 발표 덱으로</title>
+<meta name="description" content="한글 문서를 16:9 발표 덱 HTML로 바꿀 때 채팅 AI가 읽는 디자인 안내와 재료. 기본 장표 23가지 · 흐름 넷 · 분위기 넷. 모든 내용은 가상 예시입니다.">
+<link rel="alternate" type="text/markdown" href="guide.md" title="AI용 안내(글)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
-:root{
-  --bg:#F5F4F0; --card:#FFFFFF; --ink:#1C1E22; --soft:#62666E; --line:#E2E0DA;
-  --exp:#C2552B; --prac:#2563A8; --chip:#ECEAE4;
-  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-}
+:root{--bg:#F5F4F0;--card:#FFFFFF;--ink:#1C1E22;--soft:#5E626A;--line:#E2E0DA;--key:#2563A8;--chip:#ECEAE4;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all;line-height:1.6}
 a{color:inherit}
+img{max-width:100%;height:auto;display:block;background:var(--chip)}
 .wrap{max-width:1240px;margin:0 auto;padding:40px 16px 80px}
-header h1{font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:-.02em;margin:0}
-header p{margin:10px 0 0;color:var(--soft);line-height:1.6;max-width:62ch}
-/* 무엇을 하려고 하나요? — 목적 하나 = 타일 하나. 미리보기는 늘 보이고(터치에서도), 마우스 · 키보드로 올리면 크게 보기 */
-.hub{margin:26px 0 0}
-.hub h2{margin:0 0 12px;font-size:15px;font-weight:700}
-.hub-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
-.tile{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--card);text-decoration:none;color:var(--ink);overflow:hidden;
-  transition:border-color .15s,box-shadow .15s,transform .15s}
-.tile:hover,.tile:focus-visible{border-color:var(--ink);box-shadow:0 10px 24px -16px rgba(0,0,0,.35);transform:translateY(-2px)}
-.tile[aria-current=true]{border-color:var(--prac);box-shadow:inset 0 0 0 1px var(--prac)}
-.tile .pv{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);aspect-ratio:16/9}
-.tile .pv img{width:100%;height:100%;object-fit:cover;display:block;background:var(--chip)}
-.tile .pv.one{grid-template-columns:1fr}
-.tile b{display:block;padding:10px 12px 0;font-size:15px;line-height:1.35}
-.tile small{display:block;padding:3px 12px 12px;font-size:12.5px;line-height:1.45;color:var(--soft)}
-.tile small em{font-style:normal;font-weight:700;color:var(--ink)}
-.peek{position:absolute;z-index:20;width:min(620px,calc(100vw - 32px));background:var(--card);border:1px solid var(--ink);border-radius:14px;
-  box-shadow:0 24px 60px -24px rgba(0,0,0,.45);overflow:hidden;pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .14s,transform .14s}
-.peek.on{opacity:1;transform:none}
-.peek .big{position:relative;aspect-ratio:16/9;background:var(--chip)}
-.peek .big img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s}
-.peek .big img.on{opacity:1}
-.peek .strip{display:flex;gap:4px;padding:6px;background:var(--chip)}
-.peek .strip i{flex:1;height:4px;border-radius:2px;background:var(--line)}
-.peek .strip i.on{background:var(--ink)}
-.peek .txt{padding:12px 16px 14px}
-.peek .txt b{display:block;font-size:16px}
-.peek .txt p{margin:4px 0 0;font-size:13.5px;line-height:1.6;color:var(--soft)}
-.peek .txt span{display:block;margin-top:8px;font-size:12.5px;font-weight:700;color:var(--prac)}
-@media (max-width:1000px){.hub-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:560px){.hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tile small{display:none}}
-@media (prefers-reduced-motion:reduce){.tile,.peek,.peek .big img{transition:none}.tile:hover,.tile:focus-visible{transform:none}}
-.note{margin:10px 0 0;font-size:13.5px;color:var(--soft);min-height:1.4em}
-.note b{color:var(--ink);margin-right:6px}
-/* 고르기 띠: 쓰임새 + 검색 / 무엇을 보여 주나 / 분위기 — 세 가지뿐 */
-.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);
-  margin:28px -16px 0;padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
-.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.seg{display:flex;flex-wrap:wrap;background:var(--chip);border-radius:999px;padding:3px}
-.seg button{border:0;background:none;font:500 14px var(--f);padding:7px 14px;border-radius:999px;cursor:pointer;color:var(--soft)}
-.seg button em{font-style:normal;color:var(--soft);margin-left:4px;font-size:12px}
-.seg button[aria-pressed=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
-input{flex:1 1 200px;min-width:0;font:14px var(--f);padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink)}
-.lbl{font-size:12.5px;font-weight:700;color:var(--soft);margin-right:2px;white-space:nowrap}
-.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.chips[hidden]{display:none}
-.chips button{border:1px solid var(--line);background:var(--card);font:500 13px var(--f);padding:5px 11px;border-radius:999px;cursor:pointer;color:var(--ink)}
-.chips button em{font-style:normal;color:var(--soft);margin-left:4px;font-size:11.5px}
-.chips button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
-.chips button[aria-pressed=true] em{color:#ddd}
-.chips button:disabled{opacity:.4;cursor:default}
-.chips button.gap{border-style:dashed}
-/* 분위기: 이름 대신 그 계열 표지 한 장 */
-.fams button{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 3px}
-.fams img{width:44px;height:25px;object-fit:cover;border-radius:6px;display:block;background:var(--chip)}
-.fams button.all{padding:5px 11px}
-button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--prac);outline-offset:2px}
-@media (max-width:600px){.bar{position:static}
-  /* 좁은 화면: 칩 줄은 옆으로 밀어 보는 한 줄(페이지 가로 스크롤은 없음) */
-  .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:2px}
-  .chips::-webkit-scrollbar{display:none}
-  .chips button,.lbl{flex:none}}
-/* 카드: 썸네일 · 제목 한 줄 · 움직임 기호. 나머지는 누르면 뜨는 빠르게 보기 창에 */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:18px;margin-top:22px}
-.card{display:block;text-decoration:none;color:var(--ink);border-radius:12px;background:var(--card);border:1px solid var(--line);overflow:hidden;transition:transform .15s,box-shadow .15s}
-.card:hover{transform:translateY(-2px);box-shadow:0 10px 26px -14px rgba(0,0,0,.28)}
-.card .th{position:relative;display:block;aspect-ratio:16/9;background:var(--chip)}
-.card .th img{width:100%;height:100%;object-fit:cover;display:block}
-.card .mo{position:absolute;left:8px;top:8px;min-width:26px;height:26px;padding:0 7px;border-radius:13px;background:rgba(20,22,26,.78);color:#fff;font-size:12px;line-height:26px;text-align:center}
-.card .cap{display:flex;gap:8px;align-items:baseline;padding:10px 12px 12px}
-.card .cap b{flex:1;min-width:0;font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card .cap small{flex:none;font-size:12px;color:var(--soft)}
-.card.fail .th img,.card.hid .th img{filter:grayscale(.85);opacity:.6}
-.card.fail,.card.hid{border-style:dashed}
-.card .why{display:block;padding:0 12px 12px;margin-top:-6px;font-size:12px;line-height:1.5;color:#A1251B}
-.empty{padding:60px 0;text-align:center;color:var(--soft)}
-@media (prefers-reduced-motion:reduce){.card{transition:none}.card:hover{transform:none}}
-/* 빠르게 보기 */
-dialog.ql{width:min(1180px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:0;border:0;border-radius:16px;background:var(--card);color:var(--ink);box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
-dialog.ql::backdrop{background:rgba(20,22,26,.55)}
-.ql-in{display:grid;grid-template-columns:minmax(0,1fr) 300px;max-height:calc(100vh - 32px)}
-.ql-view{background:#111;min-height:0}
-.ql-view iframe{display:block;width:100%;height:min(72vh,720px);border:0;background:#fff}
-.ql-side{padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;overflow:auto}
-.ql-side h2{margin:0;font-size:18px;line-height:1.35}
-.ql-side .tags{display:flex;flex-wrap:wrap;gap:5px}
-.ql-side .tags span{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--chip)}
-.ql-side p{margin:0;font-size:13.5px;line-height:1.6;color:var(--soft)}
-.ql-side p b{color:var(--ink)}
-.ql-side .sw{display:flex;height:10px;border-radius:5px;overflow:hidden}.ql-side .sw i{flex:1}
-.ql-side .acts{display:flex;gap:8px;margin-top:auto;padding-top:6px}
-.ql-side .acts a,.ql-side .acts button{flex:1;display:inline-flex;justify-content:center;align-items:center;min-height:40px;border-radius:999px;border:1px solid var(--line);background:var(--card);font:700 14px var(--f);text-decoration:none;color:var(--ink);cursor:pointer}
-.ql-side .acts a{background:var(--ink);border-color:var(--ink);color:#fff}
-@media (max-width:860px){dialog.ql{width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;border-radius:0}.ql-in{grid-template-columns:1fr;max-height:100dvh;height:100%;grid-template-rows:auto 1fr}.ql-view iframe{height:56vh}}
-footer{margin-top:56px;font-size:13px;color:var(--soft);line-height:1.7}
-footer button{border:0;background:none;padding:0;font:inherit;color:var(--ink);text-decoration:underline;cursor:pointer}
+h1{font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:-.02em;margin:0}
+h2{font-size:22px;font-weight:900;margin:56px 0 14px;letter-spacing:-.01em}
+h2 small,h3 small{display:inline-block;margin-left:8px;font-size:13.5px;font-weight:400;color:var(--soft);letter-spacing:0}
+h3{font-size:17px;margin:0 0 10px}
+.lead{margin:10px 0 0;color:var(--soft);max-width:70ch}.lead b{color:var(--ink)}
+.how{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:h}
+.how li{counter-increment:h;border-top:2px solid var(--ink);padding-top:10px;font-size:14px}
+.how b{display:block;font-size:15px}.how b::before{content:counter(h) ". "}
+.how span{color:var(--soft)}
+.prompt{margin:16px 0 0;display:flex;gap:8px;align-items:stretch}
+.prompt code{flex:1;min-width:0;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px;font:13.5px/1.6 var(--m);overflow-wrap:anywhere}
+button{font-family:var(--f);cursor:pointer}
+.prompt button{flex:none;padding:0 18px;border-radius:10px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-weight:700;font-size:14px}
+.ai{margin:14px 0 0;font-size:13.5px;color:var(--soft)}
+.moods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.mood{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+.mood .pick{display:block;width:100%;padding:0;border:0;background:none;text-align:left;color:var(--ink)}
+.mood .pick b{display:block;padding:10px 12px 0;font-size:15px}
+.mood .pick[aria-pressed=true] b::after{content:" · 지금 보는 분위기";font-weight:500;font-size:12px;color:var(--key)}
+.mood:has(.pick[aria-pressed=true]){border-color:var(--key);box-shadow:inset 0 0 0 1px var(--key)}
+.mood p{margin:4px 12px 0;color:var(--soft)}.mood p span{display:block}
+.mood .links{margin-bottom:12px;color:var(--ink)}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:8px 0}
+summary{padding:11px 14px;font-weight:700;font-size:14.5px;cursor:pointer}
+details > :not(summary){margin-left:14px;margin-right:14px}
+details ol,details ul{padding-left:1.4em;font-size:14px}details li{margin:6px 0}details p{font-size:14px}
+code{font-family:var(--m);font-size:.92em;background:var(--chip);padding:1px 5px;border-radius:4px}
+pre{margin:10px 14px 14px;padding:12px 14px;background:#1F2227;color:#E9E7E1;border-radius:8px;overflow:auto;font:12.5px/1.55 var(--m);max-height:420px}
+pre code{background:none;padding:0;font-size:inherit}
+.tw{overflow-x:auto;margin-bottom:14px}table{border-collapse:collapse;font-size:13px;min-width:100%}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{white-space:nowrap}
+.flow{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;margin:12px 0}
+.slots{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.slots li{display:flex;flex-direction:column;gap:5px;padding:9px 11px;border-radius:8px;background:var(--bg);position:relative;font-size:13px;min-width:104px}
+.slots li b{font-size:14px}
+.slots a{display:inline-block;margin-right:4px;padding:1px 8px;border-radius:999px;background:var(--card);border:1px solid var(--line);text-decoration:none;white-space:nowrap}
+.slots a:hover{border-color:var(--ink)}
+.decknote{margin:12px 0 8px;font-size:13px;color:var(--soft)}
+.strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity}
+.strip a{flex:0 0 190px;text-decoration:none;font-size:12px;color:var(--soft);scroll-snap-align:start}
+.strip img{border-radius:6px;border:1px solid var(--line);aspect-ratio:16/9;object-fit:cover}
+.strip span{display:block;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grp{margin:26px 0 10px;font-size:14px;color:var(--soft);font-weight:700}
+.pats{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:14px}
+.pat{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.pat:target{border-color:var(--key);box-shadow:0 0 0 2px var(--key)}
+.pat .shot img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.pat h4{margin:12px 14px 0;font-size:17px}.pat h4 code{margin-left:4px;font-size:12px;font-weight:400}
+.pat .when{margin:4px 14px 0;font-size:13.5px;color:var(--soft)}
+.pat dl{margin:10px 14px 12px;display:grid;grid-template-columns:64px 1fr;gap:4px 8px;font-size:13px}
+.pat dt{color:var(--soft)}.pat dd{margin:0}
+.pat details{margin:0;border:0;border-top:1px solid var(--line);border-radius:0}
+.pat summary{font-size:13.5px;padding:9px 14px}
+.refs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;padding-bottom:14px}
+.ref{text-decoration:none;font-size:12px;line-height:1.45}
+.ref img{border-radius:6px;border:1px solid var(--line);aspect-ratio:16/9;object-fit:cover}
+.ref b{display:block;margin-top:4px;font-size:12.5px}.ref small{font-weight:400;color:var(--soft)}.ref span{color:var(--soft)}
+footer{margin-top:48px;font-size:13px;color:var(--soft)}
+dialog.ql{width:min(1280px,calc(100vw - 32px));padding:0;border:0;border-radius:14px;background:#111;box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
+dialog.ql::backdrop{background:rgba(20,22,26,.6)}
+.ql iframe{display:block;width:100%;aspect-ratio:16/9;max-height:calc(100vh - 110px);border:0;background:#fff}
+.ql .acts{display:flex;gap:8px;justify-content:flex-end;padding:8px 10px;background:#111}
+.ql .acts a,.ql .acts button{padding:7px 14px;border-radius:999px;border:1px solid #555;background:none;color:#fff;font:700 13px var(--f);text-decoration:none}
+:focus-visible{outline:2px solid var(--key);outline-offset:2px}
+@media (max-width:900px){.moods{grid-template-columns:repeat(2,minmax(0,1fr))}.how{grid-template-columns:1fr}}
+@media (max-width:520px){.prompt{flex-direction:column}.prompt button{padding:10px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
+<!-- 이 파일은 scripts/site.py 가 만든다. 손으로 고치지 말 것 -->
 <div class="wrap">
-  <header>
-    <h1>디자인 레퍼런스</h1>
-    <p>사업 <b>성과 공유회</b> · <b>사업 설명회</b> 발표 자료와 인쇄·홍보물을 만들 때 쓰는 레퍼런스입니다. 하려는 일을 먼저 고르세요. 장표를 누르면 그 자리에서 움직여 볼 수 있습니다.</p>
-    <section class="hub" aria-labelledby="hubTitle">
-      <h2 id="hubTitle">무엇을 하려고 하나요?</h2>
-      <div class="hub-grid" id="hub"></div>
-    </section>
-  </header>
-
-  <div class="bar" role="search" id="list">
-    <div class="row">
-      <div class="seg" id="role" role="group" aria-label="쓰임새">
-        <button type="button" data-g="" aria-pressed="true">전체</button>
-        <button type="button" data-g="표지" aria-pressed="false">표지</button>
-        <button type="button" data-g="본문" aria-pressed="false">본문</button>
-        <button type="button" data-g="목차·간지" aria-pressed="false">목차·간지</button>
-        <button type="button" data-g="발표 틀" aria-pressed="false">발표 틀</button>
-        <button type="button" data-g="인쇄·홍보물" aria-pressed="false">인쇄·홍보물</button>
-      </div>
-      <input id="q" type="search" placeholder="검색: 제목 · 주제 · 장치 · 번호(#109)" aria-label="검색">
-    </div>
-    <div class="row chips" id="kind" role="group" aria-label="무엇을 보여 주나"><span class="lbl">무엇을 보여 주나</span></div>
-    <div class="row chips fams" id="fam" role="group" aria-label="분위기"><span class="lbl">분위기</span></div>
-  </div>
-
-  <p class="note" id="note"></p>
-  <div class="grid" id="grid"></div>
-
-  <footer>
-    모든 장표의 기관명 · 수치는 가상 예시이고, 사진은 AI로 만든 것입니다. 만드는 기준은 <a href="docs/criteria.md">제작 기준</a>에 있습니다.
-    <span id="hidNote"></span>
-  </footer>
+<header>
+  <h1>디자인 레퍼런스</h1>
+  <p class="lead">한글 문서(계획안 · 연수 강의안 · 성과 보고)를 <b>16:9 발표 덱</b>으로 바꿀 때 채팅 AI가 읽는 디자인 안내이자 재료입니다.
+  이 주소와 문서를 AI에게 주면, 여기 있는 기본 장표 23가지와 분위기 넷으로 덱을 만듭니다.</p>
+  <ol class="how">
+    <li><b>문서를 올립니다</b><span>Claude · ChatGPT 대화창에 한글 문서(또는 PDF)를 첨부합니다. 개인정보는 지우고.</span></li>
+    <li><b>이 주소를 줍니다</b><span>아래 문장을 붙여 넣습니다. 분위기를 정했으면 "B 분위기로"를 덧붙입니다.</span></li>
+    <li><b>구성안을 확인합니다</b><span>AI가 장별 구성안을 먼저 보여 줍니다. 고친 뒤 "만들어 줘". 받은 .html은 → 키로 넘깁니다.</span></li>
+  </ol>
+  <div class="prompt"><code id="prompt">https://szxv7704-dot.github.io/design-reference-gallery/ 을(를) 읽고, 첨부한 문서를 16:9 발표 덱 HTML로 만들어 줘. 먼저 장별 구성안을 보여 줘.</code><button type="button" id="copy">복사</button></div>
+  <p class="ai">AI에게: 이 페이지 전체가 안내입니다. <a href="#rules">지킬 것</a> → <a href="#flows">흐름</a> → <a href="#patterns">기본 장표와 견본 코드</a> → <a href="#shell">뼈대</a> 순서로 읽으세요.
+  같은 내용의 글 파일은 <a href="guide.md">guide.md</a>, 계열 하나만 쓰는 지시서는 <a href="kit/A.md">A</a> · <a href="kit/B.md">B</a> · <a href="kit/C.md">C</a> · <a href="kit/D.md">D</a>입니다. 모든 예시 내용은 가상입니다.</p>
+</header>
+<section id="moods"><h2>분위기 넷 <small>겉모습만 다르고 부품 이름은 같습니다. 고르면 아래 견본 그림이 그 분위기로 바뀝니다</small></h2><div class="moods">
+<article class="mood" data-fam="A">
+  <button type="button" class="pick" data-fam="A" aria-pressed="false"><img src="kit/thumbs/A-1.jpg" alt="" loading="lazy" width="640" height="360"><b>A 픽셀 게임</b></button>
+  <p>크림 바탕 위 남색 게임 창, 픽셀 글꼴. 강조는 빨강 낱말 하나와 창 안 금색 한 곳. <span>어울리는 자리: 학생 · 체험 행사, 가벼운 연수</span></p>
+  <p class="links">예시 덱 <a href="kit/A-plan.html" data-ql>계획안 발표</a> · <a href="kit/A.html" data-ql>성과 공유회</a> · <a href="kit/A-lecture.html" data-ql>연수 한 차시</a> · <a href="kit/A.md">지시서</a></p>
+</article>
+<article class="mood" data-fam="B">
+  <button type="button" class="pick" data-fam="B" aria-pressed="true"><img src="kit/thumbs/B-1.jpg" alt="" loading="lazy" width="640" height="360"><b>B 미니멀 스튜디오</b></button>
+  <p>전시관 모형대처럼 밝은 청백 무광. 주황은 한 장에 한 곳. <span>어울리는 자리: 어디에나 무난하다. 정하지 않았으면 이것</span></p>
+  <p class="links">예시 덱 <a href="kit/B-plan.html" data-ql>계획안 발표</a> · <a href="kit/B.html" data-ql>성과 공유회</a> · <a href="kit/B-lecture.html" data-ql>연수 한 차시</a> · <a href="kit/B.md">지시서</a></p>
+</article>
+<article class="mood" data-fam="C">
+  <button type="button" class="pick" data-fam="C" aria-pressed="false"><img src="kit/thumbs/C-1.jpg" alt="" loading="lazy" width="640" height="360"><b>C 경쾌한 놀이 오브젝트</b></button>
+  <p>하늘빛 흰 바탕에 장난감 블록, 굵은 제목. 빨강 강조 한 곳. <span>어울리는 자리: 유아 · 초등, 밝은 분위기의 행사</span></p>
+  <p class="links">예시 덱 <a href="kit/C-plan.html" data-ql>계획안 발표</a> · <a href="kit/C.html" data-ql>성과 공유회</a> · <a href="kit/C-lecture.html" data-ql>연수 한 차시</a> · <a href="kit/C.md">지시서</a></p>
+</article>
+<article class="mood" data-fam="D">
+  <button type="button" class="pick" data-fam="D" aria-pressed="false"><img src="kit/thumbs/D-1.jpg" alt="" loading="lazy" width="640" height="360"><b>D 인쇄·종이 에디토리얼</b></button>
+  <p>백상지에 먹 명조 제목, 남색과 주홍 2도. 이중 괘선으로 지면을 짠다. <span>어울리는 자리: 계획안 · 정책 보고, 차분한 자리</span></p>
+  <p class="links">예시 덱 <a href="kit/D-plan.html" data-ql>계획안 발표</a> · <a href="kit/D.html" data-ql>성과 공유회</a> · <a href="kit/D-lecture.html" data-ql>연수 한 차시</a> · <a href="kit/D.md">지시서</a></p>
+</article>
+</div></section>
+<section id="rules"><h2>AI가 지킬 것 <small>사람은 읽지 않아도 됩니다</small></h2>
+<details><summary>0. 당신(AI)의 일</summary><p>사용자가 준 <b>문서</b>(한글 계획안 · 연수 강의안 · 성과 보고 등)의 내용으로 <b>16:9 발표 덱 HTML 파일 하나</b>를 만듭니다.</p>
+<p>이 안내의 <b>기본 장표(3)</b> · <b>흐름(4)</b> · <b>견본 코드(8)</b>를 재료로 씁니다. 색 · 글꼴 · 부품 모양은 뼈대(6)의 두 줄이 인터넷에서 불러오므로, <b>당신이 쓰는 것은 <code>&lt;section class=&quot;slide&quot;&gt;</code>들뿐</b>입니다.</p></details>
+<details><summary>1. 진행 순서</summary><ol><li><b>문서를 읽습니다.</b> 문서가 없으면 달라고 합니다. 발표 자리(계획안 발표 · 성과 공유회 · 설명회 · 연수)와 발표 시간을 모르면 짧게 묻습니다.</li><li><b>흐름을 고릅니다(4).</b> 문서 종류에 맞는 흐름의 자리 순서를 따르되, 문서에 없는 자리는 뺍니다.</li><li><b>문단마다 기본 장표를 고릅니다(3).</b> 한 장에 기본 장표 하나. 내용 조건을 넘치면 장을 나눕니다.</li><li><b>분위기 계열을 정합니다(5).</b> 사용자가 정하지 않았으면 B를 권하고 한 번 묻습니다.</li><li><b>구성안을 먼저 보여 주고 확인을 받습니다.</b> 장마다 <code>자리 | 기본 장표 | 제목 한 문장 | 쓸 내용(문서의 어느 부분) | 수치와 출처</code>를 표 한 줄로. 이때 코드를 쓰지 않습니다. 사용자가 &quot;구성 확인 없이 바로&quot;라고 했으면 건너뜁니다.</li><li>확인을 받으면 HTML을 만들고, 점검(9)을 거쳐 내보냅니다.</li></ol></details>
+<details><summary>2. 반드시 지킬 것</summary><ol><li><b>문서에 없는 숫자 · 연도 · 예산 · 이름 · 출처를 지어내지 않습니다.</b> 비어 있으면 묻거나 그 장을 뺍니다. 문서에 없는 사실을 넣고 싶으면 구성안에 &#x27;추가 사실&#x27;로 따로 적어 확인을 받습니다.</li><li><b>한 장에 기본 장표 하나.</b> 도식 두 개가 필요하면 두 장으로 나눕니다. 글자를 줄여 한 장에 밀어 넣지 않습니다.</li><li>본문 장은 <code>머리말(.kicker) + 제목(.title) + 부품</code> 순서입니다. <b>제목은 결론 한 문장</b>, 두 줄 이내. &quot;현황&quot; 같은 이름표는 머리말에 씁니다. 한 문장 · 질문 · 할 일 장만 제목 없이 머리말 아래에 부품을 둡니다.</li><li>수치가 있는 장에는 출처(<code>.src</code>)를 씁니다.</li><li><b>강조색은 한 장에 한 곳</b>: 제목의 <code>&lt;em&gt;</code> 하나 또는 부품의 <code>.is-key</code> 하나(둘 다 쓰면 같은 내용을 가리켜야 함).</li><li><b>클래스는 견본 코드(8)에 나온 것만</b> 씁니다. 없는 클래스는 모양이 없어 배치가 무너집니다. 새 부품이 꼭 필요하면 뼈대 <code>&lt;style&gt;</code>의 &#x27;추가 부품&#x27; 줄 아래에 토큰 변수(<code>--ds-*</code>)만으로 정의합니다.</li><li>뼈대의 공통 파일 두 줄(<code>&lt;link&gt;</code> · <code>&lt;script src&gt;</code>)은 주소 한 글자도 바꾸지 않습니다. 공통 CSS · 엔진을 HTML 안에 옮겨 쓰거나 <code>@font-face</code>를 새로 쓰지 않습니다.</li><li>장 번호 · 쪽 표시 · 점은 쓰지 않습니다. 엔진이 채웁니다(<code>&lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;</code>는 빈 칸 그대로).</li><li>무대는 1920 × 1080이고 화면에 맞게 통째로 줄어듭니다. 글자 크기를 바꾸지 않습니다. 머리말과 두 줄 제목 아래 <b>본문 높이는 약 600~680px</b>이고 넘친 부분은 잘립니다. 넘치면 문장을 줄이거나 장을 나눕니다.</li><li>인라인 <code>style</code>은 값 전달에만 씁니다: 막대 <code>--v</code>(가장 큰 값 = 100) · 목표선 <code>--t</code> · 간트 <code>--from</code> <code>--to</code>(1~12월) · 체계 갈래 수 <code>--n</code> · 화면 짚기 번호 자리 <code>--x</code> <code>--y</code>(%).</li><li><b>그림을 코드로 그리지 않습니다.</b> SVG · CSS · 캔버스로 사물 · 인물 · 풍경 · 캐릭터 · 지도를 그리지 마세요. 사진 · 화면 캡처는 사용자가 준 이미지를 <code>.ph</code> 안에 <code>&lt;img&gt;</code>로 넣고, 없으면 <code>&lt;div class=&quot;ph&quot; data-need=&quot;사진 자리 · 4:3 · 무슨 장면&quot;&gt;&lt;/div&gt;</code>로 자리만 두고 무엇이 필요한지 말해 줍니다.</li><li>누를 때마다 하나씩 보이는 장(<code>data-steps</code> + <code>data-step</code>)은 덱 전체에서 1~3장. 같은 기본 장표가 세 장 넘게 연달아 나오지 않게 합니다.</li></ol></details>
+</section>
+<section id="flows"><h2>흐름 <small>문서 종류에 맞는 자리 순서. 자리마다 쓰는 기본 장표가 정해져 있습니다</small></h2>
+<article class="flow" id="flow-plan"><h3>계획안 발표 <small>계획안 문서의 내용을 발표로 옮길 때</small></h3><ol class="slots">
+<li><b>여는 장</b><a href="#p-cover">표지</a><a href="#p-toc">목차</a></li>
+<li><b>추진 배경</b><a href="#p-statement">한 문장</a><a href="#p-numbers">큰 숫자</a><a href="#p-bars">막대 비교</a><a href="#p-trend">추이</a></li>
+<li><b>목표 · 추진 체계</b><a href="#p-statement">한 문장</a><a href="#p-tree">체계</a></li>
+<li><b>세부 추진 과제</b><a href="#p-groups">묶음·분류</a><a href="#p-points">항목</a><a href="#p-compare">둘 비교</a><a href="#p-steps">순서·단계</a></li>
+<li><b>추진 일정</b><a href="#p-timeline">일정</a></li>
+<li><b>예산</b><a href="#p-table">표</a><a href="#p-share">구성비</a></li>
+<li><b>기대 효과</b><a href="#p-before-after">전→후</a><a href="#p-points">항목</a></li>
+<li><b>맺는 장</b><a href="#p-closing">맺음</a></li>
+</ol>
+<p class="decknote">예시 덱 12장 — 가상 내용 하나로 처음부터 끝까지 엮은 것입니다. 누르면 그 장에서 열립니다.</p><div class="strip">
+<a href="kit/B-plan.html#1" data-ql data-k="kit/{k}-plan.html#1" title="표지"><img src="kit/thumbs/B-plan-1.jpg" data-k="kit/thumbs/{k}-plan-1.jpg" alt="" loading="lazy" width="640" height="360"><span>1. 표지</span></a>
+<a href="kit/B-plan.html#2" data-ql data-k="kit/{k}-plan.html#2" title="목차"><img src="kit/thumbs/B-plan-2.jpg" data-k="kit/thumbs/{k}-plan-2.jpg" alt="" loading="lazy" width="640" height="360"><span>2. 목차</span></a>
+<a href="kit/B-plan.html#3" data-ql data-k="kit/{k}-plan.html#3" title="추진 배경: 추이"><img src="kit/thumbs/B-plan-3.jpg" data-k="kit/thumbs/{k}-plan-3.jpg" alt="" loading="lazy" width="640" height="360"><span>3. 추이</span></a>
+<a href="kit/B-plan.html#4" data-ql data-k="kit/{k}-plan.html#4" title="목표: 한 문장"><img src="kit/thumbs/B-plan-4.jpg" data-k="kit/thumbs/{k}-plan-4.jpg" alt="" loading="lazy" width="640" height="360"><span>4. 한 문장</span></a>
+<a href="kit/B-plan.html#5" data-ql data-k="kit/{k}-plan.html#5" title="추진 체계: 체계"><img src="kit/thumbs/B-plan-5.jpg" data-k="kit/thumbs/{k}-plan-5.jpg" alt="" loading="lazy" width="640" height="360"><span>5. 체계</span></a>
+<a href="kit/B-plan.html#6" data-ql data-k="kit/{k}-plan.html#6" title="간지"><img src="kit/thumbs/B-plan-6.jpg" data-k="kit/thumbs/{k}-plan-6.jpg" alt="" loading="lazy" width="640" height="360"><span>6. 간지</span></a>
+<a href="kit/B-plan.html#7" data-ql data-k="kit/{k}-plan.html#7" title="세부 과제: 묶음 · 분류"><img src="kit/thumbs/B-plan-7.jpg" data-k="kit/thumbs/{k}-plan-7.jpg" alt="" loading="lazy" width="640" height="360"><span>7. 묶음·분류</span></a>
+<a href="kit/B-plan.html#8" data-ql data-k="kit/{k}-plan.html#8" title="추진 일정: 일정(간트)"><img src="kit/thumbs/B-plan-8.jpg" data-k="kit/thumbs/{k}-plan-8.jpg" alt="" loading="lazy" width="640" height="360"><span>8. 일정</span></a>
+<a href="kit/B-plan.html#9" data-ql data-k="kit/{k}-plan.html#9" title="예산: 표"><img src="kit/thumbs/B-plan-9.jpg" data-k="kit/thumbs/{k}-plan-9.jpg" alt="" loading="lazy" width="640" height="360"><span>9. 표</span></a>
+<a href="kit/B-plan.html#10" data-ql data-k="kit/{k}-plan.html#10" title="재원: 구성비"><img src="kit/thumbs/B-plan-10.jpg" data-k="kit/thumbs/{k}-plan-10.jpg" alt="" loading="lazy" width="640" height="360"><span>10. 구성비</span></a>
+<a href="kit/B-plan.html#11" data-ql data-k="kit/{k}-plan.html#11" title="기대 효과: 항목"><img src="kit/thumbs/B-plan-11.jpg" data-k="kit/thumbs/{k}-plan-11.jpg" alt="" loading="lazy" width="640" height="360"><span>11. 항목</span></a>
+<a href="kit/B-plan.html#12" data-ql data-k="kit/{k}-plan.html#12" title="마무리"><img src="kit/thumbs/B-plan-12.jpg" data-k="kit/thumbs/{k}-plan-12.jpg" alt="" loading="lazy" width="640" height="360"><span>12. 맺음</span></a>
 </div>
+</article>
+<article class="flow" id="flow-share"><h3>성과 공유회 <small>한 해 사업의 결과를 알릴 때</small></h3><ol class="slots">
+<li><b>여는 장</b><a href="#p-cover">표지</a><a href="#p-toc">목차</a></li>
+<li><b>사업 개요</b><a href="#p-points">항목</a></li>
+<li><b>추진 경과</b><a href="#p-timeline">일정</a></li>
+<li><b>핵심 성과</b><a href="#p-numbers">큰 숫자</a><a href="#p-bars">막대 비교</a><a href="#p-trend">추이</a><a href="#p-share">구성비</a></li>
+<li><b>우수 사례</b><a href="#p-photo">사진+글</a><a href="#p-quote">인용</a></li>
+<li><b>변화 · 만족도</b><a href="#p-before-after">전→후</a><a href="#p-share">구성비</a></li>
+<li><b>시사점</b><a href="#p-compare">둘 비교</a></li>
+<li><b>향후 계획</b><a href="#p-steps">순서·단계</a></li>
+<li><b>맺는 장</b><a href="#p-closing">맺음</a></li>
+</ol>
+<p class="decknote">예시 덱 13장 — 가상 내용 하나로 처음부터 끝까지 엮은 것입니다. 누르면 그 장에서 열립니다.</p><div class="strip">
+<a href="kit/B.html#1" data-ql data-k="kit/{k}.html#1" title="표지"><img src="kit/thumbs/B-1.jpg" data-k="kit/thumbs/{k}-1.jpg" alt="" loading="lazy" width="640" height="360"><span>1. 표지</span></a>
+<a href="kit/B.html#2" data-ql data-k="kit/{k}.html#2" title="목차"><img src="kit/thumbs/B-2.jpg" data-k="kit/thumbs/{k}-2.jpg" alt="" loading="lazy" width="640" height="360"><span>2. 목차</span></a>
+<a href="kit/B.html#3" data-ql data-k="kit/{k}.html#3" title="사업 개요"><img src="kit/thumbs/B-3.jpg" data-k="kit/thumbs/{k}-3.jpg" alt="" loading="lazy" width="640" height="360"><span>3. 항목</span></a>
+<a href="kit/B.html#4" data-ql data-k="kit/{k}.html#4" title="추진 경과"><img src="kit/thumbs/B-4.jpg" data-k="kit/thumbs/{k}-4.jpg" alt="" loading="lazy" width="640" height="360"><span>4. 일정</span></a>
+<a href="kit/B.html#5" data-ql data-k="kit/{k}.html#5" title="간지"><img src="kit/thumbs/B-5.jpg" data-k="kit/thumbs/{k}-5.jpg" alt="" loading="lazy" width="640" height="360"><span>5. 간지</span></a>
+<a href="kit/B.html#6" data-ql data-k="kit/{k}.html#6" title="핵심 성과: 수치 타일 + 증감"><img src="kit/thumbs/B-6.jpg" data-k="kit/thumbs/{k}-6.jpg" alt="" loading="lazy" width="640" height="360"><span>6. 큰 숫자</span></a>
+<a href="kit/B.html#7" data-ql data-k="kit/{k}.html#7" title="목표 대비 달성"><img src="kit/thumbs/B-7.jpg" data-k="kit/thumbs/{k}-7.jpg" alt="" loading="lazy" width="640" height="360"><span>7. 막대 비교</span></a>
+<a href="kit/B.html#8" data-ql data-k="kit/{k}.html#8" title="만족도"><img src="kit/thumbs/B-8.jpg" data-k="kit/thumbs/{k}-8.jpg" alt="" loading="lazy" width="640" height="360"><span>8. 구성비</span></a>
+<a href="kit/B.html#9" data-ql data-k="kit/{k}.html#9" title="전후 비교"><img src="kit/thumbs/B-9.jpg" data-k="kit/thumbs/{k}-9.jpg" alt="" loading="lazy" width="640" height="360"><span>9. 전→후</span></a>
+<a href="kit/B.html#10" data-ql data-k="kit/{k}.html#10" title="우수 사례 + 참여자 목소리"><img src="kit/thumbs/B-10.jpg" data-k="kit/thumbs/{k}-10.jpg" alt="" loading="lazy" width="640" height="360"><span>10. 사진+글</span></a>
+<a href="kit/B.html#11" data-ql data-k="kit/{k}.html#11" title="시사점: 현안 → 해결(누를 때마다 한 줄)"><img src="kit/thumbs/B-11.jpg" data-k="kit/thumbs/{k}-11.jpg" alt="" loading="lazy" width="640" height="360"><span>11. 둘 비교</span></a>
+<a href="kit/B.html#12" data-ql data-k="kit/{k}.html#12" title="향후 계획"><img src="kit/thumbs/B-12.jpg" data-k="kit/thumbs/{k}-12.jpg" alt="" loading="lazy" width="640" height="360"><span>12. 순서·단계</span></a>
+<a href="kit/B.html#13" data-ql data-k="kit/{k}.html#13" title="마무리"><img src="kit/thumbs/B-13.jpg" data-k="kit/thumbs/{k}-13.jpg" alt="" loading="lazy" width="640" height="360"><span>13. 맺음</span></a>
+</div>
+</article>
+<article class="flow" id="flow-brief"><h3>사업 설명회 <small>지원 사업을 안내하고 신청을 받을 때</small></h3><ol class="slots">
+<li><b>여는 장</b><a href="#p-cover">표지</a></li>
+<li><b>사업 소개</b><a href="#p-points">항목</a></li>
+<li><b>지원 내용</b><a href="#p-table">표</a></li>
+<li><b>신청 자격 · 절차</b><a href="#p-points">항목</a><a href="#p-steps">순서·단계</a></li>
+<li><b>주요 일정</b><a href="#p-timeline">일정</a></li>
+<li><b>준비할 것</b><a href="#p-todo">할 일</a></li>
+<li><b>자주 묻는 질문</b><a href="#p-ask">질문</a></li>
+<li><b>맺는 장</b><a href="#p-closing">맺음</a></li>
+</ol>
+<p class="decknote">예시 덱은 아직 없습니다. 위 자리 순서대로 기본 장표를 엮습니다.</p>
+</article>
+<article class="flow" id="flow-lecture"><h3>연수 한 차시 <small>교직원 연수 · 강의 한 차시</small></h3><ol class="slots">
+<li><b>열기</b><a href="#p-cover">표지</a><a href="#p-timeline">일정</a><a href="#p-toc">목차</a><a href="#p-points">항목</a></li>
+<li><b>왜 배우나</b><a href="#p-ask">질문</a><a href="#p-statement">한 문장</a></li>
+<li><b>설명</b><a href="#p-define">용어 정의</a><a href="#p-compare">둘 비교</a><a href="#p-before-after">전→후</a></li>
+<li><b>시연</b><a href="#p-screen">화면 짚기</a><a href="#p-steps">순서·단계</a></li>
+<li><b>실습</b><a href="#p-todo">할 일</a></li>
+<li><b>확인</b><a href="#p-ask">질문</a></li>
+<li><b>닫기</b><a href="#p-quote">인용</a><a href="#p-points">항목</a><a href="#p-todo">할 일</a><a href="#p-closing">맺음</a></li>
+</ol>
+<p class="decknote">예시 덱 16장 — 가상 내용 하나로 처음부터 끝까지 엮은 것입니다. 누르면 그 장에서 열립니다.</p><div class="strip">
+<a href="kit/B-lecture.html#1" data-ql data-k="kit/{k}-lecture.html#1" title="표지(차시 제목)"><img src="kit/thumbs/B-lecture-1.jpg" data-k="kit/thumbs/{k}-lecture-1.jpg" alt="" loading="lazy" width="640" height="360"><span>1. 표지</span></a>
+<a href="kit/B-lecture.html#2" data-ql data-k="kit/{k}-lecture.html#2" title="과정 지도: 일정(이정표)"><img src="kit/thumbs/B-lecture-2.jpg" data-k="kit/thumbs/{k}-lecture-2.jpg" alt="" loading="lazy" width="640" height="360"><span>2. 일정</span></a>
+<a href="kit/B-lecture.html#3" data-ql data-k="kit/{k}-lecture.html#3" title="차시 순서: 목차"><img src="kit/thumbs/B-lecture-3.jpg" data-k="kit/thumbs/{k}-lecture-3.jpg" alt="" loading="lazy" width="640" height="360"><span>3. 목차</span></a>
+<a href="kit/B-lecture.html#4" data-ql data-k="kit/{k}-lecture.html#4" title="학습 목표: 항목"><img src="kit/thumbs/B-lecture-4.jpg" data-k="kit/thumbs/{k}-lecture-4.jpg" alt="" loading="lazy" width="640" height="360"><span>4. 항목</span></a>
+<a href="kit/B-lecture.html#5" data-ql data-k="kit/{k}-lecture.html#5" title="여는 질문: 질문(보기)"><img src="kit/thumbs/B-lecture-5.jpg" data-k="kit/thumbs/{k}-lecture-5.jpg" alt="" loading="lazy" width="640" height="360"><span>5. 질문</span></a>
+<a href="kit/B-lecture.html#6" data-ql data-k="kit/{k}-lecture.html#6" title="왜 배우나: 한 문장"><img src="kit/thumbs/B-lecture-6.jpg" data-k="kit/thumbs/{k}-lecture-6.jpg" alt="" loading="lazy" width="640" height="360"><span>6. 한 문장</span></a>
+<a href="kit/B-lecture.html#7" data-ql data-k="kit/{k}-lecture.html#7" title="간지"><img src="kit/thumbs/B-lecture-7.jpg" data-k="kit/thumbs/{k}-lecture-7.jpg" alt="" loading="lazy" width="640" height="360"><span>7. 간지</span></a>
+<a href="kit/B-lecture.html#8" data-ql data-k="kit/{k}-lecture.html#8" title="개념: 용어 정의"><img src="kit/thumbs/B-lecture-8.jpg" data-k="kit/thumbs/{k}-lecture-8.jpg" alt="" loading="lazy" width="640" height="360"><span>8. 용어 정의</span></a>
+<a href="kit/B-lecture.html#9" data-ql data-k="kit/{k}-lecture.html#9" title="예시: 둘 비교"><img src="kit/thumbs/B-lecture-9.jpg" data-k="kit/thumbs/{k}-lecture-9.jpg" alt="" loading="lazy" width="640" height="360"><span>9. 둘 비교</span></a>
+<a href="kit/B-lecture.html#10" data-ql data-k="kit/{k}-lecture.html#10" title="시연: 화면 짚기"><img src="kit/thumbs/B-lecture-10.jpg" data-k="kit/thumbs/{k}-lecture-10.jpg" alt="" loading="lazy" width="640" height="360"><span>10. 화면 짚기</span></a>
+<a href="kit/B-lecture.html#11" data-ql data-k="kit/{k}-lecture.html#11" title="따라 하기: 순서 · 단계"><img src="kit/thumbs/B-lecture-11.jpg" data-k="kit/thumbs/{k}-lecture-11.jpg" alt="" loading="lazy" width="640" height="360"><span>11. 순서·단계</span></a>
+<a href="kit/B-lecture.html#12" data-ql data-k="kit/{k}-lecture.html#12" title="실습 안내: 할 일"><img src="kit/thumbs/B-lecture-12.jpg" data-k="kit/thumbs/{k}-lecture-12.jpg" alt="" loading="lazy" width="640" height="360"><span>12. 할 일</span></a>
+<a href="kit/B-lecture.html#13" data-ql data-k="kit/{k}-lecture.html#13" title="확인: 질문(답을 가렸다 연다)"><img src="kit/thumbs/B-lecture-13.jpg" data-k="kit/thumbs/{k}-lecture-13.jpg" alt="" loading="lazy" width="640" height="360"><span>13. 질문</span></a>
+<a href="kit/B-lecture.html#14" data-ql data-k="kit/{k}-lecture.html#14" title="먼저 해 본 사람의 말: 인용"><img src="kit/thumbs/B-lecture-14.jpg" data-k="kit/thumbs/{k}-lecture-14.jpg" alt="" loading="lazy" width="640" height="360"><span>14. 인용</span></a>
+<a href="kit/B-lecture.html#15" data-ql data-k="kit/{k}-lecture.html#15" title="과제: 할 일"><img src="kit/thumbs/B-lecture-15.jpg" data-k="kit/thumbs/{k}-lecture-15.jpg" alt="" loading="lazy" width="640" height="360"><span>15. 할 일</span></a>
+<a href="kit/B-lecture.html#16" data-ql data-k="kit/{k}-lecture.html#16" title="마무리(다음 차시 예고)"><img src="kit/thumbs/B-lecture-16.jpg" data-k="kit/thumbs/{k}-lecture-16.jpg" alt="" loading="lazy" width="640" height="360"><span>16. 맺음</span></a>
+</div>
+</article>
+<p class="decknote">여러 차시 과정이면 맨 앞에 일정 장표를 과정 지도로 쓰고(차시마다 이정표 하나), 차시마다 연수 한 차시 흐름을 되풀이합니다.</p></section>
+<section id="patterns"><h2>기본 장표 23가지 <small>내용의 모양으로 고릅니다. 한 장에 하나</small></h2>
+<details class="pickorder" open><summary>고르는 순서 — 한 문단이 둘 이상에 맞으면 위에서부터</summary><ol><li>숫자가 주인공이면 수 묶음(하나면 큰 숫자, 시간 축이 있으면 추이, 합이 100%면 구성비, 나머지는 막대 비교).</li><li>날짜가 주인공이면 일정.</li><li>두 쪽이 맞서면 둘 비교, 같은 것이 달라졌으면 전→후.</li><li>차례가 있으면 순서·단계, 위아래가 있으면 체계, 갈래만 있으면 묶음·분류.</li><li>칸이 3열 이상 필요하면 표.</li><li>어디에도 안 맞으면 항목. 항목이 한 개면 한 문장.</li></ol></details>
+<h3 class="grp">뼈대</h3><div class="pats">
+<article class="pat" id="p-cover">
+  <a class="shot" href="kit/B-lecture.html#1" data-ql data-k="kit/{k}-lecture.html#1"><img src="kit/thumbs/B-lecture-1.jpg" data-k="kit/thumbs/{k}-lecture-1.jpg" alt="표지 견본" loading="lazy" width="640" height="360"></a>
+  <h4>표지 <code>cover</code></h4>
+  <p class="when">문서 제목 · 기관 · 날짜</p>
+  <dl><dt>내용 조건</dt><dd>제목 2줄 이하, 부제 1줄</dd><dt>넘치면</dt><dd>부제를 뺀다</dd><dt>부품</dt><dd><code>.cover</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;cover&quot; class=&quot;slide cover&quot;&gt;
+  &lt;div class=&quot;c-text&quot;&gt;
+    &lt;span class=&quot;c-tag&quot;&gt;교직원 연수 · 1차시 / 3차시 · 가상 예시&lt;/span&gt;
+    &lt;h1&gt;AI로 발표 자료 만들기&lt;br&gt;&lt;em&gt;문서를 장표로&lt;/em&gt; 나누기&lt;/h1&gt;
+    &lt;p class=&quot;c-sub&quot;&gt;한글 문서 한 편이 발표 덱이 되기까지&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;!-- 상징 부품: 7의 계열 표에서 표지 코드 --&gt;
+  &lt;p class=&quot;c-org&quot;&gt;&lt;span&gt;○○교육청 교육연수원&lt;/span&gt;&lt;span&gt;2027. 3. 12.&lt;/span&gt;&lt;/p&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 17개</summary><div class="refs"><a class="ref" href="refs/96.html?v=534571d8" data-ql><img src="thumbs/96.jpg?v=534571d8" alt="" loading="lazy" width="640" height="360"><b>익숙함에 틈을 내다 <small>#96</small></b><span>틈이 &#x27;난다&#x27;</span></a><a class="ref" href="refs/59.html?v=794f559e" data-ql><img src="thumbs/59.jpg?v=794f559e" alt="" loading="lazy" width="640" height="360"><b>범 내려온다 <small>#59</small></b><span>웅크림·뒷발 도약·전신 신장·앞발 착지·사선과 정면의 방향 전환을 자세 원화로 연결</span></a><a class="ref" href="refs/58.html?v=9aff30f8" data-ql><img src="thumbs/58.jpg?v=9aff30f8" alt="" loading="lazy" width="640" height="360"><b>처마 끝 수막새 <small>#58</small></b><span>원근으로 물러나는 반복 사물 중 맨 앞 하나만 주인공으로 / 움직임이 끝난 뒤 지나간 자국(젖은 골·맺힌 물</span></a><a class="ref" href="refs/39.html?v=9e0b7582" data-ql><img src="thumbs/39.jpg?v=9e0b7582" alt="" loading="lazy" width="640" height="360"><b>전술 자석 보드 <small>#39</small></b><span>포메이션 착지</span></a><a class="ref" href="refs/37.html?v=b19285b4" data-ql><img src="thumbs/37.jpg?v=b19285b4" alt="" loading="lazy" width="640" height="360"><b>분광 프리즘 <small>#37</small></b><span>분광 목차</span></a><a class="ref" href="refs/32.html?v=aa02e4a5" data-ql><img src="thumbs/32.jpg?v=aa02e4a5" alt="" loading="lazy" width="640" height="360"><b>재생지 콜라주 <small>#32</small></b><span>주제와 재료가 같은 메시지를 말하는 표지(재생지로 재활용 말하기), 종이 조각 크기로 비율을 보여 주는 콜라</span></a><a class="ref" href="refs/31.html?v=f4488837" data-ql><img src="thumbs/31.jpg?v=f4488837" alt="" loading="lazy" width="640" height="360"><b>한 칸씩 켜지는 돔 <small>#31</small></b><span>사진 게이지</span></a><a class="ref" href="refs/30.html?v=021822b9" data-ql><img src="thumbs/30.jpg?v=021822b9" alt="" loading="lazy" width="640" height="360"><b>꺼지지 않는 창구 <small>#30</small></b><span>네온 점등 순서로 핵심 약속을 하나씩 켜는 표지 / 어두운 배경에서 제목을 가장 밝은 광원으로 만드는 위계 </span></a><a class="ref" href="refs/29.html?v=e926868f" data-ql><img src="thumbs/29.jpg?v=e926868f" alt="" loading="lazy" width="640" height="360"><b>회전 레일 <small>#29</small></b><span>회전 레일 목차</span></a><a class="ref" href="refs/28.html?v=b5ee01c2" data-ql><img src="thumbs/28.jpg?v=b5ee01c2" alt="" loading="lazy" width="640" height="360"><b>기준음 A440 <small>#28</small></b><span>수렴 파형</span></a><a class="ref" href="refs/27.html?v=d45bddaf" data-ql><img src="thumbs/27.jpg?v=d45bddaf" alt="" loading="lazy" width="640" height="360"><b>일요판 1면 약속 <small>#27</small></b><span>D 분위기 표지. 사진 · 연출에 기대므로 생각거리로</span></a><a class="ref" href="refs/26.html?v=1118c6ae" data-ql><img src="thumbs/26.jpg?v=1118c6ae" alt="" loading="lazy" width="640" height="360"><b>손 닿는 구명튜브 <small>#26</small></b><span>B 분위기 표지. 사진 · 연출에 기대므로 생각거리로</span></a><a class="ref" href="refs/25.html?v=18091e86" data-ql><img src="thumbs/25.jpg?v=18091e86" alt="" loading="lazy" width="640" height="360"><b>늘봄 수요 일기도 <small>#25</small></b><span>일기도 기호는 원래 뜻과 맞을 때만 쓴다. 전선을 연도에 붙이면 해석이 안 되므로 전선 하나를 &#x27;경계&#x27;라는 </span></a><a class="ref" href="refs/17.html?v=625663c3" data-ql><img src="thumbs/17.jpg?v=625663c3" alt="" loading="lazy" width="640" height="360"><b>두 개의 심 <small>#17</small></b><span>단면으로 &#x27;둘이 하나가 됨&#x27;을 보여 주는 단일 상징 표지 + 나이테 = 연차별 성과 누적(안쪽 장표에서 나이</span></a><a class="ref" href="refs/09.html?v=f851b3a5" data-ql><img src="thumbs/09.jpg?v=f851b3a5" alt="" loading="lazy" width="640" height="360"><b>늘봄 퀘스트 일지 <small>#9</small></b><span>A 분위기 표지. 사진 · 연출에 기대므로 생각거리로</span></a><a class="ref" href="refs/07.html?v=f6af3ce0" data-ql><img src="thumbs/07.jpg?v=f6af3ce0" alt="" loading="lazy" width="640" height="360"><b>블록 빌드 유아학교 <small>#7</small></b><span>과제 목록을 인벤토리 핫바로, 완성률 게이지를 과제 색 구성 막대로, 스냅 가이드(점선 자리→끼움), 완성 </span></a><a class="ref" href="refs/04.html?v=bd839b45" data-ql><img src="thumbs/04.jpg?v=bd839b45" alt="" loading="lazy" width="640" height="360"><b>가온 야간편 탑승권 <small>#4</small></b><span>D 분위기 표지. 사진 · 연출에 기대므로 생각거리로</span></a></div></details>
+</article>
+<article class="pat" id="p-toc">
+  <a class="shot" href="kit/B-lecture.html#3" data-ql data-k="kit/{k}-lecture.html#3"><img src="kit/thumbs/B-lecture-3.jpg" data-k="kit/thumbs/{k}-lecture-3.jpg" alt="목차 견본" loading="lazy" width="640" height="360"></a>
+  <h4>목차 <code>toc</code></h4>
+  <p class="when">문서의 큰 번호(Ⅰ · Ⅱ · Ⅲ), 차시 순서</p>
+  <dl><dt>내용 조건</dt><dd>3~5줄</dd><dt>넘치면</dt><dd>큰 묶음으로 합친다</dd><dt>부품</dt><dd><code>.toc</code> + <code>.toc-list</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;toc&quot; class=&quot;slide toc&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;1차시 · 50분&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;오늘의 순서&lt;/h2&gt;
+    &lt;ol class=&quot;toc-list&quot;&gt;
+      &lt;li class=&quot;is-now&quot;&gt;&lt;b&gt;01&lt;/b&gt;&lt;span&gt;열기&lt;/span&gt;&lt;span&gt;5분&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;b&gt;02&lt;/b&gt;&lt;span&gt;설명&lt;/span&gt;&lt;span&gt;15분&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;b&gt;03&lt;/b&gt;&lt;span&gt;시연&lt;/span&gt;&lt;span&gt;10분&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;b&gt;04&lt;/b&gt;&lt;span&gt;실습&lt;/span&gt;&lt;span&gt;15분&lt;/span&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;b&gt;05&lt;/b&gt;&lt;span&gt;닫기&lt;/span&gt;&lt;span&gt;5분&lt;/span&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+  &lt;!-- 상징 부품: 7의 계열 표에서 목차 코드 --&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 7개</summary><div class="refs"><a class="ref" href="refs/110.html?v=82821cf8" data-ql><img src="thumbs/110.jpg?v=82821cf8" alt="" loading="lazy" width="640" height="360"><b>처마 막새 다섯 장 키트 <small>#110</small></b><span>막새 다섯 장 = 섹션 다섯 개</span></a><a class="ref" href="refs/103.html?v=1faa8bdc" data-ql><img src="thumbs/103.jpg?v=1faa8bdc" alt="" loading="lazy" width="640" height="360"><b>다섯 별 밤하늘 키트 <small>#103</small></b><span>별 다섯 개 = 섹션 다섯 개</span></a><a class="ref" href="refs/91.html?v=808b9908" data-ql><img src="thumbs/91.jpg?v=808b9908" alt="" loading="lazy" width="640" height="360"><b>나이테 다섯 겹 키트 <small>#91</small></b><span>섹션 수 = 나이테 겹 수</span></a><a class="ref" href="refs/90.html?v=43c894fd" data-ql><img src="thumbs/90.jpg?v=43c894fd" alt="" loading="lazy" width="640" height="360"><b>픽셀 게임 키트 <small>#90</small></b><span>진행 칸 다섯 개 = 다섯 장</span></a><a class="ref" href="refs/82.html?v=a3560c34" data-ql><img src="thumbs/82.jpg?v=a3560c34" alt="" loading="lazy" width="640" height="360"><b>놀이 블록 키트 <small>#82</small></b><span>섹션 수 = 블록 수, 층 순서 = 목차 순서</span></a><a class="ref" href="refs/62.html?v=943e4435" data-ql><img src="thumbs/62.jpg?v=943e4435" alt="" loading="lazy" width="640" height="360"><b>인쇄·종이 에디토리얼 키트 <small>#62</small></b><span>인쇄 공정의 흔적을 구조로 쓰기</span></a><a class="ref" href="refs/52.html?v=f0dfdb4c" data-ql><img src="thumbs/52.jpg?v=f0dfdb4c" alt="" loading="lazy" width="640" height="360"><b>관측·중계 키트 <small>#52</small></b><span>구간 띠 진행 표시</span></a></div></details>
+</article>
+<article class="pat" id="p-divider">
+  <a class="shot" href="kit/B-lecture.html#7" data-ql data-k="kit/{k}-lecture.html#7"><img src="kit/thumbs/B-lecture-7.jpg" data-k="kit/thumbs/{k}-lecture-7.jpg" alt="간지 견본" loading="lazy" width="640" height="360"></a>
+  <h4>간지 <code>divider</code></h4>
+  <p class="when">큰 번호가 바뀌는 자리</p>
+  <dl><dt>내용 조건</dt><dd>번호 + 이름 + 한 줄</dd><dt>넘치면</dt><dd>—</dd><dt>부품</dt><dd><code>.divider</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;divider&quot; class=&quot;slide divider&quot;&gt;
+  &lt;div class=&quot;d-no&quot;&gt;&lt;small&gt;SECTION&lt;/small&gt;02&lt;/div&gt;
+  &lt;h2&gt;설명&lt;/h2&gt;
+  &lt;p&gt;기본 장표가 무엇인지, 어떻게 고르는지 봅니다.&lt;/p&gt;
+  &lt;!-- 상징 부품: 7의 계열 표에서 간지 코드 --&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+<article class="pat" id="p-closing">
+  <a class="shot" href="kit/B-lecture.html#16" data-ql data-k="kit/{k}-lecture.html#16"><img src="kit/thumbs/B-lecture-16.jpg" data-k="kit/thumbs/{k}-lecture-16.jpg" alt="맺음 견본" loading="lazy" width="640" height="360"></a>
+  <h4>맺음 <code>closing</code></h4>
+  <p class="when">문의처 · 담당 · 다음 차시 예고</p>
+  <dl><dt>내용 조건</dt><dd>두 줄 문장 + 연락처 한 줄</dd><dt>넘치면</dt><dd>—</dd><dt>부품</dt><dd><code>.close</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;closing&quot; class=&quot;slide close&quot;&gt;
+  &lt;h2&gt;다음 시간에는&lt;br&gt;AI에게 맡겨 봅니다&lt;/h2&gt;
+  &lt;p&gt;2차시 · AI에게 맡기기 — 문의 ○○교육청 교육연수원&lt;/p&gt;
+  &lt;!-- 상징 부품: 7의 계열 표에서 맺음 코드 --&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+</div>
+<h3 class="grp">글</h3><div class="pats">
+<article class="pat" id="p-statement">
+  <a class="shot" href="kit/B-lecture.html#6" data-ql data-k="kit/{k}-lecture.html#6"><img src="kit/thumbs/B-lecture-6.jpg" data-k="kit/thumbs/{k}-lecture-6.jpg" alt="한 문장 견본" loading="lazy" width="640" height="360"></a>
+  <h4>한 문장 <code>statement</code></h4>
+  <p class="when">목적 · 비전 · 결론처럼 한 문장이 전부인 곳</p>
+  <dl><dt>내용 조건</dt><dd>40자 이하 한 문장 + 받치는 말 1줄</dd><dt>넘치면</dt><dd>받치는 말을 다음 장으로</dd><dt>부품</dt><dd><code>.say</code> — 이 장만 .title 없이 .kicker 아래에 둔다</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;statement&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;01 열기 · 왜 배우나&lt;/p&gt;
+    &lt;div class=&quot;say fill&quot;&gt;
+      &lt;p&gt;장표는 문서를 줄인 것이 아니라&lt;br&gt;&lt;em&gt;문단마다 모양을 고른 것&lt;/em&gt;입니다&lt;/p&gt;
+      &lt;small&gt;모양을 먼저 정하면 꾸미는 일은 AI와 부품이 맡습니다.&lt;/small&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+<article class="pat" id="p-points">
+  <a class="shot" href="kit/B-lecture.html#4" data-ql data-k="kit/{k}-lecture.html#4"><img src="kit/thumbs/B-lecture-4.jpg" data-k="kit/thumbs/{k}-lecture-4.jpg" alt="항목 견본" loading="lazy" width="640" height="360"></a>
+  <h4>항목 <code>points</code></h4>
+  <p class="when">개조식(□ · ○ · -) 항목 3~5개, 학습 목표, 기대 효과</p>
+  <dl><dt>내용 조건</dt><dd>3~5개, 이름 + 설명 1~2줄(5개면 1줄)</dd><dt>넘치면</dt><dd>6개부터 두 장, 또는 묶음·분류로</dd><dt>부품</dt><dd><code>.points</code> — 네 칸으로 한눈에 보일 때는 .brief(목적 · 대상 · 기간 · 규모)</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;points&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;01 열기 · 학습 목표&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;이 시간이 끝나면 &lt;em&gt;세 가지&lt;/em&gt;를 할 수 있습니다&lt;/h2&gt;
+    &lt;ol class=&quot;points fill&quot;&gt;
+      &lt;li&gt;&lt;b&gt;문단의 모양 알아보기&lt;/b&gt;&lt;p&gt;문단을 읽고 항목 · 비교 · 순서 · 수 가운데 무엇인지 말한다&lt;/p&gt;&lt;/li&gt;
+      &lt;li class=&quot;is-key&quot;&gt;&lt;b&gt;기본 장표 고르기&lt;/b&gt;&lt;p&gt;모양에 맞는 기본 장표를 고른다&lt;/p&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;b&gt;넘치는 장 나누기&lt;/b&gt;&lt;p&gt;한 장에 다 안 들어가는 내용을 두 장으로 나눈다&lt;/p&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+<article class="pat" id="p-define">
+  <a class="shot" href="kit/B-lecture.html#8" data-ql data-k="kit/{k}-lecture.html#8"><img src="kit/thumbs/B-lecture-8.jpg" data-k="kit/thumbs/{k}-lecture-8.jpg" alt="용어 정의 견본" loading="lazy" width="640" height="360"></a>
+  <h4>용어 정의 <code>define</code></h4>
+  <p class="when">&quot;○○란&quot;, 용어 풀이, 개념 설명</p>
+  <dl><dt>내용 조건</dt><dd>용어 1개 + 뜻 한 문장 + 예 1~2개</dd><dt>넘치면</dt><dd>용어마다 한 장</dd><dt>부품</dt><dd><code>.define</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;define&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;02 설명 · 용어&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;먼저 &lt;em&gt;기본 장표&lt;/em&gt;라는 말부터 맞춥니다&lt;/h2&gt;
+    &lt;dl class=&quot;define fill&quot;&gt;
+      &lt;dt&gt;기본 장표&lt;small&gt;내용의 모양에 따른 장표 틀&lt;/small&gt;&lt;/dt&gt;
+      &lt;dd&gt;
+        &lt;p&gt;행사가 아니라 내용의 모양으로 나눈, 한 장짜리 장표의 틀입니다.&lt;/p&gt;
+        &lt;ul&gt;&lt;li&gt;개조식 항목 세 개 → 항목 장표&lt;/li&gt;&lt;li&gt;문제점과 개선 방안 → 둘 비교 장표&lt;/li&gt;&lt;/ul&gt;
+      &lt;/dd&gt;
+    &lt;/dl&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+<article class="pat" id="p-quote">
+  <a class="shot" href="kit/B-lecture.html#14" data-ql data-k="kit/{k}-lecture.html#14"><img src="kit/thumbs/B-lecture-14.jpg" data-k="kit/thumbs/{k}-lecture-14.jpg" alt="인용 견본" loading="lazy" width="640" height="360"></a>
+  <h4>인용 <code>quote</code></h4>
+  <p class="when">참여자 말 · 설문 서술 답 · 법령 조문</p>
+  <dl><dt>내용 조건</dt><dd>1~3개, 각 60자 이하, 말한 사람</dd><dt>넘치면</dt><dd>가장 강한 것 하나만</dd><dt>부품</dt><dd><code>.quote</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;quote&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;05 닫기 · 먼저 해 본 사람의 말&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;먼저 해 본 선생님들은 &lt;em&gt;모양 정하기&lt;/em&gt;가 가장 쓸모 있었다고 합니다&lt;/h2&gt;
+    &lt;div class=&quot;quote fill&quot;&gt;
+      &lt;figure class=&quot;is-key&quot;&gt;&lt;blockquote&gt;무엇을 넣을지보다 어떤 모양인지 먼저 정하니 덱이 절반으로 줄었습니다.&lt;/blockquote&gt;&lt;figcaption&gt;중학교 교사 · 연구부장&lt;/figcaption&gt;&lt;/figure&gt;
+      &lt;figure&gt;&lt;blockquote&gt;계획안을 그대로 붙여 넣던 버릇을 고쳤습니다.&lt;/blockquote&gt;&lt;figcaption&gt;초등학교 교감&lt;/figcaption&gt;&lt;/figure&gt;
+      &lt;figure&gt;&lt;blockquote&gt;표는 표로, 순서는 순서로 두니 질문이 줄었습니다.&lt;/blockquote&gt;&lt;figcaption&gt;교육지원청 주무관&lt;/figcaption&gt;&lt;/figure&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;src&quot;&gt;가상 예시&lt;/p&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+</div>
+<h3 class="grp">관계</h3><div class="pats">
+<article class="pat" id="p-steps">
+  <a class="shot" href="kit/B-lecture.html#11" data-ql data-k="kit/{k}-lecture.html#11"><img src="kit/thumbs/B-lecture-11.jpg" data-k="kit/thumbs/{k}-lecture-11.jpg" alt="순서·단계 견본" loading="lazy" width="640" height="360"></a>
+  <h4>순서·단계 <code>steps</code></h4>
+  <p class="when">절차 · 신청 방법 · 따라 하기 · 단계별 추진 · 향후 계획</p>
+  <dl><dt>내용 조건</dt><dd>3~4단계, 단계마다 이름 + 할 일 3줄 이하</dd><dt>넘치면</dt><dd>5단계부터 두 장</dd><dt>부품</dt><dd><code>.road</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;steps&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;03 시연 · 따라 하기&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;문단 하나를 장표로 옮기는 &lt;em&gt;세 걸음&lt;/em&gt;&lt;/h2&gt;
+    &lt;div class=&quot;road fill&quot;&gt;
+      &lt;div class=&quot;is-key&quot;&gt;&lt;h3&gt;&lt;small&gt;1&lt;/small&gt;모양 정하기&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;숫자 · 날짜가 주인공인가&lt;/li&gt;&lt;li&gt;두 쪽이 맞서는가&lt;/li&gt;&lt;li&gt;차례가 있는가&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;h3&gt;&lt;small&gt;2&lt;/small&gt;줄이기&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;제목은 결론 한 문장&lt;/li&gt;&lt;li&gt;항목은 다섯 개까지&lt;/li&gt;&lt;li&gt;넘치면 두 장으로&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;h3&gt;&lt;small&gt;3&lt;/small&gt;강조 하나&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;가장 중요한 한 곳만&lt;/li&gt;&lt;li&gt;제목 낱말 또는 칸 하나&lt;/li&gt;&lt;li&gt;나머지는 그대로&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 2개</summary><div class="refs"><a class="ref" href="refs/84.html?v=ef9bb81e" data-ql><img src="thumbs/84.jpg?v=ef9bb81e" alt="" loading="lazy" width="640" height="360"><b>날짜 비례 레인 <small>#84</small></b><span>날짜 비례 레인</span></a><a class="ref" href="refs/22.html?v=03fe6ea0" data-ql><img src="thumbs/22.jpg?v=03fe6ea0" alt="" loading="lazy" width="640" height="360"><b>다섯 칸 다이얼 <small>#22</small></b><span>되풀이되는 절차를 고리로. 단계가 돌아올 때만</span></a></div></details>
+</article>
+<article class="pat" id="p-compare">
+  <a class="shot" href="kit/B-lecture.html#9" data-ql data-k="kit/{k}-lecture.html#9"><img src="kit/thumbs/B-lecture-9.jpg" data-k="kit/thumbs/{k}-lecture-9.jpg" alt="둘 비교 견본" loading="lazy" width="640" height="360"></a>
+  <h4>둘 비교 <code>compare</code></h4>
+  <p class="when">문제점 ↔ 개선 방안, 문단 ↔ 고른 장표, 기존안 ↔ 새 안</p>
+  <dl><dt>내용 조건</dt><dd>2~3줄, 줄마다 왼쪽 · 오른쪽 한 짝</dd><dt>넘치면</dt><dd>4줄부터 두 장</dd><dt>부품</dt><dd><code>.fix</code> (+ <code>.stack</code>) — 누를 때마다 한 줄씩 보이려면 data-step</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;compare&quot; class=&quot;slide&quot; data-steps=&quot;2&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;02 설명 · 예시&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;같은 문단도 &lt;em&gt;모양을 고르면&lt;/em&gt; 한눈에 읽힙니다&lt;/h2&gt;
+    &lt;div class=&quot;fill stack&quot;&gt;
+      &lt;div class=&quot;fix&quot; data-step=&quot;1&quot;&gt;&lt;p class=&quot;q&quot;&gt;&lt;b&gt;문서의 문단&lt;/b&gt;신청은 3월 접수, 4월 심사, 5월 선정 통보 순으로 진행한다&lt;/p&gt;&lt;i aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;p class=&quot;a&quot;&gt;&lt;b&gt;고른 장표&lt;/b&gt;순서 · 단계 — 세 단계를 화살 띠로&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;fix is-key&quot; data-step=&quot;2&quot;&gt;&lt;p class=&quot;q&quot;&gt;&lt;b&gt;문서의 문단&lt;/b&gt;현행은 학교가 따로 계약하나, 개선안은 교육청이 한꺼번에 계약한다&lt;/p&gt;&lt;i aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;p class=&quot;a&quot;&gt;&lt;b&gt;고른 장표&lt;/b&gt;전 → 후 — 같은 줄에 나란히&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 6개</summary><div class="refs"><a class="ref" href="refs/121.html?v=aee9aff3" data-ql><img src="thumbs/121.jpg?v=aee9aff3" alt="" loading="lazy" width="640" height="360"><b>현안·해결 줄 맞춤 비교 <small>#121</small></b><span>칸 문법 통일</span></a><a class="ref" href="refs/115.html?v=4ffa1817" data-ql><img src="thumbs/115.jpg?v=4ffa1817" alt="" loading="lazy" width="640" height="360"><b>네 군데 끊는 고리 <small>#115</small></b><span>이음매 꽂기 + 모서리 카드</span></a><a class="ref" href="refs/94.html?v=fdcef958" data-ql><img src="thumbs/94.jpg?v=fdcef958" alt="" loading="lazy" width="640" height="360"><b>원인으로 모이는 선 <small>#94</small></b><span>증상 → 원인 → 대책 세 층</span></a><a class="ref" href="refs/83.html?v=55fd730d" data-ql><img src="thumbs/83.jpg?v=55fd730d" alt="" loading="lazy" width="640" height="360"><b>줄마다 짝 <small>#83</small></b><span>한 줄 = 한 짝</span></a><a class="ref" href="refs/61.html?v=6b5d17bb" data-ql><img src="thumbs/61.jpg?v=6b5d17bb" alt="" loading="lazy" width="640" height="360"><b>주 담당 대응표 <small>#61</small></b><span>줄마다 주 담당 점은 꼭 하나</span></a><a class="ref" href="refs/55.html?v=b195c591" data-ql><img src="thumbs/55.jpg?v=b195c591" alt="" loading="lazy" width="640" height="360"><b>원인 꽂힌 화살표 <small>#55</small></b><span>화살표 몸통 = 원인 칸</span></a></div></details>
+</article>
+<article class="pat" id="p-before-after">
+  <a class="shot" href="kit/B.html#9" data-ql data-k="kit/{k}.html#9"><img src="kit/thumbs/B-9.jpg" data-k="kit/thumbs/{k}-9.jpg" alt="전→후 견본" loading="lazy" width="640" height="360"></a>
+  <h4>전→후 <code>before-after</code></h4>
+  <p class="when">현행 → 개선, 사업 전 → 사업 후(숫자가 있는 짝)</p>
+  <dl><dt>내용 조건</dt><dd>2~3짝, 같은 기준 · 같은 단위</dd><dt>넘치면</dt><dd>가장 큰 변화 3짝만</dd><dt>부품</dt><dd><code>.ba</code> (+ <code>.ba-head</code>)</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;before-after&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;03 핵심 성과&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;참여 뒤, &lt;em&gt;학교 밖 수업을 계획한 학교&lt;/em&gt;가 두 배로 늘었습니다&lt;/h2&gt;
+    &lt;div class=&quot;fill stack&quot;&gt;
+      &lt;p class=&quot;ba-head&quot;&gt;&lt;span&gt;사업 전(2025)&lt;/span&gt;&lt;span&gt;사업 후(2026)&lt;/span&gt;&lt;/p&gt;
+      &lt;div class=&quot;ba&quot;&gt;
+        &lt;div&gt;&lt;span&gt;학교 밖 수업을 계획한 학교&lt;/span&gt;&lt;p&gt;참여교 중&lt;/p&gt;&lt;b&gt;31&lt;small&gt;%&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;&lt;i aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;div class=&quot;is-key&quot;&gt;&lt;span&gt;학교 밖 수업을 계획한 학교&lt;/span&gt;&lt;p&gt;참여교 중&lt;/p&gt;&lt;b&gt;64&lt;small&gt;%&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;교사 1명당 연계 수업&lt;/span&gt;&lt;p&gt;한 해&lt;/p&gt;&lt;b&gt;1.4&lt;small&gt;회&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;&lt;i aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;div&gt;&lt;span&gt;교사 1명당 연계 수업&lt;/span&gt;&lt;p&gt;한 해&lt;/p&gt;&lt;b&gt;3.2&lt;small&gt;회&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;span&gt;예술가와 수업해 본 교사&lt;/span&gt;&lt;p&gt;참여교 교사 중&lt;/p&gt;&lt;b&gt;18&lt;small&gt;%&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;&lt;i aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;div&gt;&lt;span&gt;예술가와 수업해 본 교사&lt;/span&gt;&lt;p&gt;참여교 교사 중&lt;/p&gt;&lt;b&gt;47&lt;small&gt;%&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;src&quot;&gt;교사 설문 412명(가상 예시)&lt;/p&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 1개</summary><div class="refs"><a class="ref" href="refs/76.html?v=1caa1719" data-ql><img src="thumbs/76.jpg?v=1caa1719" alt="" loading="lazy" width="640" height="360"><b>줄어드는 공정 띠 <small>#76</small></b><span>줄어드는 띠 + 빈 자리 치수선</span></a></div></details>
+</article>
+<article class="pat" id="p-groups">
+  <a class="shot" href="kit/B-plan.html#7" data-ql data-k="kit/{k}-plan.html#7"><img src="kit/thumbs/B-plan-7.jpg" data-k="kit/thumbs/{k}-plan-7.jpg" alt="묶음·분류 견본" loading="lazy" width="640" height="360"></a>
+  <h4>묶음·분류 <code>groups</code></h4>
+  <p class="when">과제 · 프로그램을 갈래로 나눈 것</p>
+  <dl><dt>내용 조건</dt><dd>2~4묶음, 묶음마다 3줄 이하</dd><dt>넘치면</dt><dd>묶음마다 한 장</dd><dt>부품</dt><dd><code>.card</code> + <code>.grid.g2/.g3/.g4</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;groups&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;03 세부 추진 과제&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;여섯 과제 중 &lt;em&gt;이동 지원&lt;/em&gt; 둘은 상반기에 끝냅니다&lt;/h2&gt;
+    &lt;div class=&quot;grid g3 fill center&quot;&gt;
+      &lt;div class=&quot;card is-key&quot;&gt;&lt;span class=&quot;c-no&quot;&gt;묶음 1 · 이동&lt;/span&gt;&lt;h3&gt;찾아가는 교실&lt;/h3&gt;&lt;p&gt;예술 공간 버스 운영&lt;br&gt;군 지역 거점 지정&lt;/p&gt;&lt;p class=&quot;c-foot&quot;&gt;기한 &lt;b&gt;6월&lt;/b&gt;&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span class=&quot;c-no&quot;&gt;묶음 2 · 수업&lt;/span&gt;&lt;h3&gt;함께 짜는 수업&lt;/h3&gt;&lt;p&gt;공동 설계 연수&lt;br&gt;학년별 수업 모델 개발&lt;/p&gt;&lt;p class=&quot;c-foot&quot;&gt;기한 &lt;b&gt;10월&lt;/b&gt;&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;card&quot;&gt;&lt;span class=&quot;c-no&quot;&gt;묶음 3 · 행정&lt;/span&gt;&lt;h3&gt;한 번에 하는 행정&lt;/h3&gt;&lt;p&gt;이동 · 보험 일괄 계약&lt;br&gt;신청 서류 줄이기&lt;/p&gt;&lt;p class=&quot;c-foot&quot;&gt;기한 &lt;b&gt;3월&lt;/b&gt;&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 2개</summary><div class="refs"><a class="ref" href="refs/119.html?v=a69465ce" data-ql><img src="thumbs/119.jpg?v=a69465ce" alt="" loading="lazy" width="640" height="360"><b>위험도 세 묶음 카드 <small>#119</small></b><span>같은 줄 = 같은 질문</span></a><a class="ref" href="refs/87.html?v=8fb6e526" data-ql><img src="thumbs/87.jpg?v=8fb6e526" alt="" loading="lazy" width="640" height="360"><b>네 칸 이관표 <small>#87</small></b><span>결정이 붙은 네 칸 + 넓이 = 시간</span></a></div></details>
+</article>
+<article class="pat" id="p-tree">
+  <a class="shot" href="kit/B-plan.html#5" data-ql data-k="kit/{k}-plan.html#5"><img src="kit/thumbs/B-plan-5.jpg" data-k="kit/thumbs/{k}-plan-5.jpg" alt="체계 견본" loading="lazy" width="640" height="360"></a>
+  <h4>체계 <code>tree</code></h4>
+  <p class="when">비전 → 전략 → 과제, 추진 체계, 조직도</p>
+  <dl><dt>내용 조건</dt><dd>맨 위 1 + 갈래 2~4 + 갈래마다 2~3줄</dd><dt>넘치면</dt><dd>갈래마다 한 장, 또는 표로</dd><dt>부품</dt><dd><code>.tree</code> — 갈래 수는 style=&quot;--n:3&quot;</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;tree&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;02 목표 · 추진 체계&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;세 전략 가운데 &lt;em&gt;찾아가는 교실&lt;/em&gt;에 먼저 힘을 싣습니다&lt;/h2&gt;
+    &lt;div class=&quot;tree fill&quot; style=&quot;--n:3&quot;&gt;
+      &lt;div class=&quot;t-top&quot;&gt;&lt;small&gt;목표&lt;/small&gt;어느 학교에서든 30분 안에 닿는 학교 밖 교실&lt;/div&gt;
+      &lt;div class=&quot;t-mid is-key&quot;&gt;&lt;small&gt;전략 1&lt;/small&gt;찾아가는 교실&lt;/div&gt;
+      &lt;div class=&quot;t-mid&quot;&gt;&lt;small&gt;전략 2&lt;/small&gt;함께 짜는 수업&lt;/div&gt;
+      &lt;div class=&quot;t-mid&quot;&gt;&lt;small&gt;전략 3&lt;/small&gt;한 번에 하는 행정&lt;/div&gt;
+      &lt;ul&gt;&lt;li&gt;예술 공간 버스 2대&lt;/li&gt;&lt;li&gt;군 지역 거점 6곳&lt;/li&gt;&lt;/ul&gt;
+      &lt;ul&gt;&lt;li&gt;공동 설계 연수 연 4회&lt;/li&gt;&lt;li&gt;학년별 수업 모델&lt;/li&gt;&lt;/ul&gt;
+      &lt;ul&gt;&lt;li&gt;이동 · 보험 일괄 계약&lt;/li&gt;&lt;li&gt;신청 서류 한 장으로&lt;/li&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 8개</summary><div class="refs"><a class="ref" href="refs/114.html?v=ae10b2da" data-ql><img src="thumbs/114.jpg?v=ae10b2da" alt="" loading="lazy" width="640" height="360"><b>생애 단계 열 체계도 <small>#114</small></b><span>열 머리 = 생애 단계 셰브런 + 공통 전략은 받침 띠 + 과제 상태 모양 표식(신규■·확대◧·계속□)을 단</span></a><a class="ref" href="refs/97.html?v=d9da857f" data-ql><img src="thumbs/97.jpg?v=d9da857f" alt="" loading="lazy" width="640" height="360"><b>허리 좁은 배경표 <small>#97</small></b><span>좁은 허리 = 핵심 문제 한 칸</span></a><a class="ref" href="refs/93.html?v=b3503ce1" data-ql><img src="thumbs/93.jpg?v=b3503ce1" alt="" loading="lazy" width="640" height="360"><b>줄 맞춘 연차 체계도 <small>#93</small></b><span>체계도 줄 = 연차 칸 줄</span></a><a class="ref" href="refs/85.html?v=83d99cf7" data-ql><img src="thumbs/85.jpg?v=83d99cf7" alt="" loading="lazy" width="640" height="360"><b>층위 표 체계도 <small>#85</small></b><span>층위 머리 칸 + 갈래 척추선</span></a><a class="ref" href="refs/73.html?v=21e5e797" data-ql><img src="thumbs/73.jpg?v=21e5e797" alt="" loading="lazy" width="640" height="360"><b>한 줄로 읽는 체계도 <small>#73</small></b><span>칸 높이 = 과제 수 + 줄 끝 지표 타일</span></a><a class="ref" href="refs/57.html?v=c0307ee6" data-ql><img src="thumbs/57.jpg?v=c0307ee6" alt="" loading="lazy" width="640" height="360"><b>예산 각도 동심원 체계도 <small>#57</small></b><span>부채꼴 각도 = 사업비</span></a><a class="ref" href="refs/56.html?v=99c5e9e3" data-ql><img src="thumbs/56.jpg?v=99c5e9e3" alt="" loading="lazy" width="640" height="360"><b>나비매듭 배경·목적 <small>#56</small></b><span>문제 정의 매듭</span></a><a class="ref" href="refs/54.html?v=3b862fc3" data-ql><img src="thumbs/54.jpg?v=3b862fc3" alt="" loading="lazy" width="640" height="360"><b>기둥과 보 체계도 <small>#54</small></b><span>목표 띠의 가로 범위 = 그 목표를 받치는 전략 열</span></a></div></details>
+</article>
+</div>
+<h3 class="grp">수</h3><div class="pats">
+<article class="pat" id="p-numbers">
+  <a class="shot" href="kit/B.html#6" data-ql data-k="kit/{k}.html#6"><img src="kit/thumbs/B-6.jpg" data-k="kit/thumbs/{k}-6.jpg" alt="큰 숫자 견본" loading="lazy" width="640" height="360"></a>
+  <h4>큰 숫자 <code>numbers</code></h4>
+  <p class="when">핵심 실적 · 규모 · 예산 총액</p>
+  <dl><dt>내용 조건</dt><dd>1~4개, 숫자마다 단위 + 한 줄</dd><dt>넘치면</dt><dd>가장 중요한 3개만</dd><dt>부품</dt><dd><code>.tile</code> (+ <code>.delta</code>)</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;numbers&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;03 핵심 성과&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;참여 학교 &lt;em&gt;138교&lt;/em&gt;, 연계 수업 1,240회가 열렸습니다&lt;/h2&gt;
+    &lt;div class=&quot;grid g4 fill center&quot;&gt;
+      &lt;div class=&quot;tile is-key&quot;&gt;&lt;span&gt;참여 학교&lt;/span&gt;&lt;b&gt;138&lt;small&gt;교&lt;/small&gt;&lt;/b&gt;&lt;span class=&quot;delta&quot;&gt;▲ 64교&lt;/span&gt;&lt;p&gt;2025 시범 대비&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;tile&quot;&gt;&lt;span&gt;연계 수업&lt;/span&gt;&lt;b&gt;1,240&lt;small&gt;회&lt;/small&gt;&lt;/b&gt;&lt;span class=&quot;delta&quot;&gt;▲ 702회&lt;/span&gt;&lt;p&gt;2025 시범 대비&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;tile&quot;&gt;&lt;span&gt;참여 학생&lt;/span&gt;&lt;b&gt;2.1&lt;small&gt;만 명&lt;/small&gt;&lt;/b&gt;&lt;span class=&quot;delta&quot;&gt;▲ 1.2만 명&lt;/span&gt;&lt;p&gt;2025 시범 대비&lt;/p&gt;&lt;/div&gt;
+      &lt;div class=&quot;tile&quot;&gt;&lt;span&gt;예술 공간&lt;/span&gt;&lt;b&gt;46&lt;small&gt;곳&lt;/small&gt;&lt;/b&gt;&lt;span class=&quot;delta&quot;&gt;▲ 19곳&lt;/span&gt;&lt;p&gt;2025 시범 대비&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;src&quot;&gt;자료: ○○교육청 운영 실적(가상 예시)&lt;/p&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 2개</summary><div class="refs"><a class="ref" href="refs/95.html?v=208415d0" data-ql><img src="thumbs/95.jpg?v=208415d0" alt="" loading="lazy" width="640" height="360"><b>판심 대조 지표 <small>#95</small></b><span>접는 줄 = 0선</span></a><a class="ref" href="refs/80.html?v=61c5f8d9" data-ql><img src="thumbs/80.jpg?v=61c5f8d9" alt="" loading="lazy" width="640" height="360"><b>백 칸 중 마흔하나 <small>#80</small></b><span>주인공 숫자 하나는 100칸 + 큰 숫자 + 내역으로 키우고, 받치는 숫자마다 0부터 같은 눈금의 비교 꼬리</span></a></div></details>
+</article>
+<article class="pat" id="p-bars">
+  <a class="shot" href="kit/B.html#7" data-ql data-k="kit/{k}.html#7"><img src="kit/thumbs/B-7.jpg" data-k="kit/thumbs/{k}-7.jpg" alt="막대 비교 견본" loading="lazy" width="640" height="360"></a>
+  <h4>막대 비교 <code>bars</code></h4>
+  <p class="when">항목 간 크기 비교 · 순위 · 목표 대비 실적</p>
+  <dl><dt>내용 조건</dt><dd>3~5줄, 한 가지 단위</dd><dt>넘치면</dt><dd>위 4개 + 나머지 합</dd><dt>부품</dt><dd><code>.goal</code> + <code>.g-row</code> — 목표선이 없으면 .bars + .bar</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;bars&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;03 핵심 성과&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;네 지표 중 셋은 목표를 넘었고, &lt;em&gt;예술 공간&lt;/em&gt;은 92%입니다&lt;/h2&gt;
+    &lt;div class=&quot;goal fill&quot;&gt;
+      &lt;div class=&quot;g-row&quot; style=&quot;--v:88.5;--t:76.9&quot;&gt;&lt;span&gt;참여 학교&lt;/span&gt;&lt;i&gt;&lt;/i&gt;&lt;b&gt;115%&lt;small&gt;138 / 120교&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;
+      &lt;div class=&quot;g-row&quot; style=&quot;--v:95.4;--t:76.9&quot;&gt;&lt;span&gt;연계 수업&lt;/span&gt;&lt;i&gt;&lt;/i&gt;&lt;b&gt;124%&lt;small&gt;1,240 / 1,000회&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;
+      &lt;div class=&quot;g-row&quot; style=&quot;--v:80.8;--t:76.9&quot;&gt;&lt;span&gt;참여 학생&lt;/span&gt;&lt;i&gt;&lt;/i&gt;&lt;b&gt;105%&lt;small&gt;2.1 / 2만 명&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;
+      &lt;div class=&quot;g-row is-key&quot; style=&quot;--v:70.8;--t:76.9&quot;&gt;&lt;span&gt;예술 공간&lt;/span&gt;&lt;i&gt;&lt;/i&gt;&lt;b&gt;92%&lt;small&gt;46 / 50곳&lt;/small&gt;&lt;/b&gt;&lt;/div&gt;
+      &lt;p class=&quot;g-key&quot;&gt;&lt;span&gt;&lt;i class=&quot;v&quot;&gt;&lt;/i&gt;달성률&lt;/span&gt;&lt;span&gt;&lt;i class=&quot;t&quot;&gt;&lt;/i&gt;목표(100%)&lt;/span&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;src&quot;&gt;자료: ○○교육청 운영 실적(가상 예시)&lt;/p&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 7개</summary><div class="refs"><a class="ref" href="refs/111.html?v=13e48c83" data-ql><img src="thumbs/111.jpg?v=13e48c83" alt="" loading="lazy" width="640" height="360"><b>배정 칸 붙은 순위표 <small>#111</small></b><span>순위 줄 끝에 배정 칸을 붙인다</span></a><a class="ref" href="refs/78.html?v=527ea271" data-ql><img src="thumbs/78.jpg?v=527ea271" alt="" loading="lazy" width="640" height="360"><b>지표 상태창 <small>#78</small></b><span>남은 칸</span></a><a class="ref" href="refs/77.html?v=5e5bc7e0" data-ql><img src="thumbs/77.jpg?v=5e5bc7e0" alt="" loading="lazy" width="640" height="360"><b>기준선 격차 배경·목적 <small>#77</small></b><span>기준선 격차 막대</span></a><a class="ref" href="refs/72.html?v=b831405d" data-ql><img src="thumbs/72.jpg?v=b831405d" alt="" loading="lazy" width="640" height="360"><b>확대 지시선 배경·목적 <small>#72</small></b><span>확대 지시선</span></a><a class="ref" href="refs/51.html?v=cdd89533" data-ql><img src="thumbs/51.jpg?v=cdd89533" alt="" loading="lazy" width="640" height="360"><b>낱칸 시·군 지도 <small>#51</small></b><span>칸 하나 = 학교 1교</span></a><a class="ref" href="refs/49.html?v=395bf975" data-ql><img src="thumbs/49.jpg?v=395bf975" alt="" loading="lazy" width="640" height="360"><b>조사 완료선 정렬 비교 <small>#49</small></b><span>기준선 정렬 + 치수선</span></a><a class="ref" href="refs/20.html?v=e8856a1f" data-ql><img src="thumbs/20.jpg?v=e8856a1f" alt="" loading="lazy" width="640" height="360"><b>예산집행 레이스 <small>#20</small></b><span>결승선 통과 순서대로 한 줄씩 채워지는 순위 기록판 + 목표선 앞 미달 정지·빗금 간극(−%p) 표시</span></a></div></details>
+</article>
+<article class="pat" id="p-trend">
+  <a class="shot" href="kit/B-plan.html#3" data-ql data-k="kit/{k}-plan.html#3"><img src="kit/thumbs/B-plan-3.jpg" data-k="kit/thumbs/{k}-plan-3.jpg" alt="추이 견본" loading="lazy" width="640" height="360"></a>
+  <h4>추이 <code>trend</code></h4>
+  <p class="when">여러 해 · 여러 달에 걸친 변화</p>
+  <dl><dt>내용 조건</dt><dd>3~8시점, 한 가지 값</dd><dt>넘치면</dt><dd>시점을 줄인다</dd><dt>부품</dt><dd><code>.trend</code> — 가장 큰 값 = --v:100</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;trend&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;01 추진 배경&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;참여 학교는 4년 새 &lt;em&gt;여섯 배&lt;/em&gt;로 늘었습니다&lt;/h2&gt;
+    &lt;div class=&quot;trend fill&quot;&gt;
+      &lt;div style=&quot;--v:17&quot;&gt;&lt;b&gt;23&lt;small&gt;교&lt;/small&gt;&lt;/b&gt;&lt;i&gt;&lt;/i&gt;&lt;span&gt;2023&lt;/span&gt;&lt;/div&gt;
+      &lt;div style=&quot;--v:30&quot;&gt;&lt;b&gt;41&lt;small&gt;교&lt;/small&gt;&lt;/b&gt;&lt;i&gt;&lt;/i&gt;&lt;span&gt;2024&lt;/span&gt;&lt;/div&gt;
+      &lt;div style=&quot;--v:54&quot;&gt;&lt;b&gt;74&lt;small&gt;교&lt;/small&gt;&lt;/b&gt;&lt;i&gt;&lt;/i&gt;&lt;span&gt;2025&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;is-key&quot; style=&quot;--v:100&quot;&gt;&lt;b&gt;138&lt;small&gt;교&lt;/small&gt;&lt;/b&gt;&lt;i&gt;&lt;/i&gt;&lt;span&gt;2026&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;src&quot;&gt;자료: ○○교육청 운영 실적(가상 예시)&lt;/p&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 4개</summary><div class="refs"><a class="ref" href="refs/118.html?v=a876d01a" data-ql><img src="thumbs/118.jpg?v=a876d01a" alt="" loading="lazy" width="640" height="360"><b>곱셈 줄 붙은 겸용 차트 <small>#118</small></b><span>축 아래 곱셈 줄</span></a><a class="ref" href="refs/88.html?v=98443cdd" data-ql><img src="thumbs/88.jpg?v=98443cdd" alt="" loading="lazy" width="640" height="360"><b>같은 출발 100 <small>#88</small></b><span>같은 출발 100</span></a><a class="ref" href="refs/48.html?v=c4747817" data-ql><img src="thumbs/48.jpg?v=c4747817" alt="" loading="lazy" width="640" height="360"><b>세 줄 나란히 추이 <small>#48</small></b><span>줄마다 따로 그린 추이 + 공통 눈금 증감률 열</span></a><a class="ref" href="refs/41.html?v=9ab1117b" data-ql><img src="thumbs/41.jpg?v=9ab1117b" alt="" loading="lazy" width="640" height="360"><b>타이밍 타워 순위표 <small>#41</small></b><span>타워 + 궤적 접합</span></a></div></details>
+</article>
+<article class="pat" id="p-share">
+  <a class="shot" href="kit/B-plan.html#10" data-ql data-k="kit/{k}-plan.html#10"><img src="kit/thumbs/B-plan-10.jpg" data-k="kit/thumbs/{k}-plan-10.jpg" alt="구성비 견본" loading="lazy" width="640" height="360"></a>
+  <h4>구성비 <code>share</code></h4>
+  <p class="when">전체 중 몫 · 재원 비율</p>
+  <dl><dt>내용 조건</dt><dd>2~5조각, 합 100%</dd><dt>넘치면</dt><dd>작은 조각은 기타로</dd><dt>부품</dt><dd><code>.share</code> + <code>.sh-bar</code> — 설문 다섯 단계 응답은 .likert</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;share&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;04 일정 · 예산&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;재원의 &lt;em&gt;45%&lt;/em&gt;는 교육청 자체 예산으로 맡습니다&lt;/h2&gt;
+    &lt;div class=&quot;share fill&quot;&gt;
+      &lt;div class=&quot;sh-bar&quot;&gt;&lt;i class=&quot;is-key&quot; style=&quot;--v:45&quot;&gt;&lt;/i&gt;&lt;i style=&quot;--v:30&quot;&gt;&lt;/i&gt;&lt;i style=&quot;--v:25&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+      &lt;ul&gt;
+        &lt;li class=&quot;is-key&quot;&gt;&lt;span&gt;교육청 자체&lt;/span&gt;&lt;b&gt;45&lt;small&gt;%&lt;/small&gt;&lt;/b&gt;&lt;p&gt;5.4억 원 · 이동 지원 전액&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;span&gt;국고 보조&lt;/span&gt;&lt;b&gt;30&lt;small&gt;%&lt;/small&gt;&lt;/b&gt;&lt;p&gt;3.6억 원 · 수업 운영&lt;/p&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;span&gt;지자체 대응&lt;/span&gt;&lt;b&gt;25&lt;small&gt;%&lt;/small&gt;&lt;/b&gt;&lt;p&gt;3.0억 원 · 계약 · 보험&lt;/p&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;src&quot;&gt;자료: ○○교육청 2027 예산안(가상 예시)&lt;/p&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 5개</summary><div class="refs"><a class="ref" href="refs/120.html?v=fcd13312" data-ql><img src="thumbs/120.jpg?v=fcd13312" alt="" loading="lazy" width="640" height="360"><b>경계선 이은 100% 막대 <small>#120</small></b><span>경계를 잇는 점선 하나</span></a><a class="ref" href="refs/112.html?v=2489872c" data-ql><img src="thumbs/112.jpg?v=2489872c" alt="" loading="lazy" width="640" height="360"><b>원인으로 다시 모은 칸 <small>#112</small></b><span>같은 칸을 두 번 센다</span></a><a class="ref" href="refs/89.html?v=116df7c9" data-ql><img src="thumbs/89.jpg?v=116df7c9" alt="" loading="lazy" width="640" height="360"><b>펼친 조각 구성비 <small>#89</small></b><span>조각 펼침 + 칸 높이 = 카드 높이</span></a><a class="ref" href="refs/79.html?v=d087ac20" data-ql><img src="thumbs/79.jpg?v=d087ac20" alt="" loading="lazy" width="640" height="360"><b>이어지는 재원 비중 <small>#79</small></b><span>이어지는 띠 + 절반선</span></a><a class="ref" href="refs/50.html?v=2a9d1786" data-ql><img src="thumbs/50.jpg?v=2a9d1786" alt="" loading="lazy" width="640" height="360"><b>재원 지분 마리메코 <small>#50</small></b><span>기준선 하나를 합계 막대 경계까지 잇는다</span></a></div></details>
+</article>
+<article class="pat" id="p-table">
+  <a class="shot" href="kit/B-plan.html#9" data-ql data-k="kit/{k}-plan.html#9"><img src="kit/thumbs/B-plan-9.jpg" data-k="kit/thumbs/{k}-plan-9.jpg" alt="표 견본" loading="lazy" width="640" height="360"></a>
+  <h4>표 <code>table</code></h4>
+  <p class="when">표로 된 지원 내용 · 항목 목록 · 예산 내역</p>
+  <dl><dt>내용 조건</dt><dd>3~5행 × 3~4열, 칸마다 1줄</dd><dt>넘치면</dt><dd>6행부터 두 장, 또는 핵심 열만</dd><dt>부품</dt><dd><code>.tbl</code></dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;table&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;04 일정 · 예산&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;총 12억 원 가운데 &lt;em&gt;이동 지원&lt;/em&gt;에 5.4억 원을 씁니다&lt;/h2&gt;
+    &lt;div class=&quot;fill stack&quot;&gt;
+      &lt;table class=&quot;tbl&quot;&gt;
+        &lt;thead&gt;&lt;tr&gt;&lt;th&gt;묶음&lt;/th&gt;&lt;th&gt;주요 내용&lt;/th&gt;&lt;th&gt;2026&lt;/th&gt;&lt;th&gt;2027&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr class=&quot;is-key&quot;&gt;&lt;td&gt;이동&lt;/td&gt;&lt;td&gt;버스 2대 · 거점 6곳&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;1.8억&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;5.4억&lt;/td&gt;&lt;/tr&gt;
+          &lt;tr&gt;&lt;td&gt;수업&lt;/td&gt;&lt;td&gt;설계 연수 · 수업 모델&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;3.1억&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;3.6억&lt;/td&gt;&lt;/tr&gt;
+          &lt;tr&gt;&lt;td&gt;행정&lt;/td&gt;&lt;td&gt;일괄 계약 · 보험&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;1.9억&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;3.0억&lt;/td&gt;&lt;/tr&gt;
+        &lt;/tbody&gt;
+        &lt;tfoot&gt;&lt;tr&gt;&lt;td&gt;합계&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;6.8억&lt;/td&gt;&lt;td class=&quot;n&quot;&gt;12.0억&lt;/td&gt;&lt;/tr&gt;&lt;/tfoot&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;src&quot;&gt;자료: ○○교육청 2027 예산안(가상 예시)&lt;/p&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 5개</summary><div class="refs"><a class="ref" href="refs/113.html?v=898db40c" data-ql><img src="thumbs/113.jpg?v=898db40c" alt="" loading="lazy" width="640" height="360"><b>옮겨 간 칸 분담표 <small>#113</small></b><span>옮겨 간 칸 화살표 + 열 바닥 칸 집계</span></a><a class="ref" href="refs/92.html?v=004e5ee9" data-ql><img src="thumbs/92.jpg?v=004e5ee9" alt="" loading="lazy" width="640" height="360"><b>세 단계 지원 목록창 <small>#92</small></b><span>넘어오는 조건을 적은 묶음 머리줄 + 목록·상세 창</span></a><a class="ref" href="refs/81.html?v=ab07387c" data-ql><img src="thumbs/81.jpg?v=ab07387c" alt="" loading="lazy" width="640" height="360"><b>판본 목록표 <small>#81</small></b><span>표 안의 12칸 월 띠 + 세로로 더한 합계 행</span></a><a class="ref" href="refs/53.html?v=c081d9d6" data-ql><img src="thumbs/53.jpg?v=c081d9d6" alt="" loading="lazy" width="640" height="360"><b>밑줄 대조표 <small>#53</small></b><span>바뀌는 말만 표시</span></a><a class="ref" href="refs/47.html?v=4b5084c7" data-ql><img src="thumbs/47.jpg?v=4b5084c7" alt="" loading="lazy" width="640" height="360"><b>눈금 머리 과제표 <small>#47</small></b><span>눈금 머리</span></a></div></details>
+</article>
+</div>
+<h3 class="grp">시간</h3><div class="pats">
+<article class="pat" id="p-timeline">
+  <a class="shot" href="kit/B-lecture.html#2" data-ql data-k="kit/{k}-lecture.html#2"><img src="kit/thumbs/B-lecture-2.jpg" data-k="kit/thumbs/{k}-lecture-2.jpg" alt="일정 견본" loading="lazy" width="640" height="360"></a>
+  <h4>일정 <code>timeline</code></h4>
+  <p class="when">추진 일정 · 연혁 · 과정 지도</p>
+  <dl><dt>내용 조건</dt><dd>이정표 3~5개(.mile) 또는 줄 3~5개 × 12달(.gantt)</dd><dt>넘치면</dt><dd>분기 · 학기로 묶는다</dd><dt>부품</dt><dd><code>.mile</code> — 달 단위 기간이 겹치면 .gantt</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;timeline&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;과정 지도&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;세 차시 가운데 오늘은 &lt;em&gt;문서를 나누는 법&lt;/em&gt;을 익힙니다&lt;/h2&gt;
+    &lt;ol class=&quot;mile fill&quot;&gt;
+      &lt;li class=&quot;is-key&quot;&gt;&lt;time&gt;1차시&lt;/time&gt;&lt;b&gt;문서를 장표로 나누기&lt;/b&gt;&lt;p&gt;문단마다 모양을 고른다&lt;/p&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;time&gt;2차시&lt;/time&gt;&lt;b&gt;AI에게 맡기기&lt;/b&gt;&lt;p&gt;주소와 문서를 주고 덱을 받는다&lt;/p&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;time&gt;3차시&lt;/time&gt;&lt;b&gt;고쳐서 발표하기&lt;/b&gt;&lt;p&gt;숫자를 대조하고 다듬는다&lt;/p&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+<details class="vars"><summary>참고할 변주 2개</summary><div class="refs"><a class="ref" href="refs/86.html?v=5ab682b7" data-ql><img src="thumbs/86.jpg?v=5ab682b7" alt="" loading="lazy" width="640" height="360"><b>열두 달 고리 <small>#86</small></b><span>고리 = 갈래, 각도 = 달</span></a><a class="ref" href="refs/23.html?v=6b3acddb" data-ql><img src="thumbs/23.jpg?v=6b3acddb" alt="" loading="lazy" width="640" height="360"><b>주 경로 간트 <small>#23</small></b><span>간트 하나, 강조 한 줄. 담백하다</span></a></div></details>
+</article>
+</div>
+<h3 class="grp">그림</h3><div class="pats">
+<article class="pat" id="p-photo">
+  <a class="shot" href="kit/B.html#10" data-ql data-k="kit/{k}.html#10"><img src="kit/thumbs/B-10.jpg" data-k="kit/thumbs/{k}-10.jpg" alt="사진+글 견본" loading="lazy" width="640" height="360"></a>
+  <h4>사진+글 <code>photo</code></h4>
+  <p class="when">사례 · 현장 사진 · 활동 모습</p>
+  <dl><dt>내용 조건</dt><dd>사진 1~3장, 사진마다 제목 + 한 줄 + 말 한마디</dd><dt>넘치면</dt><dd>사진마다 한 장</dd><dt>부품</dt><dd><code>.case</code> + <code>.ph</code> — 사진은 사용자에게 받는다. 없으면 .ph data-need 로 자리만</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;photo&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;04 우수 사례&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;세 학교는 &lt;em&gt;교과 시간 안에서&lt;/em&gt; 학교 밖 수업을 정례화했습니다&lt;/h2&gt;
+    &lt;div class=&quot;case fill&quot;&gt;
+      &lt;div&gt;&lt;div class=&quot;ph&quot; data-need=&quot;사진 자리 · 4:3 · 공방에서 도자기를 빚는 초등학생&quot;&gt;&lt;/div&gt;&lt;div class=&quot;c-body&quot;&gt;&lt;span&gt;○○초 · 5학년 미술&lt;/span&gt;&lt;b&gt;공방에서 빚은 도자기로 학년 전시&lt;/b&gt;&lt;blockquote&gt;흙을 직접 만져 보니 교과서 사진이 달라 보였어요.&lt;cite&gt;5학년 학생&lt;/cite&gt;&lt;/blockquote&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;is-key&quot;&gt;&lt;div class=&quot;ph&quot; data-need=&quot;사진 자리 · 4:3 · 극장 무대에서 낭독하는 중학생&quot;&gt;&lt;/div&gt;&lt;div class=&quot;c-body&quot;&gt;&lt;span&gt;△△중 · 2학년 국어&lt;/span&gt;&lt;b&gt;극장 무대에서 낭독극 발표&lt;/b&gt;&lt;blockquote&gt;무대에 서 보니 글을 읽는 목소리가 달라졌어요.&lt;cite&gt;2학년 학생&lt;/cite&gt;&lt;/blockquote&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;div class=&quot;ph&quot; data-need=&quot;사진 자리 · 4:3 · 오케스트라와 함께 연주하는 초등학생&quot;&gt;&lt;/div&gt;&lt;div class=&quot;c-body&quot;&gt;&lt;span&gt;□□초 · 4학년 음악&lt;/span&gt;&lt;b&gt;지역 오케스트라와 합동 연주&lt;/b&gt;&lt;blockquote&gt;아이들이 처음으로 진짜 악기 소리를 가까이에서 들었습니다.&lt;cite&gt;담당 교사&lt;/cite&gt;&lt;/blockquote&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+<article class="pat" id="p-screen">
+  <a class="shot" href="kit/B-lecture.html#10" data-ql data-k="kit/{k}-lecture.html#10"><img src="kit/thumbs/B-lecture-10.jpg" data-k="kit/thumbs/{k}-lecture-10.jpg" alt="화면 짚기 견본" loading="lazy" width="640" height="360"></a>
+  <h4>화면 짚기 <code>screen</code></h4>
+  <p class="when">프로그램 화면 · 서식 · 누리집 사용법</p>
+  <dl><dt>내용 조건</dt><dd>캡처 1장 + 번호 표시 3개 이하</dd><dt>넘치면</dt><dd>동작 하나에 한 장</dd><dt>부품</dt><dd><code>.shot</code> + <code>.shot-img</code> — 번호 자리는 style=&quot;--x:%;--y:%&quot;</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;screen&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;03 시연 · 화면 짚기&lt;/p&gt;
+    &lt;h2 class=&quot;title&quot;&gt;대화창에는 &lt;em&gt;주소와 문서&lt;/em&gt; 두 가지만 넣습니다&lt;/h2&gt;
+    &lt;div class=&quot;shot fill&quot;&gt;
+      &lt;div class=&quot;shot-img&quot;&gt;&lt;div class=&quot;ph&quot; data-need=&quot;화면 캡처 자리 · 16:10 · 채팅 AI 대화창에 주소와 한글 문서를 넣은 모습&quot;&gt;&lt;/div&gt;&lt;b style=&quot;--x:22;--y:78&quot;&gt;1&lt;/b&gt;&lt;b class=&quot;is-key&quot; style=&quot;--x:52;--y:78&quot;&gt;2&lt;/b&gt;&lt;b style=&quot;--x:90;--y:78&quot;&gt;3&lt;/b&gt;&lt;/div&gt;
+      &lt;ol&gt;
+        &lt;li&gt;&lt;b&gt;문서 올리기&lt;/b&gt;&lt;span&gt;클립 단추로 한글 문서를 첨부&lt;/span&gt;&lt;/li&gt;
+        &lt;li class=&quot;is-key&quot;&gt;&lt;b&gt;주소 붙이기&lt;/b&gt;&lt;span&gt;디자인 레퍼런스 주소를 그대로&lt;/span&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;b&gt;보내기&lt;/b&gt;&lt;span&gt;구성안이 먼저 나옵니다&lt;/span&gt;&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+</div>
+<h3 class="grp">청중에게</h3><div class="pats">
+<article class="pat" id="p-ask">
+  <a class="shot" href="kit/B-lecture.html#5" data-ql data-k="kit/{k}-lecture.html#5"><img src="kit/thumbs/B-lecture-5.jpg" data-k="kit/thumbs/{k}-lecture-5.jpg" alt="질문 견본" loading="lazy" width="640" height="360"></a>
+  <h4>질문 <code>ask</code></h4>
+  <p class="when">여는 질문 · 토의 주제 · 퀴즈 · 자주 묻는 질문</p>
+  <dl><dt>내용 조건</dt><dd>질문 1개 + 보기 4개 이하(ol) 또는 답 1개(.a-a)</dd><dt>넘치면</dt><dd>질문마다 한 장</dd><dt>부품</dt><dd><code>.ask</code> — 퀴즈 답은 .a-a 에 data-step=&quot;1&quot; 을 붙여 가렸다 연다. 이 장은 .title 없이</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;ask&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;01 열기 · 여는 질문&lt;/p&gt;
+    &lt;div class=&quot;ask fill&quot;&gt;
+      &lt;p class=&quot;a-q&quot;&gt;발표 자료를 만들 때 가장 오래 걸리는 일은 무엇인가요?&lt;/p&gt;
+      &lt;ol&gt;
+        &lt;li&gt;문서에서 넣을 내용 고르기&lt;/li&gt;
+        &lt;li&gt;어떤 모양으로 보여 줄지 정하기&lt;/li&gt;
+        &lt;li&gt;색 · 글꼴 · 줄 맞추기&lt;/li&gt;
+        &lt;li&gt;그림 · 사진 찾기&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre><pre><code>&lt;section data-pattern=&quot;ask&quot; class=&quot;slide&quot; data-steps=&quot;1&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;04 실습 · 확인&lt;/p&gt;
+    &lt;div class=&quot;ask fill&quot;&gt;
+      &lt;p class=&quot;a-q&quot;&gt;&quot;2024년 41교, 2025년 74교, 2026년 138교&quot;는 어떤 기본 장표일까요?&lt;/p&gt;
+      &lt;p class=&quot;a-a&quot; data-step=&quot;1&quot;&gt;&lt;b&gt;답&lt;/b&gt;추이 — 숫자가 주인공이고 시간 축이 있습니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+<article class="pat" id="p-todo">
+  <a class="shot" href="kit/B-lecture.html#12" data-ql data-k="kit/{k}-lecture.html#12"><img src="kit/thumbs/B-lecture-12.jpg" data-k="kit/thumbs/{k}-lecture-12.jpg" alt="할 일 견본" loading="lazy" width="640" height="360"></a>
+  <h4>할 일 <code>todo</code></h4>
+  <p class="when">실습 안내 · 과제 · 제출 서류 · 신청 기한</p>
+  <dl><dt>내용 조건</dt><dd>할 일 한 문장 + 조건 칸 2~3개(시간 · 결과물 · 도움)</dd><dt>넘치면</dt><dd>할 일마다 한 장</dd><dt>부품</dt><dd><code>.todo</code> — 이 장은 .title 없이</dd></dl>
+  <details class="code"><summary>견본 코드</summary><pre><code>&lt;section data-pattern=&quot;todo&quot; class=&quot;slide&quot;&gt;
+  &lt;div class=&quot;s-body&quot;&gt;
+    &lt;p class=&quot;kicker&quot;&gt;04 실습&lt;/p&gt;
+    &lt;div class=&quot;todo fill&quot;&gt;
+      &lt;p class=&quot;t-do&quot;&gt;내 계획안에서 문단 &lt;em&gt;세 개&lt;/em&gt;를 골라&lt;br&gt;기본 장표를 하나씩 정해 봅니다&lt;/p&gt;
+      &lt;dl&gt;
+        &lt;div&gt;&lt;dt&gt;시간&lt;/dt&gt;&lt;dd&gt;15분&lt;small&gt;10분 혼자, 5분 옆 사람과&lt;/small&gt;&lt;/dd&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;dt&gt;결과물&lt;/dt&gt;&lt;dd&gt;문단 – 장표 짝 3개&lt;small&gt;실습지 1쪽에 적습니다&lt;/small&gt;&lt;/dd&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;dt&gt;막히면&lt;/dt&gt;&lt;dd&gt;고르는 순서 여섯 줄&lt;small&gt;실습지 뒷면에 있습니다&lt;/small&gt;&lt;/dd&gt;&lt;/div&gt;
+      &lt;/dl&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;span class=&quot;page-no&quot;&gt;&lt;/span&gt;
+&lt;/section&gt;</code></pre></details>
+</article>
+</div></section>
+<section id="shell"><h2>HTML 뼈대와 상징 부품 <small>AI가 덱을 쓸 때 그대로 가져다 씁니다</small></h2>
+<details><summary>6. HTML 뼈대</summary><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ko&quot; data-kit=&quot;{계열}&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;title&gt;발표 제목&lt;/title&gt;
+&lt;!-- 이 계열의 공통 CSS(글꼴 · 색 · 부품). 주소를 바꾸지 마세요 --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://szxv7704-dot.github.io/design-reference-gallery/kit/v1/{계열}.css&quot;&gt;
+&lt;style&gt;
+/* === 추가 부품: 새 클래스가 꼭 필요할 때만 이 줄 아래에(토큰 변수만 사용) === */
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;deck&quot;&gt;&lt;main class=&quot;deck-stage&quot;&gt;
 
-<dialog class="ql" id="ql" aria-labelledby="qlTitle">
-  <div class="ql-in">
-    <div class="ql-view"><iframe id="qlFrame" title="장표 미리보기" loading="lazy"></iframe></div>
-    <div class="ql-side" id="qlSide"></div>
-  </div>
-</dialog>
+&lt;!-- 여기에 &lt;section class=&quot;slide&quot;&gt; 를 장 수만큼 --&gt;
 
+&lt;/main&gt;&lt;/div&gt;
+&lt;!-- 동작 엔진. 주소를 바꾸지 마세요 --&gt;
+&lt;script src=&quot;https://szxv7704-dot.github.io/design-reference-gallery/kit/v1/deck.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ul><li><code>{계열}</code> 두 곳을 A · B · C · D 중 하나로 바꿉니다.</li><li>열 때 인터넷이 필요합니다. AI 화면 안 미리보기에서 색 · 모양이 안 보여도 고치지 마세요(바깥 파일을 막는 미리보기가 있습니다). 내려받아 브라우저로 열면 정상입니다.</li></ul></details>
+<details><summary>7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)</summary><p>견본 코드(8)의 <code>&lt;!-- 상징 부품 --&gt;</code> 자리에 고른 계열의 코드를 넣습니다. 아래는 섹션이 5개이고 지금 2섹션일 때입니다. 칸(<code>&lt;i&gt;</code>) 수 = 섹션 수(5개까지).</p>
+<div class="tw"><table><thead><tr><th>계열</th><th>표지</th><th>목차(지금 2섹션)</th><th>간지(지금 2섹션)</th><th>맺음</th></tr></thead><tbody><tr><td>A</td><td><code>&lt;div class=&quot;prog&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;prog&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i class=&quot;next&quot;&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;prog&quot; aria-hidden=&quot;true&quot;&gt;&lt;i class=&quot;done&quot;&gt;&lt;/i&gt;&lt;i class=&quot;now&quot;&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;prog&quot; aria-hidden=&quot;true&quot;&gt;&lt;i class=&quot;done&quot;&gt;&lt;/i&gt;&lt;i class=&quot;done&quot;&gt;&lt;/i&gt;&lt;i class=&quot;done&quot;&gt;&lt;/i&gt;&lt;i class=&quot;done&quot;&gt;&lt;/i&gt;&lt;i class=&quot;done&quot;&gt;&lt;/i&gt;&lt;/div&gt;</code></td></tr><tr><td>B</td><td><code>&lt;div class=&quot;mass&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i class=&quot;lit&quot;&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;mass&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i class=&quot;lit&quot;&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;mass&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i class=&quot;lit&quot;&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;spot&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;</code></td></tr><tr><td>C</td><td><code>&lt;div class=&quot;blocks&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;blocks&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i class=&quot;now&quot;&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;blocks&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i class=&quot;now&quot;&gt;&lt;/i&gt;&lt;i class=&quot;ghost&quot;&gt;&lt;/i&gt;&lt;i class=&quot;ghost&quot;&gt;&lt;/i&gt;&lt;i class=&quot;ghost&quot;&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;blocks flag&quot; aria-hidden=&quot;true&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;</code></td></tr><tr><td>D</td><td><code>&lt;div class=&quot;reg&quot; aria-hidden=&quot;true&quot;&gt;&lt;b&gt;2027&lt;/b&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;reg&quot; aria-hidden=&quot;true&quot;&gt;&lt;b&gt;02&lt;/b&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;reg is-off&quot; aria-hidden=&quot;true&quot;&gt;&lt;b&gt;02&lt;/b&gt;&lt;i class=&quot;crop&quot;&gt;&lt;/i&gt;&lt;/div&gt;</code></td><td><code>&lt;div class=&quot;reg&quot; aria-hidden=&quot;true&quot;&gt;&lt;b&gt;끝&lt;/b&gt;&lt;/div&gt;</code></td></tr></tbody></table></div>
+<ul><li>A: 진행 칸(<code>.prog</code>)을 씁니다. 칸 수 = 섹션 수, 목차는 다음 칸 <code>.next</code>, 간지는 지난 칸 <code>.done</code> · 지금 칸 <code>.now</code>, 맺음은 모두 <code>.done</code>.</li><li>B: 모형대 매스(<code>.mass</code>)를 씁니다. 목차 · 간지의 <code>.lit</code> 층 = 지금 섹션(아래층이 1섹션). 맺음은 <code>.spot</code>.</li><li>C: 블록 탑(<code>.blocks</code>)을 씁니다. 블록 수 = 섹션 수(아래가 1섹션), 간지는 지금 층까지만 놓고 남은 층은 <code>.ghost</code>, 맺음은 <code>.flag</code>.</li><li>D: 판 번호(<code>.reg</code>)를 씁니다. 큰 명조 숫자 하나에 주홍 판이 4px 어긋나는 곳은 덱 전체에서 간지뿐, 재단 표시(<code>.crop</code>)도 간지에만.</li></ul></details>
+<details><summary>9. 출력과 점검</summary><ul><li>결과는 <b><code>.html</code> 파일 하나</b>(UTF-8)로 줍니다. 파일을 만들 수 있는 기능(아티팩트 · 캔버스 · 파일 첨부)이 있으면 그것으로, 없을 때만 HTML 전체를 코드 블록 하나로 출력합니다.</li><li><code>...</code>, &quot;(생략)&quot;, &quot;(이하 동일)&quot;을 쓰지 않습니다. <code>&lt;!DOCTYPE html&gt;</code>부터 <code>&lt;/html&gt;</code>까지 전부 씁니다.</li></ul>
+<p>내보내기 전에 하나씩 확인합니다.</p>
+<ol><li>문서에 없고 확인도 받지 않은 숫자 · 사실이 없는가? 수치가 있는 장마다 <code>.src</code>가 있는가?</li><li>장마다 기본 장표가 하나이고, 내용 조건(항목 수 · 줄 수)을 넘지 않는가?</li><li>제목이 결론 한 문장이고 두 줄 이내인가? 강조(<code>&lt;em&gt;</code> · <code>.is-key</code>)가 장마다 한 곳인가?</li><li>쓴 클래스가 모두 견본 코드(8) 또는 &#x27;추가 부품&#x27; 칸에 있는가? 인라인 style은 허용된 값뿐인가? 코드로 그린 그림이 없는가?</li><li>공통 파일 두 줄이 그대로이고, 장 번호 · 쪽 표시를 손으로 쓰지 않았는가?</li><li>견본의 예시 문구가 남아 있지 않은가? 생략 없이 끝까지 썼는가?</li><li>사진 · 캡처 자리(<code>data-need</code>)가 있으면, 어떤 이미지가 필요한지 사용자에게 목록으로 알려 주었는가?</li></ol></details>
+</section>
+<section id="more"><h2>참고 서랍 <small>덱에 조립하는 재료가 아닙니다. AI는 건너뛰어도 됩니다</small></h2>
+<details><summary>영감 31개 — 눌러서 조작하는 표지 · 재질 질감 · 자체 진행 방식</summary><div class="refs"><a class="ref" href="refs/109.html?v=8c171160" data-ql><img src="thumbs/109.jpg?v=8c171160" alt="" loading="lazy" width="640" height="360"><b>피사체는 그대로, 시선은 새로 <small>#109</small></b></a><a class="ref" href="refs/108.html?v=a78e56c8" data-ql><img src="thumbs/108.jpg?v=a78e56c8" alt="" loading="lazy" width="640" height="360"><b>내가 보이시나요? <small>#108</small></b></a><a class="ref" href="refs/106.html?v=09a21c89" data-ql><img src="thumbs/106.jpg?v=09a21c89" alt="" loading="lazy" width="640" height="360"><b>새로운 일상이 도착했습니다 <small>#106</small></b></a><a class="ref" href="refs/102.html?v=2ccf3e40" data-ql><img src="thumbs/102.jpg?v=2ccf3e40" alt="" loading="lazy" width="640" height="360"><b>익숙함에 틈을 내다 <small>#102</small></b></a><a class="ref" href="refs/101.html?v=394afa5d" data-ql><img src="thumbs/101.jpg?v=394afa5d" alt="" loading="lazy" width="640" height="360"><b>빙산 아래로 <small>#101</small></b></a><a class="ref" href="refs/100.html?v=298d36a8" data-ql><img src="thumbs/100.jpg?v=298d36a8" alt="" loading="lazy" width="640" height="360"><b>길 따라 연수 일정 <small>#100</small></b></a><a class="ref" href="refs/99.html?v=90820f70" data-ql><img src="thumbs/99.jpg?v=90820f70" alt="" loading="lazy" width="640" height="360"><b>빛나는 단어 더미 <small>#99</small></b></a><a class="ref" href="refs/98.html?v=3b582b43" data-ql><img src="thumbs/98.jpg?v=3b582b43" alt="" loading="lazy" width="640" height="360"><b>여섯 장면 미술관 <small>#98</small></b></a><a class="ref" href="refs/75.html?v=5d7a51af" data-ql><img src="thumbs/75.jpg?v=5d7a51af" alt="" loading="lazy" width="640" height="360"><b>체험의 숲 <small>#75</small></b></a><a class="ref" href="refs/74.html?v=e551da13" data-ql><img src="thumbs/74.jpg?v=e551da13" alt="" loading="lazy" width="640" height="360"><b>별을 잇다 <small>#74</small></b></a><a class="ref" href="refs/71.html?v=bb03f6bd" data-ql><img src="thumbs/71.jpg?v=bb03f6bd" alt="" loading="lazy" width="640" height="360"><b>미래교육 설계도 <small>#71</small></b></a><a class="ref" href="refs/44.html?v=406d21eb" data-ql><img src="thumbs/44.jpg?v=406d21eb" alt="" loading="lazy" width="640" height="360"><b>분자 결합 추진체계 <small>#44</small></b></a><a class="ref" href="refs/43.html?v=5c9eda3c" data-ql><img src="thumbs/43.jpg?v=5c9eda3c" alt="" loading="lazy" width="640" height="360"><b>칸막이 벤토 상자 <small>#43</small></b></a><a class="ref" href="refs/40.html?v=bec59b31" data-ql><img src="thumbs/40.jpg?v=bec59b31" alt="" loading="lazy" width="640" height="360"><b>도미노 일정표 <small>#40</small></b></a><a class="ref" href="refs/38.html?v=e4787f91" data-ql><img src="thumbs/38.jpg?v=e4787f91" alt="" loading="lazy" width="640" height="360"><b>열섬 육각 지형 <small>#38</small></b></a><a class="ref" href="refs/36.html?v=2ddfe661" data-ql><img src="thumbs/36.jpg?v=2ddfe661" alt="" loading="lazy" width="640" height="360"><b>유지선을 넘는 유리 적층 <small>#36</small></b></a><a class="ref" href="refs/35.html?v=b23ba403" data-ql><img src="thumbs/35.jpg?v=b23ba403" alt="" loading="lazy" width="640" height="360"><b>세로 스와이프 카드 <small>#35</small></b></a><a class="ref" href="refs/34.html?v=007e06a2" data-ql><img src="thumbs/34.jpg?v=007e06a2" alt="" loading="lazy" width="640" height="360"><b>허브 내비게이션 업무보고 <small>#34</small></b></a><a class="ref" href="refs/33.html?v=9afac605" data-ql><img src="thumbs/33.jpg?v=9afac605" alt="" loading="lazy" width="640" height="360"><b>쪼개지는 예산 사각형 <small>#33</small></b></a><a class="ref" href="refs/24.html?v=2e38270d" data-ql><img src="thumbs/24.jpg?v=2e38270d" alt="" loading="lazy" width="640" height="360"><b>같은 사물, 아이의 눈 <small>#24</small></b></a><a class="ref" href="refs/21.html?v=49529188" data-ql><img src="thumbs/21.jpg?v=49529188" alt="" loading="lazy" width="640" height="360"><b>세 겹의 체 <small>#21</small></b></a><a class="ref" href="refs/19.html?v=8bc790c1" data-ql><img src="thumbs/19.jpg?v=8bc790c1" alt="" loading="lazy" width="640" height="360"><b>화이트 단지 모형 <small>#19</small></b></a><a class="ref" href="refs/18.html?v=24be1a1d" data-ql><img src="thumbs/18.jpg?v=24be1a1d" alt="" loading="lazy" width="640" height="360"><b>함께 도는 궤도 <small>#18</small></b></a><a class="ref" href="refs/15.html?v=14d26124" data-ql><img src="thumbs/15.jpg?v=14d26124" alt="" loading="lazy" width="640" height="360"><b>연수 배선반 <small>#15</small></b></a><a class="ref" href="refs/14.html?v=74613b84" data-ql><img src="thumbs/14.jpg?v=74613b84" alt="" loading="lazy" width="640" height="360"><b>상세도 호출 <small>#14</small></b></a><a class="ref" href="refs/13.html?v=264d9ef8" data-ql><img src="thumbs/13.jpg?v=264d9ef8" alt="" loading="lazy" width="640" height="360"><b>던져 채우는 오후표 <small>#13</small></b></a><a class="ref" href="refs/12.html?v=0509a284" data-ql><img src="thumbs/12.jpg?v=0509a284" alt="" loading="lazy" width="640" height="360"><b>협력 항로 해도 <small>#12</small></b></a><a class="ref" href="refs/11.html?v=ce85a138" data-ql><img src="thumbs/11.jpg?v=ce85a138" alt="" loading="lazy" width="640" height="360"><b>디딤 타워 <small>#11</small></b></a><a class="ref" href="refs/10.html?v=e6b2ee79" data-ql><img src="thumbs/10.jpg?v=e6b2ee79" alt="" loading="lazy" width="640" height="360"><b>안개 걷는 영토도 <small>#10</small></b></a><a class="ref" href="refs/08.html?v=312fce08" data-ql><img src="thumbs/08.jpg?v=312fce08" alt="" loading="lazy" width="640" height="360"><b>세 겹 병풍 <small>#8</small></b></a><a class="ref" href="refs/06.html?v=6742e312" data-ql><img src="thumbs/06.jpg?v=6742e312" alt="" loading="lazy" width="640" height="360"><b>딜러의 세 더미 <small>#6</small></b></a></div></details>
+<details><summary>인쇄 · 홍보물 11개 — 포스터 · 리플렛 · 소식지(16:9 덱이 아님)</summary><div class="refs"><a class="ref" href="refs/107.html?v=d12ed4af" data-ql><img src="thumbs/107.jpg?v=d12ed4af" alt="" loading="lazy" width="640" height="360"><b>방해해도 좋습니다 <small>#107</small></b></a><a class="ref" href="refs/105.html?v=afe871b9" data-ql><img src="thumbs/105.jpg?v=afe871b9" alt="" loading="lazy" width="640" height="360"><b>오늘 밤, 한 판 <small>#105</small></b></a><a class="ref" href="refs/104.html?v=6d151f1f" data-ql><img src="thumbs/104.jpg?v=6d151f1f" alt="" loading="lazy" width="640" height="360"><b>발견 영수증 <small>#104</small></b></a><a class="ref" href="refs/70.html?v=7c522b10" data-ql><img src="thumbs/70.jpg?v=7c522b10" alt="" loading="lazy" width="640" height="360"><b>모아 · 앱 장터 <small>#70</small></b></a><a class="ref" href="refs/69.html?v=099aa15a" data-ql><img src="thumbs/69.jpg?v=099aa15a" alt="" loading="lazy" width="640" height="360"><b>동료의 도구함 <small>#69</small></b></a><a class="ref" href="refs/68.html?v=874b01f6" data-ql><img src="thumbs/68.jpg?v=874b01f6" alt="" loading="lazy" width="640" height="360"><b>픽셀 작업실 <small>#68</small></b></a><a class="ref" href="refs/67.html?v=c4cb24dc" data-ql><img src="thumbs/67.jpg?v=c4cb24dc" alt="" loading="lazy" width="640" height="360"><b>AFTER HOURS <small>#67</small></b></a><a class="ref" href="refs/66.html?v=d3af2398" data-ql><img src="thumbs/66.jpg?v=d3af2398" alt="" loading="lazy" width="640" height="360"><b>동네일보 <small>#66</small></b></a><a class="ref" href="refs/65.html?v=c8c449c9" data-ql><img src="thumbs/65.jpg?v=c8c449c9" alt="" loading="lazy" width="640" height="360"><b>함께 한 1년 <small>#65</small></b></a><a class="ref" href="refs/64.html?v=eafb8e95" data-ql><img src="thumbs/64.jpg?v=eafb8e95" alt="" loading="lazy" width="640" height="360"><b>TOOL MARKET <small>#64</small></b></a><a class="ref" href="refs/63.html?v=6b68169f" data-ql><img src="thumbs/63.jpg?v=6b68169f" alt="" loading="lazy" width="640" height="360"><b>업무도구 자판기 <small>#63</small></b></a></div></details>
+<details><summary>곁들이는 것 — 발표 연출 · 아이콘</summary><p><a href="wow/wow.html">와우 포인트 24</a>(발표 연출 기법 9장 덱) · <a href="icons/icons.html">아이콘 세트</a>(교육행정 85개, SVG) · <a href="kit/index.html">덱 키트 모음</a></p></details>
+<p class="decknote">제작 기준에 걸려 숨긴 장표 7개(#16 · #42 · #45 · #46 · #60 · #116 · #117)는 목록에서 뺐습니다. 분류 틀은 <a href="docs/patterns.md">기본 장표 틀</a>, 판정은 <a href="docs/triage.md">판정표</a>, 만드는 규칙은 <a href="docs/criteria.md">제작 기준</a>.</p>
+</section>
+<footer>모든 기관명 · 수치는 가상 예시이고, 사진은 AI로 만든 것입니다. 글꼴은 모두 SIL Open Font License 1.1(<a href="fonts/LICENSES.md">저작권 고지</a>).</footer>
+</div>
+<dialog class="ql" id="ql" aria-label="미리보기"><iframe id="qlFrame" title="미리보기"></iframe><div class="acts"><a id="qlOpen" target="_blank" rel="noopener">새 창으로 열기</a><button type="button" id="qlClose">닫기</button></div></dialog>
 <script>
-const $ = s => document.querySelector(s);
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const hex = c => /^#[0-9a-f]{3,8}$/i.test(c) ? c : '#ccc';
-let all = [], role = '', kind = '', fam = '', showHidden = false;
-const FAMILIES = {A:'픽셀 게임', B:'미니멀 스튜디오', C:'경쾌한 놀이 오브젝트', D:'인쇄·종이 에디토리얼', E:'자연 재질', F:'관측·중계 인포그래픽', G:'어두운 콘셉트', H:'전통 공예·문양'};
-// 분위기 칩에 붙는 그 계열 대표 표지
-const FAM_COVER = {A: 9, B: 19, C: 7, D: 27, E: 17, F: 25, G: 74, H: 58};
-// 무엇을 보여 주나 — 성과 공유회 흐름 순서의 정형 장표 유형(docs/criteria.md 3). 0개도 보여 빈칸을 드러낸다
-const KINDS = ['사업 개요', '추진 체계', '추진 경과', '주요 추진 내용', '핵심 성과', '목표 대비 달성', '전년 대비·비교', '추이', '구성비', '참여 분포',
-  '우수 사례', '참여자 목소리', '만족도', '전후 비교', '시사점·과제', '향후 계획', '단계·절차', '요약표', '자주 묻는 질문'];
-const KIND_OF_INFO = {'배경·목적': '사업 개요', '비전 체계도': '사업 개요', '조직·체계': '추진 체계', '일정': '추진 경과', '분류·유목화': '주요 추진 내용',
-  '핵심 수치': '핵심 성과', '비교·순위': '전년 대비·비교', '추이': '추이', '구성비': '구성비', '지도·분포': '참여 분포', '현안→해결방안': '시사점·과제',
-  '흐름·절차': '단계·절차', '표·목록': '요약표'};
-const kindOf = r => r.kind || KIND_OF_INFO[r.info_type] || '';
-const ROLE_OF_TYPE = {'실험형': '표지', '실무형': '본문', '계열키트': '목차·간지', '인쇄물': '인쇄·홍보물'};
-const ROLES = ['표지', '본문', '목차·간지', '발표 틀', '인쇄·홍보물'];
-const ORDER = Object.fromEntries(ROLES.map((x, i) => [x, i]));
-const ROLE_DESC = {'표지': '가장 큰 글자가 사업 이름. 덱의 첫 장, 분위기를 정한다', '본문': '머리말 + 결론 한 문장 제목 + 정형 장표 하나',
-  '목차·간지': '목차 · 섹션 간지 · 마무리. 한 분위기의 덱 뼈대(계열 키트)', '발표 틀': '한 장이 아니라 여러 화면을 넘기는 진행 방식(허브 · 스크롤 · 카드 · 지도)',
-  '인쇄·홍보물': '화면 발표가 아닌 종이 · 게시용: 포스터 · 리플렛 · 소식지 · 배너 · 티켓'};
-const MO = {'모션': '▶', '인터랙션': '◉', '정지': ''};
-const famHas = (r, k) => r.family ? r.family === k : (r.families || []).includes(k) && r.deck_ok !== false;
-function fill(r){
-  if (!r.motion) r.motion = r.pattern && r.pattern !== '정지' ? '모션' : '정지';
-  r.role = r.role || ROLE_OF_TYPE[r.type] || '본문';
-  r.kindL = kindOf(r);
-  r.no = r.kit ? r.no : Number(r.no);
-  return r;
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+// 분위기 바꾸기: 견본 그림과 예시 덱 주소를 그 계열 것으로(주소 ?fam=B 에 남는다)
+function setFam(k){
+  $$('.pick').forEach(b => b.setAttribute('aria-pressed', b.dataset.fam === k));
+  $$('img[data-k]').forEach(i => { i.src = i.dataset.k.replace('{k}', k); });
+  $$('a[data-k]').forEach(a => { a.href = a.dataset.k.replace('{k}', k); });
+  history.replaceState(null, '', (k === 'B' ? location.pathname : '?fam=' + k) + location.hash);
 }
-const visible = r => showHidden || !r.hidden;
-const label = r => r.kit ? `키트 ${r.kit} · ${r.slide}장` : '#' + r.no;
-const url = r => esc(r.file) + (r.v ? '?v=' + esc(r.v) : '') + (r.hash ? '#' + esc(r.hash) : '');
-// 무엇을 하려고 하나요? — 목적 하나 = 타일 하나. 페이지로 가거나(href), 아래 목록을 그 쓰임새로 좁힌다(role)
-const PURPOSES = [
-  {key: 'kit', title: '덱을 새로 만든다', sub: '분위기 하나 골라 채팅 AI로', href: 'kit/index.html', go: '누르면 덱 키트 페이지가 열립니다',
-   imgs: ['kit/thumbs/A-1.jpg', 'kit/thumbs/B-1.jpg', 'kit/thumbs/C-1.jpg', 'kit/thumbs/D-1.jpg'],
-   desc: '네 분위기(픽셀 게임 · 미니멀 스튜디오 · 놀이 오브젝트 · 인쇄·종이) 중 하나의 지시서를 채팅 AI에 주면, 같은 부품으로 새 발표 덱(.html)을 만들어 줍니다.'},
-  {key: '표지', role: '표지', title: '표지 고르기', sub: '덱 첫 장, 분위기 정하기'},
-  {key: '본문', role: '본문', title: '본문 장표 찾기', sub: '성과 · 사례 · 경과 한 장'},
-  {key: '인쇄·홍보물', role: '인쇄·홍보물', title: '인쇄·홍보물 만들기', sub: '포스터 · 리플렛 · 소식지'},
-  {key: 'wow', title: '발표에 연출 더하기', sub: '와우 기법 24가지 · 9장 덱', href: 'wow/wow.html', go: '누르면 와우 포인트 덱이 열립니다',
-   imgs: ['thumbs/hub-wow-1.jpg', 'thumbs/hub-wow-2.jpg', 'thumbs/hub-wow-3.jpg'],
-   desc: '청중이 "와" 하는 순간을 만드는 기법 24가지를 여섯 묶음(드러내기 · 대비 · 숫자 · 은유 · 감각 · 소리)으로 모았습니다. 장마다 기법이 실제로 움직입니다.'},
-  {key: 'icons', title: '아이콘 가져다 쓰기', sub: '교육행정 85개 · SVG', href: 'icons/icons.html', go: '누르면 아이콘 세트가 열립니다',
-   imgs: ['thumbs/hub-icons-1.jpg', 'thumbs/hub-icons-2.jpg'],
-   desc: '본문 장표의 묶음 머리에 붙이는 교육행정 아이콘 85개(12묶음). 같은 규격(24 × 24, 선 1.75)이라 섞어 써도 고르고, SVG를 복사해 바로 넣습니다.'},
-];
-const thumbOf = r => esc(r.thumb) + (r.v ? '?v=' + esc(r.v) : '');
-function buildHub(){
-  PURPOSES.forEach(p => { if (p.role) {
-    const rs = all.filter(r => r.role === p.role && !r.hidden && !r.kit);
-    p.count = rs.length; p.imgs = rs.filter(r => r.deck_ok !== false).slice(0, 6).map(thumbOf);   // 미리보기에는 실패 사례를 빼고
-    p.desc = ROLE_DESC[p.role] + '. 최근 장표부터 보여 줍니다.'; p.go = `누르면 아래 목록이 '${p.role}' ${p.count}개로 좁혀집니다`;
-  } });
-  $('#hub').innerHTML = PURPOSES.map(p => {
-    const pv = p.href && !p.key.startsWith('kit') ? `<span class="pv one"><img src="${p.imgs[0]}" alt="" loading="lazy"></span>`
-      : `<span class="pv">${p.imgs.slice(0, 4).map(u => `<img src="${u}" alt="" loading="lazy">`).join('')}</span>`;
-    return `<a class="tile" data-k="${esc(p.key)}" href="${p.href ? esc(p.href) : '?role=' + encodeURIComponent(p.role) + '#list'}">${pv}<b>${esc(p.title)}</b><small>${p.count ? `<em>${p.count}</em>개 · ` : ''}${esc(p.sub)}</small></a>`;
-  }).join('');
-}
-// 크게 보기: 마우스를 올리거나 키보드로 고르면 그 목적의 화면 여러 장을 넘겨 보여 준다(터치 화면에서는 타일 속 미리보기가 그 역할)
-const peek = document.createElement('div'); peek.className = 'peek'; peek.setAttribute('aria-hidden', 'true'); document.body.appendChild(peek);
-const fine = matchMedia('(hover: hover) and (pointer: fine)'), still = matchMedia('(prefers-reduced-motion: reduce)');
-let peekT = 0, peekI = 0;
-function showPeek(tile){
-  const p = PURPOSES.find(x => x.key === tile.dataset.k); if (!p) return;
-  clearTimeout(peekT); clearInterval(peekI);
-  peek.innerHTML = `<div class="big">${p.imgs.map((u, i) => `<img src="${u}" alt=""${i ? '' : ' class="on"'}>`).join('')}</div>` +
-    (p.imgs.length > 1 ? `<div class="strip">${p.imgs.map((u, i) => `<i${i ? '' : ' class="on"'}></i>`).join('')}</div>` : '') +
-    `<div class="txt"><b>${esc(p.title)}</b><p>${esc(p.desc)}</p><span>${esc(p.go)}</span></div>`;
-  const r = tile.getBoundingClientRect(), w = peek.offsetWidth, h = peek.offsetHeight || 460;
-  const below = r.bottom + 10 + h < innerHeight || r.top < h + 20;
-  peek.style.left = Math.max(16, Math.min(r.left, innerWidth - w - 16)) + scrollX + 'px';
-  peek.style.top = (below ? r.bottom + 10 : r.top - 10 - h) + scrollY + 'px';
-  peekT = setTimeout(() => peek.classList.add('on'), 120);
-  if (p.imgs.length > 1 && !still.matches) {
-    let k = 0; const ims = peek.querySelectorAll('.big img'), bars = peek.querySelectorAll('.strip i');
-    peekI = setInterval(() => { ims[k].classList.remove('on'); bars[k].classList.remove('on'); k = (k + 1) % ims.length; ims[k].classList.add('on'); bars[k].classList.add('on'); }, 1400);
-  }
-}
-function hidePeek(){ clearTimeout(peekT); clearInterval(peekI); peek.classList.remove('on'); }
-$('#hub').addEventListener('mouseover', e => { const t = e.target.closest('.tile'); if (t && fine.matches && !t.contains(e.relatedTarget)) showPeek(t); });
-$('#hub').addEventListener('mouseout', e => { const t = e.target.closest('.tile'); if (t && !t.contains(e.relatedTarget)) hidePeek(); });
-$('#hub').addEventListener('focusin', e => { const t = e.target.closest('.tile'); if (t && t.matches(':focus-visible')) showPeek(t); });
-$('#hub').addEventListener('focusout', hidePeek);
-addEventListener('keydown', e => { if (e.key === 'Escape') hidePeek(); });
-addEventListener('scroll', hidePeek, {passive: true});
-// 쓰임새 타일은 페이지를 다시 열지 않고 아래 목록을 좁힌다(새 탭으로 열기는 주소 ?role= 로 그대로 동작)
-$('#hub').addEventListener('click', e => {
-  const t = e.target.closest('.tile'); const p = t && PURPOSES.find(x => x.key === t.dataset.k);
-  if (!p || !p.role || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
-  e.preventDefault(); hidePeek(); setRole(p.role);
-  $('#list').scrollIntoView({behavior: still.matches ? 'auto' : 'smooth', block: 'start'});
+$$('.pick').forEach(b => b.addEventListener('click', () => setFam(b.dataset.fam)));
+const f0 = new URLSearchParams(location.search).get('fam'); if (f0 && 'ABCD'.includes(f0) && f0.length === 1) setFam(f0);
+// 복사
+$('#copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('#prompt').textContent); $('#copy').textContent = '복사됨'; setTimeout(() => $('#copy').textContent = '복사', 1500); } catch (e) {} });
+// 빠르게 보기: 장표 · 예시 덱을 그 자리에서 띄운다(새 탭 · 가운데 단추는 그대로 원본)
+const ql = $('#ql'), fr = $('#qlFrame');
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-ql]'); if (!a || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+  e.preventDefault(); fr.src = a.href; $('#qlOpen').href = a.href; ql.showModal(); $('#qlClose').focus();
 });
-function setRole(v){ role = v; mark('#role', 'g', v); render(); }
-// 주소에 지금 고른 것을 남긴다: 새로고침 · 링크 보내기에서 그대로(?role=본문&kind=핵심 성과&fam=B&q=간트)
-function syncURL(){
-  const u = new URLSearchParams();
-  [['role', role], ['kind', kind], ['fam', fam], ['q', $('#q').value.trim()]].forEach(([k, v]) => v && u.set(k, v));
-  if (showHidden) u.set('hidden', '1');
-  const qs = u.toString(); history.replaceState(null, '', qs ? '?' + qs + location.hash : location.pathname + location.hash);
-}
-function readURL(){
-  const u = new URLSearchParams(location.search);
-  role = u.get('role') || ''; kind = u.get('kind') || ''; fam = u.get('fam') || ''; $('#q').value = u.get('q') || ''; showHidden = u.get('hidden') === '1';
-}
-const mark = (box, key, v) => document.querySelectorAll(box + ' button').forEach(x => x.setAttribute('aria-pressed', (x.dataset[key] || '') === v));
-
-function matches(r, skip){
-  const q = $('#q').value.trim().toLowerCase();
-  return visible(r) && (skip === 'role' || !role || r.role === role) && (skip === 'kind' || !kind || r.kindL === kind) && (skip === 'fam' || !fam || famHas(r, fam)) &&
-    (!q || [label(r), r.title, r.topic, r.kindL, r.info_type, (r.modules || []).join(' '), r.style, r.takeaway, r.metaphor, r.pattern, FAMILIES[r.family]].join(' ').toLowerCase().includes(q));
-}
-function counts(){
-  document.querySelectorAll('#role button').forEach(b => { b.querySelector('em').textContent = all.filter(r => matches(r, 'role') && (!b.dataset.g || r.role === b.dataset.g)).length; });
-  document.querySelectorAll('#kind button').forEach(b => { const v = b.dataset.k; const c = all.filter(r => matches(r, 'kind') && (!v || r.kindL === v)).length;
-    b.querySelector('em').textContent = c; b.disabled = !!v && c === 0 && kind !== v;
-    b.classList.toggle('gap', !!v && all.filter(r => visible(r) && r.kindL === v).length === 0); });
-  document.querySelectorAll('#fam button').forEach(b => { const v = b.dataset.f; const c = all.filter(r => matches(r, 'fam') && (!v || famHas(r, v))).length;
-    b.querySelector('em').textContent = c; b.disabled = !!v && c === 0 && fam !== v; });
-  $('#kind').hidden = !!role && role !== '본문';
-}
-function render(){
-  counts();
-  if ($('#kind').hidden && kind) { kind = ''; mark('#kind', 'k', ''); counts(); }
-  document.querySelectorAll('#hub .tile').forEach(t => t.setAttribute('aria-current', !!role && t.dataset.k === role));
-  $('#note').innerHTML = kind ? `<b>${esc(kind)}</b>${all.filter(r => visible(r) && r.kindL === kind).length ? '' : ' 아직 없습니다. 채울 빈칸입니다.'}` : role ? `<b>${esc(role)}</b> ${esc(ROLE_DESC[role] || '')}` : '';
-  const rows = all.filter(r => matches(r)).sort((a, b) => (a.kit ? 1 : 0) - (b.kit ? 1 : 0) || (fam ? (ORDER[a.role] ?? 9) - (ORDER[b.role] ?? 9) : 0) || (b.kit ? 0 : b.no - a.no));
-  $('#grid').innerHTML = rows.length ? rows.map((r, i) => `
-    <a class="card${r.deck_ok === false ? ' fail' : ''}${r.hidden ? ' hid' : ''}" href="${url(r)}" target="_blank" rel="noopener" data-i="${all.indexOf(r)}">
-      <span class="th"><img src="${thumbOf(r)}" alt="" loading="lazy">${MO[r.motion] ? `<span class="mo" title="${esc(r.motion)}">${MO[r.motion]}</span>` : ''}</span>
-      <span class="cap"><b>${esc(String(r.title).replace(/^레퍼런스\s*#\d+\s*/, ''))}</b><small>${esc(label(r))}</small></span>
-      ${r.hidden ? `<span class="why">숨김 · ${esc(r.hide_reason || '')}</span>` : ''}
-    </a>`).join('') : '<p class="empty">조건에 맞는 장표가 없습니다.</p>';
-  const nh = all.filter(r => r.hidden).length;
-  $('#hidNote').innerHTML = nh ? ` 기준에 걸려 숨긴 장표 ${nh}개 · <button type="button" id="hidBtn">${showHidden ? '숨기기' : '보기'}</button>` : '';
-  syncURL();
-}
-// 빠르게 보기: 카드를 누르면 그 자리에서 원본을 띄워 움직여 본다(새 탭 · 가운데 단추는 그대로 원본)
-function openQL(r){
-  $('#qlFrame').src = url(r);
-  const tags = [r.role, r.kindL, r.family && `${r.family} ${FAMILIES[r.family]}`, r.motion !== '정지' && `${MO[r.motion]} ${r.motion}`].filter(Boolean);
-  $('#qlSide').innerHTML = `<h2 id="qlTitle">${esc(String(r.title).replace(/^레퍼런스\s*#\d+\s*/, ''))} <small style="color:var(--soft);font-size:13px">${esc(label(r))}</small></h2>
-    <div class="tags">${tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>
-    ${r.takeaway ? `<p><b>가져갈 장치</b> · ${esc(r.takeaway)}</p>` : r.summary ? `<p>${esc(String(r.summary).slice(0, 180))}${String(r.summary).length > 180 ? '…' : ''}</p>` : ''}
-    ${r.deck_note && r.deck_ok === false ? `<p style="color:#A1251B">${esc(r.deck_note)}</p>` : ''}
-    ${r.hidden ? `<p style="color:#A1251B">숨김 · ${esc(r.hide_reason || '')}</p>` : ''}
-    ${(r.palette || []).length ? `<div class="sw">${r.palette.slice(0, 6).map(c => `<i style="background:${hex(c)}"></i>`).join('')}</div>` : ''}
-    <div class="acts"><a href="${url(r)}" target="_blank" rel="noopener">새 창으로 열기</a><button type="button" id="qlClose">닫기</button></div>`;
-  $('#ql').showModal(); $('#qlClose').focus();
-}
-// 미리보기 안을 눌러 초점이 들어가도 Esc 로 닫히게(같은 출처 페이지)
-$('#qlFrame').addEventListener('load', () => { try { $('#qlFrame').contentWindow.addEventListener('keydown', e => { if (e.key === 'Escape') $('#ql').close(); }); } catch (e) {} });
-$('#ql').addEventListener('close', () => { $('#qlFrame').src = 'about:blank'; });
-$('#ql').addEventListener('click', e => { if (e.target.id === 'qlClose' || e.target === $('#ql')) $('#ql').close(); });
-$('#grid').addEventListener('click', e => {
-  const c = e.target.closest('.card'); if (!c || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
-  e.preventDefault(); openQL(all[+c.dataset.i]);
-});
-document.addEventListener('click', e => { if (e.target.id === 'hidBtn') { showHidden = !showHidden; render(); } });
-
-Promise.all([
-  fetch('data/rounds.json', {cache: 'no-cache'}).then(r => r.json()),
-  fetch('data/kit_slides.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : []).catch(() => [])
-]).then(([d, ks]) => {
-  all = d.map(fill).concat(ks.map(fill));
-  document.querySelectorAll('#role button').forEach(b => b.insertAdjacentHTML('beforeend', '<em></em>'));
-  $('#kind').insertAdjacentHTML('beforeend', `<button type="button" data-k="" aria-pressed="true">전체<em></em></button>` +
-    KINDS.map(k => `<button type="button" data-k="${esc(k)}" aria-pressed="false">${esc(k)}<em></em></button>`).join(''));
-  const cov = no => all.find(r => r.no === no);
-  $('#fam').insertAdjacentHTML('beforeend', `<button type="button" class="all" data-f="" aria-pressed="true">전체<em></em></button>` +
-    Object.keys(FAMILIES).map(k => { const c = cov(FAM_COVER[k]); return `<button type="button" data-f="${k}" aria-pressed="false" title="${esc(FAMILIES[k])}">${c ? `<img src="${thumbOf(c)}" alt="">` : ''}${k} ${esc(FAMILIES[k].split(/[ ·]/)[0])}<em></em></button>`; }).join(''));
-  buildHub();
-  readURL(); mark('#role', 'g', role); mark('#kind', 'k', kind); mark('#fam', 'f', fam);
-  render();
-  if (location.hash === '#list') $('#list').scrollIntoView();
-}).catch(() => { $('#grid').innerHTML = '<p class="empty">목록을 불러오지 못했습니다.</p>'; });
-
-const pick = (box, key, set) => $(box).addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b || b.disabled) return;
-  set(b.dataset[key] || ''); mark(box, key, b.dataset[key] || ''); render();
-});
-pick('#role', 'g', v => role = v);
-pick('#kind', 'k', v => kind = v);
-pick('#fam', 'f', v => fam = v);
-$('#q').addEventListener('input', render);
+fr.addEventListener('load', () => { try { fr.contentWindow.addEventListener('keydown', e => { if (e.key === 'Escape') ql.close(); }); } catch (e) {} });
+ql.addEventListener('close', () => { fr.src = 'about:blank'; });
+ql.addEventListener('click', e => { if (e.target.id === 'qlClose' || e.target === ql) ql.close(); });
+// 흐름의 기본 장표 이름을 누르면 그 카드로 가서 견본 코드를 편다
+addEventListener('hashchange', () => { const t = location.hash.startsWith('#p-') && document.getElementById(location.hash.slice(1)); if (t) t.querySelector('details.code').open = true; });
 </script>
 </body>
 </html>
