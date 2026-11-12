@@ -10,8 +10,8 @@
 | 층 | 무엇 | 원본 |
 |---|---|---|
 | 기본 장표 | 내용의 모양 23가지(표지 · 항목 · 둘 비교 · 추이 · 화면 짚기 …). 한 장에 하나 | `data/patterns.json` · 부품 `kit/parts.css` + `kit/{계열}.css` |
-| 흐름 | 기본 장표를 순서대로 엮은 것: 계획안 발표 · 성과 공유회 · 사업 설명회 · 연수 한 차시 | `data/flows.json` · 예시 덱 `src/flows/{plan,share,lecture}.html` |
-| 분위기 | 색 · 글꼴 · 상징 부품: A 픽셀 게임 · B 미니멀 스튜디오 · C 경쾌한 놀이 오브젝트 · D 인쇄·종이 에디토리얼 | `kit/{계열}.css` · `kit/{계열}.design.md` |
+| 흐름 | 기본 장표를 순서대로 엮은 것: 계획안 발표 · 성과 공유회 · 사업 설명회 · 연수 한 차시 | `data/flows.json` · 예시 덱 `src/flows/{plan,share,brief,lecture,lecture2,lecture3}.html` |
+| 분위기 | 색 · 글꼴 · 상징 부품: A 픽셀 게임 · B 미니멀 스튜디오 · C 경쾌한 놀이 오브젝트 · D 인쇄·종이 에디토리얼 · E 자연 재질 · F 관측·중계 인포그래픽 · G 어두운 콘셉트 · H 전통 공예·문양 | `kit/{계열}.css` · `kit/{계열}.design.md` |
 
 자료는 **재료**(AI가 그대로 조립하는 덱 키트 부품)와 **참고**(기존 레퍼런스 장표 — 변주 · 영감)로 나뉩니다.
 
@@ -19,9 +19,9 @@
 
 | 경로 | 내용 |
 |---|---|
-| `index.html` | 첫 화면. **`scripts/site.py`가 만든다(손으로 고치지 말 것).** 내용이 모두 HTML 안에 들어 있어 AI가 주소만으로 글로 읽는다. 순서: 쓰는 법 → 분위기 넷 → AI가 지킬 것 → 흐름(자리 띠 + 예시 덱 장들) → 기본 장표 23(견본 그림 · 내용 조건 · 견본 코드 · 참고할 변주) → 뼈대 · 상징 부품 · 점검 → 참고 서랍(영감 · 인쇄물). 분위기를 고르면 견본 그림이 그 계열로 바뀐다(`?fam=A`) |
+| `index.html` | 첫 화면. **`scripts/site.py`가 만든다(손으로 고치지 말 것).** 내용이 모두 HTML 안에 들어 있어 AI가 주소만으로 글로 읽는다. 순서: 쓰는 법 → 분위기 여덟 → AI가 지킬 것 → 흐름(자리 띠 + 예시 덱 장들) → 기본 장표 23(견본 그림 · 내용 조건 · 견본 코드 · 참고할 변주) → 뼈대 · 상징 부품 · 점검 → 참고 서랍(영감 · 인쇄물). 분위기를 고르면 견본 그림이 그 계열로 바뀐다(`?fam=A`) |
 | `guide.md` | 첫 화면과 같은 내용의 AI용 안내(글). `scripts/kit.py`가 만든다. 주소를 못 읽는 AI에는 이 파일을 첨부 |
-| `kit/` | 덱 키트: 공용 부품 · 계열 CSS · 예시 덱(`{계열}.html` 성과 공유회 · `{계열}-plan.html` · `{계열}-lecture.html`) · 계열별 지시서 `{계열}.md` · 배포판 `v1/` |
+| `kit/` | 덱 키트: 공용 부품 · 계열 CSS · 예시 덱 여섯(`{계열}.html` 성과 공유회 · `-plan` 계획안 발표 · `-brief` 사업 설명회 · `-lecture` · `-lecture2` · `-lecture3` 연수 1 ~ 3차시) · 계열별 지시서 `{계열}.md` · 배포판 `v1/` |
 | `data/patterns.json` · `data/flows.json` | 기본 장표 23 · 흐름 넷의 정의(안내문 · 첫 화면 · 판정표가 모두 이것을 읽는다) |
 | `data/triage.json` · `docs/triage.md` | 기존 장표 판정(기본 후보 · 변주 · 영감 · 범위 밖): `python3 scripts/triage.py`. 판정은 스크립트 안 `BODY`와 규칙을 고친다 |
 | `data/kit_slides.json` | 예시 덱의 장 목록(흐름 · 장 · 기본 장표): `scripts/kit.py`가 만든다 |
@@ -34,11 +34,11 @@
 다시 만드는 순서(키트 · 흐름 · 판정 · 화면):
 
 ```
-python3 scripts/kit.py A B C D     # 배포 CSS · 예시 덱 12개 · 지시서 · guide.md · data/kit_slides.json
+python3 scripts/kit.py             # 여덟 계열 전부(몇 개만: kit.py F H): 배포 CSS · 예시 덱 48개 · 지시서 · guide.md · data/kit_slides.json
 node scripts/kit_thumbs.js         # 예시 덱 썸네일
 python3 scripts/triage.py          # 판정표
 python3 scripts/site.py            # 첫 화면
-node scripts/check.js kit A A-plan A-lecture B B-plan B-lecture C C-plan C-lecture D D-plan D-lecture   # 넘침 · 글자 크기
+node scripts/check.js kit A A-plan A-brief A-lecture A-lecture2 A-lecture3 …   # 넘침 · 글자 크기(덱 이름 = kit/ 의 파일 이름)
 ```
 
 ## 레퍼런스 장표의 옛 분류 (rounds.json 필드)
@@ -131,23 +131,24 @@ python3 scripts/ingest.py 111       # 새 회차: 추출 → 없는 글꼴 받�
 
 ## 덱 키트 (재료)
 
-A(픽셀 게임) · B(미니멀 스튜디오) · C(경쾌한 놀이 오브젝트) · D(인쇄·종이 에디토리얼) 넷이 있고, 모음 화면은 `kit/index.html`입니다.
-네 키트는 **같은 부품 이름**(기본 장표 23가지)을 쓰고, 계열마다 모양과 상징 부품만 다릅니다(A 진행 칸 `.prog` · B 모형대 매스 `.mass` · C 블록 탑 `.blocks` · D 판 번호 `.reg`).
+A(픽셀 게임) · B(미니멀 스튜디오) · C(경쾌한 놀이 오브젝트) · D(인쇄·종이 에디토리얼) · E(자연 재질) · F(관측·중계 인포그래픽) · G(어두운 콘셉트) · H(전통 공예·문양) 여덟이 있고, 모음 화면은 `kit/index.html`입니다.
+여덟 키트는 **같은 부품 이름**(기본 장표 23가지)을 쓰고, 계열마다 모양과 상징 부품만 다릅니다(A 진행 칸 `.prog` · B 모형대 매스 `.mass` · C 블록 탑 `.blocks` · D 판 번호 `.reg` · E 나이테 `.rings` · F 구간 띠 `.lane` · G 별 잇기 `.stars` · H 막새 줄 `.tiles`).
+E ~ H는 근거 장표의 **색 · 글꼴 · 짜임**만 옮겼습니다(근거 장표의 캔버스 · SVG 그림은 제작 기준에 따라 옮기지 않음).
 예시 덱의 원본은 계열 공용이고(`src/flows/`), 상징 부품 자리(`@@SIG:cover@@` · `@@SIG:toc:1@@` · `@@SIG:divider:3@@` · `@@SIG:close@@`)만 `scripts/kit.py`가 계열별로 채웁니다.
 
 | 위치 | 내용 |
 |---|---|
 | `kit/deck.css` · `kit/deck.js` | 모든 계열 공용 바탕 · 엔진: 1920 × 1080 무대 통째 줄이기, ← → · Space · F, 장 수 · 점 · 쪽 표시 자동, `data-steps` 단계 공개, 인쇄 장당 1쪽(16:9), 움직임 줄이기 |
 | `kit/parts.css` | 공용 정형 부품(계열 토큰을 따름). 성과 공유회: `.brief` · `.mile` · `.delta` · `.goal` · `.likert` · `.ba` · `.case`(사진 자리 `.ph`) · `.road`. 기본 장표: 한 문장 `.say` · 항목 `.points` · 용어 정의 `.define` · 인용 `.quote` · 체계 `.tree` · 추이 `.trend` · 구성비 `.share` · 화면 짚기 `.shot` · 질문 `.ask` · 할 일 `.todo` |
-| `kit/{A,B,C,D}.css` | 계열 토큰(`--ds-*`)과 계열 부품(표지 · 목차 · 간지 · 마무리 · 상징 부품 · 카드 · 수치 타일 · 막대 · 현안→해결 · 간트 · 표) + 공용 부품 계열 조정 |
-| `kit/{A,B,C,D}.design.md` | 계열 디자인 규칙(한글 기준, 손으로 씀) |
-| `src/flows/{share,plan,lecture}.html` | 예시 덱 원본(계열 공용). 장마다 `data-pattern` = 기본 장표 id, 장 앞 주석 `<!-- 3. 이름 -->` |
-| `src/kit-{A,B,C,D}/build.json` | 계열이 쓰는 글꼴(가족 · 굵기) |
-| `kit/{계열}.html` · `-plan.html` · `-lecture.html` · `kit/{계열}.md` · `kit/v1/` · `kit/thumbs/` · `guide.md` | **만든 것**: 인터넷 없이 도는 예시 덱 · 계열 지시서 · 배포용 CSS/엔진 · 썸네일 · AI용 안내 |
+| `kit/{A~H}.css` | 계열 토큰(`--ds-*`)과 계열 부품(표지 · 목차 · 간지 · 마무리 · 상징 부품 · 카드 · 수치 타일 · 막대 · 현안→해결 · 간트 · 표) + 공용 부품 계열 조정 |
+| `kit/{A~H}.design.md` | 계열 디자인 규칙(한글 기준, 손으로 씀) |
+| `src/flows/{share,plan,brief,lecture,lecture2,lecture3}.html` | 예시 덱 원본(계열 공용). 흐름과 덱의 짝은 `data/flows.json`(`deck` · `more`). 장마다 `data-pattern` = 기본 장표 id, 장 앞 주석 `<!-- 3. 이름 -->` |
+| `src/kit-{A~H}/build.json` | 계열이 쓰는 글꼴(가족 · 굵기) |
+| `kit/{계열}.html` · `-plan` · `-brief` · `-lecture` · `-lecture2` · `-lecture3` · `kit/{계열}.md` · `kit/v1/` · `kit/thumbs/` · `guide.md` | **만든 것**: 인터넷 없이 도는 예시 덱 · 계열 지시서 · 배포용 CSS/엔진 · 썸네일 · AI용 안내 |
 | `scripts/kit.py`의 `META` | 계열마다 다른 것(근거 장표 · 글꼴 역할 · 한 줄 소개 · 상징 부품 설명) |
 
 ```
-python3 scripts/kit.py A B C D                   # 전부 다시 만들기
+python3 scripts/kit.py                           # 전부 다시 만들기(계열을 적으면 그 계열만)
 node scripts/kit_thumbs.js                       # 예시 덱 썸네일 kit/thumbs/{계열}{-흐름}-{장}.jpg
 python3 scripts/kit.py inline B 슬라이드.html      # AI가 만든 덱을 인터넷 없이 도는 파일 하나로
 ```
