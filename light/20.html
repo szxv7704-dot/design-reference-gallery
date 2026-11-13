@@ -677,7 +677,8 @@ const LANES = [
     '</head>', '<body>', '<div id="race"></div>',
     '<script>', js, '', data, '',
     "mountRace(document.getElementById('race'), Object.assign({}, SLIDE, { lanes: LANES }));", SC,
-    '</body>', '</html>'
+    '<script src="slide.js"></script>
+</body>', '</html>'
   ].join('\n');
   var ta = document.getElementById('snippet'); ta.value = snippet;
   var btn = document.getElementById('copyBtn');

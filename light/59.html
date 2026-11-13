@@ -69,4 +69,5 @@ document.getElementById('seek').oninput=e=>{root.bmSeek(+e.target.value);documen
 document.getElementById('sound').onclick=e=>{enabled=!enabled;e.target.setAttribute('aria-pressed',enabled);e.target.textContent=enabled?'장단 소리 끄기':'장단 소리 켜기';if(enabled){audio??=new(window.AudioContext||window.webkitAudioContext)();audio.resume()}};
 document.getElementById('full').onclick=()=>document.body.classList.toggle('fullscreen');document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});render(0);if(new URLSearchParams(location.search).has('still'))render(END);else Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,2000))]).then(()=>play());
 })();
-</script></body></html>
+</script><script src="slide.js"></script>
+</body></html>

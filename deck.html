@@ -25,7 +25,7 @@ ol li.g{padding:12px 14px 4px;font-size:11.5px;font-weight:700;color:var(--soft)
 ol button{display:block;width:100%;text-align:left;padding:6px 14px;border:0;background:none;color:var(--ink);font:13px/1.45 var(--f);cursor:pointer}
 ol button small{color:var(--soft);margin-left:4px}
 ol button[aria-current=true]{background:#262A31;box-shadow:inset 3px 0 0 var(--key)}
-iframe{width:100%;height:100%;border:0;background:#fff}
+iframe{width:100%;height:100%;border:0;background:#111}
 :focus-visible{outline:2px solid var(--key);outline-offset:-2px}
 @media (max-width:760px){.app{grid-template-columns:1fr;grid-template-rows:auto 150px 1fr}ol{border-right:0;border-bottom:1px solid var(--line)}}
 </style>
@@ -36,7 +36,7 @@ iframe{width:100%;height:100%;border:0;background:#fff}
     <a class="back" href="index.html">← 디자인 레퍼런스</a>
     <b id="title">분위기별 덱</b>
     <nav class="fams" id="fams" aria-label="분위기"></nav>
-    <div class="nav"><span id="count"></span><button type="button" id="prev" aria-label="이전 장">←</button><button type="button" id="next" aria-label="다음 장">→</button><a id="code" target="_blank" rel="noopener">가벼운 코드</a></div>
+    <div class="nav"><span id="count"></span><button type="button" id="prev" aria-label="이전 장">←</button><button type="button" id="next" aria-label="다음 장">→</button><a id="orig" target="_blank" rel="noopener">원본</a><a id="code" target="_blank" rel="noopener">가벼운 코드</a></div>
   </header>
   <ol id="list" aria-label="장 목록"></ol>
   <iframe id="frame" title="장표"></iframe>
@@ -44,12 +44,13 @@ iframe{width:100%;height:100%;border:0;background:#fff}
 <noscript>이 화면은 스크립트가 필요합니다. 덱 순서는 <a href="catalog.md">catalog.md</a>와 <a href="data/decks.json">data/decks.json</a>에 글로 있습니다.</noscript>
 <script>
 // 한 분위기의 장표를 순서대로 넘겨 본다: deck.html?fam=B#3  (← → 키, 목록 누르기). 순서는 scripts/site.py 가 만든 data/decks.json
+// 장표만 띄운다(light/NN.html?slide=). 공용 본문에는 그 분위기의 색 · 글꼴이 입혀진다(light/slide.js)
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 let slides = [], cur = 0;
 function go(i){
   cur = Math.max(0, Math.min(slides.length - 1, i)); const s = slides[cur];
-  $('#frame').src = s.file; $('#code').href = s.code; $('#count').textContent = (cur + 1) + ' / ' + slides.length;
+  $('#frame').src = s.file; $('#code').href = s.code; $('#orig').href = s.orig; $('#count').textContent = (cur + 1) + ' / ' + slides.length;
   document.querySelectorAll('#list button').forEach((b, k) => { b.setAttribute('aria-current', k === cur); if (k === cur) b.scrollIntoView({block: 'nearest'}); });
   history.replaceState(null, '', location.pathname + location.search + '#' + (cur + 1));
 }

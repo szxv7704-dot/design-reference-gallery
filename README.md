@@ -10,10 +10,10 @@
 | 경로 | 내용 |
 |---|---|
 | `index.html` | 첫 화면. **`scripts/site.py`가 만든다(손으로 고치지 말 것).** 분위기 여덟(표지 · 목차·간지·맺음 · 전용 본문) → 본문 모음(공용, 자리 순서) → 그 밖(발표 틀 · 인쇄물). 내용이 모두 HTML 안에 들어 있어 AI가 주소만으로 읽는다. 장표를 누르면 그 자리에서 열린다 |
-| `deck.html` | 한 분위기의 장표를 순서대로 넘겨 보는 화면: `deck.html?fam=B#3`. 순서는 `data/decks.json` |
-| `catalog.md` | 같은 목록의 글 판: 장표마다 쓰임 · 분위기 · 가져갈 장치 · 설명 · 색 · 글꼴 · 주소. AI가 한 번에 읽는 파일 |
+| `deck.html` | 한 분위기의 덱을 넘겨 보는 화면: `deck.html?fam=B#3`. 표지 → 목차·간지·맺음 → 본문(모양마다 고른 대표, `site.py`의 `REPS`). 장표만 띄우고 공용 본문에는 그 분위기 색을 입힌다 |
+| `catalog.md` · `catalog/` | 같은 목록의 글 판(차례 + 분위기별 `A.md`~`H.md` + 공용 본문 `body.md` + `etc.md`): 장표마다 쓰임 · 분위기 · 가져갈 장치 · 설명 · 색 · 글꼴 · 주소 |
 | `refs/NN.html` · `thumbs/NN.jpg` · `data/rounds.json` | 장표 원본(인터넷 없이 도는 완성본, 평균 800KB) · 썸네일 · 목록 |
-| `light/NN.html` | 글꼴 · 그림을 박지 않고 주소로 불러오는 가벼운 판(평균 50KB): `python3 scripts/light.py` |
+| `light/NN.html` · `light/slide.js` | 글꼴 · 그림을 박지 않고 주소로 불러오는 가벼운 판(평균 50KB): `python3 scripts/light.py`. 주소 뒤에 `?slide=B`를 붙이면 장표만 남기고 그 분위기의 색 · 글꼴을 입힌다 |
 | `data/triage.json` · `docs/triage.md` | 본문 장표의 모양과 판정: `python3 scripts/triage.py`(스크립트 안 `BODY`를 고친다) |
 | `kit/` | 덱 키트(곁가지): 분위기별 뼈대 · 공용 부품 · 예시 덱 둘 · 계열 지시서 |
 | `docs/criteria.md` | 제작 기준(그림 규칙 · 피할 것) |
