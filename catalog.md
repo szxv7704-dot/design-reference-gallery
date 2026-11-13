@@ -20,5 +20,5 @@
 
 - 공용 본문(모양별): https://szxv7704-dot.github.io/design-reference-gallery/catalog/body.md
 - 그 밖(발표 틀 · 인쇄 · 홍보물 · 분위기 없는 것): https://szxv7704-dot.github.io/design-reference-gallery/catalog/etc.md
-- 분위기별 덱 넘겨 보기: https://szxv7704-dot.github.io/design-reference-gallery/deck.html?fam=B (장표만: `light/번호.html?slide=B` — 뒤의 계열 글자를 바꾸면 그 분위기 색으로)
+- 표지별 덱 넘겨 보기: https://szxv7704-dot.github.io/design-reference-gallery/deck.html?cover=17 (장표만: `light/번호.html?slide=c17` — 그 표지의 색 · 글꼴을 입힌 본문)
 

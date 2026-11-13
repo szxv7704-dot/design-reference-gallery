@@ -19,11 +19,12 @@ def light(d):
     os.makedirs(os.path.join(ROOT, 'light'), exist_ok=True)
     open(os.path.join(ROOT, 'light', d + '.html'), 'w', encoding='utf-8').write(s); return len(s.encode('utf-8'))
 SLIDE_JS = r"""// 장표만 보기: light/NN.html?slide=B  (분위기별 덱 deck.html 이 쓴다)
-//  ① 페이지에서 16:9 무대만 남기고 창에 꽉 차게  ② slide= 뒤에 계열(A~H)을 주면 그 계열의 색 · 글꼴 변수(--ds-*)를 입힌다(공용 본문용)
-//  이 파일은 scripts/light.py 가 kit/{계열}.css 의 :root 값에서 만든다.
+//  ① 페이지에서 16:9 무대만 남기고 창에 꽉 차게
+//  ② slide=c17 처럼 표지 번호를 주면 그 표지에 맞춘 색 · 글꼴 변수(--ds-*)를 입힌다(공용 본문용). slide=B 는 계열 키트의 값
+//  이 파일은 scripts/light.py 가 data/covers.json(표지별) · kit/{계열}.css 의 :root(계열별)에서 만든다.
 (function(){
   var q = new URLSearchParams(location.search); if (!q.has('slide')) return;
-  var T = @@TOKENS@@, fam = (q.get('slide') || '').replace(/[^A-H]/g, '');
+  var T = @@TOKENS@@, fam = (/^(c\d+|[A-H])$/.exec(q.get('slide') || '') || [''])[0];
   function stage(){
     var all = document.querySelectorAll('body *');
     for (var i = 0; i < all.length; i++){ var r = all[i].getBoundingClientRect(); if (r.width >= 600 && Math.abs(r.width / r.height - 16 / 9) < 0.06) return all[i]; }
@@ -62,6 +63,26 @@ def slide_js():
         fonts = json.load(open(os.path.join(ROOT, 'src', 'kit-' + f, 'build.json'), encoding='utf-8'))['fonts']
         faces = ''.join('@font-face{font-family:"%s";font-weight:%s;font-display:swap;src:url("../fonts/%s-%s.woff2") format("woff2")}' % (n, w, n.replace(' ', ''), w) for n, w in fonts)
         T[f] = {'vars': vars_, 'faces': faces}
+    # 표지별 값: data/covers.json 의 다섯 값에서 --ds-* 묶음을 푼다(본문은 늘 밝은 바탕, 위계는 base 한 색의 농담)
+    def mix(a, b, t):
+        A, B = [int(a[i:i + 2], 16) for i in (1, 3, 5)], [int(b[i:i + 2], 16) for i in (1, 3, 5)]
+        return '#%02X%02X%02X' % tuple(round(x + (y - x) * t) for x, y in zip(A, B))
+    have = {}
+    for fn in os.listdir(os.path.join(ROOT, 'fonts')):
+        m = re.match(r'(.+)-(\d+)\.woff2$', fn)
+        if m: have.setdefault(m.group(1), []).append(m.group(2))
+    for no, c in json.load(open(os.path.join(ROOT, 'data', 'covers.json'), encoding='utf-8'))['covers'].items():
+        fb = '"Apple SD Gothic Neo","Malgun Gothic",sans-serif'
+        vars_ = {'--ds-bg': c['bg'], '--ds-surface': mix(c['bg'], '#FFFFFF', .7), '--ds-ink': c['ink'], '--ds-sub': mix(c['ink'], c['bg'], .42), '--ds-line': mix(c['ink'], c['bg'], .84),
+                 '--ds-accent': c['accent'], '--ds-accent2': c['base'], '--ds-c1': mix(c['base'], c['ink'], .4), '--ds-c2': c['base'], '--ds-c3': mix(c['base'], '#FFFFFF', .32),
+                 '--ds-c4': mix(c['base'], '#FFFFFF', .62), '--ds-c5': mix(c['base'], c['bg'], .86),
+                 '--ds-font-title': '"%s",%s' % (c['title'], fb), '--ds-font-body': '"%s",%s' % (c['body'], fb), '--ds-font-num': '"%s","%s",%s' % (c['num'], c['body'], fb)}
+        faces = ''
+        for n in dict.fromkeys((c['title'], c['body'], c['num'])):
+            key = n.replace(' ', '')
+            if key not in have: raise SystemExit('fonts/ 에 없는 글꼴: %s (#%s)' % (n, no))
+            faces += ''.join('@font-face{font-family:"%s";font-weight:%s;font-display:swap;src:url("../fonts/%s-%s.woff2") format("woff2")}' % (n, w, key, w) for w in sorted(have[key]))
+        T['c' + no] = {'vars': vars_, 'faces': faces}
     open(os.path.join(ROOT, 'light', 'slide.js'), 'w', encoding='utf-8').write(SLIDE_JS.replace('@@TOKENS@@', json.dumps(T, ensure_ascii=False)))
 
 if __name__ == '__main__':
