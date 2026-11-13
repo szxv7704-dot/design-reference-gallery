@@ -15,7 +15,9 @@ def light(d):
             'three/addons/loaders/FontLoader.js': V + 'examples/jsm/loaders/FontLoader.js', 'three/addons/geometries/TextGeometry.js': V + 'examples/jsm/geometries/TextGeometry.js',
             'three/addons/environments/RoomEnvironment.js': V + 'examples/jsm/environments/RoomEnvironment.js'}}))
     # 장표만 보기(light/NN.html?slide=B): light/slide.js 가 무대만 남기고 그 분위기의 색 · 글꼴 변수를 입힌다
-    s = s.replace('</body>', '<script src="slide.js"></script>\n</body>', 1) if '</body>' in s else s + '<script src="slide.js"></script>'
+    # 맨 마지막 </body> 앞에(코드 칸의 글 안에도 </body> 가 있을 수 있다)
+    head, sep, tail = s.rpartition('</body>')
+    s = head + '<script src="slide.js"></script>\n' + sep + tail if sep else s + '<script src="slide.js"></script>'
     os.makedirs(os.path.join(ROOT, 'light'), exist_ok=True)
     open(os.path.join(ROOT, 'light', d + '.html'), 'w', encoding='utf-8').write(s); return len(s.encode('utf-8'))
 SLIDE_JS = r"""// 장표만 보기: light/NN.html?slide=B  (분위기별 덱 deck.html 이 쓴다)
@@ -26,9 +28,16 @@ SLIDE_JS = r"""// 장표만 보기: light/NN.html?slide=B  (분위기별 덱 dec
   var q = new URLSearchParams(location.search); if (!q.has('slide')) return;
   var T = @@TOKENS@@, fam = (/^(c\d+|[A-H])$/.exec(q.get('slide') || '') || [''])[0];
   function stage(){
-    var all = document.querySelectorAll('body *');
-    for (var i = 0; i < all.length; i++){ var r = all[i].getBoundingClientRect(); if (r.width >= 600 && Math.abs(r.width / r.height - 16 / 9) < 0.06) return all[i]; }
-    return null;
+    // 페이지 맨 위의 16:9 요소. 테두리 · 여백을 두른 틀(.stage-frame)이 먼저 잡히면, 그 안에서 16:9 에 더 가까운 진짜 무대로 내려간다
+    var diff = function(el){ var r = el.getBoundingClientRect(); return r.width >= 600 && r.height > 0 ? Math.abs(r.width / r.height - 16 / 9) : 9; };
+    var all = document.querySelectorAll('body *'), E = null;
+    for (var i = 0; i < all.length; i++) if (diff(all[i]) < 0.06) { E = all[i]; break; }
+    while (E) {   // 안쪽에 보이는 자식이 하나뿐이고(틀이 무대 하나만 감쌈) 그 자식이 16:9 에 더 가까우면 내려간다
+      var kids = [].filter.call(E.children, function(c){ var r = c.getBoundingClientRect(); return r.width > 0 && r.height > 0 && c.tagName !== 'SCRIPT' && c.tagName !== 'STYLE'; });
+      if (kids.length !== 1 || diff(kids[0]) >= diff(E) - 0.002) break;
+      E = kids[0];
+    }
+    return E;
   }
   function run(){
     var E = stage(); if (!E) return;
@@ -43,8 +52,9 @@ SLIDE_JS = r"""// 장표만 보기: light/NN.html?slide=B  (분위기별 덱 dec
     // 무대만 남기기: 조상의 다른 자식은 숨기고, 조상의 여백 · 폭 제한을 푼다
     for (var a = E; a && a !== document.body; a = a.parentElement){
       var p = a.parentElement; [].forEach.call(p.children, function(c){ if (c !== a && c.tagName !== 'SCRIPT' && c.tagName !== 'STYLE') c.style.setProperty('display', 'none', 'important'); });
-      if (a !== E) a.style.cssText += ';margin:0!important;padding:0!important;max-width:none!important;width:100%!important;border:0!important;box-shadow:none!important;background:none!important;border-radius:0!important';
+      if (a !== E) a.classList.add('ds-anc');   // 페이지 스크립트가 style 속성을 다시 써도 남도록 클래스로
     }
+    var sa = document.createElement('style'); sa.textContent = '.ds-anc{margin:0!important;padding:0!important;max-width:none!important;width:100%!important;border:0!important;box-shadow:none!important;background:none!important;border-radius:0!important;outline:0!important}'; document.head.appendChild(sa);
     document.documentElement.style.cssText += ';margin:0;height:100%;overflow:hidden;background:#111';
     document.body.style.cssText += ';margin:0!important;padding:0!important;height:100%;overflow:hidden;background:#111!important;display:flex!important;align-items:center;justify-content:center';
     function fit(){ var w = Math.min(innerWidth, innerHeight * 16 / 9); E.style.setProperty('width', w + 'px', 'important'); E.style.setProperty('max-width', 'none', 'important'); E.style.setProperty('margin', '0 auto', 'important'); E.style.setProperty('border-radius', '0', 'important'); E.style.setProperty('box-shadow', 'none', 'important'); }

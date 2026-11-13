@@ -1,4 +1,4 @@
-# 첫 화면(index.html) · 글 목록(catalog.md) · 덱 순서(data/decks.json) 만들기.
+# 참고 장표 모음(refs.html) · 참고 목록(catalog/) · 표지별 덱 순서(data/decks.json) 만들기. 첫 화면과 스타일 화면은 scripts/gallery.py 가 만든다.
 # 첫 화면은 참고용 목록이다: 기존 장표를 분위기별로 모으고(표지 → 목차·간지·맺음 → 본문), 공용 본문은 자리 순서로 묶는다.
 # 내용은 모두 HTML 안에 미리 들어 있어 채팅 AI가 주소만으로 글로 읽는다(스크립트는 빠르게 보기만 한다).
 # 재료: data/rounds.json · data/triage.json(본문의 '내용의 모양') · scripts/kit.py 의 계열 이름
@@ -48,12 +48,14 @@ grid = lambda rs, tag='': '<div class="g">%s</div>' % ''.join(card(r, tag) for r
 
 H = []
 H.append('''<header>
-  <h1>디자인 레퍼런스</h1>
+  <p class="jump"><a href="index.html">← 발표 디자인 라이브러리(전체 스타일)</a></p>
+  <h1>참고 장표 모음</h1>
   <p class="lead">발표 덱을 만들 때 참고하는 장표 모음입니다. 장표 %d개를 <b>분위기 여덟</b>으로 묶었고, <b>표지 하나가 덱 한 벌</b>입니다: 표지를 누르면 그 표지의 색 · 글꼴을 입힌 본문까지 한 덱으로 넘겨 봅니다.
   모든 기관명 · 수치는 가상 예시이고, 사진은 AI로 만든 것입니다.</p>
   <p class="ai">AI가 읽을 때: 이 페이지는 글로 된 목록입니다. 장표마다 <b>가벼운 코드</b>(<code>light/번호.html</code>, 글꼴 · 그림을 박지 않아 평균 50KB)가 있고, <b>원본</b>(<code>refs/번호.html</code>)은 인터넷 없이 도는 완성본이라 큽니다.
-  색 · 글꼴 · 설명까지 적은 글 목록은 <a href="catalog.md">catalog.md</a>(분위기별로 <code>catalog/A.md</code>~<code>H.md</code>, 공용 본문 <code>catalog/body.md</code>)입니다.</p>
+  색 · 글꼴 · 설명까지 적은 글 목록은 <a href="catalog/refs.md">catalog/refs.md</a>(분위기별로 <code>catalog/A.md</code>~<code>H.md</code>, 공용 본문 <code>catalog/body.md</code>)입니다.</p>
   <nav class="moods">%s</nav>
+  <p class="jump">바로 가기: <a href="#body">본문 모음</a> · <a href="#icons">아이콘 세트</a> · <a href="#extra">와우 포인트 · 덱 키트</a> · <a href="#more">그 밖</a></p>
 </header>''' % (len(vis), ''.join('<a href="#m-%s"><img src="%s" alt="" loading="lazy" width="640" height="360"><b>%s %s</b><span>%s</span></a>' % (
     f, E(next((r['thumb'] + ver(r) for r in by('표지') if r.get('family') == f), 'kit/thumbs/%s-1.jpg' % f)), f, E(kit.NAMES[f]),
     '표지 %d개 = 덱 %d벌' % ((sum(1 for r in by('표지') if r.get('family') == f),) * 2)) for f in FAMS)))
@@ -103,8 +105,26 @@ H.append('<section id="more"><h2>그 밖 <small>분위기에 묶이지 않은 �
 for label, rs in (('표지', rest_cover), ('본문 — 덱에 그대로 넣기 어려운 것(눌러서 조작 · 재질 질감)', rest_body), ('발표 틀 — 넘기는 덱이 아니라 자체 진행 방식', rest_frame), ('인쇄 · 홍보물', rest_print)):
     if rs: H.append('<h3>%s <small>%d개</small></h3>%s' % (label, len(rs), grid(rs)))
 hidden = [r for r in rounds if r.get('hidden')]
-H.append('<p class="note">곁들이는 것: <a href="kit/index.html">덱 키트</a>(분위기별 뼈대와 부품) · <a href="wow/wow.html">와우 포인트 24</a>(발표 연출) · <a href="icons/icons.html">아이콘 세트</a>. 제작 기준에 걸려 숨긴 장표 %d개(%s).</p></section>' % (
-    len(hidden), ' · '.join('#%d' % r['no'] for r in hidden)))
+H.append('<p class="note">제작 기준에 걸려 숨긴 장표 %d개(%s).</p></section>' % (len(hidden), ' · '.join('#%d' % r['no'] for r in hidden)))
+
+# ── 아이콘 세트: 본문 묶음 머리에 붙이는 아이콘 85개. 이름과 그림을 첫 화면에 그대로 싣는다(AI는 icons/icons.json 에서 SVG 를 읽는다)
+icons = J('icons', 'icons.json'); groups = {}
+for ic in icons: groups.setdefault(ic['group'], []).append(ic)
+svg = lambda ic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>' % ic['svg']
+H.append('<section id="icons"><h2>아이콘 세트 <small>%d개 · %d묶음 — 본문 묶음 머리에 붙인다. 24 × 24, 선 1.75, 색은 글자색을 따른다</small></h2>' % (len(icons), len(groups)))
+H.append('<p class="note"><a class="btn" href="icons/icons.html">아이콘 세트 열기 · 복사하기</a> <span>SVG 원본은 <a href="icons/icons.json">icons/icons.json</a>(id · 이름 · 찾는 말 · svg). 원본 Tabler Icons(MIT). 쓴 장표: %s</span></p>' % (
+    ' '.join('#%d' % r['no'] for r in vis if r.get('icons'))))
+for g, ics in groups.items():
+    H.append('<h3>%s <small>%d개</small></h3><ul class="ic">%s</ul>' % (E(g), len(ics), ''.join('<li>%s<b>%s</b><code>%s</code></li>' % (svg(ic), E(ic['ko']), E(ic['id'])) for ic in ics)))
+H.append('</section>')
+wow = ['thumbs/hub-wow-1.jpg', 'thumbs/hub-wow-2.jpg', 'thumbs/hub-wow-3.jpg']
+H.append('''<section id="extra"><h2>곁들이는 것 <small>발표 연출 · 덱 뼈대</small></h2><div class="g x">
+<article class="c"><a class="th" href="wow/wow.html"><img src="%s" alt="" loading="lazy" width="640" height="360"></a><h4>와우 포인트 24</h4><p>청중이 "와" 하는 순간을 만드는 발표 연출 기법 24가지(드러내기 · 대비 · 숫자 체감 · 은유 · 감각 · 소리가 보이는 모션). 9장 덱, 장마다 실제로 움직인다</p><p class="lk"><a href="wow/wow.html">열기</a></p></article>
+<article class="c"><a class="th" href="kit/index.html"><img src="kit/thumbs/E-plan-6.jpg" alt="" loading="lazy" width="640" height="360"></a><h4>덱 키트</h4><p>분위기 여덟의 뼈대(표지 · 목차 · 간지 · 맺음)와 공용 부품, 예시 덱 둘. 새 덱을 한 규격으로 짤 때 쓴다</p><p class="lk"><a href="kit/index.html">열기</a></p></article>
+</div></section>''' % wow[0])
+# '그 밖'은 맨 뒤로(아이콘 · 곁들이는 것이 먼저 보이게)
+_i = next(k for k, x in enumerate(H) if x.startswith('<section id="more">')); _j = next(k for k, x in enumerate(H) if '제작 기준에 걸려 숨긴 장표' in x)
+H = H[:_i] + H[_j + 1:] + H[_i:_j + 1]
 shown = set(); [shown.add(int(m)) for m in re.findall(r'<small>#(\d+)</small>', '\n'.join(H))]
 missing = [r['no'] for r in vis if r['no'] not in shown]
 if missing: raise SystemExit('목록에서 빠진 장표: %s' % missing)
@@ -130,6 +150,7 @@ code{font-family:var(--m);font-size:.92em;background:var(--chip);padding:1px 5px
 .moods a:hover{border-color:var(--ink)}
 .moods img{aspect-ratio:16/9;object-fit:cover}
 .moods b{display:block;padding:8px 12px 0;font-size:15px;color:var(--ink)}.moods span{display:block;padding:0 12px 10px}
+.jump{margin:14px 0 0;font-size:14px}
 .deckline{margin:8px 0 0;font-size:13.5px;color:var(--soft);display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
 .btn{display:inline-flex;align-items:center;min-height:40px;padding:6px 16px;border-radius:999px;background:var(--ink);color:#fff;font-weight:700;font-size:14px;text-decoration:none}
 .g{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:14px}
@@ -141,6 +162,12 @@ code{font-family:var(--m);font-size:.92em;background:var(--chip);padding:1px 5px
 .c .lk{margin-top:auto;padding:8px 0 10px;color:var(--ink);display:block;overflow:visible;-webkit-line-clamp:unset}
 .c .dk{font-weight:700;color:var(--key)}
 .note{margin:14px 0 0;font-size:13.5px;color:var(--soft)}
+p.note:has(.btn){display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.ic{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.ic li{display:grid;grid-template-columns:36px 1fr;gap:0 10px;align-items:center;padding:9px 11px;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:13px}
+.ic svg{width:30px;height:30px;grid-row:1 / 3;color:var(--ink)}
+.ic b{font-size:13.5px;line-height:1.3}.ic code{background:none;padding:0;color:var(--soft);font-size:11.5px}
+.g.x{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}.g.x .c p{-webkit-line-clamp:4}
 footer{margin-top:48px;font-size:13px;color:var(--soft)}
 dialog.ql{width:min(1280px,calc(100vw - 32px));padding:0;border:0;border-radius:14px;background:#111;box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
 dialog.ql::backdrop{background:rgba(20,22,26,.6)}
@@ -167,9 +194,9 @@ page = '''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>디자인 레퍼런스 — 발표 덱 장표 모음</title>
+<title>참고 장표 모음 — 발표 디자인 라이브러리</title>
 <meta name="description" content="발표 덱을 만들 때 참고하는 장표 모음. 분위기 여덟으로 묶은 표지 · 목차·간지 · 본문. 모든 내용은 가상 예시입니다.">
-<link rel="alternate" type="text/markdown" href="catalog.md" title="전체 목록(글)">
+<link rel="alternate" type="text/markdown" href="catalog/refs.md" title="참고 장표 목록(글)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
@@ -186,7 +213,7 @@ page = '''<!doctype html>
 </body>
 </html>
 ''' % (CSS, '\n'.join(H), JS)
-open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8').write(page)
+open(os.path.join(ROOT, 'refs.html'), 'w', encoding='utf-8').write(page)
 open(os.path.join(ROOT, 'data', 'decks.json'), 'w', encoding='utf-8').write(json.dumps(decks, ensure_ascii=False, indent=1) + '\n')
 
 # ── catalog.md: 같은 목록을 글로(색 · 글꼴 · 설명까지). AI가 한 번에 읽는 파일
@@ -227,6 +254,12 @@ for sh in SHAPES:
 sizes['body'] = write('catalog/body.md', B_)
 taken = {r['no'] for r in shared} | {r['no'] for f in FAMS for r in own(f)} | {r['no'] for r in vis if r.get('family') and r['role'] in ('표지', '목차·간지', '발표 틀', '인쇄·홍보물')}
 sizes['etc'] = write('catalog/etc.md', ['# 그 밖 — 분위기에 묶이지 않은 장표', '', HEAD, ''] + [entry(r) + '\n' for r in vis if r['no'] not in taken])
-write('catalog.md', C)
+I_ = ['# 아이콘 세트 — 이름 목록', '', HEAD, '', '본문 묶음 머리에 붙이는 아이콘 %d개입니다. 24 × 24, 선 1.75, 둥근 끝, `currentColor`. SVG 는 %sicons/icons.json 의 `svg`(path 묶음)를 아래 틀에 넣습니다.' % (len(icons), BASE), '',
+      '```html', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">…svg…</svg>', '```', '',
+      '쓰는 법: 한 묶음에 하나, 묶음 머리에만 · 머리말 단어와 뜻이 맞을 때만 · 늘 글자와 함께 · 색은 한 가지. 원본 Tabler Icons(MIT).', '']
+for g, ics in groups.items(): I_ += ['## %s' % g, ''] + ['- `%s` %s — %s' % (ic['id'], ic['ko'], ' · '.join(ic.get('keys') or [])) for ic in ics] + ['']
+sizes['icons'] = write('catalog/icons.md', I_)
+C += ['- 아이콘 세트(이름 목록): %scatalog/icons.md · 열어 보기 %sicons/icons.html' % (BASE, BASE), '']
+write('catalog/refs.md', C)
 text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', re.sub(r'<(script|style).*?</\1>', '', page, flags=re.S)))
-print('index.html', len(page.encode('utf-8')) // 1024, 'KB · 글', len(text), '자 · catalog/ KB', sizes, '· 덱', len(decks), '벌, 장 수', sorted({len(d['slides']) for d in decks.values()}))
+print('refs.html', len(page.encode('utf-8')) // 1024, 'KB · 글', len(text), '자 · catalog/ KB', sizes, '· 덱', len(decks), '벌, 장 수', sorted({len(d['slides']) for d in decks.values()}))

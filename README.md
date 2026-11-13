@@ -1,31 +1,31 @@
-# 발표자료 디자인 레퍼런스 갤러리
+# 발표 디자인 라이브러리
 
-발표 덱을 만들 때 **참고하는 장표 모음**입니다. GitHub Pages로 공개됩니다: https://szxv7704-dot.github.io/design-reference-gallery/
-기존 장표를 **분위기 여덟**으로 묶었고, **표지 하나가 덱 한 벌**입니다: 표지를 고르면 `표지 → 목차·간지·맺음 → 본문` 순서로, 본문에 그 표지의 색 · 글꼴을 입혀 넘겨 봅니다. 사람과 채팅 AI가 함께 읽습니다.
-분류 기준은 [`docs/patterns.md`](docs/patterns.md), 만드는 규칙은 [`docs/criteria.md`](docs/criteria.md).
+사람이 발표자료 **스타일을 고르고**, AI가 그 스타일을 읽어 **실제 발표에 적용**하게 하는 갤러리입니다. GitHub Pages로 공개됩니다: https://szxv7704-dot.github.io/design-reference-gallery/
+작업 기록과 다음 할 일은 [`docs/worklog.md`](docs/worklog.md), 분류 기준은 [`docs/patterns.md`](docs/patterns.md), 만드는 규칙은 [`docs/criteria.md`](docs/criteria.md).
 모든 기관명 · 사업 · 수치는 **가상 예시**이고, 사진은 AI로 만든 것입니다.
 
 ## 구조
 
 | 경로 | 내용 |
 |---|---|
-| `index.html` | 첫 화면. **`scripts/site.py`가 만든다(손으로 고치지 말 것).** 분위기 여덟(표지 · 목차·간지·맺음 · 전용 본문) → 본문 모음(공용, 자리 순서) → 그 밖(발표 틀 · 인쇄물). 내용이 모두 HTML 안에 들어 있어 AI가 주소만으로 읽는다. 장표를 누르면 그 자리에서 열린다 |
-| `deck.html` · `data/covers.json` | **표지 하나 = 덱 한 벌**: `deck.html?cover=17#3`. 표지 → 목차·간지·맺음 → 본문(모양마다 고른 대표 12장, `site.py`의 `REPS`) → 전용 본문. 본문에는 그 표지의 색 · 글꼴을 입힌다(표지별 값은 `data/covers.json`에 손으로 적는다) |
-| `catalog.md` · `catalog/` | 같은 목록의 글 판(차례 + 분위기별 `A.md`~`H.md` + 공용 본문 `body.md` + `etc.md`): 장표마다 쓰임 · 분위기 · 가져갈 장치 · 설명 · 색 · 글꼴 · 주소 |
-| `refs/NN.html` · `thumbs/NN.jpg` · `data/rounds.json` | 장표 원본(인터넷 없이 도는 완성본, 평균 800KB) · 썸네일 · 목록 |
-| `light/NN.html` · `light/slide.js` | 글꼴 · 그림을 박지 않고 주소로 불러오는 가벼운 판(평균 50KB): `python3 scripts/light.py`. 주소 뒤에 `?slide=c17`을 붙이면 장표만 남기고 표지 #17의 색 · 글꼴을 입힌다(`?slide=B`는 계열 키트의 값) |
-| `data/triage.json` · `docs/triage.md` | 본문 장표의 모양과 판정: `python3 scripts/triage.py`(스크립트 안 `BODY`를 고친다) |
-| `kit/` | 덱 키트(곁가지): 분위기별 뼈대 · 공용 부품 · 예시 덱 둘 · 계열 지시서 |
-| `docs/criteria.md` | 제작 기준(그림 규칙 · 피할 것) |
-| `assets/` | 코드 칸에서 불러오는 사진(20KB 넘는 내장 사진을 뺀 것) |
-| `scripts/add-code.js` · `scripts/thumb.js` | 코드 칸 붙이기 · 썸네일 만들기 |
+| `data/styles.json` | **스타일 세트의 원천 데이터**: ID · 이름 · 분위기 · 전달 목적 · 유지/변경/피할 것 · 검증 기록. 화면과 AI용 목록이 모두 이것을 읽는다 |
+| `data/roles.json` · `data/patterns.json` | 세트가 갖출 열 가지 역할과 그 역할에 쓰는 구성(분량 · 넘칠 때 규칙) |
+| `index.html` · `styles/{ID}.html` · `body.html` · `motion.html` · `print.html` · `guide.html` · `catalog.md` | 화면과 AI용 목록. **`scripts/gallery.py`가 만든다(손으로 고치지 말 것).** 전체 스타일 · 스타일 하나 · 본문 구성 · 모션·강조 · 인쇄·홍보물 · 이용 방법 |
+| `kit/` | 스타일 파일: 공용 부품(`parts.css`) · 스타일 CSS(`{ID}.css`) · 디자인 규칙(`{ID}.design.md`) · 10장 예시(`{ID}-set.html`) · 다른 주제 시험(`{ID}-set2.html`) · AI 적용 안내(`{ID}.md`) · 배포 CSS(`v1/`) |
+| `src/flows/` | 예시 발표의 원본(스타일 공용): `set.html`(10장) · `set2.html`(다른 주제) · `plan.html` · `share.html` |
+| `refs.html` · `deck.html` · `catalog/` · `light/` · `data/covers.json` | 참고 장표 모음(기존 장표 117개 · 아이콘) · 표지별 미리보기 · 참고 목록 · 가벼운 코드. `scripts/site.py` · `scripts/light.py`가 만든다 |
+| `refs/NN.html` · `thumbs/NN.jpg` · `data/rounds.json` | 참고 장표 원본 · 썸네일 · 목록 |
+| `docs/worklog.md` | 작업 기록: 스타일 현황 · 한 검증 · 다음 시작점 |
 
 다시 만드는 순서:
 
 ```
-python3 scripts/light.py      # light/ 가벼운 판
-python3 scripts/triage.py     # 본문 모양 · 판정
-python3 scripts/site.py       # index.html · catalog.md · data/decks.json
+python3 scripts/kit.py            # 스타일 CSS · 예시 발표 · 적용 안내(스타일을 적으면 그것만: kit.py C E)
+node scripts/kit_thumbs.js        # 예시 발표 썸네일
+python3 scripts/light.py && python3 scripts/triage.py && python3 scripts/site.py   # 참고 장표 쪽
+python3 scripts/gallery.py        # 화면 · catalog.md
+node scripts/check.js kit C-set C-set2   # 넘침 · 글자 크기 · 인터넷 없이 열리는지
+node scripts/check_decks.js       # 표지별 미리보기 전체 검사
 ```
 
 ## 레퍼런스 장표의 옛 분류 (rounds.json 필드)

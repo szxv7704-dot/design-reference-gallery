@@ -103,6 +103,31 @@
 
 자리 이름은 머리말(`.kicker`)과 목차에 씁니다. 장 수는 내용이 정하고, 문서에 없는 자리는 뺍니다.
 
+**10장 세트 예시** — 세트의 열 가지 역할을 한 장씩(가상 주제: 생성형 AI 업무 활용 연수) · 예시 덱 https://szxv7704-dot.github.io/design-reference-gallery/kit/H-set.html
+
+| 자리 | 기본 장표 |
+| --- | --- |
+| 표지 | 표지 |
+| 전체 흐름 | 목차 |
+| 핵심 개념 · 정의 | 용어 정의 |
+| 비교 | 둘 비교 |
+| 순서 · 절차 | 순서·단계 |
+| 사례 · 화면 | 화면 짚기 |
+| 실습 · 행동 안내 | 할 일 |
+| 핵심 수치 · 근거 | 큰 숫자 |
+| 요약 | 항목 |
+| 마무리 | 맺음 |
+
+**다른 주제 시험** — 다른 내용에도 쓰이는지 보는 본문 다섯 장(가상 주제: 학교 독서 활동 소개) · 예시 덱 https://szxv7704-dot.github.io/design-reference-gallery/kit/H-set2.html
+
+| 자리 | 기본 장표 |
+| --- | --- |
+| 프로그램 묶음 | 묶음·분류 |
+| 추이 | 추이 |
+| 인용 | 인용 |
+| 일정 | 일정 |
+| 질문 | 질문 |
+
 **계획안 발표** — 계획안 문서의 내용을 발표로 옮길 때 · 예시 덱 https://szxv7704-dot.github.io/design-reference-gallery/kit/H-plan.html
 
 | 자리 | 기본 장표 |
@@ -181,12 +206,12 @@
 ```html
 <section data-pattern="cover" class="slide cover">
   <div class="c-text">
-    <span class="c-tag">2027 추진 계획 · 가상 예시</span>
-    <h1>학교 문화예술교육<br><em>지역 연계</em> 추진 계획</h1>
-    <p class="c-sub">시 지역에서 군 지역으로, 138교에서 200교로</p>
+    <span class="c-tag">교직원 연수 · 가상 예시</span>
+    <h1>생성형 AI,<br><em>업무에 쓰는</em> 첫걸음</h1>
+    <p class="c-sub">요청 한 줄을 바꾸면 결과가 달라집니다</p>
   </div>
   <div class="tiles big" aria-hidden="true"></div>
-  <p class="c-org"><span>○○교육청 교육과정과</span><span>2027. 2. 10.</span></p>
+  <p class="c-org"><span>○○교육청 교육연수원</span><span>2027. 3. 12.</span></p>
 </section>
 ```
 
@@ -199,14 +224,14 @@
 ```html
 <section data-pattern="toc" class="slide toc">
   <div class="s-body">
-    <p class="kicker">CONTENTS</p>
-    <h2 class="title">차례</h2>
+    <p class="kicker">오늘의 흐름</p>
+    <h2 class="title">50분 동안 다섯 걸음</h2>
     <ol class="toc-list">
-      <li class="is-now"><b>01</b><span>추진 배경</span><span>03</span></li>
-      <li><b>02</b><span>목표 · 추진 체계</span><span>04</span></li>
-      <li><b>03</b><span>세부 추진 과제</span><span>06</span></li>
-      <li><b>04</b><span>일정 · 예산</span><span>08</span></li>
-      <li><b>05</b><span>기대 효과</span><span>11</span></li>
+      <li class="is-now"><b>01</b><span>개념 맞추기</span><span>5분</span></li>
+      <li><b>02</b><span>좋은 요청과 나쁜 요청</span><span>10분</span></li>
+      <li><b>03</b><span>따라 하기</span><span>10분</span></li>
+      <li><b>04</b><span>실습</span><span>20분</span></li>
+      <li><b>05</b><span>정리</span><span>5분</span></li>
     </ol>
   </div>
   <div class="tiles s1" aria-hidden="true"></div>
@@ -238,8 +263,8 @@
 
 ```html
 <section data-pattern="closing" class="slide close">
-  <h2>어느 학교에서든<br>30분 안에</h2>
-  <p>문의 · ○○교육청 교육과정과 문화예술교육 담당</p>
+  <h2>오늘 쓴 요청문을<br>내일 업무에</h2>
+  <p>문의 · ○○교육청 교육연수원 연수 담당</p>
   <div class="tiles roof" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
@@ -274,15 +299,14 @@
 ```html
 <section data-pattern="points" class="slide">
   <div class="s-body">
-    <p class="kicker">05 기대 효과</p>
-    <h2 class="title">가장 먼저 달라지는 것은 <em>군 지역 학교의 이동 시간</em>입니다</h2>
+    <p class="kicker">05 정리</p>
+    <h2 class="title">오늘 배운 것은 <em>세 줄</em>입니다</h2>
     <ol class="points fill">
-      <li class="is-key"><b>이동 시간 절반</b><p>군 지역 학교 평균 62분 → 30분 안</p></li>
-      <li><b>참여 학교 200교</b><p>138교에서 62교 늘림, 그중 40교가 군 지역</p></li>
-      <li><b>학교 행정 한 번으로</b><p>버스 · 보험 · 인솔을 학교가 따로 계약하지 않음</p></li>
+      <li class="is-key"><b>누구에게</b><p>읽을 사람과 말투를 먼저 적는다</p></li>
+      <li><b>무엇으로</b><p>근거 자료를 붙이고 개인정보는 지운다</p></li>
+      <li><b>어떤 모양으로</b><p>분량과 형식을 정하고, 받은 초안은 꼭 다시 읽는다</p></li>
     </ol>
   </div>
-  <p class="src">자료: ○○교육청 운영 실적 · 2027 계획(가상 예시)</p>
   <span class="page-no"></span>
 </section>
 ```
@@ -293,11 +317,44 @@
 - 내용 조건: 용어 1개 + 뜻 한 문장 + 예 1~2개. 넘치면: 용어마다 한 장
 - 부품: `.define`
 
+```html
+<section data-pattern="define" class="slide">
+  <div class="s-body">
+    <p class="kicker">01 개념 맞추기</p>
+    <h2 class="title">먼저 <em>프롬프트</em>라는 말부터 맞춥니다</h2>
+    <dl class="define fill">
+      <dt>프롬프트<small>AI에게 건네는 요청문</small></dt>
+      <dd>
+        <p>무엇을, 누구를 위해, 어떤 모양으로 쓸지 AI에게 알려 주는 글입니다.</p>
+        <ul><li>가정통신문 초안을 학부모 눈높이로 써 줘</li><li>회의록을 결정 사항 세 줄로 줄여 줘</li></ul>
+      </dd>
+    </dl>
+  </div>
+  <span class="page-no"></span>
+</section>
+```
+
 ### 인용 · `quote`
 
 - 이런 내용일 때: 참여자 말 · 설문 서술 답 · 법령 조문
 - 내용 조건: 1~3개, 각 60자 이하, 말한 사람. 넘치면: 가장 강한 것 하나만
 - 부품: `.quote`
+
+```html
+<section data-pattern="quote" class="slide">
+  <div class="s-body">
+    <p class="kicker">독서 활동 소개 · 읽은 사람들의 말</p>
+    <h2 class="title">가장 많이 나온 말은 <em>"같이 읽으니 끝까지 읽었다"</em>였습니다</h2>
+    <div class="quote fill">
+      <figure class="is-key"><blockquote>혼자였으면 덮었을 책을 친구들과 이야기하려고 끝까지 읽었어요.</blockquote><figcaption>5학년 학생</figcaption></figure>
+      <figure><blockquote>아침 10분이 쌓이니 수업 시작이 차분해졌습니다.</blockquote><figcaption>3학년 담임 교사</figcaption></figure>
+      <figure><blockquote>집에서도 아이가 먼저 책 이야기를 꺼냅니다.</blockquote><figcaption>2학년 학부모</figcaption></figure>
+    </div>
+  </div>
+  <p class="src">가상 예시</p>
+  <span class="page-no"></span>
+</section>
+```
 
 ### 순서·단계 · `steps`
 
@@ -308,12 +365,12 @@
 ```html
 <section data-pattern="steps" class="slide">
   <div class="s-body">
-    <p class="kicker">05 시사점 · 향후 계획</p>
-    <h2 class="title">2027년엔 <em>군 지역</em>부터 넓혀 200교로 갑니다</h2>
+    <p class="kicker">03 따라 하기</p>
+    <h2 class="title">요청문은 <em>세 걸음</em>으로 씁니다</h2>
     <div class="road fill">
-      <div class="is-key"><h3><small>2027 상반기</small>군 지역 넓히기</h3><ul><li>찾아오는 예술 공간 버스 2대</li><li>군 지역 학교 우선 선정</li><li>이동 · 보험 일괄 계약</li></ul></div>
-      <div><h3><small>2027 하반기</small>200교로 확대</h3><ul><li>예술 공간 60곳 협약</li><li>학기별 공동 설계 연수</li><li>연계 수업 2,000회</li></ul></div>
-      <div><h3><small>2028</small>교육과정에 넣기</h3><ul><li>학년별 연계 수업 모델</li><li>교육과정 편성 안내</li><li>성과 지표 정례 조사</li></ul></div>
+      <div class="is-key"><h3><small>1</small>누구에게</h3><ul><li>읽을 사람을 적는다</li><li>학부모 · 학생 · 동료</li><li>말투도 함께</li></ul></div>
+      <div><h3><small>2</small>무엇으로</h3><ul><li>근거 자료를 붙인다</li><li>계획서 · 설문 · 회의록</li><li>개인정보는 지우고</li></ul></div>
+      <div><h3><small>3</small>어떤 모양으로</h3><ul><li>분량을 정한다</li><li>문단 · 표 · 목록</li><li>빠지면 안 될 것</li></ul></div>
     </div>
   </div>
   <span class="page-no"></span>
@@ -327,14 +384,13 @@
 - 부품: `.fix` (+ `.stack`) — 누를 때마다 한 줄씩 보이려면 data-step
 
 ```html
-<section data-pattern="compare" class="slide" data-steps="3">
+<section data-pattern="compare" class="slide" data-steps="2">
   <div class="s-body">
-    <p class="kicker">05 시사점 · 향후 계획</p>
-    <h2 class="title">막힌 곳은 <em>이동 · 안전</em>이었고, 내년엔 묶어서 지원합니다</h2>
+    <p class="kicker">02 좋은 요청과 나쁜 요청</p>
+    <h2 class="title">막연한 요청에 <em>대상과 모양</em>을 더하면 달라집니다</h2>
     <div class="fill stack">
-      <div class="fix" data-step="1"><p class="q"><b>막힌 곳 1</b>예술 공간이 시 지역에 몰려 군 지역 학교는 이동이 깁니다</p><i aria-hidden="true"></i><p class="a"><b>고칠 방법 1</b>군 지역에 찾아오는 예술 공간 버스 2대</p></div>
-      <div class="fix is-key" data-step="2"><p class="q"><b>막힌 곳 2</b>학교마다 버스 · 보험을 따로 준비해야 했습니다</p><i aria-hidden="true"></i><p class="a"><b>고칠 방법 2</b>이동 · 보험 · 인솔 보조를 교육청이 한꺼번에 계약</p></div>
-      <div class="fix" data-step="3"><p class="q"><b>막힌 곳 3</b>예술가 · 교사 설계 시간이 학기 초에 몰렸습니다</p><i aria-hidden="true"></i><p class="a"><b>고칠 방법 3</b>공동 설계 연수를 학기마다 두 번으로 나눔</p></div>
+      <div class="fix" data-step="1"><p class="q"><b>막연한 요청</b>안내문 써 줘</p><i aria-hidden="true"></i><p class="a"><b>분명한 요청</b>학부모에게 보낼 체험학습 안내문을 세 문단으로</p></div>
+      <div class="fix is-key" data-step="2"><p class="q"><b>막연한 요청</b>이 자료 정리해 줘</p><i aria-hidden="true"></i><p class="a"><b>분명한 요청</b>첨부한 설문 결과를 학년별 표로, 눈에 띄는 점 세 줄</p></div>
     </div>
   </div>
   <span class="page-no"></span>
@@ -375,12 +431,12 @@
 ```html
 <section data-pattern="groups" class="slide">
   <div class="s-body">
-    <p class="kicker">03 세부 추진 과제</p>
-    <h2 class="title">여섯 과제 중 <em>이동 지원</em> 둘은 상반기에 끝냅니다</h2>
+    <p class="kicker">독서 활동 소개 · 무엇을 하나</p>
+    <h2 class="title">올해 독서 활동은 <em>세 갈래</em>로 엽니다</h2>
     <div class="grid g3 fill center">
-      <div class="card is-key"><span class="c-no">묶음 1 · 이동</span><h3>찾아가는 교실</h3><p>예술 공간 버스 운영<br>군 지역 거점 지정</p><p class="c-foot">기한 <b>6월</b></p></div>
-      <div class="card"><span class="c-no">묶음 2 · 수업</span><h3>함께 짜는 수업</h3><p>공동 설계 연수<br>학년별 수업 모델 개발</p><p class="c-foot">기한 <b>10월</b></p></div>
-      <div class="card"><span class="c-no">묶음 3 · 행정</span><h3>한 번에 하는 행정</h3><p>이동 · 보험 일괄 계약<br>신청 서류 줄이기</p><p class="c-foot">기한 <b>3월</b></p></div>
+      <div class="card is-key"><span class="c-no">매일</span><h3>아침 10분 읽기</h3><p>1교시 전, 고른 책을<br>소리 없이 읽는다</p><p class="c-foot">전 학년 <b>18학급</b></p></div>
+      <div class="card"><span class="c-no">달마다</span><h3>책 대화</h3><p>같은 책을 읽고<br>모둠으로 이야기한다</p><p class="c-foot">학년별 <b>월 1회</b></p></div>
+      <div class="card"><span class="c-no">학기마다</span><h3>작가와 만남</h3><p>읽은 책의 작가를<br>도서관으로 초대한다</p><p class="c-foot">연 <b>2회</b></p></div>
     </div>
   </div>
   <span class="page-no"></span>
@@ -421,16 +477,15 @@
 ```html
 <section data-pattern="numbers" class="slide">
   <div class="s-body">
-    <p class="kicker">03 핵심 성과</p>
-    <h2 class="title">참여 학교 <em>138교</em>, 연계 수업 1,240회가 열렸습니다</h2>
-    <div class="grid g4 fill center">
-      <div class="tile is-key"><span>참여 학교</span><b>138<small>교</small></b><span class="delta">▲ 64교</span><p>2025 시범 대비</p></div>
-      <div class="tile"><span>연계 수업</span><b>1,240<small>회</small></b><span class="delta">▲ 702회</span><p>2025 시범 대비</p></div>
-      <div class="tile"><span>참여 학생</span><b>2.1<small>만 명</small></b><span class="delta">▲ 1.2만 명</span><p>2025 시범 대비</p></div>
-      <div class="tile"><span>예술 공간</span><b>46<small>곳</small></b><span class="delta">▲ 19곳</span><p>2025 시범 대비</p></div>
+    <p class="kicker">05 정리 · 지난 연수 결과</p>
+    <h2 class="title">초안 쓰는 시간이 <em>40분에서 15분</em>으로 줄었습니다</h2>
+    <div class="grid g3 fill center">
+      <div class="tile is-key"><span>초안 작성 시간</span><b>15<small>분</small></b><p>연수 전 평균 40분</p></div>
+      <div class="tile"><span>다시 요청한 횟수</span><b>2<small>회</small></b><p>한 문서당 평균</p></div>
+      <div class="tile"><span>업무에 계속 쓰겠다</span><b>92<small>%</small></b><p>수료자 설문</p></div>
     </div>
   </div>
-  <p class="src">자료: ○○교육청 운영 실적(가상 예시)</p>
+  <p class="src">자료: ○○교육청 교육연수원 수료자 설문(가상 예시)</p>
   <span class="page-no"></span>
 </section>
 ```
@@ -468,16 +523,16 @@
 ```html
 <section data-pattern="trend" class="slide">
   <div class="s-body">
-    <p class="kicker">01 추진 배경</p>
-    <h2 class="title">참여 학교는 4년 새 <em>여섯 배</em>로 늘었습니다</h2>
+    <p class="kicker">독서 활동 소개 · 달라진 점</p>
+    <h2 class="title">한 사람이 빌린 책이 3년 새 <em>두 배</em>가 됐습니다</h2>
     <div class="trend fill">
-      <div style="--v:17"><b>23<small>교</small></b><i></i><span>2023</span></div>
-      <div style="--v:30"><b>41<small>교</small></b><i></i><span>2024</span></div>
-      <div style="--v:54"><b>74<small>교</small></b><i></i><span>2025</span></div>
-      <div class="is-key" style="--v:100"><b>138<small>교</small></b><i></i><span>2026</span></div>
+      <div style="--v:48"><b>11<small>권</small></b><i></i><span>2023</span></div>
+      <div style="--v:61"><b>14<small>권</small></b><i></i><span>2024</span></div>
+      <div style="--v:83"><b>19<small>권</small></b><i></i><span>2025</span></div>
+      <div class="is-key" style="--v:100"><b>23<small>권</small></b><i></i><span>2026</span></div>
     </div>
   </div>
-  <p class="src">자료: ○○교육청 운영 실적(가상 예시)</p>
+  <p class="src">자료: ○○초등학교 도서관 대출 기록, 학생 1인당 연간(가상 예시)</p>
   <span class="page-no"></span>
 </section>
 ```
@@ -544,16 +599,15 @@
 ```html
 <section data-pattern="timeline" class="slide">
   <div class="s-body">
-    <p class="kicker">04 일정 · 예산</p>
-    <h2 class="title">계약을 3월에 끝내야 <em>4월 버스 운행</em>이 시작됩니다</h2>
-    <div class="gantt fill">
-      <span class="g-h">과제</span><span class="g-h">1</span><span class="g-h">2</span><span class="g-h">3</span><span class="g-h">4</span><span class="g-h">5</span><span class="g-h">6</span><span class="g-h">7</span><span class="g-h">8</span><span class="g-h">9</span><span class="g-h">10</span><span class="g-h">11</span><span class="g-h">12</span>
-      <span class="g-name">일괄 계약</span><span class="g-bar" style="--from:1;--to:3"></span>
-      <span class="g-name">버스 운행</span><span class="g-bar is-key" style="--from:4;--to:12"></span>
-      <span class="g-name">거점 지정</span><span class="g-bar" style="--from:3;--to:6"></span>
-      <span class="g-name">설계 연수</span><span class="g-bar" style="--from:2;--to:10"></span>
-      <span class="g-name">수업 모델</span><span class="g-bar" style="--from:5;--to:10"></span>
-    </div>
+    <p class="kicker">독서 활동 소개 · 한 해 일정</p>
+    <h2 class="title">가장 큰 행사는 <em>10월 책 잔치</em>입니다</h2>
+    <ol class="mile fill">
+      <li><time>3월</time><b>아침 읽기 시작</b><p>학급 문고 채우기</p></li>
+      <li><time>5월</time><b>작가와 만남 1</b><p>그림책 작가</p></li>
+      <li><time>7월</time><b>방학 책 꾸러미</b><p>세 권씩 빌려 가기</p></li>
+      <li class="is-key"><time>10월</time><b>책 잔치</b><p>전시 · 낭독 · 나눔 장터</p></li>
+      <li><time>12월</time><b>한 해 돌아보기</b><p>읽은 책 지도 만들기</p></li>
+    </ol>
   </div>
   <span class="page-no"></span>
 </section>
@@ -586,17 +640,70 @@
 - 내용 조건: 캡처 1장 + 번호 표시 3개 이하. 넘치면: 동작 하나에 한 장
 - 부품: `.shot` + `.shot-img` — 번호 자리는 style="--x:%;--y:%"
 
+```html
+<section data-pattern="screen" class="slide">
+  <div class="s-body">
+    <p class="kicker">03 따라 하기 · 화면</p>
+    <h2 class="title">대화창에서는 <em>세 곳</em>만 보면 됩니다</h2>
+    <div class="shot fill">
+      <div class="shot-img"><div class="ph"><img src="화면-캡처.png" alt="채팅 AI 대화창 예시 화면"></div><b style="--x:15;--y:88">1</b><b class="is-key" style="--x:42;--y:88">2</b><b style="--x:27;--y:61">3</b></div>
+      <ol>
+        <li><b>자료 붙이기</b><span>+ 단추로 문서를 첨부</span></li>
+        <li class="is-key"><b>요청 쓰기</b><span>누구에게 · 무엇으로 · 어떤 모양</span></li>
+        <li><b>다시 다듬기</b><span>더 짧게, 표로, 말투 바꾸기</span></li>
+      </ol>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+```
+
 ### 질문 · `ask`
 
 - 이런 내용일 때: 여는 질문 · 토의 주제 · 퀴즈 · 자주 묻는 질문
 - 내용 조건: 질문 1개 + 보기 4개 이하(ol) 또는 답 1개(.a-a). 넘치면: 질문마다 한 장
 - 부품: `.ask` — 퀴즈 답은 .a-a 에 data-step="1" 을 붙여 가렸다 연다. 이 장은 .title 없이
 
+```html
+<section data-pattern="ask" class="slide">
+  <div class="s-body">
+    <p class="kicker">독서 활동 소개 · 함께 정할 것</p>
+    <div class="ask fill">
+      <p class="a-q">우리 학급에서 가장 먼저 시작할 수 있는 것은 무엇일까요?</p>
+      <ol>
+        <li>아침 10분 읽기</li>
+        <li>달마다 책 대화</li>
+        <li>학급 문고 바꿔 읽기</li>
+        <li>읽은 책 한 줄 남기기</li>
+      </ol>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+```
+
 ### 할 일 · `todo`
 
 - 이런 내용일 때: 실습 안내 · 과제 · 제출 서류 · 신청 기한
 - 내용 조건: 할 일 한 문장 + 조건 칸 2~3개(시간 · 결과물 · 도움). 넘치면: 할 일마다 한 장
 - 부품: `.todo` — 이 장은 .title 없이
+
+```html
+<section data-pattern="todo" class="slide">
+  <div class="s-body">
+    <p class="kicker">04 실습</p>
+    <div class="todo fill">
+      <p class="t-do">이번 주에 쓸 문서 <em>하나</em>를 골라<br>세 걸음으로 요청문을 써 봅니다</p>
+      <dl>
+        <div><dt>시간</dt><dd>20분<small>15분 혼자, 5분 옆 사람과</small></dd></div>
+        <div><dt>결과물</dt><dd>요청문 + 받은 초안<small>실습지 1쪽에 붙입니다</small></dd></div>
+        <div><dt>막히면</dt><dd>세 걸음 카드<small>책상 위에 있습니다</small></dd></div>
+      </dl>
+    </div>
+  </div>
+  <span class="page-no"></span>
+</section>
+```
 
 ## 9. 출력과 점검
 
@@ -709,7 +816,7 @@ radius: 0px
 - `.kicker` — 예: `<p class="kicker">`
 - `.title` — 예: `<h2 class="title">`
 - `.lead`
-- `.fill` — 예: `<div class="trend fill">`
+- `.fill` — 예: `<dl class="define fill">`
 - `.src` — 예: `<p class="src">`
 - `.page-no` — 예: `<span class="page-no">`
 
@@ -758,35 +865,35 @@ radius: 0px
 - `.card` — 예: `<div class="card is-key">`
 - `.c-foot` — 예: `<p class="c-foot">`
 - `.c-no` — 예: `<span class="c-no">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **수치 타일**
 - `.tile` — 예: `<div class="tile is-key">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **막대(가로): style="--v:42" 는 최댓값 대비 %**
 - `.bars`
 - `.bar`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **현안 → 해결 표**
 - `.fix` — 예: `<div class="fix" data-step="1">`
 - `.stack` — 예: `<div class="fill stack">`
 - `.q` — 예: `<p class="q">`
 - `.a` — 예: `<p class="a">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **간트(월 1~12): style="--from:3;--to:6"**
 - `.gantt` — 예: `<div class="gantt fill">`
 - `.g-h` — 예: `<span class="g-h">`
 - `.g-name` — 예: `<span class="g-name">`
 - `.g-bar` — 예: `<span class="g-bar" style="--from:1;--to:3">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **표**
 - `.tbl` — 예: `<table class="tbl">`
 - `.n` — 예: `<td class="n">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 - `.tile` — 예: `<div class="tile is-key">`
 - `.bars`
 - `.gantt` — 예: `<div class="gantt fill">`
@@ -795,23 +902,23 @@ radius: 0px
 - `.likert` — 예: `<div class="likert fill">`
 - `.ba` — 예: `<div class="ba">`
 - `.case` — 예: `<div class="case fill">`
-- `.quote`
+- `.quote` — 예: `<div class="quote fill">`
 - `.tree` — 예: `<div class="tree fill" style="--n:3">`
 - `.trend` — 예: `<div class="trend fill">`
 - `.share` — 예: `<div class="share fill">`
-- `.ask`
-- `.todo`
+- `.ask` — 예: `<div class="ask fill">`
+- `.todo` — 예: `<div class="todo fill">`
 - `.fix` — 예: `<div class="fix" data-step="1">`
 - `.a` — 예: `<p class="a">`
 - `.road` — 예: `<div class="road fill">`
 
 **사업 개요: 목적 · 대상 · 기간 · 규모 네 칸**
 - `.brief` — 예: `<div class="brief fill">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **추진 경과: 가로 시간선 위 이정표. 날짜는 <time>**
 - `.mile` — 예: `<ol class="mile fill">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **증감 표시: 수치 타일 안 <span class="delta">▲ 38교</span> (줄면 .down)**
 - `.delta` — 예: `<span class="delta">`
@@ -820,7 +927,7 @@ radius: 0px
 **목표 대비 달성: 실적 막대 + 목표선. style="--v:92;--t:80"(최댓값 대비 %)**
 - `.goal` — 예: `<div class="goal fill">`
 - `.g-row` — 예: `<div class="g-row" style="--v:88.5;--t:76.9">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 - `.g-key` — 예: `<p class="g-key">`
 - `.v` — 예: `<i class="v">`
 - `.t` — 예: `<i class="t">`
@@ -828,67 +935,67 @@ radius: 0px
 **만족도: 문항마다 다섯 단계 100% 막대. <i style="--v:%"> 다섯 개(매우 불만 → 매우 만족)**
 - `.likert` — 예: `<div class="likert fill">`
 - `.lk` — 예: `<div class="lk is-key">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 - `.lk-key` — 예: `<p class="lk-key">`
 
 **전후 비교: 사업 전 → 사업 후, 짝마다 한 줄**
 - `.ba` — 예: `<div class="ba">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 - `.ba-head` — 예: `<p class="ba-head">`
 
 **우수 사례: 사진 자리 + 학교 · 한 줄 성과 + 참여자 목소리**
 - `.case` — 예: `<div class="case fill">`
-- `.ph` — 예: `<div class="ph" data-need="사진 자리 · 4:3 · 공방에서 도자기를 빚는 초등학생">`
+- `.ph` — 예: `<div class="ph">`
 - `.c-body` — 예: `<div class="c-body">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **향후 계획: 단계 머리(화살 띠) + 단계별 할 일**
 - `.road` — 예: `<div class="road fill">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **한 문장: 장 가운데 큰 문장 하나 + 받치는 말 한 줄(.title 없이 .kicker 아래에)**
 - `.say` — 예: `<div class="say fill">`
 
 **항목: 번호 + 이름 + 설명. 3~5줄(5줄이면 설명은 한 줄)**
 - `.points` — 예: `<ol class="points fill">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **용어 정의: 왼쪽 용어, 오른쪽 뜻 한 문장 + 예 한두 개**
-- `.define`
+- `.define` — 예: `<dl class="define fill">`
 
 **인용: 말 1~3개. 말한 사람은 figcaption**
-- `.quote`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.quote` — 예: `<div class="quote fill">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **체계: 맨 위 하나(.t-top) → 가운데 갈래(.t-mid) → 갈래마다 할 일 목록(ul). 갈래 수는 style="--n:3"**
 - `.tree` — 예: `<div class="tree fill" style="--n:3">`
 - `.t-top` — 예: `<div class="t-top">`
 - `.t-mid` — 예: `<div class="t-mid is-key">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **추이: 시점마다 세로 막대. style="--v:62"(가장 큰 값 = 100). 3~8시점**
 - `.trend` — 예: `<div class="trend fill">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **구성비: 100% 막대 하나(.sh-bar, <i style="--v:%"> 합 100) + 조각 설명(ul, 같은 순서)**
 - `.share` — 예: `<div class="share fill">`
 - `.sh-bar` — 예: `<div class="sh-bar">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **화면 짚기: 화면 캡처 자리(.shot-img 안 .ph) + 번호 표시(<b style="--x:%;--y:%">) + 번호별 설명(ol)**
-- `.shot`
-- `.shot-img`
-- `.ph` — 예: `<div class="ph" data-need="사진 자리 · 4:3 · 공방에서 도자기를 빚는 초등학생">`
-- `.is-key` — 예: `<div class="is-key" style="--v:100">`
+- `.shot` — 예: `<div class="shot fill">`
+- `.shot-img` — 예: `<div class="shot-img">`
+- `.ph` — 예: `<div class="ph">`
+- `.is-key` — 예: `<div class="fix is-key" data-step="2">`
 
 **질문: 큰 질문(.a-q) + 보기(ol, 4개까지) 또는 답(.a-a). 답은 data-step 으로 가렸다 연다**
-- `.ask`
-- `.a-q`
+- `.ask` — 예: `<div class="ask fill">`
+- `.a-q` — 예: `<p class="a-q">`
 - `.a-a`
 
 **할 일: 지금 할 일 한 문장(.t-do) + 시간 · 결과물 · 도움 받을 곳 같은 조건 칸(dl)**
-- `.todo`
-- `.t-do`
+- `.todo` — 예: `<div class="todo fill">`
+- `.t-do` — 예: `<p class="t-do">`
 
 ---
 

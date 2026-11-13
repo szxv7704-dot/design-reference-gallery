@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>자연 재질 — 발표 디자인 라이브러리</title>
+<meta name="description" content="천천히 자라는 변화를 이야기할 때. 환경 · 생태 · 마을 교육">
+<link rel="alternate" type="text/markdown" href="../catalog.md" title="AI가 읽는 목록">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+:root{--bg:#F7F6F3;--card:#FFFFFF;--ink:#1B1E24;--soft:#5C616B;--line:#E3E1DB;--key:#1F5FD0;--keybg:#E8EFFC;--chip:#EDEBE5;--ok:#1E7B4F;--warn:#9A6400;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all;line-height:1.6}
+a{color:inherit}img{max-width:100%;height:auto;display:block;background:var(--chip)}
+button{font-family:var(--f);cursor:pointer}
+.top{position:sticky;top:0;z-index:10;background:rgba(247,246,243,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top div{max-width:1280px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:8px 26px;flex-wrap:wrap}
+.brand{font-weight:900;font-size:18px;text-decoration:none;padding:14px 0;margin-right:10px}
+.top nav{display:flex;gap:4px 22px;flex-wrap:wrap}
+.top nav a{padding:16px 2px 13px;text-decoration:none;font-size:15px;font-weight:500;border-bottom:3px solid transparent}
+.top nav a[aria-current=page]{color:var(--key);border-bottom-color:var(--key);font-weight:700}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:-.02em;line-height:1.25;margin:0}
+h2{font-size:26px;font-weight:900;margin:52px 0 6px;letter-spacing:-.01em}
+h3{font-size:17px;margin:28px 0 10px}
+h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--soft);letter-spacing:0}
+.lead{margin:10px 0 0;font-size:17px;color:var(--soft);max-width:60ch}
+.hero{display:grid;grid-template-columns:1fr auto;gap:20px 40px;align-items:start}
+.ask{background:var(--keybg);border-radius:14px;padding:20px 22px;display:flex;gap:14px 20px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:17px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 18px;border-radius:10px;border:2px solid var(--key);background:var(--card);color:var(--key);font:700 15px var(--f);text-decoration:none}
+.btn.fill{background:var(--key);color:#fff}
+.btn.small{min-height:36px;padding:4px 12px;font-size:14px;border-width:1.5px}
+.steps{list-style:none;margin:24px 0 0;padding:0 0 22px;display:flex;flex-wrap:wrap;gap:10px 28px;border-bottom:1px solid var(--line);counter-reset:s;font-weight:700}
+.steps li{counter-increment:s;display:flex;align-items:center;gap:10px}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center}
+.steps li + li{padding-left:0}
+.tools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:14px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid #C9C6BE;background:var(--card);font:500 15px var(--f);padding:8px 18px;border-radius:999px;color:var(--ink)}
+.chips button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tools input[type=search]{flex:1 1 220px;min-width:0;font:15px var(--f);padding:10px 14px;border:1px solid #C9C6BE;border-radius:10px;background:var(--card);color:var(--ink)}
+.tools label{display:inline-flex;align-items:center;gap:8px;font-size:15px}
+.tools input[type=checkbox],.cmp input{width:20px;height:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:20px}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column}
+.sc .cv img{border-radius:8px;aspect-ratio:16/9;object-fit:cover}
+.sc .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.sc .tri img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+.sc h3{margin:12px 6px 0;font-size:20px}
+.sc p{margin:2px 6px 0;font-size:14.5px;color:var(--soft)}
+.sc .ft{margin:12px 6px 4px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--chip);font-size:13px;font-weight:500;color:var(--soft)}
+.badge.ok{background:#E2F2E9;color:var(--ok)}.badge.wip{background:#FBF0D9;color:var(--warn)}
+.cmp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:14px}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:14px}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px;display:flex;flex-direction:column}
+.mc img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.mc b{display:block;margin:8px 10px 0;font-size:14.5px;line-height:1.4}.mc small{font-weight:400;color:var(--soft)}
+.mc p{margin:3px 10px 0;color:var(--soft);line-height:1.5}
+a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
+.mc .lk{margin-top:auto;padding:8px 10px 10px;color:var(--ink)}
+.short{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.short a{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:10px;text-decoration:none;font-weight:500}
+.short a::after{content:"›";color:var(--soft);font-size:20px}
+.note{margin:12px 0 0;font-size:14px;color:var(--soft)}
+.empty{padding:40px 0;text-align:center;color:var(--soft)}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{white-space:nowrap;background:var(--chip);font-weight:700}
+.tw{overflow-x:auto}
+.view{background:#111;border-radius:12px;overflow:hidden}.view iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#111}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+.kv{margin:0;display:grid;grid-template-columns:92px 1fr;gap:8px 12px;font-size:14.5px}.kv dt{color:var(--soft)}.kv dd{margin:0}
+.kv ul{margin:0;padding-left:1.1em}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+pre.req{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font:13.5px/1.6 var(--m);margin:10px 0 0;overflow-wrap:anywhere}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:0 14px}
+summary{padding:12px 0;font-weight:700;cursor:pointer}
+.tray{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;background:var(--ink);color:#fff;border-radius:999px;padding:8px 10px 8px 18px;display:flex;gap:12px;align-items:center;font-size:14.5px;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+.tray[hidden]{display:none}.tray button{border:0;border-radius:999px;padding:8px 16px;font:700 14px var(--f);background:#fff;color:var(--ink)}
+dialog{width:min(1240px,calc(100vw - 24px));max-height:calc(100vh - 24px);padding:18px;border:0;border-radius:14px;background:var(--bg);color:var(--ink)}
+dialog::backdrop{background:rgba(20,22,26,.6)}
+.cmpgrid{display:grid;gap:14px}.cmpgrid .row{display:grid;grid-template-columns:140px repeat(5,1fr);gap:6px;align-items:center}
+.cmpgrid .row b{font-size:15px}.cmpgrid img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+:focus-visible{outline:3px solid var(--key);outline-offset:2px}
+footer{margin-top:56px;font-size:13px;color:var(--soft)}
+@media (max-width:820px){.hero,.two{grid-template-columns:1fr}.cmpgrid .row{grid-template-columns:repeat(3,1fr)}.cmpgrid .row b{grid-column:1 / -1}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<!-- 이 파일은 scripts/gallery.py 가 만든다. 손으로 고치지 말 것 -->
+<header class="top"><div><a class="brand" href="../index.html">발표 디자인 라이브러리</a><nav aria-label="메뉴"><a href="../index.html" aria-current="page">전체 스타일</a><a href="../body.html">본문 구성</a><a href="../motion.html">모션·강조</a><a href="../print.html">인쇄·홍보물</a><a href="../guide.html">이용 방법</a></nav></div></header>
+<main class="wrap">
+<p class="note"><a href="../index.html">← 전체 스타일</a></p><h1>자연 재질</h1><p class="lead">천천히 자라는 변화를 이야기할 때. 환경 · 생태 · 마을 교육</p><p class="note"><span class="badge wip">10장 세트 · 확장 중</span> 10장 예시는 있으나 검증이 끝나지 않음</p>
+<p class="note"><b>남은 일</b> · 나무 단면이 표지 · 흐름 · 마무리에만 있고 본문은 색 · 글꼴뿐이다. 겹(나이테) 문법을 본문 구성 한두 곳에 이어 줄 것</p>
+<div class="two"><div><div class="view"><iframe src="../kit/E-set.html" title="자연 재질 10장 예시 발표" loading="lazy"></iframe></div><p class="note">화면을 누르거나 → 키로 넘깁니다. <a href="../kit/E-set.html" target="_blank" rel="noopener">새 창에서 크게 보기</a></p></div>
+<div><dl class="kv"><dt>분위기</dt><dd>감성적인</dd><dt>유지할 것</dt><dd><ul><li>회녹 종이 바탕에 나무색 농담</li><li>나무 단면 그림은 표지 · 흐름 · 마무리에만</li><li>청록 강조 한 곳</li></ul></dd><dt>바꿔도 됨</dt><dd><ul><li>겹(섹션) 수는 5개까지</li><li>강조할 칸</li></ul></dd><dt>피할 것</dt><dd><ul><li>다른 색상 더하기</li><li>본문에 질감 그림 깔기</li></ul></dd></dl>
+<div class="acts"><button type="button" class="btn fill" data-copy="req">이 스타일 적용 요청문 복사</button><a class="btn" href="../kit/E-set.html" download="자연 재질-예시발표.html">예시 발표 내려받기(.html)</a></div>
+<p class="note">내려받은 파일은 글꼴 · 그림이 안에 들어 있어 인터넷 없이 열립니다. AI가 새로 만든 발표는 열 때 인터넷이 필요합니다.</p></div></div>
+<h2>전체 장표 <small>10장 — 역할마다 한 장. 예시 내용은 가상입니다</small></h2><div class="minis"><a class="mc" href="../kit/E-set.html#1" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-1.jpg" alt="자연 재질 1장" loading="lazy" width="640" height="360"><b>1. 표지</b></a><a class="mc" href="../kit/E-set.html#2" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-2.jpg" alt="자연 재질 2장" loading="lazy" width="640" height="360"><b>2. 전체 흐름</b></a><a class="mc" href="../kit/E-set.html#3" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-3.jpg" alt="자연 재질 3장" loading="lazy" width="640" height="360"><b>3. 핵심 개념 · 정의</b></a><a class="mc" href="../kit/E-set.html#4" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-4.jpg" alt="자연 재질 4장" loading="lazy" width="640" height="360"><b>4. 비교</b></a><a class="mc" href="../kit/E-set.html#5" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-5.jpg" alt="자연 재질 5장" loading="lazy" width="640" height="360"><b>5. 순서 · 절차</b></a><a class="mc" href="../kit/E-set.html#6" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-6.jpg" alt="자연 재질 6장" loading="lazy" width="640" height="360"><b>6. 사례 · 화면 설명</b></a><a class="mc" href="../kit/E-set.html#7" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-7.jpg" alt="자연 재질 7장" loading="lazy" width="640" height="360"><b>7. 실습 과제 · 행동 안내</b></a><a class="mc" href="../kit/E-set.html#8" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-8.jpg" alt="자연 재질 8장" loading="lazy" width="640" height="360"><b>8. 핵심 수치 · 근거</b></a><a class="mc" href="../kit/E-set.html#9" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-9.jpg" alt="자연 재질 9장" loading="lazy" width="640" height="360"><b>9. 요약</b></a><a class="mc" href="../kit/E-set.html#10" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set-10.jpg" alt="자연 재질 10장" loading="lazy" width="640" height="360"><b>10. 마무리 · 다음 행동</b></a></div>
+<h2>다른 내용에 써 보기 <small>성격이 다른 본문 5장 — 가상 주제: 학교 독서 활동</small></h2><div class="minis"><a class="mc" href="../kit/E-set2.html#1" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set2-1.jpg" alt="" loading="lazy" width="640" height="360"><b>프로그램 묶음</b></a><a class="mc" href="../kit/E-set2.html#2" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set2-2.jpg" alt="" loading="lazy" width="640" height="360"><b>대출 권수 추이</b></a><a class="mc" href="../kit/E-set2.html#3" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set2-3.jpg" alt="" loading="lazy" width="640" height="360"><b>참여자 말</b></a><a class="mc" href="../kit/E-set2.html#4" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set2-4.jpg" alt="" loading="lazy" width="640" height="360"><b>한 해 일정</b></a><a class="mc" href="../kit/E-set2.html#5" target="_blank" rel="noopener"><img src="../kit/thumbs/E-set2-5.jpg" alt="" loading="lazy" width="640" height="360"><b>청중에게 묻기</b></a></div>
+<h2>구성별 쓰는 법 <small>내용에 맞는 구성을 고르고, 넘치면 장을 나눕니다</small></h2><div class="tw"><table><thead><tr><th>역할</th><th>구성</th><th>이럴 때</th><th>알맞은 분량</th><th>넘치면</th><th>이럴 땐 다른 구성</th></tr></thead><tbody><tr><td><b>표지</b></td><td>표지</td><td>발표의 이름과 분위기를 한 장으로 연다</td><td>제목 2줄 이하, 부제 1줄</td><td>부제를 뺀다</td><td>—</td></tr><tr><td><b>목차 · 전체 흐름</b></td><td>목차</td><td>오늘 무엇을 어떤 순서로 다루는지 먼저 보여 준다</td><td>3~5줄</td><td>큰 묶음으로 합친다</td><td>순서보다 날짜가 중요하면 일정(이정표)으로</td></tr><tr><td><b></b></td><td>일정</td><td>(추진 일정 · 연혁 · 과정 지도)</td><td>이정표 3~5개(.mile) 또는 줄 3~5개 × 12달(.gantt)</td><td>분기 · 학기로 묶는다</td><td></td></tr><tr><td><b>핵심 개념 · 정의</b></td><td>용어 정의</td><td>모두가 같은 뜻으로 쓰도록 낱말 하나를 맞춘다</td><td>용어 1개 + 뜻 한 문장 + 예 1~2개</td><td>용어마다 한 장</td><td>정의가 아니라 주장 한 줄이면 한 문장으로</td></tr><tr><td><b></b></td><td>한 문장</td><td>(목적 · 비전 · 결론처럼 한 문장이 전부인 곳)</td><td>40자 이하 한 문장 + 받치는 말 1줄</td><td>받치는 말을 다음 장으로</td><td></td></tr><tr><td><b>비교</b></td><td>둘 비교</td><td>두 대상이나 전 · 후를 같은 줄에 놓고 견준다</td><td>2~3줄, 줄마다 왼쪽 · 오른쪽 한 짝</td><td>4줄부터 두 장</td><td>숫자가 있는 전 · 후면 전→후로, 셋 이상이면 표로</td></tr><tr><td><b></b></td><td>전→후</td><td>(현행 → 개선, 사업 전 → 사업 후(숫자가 있는 짝))</td><td>2~3짝, 같은 기준 · 같은 단위</td><td>가장 큰 변화 3짝만</td><td></td></tr><tr><td><b>순서 · 절차</b></td><td>순서·단계</td><td>따라 할 차례를 단계로 나눈다</td><td>3~4단계, 단계마다 이름 + 할 일 3줄 이하</td><td>5단계부터 두 장</td><td>차례가 없고 갈래만 있으면 묶음 · 분류로</td></tr><tr><td><b>사례 · 화면 설명</b></td><td>화면 짚기</td><td>실제 화면이나 현장을 보여 주고 짚을 곳을 표시한다</td><td>캡처 1장 + 번호 표시 3개 이하</td><td>동작 하나에 한 장</td><td>화면이 없고 사람의 말이 있으면 인용으로</td></tr><tr><td><b></b></td><td>사진+글</td><td>(사례 · 현장 사진 · 활동 모습)</td><td>사진 1~3장, 사진마다 제목 + 한 줄 + 말 한마디</td><td>사진마다 한 장</td><td></td></tr><tr><td><b></b></td><td>인용</td><td>(참여자 말 · 설문 서술 답 · 법령 조문)</td><td>1~3개, 각 60자 이하, 말한 사람</td><td>가장 강한 것 하나만</td><td></td></tr><tr><td><b>실습 과제 · 행동 안내</b></td><td>할 일</td><td>청중이 지금 할 일 하나와 그 조건(시간 · 결과물)을 알린다</td><td>할 일 한 문장 + 조건 칸 2~3개(시간 · 결과물 · 도움)</td><td>할 일마다 한 장</td><td>할 일이 아니라 생각할 거리면 질문으로</td></tr><tr><td><b></b></td><td>질문</td><td>(여는 질문 · 토의 주제 · 퀴즈 · 자주 묻는 질문)</td><td>질문 1개 + 보기 4개 이하(ol) 또는 답 1개(.a-a)</td><td>질문마다 한 장</td><td></td></tr><tr><td><b>핵심 수치 · 근거</b></td><td>큰 숫자</td><td>주장을 받치는 숫자를 크게 보여 준다</td><td>1~4개, 숫자마다 단위 + 한 줄</td><td>가장 중요한 3개만</td><td>여러 해의 변화면 추이, 몫이면 구성비, 항목 비교면 막대로</td></tr><tr><td><b></b></td><td>막대 비교</td><td>(항목 간 크기 비교 · 순위 · 목표 대비 실적)</td><td>3~5줄, 한 가지 단위</td><td>위 4개 + 나머지 합</td><td></td></tr><tr><td><b></b></td><td>추이</td><td>(여러 해 · 여러 달에 걸친 변화)</td><td>3~8시점, 한 가지 값</td><td>시점을 줄인다</td><td></td></tr><tr><td><b></b></td><td>구성비</td><td>(전체 중 몫 · 재원 비율)</td><td>2~5조각, 합 100%</td><td>작은 조각은 기타로</td><td></td></tr><tr><td><b></b></td><td>표</td><td>(표로 된 지원 내용 · 항목 목록 · 예산 내역)</td><td>3~5행 × 3~4열, 칸마다 1줄</td><td>6행부터 두 장, 또는 핵심 열만</td><td></td></tr><tr><td><b>요약</b></td><td>항목</td><td>기억할 것을 세 줄 안팎으로 줄인다</td><td>3~5개, 이름 + 설명 1~2줄(5개면 1줄)</td><td>6개부터 두 장, 또는 묶음·분류로</td><td>한 줄이면 한 문장으로</td></tr><tr><td><b>마무리 · 다음 행동</b></td><td>맺음</td><td>마지막 한 문장과 문의 · 다음 일정을 남긴다</td><td>두 줄 문장 + 연락처 한 줄</td><td>—</td><td>—</td></tr><tr><td><b>그 밖의 구성</b></td><td>묶음·분류</td><td>갈래로 나누기 · 체계 · 섹션 간지</td><td>2~4묶음, 묶음마다 3줄 이하</td><td>묶음마다 한 장</td><td>—</td></tr><tr><td><b></b></td><td>체계</td><td>(비전 → 전략 → 과제, 추진 체계, 조직도)</td><td>맨 위 1 + 갈래 2~4 + 갈래마다 2~3줄</td><td>갈래마다 한 장, 또는 표로</td><td></td></tr><tr><td><b></b></td><td>간지</td><td>(큰 번호가 바뀌는 자리)</td><td>번호 + 이름 + 한 줄</td><td>—</td><td></td></tr></tbody></table></div>
+<h2>AI에게 전달하기</h2><p class="note">아래 요청문을 복사해 발표 내용과 함께 AI 대화창에 붙여 넣으세요. 주소만 건네는 것으로는 적용이 끝나지 않습니다. AI가 구성안을 먼저 보여 주면 확인한 뒤 만들게 하세요.</p><pre class="req" id="req">제가 올린 발표 내용에 &#x27;자연 재질&#x27; 스타일(ID: E)을 적용해 발표 HTML 파일 하나로 만들어 주세요.
+
+1. 적용 안내 읽기: https://szxv7704-dot.github.io/design-reference-gallery/kit/E.md  (디자인 규칙 · 구성별 코드 · HTML 뼈대가 들어 있습니다)
+2. 완성 예시 보기: https://szxv7704-dot.github.io/design-reference-gallery/kit/E-set.html  (10장: 표지 · 흐름 · 개념 · 비교 · 절차 · 화면 · 실습 · 수치 · 요약 · 마무리)
+3. 유지할 것: 회녹 종이 바탕에 나무색 농담 / 나무 단면 그림은 표지 · 흐름 · 마무리에만 / 청록 강조 한 곳
+4. 바꿔도 되는 것: 겹(섹션) 수는 5개까지 / 강조할 칸
+5. 피할 것: 다른 색상 더하기 / 본문에 질감 그림 깔기
+
+지킬 것:
+- 자료를 실제로 열어 읽은 뒤에 적용해 주세요. 주소를 열 수 없으면 읽은 척하지 말고 열 수 없다고 말해 주세요.
+- 먼저 장마다 &quot;전하려는 것 · 고른 구성 · 제목&quot;을 표로 보여 주고, 제가 확인하면 만들어 주세요.
+- 스타일은 하나만 쓰고, 장마다 내용에 맞는 구성을 고릅니다. 한 장에 구성 하나.
+- 예시에 들어 있는 기관명 · 수치 · 사례는 가상입니다. 제 발표에 가져오지 마세요. 제가 주지 않은 숫자를 지어내지 마세요.
+- 내용이 많으면 글자를 줄이지 말고 장을 나눠 주세요. 제 핵심 내용을 임의로 빼지 마세요.</pre>
+<details><summary>파일과 자료</summary><ul><li>적용 안내(AI용, 디자인 규칙 · 구성별 코드 · 뼈대): <a href="../kit/E.md">kit/E.md</a></li><li>스타일 CSS: <a href="../kit/v1/E.css">kit/v1/E.css</a> · 넘김 엔진: <a href="../kit/v1/deck.js">kit/v1/deck.js</a></li><li>더 많은 구성 예시: <a href="../kit/E-plan.html">계획안 발표 12장</a>(체계 · 일정 · 표 · 구성비) · <a href="../kit/E.html">성과 공유회 13장</a>(막대 · 전후 · 사진)</li><li>글꼴: SIL OFL 1.1(<a href="../fonts/LICENSES.md">고지</a>) · 그림: 이 갤러리의 기존 장표에서 떠낸 것(<code>kit/img/</code>)</li></ul></details>
+<h2>같은 분위기의 표지 레퍼런스 <small>1개 — 표지만 있는 디자인. 이 세트와 코드는 다릅니다</small></h2><div class="minis"><article class="mc item" data-kind="cover" data-mood="감성적인" data-q="두 개의 심 자연 재질"><a href="../deck.html?cover=17"><img src="../thumbs/17.jpg?v=625663c3" alt="두 개의 심 표지" loading="lazy" width="640" height="360"></a><b>두 개의 심 <small>#17</small></b><p><span class="badge">표지만 있음</span> 가까운 스타일: <a href="../styles/E.html">자연 재질</a></p><p class="lk"><a href="../deck.html?cover=17">색만 맞춘 본문과 넘겨 보기</a> · <a href="../refs/17.html?v=625663c3">원본</a></p></article></div>
+<footer>모든 기관명 · 수치 · 사례는 가상 예시입니다. 새 발표에 그대로 가져오지 마세요. 사진은 AI로 만든 것이고, 글꼴은 모두 SIL Open Font License 1.1(<a href="../fonts/LICENSES.md">저작권 고지</a>).</footer>
+</main>
+<script>
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-copy]'); if (!b) return;
+  const t = document.getElementById(b.dataset.copy).textContent, old = b.textContent;
+  try { await navigator.clipboard.writeText(t); b.textContent = '요청문을 복사했습니다 — AI 대화창에 붙여 넣으세요'; }
+  catch (err) { const r = document.createRange(); r.selectNodeContents(document.getElementById(b.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = '아래 글을 직접 복사하세요'; }
+  setTimeout(() => { b.textContent = old; }, 2600);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>인쇄 · 홍보물 — 발표 디자인 라이브러리</title>
+<meta name="description" content="포스터 · 리플렛 · 소식지와 특수 발표 틀.">
+<link rel="alternate" type="text/markdown" href="catalog.md" title="AI가 읽는 목록">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+:root{--bg:#F7F6F3;--card:#FFFFFF;--ink:#1B1E24;--soft:#5C616B;--line:#E3E1DB;--key:#1F5FD0;--keybg:#E8EFFC;--chip:#EDEBE5;--ok:#1E7B4F;--warn:#9A6400;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all;line-height:1.6}
+a{color:inherit}img{max-width:100%;height:auto;display:block;background:var(--chip)}
+button{font-family:var(--f);cursor:pointer}
+.top{position:sticky;top:0;z-index:10;background:rgba(247,246,243,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top div{max-width:1280px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:8px 26px;flex-wrap:wrap}
+.brand{font-weight:900;font-size:18px;text-decoration:none;padding:14px 0;margin-right:10px}
+.top nav{display:flex;gap:4px 22px;flex-wrap:wrap}
+.top nav a{padding:16px 2px 13px;text-decoration:none;font-size:15px;font-weight:500;border-bottom:3px solid transparent}
+.top nav a[aria-current=page]{color:var(--key);border-bottom-color:var(--key);font-weight:700}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:-.02em;line-height:1.25;margin:0}
+h2{font-size:26px;font-weight:900;margin:52px 0 6px;letter-spacing:-.01em}
+h3{font-size:17px;margin:28px 0 10px}
+h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--soft);letter-spacing:0}
+.lead{margin:10px 0 0;font-size:17px;color:var(--soft);max-width:60ch}
+.hero{display:grid;grid-template-columns:1fr auto;gap:20px 40px;align-items:start}
+.ask{background:var(--keybg);border-radius:14px;padding:20px 22px;display:flex;gap:14px 20px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:17px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 18px;border-radius:10px;border:2px solid var(--key);background:var(--card);color:var(--key);font:700 15px var(--f);text-decoration:none}
+.btn.fill{background:var(--key);color:#fff}
+.btn.small{min-height:36px;padding:4px 12px;font-size:14px;border-width:1.5px}
+.steps{list-style:none;margin:24px 0 0;padding:0 0 22px;display:flex;flex-wrap:wrap;gap:10px 28px;border-bottom:1px solid var(--line);counter-reset:s;font-weight:700}
+.steps li{counter-increment:s;display:flex;align-items:center;gap:10px}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center}
+.steps li + li{padding-left:0}
+.tools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:14px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid #C9C6BE;background:var(--card);font:500 15px var(--f);padding:8px 18px;border-radius:999px;color:var(--ink)}
+.chips button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tools input[type=search]{flex:1 1 220px;min-width:0;font:15px var(--f);padding:10px 14px;border:1px solid #C9C6BE;border-radius:10px;background:var(--card);color:var(--ink)}
+.tools label{display:inline-flex;align-items:center;gap:8px;font-size:15px}
+.tools input[type=checkbox],.cmp input{width:20px;height:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:20px}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column}
+.sc .cv img{border-radius:8px;aspect-ratio:16/9;object-fit:cover}
+.sc .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.sc .tri img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+.sc h3{margin:12px 6px 0;font-size:20px}
+.sc p{margin:2px 6px 0;font-size:14.5px;color:var(--soft)}
+.sc .ft{margin:12px 6px 4px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--chip);font-size:13px;font-weight:500;color:var(--soft)}
+.badge.ok{background:#E2F2E9;color:var(--ok)}.badge.wip{background:#FBF0D9;color:var(--warn)}
+.cmp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:14px}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:14px}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px;display:flex;flex-direction:column}
+.mc img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.mc b{display:block;margin:8px 10px 0;font-size:14.5px;line-height:1.4}.mc small{font-weight:400;color:var(--soft)}
+.mc p{margin:3px 10px 0;color:var(--soft);line-height:1.5}
+a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
+.mc .lk{margin-top:auto;padding:8px 10px 10px;color:var(--ink)}
+.short{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.short a{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:10px;text-decoration:none;font-weight:500}
+.short a::after{content:"›";color:var(--soft);font-size:20px}
+.note{margin:12px 0 0;font-size:14px;color:var(--soft)}
+.empty{padding:40px 0;text-align:center;color:var(--soft)}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{white-space:nowrap;background:var(--chip);font-weight:700}
+.tw{overflow-x:auto}
+.view{background:#111;border-radius:12px;overflow:hidden}.view iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#111}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+.kv{margin:0;display:grid;grid-template-columns:92px 1fr;gap:8px 12px;font-size:14.5px}.kv dt{color:var(--soft)}.kv dd{margin:0}
+.kv ul{margin:0;padding-left:1.1em}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+pre.req{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font:13.5px/1.6 var(--m);margin:10px 0 0;overflow-wrap:anywhere}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:0 14px}
+summary{padding:12px 0;font-weight:700;cursor:pointer}
+.tray{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;background:var(--ink);color:#fff;border-radius:999px;padding:8px 10px 8px 18px;display:flex;gap:12px;align-items:center;font-size:14.5px;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+.tray[hidden]{display:none}.tray button{border:0;border-radius:999px;padding:8px 16px;font:700 14px var(--f);background:#fff;color:var(--ink)}
+dialog{width:min(1240px,calc(100vw - 24px));max-height:calc(100vh - 24px);padding:18px;border:0;border-radius:14px;background:var(--bg);color:var(--ink)}
+dialog::backdrop{background:rgba(20,22,26,.6)}
+.cmpgrid{display:grid;gap:14px}.cmpgrid .row{display:grid;grid-template-columns:140px repeat(5,1fr);gap:6px;align-items:center}
+.cmpgrid .row b{font-size:15px}.cmpgrid img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+:focus-visible{outline:3px solid var(--key);outline-offset:2px}
+footer{margin-top:56px;font-size:13px;color:var(--soft)}
+@media (max-width:820px){.hero,.two{grid-template-columns:1fr}.cmpgrid .row{grid-template-columns:repeat(3,1fr)}.cmpgrid .row b{grid-column:1 / -1}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<!-- 이 파일은 scripts/gallery.py 가 만든다. 손으로 고치지 말 것 -->
+<header class="top"><div><a class="brand" href="index.html">발표 디자인 라이브러리</a><nav aria-label="메뉴"><a href="index.html">전체 스타일</a><a href="body.html">본문 구성</a><a href="motion.html">모션·강조</a><a href="print.html" aria-current="page">인쇄·홍보물</a><a href="guide.html">이용 방법</a></nav></div></header>
+<main class="wrap">
+<h1>인쇄 · 홍보물</h1><p class="lead">화면 발표가 아닌 종이 · 게시용 디자인과, 넘기는 방식이 다른 특수 발표 틀입니다.</p>
+<h2>인쇄 · 홍보물 <small>11개 — 포스터 · 리플렛 · 소식지</small></h2><div class="minis"><article class="mc"><a href="refs/63.html?v=6b68169f" target="_blank" rel="noopener"><img src="thumbs/63.jpg?v=6b68169f" alt="업무도구 자판기" loading="lazy" width="640" height="360"></a><b>업무도구 자판기 <small>#63</small></b><p>누르면 다음 장으로 — 포스터가 곧 메뉴판. 버튼 = 목차, 떨어지는 상자 = 장 넘김, 꺼내는 곳 = 장표로 들어가는 문.</p></article><article class="mc"><a href="refs/64.html?v=eafb8e95" target="_blank" rel="noopener"><img src="thumbs/64.jpg?v=eafb8e95" alt="TOOL MARKET" loading="lazy" width="640" height="360"></a><b>TOOL MARKET <small>#64</small></b><p>명령형 두 줄 — 쉼표에서 줄을 바꾸고 마침표 하나만 주황. 문장이 곧 로고가 된다.</p></article><article class="mc"><a href="refs/65.html?v=c8c449c9" target="_blank" rel="noopener"><img src="thumbs/65.jpg?v=c8c449c9" alt="함께 한 1년" loading="lazy" width="640" height="360"></a><b>함께 한 1년 <small>#65</small></b><p>타공판 + 자석 — 구멍 뚫린 흰 판에 둥근 자석. 붙였다 뗐다 하는 게시판이라 &quot;계속 쌓이는 기록&quot;으로 읽힌다.</p></article><article class="mc"><a href="refs/66.html?v=d3af2398" target="_blank" rel="noopener"><img src="thumbs/66.jpg?v=d3af2398" alt="동네일보" loading="lazy" width="640" height="360"></a><b>동네일보 <small>#66</small></b><p>한 쪽씩 넘기기 — 1면을 넘기면 2면. 넘기는 동안 뒷면에 앞면 글자가 옅게 비치고, 아래 쪽에 그림자가 진다.</p></article><article class="mc"><a href="refs/67.html?v=c4cb24dc" target="_blank" rel="noopener"><img src="thumbs/67.jpg?v=c4cb24dc" alt="AFTER HOURS" loading="lazy" width="640" height="360"></a><b>AFTER HOURS <small>#67</small></b><p>영수증 서식 — 머리 번호 · CUSTOMER COPY · 점선 · ITEM/MIN · TOTAL · 바코드. 서식이 정보의 </p></article><article class="mc"><a href="refs/68.html?v=874b01f6" target="_blank" rel="noopener"><img src="thumbs/68.jpg?v=874b01f6" alt="픽셀 작업실" loading="lazy" width="640" height="360"></a><b>픽셀 작업실 <small>#68</small></b><p>실행 = 결과가 나오는 순간 — 명령을 한 글자씩 치고 결과 줄을 0.16초 간격으로 찍는다. 보는 사람이 &quot;돌아간다&quot;를 직접</p></article><article class="mc"><a href="refs/69.html?v=099aa15a" target="_blank" rel="noopener"><img src="thumbs/69.jpg?v=099aa15a" alt="동료의 도구함" loading="lazy" width="640" height="360"></a><b>동료의 도구함 <small>#69</small></b><p>도장 = 완료의 손맛 — 체크박스 대신 모양이 다른 도장(원·사각·육각). 완료가 &quot;찍는 행동&quot;이 된다.</p></article><article class="mc"><a href="refs/70.html?v=7c522b10" target="_blank" rel="noopener"><img src="thumbs/70.jpg?v=7c522b10" alt="모아 · 앱 장터" loading="lazy" width="640" height="360"></a><b>모아 · 앱 장터 <small>#70</small></b><p>앱 상세 페이지 = 리플렛 목차 — 아이콘(표지) → 스크린샷(안쪽) → 후기(접힘면) → 개인정보·버전 기록(뒷면).</p></article><article class="mc"><a href="refs/104.html?v=6d151f1f" target="_blank" rel="noopener"><img src="thumbs/104.jpg?v=6d151f1f" alt="발견 영수증" loading="lazy" width="640" height="360"></a><b>발견 영수증 <small>#104</small></b><p>연수 안내를 영수증 서식으로: 차례는 품목, 결론은 TOTAL, 다음 일정은 떼는 쿠폰 / 접지 인쇄물은 쪽 크기를 모두 같게</p></article><article class="mc"><a href="refs/105.html?v=afe871b9" target="_blank" rel="noopener"><img src="thumbs/105.jpg?v=afe871b9" alt="오늘 밤, 한 판" loading="lazy" width="640" height="360"></a><b>오늘 밤, 한 판 <small>#105</small></b><p>색은 하나(노랑), 사진은 흑백 — 거친 질감 위에서도 정보가 산다 / 정보는 반듯한 상자, 비틀기는 스티커 하나만 / 학생 </p></article><article class="mc"><a href="refs/107.html?v=d12ed4af" target="_blank" rel="noopener"><img src="thumbs/107.jpg?v=d12ed4af" alt="방해해도 좋습니다" loading="lazy" width="640" height="360"></a><b>방해해도 좋습니다 <small>#107</small></b><p>누구나 아는 문구를 한 글자 바꿔 초대로 뒤집는다 / 포스터 대신 문고리에 거는 물건으로: 열린 교실 · 공개 수업 문 앞에 </p></article></div>
+<h2>특수 발표 틀 <small>9개 — 허브 · 스크롤 · 탐험처럼 자체 진행 방식을 가진 것</small></h2><div class="minis"><article class="mc"><a href="refs/33.html?v=9afac605" target="_blank" rel="noopener"><img src="thumbs/33.jpg?v=9afac605" alt="쪼개지는 예산 사각형" loading="lazy" width="640" height="360"></a><b>쪼개지는 예산 사각형 <small>#33</small></b><p>새 차트로 갈아끼우지 말고 하나의 도형을 총액→분야→사업으로 계속 쪼개며, 마지막엔 면적 기준(편성액→증액분)을 바꿔 결론을 </p></article><article class="mc"><a href="refs/34.html?v=007e06a2" target="_blank" rel="noopener"><img src="thumbs/34.jpg?v=007e06a2" alt="허브 내비게이션 업무보고" loading="lazy" width="640" height="360"></a><b>허브 내비게이션 업무보고 <small>#34</small></b><p>질문 받으면 해당 타일로 바로 점프하는 허브형 발표 + 타일→전체화면 확장·제자리 축소 전환으로 맥락 유지 + 본 분야 체크·</p></article><article class="mc"><a href="refs/35.html?v=b23ba403" target="_blank" rel="noopener"><img src="thumbs/35.jpg?v=b23ba403" alt="세로 스와이프 카드" loading="lazy" width="640" height="360"></a><b>세로 스와이프 카드 <small>#35</small></b><p>메신저로 바로 공유하는 세로 카드 발표, 스토리형 진행 막대로 남은 분량 보여 주기, 카드 스택 깊이 전환</p></article><article class="mc"><a href="refs/75.html?v=5d7a51af" target="_blank" rel="noopener"><img src="thumbs/75.jpg?v=5d7a51af" alt="체험의 숲" loading="lazy" width="640" height="360"></a><b>체험의 숲 <small>#75</small></b><p>장소 하나 = 실습 스테이션 하나: DATA.stations의 title·npc·desc·url만 바꾸면 체험형 연수 허브가 </p></article><article class="mc"><a href="refs/98.html?v=3b582b43" target="_blank" rel="noopener"><img src="thumbs/98.jpg?v=3b582b43" alt="여섯 장면 미술관" loading="lazy" width="640" height="360"></a><b>여섯 장면 미술관 <small>#98</small></b><p>두 박자 관람: 리모컨 → 하나로 &#x27;작품 앞에 도착&#x27;과 &#x27;라벨 펼침&#x27;을 나눠, 발표자가 작품을 먼저 보여 주고 다음에 설명한다</p></article><article class="mc"><a href="refs/99.html?v=90820f70" target="_blank" rel="noopener"><img src="thumbs/99.jpg?v=90820f70" alt="빛나는 단어 더미" loading="lazy" width="640" height="360"></a><b>빛나는 단어 더미 <small>#99</small></b><p>키워드를 &#x27;읽히는 목록&#x27;이 아니라 &#x27;쌓인 양&#x27;으로 먼저 보여 주고, 하나씩 솟아오르게 해 식순 · 성과를 짚는다 / 빛나는 단</p></article><article class="mc"><a href="refs/100.html?v=298d36a8" target="_blank" rel="noopener"><img src="thumbs/100.jpg?v=298d36a8" alt="길 따라 연수 일정" loading="lazy" width="640" height="360"></a><b>길 따라 연수 일정 <small>#100</small></b><p>일정을 &#x27;이동&#x27;으로 보여 준다: 하루가 넘어갈 때마다 실제 이동 수단이 지도 위를 달린다 / 전체 일정은 처음부터 흐린 예정 </p></article><article class="mc"><a href="refs/101.html?v=394afa5d" target="_blank" rel="noopener"><img src="thumbs/101.jpg?v=394afa5d" alt="빙산 아래로" loading="lazy" width="640" height="360"></a><b>빙산 아래로 <small>#101</small></b><p>&#x27;보이는 것은 일각&#x27;을 실제로 내려가며 보여 준다: 표지(수면 위) → 식순(물속) → 성과(빙산 속) 깊이 순서 / 장면 전</p></article><article class="mc"><a href="refs/102.html?v=2ccf3e40" target="_blank" rel="noopener"><img src="thumbs/102.jpg?v=2ccf3e40" alt="익숙함에 틈을 내다" loading="lazy" width="640" height="360"></a><b>익숙함에 틈을 내다 <small>#102</small></b><p>표지의 세계(지하철)를 목차 · 장 제목 · 본문 · 마무리까지 끝까지 잇는다: 노선도 = 목차, 행선 안내 = 장 제목, 광</p></article></div>
+<footer>모든 기관명 · 수치 · 사례는 가상 예시입니다. 새 발표에 그대로 가져오지 마세요. 사진은 AI로 만든 것이고, 글꼴은 모두 SIL Open Font License 1.1(<a href="fonts/LICENSES.md">저작권 고지</a>).</footer>
+</main>
+<script>
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-copy]'); if (!b) return;
+  const t = document.getElementById(b.dataset.copy).textContent, old = b.textContent;
+  try { await navigator.clipboard.writeText(t); b.textContent = '요청문을 복사했습니다 — AI 대화창에 붙여 넣으세요'; }
+  catch (err) { const r = document.createRange(); r.selectNodeContents(document.getElementById(b.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = '아래 글을 직접 복사하세요'; }
+  setTimeout(() => { b.textContent = old; }, 2600);
+});
+</script>
+</body>
+</html>
