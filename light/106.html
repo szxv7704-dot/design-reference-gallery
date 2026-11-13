@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #106 새로운 일상이 도착했습니다</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Black Han Sans";font-weight:400;font-display:swap;src:url("../fonts/BlackHanSans-400.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:500;font-display:swap;src:url("../fonts/NotoSansKR-500.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0;vertical-align:top}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps106{min-width:880px}}
+
+.ps106{--ps106-box:url(../src/106/assets/3db8ed67ce.webp)}
+</style>
+<style id="ps106-css">
+/* 표지 '새로운 일상이 도착했습니다' — 접두어 ps106 / 택배 상자가 도착하고, 테이프를 자르면 목차 세 개가 나온다 */
+.ps106{
+  --ps106-orange:#FF5A1F; --ps106-ink:#161412; --ps106-kraft:#C9A27A; --ps106-paper:#F4F1EA;
+  --ps106-head:"Black Han Sans","Gothic A1","Malgun Gothic",sans-serif; --ps106-body:"Noto Sans KR","Malgun Gothic",sans-serif; --ps106-mono:"IBM Plex Mono",Consolas,monospace;
+  position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;cursor:pointer;user-select:none;
+  background:linear-gradient(#EDE7DD,#DCD3C5 62%,#CFC4B3);color:var(--ps106-ink);font-family:var(--ps106-body)
+}
+.ps106:fullscreen{aspect-ratio:auto;width:100vw;height:100vh;display:grid;place-items:center}
+.ps106:fullscreen .ps106-in{inset:auto;position:relative;width:min(100vw,calc(100vh * 16 / 9));aspect-ratio:16/9}
+.ps106 *{box-sizing:border-box}
+.ps106-in{position:absolute;inset:0;overflow:hidden;container-type:inline-size}
+.ps106-floor{position:absolute;left:0;right:0;bottom:0;height:30%;background:linear-gradient(rgba(120,95,70,0),rgba(120,95,70,.18))}
+/* 상자: 사진(1672 × 941, 바탕 투명) */
+.ps106-box{position:absolute;left:12%;top:9%;width:76%;aspect-ratio:1672/941;transform:translateX(120%) rotate(6deg);
+  transition:transform .9s cubic-bezier(.3,1.25,.5,1)}
+.ps106-img{position:absolute;inset:0;background:var(--ps106-box) 0 0/100% 100% no-repeat}
+.ps106-shadow{position:absolute;left:6%;right:4%;bottom:-3%;height:12%;border-radius:50%;background:rgba(60,40,20,.38);filter:blur(1.4cqw)}
+.ps106.s1 .ps106-box{transform:none;animation:ps106-land .9s .55s both}
+@keyframes ps106-land{0%,100%{translate:0 0}25%{translate:0 .7cqw;scale:1.01 .985}55%{translate:0 0}}
+/* 도장: 송장 위 '개봉 준비 완료' 자리에서 쿵 */
+.ps106-stamp{position:absolute;left:79.6%;top:63.4%;width:10.8%;height:7.8%;border:.28cqw solid var(--ps106-orange);border-radius:.4cqw;transform:rotate(-9deg) scale(2.4);opacity:0}
+.ps106.s1 .ps106-stamp{animation:ps106-stamp .5s 1.5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes ps106-stamp{0%{opacity:0;transform:rotate(-9deg) scale(2.4)}60%{opacity:.9}100%{opacity:0;transform:rotate(-9deg) scale(1.08)}}
+/* 테이프 자르기: 가로 테이프를 따라 빛나는 칼선 */
+.ps106-cut{position:absolute;left:8.5%;top:25.4%;width:0;height:.32cqw;background:linear-gradient(90deg,rgba(255,255,255,0),#fff 70%,#FFF4C2);
+  box-shadow:0 0 1cqw 1cqw rgba(255,240,200,.55);transform:rotate(1.6deg);transform-origin:0 50%;opacity:0}
+.ps106.s2 .ps106-cut{animation:ps106-cut 1s cubic-bezier(.6,0,.3,1) forwards}
+@keyframes ps106-cut{0%{width:0;opacity:1}85%{width:87%;opacity:1}100%{width:87%;opacity:0}}
+.ps106.s2 .ps106-box{animation:ps106-jolt .35s .9s}
+@keyframes ps106-jolt{30%{rotate:-.8deg}70%{rotate:.5deg}}
+/* 열기: 상자는 아래로 비켜 내려가고 물품 세 개가 튀어 올라 줄을 선다 */
+.ps106.s3 .ps106-box{transform:translateY(62%) scale(.82) rotate(-2deg);transition:transform 1s cubic-bezier(.55,0,.2,1)}
+.ps106-items{position:absolute;left:8%;right:8%;top:11%;display:grid;grid-template-columns:repeat(3,1fr);gap:2.4%}
+.ps106-item{position:relative;padding:2cqw 2.1cqw 2.2cqw;background:var(--ps106-paper);border-top:.5cqw solid var(--ps106-orange);box-shadow:0 1.6cqw 3cqw rgba(60,40,20,.25);
+  opacity:0;transform:translateY(22cqw) rotate(calc((var(--i) - 1) * 6deg)) scale(.7);transition:opacity .3s,transform .9s cubic-bezier(.3,1.3,.5,1)}
+.ps106.s3 .ps106-item{opacity:1;transform:none;transition-delay:calc(.55s + var(--i) * .18s)}
+.ps106-item small{font:600 .95cqw/1 var(--ps106-mono);letter-spacing:.2em;color:var(--ps106-orange)}
+.ps106-item h3{margin:1.2cqw 0 .9cqw;font:400 5cqw/1 var(--ps106-head)}
+.ps106-item p{margin:0;font:500 1.35cqw/1.5 var(--ps106-body);color:#4A4540;word-break:keep-all;min-height:4em}
+.ps106-item b{position:absolute;right:1.6cqw;top:1.6cqw;font:600 .9cqw/1 var(--ps106-mono);padding:.35cqw .6cqw;border:.12cqw solid var(--ps106-ink);border-radius:.2cqw}
+.ps106-kicker{position:absolute;left:3%;top:4.5%;font:600 1.05cqw/1 var(--ps106-mono);letter-spacing:.24em;color:#5E564C}
+.ps106-hint{position:absolute;right:3%;bottom:4%;padding:.5cqw 1cqw;border-radius:2cqw;background:var(--ps106-ink);color:#fff;font:600 1cqw/1 var(--ps106-body);letter-spacing:.08em;animation:ps106-blink 2.2s ease-in-out infinite}
+.ps106-hint:empty{display:none}
+@keyframes ps106-blink{50%{opacity:.5}}
+.ps106-dots{position:absolute;left:50%;bottom:2.4%;transform:translateX(-50%);display:flex;gap:.4cqw}
+.ps106-dots i{width:.45cqw;height:.45cqw;border-radius:50%;background:rgba(0,0,0,.2)}
+.ps106-dots i.on{background:var(--ps106-orange)}
+.ps106.instant *{transition:none!important;animation:none!important}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps106 *,.ps106 *::before,.ps106 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 106 · 표지 · 인터랙션 · 택배 상자 · 가상 예시</div>
+    <h1>새로운 일상이 도착했습니다</h1>
+    <p class="pg-lead">계획안 표지를 택배 상자로. 빈 책상에 상자가 미끄러져 들어와 쿵 멈추고, 송장의 '개봉 준비 완료'에 도장이 찍힌다. 누르면 칼이 테이프를 따라 지나가고, 한 번 더 누르면 상자가 비켜나며 안에 든 물품(발견 · 경험 · 연결) 세 개가 튀어 올라 목차가 된다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps106" id="ps106" role="application" aria-label="표지: 택배 상자 도착, 테이프 자르기, 열면 목차 세 개"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 진행</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button></div>
+  </section>
+
+  <section>
+    <h2>설계 메모 <small>NOTES</small></h2>
+    <div class="cover-note">
+      <div><b>말장난을 끝까지</b><p>보내는 분 '익숙한 오늘', 받는 분 '새로운 내일', 물품명 '발견 · 경험 · 연결'. 송장의 물품명이 그대로 본문 목차가 되도록 열면 그 세 개가 나온다.</p></div>
+      <div><b>세 박자</b><p>① 도착: 오른쪽에서 미끄러져 들어와 쿵(살짝 눌렸다 펴짐) + 도장. ② 자르기: 가로 테이프를 따라 빛나는 칼선, 상자가 움찔. ③ 열기: 상자는 아래로 비켜나고 물품 카드 세 장이 차례로 튀어 오른다.</p></div>
+      <div><b>색은 둘</b><p>크라프트 상자의 갈색과 테이프 주황(#FF5A1F)만. 목차 카드도 주황 윗줄 하나로 상자와 한 식구가 된다.</p></div>
+      <div><b>원본에서 다듬은 것</b><p>사용자 제공 이미지(바탕 투명 PNG)에서 아래쪽 세로 테이프의 깨진 글자('POSSSIBILITIES'와 뭉개진 한글)를 지우고 화살표와 'OPEN NEW'만 남겼다.</p></div>
+      <div><b>계열</b><p>#104 발견 영수증과 같은 주황 · 크라프트 · 고정폭 글자라 연수 안내(영수증) + 발표 표지(택배)를 한 벌로 쓸 수 있다.</p></div>
+      <div><b>인쇄</b><p>상자 이미지는 그대로 A4 가로 표지 · 현수막에도 쓸 수 있다. 바탕이 투명하니 어떤 배경색에도 얹힌다.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣고 크롬 · 엣지로 열어 F(전체 화면) 후 발표합니다(상자 그림은 갤러리 주소에서 불러옵니다).</li>
+      <li>목차 세 장은 스크립트 맨 위 <code>DATA.items</code>만 바꾸면 됩니다. 상자에 박힌 글(제목 · 송장)은 그림이라 바꾸려면 그림을 새로 만들어야 합니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li>상자 PNG(<code>assets/106-box.webp</code>를 PNG로 저장)를 넣고 [나타내기 → 날아오기(오른쪽)] 0.8초, 끝 부드럽게 끄기 + [강조 → 흔들기] 짧게.</li>
+      <li>칼선: 흰 선 + 네온 효과를 테이프 위에 두고 [나타내기 → 닦아내기(왼쪽에서)] 0.8초.</li>
+      <li>열기: 상자 [이동 경로 → 아래로], 카드 세 장 [나타내기 → 확대/축소 · 바운드] 0.2초 간격.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#FF5A1F"></span>#FF5A1F 테이프 주황 · <span class="sw" style="background:#C9A27A"></span>크라프트 · <span class="sw" style="background:#161412"></span>#161412 먹 · <span class="sw" style="background:#EDE7DD"></span>#EDE7DD 바탕</div>
+      <div><b>글꼴</b>Black Han Sans(카드 제목) + Noto Sans KR + IBM Plex Mono · 상자 속 글자는 그림</div>
+      <div><b>장면</b>빈 화면 → 도착 0.9초 + 도장 → 칼선 1초 → 열기 1초 + 카드 0.18초 간격, 4박자</div>
+      <div><b>난이도</b>HTML 하 · PPT 하</div>
+      <div><b>원본</b>사용자 제공 AI 생성 상자 이미지(1672 × 941, 바탕 투명), 아래 테이프 깨진 글자만 지움</div>
+      <div><b>트렌드</b>언박싱(unboxing) 문법 — 기대(도착) → 손맛(자르기) → 보상(꺼내기)을 클릭 세 번에 나눠 담는다</div>
+    </div>
+  </section>
+</main>
+<script id="ps106-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다(가상 예시) ──
+  // 상자 그림 속 글(제목 · 송장)은 사진에 박혀 있다. 상자를 열면 나오는 물품 세 개가 본문(목차)이다
+  var DATA = {
+    kicker: 'DELIVERED · 2027 업무 혁신 계획',
+    items: [
+      { no: '01', name: '발견', en: 'DISCOVER', line: '익숙한 업무를 낯설게 다시 보기', tag: '1장' },
+      { no: '02', name: '경험', en: 'EXPERIENCE', line: '작게 시도하고 빠르게 고치기', tag: '2장' },
+      { no: '03', name: '연결', en: 'CONNECT', line: '흩어진 성과를 하나로 잇기', tag: '3장' }
+    ]
+  };
+  var root = document.getElementById('ps106');
+  root.innerHTML = '<div class="ps106-in"><div class="ps106-floor"></div>' +
+    '<div class="ps106-items">' + DATA.items.map(function(it, i){ return '<div class="ps106-item" style="--i:' + i + '"><small>' + it.no + ' · ' + it.en + '</small><h3>' + it.name + '</h3><p>' + it.line + '</p><b>' + it.tag + '</b></div>'; }).join('') + '</div>' +
+    '<div class="ps106-box"><div class="ps106-shadow"></div><div class="ps106-img"></div><div class="ps106-cut"></div><div class="ps106-stamp"></div></div>' +
+    '<div class="ps106-kicker">' + DATA.kicker + '</div><div class="ps106-hint"></div><div class="ps106-dots"><i></i><i></i><i></i><i></i></div></div>';
+  var hint = root.querySelector('.ps106-hint'), dots = root.querySelectorAll('.ps106-dots i');
+  var HINT = ['클릭하면 택배가 옵니다', '클릭하여 테이프 자르기', '클릭하여 열기', ''];
+  var step = -1;
+  function go(k, instant){ k = Math.max(0, Math.min(3, k)); if (k === step) return; step = k;
+    root.classList.toggle('instant', !!instant);
+    ['s1', 's2', 's3'].forEach(function(c, i){ root.classList.toggle(c, k >= i + 1); });
+    hint.textContent = HINT[k]; [].forEach.call(dots, function(d, j){ d.classList.toggle('on', j <= k); });
+    if (instant) requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.remove('instant'); }); }); }
+  root.addEventListener('click', function(){ go(step >= 3 ? 0 : step + 1); });
+  document.addEventListener('keydown', function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '')) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); go(step + 1); }
+    else if (['ArrowLeft', 'PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(step - 1, true); }
+    else if (e.key === 'Home') go(0, true);
+    else if (e.key === 'f' || e.key === 'F'){ if (document.fullscreenElement) document.exitFullscreen(); else if (root.requestFullscreen) root.requestFullscreen(); }
+  });
+  window.ps106Go = function(k){ go(k, true); };
+  go(0, true);
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps106-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps106-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@600&family=Noto+Sans+KR:wght@500&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + ".ps106{--ps106-box:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/106-box.webp)}" + '\n</style>\n\n<div class="ps106" id="ps106" role="application" aria-label="택배 표지"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps106');
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps106Go(0); });
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+  })();
+</script>
+</body></html>

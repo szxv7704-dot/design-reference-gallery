@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #87 네 칸 이관표</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:600;font-display:swap;src:url("../fonts/GothicA1-600.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexSansKR-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:700;font-display:swap;src:url("../fonts/IBMPlexSansKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:600;font-display:swap;src:url("../fonts/NotoSerifKR-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:700;font-display:swap;src:url("../fonts/NotoSerifKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:800;font-display:swap;src:url("../fonts/NotoSerifKR-800.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:600;font-display:swap;src:url("../fonts/SairaSemiCondensed-600.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-display:swap;src:url("../fonts/SairaSemiCondensed-700.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+</style>
+<style id="ps87-css">
+/* 분류·유목화 '네 칸 이관표' — 접두어 ps87 / 색은 --ds-* 변수로만 */
+.ps87{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps87 *{box-sizing:border-box}
+.ps87-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps87-a{position:absolute}
+.ps87-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
+.ps87-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps87-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps87-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps87-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps87-tt{left:calc(var(--u)*80);top:calc(var(--u)*108);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*36);line-height:1.24;letter-spacing:-.01em}
+.ps87-tt em{font-style:normal;color:var(--ds-accent)}
+.ps87-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+
+.ps87-qt{display:flex;flex-direction:column;gap:calc(var(--u)*1)}
+.ps87-qt b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*17)}
+.ps87-qt span{font-size:calc(var(--u)*12);color:var(--ds-sub)}
+.ps87-qt.r{align-items:flex-end;text-align:right}
+.ps87-ax{font-size:calc(var(--u)*13);font-weight:600;color:var(--ds-sub);white-space:nowrap}
+.ps87-ax i{font-style:normal;font-weight:400}
+.ps87-lb{font-size:calc(var(--u)*12.5);color:var(--ds-ink);white-space:nowrap;transform:translateY(-50%);line-height:1.15}
+.ps87-lb small{font-family:var(--ds-font-num);font-size:calc(var(--u)*11);color:var(--ds-sub);margin-left:calc(var(--u)*4)}
+.ps87-lb.l{transform:translate(-100%,-50%);text-align:right}
+.ps87-th{font-size:calc(var(--u)*12);font-weight:600;color:var(--ds-sub);border-bottom:calc(var(--u)*1.5) solid var(--ds-ink);padding-bottom:calc(var(--u)*6);display:grid;grid-template-columns:1fr calc(var(--u)*54) calc(var(--u)*230);column-gap:calc(var(--u)*12)}
+.ps87-tr{display:grid;grid-template-columns:1fr calc(var(--u)*54) calc(var(--u)*230);column-gap:calc(var(--u)*12);align-items:center;border-bottom:calc(var(--u)*1) solid var(--ds-line)}
+.ps87-tr b{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*16);display:flex;align-items:center;gap:calc(var(--u)*8)}
+.ps87-tr b i{display:inline-block;width:calc(var(--u)*12);height:calc(var(--u)*12);border-radius:50%}
+.ps87-tr span.s{display:block;font-size:calc(var(--u)*12);color:var(--ds-sub);margin-top:calc(var(--u)*2)}
+.ps87-tr .n{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*18);text-align:right}
+.ps87-tr .h{display:flex;align-items:center;gap:calc(var(--u)*8);font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*14);white-space:nowrap}
+.ps87-tr .h em{display:block;height:calc(var(--u)*14);font-style:normal}
+.ps87-sum{display:flex;justify-content:space-between;align-items:baseline;font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps87-sum b{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*30);color:var(--ds-c1)}
+.ps87-sum b small{font-size:calc(var(--u)*15);margin-left:calc(var(--u)*2)}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 87 · 본문 요소 · 분류·유목화 · 정지 · 가상 예시</div>
+    <h1>네 칸 이관표</h1>
+    <p class="pg-lead">업무 열네 가지를 전문성 × 정형성 네 칸 판에 점으로 놓고, 칸마다 결정(자동화 · 이관 · 간소화 · 본연 업무)을 붙인 분류 장표. 점 넓이 = 연간 시간, 교원 손을 떠나는 두 칸은 점선으로 묶어 합계와 잇는다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps87" id="ps87" data-slide role="img" aria-label="교원 행정업무 14가지를 교육 전문성과 정형성 기준 네 칸에 배치하고, 칸별 업무 수와 연간 시간, 자동화·이관 대상 9가지 268시간을 정리"></div></div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="N" aria-pressed="true">중립(기본)</button><button class="btn" type="button" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button><button class="btn" type="button" data-fam="D" aria-pressed="false">D 인쇄·종이</button><button class="btn" type="button" data-fam="F" aria-pressed="false">F 관측·중계</button></div>
+  </section>
+  
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅰ장 줄글, 가상)</h3>
+        <p class="raw">교원 3,400명 설문에서 교원이 맡는 행정업무 열네 가지를 <mark class="k" data-n="기준">"교육 전문성이 필요한가"와 "서식·반복이 정해져 있는가" 두 기준으로</mark> 나누었다. <mark class="o" data-n="자동화">실적 보고 취합, 출결 통계 집계, 방과후 수강료 정산, 정보공시 입력은 정해진 서식을 반복하는 일로 시스템이 대신할 수 있고</mark>, <mark class="o" data-n="이관">학부모 민원 1차 응대, 시설·물품 관리, 외부 강사 계약, 체험학습 차량·보험, 행사 물품 준비는 전문성이 필요 없어 행정실과 교육지원청 지원센터로 옮길 수 있다.</mark> <mark class="g" data-n="간소화">학생부 기재 점검, 평가 결과 입력, 학교폭력 사안 서류는 교원이 맡되 서식을 줄이고</mark>, <mark class="g" data-n="본연">수업 설계·문항 제작과 상담·생활지도는 교원이 집중할 본연 업무다.</mark> <mark class="k" data-n="결론">자동화·이관 대상 아홉 가지에 교원 1인이 한 해 268시간을 쓰고 있다.</mark></p>
+        <div class="key"><span><i class="kk"></i>기준 · 결론</span><span><i class="ko"></i>교원 손을 떠나는 칸</span><span><i class="kg"></i>교원이 맡는 칸</span><span>이름 = 장표의 칸 이름</span></div>
+      </div>
+      <div class="panel">
+        <div class="grp-h">기준 두 개 → 축 두 개 → 칸 네 개</div>
+        <ul class="grp">
+          <li><span class="n n1">기준</span><div><b>"~인가"와 "~인가" → 가로축 · 세로축</b><em>원문이 이미 기준을 둘 말한다. 둘 다 "높다 / 낮다"로 나뉘므로 가운데 십자로 네 칸을 만든다</em></div></li>
+          <li><span class="n">네 칸</span><div><b>"~할 수 있고 / 옮길 수 있다 / 줄이고 / 집중할" → 칸 이름</b><em>각 칸의 결정을 동사에서 가져온다: 자동화 · 이관 · 간소화 · 본연 업무</em></div></li>
+          <li><span class="n">업무</span><div><b>나열된 업무 열네 개 → 점</b><em>점 위치는 두 기준 점수, 점 넓이는 연간 시간. 같은 칸 안에서도 큰 점이 먼저 손볼 업무다</em></div></li>
+          <li><span class="n n1">결론</span><div><b>"아홉 가지, 268시간" → 점선 테두리 + 오른쪽 합계</b><em>왼쪽 두 칸을 점선으로 묶어 "교원 손을 떠남"을 한 덩어리로</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">분류 (점→칸)</span><span>점이 어느 칸에 있는지가 곧 결정이다. 칸 이름은 모서리에, 결정 색은 점 색과 표 머리 점이 같다.</span></div>
+          <div><span class="k">합계 (칸→표)</span><span>칸마다 업무 수와 시간을 오른쪽 표에 같은 눈금 막대로 모은다. 그림의 인상을 숫자로 확인.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>분류 기준이 두 개일 때는 목록보다 <b>네 칸 판</b>이 정직하다. 가로축은 교육 전문성, 세로축은 정형성, 가운데 십자가 네 칸을 만들고, 칸마다 결정(자동화 · 이관 · 간소화 · 본연 업무)을 붙였다. 업무 열네 개는 두 점수에 따라 점으로 놓이고, 점 넓이가 연간 시간이라 같은 칸 안에서도 무엇부터 손볼지 보인다. 교원 손을 떠나는 왼쪽 두 칸은 점선으로 묶어 결론(아홉 가지 · 268시간)과 잇는다.</p>
+    <p><b>가져갈 장치 1: 결정이 붙은 칸.</b> 네 칸을 "높음/낮음" 이름으로 두지 않고 그 칸에서 할 일로 이름 붙인다. 판을 읽는 순간 분류가 곧 조치가 된다.</p>
+    <p><b>가져갈 장치 2: 넓이 = 시간.</b> 점 크기를 반지름이 아니라 넓이로 시간에 비례시켜(반지름 ∝ √시간) 120시간 업무가 30시간 업무의 네 배로 보이게 했다.</p>
+    <p><b>가져갈 장치 3: 묶음 점선.</b> 결론이 두 칸을 합친 말이면 두 칸을 테두리 하나로 묶는다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>사업 정비: 효과 × 비용 네 칸(확대 · 유지 · 개선 · 폐지), 점 넓이 = 예산</li>
+      <li>민원 유형 정리: 빈도 × 복잡도 네 칸(자동 안내 · 챗봇 · 담당 배정 · 전문가 상담)</li>
+      <li>연수 과정 개편: 수요 × 만족도 네 칸</li>
+    </ul>
+  </section>
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>tasks</code>마다 <code>x</code>(가로 기준 0~100) · <code>y</code>(세로 기준 0~100) · <code>h</code>(시간)를 적으면 칸 배정 · 점 크기 · 오른쪽 합계가 자동으로 계산됩니다. 이름표를 점 왼쪽에 두려면 <code>left: true</code>.</li>
+      <li>계열 분위기는 <code>.ps87{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값). 제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>판</b>: 정사각형에 가까운 사각형 넷(15.7 × 11.4cm 판을 반씩). 교원 손을 떠나는 왼쪽 두 칸만 옅은 회청, 오른쪽은 흰색. 가운데 십자 1.5pt 먹선.</li>
+      <li><b>점</b>: [거품형 차트]가 가장 정확하다 — X = 전문성, Y = 정형성, 거품 크기 = 시간, [거품 크기 나타내기: 넓이]. 축 0~100 고정, 눈금선 없음.</li>
+      <li><b>이름표</b>: 데이터 레이블 → [셀 값]으로 업무 이름 연결, 위치 오른쪽(큰 점 두 개만 왼쪽).</li>
+      <li><b>묶음 점선</b>: 둥근 사각형(채우기 없음, 2pt 대시)으로 왼쪽 두 칸을 감싼다.</li>
+      <li><b>오른쪽 표</b>: 3열(결정 · 업무 수 · 시간 막대), 막대는 사각형 길이 = 시간 ÷ 최대 × 3.2cm.</li>
+      <li><b>정지 장표</b>: 애니메이션 없음.</li>
+    </ol>
+  </section>
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목) + IBM Plex Sans KR(본문) + IBM Plex Mono 600(숫자) · 대체 프리텐다드 · 맑은 고딕 · Consolas</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(거품형 차트)</div>
+      <div><b>질감 · 모션</b>평면 · 정지</div>
+      <div><b>모듈 · 위치</b>매트릭스(네 칸) + 카드 묶음(칸별 합계) · Ⅰ 추진 배경·현황</div>
+      <div><b>어울리는 계열</b>B · C · D · E · F · G (평면 도식)</div>
+      <div><b>트렌드</b>두 기준 판에 결정을 이름 붙이는 '액션 매트릭스' — <a href="https://www.nngroup.com/articles/prioritization-matrices/" target="_blank" rel="noopener">NN/g, Prioritization Matrices</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps87-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅰ', sectionName: '추진 배경·현황',
+    plan: '2027 ○○교육청 교원 행정업무 경감 계획',
+    title: '교원 업무 열네 가지를 두 기준으로 나눠 보니, [아홉 가지]는 교원이 맡지 않아도 됩니다',
+    axisX: ['교육 전문성', '낮음', '높음'],
+    axisY: ['정형성(서식·반복)', '낮음', '높음'],
+    // 네 칸: q = 'auto'(정형↑ 전문성↓) | 'move'(정형↓ 전문성↓) | 'slim'(정형↑ 전문성↑) | 'keep'(정형↓ 전문성↑)
+    quads: {
+      auto: { name: '자동화', sub: '시스템이 대신', out: true },
+      move: { name: '이관', sub: '행정실 · 지원센터로', out: true },
+      slim: { name: '간소화', sub: '서식 줄이고 교원 유지', out: false },
+      keep: { name: '본연 업무', sub: '교원이 집중', out: false }
+    },
+    // 업무: x = 전문성, y = 정형성(0~100), h = 교원 1인 연간 시간 → 원 넓이(선형)
+    tasks: [
+      { name: '실적 보고 취합', x: 25, y: 90, h: 40 }, { name: '출결 통계 집계', x: 12, y: 82, h: 28 },
+      { name: '방과후 수강료 정산', x: 26, y: 74, h: 36 }, { name: '정보공시 자료 입력', x: 14, y: 64, h: 22, left: false },
+      { name: '학부모 민원 1차 응대', x: 24, y: 20, h: 44 }, { name: '시설 · 물품 관리', x: 12, y: 36, h: 30 },
+      { name: '외부 강사 계약', x: 27, y: 42, h: 26 }, { name: '체험학습 차량 · 보험', x: 18, y: 8, h: 24, },
+      { name: '행사 물품 준비', x: 6, y: 22, h: 18 },
+      { name: '학생부 기재 점검', x: 68, y: 86, h: 50 }, { name: '평가 결과 입력', x: 84, y: 70, h: 32 },
+      { name: '학교폭력 사안 서류', x: 62, y: 60, h: 38 },
+      { name: '수업 설계 · 문항 제작', x: 86, y: 30, h: 120, left: true }, { name: '상담 · 생활지도', x: 70, y: 12, h: 90, left: true }
+    ],
+    source: '가상 예시 · 출처: ○○교육청 2026 교원 업무 실태조사(초·중·고 교원 3,400명 응답) 재구성 · 시간은 교원 1인 연간 평균',
+    page: 4
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var MX = 150, MY = 236, MW = 740, MH = 540;          // 네 칸 판
+  var TX = 980, TW = 540;
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + ';height:' + u(h); };
+  var at = function(x, y){ return 'left:' + u(x) + ';top:' + u(y); };
+  var num = function(v){ return Number(v).toLocaleString('ko-KR'); };
+  function frame(){
+    return '<div class="ps87-a ps87-hd"><div class="ps87-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps87-plan">' + esc(DATA.plan) + '</div></div>' +
+      '<div class="ps87-a ps87-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>' +
+      '<div class="ps87-a ps87-ft"><span>' + esc(DATA.source) + '</span><span>' + DATA.page + '</span></div>';
+  }
+
+  var qOf = function(t){ return t.x < 50 ? (t.y >= 50 ? 'auto' : 'move') : (t.y >= 50 ? 'slim' : 'keep'); };
+  function render(root){
+    var h = frame(), svg = '';
+    var sx = function(v){ return MX + v / 100 * MW; }, sy = function(v){ return MY + MH - v / 100 * MH; };
+    var Q = DATA.quads, fill = { auto: 'var(--ds-c5)', move: 'var(--ds-c5)', slim: 'var(--ds-surface)', keep: 'var(--ds-surface)' };
+    var dot = { auto: 'var(--ds-c1)', move: 'var(--ds-c2)', slim: 'var(--ds-c4)', keep: 'var(--ds-c4)' };
+    // 네 칸 바탕(교원 손을 떠나는 두 칸만 옅은 색)
+    [['auto', 0, 50], ['move', 0, 0], ['slim', 50, 50], ['keep', 50, 0]].forEach(function(q){
+      svg += '<rect x="' + sx(q[1]) + '" y="' + sy(q[2] + 50) + '" width="' + (MW / 2) + '" height="' + (MH / 2) + '" style="fill:' + fill[q[0]] + ';stroke:var(--ds-line);stroke-width:1"/>';
+    });
+    // 기준선(가운데 십자) + 축
+    svg += '<line x1="' + sx(50) + '" x2="' + sx(50) + '" y1="' + MY + '" y2="' + (MY + MH) + '" style="stroke:var(--ds-ink);stroke-width:1.5"/>';
+    svg += '<line x1="' + MX + '" x2="' + (MX + MW) + '" y1="' + sy(50) + '" y2="' + sy(50) + '" style="stroke:var(--ds-ink);stroke-width:1.5"/>';
+    // "교원 손을 떠남" 묶음 테두리(왼쪽 두 칸)
+    svg += '<rect x="' + (MX - 6) + '" y="' + (MY - 6) + '" width="' + (MW / 2 + 6) + '" height="' + (MH + 12) + '" rx="6" style="fill:none;stroke:var(--ds-c1);stroke-width:2;stroke-dasharray:7 5"/>';
+    h += '<div class="ps87-a ps87-ax" style="' + at(MX - 6, MY + MH + 14) + '">← ' + esc(DATA.axisX[1]) + ' <i>· ' + esc(DATA.axisX[0]) + ' ·</i> ' + esc(DATA.axisX[2]) + ' →</div>';
+    h += '<div class="ps87-a ps87-ax" style="left:' + u(MX - 22) + ';top:' + u(MY + MH / 2) + ';transform:translate(-50%,-50%) rotate(-90deg)">← ' + esc(DATA.axisY[1]) + ' <i>· ' + esc(DATA.axisY[0]) + ' ·</i> ' + esc(DATA.axisY[2]) + ' →</div>';
+    // 칸 이름(모서리)
+    var corner = { auto: [MX + 16, MY + 12, ''], move: [MX + 16, MY + MH - 54, ''], slim: [MX + MW - 216, MY + 12, 'r'], keep: [MX + MW - 216, MY + MH - 54, 'r'] };
+    Object.keys(corner).forEach(function(k){ var c = corner[k]; h += '<div class="ps87-a ps87-qt ' + c[2] + '" style="' + box(c[0], c[1], 200, 44) + ';color:' + (Q[k].out ? 'var(--ds-c1)' : 'var(--ds-sub)') + '"><b>' + esc(Q[k].name) + '</b><span>' + esc(Q[k].sub) + '</span></div>'; });
+    // 업무 점: 넓이 = 시간(반지름 ∝ √시간)
+    var agg = { auto: [0, 0], move: [0, 0], slim: [0, 0], keep: [0, 0] };
+    DATA.tasks.forEach(function(t){
+      var q = qOf(t), r = Math.sqrt(t.h) * 2.4, x = sx(t.x), y = sy(t.y);
+      agg[q][0]++; agg[q][1] += t.h;
+      svg += '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" style="fill:' + dot[q] + ';fill-opacity:.9;stroke:var(--ds-surface);stroke-width:1.5"/>';
+      h += '<div class="ps87-a ps87-lb' + (t.left ? ' l' : '') + '" style="' + at(t.left ? x - r - 6 : x + r + 6, y) + '">' + esc(t.name) + '<small>' + t.h + 'h</small></div>';
+    });
+    // 오른쪽 표: 칸별 업무 수 · 연간 시간(막대, 같은 눈금)
+    var order = ['auto', 'move', 'slim', 'keep'], mx = Math.max.apply(null, order.map(function(k){ return agg[k][1]; })), BW = 150;
+    h += '<div class="ps87-a ps87-th" style="' + box(TX, 236, TW, 26) + '"><span>결정</span><span style="text-align:right">업무</span><span>교원 1인 연간 시간</span></div>';
+    order.forEach(function(k, i){
+      var y = 270 + i * 82;
+      h += '<div class="ps87-a ps87-tr" style="' + box(TX, y, TW, 76) + '"><div><b><i style="background:' + dot[k] + '"></i>' + esc(Q[k].name) + '</b><span class="s">' + esc(Q[k].sub) + '</span></div><span class="n">' + agg[k][0] + '</span><span class="h"><em style="width:' + u(agg[k][1] / mx * BW) + ';background:' + dot[k] + '"></em>' + agg[k][1] + 'h</span></div>';
+    });
+    var outN = agg.auto[0] + agg.move[0], outH = agg.auto[1] + agg.move[1];
+    h += '<div class="ps87-a ps87-sum" style="' + box(TX, 618, TW, 56) + '"><span>자동화 + 이관 = 교원 손을 떠나는 업무 <b style="font-size:' + u(22) + '">' + outN + '</b>가지</span></div>';
+    h += '<div class="ps87-a ps87-sum" style="' + box(TX, 672, TW, 56) + '"><span>교원 1인 연간 줄어드는 시간</span><b>' + outH + '<small>시간</small></b></div>';
+    h += '<div class="ps87-a" style="' + box(TX, 740, TW, 30) + ';font-size:' + u(12) + ';color:var(--ds-sub)">원 넓이 = 연간 시간 · 점선 = 교원 손을 떠나는 두 칸</div>';
+    root.innerHTML = '<div class="ps87-in"><svg class="ps87-svg" viewBox="0 0 1600 900" aria-hidden="true">' + svg + '</svg>' + h + '</div>';
+  }
+  render(document.getElementById('ps87'));
+})();
+</script>
+<script>
+(function(){
+  var P = 'ps87';
+  var slide = document.getElementById(P);
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FAM = {"N": {"name": "중립(기본)", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#F5F7FA", "--ds-surface": "#FFFFFF", "--ds-ink": "#18233D", "--ds-sub": "#5B6579", "--ds-line": "#D5DBE4", "--ds-accent": "#D2502A", "--ds-accent2": "#2E5C8F", "--ds-c1": "#1B2E57", "--ds-c2": "#2D4D85", "--ds-c3": "#5474AB", "--ds-c4": "#A8BCDA", "--ds-c5": "#E1E8F2", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "4px", "--ds-shadow": "0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)"}}, "B": {"name": "B 미니멀 스튜디오", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#EEF1F4", "--ds-surface": "#FAFAF8", "--ds-ink": "#1F2B36", "--ds-sub": "#5E6974", "--ds-line": "#CDD4DB", "--ds-accent": "#E2571A", "--ds-accent2": "#2F5D86", "--ds-c1": "#2F4252", "--ds-c2": "#4F6679", "--ds-c3": "#7389A0", "--ds-c4": "#A9B9C7", "--ds-c5": "#DCE3E9", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"}}, "D": {"name": "D 인쇄·종이", "fonts": "Noto Serif KR / IBM Plex Sans KR / Noto Serif KR", "v": {"--ds-bg": "#FBFAF6", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B1E24", "--ds-sub": "#5C606A", "--ds-line": "#CFCCC4", "--ds-accent": "#D9482B", "--ds-accent2": "#23467A", "--ds-c1": "#1F3E6E", "--ds-c2": "#3C5D8C", "--ds-c3": "#6D87AD", "--ds-c4": "#A5B5CD", "--ds-c5": "#E3E8F0", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"}}, "F": {"name": "F 관측·중계", "fonts": "Gothic A1 / Gothic A1 / Saira Semi Condensed", "v": {"--ds-bg": "#F3F5F8", "--ds-surface": "#FFFFFF", "--ds-ink": "#12203A", "--ds-sub": "#556178", "--ds-line": "#D3DAE4", "--ds-accent": "#E5483A", "--ds-accent2": "#2F64AE", "--ds-c1": "#1E3A66", "--ds-c2": "#34598F", "--ds-c3": "#5B7DB0", "--ds-c4": "#9DB3D3", "--ds-c5": "#DAE3EF", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Saira Semi Condensed\",\"Gothic A1\",\"Arial Narrow\",\"Malgun Gothic\",sans-serif", "--ds-radius": "3px", "--ds-shadow": "0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)"}}};
+  var ORDER = ["N", "B", "D", "F"];
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === ORDER[0]) slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+    if (window[P + 'Paint']) window[P + 'Paint']();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window[P + 'Fam'] = apply;
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap\">";
+  var css = document.getElementById(P + '-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById(P + '-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + "<div class=\"ps87\" id=\"ps87\" data-slide role=\"img\" aria-label=\"교원 행정업무 14가지를 교육 전문성과 정형성 기준 네 칸에 배치하고, 칸별 업무 수와 연간 시간, 자동화·이관 대상 9가지 268시간을 정리\"></div>" + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+  window[P + 'Code'] = code;
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th>' + ORDER.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ORDER.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + ORDER.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + ORDER.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+</body></html>

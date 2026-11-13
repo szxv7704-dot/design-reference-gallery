@@ -1,0 +1,752 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #74 별을 잇다</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"IBM Plex Mono";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexMono-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:400;font-display:swap;src:url("../fonts/NotoSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:500;font-display:swap;src:url("../fonts/NotoSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:700;font-display:swap;src:url("../fonts/NotoSansKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:200;font-display:swap;src:url("../fonts/NotoSerifKR-200.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:300;font-display:swap;src:url("../fonts/NotoSerifKR-300.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:500;font-display:swap;src:url("../fonts/NotoSerifKR-500.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:600;font-display:swap;src:url("../fonts/NotoSerifKR-600.woff2") format("woff2")}
+</style>
+<style>
+/* 밤하늘 위 문서: 표지 → 장치 → 설계 메모 → 재현 체크 → 스펙 → 코드. 표지와 같은 어두운 모습 하나로 고정. */
+:root{
+  --pg-bg:#060A14; --pg-card:#0D1424; --pg-ink:#ECE6D8; --pg-sub:#A3ACBC; --pg-line:#222C42;
+  --pg-accent:#E2C690; --pg-code-bg:#03060C; --pg-code-ink:#DCE3EF;
+  --pg-f-head:"Noto Serif KR","Nanum Myeongjo","Batang",serif;
+  --pg-f-body:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --pg-f-mono:"IBM Plex Mono",Consolas,monospace;
+  color-scheme:dark;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-f-body); font-size:15px; line-height:1.75}
+.pg{max-width:1120px; margin:0 auto; padding-block:28px 64px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); display:grid; gap:44px}
+.pg > *{min-width:0}
+.pg-top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 20px; border-bottom:1px solid var(--pg-accent); padding-bottom:10px}
+.pg-top h1{font-family:var(--pg-f-head); font-weight:500; font-size:26px; margin:0; text-wrap:balance}
+.pg-top p{margin:0; color:var(--pg-sub); font-size:13px; letter-spacing:.06em}
+.pg-stage{display:grid; gap:12px}
+.pg-frame{border:1px solid var(--pg-line); overflow-x:auto; background:#000}
+.pg-frame:fullscreen{display:grid; place-items:center; border:0}
+.pg-frame:fullscreen .sx-cover{width:min(100vw, 177.78vh)}
+.pg-hint{display:none; margin:0; font-size:12px; color:var(--pg-sub)}
+.pg-bar{display:flex; flex-wrap:wrap; gap:10px 12px; align-items:center; color:var(--pg-sub); font-size:13px}
+.pg-bar p{margin:0; flex:1 1 320px; min-width:0}
+.pg-seg{display:inline-flex; border:1px solid var(--pg-line); border-radius:999px; padding:2px}
+.pg-btn{font:500 14px var(--pg-f-body); color:var(--pg-ink); background:var(--pg-card); border:1px solid var(--pg-accent); border-radius:999px; padding:7px 18px; cursor:pointer}
+.pg-btn:hover{background:var(--pg-accent); color:var(--pg-bg)}
+.pg-seg .pg-btn{border-color:transparent; background:none; padding:5px 14px}
+.pg-seg .pg-btn[aria-pressed="true"]{background:var(--pg-accent); color:var(--pg-bg)}
+.pg-btn:focus-visible{outline:2px solid var(--pg-accent); outline-offset:2px}
+section h2{font-family:var(--pg-f-head); font-weight:500; font-size:22px; margin:0 0 14px; display:flex; gap:12px; align-items:baseline}
+section h2 span{font:500 13px var(--pg-f-mono); color:var(--pg-accent); letter-spacing:.08em}
+section h3{font-size:16px; margin:0 0 6px}
+.pg-dev{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+.pg-dev article{background:var(--pg-card); border-top:1px solid var(--pg-accent); padding:16px 18px; min-width:0}
+.pg-dev p{margin:0; color:var(--pg-sub)}
+.pg-dev p + p{margin-top:8px; color:var(--pg-ink); font-size:14px}
+.pg-two{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:28px}
+.pg-two > *{min-width:0}
+.pg-tbl{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:14px}
+th,td{text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--pg-line)}
+th{font-weight:500; color:var(--pg-sub); border-bottom:1px solid var(--pg-accent); white-space:nowrap}
+td:first-child{white-space:nowrap; font-weight:500}
+td.num{font-family:var(--pg-f-mono); font-variant-numeric:tabular-nums; white-space:nowrap}
+ul.pg-list,ol.pg-list{margin:0; padding-left:1.2em; display:grid; gap:6px}
+.pg-note{color:var(--pg-sub); font-size:14px}
+.pg-callout{background:var(--pg-card); border-left:2px solid var(--pg-accent); padding:14px 18px; margin:0 0 18px}
+.pg-callout p{margin:0 0 6px}
+.pg-callout p:last-child{margin:0}
+a{color:var(--pg-accent)}
+code{font-family:var(--pg-f-mono); font-size:.9em; color:var(--pg-accent)}
+.pg-sw{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px}
+.pg-sw div{background:var(--pg-card); border:1px solid var(--pg-line); font-size:12px; padding:0 0 8px}
+.pg-sw i{display:block; height:44px; margin-bottom:6px; border-bottom:1px solid var(--pg-line)}
+.pg-sw b,.pg-sw code{display:block; padding:0 8px; font-weight:500}
+.pg-sw code{color:var(--pg-sub)}
+.pg-code{display:grid; gap:10px}
+.pg-code pre{margin:0; max-height:520px; overflow:auto; background:var(--pg-code-bg); color:var(--pg-code-ink); font:12.5px/1.55 var(--pg-f-mono); padding:16px 18px; border:1px solid var(--pg-line); white-space:pre}
+.pg-code ol{color:var(--pg-sub); font-size:14px}
+@media (max-width:760px){
+  .pg-dev,.pg-two{grid-template-columns:minmax(0,1fr)} .pg-top h1{font-size:22px}
+  .pg-frame .sx-cover{min-width:720px} .pg-hint{display:block}
+}
+</style>
+
+<!-- ===== 표지 CSS (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<style id="sx-css">
+/* ── 별을 잇다 표지 ─ 16:9 틀. 하늘·은하수·별·별자리·산·마을 불빛을 모두 캔버스로 그린다(사진·도형 없음). 좌표 1600×900, 글자는 --u(=틀 폭/1600) 단위 ── */
+.sx-cover{
+  --sx-ink:#F3ECDD;     /* 별빛 미색 글자 */
+  --sx-sub:#AEB8C8;     /* 보조 글자 */
+  --sx-gold:#E2C690;    /* 금빛(선택·번호) */
+  --sx-f-serif:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --sx-f-sans:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --sx-f-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden; isolation:isolate;
+  container-type:inline-size; background:#02040B; color:var(--sx-ink); font-family:var(--sx-f-sans);
+}
+.sx-cover *{box-sizing:border-box}
+.sx-in{position:absolute; inset:0; --u:calc(100cqw / 1600); word-break:keep-all; pointer-events:none}
+.sx-in button{pointer-events:auto}
+.sx-cover button{font:inherit; color:inherit}
+.sx-cover button:focus-visible{outline:1px solid var(--sx-gold); outline-offset:4px}
+/* 캔버스 네 겹: 하늘(정지) · 반짝이는 별 · 별자리 · 산. 다가갈 때 겹마다 다르게 움직여 깊이가 생긴다 */
+.sx-cover canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+.sx-sky,.sx-stars,.sx-land{transition:transform 1.4s cubic-bezier(.6,0,.2,1); pointer-events:none}
+.sx-con{cursor:default}
+.sx-cover.is-hover .sx-con{cursor:pointer}
+.sx-cover.is-focused .sx-land{transform:translateY(7.8%)}
+/* 하늘 위 별자리 이름(누를 수 있음) */
+.sx-name{position:absolute; transform:translateY(-50%); background:none; border:0; padding:calc(var(--u)*6) 0; text-align:left; cursor:pointer; transition:opacity .5s}
+.sx-name b{display:block; font:500 calc(var(--u)*15) var(--sx-f-serif); letter-spacing:.06em; color:#E3E8F0; transition:color .3s}
+.sx-name small{display:block; font:400 calc(var(--u)*9.5) var(--sx-f-mono); letter-spacing:.26em; color:#8D9BB0; margin-top:calc(var(--u)*3)}
+.sx-name:hover b,.sx-name.is-hot b{color:#FBE3B0}
+.sx-cover.is-focused .sx-name{opacity:0; pointer-events:none}
+/* 다가간 뒤: 별마다 번호와 이름표 */
+.sx-lab{position:absolute; transform:translateY(-50%); display:flex; align-items:center; gap:calc(var(--u)*10); white-space:nowrap; animation:sxIn .7s ease var(--ld,0s) both}
+.sx-lab.is-left{flex-direction:row-reverse; transform:translate(-100%,-50%)}
+.sx-lab i{display:block; width:calc(var(--u)*16); height:1px; background:#E2C69077}
+.sx-lab span{display:flex; flex-direction:column; line-height:1.3}
+.sx-lab.is-left span{text-align:right}
+.sx-lab em{font:500 calc(var(--u)*11) var(--sx-f-mono); font-style:normal; letter-spacing:.1em; color:var(--sx-gold)}
+.sx-lab b{font:400 calc(var(--u)*15) var(--sx-f-sans); color:#E9EDF4}
+/* 글자 */
+.sx-catalog{position:absolute; left:calc(var(--u)*96); top:calc(var(--u)*64); font:500 calc(var(--u)*13) var(--sx-f-mono); letter-spacing:.32em; color:#C9D0DB}
+.sx-catalog:after{content:''; display:block; width:calc(var(--u)*36); height:1px; background:#E2C69088; margin-top:calc(var(--u)*16)}
+.sx-head{position:absolute; right:calc(var(--u)*104); bottom:calc(var(--u)*262); text-align:right; transition:opacity .7s, transform 1s}
+.sx-lead{display:block; font:200 calc(var(--u)*40) var(--sx-f-serif); letter-spacing:.06em; color:#DCE2EC}
+.sx-title{display:block; font:300 calc(var(--u)*108) var(--sx-f-serif); line-height:1.15; letter-spacing:.04em; white-space:nowrap; margin-top:calc(var(--u)*6);
+  text-shadow:0 0 calc(var(--u)*40) rgba(160,190,255,.18)}
+.sx-sub{display:block; font:400 calc(var(--u)*15) var(--sx-f-sans); letter-spacing:.32em; color:var(--sx-sub); margin-top:calc(var(--u)*22)}
+.sx-cover.is-focused .sx-head{opacity:0; transform:translateY(calc(var(--u)*16))}
+/* 바닥 줄(앞산 위): 워드마크 · 안내 · 별자리 단추 */
+.sx-foot{position:absolute; left:calc(var(--u)*96); right:calc(var(--u)*96); bottom:calc(var(--u)*40); display:flex; align-items:center; gap:calc(var(--u)*28)}
+.sx-mark{font:300 calc(var(--u)*22) var(--sx-f-serif); letter-spacing:.24em; color:var(--sx-ink); white-space:nowrap}
+.sx-hint{font-size:calc(var(--u)*13); letter-spacing:.06em; color:#8E9AAE; white-space:nowrap; transition:opacity .5s}
+.sx-cover.is-focused .sx-hint{opacity:0}
+.sx-nav{margin-left:auto; display:flex; gap:calc(var(--u)*26); align-items:center}
+.sx-nav button{background:none; border:0; padding:calc(var(--u)*10) 0; font-size:calc(var(--u)*14); letter-spacing:.04em; color:#9FAABB; cursor:pointer; white-space:nowrap; transition:color .25s}
+.sx-nav button:hover,.sx-nav button[aria-pressed="true"]{color:#F6DDA8}
+.sx-nav button[aria-pressed="true"]{box-shadow:0 1px #E2C690}
+/* 다가간 뒤 왼쪽 설명 */
+.sx-detail{position:absolute; left:calc(var(--u)*112); top:calc(var(--u)*250); width:calc(var(--u)*460); opacity:0; transform:translateY(calc(var(--u)*18)); transition:opacity .6s, transform .9s}
+.sx-cover.is-focused .sx-detail{opacity:1; transform:none; transition-delay:.7s}
+.sx-num{font:500 calc(var(--u)*13) var(--sx-f-mono); letter-spacing:.28em; color:var(--sx-gold)}
+.sx-detail h2{font:300 calc(var(--u)*46)/1.35 var(--sx-f-serif); color:var(--sx-ink); margin:calc(var(--u)*18) 0 calc(var(--u)*22); text-wrap:balance}
+.sx-detail p{font-size:calc(var(--u)*17.5); line-height:1.95; color:#C7CFDB; margin:0}
+.sx-keys{margin-top:calc(var(--u)*26); font-size:calc(var(--u)*14); letter-spacing:.14em; color:var(--sx-gold)}
+.sx-count{margin-top:calc(var(--u)*12); font:400 calc(var(--u)*12.5) var(--sx-f-mono); letter-spacing:.12em; color:#8E9AAE}
+.sx-back{position:absolute; left:calc(var(--u)*112); top:calc(var(--u)*150); background:none; border:0; border-bottom:1px solid #E2C69066; padding:calc(var(--u)*10) 0; font-size:calc(var(--u)*14); letter-spacing:.06em; cursor:pointer; opacity:0; pointer-events:none!important; transition:opacity .5s}
+.sx-cover.is-focused .sx-back{opacity:1; pointer-events:auto!important; transition-delay:.6s}
+/* 처음 한 번(약 5초): 하늘이 어두워지며 밝은 별부터 뜨고 → 마을 불빛 → 별을 따라 선이 이어지고 → 제목. 캔버스 쪽은 스크립트가 같은 시간표로 그린다 */
+.sx-cover.is-intro .sx-sky{animation:sxDusk 3.4s ease-out both}
+.sx-cover.is-intro .sx-name{animation:sxIn .9s ease var(--nd,0s) both}
+.sx-cover.is-intro .sx-head{animation:sxTitle 1.9s cubic-bezier(.2,.6,.2,1) 3.1s both}
+.sx-cover.is-intro .sx-catalog,.sx-cover.is-intro .sx-foot{animation:sxIn 1.2s ease 4s both}
+@keyframes sxDusk{from{opacity:.3; filter:brightness(1.7) saturate(.5)}}
+@keyframes sxIn{from{opacity:0} to{opacity:1}}
+@keyframes sxTitle{from{opacity:0; letter-spacing:.3em; filter:blur(calc(var(--u)*8))}}
+@media (prefers-reduced-motion:reduce){.sx-cover *{animation:none!important; transition:none!important}}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <h1>레퍼런스 #74 별을 잇다</h1>
+    <p>실험형 표지 · 계열 G · 천문·별자리 · 가상 예시</p>
+  </header>
+
+  <div class="pg-stage">
+    <p class="pg-hint">좁은 화면에서는 표지를 옆으로 밀어 보세요.</p>
+    <div class="pg-frame" id="pgFrame">
+<template id="sx-tpl">
+<div class="sx-cover" id="sxCover" role="region" aria-label="표지: 함께 이어지는 우리 교육. 산자락 마을 불빛 위로 은하수가 떠오르고, 다섯 별자리를 눌러 가까이 볼 수 있습니다.">
+  <canvas class="sx-sky" aria-hidden="true"></canvas>
+  <canvas class="sx-stars" aria-hidden="true"></canvas>
+  <canvas class="sx-con" aria-hidden="true"></canvas>
+  <canvas class="sx-land" aria-hidden="true"></canvas>
+  <div class="sx-in">
+    <div class="sx-names"></div>
+    <div class="sx-labs" aria-hidden="true"></div>
+    <div class="sx-catalog"></div>
+    <div class="sx-head"><span class="sx-lead"></span><span class="sx-title"></span><span class="sx-sub"></span></div>
+    <button class="sx-back" type="button" tabindex="-1" aria-hidden="true"></button>
+    <div class="sx-detail" aria-live="polite"><div class="sx-num"></div><h2></h2><p></p><div class="sx-keys"></div><div class="sx-count"></div></div>
+    <div class="sx-foot"><span class="sx-mark"></span><span class="sx-hint"></span><nav class="sx-nav" aria-label="별자리 선택"></nav></div>
+  </div>
+</div>
+</template>
+<script>
+(function(){ var t=document.getElementById('sx-tpl'); t.parentNode.appendChild(t.content.cloneNode(true)); })();
+</script>
+<!-- ===== 표지 스크립트 (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<script id="sx-js">
+(function(){
+  // ── 표지 문구 ──
+  var COVER = {
+    catalog: '○○ EDUCATION',
+    lead: '함께 이어지는',
+    title: '우리 교육',               // 4~6자
+    sub: '저마다의 빛이 만나, 더 넓은 미래로',
+    mark: '별을 잇다',
+    hint: '별자리를 눌러 가까이 들여다보세요',
+    back: '← 전체 하늘',
+    unit: '별'                        // 다가갔을 때 '별 5개 · ○○ 5개'의 ○○ (사업이면 '세부과제')
+  };
+  // ── 별자리 = 사업 하나, 별 = 세부과제 하나 ──
+  // name 이름 · en 작은 영문/번호 · text 설명 · key 키워드 · at 하늘 속 가운데(1600×900) · size 크기 · rot 기울기(도) · tag 이름 자리('above'면 위)
+  // stars: 실제 별 좌표 ra(적경, 시)·dec(적위, 도)·mag(밝기 등급, 작을수록 밝음)·c(별빛 색)·label(다가갔을 때 이름표)
+  // lines: 이을 별 번호 쌍(이 순서대로 선이 그어진다)
+  var DATA = /*DATA*/[
+    {"name":"카시오페이아자리","en":"CASSIOPEIA","text":"다섯 밝은 별이 이루는 선명한 W자. 서로 다른 빛이 이어져 하나의 형태를 만드는 모습에, 함께하는 교육의 의미를 담았습니다.","key":"서로 다른 빛 · 하나의 연결",
+     "at":[1215,150],"size":250,"rot":-14,"tag":"above",
+     "stars":[{"ra":0.153,"dec":59.15,"mag":2.27,"c":"#FFF2DA","label":"카프"},{"ra":0.675,"dec":56.54,"mag":2.24,"c":"#FFC98E","label":"셰다르"},{"ra":0.945,"dec":60.72,"mag":2.47,"c":"#CFE0FF","label":"나비"},{"ra":1.43,"dec":60.24,"mag":2.68,"c":"#EEF1FF","label":"루크바"},{"ra":1.907,"dec":63.67,"mag":3.37,"c":"#D3E2FF","label":"세긴"}],
+     "lines":[[0,1],[1,2],[2,3],[3,4]]},
+    {"name":"북쪽왕관자리","en":"CORONA BOREALIS","text":"별들이 부드러운 반원을 이루는 북쪽의 왕관. 아이 한 사람, 한 사람의 가능성을 소중하게 바라보는 마음을 담았습니다.","key":"소중한 가능성 · 존중",
+     "at":[300,205],"size":215,"rot":0,
+     "stars":[{"ra":15.549,"dec":31.36,"mag":4.14,"c":"#E3ECFF","label":"세타"},{"ra":15.464,"dec":29.11,"mag":3.68,"c":"#F6F1FF","label":"누사칸"},{"ra":15.578,"dec":26.71,"mag":2.23,"c":"#EAF1FF","label":"알페카"},{"ra":15.713,"dec":26.3,"mag":3.84,"c":"#E6EEFF","label":"감마"},{"ra":15.826,"dec":26.07,"mag":4.63,"c":"#FFF0D2","label":"델타"},{"ra":15.96,"dec":26.88,"mag":4.15,"c":"#FFD9A8","label":"엡실론"},{"ra":16.024,"dec":29.85,"mag":4.98,"c":"#E9EFFF","label":"이오타"}],
+     "lines":[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]]},
+    {"name":"거문고자리","en":"LYRA","text":"작은 평행사변형과 밝은 별 베가가 돋보이는 별자리. 현악기에서 이름을 얻은 이 별자리에, 서로의 목소리가 어우러지는 조화를 담았습니다.","key":"서로의 목소리 · 조화",
+     "at":[1035,318],"size":170,"rot":12,
+     "stars":[{"ra":18.616,"dec":38.78,"mag":0.03,"c":"#CFE0FF","label":"베가"},{"ra":18.739,"dec":39.67,"mag":4.6,"c":"#F1F4FF","label":"엡실론"},{"ra":18.746,"dec":37.6,"mag":4.3,"c":"#F4F6FF","label":"제타"},{"ra":18.908,"dec":36.9,"mag":4.3,"c":"#FFC48A","label":"델타"},{"ra":18.982,"dec":32.69,"mag":3.25,"c":"#D6E3FF","label":"술라파트"},{"ra":18.835,"dec":33.36,"mag":3.5,"c":"#DCE6FF","label":"셸리아크"}],
+     "lines":[[0,1],[1,2],[2,0],[2,3],[3,4],[4,5],[5,2]]},
+    {"name":"백조자리","en":"CYGNUS","text":"긴 몸통과 펼친 날개가 십자 형태를 이루는 백조자리. 은하수를 따라 날아가는 넓은 날개에, 아이들이 저마다의 미래로 나아가는 모습을 담았습니다.","key":"펼쳐지는 날개 · 성장",
+     "at":[748,350],"size":340,"rot":-28,
+     "stars":[{"ra":20.69,"dec":45.28,"mag":1.25,"c":"#F3F5FF","label":"데네브"},{"ra":20.37,"dec":40.26,"mag":2.23,"c":"#FFF3D8","label":"사드르"},{"ra":19.938,"dec":35.08,"mag":3.89,"c":"#FFD3A0","label":"에타"},{"ra":19.512,"dec":27.96,"mag":3.05,"c":"#FFCF8A","label":"알비레오"},{"ra":19.75,"dec":45.13,"mag":2.87,"c":"#DCE7FF","label":"델타"},{"ra":20.77,"dec":33.97,"mag":2.48,"c":"#FFD9A6","label":"기에나"},{"ra":21.216,"dec":30.23,"mag":3.21,"c":"#FFE7BF","label":"제타"},{"ra":19.495,"dec":51.73,"mag":3.76,"c":"#E4ECFF","label":"이오타"},{"ra":19.285,"dec":53.37,"mag":3.8,"c":"#FFE1B3","label":"카파"}],
+     "lines":[[0,1],[1,2],[2,3],[4,1],[1,5],[5,6],[4,7],[7,8]]},
+    {"name":"돌고래자리","en":"DELPHINUS","text":"작은 마름모와 꼬리가 이어지는 아담한 별자리. 물 위로 뛰어오르는 돌고래의 모습에, 발견과 놀이의 즐거움을 담았습니다.","key":"즐거운 발견 · 배움",
+     "at":[420,470],"size":140,"rot":-10,
+     "stars":[{"ra":20.554,"dec":11.3,"mag":4.03,"c":"#DDE7FF","label":"알둘핀"},{"ra":20.626,"dec":14.6,"mag":3.63,"c":"#FFF0D0","label":"로타네브"},{"ra":20.661,"dec":15.91,"mag":3.77,"c":"#E3ECFF","label":"수알로신"},{"ra":20.777,"dec":16.12,"mag":4.27,"c":"#FFF4DE","label":"감마"},{"ra":20.724,"dec":15.07,"mag":4.43,"c":"#EEF2FF","label":"델타"}],
+     "lines":[[0,1],[1,2],[2,3],[3,4],[4,1]]}
+  ]/*END*/;
+
+  var root = document.getElementById('sxCover');
+  if (!root) return;
+  var q = function(s){ return root.querySelector(s); };
+  var VW = 1600, VH = 900, HZ = 700, SEG = 230, GAP = 330, START = 1500;
+  var reduce = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+  var skyC = q('.sx-sky'), starC = q('.sx-stars'), conC = q('.sx-con'), landC = q('.sx-land');
+  var st = starC.getContext('2d'), cn = conC.getContext('2d');
+  function rng(seed){ return function(){ seed = (seed + 0x6D2B79F5) | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function rgb(hex){ var n = parseInt(hex.slice(1), 16); return (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255); }
+  var clamp = function(v){ return v < 0 ? 0 : v > 1 ? 1 : v; };
+
+  // ── 노이즈: 은하수 구름결·먼지띠, 산 능선, 숲 가장자리 ──
+  function hash(i, j){ var h = Math.imul(i, 374761393) + Math.imul(j, 668265263) | 0; h = Math.imul(h ^ h >>> 13, 1274126177); return ((h ^ h >>> 16) >>> 0) / 4294967295; }
+  function vn(x, y){ var i = Math.floor(x), j = Math.floor(y), fx = x - i, fy = y - j, a = hash(i, j), b = hash(i + 1, j), c = hash(i, j + 1), d = hash(i + 1, j + 1), ux = fx * fx * (3 - 2 * fx), uy = fy * fy * (3 - 2 * fy); return a + (b - a) * ux + (c - a) * uy + (a - b - c + d) * ux * uy; }
+  function fbm(x, y, o){ var s = 0, a = .5, f = 1, n = 0; for (var k = 0; k < o; k++){ s += a * vn(x * f, y * f); n += a; a *= .5; f *= 2.03; } return s / n; }
+  function ridged(x, y, o){ var s = 0, a = .5, f = 1, n = 0; for (var k = 0; k < o; k++){ var v = 1 - Math.abs(vn(x * f, y * f) * 2 - 1); s += a * v * v; n += a; a *= .5; f *= 2.1; } return s / n; }
+
+  // ── 은하수: 지평선 왼쪽의 따뜻한 중심부에서 오른쪽 위로 휘어 오르는 띠 ──
+  var P0 = [120, 960], P2 = [1560, -160], ML = Math.hypot(P2[0] - P0[0], P2[1] - P0[1]), DX = (P2[0] - P0[0]) / ML, DY = (P2[1] - P0[1]) / ML, BOW = -120;
+  function mw(x, y){
+    var px = x - P0[0], py = y - P0[1], t = (px * DX + py * DY) / ML, v = px * DY - py * DX - BOW * 4 * t * (1 - t);
+    var core = Math.exp(-Math.pow((t - .25) / .11, 2)), sig = 74 + 96 * Math.exp(-Math.pow((t - .22) / .2, 2));
+    var g = Math.exp(-v * v / (sig * sig) * 1.25), n = fbm(x * .0055, y * .0055, 5);
+    var lane = clamp((ridged(x * .0105 + 7.3, y * .0105 + 2.1, 4) - .5) / .3) * Math.exp(-v * v / (sig * sig * .3));
+    return { b: g * (.24 + 1.1 * Math.pow(n, 1.6)) * (1 - .86 * lane) * (1 + 1.8 * core), lane: lane, core: core, halo: Math.exp(-v * v / (sig * sig * 7)) * .18, n: n };
+  }
+  var milky = null, field = [], bright = [];
+  function buildSky(){
+    var w = 560, h = 315, c = document.createElement('canvas'); c.width = w; c.height = h;
+    var g = c.getContext('2d'), im = g.createImageData(w, h), d = im.data;
+    for (var j = 0; j < h; j++) for (var i = 0; i < w; i++){
+      var m = mw(i * VW / w, j * VH / h), warm = clamp(m.core * 1.25 + .2 * m.n), k = (j * w + i) * 4;
+      d[k] = 150 + 105 * warm; d[k + 1] = 164 + 40 * warm; d[k + 2] = 206 - 56 * warm;
+      d[k + 3] = Math.min(255, (m.b * .58 + m.halo * .5) * 255);
+    }
+    g.putImageData(im, 0, 0); milky = c;
+    // 잔별: 은하수 안에 몰리고 먼지띠에서는 가려진다. 지평선 가까이는 대기에 묻혀 흐려진다
+    var r = rng(2027), tries = 0;
+    while (field.length < 5200 && tries < 70000){
+      tries++;
+      var x = r() * VW, y = r() * (HZ + 20), mm = mw(x, y);
+      if (r() > (.18 + .82 * Math.min(1, mm.b * 1.5)) * (1 - .8 * mm.lane)) continue;
+      var t = r();
+      field.push([x, y, .3 + Math.pow(r(), 8) * 1.2, t < .14 ? '206,222,255' : t > .9 ? '255,216,176' : '244,242,236', (.2 + .7 * Math.pow(r(), .6)) * ext(y)]);
+    }
+    for (var s = 0; s < 80; s++){
+      var bx = r() * VW, by = r() * (HZ - 40), tt = r();
+      bright.push({ x: bx, y: by, r: .7 + Math.pow(r(), 2.4) * 1.2, c: tt < .3 ? '208,224,255' : tt > .86 ? '255,214,170' : '250,248,242', a: (.5 + .5 * r()) * ext(by), ph: r() * 6.28, f: .8 + r() * 2.2, m: r() });
+    }
+  }
+  function ext(y){ return y < 480 ? 1 : Math.max(.15, 1 - (y - 480) / 230); }
+
+  var W = 0, H = 0, DPR = 1, U = 1;
+  function size(){
+    var b = root.getBoundingClientRect(); W = b.width; H = b.height; if (!W || !H) return false;
+    DPR = Math.min(window.devicePixelRatio || 1, 2); U = W * DPR / VW;
+    [skyC, starC, conC, landC].forEach(function(c){ c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); });
+    return true;
+  }
+  function drawSky(){
+    var g = skyC.getContext('2d');
+    g.setTransform(U, 0, 0, U, 0, 0);
+    var gr = g.createLinearGradient(0, 0, 0, VH);
+    gr.addColorStop(0, '#02040B'); gr.addColorStop(.4, '#040A18'); gr.addColorStop(.64, '#09152B'); gr.addColorStop(.78, '#132644'); gr.addColorStop(1, '#1A2E4C');
+    g.fillStyle = gr; g.fillRect(0, 0, VW, VH);
+    var ag = g.createLinearGradient(0, 500, 0, 760); ag.addColorStop(0, 'rgba(70,150,125,0)'); ag.addColorStop(.65, 'rgba(70,150,125,.12)'); ag.addColorStop(1, 'rgba(70,150,125,0)');
+    g.fillStyle = ag; g.fillRect(0, 500, VW, 260);
+    g.save(); g.translate(470, 720); g.scale(1, .55);
+    var am = g.createRadialGradient(0, 0, 0, 0, 0, 620); am.addColorStop(0, 'rgba(214,150,96,.26)'); am.addColorStop(.5, 'rgba(214,150,96,.08)'); am.addColorStop(1, 'rgba(214,150,96,0)');
+    g.fillStyle = am; g.fillRect(-620, -620, 1240, 1240); g.restore();
+    g.globalCompositeOperation = 'lighter'; g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+    g.drawImage(milky, 0, 0, VW, VH);
+    g.globalAlpha = .3; g.drawImage(milky, -8, -5, VW + 16, VH + 10); g.globalAlpha = 1;
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    field.forEach(function(s){
+      g.fillStyle = 'rgba(' + s[3] + ',' + s[4] + ')';
+      g.beginPath(); g.arc(s[0] * U, s[1] * U, Math.max(.45, s[2] * DPR * .8), 0, 6.283); g.fill();
+    });
+    g.globalCompositeOperation = 'source-over';
+  }
+
+  // ── 산 세 겹(멀수록 옅고 푸르게) + 숲 가장자리 + 산자락 마을 불빛 ──
+  function ridge(x, base, amp, f, seed, jag){
+    return base + amp * (fbm(x * f + seed, seed * .7, 4) - .5) * 2 - (jag ? jag * Math.pow(ridged(x * .085 + seed, seed * 1.3, 2), 5) + jag * .25 * vn(x * .4, seed) : 0);
+  }
+  function drawLand(){
+    var g = landC.getContext('2d'); g.setTransform(U, 0, 0, U, 0, 0); g.clearRect(0, 0, VW, VH);
+    function layer(fn, top, c1, c2){
+      var gr = g.createLinearGradient(0, top, 0, VH); gr.addColorStop(0, c1); gr.addColorStop(1, c2);
+      g.fillStyle = gr; g.beginPath(); g.moveTo(0, VH);
+      for (var x = 0; x <= VW; x += 2) g.lineTo(x, fn(x));
+      g.lineTo(VW, VH); g.closePath(); g.fill();
+    }
+    function haze(y0, y1, a){ var h = g.createLinearGradient(0, y0, 0, y1); h.addColorStop(0, 'rgba(110,135,175,0)'); h.addColorStop(.7, 'rgba(110,135,175,' + a + ')'); h.addColorStop(1, 'rgba(110,135,175,0)'); g.fillStyle = h; g.fillRect(0, y0, VW, y1 - y0); }
+    var far = function(x){ return ridge(x, 662, 48, .0031, 3, 0); };
+    var mid = function(x){ return ridge(x, 712, 30, .0052, 9, 3); };
+    var near = function(x){ return ridge(x, 780, 24, .0068, 17, 15); };
+    layer(far, 610, '#0F1D39', '#091327');
+    haze(640, 720, .07);
+    // 마을 불빛이 하늘에 번진 빛
+    g.save(); g.translate(520, 708); g.scale(1, .42);
+    var dome = g.createRadialGradient(0, 0, 0, 0, 0, 280); dome.addColorStop(0, 'rgba(255,176,110,.2)'); dome.addColorStop(1, 'rgba(255,176,110,0)');
+    g.fillStyle = dome; g.fillRect(-280, -280, 560, 560); g.restore();
+    layer(mid, 680, '#08101F', '#040810');
+    // 마을: 가운데 몰리고 가장자리로 갈수록 드문드문
+    var r = rng(77);
+    g.globalCompositeOperation = 'lighter';
+    for (var k = 0; k < 40; k++){
+      var x = 520 + (r() + r() - 1) * 210, top = mid(x) + 10, bot = Math.min(near(x) - 6, top + 34);
+      if (bot <= top) continue;
+      var y = top + Math.pow(r(), 1.8) * (bot - top), s = .35 + Math.pow(r(), 2) * .8, warm = r() > .25;
+      var col = warm ? '255,190,112' : '255,234,200', gl = g.createRadialGradient(x, y, 0, x, y, s * 5);
+      gl.addColorStop(0, 'rgba(' + col + ',.42)'); gl.addColorStop(1, 'rgba(' + col + ',0)');
+      g.fillStyle = gl; g.fillRect(x - s * 5, y - s * 5, s * 10, s * 10);
+      g.fillStyle = 'rgba(' + col + ',.95)'; g.beginPath(); g.arc(x, y, s * .55, 0, 6.283); g.fill();
+    }
+    g.globalCompositeOperation = 'source-over';
+    haze(722, 792, .05);
+    layer(near, 740, '#03060D', '#010206');
+  }
+
+  // ── 반짝이는 밝은 별과 별똥별 ──
+  var introAt = 0, introOn = false, meteor = null, nextMeteor = 0, focused = -1, hover = -1, last = 0;
+  function drawStars(now){
+    st.setTransform(1, 0, 0, 1, 0, 0); st.clearRect(0, 0, starC.width, starC.height);
+    var since = now - introAt;
+    st.globalCompositeOperation = 'lighter';
+    bright.forEach(function(s){
+      var rv = introOn ? clamp((since - 300 - s.m * 1900) / 700) : 1;
+      if (!rv) return;
+      var sc = reduce ? 1 : .8 + .2 * Math.sin(now / 1000 * s.f + s.ph) * (s.y > 460 ? 1.7 : 1);
+      var x = s.x * U, y = s.y * U, r = s.r * DPR, a = s.a * sc * rv;
+      var gl = st.createRadialGradient(x, y, 0, x, y, r * 3.4);
+      gl.addColorStop(0, 'rgba(' + s.c + ',' + a * .42 + ')'); gl.addColorStop(1, 'rgba(' + s.c + ',0)');
+      st.fillStyle = gl; st.fillRect(x - r * 3.4, y - r * 3.4, r * 6.8, r * 6.8);
+      st.fillStyle = 'rgba(' + s.c + ',' + a + ')'; st.beginPath(); st.arc(x, y, r * .75, 0, 6.283); st.fill();
+    });
+    if (!reduce && !introOn && focused < 0){
+      if (!nextMeteor) nextMeteor = now + 7000;
+      if (!meteor && now > nextMeteor){ meteor = { x: 260 + Math.random() * 900, y: 30 + Math.random() * 170, a: .45 + Math.random() * .3, t: now }; nextMeteor = now + 11000 + Math.random() * 9000; }
+      if (meteor){
+        var p = (now - meteor.t) / 850;
+        if (p >= 1) meteor = null;
+        else {
+          var hx = meteor.x + Math.cos(meteor.a) * 340 * p, hy = meteor.y + Math.sin(meteor.a) * 340 * p, len = 160 * (.4 + .6 * Math.sin(p * Math.PI));
+          var tx = hx - Math.cos(meteor.a) * len, ty = hy - Math.sin(meteor.a) * len, al = Math.sin(p * Math.PI);
+          var mg = st.createLinearGradient(hx * U, hy * U, tx * U, ty * U);
+          mg.addColorStop(0, 'rgba(255,250,236,' + .9 * al + ')'); mg.addColorStop(1, 'rgba(255,250,236,0)');
+          st.strokeStyle = mg; st.lineWidth = 1.1 * DPR; st.lineCap = 'round';
+          st.beginPath(); st.moveTo(hx * U, hy * U); st.lineTo(tx * U, ty * U); st.stroke();
+        }
+      }
+    }
+    st.globalCompositeOperation = 'source-over';
+  }
+
+  // ── 별자리: 실제 좌표를 평면에 펼친 뒤 하늘 속 자리(at)·크기(size)·기울기(rot)로 놓는다 ──
+  var items = [], cam = { x: 0, y: 0, s: 1 }, anim = 0;
+  function layout(d){
+    var ra0 = 0, de0 = 0; d.stars.forEach(function(s){ ra0 += s.ra; de0 += s.dec; }); ra0 /= d.stars.length; de0 /= d.stars.length;
+    var cs = Math.cos(de0 * Math.PI / 180), rr = (d.rot || 0) * Math.PI / 180;
+    var p = d.stars.map(function(s){ var x = -(s.ra - ra0) * 15 * cs, y = -(s.dec - de0); return [x * Math.cos(rr) - y * Math.sin(rr), x * Math.sin(rr) + y * Math.cos(rr)]; });
+    var xs = p.map(function(v){ return v[0]; }), ys = p.map(function(v){ return v[1]; });
+    var mnx = Math.min.apply(null, xs), mxx = Math.max.apply(null, xs), mny = Math.min.apply(null, ys), mxy = Math.max.apply(null, ys);
+    var k = d.size / Math.max(mxx - mnx, mxy - mny), cx = (mnx + mxx) / 2, cy = (mny + mxy) / 2;
+    return p.map(function(v){ return [d.at[0] + (v[0] - cx) * k, d.at[1] + (v[1] - cy) * k]; });
+  }
+  var pct = function(x, y, el){ el.style.left = (x / VW * 100) + '%'; el.style.top = (y / VH * 100) + '%'; };
+  function build(){
+    cancelAnimationFrame(anim); q('.sx-names').textContent = ''; q('.sx-labs').textContent = ''; q('.sx-nav').textContent = '';
+    focused = -1; hover = -1; root.classList.remove('is-focused'); cam = { x: 0, y: 0, s: 1 };
+    items = DATA.map(function(d, ci){
+      var pts = layout(d), cStart = START + ci * GAP, reach = {}, ld = [];
+      if (d.lines.length) reach[d.lines[0][0]] = cStart;
+      d.lines.forEach(function(l, li){
+        var at = cStart + li * SEG; ld.push(at);
+        if (reach[l[0]] == null) reach[l[0]] = at;
+        if (reach[l[1]] == null) reach[l[1]] = at + SEG;
+      });
+      var xs = pts.map(function(v){ return v[0]; }), ys = pts.map(function(v){ return v[1]; });
+      var bb = { x: Math.min.apply(null, xs), y: Math.min.apply(null, ys), X: Math.max.apply(null, xs), Y: Math.max.apply(null, ys) };
+      var nm = document.createElement('button'); nm.type = 'button'; nm.className = 'sx-name';
+      nm.innerHTML = '<b></b><small></small>'; nm.querySelector('b').textContent = d.name; nm.querySelector('small').textContent = d.en;
+      nm.setAttribute('aria-label', d.name + ' 가까이 보기'); nm.style.setProperty('--nd', (cStart + d.lines.length * SEG) + 'ms');
+      pct(bb.x, d.tag === 'above' ? bb.y - 40 : bb.Y + 38, nm);
+      nm.onclick = function(){ select(ci); };
+      nm.onmouseenter = function(){ hover = ci; }; nm.onmouseleave = function(){ hover = -1; };
+      q('.sx-names').appendChild(nm);
+      var btn = document.createElement('button'); btn.type = 'button'; btn.textContent = d.name; btn.setAttribute('aria-pressed', 'false');
+      btn.onclick = function(){ select(focused === ci ? -1 : ci); }; q('.sx-nav').appendChild(btn);
+      return { pts: pts, bb: bb, reach: reach, ld: ld, fade: 1, name: nm, button: btn,
+        col: d.stars.map(function(s){ return rgb(s.c || '#F4F1E8'); }) };
+    });
+  }
+
+  // 별 하나: 색 번짐 + 흰 심 + 밝은 별만 십자 빛살. 밝기는 실제 등급에서
+  function star(x, y, mag, col, a, k){
+    var b = Math.sqrt(Math.pow(10, -.4 * (mag - 1))), core = Math.min(4.6, 1.2 + 1.7 * b) * U * k, glow = (8 + 24 * b) * U * k;
+    var gl = cn.createRadialGradient(x, y, 0, x, y, glow);
+    gl.addColorStop(0, 'rgba(' + col + ',' + .6 * a + ')'); gl.addColorStop(.22, 'rgba(' + col + ',' + .16 * a + ')'); gl.addColorStop(1, 'rgba(' + col + ',0)');
+    cn.fillStyle = gl; cn.fillRect(x - glow, y - glow, glow * 2, glow * 2);
+    if (mag < 2.7){
+      var L = (14 + 30 * b) * U * k;
+      cn.lineWidth = Math.max(.6, .7 * DPR);
+      [[1, 0], [0, 1]].forEach(function(v){
+        var sg = cn.createLinearGradient(x - v[0] * L, y - v[1] * L, x + v[0] * L, y + v[1] * L);
+        sg.addColorStop(0, 'rgba(' + col + ',0)'); sg.addColorStop(.5, 'rgba(' + col + ',' + .7 * a + ')'); sg.addColorStop(1, 'rgba(' + col + ',0)');
+        cn.strokeStyle = sg; cn.beginPath(); cn.moveTo(x - v[0] * L, y - v[1] * L); cn.lineTo(x + v[0] * L, y + v[1] * L); cn.stroke();
+      });
+    }
+    var cg = cn.createRadialGradient(x, y, 0, x, y, core);
+    cg.addColorStop(0, 'rgba(255,255,252,' + a + ')'); cg.addColorStop(.55, 'rgba(255,253,246,' + .85 * a + ')'); cg.addColorStop(1, 'rgba(' + col + ',0)');
+    cn.fillStyle = cg; cn.beginPath(); cn.arc(x, y, core, 0, 6.283); cn.fill();
+  }
+  function drawCon(now, dt){
+    cn.setTransform(1, 0, 0, 1, 0, 0); cn.clearRect(0, 0, conC.width, conC.height);
+    var since = now - introAt, k = Math.pow(cam.s, .38);
+    var S = function(p){ return [(p[0] * cam.s + cam.x) * U, (p[1] * cam.s + cam.y) * U]; };
+    cn.globalCompositeOperation = 'lighter'; cn.lineCap = 'round';
+    items.forEach(function(it, ci){
+      var target = focused < 0 || focused === ci ? 1 : .05;
+      it.fade += (target - it.fade) * Math.min(1, dt * 4.5);
+      var fa = it.fade; if (fa < .01) return;
+      var d = DATA[ci], hot = ci === hover || ci === focused;
+      it.name.classList.toggle('is-hot', ci === hover);
+      d.lines.forEach(function(l, li){
+        var p = introOn ? clamp((since - it.ld[li]) / SEG) : 1; if (p <= 0) return;
+        var a = S(it.pts[l[0]]), b = S(it.pts[l[1]]), len = Math.hypot(b[0] - a[0], b[1] - a[1]); if (len < 1) return;
+        var ux = (b[0] - a[0]) / len, uy = (b[1] - a[1]) / len, gap = 7 * U * k, e = p * p * (3 - 2 * p);
+        var sx = a[0] + ux * gap, sy = a[1] + uy * gap, ex = a[0] + ux * Math.max(gap, (len - gap) * e), ey = a[1] + uy * Math.max(gap, (len - gap) * e);
+        var c = hot ? '251,231,190' : '214,226,246';
+        cn.strokeStyle = 'rgba(' + c + ',' + (hot ? .14 : .06) * fa + ')'; cn.lineWidth = 3.2 * DPR;
+        cn.beginPath(); cn.moveTo(sx, sy); cn.lineTo(ex, ey); cn.stroke();
+        cn.strokeStyle = 'rgba(' + c + ',' + (hot ? .78 : .4) * fa + ')'; cn.lineWidth = .9 * DPR;
+        cn.beginPath(); cn.moveTo(sx, sy); cn.lineTo(ex, ey); cn.stroke();
+        if (p < 1){
+          var hg = cn.createRadialGradient(ex, ey, 0, ex, ey, 9 * U);
+          hg.addColorStop(0, 'rgba(255,246,222,.9)'); hg.addColorStop(1, 'rgba(255,246,222,0)');
+          cn.fillStyle = hg; cn.fillRect(ex - 9 * U, ey - 9 * U, 18 * U, 18 * U);
+        }
+      });
+      d.stars.forEach(function(s, si){
+        var rt = it.reach[si] != null ? it.reach[si] : START + ci * GAP, f = introOn ? clamp((since - rt) / 1100) : 1;
+        if (f <= 0) return;
+        var pop = 1 + 1.7 * Math.pow(1 - f, 3), tw = reduce ? 1 : .88 + .12 * Math.sin(now / 1000 * (.8 + (si * 7 + ci * 3) % 5 * .3) + si * 2.1);
+        var p = S(it.pts[si]);
+        star(p[0], p[1], s.mag, it.col[si], fa * clamp(f * 3) * tw, k * pop);
+      });
+    });
+    cn.globalCompositeOperation = 'source-over';
+  }
+
+  // ── 누르기: 별·선 가까이를 누르면 그 별자리 ──
+  function pick(ev){
+    var b = root.getBoundingClientRect(), x = ((ev.clientX - b.left) / b.width * VW - cam.x) / cam.s, y = ((ev.clientY - b.top) / b.height * VH - cam.y) / cam.s;
+    var best = -1, bd = 1e9;
+    items.forEach(function(it, ci){
+      if (focused >= 0 && ci !== focused) return;
+      it.pts.forEach(function(p){ var dd = Math.hypot(p[0] - x, p[1] - y); if (dd < bd){ bd = dd; best = ci; } });
+      DATA[ci].lines.forEach(function(l){
+        var a = it.pts[l[0]], c = it.pts[l[1]], vx = c[0] - a[0], vy = c[1] - a[1], t = clamp(((x - a[0]) * vx + (y - a[1]) * vy) / (vx * vx + vy * vy));
+        var dd = Math.hypot(a[0] + vx * t - x, a[1] + vy * t - y) + 8; if (dd < bd){ bd = dd; best = ci; }
+      });
+    });
+    return bd < 26 / cam.s ? best : -1;
+  }
+  conC.style.pointerEvents = 'auto';
+  conC.addEventListener('pointermove', function(e){ hover = pick(e); root.classList.toggle('is-hover', hover >= 0 && hover !== focused); });
+  conC.addEventListener('pointerleave', function(){ hover = -1; root.classList.remove('is-hover'); });
+  conC.addEventListener('click', function(e){ var i = pick(e); if (i >= 0 && i !== focused) select(i); });
+
+  // ── 다가가기: 별자리 층은 크게, 하늘은 조금, 산은 아래로(깊이) ──
+  function select(i){
+    cancelAnimationFrame(anim); introOn = false; root.classList.remove('is-intro'); q('.sx-labs').textContent = '';
+    focused = i; root.classList.toggle('is-focused', i >= 0); root.classList.remove('is-hover');
+    var back = q('.sx-back'); back.tabIndex = i >= 0 ? 0 : -1; back.setAttribute('aria-hidden', String(i < 0));
+    var to = { x: 0, y: 0, s: 1 }, par = '';
+    if (i >= 0){
+      var d = DATA[i], it = items[i], w = it.bb.X - it.bb.x, h = it.bb.Y - it.bb.y, cx = (it.bb.x + it.bb.X) / 2, cy = (it.bb.y + it.bb.Y) / 2;
+      var s = Math.min(3.2, 470 / Math.max(w, h * 1.15, 60));
+      to = { x: 1085 - cx * s, y: 395 - cy * s, s: s };
+      par = 'translate(' + ((1085 - cx) / VW * 9).toFixed(2) + '%,' + ((395 - cy) / VH * 9).toFixed(2) + '%) scale(1.09)';
+      q('.sx-num').textContent = d.en; q('.sx-detail h2').textContent = d.name; q('.sx-detail p').textContent = d.text; q('.sx-keys').textContent = d.key;
+      q('.sx-count').textContent = '별 ' + d.stars.length + '개' + (COVER.unit && COVER.unit !== '별' ? ' · ' + COVER.unit + ' ' + d.stars.length + '개' : '');
+    }
+    skyC.style.transform = starC.style.transform = par;
+    items.forEach(function(it, k){ it.button.setAttribute('aria-pressed', String(k === i)); it.name.tabIndex = i < 0 ? 0 : -1; });
+    var from = { x: cam.x, y: cam.y, s: cam.s }, start = performance.now(), dur = reduce ? 0 : 1400;
+    function step(now){
+      var t = dur ? Math.min(1, (now - start) / dur) : 1, e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      cam = { x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e, s: from.s + (to.s - from.s) * e };
+      if (t < 1) anim = requestAnimationFrame(step); else if (i >= 0) labels(i);
+    }
+    anim = requestAnimationFrame(step);
+  }
+  // 별마다 번호·이름표: 별자리 가운데보다 오른쪽 별은 오른쪽에, 왼쪽 별은 왼쪽에
+  function labels(i){
+    var it = items[i], d = DATA[i], cx = (it.bb.x + it.bb.X) / 2, box = q('.sx-labs'), gap = 14 * Math.pow(cam.s, .38);
+    it.pts.forEach(function(p, si){
+      var x = p[0] * cam.s + cam.x, y = p[1] * cam.s + cam.y, right = p[0] >= cx;
+      var lb = document.createElement('div'); lb.className = 'sx-lab' + (right ? '' : ' is-left');
+      lb.innerHTML = '<i></i><span><em></em><b></b></span>';
+      lb.querySelector('em').textContent = String(si + 1).padStart(2, '0'); lb.querySelector('b').textContent = d.stars[si].label || '';
+      lb.style.setProperty('--ld', (si * 70) + 'ms');
+      pct(x + (right ? gap : -gap), y, lb); box.appendChild(lb);
+    });
+  }
+  q('.sx-back').onclick = function(){ var prev = focused; select(-1); if (prev >= 0) items[prev].button.focus(); };
+  root.addEventListener('keydown', function(e){ if (e.key === 'Escape' && focused >= 0) q('.sx-back').click(); });
+
+  function fill(){
+    q('.sx-catalog').textContent = COVER.catalog; q('.sx-lead').textContent = COVER.lead; q('.sx-title').textContent = COVER.title;
+    q('.sx-sub').textContent = COVER.sub; q('.sx-mark').textContent = COVER.mark; q('.sx-hint').textContent = COVER.hint; q('.sx-back').textContent = COVER.back;
+  }
+  function play(){
+    select(-1); root.classList.remove('is-intro');
+    introAt = performance.now(); introOn = !reduce;
+    if (reduce) return;
+    void root.offsetWidth; root.classList.add('is-intro');
+    clearTimeout(play.t); play.t = setTimeout(function(){ introOn = false; root.classList.remove('is-intro'); }, 6200);
+  }
+  function loop(now){
+    var dt = Math.min(.05, (now - last) / 1000 || 0); last = now;
+    if (W){ drawStars(now); drawCon(now, dt); }
+    requestAnimationFrame(loop);
+  }
+  function redraw(){ if (size()){ drawSky(); drawLand(); } }
+
+  fill(); buildSky(); build(); redraw();
+  var rt = 0;
+  if (window.ResizeObserver) new ResizeObserver(function(){ clearTimeout(rt); rt = setTimeout(redraw, 120); }).observe(root);
+  else window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(redraw, 120); });
+  requestAnimationFrame(loop);
+  root.sxPlay = play;
+  root.sxGetData = function(){ return JSON.parse(JSON.stringify({ cover: COVER, data: DATA })); };
+  root.sxSetData = function(o){ if (o.cover) COVER = o.cover; if (o.data) DATA = o.data; fill(); build(); };
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){ setTimeout(play, 120); });
+})();
+</script>
+    </div>
+    <div class="pg-bar">
+      <button class="pg-btn" id="pgReplay" type="button">다시 보기</button>
+      <div class="pg-seg" role="group" aria-label="이름 바꿔 보기">
+        <button class="pg-btn" id="nmStar" type="button" aria-pressed="true">별자리 이름(원본)</button>
+        <button class="pg-btn" id="nmBiz" type="button" aria-pressed="false">사업 이름으로 바꾼 예</button>
+      </div>
+      <button class="pg-btn" id="pgFull" type="button">전체 화면</button>
+      <p>눈이 어둠에 익듯 밝은 별부터 하나씩 뜨고, 빛이 별에서 별로 건너가며 선이 이어집니다(약 5초, 한 번). 별자리나 아래 이름을 누르면 하늘이 그쪽으로 다가가며 별마다 이름표가 붙습니다. Esc로 돌아옵니다.</p>
+    </div>
+  </div>
+
+  <section>
+    <h2><span>01</span>가져갈 장치</h2>
+    <div class="pg-dev">
+      <article><h3>별자리 = 사업, 별 = 세부과제</h3><p>별자리를 누르면 하늘이 그쪽으로 다가가고, 별마다 번호와 이름표가 붙습니다. 원본에서는 실제 별 이름(베가·데네브…)이, 사업으로 바꾸면 세부과제 이름이 붙어 “별 9개 = 세부과제 9개”가 한눈에 보입니다.</p><p>바꾸는 곳은 <code>DATA</code>의 <code>name</code>·<code>text</code>·<code>key</code>와 별마다의 <code>label</code>. 위 “사업 이름으로 바꾼 예” 단추가 바꾼 결과입니다.</p></article>
+      <article><h3>눈이 어둠에 익는 시간</h3><p>하늘은 조금 밝고 흐린 상태에서 시작해 어두워지고, 밝은 별부터 차례로 떠오릅니다. 실제로 밤하늘을 볼 때 눈이 적응하며 별이 늘어나는 순서 그대로입니다. 그다음 작은 빛 하나가 별에서 별로 건너가며 선을 남기고, 닿는 별마다 한 번 반짝입니다.</p><p>지킬 것: 움직임은 처음 한 번뿐. 그 뒤로는 별이 아주 약하게 반짝이고, 가끔 별똥별 하나가 지나갈 뿐입니다.</p></article>
+      <article><h3>산자락 마을 불빛 위로 뜨는 은하수</h3><p>은하수는 왼쪽 아래 지평선의 따뜻한 중심부에서 오른쪽 위로 휘어 오르고, 그 아래 먼 산자락에 작은 마을 불빛이 모여 있습니다. 산은 세 겹으로, 멀수록 옅고 푸르게(공기 원근) 겹치고 사이사이 옅은 안개가 낍니다. 밤하늘 사진의 오래된 구도(커다란 하늘 + 작은 불빛)라 크기의 대비만으로 감탄이 나옵니다.</p><p>제목은 은하수가 비켜 간 오른쪽 아래 어두운 하늘에, 단추와 워드마크는 까만 앞산 위에 두어 사진 위 글자인데도 잘 읽힙니다.</p></article>
+      <article><h3>실제 별 좌표와 별빛 색</h3><p>다섯 별자리는 실제 적경·적위로 모양을 만들고, 별 크기는 실제 밝기 등급을, 색은 분광형(베가는 푸른 흰색, 셰다르·알비레오는 주황)을 따랐습니다. 백조·카시오페이아는 실제처럼 은하수 안에, 거문고·돌고래는 가장자리에, 북쪽왕관은 먼 하늘에 두었습니다.</p><p>다른 데 쓰기: 다섯 사업 소개, 연간 주요 행사(별 = 회차), 학교별 우수 사례(별 = 학교).</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>02</span>흐름 설계 메모</h2>
+    <div class="pg-callout">
+      <p><b>별자리 이름은 사업 이름 등으로, 별 이름은 세부과제 이름으로 바꿔 쓰면 됩니다.</b> 별자리 하나가 사업 하나, 그 안의 별 하나가 세부과제 하나입니다. 하늘의 이름표·아래 이름 단추·다가갔을 때 설명과 별 이름표가 함께 바뀝니다.</p>
+      <p class="pg-note">짝짓기 요령: 세부과제 수에 맞는 별자리를 고르세요(5개면 카시오페이아·돌고래, 6개 거문고, 7개 북쪽왕관, 9개 백조). 원본 별자리에 담긴 뜻(연결·존중·조화·성장·놀이)과 사업 성격까지 맞으면 설명이 더 쉬워집니다. 사업이 여섯 개를 넘으면 하늘이 어수선해지니 묶어서 다섯 개 안팎으로 줄이는 편이 낫습니다.</p>
+    </div>
+    <div class="pg-two">
+      <div class="pg-tbl"><table>
+        <thead><tr><th>별자리</th><th>별 수</th><th>원본에 담은 뜻</th><th>바꿔 쓴 사업(예시)</th></tr></thead>
+        <tbody>
+          <tr><td>카시오페이아</td><td class="num">5</td><td>서로 다른 빛 · 하나의 연결</td><td>유보통합 선도 운영</td></tr>
+          <tr><td>북쪽왕관</td><td class="num">7</td><td>소중한 가능성 · 존중</td><td>특수교육 개별 맞춤 지원</td></tr>
+          <tr><td>거문고</td><td class="num">6</td><td>서로의 목소리 · 조화</td><td>통합학급 협력수업</td></tr>
+          <tr><td>백조</td><td class="num">9</td><td>펼쳐지는 날개 · 성장</td><td>초등 늘봄학교</td></tr>
+          <tr><td>돌고래</td><td class="num">5</td><td>즐거운 발견 · 배움</td><td>놀이중심 유아교육</td></tr>
+        </tbody>
+      </table></div>
+      <div>
+        <p class="pg-note" style="margin-top:0">본문은 이 밤하늘 분위기를 따르되 정지 화면으로 둡니다. 모션은 표지 한 장뿐입니다. 어울리는 기존 요소:</p>
+        <ul class="pg-list">
+          <li><a href="44.html">#44 분자 결합 추진체계</a>: 점과 선으로 잇는 문법이 별자리와 같아 사업별 추진체계 장으로</li>
+          <li><a href="73.html">#73 한 줄로 읽는 체계도</a>: 다섯 사업을 비전 → 목표 → 과제로 펼치는 장</li>
+          <li><a href="18.html">#18 함께 도는 궤도</a>: 같은 계열 G의 우주 은유</li>
+          <li><a href="51.html">#51 낱칸 시·군 지도</a>: 사업별 지역 분포</li>
+        </ul>
+        <p class="pg-note">본문 장에 쓸 계열 값: 바탕 밤 #040A19, 글자 별빛 미색 #F3ECDD, 강조 금빛 #E2C690 한 곳, 따뜻한 포인트는 마을 불빛 #FFBE70.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>03</span>재현 체크</h2>
+    <div class="pg-two">
+      <ul class="pg-list">
+        <li><b>사진·도형 없음</b>: 하늘 바탕, 대기광, 은하수(구름결 노이즈 + 먼지띠), 잔별 약 5,200개, 반짝이는 별 80개, 별자리, 산 세 겹과 숲 가장자리, 마을 불빛을 모두 캔버스에 그립니다. 오려 붙인 듯한 SVG 도형(실루엣 건물·동그라미 별)은 쓰지 않았습니다. 첫 판의 AI 생성 은하수 사진도 걷어내 출처 표기 문제가 없어졌고, 파일은 약 60KB입니다.</li>
+        <li><b>자연스럽게 보이게 한 것</b>: 지평선 가까이 갈수록 별이 대기에 묻혀 흐려지고 더 크게 반짝임 · 먼지띠 위의 잔별은 가려짐 · 지평선 위로 옅은 초록 대기광 · 은하 중심의 따뜻한 빛 · 마을 불빛은 가운데 몰리고 가장자리로 갈수록 드문드문, 하늘에 옅게 번짐.</li>
+        <li><b>별자리 별</b>: 번짐·심 크기 = 실제 밝기 등급, 2.7등급보다 밝은 별만 끝이 흐려지는 십자 빛살. 별빛 색은 분광형을 따름(베가·나비·세긴은 푸른 흰색, 셰다르·에타·알비레오·기에나는 주황). 별마다 반짝임 주기를 다르게.</li>
+        <li><b>다가가기</b>: 별자리 층은 최대 3.2배, 하늘 두 겹은 1.09배, 산은 아래로 7.8% 내려가 카메라가 위를 올려다보는 깊이가 생깁니다. 별은 덜 커지게(배율^0.62로 보정), 선 굵기는 그대로.</li>
+        <li><b>쓰지 않은 것</b>: 실제 기관명·로고. 지역명은 “우리 교육”, “○○ EDUCATION”으로 두었습니다. 실제로 쓸 때는 <code>COVER</code>의 <code>title</code>·<code>catalog</code>에 넣습니다.</li>
+      </ul>
+      <div class="pg-note">
+        <p style="margin-top:0">조사 출처</p>
+        <ul class="pg-list">
+          <li><a href="https://www.iau.org/public/themes/constellations/" target="_blank" rel="noopener">IAU: The Constellations</a>(공인 별자리 이름·영역)</li>
+          <li><a href="https://astro.kasi.re.kr" target="_blank" rel="noopener">한국천문연구원 천문우주지식정보</a>(별자리·별 우리말 이름)</li>
+          <li><a href="https://support.microsoft.com/en-us/office/use-the-morph-transition-in-powerpoint-8dd1c7b2-b935-44f5-a74c-741d8d9244ea" target="_blank" rel="noopener">PowerPoint 모핑 전환</a>(아래 PPT 옮기기)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>04</span>스펙</h2>
+    <div class="pg-sw">
+      <div><i style="background:#02040B"></i><b>천정</b><code>#02040B</code></div>
+      <div><i style="background:#152A4B"></i><b>지평선 하늘</b><code>#152A4B</code></div>
+      <div><i style="background:#02050A"></i><b>앞산</b><code>#02050A</code></div>
+      <div><i style="background:#F3ECDD"></i><b>별빛 글자</b><code>#F3ECDD</code></div>
+      <div><i style="background:#E2C690"></i><b>금빛</b><code>#E2C690</code></div>
+      <div><i style="background:#FFBE70"></i><b>마을 불빛</b><code>#FFBE70</code></div>
+      <div><i style="background:#CFE0FF"></i><b>푸른 별</b><code>#CFE0FF</code></div>
+      <div><i style="background:#FFC98E"></i><b>주황 별</b><code>#FFC98E</code></div>
+    </div>
+    <div class="pg-two" style="margin-top:20px">
+      <div class="pg-tbl"><table><tbody>
+        <tr><td>폰트</td><td>제목 Noto Serif KR 200(윗줄)·300(큰 줄) · 설명 Noto Sans KR 400 · 영문·번호 IBM Plex Mono 400/500 / 대체: 나눔명조·바탕, 맑은 고딕, Consolas</td></tr>
+        <tr><td>뼈대</td><td>1600×900. 하늘 0~700, 산 세 겹(먼 산 약 662 · 가운데 712 · 앞산 780), 마을 불빛 가로 360~680, 제목 오른쪽 아래(오른쪽 104 · 아래 262), 바닥 줄 아래 40.</td></tr>
+        <tr><td>난이도</td><td>HTML 상(노이즈 은하수·별 좌표 투영·카메라) · PPT 중</td></tr>
+        <tr><td>모션</td><td>하늘 3.4초에 걸쳐 어두워짐 · 밝은 별 0.3~2.2초 사이 밝기 순 등장 · 선은 1.5초부터 별자리마다 0.33초 간격, 한 선 0.23초(앞머리에 작은 빛) · 제목 3.1초부터 1.9초 · 이후 반짝임과 11~20초마다 별똥별. 동작 줄이기 설정이면 모두 생략.</td></tr>
+      </tbody></table></div>
+      <div>
+        <p style="margin-top:0"><b>PPT로 옮기기</b></p>
+        <ul class="pg-list pg-note">
+          <li>배경: 이 표지를 전체 화면으로 띄워 캡처해 그림으로 넣습니다(별자리 선이 그어지기 전 화면과 끝 화면 두 장). 산·마을 불빛까지 한 장에 들어갑니다.</li>
+          <li>별자리: 별은 작은 흰 원 + [그림자 없는 네온(광선) 효과] 8pt 별빛 색, 선은 [연결선: 직선] 0.75pt 흰색 투명도 55%. 별자리마다 그룹으로 묶음.</li>
+          <li>선 이어지기: 선마다 [나타내기 → 닦아내기(별이 있는 쪽에서)] 0.25초, “이전 효과 다음”. 별은 [확대/축소] 0.3초로 닿을 때 켜기.</li>
+          <li>다가가기: 슬라이드를 별자리 수만큼 복제해 해당 그룹만 3배로 키워 오른쪽에 두고 나머지는 투명도 95%, 산 도형은 아래로 1.5cm. [전환 → 모핑]이면 하늘이 다가가는 움직임이 그대로 납니다. 별 옆에 세부과제 이름표 텍스트 상자.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-code">
+    <h2><span>05</span>HTML로 가져다 쓰기</h2>
+    <ol class="pg-list">
+      <li>아래 코드는 표지만 떼어 낸 완결 코드입니다. 사진이 없어 이 코드 하나(약 25KB)로 같은 하늘이 열립니다. AI 채팅에도 그대로 붙여 넣으면 됩니다.</li>
+      <li><b>별자리 이름을 사업 이름으로</b>: <code>DATA</code>에서 별자리마다 <code>name</code>(사업명), <code>en</code>(사업 번호·영문), <code>text</code>(설명), <code>key</code>(키워드)를, 별마다 <code>label</code>(세부과제 이름)을 바꿉니다. <code>COVER.unit</code>을 '세부과제'로 두면 다가갔을 때 “별 9개 · 세부과제 9개”로 표시됩니다. 위에서 “사업 이름으로 바꾼 예”를 고른 채 복사하면 그 내용이 들어간 코드가 복사됩니다.</li>
+      <li>별자리 자리는 <code>at</code>(가운데)·<code>size</code>(크기)·<code>rot</code>(기울기)로 옮깁니다. 이름표를 위에 두려면 <code>tag:"above"</code>. 제목이 있는 오른쪽 아래(가로 1050 넘고 세로 430 아래)와 산(세로 650 아래)은 비워 두세요.</li>
+      <li>다른 별자리를 쓰려면 별마다 실제 <code>ra</code>(적경, 시)·<code>dec</code>(적위, 도)·<code>mag</code>(등급)를 넣고 <code>lines</code>에 이을 별 번호를 적습니다. 별 좌표는 한국천문연구원·IAU 자료에서 찾을 수 있습니다.</li>
+      <li>제목·기관 줄은 <code>COVER</code>에서 바꿉니다. 제목 큰 줄(<code>title</code>)은 4~6자가 알맞습니다.</li>
+    </ol>
+    <div class="pg-bar">
+      <button class="pg-btn" id="cpBtn" type="button">코드 복사</button>
+      <span id="cpMsg" aria-live="polite"></span>
+    </div>
+    <pre id="pgCode" tabindex="0"></pre>
+  </section>
+</main>
+
+<script>
+(function(){
+  var cover = document.getElementById('sxCover'), frame = document.getElementById('pgFrame');
+  document.getElementById('pgReplay').addEventListener('click', function(){ if (cover.sxPlay) cover.sxPlay(); });
+  document.getElementById('pgFull').addEventListener('click', function(){
+    try { var r = frame.requestFullscreen && frame.requestFullscreen(); if (r && r.catch) r.catch(function(){}); } catch(e){}
+  });
+
+  // 이름 바꿔 보기: 별 좌표는 그대로, 이름·설명·별 이름표만 사업으로(가상 예시)
+  var STAR = cover.sxGetData();
+  var BIZ_TEXT = [
+    { name:'유보통합 선도 운영', en:'PROJECT 01', text:'유치원과 어린이집이 하나의 기준으로 이어집니다. 선도기관 40곳에서 시작해 2027년 전 시·군으로 넓힙니다.', key:'선도기관 40곳 · 공통 과정',
+      labels:['선도기관 지정(40곳)', '공통 교육과정 운영', '교사 합동 연수', '급식·통학 기준 통일', '학부모 설명회'] },
+    { name:'특수교육 개별 맞춤 지원', en:'PROJECT 02', text:'한 사람의 가능성에 맞춘 개별화교육계획을 모든 특수교육대상학생에게. 학기마다 지원 카드로 점검합니다.', key:'개별화교육 100% · 학기 점검',
+      labels:['개별화교육계획 수립', '치료지원 바우처', '특수교육 보조인력', '순회교육', '진로·직업교육', '보조공학기기 대여', '학기별 점검'] },
+    { name:'통합학급 협력수업', en:'PROJECT 03', text:'특수교사와 통합학급 교사가 한 교실에서 함께 가르칩니다. 협력수업 학급을 120학급에서 200학급으로 늘립니다.', key:'120 → 200학급 · 함께 가르치기',
+      labels:['협력교사 배치', '공동 수업 설계', '교사 연구회', '수업 나눔 주간', '학부모 참관', '성과 공유회'] },
+    { name:'초등 늘봄학교', en:'PROJECT 04', text:'정규수업 뒤의 배움과 돌봄을 펼친 날개처럼 넓힙니다. 초1·2 맞춤형 프로그램을 매일 2시간 무료로 운영합니다.', key:'초1·2 매일 2시간 · 전담인력',
+      labels:['초1 맞춤형 프로그램', '초2 확대', '전담인력 배치', '늘봄 공간 조성', '지역 연계 강사', '저녁 돌봄', '방학 늘봄', '안전관리', '만족도 조사'] },
+    { name:'놀이중심 유아교육', en:'PROJECT 05', text:'바깥놀이터와 숲 놀이로 발견의 즐거움을 되찾습니다. 놀이공간을 다시 꾸미는 유치원 60곳에서 시작합니다.', key:'놀이공간 60곳 · 연수 연 4회',
+      labels:['바깥놀이터 재구조화', '숲 놀이 운영', '교원 놀이 연수', '놀이 꾸러미 보급', '놀이 사례 나눔'] }
+  ];
+  var BIZ = JSON.parse(JSON.stringify(STAR));
+  BIZ.cover.unit = '세부과제';
+  BIZ.data.forEach(function(d, i){
+    var b = BIZ_TEXT[i]; if (!b) return;
+    d.name = b.name; d.en = b.en; d.text = b.text; d.key = b.key;
+    d.stars.forEach(function(s, k){ if (b.labels[k]) s.label = b.labels[k]; });
+  });
+  var mode = STAR, bStar = document.getElementById('nmStar'), bBiz = document.getElementById('nmBiz');
+  function setMode(m){
+    mode = m; cover.sxSetData(JSON.parse(JSON.stringify(m)));
+    bStar.setAttribute('aria-pressed', String(m === STAR)); bBiz.setAttribute('aria-pressed', String(m === BIZ));
+    renderCode();
+  }
+  bStar.addEventListener('click', function(){ setMode(STAR); });
+  bBiz.addEventListener('click', function(){ setMode(BIZ); });
+
+  // 코드 칸: 표지 CSS·마크업·스크립트를 그대로 묶고, COVER.unit과 DATA만 지금 고른 내용으로
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;500&family=Noto+Sans+KR:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">';
+  var css = document.getElementById('sx-css').textContent.replace(/^\n+|\s+$/g, '');
+  var html = document.getElementById('sx-tpl').innerHTML.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('sx-js').textContent.replace(/^\n+|\s+$/g, '');
+  function fmt(list){
+    var s = function(v){ return JSON.stringify(v); };
+    return '[\n' + list.map(function(d){
+      return '    {"name":' + s(d.name) + ',"en":' + s(d.en) + ',"text":' + s(d.text) + ',"key":' + s(d.key) + ',\n     "at":' + s(d.at) + ',"size":' + d.size + ',"rot":' + (d.rot || 0) + (d.tag ? ',"tag":' + s(d.tag) : '') + ',\n     "stars":' + s(d.stars) + ',\n     "lines":' + s(d.lines) + '}';
+    }).join(',\n') + '\n  ]';
+  }
+  var pre = document.getElementById('pgCode'), msg = document.getElementById('cpMsg'), code = '';
+  function renderCode(){
+    var j = js.replace(/\/\*DATA\*\/[\s\S]*?\/\*END\*\//, '/*DATA*/' + fmt(mode.data) + '/*END*/')
+              .replace(/unit: '[^']*'/, "unit: '" + mode.cover.unit + "'");
+    code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + html + '\n\n<script>\n' + j + '\n</scr' + 'ipt>\n';
+    pre.textContent = code;
+  }
+  renderCode();
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('cpBtn').addEventListener('click', function(){
+    try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }); }
+    catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+})();
+</script>
+
+</body></html>

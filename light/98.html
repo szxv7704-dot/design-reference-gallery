@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #98 여섯 장면 미술관</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexSansKR-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:800;font-display:swap;src:url("../fonts/NotoSerifKR-800.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0}
+.keys kbd{font-family:var(--pg-mono);font-size:12px;border:1px solid var(--pg-line);border-bottom-width:2px;border-radius:4px;padding:1px 6px;background:var(--pg-panel)}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps98{min-width:880px}}
+
+.ps98{--ps98-hall:url(../src/98/assets/06d29379e6.jpg)}
+</style>
+<style id="ps98-css">
+/* 발표 틀 '여섯 장면 미술관' — 접두어 ps98 / 사진 한 장 위를 카메라가 걸어 들어가는 이동형 장표 */
+.ps98{
+  --ds-ink:#1E1B16; --ds-sub:#6B6357; --ds-line:#D9D0C2; --ds-accent:#B5552B; --ds-surface:#FBF9F5;
+  --ds-font-title:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:#EADFCF;color:var(--ds-ink);font-family:var(--ds-font-body);cursor:pointer;outline:none;user-select:none;
+}
+.ps98 *{box-sizing:border-box}
+.ps98-in{position:absolute;inset:0;--u:calc(100cqw / 1600)}
+/* 전시장(사진) — 카메라가 움직이는 층 */
+.ps98-world{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0;transition:transform 1.25s cubic-bezier(.45,.05,.22,1);background:var(--ps98-hall) 0 0/100% 100% no-repeat;will-change:transform}
+.ps98-hit{position:absolute;inset:0;width:100%;height:100%}
+.ps98-hit polygon{fill:transparent;cursor:zoom-in}
+.ps98-ov{position:absolute;left:0;top:0;transform-origin:0 0;object-fit:cover;pointer-events:none}
+/* 조명: 지금 보는 작품만 밝게 */
+.ps98-spot{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .7s ease}
+.ps98-spot.on{opacity:1}
+/* 작품 라벨: 위에서부터 좌라락 펼쳐지고 줄이 차례로 나타남 */
+.ps98-lab{position:absolute;top:calc(var(--u)*120);width:calc(var(--u)*500);background:var(--ds-surface);border:calc(var(--u)*1) solid var(--ds-line);box-shadow:0 calc(var(--u)*24) calc(var(--u)*60) calc(var(--u)*-30) rgba(40,28,10,.45);padding:calc(var(--u)*34) calc(var(--u)*38) calc(var(--u)*30);clip-path:inset(0 0 100% 0);transition:clip-path .55s cubic-bezier(.7,0,.2,1);pointer-events:none}
+.ps98-lab.r{right:calc(var(--u)*64)}.ps98-lab.l{left:calc(var(--u)*64)}
+.ps98-lab.open{clip-path:inset(0 0 0 0);pointer-events:auto}
+.ps98-lab > *{opacity:0;transform:translateY(calc(var(--u)*10));transition:opacity .35s ease,transform .35s ease}
+.ps98-lab.open > *{opacity:1;transform:none}
+.ps98-no{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*14);letter-spacing:.12em;color:var(--ds-accent)}
+.ps98-tt{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*34);line-height:1.25;letter-spacing:-.02em;margin-top:calc(var(--u)*10)}
+.ps98-by{font-size:calc(var(--u)*16);color:var(--ds-sub);margin-top:calc(var(--u)*8)}
+.ps98-hr{height:calc(var(--u)*1);background:var(--ds-line);margin:calc(var(--u)*22) 0 calc(var(--u)*18)}
+.ps98-meta{display:grid;grid-template-columns:calc(var(--u)*92) 1fr;row-gap:calc(var(--u)*8);font-size:calc(var(--u)*15)}
+.ps98-meta dt{color:var(--ds-sub)}
+.ps98-meta dd{margin:0;font-weight:600}
+.ps98-desc{font-size:calc(var(--u)*16);line-height:1.65;margin-top:calc(var(--u)*18);color:var(--ds-ink)}
+.ps98-stat{display:flex;align-items:baseline;gap:calc(var(--u)*12);margin-top:calc(var(--u)*24);padding-top:calc(var(--u)*16);border-top:calc(var(--u)*2) solid var(--ds-ink)}
+.ps98-stat b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*46);line-height:1;letter-spacing:-.02em}
+.ps98-stat span{font-size:calc(var(--u)*14);color:var(--ds-sub);line-height:1.4}
+/* 입구 · 출구 안내판 */
+.ps98-sign{position:absolute;pointer-events:none;opacity:0;transition:opacity .6s ease .35s}
+.ps98-sign.on{opacity:1}
+.ps98-intro{left:calc(var(--u)*72);bottom:calc(var(--u)*64);width:calc(var(--u)*760);padding:calc(var(--u)*34) calc(var(--u)*40);background:rgba(251,249,245,.9);backdrop-filter:blur(6px);border-left:calc(var(--u)*4) solid var(--ds-accent)}
+.ps98-intro i{display:block;font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*14);letter-spacing:.12em;color:var(--ds-accent)}
+.ps98-intro b{display:block;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*64);line-height:1.15;letter-spacing:-.03em;margin:calc(var(--u)*10) 0 calc(var(--u)*12)}
+.ps98-intro span{font-size:calc(var(--u)*17);color:var(--ds-sub)}
+.ps98-out{left:50%;top:50%;transform:translate(-50%,-50%);width:calc(var(--u)*980);padding:calc(var(--u)*44) calc(var(--u)*56);background:rgba(251,249,245,.93);backdrop-filter:blur(8px);text-align:center}
+.ps98-out i{display:block;font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*14);letter-spacing:.12em;color:var(--ds-accent)}
+.ps98-out b{display:block;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*44);letter-spacing:-.02em;margin:calc(var(--u)*10) 0 calc(var(--u)*28)}
+.ps98-nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:calc(var(--u)*2) solid var(--ds-ink)}
+.ps98-nums div{padding:calc(var(--u)*20) calc(var(--u)*10) 0;border-left:calc(var(--u)*1) solid var(--ds-line)}
+.ps98-nums div:first-child{border-left:none}
+.ps98-nums strong{display:block;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*44);line-height:1.1}
+.ps98-nums span{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps98-out p{margin:calc(var(--u)*26) 0 0;font-size:calc(var(--u)*15);color:var(--ds-sub)}
+/* 진행 표시 · 조작 안내 */
+.ps98-bar{position:absolute;left:50%;bottom:calc(var(--u)*24);transform:translateX(-50%);display:flex;align-items:center;gap:calc(var(--u)*10);padding:calc(var(--u)*8) calc(var(--u)*16);background:rgba(30,27,22,.55);border-radius:calc(var(--u)*30);color:#fff;font-family:var(--ds-font-num);font-size:calc(var(--u)*13);pointer-events:none}
+.ps98-bar i{display:block;width:calc(var(--u)*8);height:calc(var(--u)*8);border-radius:50%;background:rgba(255,255,255,.35);transition:background .3s,transform .3s}
+.ps98-bar i.on{background:#fff;transform:scale(1.35)}
+.ps98-hint{position:absolute;right:calc(var(--u)*28);bottom:calc(var(--u)*24);font-size:calc(var(--u)*13);color:rgba(255,255,255,.92);background:rgba(30,27,22,.45);padding:calc(var(--u)*6) calc(var(--u)*12);border-radius:calc(var(--u)*4);pointer-events:none;transition:opacity .4s}
+@media (prefers-reduced-motion:reduce){.ps98-world,.ps98-lab,.ps98-lab > *,.ps98-spot{transition:none}}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 98 · 발표 틀 · 이동형 장표 · 인터랙션 · 가상 예시</div>
+    <h1>여섯 장면 미술관</h1>
+    <p class="pg-lead">성과 보고를 전시장 관람으로. 사진 한 장 위를 카메라가 복도 안쪽으로 걸어 들어가며 작품(활동) 앞에 멈추고, 한 번 더 누르면 미술관 작품 라벨이 위에서부터 좌라락 펼쳐진다. 발표 리모컨의 → 하나로 끝까지 진행.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps98" id="ps98" data-slide role="application" aria-label="놀이중심 유아교육 성과 전시: 입구, 작품 여섯 점과 라벨, 출구 요약"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 진행</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button><button class="btn btn-replay" type="button" id="b-full">전체 화면</button></div>
+  </section>
+
+  <section>
+    <h2>설계 메모 <small>NOTES</small></h2>
+    <div class="cover-note">
+      <div><b>동선 = 깊이</b><p>사진이 복도를 정면으로 본 1점 투시라, 왼쪽→오른쪽으로 미는 대신 안쪽으로 걸어 들어간다. 가까운 작품부터 멀리 있는 작품 순서라 확대 배율이 1.75 → 3.9배로 점점 커지며 실제로 걸어 들어가는 느낌이 난다.</p></div>
+      <div><b>두 박자</b><p>→ 한 번: 작품 앞에 도착(주변이 조금 어두워짐). → 한 번 더: 라벨이 위에서부터 펼쳐지고 줄이 차례로 나타남, 주변은 더 어두워져 작품과 라벨만 남는다. 리모컨으로 작품을 '클릭'할 수 없어서 클릭 대신 두 박자로 짰다.</p></div>
+      <div><b>작품 라벨</b><p>미술관 벽 라벨 문법을 성과 보고로 옮겼다: 작품명 = 활동명, 작가 = 유치원 · 반, 기간 · 놀이 방식 · 함께한 사람, 설명 두 문장, 맨 아래 굵은 선 위에 성과 숫자 하나.</p></div>
+      <div><b>입구와 출구</b><p>입구는 전시 제목판(바닥 쪽 반투명 판), 출구는 안쪽 유리창으로 다가가며 총괄 숫자 세 개. 작품 여섯 점의 숫자가 출구에서 하나로 모인다.</p></div>
+      <div><b>멀리 있는 작품의 해상도</b><p>사진 속 먼 액자는 50~100px이라 확대하면 흐려진다. 실제로 쓸 때는 작품마다 <code>photo</code>에 활동 사진을 넣으면 액자 원근에 맞춰 덮어씌워(matrix3d) 확대해도 선명하다. 이 레퍼런스는 사진 속 그림 그대로 두었다.</p></div>
+      <div><b>조명</b><p>지금 보는 작품만 둥근 조명이 비추고 나머지는 어두워진다(라벨이 열리면 더 어둡게). 전시장의 핀 조명을 화면 강조로 쓴 것.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>발표할 때 <small>CONTROLS</small></h2>
+    <table class="keys"><tbody>
+      <tr><td><kbd>→</kbd> <kbd>PageDown</kbd> <kbd>Space</kbd> · 리모컨 다음</td><td>다음 박자(도착 → 라벨 → 다음 작품)</td></tr>
+      <tr><td><kbd>←</kbd> <kbd>PageUp</kbd> · 리모컨 이전</td><td>이전 박자</td></tr>
+      <tr><td>작품 클릭</td><td>그 작품으로 바로 가서 라벨까지 펼침(질의응답 때 되돌아가기)</td></tr>
+      <tr><td><kbd>F</kbd></td><td>전체 화면 켜기 · 끄기</td></tr>
+      <tr><td><kbd>Home</kbd></td><td>입구로</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣고 브라우저로 열어 F(전체 화면) 후 발표하면 됩니다(사진은 갤러리 주소에서 불러옵니다).</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code>만 바꾸면 됩니다. <code>works</code> 한 칸이 작품 하나(라벨 글 · 성과 숫자)이고, 입구는 <code>intro</code>, 출구는 <code>outro</code>입니다.</li>
+      <li>실제 활동 사진을 걸려면 작품의 <code>photo</code>에 사진 파일 주소를 넣습니다. 액자 모양(<code>q</code>)에 맞춰 원근 변환해 덮어씌웁니다.</li>
+      <li>전시장 사진을 바꾸면 액자 네 모서리 <code>q</code> · 카메라 중심 <code>c</code> · 배율 <code>s</code>를 새 사진 픽셀 좌표로 다시 적어야 합니다(그림판에서 마우스 좌표를 읽으면 된다).</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>카메라 = 확대 모핑</b>: 전시장 사진을 슬라이드보다 크게 놓은 장면을 작품마다 한 장씩 복제하고, 장마다 사진 크기 · 위치만 바꿔 그 작품이 화면 왼쪽 1/3에 오게 한다(블록 놀이 175% → 모종 심기 390%). [전환 → 모핑] 1.2초면 걸어 들어가는 이동이 된다.</li>
+      <li><b>두 박자</b>: 같은 장면을 한 장 더 복제해 라벨을 얹고, 라벨에 [애니메이션 → 나타내기 → 닦아내기(위에서)] 0.5초 + 안의 글 상자들에 [밝기 변화] 0.07초 간격.</li>
+      <li><b>조명</b>: 슬라이드 크기 사각형에 [그라데이션 채우기 → 방사형], 가운데 투명 · 바깥 검정 투명도 45~70%. 라벨 장면만 더 어둡게.</li>
+      <li><b>라벨</b>: 흰 사각형(12.7×15cm), 글꼴 Noto Serif KR(제목 26pt) + 고딕 본문 11~12pt, 성과 숫자 위에 1.5pt 먹선.</li>
+      <li><b>클릭으로 되돌아가기</b>: 마지막 출구 장에 작품 썸네일 6개를 두고 [삽입 → 링크 → 이 문서의 슬라이드]로 각 라벨 장에 연결.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#FBF9F5"></span>#FBF9F5 라벨 · <span class="sw" style="background:#1E1B16"></span>#1E1B16 글자 · <span class="sw" style="background:#B5552B"></span>#B5552B 작품 번호 · 나머지는 사진의 석회암 · 하늘색</div>
+      <div><b>글꼴</b>Noto Serif KR 800(제목 · 숫자) + IBM Plex Sans KR(본문) + IBM Plex Mono(번호) · 대체 나눔명조 · 맑은 고딕</div>
+      <div><b>장면</b>입구 1 + 작품 6 × 두 박자 + 출구 1 = 14박자, 이동 1.25초 · 라벨 0.55초</div>
+      <div><b>난이도</b>HTML 중(카메라 가두기 · 원근 덮어씌우기) · PPT 중(모핑 장면 13장)</div>
+      <div><b>원본</b>사용자 제공 AI 생성 전시장 이미지(1672×941)를 2배 확대해 사용, 사진 속 인물은 가상</div>
+      <div><b>트렌드</b>보고서를 공간 경험으로 바꾸는 '가상 전시(virtual exhibition)' 문법 — 이동 · 멈춤 · 라벨의 관람 리듬. 참고: <a href="https://artsandculture.google.com/" target="_blank" rel="noopener">Google Arts &amp; Culture 온라인 전시</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps98-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다(가상 예시) ──
+  var DATA = {
+    intro: { kicker: '2026 ○○교육청 놀이중심 유아교육 성과 전시', title: '놀이가 남긴 것들', sub: '여섯 개의 장면 · 2026. 3. ~ 12. · 도내 유치원 148원' },
+    // 작품 6점: q = 액자 네 모서리(바탕 사진 1672×941 좌표, 왼쪽 위부터 시계 방향), c = 카메라가 볼 중심, s = 확대 배율, side = 라벨 쪽
+    // photo 에 실제 활동 사진 주소를 넣으면 액자 원근에 맞춰 덮어씌운다(비우면 사진 속 그림 그대로)
+    works: [
+      { q: [[20,193],[447,370],[445,680],[12,689]], c: [230,437], s: 1.75, side: 'r', photo: '',
+        title: '블록으로 지은 우리 동네', by: '○○유치원 만 5세 햇살반', when: '2026. 4. ~ 6.(10주)', how: '블록 놀이 프로젝트', who: '유아 24명 · 교사 2명',
+        desc: '산책길에서 본 가게와 다리를 블록으로 다시 지었다. 무너지면 왜 무너졌는지 함께 이야기하고, 다음 날 더 높이 쌓았다.', stat: '312장', statLabel: '교사가 남긴<br>놀이 관찰 기록' },
+      { q: [[471,400],[568,437],[567,673],[470,675]], c: [519,537], s: 2.9, side: 'r', photo: '',
+        title: '색으로 쓴 일기', by: '○○유치원 만 4세 바람반', when: '2026. 3. ~ 7.', how: '그림 놀이', who: '유아 18명',
+        desc: '글 대신 색과 선으로 하루를 남겼다. 주말마다 가족이 그림에 한 줄씩 덧붙여 집과 유치원이 같은 일기를 썼다.', stat: '540점', statLabel: '가족과 함께 쓴<br>그림 일기' },
+      { q: [[606,505],[651,505],[650,657],[606,657]], c: [629,581], s: 3.1, side: 'r', photo: '',
+        title: '씨앗에서 웃음까지', by: '○○병설유치원 만 3세 새싹반', when: '2026. 4.(4주)', how: '관찰 놀이', who: '유아 12명',
+        desc: '손바닥 위 씨앗이 싹 트는 날까지 매일 들여다보았다. 처음 싹을 본 날의 얼굴을 함께 걸었다.', stat: '96장', statLabel: '유아가 직접 찍은<br>관찰 사진' },
+      { q: [[782,555],[1011,536],[1011,669],[782,668]], c: [896,602], s: 2.55, side: 'r', photo: '',
+        title: '함께 가꾼 텃밭', by: '○○유치원 혼합연령 숲반', when: '2026. 4. ~ 10.', how: '텃밭 프로젝트 · 가족 참여', who: '유아 32명 · 41가구',
+        desc: '무엇을 심을지 유아가 정하고, 물 당번표도 유아가 만들었다. 가을에는 거둔 채소로 마을 어르신을 초대했다.', stat: '14종', statLabel: '유아가 직접 고르고<br>거둔 작물' },
+      { q: [[1083,599],[1139,599],[1139,670],[1083,670]], c: [1111,634], s: 3.9, side: 'r', photo: '',
+        title: '내가 심은 첫 모종', by: '○○유치원 만 5세 하늘반', when: '2026. 5.', how: '생태 놀이', who: '유아 20명',
+        desc: '모종마다 이름표를 달고 "내 친구"라고 불렀다. 장마에 쓰러진 모종을 다시 세우는 일도 놀이가 되었다.', stat: '120포기', statLabel: '이름을 붙여<br>키운 모종' },
+      { q: [[1511,581],[1672,495],[1672,689],[1511,681]], c: [1591,588], s: 2.3, side: 'l', photo: '',
+        title: '들판으로 나간 하루', by: '○○유치원 전 연령', when: '2026. 9. ~ 11.', how: '바깥 놀이', who: '유아 86명',
+        desc: '비 오는 날을 빼고 매일 들판에 나갔다. 정해진 놀이 없이 바람과 풀과 친구가 놀잇감이 되었다.', stat: '72분', statLabel: '하루 바깥놀이 평균<br>(전년 48분)' }
+    ],
+    outro: { kicker: '전시를 마치며', title: '놀이가 배움이 되는 2027년으로',
+      nums: [['148원', '참여 유치원'], ['2만 1천 건', '교사의 놀이 관찰 기록'], ['48 → 72분', '하루 바깥놀이 평균']],
+      note: '○○교육청 유아교육과 · 0○○-○○○-○○○○', c: [1305,560], s: 1.9 },
+    hint: '→ 다음 · ← 이전 · 작품 클릭 · F 전체 화면'
+  };
+
+  var IW = 1672, IH = 941, K = 1600 / IW;            // 사진 픽셀 → 가상 화면(1600×900) 단위
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v.toFixed(2) + ')'; };
+  var root = document.getElementById('ps98');
+
+  // 장면 순서: 입구 → (작품 도착 → 라벨 펼침) × 6 → 출구
+  var STEPS = [{ stop: 'intro' }];
+  DATA.works.forEach(function(w, i){ STEPS.push({ stop: i, open: false }, { stop: i, open: true }); });
+  STEPS.push({ stop: 'outro' });
+  var cur = 0;
+
+  // 카메라: 중심 c를 화면의 기준점에 두고 s배 확대(화면 밖이 보이지 않게 가둠)
+  function cam(c, s, ax, ay){
+    var tx = ax - s * c[0] * K, ty = ay - s * c[1] * K;
+    tx = Math.min(0, Math.max(1600 * (1 - s), tx)); ty = Math.min(0, Math.max(900 * (1 - s), ty));
+    return { tx: tx, ty: ty, s: s };
+  }
+  // 사각형 사진 → 액자 네 모서리로 원근 변환(matrix3d)
+  function fit(w, h, q){
+    var src = [[0,0],[w,0],[w,h],[0,h]], A = [], B = [];
+    for (var i = 0; i < 4; i++){ var x = src[i][0], y = src[i][1], X = q[i][0] * K, Y = q[i][1] * K;
+      A.push([x, y, 1, 0, 0, 0, -X * x, -X * y]); B.push(X); A.push([0, 0, 0, x, y, 1, -Y * x, -Y * y]); B.push(Y); }
+    for (var c = 0; c < 8; c++){ var p = c; for (var r = c + 1; r < 8; r++) if (Math.abs(A[r][c]) > Math.abs(A[p][c])) p = r;
+      var t = A[c]; A[c] = A[p]; A[p] = t; t = B[c]; B[c] = B[p]; B[p] = t;
+      for (r = 0; r < 8; r++) if (r !== c){ var f = A[r][c] / A[c][c]; for (var k = c; k < 8; k++) A[r][k] -= f * A[c][k]; B[r] -= f * B[c]; } }
+    var hm = B.map(function(v, i){ return v / A[i][i]; });
+    return 'matrix3d(' + [hm[0], hm[3], 0, hm[6], hm[1], hm[4], 0, hm[7], 0, 0, 1, 0, hm[2], hm[5], 0, 1].join(',') + ')';
+  }
+
+  function render(){
+    var h = '<div class="ps98-in"><div class="ps98-world">';
+    DATA.works.forEach(function(w, i){ if (w.photo) h += '<img class="ps98-ov" data-i="' + i + '" src="' + esc(w.photo) + '" alt="">'; });
+    h += '<svg class="ps98-hit" viewBox="0 0 ' + IW + ' ' + IH + '" preserveAspectRatio="none">' + DATA.works.map(function(w, i){ return '<polygon data-i="' + i + '" points="' + w.q.join(' ') + '"><title>' + esc(w.title) + '</title></polygon>'; }).join('') + '</svg>';
+    h += '</div><div class="ps98-spot"></div>';
+    DATA.works.forEach(function(w, i){
+      h += '<div class="ps98-lab ' + w.side + '" data-i="' + i + '"><div class="ps98-no">WORK ' + (i < 9 ? '0' : '') + (i + 1) + ' / ' + (DATA.works.length < 10 ? '0' : '') + DATA.works.length + '</div>' +
+        '<div class="ps98-tt">' + esc(w.title) + '</div><div class="ps98-by">' + esc(w.by) + '</div><div class="ps98-hr"></div>' +
+        '<dl class="ps98-meta"><dt>기간</dt><dd>' + esc(w.when) + '</dd><dt>놀이 방식</dt><dd>' + esc(w.how) + '</dd><dt>함께한 사람</dt><dd>' + esc(w.who) + '</dd></dl>' +
+        '<div class="ps98-desc">' + esc(w.desc) + '</div><div class="ps98-stat"><b>' + esc(w.stat) + '</b><span>' + w.statLabel + '</span></div></div>';
+    });
+    var I = DATA.intro, O = DATA.outro;
+    h += '<div class="ps98-sign ps98-intro"><i>' + esc(I.kicker) + '</i><b>' + esc(I.title) + '</b><span>' + esc(I.sub) + '</span></div>';
+    h += '<div class="ps98-sign ps98-out"><i>' + esc(O.kicker) + '</i><b>' + esc(O.title) + '</b><div class="ps98-nums">' + O.nums.map(function(n){ return '<div><strong>' + esc(n[0]) + '</strong><span>' + esc(n[1]) + '</span></div>'; }).join('') + '</div><p>' + esc(O.note) + '</p></div>';
+    h += '<div class="ps98-bar">' + DATA.works.map(function(){ return '<i></i>'; }).join('') + '</div><div class="ps98-hint">' + esc(DATA.hint) + '</div></div>';
+    root.innerHTML = h;
+    root.querySelectorAll('.ps98-ov').forEach(function(im){ im.onload = function(){ im.style.width = im.naturalWidth + 'px'; im.style.height = im.naturalHeight + 'px';
+      var q = DATA.works[+im.dataset.i].q; im.style.transform = 'scale(' + (root.clientWidth / 1600) + ')' + ' ' + fit(im.naturalWidth, im.naturalHeight, q); }; });
+  }
+
+  function show(i){
+    cur = Math.max(0, Math.min(STEPS.length - 1, i));
+    var st = STEPS[cur], world = root.querySelector('.ps98-world'), spot = root.querySelector('.ps98-spot'), C;
+    if (st.stop === 'intro') C = { tx: 0, ty: 0, s: 1 };
+    else if (st.stop === 'outro') C = cam(DATA.outro.c, DATA.outro.s, 800, 450);
+    else { var w = DATA.works[st.stop]; C = cam(w.c, w.s, w.side === 'r' ? 520 : 1080, 470); }
+    world.style.transform = 'translate(' + u(C.tx) + ',' + u(C.ty) + ') scale(' + C.s + ')';
+    // 조명: 지금 작품만 밝게, 나머지는 어둡게
+    if (typeof st.stop === 'number'){
+      var w2 = DATA.works[st.stop], xs = w2.q.map(function(p){ return p[0]; }), ys = w2.q.map(function(p){ return p[1]; });
+      var cx = (C.tx + C.s * w2.c[0] * K) / 16, cy = (C.ty + C.s * w2.c[1] * K) / 9;
+      var rw = (Math.max.apply(null, xs) - Math.min.apply(null, xs)) * K * C.s / 16 * .9, rh = (Math.max.apply(null, ys) - Math.min.apply(null, ys)) * K * C.s / 9 * .9;
+      spot.style.background = 'radial-gradient(ellipse ' + rw.toFixed(1) + '% ' + rh.toFixed(1) + '% at ' + cx.toFixed(1) + '% ' + cy.toFixed(1) + '%, rgba(20,14,6,0) 55%, rgba(20,14,6,' + (st.open ? .55 : .3) + ') 100%)';
+      spot.classList.add('on');
+    } else spot.classList.remove('on');
+    root.querySelectorAll('.ps98-lab').forEach(function(l){ l.classList.toggle('open', st.open === true && +l.dataset.i === st.stop); });
+    // 라벨 줄이 위에서부터 차례로
+    var open = root.querySelector('.ps98-lab.open');
+    if (open) Array.prototype.forEach.call(open.children, function(ch, k){ ch.style.transitionDelay = (.25 + k * .07) + 's'; });
+    root.querySelector('.ps98-intro').classList.toggle('on', st.stop === 'intro');
+    root.querySelector('.ps98-out').classList.toggle('on', st.stop === 'outro');
+    root.querySelector('.ps98-hint').style.opacity = st.stop === 'intro' ? 1 : 0;
+    root.querySelectorAll('.ps98-bar i').forEach(function(d, k){ d.classList.toggle('on', st.stop === k); });
+  }
+  window.ps98Go = show;
+
+  render(); show(0);
+  root.tabIndex = 0;
+  // 발표 리모컨(→ · PageDown) · 키보드 · 클릭
+  var near = function(){ var r = root.getBoundingClientRect(); return document.fullscreenElement === root || (r.top < innerHeight * .6 && r.bottom > innerHeight * .4); };
+  document.addEventListener('keydown', function(e){
+    if (!near() || /input|textarea|select/i.test(e.target.tagName)) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); show(cur + 1); }
+    else if (['ArrowLeft', 'PageUp', 'Backspace'].indexOf(e.key) >= 0){ e.preventDefault(); show(cur - 1); }
+    else if (e.key === 'Home'){ e.preventDefault(); show(0); }
+    else if (e.key === 'f' || e.key === 'F'){ if (document.fullscreenElement) document.exitFullscreen(); else if (root.requestFullscreen) root.requestFullscreen(); }
+  });
+  root.addEventListener('click', function(e){
+    var p = e.target.closest('polygon');
+    if (p){ var i = +p.dataset.i; for (var k = 0; k < STEPS.length; k++) if (STEPS[k].stop === i && STEPS[k].open) { show(k); return; } }
+    if (e.target.closest('.ps98-lab')) return;
+    show(cur + 1 >= STEPS.length ? 0 : cur + 1);
+  });
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps98-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps98-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@800&family=IBM+Plex+Sans+KR:wght@400;600&family=IBM+Plex+Mono:wght@600&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + "/* 전시장 사진(바꾸면 works 의 q · c 좌표도 새 사진에 맞춰야 한다) */\n.ps98{--ps98-hall:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/98-hall.jpg)}" + '\n</style>\n\n<div class="ps98" id="ps98" role="application" aria-label="성과 전시"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps98'), step = function(d){ root.dispatchEvent(new KeyboardEvent('keydown')); };
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps98Go(0); });
+  document.getElementById('b-full').addEventListener('click', function(){ if (root.requestFullscreen) root.requestFullscreen(); });
+  window.ps98Code = code;
+})();
+</script>
+</body></html>

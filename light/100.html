@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #100 길 따라 연수 일정</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0}
+.keys kbd{font-family:var(--pg-mono);font-size:12px;border:1px solid var(--pg-line);border-bottom-width:2px;border-radius:4px;padding:1px 6px;background:var(--pg-panel)}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps100{min-width:880px}}
+
+.ps100{--ps100-plate:url(../src/100/assets/08aebcaf57.jpg);--ps100-plane_in:url(../src/100/assets/5fe79c2cb6.png);--ps100-plane_out:url(../src/100/assets/9dfba8d254.png);--ps100-train1:url(../src/100/assets/ba47e60fea.png);--ps100-train2:url(../src/100/assets/bf4d3657c9.png);--ps100-bus:url(../src/100/assets/920d9b50d2.png);--ps100-train3:url(../src/100/assets/ac7e10ec4c.png)}
+</style>
+<style id="ps100-css">
+/* 발표 틀 '길 따라 연수 일정' — 접두어 ps100 / 지도 사진 위를 비행기 · 기차 · 버스가 이동하는 일정 장표 */
+.ps100{
+  --ps100-ink:#1F1A14; --ps100-sub:#5C5246; --ps100-card:#FBF4E4; --ps100-gold:#E7B045; --ps100-gold-d:#B07A1C;
+  --ps100-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ps100-font-body:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  position:relative;width:100%;aspect-ratio:1672/941;container-type:inline-size;overflow:hidden;background:#123A63;
+  color:var(--ps100-ink);font-family:var(--ps100-font-body);cursor:pointer;user-select:none;outline:none;
+}
+.ps100:fullscreen{aspect-ratio:auto;width:100vw;height:100vh;display:grid;place-items:center;background:#0E2E50}
+.ps100:fullscreen .ps100-in{inset:auto;position:relative;width:min(100vw,calc(100vh * 1672 / 941));aspect-ratio:1672/941}
+.ps100 *{box-sizing:border-box}
+.ps100-in{position:absolute;inset:0;overflow:hidden}
+.ps100-world{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0;will-change:transform}
+.ps100-map{position:absolute;inset:0;background:var(--ps100-plate) 0 0/100% 100% no-repeat}
+.ps100-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.ps100-plan{fill:none;stroke:rgba(255,248,230,.55);stroke-width:2.2;stroke-dasharray:6 7;stroke-linecap:round}
+.ps100-road-sh{fill:none;stroke:rgba(90,55,10,.45);stroke-width:9;stroke-linecap:round}
+.ps100-road{fill:none;stroke:var(--ps100-gold);stroke-width:5;stroke-linecap:round;filter:drop-shadow(0 0 3px rgba(255,214,120,.8))}
+.ps100-fly{fill:none;stroke:#fff;stroke-width:3;stroke-dasharray:12 9;stroke-linecap:round;opacity:.9}
+/* 핀 */
+.ps100-pin{position:absolute;width:3.1%;aspect-ratio:1/1.35;transform:translate(-50%,-100%);pointer-events:auto}
+.ps100-pin i{position:absolute;left:0;top:0;width:100%;aspect-ratio:1;border-radius:50% 50% 50% 0;transform:rotate(-45deg) scale(.82);
+  background:radial-gradient(circle at 34% 30%,#FFF0B8 0,#F6C24E 38%,#D9961E 72%,#A86C10 100%);box-shadow:-.15cqw .25cqw .5cqw rgba(60,35,5,.45),inset 0 0 0 .14cqw rgba(255,240,190,.55)}
+.ps100-pin b{position:absolute;left:0;top:0;width:100%;aspect-ratio:1;display:grid;place-items:center;font:800 1.45cqw/1 var(--ps100-font-title);color:#3A2508;letter-spacing:-.02em}
+.ps100-pin::after{content:"";position:absolute;left:50%;bottom:-.25cqw;width:1.2cqw;height:.45cqw;transform:translateX(-50%);border-radius:50%;background:rgba(40,25,5,.4);filter:blur(1px)}
+.ps100-pin{filter:grayscale(1) brightness(1.15);opacity:.85;transition:filter .3s}
+.ps100-pin.on{filter:none;opacity:1;animation:ps100-drop .55s cubic-bezier(.3,1.5,.5,1)}
+@keyframes ps100-drop{0%{translate:0 -2cqw}100%{translate:0 0}}
+/* 일정 카드 */
+.ps100-card{position:absolute;padding:.8cqw .9cqw .8cqw 1.1cqw;background:var(--ps100-card);border-radius:.25cqw;box-shadow:0 .35cqw .9cqw rgba(40,25,5,.35);
+  background:#E6DECB;color:#8D8372;transition:background .4s .2s,color .4s .2s,box-shadow .3s;pointer-events:auto;overflow:hidden}
+.ps100-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.3cqw;background:var(--ps100-gold);transform:scaleY(0);transform-origin:top;transition:transform .5s .25s}
+.ps100-card p{opacity:0;transform:translateY(.4cqw);transition:opacity .4s .45s,transform .4s .45s}
+.ps100-card.on{background:var(--ps100-card);color:var(--ps100-ink)}
+.ps100-card.on::before{transform:none}
+.ps100-card.on p{opacity:1;transform:none}
+.ps100-card.now{box-shadow:0 0 0 .2cqw var(--ps100-gold),0 .5cqw 1.4cqw rgba(40,25,5,.45)}
+.ps100-card small{display:block;font:700 .82cqw/1.2 var(--ps100-font-body)}
+.ps100-card h3{margin:.25cqw 0 .35cqw;font:800 1.36cqw/1.15 var(--ps100-font-title);letter-spacing:-.02em;white-space:nowrap}
+.ps100-card p{margin:0;font:500 .82cqw/1.3 var(--ps100-font-body);color:var(--ps100-sub);white-space:nowrap}
+/* 탈것 */
+.ps100-car{position:absolute;background:center/contain no-repeat;opacity:0;pointer-events:none;filter:drop-shadow(.2cqw .35cqw .25cqw rgba(30,20,5,.45))}
+.ps100-plane_in{background-image:var(--ps100-plane_in)}.ps100-plane_out{background-image:var(--ps100-plane_out)}
+.ps100-train1{background-image:var(--ps100-train1)}.ps100-train2{background-image:var(--ps100-train2)}.ps100-bus{background-image:var(--ps100-bus)}.ps100-train3{background-image:var(--ps100-train3)}
+.ps100-chip{position:absolute;transform:translate(-50%,-260%);padding:.2cqw .55cqw;border-radius:.3cqw;background:rgba(35,25,18,.85);color:#fff;font:700 .8cqw/1.2 var(--ps100-font-body);white-space:nowrap;opacity:0;pointer-events:none}
+.ps100-chip.fly{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(2px)}
+/* 표지 제목 */
+.ps100-title{position:absolute;left:3.2%;top:6.5%;color:#FFF7E6;text-shadow:0 .2cqw .8cqw rgba(0,15,40,.55);opacity:0;transform:translateY(1cqw);transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ps100-title.on{opacity:1;transform:none}
+.ps100-title h2{margin:0;font:800 5.2cqw/1.12 var(--ps100-font-title);letter-spacing:-.03em}
+.ps100-title p{margin:1cqw 0 1.6cqw;font:500 1.75cqw/1.3 var(--ps100-font-body)}
+.ps100-title span{display:inline-block;padding:.45cqw .9cqw;border:1px solid rgba(255,247,230,.8);border-radius:.2cqw;font:500 1.05cqw/1.2 var(--ps100-font-body)}
+.ps100-hint{position:absolute;right:3%;bottom:4%;padding:.5cqw 1cqw;border-radius:2cqw;background:rgba(10,30,55,.6);color:#FFF7E6;font:600 1cqw/1 var(--ps100-font-body);letter-spacing:.12em;opacity:0;transition:opacity .4s}
+.ps100-hint.on{opacity:1;animation:ps100-blink 2.2s ease-in-out infinite}
+@keyframes ps100-blink{50%{opacity:.45}}
+.ps100-dots{position:absolute;left:50%;bottom:1.6%;transform:translateX(-50%);display:flex;gap:.45cqw}
+.ps100-dots i{width:.5cqw;height:.5cqw;border-radius:50%;background:rgba(255,255,255,.35);box-shadow:0 0 .2cqw rgba(0,0,0,.4)}
+.ps100-dots i.on{background:var(--ps100-gold)}
+@media (prefers-reduced-motion:reduce){.ps100-card,.ps100-pin,.ps100-title{transition:none}.ps100-hint{animation:none!important}}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 100 · 발표 틀 · 연수 일정표 · 이동형 장표 · 가상 예시</div>
+    <h1>길 따라 연수 일정</h1>
+    <p class="pg-lead">5일 연수 일정을 여행 지도 위의 이동으로. 비행기가 날아와 1일차에 내리고, 기차 · 버스가 금빛 길을 그리며 다음 날 장소로 옮겨 가고, 마지막 날 비행기가 현장으로 떠난다. 카메라는 탈것을 따라가고, 도착할 때마다 핀이 떨어지며 그날 일정 카드가 밝아진다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps100" id="ps100" role="application" aria-label="연수 일정표: 비행기 도착, 1~5일차 기차 · 버스 이동, 비행기 출발"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 진행</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button><button class="btn btn-replay" type="button" id="b-full">전체 화면</button></div>
+  </section>
+
+  <section>
+    <h2>설계 메모 <small>NOTES</small></h2>
+    <div class="cover-note">
+      <div><b>이동 = 일정의 리듬</b><p>IN 비행기 → 기차 → 기차 → 버스 → 기차 → OUT 비행기. 하루가 지날 때마다 실제 이동 수단이 지도 위를 달려 '다음 날로 넘어간다'를 몸으로 느끼게 한다. 리모컨 → 한 번이 하루.</p></div>
+      <div><b>예정 → 도착</b><p>다섯 날의 카드와 핀은 처음부터 흐린 '예정' 상태로 깔려 있어 전체 일정이 한눈에 보이고, 도착하면 핀이 금색으로 떨어지고 카드가 밝아지며 세부 내용 줄이 나타난다. 흐린 점선(예정 경로) 위로 금빛 길이 그려진다.</p></div>
+      <div><b>카메라가 탈것을 따라감</b><p>이동하는 동안 1.45배로 다가가 탈것을 따라가고, 도착하면 핀과 카드가 함께 보이는 자리에서 멈춘다. 마지막 출발 때는 비행기를 잠시 따라가다 전체 지도로 물러나 제목과 다섯 날을 한 화면에 모은다.</p></div>
+      <div><b>사진 그대로 쓰기</b><p>사용자 제공 AI 지도 이미지에서 글자 · 핀 · 경로 · 탈것을 지운 판을 만들고(주변 지형 조각을 옮겨 붙여 메움), 탈것은 같은 사진에서 오려 내 움직인다. 그림을 새로 그리지 않아 사진의 질감이 그대로 남는다.</p></div>
+      <div><b>원래 일정표 자리</b><p>사진 속 일정표 다섯 장이 있던 자리는 지우지 않고 카드가 늘 덮는다(큰 면적은 지우면 얼룩이 남는다). 그래서 카드를 '처음부터 깔린 예정 카드'로 설계했다.</p></div>
+      <div><b>질의응답</b><p>핀이나 카드를 누르면 그날로 바로 간다. ← 로 하루 전으로 돌아간다(이동 없이 그 상태로).</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>발표할 때 <small>CONTROLS</small></h2>
+    <table class="keys"><tbody>
+      <tr><td><kbd>→</kbd> <kbd>PageDown</kbd> <kbd>Space</kbd> · 리모컨 다음 · 화면 클릭</td><td>다음 날로 이동(표지 → 도착 → 1~5일차 → 출발)</td></tr>
+      <tr><td><kbd>←</kbd> <kbd>PageUp</kbd> · 리모컨 이전</td><td>하루 전</td></tr>
+      <tr><td>핀 · 카드 클릭</td><td>그날로 바로</td></tr>
+      <tr><td><kbd>F</kbd></td><td>전체 화면 켜기 · 끄기</td></tr>
+      <tr><td><kbd>Home</kbd></td><td>표지로</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣고 크롬 · 엣지로 열어 F(전체 화면) 후 발표합니다(지도 · 탈것 그림은 갤러리 주소에서 불러옵니다).</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code>만 바꾸면 됩니다. <code>days</code> 한 칸이 하루(일차 · 제목 · 세부), <code>legs</code> 한 칸이 날과 날 사이 이동(수단 글자 · 탈것 그림)입니다. 제목 · 부제 · 표지 꼬리표도 <code>DATA</code> 맨 위에 있습니다.</li>
+      <li>이동 수단을 바꾸려면 <code>mode</code>(표시 글자)와 <code>car</code>(그림: <code>train1</code> · <code>train2</code> · <code>train3</code> · <code>bus</code>)를 바꿉니다. 예: 3일차 → 4일차를 기차로.</li>
+      <li>날짜 수 · 장소를 바꾸면 핀 끝(<code>at</code>) · 카드 자리(<code>card</code>) · 경로 곡선(<code>d</code>)을 지도 사진(1672×941) 픽셀 좌표로 다시 적어야 합니다. 카드는 사진 속 원래 일정표 자리를 덮도록 두는 것이 안전합니다(그 자리는 지우지 않은 판).</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>바탕</b>: 글자를 지운 지도 판(<code>assets/100-plate.jpg</code>)을 슬라이드보다 크게 깔고, 날마다 장면을 복제해 그날 장소가 가운데 오도록 크기 · 위치만 바꾼 뒤 [전환 → 모핑] 1.5초 — 카메라가 따라가는 효과.</li>
+      <li><b>탈것</b>: 탈것 PNG(<code>assets/100-train2.png</code> 등)를 넣고 [애니메이션 → 이동 경로 → 사용자 지정 경로]로 길을 따라 그린다. [경로 방향에 맞춰 회전]은 끄는 편이 자연스럽다.</li>
+      <li><b>금빛 길</b>: 곡선 도형(금색 #E7B045, 4pt, 둥근 끝) + [나타내기 → 닦아내기] 를 탈것 이동과 [이전 효과와 함께].</li>
+      <li><b>핀 · 카드</b>: 예정 카드는 회색 종이(#E6DECB, 글자 #8D8372), 도착 카드는 크림(#FBF4E4)을 같은 자리에 겹쳐 두고 [나타내기 → 밝기 변화]. 핀은 [나타내기 → 바운드].</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#FBF4E4"></span>#FBF4E4 도착 카드 · <span class="sw" style="background:#E6DECB"></span>#E6DECB 예정 카드 · <span class="sw" style="background:#E7B045"></span>#E7B045 금빛 길 · 핀 · <span class="sw" style="background:#1F1A14"></span>#1F1A14 글자 · 나머지는 사진의 바다 · 모래색</div>
+      <div><b>글꼴</b>Gothic A1 800(제목 · 카드 제목) · 500 · 700(본문 · 일차) · 대체 맑은 고딕</div>
+      <div><b>장면</b>표지 1 + 비행기 도착 1 + 육로 이동 4 + 비행기 출발 1 = 7박자, 비행 2.6초 · 육로 2.3초, 카메라 1.45배 따라가기</div>
+      <div><b>난이도</b>HTML 중(경로 따라 이동 · 카메라 가두기) · PPT 중(모핑 + 이동 경로)</div>
+      <div><b>원본</b>사용자 제공 AI 생성 지도 이미지(1672×941)에서 글자 · 핀 · 경로 · 탈것을 지우고 2배 확대해 사용, 탈것은 같은 사진에서 오려 냄</div>
+      <div><b>트렌드</b>여행 앱의 '여정 지도(journey map)' 문법 — 예정 경로 위로 진행 경로가 채워지고 정거장이 하나씩 켜진다. 참고: <a href="https://www.google.com/maps/about/mymaps/" target="_blank" rel="noopener">Google 내 지도</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps100-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다(가상 예시) ──
+  // 좌표는 바탕 지도 사진(1672×941) 픽셀 기준. at = 핀 끝, card = [왼쪽, 위, 너비, 높이]
+  // 카드는 처음부터 '예정'(흐린 종이)으로 깔려 있다가 도착하면 밝아진다 — 바탕 사진의 원래 일정표 자리를 늘 덮는다
+  // legs[i] 는 i일차 → i+1일차 이동: mode = 이동 수단 글자, car = 탈것 그림(plane_in · train1 · train2 · bus · train3 · plane_out), d = 이동 경로(SVG 곡선)
+  var DATA = {
+    kicker: '연수 일정표 · 예시',
+    title: '길을 따라,<br>발견을 잇다',
+    sub: '함께 배우고, 현장에서 발견하는 5일',
+    arrive: { label: 'IN · 연수 시작', car: 'plane_in', d: 'M -80,-60 C 180,10 520,40 735,140' },
+    depart: { label: 'OUT · 현장으로', car: 'plane_out', d: 'M 1305,748 C 1420,735 1560,712 1780,690' },
+    days: [
+      { day: '1일차', title: '만남과 방향', sub: '오리엔테이션 · 연수 목표 공유', at: [740, 150], card: [766, 68, 224, 101] },
+      { day: '2일차', title: '현장에서 배우다', sub: '우수기관 방문 · 사례 탐구', at: [678, 314], card: [703, 250, 223, 102] },
+      { day: '3일차', title: '함께 실험하다', sub: '주제별 워크숍 · 협력 활동', at: [1047, 413], card: [1076, 341, 230, 102] },
+      { day: '4일차', title: '우리의 답을 만들다', sub: '팀별 과제 · 실행안 설계', at: [1193, 582], card: [1221, 518, 246, 100] },
+      { day: '5일차', title: '배움을 이어가다', sub: '성과 나눔 · 현장 적용 계획', at: [1300, 752], card: [1328, 704, 202, 102] }
+    ],
+    legs: [
+      { mode: '기차', car: 'train1', d: 'M 740,150 C 752,205 690,240 678,314' },
+      { mode: '기차', car: 'train2', d: 'M 678,314 C 715,385 900,425 1047,413' },
+      { mode: '버스', car: 'bus', d: 'M 1047,413 C 1100,445 1105,525 1193,582' },
+      { mode: '기차', car: 'train3', d: 'M 1193,582 C 1205,650 1245,722 1300,752' }
+    ]
+  };
+  // 탈것 그림: 크기(사진 픽셀) · 그림 속 진행 방향(도) · 좌우 뒤집기
+  var CARS = { plane_in: [104, 60, 12, 0], plane_out: [122, 58, -4, 0], train1: [73, 62, 40, 1], train2: [109, 60, 22, 0], bus: [66, 52, 22, 0], train3: [71, 92, 68, 0] };
+  var W = 1672, H = 941, ZOOM = 1.45;
+
+  var root = document.getElementById('ps100');
+  var NS = 'http://www.w3.org/2000/svg';
+  var pc = function(v, t){ return (v / t * 100) + '%'; };
+  root.innerHTML = '<div class="ps100-in"><div class="ps100-world"><div class="ps100-map"></div><svg class="ps100-svg" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none"></svg></div>' +
+    '<div class="ps100-title"><h2>' + DATA.title + '</h2><p>' + DATA.sub + '</p><span>' + DATA.kicker + '</span></div>' +
+    '<div class="ps100-hint">클릭하여 출발</div><div class="ps100-dots"></div></div>';
+  var world = root.querySelector('.ps100-world'), svg = root.querySelector('.ps100-svg'), titleEl = root.querySelector('.ps100-title'), hint = root.querySelector('.ps100-hint'), dotsEl = root.querySelector('.ps100-dots');
+  function el(tag, attrs, parent){ var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); (parent || svg).appendChild(e); return e; }
+  var defs = el('defs', {});
+  // 이동 구간: 비행(흰 점선, 마스크로 그려 나감) · 육로(금색 띠)
+  var legs = [];
+  function flight(o, id){
+    var m = el('mask', { id: 'ps100-m' + id, maskUnits: 'userSpaceOnUse', x: -200, y: -200, width: W + 400, height: H + 400 }, defs);
+    var mp = el('path', { d: o.d, fill: 'none', stroke: '#fff', 'stroke-width': 14, pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1 }, m);
+    el('path', { d: o.d, class: 'ps100-fly', mask: 'url(#ps100-m' + id + ')' });
+    return { path: mp, draw: function(p){ mp.setAttribute('stroke-dashoffset', 1 - p); } };
+  }
+  function road(o){
+    el('path', { d: o.d, class: 'ps100-plan' });   // 예정 경로(흐린 점선)
+    el('path', { d: o.d, class: 'ps100-road-sh', pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1 });
+    var a = svg.lastChild, b = el('path', { d: o.d, class: 'ps100-road', pathLength: 1, 'stroke-dasharray': '1 1', 'stroke-dashoffset': 1 });
+    return { path: b, draw: function(p){ a.setAttribute('stroke-dashoffset', 1 - p); b.setAttribute('stroke-dashoffset', 1 - p); } };
+  }
+  legs.push(Object.assign(flight(DATA.arrive, 'a'), { o: DATA.arrive, fly: 1 }));
+  DATA.legs.forEach(function(o){ legs.push(Object.assign(road(o), { o: o })); });
+  legs.push(Object.assign(flight(DATA.depart, 'd'), { o: DATA.depart, fly: 1 }));
+  // 핀 · 일정 카드
+  var pins = DATA.days.map(function(d, i){
+    var p = document.createElement('div'); p.className = 'ps100-pin'; p.style.left = pc(d.at[0], W); p.style.top = pc(d.at[1], H);
+    p.innerHTML = '<i></i><b>' + String(i + 1).padStart(2, '0') + '</b>'; world.appendChild(p);
+    var c = document.createElement('div'); c.className = 'ps100-card'; c.style.left = pc(d.card[0], W); c.style.top = pc(d.card[1], H); c.style.width = pc(d.card[2], W); c.style.height = pc(d.card[3], H);
+    c.innerHTML = '<small>' + d.day + '</small><h3>' + d.title + '</h3><p>' + d.sub + '</p>'; world.appendChild(c);
+    return { pin: p, card: c };
+  });
+  // 탈것 + 수단 표시
+  legs.forEach(function(L){
+    var k = CARS[L.o.car], v = document.createElement('div'); v.className = 'ps100-car ps100-' + L.o.car;
+    v.style.width = pc(k[0], W); v.style.height = pc(k[1], H); world.appendChild(v); L.car = v; L.k = k;
+    var t = document.createElement('div'); t.className = 'ps100-chip' + (L.fly ? ' fly' : ''); t.textContent = L.o.mode || L.o.label; world.appendChild(t); L.chip = t;
+  });
+
+  // ── 박자: 0 표지 → 1 비행기 도착(1일차) → 2~5 육로 이동(2~5일차) → 6 비행기 출발 · 전체 보기 ──
+  var N = legs.length + 1; dotsEl.innerHTML = new Array(N + 1).join('<i></i>');
+  var step = -1, anim = null, cam = { x: W / 2, y: H / 2, s: 1 }, camTo = { x: W / 2, y: H / 2, s: 1 };
+  var ease = function(t){ return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+  function at(L, p){ var len = L.path.getTotalLength(), a = L.path.getPointAtLength(len * p), b = L.path.getPointAtLength(Math.min(len, len * p + 2)), c = L.path.getPointAtLength(Math.max(0, len * p - 2));
+    return { x: a.x, y: a.y, ang: Math.atan2(b.y - c.y, b.x - c.x) * 180 / Math.PI }; }
+  function place(L, p, show){
+    var q = at(L, p), k = L.k, ang = q.ang, base = k[3] ? 180 - k[2] : k[2];
+    var r = ang - base; while (r > 180) r -= 360; while (r < -180) r += 360; r = Math.max(-28, Math.min(28, r));
+    var sc = L.fly ? (L === legs[0] ? .7 + .3 * (1 - p) : .7 + .3 * p) : 1;   // 비행기는 땅에 가까울수록 작게
+    L.car.style.left = pc(q.x, W); L.car.style.top = pc(q.y, H);
+    L.car.style.transform = 'translate(-50%,-62%) rotate(' + r + 'deg) scale(' + (k[3] ? -sc : sc) + ',' + sc + ')';
+    L.car.style.opacity = show; L.chip.style.left = pc(q.x, W); L.chip.style.top = pc(q.y, H); L.chip.style.opacity = show;
+    return q;
+  }
+  function focus(i){ var d = DATA.days[i], c = d.card; return { x: (d.at[0] + c[0] + c[2]) / 2, y: (d.at[1] + c[1] + 60) / 2, s: ZOOM }; }
+  function setStatic(k){
+    // k 박자가 끝난 모습을 즉시 만든다
+    legs.forEach(function(L, i){ var done = i < k; L.draw(done ? 1 : 0); place(L, done ? 1 : 0, 0); });
+    pins.forEach(function(P, i){ var on = i < Math.min(k, DATA.days.length); P.pin.classList.toggle('on', on); P.card.classList.toggle('on', on); P.card.classList.remove('now'); });
+    if (k >= 1 && k <= DATA.days.length) pins[k - 1].card.classList.add('now');
+    titleEl.classList.toggle('on', k === 0 || k === N - 1); hint.classList.toggle('on', k === 0);
+    camTo = k === 0 || k === N - 1 ? { x: W / 2, y: H / 2, s: 1 } : focus(k - 1);
+    [].forEach.call(dotsEl.children, function(d, j){ d.classList.toggle('on', j <= k); });
+  }
+  function go(k, instant){
+    k = Math.max(0, Math.min(N - 1, k)); if (k === step) return;
+    var fwd = k >= 1 && k === step + 1 && !instant; step = k; if (anim) anim.stop();
+    if (!fwd){ setStatic(k); cam = Object.assign({}, camTo); render(); return; }
+    setStatic(k - 1); pins.forEach(function(P){ P.card.classList.remove('now'); });
+    titleEl.classList.remove('on'); hint.classList.remove('on');
+    [].forEach.call(dotsEl.children, function(d, j){ d.classList.toggle('on', j <= k); });
+    var L = legs[k - 1], D = L.fly ? 2600 : 2300, t0 = performance.now(), stopped = false, last = k === N - 1;
+    anim = { stop: function(){ stopped = true; } };
+    (function tick(now){
+      if (stopped) return;
+      var p = Math.min(1, (now - t0) / D), e = ease(p);
+      L.draw(e); var q = place(L, e, p < .04 ? p / .04 : p > .96 ? (1 - p) / .04 : 1);
+      if (last){ camTo = p < .55 ? { x: q.x, y: q.y, s: ZOOM } : { x: W / 2, y: H / 2, s: 1 }; }
+      else camTo = { x: q.x, y: q.y, s: ZOOM };
+      if (p < 1) requestAnimationFrame(tick);
+      else { setStatic(k); }
+    })(t0);
+  }
+  // ── 카메라: 목표를 부드럽게 따라가고 화면 밖은 보이지 않게 가둔다 ──
+  function render(){
+    var w = root.clientWidth, h = root.clientHeight, s = cam.s, u = w / W;
+    var tx = w / 2 - cam.x * u * s, ty = h / 2 - cam.y * u * s;
+    tx = Math.min(0, Math.max(w - w * s, tx)); ty = Math.min(0, Math.max(h - H * u * s, ty));
+    world.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')';
+  }
+  var prev = performance.now();
+  (function loop(now){
+    var dt = Math.min(.05, (now - prev) / 1000); prev = now; var f = 1 - Math.exp(-dt * 3.2);
+    cam.x += (camTo.x - cam.x) * f; cam.y += (camTo.y - cam.y) * f; cam.s += (camTo.s - cam.s) * f; render();
+    requestAnimationFrame(loop);
+  })(prev);
+  // ── 조작 ──
+  root.addEventListener('click', function(e){
+    var c = e.target.closest && e.target.closest('.ps100-pin,.ps100-card');
+    if (c){ var i = pins.findIndex(function(P){ return P.pin === c || P.card === c; }); if (i >= 0 && i + 1 !== step){ go(i + 1, true); return; } }
+    go(step + 1);
+  });
+  document.addEventListener('keydown', function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '')) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); go(step + 1); }
+    else if (['ArrowLeft', 'PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(step - 1); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'f' || e.key === 'F'){ if (document.fullscreenElement) document.exitFullscreen(); else if (root.requestFullscreen) root.requestFullscreen(); }
+  });
+  window.ps100Go = function(k){ go(k, true); }; window.ps100Steps = N;
+  // 애니메이션을 건너뛰고 끝 상태로(미리보기용)
+  window.ps100Settle = function(){ if (anim) anim.stop(); setStatic(step); cam = Object.assign({}, camTo); render(); };
+  go(0);
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps100-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps100-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + "/* 바탕 지도(글자 · 핀 · 탈것을 지운 판)와 탈것 그림 — 갤러리 주소에서 불러온다 */\n.ps100{--ps100-plate:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/100-plate.jpg);--ps100-plane_in:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/100-plane_in.png);--ps100-plane_out:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/100-plane_out.png);--ps100-train1:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/100-train1.png);--ps100-train2:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/100-train2.png);--ps100-bus:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/100-bus.png);--ps100-train3:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/100-train3.png)}" + '\n</style>\n\n<div class="ps100" id="ps100" role="application" aria-label="연수 일정표"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps100');
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps100Go(0); });
+  document.getElementById('b-full').addEventListener('click', function(){ if (root.requestFullscreen) root.requestFullscreen(); });
+})();
+</script>
+</body></html>

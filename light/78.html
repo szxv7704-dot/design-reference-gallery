@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #78 지표 상태창</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Galmuri11";font-weight:400;font-display:swap;src:url("../fonts/Galmuri11-400.woff2") format("woff2")}
+@font-face{font-family:"Galmuri11";font-weight:700;font-display:swap;src:url("../fonts/Galmuri11-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexSansKR-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:700;font-display:swap;src:url("../fonts/IBMPlexSansKR-700.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+</style>
+<style id="ps78-css">
+/* 핵심 수치 '지표 상태창' — A 픽셀 게임 계열 전용 본문 요소. 접두어 ps78 / 색은 --ds-* 변수로만 */
+.ps78{
+  /* 공통 변수: A 낮(기본) 값. 계열 값을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F1EBDC; --ds-surface:#FFFBF0; --ds-ink:#1D1B2E; --ds-sub:#5E5870; --ds-line:#CFC4A6;
+  --ds-accent:#D23B52; --ds-accent2:#2B4A8F;
+  --ds-c1:#1D2B53; --ds-c2:#2F4C8C; --ds-c3:#5A82D0; --ds-c4:#A9C8F5; --ds-c5:#F7F2E4;
+  --ds-font-title:"Galmuri11","DotGothic16","Malgun Gothic",monospace;
+  --ds-font-body:"Galmuri11","DotGothic16","Malgun Gothic",monospace;
+  --ds-font-num:"Galmuri11","DotGothic16","Malgun Gothic",monospace;
+  --ds-radius:0px; --ds-shadow:none;
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps78 *{box-sizing:border-box}
+/* 1 도트 = 4u(가상 화면 1600 → 400도트). 그림은 400×225 캔버스를 정수배로 키워 흐림 없이 */
+.ps78-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.35;word-break:keep-all;-webkit-font-smoothing:none;font-smooth:never}
+.ps78-cv{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+.ps78-a{position:absolute;white-space:nowrap}
+.ps78-sec{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*20);color:var(--ds-ink)}
+.ps78-sec i{font-style:normal;color:var(--ds-c3);margin-right:calc(var(--u)*10)}
+.ps78-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps78-tt{white-space:normal;font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*34);line-height:1.32;color:var(--ds-ink)}
+.ps78-tt em{font-style:normal;color:var(--ds-accent)}
+.ps78-wh{font-weight:700;font-size:calc(var(--u)*16);color:var(--ds-c5)}
+.ps78-lg{font-size:calc(var(--u)*12);color:var(--ds-c4)}
+.ps78-nm{font-weight:700;font-size:calc(var(--u)*18);color:var(--ds-c5)}
+.ps78-ms{font-size:calc(var(--u)*12);color:var(--ds-c4)}
+.ps78-ax{font-size:calc(var(--u)*11);color:var(--ds-c3)}
+.ps78-val{font-weight:700;font-size:calc(var(--u)*19);color:var(--ds-c5)}
+.ps78-val small{font-size:calc(var(--u)*13);font-weight:400;color:var(--ds-c4)}
+.ps78-left{font-size:calc(var(--u)*13);color:var(--ds-c4)}
+.ps78-left.on{color:var(--ds-c5)}
+.ps78-left b{font-weight:700}
+.ps78-kl{font-size:calc(var(--u)*13);color:var(--ds-c4)}
+.ps78-kn{font-family:var(--ds-font-num);font-weight:700;font-size:calc(var(--u)*44);line-height:1;color:var(--ds-c5)}
+.ps78-kn small{font-size:calc(var(--u)*17);margin-left:calc(var(--u)*4)}
+.ps78-pk{font-size:calc(var(--u)*13);color:var(--ds-accent);font-weight:700}
+.ps78-pn{font-weight:700;font-size:calc(var(--u)*24);color:var(--ds-ink)}
+.ps78-pd{font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.ps78-ft{font-size:calc(var(--u)*12);color:var(--ds-sub)}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 78 · 본문 요소 · 핵심 수치 · A 픽셀 게임 전용 · 정지 · 가상 예시</div>
+    <h1>지표 상태창</h1>
+    <p class="pg-lead">픽셀 표지(#9~#12) 뒤에 이어 쓰는 첫 본문 장표. 성과지표 네 개를 게임 상태창의 25칸 막대로 맞춰 "목표까지 남은 칸"으로 비교하고, 가장 먼 지표에 커서를 둔다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps78" id="ps78" data-slide role="img" aria-label="통합교육 성과지표 네 개의 현재와 2027 목표, 남은 칸, 규모 수치와 첫해 우선 배정"></div></div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="A" aria-pressed="true">A 픽셀 게임 · 낮(기본)</button><button class="btn" type="button" data-fam="A2" aria-pressed="false">A 픽셀 게임 · 밤(#9 표지 색)</button></div>
+  </section>
+  
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅱ장 줄글, 가상)</h3>
+        <p class="raw">2026년 4월 기준 <mark class="o" data-n="규모">도내 통합학급은 1,386학급이며 이곳에서 공부하는 특수교육대상학생은 2,140명이다.</mark> 계획의 성과는 네 가지로 본다. <mark class="g" data-n="①">통합학급 특수교육 보조인력 배치율은 현재 56%에서 2027년까지 84%로 높이고(4월 1일 배치 현황)</mark>, <mark class="g" data-n="②">통합학급 담임의 특수교육 연수 이수율은 64%에서 88%로(나이스 연수 실적)</mark>, <mark class="g" data-n="③">개별화교육계획(IEP) 협의에 통합학급 담임이 참여하는 비율은 72%에서 96%로(학기별 협의록)</mark>, <mark class="g" data-n="④">학부모 만족도는 5점 척도 3.6점에서 4.2점으로(연 1회 설문)</mark> 끌어올린다. <mark class="k" data-n="선택">2027년 지표 관련 예산은 38.4억원이며, 목표까지 거리가 가장 먼 보조인력 배치에 21.6억원(190명 추가 채용)을 먼저 배정한다.</mark></p>
+        <div class="key"><span><i class="ko"></i>규모(배경 수치)</span><span><i class="kg"></i>지표(현재 → 목표 · 측정)</span><span><i class="kk"></i>우선 선택</span><span>번호 = 장표의 같은 줄</span></div>
+      </div>
+      <div class="panel">
+        <div class="grp-h">세 묶음 (왼쪽 상태창 · 오른쪽 열)</div>
+        <ul class="grp">
+          <li><span class="n">①~④</span><div><b>지표 상태창: "현재 ~에서 ~로(측정)" 네 문장</b><em>문장마다 이름 · 측정 방법 · 현재 · 목표 네 칸으로 쪼갠다. 단위가 달라도(%, 점) 눈금을 모두 25칸으로 맞추면 "남은 칸"으로 견줄 수 있다</em></div></li>
+          <li><span class="n">규모</span><div><b>규모 수치 창: 지표 앞의 배경 숫자 두 개</b><em>지표가 아니라 "얼마나 큰 일인가"라서 상태창 밖 오른쪽 위에 큰 숫자로 따로 둔다</em></div></li>
+          <li><span class="n n1">선택</span><div><b>선택 창: "가장 먼 ~에 먼저" 한 문장</b><em>남은 칸이 가장 많은 줄에 커서 ▶, 같은 결론을 오른쪽 아래 선택 창과 제목이 다시 말한다</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">비교 (지표↔지표)</span><span>칸 수를 같게 맞춘 막대 네 줄. 채운 칸(현재) → 무늬 칸(목표까지) → 빈 칸(만점까지). 남은 칸 = 무늬 칸 수.</span></div>
+          <div><span class="k">선택 (지표→예산)</span><span>남은 칸이 가장 많은 ①에 커서. 선택 창의 16칸 예산 막대가 그 몫(21.6 / 38.4억 = 9칸)을 보여 준다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>성과지표 네 개를 <b>게임의 상태창</b>처럼 한 창에 모으고, 지표마다 "현재 → 목표"를 같은 25칸 막대로 그렸다. 단위가 %와 점으로 달라도 칸 수를 같게 맞췄기 때문에, 숫자를 빼고 무늬 칸만 세어도 어느 지표가 목표까지 먼지 읽힌다. 규모 숫자(학생·학급 수)는 지표가 아니므로 창 밖 오른쪽에 따로 두고, 맨 아래 선택 창이 "그래서 무엇부터"를 답한다.</p>
+    <p><b>가져갈 장치 1: 남은 칸.</b> 현재와 목표 사이를 무늬 칸으로 칠하고 그 수를 "남은 7칸"처럼 적는다. 퍼센트포인트와 점수 차이를 한 단위로 바꾸는 가장 쉬운 방법이다(칸 = 만점 ÷ 25, 선형).</p>
+    <p><b>가져갈 장치 2: 선택 커서.</b> 강조색은 커서 ▶ 하나와 선택 창 테두리에만 쓴다. 게임에서 "고른 메뉴"를 뜻하는 표시라서 "이 지표에 먼저 투자한다"는 결론이 설명 없이 읽힌다.</p>
+    <p><b>가져갈 장치 3: 도트 격자.</b> 그림은 400×225 캔버스 한 장을 4배로 키워 흐림 없이 그렸다. 창의 모서리를 1도트씩 깎고, 그림자는 오른쪽 아래로 2도트 밀었다. 모든 칸이 도트 격자에 맞아서 픽셀 표지(#9~#12) 뒤에 이어도 문법이 끊기지 않는다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>늘봄학교 성과지표(참여율 · 만족도 · 대기 인원): 단위가 다른 지표를 같은 칸 수로 맞춰 남은 칸으로 비교</li>
+      <li>기초학력 보장 계획의 학년별 도달률: 줄 = 학년, 커서 = 집중 지원 학년</li>
+      <li>디지털 기기 보급 현황: 규모 창에 보급 대수, 상태창에 학교급별 보급률</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다. 글꼴은 Galmuri(SIL OFL)를 jsDelivr에서 불러옵니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>kpis</code>는 줄마다 <code>now</code> 현재 · <code>target</code> 목표 · <code>max</code> 만점 · <code>unit</code> 단위입니다. 칸 수·남은 칸·커서 위치는 자동으로 계산됩니다(줄은 4개 기준).</li>
+      <li>색은 <code>.ps78{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 낮·밤 값). 바꾼 뒤에는 <code>ps78Paint()</code>로 다시 칠합니다.</li>
+      <li>제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>도트 격자 먼저</b>: [보기] → [눈금 및 안내선]에서 눈금 간격을 0.1cm로 두고 "개체를 눈금에 맞춤"을 켠다. 와이드 33.867cm 기준 1도트 ≈ 0.085cm라서 0.1cm 격자로 근사한다.</li>
+      <li><b>창</b>: 사각형(채우기 남색 --ds-c1, 윤곽 없음) 위에 같은 크기 사각형(채우기 없음, 윤곽 0.75pt 크림)을 0.1cm 안쪽에, 바깥에 먹색 0.75pt 사각형을 하나 더. 그림자는 같은 사각형을 오른쪽 아래로 0.2cm 밀어 맨 뒤로.</li>
+      <li><b>막대 25칸</b>: 0.26×0.6cm 사각형 하나를 만들고 Ctrl+D로 24번 복제(간격 0.08cm 자동 유지). 현재 칸 = 연파랑 채움, 목표까지 = [채우기 → 패턴 → 50%], 남은 칸 = 채우기 없음 + 남색 윤곽.</li>
+      <li><b>글꼴</b>: Galmuri11을 설치해 쓰거나(무료, OFL), 없으면 DotGothic16·둥근모꼴. 글자 크기는 제목 26pt · 지표명 14pt · 보조 9pt.</li>
+      <li><b>커서 ▶</b>: 이등변 삼각형을 90° 돌려 강조색으로, 남은 칸이 가장 많은 줄 왼쪽에 하나만.</li>
+      <li><b>뼈대</b>: 머리말 띠(위 1.1cm, 아래 점선) · 제목(2줄) · 바닥 줄(출처 · 쪽)을 다른 본문 장표와 같은 자리에 둔다. 애니메이션은 넣지 않는다(정지 장표).</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴</b>Galmuri11 Bold(제목 · 숫자) + Galmuri11(본문) · 대체 DotGothic16 · 맑은 고딕. 이 페이지는 쓰인 글자만 내장</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(25칸 복제와 패턴 채우기)</div>
+      <div><b>질감 · 모션</b>평면(도트 그림자만) · 정지</div>
+      <div><b>모듈 · 위치</b>막대(같은 25칸 눈금) + 수치 타일(규모 창 · 선택 창) · Ⅱ 목표 및 지표</div>
+      <div><b>어울리는 계열</b>A 픽셀 게임 전용(표지 #9 · #10 · #11 · #12 뒤에)</div>
+      <div><b>트렌드</b>게임 UI 문법을 업무 화면에 빌리는 '게이미피케이션 대시보드' — 진행 막대를 칸으로 나눠 남은 몫을 세게 하는 방식. 참고: <a href="https://www.nngroup.com/articles/progress-indicators/" target="_blank" rel="noopener">NN/g, Progress Indicators</a> · 글꼴 <a href="https://github.com/quiple/galmuri" target="_blank" rel="noopener">Galmuri(OFL)</a></div>
+    </div>
+  </section>
+
+</main>
+<script id="ps78-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅱ', sectionName: '목표 및 지표',
+    plan: '2027 ○○교육청 통합교육 지원 강화 계획',
+    title: '네 지표 가운데 [보조인력 배치]가 목표까지 가장 멉니다\n그래서 첫해 예산의 절반 이상을 여기에 둡니다',
+    windowTitle: '지표 상태창',
+    // 지표: 눈금(max)은 지표마다 달라도 모두 25칸으로 나눠 '남은 칸'으로 비교한다(칸 = max ÷ 25)
+    kpis: [
+      { name: '보조인력 배치율', how: '통합학급 대비 · 4월 1일 배치 현황', now: 56, target: 84, max: 100, unit: '%' },
+      { name: '담임 연수 이수율', how: '통합학급 담임 · 나이스 연수 실적', now: 64, target: 88, max: 100, unit: '%' },
+      { name: 'IEP 협의 참여율', how: '통합학급 담임 · 학기별 협의록', now: 72, target: 96, max: 100, unit: '%' },
+      { name: '학부모 만족도', how: '5점 척도 · 연 1회 설문', now: 3.6, target: 4.2, max: 5, unit: '점' }
+    ],
+    stats: [
+      { label: '통합학급 특수교육대상학생', value: '2,140', unit: '명' },
+      { label: '도내 통합학급', value: '1,386', unit: '학급' }
+    ],
+    pick: { kicker: '▶ 첫해 우선 배정', name: '보조인력 +190명', part: 21.6, total: 38.4, unitText: '억원', note: '지표 예산 38.4억 중 21.6억(56%)' },
+    source: '가상 예시 · 출처: ○○교육청 2026 통합교육 실태조사(4월 1일 기준) 재구성',
+    page: 7
+  };
+
+  var CELLS = 25;                         // 막대 칸 수(선형: 칸 = max ÷ 25)
+  var D = 4;                              // 1 도트 = 4u
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var at = function(x, y, cls, html, extra){ return '<div class="ps78-a ' + cls + '" style="left:' + u(x * D) + ';top:' + u(y * D) + (extra || '') + '">' + html + '</div>'; };
+  var fmt = function(v){ return (Math.round(v * 10) / 10).toString(); };
+
+  // 배치(도트 단위, 400×225)
+  var WX = 20, WY = 58, WW = 242, WH = 148;           // 상태창
+  var ROW_Y = 79, ROW_H = 31;                          // 지표 줄
+  var BAR_X = 112, BAR_W = 4;                          // 막대: 칸 3도트 + 틈 1도트
+  var RX = 270, RW = 110;                              // 오른쪽 열
+
+  var root, cv;
+  function rows(){
+    // 남은 칸이 가장 많은 줄에 커서
+    var K = DATA.kpis.map(function(k){
+      var c = Math.round(k.now / k.max * CELLS), t = Math.round(k.target / k.max * CELLS);
+      return { k: k, c: c, t: t, left: t - c };
+    });
+    var top = 0; K.forEach(function(r, i){ if (r.left > K[top].left) top = i; });
+    return { K: K, top: top };
+  }
+
+  function html(){
+    var R = rows(), h = '';
+    h += at(20, 11, 'ps78-sec', '<i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName));
+    h += at(380, 12, 'ps78-plan', esc(DATA.plan), ';transform:translateX(-100%)');
+    h += '<div class="ps78-a ps78-tt" style="left:' + u(80) + ';top:' + u(112) + ';width:' + u(1440) + '">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>').replace(/\n/g, '<br>') + '</div>';
+    // 상태창 머리줄 + 범례
+    h += at(WX + 6, WY + 5, 'ps78-wh', esc(DATA.windowTitle));
+    h += at(WX + 147, WY + 6, 'ps78-lg', '2026 현재');
+    h += at(WX + 179, WY + 6, 'ps78-lg', '목표까지');
+    h += at(WX + 207, WY + 6, 'ps78-lg', '만점까지');
+    R.K.forEach(function(r, i){
+      var y = ROW_Y + i * ROW_H, k = r.k;
+      h += at(31, y + 6, 'ps78-nm', esc(k.name));
+      h += at(31, y + 16, 'ps78-ms', esc(k.how));
+      h += at(BAR_X, y + 19, 'ps78-ax', '0');
+      h += at(BAR_X + CELLS * BAR_W - 1, y + 19, 'ps78-ax', fmt(k.max) + esc(k.unit), ';transform:translateX(-100%)');
+      h += at(216, y + 6, 'ps78-val', fmt(k.now) + '<small>→</small>' + fmt(k.target) + '<small>' + esc(k.unit) + '</small>');
+      h += at(216, y + 17, 'ps78-left' + (i === R.top ? ' on' : ''), '남은 <b>' + r.left + '</b>칸');
+    });
+    // 오른쪽: 규모 수치 창 2 + 선택 창
+    DATA.stats.forEach(function(s, i){
+      var y = WY + i * 46;
+      h += at(RX + 6, y + 6, 'ps78-kl', esc(s.label));
+      h += at(RX + 6, y + 16, 'ps78-kn', esc(s.value) + '<small>' + esc(s.unit) + '</small>');
+    });
+    var py = WY + 92, p = DATA.pick;
+    h += at(RX + 6, py + 6, 'ps78-pk', esc(p.kicker));
+    h += at(RX + 6, py + 15, 'ps78-pn', esc(p.name));
+    h += at(RX + 6, py + 39, 'ps78-pd', esc(p.note));
+    h += at(20, 213, 'ps78-ft', esc(DATA.source));
+    h += at(380, 213, 'ps78-ft', String(DATA.page), ';transform:translateX(-100%)');
+    return h;
+  }
+
+  function paint(){
+    var cs = getComputedStyle(root), C = function(n){ return cs.getPropertyValue('--ds-' + n).trim(); };
+    var g = cv.getContext('2d'), R = rows();
+    var px = function(x, y, w, h, c){ g.fillStyle = c; g.fillRect(x, y, w, h); };
+    var notch = function(x, y, w, h, c){ px(x + 1, y, w - 2, h, c); px(x, y + 1, w, h - 2, c); };
+    // 창: 그림자 → 먹 테 → 밝은 안테 → 바탕(모서리 1도트씩 깎음)
+    var win = function(x, y, w, h, fill, inner){
+      notch(x + 2, y + 2, w, h, C('line'));
+      notch(x, y, w, h, C('ink'));
+      notch(x + 1, y + 1, w - 2, h - 2, inner || C('c5'));
+      notch(x + 2, y + 2, w - 4, h - 4, fill);
+    };
+    var dots = function(x0, x1, y, c){ for (var x = x0; x <= x1; x += 2) px(x, y, 1, 1, c); };
+    var cell = function(x, y, kind){
+      if (kind === 'now'){ px(x, y, 3, 7, C('c4')); px(x, y, 3, 1, C('c5')); }
+      else if (kind === 'gap'){ for (var yy = 0; yy < 7; yy++) for (var xx = 0; xx < 3; xx++) if ((xx + yy) % 2 === 0) px(x + xx, y + yy, 1, 1, C('c3')); px(x, y + 6, 3, 1, C('c3')); }
+      else { px(x, y, 3, 1, C('c2')); px(x, y + 6, 3, 1, C('c2')); px(x, y, 1, 7, C('c2')); px(x + 2, y, 1, 7, C('c2')); }
+    };
+    g.clearRect(0, 0, 400, 225);
+    dots(20, 380, 22, C('line'));
+    // 상태창
+    win(WX, WY, WW, WH, C('c1'));
+    cell(WX + 142, WY + 7, 'now'); cell(WX + 174, WY + 7, 'gap'); cell(WX + 202, WY + 7, 'none');
+    dots(WX + 5, WX + WW - 6, WY + 17, C('c2'));
+    R.K.forEach(function(r, i){
+      var y = ROW_Y + i * ROW_H, by = y + 10;
+      for (var c = 0; c < CELLS; c++) cell(BAR_X + c * BAR_W, by, c < r.c ? 'now' : c < r.t ? 'gap' : 'none');
+      // 목표 깃발: 목표 칸 끝 위 ▼
+      var fx = BAR_X + r.t * BAR_W - 1;
+      px(fx - 2, by - 4, 5, 1, C('c5')); px(fx - 1, by - 3, 3, 1, C('c5')); px(fx, by - 2, 1, 1, C('c5'));
+      if (i === R.top){ // 선택 커서 ▶(강조 한 곳)
+        for (var k = 0; k < 4; k++) px(24 + k, y + 8 + k, 1, 9 - 2 * k, C('accent'));
+      }
+      if (i < R.K.length - 1) dots(WX + 5, WX + WW - 6, y + ROW_H - 2, C('c2'));
+    });
+    // 오른쪽 수치 창
+    DATA.stats.forEach(function(s, i){ win(RX, WY + i * 46, RW, 40, C('c1')); });
+    var py = WY + 92;
+    win(RX, py, RW, 56, C('surface'), C('accent'));
+    // 예산 칸: 전체를 16칸(=칸당 total/16)으로, 우선 배정분만 채움(선형)
+    var n = 16, part = Math.round(DATA.pick.part / DATA.pick.total * n);
+    for (var i = 0; i < n; i++){
+      var x = RX + 6 + i * 6, y = py + 31;
+      if (i < part){ px(x, y, 5, 5, C('accent')); px(x, y, 5, 1, C('surface')); px(x, y, 5, 1, C('accent')); }
+      else { px(x, y, 5, 1, C('line')); px(x, y + 4, 5, 1, C('line')); px(x, y, 1, 5, C('line')); px(x + 4, y, 1, 5, C('line')); }
+    }
+  }
+
+  function render(el){
+    root = el;
+    el.innerHTML = '<div class="ps78-in"><canvas class="ps78-cv" width="400" height="225"></canvas>' + html() + '</div>';
+    cv = el.querySelector('canvas');
+    paint();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(paint);
+  }
+  render(document.getElementById('ps78'));
+  window.ps78Paint = paint;            // 계열 값을 바꾼 뒤 다시 칠하기
+})();
+</script>
+<script>
+(function(){
+  var P = 'ps78';
+  var slide = document.getElementById(P);
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FAM = {"A": {"name": "A 픽셀 게임 · 낮", "fonts": "Galmuri11 Bold / Galmuri11 / Galmuri11 Bold", "v": {"--ds-bg": "#F1EBDC", "--ds-surface": "#FFFBF0", "--ds-ink": "#1D1B2E", "--ds-sub": "#5E5870", "--ds-line": "#CFC4A6", "--ds-accent": "#D23B52", "--ds-accent2": "#2B4A8F", "--ds-c1": "#1D2B53", "--ds-c2": "#2F4C8C", "--ds-c3": "#5A82D0", "--ds-c4": "#A9C8F5", "--ds-c5": "#F7F2E4", "--ds-font-title": "\"Galmuri11\",\"DotGothic16\",\"Malgun Gothic\",monospace", "--ds-font-body": "\"Galmuri11\",\"DotGothic16\",\"Malgun Gothic\",monospace", "--ds-font-num": "\"Galmuri11\",\"DotGothic16\",\"Malgun Gothic\",monospace", "--ds-radius": "0px", "--ds-shadow": "none"}}, "A2": {"name": "A 픽셀 게임 · 밤(#9 표지 색)", "fonts": "Galmuri11 Bold / Galmuri11 / Galmuri11 Bold", "v": {"--ds-bg": "#14132A", "--ds-surface": "#1D2B53", "--ds-ink": "#F4F0E6", "--ds-sub": "#A9B3C9", "--ds-line": "#0A0915", "--ds-accent": "#FFCF4A", "--ds-accent2": "#6CC66A", "--ds-c1": "#26386E", "--ds-c2": "#4161A8", "--ds-c3": "#6E94DE", "--ds-c4": "#A9C8F5", "--ds-c5": "#F4F0E6", "--ds-font-title": "\"Galmuri11\",\"DotGothic16\",\"Malgun Gothic\",monospace", "--ds-font-body": "\"Galmuri11\",\"DotGothic16\",\"Malgun Gothic\",monospace", "--ds-font-num": "\"Galmuri11\",\"DotGothic16\",\"Malgun Gothic\",monospace", "--ds-radius": "0px", "--ds-shadow": "none"}}};
+  var ORDER = ["A", "A2"];
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === ORDER[0]) slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+    if (window[P + 'Paint']) window[P + 'Paint']();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window[P + 'Fam'] = apply;
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css\">";
+  var css = document.getElementById(P + '-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById(P + '-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + "<div class=\"ps78\" id=\"ps78\" data-slide role=\"img\" aria-label=\"통합교육 성과지표 네 개의 현재와 2027 목표, 남은 칸, 규모 수치와 첫해 우선 배정\"></div>" + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+  window[P + 'Code'] = code;
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th>' + ORDER.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ORDER.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + ORDER.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + ORDER.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+</body></html>

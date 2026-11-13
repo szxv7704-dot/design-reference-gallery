@@ -1,0 +1,1074 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #12 협력 항로 해도</title>
+<style>/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexSansKR-600.woff2") format("woff2")}
+</style>
+<style>
+/* Galmuri (c) Lee Minseo, SIL OFL 1.1 — subset embedded */
+@font-face{font-family:"Galmuri11";font-weight:400;src:url(../src/12/assets/19522287d0.woff2) format("woff2")}
+@font-face{font-family:"Galmuri11";font-weight:700;src:url(../src/12/assets/20d6668a97.woff2) format("woff2")}
+@font-face{font-family:"Galmuri9";src:url(../src/12/assets/ee479e772a.woff2) format("woff2")}
+@font-face{font-family:"Galmuri7";src:url(../src/12/assets/3557eab0ea.woff2) format("woff2")}
+
+/* Layout: one chart-room column — the 16:9 sea chart first, controls under it, design notes below on a daylight-navy desk. Single deliberate dark-blue look, lifted one step for a clear-day sea. */
+:root{
+  color-scheme:dark;
+  --desk:#1a3a66;      /* navy — page ground (was #0b1a33) */
+  --deep:#21477a;      /* panels (was #12305a) */
+  --sea:#2f63a0;       /* rules (was #1d4f8c) */
+  --shoal:#4fb3c9;     /* secondary text, links */
+  --foam:#c8f0f2;      /* body text */
+  --parch:#d9b77a;     /* chart paper */
+  --ink:#3b2b45;       /* text on paper (was #2a1a2e) */
+  --coral:#e0533d;     /* connected route */
+  --gold:#f2b63d;      /* current / treasure */
+  --white:#f4f7f2;
+  --shade:#12305a;     /* hard drop shadow (was #07111f) */
+  --dot:"Galmuri11","Galmuri9","DotGothic16",monospace;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+html{background:var(--desk)}
+body{background:var(--desk);color:var(--foam);font-family:var(--body);font-size:15px;line-height:1.65;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 56px;display:flex;flex-direction:column;gap:28px}
+a{color:var(--shoal)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* ── header strip ── */
+.eyebrow{font-family:"Galmuri9",monospace;font-size:10px;letter-spacing:.08em;color:var(--foam);display:flex;flex-wrap:wrap;gap:6px 12px}
+.eyebrow span{border:1px solid var(--sea);padding:1px 6px;background:var(--deep)}
+h1{font-family:"Galmuri11",monospace;font-weight:700;font-size:24px;line-height:1.3;margin:10px 0 4px;color:var(--white);text-wrap:balance}
+.lede{margin:0;max-width:68ch;color:var(--foam)}
+
+/* ── cover ── */
+.stage{display:flex;flex-direction:column;align-items:center;gap:12px}
+.cover{position:relative;container-type:inline-size;width:100%;aspect-ratio:16/9;max-width:100%;--u:calc(100cqw/384);background:var(--deep);box-shadow:0 0 0 1px var(--ink),0 10px 0 -4px var(--shade)}
+.cover canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+.ov{position:absolute;left:calc(var(--x)*var(--u));top:calc(var(--y)*var(--u));white-space:nowrap;-webkit-font-smoothing:none;font-smooth:never;text-rendering:optimizeSpeed;pointer-events:none}
+.f7{font-family:"Galmuri7",monospace;font-size:calc(8*var(--u));line-height:calc(9*var(--u))}
+.f9{font-family:"Galmuri9",monospace;font-size:calc(10*var(--u));line-height:calc(11*var(--u))}
+.f11{font-family:"Galmuri11",monospace;font-size:calc(12*var(--u));line-height:calc(13*var(--u))}
+.b{font-weight:700}
+.c-ink{color:var(--ink)}.c-white{color:var(--white)}.c-shoal{color:var(--shoal)}.c-gold{color:var(--gold)}.c-coral{color:var(--coral)}
+.tag{background:var(--desk);color:var(--white);padding:0 calc(2*var(--u));line-height:calc(10*var(--u));box-shadow:0 0 0 calc(1*var(--u)) var(--ink)}
+.tag.on{color:var(--gold)}
+.tag.hz{color:#ff8a6e;background:var(--desk)}
+.tag.cp{color:var(--parch)}
+.tag.loop{color:var(--foam)}
+.tag.loop.on{color:var(--gold);box-shadow:0 0 0 calc(1*var(--u)) var(--gold)}
+.stamp{color:#8a2314;padding:0 calc(2*var(--u));line-height:calc(9*var(--u));box-shadow:inset 0 0 0 calc(1*var(--u)) #8a2314;transform:rotate(-4deg)}
+.log li{list-style:none;display:flex;gap:calc(4*var(--u))}
+.log ul{margin:0;padding:0}
+.log .mk{width:calc(8*var(--u));color:var(--ink)}
+.log .se{width:calc(16*var(--u))}
+.log li.now .mk{color:#8a2314}
+.log li.todo{color:#5e4426}
+
+.controls{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px}
+.btn{font-family:"Galmuri11",monospace;font-size:13px;line-height:1;color:var(--white);background:var(--deep);border:0;padding:10px 14px;cursor:pointer;box-shadow:inset 0 0 0 2px var(--shoal),3px 3px 0 0 var(--shade)}
+.btn.primary{background:#c2412c;color:var(--white);box-shadow:inset 0 0 0 2px var(--ink),3px 3px 0 0 var(--shade)}
+.btn:hover{transform:translate(-1px,-1px)}
+.btn:active{transform:translate(2px,2px);box-shadow:inset 0 0 0 2px var(--shoal)}
+.btn:disabled{opacity:.4;cursor:default;transform:none}
+.status{font-family:"Galmuri9",monospace;font-size:11px;color:var(--shoal);min-height:1.4em;text-align:center}
+.note{font-size:12px;color:var(--shoal);text-align:center;margin:0}
+
+/* ── memo ── */
+section h2{font-family:"Galmuri11",monospace;font-weight:700;font-size:17px;color:var(--white);margin:0 0 12px;display:flex;align-items:center;gap:10px}
+section h2 .no{font-family:"Galmuri9",monospace;font-weight:400;font-size:10px;color:var(--desk);background:var(--parch);padding:2px 6px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:28px}
+.cols>*{min-width:0}
+.compare{background:var(--parch);color:var(--ink);padding:16px 18px;box-shadow:inset 0 0 0 2px var(--ink),inset 0 0 0 5px var(--parch),inset 0 0 0 6px #a87b42}
+.compare h2{color:var(--ink)}
+.compare h2 .no{background:var(--ink);color:var(--parch)}
+.compare dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.compare dt{font-family:"Galmuri9",monospace;font-size:11px;padding-top:3px;white-space:nowrap}
+.compare dd{margin:0}
+.compare .me{font-weight:600}
+.compare .me+dd{font-weight:600}
+.compare .diff{grid-column:1/-1;margin:6px 0 0;padding:8px 10px;background:var(--ink);color:var(--parch);font-family:"Galmuri11",monospace;font-size:13px;line-height:1.5}
+.tbl{overflow-x:auto;border:1px solid var(--sea)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--sea)}
+th{font-family:"Galmuri9",monospace;font-weight:400;font-size:11px;color:var(--parch);background:var(--deep);letter-spacing:.04em}
+td:first-child{font-family:"Galmuri11",monospace;font-size:13px;color:var(--white);white-space:nowrap}
+td .k{color:var(--gold)}
+.flow{overflow-x:auto;border:1px solid var(--sea);background:var(--deep)}
+.flow svg{display:block;min-width:820px;width:100%;height:auto;shape-rendering:crispEdges}
+.check{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:8px 22px;counter-reset:c}
+.check li{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:7px 0;border-bottom:1px dashed var(--sea);font-size:13.5px}
+.check li::before{counter-increment:c;content:counter(c,decimal-leading-zero);font-family:"Galmuri9",monospace;font-size:11px;color:var(--desk);background:var(--gold);height:16px;text-align:center;line-height:16px;margin-top:3px}
+.check b{color:var(--white);font-weight:600}
+.check small{display:block;color:var(--shoal);font-size:12px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;margin:0 0 14px;padding:0;list-style:none}
+.swatches li{display:flex;gap:8px;align-items:center;font-size:12px}
+.swatches i{width:22px;height:22px;flex:none;box-shadow:0 0 0 1px var(--ink),0 0 0 2px var(--sea)}
+.swatches code{font-family:"Galmuri9",monospace;font-size:10px;color:var(--white);display:block}
+.swatches s{font-family:"Galmuri9",monospace;font-size:10px;color:var(--shoal);text-decoration:none;display:block}
+.spec{margin:0;display:grid;grid-template-columns:minmax(90px,auto) 1fr;gap:8px 16px;font-size:13.5px}
+.spec dt{font-family:"Galmuri9",monospace;font-size:11px;color:var(--parch);padding-top:3px}
+.spec dd{margin:0;min-width:0}
+.spec ol,.spec ul{margin:4px 0 0;padding-left:18px}
+.src{font-size:12px;color:var(--shoal);margin:14px 0 0;padding-left:18px}
+.src li{margin:2px 0}
+</style>
+
+<div class="wrap">
+
+  <div class="stage">
+    <div class="cover" id="cover">
+      <canvas id="chart" role="img" aria-label="가상 항해 게임 해도. 왼쪽 유치원 모항에서 출항해 봄 교통공원, 여름 병원, 가을 소방서, 겨울 보건소, 경찰서, 가정 섬을 차례로 돌고 다시 모항으로 돌아오는 고리 모양 항로가 그려져 있고, 가을 소방서까지 7구간 중 3구간이 연결된 상태입니다."></canvas>
+
+      <div class="ov f7 c-ink" style="--x:27;--y:20">물마루 항해기 · 제3해역 「협력의 바다」</div>
+      <div class="ov f11 b c-ink" style="--x:27;--y:30">2027 유아 안전·건강 교육</div>
+      <div class="ov f11 b c-ink" style="--x:27;--y:43">지원 계획(안)</div>
+      <div class="ov f7 c-ink" style="--x:27;--y:56">○○교육청 유아교육과 · 2026. 12.</div>
+      <div class="ov f7 stamp" style="--x:128;--y:45">가상 예시</div>
+
+      <div class="ov f7 c-shoal" style="--x:236;--y:18">순환 항로</div>
+      <div class="ov f7 c-white" style="--x:236;--y:26" id="cnt">구간 3/7</div>
+
+      <div class="ov f7 tag cp" style="--x:326;--y:20">예방</div>
+      <div class="ov f7 tag cp" style="--x:351;--y:39">체험</div>
+      <div class="ov f7 tag cp" style="--x:326;--y:59">연계</div>
+      <div class="ov f7 tag cp" style="--x:301;--y:39">참여</div>
+
+      <div id="hz"></div>
+      <div class="ov f7 tag" style="--x:283;--y:104">Ⅱ 등대·안전 지침</div>
+
+      <div id="labels"></div>
+      <div class="ov f7 tag loop" id="loop"></div>
+
+      <div class="ov f9 c-gold" style="--x:50;--y:169" id="i1"></div>
+      <div class="ov f7 c-white" style="--x:50;--y:181" id="i2"></div>
+      <div class="ov f7 c-shoal" style="--x:50;--y:190" id="i3"></div>
+
+      <div class="ov f9 c-ink b log" style="--x:289;--y:121">Ⅳ 항해 일지</div>
+      <div class="ov f7 c-ink log" style="--x:289;--y:134"><ul id="log"></ul></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="prev" type="button">◀ 이전</button>
+      <button class="btn primary" id="next" type="button">다음 항로 ▶</button>
+      <button class="btn" id="replay" type="button">다시 보기</button>
+    </div>
+    <div class="status" id="status" aria-live="polite"></div>
+    <p class="note">←/→ 키로도 항해합니다 · 기관명·게임명·계획 내용은 모두 가상 예시입니다</p>
+  </div>
+
+  <header>
+    <div class="eyebrow"><span>디자인 레퍼런스 #12</span><span>실험형</span><span>게임</span><span>픽셀 아트</span><span>2026-10-02 · 피드백 1차 반영</span></div>
+    <h1>협력 항로 해도</h1>
+    <p class="lede">유치원 모항에서 출항해 계절마다 지역 기관 섬에 들르고 다시 모항으로 돌아오는 가상의 항해 게임 해도로 「유아 안전·건강 교육 지원 계획(안)」을 읽게 하는 표지입니다. 한 번 가고 끝나는 여정이 아니라 해마다 되풀이되는 안전교육 순환·환류 체계라서, 배가 귀항하면 고리가 닫히고 평가 결과가 다음 해 항로 개선으로 이어집니다. 첫 화면은 가을 소방서까지 온 상태로 멈춰 있습니다.</p>
+  </header>
+
+  <section class="compare" aria-labelledby="h-cmp">
+    <h2 id="h-cmp"><span class="no">비교</span>원작과 무엇이 다른가</h2>
+    <dl>
+      <dt>원작 · 픽셀 여정</dt><dd>초록 들판을 일행이 장소 순서대로 걷는 한 줄 길. 1→2→3으로 한 방향으로 가서 도착하면 끝나는 선형 여정이 메시지.</dd>
+      <dt>안개형 · 영토 확장</dt><dd>안개가 걷히며 면이 넓어진다. 성과의 범위가 메시지.</dd>
+      <dt>탑형 · 던전 단면</dt><dd>층을 하나씩 올라간다. 단계와 난이도 상승이 메시지.</dd>
+      <dt class="me">이번 · 협력 항로 해도</dt><dd>모항에서 출항해 봄·여름·가을·겨울 섬과 경찰서·가정을 돌고 다시 모항으로 돌아오는 고리 항로. 귀항하면 고리가 닫히고 평가가 다음 해 항로 개선으로 넘어가는 순환·환류가 메시지입니다. 색도 녹색 파스텔·크림 말풍선 대신 낮의 맑은 바다 청색과 해도 양피지로 바꿨습니다.</dd>
+      <dd class="diff">원작은 한 방향 선형 여정, 이번은 모항으로 돌아오는 순환·환류</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="h-map">
+    <h2 id="h-map"><span class="no">메모 1</span>계획안 구성 ↔ 해도 요소 매핑</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>계획안 구성</th><th>해도 요소</th><th>표지에서 보이는 곳</th><th>안쪽 장표 레이아웃 아이디어</th></tr></thead>
+        <tbody>
+          <tr><td>제목·기관·날짜</td><td>해도 제목 카르투슈(두루마리)</td><td>왼쪽 위 양피지 두루마리</td><td>표지와 마지막 장에 같은 해도를 씁니다. 표지는 가을까지 온 구간 3/7, 마지막 장은 모항으로 돌아와 고리가 닫힌 7/7로 바꿔 “한 바퀴 돌았다”는 사실 자체를 결론으로 보여 줍니다.</td></tr>
+          <tr><td><span class="k">Ⅰ</span> 추진 배경</td><td>위험 표지 3곳: 교통 암초 · 감염·폭염 폭풍 · 실종 소용돌이</td><td>해도 위 빨간 글씨 표지</td><td>해도 전체를 어둡게 낮추고 위험 해역 3곳만 밝힙니다. 오른쪽 항해 경보 창 3개에 근거 자료(사고 통계·민원)를 한 줄씩 넣고, 마지막 줄에 “기관별 교육이 1회성 행사로 끝난다”를 문제로 적습니다.</td></tr>
+          <tr><td><span class="k">Ⅱ</span> 목적·방침</td><td>등대(목적·안전 지침 7대 영역) + 나침반 4방위(방침: 예방·체험·연계·참여)</td><td>오른쪽 위 나침반, 오른쪽 등대</td><td>나침반을 장표 중앙에 크게 놓고 4방위 끝에 방침 문장 1줄씩 배치합니다. 등대 빛줄기 아래에 목적 한 문장을 둡니다.</td></tr>
+          <tr><td><span class="k">Ⅲ</span> 세부 추진 과제 ①~⑥</td><td>고리 항로의 계절 구간 6개: 봄 교통공원 → 여름 병원 → 가을 소방서 → 겨울 보건소 → 경찰서 → 가정 + 섬 정보 창</td><td>빨간 점선 고리, 구간마다 벚꽃·태양·단풍·눈 표식, 왼쪽 아래 정보 창</td><td>과제당 1장. 왼쪽 2/3는 배가 정박한 섬 확대 장면, 오른쪽은 정보 창 형식으로 계절·대상·내용·기관 역할을 적습니다. 오른쪽 위 미니맵(작은 고리)에 지금 구간만 금색으로 칠합니다.</td></tr>
+          <tr><td>추진 체계</td><td>고리를 가로지르는 보조 항로(병원–보건소, 소방–경찰, 교통공원–가정)</td><td>금색 가는 점선, 미니맵</td><td>협약 관계도를 해도 위에 그립니다. 선마다 “합동 대피 훈련”처럼 협력 내용을 이름표로 붙여 일반 조직도 표를 대신합니다.</td></tr>
+          <tr><td><span class="k">Ⅳ</span> 추진 일정</td><td>항해 일지(계절 칸)</td><td>오른쪽 아래 양피지 일지</td><td>일지를 장표 전체로 펼쳐 계절(행) × 구간(열) 표로 만듭니다. 3월 출항·2월 귀항으로 학년도 1년이 한 바퀴가 되게 하고, 완료 ■, 진행 ▶, 예정 □ 기호를 표지와 똑같이 씁니다.</td></tr>
+          <tr><td><span class="k">Ⅴ</span> 기대 효과·환류</td><td>귀항 + 보물 상자 + “1회 순환 완료 → 다음 해 항로 개선” 표시</td><td>모항 섬의 상자, 고리 가운데 이름표</td><td>상자가 열린 장면 옆에 효과 3가지를 보물 아이콘 3개로 나열하고, 아래에 평가에서 나온 개선점을 “다음 해 항로 수정” 화살표로 2028 해도에 넘깁니다. 정량 목표는 실제 계획 수치로만 채웁니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-flow">
+    <h2 id="h-flow"><span class="no">메모 2</span>발표 흐름 · 장표 순서가 곧 한 바퀴 항해</h2>
+    <div class="flow">
+      <svg viewBox="0 0 1000 290" role="img" aria-label="발표 흐름: 위쪽 빨간 점선 고리를 따라 표지(구간 3/7), 추진 배경, 목적·방침, 세부 과제 계절 구간 6장, 추진 체계, 추진 일정, 기대 효과·귀항 순서로 나아가고, 아래쪽 금색 점선 고리로 마무리 해도(7/7)를 지나 다음 해 표지로 되돌아오는 환류가 그려져 있습니다.">
+        <rect x="0" y="0" width="1000" height="290" fill="#21477a"/>
+        <g fill="#2f63a0"><rect x="40" y="258" width="6" height="2"/><rect x="230" y="20" width="6" height="2"/><rect x="460" y="270" width="6" height="2"/><rect x="760" y="22" width="6" height="2"/><rect x="960" y="250" width="6" height="2"/></g>
+        <path d="M120 150 C 120 20, 900 20, 900 150" stroke="#e0533d" stroke-width="4" stroke-dasharray="4 8" fill="none"/>
+        <path d="M900 150 C 900 280, 120 280, 120 150" stroke="#f2b63d" stroke-width="2" stroke-dasharray="2 6" fill="none"/>
+        <polygon points="113,186 127,186 120,176" fill="#f2b63d"/>
+        <text x="510" y="150" fill="#c8f0f2" font-family="Galmuri9,monospace" font-size="11" text-anchor="middle">장표 순서 = 모항에서 출항해 한 바퀴 도는 항로</text>
+        <text x="510" y="232" fill="#f2b63d" font-family="Galmuri9,monospace" font-size="11" text-anchor="middle">환류 — 마무리(귀항)의 평가 결과가 다음 해 계획(안) 표지(출항)로</text>
+        <g font-family="Galmuri11,monospace" font-size="12" text-anchor="middle">
+          <g transform="translate(120 150)"><rect x="-30" y="-22" width="60" height="44" fill="#e8c873"/><rect x="-26" y="-18" width="52" height="36" fill="#3f9a6b"/><text x="-38" y="-2" text-anchor="end" fill="#f4f7f2">표지</text><text x="-38" y="14" text-anchor="end" fill="#c8f0f2" font-family="Galmuri7,monospace" font-size="8">구간 3/7</text></g>
+          <g transform="translate(187 92)"><rect x="-22" y="-16" width="44" height="32" fill="#e8c873"/><rect x="-18" y="-12" width="36" height="24" fill="#3f9a6b"/><text y="38" fill="#f4f7f2">Ⅰ 배경</text><text y="54" fill="#c8f0f2" font-family="Galmuri7,monospace" font-size="8">위험 해역 3</text></g>
+          <g transform="translate(319 64)"><rect x="-22" y="-16" width="44" height="32" fill="#e8c873"/><rect x="-18" y="-12" width="36" height="24" fill="#3f9a6b"/><text y="38" fill="#f4f7f2">Ⅱ 방침</text><text y="54" fill="#c8f0f2" font-family="Galmuri7,monospace" font-size="8">나침반·등대</text></g>
+          <g transform="translate(510 52)"><rect x="-56" y="-22" width="112" height="44" fill="#e8c873"/><rect x="-52" y="-18" width="104" height="36" fill="#3f9a6b"/>
+            <g fill="#e0533d"><rect x="-44" y="-6" width="10" height="10"/><rect x="-28" y="-6" width="10" height="10"/><rect x="-12" y="-6" width="10" height="10"/></g>
+            <g fill="#c8f0f2"><rect x="4" y="-6" width="10" height="10"/><rect x="20" y="-6" width="10" height="10"/><rect x="36" y="-6" width="10" height="10"/></g>
+            <text y="44" fill="#f4f7f2">Ⅲ 과제 ①~⑥</text><text y="60" fill="#c8f0f2" font-family="Galmuri7,monospace" font-size="8">봄·여름·가을·겨울·경찰·가정 = 장표 6장</text></g>
+          <g transform="translate(701 64)"><rect x="-22" y="-16" width="44" height="32" fill="#e8c873"/><rect x="-18" y="-12" width="36" height="24" fill="#3f9a6b"/><text y="38" fill="#f4f7f2">추진 체계</text><text y="54" fill="#c8f0f2" font-family="Galmuri7,monospace" font-size="8">보조 항로</text></g>
+          <g transform="translate(833 92)"><rect x="-22" y="-16" width="44" height="32" fill="#e8c873"/><rect x="-18" y="-12" width="36" height="24" fill="#3f9a6b"/><text y="38" fill="#f4f7f2">Ⅳ 일정</text><text y="54" fill="#c8f0f2" font-family="Galmuri7,monospace" font-size="8">항해 일지</text></g>
+          <g transform="translate(900 150)"><rect x="-22" y="-16" width="44" height="32" fill="#e8c873"/><rect x="-18" y="-12" width="36" height="24" fill="#3f9a6b"/><rect x="-8" y="-6" width="16" height="12" fill="#a87b42"/><rect x="-8" y="-2" width="16" height="2" fill="#f2b63d"/><text x="30" y="-2" text-anchor="start" fill="#f4f7f2">Ⅴ 효과</text><text x="30" y="14" text-anchor="start" fill="#c8f0f2" font-family="Galmuri7,monospace" font-size="8">귀항·보물 상자</text></g>
+          <g transform="translate(833 208)"><rect x="-30" y="-22" width="60" height="44" fill="#e8c873"/><rect x="-26" y="-18" width="52" height="36" fill="#3f9a6b"/><text y="40" fill="#f4f7f2">마무리</text><text y="56" fill="#c8f0f2" font-family="Galmuri7,monospace" font-size="8">고리 닫힘 7/7</text></g>
+        </g>
+        <g transform="translate(500 12)"><rect x="0" y="12" width="14" height="4" fill="#a87b42"/><rect x="6" y="0" width="2" height="12" fill="#3b2b45"/><rect x="2" y="2" width="4" height="8" fill="#f4f7f2"/><rect x="8" y="2" width="4" height="8" fill="#f4f7f2"/></g>
+      </svg>
+    </div>
+  </section>
+
+  <div class="cols">
+    <section aria-labelledby="h-chk">
+      <h2 id="h-chk"><span class="no">메모 3</span>실물 요소 재현 체크</h2>
+      <ol class="check">
+        <li><span><b>수심 단계 바다 + 물결 표시</b> → 협력 전 단절된 바다(배경)<small>낮의 맑은 바다 5단 청색, 경계는 체커 디더. 물결 표시는 3프레임 반복, 정지 상태에서도 완성</small></span></li>
+        <li><span><b>섬 타일 전이</b> → 섬 = 협력 기관<small>풀 → 모래(체커 전이) → 포말 → 얕은 물 순서. 해안 포말이 2프레임 출렁임</small></span></li>
+        <li><span><b>고리 항로 점선</b> → 연간 순환 7구간(과제 6 + 귀항 1)<small>연결: 빨간 2×2 점, 예정: 흐린 1px 점. 마지막 귀항 구간이 이어지면 고리가 닫힘</small></span></li>
+        <li><span><b>계절 표식</b> → 연간 일정의 봄·여름·가을·겨울<small>구간 가운데 바깥쪽에 5×5 도트 벚꽃·태양·단풍·눈</small></span></li>
+        <li><span><b>배 스프라이트</b> → 지금 지나는 계절 구간<small>13×11 도트, 진행 방향으로 좌우 반전, 섬을 돌아 다음 구간으로 나갈 땐 섬 둘레를 반 바퀴 돎</small></span></li>
+        <li><span><b>나침반 장미</b> → 추진 방침 4가지<small>포르톨라노 관례대로 북쪽 바늘만 다른 색, 32방위 눈금</small></span></li>
+        <li><span><b>항정선(럼 라인)</b> → 방침이 해도 전체에 미침<small>나침반에서 16방향으로 아주 옅게 뻗는 점선</small></span></li>
+        <li><span><b>테두리 눈금·격자 좌표</b> → 기관 위치 지시<small>지브라 눈금 띠 + A~F / 1~4 격자, 정보 창에 섬 좌표 표시</small></span></li>
+        <li><span><b>카르투슈</b> → 계획안 제목·기관·날짜<small>양끝이 말린 두루마리, 가상 예시 표기 포함</small></span></li>
+        <li><span><b>항구 아이콘·잔교·닻</b> → 기관 종류<small>9×9 건물 도트 7종, 섬마다 나무 잔교, 모항에 닻 표시</small></span></li>
+        <li><span><b>미니맵</b> → 순환 현황<small>계기판 안 33×12 축소 고리, 지나온 구간만 금색</small></span></li>
+        <li><span><b>날씨·위험 표지</b> → 추진 배경의 위험 요인<small>해·먹구름·번개(감염·폭염), 암초, 소용돌이</small></span></li>
+        <li><span><b>항해 일지 창</b> → 추진 일정<small>스프링 고리 달린 양피지, 계절 칸 + ■ 완료 / ▶ 현재 / □ 예정</small></span></li>
+        <li><span><b>등대</b> → 안전 지침(학교 안전교육 7대 영역)<small>빨강·흰 줄 탑, 빛줄기가 좌우로 번갈아 깜빡임</small></span></li>
+        <li><span><b>보물 상자</b> → 기대 효과·환류<small>귀항해 고리가 닫히면 열리고 “1회 순환 완료 → 다음 해 항로 개선” 표시</small></span></li>
+        <li><span><b>저해상도 정수배 확대 · 제한 팔레트 · 도트 폰트</b><small>384×216 캔버스, 15색(16색 제한 안), 화면 폭에 맞춰 정수배로만 키움</small></span></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="h-spec">
+      <h2 id="h-spec"><span class="no">메모 4</span>스펙</h2>
+      <ul class="swatches" id="sw"></ul>
+      <dl class="spec">
+        <dt>밝기 조정</dt><dd>“너무 어둡다” 피드백에 따라 가장 어두운 4색(UI 판·깊은 바다·바다·먹)의 명도를 올려 낮의 맑은 바다 쪽으로 옮겼습니다. 견본 아래 흐린 값이 이전 색입니다. 페이지 바탕도 #0b1a33 → #1a3a66으로 한 단계 밝혔고, 글자 대비는 모두 4.5:1 이상입니다.</dd>
+        <dt>해상도</dt><dd>내부 캔버스 384×216(16:9). 화면 폭에 맞춰 1·2·3·4배 중 정수배로만 확대하며, 지금은 <b id="scale">×2</b>입니다. 5배면 정확히 1920×1080.</dd>
+        <dt>폰트</dt><dd>Galmuri11·9·7(OFL, 사용 글자만 서브셋해 base64 내장)을 12·10·8 단위 크기로 써서 글자도 격자에 맞춥니다. 설명문은 IBM Plex Sans KR.</dd>
+        <dt>움직임</dt><dd>물결·해안 포말·등대 빛·소용돌이는 0.65초 간격 프레임으로 은은하게 바뀌고, 동작 줄이기 설정이면 모두 멈추고 배는 즉시 이동합니다.</dd>
+        <dt>PPT로 옮기기</dt><dd><ol>
+          <li>캔버스를 5배(1920×1080)로 캡처해 슬라이드(13.33×7.5in) 배경으로 100% 크기 삽입.</li>
+          <li>파일 › 옵션 › 고급에서 “파일의 이미지 압축 안 함”을 켜고 기본 해상도를 “고품질”로. 안 그러면 점이 뭉개집니다.</li>
+          <li>글자는 이미지에 굽지 말고 Galmuri를 설치해 텍스트 상자로 올리고 “파일에 글꼴 포함”. 글꼴 크기는 9·7.5·6pt의 정수배만 씁니다.</li>
+          <li>항로는 구간별 점선 PNG 7장을 따로 두고 “닦아내기”, 배는 “사용자 지정 경로”로 움직입니다. 마지막 귀항 구간이 이어지는 순간 가운데 “1회 순환 완료” 텍스트 상자를 “나타내기”로 띄웁니다. 크기 조절 시 Shift로 정수배만.</li>
+        </ol></dd>
+        <dt>난이도</dt><dd>HTML 상·PPT 중. 지도 생성·애니메이션 코드는 손이 많이 가고, 정지 장면을 PPT로 쓰는 것은 캡처 후 텍스트만 올리면 됩니다.</dd>
+        <dt>반영 트렌드</dt><dd>Canva 2026 디자인 트렌드 보고서의 “Imperfect by Design”(로파이 미학 검색 527% 증가). 해도 테두리를 깨끗한 선 대신 얼룩·닳은 모서리로 디더링하고, 손으로 찍은 듯한 도트로 반영했습니다.</dd>
+      </dl>
+      <ul class="src">
+        <li>실물 조사: <a href="https://aamatniekss.itch.io/fantasy-paper-map-pixelart-asset-pack" target="_blank" rel="noopener">Fantasy Paper Map 픽셀 에셋(나침반 프레임·지명 배너·3크기 점 항로)</a></li>
+        <li><a href="https://upmala.itch.io/sea-map" target="_blank" rel="noopener">Sea Map 타일셋(16px 해안선 전이·작은 배)</a> · <a href="https://majadroid.itch.io/tiny-islands-16x16-tilemap" target="_blank" rel="noopener">Tiny Islands(8방향 범선·물결 애니메이션)</a></li>
+        <li><a href="https://docs.iho.int/iho_pubs/standard/S-4/INT2_Ed4.pdf" target="_blank" rel="noopener">IHO INT 2 해도 테두리·눈금 규정</a> · <a href="https://postalmuseum.si.edu/exhibition/allan-lee-collection-of-map-stamps-volume-6/the-portolanos" target="_blank" rel="noopener">스미스소니언 우편박물관: 포르톨라노(나침반 장미·항정선)</a></li>
+        <li>트렌드: <a href="https://www.businesswire.com/news/home/20251210696597/en" target="_blank" rel="noopener">Canva 2026 Design Trends Report 보도자료(BusinessWire, 2025-12-10)</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<script>
+(()=>{
+const W=384,H=216;
+const HEX={deep:'#1c4e8a',sea:'#2766a8',shallow:'#2f7fb8',shoal:'#4fb3c9',foam:'#c8f0f2',sand:'#e8c873',grass:'#3f9a6b',forest:'#1f5e4a',parch:'#d9b77a',parchD:'#a87b42',ink:'#3b2b45',coral:'#e0533d',gold:'#f2b63d',white:'#f4f7f2',navy:'#1a3a66'};
+const PREV={deep:'#12305a',sea:'#1d4f8c',ink:'#2a1a2e',navy:'#0b1a33'};
+const NAMES={deep:'깊은 바다',sea:'바다',shallow:'얕은 물',shoal:'여울',foam:'포말',sand:'모래',grass:'풀',forest:'숲',parch:'해도 종이',parchD:'얼룩·목재',ink:'먹',coral:'연결 항로',gold:'등불·보물',white:'돛',navy:'UI 판'};
+const pk=h=>{const n=parseInt(h.slice(1),16);return((255<<24)|((n&255)<<16)|(((n>>8)&255)<<8)|((n>>16)&255))>>>0};
+const C={};for(const k in HEX)C[k]=pk(HEX[k]);
+const L={k:C.ink,w:C.white,r:C.coral,g:C.gold,t:C.shoal,n:C.navy,b:C.parchD,e:C.grass,s:C.sand,f:C.foam,p:C.parch,d:C.deep,a:C.sea,h:C.shallow};
+
+const cv=document.getElementById('chart');cv.width=W;cv.height=H;
+const ctx=cv.getContext('2d');ctx.imageSmoothingEnabled=false;
+const img=ctx.createImageData(W,H);const buf=new Uint32Array(img.data.buffer);
+const base=new Uint32Array(W*H);
+const mq=matchMedia('(prefers-reduced-motion: reduce)');let reduce=mq.matches;
+
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function hash(x,y){let h=(x*374761393+y*668265263)|0;h=Math.imul(h^(h>>>13),1274126177);return((h^(h>>>16))>>>0)/4294967296}
+const chk=(x,y)=>((x+y)&1)===0;
+function put(B,x,y,c){x|=0;y|=0;if(x<0||y<0||x>=W||y>=H)return;B[y*W+x]=c}
+function sprite(B,map,x0,y0,flip,scale){scale=scale||1;const w=map[0].length;
+  for(let y=0;y<map.length;y++)for(let x=0;x<w;x++){const ch=map[y][flip?w-1-x:x];if(ch==='.'||ch===' ')continue;
+    for(let sy=0;sy<scale;sy++)for(let sx=0;sx<scale;sx++)put(B,x0+x*scale+sx,y0+y*scale+sy,L[ch])}}
+
+/* ── islands (seeded) — laid out as a ring: hub → spring → summer → autumn → winter → police → home → hub ── */
+const IS=[
+ {k:'hub',x:60,y:116,rx:20,ry:13,amp:.5,name:'유치원 모항',lx:38,ly:136},
+ {k:'traffic',x:98,y:84,rx:12,ry:10,amp:1,name:'봄·교통공원',lx:24,ly:82},
+ {k:'hospital',x:172,y:82,rx:11,ry:9,amp:1,name:'여름·병원',lx:152,ly:95},
+ {k:'fire',x:244,y:92,rx:11,ry:9,amp:1,name:'가을·소방서',lx:236,ly:71},
+ {k:'health',x:252,y:134,rx:12,ry:10,amp:1,name:'겨울·보건소',lx:226,ly:152},
+ {k:'police',x:198,y:150,rx:11,ry:9,amp:1,name:'경찰서',lx:157,ly:146},
+ {k:'home',x:124,y:150,rx:8,ry:7,amp:.8,name:'가정',lx:95,ly:146},
+ {k:'light',x:300,y:96,rx:7,ry:5,amp:.5}
+];
+const land=new Int8Array(W*H).fill(-1);
+const R=rng(20271002);
+IS.forEach((s,i)=>{const p=[R()*6.28,R()*6.28,R()*6.28];
+ for(let y=s.y-s.ry*2;y<=s.y+s.ry*2;y++)for(let x=s.x-s.rx*2;x<=s.x+s.rx*2;x++){if(x<0||y<0||x>=W||y>=H)continue;
+  const dx=(x+.5-s.x)/s.rx,dy=(y+.5-s.y)/s.ry,d=Math.hypot(dx,dy),a=Math.atan2(dy,dx);
+  const r=1+s.amp*(.14*Math.sin(3*a+p[0])+.08*Math.sin(5*a+p[1])+.05*Math.sin(8*a+p[2]));
+  if(d<r)land[y*W+x]=i}});
+function bfs(src){const d=new Int16Array(W*H).fill(999),q=new Int32Array(W*H);let h=0,t=0;
+ for(let i=0;i<W*H;i++)if(src(i)){d[i]=0;q[t++]=i}
+ while(h<t){const i=q[h++],x=i%W,y=(i/W)|0;
+  for(let oy=-1;oy<=1;oy++)for(let ox=-1;ox<=1;ox++){const nx=x+ox,ny=y+oy;if(nx<0||ny<0||nx>=W||ny>=H)continue;const j=ny*W+nx;if(d[j]>d[i]+1){d[j]=d[i]+1;q[t++]=j}}}
+ return d}
+const dSea=bfs(i=>land[i]>=0),dLand=bfs(i=>land[i]<0);
+
+for(let y=0;y<H;y++)for(let x=0;x<W;x++){const i=y*W+x;let c;
+ if(land[i]>=0){const d=dLand[i];c=d<=1?C.sand:d===2?(chk(x,y)?C.sand:C.grass):(hash(x,y)<.16?C.forest:C.grass)}
+ else{const d=dSea[i];c=d<=1?C.foam:d<=3?C.shoal:d===4?(chk(x,y)?C.shoal:C.shallow):d<=7?C.shallow:d===8?(chk(x,y)?C.shallow:C.sea):d<=13?C.sea:d===14?(chk(x,y)?C.sea:C.deep):C.deep}
+ base[i]=c}
+
+/* rhumb lines from the compass rose */
+const CR={x:336,y:44,r:13};
+for(let k=0;k<16;k++){const a=k*Math.PI/8;for(let r=CR.r+3;r<480;r++){const x=Math.round(CR.x+Math.cos(a)*r),y=Math.round(CR.y+Math.sin(a)*r);if(x<12||y<12||x>371||y>203)break;if(r%3)continue;const i=y*W+x;if(base[i]===C.deep)base[i]=C.sea}}
+
+/* ── loop route: 7 legs, each bowed outward from the ring centre ── */
+const isl=k=>IS.find(o=>o.k===k);
+const ORDER=['traffic','hospital','fire','health','police','home'];
+const NODE=[isl('hub'),...ORDER.map(isl)];
+const hub=NODE[0];
+const RC={x:156,y:117};
+const idx=p=>p[1]*W+p[0];
+function curve(a,b,bend){const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,dx=b.x-a.x,dy=b.y-a.y;
+ const cx=mx-dy*bend,cy=my+dx*bend,pts=[];let last=null;
+ for(let j=0;j<=800;j++){const t=j/800,u=1-t;const x=Math.round(u*u*a.x+2*u*t*cx+t*t*b.x),y=Math.round(u*u*a.y+2*u*t*cy+t*t*b.y);
+  if(last&&last[0]===x&&last[1]===y)continue;pts.push([x,y]);last=[x,y]}
+ return pts}
+function trim(pts){let a=0;while(a<pts.length&&land[idx(pts[a])]>=0)a++;let b=pts.length-1;while(b>0&&land[idx(pts[b])]>=0)b--;return[a,b]}
+const routes=NODE.map((A,i)=>{const B=NODE[(i+1)%NODE.length];const mx=(A.x+B.x)/2,my=(A.y+B.y)/2,dx=B.x-A.x,dy=B.y-A.y;
+ let bend=.16;if((-dy)*(mx-RC.x)+dx*(my-RC.y)<0)bend=-bend;
+ const pts=curve(A,B,bend);const[a,b]=trim(pts);return{k:B.k,A,s:B,pts,a,b,ha:a+4,dock:b-6}});
+const NL=routes.length; // 7 legs = 6 tasks + homecoming
+const LINKS=[['hospital','health',4],['fire','police',5],['traffic','home',6]]; // [islandA, islandB, visible from step]
+const links=LINKS.map(([p,q,st])=>{const A=isl(p),B=isl(q);const pts=curve(A,B,.06);const[a,b]=trim(pts);return{pts,a,b,st,A,B}});
+
+/* piers */
+routes.forEach(r=>{for(let j=r.b-2;j<=r.b;j++){const[x,y]=r.pts[j];base[y*W+x]=C.parchD}const[x,y]=r.pts[r.b-2];put(base,x,y+1,C.ink)});
+{const r=routes[0];for(let j=r.a;j<r.a+3;j++){const[x,y]=r.pts[j];base[y*W+x]=C.parchD}}
+
+/* ── sprites ── */
+const SP={
+ hub:["....r......","....rr.....","....k......","..kkkkkkk..",".krrrrrrrk.","krrrrrrrrrk",".kwwwwwwwk.",".kwgwkwgwk.",".kwwwkwwwk.",".kkkkkkkkk."],
+ health:["..kkkkk..",".ktttttk.","ktttttttk","kwwwwwwwk","kwrrwrrwk","kwrrrrrwk","kwwrrrwwk","kwwwrwwwk","kkkkkkkkk"],
+ fire:["...kgk...","..kkkkk..","kkkkkkkkk","krrrrrrrk","krkkkkkrk","krkwkwkrk","krkkkkkrk","krkwkwkrk","kkkkkkkkk"],
+ police:["..kkkkk..",".knnnnnk.","knnngnnnk","knngggnnk","knnngnnnk","kwwwwwwwk","kwnwkwnwk","kwwwkwwwk","kkkkkkkkk"],
+ traffic:["kkkk.....","krrk.....","kkkk..kk.","kggk.kwwk","kkkk.kwwk","keek..kk.","kkkk...k.",".kk....k.",".kk....k."],
+ hospital:["kkkkkkkkk","kwwwwwwwk","kwnwwwnwk","kwnwwwnwk","kwnnnnnwk","kwnwwwnwk","kwnwwwnwk","kwwwwwwwk","kkkkkkkkk"],
+ home:["....k....","...krk...","..krrrk..",".krrrrrk.","krrrrrrrk",".kwwwwwk.",".kwgwkwk.",".kwwwkwk.",".kkkkkkk."],
+ chest:[".kkkkkkk.","kbbbbbbbk","kkkkgkkkk","kbbbgbbbk","kbbbbbbbk","kkkkkkkkk"],
+ chestOpen:[".kkkkkkk.","kbbbbbbbk","kkkkkkkkk","kgggwgggk","kgggggggk","kkkkgkkkk","kbbbbbbbk","kkkkkkkkk"],
+ ship:[".....rrr.....",".....k.......","....wkw......","...wwkww.....","..wwwkwww....",".wwwwkwwww...",".....k.......","kkkkkkkkkkkk.","kbbbbbbbbbbbk",".kbbbbbbbbkk.","..kkkkkkkk..."],
+ anchor:["..w..",".w.w.","..w..","w.w.w",".www."],
+ cloud:["....ffff........","..ffwwwwff.fff..",".fwwwwwwwwfwwwf.","fwwwwwwwwwwwwwwf","ftttwwwwwwwwtttf",".ttttttttttttt.."],
+ /* season markers, one per leg */
+ blossom:[".w.w.","wwrww",".rgr.","wwrww",".w.w."],
+ sun:["g.g.g",".ggg.","ggggg",".ggg.","g.g.g"],
+ maple:["r.r.r",".rrr.","rrgrr",".rkr.","..k.."],
+ snow:["w.w.w",".fwf.","wwwww",".fwf.","w.w.w"],
+};
+for(const s of IS){if(!SP[s.k])continue;if(s.k==='hub')sprite(base,SP.hub,s.x-6,s.y-10);else sprite(base,SP[s.k],s.x-4,s.y-5)}
+sprite(base,SP.anchor,hub.x-15,hub.y-1);
+
+/* season markers: outer side of each leg's midpoint */
+const SEASON=['blossom','sun','maple','snow'];
+const seasonPos=SEASON.map((k,i)=>{const r=routes[i];const[mx,my]=r.pts[(r.a+r.b)>>1];const vx=mx-RC.x,vy=my-RC.y,l=Math.hypot(vx,vy)||1;
+ const x=Math.round(mx+vx/l*7)-2,y=Math.round(my+vy/l*7)-2;sprite(base,SP[k],x,y);return{x,y}});
+
+/* hazards */
+const HZ={storm:{x:206,y:98},reef:{x:100,y:110},whirl:{x:246,y:182}};
+{const{x:sx,y:sy}=HZ.storm;for(let y=-4;y<=4;y++)for(let x=-4;x<=4;x++){const d=Math.hypot(x,y);if(d<3.2)put(base,sx+x,sy+y,C.gold);else if(d<4.6&&(x===0||y===0||Math.abs(x)===Math.abs(y)))put(base,sx+x,sy+y,C.gold)}
+ sprite(base,SP.cloud,sx-2,sy+1);
+ [[1,8],[4,10],[7,8],[10,10],[13,8]].forEach(([x,y])=>{put(base,sx+x,sy+y,C.shoal);put(base,sx+x-1,sy+y+1,C.shoal)});
+ [[8,7],[7,8],[8,9],[7,10],[6,11]].forEach(([x,y])=>put(base,sx+x,sy+y,C.gold))}
+{const{x:rx,y:ry}=HZ.reef;[[0,0],[3,-2],[6,1],[9,-1],[12,1]].forEach(([x,y],i)=>{put(base,rx+x,ry+y,C.ink);put(base,rx+x+1,ry+y,C.parchD);put(base,rx+x,ry+y-1,C.parchD);if(i%2)put(base,rx+x+1,ry+y-1,C.ink)})}
+
+/* lighthouse */
+{const x0=298,yb=92;
+ for(let y=79;y<=yb;y++){const stripe=Math.floor((y-79)/3)%2?C.coral:C.white;for(let x=x0;x<x0+5;x++)put(base,x,y,stripe);put(base,x0-1,y,C.ink);put(base,x0+5,y,C.ink)}
+ for(let x=x0-1;x<=x0+5;x++){put(base,x,78,C.ink);put(base,x,74,C.ink)}
+ for(let y=75;y<=77;y++){put(base,x0-1,y,C.ink);put(base,x0+5,y,C.ink);for(let x=x0;x<x0+5;x++)put(base,x,y,C.gold)}
+ put(base,x0+2,76,C.white);
+ for(let x=x0;x<=x0+4;x++)put(base,x,73,C.coral);put(base,x0+1,72,C.coral);put(base,x0+2,72,C.coral);put(base,x0+3,72,C.coral);put(base,x0+2,71,C.ink)}
+
+/* ── border: paper band, labels, zebra graduation ── */
+const GL={A:["111","101","111","101","101"],B:["110","101","110","101","110"],C:["111","100","100","100","111"],D:["110","101","101","101","110"],E:["111","100","110","100","111"],F:["111","100","110","100","100"],1:["010","110","010","010","111"],2:["110","001","010","100","111"],3:["110","001","010","001","110"],4:["101","101","111","001","001"]};
+function glyph(ch,x0,y0,c){const g=GL[ch];for(let y=0;y<5;y++)for(let x=0;x<3;x++)if(g[y][x]==='1')put(base,x0+x,y0+y,c)}
+for(let y=0;y<H;y++)for(let x=0;x<W;x++){const d=Math.min(x,y,W-1-x,H-1-y);if(d>11)continue;let c;
+ if(d===0||d===8||d===11)c=C.ink;
+ else if(d<=7){const h=hash(x*3,y*5);c=C.parch;if(h<.06||(d===1&&h<.3))c=C.parchD;
+   const st=[[30,4],[200,211],[379,120],[4,170],[300,2]];for(const[sx,sy]of st){const r=Math.hypot(x-sx,y-sy);if(r<7&&chk(x,y)&&hash(x,y)<.7)c=C.parchD}}
+ else{const along=(y<=11||y>=H-12)?x:y;const seg=Math.floor(along/6);c=((seg+(d===9?0:1))&1)?C.ink:C.white;
+   if((x<=11||x>=W-12)&&(y<=11||y>=H-12))c=C.parch}
+ base[y*W+x]=c}
+for(let i=0;i<6;i++){const cx=12+60*i+30;glyph('ABCDEF'[i],cx-1,2,C.ink);glyph('ABCDEF'[i],cx-1,H-7,C.ink);
+ const gx=12+60*i;if(i)for(let y=4;y<=7;y++){put(base,gx,y,C.ink);put(base,gx,H-1-y,C.ink)}}
+for(let j=0;j<4;j++){const cy=12+48*j+24;glyph(String(j+1),2,cy-2,C.ink);glyph(String(j+1),W-5,cy-2,C.ink);
+ const gy=12+48*j;if(j)for(let x=4;x<=7;x++){put(base,x,gy,C.ink);put(base,W-1-x,gy,C.ink)}}
+[[0,0],[W-12,0],[0,H-12],[W-12,H-12]].forEach(([ox,oy])=>{for(let y=0;y<12;y++)for(let x=0;x<12;x++){const e=x===0||y===0||x===11||y===11;put(base,ox+x,oy+y,e?C.ink:C.parch)}
+ for(let k=3;k<=8;k++){put(base,ox+k,oy+k,C.coral);put(base,ox+11-k,oy+k,C.coral)}});
+
+/* ── plates ── */
+function navyPlate(x0,y0,x1,y1){for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){if((x===x0||x===x1)&&(y===y0||y===y1))continue;
+ const e=x===x0||x===x1||y===y0||y===y1;put(base,x,y,e?C.shoal:C.navy)}
+ for(let x=x0+1;x<=x1+1;x++)put(base,x,y1+1,C.ink);for(let y=y0+1;y<=y1;y++)put(base,x1+1,y,C.ink)}
+function parchPlate(x0,y0,x1,y1,seed){const r=rng(seed);const blobs=[[x0+r()*(x1-x0),y0+r()*(y1-y0)],[x0+r()*(x1-x0),y0+r()*(y1-y0)]];
+ for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){if((x===x0||x===x1)&&(y===y0||y===y1))continue;
+  const e=x===x0||x===x1||y===y0||y===y1;const e2=(x===x0+2||x===x1-2)&&y>=y0+2&&y<=y1-2||(y===y0+2||y===y1-2)&&x>=x0+2&&x<=x1-2;
+  let c=e?C.ink:e2?C.parchD:C.parch;
+  if(!e&&!e2){for(const[bx,by]of blobs)if(Math.hypot(x-bx,(y-by)*1.6)<6&&chk(x,y)&&hash(x,y)<.35)c=C.parchD;if(hash(x+7,y+3)<.012)c=C.parchD}
+  put(base,x,y,c)}
+ for(let x=x0+1;x<=x1+1;x++)put(base,x,y1+1,C.ink)}
+const PL={cart:[18,16,186,66],count:[196,16,300,35],info:[16,166,206,201],log:[280,118,368,201]};
+parchPlate(...PL.cart,11);
+/* scroll rolls */
+[[13,21],[183,186]].forEach(([a,b],side)=>{const xs=side?PL.cart[2]-3:PL.cart[0]-5;for(let y=PL.cart[1]-3;y<=PL.cart[3]+3;y++)for(let x=xs;x<xs+8;x++){const e=x===xs||x===xs+7||y===PL.cart[1]-3||y===PL.cart[3]+3;put(base,x,y,e?C.ink:(x===xs+2||x===xs+3)?C.parch:C.parchD)}
+ for(let y=PL.cart[1]-1;y<=PL.cart[3]+1;y+=4)put(base,xs+5,y,C.ink)});
+navyPlate(...PL.count);navyPlate(...PL.info);
+parchPlate(...PL.log,5);
+for(let y=PL.log[1]+5;y<PL.log[3]-2;y+=8){put(base,PL.log[0]+3,y,C.ink);put(base,PL.log[0]+4,y,C.ink);put(base,PL.log[0]+2,y+1,C.white);put(base,PL.log[0]+3,y+1,C.ink)}
+for(let x=PL.log[0]+8;x<=PL.log[2]-5;x++)if(x%2)put(base,x,131,C.parchD);
+/* portrait frame + minimap well */
+for(let y=170;y<=196;y++)for(let x=20;x<=46;x++){const e=x===20||x===46||y===170||y===196;put(base,x,y,e?C.shoal:C.deep)}
+for(let y=19;y<=32;y++)for(let x=199;x<=232;x++){const e=x===199||x===232||y===19||y===32;put(base,x,y,e?C.sea:C.deep)}
+
+/* compass rose */
+{const{x:cx,y:cy,r}=CR;
+ for(let y=-r-1;y<=r+1;y++)for(let x=-r-1;x<=r+1;x++){const d=Math.hypot(x+.0,y+.0);if(d<=r+.5){put(base,cx+x,cy+y,d>r-.6?C.ink:C.parch)}}
+ for(let k=0;k<32;k++){const a=k*Math.PI/16;const rr=k%4===0?r-2:r-1;put(base,Math.round(cx+Math.cos(a)*rr),Math.round(cy+Math.sin(a)*rr),C.parchD)}
+ function tri(ax,ay,bx,by,qx,qy,c){const minx=Math.floor(Math.min(ax,bx,qx)),maxx=Math.ceil(Math.max(ax,bx,qx)),miny=Math.floor(Math.min(ay,by,qy)),maxy=Math.ceil(Math.max(ay,by,qy));
+  const s=(p1x,p1y,p2x,p2y,p3x,p3y)=>(p1x-p3x)*(p2y-p3y)-(p2x-p3x)*(p1y-p3y);
+  for(let y=miny;y<=maxy;y++)for(let x=minx;x<=maxx;x++){const px=x+.5,py=y+.5;const d1=s(px,py,ax,ay,bx,by),d2=s(px,py,bx,by,qx,qy),d3=s(px,py,qx,qy,ax,ay);
+   const neg=d1<0||d2<0||d3<0,pos=d1>0||d2>0||d3>0;if(!(neg&&pos))put(base,x,y,c)}}
+ const X=cx+.5,Y=cy+.5;
+ function point(ang,len,w,cl,cr){const tx=X+Math.cos(ang)*len,ty=Y+Math.sin(ang)*len;
+  const lx=X+Math.cos(ang-Math.PI/2)*w,ly=Y+Math.sin(ang-Math.PI/2)*w,rx=X+Math.cos(ang+Math.PI/2)*w,ry=Y+Math.sin(ang+Math.PI/2)*w;
+  tri(X,Y,tx,ty,lx,ly,cl);tri(X,Y,tx,ty,rx,ry,cr)}
+ for(let k=0;k<4;k++)point(Math.PI/4+k*Math.PI/2,r-5,2.2,C.shoal,C.sea);
+ for(let k=0;k<4;k++){const a=-Math.PI/2+k*Math.PI/2;point(a,r-1,3,k===0?C.coral:C.navy,k===0?C.white:C.white)}
+ put(base,cx,cy,C.gold);put(base,cx+1,cy,C.gold);put(base,cx,cy+1,C.gold);put(base,cx+1,cy+1,C.gold)}
+
+/* sea objects that waves must avoid */
+const AVOID=[[...PL.cart],[...PL.count],[...PL.info],[...PL.log],[CR.x-22,CR.y-24,CR.x+36,CR.y+26],
+ [HZ.storm.x-6,HZ.storm.y-6,HZ.storm.x+15,HZ.storm.y+13],[HZ.reef.x-4,HZ.reef.y-6,HZ.reef.x+16,HZ.reef.y+6],[HZ.whirl.x-12,HZ.whirl.y-10,HZ.whirl.x+12,HZ.whirl.y+10],
+ [270,68,330,104],[296,36,371,70],...seasonPos.map(p=>[p.x-1,p.y-1,p.x+5,p.y+5])];
+const inAvoid=(x,y,m)=>AVOID.some(([a,b,c,d])=>x>=a-m&&x<=c+m&&y>=b-m&&y<=d+m);
+const waves=[];{const r=rng(77);let tries=0;while(waves.length<70&&tries<8000){tries++;const x=14+Math.floor(r()*350),y=14+Math.floor(r()*186);
+ if(dSea[y*W+x]<6||inAvoid(x,y,3))continue;if(waves.some(w=>Math.abs(w.x-x)<11&&Math.abs(w.y-y)<7))continue;waves.push({x,y,ph:Math.floor(r()*3)})}}
+const WSH=[[[0,0],[1,-1],[2,-1],[3,0]],[[1,0],[2,-1],[3,-1],[4,0]],[[1,0],[2,0],[3,0]]];
+const foamPx=[];for(let i=0;i<W*H;i++){const x=i%W,y=(i/W)|0;if(land[i]<0&&dSea[i]===1&&x>11&&y>11&&x<372&&y<204&&!inAvoid(x,y,0))foamPx.push(i)}
+
+/* ── content ── */
+const COL='ABCDEF';
+const grid=s=>COL[Math.min(5,Math.floor((s.x-12)/60))]+(Math.min(3,Math.floor((s.y-12)/48))+1);
+const NUM='①②③④⑤⑥';
+const STEP=[
+ {t:'Ⅰ 추진 배경 · 3월 출항 전',a:'기관별 안전교육이 1회성 행사로 끝남',b:'위험 3곳 → 해마다 도는 항로 필요',icon:'storm'},
+ {t:'봄 · 교통공원',a:'교통안전 체험 + 통학 차량 승하차',b:'3~5월 · 지침: 교통안전'},
+ {t:'여름 · 병원',a:'물놀이 안전 + 응급처치 체험',b:'6~8월 · 지침: 응급처치'},
+ {t:'가을 · 소방서',a:'화재 대피 합동 훈련 · 소화기 체험',b:'9~11월 · 지침: 재난안전'},
+ {t:'겨울 · 보건소',a:'손 씻기·감염병 예방 + 겨울 건강',b:'12~1월 · 지침: 생활안전'},
+ {t:'경찰서',a:'실종·유괴 예방 · 지문 사전등록',b:'1월 · 지침: 폭력예방·신변보호'},
+ {t:'가정',a:'가정 연계 안전 습관 · 부모 교육',b:'2월 · 지침: 생활안전'},
+ {t:'Ⅴ 귀항 · 평가·환류',a:'1회 순환 완료 → 다음 해 항로 개선',b:'2월 말 평가 → 2028 계획에 반영',icon:'chestOpen'}
+];
+const LOG=[['봄','교통안전'],['여름','응급처치'],['가을','화재대피'],['겨울','감염예방'],['1월','실종예방'],['2월','가정연계'],['귀항','평가환류']];
+const HZT=[['감염·폭염 폭풍',HZ.storm.x-14,HZ.storm.y+14],['교통 암초',HZ.reef.x-4,HZ.reef.y+5],['실종 소용돌이',HZ.whirl.x-32,HZ.whirl.y+9]];
+const LOOPXY=[94,126];
+
+const $=id=>document.getElementById(id);
+const hzBox=$('hz');HZT.forEach(([t,x,y])=>{const d=document.createElement('div');d.className='ov f7 tag hz';d.style.setProperty('--x',x);d.style.setProperty('--y',y);d.textContent=t;hzBox.appendChild(d)});
+const loopEl=$('loop');loopEl.style.setProperty('--x',LOOPXY[0]);loopEl.style.setProperty('--y',LOOPXY[1]);
+const labelBox=$('labels');
+const labelEls=IS.filter(s=>s.name).map(s=>{const d=document.createElement('div');d.className='ov f7 tag';d.style.setProperty('--x',s.lx);d.style.setProperty('--y',s.ly);d.textContent=s.name;labelBox.appendChild(d);return{s,d}});
+const logEl=$('log');
+const logLis=LOG.map(([m,t])=>{const li=document.createElement('li');li.innerHTML='<span class="mk"></span><span class="se">'+m+'</span><span>'+t+'</span>';logEl.appendChild(li);return li});
+
+let step=3,anim=null,facing=1,auto=null; // first view: halfway round, autumn reached
+function pt(r,j){const p=routes[r].pts[Math.max(0,Math.min(routes[r].pts.length-1,Math.round(j)))];return{x:p[0],y:p[1]}}
+function restPos(s){return s===0?pt(0,routes[0].ha):pt(s-1,routes[s-1].dock)}
+
+function updateUI(s){
+ const st=STEP[s];
+ if(s>=1&&s<=6){$('i1').textContent='Ⅲ 과제'+NUM[s-1]+' '+st.t+' · '+grid(routes[s-1].s)}else $('i1').textContent=st.t;
+ $('i2').textContent=st.a;$('i3').textContent=st.b;
+ $('cnt').textContent=s===NL?'순환 완료':'구간 '+s+'/'+NL;
+ logLis.forEach((li,i)=>{const done=i<s,now=(s>=1&&i===s-1);li.className=now?'now':done?'done':'todo';li.firstChild.textContent=now?'▶':done?'■':'□'});
+ labelEls.forEach(({s:is,d})=>{const ri=ORDER.indexOf(is.k);d.classList.toggle('on',is.k==='hub'?s===NL:ri>=0&&ri<s)});
+ loopEl.textContent=s===NL?'1회 순환 완료 → 다음 해 항로 개선':'↻ 연간 순환 · 3월 출항 → 2월 귀항';loopEl.classList.toggle('on',s===NL);
+ $('prev').disabled=s===0;$('next').disabled=s===NL;$('next').textContent=s===NL-1?'모항 귀항 ▶':'다음 항로 ▶';
+ $('status').textContent=(s===0?'출항 전':s===NL?'귀항 · 고리 닫힘 — 1회 순환 완료 → 다음 해 항로 개선':'구간 '+NUM[s-1]+' '+st.t+' 도착')+' — 단계 '+s+'/'+NL;
+}
+
+/* ── render ── */
+function drawRoute(r,upto,col){const R=routes[r];const end=Math.min(R.b,upto);
+ for(let j=R.a;j<=end;j++){if((j-R.a)%4)continue;const[x,y]=R.pts[j];
+  if(col){for(const[ox,oy]of[[0,0],[1,0],[0,1],[1,1]]){const i=(y+oy)*W+x+ox;if(land[i]<0)buf[i]=C.coral}}
+  else if(land[y*W+x]<0)buf[y*W+x]=C.foam}}
+function arcAt(seg,e){const{c,p,q}=seg;const a0=Math.atan2(p.y-c.y,p.x-c.x);let da=Math.atan2(q.y-c.y,q.x-c.x)-a0;da=Math.atan2(Math.sin(da),Math.cos(da));
+ const r0=Math.hypot(p.x-c.x,p.y-c.y),r1=Math.hypot(q.x-c.x,q.y-c.y),rm=Math.max(c.rx,c.ry)*1.25+7;
+ const rr=r0+(r1-r0)*e+Math.sin(Math.PI*e)*Math.max(0,rm-Math.min(r0,r1));const a=a0+da*e;
+ return{x:Math.round(c.x+Math.cos(a)*rr),y:Math.round(c.y+Math.sin(a)*rr)}}
+function render(now){
+ const f=reduce?0:Math.floor(now/650);
+ buf.set(base);
+ for(const i of foamPx){const x=i%W,y=(i/W)|0;if((x*7+y*3+f)%6===0)buf[i]=C.shoal}
+ for(const w of waves){const sh=WSH[(w.ph+f)%3];const c=base[w.y*W+w.x]===C.deep?C.sea:C.shallow;for(const[dx,dy]of sh)put(buf,w.x+dx,w.y+dy,base[(w.y+dy)*W+w.x+dx]===C.deep?C.sea:c)}
+ /* reef surf */
+ {const{x:rx,y:ry}=HZ.reef;[[-1,2],[4,3],[10,3],[14,0],[-2,-2]].forEach(([x,y],k)=>{if((k+f)%2===0)put(buf,rx+x,ry+y,C.foam)})}
+ /* whirlpool */
+ {const{x:cx,y:cy}=HZ.whirl;for(let k=0;k<26;k++){const a=k*.55+f*.9,r=1+k*.26;put(buf,Math.round(cx+Math.cos(a)*r*1.4),Math.round(cy+Math.sin(a)*r*.8),k%3?C.shoal:C.foam)}}
+ /* lighthouse beam */
+ {const lx=300,ly=76;const side=f%2;for(let dx=4;dx<=24;dx++)for(let dy=-Math.floor(dx*.22);dy<=Math.floor(dx*.22);dy++){
+   for(const sgn of[-1,1]){const x=lx+sgn*dx+(sgn>0?2:0),y=ly+dy;const strong=(sgn<0)===(side===0)||reduce;
+    const i=y*W+x;if(inAvoid(x,y,0)&&!(x>270&&x<330&&y>68&&y<104))continue;if(land[i]>=0)continue;
+    if(strong?chk(x,y):(x%3===0&&y%2===0))buf[i]=dx<10?C.gold:C.foam}}}
+ /* planned loop */
+ for(let r=0;r<NL;r++)drawRoute(r,1e9,false);
+ /* secondary links across the ring */
+ const conn=anim?anim.from:step;
+ links.forEach(l=>{if(conn<l.st)return;for(let j=l.a;j<=l.b;j++){if((j-l.a)%3)continue;const[x,y]=l.pts[j];if(land[y*W+x]<0)buf[y*W+x]=C.gold}});
+ /* sailed legs */
+ for(let r=0;r<Math.min(conn,NL);r++)drawRoute(r,1e9,true);
+ let ship=restPos(step);
+ if(anim){const seg=anim.segs[anim.i];const t=Math.min(1,(now-anim.t0)/seg.dur);const e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+  if(seg.arc){ship=arcAt(seg,e);const nx=arcAt(seg,Math.min(1,e+.05));if(nx.x!==ship.x)facing=nx.x>ship.x?1:-1}
+  else{const j=seg.from+(seg.to-seg.from)*e;ship=pt(seg.r,j);const ahead=pt(seg.r,j+(seg.to>seg.from?3:-3));if(ahead.x!==ship.x)facing=ahead.x>ship.x?1:-1;
+   if(seg.draw)drawRoute(seg.r,Math.floor(j),true)}
+  ship.moving=true;
+  if(t>=1){anim.i++;anim.t0=now;if(anim.i>=anim.segs.length){step=anim.to;anim=null;updateUI(step);ship=restPos(step);ship.moving=false;onArrive()}}}
+ /* chest on the home port */
+ const cx0=hub.x+3,cy0=hub.y+1;
+ if(step===NL&&!anim){sprite(buf,SP.chestOpen,cx0,cy0-2);if(!reduce){const sp=[[cx0-2,cy0-3],[cx0+10,cy0-4],[cx0+4,cy0-6],[cx0+11,cy0+1]];sp.forEach(([x,y],k)=>{if((k+f)%2===0){put(buf,x,y,C.gold);put(buf,x+1,y,C.white)}})}else{put(buf,cx0+4,cy0-6,C.gold)}}
+ else sprite(buf,SP.chest,cx0,cy0);
+ /* ship */
+ const bob=reduce?0:(f%2);
+ sprite(buf,SP.ship,ship.x-6,ship.y-9+bob,facing<0);
+ if(ship.moving){put(buf,ship.x-7*facing,ship.y+1,C.foam);put(buf,ship.x-9*facing,ship.y,C.foam);put(buf,ship.x-8*facing,ship.y+2,C.shoal)}
+ /* minimap: the ring */
+ const mm=s=>({x:200+Math.round((s.x-12)/360*31),y:20+Math.round((s.y-12)/192*11)});
+ const line=(a,b,c)=>{let x0=a.x,y0=a.y;const x1=b.x,y1=b.y,dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let er=dx+dy;for(;;){put(buf,x0,y0,c);if(x0===x1&&y0===y1)break;const e2=2*er;if(e2>=dy){er+=dy;x0+=sx}if(e2<=dx){er+=dx;y0+=sy}}};
+ links.forEach(l=>{if(conn>=l.st)line(mm(l.A),mm(l.B),C.coral)});
+ NODE.forEach((n,i)=>line(mm(n),mm(NODE[(i+1)%NL]),i<conn?C.gold:C.sea));
+ NODE.forEach((n,i)=>{if(i){const p=mm(n);put(buf,p.x,p.y,i<=conn?C.white:C.shoal)}});
+ const H0=mm(hub);put(buf,H0.x,H0.y,C.gold);
+ /* portrait */
+ const ps=anim?anim.to:step;const key=ps>=1&&ps<=6?ORDER[ps-1]:STEP[ps].icon;
+ if(key==='storm'){sprite(buf,SP.cloud,25,177);[[28,184],[33,186],[38,184]].forEach(([x,y])=>{put(buf,x,y,C.shoal);put(buf,x-1,y+1,C.shoal)});[[36,183],[35,184],[36,185],[35,186]].forEach(([x,y])=>put(buf,x,y,C.gold))}
+ else{const m=SP[key];const w=m[0].length,h=m.length;sprite(buf,m,33-w,183-h,false,2)}
+ ctx.putImageData(img,0,0);
+}
+function onArrive(){if(auto){auto.timer=setTimeout(()=>{if(step<NL)go(1,true);else auto=null},900)}}
+
+function go(dir,fromAuto){
+ if(!fromAuto)stopAuto();
+ if(anim)return;
+ if(dir<0){if(step>0){step--;updateUI(step)}return}
+ if(step>=NL)return;
+ const s=step,to=s+1;updateUI(to);$('status').textContent='항해 중 → '+(to===NL?'모항(귀항)':STEP[to].t);
+ if(reduce){step=to;updateUI(step);onArrive();return}
+ const segs=[];const sp=d=>Math.max(650,Math.min(1700,Math.abs(d)*16));
+ if(s>=1){const p=restPos(s),q=pt(s,routes[s].ha);segs.push({arc:true,c:NODE[s],p,q,dur:520})}
+ const r=routes[s];segs.push({r:s,from:r.ha,to:r.dock,dur:sp(r.dock-r.ha),draw:true});
+ anim={from:s,to,segs,i:0,t0:performance.now()};
+}
+function stopAuto(){if(auto){clearTimeout(auto.timer);auto=null}}
+function replay(){stopAuto();anim=null;step=0;updateUI(0);
+ if(reduce){$('status').textContent='처음으로 돌아왔습니다 — 다음 항로를 눌러 진행';return}
+ auto={timer:setTimeout(()=>go(1,true),800)}}
+$('next').addEventListener('click',()=>go(1));
+$('prev').addEventListener('click',()=>go(-1));
+$('replay').addEventListener('click',replay);
+document.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==='ArrowRight'){go(1);e.preventDefault()}else if(e.key==='ArrowLeft'){go(-1);e.preventDefault()}});
+mq.addEventListener&&mq.addEventListener('change',e=>{reduce=e.matches});
+
+/* integer scaling */
+const cover=$('cover');
+function fit(){const avail=cover.parentElement.clientWidth;let w=avail;let k=Math.floor(avail/W);if(k>=1){k=Math.min(k,4);w=k*W}
+ cover.style.width=w+'px';$('scale').textContent=k>=1?('×'+k+' ('+(k*W)+'×'+(k*H)+')'):'×'+(avail/W).toFixed(2)+' (화면이 좁아 비정수)'}
+fit();addEventListener('resize',fit);
+
+/* swatches (changed colours show their previous value) */
+const sw=$('sw');for(const k in HEX){const li=document.createElement('li');li.innerHTML='<i style="background:'+HEX[k]+'"></i><span><code>'+HEX[k]+'</code>'+NAMES[k]+(PREV[k]?'<s>이전 '+PREV[k]+'</s>':'')+'</span>';sw.appendChild(li)}
+
+updateUI(step);
+let lastF=-1;
+function loop(now){const f=reduce?0:Math.floor(now/650);if(anim||f!==lastF){render(now);lastF=f}requestAnimationFrame(loop)}
+render(performance.now());requestAnimationFrame(loop);
+window.__chart={routes,IS,go,step:()=>step};
+})();
+</script>
+
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/12.html" target="_blank" rel="noopener">refs/12.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #12 협력 항로 해도 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+@font-face { font-family: Galmuri11; font-weight: 400; src: url("../src/12/assets/19522287d0.woff2") format("woff2"); }
+@font-face { font-family: Galmuri11; font-weight: 700; src: url("../src/12/assets/20d6668a97.woff2") format("woff2"); }
+@font-face { font-family: Galmuri9; src: url("../src/12/assets/ee479e772a.woff2") format("woff2"); }
+@font-face { font-family: Galmuri7; src: url("../src/12/assets/3557eab0ea.woff2") format("woff2"); }
+:root { color-scheme: dark; --desk: #1a3a66; --deep: #21477a; --sea: #2f63a0; --shoal: #4fb3c9; --foam: #c8f0f2; --parch: #d9b77a; --ink: #3b2b45; --coral: #e0533d; --gold: #f2b63d; --white: #f4f7f2; --shade: #12305a; --dot: "Galmuri11","Galmuri9","DotGothic16",monospace; --body: "IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif; }
+.wrap { max-width: 1180px; margin: 0px auto; padding-inline: 16px; padding-block: 20px 56px; display: flex; flex-direction: column; gap: 28px; }
+.stage { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.cover { position: relative; container-type: inline-size; width: 100%; aspect-ratio: 16 / 9; max-width: 100%; --u: calc(100cqw/384); background: var(--deep); box-shadow: 0 0 0 1px var(--ink),0 10px 0 -4px var(--shade); }
+.cover canvas { position: absolute; inset: 0px; width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+.ov { position: absolute; left: calc(var(--x)*var(--u)); top: calc(var(--y)*var(--u)); white-space: nowrap; -webkit-font-smoothing: none; text-rendering: optimizespeed; pointer-events: none; }
+.f7 { font-family: Galmuri7, monospace; font-size: calc(8*var(--u)); line-height: calc(9*var(--u)); }
+.f9 { font-family: Galmuri9, monospace; font-size: calc(10*var(--u)); line-height: calc(11*var(--u)); }
+.f11 { font-family: Galmuri11, monospace; font-size: calc(12*var(--u)); line-height: calc(13*var(--u)); }
+.b { font-weight: 700; }
+.c-ink { color: var(--ink); }
+.c-white { color: var(--white); }
+.c-shoal { color: var(--shoal); }
+.c-gold { color: var(--gold); }
+.tag { background: var(--desk); color: var(--white); padding: 0 calc(2*var(--u)); line-height: calc(10*var(--u)); box-shadow: 0 0 0 calc(1*var(--u)) var(--ink); }
+.tag.on { color: var(--gold); }
+.tag.hz { color: rgb(255, 138, 110); background: var(--desk); }
+.tag.cp { color: var(--parch); }
+.tag.loop { color: var(--foam); }
+.tag.loop.on { color: var(--gold); box-shadow: 0 0 0 calc(1*var(--u)) var(--gold); }
+.stamp { color: rgb(138, 35, 20); padding: 0 calc(2*var(--u)); line-height: calc(9*var(--u)); box-shadow: inset 0 0 0 calc(1*var(--u)) #8a2314; transform: rotate(-4deg); }
+.log li { list-style: none; display: flex; gap: calc(4*var(--u)); }
+.log ul { margin: 0px; padding: 0px; }
+.log .mk { width: calc(8*var(--u)); color: var(--ink); }
+.log .se { width: calc(16*var(--u)); }
+.log li.now .mk { color: rgb(138, 35, 20); }
+.log li.todo { color: rgb(94, 68, 38); }
+.btn { font-family: Galmuri11, monospace; font-size: 13px; line-height: 1; color: var(--white); background: var(--deep); border: 0px; padding: 10px 14px; cursor: pointer; box-shadow: inset 0 0 0 2px var(--shoal),3px 3px 0 0 var(--shade); }
+.btn.primary { background: rgb(194, 65, 44); color: var(--white); box-shadow: inset 0 0 0 2px var(--ink),3px 3px 0 0 var(--shade); }
+.btn:hover { transform: translate(-1px, -1px); }
+.btn:active { transform: translate(2px, 2px); box-shadow: inset 0 0 0 2px var(--shoal); }
+.btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+.status { font-family: Galmuri9, monospace; font-size: 11px; color: var(--shoal); min-height: 1.4em; text-align: center; }
+section h2 .no { font-family: Galmuri9, monospace; font-weight: 400; font-size: 10px; color: var(--desk); background: var(--parch); padding: 2px 6px; }
+td .k { color: var(--gold); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; margin: 0px 0px 14px; padding: 0px; list-style: none; }
+.swatches li { display: flex; gap: 8px; align-items: center; font-size: 12px; }
+.swatches i { width: 22px; height: 22px; flex: 0 0 auto; box-shadow: 0 0 0 1px var(--ink),0 0 0 2px var(--sea); }
+.swatches code { font-family: Galmuri9, monospace; font-size: 10px; color: var(--white); display: block; }
+.swatches s { font-family: Galmuri9, monospace; font-size: 10px; color: var(--shoal); text-decoration: none; display: block; }
+.src { font-size: 12px; color: var(--shoal); margin: 14px 0px 0px; padding-left: 18px; }
+.src li { margin: 2px 0px; }
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'IBM Plex Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;font-size:15px;line-height:24.75px;color:rgb(200, 240, 242)"&gt;&lt;div class="stage"&gt;
+&lt;div class="cover" id="cover"&gt;
+      &lt;canvas id="chart" role="img" aria-label="가상 항해 게임 해도. 왼쪽 유치원 모항에서 출항해 봄 교통공원, 여름 병원, 가을 소방서, 겨울 보건소, 경찰서, 가정 섬을 차례로 돌고 다시 모항으로 돌아오는 고리 모양 항로가 그려져 있고, 가을 소방서까지 7구간 중 3구간이 연결된 상태입니다."&gt;&lt;/canvas&gt;
+
+      &lt;div class="ov f7 c-ink" style="--x:27;--y:20"&gt;물마루 항해기 · 제3해역 「협력의 바다」&lt;/div&gt;
+      &lt;div class="ov f11 b c-ink" style="--x:27;--y:30"&gt;2027 유아 안전·건강 교육&lt;/div&gt;
+      &lt;div class="ov f11 b c-ink" style="--x:27;--y:43"&gt;지원 계획(안)&lt;/div&gt;
+      &lt;div class="ov f7 c-ink" style="--x:27;--y:56"&gt;○○교육청 유아교육과 · 2026. 12.&lt;/div&gt;
+      &lt;div class="ov f7 stamp" style="--x:128;--y:45"&gt;가상 예시&lt;/div&gt;
+
+      &lt;div class="ov f7 c-shoal" style="--x:236;--y:18"&gt;순환 항로&lt;/div&gt;
+      &lt;div class="ov f7 c-white" style="--x:236;--y:26" id="cnt"&gt;구간 3/7&lt;/div&gt;
+
+      &lt;div class="ov f7 tag cp" style="--x:326;--y:20"&gt;예방&lt;/div&gt;
+      &lt;div class="ov f7 tag cp" style="--x:351;--y:39"&gt;체험&lt;/div&gt;
+      &lt;div class="ov f7 tag cp" style="--x:326;--y:59"&gt;연계&lt;/div&gt;
+      &lt;div class="ov f7 tag cp" style="--x:301;--y:39"&gt;참여&lt;/div&gt;
+
+      &lt;div id="hz"&gt;&lt;/div&gt;
+      &lt;div class="ov f7 tag" style="--x:283;--y:104"&gt;Ⅱ 등대·안전 지침&lt;/div&gt;
+
+      &lt;div id="labels"&gt;&lt;/div&gt;
+      &lt;div class="ov f7 tag loop" id="loop"&gt;&lt;/div&gt;
+
+      &lt;div class="ov f9 c-gold" style="--x:50;--y:169" id="i1"&gt;&lt;/div&gt;
+      &lt;div class="ov f7 c-white" style="--x:50;--y:181" id="i2"&gt;&lt;/div&gt;
+      &lt;div class="ov f7 c-shoal" style="--x:50;--y:190" id="i3"&gt;&lt;/div&gt;
+
+      &lt;div class="ov f9 c-ink b log" style="--x:289;--y:121"&gt;Ⅳ 항해 일지&lt;/div&gt;
+      &lt;div class="ov f7 c-ink log" style="--x:289;--y:134"&gt;&lt;ul id="log"&gt;&lt;/ul&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;button class="btn" id="prev" type="button"&gt;◀ 이전&lt;/button&gt;
+&lt;button class="btn primary" id="next" type="button"&gt;다음 항로 ▶&lt;/button&gt;
+&lt;button class="btn" id="replay" type="button"&gt;다시 보기&lt;/button&gt;
+&lt;div class="status" id="status" aria-live="polite"&gt;&lt;/div&gt;
+&lt;ul class="swatches" id="sw"&gt;&lt;/ul&gt;
+&lt;b id="scale"&gt;×2&lt;/b&gt;
+&lt;/div&gt;&lt;/div&gt;
+
+&lt;script&gt;
+(()=&gt;{
+const W=384,H=216;
+const HEX={deep:'#1c4e8a',sea:'#2766a8',shallow:'#2f7fb8',shoal:'#4fb3c9',foam:'#c8f0f2',sand:'#e8c873',grass:'#3f9a6b',forest:'#1f5e4a',parch:'#d9b77a',parchD:'#a87b42',ink:'#3b2b45',coral:'#e0533d',gold:'#f2b63d',white:'#f4f7f2',navy:'#1a3a66'};
+const PREV={deep:'#12305a',sea:'#1d4f8c',ink:'#2a1a2e',navy:'#0b1a33'};
+const NAMES={deep:'깊은 바다',sea:'바다',shallow:'얕은 물',shoal:'여울',foam:'포말',sand:'모래',grass:'풀',forest:'숲',parch:'해도 종이',parchD:'얼룩·목재',ink:'먹',coral:'연결 항로',gold:'등불·보물',white:'돛',navy:'UI 판'};
+const pk=h=&gt;{const n=parseInt(h.slice(1),16);return((255&lt;&lt;24)|((n&amp;255)&lt;&lt;16)|(((n&gt;&gt;8)&amp;255)&lt;&lt;8)|((n&gt;&gt;16)&amp;255))&gt;&gt;&gt;0};
+const C={};for(const k in HEX)C[k]=pk(HEX[k]);
+const L={k:C.ink,w:C.white,r:C.coral,g:C.gold,t:C.shoal,n:C.navy,b:C.parchD,e:C.grass,s:C.sand,f:C.foam,p:C.parch,d:C.deep,a:C.sea,h:C.shallow};
+
+const cv=document.getElementById('chart');cv.width=W;cv.height=H;
+const ctx=cv.getContext('2d');ctx.imageSmoothingEnabled=false;
+const img=ctx.createImageData(W,H);const buf=new Uint32Array(img.data.buffer);
+const base=new Uint32Array(W*H);
+const mq=matchMedia('(prefers-reduced-motion: reduce)');let reduce=mq.matches;
+
+function rng(s){return()=&gt;{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s&gt;&gt;&gt;15,1|s);t=t+Math.imul(t^t&gt;&gt;&gt;7,61|t)^t;return((t^t&gt;&gt;&gt;14)&gt;&gt;&gt;0)/4294967296}}
+function hash(x,y){let h=(x*374761393+y*668265263)|0;h=Math.imul(h^(h&gt;&gt;&gt;13),1274126177);return((h^(h&gt;&gt;&gt;16))&gt;&gt;&gt;0)/4294967296}
+const chk=(x,y)=&gt;((x+y)&amp;1)===0;
+function put(B,x,y,c){x|=0;y|=0;if(x&lt;0||y&lt;0||x&gt;=W||y&gt;=H)return;B[y*W+x]=c}
+function sprite(B,map,x0,y0,flip,scale){scale=scale||1;const w=map[0].length;
+  for(let y=0;y&lt;map.length;y++)for(let x=0;x&lt;w;x++){const ch=map[y][flip?w-1-x:x];if(ch==='.'||ch===' ')continue;
+    for(let sy=0;sy&lt;scale;sy++)for(let sx=0;sx&lt;scale;sx++)put(B,x0+x*scale+sx,y0+y*scale+sy,L[ch])}}
+
+/* ── islands (seeded) — laid out as a ring: hub → spring → summer → autumn → winter → police → home → hub ── */
+const IS=[
+ {k:'hub',x:60,y:116,rx:20,ry:13,amp:.5,name:'유치원 모항',lx:38,ly:136},
+ {k:'traffic',x:98,y:84,rx:12,ry:10,amp:1,name:'봄·교통공원',lx:24,ly:82},
+ {k:'hospital',x:172,y:82,rx:11,ry:9,amp:1,name:'여름·병원',lx:152,ly:95},
+ {k:'fire',x:244,y:92,rx:11,ry:9,amp:1,name:'가을·소방서',lx:236,ly:71},
+ {k:'health',x:252,y:134,rx:12,ry:10,amp:1,name:'겨울·보건소',lx:226,ly:152},
+ {k:'police',x:198,y:150,rx:11,ry:9,amp:1,name:'경찰서',lx:157,ly:146},
+ {k:'home',x:124,y:150,rx:8,ry:7,amp:.8,name:'가정',lx:95,ly:146},
+ {k:'light',x:300,y:96,rx:7,ry:5,amp:.5}
+];
+const land=new Int8Array(W*H).fill(-1);
+const R=rng(20271002);
+IS.forEach((s,i)=&gt;{const p=[R()*6.28,R()*6.28,R()*6.28];
+ for(let y=s.y-s.ry*2;y&lt;=s.y+s.ry*2;y++)for(let x=s.x-s.rx*2;x&lt;=s.x+s.rx*2;x++){if(x&lt;0||y&lt;0||x&gt;=W||y&gt;=H)continue;
+  const dx=(x+.5-s.x)/s.rx,dy=(y+.5-s.y)/s.ry,d=Math.hypot(dx,dy),a=Math.atan2(dy,dx);
+  const r=1+s.amp*(.14*Math.sin(3*a+p[0])+.08*Math.sin(5*a+p[1])+.05*Math.sin(8*a+p[2]));
+  if(d&lt;r)land[y*W+x]=i}});
+function bfs(src){const d=new Int16Array(W*H).fill(999),q=new Int32Array(W*H);let h=0,t=0;
+ for(let i=0;i&lt;W*H;i++)if(src(i)){d[i]=0;q[t++]=i}
+ while(h&lt;t){const i=q[h++],x=i%W,y=(i/W)|0;
+  for(let oy=-1;oy&lt;=1;oy++)for(let ox=-1;ox&lt;=1;ox++){const nx=x+ox,ny=y+oy;if(nx&lt;0||ny&lt;0||nx&gt;=W||ny&gt;=H)continue;const j=ny*W+nx;if(d[j]&gt;d[i]+1){d[j]=d[i]+1;q[t++]=j}}}
+ return d}
+const dSea=bfs(i=&gt;land[i]&gt;=0),dLand=bfs(i=&gt;land[i]&lt;0);
+
+for(let y=0;y&lt;H;y++)for(let x=0;x&lt;W;x++){const i=y*W+x;let c;
+ if(land[i]&gt;=0){const d=dLand[i];c=d&lt;=1?C.sand:d===2?(chk(x,y)?C.sand:C.grass):(hash(x,y)&lt;.16?C.forest:C.grass)}
+ else{const d=dSea[i];c=d&lt;=1?C.foam:d&lt;=3?C.shoal:d===4?(chk(x,y)?C.shoal:C.shallow):d&lt;=7?C.shallow:d===8?(chk(x,y)?C.shallow:C.sea):d&lt;=13?C.sea:d===14?(chk(x,y)?C.sea:C.deep):C.deep}
+ base[i]=c}
+
+/* rhumb lines from the compass rose */
+const CR={x:336,y:44,r:13};
+for(let k=0;k&lt;16;k++){const a=k*Math.PI/8;for(let r=CR.r+3;r&lt;480;r++){const x=Math.round(CR.x+Math.cos(a)*r),y=Math.round(CR.y+Math.sin(a)*r);if(x&lt;12||y&lt;12||x&gt;371||y&gt;203)break;if(r%3)continue;const i=y*W+x;if(base[i]===C.deep)base[i]=C.sea}}
+
+/* ── loop route: 7 legs, each bowed outward from the ring centre ── */
+const isl=k=&gt;IS.find(o=&gt;o.k===k);
+const ORDER=['traffic','hospital','fire','health','police','home'];
+const NODE=[isl('hub'),...ORDER.map(isl)];
+const hub=NODE[0];
+const RC={x:156,y:117};
+const idx=p=&gt;p[1]*W+p[0];
+function curve(a,b,bend){const mx=(a.x+b.x)/2,my=(a.y+b.y)/2,dx=b.x-a.x,dy=b.y-a.y;
+ const cx=mx-dy*bend,cy=my+dx*bend,pts=[];let last=null;
+ for(let j=0;j&lt;=800;j++){const t=j/800,u=1-t;const x=Math.round(u*u*a.x+2*u*t*cx+t*t*b.x),y=Math.round(u*u*a.y+2*u*t*cy+t*t*b.y);
+  if(last&amp;&amp;last[0]===x&amp;&amp;last[1]===y)continue;pts.push([x,y]);last=[x,y]}
+ return pts}
+function trim(pts){let a=0;while(a&lt;pts.length&amp;&amp;land[idx(pts[a])]&gt;=0)a++;let b=pts.length-1;while(b&gt;0&amp;&amp;land[idx(pts[b])]&gt;=0)b--;return[a,b]}
+const routes=NODE.map((A,i)=&gt;{const B=NODE[(i+1)%NODE.length];const mx=(A.x+B.x)/2,my=(A.y+B.y)/2,dx=B.x-A.x,dy=B.y-A.y;
+ let bend=.16;if((-dy)*(mx-RC.x)+dx*(my-RC.y)&lt;0)bend=-bend;
+ const pts=curve(A,B,bend);const[a,b]=trim(pts);return{k:B.k,A,s:B,pts,a,b,ha:a+4,dock:b-6}});
+const NL=routes.length; // 7 legs = 6 tasks + homecoming
+const LINKS=[['hospital','health',4],['fire','police',5],['traffic','home',6]]; // [islandA, islandB, visible from step]
+const links=LINKS.map(([p,q,st])=&gt;{const A=isl(p),B=isl(q);const pts=curve(A,B,.06);const[a,b]=trim(pts);return{pts,a,b,st,A,B}});
+
+/* piers */
+routes.forEach(r=&gt;{for(let j=r.b-2;j&lt;=r.b;j++){const[x,y]=r.pts[j];base[y*W+x]=C.parchD}const[x,y]=r.pts[r.b-2];put(base,x,y+1,C.ink)});
+{const r=routes[0];for(let j=r.a;j&lt;r.a+3;j++){const[x,y]=r.pts[j];base[y*W+x]=C.parchD}}
+
+/* ── sprites ── */
+const SP={
+ hub:["....r......","....rr.....","....k......","..kkkkkkk..",".krrrrrrrk.","krrrrrrrrrk",".kwwwwwwwk.",".kwgwkwgwk.",".kwwwkwwwk.",".kkkkkkkkk."],
+ health:["..kkkkk..",".ktttttk.","ktttttttk","kwwwwwwwk","kwrrwrrwk","kwrrrrrwk","kwwrrrwwk","kwwwrwwwk","kkkkkkkkk"],
+ fire:["...kgk...","..kkkkk..","kkkkkkkkk","krrrrrrrk","krkkkkkrk","krkwkwkrk","krkkkkkrk","krkwkwkrk","kkkkkkkkk"],
+ police:["..kkkkk..",".knnnnnk.","knnngnnnk","knngggnnk","knnngnnnk","kwwwwwwwk","kwnwkwnwk","kwwwkwwwk","kkkkkkkkk"],
+ traffic:["kkkk.....","krrk.....","kkkk..kk.","kggk.kwwk","kkkk.kwwk","keek..kk.","kkkk...k.",".kk....k.",".kk....k."],
+ hospital:["kkkkkkkkk","kwwwwwwwk","kwnwwwnwk","kwnwwwnwk","kwnnnnnwk","kwnwwwnwk","kwnwwwnwk","kwwwwwwwk","kkkkkkkkk"],
+ home:["....k....","...krk...","..krrrk..",".krrrrrk.","krrrrrrrk",".kwwwwwk.",".kwgwkwk.",".kwwwkwk.",".kkkkkkk."],
+ chest:[".kkkkkkk.","kbbbbbbbk","kkkkgkkkk","kbbbgbbbk","kbbbbbbbk","kkkkkkkkk"],
+ chestOpen:[".kkkkkkk.","kbbbbbbbk","kkkkkkkkk","kgggwgggk","kgggggggk","kkkkgkkkk","kbbbbbbbk","kkkkkkkkk"],
+ ship:[".....rrr.....",".....k.......","....wkw......","...wwkww.....","..wwwkwww....",".wwwwkwwww...",".....k.......","kkkkkkkkkkkk.","kbbbbbbbbbbbk",".kbbbbbbbbkk.","..kkkkkkkk..."],
+ anchor:["..w..",".w.w.","..w..","w.w.w",".www."],
+ cloud:["....ffff........","..ffwwwwff.fff..",".fwwwwwwwwfwwwf.","fwwwwwwwwwwwwwwf","ftttwwwwwwwwtttf",".ttttttttttttt.."],
+ /* season markers, one per leg */
+ blossom:[".w.w.","wwrww",".rgr.","wwrww",".w.w."],
+ sun:["g.g.g",".ggg.","ggggg",".ggg.","g.g.g"],
+ maple:["r.r.r",".rrr.","rrgrr",".rkr.","..k.."],
+ snow:["w.w.w",".fwf.","wwwww",".fwf.","w.w.w"],
+};
+for(const s of IS){if(!SP[s.k])continue;if(s.k==='hub')sprite(base,SP.hub,s.x-6,s.y-10);else sprite(base,SP[s.k],s.x-4,s.y-5)}
+sprite(base,SP.anchor,hub.x-15,hub.y-1);
+
+/* season markers: outer side of each leg's midpoint */
+const SEASON=['blossom','sun','maple','snow'];
+const seasonPos=SEASON.map((k,i)=&gt;{const r=routes[i];const[mx,my]=r.pts[(r.a+r.b)&gt;&gt;1];const vx=mx-RC.x,vy=my-RC.y,l=Math.hypot(vx,vy)||1;
+ const x=Math.round(mx+vx/l*7)-2,y=Math.round(my+vy/l*7)-2;sprite(base,SP[k],x,y);return{x,y}});
+
+/* hazards */
+const HZ={storm:{x:206,y:98},reef:{x:100,y:110},whirl:{x:246,y:182}};
+{const{x:sx,y:sy}=HZ.storm;for(let y=-4;y&lt;=4;y++)for(let x=-4;x&lt;=4;x++){const d=Math.hypot(x,y);if(d&lt;3.2)put(base,sx+x,sy+y,C.gold);else if(d&lt;4.6&amp;&amp;(x===0||y===0||Math.abs(x)===Math.abs(y)))put(base,sx+x,sy+y,C.gold)}
+ sprite(base,SP.cloud,sx-2,sy+1);
+ [[1,8],[4,10],[7,8],[10,10],[13,8]].forEach(([x,y])=&gt;{put(base,sx+x,sy+y,C.shoal);put(base,sx+x-1,sy+y+1,C.shoal)});
+ [[8,7],[7,8],[8,9],[7,10],[6,11]].forEach(([x,y])=&gt;put(base,sx+x,sy+y,C.gold))}
+{const{x:rx,y:ry}=HZ.reef;[[0,0],[3,-2],[6,1],[9,-1],[12,1]].forEach(([x,y],i)=&gt;{put(base,rx+x,ry+y,C.ink);put(base,rx+x+1,ry+y,C.parchD);put(base,rx+x,ry+y-1,C.parchD);if(i%2)put(base,rx+x+1,ry+y-1,C.ink)})}
+
+/* lighthouse */
+{const x0=298,yb=92;
+ for(let y=79;y&lt;=yb;y++){const stripe=Math.floor((y-79)/3)%2?C.coral:C.white;for(let x=x0;x&lt;x0+5;x++)put(base,x,y,stripe);put(base,x0-1,y,C.ink);put(base,x0+5,y,C.ink)}
+ for(let x=x0-1;x&lt;=x0+5;x++){put(base,x,78,C.ink);put(base,x,74,C.ink)}
+ for(let y=75;y&lt;=77;y++){put(base,x0-1,y,C.ink);put(base,x0+5,y,C.ink);for(let x=x0;x&lt;x0+5;x++)put(base,x,y,C.gold)}
+ put(base,x0+2,76,C.white);
+ for(let x=x0;x&lt;=x0+4;x++)put(base,x,73,C.coral);put(base,x0+1,72,C.coral);put(base,x0+2,72,C.coral);put(base,x0+3,72,C.coral);put(base,x0+2,71,C.ink)}
+
+/* ── border: paper band, labels, zebra graduation ── */
+const GL={A:["111","101","111","101","101"],B:["110","101","110","101","110"],C:["111","100","100","100","111"],D:["110","101","101","101","110"],E:["111","100","110","100","111"],F:["111","100","110","100","100"],1:["010","110","010","010","111"],2:["110","001","010","100","111"],3:["110","001","010","001","110"],4:["101","101","111","001","001"]};
+function glyph(ch,x0,y0,c){const g=GL[ch];for(let y=0;y&lt;5;y++)for(let x=0;x&lt;3;x++)if(g[y][x]==='1')put(base,x0+x,y0+y,c)}
+for(let y=0;y&lt;H;y++)for(let x=0;x&lt;W;x++){const d=Math.min(x,y,W-1-x,H-1-y);if(d&gt;11)continue;let c;
+ if(d===0||d===8||d===11)c=C.ink;
+ else if(d&lt;=7){const h=hash(x*3,y*5);c=C.parch;if(h&lt;.06||(d===1&amp;&amp;h&lt;.3))c=C.parchD;
+   const st=[[30,4],[200,211],[379,120],[4,170],[300,2]];for(const[sx,sy]of st){const r=Math.hypot(x-sx,y-sy);if(r&lt;7&amp;&amp;chk(x,y)&amp;&amp;hash(x,y)&lt;.7)c=C.parchD}}
+ else{const along=(y&lt;=11||y&gt;=H-12)?x:y;const seg=Math.floor(along/6);c=((seg+(d===9?0:1))&amp;1)?C.ink:C.white;
+   if((x&lt;=11||x&gt;=W-12)&amp;&amp;(y&lt;=11||y&gt;=H-12))c=C.parch}
+ base[y*W+x]=c}
+for(let i=0;i&lt;6;i++){const cx=12+60*i+30;glyph('ABCDEF'[i],cx-1,2,C.ink);glyph('ABCDEF'[i],cx-1,H-7,C.ink);
+ const gx=12+60*i;if(i)for(let y=4;y&lt;=7;y++){put(base,gx,y,C.ink);put(base,gx,H-1-y,C.ink)}}
+for(let j=0;j&lt;4;j++){const cy=12+48*j+24;glyph(String(j+1),2,cy-2,C.ink);glyph(String(j+1),W-5,cy-2,C.ink);
+ const gy=12+48*j;if(j)for(let x=4;x&lt;=7;x++){put(base,x,gy,C.ink);put(base,W-1-x,gy,C.ink)}}
+[[0,0],[W-12,0],[0,H-12],[W-12,H-12]].forEach(([ox,oy])=&gt;{for(let y=0;y&lt;12;y++)for(let x=0;x&lt;12;x++){const e=x===0||y===0||x===11||y===11;put(base,ox+x,oy+y,e?C.ink:C.parch)}
+ for(let k=3;k&lt;=8;k++){put(base,ox+k,oy+k,C.coral);put(base,ox+11-k,oy+k,C.coral)}});
+
+/* ── plates ── */
+function navyPlate(x0,y0,x1,y1){for(let y=y0;y&lt;=y1;y++)for(let x=x0;x&lt;=x1;x++){if((x===x0||x===x1)&amp;&amp;(y===y0||y===y1))continue;
+ const e=x===x0||x===x1||y===y0||y===y1;put(base,x,y,e?C.shoal:C.navy)}
+ for(let x=x0+1;x&lt;=x1+1;x++)put(base,x,y1+1,C.ink);for(let y=y0+1;y&lt;=y1;y++)put(base,x1+1,y,C.ink)}
+function parchPlate(x0,y0,x1,y1,seed){const r=rng(seed);const blobs=[[x0+r()*(x1-x0),y0+r()*(y1-y0)],[x0+r()*(x1-x0),y0+r()*(y1-y0)]];
+ for(let y=y0;y&lt;=y1;y++)for(let x=x0;x&lt;=x1;x++){if((x===x0||x===x1)&amp;&amp;(y===y0||y===y1))continue;
+  const e=x===x0||x===x1||y===y0||y===y1;const e2=(x===x0+2||x===x1-2)&amp;&amp;y&gt;=y0+2&amp;&amp;y&lt;=y1-2||(y===y0+2||y===y1-2)&amp;&amp;x&gt;=x0+2&amp;&amp;x&lt;=x1-2;
+  let c=e?C.ink:e2?C.parchD:C.parch;
+  if(!e&amp;&amp;!e2){for(const[bx,by]of blobs)if(Math.hypot(x-bx,(y-by)*1.6)&lt;6&amp;&amp;chk(x,y)&amp;&amp;hash(x,y)&lt;.35)c=C.parchD;if(hash(x+7,y+3)&lt;.012)c=C.parchD}
+  put(base,x,y,c)}
+ for(let x=x0+1;x&lt;=x1+1;x++)put(base,x,y1+1,C.ink)}
+const PL={cart:[18,16,186,66],count:[196,16,300,35],info:[16,166,206,201],log:[280,118,368,201]};
+parchPlate(...PL.cart,11);
+/* scroll rolls */
+[[13,21],[183,186]].forEach(([a,b],side)=&gt;{const xs=side?PL.cart[2]-3:PL.cart[0]-5;for(let y=PL.cart[1]-3;y&lt;=PL.cart[3]+3;y++)for(let x=xs;x&lt;xs+8;x++){const e=x===xs||x===xs+7||y===PL.cart[1]-3||y===PL.cart[3]+3;put(base,x,y,e?C.ink:(x===xs+2||x===xs+3)?C.parch:C.parchD)}
+ for(let y=PL.cart[1]-1;y&lt;=PL.cart[3]+1;y+=4)put(base,xs+5,y,C.ink)});
+navyPlate(...PL.count);navyPlate(...PL.info);
+parchPlate(...PL.log,5);
+for(let y=PL.log[1]+5;y&lt;PL.log[3]-2;y+=8){put(base,PL.log[0]+3,y,C.ink);put(base,PL.log[0]+4,y,C.ink);put(base,PL.log[0]+2,y+1,C.white);put(base,PL.log[0]+3,y+1,C.ink)}
+for(let x=PL.log[0]+8;x&lt;=PL.log[2]-5;x++)if(x%2)put(base,x,131,C.parchD);
+/* portrait frame + minimap well */
+for(let y=170;y&lt;=196;y++)for(let x=20;x&lt;=46;x++){const e=x===20||x===46||y===170||y===196;put(base,x,y,e?C.shoal:C.deep)}
+for(let y=19;y&lt;=32;y++)for(let x=199;x&lt;=232;x++){const e=x===199||x===232||y===19||y===32;put(base,x,y,e?C.sea:C.deep)}
+
+/* compass rose */
+{const{x:cx,y:cy,r}=CR;
+ for(let y=-r-1;y&lt;=r+1;y++)for(let x=-r-1;x&lt;=r+1;x++){const d=Math.hypot(x+.0,y+.0);if(d&lt;=r+.5){put(base,cx+x,cy+y,d&gt;r-.6?C.ink:C.parch)}}
+ for(let k=0;k&lt;32;k++){const a=k*Math.PI/16;const rr=k%4===0?r-2:r-1;put(base,Math.round(cx+Math.cos(a)*rr),Math.round(cy+Math.sin(a)*rr),C.parchD)}
+ function tri(ax,ay,bx,by,qx,qy,c){const minx=Math.floor(Math.min(ax,bx,qx)),maxx=Math.ceil(Math.max(ax,bx,qx)),miny=Math.floor(Math.min(ay,by,qy)),maxy=Math.ceil(Math.max(ay,by,qy));
+  const s=(p1x,p1y,p2x,p2y,p3x,p3y)=&gt;(p1x-p3x)*(p2y-p3y)-(p2x-p3x)*(p1y-p3y);
+  for(let y=miny;y&lt;=maxy;y++)for(let x=minx;x&lt;=maxx;x++){const px=x+.5,py=y+.5;const d1=s(px,py,ax,ay,bx,by),d2=s(px,py,bx,by,qx,qy),d3=s(px,py,qx,qy,ax,ay);
+   const neg=d1&lt;0||d2&lt;0||d3&lt;0,pos=d1&gt;0||d2&gt;0||d3&gt;0;if(!(neg&amp;&amp;pos))put(base,x,y,c)}}
+ const X=cx+.5,Y=cy+.5;
+ function point(ang,len,w,cl,cr){const tx=X+Math.cos(ang)*len,ty=Y+Math.sin(ang)*len;
+  const lx=X+Math.cos(ang-Math.PI/2)*w,ly=Y+Math.sin(ang-Math.PI/2)*w,rx=X+Math.cos(ang+Math.PI/2)*w,ry=Y+Math.sin(ang+Math.PI/2)*w;
+  tri(X,Y,tx,ty,lx,ly,cl);tri(X,Y,tx,ty,rx,ry,cr)}
+ for(let k=0;k&lt;4;k++)point(Math.PI/4+k*Math.PI/2,r-5,2.2,C.shoal,C.sea);
+ for(let k=0;k&lt;4;k++){const a=-Math.PI/2+k*Math.PI/2;point(a,r-1,3,k===0?C.coral:C.navy,k===0?C.white:C.white)}
+ put(base,cx,cy,C.gold);put(base,cx+1,cy,C.gold);put(base,cx,cy+1,C.gold);put(base,cx+1,cy+1,C.gold)}
+
+/* sea objects that waves must avoid */
+const AVOID=[[...PL.cart],[...PL.count],[...PL.info],[...PL.log],[CR.x-22,CR.y-24,CR.x+36,CR.y+26],
+ [HZ.storm.x-6,HZ.storm.y-6,HZ.storm.x+15,HZ.storm.y+13],[HZ.reef.x-4,HZ.reef.y-6,HZ.reef.x+16,HZ.reef.y+6],[HZ.whirl.x-12,HZ.whirl.y-10,HZ.whirl.x+12,HZ.whirl.y+10],
+ [270,68,330,104],[296,36,371,70],...seasonPos.map(p=&gt;[p.x-1,p.y-1,p.x+5,p.y+5])];
+const inAvoid=(x,y,m)=&gt;AVOID.some(([a,b,c,d])=&gt;x&gt;=a-m&amp;&amp;x&lt;=c+m&amp;&amp;y&gt;=b-m&amp;&amp;y&lt;=d+m);
+const waves=[];{const r=rng(77);let tries=0;while(waves.length&lt;70&amp;&amp;tries&lt;8000){tries++;const x=14+Math.floor(r()*350),y=14+Math.floor(r()*186);
+ if(dSea[y*W+x]&lt;6||inAvoid(x,y,3))continue;if(waves.some(w=&gt;Math.abs(w.x-x)&lt;11&amp;&amp;Math.abs(w.y-y)&lt;7))continue;waves.push({x,y,ph:Math.floor(r()*3)})}}
+const WSH=[[[0,0],[1,-1],[2,-1],[3,0]],[[1,0],[2,-1],[3,-1],[4,0]],[[1,0],[2,0],[3,0]]];
+const foamPx=[];for(let i=0;i&lt;W*H;i++){const x=i%W,y=(i/W)|0;if(land[i]&lt;0&amp;&amp;dSea[i]===1&amp;&amp;x&gt;11&amp;&amp;y&gt;11&amp;&amp;x&lt;372&amp;&amp;y&lt;204&amp;&amp;!inAvoid(x,y,0))foamPx.push(i)}
+
+/* ── content ── */
+const COL='ABCDEF';
+const grid=s=&gt;COL[Math.min(5,Math.floor((s.x-12)/60))]+(Math.min(3,Math.floor((s.y-12)/48))+1);
+const NUM='①②③④⑤⑥';
+const STEP=[
+ {t:'Ⅰ 추진 배경 · 3월 출항 전',a:'기관별 안전교육이 1회성 행사로 끝남',b:'위험 3곳 → 해마다 도는 항로 필요',icon:'storm'},
+ {t:'봄 · 교통공원',a:'교통안전 체험 + 통학 차량 승하차',b:'3~5월 · 지침: 교통안전'},
+ {t:'여름 · 병원',a:'물놀이 안전 + 응급처치 체험',b:'6~8월 · 지침: 응급처치'},
+ {t:'가을 · 소방서',a:'화재 대피 합동 훈련 · 소화기 체험',b:'9~11월 · 지침: 재난안전'},
+ {t:'겨울 · 보건소',a:'손 씻기·감염병 예방 + 겨울 건강',b:'12~1월 · 지침: 생활안전'},
+ {t:'경찰서',a:'실종·유괴 예방 · 지문 사전등록',b:'1월 · 지침: 폭력예방·신변보호'},
+ {t:'가정',a:'가정 연계 안전 습관 · 부모 교육',b:'2월 · 지침: 생활안전'},
+ {t:'Ⅴ 귀항 · 평가·환류',a:'1회 순환 완료 → 다음 해 항로 개선',b:'2월 말 평가 → 2028 계획에 반영',icon:'chestOpen'}
+];
+const LOG=[['봄','교통안전'],['여름','응급처치'],['가을','화재대피'],['겨울','감염예방'],['1월','실종예방'],['2월','가정연계'],['귀항','평가환류']];
+const HZT=[['감염·폭염 폭풍',HZ.storm.x-14,HZ.storm.y+14],['교통 암초',HZ.reef.x-4,HZ.reef.y+5],['실종 소용돌이',HZ.whirl.x-32,HZ.whirl.y+9]];
+const LOOPXY=[94,126];
+
+const $=id=&gt;document.getElementById(id);
+const hzBox=$('hz');HZT.forEach(([t,x,y])=&gt;{const d=document.createElement('div');d.className='ov f7 tag hz';d.style.setProperty('--x',x);d.style.setProperty('--y',y);d.textContent=t;hzBox.appendChild(d)});
+const loopEl=$('loop');loopEl.style.setProperty('--x',LOOPXY[0]);loopEl.style.setProperty('--y',LOOPXY[1]);
+const labelBox=$('labels');
+const labelEls=IS.filter(s=&gt;s.name).map(s=&gt;{const d=document.createElement('div');d.className='ov f7 tag';d.style.setProperty('--x',s.lx);d.style.setProperty('--y',s.ly);d.textContent=s.name;labelBox.appendChild(d);return{s,d}});
+const logEl=$('log');
+const logLis=LOG.map(([m,t])=&gt;{const li=document.createElement('li');li.innerHTML='&lt;span class="mk"&gt;&lt;/span&gt;&lt;span class="se"&gt;'+m+'&lt;/span&gt;&lt;span&gt;'+t+'&lt;/span&gt;';logEl.appendChild(li);return li});
+
+let step=3,anim=null,facing=1,auto=null; // first view: halfway round, autumn reached
+function pt(r,j){const p=routes[r].pts[Math.max(0,Math.min(routes[r].pts.length-1,Math.round(j)))];return{x:p[0],y:p[1]}}
+function restPos(s){return s===0?pt(0,routes[0].ha):pt(s-1,routes[s-1].dock)}
+
+function updateUI(s){
+ const st=STEP[s];
+ if(s&gt;=1&amp;&amp;s&lt;=6){$('i1').textContent='Ⅲ 과제'+NUM[s-1]+' '+st.t+' · '+grid(routes[s-1].s)}else $('i1').textContent=st.t;
+ $('i2').textContent=st.a;$('i3').textContent=st.b;
+ $('cnt').textContent=s===NL?'순환 완료':'구간 '+s+'/'+NL;
+ logLis.forEach((li,i)=&gt;{const done=i&lt;s,now=(s&gt;=1&amp;&amp;i===s-1);li.className=now?'now':done?'done':'todo';li.firstChild.textContent=now?'▶':done?'■':'□'});
+ labelEls.forEach(({s:is,d})=&gt;{const ri=ORDER.indexOf(is.k);d.classList.toggle('on',is.k==='hub'?s===NL:ri&gt;=0&amp;&amp;ri&lt;s)});
+ loopEl.textContent=s===NL?'1회 순환 완료 → 다음 해 항로 개선':'↻ 연간 순환 · 3월 출항 → 2월 귀항';loopEl.classList.toggle('on',s===NL);
+ $('prev').disabled=s===0;$('next').disabled=s===NL;$('next').textContent=s===NL-1?'모항 귀항 ▶':'다음 항로 ▶';
+ $('status').textContent=(s===0?'출항 전':s===NL?'귀항 · 고리 닫힘 — 1회 순환 완료 → 다음 해 항로 개선':'구간 '+NUM[s-1]+' '+st.t+' 도착')+' — 단계 '+s+'/'+NL;
+}
+
+/* ── render ── */
+function drawRoute(r,upto,col){const R=routes[r];const end=Math.min(R.b,upto);
+ for(let j=R.a;j&lt;=end;j++){if((j-R.a)%4)continue;const[x,y]=R.pts[j];
+  if(col){for(const[ox,oy]of[[0,0],[1,0],[0,1],[1,1]]){const i=(y+oy)*W+x+ox;if(land[i]&lt;0)buf[i]=C.coral}}
+  else if(land[y*W+x]&lt;0)buf[y*W+x]=C.foam}}
+function arcAt(seg,e){const{c,p,q}=seg;const a0=Math.atan2(p.y-c.y,p.x-c.x);let da=Math.atan2(q.y-c.y,q.x-c.x)-a0;da=Math.atan2(Math.sin(da),Math.cos(da));
+ const r0=Math.hypot(p.x-c.x,p.y-c.y),r1=Math.hypot(q.x-c.x,q.y-c.y),rm=Math.max(c.rx,c.ry)*1.25+7;
+ const rr=r0+(r1-r0)*e+Math.sin(Math.PI*e)*Math.max(0,rm-Math.min(r0,r1));const a=a0+da*e;
+ return{x:Math.round(c.x+Math.cos(a)*rr),y:Math.round(c.y+Math.sin(a)*rr)}}
+function render(now){
+ const f=reduce?0:Math.floor(now/650);
+ buf.set(base);
+ for(const i of foamPx){const x=i%W,y=(i/W)|0;if((x*7+y*3+f)%6===0)buf[i]=C.shoal}
+ for(const w of waves){const sh=WSH[(w.ph+f)%3];const c=base[w.y*W+w.x]===C.deep?C.sea:C.shallow;for(const[dx,dy]of sh)put(buf,w.x+dx,w.y+dy,base[(w.y+dy)*W+w.x+dx]===C.deep?C.sea:c)}
+ /* reef surf */
+ {const{x:rx,y:ry}=HZ.reef;[[-1,2],[4,3],[10,3],[14,0],[-2,-2]].forEach(([x,y],k)=&gt;{if((k+f)%2===0)put(buf,rx+x,ry+y,C.foam)})}
+ /* whirlpool */
+ {const{x:cx,y:cy}=HZ.whirl;for(let k=0;k&lt;26;k++){const a=k*.55+f*.9,r=1+k*.26;put(buf,Math.round(cx+Math.cos(a)*r*1.4),Math.round(cy+Math.sin(a)*r*.8),k%3?C.shoal:C.foam)}}
+ /* lighthouse beam */
+ {const lx=300,ly=76;const side=f%2;for(let dx=4;dx&lt;=24;dx++)for(let dy=-Math.floor(dx*.22);dy&lt;=Math.floor(dx*.22);dy++){
+   for(const sgn of[-1,1]){const x=lx+sgn*dx+(sgn&gt;0?2:0),y=ly+dy;const strong=(sgn&lt;0)===(side===0)||reduce;
+    const i=y*W+x;if(inAvoid(x,y,0)&amp;&amp;!(x&gt;270&amp;&amp;x&lt;330&amp;&amp;y&gt;68&amp;&amp;y&lt;104))continue;if(land[i]&gt;=0)continue;
+    if(strong?chk(x,y):(x%3===0&amp;&amp;y%2===0))buf[i]=dx&lt;10?C.gold:C.foam}}}
+ /* planned loop */
+ for(let r=0;r&lt;NL;r++)drawRoute(r,1e9,false);
+ /* secondary links across the ring */
+ const conn=anim?anim.from:step;
+ links.forEach(l=&gt;{if(conn&lt;l.st)return;for(let j=l.a;j&lt;=l.b;j++){if((j-l.a)%3)continue;const[x,y]=l.pts[j];if(land[y*W+x]&lt;0)buf[y*W+x]=C.gold}});
+ /* sailed legs */
+ for(let r=0;r&lt;Math.min(conn,NL);r++)drawRoute(r,1e9,true);
+ let ship=restPos(step);
+ if(anim){const seg=anim.segs[anim.i];const t=Math.min(1,(now-anim.t0)/seg.dur);const e=t&lt;.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+  if(seg.arc){ship=arcAt(seg,e);const nx=arcAt(seg,Math.min(1,e+.05));if(nx.x!==ship.x)facing=nx.x&gt;ship.x?1:-1}
+  else{const j=seg.from+(seg.to-seg.from)*e;ship=pt(seg.r,j);const ahead=pt(seg.r,j+(seg.to&gt;seg.from?3:-3));if(ahead.x!==ship.x)facing=ahead.x&gt;ship.x?1:-1;
+   if(seg.draw)drawRoute(seg.r,Math.floor(j),true)}
+  ship.moving=true;
+  if(t&gt;=1){anim.i++;anim.t0=now;if(anim.i&gt;=anim.segs.length){step=anim.to;anim=null;updateUI(step);ship=restPos(step);ship.moving=false;onArrive()}}}
+ /* chest on the home port */
+ const cx0=hub.x+3,cy0=hub.y+1;
+ if(step===NL&amp;&amp;!anim){sprite(buf,SP.chestOpen,cx0,cy0-2);if(!reduce){const sp=[[cx0-2,cy0-3],[cx0+10,cy0-4],[cx0+4,cy0-6],[cx0+11,cy0+1]];sp.forEach(([x,y],k)=&gt;{if((k+f)%2===0){put(buf,x,y,C.gold);put(buf,x+1,y,C.white)}})}else{put(buf,cx0+4,cy0-6,C.gold)}}
+ else sprite(buf,SP.chest,cx0,cy0);
+ /* ship */
+ const bob=reduce?0:(f%2);
+ sprite(buf,SP.ship,ship.x-6,ship.y-9+bob,facing&lt;0);
+ if(ship.moving){put(buf,ship.x-7*facing,ship.y+1,C.foam);put(buf,ship.x-9*facing,ship.y,C.foam);put(buf,ship.x-8*facing,ship.y+2,C.shoal)}
+ /* minimap: the ring */
+ const mm=s=&gt;({x:200+Math.round((s.x-12)/360*31),y:20+Math.round((s.y-12)/192*11)});
+ const line=(a,b,c)=&gt;{let x0=a.x,y0=a.y;const x1=b.x,y1=b.y,dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0&lt;x1?1:-1,sy=y0&lt;y1?1:-1;let er=dx+dy;for(;;){put(buf,x0,y0,c);if(x0===x1&amp;&amp;y0===y1)break;const e2=2*er;if(e2&gt;=dy){er+=dy;x0+=sx}if(e2&lt;=dx){er+=dx;y0+=sy}}};
+ links.forEach(l=&gt;{if(conn&gt;=l.st)line(mm(l.A),mm(l.B),C.coral)});
+ NODE.forEach((n,i)=&gt;line(mm(n),mm(NODE[(i+1)%NL]),i&lt;conn?C.gold:C.sea));
+ NODE.forEach((n,i)=&gt;{if(i){const p=mm(n);put(buf,p.x,p.y,i&lt;=conn?C.white:C.shoal)}});
+ const H0=mm(hub);put(buf,H0.x,H0.y,C.gold);
+ /* portrait */
+ const ps=anim?anim.to:step;const key=ps&gt;=1&amp;&amp;ps&lt;=6?ORDER[ps-1]:STEP[ps].icon;
+ if(key==='storm'){sprite(buf,SP.cloud,25,177);[[28,184],[33,186],[38,184]].forEach(([x,y])=&gt;{put(buf,x,y,C.shoal);put(buf,x-1,y+1,C.shoal)});[[36,183],[35,184],[36,185],[35,186]].forEach(([x,y])=&gt;put(buf,x,y,C.gold))}
+ else{const m=SP[key];const w=m[0].length,h=m.length;sprite(buf,m,33-w,183-h,false,2)}
+ ctx.putImageData(img,0,0);
+}
+function onArrive(){if(auto){auto.timer=setTimeout(()=&gt;{if(step&lt;NL)go(1,true);else auto=null},900)}}
+
+function go(dir,fromAuto){
+ if(!fromAuto)stopAuto();
+ if(anim)return;
+ if(dir&lt;0){if(step&gt;0){step--;updateUI(step)}return}
+ if(step&gt;=NL)return;
+ const s=step,to=s+1;updateUI(to);$('status').textContent='항해 중 → '+(to===NL?'모항(귀항)':STEP[to].t);
+ if(reduce){step=to;updateUI(step);onArrive();return}
+ const segs=[];const sp=d=&gt;Math.max(650,Math.min(1700,Math.abs(d)*16));
+ if(s&gt;=1){const p=restPos(s),q=pt(s,routes[s].ha);segs.push({arc:true,c:NODE[s],p,q,dur:520})}
+ const r=routes[s];segs.push({r:s,from:r.ha,to:r.dock,dur:sp(r.dock-r.ha),draw:true});
+ anim={from:s,to,segs,i:0,t0:performance.now()};
+}
+function stopAuto(){if(auto){clearTimeout(auto.timer);auto=null}}
+function replay(){stopAuto();anim=null;step=0;updateUI(0);
+ if(reduce){$('status').textContent='처음으로 돌아왔습니다 — 다음 항로를 눌러 진행';return}
+ auto={timer:setTimeout(()=&gt;go(1,true),800)}}
+$('next').addEventListener('click',()=&gt;go(1));
+$('prev').addEventListener('click',()=&gt;go(-1));
+$('replay').addEventListener('click',replay);
+document.addEventListener('keydown',e=&gt;{if(e.altKey||e.ctrlKey||e.metaKey)return;if(e.key==='ArrowRight'){go(1);e.preventDefault()}else if(e.key==='ArrowLeft'){go(-1);e.preventDefault()}});
+mq.addEventListener&amp;&amp;mq.addEventListener('change',e=&gt;{reduce=e.matches});
+
+/* integer scaling */
+const cover=$('cover');
+function fit(){const avail=cover.parentElement.clientWidth;let w=avail;let k=Math.floor(avail/W);if(k&gt;=1){k=Math.min(k,4);w=k*W}
+ cover.style.width=w+'px';$('scale').textContent=k&gt;=1?('×'+k+' ('+(k*W)+'×'+(k*H)+')'):'×'+(avail/W).toFixed(2)+' (화면이 좁아 비정수)'}
+fit();addEventListener('resize',fit);
+
+/* swatches (changed colours show their previous value) */
+const sw=$('sw');for(const k in HEX){const li=document.createElement('li');li.innerHTML='&lt;i style="background:'+HEX[k]+'"&gt;&lt;/i&gt;&lt;span&gt;&lt;code&gt;'+HEX[k]+'&lt;/code&gt;'+NAMES[k]+(PREV[k]?'&lt;s&gt;이전 '+PREV[k]+'&lt;/s&gt;':'')+'&lt;/span&gt;';sw.appendChild(li)}
+
+updateUI(step);
+let lastF=-1;
+function loop(now){const f=reduce?0:Math.floor(now/650);if(anim||f!==lastF){render(now);lastF=f}requestAnimationFrame(loop)}
+render(performance.now());requestAnimationFrame(loop);
+window.__chart={routes,IS,go,step:()=&gt;step};
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
+</body></html>

@@ -1,0 +1,697 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #117 기압 기록지 키트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:600;font-display:swap;src:url("../fonts/GothicA1-600.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexSansKR-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:700;font-display:swap;src:url("../fonts/IBMPlexSansKR-700.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:500;font-display:swap;src:url("../fonts/SairaSemiCondensed-500.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:600;font-display:swap;src:url("../fonts/SairaSemiCondensed-600.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-display:swap;src:url("../fonts/SairaSemiCondensed-700.woff2") format("woff2")}
+</style>
+
+<style id="fb-css">
+/* ===== F 관측·중계 계열 · 기압 기록지 키트 (접두어 fb-) =====
+   가상 화면 1600×900. 모든 크기 = calc(var(--u) * px). 색은 --ds-* 변수로만. */
+.fb{
+/*토큰 시작*/
+  --ds-bg:#F1F4F8;        /* 바탕: 맑은 관측실 벽 */
+  --ds-surface:#FFFFFF;   /* 카드·면·기록지 종이 */
+  --ds-ink:#13233A;       /* 본문 글자·기록 잉크 */
+  --ds-sub:#55647A;       /* 보조 글자 */
+  --ds-line:#D2DAE4;      /* 구분선 */
+  --ds-accent:#DE4430;    /* 강조 1 — 한 장에 한 곳(펜 끝) */
+  --ds-accent2:#2A6CB4;   /* 보조 강조 */
+  --ds-c1:#1B3A63;        /* 농담 1(가장 진함) */
+  --ds-c2:#335C8F;
+  --ds-c3:#5F84B4;
+  --ds-c4:#9BB3D2;
+  --ds-c5:#D3E0EF;        /* 농담 5(가장 옅음) */
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif;
+  --ds-radius:3px;
+  --ds-shadow:0 1px 0 rgba(19,35,58,.06),0 16px 36px -20px rgba(19,35,58,.32);
+/*토큰 끝*/
+  font-family:var(--ds-font-body);color:var(--ds-ink);
+}
+.fb *,.fb *::before,.fb *::after{box-sizing:border-box}
+.fb-slide{position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;background:var(--ds-bg)}
+.fb-in{position:absolute;inset:0;--u:calc(100cqw / 1600)}
+.fb-art{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* 공통 아이콘(교육행정 아이콘 세트 _set.css 그대로) */
+.ds-ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.ds-badge{--s:48px;width:var(--s);height:var(--s);display:grid;place-items:center;font-size:calc(var(--s)*.54);color:var(--ds-accent)}
+.ds-badge.is-line{width:auto;height:auto;font-size:var(--s)}
+.ds-badge.is-round{border-radius:50%;background:var(--ds-c5)}
+.ds-badge.is-square{border-radius:calc(var(--s)*.18);background:var(--ds-c5)}
+.ds-badge.is-slant{background:var(--ds-accent);color:var(--ds-surface);clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);width:calc(var(--s)*1.25)}
+.fb .ds-badge{color:var(--ds-c1);flex:none}            /* 이 계열 아이콘 색 = c1 한 가지, 배지 = 원 한 종류 */
+
+/* 머리말 띠 y40~88: 계기 눈금 세 개 + 섹션 이름 / 계획안 이름 */
+.fb-head{position:absolute;left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;gap:calc(var(--u)*24);border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.fb-head-l{display:flex;align-items:center;gap:calc(var(--u)*14);font-weight:600;font-size:calc(var(--u)*20);letter-spacing:.02em;white-space:nowrap}
+.fb-tick{display:flex;align-items:flex-end;gap:calc(var(--u)*3);height:calc(var(--u)*16)}
+.fb-tick i{display:block;width:calc(var(--u)*2.5);background:var(--ds-c1)}
+.fb-tick i:nth-child(1){height:45%}.fb-tick i:nth-child(2){height:100%}.fb-tick i:nth-child(3){height:45%}
+.fb-head-r{color:var(--ds-sub);font-size:calc(var(--u)*16);white-space:nowrap}
+/* 바닥 줄 y846~ */
+.fb-foot{position:absolute;left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-family:var(--ds-font-num);font-weight:500;font-size:calc(var(--u)*16);color:var(--ds-sub);letter-spacing:.04em}
+/* 제목 y112~ */
+.fb-title{position:absolute;left:calc(var(--u)*80);top:calc(var(--u)*112);right:calc(var(--u)*80);margin:0;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*48);line-height:1.22;letter-spacing:-.01em;text-wrap:balance}
+.fb-title em{font-style:normal;color:var(--ds-accent)}
+
+/* ---- 1. 목차: 칸 머리(HTML) + 기록지(SVG), 칸 너비 = 발표 시간(분) ---- */
+.fb-col{position:absolute;top:calc(var(--u)*226);height:calc(var(--u)*226);padding:0 calc(var(--u)*14) 0 calc(var(--u)*16);display:flex;flex-direction:column;gap:calc(var(--u)*10);border-left:calc(var(--u)*1.5) solid var(--ds-c3)}
+.fb-col:last-child{border-right:calc(var(--u)*1.5) solid var(--ds-c3)}
+.fb-col-top{display:flex;align-items:center;gap:calc(var(--u)*10)}
+.fb-col-top .ds-badge{--s:calc(var(--u)*44)}
+.fb-col-rom{font-family:var(--ds-font-num);font-weight:700;font-size:calc(var(--u)*26);color:var(--ds-c1)}
+.fb-col-min{margin-left:auto;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*28);color:var(--ds-ink);white-space:nowrap}
+.fb-col-min small{font-family:var(--ds-font-body);font-weight:500;font-size:calc(var(--u)*16);color:var(--ds-sub);margin-left:calc(var(--u)*2)}
+.fb-col b{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*26);line-height:1.2;margin-top:calc(var(--u)*4)}
+.fb-col p{margin:0;font-size:calc(var(--u)*17);line-height:1.4;color:var(--ds-sub);min-height:calc(var(--u)*48)}
+.fb-col-pg{font-family:var(--ds-font-num);font-weight:500;font-size:calc(var(--u)*17);color:var(--ds-sub);letter-spacing:.03em}
+
+/* ---- 2. 섹션 간지 ---- */
+.fb-dcol{position:absolute;left:calc(var(--u)*80);top:calc(var(--u)*150);width:calc(var(--u)*590);display:flex;flex-direction:column;gap:calc(var(--u)*14)}
+.fb-kicker{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*19);letter-spacing:.12em;color:var(--ds-sub)}
+.fb-dno{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*190);line-height:.86;letter-spacing:-.02em;color:var(--ds-c1);margin:calc(var(--u)*4) 0 calc(var(--u)*6)}
+.fb-dname{display:flex;align-items:center;gap:calc(var(--u)*18);margin:0;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*56);line-height:1.12;letter-spacing:-.015em}
+.fb-dname .ds-badge{--s:calc(var(--u)*56)}
+.fb-ddesc{font-size:calc(var(--u)*22);color:var(--ds-sub);line-height:1.4;margin:0}
+.fb-items{list-style:none;margin:calc(var(--u)*8) 0 0;padding:0;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.fb-items li{display:flex;gap:calc(var(--u)*16);align-items:baseline;padding:calc(var(--u)*12) 0;border-top:calc(var(--u)*1.5) solid var(--ds-line);font-size:calc(var(--u)*21);line-height:1.35}
+.fb-items li span{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*18);color:var(--ds-sub);min-width:calc(var(--u)*70)}
+
+/* ---- 3. 마무리 ---- */
+.fb-ccol{position:absolute;left:calc(var(--u)*80);top:calc(var(--u)*184);width:calc(var(--u)*640);display:flex;flex-direction:column}
+.fb-ctitle{margin:0;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*58);line-height:1.2;letter-spacing:-.015em}
+.fb-crule{width:calc(var(--u)*56);height:calc(var(--u)*3);background:var(--ds-c1);margin:calc(var(--u)*40) 0 calc(var(--u)*22)}
+.fb-cplan{font-weight:600;font-size:calc(var(--u)*22);line-height:1.4}
+.fb-cdate{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*18);letter-spacing:.3em;color:var(--ds-sub);margin-top:calc(var(--u)*10)}
+.fb-corg{font-size:calc(var(--u)*19);color:var(--ds-sub);margin-top:calc(var(--u)*4)}
+/* 기록지 표제란 = 문의처 */
+.fb-tb{position:absolute;left:calc(var(--u)*790);top:calc(var(--u)*640);width:calc(var(--u)*730);display:grid;grid-template-columns:1fr 1.25fr 1.45fr;background:var(--ds-surface);border:calc(var(--u)*1.5) solid var(--ds-c3);border-top:calc(var(--u)*3) solid var(--ds-c1)}
+.fb-tb>div{padding:calc(var(--u)*14) calc(var(--u)*16);display:flex;flex-direction:column;gap:calc(var(--u)*6);min-width:0}
+.fb-tb>div+div{border-left:calc(var(--u)*1.5) solid var(--ds-line)}
+.fb-tb span{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);letter-spacing:.12em;color:var(--ds-sub)}
+.fb-tb b{font-weight:600;font-size:calc(var(--u)*19);line-height:1.35}
+.fb-tb .fb-tb-call{flex-direction:row;align-items:center;gap:calc(var(--u)*12)}
+.fb-tb .fb-tb-call .ds-badge{--s:calc(var(--u)*40)}
+.fb-tb .fb-tb-call em{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*20);display:block}
+</style>
+
+<style>
+/* 페이지(장표 바깥) — 밝은 한 가지 화면으로 고정, 모든 색 명시 */
+:root{
+  --pg-bg:#F4F6F8; --pg-panel:#FFFFFF; --pg-ink:#13233A; --pg-sub:#55647A; --pg-line:#D8DFE7;
+  --pg-accent:#C93A27; --pg-code:#121B26; --pg-code-ink:#E2E9F1; --pg-code-sub:#8A99AB;
+  --pg-f-title:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-f-num:"Saira Semi Condensed","Arial Narrow",sans-serif;
+  --pg-f-mono:ui-monospace,"SFMono-Regular",Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-f-body);font-size:16px;line-height:1.65;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.pg{max-width:1200px;margin:0 auto}
+.pg-top{padding-block:40px 28px;display:grid;gap:10px;border-bottom:1px solid var(--pg-line);margin-bottom:28px}
+.pg-eyebrow{font-family:var(--pg-f-num);font-weight:600;font-size:14px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg-top h1{margin:0;font-family:var(--pg-f-title);font-weight:800;font-size:clamp(28px,4vw,42px);line-height:1.2;text-wrap:balance}
+.pg-top p{margin:0;max-width:70ch;color:var(--pg-sub)}
+.pg-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.pg-tags span{font-size:13px;border:1px solid var(--pg-line);background:var(--pg-panel);padding:2px 10px;border-radius:3px}
+.pg h2.pg-h{font-family:var(--pg-f-title);font-weight:800;font-size:24px;margin:56px 0 6px;line-height:1.3}
+.pg h2.pg-h small{font-family:var(--pg-f-num);font-weight:600;font-size:14px;color:var(--pg-sub);letter-spacing:.12em;display:block;margin-bottom:4px}
+.pg h3{font-family:var(--pg-f-title);font-size:18px;margin:26px 0 8px}
+.pg p.lead{margin:0 0 18px;color:var(--pg-sub);max-width:72ch}
+.slide-block{display:grid;gap:10px;margin-bottom:34px}
+.slide-label{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--pg-sub)}
+.slide-label b{color:var(--pg-ink);font-family:var(--pg-f-title)}
+.fb-frame{overflow-x:auto;border:1px solid var(--pg-line);box-shadow:0 10px 30px -18px rgba(19,35,58,.35);background:var(--pg-panel)}
+@media (max-width:760px){.fb-frame .fb-slide{min-width:720px}}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ctrl span{font-size:14px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:14px;padding:6px 14px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:3px;cursor:pointer}
+.btn:hover{border-color:var(--pg-ink)}
+.btn[aria-pressed="true"]{background:var(--pg-ink);color:var(--pg-panel);border-color:var(--pg-ink)}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);padding:20px 22px;min-width:0}
+.panel h3{margin-top:0}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.sw div{border:1px solid var(--pg-line);background:var(--pg-panel)}
+.sw i{display:block;height:46px;border-bottom:1px solid var(--pg-line)}
+.sw p{margin:0;padding:6px 8px;font-family:var(--pg-f-mono);font-size:12px;line-height:1.45;overflow-wrap:anywhere}
+.sw p b{font-family:var(--pg-f-body);font-weight:600;font-size:13px;display:block}
+.rules{margin:0;padding-left:1.2em}
+.rules li{margin:4px 0}
+.dont li::marker{color:var(--pg-accent)}
+table.t{border-collapse:collapse;width:100%;font-size:14px}
+.t th,.t td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:top}
+.t th{font-weight:600;color:var(--pg-sub);font-size:13px}
+.t td code,.pg code{font-family:var(--pg-f-mono);font-size:13px}
+.tscroll{overflow-x:auto}
+.els{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.els div{background:var(--pg-panel);border:1px solid var(--pg-line);padding:12px 14px;min-width:0}
+.els h4{margin:0 0 6px;font-size:14px;font-family:var(--pg-f-title);color:var(--pg-sub)}
+.els ul{margin:0;padding:0;list-style:none;font-size:14px}
+.els li{padding:2px 0}
+.els li b{font-family:var(--pg-f-num);font-weight:600;margin-right:6px}
+.els li small{color:var(--pg-sub);font-size:12px;margin-left:4px}
+.code-wrap{margin:14px 0 26px;min-width:0}
+.code-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--pg-code);color:var(--pg-code-sub);padding:8px 12px;font-family:var(--pg-f-mono);font-size:13px}
+.code-head .btn{background:transparent;color:var(--pg-code-ink);border-color:#3A4858}
+pre.code{margin:0;max-height:520px;overflow:auto;background:var(--pg-code);color:var(--pg-code-ink);padding:14px 16px;font-family:var(--pg-f-mono);font-size:12.5px;line-height:1.55;white-space:pre;tab-size:2}
+ol.steps{padding-left:1.3em;margin:0}
+ol.steps li{margin:6px 0}
+.note{font-size:14px;color:var(--pg-sub)}
+</style>
+
+<div class="pg">
+  <header class="pg-top">
+    <div class="pg-eyebrow">REFERENCE #117 · 계열 키트 · F 관측·중계 · 2026. 11. 08.</div>
+    <h1>기압 기록지 키트</h1>
+    <p>F 관측·중계 계열(#25 늘봄 수요 일기도 · #31 한 칸씩 켜지는 돔 · #71 미래교육 설계도)의 목차·섹션 간지·마무리. #52(트랙 구간 띠)와 다른 구성으로, 기상 관측실의 자기 기압계(바로그래프)를 장치로 씁니다. 목차는 기록지 한 장(칸 너비 = 발표 시간), 간지는 드럼이 돌아 그 섹션 칸이 펜 앞에 오고, 마무리는 드럼에서 떼어 낸 다 쓴 기록지와 표제란(문의처)으로 끝납니다. 가상 예시입니다.</p>
+    <div class="pg-tags"><span>역할: 목차·간지</span><span>쓰임: 발표 덱</span><span>움직임: 간지 전환 1개(0.8초)</span><span>분야: 업무·행정</span><span>아이콘: Tabler Icons(MIT)</span></div>
+  </header>
+
+  <!-- 1. 장표 3장 -->
+  <section aria-label="장표 3장">
+    <div class="slide-block">
+      <div class="slide-label"><b>1 · 목차</b><span>정지 · 칸 너비 = 섹션 발표 시간(1분 = 51.4px)</span></div>
+      <div class="fb-frame">
+        <div class="fb fb-slide" data-fb="toc" data-page="02">
+          <div class="fb-in">
+            <svg class="fb-art" viewBox="0 0 1600 900" aria-hidden="true" data-gen></svg>
+            <div class="fb-head"><span class="fb-head-l"><span class="fb-tick"><i></i><i></i><i></i></span>목차</span><span class="fb-head-r" data-gen data-plan></span></div>
+            <h2 class="fb-title">28분 발표, 가장 긴 칸은 <em>세부 추진과제</em> 10분</h2>
+            <div data-gen data-cols></div>
+            <div class="fb-foot"><span>가상 예시 · 아이콘: Tabler Icons(MIT)</span><span data-gen data-pg></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-block">
+      <div class="slide-label"><b>2 · 섹션 간지</b><span>번호·이름만 바꿔 다섯 섹션에 · 전환: 드럼 회전 0.8초</span></div>
+      <div class="fb-frame">
+        <div class="fb fb-slide" data-fb="divider" data-section="3">
+          <div class="fb-in">
+            <svg class="fb-art" viewBox="0 0 1600 900" aria-hidden="true" data-gen></svg>
+            <div class="fb-head"><span class="fb-head-l"><span class="fb-tick"><i></i><i></i><i></i></span><span data-gen data-hname></span></span><span class="fb-head-r" data-gen data-plan></span></div>
+            <div class="fb-dcol">
+              <div class="fb-kicker" data-gen data-kicker></div>
+              <div class="fb-dno" data-gen data-dno></div>
+              <h2 class="fb-dname" data-gen data-dname></h2>
+              <p class="fb-ddesc" data-gen data-ddesc></p>
+              <ul class="fb-items" data-gen data-items></ul>
+            </div>
+            <div class="fb-foot"><span>가상 예시 · 아이콘: Tabler Icons(MIT)</span><span data-gen data-pg></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="ctrl" role="group" aria-label="간지 섹션 바꾸기">
+        <span>섹션 바꿔 보기</span>
+        <button class="btn" data-sec="1" aria-pressed="false">Ⅰ</button>
+        <button class="btn" data-sec="2" aria-pressed="false">Ⅱ</button>
+        <button class="btn" data-sec="3" aria-pressed="true">Ⅲ</button>
+        <button class="btn" data-sec="4" aria-pressed="false">Ⅳ</button>
+        <button class="btn" data-sec="5" aria-pressed="false">Ⅴ</button>
+        <button class="btn" id="fb-replay">전환 다시 보기</button>
+      </div>
+    </div>
+
+    <div class="slide-block">
+      <div class="slide-label"><b>3 · 마무리</b><span>정지 · 다 쓴 기록지 + 표제란(문의처) — 표지 #25의 흰 제목란과 짝</span></div>
+      <div class="fb-frame">
+        <div class="fb fb-slide" data-fb="close" data-page="17">
+          <div class="fb-in">
+            <svg class="fb-art" viewBox="0 0 1600 900" aria-hidden="true" data-gen></svg>
+            <div class="fb-head"><span class="fb-head-l"><span class="fb-tick"><i></i><i></i><i></i></span>맺음</span><span class="fb-head-r" data-gen data-plan></span></div>
+            <div class="fb-ccol">
+              <h2 class="fb-ctitle">줄어든 업무만큼<br>교실에 더<br>머물게 합니다</h2>
+              <div class="fb-crule"></div>
+              <div class="fb-cplan" data-gen data-plan></div>
+              <div class="fb-cdate">2026. 11.</div>
+              <div class="fb-corg">○○교육청 교육행정과</div>
+            </div>
+            <div class="fb-tb">
+              <div><span>기록 기간</span><b>2027. 3. – 2028. 2.</b></div>
+              <div><span>기록 부서</span><b>○○교육청<br>교육행정과 업무경감팀</b></div>
+              <div class="fb-tb-call"><span class="ds-badge is-round" data-gen data-icon="phone"></span><div style="display:flex;flex-direction:column;gap:calc(var(--u)*4);min-width:0"><span>문의 · 담당 주무관 ○○○</span><em>0○○-○○○-○○○○</em></div></div>
+            </div>
+            <div class="fb-foot"><span>가상 예시 · 아이콘: Tabler Icons(MIT)</span><span data-gen data-pg></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 계열 값 카드 -->
+  <section aria-labelledby="h-card">
+    <h2 class="pg-h" id="h-card"><small>FAMILY VALUES · F</small>계열 값 카드 — F 관측·중계 인포그래픽</h2>
+    <p class="lead">표지 #25 일기도·#31 지오데식 돔·#71 청사진의 공통점: 맑은 청백 바탕, 관측·측정 기록의 문법(눈금·격자·기호), 파랑의 농담으로 쌓은 위계, 그리고 '지금 여기' 하나에만 쓰는 빨강(일기도의 전선, 도면의 빨간 펜). 이 키트는 그 문법을 기압 기록지로 옮겼습니다.</p>
+    <div class="sw" id="pg-swatch"></div>
+    <div class="grid2" style="margin-top:20px">
+      <div class="panel">
+        <h3>글꼴</h3>
+        <table class="t"><tbody>
+          <tr><th>제목</th><td>Gothic A1 800 <span class="note">대체 Pretendard · 맑은 고딕 · sans-serif</span></td></tr>
+          <tr><th>본문</th><td>IBM Plex Sans KR 400/600 <span class="note">대체 Apple SD Gothic Neo · 맑은 고딕</span></td></tr>
+          <tr><th>숫자·눈금</th><td>Saira Semi Condensed 600/700 <span class="note">대체 Arial Narrow · sans-serif</span></td></tr>
+        </tbody></table>
+        <h3>머리말 띠</h3>
+        <p class="note" style="margin:0">y 40~88. 왼쪽에 계기 눈금 세 개(짧게·길게·짧게, c1) + 섹션 이름(본문 600, 20px), 오른쪽 계획안 이름(16px 보조색), 아래 1.5px 구분선. 띠에 색 면을 깔지 않는다.</p>
+      </div>
+      <div class="panel">
+        <h3>규칙</h3>
+        <ul class="rules">
+          <li><b>강조색(빨강)</b>: 한 장에 한 곳. 목차는 제목 한 단어, 간지는 펜 끝(지금 위치), 마무리는 기록의 끝점. 본문 장표는 제목 핵심 단어 하나.</li>
+          <li><b>위계</b>: 파랑 c1~c5 농담. 기록지 격자는 c4·c5, 칸 경계는 c3, 글자·잉크는 ink·c1.</li>
+          <li><b>질감</b>: 평면 · 약한 입체(원통 음영, 접지 그림자). 재질은 간지의 계기 하나에만.</li>
+          <li><b>모션</b>: 목차·마무리·본문은 정지. 간지 전환 하나(1초 이내). 표지 은유 모션은 덱에 한 장.</li>
+          <li><b>사진·일러스트</b>: 관측 기기·지도·도면처럼 '재는 물건'의 정면도. 실사 사진은 표지 한 장(#31처럼)만.</li>
+          <li><b>아이콘</b>: 세트 아이콘, 원 배지(is-round) 한 종류, 색 c1.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>이 계열에서 하지 말 것</h3>
+        <ul class="rules dont">
+          <li>범례·색 칩을 흩어 놓기 — 관측 기록은 눈금 옆에 바로 적는다(직접 라벨).</li>
+          <li>빨강을 범주색으로 쓰기 — 빨강은 펜 끝 한 곳. 범주는 파랑 농담과 위치로.</li>
+          <li>어두운 관제실 화면(검정 바탕·네온) — F는 맑은 낮의 기록지. 어두운 화면은 G 계열 몫.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 어울리는 기존 요소 -->
+  <section aria-labelledby="h-els">
+    <h2 class="pg-h" id="h-els"><small>MATCHING ELEMENTS</small>이 계열과 어울리는 본문 요소</h2>
+    <p class="lead">인덱스 DB에서 families에 F가 있고 덱에 쓸 수 있는(deck_ok) 본문 요소 44개를 정보 유형별로 묶었습니다. '재질' 표시는 F 덱에서 계기 그림이 겹치지 않게 한 장만 쓰세요.</p>
+    <div class="els" id="pg-els"></div>
+  </section>
+
+  <!-- 4. HTML로 가져다 쓰기 -->
+  <section aria-labelledby="h-code">
+    <h2 class="pg-h" id="h-code"><small>HTML</small>HTML로 가져다 쓰기</h2>
+    <ol class="steps">
+      <li>아래 코드 하나가 장표 한 장입니다. 빈 HTML 파일에 붙여 넣으면 그대로 열립니다(글꼴은 인터넷이 없으면 맑은 고딕·Arial Narrow로 대체).</li>
+      <li>섹션 이름·발표 시간(분)·쪽수·소항목은 스크립트의 <code>FB_SECTIONS</code> 배열, 계획안 이름은 <code>FB_PLAN</code> 한 곳에서 바꿉니다. 시간을 바꾸면 목차 칸 너비와 간지의 드럼 위치가 함께 바뀝니다.</li>
+      <li>간지는 <code>data-section="3"</code> 숫자(1~5)만 바꾸면 다른 섹션이 됩니다.</li>
+      <li>색·글꼴은 <code>.fb</code> 규칙의 <code>--ds-*</code> 변수만 바꿉니다. 다른 계열 값을 쓰려면 맨 아래 '계열 값' 묶음을 통째로 바꿔 끼우세요.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div id="pg-codes"></div>
+  </section>
+
+  <!-- 5. PPT로 옮기기 -->
+  <section aria-labelledby="h-ppt">
+    <h2 class="pg-h" id="h-ppt"><small>POWERPOINT</small>PPT로 옮기기 — 슬라이드 마스터에 계열 값 넣기</h2>
+    <div class="grid2">
+      <div class="panel">
+        <h3>테마 색 · 테마 글꼴</h3>
+        <p class="note" style="margin:0 0 8px">[디자인] → [적용] 펼침 → [색] → [색 사용자 지정]</p>
+        <table class="t"><tbody>
+          <tr><th>텍스트/배경 어둡게 1</th><td><code>#13233A</code> 본문 글자·잉크</td></tr>
+          <tr><th>텍스트/배경 밝게 1</th><td><code>#F1F4F8</code> 바탕</td></tr>
+          <tr><th>텍스트/배경 어둡게 2</th><td><code>#1B3A63</code> c1 · 아이콘</td></tr>
+          <tr><th>텍스트/배경 밝게 2</th><td><code>#FFFFFF</code> 카드·기록지</td></tr>
+          <tr><th>강조 1</th><td><code>#DE4430</code> 한 장에 한 곳</td></tr>
+          <tr><th>강조 2~6</th><td><code>#2A6CB4</code> <code>#335C8F</code> <code>#5F84B4</code> <code>#9BB3D2</code> <code>#D3E0EF</code></td></tr>
+        </tbody></table>
+        <p class="note">[글꼴] → [글꼴 사용자 지정]: 제목 Gothic A1(없으면 맑은 고딕 굵게), 본문 IBM Plex Sans KR(없으면 맑은 고딕). 숫자·눈금은 텍스트 상자마다 Saira Semi Condensed(없으면 Arial Narrow).</p>
+      </div>
+      <div class="panel">
+        <h3>레이아웃 3종 (33.867 × 19.05cm, 1px ≈ 0.0212cm)</h3>
+        <ol class="steps">
+          <li><b>공통</b>: 좌우 여백 1.69cm. 머리말 띠 위 0.85cm·높이 1.02cm, 왼쪽에 세로 막대 3개(너비 0.05cm, 높이 0.15·0.34·0.15cm), 아래 0.03cm 선. 제목 개체 틀 위 2.37cm. 바닥 줄 위 17.91cm.</li>
+          <li><b>목차</b>: 가로 30.48cm를 발표 시간 비율로 다섯 칸(5·4·10·4·5분 → 5.44·4.35·10.89·4.35·5.44cm). 칸마다 왼쪽 세로선(c3, 1pt), 원 배지 0.93cm + 로마 숫자 + 분, 이름 26pt급, 설명 2줄, 쪽수. 아래 기록지는 표(행 20개, 가로선 c5 0.5pt·10hPa마다 c4 1pt)로 만들고 칸 경계선을 위 칸 선과 맞춥니다. 표 아래에 누적 시간 0·5·9·19·23·28분.</li>
+          <li><b>간지</b>: 왼쪽 12.5cm 텍스트(캡션 · 번호 190pt급 · 이름 · 설명 · 소항목 3줄), 오른쪽 기압계 그림(PNG). 전환: 그림에 [애니메이션] 강조 → 없음 대신 [전환] → '밀어내기(오른쪽에서)' 0.8초를 그림 개체 대신 슬라이드에 적용하거나, 드럼 그림 두 장(전·후)을 겹쳐 '페이드' 0.8초. 섹션마다 이 슬라이드를 복제해 번호·이름·그림만 바꿉니다.</li>
+          <li><b>마무리</b>: 왼쪽 제목 3줄 + 계획안 이름·날짜·기관, 오른쪽 다 쓴 기록지 그림, 아래 표제란은 1행 3열 표(윗선 c1 2.25pt, 나머지 c3 1pt) — 기록 기간 · 기록 부서 · 문의(원 배지 전화 아이콘).</li>
+          <li><b>그림 가져오기</b>: 위 장표를 화면 캡처하거나 HTML 코드를 열어 기압계·기록지 부분만 잘라 PNG로 넣습니다. 아이콘은 아이콘 세트 페이지에서 SVG를 복사해 [삽입] → [그림]으로 넣고 색을 c1로.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 스펙 -->
+  <section aria-labelledby="h-spec">
+    <h2 class="pg-h" id="h-spec"><small>SPEC</small>스펙</h2>
+    <div class="grid2">
+      <div class="panel tscroll">
+        <h3>쓴 아이콘 (Tabler Icons, MIT)</h3>
+        <table class="t"><thead><tr><th>id</th><th>이름</th><th>자리</th></tr></thead><tbody>
+          <tr><td><code>chart-bar</code></td><td>막대 통계</td><td>Ⅰ 추진 배경·현황</td></tr>
+          <tr><td><code>target</code></td><td>목표</td><td>Ⅱ 목표 및 지표</td></tr>
+          <tr><td><code>checklist</code></td><td>체크리스트</td><td>Ⅲ 세부 추진과제</td></tr>
+          <tr><td><code>sitemap</code></td><td>체계도</td><td>Ⅳ 추진체계</td></tr>
+          <tr><td><code>calendar</code></td><td>일정</td><td>Ⅴ 일정 및 예산</td></tr>
+          <tr><td><code>phone</code></td><td>문의</td><td>마무리 표제란</td></tr>
+        </tbody></table>
+      </div>
+      <div class="panel">
+        <h3>제작 정보</h3>
+        <table class="t"><tbody>
+          <tr><th>주제</th><td>2027 ○○교육청 학교 업무 경감 추진 계획(안)</td></tr>
+          <tr><th>난이도</th><td>HTML 중상 · PPT 중(기압계는 PNG로 넣으면 하)</td></tr>
+          <tr><th>그림</th><td>SVG 직접 그림. 원통 드럼: 위 뚜껑의 톱니 테·가운데 축 너트, 기록지를 누르는 세로 클립 막대, 원통 곡면을 따라 휘는 격자(sin 투영). 기록지: 펜 팔이 축을 중심으로 흔들려 생기는 <b>휜 시간선</b>, 10hPa마다 굵은 가로선. 기구: 아네로이드 캡슐 7단 적층과 조절 나사, 연결봉·레버·축받이, 펜 팔과 V자 펜촉, 펜 들어올리개, 받침대 나사.</td></tr>
+          <tr><th>실물 확인</th><td>자기 기압계는 진공 캡슐 적층이 기압에 따라 늘고 줄며, 레버가 그 움직임을 키워 펜 팔에 전하고, 시계 장치로 도는 드럼(보통 7일 1회전)에 hPa 세로·시간 가로 눈금이 인쇄된 기록지를 감는다 — <a href="https://www.firgelliauto.com/blogs/mechanisms/self-registering-barometer">Firgelli 'Self-registering Barometer Mechanism'</a>, <a href="https://www.thiesclima.com/pdf/en/Products/Air-pressure-Recording-Instruments/?art=613">Thies Clima 기압 기록계(7단 캡슐)</a>, <a href="https://www.starpath.com/downloads/Fischer_Barograph_Manual.pdf">Fischer Barograph Manual</a></td></tr>
+          <tr><th>트렌드</th><td>목차에 섹션 순서와 함께 '섹션별 예상 소요 시간·쪽수'를 적어 청중이 진행을 따라가게 하고, 간지가 그 위치를 다시 알려 주는 목차·간지 짝 — <a href="https://deckary.com/blog/pillar-slide-types-guide">Deckary 'Presentation Design: The Complete Guide to Professional Slide Types'</a>(#116과 같은 글, 이번에는 '섹션별 소요 시간' 항목)</td></tr>
+          <tr><th>인터넷 없이</th><td>외부 스크립트·그림 없음. 글꼴만 Google Fonts(빌드에서 파일 안으로).</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script id="fb-runtime">
+/* ===== 기압 기록지 키트 런타임: 데이터 → 장표 그리기 (외부 요청 없음) ===== */
+var FB_PLAN = '2027 ○○교육청 학교 업무 경감 추진 계획(안)';
+/* 섹션 데이터 — 이 배열만 바꾸면 목차·간지·마무리가 함께 바뀐다. min = 발표 시간(분) */
+var FB_SECTIONS = [
+  {roman:'Ⅰ', no:'01', name:'추진 배경·현황', desc:'교원 행정업무 실태와 그간 경감 성과', min:5, pages:'3–4', icon:'chart-bar',
+   items:[['1-1','교원 주당 행정업무 시간 3년 추이'],['1-2','업무 유형별 부담 조사'],['1-3','그간 경감 추진 성과와 한계']]},
+  {roman:'Ⅱ', no:'02', name:'목표 및 지표', desc:'성과지표 3개, 현재 → 2027 목표', min:4, pages:'5–6', icon:'target',
+   items:[['2-1','비전과 목표'],['2-2','성과지표 3개(현재 → 목표)'],['2-3','지표별 측정 방법']]},
+  {roman:'Ⅲ', no:'03', name:'세부 추진과제', desc:'공문 감축·지원 인력·업무 자동화 등 과제 6개', min:10, pages:'7–12', icon:'checklist',
+   items:[['3-1·2','공문 감축과 서식 표준화'],['3-3·4','학교 행정업무 지원 인력 배치'],['3-5·6','반복 업무 디지털 자동화']]},
+  {roman:'Ⅳ', no:'04', name:'추진체계', desc:'추진단·지원센터·학교 협의회의 역할', min:4, pages:'13–14', icon:'sitemap',
+   items:[['4-1','업무경감 추진단 구성'],['4-2','교육지원청 업무지원센터'],['4-3','학교 업무 조정 협의회']]},
+  {roman:'Ⅴ', no:'05', name:'일정 및 예산', desc:'분기별 일정과 재원 24.8억 원', min:5, pages:'15–16', icon:'calendar',
+   items:[['5-1','분기별 추진 일정'],['5-2','재원별 예산(국비·지방비·교육청 자체)'],['5-3','중간 점검과 환류']]}
+];
+/* 교육행정 아이콘 세트(Tabler Icons, MIT)에서 쓴 것만 */
+var FB_ICONS = {
+  'chart-bar':'<path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6"/><path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10"/><path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14"/><path d="M4 20h14"/>',
+  'target':'<path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M7 12a5 5 0 1 0 10 0a5 5 0 1 0 -10 0"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/>',
+  'checklist':'<path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8"/><path d="M14 19l2 2l4 -4"/><path d="M9 8h4"/><path d="M9 12h2"/>',
+  'sitemap':'<path d="M3 17a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -2"/><path d="M15 17a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -2"/><path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -2"/><path d="M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1"/><path d="M12 9l0 3"/>',
+  'calendar':'<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12"/><path d="M16 3v4"/><path d="M8 3v4"/><path d="M4 11h16"/><path d="M11 15h1"/><path d="M12 15v3"/>',
+  'phone':'<path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"/>'
+};
+function fbIcon(id){return '<svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(FB_ICONS[id]||'')+'</svg>';}
+function fbR(n){return Math.round(n*10)/10;}
+/* 섹션 시작·끝 시간(분) */
+function fbTimes(){var t=0,a=[];FB_SECTIONS.forEach(function(s){a.push([t,t+s.min]);t+=s.min;});return {at:a,total:t};}
+/* 기록 잉크 곡선(가상): 기압 hPa — 그림용, 수치 의미 없음 */
+function fbP(t){return 1018.4-0.40*t+1.5*Math.sin(t*0.85)+0.7*Math.sin(t*2.6+1.1);}
+/* 점 목록 → path (null이면 끊음) */
+function fbPath(pts){var d='',pen=false;pts.forEach(function(p){if(!p){pen=false;return;}d+=(pen?'L':'M')+fbR(p[0])+' '+fbR(p[1])+' ';pen=true;});return d;}
+function fbFill(root){
+  root.querySelectorAll('[data-plan]').forEach(function(e){e.textContent=FB_PLAN;});
+  root.querySelectorAll('[data-icon]').forEach(function(e){e.innerHTML=fbIcon(e.getAttribute('data-icon'));});
+}
+function fbDefs(g){
+  return '<defs>'+
+  '<linearGradient id="'+g+'-cyl" x1="0" y1="0" x2="1" y2="0">'+
+    '<stop offset="0" style="stop-color:var(--ds-ink);stop-opacity:.30"/><stop offset=".10" style="stop-color:var(--ds-ink);stop-opacity:.10"/>'+
+    '<stop offset=".30" style="stop-color:var(--ds-surface);stop-opacity:.45"/><stop offset=".48" style="stop-color:var(--ds-surface);stop-opacity:0"/>'+
+    '<stop offset=".80" style="stop-color:var(--ds-ink);stop-opacity:.07"/><stop offset=".94" style="stop-color:var(--ds-ink);stop-opacity:.20"/>'+
+    '<stop offset="1" style="stop-color:var(--ds-ink);stop-opacity:.34"/></linearGradient>'+
+  '<linearGradient id="'+g+'-post" x1="0" y1="0" x2="1" y2="0">'+
+    '<stop offset="0" style="stop-color:var(--ds-c3)"/><stop offset=".35" style="stop-color:var(--ds-surface)"/><stop offset="1" style="stop-color:var(--ds-c3)"/></linearGradient>'+
+  '<linearGradient id="'+g+'-curl" x1="0" y1="0" x2="1" y2="0">'+
+    '<stop offset="0" style="stop-color:var(--ds-ink);stop-opacity:.10"/><stop offset=".05" style="stop-color:var(--ds-ink);stop-opacity:0"/>'+
+    '<stop offset=".93" style="stop-color:var(--ds-ink);stop-opacity:0"/><stop offset="1" style="stop-color:var(--ds-ink);stop-opacity:.12"/></linearGradient>'+
+  '<filter id="'+g+'-b6" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>'+
+  '<filter id="'+g+'-b3" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>'+
+  '</defs>';
+}
+
+/* ---- 평평한 기록지(목차·마무리): o = {x0,x1,y0,y1,py,Ra,trace,labels,g} ----
+   시간선은 펜 팔(반지름 Ra)이 축(높이 py)을 중심으로 흔들리며 그리는 호라서 휜다. */
+function fbFlat(o){
+  var tm=fbTimes(),T=tm.total,k=(o.x1-o.x0)/T,s='';
+  var top=o.Ra-Math.sqrt(o.Ra*o.Ra-Math.pow(o.y0-o.py,2));
+  function du(y){return o.Ra-Math.sqrt(o.Ra*o.Ra-Math.pow(y-o.py,2))-top;}
+  function X(t,y){return o.x0+k*t+du(y);}
+  function Y(p){return o.y0+(1030-p)/40*(o.y1-o.y0);}
+  /* 가로선: 2hPa마다, 10hPa마다 굵게 */
+  for(var p=990;p<=1030;p+=2){var y=Y(p),b=(p%10===0);
+    s+='<path d="M'+fbR(X(0,y))+' '+fbR(y)+'H'+fbR(X(T,y))+'" stroke="var(--ds-'+(b?'c4':'c5')+')" stroke-width="'+(b?1.2:.9)+'" fill="none"/>';}
+  /* 시간선: 1분마다 가늘게, 섹션 경계는 c3 */
+  var bounds={};tm.at.forEach(function(a){bounds[a[0]]=1;});bounds[T]=1;
+  for(var t=0;t<=T;t++){var pts=[];for(var yy=o.y0;yy<=o.y1+.1;yy+=(o.y1-o.y0)/16)pts.push([X(t,yy),yy]);
+    s+='<path d="'+fbPath(pts)+'" fill="none" stroke="var(--ds-'+(bounds[t]?'c3':'c5')+')" stroke-width="'+(bounds[t]?1.5:.9)+'"/>';}
+  /* 인쇄된 hPa 숫자(첫 칸 안쪽) */
+  [1020,1010,1000].forEach(function(p){s+='<text x="'+fbR(X(0,Y(p))+14)+'" y="'+fbR(Y(p)-4)+'" font-size="'+(o.fs||13)+'" style="font-family:var(--ds-font-num);font-weight:600" fill="var(--ds-c3)">'+p+(p===1020?' hPa':'')+'</text>';});
+  if(o.trace){
+    var tp=[];for(var q=0;q<=T+.001;q+=.1){var yq=Y(fbP(q));tp.push([X(q,yq),yq]);}
+    s+='<path d="'+fbPath(tp)+'" fill="none" stroke="var(--ds-ink)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity=".88"/>';
+    var e=tp[tp.length-1];
+    s+='<circle cx="'+fbR(e[0])+'" cy="'+fbR(e[1])+'" r="10" fill="none" stroke="var(--ds-accent)" stroke-width="2"/><circle cx="'+fbR(e[0])+'" cy="'+fbR(e[1])+'" r="4.5" fill="var(--ds-accent)"/>';
+    o.end=e;
+  }
+  if(o.labels){tm.at.forEach(function(a,i){var xm=(X(a[0],o.y0)+X(a[1],o.y0))/2;
+    s+='<text x="'+fbR(xm)+'" y="'+(o.y0-9)+'" text-anchor="middle" font-size="15" style="font-family:var(--ds-font-num);font-weight:700" fill="var(--ds-c2)">'+FB_SECTIONS[i].roman+'</text>';});}
+  o.X=X;o.k=k;
+  return s;
+}
+
+/* ---- 원통 드럼 + 기구(간지): T = 펜 아래 시간(분), now = 지금 섹션 번호(0부터), tint = 지금 칸 칠 농도(0~1) ---- */
+var FB_D={cx:990,R:240,E:14,top:250,bot:650,pt:272,pb:628,y0:292,y1:612,k:20,th:-0.3,P:[1470,430],Ra:545};
+function fbDrum(g,T,now,tint){
+  var D=FB_D,tm=fbTimes(),TT=tm.total,s='',LIM=1.5;
+  var top=D.Ra-Math.sqrt(D.Ra*D.Ra-Math.pow(D.y0-D.P[1],2));
+  function du(y){return D.Ra-Math.sqrt(D.Ra*D.Ra-Math.pow(y-D.P[1],2))-top;}
+  function ang(u){return D.th+(u-D.k*T)/D.R;}
+  function M(a,y){return [D.cx+D.R*Math.sin(a),y+D.E*Math.cos(a)];}
+  function Y(p){return D.y0+(1030-p)/40*(D.y1-D.y0);}
+  function at(t,y){var a=ang(D.k*t+du(y));return Math.abs(a)>LIM?null:M(a,y);}
+  var aL=Math.max(-LIM,ang(D.k*-16)),aR=Math.min(LIM,ang(D.k*(TT+16)));
+  function hline(y){var pts=[];for(var a=aL;a<=aR+1e-6;a+=(aR-aL)/40)pts.push(M(a,y));return pts;}
+
+  /* 받침대(윗면·앞면·발·나사) */
+  s+='<ellipse cx="1110" cy="748" rx="460" ry="12" fill="var(--ds-ink)" opacity=".16" filter="url(#'+g+'-b6)"/>';
+  s+='<rect x="690" y="698" width="840" height="40" rx="6" fill="var(--ds-c4)"/>';
+  s+='<rect x="690" y="664" width="840" height="40" rx="10" fill="var(--ds-c5)" stroke="var(--ds-c4)" stroke-width="1.2"/>';
+  s+='<path d="M700 699H1520" stroke="var(--ds-surface)" stroke-opacity=".75" stroke-width="1.5"/>';
+  s+='<rect x="716" y="738" width="34" height="8" rx="2" fill="var(--ds-c2)"/><rect x="1470" y="738" width="34" height="8" rx="2" fill="var(--ds-c2)"/>';
+  [[712,684],[1508,684]].forEach(function(c){s+='<circle cx="'+c[0]+'" cy="'+c[1]+'" r="4.5" fill="var(--ds-c4)" stroke="var(--ds-c3)"/><path d="M'+(c[0]-3)+' '+(c[1]-1.5)+'l6 3" stroke="var(--ds-c1)" stroke-width="1"/>';});
+  /* 시간 표시 단추(받침 앞쪽) */
+  s+='<rect x="1250" y="676" width="30" height="12" rx="3" fill="var(--ds-c3)"/><rect x="1254" y="677" width="22" height="3" rx="1.5" fill="var(--ds-surface)" opacity=".55"/>';
+
+  /* 캡슐 적층 7단 + 조절 나사 */
+  var cxs=1385;
+  s+='<rect x="1322" y="666" width="126" height="10" rx="2" fill="var(--ds-c3)"/>';
+  for(var i=0;i<7;i++){var yc=654-i*13;
+    s+='<rect x="'+(cxs-14)+'" y="'+(yc+8)+'" width="28" height="6" fill="var(--ds-c3)"/>';
+    s+='<rect x="'+(cxs-56)+'" y="'+yc+'" width="112" height="9" rx="4.5" fill="var(--ds-c4)" stroke="var(--ds-c2)" stroke-width=".9"/>';
+    s+='<path d="M'+(cxs-50)+' '+(yc+2.6)+'H'+(cxs+50)+'" stroke="var(--ds-surface)" stroke-opacity=".75" stroke-width="1.2"/>';
+    s+='<path d="M'+(cxs-46)+' '+(yc+6.4)+'H'+(cxs+46)+'" stroke="var(--ds-c2)" stroke-opacity=".45" stroke-width=".8"/>';}
+  var ytop=654-6*13;
+  s+='<rect x="'+(cxs-6)+'" y="'+(ytop-26)+'" width="12" height="26" fill="var(--ds-c4)" stroke="var(--ds-c2)" stroke-width=".8"/>';
+  for(var j=0;j<6;j++)s+='<path d="M'+(cxs-6)+' '+(ytop-23+j*4)+'l12 2" stroke="var(--ds-c2)" stroke-width=".8"/>';
+  s+='<rect x="'+(cxs-11)+'" y="'+(ytop-31)+'" width="22" height="6" rx="2" fill="var(--ds-c2)"/>';
+  /* 축 기둥 + 연결봉 + 레버 */
+  var P=D.P;
+  s+='<rect x="'+(P[0]-9)+'" y="'+(P[1]-22)+'" width="18" height="'+(666-P[1]+22)+'" rx="3" fill="url(#'+g+'-post)" stroke="var(--ds-c2)" stroke-width="1"/>';
+  s+='<path d="M'+cxs+' '+(ytop-31)+'L'+(P[0]-26)+' '+(P[1]+24)+'" stroke="var(--ds-c2)" stroke-width="2.2" stroke-linecap="round"/>';
+  s+='<path d="M'+P[0]+' '+P[1]+'L'+(P[0]-26)+' '+(P[1]+24)+'" stroke="var(--ds-c1)" stroke-width="4" stroke-linecap="round"/>';
+
+  /* 드럼 바닥 그림자 + 몸통(금속) */
+  s+='<ellipse cx="'+D.cx+'" cy="'+(D.bot+D.E+2)+'" rx="'+(D.R+14)+'" ry="9" fill="var(--ds-ink)" opacity=".22" filter="url(#'+g+'-b3)"/>';
+  var body='M'+(D.cx-D.R)+' '+D.top+'L'+(D.cx-D.R)+' '+D.bot+'A'+D.R+' '+D.E+' 0 0 0 '+(D.cx+D.R)+' '+D.bot+'L'+(D.cx+D.R)+' '+D.top+'A'+D.R+' '+D.E+' 0 0 1 '+(D.cx-D.R)+' '+D.top+'Z';
+  s+='<path d="'+body+'" fill="var(--ds-c4)"/>';
+  /* 감긴 기록지 */
+  var full=[];for(var a=-Math.PI/2;a<=Math.PI/2+1e-6;a+=Math.PI/48)full.push(M(a,D.pt));
+  var bot=[];for(var b=Math.PI/2;b>=-Math.PI/2-1e-6;b-=Math.PI/48)bot.push(M(b,D.pb));
+  s+='<path d="'+fbPath(full.concat(bot))+'Z" fill="var(--ds-surface)"/>';
+  /* 지금 칸 칠(펜 앞) */
+  var se=tm.at[now];
+  if(tint>0){var L=[],Rr=[];for(var y2=D.y0;y2<=D.y1+.1;y2+=20){var pL=at(se[0],y2),pR=at(se[1],y2);
+      var aa=ang(D.k*se[1]+du(y2));if(!pR)pR=M(Math.min(LIM,aa),y2);if(pL){L.push(pL);Rr.unshift(pR);}}
+    if(L.length>1)s+='<path d="'+fbPath(L.concat(Rr))+'Z" fill="var(--ds-c5)" opacity="'+fbR(.75*tint)+'"/>';}
+  /* 격자 */
+  for(var p=990;p<=1030;p+=2){var b10=(p%10===0);s+='<path d="'+fbPath(hline(Y(p)))+'" fill="none" stroke="var(--ds-'+(b10?'c4':'c5')+')" stroke-width="'+(b10?1.2:.9)+'"/>';}
+  var bounds={};tm.at.forEach(function(x){bounds[x[0]]=1;});bounds[TT]=1;
+  for(var t=-16;t<=TT+16;t++){var pts=[];for(var y3=D.y0;y3<=D.y1+.1;y3+=20)pts.push(at(t,y3));
+    s+='<path d="'+fbPath(pts)+'" fill="none" stroke="var(--ds-'+(bounds[t]?'c3':'c5')+')" stroke-width="'+(bounds[t]?1.5:.9)+'"/>';}
+  /* 칸 머리(인쇄된 로마 숫자·분) — 곡면에 맞춰 가로로 눌림 */
+  tm.at.forEach(function(x,i){var aa=ang(D.k*(x[0]+x[1])/2+du(D.y0));if(Math.abs(aa)>1.25)return;var m=M(aa,D.y0-7),c=Math.cos(aa);
+    s+='<text transform="translate('+fbR(m[0])+' '+fbR(m[1])+') scale('+fbR(c)+' 1)" text-anchor="middle" font-size="15" style="font-family:var(--ds-font-num);font-weight:700" fill="var(--ds-'+(i===now?'ink':'c3')+')">'+FB_SECTIONS[i].roman+' · '+FB_SECTIONS[i].min+'분</text>';
+    [1020,1000].forEach(function(p){var a2=ang(D.k*x[0]+du(Y(p)))+0.012;if(Math.abs(a2)>1.3)return;var m2=M(a2,Y(p)-3);
+      s+='<text transform="translate('+fbR(m2[0])+' '+fbR(m2[1])+') scale('+fbR(Math.cos(a2))+' 1)" font-size="11" style="font-family:var(--ds-font-num);font-weight:600" fill="var(--ds-c3)">'+p+'</text>';});
+  });
+  /* 기록 잉크 */
+  if(T>0){var tp=[];for(var q=0;q<=T+1e-6;q+=.1)tp.push(at(q,Y(fbP(q))));
+    s+='<path d="'+fbPath(tp)+'" fill="none" stroke="var(--ds-ink)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity=".88"/>';}
+  /* 기록지 클립 막대(이음매를 누름) */
+  var ca=ang(D.k*-1.6);
+  if(Math.abs(ca)<1.4){var w=0.03,c1=M(ca-w,D.top+8),c2=M(ca+w,D.top+8),c3=M(ca+w,D.bot+4),c4=M(ca-w,D.bot+4);
+    s+='<path d="M'+fbR(c1[0])+' '+fbR(c1[1])+'L'+fbR(c2[0])+' '+fbR(c2[1])+'L'+fbR(c3[0])+' '+fbR(c3[1])+'L'+fbR(c4[0])+' '+fbR(c4[1])+'Z" fill="var(--ds-c3)" stroke="var(--ds-c2)" stroke-width=".8"/>';
+    [D.top+30,D.bot-24].forEach(function(yy){var m=M(ca,yy);s+='<rect x="'+fbR(m[0]-6)+'" y="'+fbR(m[1]-4)+'" width="12" height="8" rx="2" fill="var(--ds-c2)"/>';});}
+  /* 원통 음영 */
+  s+='<path d="'+body+'" fill="url(#'+g+'-cyl)"/>';
+  /* 위 뚜껑: 톱니 테 + 안쪽 판 + 축 너트 */
+  s+='<ellipse cx="'+D.cx+'" cy="'+D.top+'" rx="'+D.R+'" ry="'+D.E+'" fill="var(--ds-c5)" stroke="var(--ds-c3)" stroke-width="1.2"/>';
+  s+='<ellipse cx="'+D.cx+'" cy="'+D.top+'" rx="'+(D.R-4)+'" ry="'+(D.E-1.5)+'" fill="none" stroke="var(--ds-c2)" stroke-width="3" stroke-dasharray="1.6 2.6" opacity=".7"/>';
+  s+='<ellipse cx="'+D.cx+'" cy="'+(D.top-1)+'" rx="'+(D.R*.55)+'" ry="'+(D.E*.55)+'" fill="var(--ds-surface)" opacity=".7" stroke="var(--ds-c4)"/>';
+  s+='<ellipse cx="'+D.cx+'" cy="'+(D.top-2)+'" rx="15" ry="5" fill="var(--ds-c2)"/><rect x="'+(D.cx-7)+'" y="'+(D.top-5)+'" width="14" height="3" rx="1" fill="var(--ds-c1)"/>';
+
+  /* 펜 팔 + 펜촉(지금 위치 = 강조색 하나) */
+  var yn=Y(fbP(Math.max(T,0))),an=D.th+du(yn)/D.R,N=M(an,yn);
+  var dx=P[0]-N[0],dy=P[1]-N[1],len=Math.sqrt(dx*dx+dy*dy),ux=dx/len,uy=dy/len,nx=-uy,ny=ux;
+  function pt(d,w){return [N[0]+ux*d+nx*w,N[1]+uy*d+ny*w];}
+  var a1=pt(18,1),a2=pt(len,2.4),a3=pt(len,-2.4),a4=pt(18,-1);
+  s+='<path d="M'+fbR(a1[0])+' '+fbR(a1[1])+'L'+fbR(a2[0])+' '+fbR(a2[1])+'L'+fbR(a3[0])+' '+fbR(a3[1])+'L'+fbR(a4[0])+' '+fbR(a4[1])+'Z" fill="var(--ds-c1)"/>';
+  var cw1=pt(len+8,6),cw2=pt(len+44,6),cw3=pt(len+44,-6),cw4=pt(len+8,-6);
+  s+='<path d="M'+fbR(cw1[0])+' '+fbR(cw1[1])+'L'+fbR(cw2[0])+' '+fbR(cw2[1])+'L'+fbR(cw3[0])+' '+fbR(cw3[1])+'L'+fbR(cw4[0])+' '+fbR(cw4[1])+'Z" fill="var(--ds-c2)"/>';
+  var v1=pt(20,5),v2=pt(20,-5);
+  s+='<path d="M'+fbR(N[0])+' '+fbR(N[1])+'L'+fbR(v1[0])+' '+fbR(v1[1])+'L'+fbR(v2[0])+' '+fbR(v2[1])+'Z" fill="var(--ds-c2)" stroke="var(--ds-c1)" stroke-width=".8"/>';
+  var w1=pt(12,0);s+='<circle cx="'+fbR(w1[0])+'" cy="'+fbR(w1[1])+'" r="2.4" fill="var(--ds-surface)" opacity=".8"/>';
+  s+='<circle cx="'+P[0]+'" cy="'+P[1]+'" r="10" fill="var(--ds-c5)" stroke="var(--ds-c2)" stroke-width="1.4"/><circle cx="'+P[0]+'" cy="'+P[1]+'" r="3.5" fill="var(--ds-c1)"/>';
+  s+='<circle cx="'+fbR(N[0])+'" cy="'+fbR(N[1])+'" r="10" fill="none" stroke="var(--ds-accent)" stroke-width="2"/><circle cx="'+fbR(N[0])+'" cy="'+fbR(N[1])+'" r="4" fill="var(--ds-accent)"/>';
+  return s;
+}
+
+/* 1. 목차 */
+function fbDrawToc(el,g){
+  fbFill(el);
+  el.querySelector('[data-pg]').textContent=el.getAttribute('data-page')||'02';
+  var o={x0:80,x1:1520,y0:486,y1:766,py:626,Ra:900,trace:false,labels:false,g:g};
+  var s=fbDefs(g)+'<rect x="62" y="476" width="1458" height="300" fill="var(--ds-surface)"/>'+fbFlat(o);
+  var tm=fbTimes(),cols='';
+  /* 누적 시간 눈금(아래) */
+  var marks=[0];tm.at.forEach(function(a){marks.push(a[1]);});
+  marks.forEach(function(m,i){var x=o.X(m,o.y1),last=i===marks.length-1;
+    s+='<path d="M'+fbR(x)+' '+(o.y1)+'v10" stroke="var(--ds-c3)" stroke-width="1.5"/>';
+    s+='<text x="'+fbR(x)+'" y="'+(o.y1+34)+'" text-anchor="'+(i===0?'start':(last?'end':'middle'))+'" font-size="18" style="font-family:var(--ds-font-num);font-weight:600" fill="var(--ds-sub)">'+m+(last?'분':'')+'</text>';});
+  el.querySelector('.fb-art').innerHTML=s;
+  /* 칸 머리: 칸 경계 = 기록지 위쪽 시간선 */
+  tm.at.forEach(function(a,i){var sec=FB_SECTIONS[i],xl=o.X(a[0],o.y0),xr=o.X(a[1],o.y0);
+    cols+='<div class="fb-col" style="left:calc(var(--u)*'+fbR(xl)+');width:calc(var(--u)*'+fbR(xr-xl)+')">'+
+      '<div class="fb-col-top"><span class="ds-badge is-round">'+fbIcon(sec.icon)+'</span><span class="fb-col-rom">'+sec.roman+'</span><span class="fb-col-min">'+sec.min+'<small>분</small></span></div>'+
+      '<b>'+sec.name+'</b><p>'+sec.desc+'</p><span class="fb-col-pg">'+sec.pages+'쪽</span></div>';});
+  el.querySelector('[data-cols]').innerHTML=cols;
+}
+
+/* 2. 섹션 간지 (data-section = 1~5) — 전환: 드럼이 돌아 이 섹션 칸이 펜 앞에 온다(0.8초) */
+function fbDrawDivider(el,g,animate){
+  fbFill(el);
+  var n=Math.min(Math.max(parseInt(el.getAttribute('data-section'),10)||1,1),FB_SECTIONS.length),sec=FB_SECTIONS[n-1],tm=fbTimes(),t1=tm.at[n-1][0];
+  el.querySelector('[data-hname]').textContent=sec.roman+'.  '+sec.name;
+  el.querySelector('[data-kicker]').textContent='SECTION '+sec.no+' / 0'+FB_SECTIONS.length+'  ·  '+sec.pages+'쪽  ·  '+sec.min+'분';
+  el.querySelector('[data-dno]').textContent=sec.no;
+  el.querySelector('[data-dname]').innerHTML='<span class="ds-badge is-round">'+fbIcon(sec.icon)+'</span><span>'+sec.name+'</span>';
+  el.querySelector('[data-ddesc]').textContent=sec.desc;
+  el.querySelector('[data-items]').innerHTML=sec.items.map(function(it){return '<li><span>'+it[0]+'</span>'+it[1]+'</li>';}).join('');
+  el.querySelector('[data-pg]').textContent=('0'+sec.pages.split('–')[0]).slice(-2);
+  var art=el.querySelector('.fb-art');
+  var cap='<text x="750" y="800" font-size="17" style="font-family:var(--ds-font-num);font-weight:600" letter-spacing="1" fill="var(--ds-sub)">기록 경과 '+('0'+t1).slice(-2)+' / '+tm.total+'분  ·  펜 앞 = '+sec.roman+' '+sec.name+'</text>';
+  function draw(T,tint){art.innerHTML=fbDefs(g)+'<g>'+fbDrum(g,T,n-1,tint)+'</g>'+cap;}
+  if(el._fbRaf)cancelAnimationFrame(el._fbRaf);
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!animate||reduce){draw(t1,1);return;}
+  var from=Math.max(t1-3,-1.5),t0=null;
+  function step(ts){if(t0===null)t0=ts;var f=Math.min((ts-t0)/800,1),e=1-Math.pow(1-f,3);
+    draw(from+(t1-from)*e,e);if(f<1)el._fbRaf=requestAnimationFrame(step);}
+  draw(from,0);el._fbRaf=requestAnimationFrame(step);
+}
+
+/* 3. 마무리: 드럼에서 떼어 낸 다 쓴 기록지 */
+function fbDrawClose(el,g){
+  fbFill(el);
+  el.querySelector('[data-pg]').textContent=el.getAttribute('data-page')||'17';
+  var s=fbDefs(g);
+  s+='<rect x="802" y="196" width="730" height="410" fill="var(--ds-ink)" opacity=".16" filter="url(#'+g+'-b6)"/>';
+  s+='<rect x="790" y="184" width="730" height="410" fill="var(--ds-surface)" stroke="var(--ds-line)"/>';
+  /* 클립에 눌렸던 자리(왼쪽 끝 띠) */
+  s+='<rect x="796" y="184" width="14" height="410" fill="var(--ds-c5)" opacity=".7"/><path d="M810 184V594" stroke="var(--ds-c4)" stroke-width=".8"/>';
+  var o={x0:836,x1:1480,y0:236,y1:556,py:396,Ra:800,trace:true,labels:true,g:g,fs:12};
+  s+=fbFlat(o);
+  var e=o.end;
+  s+='<text x="'+fbR(e[0]+16)+'" y="'+fbR(e[1]+34)+'" text-anchor="end" font-size="16" style="font-family:var(--ds-font-num);font-weight:600" fill="var(--ds-ink)">'+fbTimes().total+'분 · 기록 끝</text>';
+  s+='<text x="1500" y="582" text-anchor="end" font-size="13" letter-spacing="1" style="font-family:var(--ds-font-num);font-weight:500" fill="var(--ds-sub)">기압 기록지 · 990–1030 hPa · 1칸 = 1분</text>';
+  /* 드럼에 감겨 있던 종이의 휨(양끝 음영) */
+  s+='<rect x="790" y="184" width="730" height="410" fill="url(#'+g+'-curl)"/>';
+  el.querySelector('.fb-art').innerHTML=s;
+}
+
+var fbSeq=0;
+function fbInit(el,animate){
+  var g=el.getAttribute('data-g'); if(!g){g='fb'+(++fbSeq);el.setAttribute('data-g',g);}
+  var t=el.getAttribute('data-fb');
+  if(t==='toc') fbDrawToc(el,g); else if(t==='divider') fbDrawDivider(el,g,animate); else if(t==='close') fbDrawClose(el,g);
+}
+function fbInitAll(scope){(scope||document).querySelectorAll('.fb-slide[data-fb]').forEach(function(el){fbInit(el,el.getAttribute('data-fb')==='divider');});}
+fbInitAll(document);
+</script>
+
+<script>
+/* ===== 페이지 동작: 간지 섹션 바꾸기, 계열 값 견본, 어울리는 요소 목록, 코드 칸 ===== */
+(function(){
+  var div=document.querySelector('.fb-slide[data-fb="divider"]');
+  document.querySelectorAll('[data-sec]').forEach(function(b){
+    b.addEventListener('click',function(){
+      div.setAttribute('data-section',b.getAttribute('data-sec'));
+      document.querySelectorAll('[data-sec]').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      fbInit(div,true);
+    });
+  });
+  document.getElementById('fb-replay').addEventListener('click',function(){fbInit(div,true);});
+
+  /* 계열 값 견본 */
+  var cs=getComputedStyle(document.querySelector('.fb'));
+  var names=[['--ds-bg','바탕'],['--ds-surface','카드·기록지'],['--ds-ink','본문 글자·잉크'],['--ds-sub','보조 글자'],['--ds-line','구분선'],['--ds-accent','강조 1(펜 끝)'],['--ds-accent2','보조 강조'],['--ds-c1','농담 1'],['--ds-c2','농담 2'],['--ds-c3','농담 3 · 칸 경계'],['--ds-c4','농담 4 · 굵은 격자'],['--ds-c5','농담 5 · 가는 격자']];
+  document.getElementById('pg-swatch').innerHTML=names.map(function(n){var v=cs.getPropertyValue(n[0]).trim();return '<div><i style="background:'+v+'"></i><p><b>'+n[1]+'</b>'+n[0]+'<br>'+v+'</p></div>';}).join('');
+
+  /* 어울리는 기존 요소(DB: families에 F, deck_ok) */
+  var EL=[[6,'딜러의 세 더미','분류·유목화'],[87,'네 칸 이관표','분류·유목화'],
+    [14,'상세도 호출','조직·체계'],[15,'연수 배선반','조직·체계'],
+    [22,'다섯 칸 다이얼','흐름·절차'],[84,'날짜 비례 레인','흐름·절차'],
+    [13,'던져 채우는 오후표','일정'],[23,'주 경로 간트','일정'],[86,'열두 달 고리','일정'],
+    [33,'쪼개지는 예산 사각형','구성비'],[50,'재원 지분 마리메코','구성비'],[79,'이어지는 재원 비중','구성비'],[89,'펼친 조각 구성비','구성비'],[112,'원인으로 다시 모은 칸','구성비'],
+    [34,'허브 내비게이션 업무보고','핵심 수치'],[35,'세로 스와이프 카드','핵심 수치'],[80,'백 칸 중 마흔하나','핵심 수치'],
+    [36,'유지선을 넘는 유리 적층','비교·순위',1],[49,'조사 완료선 정렬 비교','비교·순위'],[111,'배정 칸 붙은 순위표','비교·순위'],
+    [41,'타이밍 타워 순위표','추이'],[48,'세 줄 나란히 추이','추이'],[88,'같은 출발 100','추이'],
+    [38,'열섬 육각 지형','지도·분포'],[51,'낱칸 시·군 지도','지도·분포'],
+    [47,'눈금 머리 과제표','표·목록'],[53,'밑줄 대조표','표·목록'],[113,'옮겨 간 칸 분담표','표·목록'],
+    [54,'기둥과 보 체계도','비전 체계도'],[57,'예산 각도 동심원 체계도','비전 체계도'],[73,'한 줄로 읽는 체계도','비전 체계도'],[85,'층위 표 체계도','비전 체계도'],[93,'줄 맞춘 연차 체계도','비전 체계도'],[114,'생애 단계 열 체계도','비전 체계도'],
+    [55,'원인 꽂힌 화살표','현안→해결방안'],[61,'주 담당 대응표','현안→해결방안'],[76,'줄어드는 공정 띠','현안→해결방안'],[83,'줄마다 짝','현안→해결방안'],[94,'원인으로 모이는 선','현안→해결방안'],[115,'네 군데 끊는 고리','현안→해결방안'],
+    [56,'나비매듭 배경·목적','배경·목적'],[72,'확대 지시선 배경·목적','배경·목적'],[77,'기준선 격차 배경·목적','배경·목적'],[97,'허리 좁은 배경표','배경·목적']];
+  var order=['배경·목적','현안→해결방안','비전 체계도','핵심 수치','구성비','비교·순위','추이','표·목록','일정','흐름·절차','조직·체계','분류·유목화','지도·분포'];
+  document.getElementById('pg-els').innerHTML=order.map(function(t){
+    var li=EL.filter(function(e){return e[2]===t;}).sort(function(a,b){return a[0]-b[0];}).map(function(e){return '<li><b>#'+e[0]+'</b>'+e[1]+(e[3]?'<small>재질</small>':'')+'</li>';}).join('');
+    return '<div><h4>'+t+'</h4><ul>'+li+'</ul></div>';
+  }).join('');
+
+  /* 코드 칸: 장표만 떼어 낸 자기 완결 코드 */
+  var FONT='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Saira+Semi+Condensed:wght@500;600;700&display=swap">';
+  var CSS=document.getElementById('fb-css').textContent.trim();
+  var RT=document.getElementById('fb-runtime').textContent.trim();
+  function pristine(sel){
+    var c=document.querySelector(sel).cloneNode(true);
+    c.removeAttribute('data-g');
+    c.querySelectorAll('[data-gen]').forEach(function(e){e.innerHTML='';});
+    return c.outerHTML.replace(/\sdata-gen=""/g,' data-gen');
+  }
+  function pack(sel){return '<meta charset="utf-8">\n'+FONT+'\n<style>\n'+CSS+'\n</style>\n\n'+pristine(sel)+'\n\n<script>\n'+RT+'\n<\/script>\n';}
+  var tok=CSS.split('/*토큰 시작*/')[1].split('/*토큰 끝*/')[0];
+  var ROOT='/* F 관측·중계 계열 값 — 다른 장표의 .fb 또는 :root에 그대로 */\n:root{'+tok.replace(/\s+$/,'')+'\n}\n';
+  var items=[['목차','.fb-slide[data-fb="toc"]'],['섹션 간지 (data-section="3" → 1~5로 바꿔 씀)','.fb-slide[data-fb="divider"]'],['마무리','.fb-slide[data-fb="close"]']];
+  var host=document.getElementById('pg-codes'),html='';
+  items.forEach(function(it,i){html+='<div class="code-wrap"><div class="code-head"><span>'+(i+1)+' · '+it[0]+'</span><button class="btn" data-copy="c'+i+'">코드 복사</button></div><pre class="code" id="c'+i+'" tabindex="0"></pre></div>';});
+  html+='<div class="code-wrap"><div class="code-head"><span>계열 값(:root 묶음)만</span><button class="btn" data-copy="c3">코드 복사</button></div><pre class="code" id="c3" tabindex="0"></pre></div>';
+  host.innerHTML=html;
+  items.forEach(function(it,i){document.getElementById('c'+i).textContent=pack(it[1]);});
+  document.getElementById('c3').textContent=ROOT;
+  host.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var pre=document.getElementById(b.getAttribute('data-copy'));
+      function sel(){var r=document.createRange();r.selectNodeContents(pre);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 — Ctrl+C';}
+      try{navigator.clipboard.writeText(pre.textContent).then(function(){b.textContent='복사했습니다';setTimeout(function(){b.textContent='코드 복사';},1600);},sel);}catch(e){sel();}
+    });
+  });
+})();
+</script>
+
+</body></html>

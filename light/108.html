@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #108 내가 보이시나요?</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Black Han Sans";font-weight:400;font-display:swap;src:url("../fonts/BlackHanSans-400.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:500;font-display:swap;src:url("../fonts/NotoSansKR-500.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0;vertical-align:top}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps108{min-width:880px}}
+
+.ps108{--ps108-scan:url(../src/108/assets/145d0bd91a.jpg)}
+</style>
+<style id="ps108-css">
+/* 수업 도입 장표 '내가 보이시나요?' — 접두어 ps108 / 엑스레이 포스터를 바코드 스캐너로 훑는다: 사람은 안 되고 가방은 삐빅 */
+.ps108{
+  --ps108-orange:#FFA53A; --ps108-blue:#5FA8FF; --ps108-red:#FF3B30; --ps108-ink:#EAF2FF; --ps108-sub:#8FA3BF;
+  --ps108-head:"Black Han Sans","Gothic A1","Malgun Gothic",sans-serif; --ps108-body:"Noto Sans KR","Malgun Gothic",sans-serif; --ps108-mono:"IBM Plex Mono",Consolas,monospace;
+  position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;cursor:pointer;user-select:none;background:#05070B;color:var(--ps108-ink);font-family:var(--ps108-body)
+}
+.ps108 *{box-sizing:border-box}
+.ps108-in{position:absolute;inset:0}
+.ps108-poster{position:absolute;left:4%;top:3%;height:94%;aspect-ratio:1121/1403;overflow:hidden}
+.ps108-img{position:absolute;inset:0;background:var(--ps108-scan) 0 0/100% 100% no-repeat}
+.ps108-dim{position:absolute;inset:0;background:rgba(3,5,9,.55);opacity:0;transition:opacity .6s}
+.ps108.bag .ps108-dim{opacity:1}
+.ps108-box{position:absolute;border:.16cqw solid var(--ps108-orange);border-radius:.3cqw;opacity:0;box-shadow:0 0 0 0 rgba(3,5,9,0);
+  transition:left .6s cubic-bezier(.55,0,.2,1),top .6s cubic-bezier(.55,0,.2,1),width .6s cubic-bezier(.55,0,.2,1),height .6s cubic-bezier(.55,0,.2,1),opacity .4s;
+  backdrop-filter:brightness(1.9) saturate(1.2)}
+.ps108-box.on{opacity:1}
+.ps108-box::before,.ps108-box::after{content:"";position:absolute;width:1cqw;height:1cqw;border:.25cqw solid var(--ps108-orange)}
+.ps108-box::before{left:-.35cqw;top:-.35cqw;border-right:0;border-bottom:0}.ps108-box::after{right:-.35cqw;bottom:-.35cqw;border-left:0;border-top:0}
+/* 번호 표(그림에서 지우고 인식 순간에 찍힌다) */
+.ps108-tags{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.ps108-tags g{opacity:0;transition:opacity .3s var(--d)}
+.ps108-tags line{stroke:#fff;stroke-width:3;stroke-dasharray:90;stroke-dashoffset:90;transition:stroke-dashoffset .45s var(--d)}
+.ps108-tags circle{fill:#fff}
+.ps108-tags text{fill:#fff;font:600 21px var(--ps108-mono);text-anchor:middle;letter-spacing:1px}
+.ps108-tags rect{fill:#fff}
+.ps108.bag .ps108-tags g{opacity:1}.ps108.bag .ps108-tags line{stroke-dashoffset:0}
+.ps108-tags g.now circle,.ps108-tags g.now rect{fill:var(--ps108-orange)}.ps108-tags g.now text{fill:var(--ps108-orange)}.ps108-tags g.now line{stroke:var(--ps108-orange)}
+/* 레이저 */
+.ps108-laser{position:absolute;height:0;opacity:0;pointer-events:none}
+.ps108-laser i{position:absolute;left:-2%;right:-2%;top:-.12cqw;height:.24cqw;border-radius:1cqw;background:var(--ps108-red);box-shadow:0 0 .8cqw .3cqw rgba(255,59,48,.75),0 0 3cqw 1cqw rgba(255,59,48,.25)}
+.ps108-laser i::after{content:"";position:absolute;left:0;right:0;bottom:100%;height:5cqw;background:linear-gradient(transparent,rgba(255,59,48,.16))}
+.ps108-laser span{position:absolute;left:0;top:.8cqw;padding:.25cqw .6cqw;background:rgba(255,59,48,.9);color:#fff;font:600 .85cqw/1 var(--ps108-mono);letter-spacing:.14em;white-space:nowrap}
+.ps108-laser.fail span{background:#3A0F0D;border:1px solid var(--ps108-red);color:#FF8A82}
+.ps108-laser.ok i{background:#3DFF8A;box-shadow:0 0 .8cqw .3cqw rgba(61,255,138,.8),0 0 3cqw 1cqw rgba(61,255,138,.3)}
+.ps108-laser.ok i::after{background:linear-gradient(transparent,rgba(61,255,138,.16))}
+.ps108-laser.ok span{background:#3DFF8A;color:#04220F}
+.ps108-flash{position:absolute;inset:0;background:radial-gradient(50% 30% at 67% 70%,rgba(255,200,120,.55),transparent 70%);opacity:0;pointer-events:none}
+.ps108-flash.go{animation:ps108-flash .7s ease-out}
+@keyframes ps108-flash{0%{opacity:1}100%{opacity:0}}
+/* 오른쪽 판독 창 */
+.ps108-side{position:absolute;left:53%;right:4%;top:6%;bottom:6%;display:flex;flex-direction:column}
+.ps108-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:1cqw;border-bottom:1px solid #2A3446;font:600 1.05cqw/1 var(--ps108-mono);letter-spacing:.24em}
+.ps108-head .st{padding:.4cqw .8cqw;border:1px solid #3A4458;color:var(--ps108-sub)}
+.ps108-head .st.no{border-color:var(--ps108-red);color:#FF8A82}
+.ps108-head .st.ok{background:var(--ps108-orange);border-color:var(--ps108-orange);color:#1A0E00}
+.ps108-list{list-style:none;margin:1.2cqw 0 0;padding:0}
+.ps108-list li{display:grid;grid-template-columns:3cqw 1fr auto;gap:1cqw;align-items:center;padding:1cqw 0;border-bottom:1px dashed #2A3446;opacity:0;transform:translateX(1cqw);transition:opacity .35s,transform .45s,background .3s}
+.ps108-list li.show{opacity:.45;transform:none}
+.ps108-list li.now{opacity:1;background:linear-gradient(90deg,rgba(255,165,58,.14),transparent)}
+.ps108.done .ps108-list li.show{opacity:.85}
+.ps108-list em{font:600 1.2cqw/1 var(--ps108-mono);font-style:normal;color:var(--ps108-orange)}
+.ps108-list h4{margin:0 0 .3cqw;font:400 1.9cqw/1.1 var(--ps108-head)}
+.ps108-list p{margin:0;font:500 1.1cqw/1.4 var(--ps108-body);color:var(--ps108-sub);word-break:keep-all}
+.ps108-list li.now p{color:var(--ps108-ink)}
+.ps108-list small{font:600 .8cqw/1 var(--ps108-mono);letter-spacing:.18em;color:var(--ps108-blue)}
+.ps108-ans{margin-top:auto;padding-top:1.4cqw;border-top:1px solid var(--ps108-orange);opacity:0;transform:translateY(1cqw);transition:opacity .6s .3s,transform .6s .3s}
+.ps108.done .ps108-ans{opacity:1;transform:none}
+.ps108-ans small{font:600 .9cqw/1 var(--ps108-mono);letter-spacing:.3em;color:var(--ps108-orange)}
+.ps108-ans h3{margin:.8cqw 0 .6cqw;font:400 2.8cqw/1.15 var(--ps108-head)}
+.ps108-ans p{margin:0;font:500 1.2cqw/1.55 var(--ps108-body);color:#C3CFE0;word-break:keep-all}
+.ps108-hint{position:absolute;left:53%;top:50%;font:400 3.6cqw/1.2 var(--ps108-head);color:var(--ps108-ink)}
+.ps108-hint::before{content:"BARCODE SCANNER";display:block;margin-bottom:1cqw;font:600 1cqw/1 var(--ps108-mono);letter-spacing:.3em;color:var(--ps108-red)}
+.ps108-hint::after{content:"사람을 훑어도, 가방을 훑어도 — 무엇이 인식될까요?";display:block;margin-top:1cqw;font:500 1.3cqw/1.5 var(--ps108-body);color:var(--ps108-sub)}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps108 *,.ps108 *::before,.ps108 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 108 · 본문 · 수업 · 연수 도입 · 인터랙션 · 가상 예시</div>
+    <h1>내가 보이시나요?</h1>
+    <p class="pg-lead">'내가 보이시나요?' 묻는 엑스레이 사진 속 한 사람과 가방. 바코드 스캐너로 사람을 위에서 아래로 훑으면 '인식할 수 없음', 가방에 갖다 대면 삐빅 하고 소지품 다섯 개가 잡힌다. 하나씩 짚으며 취향의 단서를 모으고, 마지막에 '어떤 사람인가'를 맞힌다. 자기소개 · 진로 · 관계 수업의 도입 장표.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요. 소리가 납니다(삐빅).</p>
+    <div class="stage-frame"><div class="ps108" id="ps108" role="application" aria-label="엑스레이 스캔: 사람은 인식 안 됨, 가방은 소지품 다섯 개 인식, 결과"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 진행</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button></div>
+  </section>
+
+  <section>
+    <h2>설계 메모 <small>NOTES</small></h2>
+    <div class="cover-note">
+      <div><b>헛스캔이 핵심</b><p>사람을 먼저 훑는다 — 빨간 레이저가 머리부터 발끝까지 내려가도 '인식할 수 없음'. 사람은 바코드로 읽히지 않는다는 한 박자 뒤에, 가방에서 초록으로 바뀌며 삐빅. 이 엇갈림이 제목의 질문에 답한다 — 사람은 스캐너에 보이지 않지만, 그 사람이 고른 물건은 보인다.</p></div>
+      <div><b>소리 한 번</b><p>삐빅은 브라우저에서 바로 만든 짧은 두 음(2.6kHz)이라 파일이 필요 없다. 소지품을 하나씩 짚을 때마다 한 번 더. 소리가 막힌 환경에서는 조용히 넘어간다.</p></div>
+      <div><b>비추기</b><p>인식 뒤에는 포스터 전체를 어둡게 누르고 가방(또는 짚은 물건)만 밝게 남긴다. 오른쪽 판독 창은 계산대 화면처럼 번호 · 이름 · 단서 · 분류 꼬리표.</p></div>
+      <div><b>정답은 마지막에</b><p>다섯 단서를 다 모은 뒤 RESULT로 '걷고, 듣고, 읽고, 남기는 사람'. 바로 '우리 반 친구의 가방에는?'으로 활동을 연다.</p></div>
+      <div><b>수업에 쓰기</b><p>학생 저마다 소지품 다섯 개를 적어 오게 하고, 이름 없이 화면에 띄워 누구인지 맞히기. 교원 연수라면 '내 업무 가방' 버전으로 자기소개.</p></div>
+      <div><b>제목 바꾸기</b><p>원본 제목 '내가 누구일까요?'의 둘째 줄을 지우고 같은 자리 · 높이 · 굵기로 '보이시나요?'를 다시 앉혔다. 옛 글자에 가려졌던 목뼈 · 어깨는 주변 뼈 조각을 옮겨 붙여 되살리고, 몸 밖은 배경색으로 메웠다. 뼈 사진과 스캔 장면에 더 잘 맞는 질문이다.</p></div>
+      <div><b>번호는 인식할 때</b><p>원본 가방 위에 미리 찍혀 있던 01~05 번호 · 지시선 · 점을 지우고(주변 조각으로 메움), 삐빅 하는 순간 같은 자리에 선이 그어지며 번호가 차례로 찍히게 했다. 짚은 물건의 번호는 주황으로 바뀐다.</p></div>
+      <div><b>사진 고르기</b><p>사람 쪽은 뼈만 보이는 엑스레이(얼굴 · 옷이 없음)를 골랐다. 누구인지 드러나지 않아야 '맞히기'가 살고, 초상권 걱정도 없다.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다(사진은 갤러리 주소에서 불러옵니다). 소지품 이름 · 단서 · 꼬리표와 정답 문장은 스크립트 맨 위 <code>ITEMS</code> · <code>ANSWER</code>에서 바꿉니다.</li>
+      <li>다른 사진을 쓰면 <code>ITEMS</code>의 <code>r</code>(물건 자리)과 <code>PERSON</code> · <code>BAG</code>(사람 · 가방 영역)을 사진 픽셀로 다시 적습니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#05070B"></span>#05070B 바탕 · <span class="sw" style="background:#5FA8FF"></span>#5FA8FF 엑스레이 파랑 · <span class="sw" style="background:#FFA53A"></span>#FFA53A 인식 주황 · <span class="sw" style="background:#FF3B30"></span>#FF3B30 스캔 레이저 · <span class="sw" style="background:#3DFF8A"></span>#3DFF8A 인식 완료</div>
+      <div><b>글꼴</b>Black Han Sans(물건 이름 · 결과) + Noto Sans KR + IBM Plex Mono(판독 창)</div>
+      <div><b>장면</b>대기 → 사람 훑기 2.4초(인식 안 됨) → 가방 0.9초 + 삐빅 → 소지품 5개 → 결과, 9박자</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(레이저 = 빨간 선 이동 경로 + 삐빅 효과음)</div>
+      <div><b>원본</b>사용자 제공 AI 생성 포스터(1121 × 1403), 제목 둘째 줄을 '보이시나요?'로 교체(Noto Sans KR Black) · 가방 위 번호 표시는 지우고 HTML로 다시 그림, 인물은 가상</div>
+      <div><b>트렌드</b>'왓츠 인 마이 백(What's in my bag)' 소지품 자기소개 + 공항 보안 검색 · 엑스레이 시각 언어</div>
+    </div>
+  </section>
+</main>
+<script id="ps108-js">
+(function(){
+  // ── 내용 데이터: 소지품 다섯 개(가상 예시) — r = 사진(1121 × 1403) 속 자리 ──
+  var ITEMS = [
+    { r: [532, 822, 725, 990], tag0: [545, 848], dot: [583, 903], name: '헤드폰', clue: '혼자 있는 시간을 음악으로 채운다', tag: 'MUSIC' },
+    { r: [702, 833, 863, 1025], tag0: [772, 873], dot: [726, 920], name: '책', clue: '꽃이 그려진 표지 — 천천히 읽는 사람', tag: 'READING' },
+    { r: [840, 888, 992, 1024], tag0: [1024, 884], dot: [952, 943], name: '필름 카메라', clue: '빨리 찍기보다 오래 남기기를 고른다', tag: 'PHOTO' },
+    { r: [528, 983, 825, 1164], tag0: [556, 1145], dot: [605, 1089], name: '운동화', clue: '여분 신발까지 — 어디든 걸어서 간다', tag: 'WALK' },
+    { r: [825, 998, 997, 1160], tag0: [1041, 1100], dot: [942, 1140], name: '열쇠 · 충전기', clue: '열쇠고리가 많다 — 머무는 곳이 여러 곳', tag: 'PLACES' }
+  ];
+  var ANSWER = { h: '걷고, 듣고, 읽고, 남기는 사람', p: '얼굴은 몰라도 가방은 그 사람을 말한다. — 우리 반 친구의 가방에는 무엇이 들어 있을까요?' };
+  var PW = 1121, PH = 1403, PERSON = [170, 30, 780, 1270], BAG = [468, 785, 1032, 1182];
+  var root = document.getElementById('ps108');
+  root.innerHTML = '<div class="ps108-in"><div class="ps108-poster"><div class="ps108-img"></div><div class="ps108-dim"></div><div class="ps108-box"></div>' +
+    '<svg class="ps108-tags" viewBox="0 0 ' + PW + ' ' + PH + '">' + ITEMS.map(function(it, i){ var t = it.tag0, d = it.dot, ax = t[0] + (d[0] < t[0] ? -14 : 14) * (Math.abs(d[1] - t[1]) > 30 ? 0 : 1), ay = t[1] + (d[1] > t[1] ? 12 : -14);
+      return '<g style="--d:' + i * .14 + 's"><line x1="' + ax + '" y1="' + ay + '" x2="' + d[0] + '" y2="' + d[1] + '"/><circle cx="' + d[0] + '" cy="' + d[1] + '" r="6"/><text x="' + t[0] + '" y="' + (t[1] + 6) + '">' + String(i + 1).padStart(2, '0') + '</text><rect x="' + (t[0] - 13) + '" y="' + (t[1] + 11) + '" width="26" height="2.5"/></g>'; }).join('') + '</svg>' +
+    '<div class="ps108-laser"><i></i><span></span></div><div class="ps108-flash"></div></div>' +
+    '<div class="ps108-side"><div class="ps108-head"><b>IDENTITY SCAN</b><span class="st">READY</span></div>' +
+    '<ol class="ps108-list">' + ITEMS.map(function(it, i){ return '<li><em>' + String(i + 1).padStart(2, '0') + '</em><div><h4>' + it.name + '</h4><p>' + it.clue + '</p></div><small>' + it.tag + '</small></li>'; }).join('') + '</ol>' +
+    '<div class="ps108-ans"><small>RESULT</small><h3>' + ANSWER.h + '</h3><p>' + ANSWER.p + '</p></div></div>' +
+    '<div class="ps108-hint">클릭하여 스캔</div></div>';
+  var $ = function(s){ return root.querySelector(s); };
+  var tags = root.querySelectorAll('.ps108-tags g'), laser = $('.ps108-laser'), lab = $('.ps108-laser span'), box = $('.ps108-box'), st = $('.st'), list = root.querySelectorAll('.ps108-list li'), flash = $('.ps108-flash');
+  var pct = function(v, t){ return v / t * 100 + '%'; };
+  function boxTo(r, on){ box.style.left = pct(r[0], PW); box.style.top = pct(r[1], PH); box.style.width = pct(r[2] - r[0], PW); box.style.height = pct(r[3] - r[1], PH); box.classList.toggle('on', !!on); }
+  // 삐빅: 짧은 두 음(브라우저가 소리를 막으면 조용히 넘어간다)
+  var ac = null;
+  function beep(){ try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); var t = ac.currentTime;
+    [0, .13].forEach(function(d){ var o = ac.createOscillator(), g = ac.createGain(); o.type = 'square'; o.frequency.value = 2650;
+      g.gain.setValueAtTime(0, t + d); g.gain.linearRampToValueAtTime(.08, t + d + .005); g.gain.setValueAtTime(.08, t + d + .08); g.gain.linearRampToValueAtTime(0, t + d + .09);
+      o.connect(g); g.connect(ac.destination); o.start(t + d); o.stop(t + d + .1); }); } catch (e) {} }
+  var timers = [];
+  var later = function(f, ms){ timers.push(setTimeout(f, ms)); };
+  function sweep(r, ms, text, cls){   // 레이저가 r 영역을 위에서 아래로
+    laser.className = 'ps108-laser ' + cls; lab.textContent = text;
+    laser.style.transition = 'none'; laser.style.left = pct(r[0], PW); laser.style.width = pct(r[2] - r[0], PW); laser.style.top = pct(r[1], PH); laser.style.opacity = 1;
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ laser.style.transition = 'top ' + ms + 'ms linear'; laser.style.top = pct(r[3], PH); }); }); }
+  // ── 박자: 0 대기 → 1 사람 훑기(인식 안 됨) → 2 가방(삐빅) → 3~7 소지품 하나씩 → 8 결과 ──
+  var N = 3 + ITEMS.length + 1, step = -1;
+  function still(k){
+    timers.forEach(clearTimeout); timers = [];
+    root.classList.toggle('bag', k >= 2); root.classList.toggle('done', k === N - 1);
+    laser.style.opacity = 0; laser.className = 'ps108-laser';
+    st.textContent = k === 0 ? 'READY' : k === 1 ? 'NO MATCH' : k === N - 1 ? 'SCAN COMPLETE' : 'MATCH · 5 ITEMS'; st.className = 'st' + (k >= 2 ? ' ok' : k === 1 ? ' no' : '');
+    var it = k >= 3 && k < N - 1 ? ITEMS[k - 3] : null;
+    if (k >= 2) boxTo(it ? it.r : BAG, true); else boxTo(BAG, false);
+    [].forEach.call(list, function(li, i){ li.classList.toggle('show', k >= 2 && (k === 2 || i <= k - 3 || k === N - 1)); li.classList.toggle('now', !!it && i === k - 3); });
+    [].forEach.call(tags, function(g, i){ g.classList.toggle('now', !!it && i === k - 3); });
+    $('.ps108-hint').style.display = k === 0 ? '' : 'none';
+  }
+  var RM = function(){ return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); };
+  function go(k, instant){ k = ((k % N) + N) % N; var fwd = k === step + 1 && !instant && !RM(); step = k; still(k); if (!fwd) return;
+    if (k === 1){ st.textContent = 'SCANNING…'; st.className = 'st';
+      sweep(PERSON, 2400, 'SCANNING · · ·', 'red');
+      later(function(){ lab.textContent = '인식할 수 없음'; laser.classList.add('fail'); }, 1500);
+      later(function(){ laser.style.opacity = 0; st.textContent = 'NO MATCH'; st.className = 'st no'; }, 2600); }
+    else if (k === 2){ root.classList.remove('bag'); boxTo(BAG, false); [].forEach.call(list, function(li){ li.classList.remove('show'); });
+      st.textContent = 'SCANNING…'; st.className = 'st';
+      sweep(BAG, 900, 'SCANNING · · ·', 'red');
+      later(function(){ beep(); laser.className = 'ps108-laser ok'; lab.textContent = '삐빅 · 인식 완료'; flash.classList.remove('go'); void flash.offsetWidth; flash.classList.add('go');
+        root.classList.add('bag'); boxTo(BAG, true); st.textContent = 'MATCH · 5 ITEMS'; st.className = 'st ok'; }, 950);
+      later(function(){ laser.style.opacity = 0; [].forEach.call(list, function(li, i){ later(function(){ li.classList.add('show'); }, i * 120); }); }, 1700); }
+    else if (k >= 3 && k < N - 1){ beep(); }
+  }
+  root.addEventListener('click', function(){ go(step + 1); });
+  document.addEventListener('keydown', function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '')) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); go(step + 1); }
+    else if (['ArrowLeft', 'PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(step - 1, true); }
+    else if (e.key === 'Home') go(0, true);
+  });
+  window.ps108Go = function(k){ go(k, true); };
+  go(0, true);
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps108-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps108-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@600&family=Noto+Sans+KR:wght@500&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + ".ps108{--ps108-scan:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/108-scan.jpg)}" + '\n</style>\n\n<div class="ps108" id="ps108" role="application" aria-label="엑스레이 스캔"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps108');
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps108Go(0); });
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+  })();
+</script>
+</body></html>

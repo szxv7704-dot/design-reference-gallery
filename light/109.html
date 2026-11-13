@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #109 피사체는 그대로, 시선은 새로</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Black Han Sans";font-weight:400;font-display:swap;src:url("../fonts/BlackHanSans-400.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:500;font-display:swap;src:url("../fonts/NotoSansKR-500.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0;vertical-align:top}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps109{min-width:880px}}
+
+.ps109{--ps109-plate:url(../src/109/assets/32667aa259.jpg);--ps109-s3:url(../src/109/assets/9e31f9d997.png);--ps109-barsN:url(../src/109/assets/0434bcdf0c.png);--ps109-barsC:url(../src/109/assets/cdb8dc759c.png);--ps109-tick3:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAwCAYAAADpVKHaAAAAv0lEQVR4nO3YQQ6CMBCF4b/EHcQzuHXvyTyIx5Otl2ALLBxjxRZJGOmC95JJAyH9ktIuOqFpjpRKVUwujR8y74OVVwarn3gNnGz0Sgc8bMziweArcMbnt/RAC9yAO9EKpPDa4Isjjs0b5vBXqqg8kpwnh8dZs/G+Nlmc/Z5z4cKFCxcuXLhw4cKFCxcu/CNL7uezd+x/4D3vdsbaZOea4gPPjlFrz54NoY7JKoZE+3OzVlgKh4JNwOzH3tnvOR8BXcAg4ZU8LuMAAAAASUVORK5CYII=);--ps109-ro3:url(../src/109/assets/7d3ab1533b.png);--ps109-sie:url(../src/109/assets/5b39b468a4.png);--ps109-L0:url(../src/109/assets/5ceabbc75d.png);--ps109-L1:url(../src/109/assets/0954e40ce5.png);--ps109-L2:url(../src/109/assets/46646f76b5.png);--ps109-L3:url(../src/109/assets/0d509d80d5.png);--ps109-L4:url(../src/109/assets/7ddfedaf61.png);--ps109-L5:url(../src/109/assets/35c9e4b2e7.png);--ps109-L6:url(../src/109/assets/8a4afa871d.png);--ps109-L7:url(../src/109/assets/3e69585a68.png)}
+</style>
+<style id="ps109-css">
+/* 포스터 장표 '시선은 새로' — 접두어 ps109 / 제목 속 렌즈가 내려가고, 세로의 ㅓ가 또롱 ㅏ로 뒤집혀 '새로'가 된다 */
+.ps109{position:relative;width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;cursor:pointer;user-select:none;
+  background:radial-gradient(70% 90% at 50% 45%,#E6EAF0,#C9CFD9);font-family:"IBM Plex Mono",Consolas,monospace}
+.ps109:fullscreen{aspect-ratio:auto;width:100vw;height:100vh}
+.ps109 *{box-sizing:border-box}
+.ps109-in{position:absolute;inset:0}
+.ps109-stage{position:absolute;left:50%;top:50%;width:1122px;height:1402px;transform-origin:50% 50%;box-shadow:0 30px 70px rgba(30,40,60,.28);overflow:hidden}
+.ps109-plate{position:absolute;inset:0;background:var(--ps109-plate) 0 0/100% 100% no-repeat}
+.ps109-p{position:absolute;display:block;background:0 0/100% 100% no-repeat;transform-origin:50% 50%}
+
+.ps109-se{position:absolute;inset:0;transform-origin:661px 251px}
+.ps109-ro{position:absolute;inset:0;transform-origin:876px 251px}
+.ps109-lens[data-k="6"]{z-index:2}.ps109-lens[data-k="7"]{z-index:1}
+
+.ps109-p.tick3{transform-origin:45.5px 50%}
+.ps109-p.barsC{opacity:0}
+.ps109-p.sie{clip-path:inset(0 100% 0 0);opacity:0;transform-origin:0 0}
+/* 찰칵: 흰 번쩍임 + 고양이에 맞춘 뷰파인더 */
+.ps109-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.ps109.shot .ps109-flash{animation:ps109-flash .7s ease-out}
+@keyframes ps109-flash{0%{opacity:.95}100%{opacity:0}}
+.ps109-vf{position:absolute;left:20px;top:540px;width:420px;height:640px;opacity:0;transform:scale(1.15);transition:opacity .5s .3s,transform .7s .3s cubic-bezier(.2,.8,.2,1)}
+.ps109.shot .ps109-vf{opacity:1;transform:none}
+.ps109-vf b{position:absolute;width:44px;height:44px;border:5px solid #E8452C}
+.ps109-vf b:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}.ps109-vf b:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+.ps109-vf b:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}.ps109-vf b:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+.ps109-vf span{position:absolute;left:16px;top:-40px;font:600 22px/1 "IBM Plex Mono",monospace;letter-spacing:3px;color:#E8452C}
+.ps109-hint{position:absolute;right:3%;bottom:4%;padding:.5cqw 1cqw;border-radius:2cqw;background:#111;color:#fff;font:600 1cqw/1 "Noto Sans KR",sans-serif;letter-spacing:.08em;animation:ps109-blink 2.2s ease-in-out infinite}
+@keyframes ps109-blink{50%{opacity:.5}}
+.ps109-dots{position:absolute;right:3%;top:4%;display:flex;gap:.4cqw}
+.ps109-dots i{width:.5cqw;height:.5cqw;border-radius:50%;background:rgba(0,0,0,.18)}
+.ps109-dots i.on{background:#111}
+.ps109.instant *{transition:none!important}
+/* 움직임 줄이기: 눌러서 넘기는 장면도 움직임 없이 바로 바뀐다 */
+@media (prefers-reduced-motion:reduce){.ps109 *,.ps109 *::before,.ps109 *::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 109 · 표지 · 인터랙션 · 글자 말장난 · 가상 예시</div>
+    <h1>피사체는 그대로, 시선은 새로</h1>
+    <p class="pg-lead">제목 '세 ○○○○ 로' 사이에 렌즈 조각들이 끼어 있다. 누르면 렌즈가 고양이와 카메라 사이로 내려가 한 줄로 서고 '세'와 '로'가 다가붙는다. 그 순간 '세'의 ㅓ가 또롱 뒤집혀 ㅏ가 되고 — '새로'. 앞에 '시선은'이 붙는다. 마지막엔 렌즈가 카메라에 끼워지고 찰칵.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요. 소리가 납니다(또롱 · 찰칵).</p>
+    <div class="stage-frame"><div class="ps109" id="ps109" role="application" aria-label="표지: 세로 사이의 렌즈가 내려가고 ㅓ가 ㅏ로 뒤집혀 시선은 새로가 된다"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 진행</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button></div>
+  </section>
+
+  <section>
+    <h2>설계 메모 <small>NOTES</small></h2>
+    <div class="cover-note">
+      <div><b>획 하나가 메시지</b><p>'세로'와 '새로'는 ㅓ의 짧은 획이 기둥 왼쪽에 있느냐 오른쪽에 있느냐만 다르다. 그 획을 기둥을 축으로 뒤집으면(또롱) 뜻이 바뀐다 — 같은 것을 다른 쪽에서 보면 새로워진다는 주제 그대로.</p></div>
+      <div><b>렌즈 = 시선</b><p>제목 사이에 끼어 '읽지 못하게' 하던 렌즈 조각이 내려가 고양이와 카메라 사이에 서면 비로소 제목이 읽힌다. 렌즈가 글자에서 물러나야 시선이 열린다.</p></div>
+      <div><b>세 박자</b><p>① 수수께끼(세 ○○ 로) ② 렌즈가 살짝 떠올랐다 포물선으로 내려앉음 → 세 · 로가 제자리로 다가붙음 → 또롱(짧은 획이 기둥을 넘어 두 기둥 사이로 쏙, 원래 글꼴의 '새'가 됨) → '시선은' 왼쪽부터 드러남 ③ 렌즈가 카메라에 차례로 끼워지고 찰칵 + 고양이에 뷰파인더. 중간에 렌즈를 조이는 박자는 오히려 흐름을 끊어 뺐다.</p></div>
+      <div><b>사진 세 장을 한 장면으로</b><p>3번 사진을 바탕으로 제목 둘째 줄과 렌즈 줄을 지운 판을 만들고 렌즈 8개를 오렸다. 글자는 3번 사진의 '시선은 · 새 · 로'를 제 크기로 쓰고, 시작의 '세'는 그 '새'에서 두 기둥 사이 이음 획을 빼고 짧은 획을 기둥 왼쪽에 붙여 만들었다. 짧은 획이 넘어가 틈에 들어가면 원래 글꼴의 '새'와 똑같아져 바꿔 끼우는 티가 없다.</p></div>
+      <div><b>소리</b><p>차르륵(짧은 딸깍 다섯 번) · 또롱(오르는 두 음) · 찰칵(셔터 잡음 두 번) 모두 브라우저가 바로 만든다. 파일이 필요 없고, 소리가 막힌 곳에서는 조용히 넘어간다.</p></div>
+      <div><b>빌려 쓰기</b><p>짧은 획 하나의 방향으로 뜻이 바뀌는 낱말이면 같은 문법을 쓴다: 세로 → 새로, 너 → 나('너의 생각이 나의 생각으로'). 연수 · 혁신 · 관점 전환 주제 표지에.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다(사진 · 조각은 갤러리 주소에서 불러옵니다).</li>
+      <li>글자는 사진에서 오린 조각이라 다른 낱말로 바꾸려면 조각을 새로 만들어야 합니다. 렌즈 자리 · 움직임 숫자는 스크립트 맨 위(<code>START</code> · <code>MID_Y</code> · <code>MOUNT</code>)에 있습니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#E3E7EE"></span>#E3E7EE 바탕 · <span class="sw" style="background:#0C0C0E"></span>#0C0C0E 글자 · <span class="sw" style="background:#E8452C"></span>#E8452C 뷰파인더</div>
+      <div><b>장면</b>수수께끼 → 내려감 1.2초 + 다가붙음 1초 + 또롱 0.5초 + '시선은' 0.8초 → 끼워짐 0.4초 × 8 + 찰칵, 3박자</div>
+      <div><b>난이도</b>HTML 중(사진 조각 오리기) · PPT 중(모핑 + 획 하나 회전)</div>
+      <div><b>원본</b>사용자 제공 AI 생성 포스터 3장(1122 × 1402)에서 판 · 조각을 만들어 씀</div>
+      <div><b>트렌드</b>키네틱 타이포그래피 — 글자 한 획을 움직여 뜻을 바꾸는 말장난, 분해도(exploded view) 사진</div>
+    </div>
+  </section>
+</main>
+<script id="ps109-js">
+(function(){
+  // ── 사진 속 자리(1122 × 1402 픽셀) — 사진을 바꾸면 이 숫자들을 다시 잰다 ──
+  var LENS = [{"x": 359, "y": 801, "w": 64, "h": 241}, {"x": 431, "y": 837, "w": 45, "h": 198}, {"x": 470, "y": 840, "w": 58, "h": 196}, {"x": 539, "y": 842, "w": 55, "h": 193}, {"x": 593, "y": 845, "w": 48, "h": 190}, {"x": 646, "y": 850, "w": 35, "h": 186}, {"x": 686, "y": 828, "w": 93, "h": 234}, {"x": 794, "y": 836, "w": 43, "h": 217}];                       // 렌즈 조각 8개: 맨 끝(카메라 앞 한 줄) 자리
+  var G = {"S": {"x": 15, "y": 236, "w": 119, "h": 246}, "tick": {"x": 134, "y": 310, "w": 27, "h": 62}, "bar1": {"x": 159, "y": 236, "w": 50, "h": 246}, "bar2": {"x": 212, "y": 236, "w": 54, "h": 246}, "ro": {"x": 852, "y": 236, "w": 242, "h": 246}, "sie": {"x": 28, "y": 244, "w": 612, "h": 222}, "sae": {"x": 652, "y": 244, "w": 216, "h": 222}, "ro3": {"x": 868, "y": 244, "w": 224, "h": 222}, "s3": {"x": 652, "y": 244, "w": 119, "h": 222}, "barsC": {"x": 771, "y": 244, "w": 95, "h": 222}, "barsN": {"x": 771, "y": 244, "w": 95, "h": 222}, "tick3": {"x": 746, "y": 321, "w": 31, "h": 48}};                          // 글자 조각: 세(ㅅ · 짧은 획 · 기둥 둘) · 로 · 시선은 · 새 · 로
+  var START = [316, 386, 448, 531, 598, 652, 727, 809], START_Y = 379, START_S = .92;   // 1번 사진: 제목 사이에 끼어 있음
+  var MOUNT = 860;                                                                       // 카메라 렌즈 자리(끼워 넣기)
+  // 글자: 3번 사진의 '새' · '로' · '시선은'을 제 크기 그대로 쓴다. 시작의 '세'는 '새'에서 가운데 이음 획을 빼고 짧은 획을 기둥 왼쪽에 붙인 것
+  var SE0 = 'translate(-638px,-10px) scale(1.13)', RO0 = 'translate(-19px,-10px) scale(1.13)';   // 1번 사진의 '세 … 로' 자리 · 크기
+  var root = document.getElementById('ps109');
+  var img = function(n, x, y, extra){ return '<i class="ps109-p ' + n + '" style="left:' + x + 'px;top:' + y + 'px;width:' + G[n].w + 'px;height:' + G[n].h + 'px;background-image:var(--ps109-' + n + ')' + (extra || '') + '"></i>'; };
+  root.innerHTML = '<div class="ps109-in"><div class="ps109-stage"><div class="ps109-plate"></div>' +
+    '<div class="ps109-se">' + img('s3', G.s3.x, G.s3.y) + img('barsN', G.barsN.x, G.barsN.y) + img('barsC', G.barsC.x, G.barsC.y) + img('tick3', G.tick3.x, G.tick3.y) + '</div>' +
+    '<div class="ps109-ro">' + img('ro3', G.ro3.x, G.ro3.y) + '</div>' + img('sie', G.sie.x, G.sie.y) +
+    LENS.map(function(l, k){ return '<i class="ps109-p ps109-lens" data-k="' + k + '" style="left:' + l.x + 'px;top:' + l.y + 'px;width:' + l.w + 'px;height:' + l.h + 'px;background-image:var(--ps109-L' + k + ')"></i>'; }).join('') +
+    '<div class="ps109-vf"><b></b><b></b><b></b><b></b><span>REC · 1/125 · f8</span></div><div class="ps109-flash"></div></div>' +
+    '<div class="ps109-hint">클릭하여 보기</div><div class="ps109-dots"><i></i><i></i><i></i></div></div>';
+  var stage = root.querySelector('.ps109-stage'), $ = function(s){ return stage.querySelector(s); };
+  var lens = stage.querySelectorAll('.ps109-lens'), se = $('.ps109-se'), ro = $('.ps109-ro'), tick = $('.tick3'), barsN = $('.barsN'), barsC = $('.barsC'), sie = $('.sie');
+  function lensAt(k, st){ var l = LENS[k], cx = l.x + l.w / 2, cy = l.y + l.h / 2;
+    if (st === 0) return 'translate(' + (START[k] - cx) + 'px,' + (START_Y - cy) + 'px) scale(' + START_S + ')';
+    if (st === 2){ var m = LENS[7], b = LENS[6], mx = MOUNT - (m.x + m.w), bx = mx + (m.x - (b.x + b.w)) + 4;
+      if (k === 7) return 'translate(' + mx + 'px,0)'; if (k === 6) return 'translate(' + bx + 'px,0)';
+      return 'translate(' + (b.x + bx + b.w / 2 - cx) + 'px,0) scale(.4,.8)'; }
+    return 'none'; }
+  // 짧은 획: 기둥(가운데 x 791.5)을 축으로 넘어가 두 기둥 사이 틈(812~822)에 들어가 이음 획이 된다
+  var TICK_END = 'translateX(11.2px) scaleX(-.476)';
+  var ac = null;
+  function tone(seq){ try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); var t = ac.currentTime;
+    seq.forEach(function(s){ var o = ac.createOscillator(), g = ac.createGain(); o.type = s[3] || 'sine'; o.frequency.setValueAtTime(s[1], t + s[0]); if (s[4]) o.frequency.exponentialRampToValueAtTime(s[4], t + s[0] + s[2]);
+      g.gain.setValueAtTime(0, t + s[0]); g.gain.linearRampToValueAtTime(.12, t + s[0] + .01); g.gain.exponentialRampToValueAtTime(.001, t + s[0] + s[2]);
+      o.connect(g); g.connect(ac.destination); o.start(t + s[0]); o.stop(t + s[0] + s[2] + .02); }); } catch (e) {} }
+  function shutter(){ try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); var t = ac.currentTime, n = ac.sampleRate * .09, b = ac.createBuffer(1, n, ac.sampleRate), d = b.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3);
+    [0, .07].forEach(function(o){ var s = ac.createBufferSource(), g = ac.createGain(); s.buffer = b; g.gain.value = .5; s.connect(g); g.connect(ac.destination); s.start(t + o); }); } catch (e) {} }
+  var T = function(e, tr, ms, delay, ease){ e.style.transition = 'transform ' + ms + 'ms ' + (ease || 'cubic-bezier(.55,0,.2,1)') + ' ' + (delay || 0) + 'ms, opacity 300ms ' + (delay || 0) + 'ms'; e.style.transform = tr; };
+  var timers = [], later = function(f, ms){ timers.push(setTimeout(f, ms)); };
+  var step = -1;
+  function still(k){ timers.forEach(clearTimeout); timers = []; root.classList.add('instant');
+    stage.querySelectorAll('*').forEach(function(e){ e.getAnimations().forEach(function(a){ a.cancel(); }); });
+    [].forEach.call(lens, function(e, i){ e.style.transform = lensAt(i, k); e.style.opacity = k >= 2 && i < 6 ? 0 : 1; });
+    var fin = k >= 1;
+    se.style.transform = fin ? 'none' : SE0; ro.style.transform = fin ? 'none' : RO0;
+    tick.style.transform = fin ? TICK_END : 'none'; tick.style.opacity = fin ? 0 : 1; barsN.style.opacity = fin ? 0 : 1; barsC.style.opacity = fin ? 1 : 0;
+    sie.style.opacity = fin ? 1 : 0; sie.style.clipPath = fin ? 'inset(0 0 0 0)' : 'inset(0 100% 0 0)';
+    root.classList.toggle('shot', k >= 2); root.querySelector('.ps109-hint').style.display = k === 0 ? '' : 'none';
+    [].forEach.call(root.querySelectorAll('.ps109-dots i'), function(d, j){ d.classList.toggle('on', j <= k); });
+    void root.offsetWidth; root.classList.remove('instant'); }
+  var RM = function(){ return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches); };
+  function go(k, instant){ k = ((k % 3) + 3) % 3; var fwd = k === step + 1 && !instant && !RM(); still(fwd ? k - 1 : k); step = k; if (!fwd) return;
+    [].forEach.call(root.querySelectorAll('.ps109-dots i'), function(d, j){ d.classList.toggle('on', j <= k); }); root.querySelector('.ps109-hint').style.display = 'none';
+    if (k === 1){
+      // 렌즈: 살짝 떠올랐다가 포물선으로 내려앉는다(오른쪽 것부터)
+      [].forEach.call(lens, function(e, i){ var j = 7 - i, from = lensAt(i, 0); e.style.transition = 'none';
+        var a = e.animate([{ transform: from }, { transform: from + ' translateY(-30px)', offset: .2 }, { transform: 'translate(0,0) scale(1)' }], { duration: 1200, delay: j * 70, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' });
+        a.onfinish = function(){ e.style.transform = 'none'; a.cancel(); }; });
+      // 세 · 로가 제자리(제 크기)로 다가붙는다
+      later(function(){ T(se, 'none', 1000); T(ro, 'none', 1000); }, 500);
+      // 또롱: 짧은 획이 톡 튀어 기둥을 넘어 두 기둥 사이로 쏙
+      later(function(){ tick.style.transition = 'none';
+        var a = tick.animate([{ transform: 'none' }, { transform: 'translateY(-20px) scaleX(0)', offset: .42, easing: 'ease-in' }, { transform: 'translateX(14px) translateY(3px) scaleX(-.6)', offset: .78 }, { transform: TICK_END }], { duration: 520, easing: 'ease-out', fill: 'forwards' });
+        a.onfinish = function(){ barsC.style.opacity = 1; barsN.style.opacity = 0; tick.style.opacity = 0; tick.style.transform = TICK_END; a.cancel(); };
+        tone([[0, 1180, .16, 'sine', 1500], [.13, 1760, .3, 'sine', 1950]]); }, 1600);
+      later(function(){ sie.style.transition = 'clip-path .8s cubic-bezier(.6,0,.2,1), opacity .15s'; sie.style.opacity = 1; sie.style.clipPath = 'inset(0 0 0 0)'; }, 2250);
+    } else if (k === 2){
+      [].forEach.call(lens, function(e, i){ var j = 7 - i; e.style.transition = 'transform 420ms cubic-bezier(.6,0,.3,1.15) ' + (j * 90) + 'ms, opacity 160ms ' + (j * 90 + 300) + 'ms'; e.style.transform = lensAt(i, 2); if (i < 6) e.style.opacity = 0; });
+      for (var j = 0; j < 8; j++) tone([[j * .09 + .36, 900 + j * 60, .05, 'triangle']]);
+      later(function(){ shutter(); root.classList.add('shot'); }, 1150);
+    }
+  }
+  root.addEventListener('click', function(){ go(step + 1); });
+  document.addEventListener('keydown', function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '')) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); go(step + 1); }
+    else if (['ArrowLeft', 'PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(step - 1, true); }
+    else if (e.key === 'Home') go(0, true);
+    else if (e.key === 'f' || e.key === 'F'){ if (document.fullscreenElement) document.exitFullscreen(); else if (root.requestFullscreen) root.requestFullscreen(); }
+  });
+  function fit(){ var p = root.querySelector('.ps109-in'), h = p.clientHeight * .94; stage.style.transform = 'translate(-50%,-50%) scale(' + h / 1402 + ')'; }
+  new ResizeObserver(fit).observe(root); fit();
+  window.ps109Go = function(k){ go(k, true); };
+  go(0, true);
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps109-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps109-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@600&family=Noto+Sans+KR:wght@500&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + ".ps109{--ps109-plate:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-plate.jpg);--ps109-s3:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-s3.png);--ps109-barsN:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-barsN.png);--ps109-barsC:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-barsC.png);--ps109-tick3:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-tick3.png);--ps109-ro3:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-ro3.png);--ps109-sie:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-sie.png);--ps109-L0:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-L0.png);--ps109-L1:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-L1.png);--ps109-L2:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-L2.png);--ps109-L3:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-L3.png);--ps109-L4:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-L4.png);--ps109-L5:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-L5.png);--ps109-L6:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-L6.png);--ps109-L7:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/109-L7.png)}" + '\n</style>\n\n<div class="ps109" id="ps109" role="application" aria-label="시선은 새로"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps109');
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps109Go(0); });
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+  })();
+</script>
+</body></html>

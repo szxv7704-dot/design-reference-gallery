@@ -1,0 +1,513 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #31 차오르는 돔</title>
+<style>/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:900;font-display:swap;src:url("../fonts/GothicA1-900.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+</style>
+<style>
+/* Layout: 16:9 cover — left copy column, right real photo (Expo 67 geodesic dome). A canvas over the photo lights the dome's real triangular cells (found from the photo itself) one by one, bottom to top, as the participant counter climbs. 3:4 under 560px. */
+:root{
+  --paper:#FFFFFF; --page:#F4F6FA; --ink:#14213D; --ink-2:#4B5672; --line:#DDE3EE;
+  --sky:#2F6FB5; --gold:#F5A623; --ember:#E8590C;
+  --f-display:"Gothic A1","Pretendard","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+body{background:var(--page);color:var(--ink);font-family:var(--f-display);font-size:15px;line-height:1.65}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:20px 56px}
+
+/* ---------- slide ---------- */
+.stage{container-type:inline-size;width:100%}
+.slide{position:relative;aspect-ratio:16/9;max-width:100%;overflow:hidden;border-radius:6px;background:var(--paper);
+  box-shadow:0 1px 0 var(--line),0 18px 40px -24px rgba(20,33,61,.4);
+  display:grid;grid-template-columns:37% 63%;grid-template-rows:1fr}
+.copy{display:flex;flex-direction:column;justify-content:center;gap:1.6cqw;padding:3cqw 2.6cqw 3cqw 4.4cqw;min-width:0;position:relative;z-index:1}
+.eyebrow{margin:0;font-size:1.3cqw;font-weight:700;letter-spacing:.04em;color:var(--ink-2)}
+.eyebrow b{color:var(--ember);font-weight:700}
+h1{margin:0;font-size:5.1cqw;line-height:1.13;font-weight:900;letter-spacing:-.04em;word-break:keep-all}
+h1 em{font-style:normal;color:var(--ember)}
+.sub{margin:0;font-size:1.5cqw;line-height:1.6;font-weight:500;color:var(--ink-2);word-break:keep-all;max-width:27cqw}
+.count{margin-top:1cqw;display:flex;align-items:baseline;gap:.8cqw;border-top:.2cqw solid var(--ink);padding-top:1.2cqw}
+.count .n{font-family:var(--f-mono);font-weight:600;font-size:3.1cqw;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.count .u{font-size:1.25cqw;font-weight:700;color:var(--ink-2)}
+.count .goal{margin-left:auto;font-size:1.05cqw;font-weight:700;color:var(--ink-2);text-align:right;line-height:1.35}
+.foot{position:absolute;left:4.4cqw;bottom:2.4cqw;display:flex;gap:1.4cqw;align-items:center;font-size:1.05cqw;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.foot b{color:var(--ink);font-weight:700}
+.foot .vx{border:.1cqw solid currentColor;border-radius:99px;padding:.05cqw .7cqw}
+
+/* photo column: the box keeps the photo's own 4:3 ratio at full slide height, so % positions stay on the dome */
+.photo{position:relative;overflow:hidden;min-width:0}
+.ibox{position:absolute;top:0;height:100%;aspect-ratio:1280/960;left:50%;transform:translateX(-52%)}
+.ibox img,.ibox canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* dome circle in photo coords: centre (666,748), radius 541 of 1280×960; base cut at the grass line (y≈800) */
+.credit{position:absolute;right:.8cqw;bottom:.6cqw;font-size:.8cqw;color:#fff;opacity:.9;text-shadow:0 0 .4cqw rgba(0,0,0,.6)}
+
+@container (max-width:560px){
+  .slide{aspect-ratio:3/4;grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .copy{padding:6cqw 6cqw 3cqw;gap:2.4cqw}
+  .eyebrow{font-size:3cqw}
+  h1{font-size:10cqw}
+  .sub{font-size:3.4cqw;max-width:none}
+  .count{padding-top:2.4cqw;gap:2cqw}
+  .count .n{font-size:7cqw}.count .u{font-size:3cqw}.count .goal{font-size:2.6cqw}
+  .foot{position:static;font-size:2.6cqw;margin-top:.5cqw}
+  .photo{grid-row:2}
+  .ibox{height:100%}
+  .credit{font-size:2cqw}
+}
+
+/* ---------- notes ---------- */
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:14px;font-size:13px;color:var(--ink-2)}
+.meta .chip{border:1.5px solid var(--ink);border-radius:99px;padding:1px 10px;font-weight:700;color:var(--ink);background:var(--paper)}
+.replay-btn{margin-left:auto;font:inherit;font-weight:700;font-size:13px;color:#fff;background:var(--ember);border:0;border-radius:99px;padding:6px 16px;cursor:pointer}
+.replay-btn:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+section{margin-top:44px}
+h2{font-size:22px;font-weight:900;letter-spacing:-.02em;line-height:1.3;margin:0 0 16px;text-wrap:balance}
+h2 small{font-size:13px;font-weight:700;color:var(--ink-2);margin-left:8px;letter-spacing:.04em}
+.devices{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.device{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0;border-top:4px solid var(--gold)}
+.device h3{margin:0 0 6px;font-size:16px;line-height:1.4}
+.device p{margin:0;color:var(--ink-2);font-size:14px}
+.device .k{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--ember);margin-bottom:4px}
+.flow{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.flow ol,.flow ul{margin:0;padding-left:1.3em}
+.flow li{margin-bottom:6px}
+.flow li::marker{color:var(--ember);font-weight:700}
+.spec{display:grid;grid-template-columns:140px 1fr;border-top:2px solid var(--ink)}
+.spec>div{padding:12px 0;border-bottom:1px solid var(--line);min-width:0}
+.spec>.k{font-weight:700;font-size:13px;letter-spacing:.04em;padding-right:12px}
+.sw{display:flex;flex-wrap:wrap;gap:10px}
+.sw span{display:flex;align-items:center;gap:7px;font-size:13px}
+.sw i{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.15);flex:none}
+a{color:var(--sky);text-underline-offset:3px}
+@media (max-width:720px){.flow{grid-template-columns:1fr}.spec{grid-template-columns:1fr}.spec>.k{padding-bottom:0;border-bottom:0}}
+</style>
+
+<div class="wrap">
+  <div class="stage">
+    <div class="slide" id="slide" role="img" aria-label="발표 표지: ○○시 2027 시민참여예산 운영 계획(안), 시민이 함께 짓는 예산. 오른쪽 지오데식 돔 사진이 아래에서부터 금빛으로 차올라 참여 시민 1만 명에 이르면 돔 전체가 채워진다">
+      <div class="copy">
+        <p class="eyebrow"><b>○○시</b> 2027 시민참여예산 운영 계획(안)</p>
+        <h1>시민이 함께<br><em>짓는</em> 예산</h1>
+        <p class="sub">삼각형 하나는 약해도, 이어 붙이면 가장 튼튼한 구조가 됩니다</p>
+        <div class="count" aria-hidden="true"><span class="n" id="n">0</span><span class="u">명 참여</span><span class="goal">목표<br>10,000명</span></div>
+        <div class="foot"><b>○○시 예산과</b><span>2026. 10.</span><span class="vx">가상 예시</span></div>
+      </div>
+      <div class="photo">
+        <div class="ibox">
+          <img src="../src/31/assets/629dcf72a6.jpg" alt="">
+          <canvas id="cells" aria-hidden="true"></canvas>
+        </div>
+        <span class="credit">사진 Frunze103 · CC0 · 1967 몬트리올 엑스포 미국관(현 바이오스피어)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="meta">
+    <span class="chip">레퍼런스 #31</span><span>실험형 · 건축·박람회 · 부분이 모여 전체</span>
+    <button class="replay-btn" id="replay" type="button">다시 채우기</button>
+  </div>
+
+  <section>
+    <h2>가져갈 장치<small>다른 발표에 옮겨 쓰기</small></h2>
+    <div class="devices">
+      <div class="device"><span class="k">사진 게이지</span><h3>사진 속 칸을 하나씩 켜기</h3><p>철골 사이로 보이는 하늘 조각을 사진에서 직접 찾아, 그 실제 삼각형 칸을 아래에서 위로 하나씩 금빛으로 켭니다. 켜지는 순간 잠깐 밝게 번쩍여 "한 칸 = 한 사람"이 눈에 보입니다. 모금·참여·공정률처럼 "다 채워지면 완성"인 목표에 씁니다.</p></div>
+      <div class="device"><span class="k">숫자 동기화</span><h3>차오르는 높이와 숫자를 함께</h3><p>왼쪽 숫자가 0에서 목표까지 올라가는 동안 사진이 같은 속도로 채워집니다. 눈이 숫자와 그림을 오가도 같은 이야기를 읽습니다.</p></div>
+      <div class="device"><span class="k">은유 고르기</span><h3>구조가 곧 메시지인 건축물</h3><p>지오데식 돔은 약한 삼각형 수천 개가 서로 힘을 나눠 가장 가볍고 튼튼한 구를 만듭니다. "한 사람의 제안은 작아도 모이면 예산이 된다"를 설명 없이 보여 줍니다.</p></div>
+    </div>
+  </section>
+
+  <section class="flow">
+    <div>
+      <h2>흐름 설계</h2>
+      <ol>
+        <li><b>제목</b>: 가장 크고 진한 남색, 동사 '짓는'만 주황으로 강조합니다.</li>
+        <li><b>사진</b>: 1967 몬트리올 엑스포 미국관. 파란 하늘 앞 은빛 돔이 첫눈에 들어옵니다.</li>
+        <li><b>칸 켜기</b>: 돔의 삼각형 칸이 바닥부터 한 칸씩 금빛으로 켜집니다. 은색 철골은 그대로 남아 금빛 유리를 끼운 돔처럼 마무리되고, 하늘의 파랑과 보색 대비로 끝납니다.</li>
+        <li><b>숫자</b>: 참여 시민 0 → 10,000명. 표지에 남는 마지막 숫자가 목표 그 자체입니다.</li>
+      </ol>
+    </div>
+    <div>
+      <h2>동작</h2>
+      <ul>
+        <li>0.5초 뒤 시작해 5.6초 동안 칸 약 1,000개가 아래에서 위로 켜집니다. 같은 높이의 칸은 순서를 조금씩 섞어 한 칸씩 켜지는 것이 보이게 했습니다.</li>
+        <li>칸마다 켜지는 순간 0.26초 동안 밝게 번쩍였다가 제 색으로 가라앉습니다. 칸마다 유리 밝기를 조금씩 다르게, 돔 가장자리는 어둡게 칠해 공 모양 양감을 냈습니다.</li>
+        <li>숫자는 켜진 칸의 비율만큼 0 → 10,000명으로 올라갑니다. 다 켜지면 멈추고, 동작 줄이기 설정이면 처음부터 완성 상태입니다.</li>
+        <li>칸 찾기: 하늘색 픽셀 덩어리를 칸으로 보고, 건물에 가려 하늘이 안 보이는 곳은 격자 크기(46px)의 삼각형으로 나눕니다. 앞쪽 갈대는 돔이 아니므로 켜지 않습니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>스펙</h2>
+    <div class="spec">
+      <div class="k">팔레트</div>
+      <div class="sw">
+        <span><i style="background:#FFFFFF"></i>종이 #FFFFFF</span>
+        <span><i style="background:#14213D"></i>잉크 #14213D</span>
+        <span><i style="background:#E8590C"></i>엠버 #E8590C</span>
+        <span><i style="background:#F5A623"></i>금빛 #F5A623 (차오른 돔)</span>
+        <span><i style="background:#2F6FB5"></i>하늘 #2F6FB5 (사진)</span>
+      </div>
+      <div class="k">명도·채도</div>
+      <div>밝은 흰 바탕과 맑은 겨울 하늘. 채도는 마지막 장면의 금빛 돔 하나에 몰아 씁니다. 파랑과 주황의 보색 대비가 "완성"의 순간을 만듭니다.</div>
+      <div class="k">폰트</div>
+      <div>제목·본문 Gothic A1 900/700/500 (대체: Pretendard → 맑은 고딕) · 숫자 IBM Plex Mono 600</div>
+      <div class="k">PPT 이식</div>
+      <div>사진 위에 <b>삽입 → 도형 → 자유형</b>으로 돔의 삼각형 칸을 따라 그립니다(아래쪽 몇 줄과 위쪽 몇 줄, 20~40개면 충분합니다). 채우기는 주황 #F5A623, 투명도 15%, 선 없음. 칸들을 아래쪽부터 선택해 <b>나타내기 → 확대/축소</b> 0.2초, <b>이전 효과 다음</b> 0.05초 지연으로 겁니다. 나머지 영역은 사진을 복제해 다시 칠하기(주황)한 뒤 원과 교차시킨 돔 모양을 마지막에 ‘닦아내기(아래에서)’로 덮으면 완성 상태가 같아집니다.</div>
+      <div class="k">난이도</div>
+      <div>HTML 중 ★★★☆ (사진과 돔 좌표만 바꾸면 같은 코드 재사용) · PPT 중상 · 칸을 따라 그리는 손이 듭니다.</div>
+      <div class="k">사진</div>
+      <div>Frunze103, “Montreal Biosphere in Winter 2016”, CC0. <a href="https://commons.wikimedia.org/wiki/File:Montreal_Biosphere_in_Winter_2016.jpg" target="_blank" rel="noopener">Wikimedia Commons</a> · 건축: R. Buckminster Fuller, 1967 몬트리올 엑스포 미국관</div>
+      <div class="k">반영 트렌드</div>
+      <div>실사 사진 + 기능형 모션(장식이 아니라 수치를 말하는 움직임), 레트로퓨처리즘 건축. 출처: <a href="https://learn.g2.com/graphic-design-trends" target="_blank" rel="noopener">G2 Learn, Top 9 Graphic Design Trends to Watch in 2026</a></div>
+      <div class="k">주의</div>
+      <div>○○시와 참여 목표는 가상 예시입니다. 실존 박람회 로고·명칭은 표지에 쓰지 않았습니다.</div>
+    </div>
+  </section>
+</div>
+
+<script>
+// 돔 칸 켜기 — 사진에서 실제 삼각형 칸(철골 사이로 보이는 하늘)을 찾아 하나씩 금빛으로 켠다.
+// 사진 좌표(1280×960 기준): 돔 원 중심 (666,748), 반지름 538, 바닥선 y=800
+(function(){
+  const DOME = {cx:666, cy:748, r:538, base:800, ref:1280};
+
+  function segment(img){
+    const W=img.naturalWidth, H=img.naturalHeight, k=W/DOME.ref;
+    const CX=DOME.cx*k, CY=DOME.cy*k, R=DOME.r*k, YMAX=DOME.base*k;
+    const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+    const cx2=cv.getContext('2d',{willReadFrequently:true}); cx2.drawImage(img,0,0);
+    const d=cx2.getImageData(0,0,W,H).data, N=W*H;
+    // 0 바깥, 1 하늘(칸), 2 철골·흰 면(켜지 않음), 3 그 밖(건물 등)
+    const kind=new Uint8Array(N);
+    for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+      const p=y*W+x, dx=x-CX, dy=y-CY;
+      if(y>=YMAX||dx*dx+dy*dy>R*R) continue;
+      const r=d[p*4],g=d[p*4+1],b=d[p*4+2], mx=Math.max(r,g,b), mn=Math.min(r,g,b), l=.3*r+.59*g+.11*b;
+      if(b>100&&b-r>50&&b-g>12) kind[p]=1;
+      else if(l>150&&mx-mn<45) kind[p]=2;
+      else if(y>YMAX-110*k&&r>b+12) kind[p]=0;          // 앞쪽 갈대는 돔이 아니다
+      else kind[p]=3;
+    }
+    // 하늘 가장자리 1px을 철골로 돌려 붙은 칸을 떼어 낸다
+    const k2=new Uint8Array(kind);
+    for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){const p=y*W+x; if(kind[p]===1&&(kind[p-1]!==1||kind[p+1]!==1||kind[p-W]!==1||kind[p+W]!==1)) k2[p]=2;}
+    kind.set(k2);
+    // 하늘 칸 연결 요소
+    const label=new Int32Array(N).fill(-1), q=new Int32Array(N);
+    let n=0; const sz=[];
+    for(let p=0;p<N;p++){ if(kind[p]!==1||label[p]>=0) continue;
+      let h=0,t=0; q[t++]=p; label[p]=n;
+      while(h<t){const a=q[h++], ay=(a/W)|0, ax=a-ay*W;
+        if(ax>0&&kind[a-1]===1&&label[a-1]<0){label[a-1]=n;q[t++]=a-1}
+        if(ax<W-1&&kind[a+1]===1&&label[a+1]<0){label[a+1]=n;q[t++]=a+1}
+        if(ay>0&&kind[a-W]===1&&label[a-W]<0){label[a-W]=n;q[t++]=a-W}
+        if(ay<H-1&&kind[a+W]===1&&label[a+W]<0){label[a+W]=n;q[t++]=a+W}}
+      sz.push(t); n++; }
+    for(let p=0;p<N;p++) if(label[p]>=0&&sz[label[p]]<18*k*k){label[p]=-1; kind[p]=3;}
+    // 건물 등은 가까운 칸에 붙이되, 칸에서 멀면(가려진 부분) 격자 크기 삼각형으로 나눈다
+    const dist=new Uint16Array(N).fill(65535); let h=0,t=0;
+    for(let p=0;p<N;p++) if(label[p]>=0){dist[p]=0;q[t++]=p;}
+    const FAR=14*k;
+    while(h<t){const a=q[h++], ay=(a/W)|0, ax=a-ay*W, nd=dist[a]+1; if(nd>FAR) continue;
+      for(const b of [ax>0?a-1:-1, ax<W-1?a+1:-1, ay>0?a-W:-1, ay<H-1?a+W:-1]){
+        if(b<0||kind[b]===0||label[b]>=0) continue; label[b]=label[a]; dist[b]=nd; q[t++]=b; }}
+    const S=46*k, HT=S*Math.sqrt(3)/2, syn=new Map();
+    for(let p=0;p<N;p++){ if(kind[p]===0||label[p]>=0) continue;
+      const y=(p/W)|0, x=p-y*W, row=Math.floor(y/HT), u=x/S-(row%2)*.5, col=Math.floor(u), fy=y/HT-row, fx=u-col;
+      const up=(fx<.5? fy>1-2*fx : fy>2*fx-1)?1:0, key=(row*4096+col)*2+up;
+      let L=syn.get(key); if(L===undefined){L=n++; syn.set(key,L);} label[p]=L; }
+    // 칸별 픽셀 목록과 중심
+    const cnt=new Int32Array(n), sy=new Float64Array(n);
+    for(let p=0;p<N;p++){const L=label[p]; if(L>=0&&kind[p]!==2){cnt[L]++; sy[L]+=(p/W)|0;}}
+    const start=new Int32Array(n+1); for(let i=0;i<n;i++) start[i+1]=start[i]+cnt[i];
+    const fill=start.slice(0,n), px=new Int32Array(start[n]);
+    for(let p=0;p<N;p++){const L=label[p]; if(L>=0&&kind[p]!==2) px[fill[L]++]=p;}
+    // 켜지는 순서: 아래에서 위로, 같은 높이에서는 조금씩 섞어 한 칸씩 보이게
+    let seed=11; const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+    const ids=[]; for(let i=0;i<n;i++) if(cnt[i]>0) ids.push(i);
+    const key=new Float64Array(n); ids.forEach(i=>key[i]=-(sy[i]/cnt[i])+(rnd()-.5)*70*k);
+    ids.sort((a,b)=>key[a]-key[b]);
+    // 금빛 색(공 모양 음영 + 칸마다 다른 유리 밝기)
+    const gold=new Uint8ClampedArray(N*4);
+    for(const L of ids){ const v=.9+.2*rnd();
+      for(let j=start[L];j<start[L+1];j++){const p=px[j], y=(p/W)|0, x=p-y*W;
+        const r=d[p*4],g=d[p*4+1],b=d[p*4+2], l=.3*r+.59*g+.11*b, ex=(x-CX)/R, ey=(y-CY)/R;
+        const z=Math.sqrt(Math.max(0,1-ex*ex-ey*ey)), sh=(.62+.5*z+.18*(-ex*.5-ey*.6))*v;
+        gold[p*4]=(l*.55+150)*sh; gold[p*4+1]=(l*.5+88)*sh; gold[p*4+2]=(l*.2+10)*sh; gold[p*4+3]=255; }}
+    return {W,H,ids,start,px,gold};
+  }
+
+  // canvas: 사진 위에 겹친 투명 캔버스. opts.dur(ms), opts.onProgress(0~1)
+  window.DomeCells = function(img, canvas, opts){
+    opts=opts||{};
+    const M=segment(img), ctx=canvas.getContext('2d');
+    canvas.width=M.W; canvas.height=M.H;
+    const out=ctx.createImageData(M.W,M.H), o=out.data, POP=260;
+    let raf=0, lit=0, pops=[];
+    function paint(L, f){ for(let j=M.start[L];j<M.start[L+1];j++){const p=M.px[j]*4;
+      o[p]=M.gold[p]*f; o[p+1]=M.gold[p+1]*f; o[p+2]=M.gold[p+2]*f+(f-1)*120; o[p+3]=255; }}
+    function clear(){ o.fill(0); ctx.putImageData(out,0,0); lit=0; pops=[]; }
+    function finish(){ for(let i=0;i<M.ids.length;i++) paint(M.ids[i],1); ctx.putImageData(out,0,0); lit=M.ids.length; opts.onProgress&&opts.onProgress(1); }
+    function play(){
+      cancelAnimationFrame(raf); clear(); opts.onProgress&&opts.onProgress(0);
+      const dur=opts.dur||5200, t0=performance.now()+(opts.delay||0), total=M.ids.length;
+      const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      (function tick(now){
+        const p=Math.min(Math.max((now-t0)/dur,0),1), want=Math.round(ease(p)*total);
+        while(lit<want){ const L=M.ids[lit++]; pops.push([L,now]); }
+        pops=pops.filter(([L,ts])=>{ const a=(now-ts)/POP; paint(L, a>=1?1:1.45-.45*a); return a<1; });
+        ctx.putImageData(out,0,0); opts.onProgress&&opts.onProgress(p<1?want/total:1);
+        if(p<1||pops.length) raf=requestAnimationFrame(tick);
+      })(performance.now());
+    }
+    return {play, finish, cells:M.ids.length};
+  };
+})();
+
+</script>
+<script>
+(function(){
+  var b=document.getElementById('replay'), n=document.getElementById('n');
+  var img=document.querySelector('.ibox > img'), cv=document.getElementById('cells'), GOAL=10000;
+  var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(p){ n.textContent=Math.round(GOAL*p).toLocaleString('ko-KR'); }
+  function start(){
+    var dome=DomeCells(img, cv, {dur:5600, delay:500, onProgress:show});   // 칸 수만큼 0→10,000명
+    if(reduce){ dome.finish(); if(b) b.hidden=true; return; }
+    dome.play();
+    b.addEventListener('click', function(){ dome.play(); });
+  }
+  if(img.complete && img.naturalWidth) start(); else img.addEventListener('load', start);
+})();
+</script>
+
+
+<section class="drc" data-dr-code aria-labelledby="drc-h">
+<style>
+.drc{max-width:1120px;margin:56px auto 64px;padding:28px;background:#FFFFFF;border:1px solid #E1E5EA;border-radius:16px;box-shadow:0 12px 32px -20px rgba(0,0,0,.35);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;align-items:start;
+  font-family:"IBM Plex Sans KR","Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;color:#1C2430;text-align:left}
+.drc *{box-sizing:border-box}
+.drc h2{grid-column:1/-1;margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;color:#1C2430;font-family:inherit}
+.drc-note{background:#F6F7F9;border:1px solid #E1E5EA;border-radius:12px;padding:18px 20px;font-size:15px;line-height:1.7;color:#3D4654}
+.drc-note p{margin:0 0 10px}.drc-note ol{margin:0;padding-left:1.3em}.drc-note li{margin:4px 0}
+.drc-note code{font-family:"IBM Plex Mono",Consolas,monospace;font-size:.9em;background:#E9ECF1;padding:1px 5px;border-radius:4px;color:#1C2430}
+.drc-note a{color:#2563A8}
+.drc-box{position:relative;background:#14262E;border-radius:12px;min-width:0}
+.drc-box pre{margin:0;padding:18px 18px 18px;max-height:520px;overflow:auto;font:12.5px/1.65 "IBM Plex Mono",Consolas,monospace;color:#E4ECEA;tab-size:2;white-space:pre}
+.drc-copy{position:absolute;top:10px;right:14px;z-index:1;font:700 14px "IBM Plex Sans KR","Malgun Gothic",sans-serif;padding:8px 16px;border-radius:999px;border:0;background:#E4F1EE;color:#14262E;cursor:pointer}
+.drc-copy:focus-visible{outline:3px solid #7FC4B8;outline-offset:2px}
+@media (max-width:760px){.drc{grid-template-columns:1fr;padding:18px;margin:40px 12px 48px}}
+</style>
+<h2 id="drc-h">HTML로 가져다 쓰기</h2>
+<div class="drc-note">
+  <p>아래 코드는 위 표지 장표의 스타일·마크업·스크립트만 떼어 합친 것입니다. 빈 HTML 파일에 붙여 넣으면 그대로 동작합니다. 폰트 링크도 들어 있습니다(인터넷이 안 되는 곳에서는 대체 폰트로 표시됩니다).</p>
+  <ol>
+    <li>제목·기관명·날짜 같은 글자는 코드 안에서 바로 고치면 됩니다.</li>
+    <li>색은 <code>:root</code> 또는 맨 바깥 요소의 CSS 변수(<code>--</code>로 시작)를 먼저 바꿔 보세요.</li>
+    
+    <li>AI 채팅에서 쓸 때는 링크 대신 이 코드를 붙여 넣고 "이 표지를 ○○ 계획 주제로 바꿔 줘"처럼 요청하세요. 링크로 주려면 원본 파일 주소를 쓰세요: <a href="https://raw.githubusercontent.com/szxv7704-dot/design-reference-gallery/main/refs/31.html" target="_blank" rel="noopener">refs/31.html 원본</a></li>
+  </ol>
+</div>
+<div class="drc-box">
+  <button class="drc-copy" type="button">코드 복사</button>
+  <pre><code>&lt;!-- 레퍼런스 #31 차오르는 돔 · 표지 장표 코드 (가상 예시) --&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;900&amp;amp;family=IBM+Plex+Mono:wght@500;600&amp;amp;display=swap"&gt;
+&lt;style&gt;
+:root { color-scheme: light; box-sizing: border-box; padding-top: env(safe-area-inset-top,0px); padding-bottom: env(safe-area-inset-bottom,0px); }
+img { max-width: 100%; }
+:root { --paper: #FFFFFF; --page: #F4F6FA; --ink: #14213D; --ink-2: #4B5672; --line: #DDE3EE; --sky: #2F6FB5; --gold: #F5A623; --ember: #E8590C; --f-display: "Gothic A1","Pretendard","Malgun Gothic","Apple SD Gothic Neo",sans-serif; --f-mono: "IBM Plex Mono",ui-monospace,Consolas,monospace; color-scheme: light; }
+.wrap { max-width: 1120px; margin: 0px auto; padding-inline: 16px; padding-block: 20px 56px; }
+.stage { container-type: inline-size; width: 100%; }
+.slide { position: relative; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; border-radius: 6px; background: var(--paper); box-shadow: 0 1px 0 var(--line),0 18px 40px -24px rgba(20,33,61,.4); display: grid; grid-template-columns: 37% 63%; grid-template-rows: 1fr; }
+.copy { display: flex; flex-direction: column; justify-content: center; gap: 1.6cqw 1.6cqw; padding: 3cqw 2.6cqw 3cqw 4.4cqw; min-width: 0px; position: relative; z-index: 1; }
+.eyebrow { margin: 0px; font-size: 1.3cqw; font-weight: 700; letter-spacing: 0.04em; color: var(--ink-2); }
+.eyebrow b { color: var(--ember); font-weight: 700; }
+h1 { margin: 0px; font-size: 5.1cqw; line-height: 1.13; font-weight: 900; letter-spacing: -0.04em; word-break: keep-all; }
+h1 em { font-style: normal; color: var(--ember); }
+.sub { margin: 0px; font-size: 1.5cqw; line-height: 1.6; font-weight: 500; color: var(--ink-2); word-break: keep-all; max-width: 27cqw; }
+.count { margin-top: 1cqw; display: flex; align-items: baseline; gap: 0.8cqw 0.8cqw; border-top: .2cqw solid var(--ink); padding-top: 1.2cqw; }
+.count .n { font-family: var(--f-mono); font-weight: 600; font-size: 3.1cqw; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--ink); }
+.count .u { font-size: 1.25cqw; font-weight: 700; color: var(--ink-2); }
+.count .goal { margin-left: auto; font-size: 1.05cqw; font-weight: 700; color: var(--ink-2); text-align: right; line-height: 1.35; }
+.foot { position: absolute; left: 4.4cqw; bottom: 2.4cqw; display: flex; gap: 1.4cqw 1.4cqw; align-items: center; font-size: 1.05cqw; font-weight: 500; color: var(--ink-2); white-space: nowrap; }
+.foot b { color: var(--ink); font-weight: 700; }
+.foot .vx { border: 0.1cqw solid currentcolor; border-radius: 99px; padding: 0.05cqw 0.7cqw 0.05cqw 0.7cqw; }
+.photo { position: relative; overflow: hidden; min-width: 0px; }
+.ibox { position: absolute; top: 0px; height: 100%; aspect-ratio: 1280 / 960; left: 50%; transform: translateX(-52%); }
+.ibox img, .ibox canvas { position: absolute; inset: 0px; width: 100%; height: 100%; display: block; }
+.credit { position: absolute; right: 0.8cqw; bottom: 0.6cqw; font-size: 0.8cqw; color: rgb(255, 255, 255); opacity: 0.9; text-shadow: rgba(0, 0, 0, 0.6) 0px 0px 0.4cqw; }
+@container (max-width: 560px) {
+  .slide { aspect-ratio: 3 / 4; grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .copy { padding: 6cqw 6cqw 3cqw 6cqw; gap: 2.4cqw 2.4cqw; }
+  .eyebrow { font-size: 3cqw; }
+  h1 { font-size: 10cqw; }
+  .sub { font-size: 3.4cqw; max-width: none; }
+  .count { padding-top: 2.4cqw; gap: 2cqw 2cqw; }
+  .count .n { font-size: 7cqw; }
+  .count .u { font-size: 3cqw; }
+  .count .goal { font-size: 2.6cqw; }
+  .foot { position: static; font-size: 2.6cqw; margin-top: 0.5cqw; }
+  .photo { grid-row: 2; }
+  .ibox { height: 100%; }
+  .credit { font-size: 2cqw; }
+}
+.replay-btn { margin-left: auto; font-style: inherit; font-variant: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-weight: 700; font-size: 13px; color: rgb(255, 255, 255); background: var(--ember); border: 0px; border-radius: 99px; padding: 6px 16px; cursor: pointer; }
+.replay-btn:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
+&lt;/style&gt;
+
+&lt;div class="wrap" style="font-family:'Gothic A1', Pretendard, 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;font-size:15px;line-height:24.75px;color:rgb(20, 33, 61)"&gt;
+&lt;div class="stage"&gt;
+    &lt;div class="slide" id="slide" role="img" aria-label="발표 표지: ○○시 2027 시민참여예산 운영 계획(안), 시민이 함께 짓는 예산. 오른쪽 지오데식 돔 사진이 아래에서부터 금빛으로 차올라 참여 시민 1만 명에 이르면 돔 전체가 채워진다"&gt;
+      &lt;div class="copy"&gt;
+        &lt;p class="eyebrow"&gt;&lt;b&gt;○○시&lt;/b&gt; 2027 시민참여예산 운영 계획(안)&lt;/p&gt;
+        &lt;h1&gt;시민이 함께&lt;br&gt;&lt;em&gt;짓는&lt;/em&gt; 예산&lt;/h1&gt;
+        &lt;p class="sub"&gt;삼각형 하나는 약해도, 이어 붙이면 가장 튼튼한 구조가 됩니다&lt;/p&gt;
+        &lt;div class="count" aria-hidden="true"&gt;&lt;span class="n" id="n"&gt;0&lt;/span&gt;&lt;span class="u"&gt;명 참여&lt;/span&gt;&lt;span class="goal"&gt;목표&lt;br&gt;10,000명&lt;/span&gt;&lt;/div&gt;
+        &lt;div class="foot"&gt;&lt;b&gt;○○시 예산과&lt;/b&gt;&lt;span&gt;2026. 10.&lt;/span&gt;&lt;span class="vx"&gt;가상 예시&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="photo"&gt;
+        &lt;div class="ibox"&gt;
+          &lt;img src="../src/31/assets/629dcf72a6.jpg" alt=""&gt;
+          &lt;canvas id="cells" aria-hidden="true"&gt;&lt;/canvas&gt;
+        &lt;/div&gt;
+        &lt;span class="credit"&gt;사진 Frunze103 · CC0 · 1967 몬트리올 엑스포 미국관(현 바이오스피어)&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;button class="replay-btn" id="replay" type="button"&gt;다시 채우기&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// 돔 칸 켜기 — 사진에서 실제 삼각형 칸(철골 사이로 보이는 하늘)을 찾아 하나씩 금빛으로 켠다.
+// 사진 좌표(1280×960 기준): 돔 원 중심 (666,748), 반지름 538, 바닥선 y=800
+(function(){
+  const DOME = {cx:666, cy:748, r:538, base:800, ref:1280};
+
+  function segment(img){
+    const W=img.naturalWidth, H=img.naturalHeight, k=W/DOME.ref;
+    const CX=DOME.cx*k, CY=DOME.cy*k, R=DOME.r*k, YMAX=DOME.base*k;
+    const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+    const cx2=cv.getContext('2d',{willReadFrequently:true}); cx2.drawImage(img,0,0);
+    const d=cx2.getImageData(0,0,W,H).data, N=W*H;
+    // 0 바깥, 1 하늘(칸), 2 철골·흰 면(켜지 않음), 3 그 밖(건물 등)
+    const kind=new Uint8Array(N);
+    for(let y=0;y&lt;H;y++)for(let x=0;x&lt;W;x++){
+      const p=y*W+x, dx=x-CX, dy=y-CY;
+      if(y&gt;=YMAX||dx*dx+dy*dy&gt;R*R) continue;
+      const r=d[p*4],g=d[p*4+1],b=d[p*4+2], mx=Math.max(r,g,b), mn=Math.min(r,g,b), l=.3*r+.59*g+.11*b;
+      if(b&gt;100&amp;&amp;b-r&gt;50&amp;&amp;b-g&gt;12) kind[p]=1;
+      else if(l&gt;150&amp;&amp;mx-mn&lt;45) kind[p]=2;
+      else if(y&gt;YMAX-110*k&amp;&amp;r&gt;b+12) kind[p]=0;          // 앞쪽 갈대는 돔이 아니다
+      else kind[p]=3;
+    }
+    // 하늘 가장자리 1px을 철골로 돌려 붙은 칸을 떼어 낸다
+    const k2=new Uint8Array(kind);
+    for(let y=1;y&lt;H-1;y++)for(let x=1;x&lt;W-1;x++){const p=y*W+x; if(kind[p]===1&amp;&amp;(kind[p-1]!==1||kind[p+1]!==1||kind[p-W]!==1||kind[p+W]!==1)) k2[p]=2;}
+    kind.set(k2);
+    // 하늘 칸 연결 요소
+    const label=new Int32Array(N).fill(-1), q=new Int32Array(N);
+    let n=0; const sz=[];
+    for(let p=0;p&lt;N;p++){ if(kind[p]!==1||label[p]&gt;=0) continue;
+      let h=0,t=0; q[t++]=p; label[p]=n;
+      while(h&lt;t){const a=q[h++], ay=(a/W)|0, ax=a-ay*W;
+        if(ax&gt;0&amp;&amp;kind[a-1]===1&amp;&amp;label[a-1]&lt;0){label[a-1]=n;q[t++]=a-1}
+        if(ax&lt;W-1&amp;&amp;kind[a+1]===1&amp;&amp;label[a+1]&lt;0){label[a+1]=n;q[t++]=a+1}
+        if(ay&gt;0&amp;&amp;kind[a-W]===1&amp;&amp;label[a-W]&lt;0){label[a-W]=n;q[t++]=a-W}
+        if(ay&lt;H-1&amp;&amp;kind[a+W]===1&amp;&amp;label[a+W]&lt;0){label[a+W]=n;q[t++]=a+W}}
+      sz.push(t); n++; }
+    for(let p=0;p&lt;N;p++) if(label[p]&gt;=0&amp;&amp;sz[label[p]]&lt;18*k*k){label[p]=-1; kind[p]=3;}
+    // 건물 등은 가까운 칸에 붙이되, 칸에서 멀면(가려진 부분) 격자 크기 삼각형으로 나눈다
+    const dist=new Uint16Array(N).fill(65535); let h=0,t=0;
+    for(let p=0;p&lt;N;p++) if(label[p]&gt;=0){dist[p]=0;q[t++]=p;}
+    const FAR=14*k;
+    while(h&lt;t){const a=q[h++], ay=(a/W)|0, ax=a-ay*W, nd=dist[a]+1; if(nd&gt;FAR) continue;
+      for(const b of [ax&gt;0?a-1:-1, ax&lt;W-1?a+1:-1, ay&gt;0?a-W:-1, ay&lt;H-1?a+W:-1]){
+        if(b&lt;0||kind[b]===0||label[b]&gt;=0) continue; label[b]=label[a]; dist[b]=nd; q[t++]=b; }}
+    const S=46*k, HT=S*Math.sqrt(3)/2, syn=new Map();
+    for(let p=0;p&lt;N;p++){ if(kind[p]===0||label[p]&gt;=0) continue;
+      const y=(p/W)|0, x=p-y*W, row=Math.floor(y/HT), u=x/S-(row%2)*.5, col=Math.floor(u), fy=y/HT-row, fx=u-col;
+      const up=(fx&lt;.5? fy&gt;1-2*fx : fy&gt;2*fx-1)?1:0, key=(row*4096+col)*2+up;
+      let L=syn.get(key); if(L===undefined){L=n++; syn.set(key,L);} label[p]=L; }
+    // 칸별 픽셀 목록과 중심
+    const cnt=new Int32Array(n), sy=new Float64Array(n);
+    for(let p=0;p&lt;N;p++){const L=label[p]; if(L&gt;=0&amp;&amp;kind[p]!==2){cnt[L]++; sy[L]+=(p/W)|0;}}
+    const start=new Int32Array(n+1); for(let i=0;i&lt;n;i++) start[i+1]=start[i]+cnt[i];
+    const fill=start.slice(0,n), px=new Int32Array(start[n]);
+    for(let p=0;p&lt;N;p++){const L=label[p]; if(L&gt;=0&amp;&amp;kind[p]!==2) px[fill[L]++]=p;}
+    // 켜지는 순서: 아래에서 위로, 같은 높이에서는 조금씩 섞어 한 칸씩 보이게
+    let seed=11; const rnd=()=&gt;(seed=(seed*16807)%2147483647)/2147483647;
+    const ids=[]; for(let i=0;i&lt;n;i++) if(cnt[i]&gt;0) ids.push(i);
+    const key=new Float64Array(n); ids.forEach(i=&gt;key[i]=-(sy[i]/cnt[i])+(rnd()-.5)*70*k);
+    ids.sort((a,b)=&gt;key[a]-key[b]);
+    // 금빛 색(공 모양 음영 + 칸마다 다른 유리 밝기)
+    const gold=new Uint8ClampedArray(N*4);
+    for(const L of ids){ const v=.9+.2*rnd();
+      for(let j=start[L];j&lt;start[L+1];j++){const p=px[j], y=(p/W)|0, x=p-y*W;
+        const r=d[p*4],g=d[p*4+1],b=d[p*4+2], l=.3*r+.59*g+.11*b, ex=(x-CX)/R, ey=(y-CY)/R;
+        const z=Math.sqrt(Math.max(0,1-ex*ex-ey*ey)), sh=(.62+.5*z+.18*(-ex*.5-ey*.6))*v;
+        gold[p*4]=(l*.55+150)*sh; gold[p*4+1]=(l*.5+88)*sh; gold[p*4+2]=(l*.2+10)*sh; gold[p*4+3]=255; }}
+    return {W,H,ids,start,px,gold};
+  }
+
+  // canvas: 사진 위에 겹친 투명 캔버스. opts.dur(ms), opts.onProgress(0~1)
+  window.DomeCells = function(img, canvas, opts){
+    opts=opts||{};
+    const M=segment(img), ctx=canvas.getContext('2d');
+    canvas.width=M.W; canvas.height=M.H;
+    const out=ctx.createImageData(M.W,M.H), o=out.data, POP=260;
+    let raf=0, lit=0, pops=[];
+    function paint(L, f){ for(let j=M.start[L];j&lt;M.start[L+1];j++){const p=M.px[j]*4;
+      o[p]=M.gold[p]*f; o[p+1]=M.gold[p+1]*f; o[p+2]=M.gold[p+2]*f+(f-1)*120; o[p+3]=255; }}
+    function clear(){ o.fill(0); ctx.putImageData(out,0,0); lit=0; pops=[]; }
+    function finish(){ for(let i=0;i&lt;M.ids.length;i++) paint(M.ids[i],1); ctx.putImageData(out,0,0); lit=M.ids.length; opts.onProgress&amp;&amp;opts.onProgress(1); }
+    function play(){
+      cancelAnimationFrame(raf); clear(); opts.onProgress&amp;&amp;opts.onProgress(0);
+      const dur=opts.dur||5200, t0=performance.now()+(opts.delay||0), total=M.ids.length;
+      const ease=t=&gt;t&lt;.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      (function tick(now){
+        const p=Math.min(Math.max((now-t0)/dur,0),1), want=Math.round(ease(p)*total);
+        while(lit&lt;want){ const L=M.ids[lit++]; pops.push([L,now]); }
+        pops=pops.filter(([L,ts])=&gt;{ const a=(now-ts)/POP; paint(L, a&gt;=1?1:1.45-.45*a); return a&lt;1; });
+        ctx.putImageData(out,0,0); opts.onProgress&amp;&amp;opts.onProgress(p&lt;1?want/total:1);
+        if(p&lt;1||pops.length) raf=requestAnimationFrame(tick);
+      })(performance.now());
+    }
+    return {play, finish, cells:M.ids.length};
+  };
+})();
+&lt;/script&gt;
+&lt;script&gt;
+(function(){
+  var b=document.getElementById('replay'), n=document.getElementById('n');
+  var img=document.querySelector('.ibox &gt; img'), cv=document.getElementById('cells'), GOAL=10000;
+  var reduce=window.matchMedia &amp;&amp; matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(p){ n.textContent=Math.round(GOAL*p).toLocaleString('ko-KR'); }
+  function start(){
+    var dome=DomeCells(img, cv, {dur:5600, delay:500, onProgress:show});   // 칸 수만큼 0→10,000명
+    if(reduce){ dome.finish(); if(b) b.hidden=true; return; }
+    dome.play();
+    b.addEventListener('click', function(){ dome.play(); });
+  }
+  if(img.complete &amp;&amp; img.naturalWidth) start(); else img.addEventListener('load', start);
+})();
+&lt;/script&gt;</code></pre>
+</div>
+<script>
+(function(){
+  var sec=document.currentScript.closest('.drc'), b=sec.querySelector('.drc-copy'), c=sec.querySelector('code');
+  b.addEventListener('click',function(){
+    var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='코드 복사'},1600)};
+    var pick=function(){var r=document.createRange();r.selectNodeContents(c);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C'};
+    try{navigator.clipboard.writeText(c.textContent).then(done,pick)}catch(e){pick()}
+  });
+})();
+</script>
+</section>
+</body></html>
