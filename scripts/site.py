@@ -33,50 +33,58 @@ sec_sort = lambda rs: sorted(rs, key=lambda r: (SEC_ORDER.get(r.get('section'), 
 # 덱에 넣는 대표 본문(모양마다 하나, 손으로 고른다): 한 장에 도식이 적고 담백한 것, 분위기 색이 깨끗하게 입는 것
 REPS = [80, 118, 120, 111, 85, 119, 121, 76, 84, 113, 86, 79]
 SHAPES = [p['name'] for p in kit.PATTERNS]
-NO_SHARED = {'G': '공용 본문은 밝은 바탕 기준으로 만들어져, 어두운 G에서는 일부 글자가 흐리다. 그래서 G 덱에는 넣지 않았다'}   # 분위기 색이 안 맞는 계열
 slide = lambda r, f='': '%s?slide=%s' % (light(r), f)
 
 def card(r, tag=''):
     bits = [x for x in (tag or (shape(r) if r['role'] == '본문' else ''), MO.get(r.get('motion'), '')) if x]
-    return ('<article class="c"><a class="th" href="%s%s" data-ql data-code="%s"><img src="%s%s" alt="" loading="lazy" width="640" height="360"></a>'
-            '<h4>%s <small>#%d</small></h4>%s<p>%s</p><p class="lk"><a href="%s%s" data-ql data-code="%s">원본</a> · <a href="%s">가벼운 코드</a></p></article>') % (
-        E(r['file']), ver(r), light(r), E(r['thumb']), ver(r), E(name(r)), r['no'],
-        ('<p class="tg">%s</p>' % ' · '.join(E(b) for b in bits)) if bits else '', E(one(r)), E(r['file']), ver(r), light(r), light(r))
+    # 표지는 썸네일을 누르면 그 표지로 엮은 덱이 열린다(원본은 아래 '원본')
+    th = '<a class="th" href="deck.html?cover=%d">' % r['no'] if r['role'] == '표지' else '<a class="th" href="%s%s" data-ql data-code="%s">' % (E(r['file']), ver(r), light(r))
+    return ('<article class="c">' + th + '<img src="%s%s" alt="" loading="lazy" width="640" height="360"></a>'
+            '<h4>%s <small>#%d</small></h4>%s<p>%s</p><p class="lk">%s<a href="%s%s" data-ql data-code="%s">원본</a> · <a href="%s">가벼운 코드</a></p></article>') % (
+        E(r['thumb']), ver(r), E(name(r)), r['no'],
+        ('<p class="tg">%s</p>' % ' · '.join(E(b) for b in bits)) if bits else '', E(one(r)),
+        ('<a class="dk" href="deck.html?cover=%d">이 표지로 덱 보기</a> · ' % r['no']) if r['role'] == '표지' else '', E(r['file']), ver(r), light(r), light(r))
 grid = lambda rs, tag='': '<div class="g">%s</div>' % ''.join(card(r, tag) for r in rs)
 
 H = []
 H.append('''<header>
   <h1>디자인 레퍼런스</h1>
-  <p class="lead">발표 덱을 만들 때 참고하는 장표 모음입니다. 장표 %d개를 <b>분위기 여덟</b>으로 묶었고, 분위기마다 표지 → 목차·간지·맺음 → 본문 순서로 한 덱처럼 볼 수 있습니다.
+  <p class="lead">발표 덱을 만들 때 참고하는 장표 모음입니다. 장표 %d개를 <b>분위기 여덟</b>으로 묶었고, <b>표지 하나가 덱 한 벌</b>입니다: 표지를 누르면 그 표지의 색 · 글꼴을 입힌 본문까지 한 덱으로 넘겨 봅니다.
   모든 기관명 · 수치는 가상 예시이고, 사진은 AI로 만든 것입니다.</p>
   <p class="ai">AI가 읽을 때: 이 페이지는 글로 된 목록입니다. 장표마다 <b>가벼운 코드</b>(<code>light/번호.html</code>, 글꼴 · 그림을 박지 않아 평균 50KB)가 있고, <b>원본</b>(<code>refs/번호.html</code>)은 인터넷 없이 도는 완성본이라 큽니다.
   색 · 글꼴 · 설명까지 적은 글 목록은 <a href="catalog.md">catalog.md</a>(분위기별로 <code>catalog/A.md</code>~<code>H.md</code>, 공용 본문 <code>catalog/body.md</code>)입니다.</p>
   <nav class="moods">%s</nav>
 </header>''' % (len(vis), ''.join('<a href="#m-%s"><img src="%s" alt="" loading="lazy" width="640" height="360"><b>%s %s</b><span>%s</span></a>' % (
     f, E(next((r['thumb'] + ver(r) for r in by('표지') if r.get('family') == f), 'kit/thumbs/%s-1.jpg' % f)), f, E(kit.NAMES[f]),
-    '표지 %d · 덱 %d장' % (sum(1 for r in by('표지') if r.get('family') == f), 0)) for f in FAMS)))
+    '표지 %d개 = 덱 %d벌' % ((sum(1 for r in by('표지') if r.get('family') == f),) * 2)) for f in FAMS)))
 
+# ── 덱: 표지 하나 = 덱 한 벌. 표지 → (그 분위기의) 목차·간지·맺음 → 대표 본문(표지의 색 · 글꼴을 입힘) → 그 분위기 전용 본문
+COVER_TOK = J('data', 'covers.json')['covers']
+reps = sec_sort([r for r in shared if r['no'] in REPS])
 decks = {}
+def deck_of(c):
+    f = c.get('family')
+    kits = [r for r in by('목차·간지') if f and r.get('family') == f]
+    mine = [r for r in sec_sort(own(f)) if tri.get(str(r['no']), {}).get('judge') != '영감'] if f else []
+    tok = 'c%d' % c['no'] if str(c['no']) in COVER_TOK else ''
+    d = [(c, '표지', '')] + [(r, '목차·간지·맺음', '') for r in kits] + [(r, '본문 · ' + SEC_NAME.get(r.get('section'), '그 밖'), tok) for r in reps] + [(r, '이 분위기 전용 본문', '') for r in mine]
+    return [{'no': r['no'], 'title': name(r), 'group': g, 'file': slide(r, t), 'orig': r['file'] + ver(r), 'code': light(r)} for r, g, t in d]
+for c in by('표지'):
+    decks[str(c['no'])] = {'name': name(c), 'family': c.get('family') or '', 'slides': deck_of(c)}
+missing_tok = [c['no'] for c in by('표지') if str(c['no']) not in COVER_TOK]
+if missing_tok: print('data/covers.json 에 색 · 글꼴이 없는 표지(본문이 중립 색으로 나온다):', missing_tok)
 for f in FAMS:
     covers = [r for r in by('표지') if r.get('family') == f]; kits = [r for r in by('목차·간지') if r.get('family') == f]
-    mine = sec_sort(own(f)); common = sec_sort([r for r in shared if fits(r, f) and r['no'] in REPS and f not in NO_SHARED]); n_all = sum(1 for r in shared if fits(r, f))
-    extra = [r for r in vis if r['role'] in ('발표 틀', '인쇄·홍보물') and r.get('family') == f]
-    # 덱에는 전용 본문 중 그대로 넣을 수 있는 것만(눌러서 조작 · 재질 질감은 목록에만 둔다)
-    in_deck = [r for r in mine if tri.get(str(r['no']), {}).get('judge') != '영감']
-    deck = [(r, '표지') for r in covers] + [(r, '목차·간지·맺음') for r in kits] + [(r, '본문 · ' + SEC_NAME.get(r.get('section'), '그 밖')) for r in sec_sort(in_deck + common)]
-    # 덱 화면은 장표만 띄운다(light/NN.html?slide=). 공용 본문에는 그 분위기의 색 · 글꼴을 입힌다(?slide=B)
-    decks[f] = [{'no': r['no'], 'title': name(r), 'group': g, 'file': slide(r, f if r in shared else ''), 'orig': r['file'] + ver(r), 'code': light(r)} for r, g in deck]
+    mine = sec_sort(own(f)); extra = [r for r in vis if r['role'] in ('발표 틀', '인쇄·홍보물') and r.get('family') == f]
     H.append('<section class="mood" id="m-%s"><h2>%s %s <small>%s</small></h2>' % (f, f, E(kit.NAMES[f]), E(kit.META[f]['desc'])))
-    H.append('<p class="deckline"><a class="btn" href="deck.html?fam=%s">덱으로 넘겨 보기 · %d장</a> <span>표지 %d → 목차·간지·맺음 %d → 본문 %d(전용 %d + 공용에서 고른 %d, 이 분위기 색을 입힘). 뼈대만 따로: <a href="kit/%s.html">덱 키트 %s 예시 덱</a></span></p>' % (
-        f, len(deck), len(covers), len(kits), len(in_deck) + len(common), len(in_deck), len(common), f, f))
-    if covers: H.append('<h3>표지 <small>%d개 — 덱의 첫 장, 분위기를 정한다</small></h3>%s' % (len(covers), grid(covers)))
+    H.append('<p class="note">표지 하나가 덱 한 벌입니다: <b>표지 → 목차·간지·맺음 → 본문 %d장</b>(모양마다 고른 대표에 그 표지의 색 · 글꼴을 입힘)%s. 뼈대만 따로: <a href="kit/%s.html">덱 키트 %s 예시 덱</a></p>' % (
+        len(reps), ' → 이 분위기 전용 본문' if any(tri.get(str(r['no']), {}).get('judge') != '영감' for r in mine) else '', f, f))
+    if covers: H.append('<h3>표지 <small>%d개 — 덱의 첫 장. 누르면 그 표지로 엮은 덱이 열린다</small></h3>%s' % (len(covers), grid(covers)))
     if kits: H.append('<h3>목차 · 간지 · 맺음 <small>세 장이 한 벌</small></h3>%s' % grid(kits))
+    else: H.append('<p class="note">이 분위기의 목차 · 간지 · 맺음 장표는 제작 기준에 걸려 숨겼습니다. 덱 키트 %s의 뼈대를 씁니다.</p>' % f)
     if mine: H.append('<h3>이 분위기 전용 본문 <small>%d개</small></h3>%s' % (len(mine), grid(mine)))
-    H.append('<p class="note">%s</p>' % (E(NO_SHARED[f]) + '.' if f in NO_SHARED else '이 분위기에 맞는 공용 본문 %d개 가운데 모양마다 하나씩 %d개를 덱에 넣었습니다. 나머지는 <a href="#body">아래 본문 모음</a>에 있습니다.' % (n_all, len(common)) if n_all else '공용 본문은 이 분위기에 맞게 만들어지지 않았습니다.'))
     if extra: H.append('<h3>같은 분위기의 발표 틀 · 인쇄물 <small>%d개 — 넘기는 덱은 아님</small></h3>%s' % (len(extra), grid(extra)))
     H.append('</section>')
-# 머리 타일의 덱 장 수 채우기
-for f in FAMS: H[0] = H[0].replace('표지 %d · 덱 0장' % sum(1 for r in by('표지') if r.get('family') == f) + '</span></a>', '표지 %d · 덱 %d장</span></a>' % (sum(1 for r in by('표지') if r.get('family') == f), len(decks[f])), 1)
 
 H.append('<section id="body"><h2>본문 모음 <small>공용 %d개 — 색 · 글꼴을 변수로 받아 여러 분위기에 갈아 끼우는 장표. 모양별로 묶었고, 맨 앞이 덱에 넣은 대표</small></h2>' % len(shared))
 for sh in SHAPES:
@@ -130,7 +138,8 @@ code{font-family:var(--m);font-size:.92em;background:var(--chip);padding:1px 5px
 .c h4{margin:9px 11px 0;font-size:14.5px;line-height:1.4}.c h4 small{font-weight:400;color:var(--soft);font-size:12px}
 .c p{margin:3px 11px 0;color:var(--soft);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .c .tg{color:var(--key);font-weight:700}
-.c .lk{margin-top:auto;padding:8px 0 10px;color:var(--ink)}
+.c .lk{margin-top:auto;padding:8px 0 10px;color:var(--ink);display:block;overflow:visible;-webkit-line-clamp:unset}
+.c .dk{font-weight:700;color:var(--key)}
 .note{margin:14px 0 0;font-size:13.5px;color:var(--soft)}
 footer{margin-top:48px;font-size:13px;color:var(--soft)}
 dialog.ql{width:min(1280px,calc(100vw - 32px));padding:0;border:0;border-radius:14px;background:#111;box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
@@ -178,7 +187,7 @@ page = '''<!doctype html>
 </html>
 ''' % (CSS, '\n'.join(H), JS)
 open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8').write(page)
-open(os.path.join(ROOT, 'data', 'decks.json'), 'w', encoding='utf-8').write(json.dumps({f: {'name': kit.NAMES[f], 'slides': decks[f]} for f in FAMS}, ensure_ascii=False, indent=1) + '\n')
+open(os.path.join(ROOT, 'data', 'decks.json'), 'w', encoding='utf-8').write(json.dumps(decks, ensure_ascii=False, indent=1) + '\n')
 
 # ── catalog.md: 같은 목록을 글로(색 · 글꼴 · 설명까지). AI가 한 번에 읽는 파일
 def entry(r):
@@ -205,11 +214,12 @@ for f in FAMS:
                                              ' '.join('#%d' % r['no'] for r in by('목차·간지') if r.get('family') == f) or '—', ' '.join('#%d' % r['no'] for r in own(f)) or '—', BASE, f))
     rs = [r for r in vis if r.get('family') == f and r['role'] in ('표지', '목차·간지')] + own(f) + [r for r in vis if r['role'] in ('발표 틀', '인쇄·홍보물') and r.get('family') == f]
     sizes[f] = write('catalog/%s.md' % f, ['# %s %s — 장표 목록' % (f, kit.NAMES[f]), '', HEAD, '', kit.META[f]['desc'] + '.', '',
-        '덱 순서: ' + ' → '.join('#%d %s' % (x['no'], x['title']) for x in decks[f]), ''] + [entry(r) + '\n' for r in rs])
+        '표지 하나가 덱 한 벌입니다(표지 → 목차·간지·맺음 → 본문). 본문에 표지의 색 · 글꼴을 입힌 장표는 `light/번호.html?slide=c표지번호`로 엽니다.', ''] +
+        ['- #%s %s 덱: %s' % (k, d['name'], ' → '.join('#%d' % x['no'] for x in d['slides'])) for k, d in decks.items() if d['family'] == f] + [''] + [entry(r) + '\n' for r in rs])
 C += ['', '한 덱은 `표지 → 목차·간지·맺음 → 본문(배경 · 현황 → 목표 · 지표 → 세부 과제 → 추진 체계 → 일정 · 예산)` 순서입니다.',
       '공용 본문은 색 · 글꼴을 변수(`--ds-*`)로 받아 여러 분위기에 갈아 끼웁니다. 덱에는 모양마다 하나씩 고른 대표(%s)가 들어갑니다.' % ' '.join('#%d' % n for n in REPS), '',
       '- 공용 본문(모양별): %scatalog/body.md' % BASE, '- 그 밖(발표 틀 · 인쇄 · 홍보물 · 분위기 없는 것): %scatalog/etc.md' % BASE,
-      '- 분위기별 덱 넘겨 보기: %sdeck.html?fam=B (장표만: `light/번호.html?slide=B` — 뒤의 계열 글자를 바꾸면 그 분위기 색으로)' % BASE, '']
+      '- 표지별 덱 넘겨 보기: %sdeck.html?cover=17 (장표만: `light/번호.html?slide=c17` — 그 표지의 색 · 글꼴을 입힌 본문)' % BASE, '']
 B_ = ['# 공용 본문 — 모양별 목록', '', HEAD, '']
 for sh in SHAPES:
     rs = sorted([r for r in shared if shape(r) == sh], key=lambda r: (r['no'] not in REPS, -r['no']))
@@ -219,4 +229,4 @@ taken = {r['no'] for r in shared} | {r['no'] for f in FAMS for r in own(f)} | {r
 sizes['etc'] = write('catalog/etc.md', ['# 그 밖 — 분위기에 묶이지 않은 장표', '', HEAD, ''] + [entry(r) + '\n' for r in vis if r['no'] not in taken])
 write('catalog.md', C)
 text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', re.sub(r'<(script|style).*?</\1>', '', page, flags=re.S)))
-print('index.html', len(page.encode('utf-8')) // 1024, 'KB · 글', len(text), '자 · catalog/ KB', sizes, '· 덱', {f: len(decks[f]) for f in FAMS})
+print('index.html', len(page.encode('utf-8')) // 1024, 'KB · 글', len(text), '자 · catalog/ KB', sizes, '· 덱', len(decks), '벌, 장 수', sorted({len(d['slides']) for d in decks.values()}))

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>분위기별 덱 — 디자인 레퍼런스</title>
-<meta name="description" content="한 분위기의 장표를 표지 → 목차·간지·맺음 → 본문 순서로 넘겨 보는 화면. 순서는 data/decks.json(글 목록은 catalog.md).">
+<title>표지별 덱 — 디자인 레퍼런스</title>
+<meta name="description" content="표지 하나로 엮은 덱(표지 → 목차·간지·맺음 → 본문)을 넘겨 보는 화면. 본문에는 그 표지의 색 · 글꼴이 입혀진다. 순서는 data/decks.json(글 목록은 catalog.md).">
 <style>
 :root{--bg:#17191D;--ink:#F1EFEA;--soft:#A6A9B0;--line:#33363C;--key:#7FB2F0;--f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
 *{box-sizing:border-box}
@@ -14,6 +14,7 @@ a{color:inherit}
 header{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);font-size:14px}
 header a.back{color:var(--soft);text-decoration:none}
 header b{font-size:16px}
+.pick{font-size:13px;color:var(--soft)}.pick select{font:14px var(--f);padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:#262A31;color:var(--ink);max-width:46vw}
 .fams{display:flex;flex-wrap:wrap;gap:4px}
 .fams a{padding:4px 10px;border-radius:999px;border:1px solid var(--line);text-decoration:none;font-size:13px;color:var(--soft)}
 .fams a[aria-current=true]{background:var(--ink);color:#17191D;border-color:var(--ink);font-weight:700}
@@ -34,8 +35,8 @@ iframe{width:100%;height:100%;border:0;background:#111}
 <div class="app">
   <header>
     <a class="back" href="index.html">← 디자인 레퍼런스</a>
-    <b id="title">분위기별 덱</b>
-    <nav class="fams" id="fams" aria-label="분위기"></nav>
+    <b id="title">표지별 덱</b>
+    <label class="pick">표지 <select id="covers" aria-label="표지 고르기"></select></label>
     <div class="nav"><span id="count"></span><button type="button" id="prev" aria-label="이전 장">←</button><button type="button" id="next" aria-label="다음 장">→</button><a id="orig" target="_blank" rel="noopener">원본</a><a id="code" target="_blank" rel="noopener">가벼운 코드</a></div>
   </header>
   <ol id="list" aria-label="장 목록"></ol>
@@ -43,8 +44,8 @@ iframe{width:100%;height:100%;border:0;background:#111}
 </div>
 <noscript>이 화면은 스크립트가 필요합니다. 덱 순서는 <a href="catalog.md">catalog.md</a>와 <a href="data/decks.json">data/decks.json</a>에 글로 있습니다.</noscript>
 <script>
-// 한 분위기의 장표를 순서대로 넘겨 본다: deck.html?fam=B#3  (← → 키, 목록 누르기). 순서는 scripts/site.py 가 만든 data/decks.json
-// 장표만 띄운다(light/NN.html?slide=). 공용 본문에는 그 분위기의 색 · 글꼴이 입혀진다(light/slide.js)
+// 표지 하나로 엮은 덱을 순서대로 넘겨 본다: deck.html?cover=17#3  (← → 키, 목록 누르기). 순서는 scripts/site.py 가 만든 data/decks.json
+// 장표만 띄운다(light/NN.html?slide=). 본문에는 그 표지의 색 · 글꼴이 입혀진다(light/NN.html?slide=c17, light/slide.js)
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 let slides = [], cur = 0;
@@ -55,9 +56,10 @@ function go(i){
   history.replaceState(null, '', location.pathname + location.search + '#' + (cur + 1));
 }
 fetch('data/decks.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
-  const fam = (new URLSearchParams(location.search).get('fam') || 'B').replace(/[^A-H]/g, '') || 'B', deck = d[fam] || d.B;
-  slides = deck.slides; $('#title').textContent = fam + ' ' + deck.name + ' 덱'; document.title = fam + ' ' + deck.name + ' 덱 — 디자인 레퍼런스';
-  $('#fams').innerHTML = Object.keys(d).map(k => `<a href="?fam=${k}" aria-current="${k === fam}" title="${esc(d[k].name)}">${k}</a>`).join('');
+  const keys = Object.keys(d), q = new URLSearchParams(location.search).get('cover'), k = keys.includes(q) ? q : keys[0], deck = d[k];
+  slides = deck.slides; $('#title').textContent = deck.name + ' 덱'; document.title = deck.name + ' 덱 — 디자인 레퍼런스';
+  $('#covers').innerHTML = keys.map(x => `<option value="${x}"${x === k ? ' selected' : ''}>${d[x].family ? d[x].family + ' · ' : ''}${esc(d[x].name)} #${x}</option>`).join('');
+  $('#covers').addEventListener('change', e => { location.href = '?cover=' + e.target.value; });
   let g = '', h = '';
   slides.forEach((s, i) => { if (s.group !== g) { g = s.group; h += `<li class="g">${esc(g)}</li>`; } h += `<li><button type="button" data-i="${i}">${esc(s.title)}<small>#${s.no}</small></button></li>`; });
   $('#list').innerHTML = h;
