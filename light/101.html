@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #101 빙산 아래로</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"Jua";font-weight:400;font-display:swap;src:url("../fonts/Jua-400.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+.cover-note{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cover-note > div{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:16px 18px}
+.cover-note b{display:block;font-family:var(--pg-head);font-size:15px;margin-bottom:6px}
+.cover-note p{margin:0;font-size:14px;color:var(--pg-sub)}
+table.keys{border-collapse:collapse;font-size:14px;margin-top:6px}
+.keys td{border-bottom:1px solid var(--pg-line);padding:7px 14px 7px 0}
+.keys kbd{font-family:var(--pg-mono);font-size:12px;border:1px solid var(--pg-line);border-bottom-width:2px;border-radius:4px;padding:1px 6px;background:var(--pg-panel)}
+@media (max-width:760px){.cover-note{grid-template-columns:1fr}.stage-frame .ps101{min-width:880px}}
+
+.ps101{--ps101-sea:url(../src/101/assets/e5db769592.webp);--ps101-under:url(../src/101/assets/7b833aa56a.webp);--ps101-cave:url(../src/101/assets/5a32f4b0a8.webp);--ps101-all:url(../src/101/assets/c21fc1a47f.webp);--ps101-L:url(../src/101/assets/06eb56afbb.webp);--ps101-R:url(../src/101/assets/4214d06ffb.webp);--ps101-C:url(../src/101/assets/d99bcc3b40.webp);--ps101-shark:url(../src/101/assets/ea67cff0f5.png);--ps101-star:url(../src/101/assets/45fc4f163d.png)}
+</style>
+<style id="ps101-css">
+/* 발표 틀 '빙산 아래로' — 접두어 ps101 / 바다 위 → 바닷속 → 빙산 속 결정 동굴로 내려가는 이동형 장표 */
+.ps101{
+  --ps101-ink:#0E2A4A; --ps101-light:#F2FBFF; --ps101-sub:#BFE3F5; --ps101-glass:rgba(8,32,62,.55); --ps101-line:rgba(190,235,255,.45);
+  --ps101-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ps101-font-body:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  position:relative;width:100%;aspect-ratio:1672/941;container-type:inline-size;overflow:hidden;background:#0B3A66;
+  color:var(--ps101-light);font-family:var(--ps101-font-body);cursor:pointer;user-select:none;outline:none;
+}
+.ps101:fullscreen{aspect-ratio:auto;width:100vw;height:100vh;display:grid;place-items:center;background:#06223F}
+.ps101:fullscreen .ps101-in{inset:auto;position:relative;width:min(100vw,calc(100vh * 1672 / 941));aspect-ratio:1672/941}
+.ps101 *{box-sizing:border-box}
+.ps101-in{position:absolute;inset:0;overflow:hidden;container-type:inline-size}
+.ps101-sc{position:absolute;inset:0;transform-origin:0 0;background:center/100% 100% no-repeat;opacity:0;will-change:transform,opacity}
+.ps101-sea{background-image:var(--ps101-sea)}.ps101-under{background-image:var(--ps101-under)}.ps101-cave{background-image:var(--ps101-cave)}
+.ps101-all{background-image:var(--ps101-all)}.ps101-L{background-image:var(--ps101-L)}.ps101-R{background-image:var(--ps101-R)}.ps101-C{background-image:var(--ps101-C)}
+.ps101-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ps101-flash{position:absolute;inset:0;background:radial-gradient(circle at 55% 50%,#F4FDFF,#9FDCF5 60%,#3F8FC4);opacity:0;pointer-events:none}
+/* 물속 생물 */
+.ps101-sea-life{position:absolute;inset:0;pointer-events:none}
+.ps101-shark,.ps101-star{position:absolute;background:center/contain no-repeat;opacity:0;filter:drop-shadow(0 1cqw 1.2cqw rgba(0,30,60,.35))}
+.ps101-shark{width:30.1%;aspect-ratio:504/222;background-image:var(--ps101-shark)}
+.ps101-star{width:12%;aspect-ratio:200/165;background-image:var(--ps101-star)}
+/* 빛나는 결정 */
+.ps101-glows{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen}
+.ps101-glows i{position:absolute;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(235,252,255,.95) 0,rgba(170,235,255,.55) 28%,rgba(120,210,255,.18) 50%,rgba(120,200,255,0) 68%);animation:ps101-glow 2.6s ease-in-out infinite both}
+@keyframes ps101-glow{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}60%,100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}}
+/* 글 */
+.ps101-cover,.ps101-enter,.ps101-whole,.ps101-panel{position:absolute;opacity:0;transform:translateY(1.2cqw);transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ps101-cover.on,.ps101-enter.on,.ps101-whole.on,.ps101-panel.on{opacity:1;transform:none}
+.ps101-cover{left:5.5%;top:11%;color:var(--ps101-ink)}
+.ps101-cover span{font:700 1.3cqw/1 var(--ps101-font-body);letter-spacing:.2em}
+.ps101-cover h2{margin:1cqw 0 .9cqw;font:800 6.2cqw/1.05 var(--ps101-font-title);letter-spacing:-.03em;text-shadow:0 0 2cqw rgba(255,255,255,.7)}
+.ps101-cover p{margin:0;font:500 1.6cqw/1.3 var(--ps101-font-body)}
+.ps101-enter{left:50%;bottom:9%;translate:-50% 0;font:700 2.2cqw/1 var(--ps101-font-title);letter-spacing:.4em;text-shadow:0 .2cqw 1.2cqw rgba(0,40,80,.8)}
+.ps101-whole{left:50%;bottom:6%;translate:-50% 0;text-align:center;padding:1.4cqw 3cqw 1.5cqw;border-radius:1cqw;background:var(--ps101-glass);border:1px solid var(--ps101-line);backdrop-filter:blur(6px)}
+.ps101-whole span,.ps101-panel span{font:700 1.05cqw/1 var(--ps101-font-body);letter-spacing:.22em;color:var(--ps101-sub)}
+.ps101-whole h2{margin:.6cqw 0 .5cqw;font:800 3.6cqw/1.1 var(--ps101-font-title);letter-spacing:-.02em}
+.ps101-whole p{margin:0;font:500 1.35cqw/1.3 var(--ps101-font-body);color:var(--ps101-sub)}
+.ps101-panel{top:22%;width:38%;padding:2cqw 2.4cqw 2.1cqw;border-radius:1cqw;background:var(--ps101-glass);border:1px solid var(--ps101-line);backdrop-filter:blur(6px);box-shadow:0 1.5cqw 4cqw rgba(0,20,45,.35)}
+.ps101-panel.r{right:5%}.ps101-panel.l{left:5%}
+.ps101-panel h3{margin:.8cqw 0 1cqw;font:800 3.1cqw/1.12 var(--ps101-font-title);letter-spacing:-.02em}
+.ps101-panel ul{margin:0;padding:0;list-style:none}
+.ps101-panel li{font:500 1.45cqw/1.5 var(--ps101-font-body);padding:.55cqw 0 .55cqw 1.5cqw;border-top:1px solid rgba(190,235,255,.25);position:relative;opacity:0;transform:translateX(-.6cqw)}
+.ps101-panel li::before{content:"";position:absolute;left:0;top:1.25cqw;width:.6cqw;height:.6cqw;transform:rotate(45deg);background:#BFF0FF;box-shadow:0 0 .6cqw #BFF0FF}
+.ps101-panel.on li{animation:ps101-li .5s forwards}.ps101-panel.on li:nth-child(1){animation-delay:.35s}.ps101-panel.on li:nth-child(2){animation-delay:.5s}.ps101-panel.on li:nth-child(3){animation-delay:.65s}.ps101-panel.on li:nth-child(4){animation-delay:.8s}
+@keyframes ps101-li{to{opacity:1;transform:none}}
+.ps101-hint{position:absolute;right:3%;bottom:4%;padding:.5cqw 1cqw;border-radius:2cqw;background:rgba(14,42,74,.55);color:#fff;font:600 1cqw/1 var(--ps101-font-body);letter-spacing:.12em;opacity:0;transition:opacity .4s}
+.ps101-hint.on{opacity:1;animation:ps101-blink 2.2s ease-in-out infinite}
+@keyframes ps101-blink{50%{opacity:.45}}
+.ps101-dots{position:absolute;left:50%;bottom:1.6%;transform:translateX(-50%);display:flex;gap:.45cqw}
+.ps101-dots i{width:.5cqw;height:.5cqw;border-radius:50%;background:rgba(255,255,255,.35)}
+.ps101-dots i.on{background:#BFF0FF;box-shadow:0 0 .4cqw #BFF0FF}
+@media (prefers-reduced-motion:reduce){.ps101-cover,.ps101-enter,.ps101-whole,.ps101-panel{transition:none}.ps101-glows i{animation:none;opacity:.8}.ps101-hint{animation:none!important}}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 101 · 발표 틀 · 행사 여는 장표 · 이동형 장표 · 가상 예시</div>
+    <h1>빙산 아래로</h1>
+    <p class="pg-lead">'보이는 성과는 빙산의 일각'을 장면으로. 바다 위 빙산에서 시작해 물속으로 내려가면 상어가 물길을 가르며 지나간 자리에 '국민의례'가 거품으로 모이고, 빙글빙글 도는 불가사리 뒤로 '인사말씀'이 떠오른다. 이어 빙산 속 동굴로 들어가 세 무리의 얼음 결정을 하나씩 비춘다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps101" id="ps101" role="application" aria-label="빙산 장표: 바다 위 표지, 바닷속, 국민의례 · 인사말씀 거품 글자, 빙산 속 결정 세 무리"></div></div>
+    <div class="pick"><span>장표를 누르거나 → 키로 진행</span><button class="btn" type="button" id="b-prev">← 이전</button><button class="btn" type="button" id="b-next">다음 →</button><button class="btn" type="button" id="b-home">처음으로</button><button class="btn btn-replay" type="button" id="b-full">전체 화면</button></div>
+  </section>
+
+  <section>
+    <h2>설계 메모 <small>NOTES</small></h2>
+    <div class="cover-note">
+      <div><b>내려가는 순서 = 깊이</b><p>바다 위(표지) → 바닷속(식순 둘) → 빙산 속 빈 동굴 → 결정 세 무리 → 왼쪽 · 오른쪽 · 가운데 결정. 화면이 아래로, 안으로 들어갈수록 더 깊은 이야기(성과)가 나온다.</p></div>
+      <div><b>수면 맞추기</b><p>바다 위 사진이 위로 밀려 올라가는 동안 바닷속 사진이 아래에서 올라와 수평선 · 빙산 꼭대기가 겹치게 했다. 같은 빙산을 따라 잠수하는 느낌. 지나가며 거품이 일어 위로 터진다.</p></div>
+      <div><b>거품 글자</b><p>글자를 캔버스에 찍어 그 모양의 점 수백 개를 뽑고, 상어(불가사리)가 그 줄을 지나는 순간 그 자리에서 거품이 출발해 글자 자리로 흔들리며 모인다. 다 모이면 글자를 옅게 깔아 멀리서도 읽힌다. 다음 장면에서는 위로 떠오르며 터진다.</p></div>
+      <div><b>상어 · 불가사리</b><p>사용자 제공 사진 두 장(생물 있음 · 없음)의 차이로 오려 냈다. 상어는 몸을 살짝 흔들며 오른쪽 → 왼쪽으로, 불가사리는 두 바퀴 돌며 물결처럼 오르내린다. 꼬리 쪽으로 작은 물길 거품이 남는다.</p></div>
+      <div><b>빙산 속으로</b><p>바닷속 빙산 한가운데로 3.2배 다가가며 흐려지고, 하얀 빛이 번진 뒤 얼음 동굴이 열린다. 동굴 안쪽으로 한 번 더 들어가면 결정 세 무리가 나타나 함께 빛난다.</p></div>
+      <div><b>결정 하나씩</b><p>전체 사진에서 그 무리 쪽으로 다가가다가 같은 무리를 크게 찍은 사진으로 넘어간다. 결정 반대편 빈 동굴 벽에 내용 칸이 뜬다. 가운데(다섯 결정)가 마지막이라 핵심 성과를 둔다.</p></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>발표할 때 <small>CONTROLS</small></h2>
+    <table class="keys"><tbody>
+      <tr><td><kbd>→</kbd> <kbd>PageDown</kbd> <kbd>Space</kbd> · 리모컨 다음 · 화면 클릭</td><td>다음 장면(표지 → 바닷속 → 국민의례 → 인사말씀 → 빙산 속 → 결정 전체 → 왼쪽 → 오른쪽 → 가운데)</td></tr>
+      <tr><td><kbd>←</kbd> <kbd>PageUp</kbd> · 리모컨 이전</td><td>이전 장면(움직임 없이 바로)</td></tr>
+      <tr><td><kbd>F</kbd></td><td>전체 화면 켜기 · 끄기</td></tr>
+      <tr><td><kbd>Home</kbd></td><td>표지로</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="panel">
+    <h2>인터넷 없이 쓰기 <small>OFFLINE FILE</small></h2>
+    <p>사진 · 글꼴이 모두 들어 있는 HTML 파일 하나(약 3.6MB)입니다. USB에 담아 크롬 · 엣지로 열고 F(전체 화면)만 누르면 됩니다. 갤러리 사이트에서 아래 버튼으로 받으세요.</p>
+    <div class="code-bar" style="margin-top:14px"><a class="btn" href="https://szxv7704-dot.github.io/design-reference-gallery/assets/101-offline.html" download="빙산아래로_오프라인.html">파일 받기 (3.6MB)</a></div>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣고 크롬 · 엣지로 열어 F(전체 화면) 후 발표합니다(사진은 갤러리 주소에서 불러옵니다).</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code>만 바꾸면 됩니다. <code>cover</code> 표지, <code>bubbles</code> 거품 글자 두 개(상어 · 불가사리 순), <code>all</code> 결정 전체 제목, <code>crystals</code> 왼쪽 · 오른쪽 · 가운데 결정 내용입니다.</li>
+      <li>거품 글자는 6자 안팎까지 잘 읽힙니다. 더 길면 거품 위치(<code>TX</code> · <code>TY</code>)와 글자 크기(150px)를 줄이세요.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>바다 위 → 바닷속</b>: 두 사진을 위아래로 이어 붙인 세로로 긴 그림을 만들고, 두 장에 걸쳐 위치만 바꾼 뒤 [전환 → 모핑] 1.8초.</li>
+      <li><b>상어 · 불가사리</b>: 오려 낸 PNG(<code>assets/101-shark.png</code> · <code>101-star.png</code>)에 [이동 경로 → 직선(왼쪽)] 4초, 불가사리는 [강조 → 회전 720°]를 [이전 효과와 함께].</li>
+      <li><b>거품 글자</b>: 글자에 [텍스트 채우기 없음 + 흰 윤곽 1pt] 또는 거품 무늬 그림 채우기, [나타내기 → 떠오르기 · 글자 단위 10%] 를 상어보다 0.8초 늦게.</li>
+      <li><b>빙산 속으로</b>: 바닷속 장면을 300%로 키운 장 → 흰 화면 → 동굴 장을 [전환 → 모핑] · [페이드(흰색 통해)]로 잇는다.</li>
+      <li><b>결정 하나씩</b>: 결정 세 무리 사진을 그 무리 쪽으로 220% 키운 장 다음에 확대 사진 장을 [페이드]. 내용 칸은 남색 반투명(#08203E, 투명도 45%) 둥근 사각형.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="meta">
+      <div><b>색</b><span class="sw" style="background:#0E2A4A"></span>#0E2A4A 표지 글자 · <span class="sw" style="background:#F2FBFF"></span>#F2FBFF 물속 글자 · <span class="sw" style="background:#BFE3F5"></span>#BFE3F5 보조 · <span class="sw" style="background:#08203E"></span>남색 반투명 칸 · 나머지는 사진의 바다 · 얼음색</div>
+      <div><b>글꼴</b>Gothic A1 800 · 700 · 500(제목 · 본문) + 주아 Jua(거품 글자 모양) · 대체 맑은 고딕</div>
+      <div><b>장면</b>표지 1 + 잠수 1 + 거품 글자 2 + 빙산 속 1 + 결정 전체 1 + 결정 3 = 9박자, 잠수 1.8초 · 상어 4.2초 · 불가사리 4.8초 · 결정 이동 1.7~2.6초</div>
+      <div><b>난이도</b>HTML 중(캔버스 거품 · 장면 겹쳐 넘기기) · PPT 중(모핑 + 이동 경로)</div>
+      <div><b>원본</b>사용자 제공 AI 생성 이미지 8장(1672×941) 그대로 사용, 상어 · 불가사리는 생물 있는 사진과 없는 사진의 차이로 오려 냄</div>
+      <div><b>트렌드</b>'빙산 모델(iceberg model)' 은유를 스크롤 없는 장면 잠수로 — 겉으로 보이는 결과 아래 쌓인 과정 · 사람을 깊이 순서로 보여 준다. 참고: <a href="https://ecochallenge.org/iceberg-model/" target="_blank" rel="noopener">Iceberg Model</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps101-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다(가상 예시) ──
+  var DATA = {
+    cover: { kicker: '2026 ○○교육청', title: '보이는 것 너머', sub: '수면 아래 쌓아 온 한 해 · 교육 성과 공유회' },
+    bubbles: ['국민의례', '인사말씀'],          // 상어 · 불가사리가 지나가며 거품으로 쓰는 글자
+    enter: '빙산 속으로',
+    all: { kicker: '수면 아래', title: '세 개의 결정', sub: '보이는 성과 아래, 한 해 동안 단단해진 것들' },
+    crystals: [                                   // 왼쪽(결정 3) → 오른쪽(결정 4) → 가운데(결정 5) 순서
+      { kicker: '첫 번째 결정 · 사람', title: '함께 자란 사람들', lines: ['교원 학습공동체 42개 · 참여 교원 615명', '서로의 수업을 열어 본 시간 1,260시간'] },
+      { kicker: '두 번째 결정 · 과정', title: '단단해진 과정', lines: ['의견 수렴 → 시범 운영 → 점검 → 확산', '학교 현장 의견 412건을 제도에 반영'] },
+      { kicker: '세 번째 결정 · 성과', title: '가장 깊은 곳의 성과', lines: ['학생 만족도 87% · 전년보다 9%p 상승', '기초학력 도달 94%', '내년, 모든 학교로 확산'] }
+    ]
+  };
+  var W = 1672, H = 941;
+  // 장면(사진): sea 바다 위 · under 바닷속 · cave 빈 동굴 · all 결정 세 무리 · L 왼쪽 3결정 · R 오른쪽 4결정 · C 가운데 5결정
+  var SC = ['sea', 'under', 'cave', 'all', 'L', 'R', 'C'];
+  // 결정 무리 자리(사진 픽셀): 전체 사진에서의 위치 · 확대 사진에서 빛낼 자리 · 글 칸 쪽
+  var GROUP = [
+    { inAll: [300, 440], glow: [370, 470, 340], side: 'r', scene: 'L' },
+    { inAll: [1410, 470], glow: [1300, 470, 380], side: 'l', scene: 'R' },
+    { inAll: [845, 520], glow: [450, 500, 380], side: 'r', scene: 'C' }
+  ];
+  var ALLGLOW = [[300, 440, 250], [845, 520, 230], [1410, 470, 240]];
+
+  var root = document.getElementById('ps101');
+  root.innerHTML = '<div class="ps101-in">' + SC.map(function(s){ return '<div class="ps101-sc ps101-' + s + '" data-s="' + s + '"></div>'; }).join('') +
+    '<div class="ps101-glows"></div><div class="ps101-sea-life"><div class="ps101-shark"></div><div class="ps101-star"></div></div><canvas class="ps101-cv"></canvas>' +
+    '<div class="ps101-flash"></div>' +
+    '<div class="ps101-cover"><span>' + DATA.cover.kicker + '</span><h2>' + DATA.cover.title + '</h2><p>' + DATA.cover.sub + '</p></div>' +
+    '<div class="ps101-enter">' + DATA.enter + '</div>' +
+    '<div class="ps101-whole"><span>' + DATA.all.kicker + '</span><h2>' + DATA.all.title + '</h2><p>' + DATA.all.sub + '</p></div>' +
+    DATA.crystals.map(function(c, i){ return '<div class="ps101-panel ' + GROUP[i].side + '" data-i="' + i + '"><span>' + c.kicker + '</span><h3>' + c.title + '</h3><ul>' + c.lines.map(function(l){ return '<li>' + l + '</li>'; }).join('') + '</ul></div>'; }).join('') +
+    '<div class="ps101-hint">클릭하여 시작</div><div class="ps101-dots"></div></div>';
+  var $ = function(s){ return root.querySelector(s); };
+  var layer = {}; SC.forEach(function(s){ layer[s] = $('.ps101-' + s); });
+  var cv = $('.ps101-cv'), ctx = cv.getContext('2d'), shark = $('.ps101-shark'), star = $('.ps101-star'), glowsEl = $('.ps101-glows'), flash = $('.ps101-flash');
+
+  // ── 카메라: 사진 한 장을 (x, y)에 맞춰 s배로 — 가장자리는 화면 밖으로 안 나가게 ──
+  function view(x, y, s, dy){ s = s || 1;
+    var tx = 50 - x / W * 100 * s, ty = 50 - y / H * 100 * s;
+    tx = Math.min(0, Math.max(100 - 100 * s, tx)); ty = Math.min(0, Math.max(100 - 100 * s, ty));
+    return 'translate(' + tx + '%,' + (ty + (dy || 0)) + '%) scale(' + s + ')'; }
+  var FULL = view(W / 2, H / 2, 1);
+  function show(only){ SC.forEach(function(s){ layer[s].style.opacity = only.indexOf(s) >= 0 ? 1 : 0; layer[s].style.transform = FULL; layer[s].style.filter = ''; }); }
+  function anim(e, k, ms, delay){ return e.animate(k, { duration: ms, delay: delay || 0, easing: 'cubic-bezier(.55,0,.25,1)', fill: 'forwards' }); }
+
+  // ── 빛나는 결정 ──
+  function glows(list){ glowsEl.innerHTML = list.map(function(g, i){ return '<i style="left:' + g[0] / W * 100 + '%;top:' + g[1] / H * 100 + '%;width:' + g[2] * 2 / W * 100 + '%;animation-delay:' + i * .35 + 's"></i>'; }).join(''); }
+
+  // ── 거품 글자 ──
+  var bubbles = [], wake = [], swim = null, popping = [];
+  function textPoints(word){
+    var c = document.createElement('canvas'); c.width = 900; c.height = 220; var x = c.getContext('2d');
+    x.font = '150px Jua, "Gothic A1", sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#000'; x.fillText(word, 450, 115);
+    var d = x.getImageData(0, 0, 900, 220).data, pts = [];
+    for (var yy = 0; yy < 220; yy += 8) for (var xx = 0; xx < 900; xx += 8){ var j = ((yy + (Math.random() * 3 | 0)) * 900 + xx + (Math.random() * 3 | 0)) * 4; if (d[j + 3] > 140) pts.push([xx - 450, yy - 110]); }
+    return pts;
+  }
+  var TX = 430, TY = 600;    // 거품 글자 가운데(사진 픽셀)
+  function startSwim(kind, word, t0){
+    var pts = textPoints(word), D = kind === 'shark' ? 4200 : 4800;
+    var path = kind === 'shark' ? function(p){ return { x: 1950 - 2700 * p, y: 720 + Math.sin(p * 9) * 14, r: Math.sin(p * 18) * 2 }; }
+                               : function(p){ return { x: 1850 - 2250 * p, y: 380 + Math.sin(p * 5.5) * 60, r: -p * 720 }; };
+    swim = { kind: kind, t0: t0, D: D, path: path, word: word };
+    bubbles = pts.map(function(q){
+      var tx = TX + q[0], ty = TY + q[1], pc = (1950 - tx) / 2700; if (kind !== 'shark') pc = (1850 - tx) / 2250;
+      return { tx: tx, ty: ty, ts: t0 + D * Math.max(0, Math.min(1, pc)) + Math.random() * 280, dur: 1100 + Math.random() * 600, r: 3.2 + Math.random() * 3.2, ph: Math.random() * 6.3, kind: kind };
+    });
+  }
+  function settleBubbles(word){ startSwim('none', word, performance.now() - 20000); swim = null; }
+  function popAll(){ var now = performance.now(); bubbles.forEach(function(b){ popping.push({ x: b.x || b.tx, y: b.y || b.ty, r: b.r, t0: now + Math.random() * 400, vy: 40 + Math.random() * 60 }); }); bubbles = []; }
+  function bubble(x, y, r, a){
+    ctx.globalAlpha = a; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283);
+    var g = ctx.createRadialGradient(x - r * .35, y - r * .35, r * .1, x, y, r); g.addColorStop(0, 'rgba(255,255,255,.55)'); g.addColorStop(.6, 'rgba(200,235,255,.12)'); g.addColorStop(1, 'rgba(230,248,255,.5)');
+    ctx.fillStyle = g; ctx.fill(); ctx.lineWidth = Math.max(.8, r * .18); ctx.strokeStyle = 'rgba(240,252,255,.85)'; ctx.stroke(); }
+  var ease = function(t){ return 1 - Math.pow(1 - t, 3); };
+  function frame(now){
+    var w = cv.width, h = cv.height, k = w / W; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, w, h); ctx.setTransform(k, 0, 0, k, 0, 0);
+    // 헤엄치는 것
+    if (swim){ var p = (now - swim.t0) / swim.D, q = swim.path(Math.max(0, Math.min(1, p))), el = swim.kind === 'shark' ? shark : star;
+      el.style.left = q.x / W * 100 + '%'; el.style.top = q.y / H * 100 + '%'; el.style.transform = 'translate(-50%,-50%) rotate(' + q.r + 'deg)'; el.style.opacity = p > 0 && p < 1 ? 1 : 0;
+      if (p > 0 && p < 1 && Math.random() < .7) wake.push({ x: q.x + (swim.kind === 'shark' ? 150 + Math.random() * 120 : 40) , y: q.y + (Math.random() - .5) * 60, r: 1.5 + Math.random() * 3, t0: now, vx: 20 + Math.random() * 40 });
+      if (p > 1.05) swim = null; }
+    // 물길(꼬리 쪽 작은 거품)
+    wake = wake.filter(function(b){ var t = (now - b.t0) / 1500; if (t > 1) return false; bubble(b.x + b.vx * t, b.y - 60 * t, b.r, .7 * (1 - t)); return true; });
+    // 글자 거품
+    var formed = 0;
+    bubbles.forEach(function(b){ var t = (now - b.ts) / b.dur; if (t < 0) return;
+      var src = b.src || (b.src = swim ? swim.path(Math.max(0, Math.min(1, (b.ts - swim.t0) / swim.D))) : { x: b.tx, y: b.ty });
+      var e = ease(Math.min(1, t)), wob = Math.sin(now / 600 + b.ph) * 2.2;
+      b.x = src.x + (b.tx - src.x) * e + Math.sin(t * 6 + b.ph) * 14 * (1 - e) + wob; b.y = src.y + (b.ty - src.y) * e + Math.cos(now / 700 + b.ph) * 1.6;
+      if (t >= 1) formed++; bubble(b.x, b.y, b.r * (.4 + .6 * e), Math.min(1, t * 3)); });
+    // 다 모이면 글자를 은은하게 깔아 읽히게
+    if (bubbles.length && formed / bubbles.length > .85){ ctx.globalAlpha = Math.min(.35, (formed / bubbles.length - .85) * 3);
+      ctx.font = '150px Jua, "Gothic A1", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.shadowColor = 'rgba(200,240,255,.9)'; ctx.shadowBlur = 24; ctx.fillStyle = '#EAF8FF';
+      ctx.fillText(bubbleWord, TX, TY); ctx.shadowBlur = 0; }
+    // 터지며 올라가는 거품
+    popping = popping.filter(function(b){ var t = (now - b.t0) / 1100; if (t < 0){ bubble(b.x, b.y, b.r, 1); return true; } if (t > 1) return false;
+      bubble(b.x, b.y - b.vy * t * 3, b.r * (1 + t * .8), 1 - t); return true; });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+  var bubbleWord = '';
+  function fit(){ var r = window.devicePixelRatio > 1 ? 1.5 : 1; cv.width = root.clientWidth * r; cv.height = root.clientHeight * r; }
+  new ResizeObserver(fit).observe(root); fit(); requestAnimationFrame(frame);
+
+  // ── 박자 ──
+  var N = 6 + DATA.crystals.length, step = -1, dotsEl = $('.ps101-dots'); dotsEl.innerHTML = new Array(N + 1).join('<i></i>');
+  function texts(k){
+    $('.ps101-cover').classList.toggle('on', k === 0); $('.ps101-hint').classList.toggle('on', k === 0);
+    $('.ps101-enter').classList.toggle('on', k === 4); $('.ps101-whole').classList.toggle('on', k === 5);
+    [].forEach.call(root.querySelectorAll('.ps101-panel'), function(p, i){ p.classList.toggle('on', k === 6 + i); });
+    [].forEach.call(dotsEl.children, function(d, j){ d.classList.toggle('on', j <= k); });
+  }
+  function still(k){
+    // k 박자가 끝난 모습
+    root.getAnimations({ subtree: true }).forEach(function(a){ if (a.effect && a.effect.target && a.effect.target.closest('.ps101-sc,.ps101-flash')) a.cancel(); });
+    flash.style.opacity = 0;
+    show([['sea'], ['under'], ['under'], ['under'], ['cave'], ['all'], ['L'], ['R'], ['C']][Math.min(k, 8)] || ['C']);
+    root.classList.toggle('is-under', k >= 1 && k <= 3);
+    swim = null; popping = []; wake = [];
+    if (k === 2 || k === 3){ bubbleWord = DATA.bubbles[k - 2]; settleBubbles(bubbleWord); } else bubbles = [];
+    glows(k === 5 ? ALLGLOW : k >= 6 ? [GROUP[k - 6].glow] : []);
+    shark.style.opacity = star.style.opacity = 0;
+    texts(k);
+  }
+  function go(k, instant){
+    k = Math.max(0, Math.min(N - 1, k)); if (k === step) return;
+    var fwd = k === step + 1 && !instant && k >= 1; var prev = step; step = k;
+    if (!fwd){ still(k); return; }
+    texts(-1); glows([]);
+    var now = performance.now();
+    if (k === 1){ // 바다 위 → 바닷속: 수평선을 맞춰 아래로 내려간다
+      show(['sea', 'under']); layer.under.style.opacity = 0; root.classList.add('is-under');
+      anim(layer.sea, [{ transform: FULL }, { transform: 'translate(-1.2%,-30.5%) scale(1)' }], 1800);
+      anim(layer.under, [{ transform: 'translate(1.2%,30.5%) scale(1)', opacity: 0 }, { opacity: .2, offset: .35 }, { transform: FULL, opacity: 1 }], 1800);
+      for (var i = 0; i < 70; i++) popping.push({ x: 200 + Math.random() * 1300, y: 500 + Math.random() * 400, r: 2 + Math.random() * 6, t0: now + 600 + Math.random() * 900, vy: 60 + Math.random() * 90 });
+      setTimeout(function(){ if (step === 1) still(1); }, 1850);
+    } else if (k === 2 || k === 3){ // 헤엄치며 거품 글자
+      if (bubbles.length) popAll();
+      bubbleWord = DATA.bubbles[k - 2]; startSwim(k === 2 ? 'shark' : 'star', bubbleWord, now + (k === 3 ? 500 : 0));
+      setTimeout(function(){ if (step === k) texts(k); }, 400);
+    } else if (k === 4){ // 빙산 속으로
+      popAll(); show(['under', 'cave']); layer.cave.style.opacity = 0; root.classList.remove('is-under');
+      anim(layer.under, [{ transform: FULL, filter: 'blur(0)' }, { transform: view(1000, 520, 3.2), filter: 'blur(6px)' }], 1700);
+      anim(flash, [{ opacity: 0 }, { opacity: .85, offset: .55 }, { opacity: 0 }], 2100);
+      anim(layer.cave, [{ transform: view(836, 470, 1.35), opacity: 0 }, { opacity: 0, offset: .45 }, { transform: FULL, opacity: 1 }], 2100);
+      setTimeout(function(){ if (step === 4) still(4); }, 2150);
+    } else if (k === 5){ // 동굴 안쪽으로 → 결정 세 무리
+      show(['cave', 'all']); layer.all.style.opacity = 0;
+      anim(layer.cave, [{ transform: FULL }, { transform: view(836, 560, 1.6) }], 1700);
+      anim(layer.all, [{ transform: view(836, 520, 1.3), opacity: 0 }, { opacity: 0, offset: .3 }, { transform: FULL, opacity: 1 }], 1700);
+      setTimeout(function(){ if (step === 5) still(5); }, 1750);
+    } else { // 결정 무리로 다가가기: 전체 사진에서 그 무리로 → 확대 사진
+      var g = GROUP[k - 6], from = prev >= 6 ? GROUP[prev - 6] : null, to = layer[g.scene], D = from ? 2600 : 1700;
+      show(from ? [from.scene, 'all', g.scene] : ['all', g.scene]); to.style.opacity = 0;
+      var a0 = from ? view(from.inAll[0], from.inAll[1], 2.2) : FULL;
+      if (from) anim(layer[from.scene], [{ opacity: 1 }, { opacity: 0, offset: .3 }, { opacity: 0 }], D);
+      anim(layer.all, [{ transform: a0, opacity: 1 }, { transform: from ? view(from.inAll[0], from.inAll[1], 1.6) : a0, offset: from ? .35 : 0 },
+        { transform: view(g.inAll[0], g.inAll[1], 2.2), opacity: 1 }], D);
+      anim(to, [{ transform: view(g.glow[0], g.glow[1], 1.25), opacity: 0 }, { opacity: 0, offset: .7 }, { transform: FULL, opacity: 1 }], D);
+      setTimeout(function(){ if (step === k) still(k); }, D + 50);
+    }
+    [].forEach.call(dotsEl.children, function(d, j){ d.classList.toggle('on', j <= k); });
+  }
+  root.addEventListener('click', function(){ go(step + 1); });
+  document.addEventListener('keydown', function(e){
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || '')) return;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].indexOf(e.key) >= 0){ e.preventDefault(); go(step + 1); }
+    else if (['ArrowLeft', 'PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(step - 1); }
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'f' || e.key === 'F'){ if (document.fullscreenElement) document.exitFullscreen(); else if (root.requestFullscreen) root.requestFullscreen(); }
+  });
+  window.ps101Go = function(k){ go(k, true); }; window.ps101Steps = N;
+  window.ps101Settle = function(){ still(step); };
+  // 거품 글자는 캔버스에 그리므로 글꼴을 미리 불러 둔다(안 그러면 다른 글꼴 모양으로 거품이 모인다)
+  var fl = document.fonts ? Promise.all(DATA.bubbles.map(function(w){ return document.fonts.load('150px Jua', w); })).catch(function(){}) : Promise.resolve();
+  fl.then(function(){ go(0); });
+})();
+</script>
+<script>
+(function(){
+  var css = document.getElementById('ps101-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('ps101-js').textContent.replace(/^\n+|\s+$/g, '');
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;800&family=Jua&display=swap">';
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n' + "/* 사진 7장 · 상어 · 불가사리 — 갤러리 주소에서 불러온다 */\n.ps101{--ps101-sea:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-sea.webp);--ps101-under:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-under.webp);--ps101-cave:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-cave.webp);--ps101-all:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-all.webp);--ps101-L:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-L.webp);--ps101-R:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-R.webp);--ps101-C:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-C.webp);--ps101-shark:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-shark.png);--ps101-star:url(https://szxv7704-dot.github.io/design-reference-gallery/assets/101-star.png)}" + '\n</style>\n\n<div class="ps101" id="ps101" role="application" aria-label="빙산 장표"></div>\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code'); pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function sel(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  document.getElementById('copy').addEventListener('click', function(){ try { navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, sel); } catch(e){ sel(); } });
+  var root = document.getElementById('ps101');
+  document.getElementById('b-next').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' })); });
+  document.getElementById('b-prev').addEventListener('click', function(){ document.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' })); });
+  document.getElementById('b-home').addEventListener('click', function(){ window.ps101Go(0); });
+  document.getElementById('b-full').addEventListener('click', function(){ if (root.requestFullscreen) root.requestFullscreen(); });
+})();
+</script>
+</body></html>

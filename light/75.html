@@ -1,0 +1,567 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #75 체험의 숲</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gowun Batang";font-weight:400;font-display:swap;src:url("../fonts/GowunBatang-400.woff2") format("woff2")}
+@font-face{font-family:"Gowun Batang";font-weight:700;font-display:swap;src:url("../fonts/GowunBatang-700.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:400;font-display:swap;src:url("../fonts/NotoSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:500;font-display:swap;src:url("../fonts/NotoSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:700;font-display:swap;src:url("../fonts/NotoSansKR-700.woff2") format("woff2")}
+</style>
+<style>
+/* 숲속 밤길 위 문서: 표지 → 장치 → 연수 설계 메모 → 재현 체크 → 스펙 → 코드. 표지와 같은 짙은 숲빛 하나로 고정. */
+:root{
+  --pg-bg:#14241D; --pg-card:#1C3329; --pg-ink:#F2EBD9; --pg-sub:#B5C4AD; --pg-line:#2F4B3D;
+  --pg-accent:#DFBF78; --pg-code-bg:#0C1712; --pg-code-ink:#E4E8DA;
+  --pg-f-head:"Gowun Batang","Nanum Myeongjo","Batang",serif;
+  --pg-f-body:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  --pg-f-mono:"IBM Plex Mono",Consolas,monospace;
+  color-scheme:dark;
+}
+body{background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-f-body); font-size:15px; line-height:1.75}
+.pg{max-width:1120px; margin:0 auto; padding-block:28px 64px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px)); display:grid; gap:44px}
+.pg > *{min-width:0}
+.pg-top{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:6px 20px; border-bottom:1px solid var(--pg-accent); padding-bottom:10px}
+.pg-top h1{font-family:var(--pg-f-head); font-weight:700; font-size:26px; margin:0; text-wrap:balance}
+.pg-top p{margin:0; color:var(--pg-sub); font-size:13px; letter-spacing:.06em}
+.pg-stage{display:grid; gap:12px}
+.pg-frame{border:1px solid var(--pg-line); overflow-x:auto; background:#000}
+.pg-hint{display:none; margin:0; font-size:12px; color:var(--pg-sub)}
+.pg-bar{display:flex; flex-wrap:wrap; gap:10px 12px; align-items:center; color:var(--pg-sub); font-size:13px}
+.pg-bar p{margin:0; flex:1 1 320px; min-width:0}
+.pg-seg{display:inline-flex; border:1px solid var(--pg-line); border-radius:999px; padding:2px}
+.pg-btn{font:500 14px var(--pg-f-body); color:var(--pg-ink); background:var(--pg-card); border:1px solid var(--pg-accent); border-radius:999px; padding:7px 18px; cursor:pointer}
+.pg-btn:hover{background:var(--pg-accent); color:var(--pg-bg)}
+.pg-seg .pg-btn{border-color:transparent; background:none; padding:5px 14px}
+.pg-seg .pg-btn[aria-pressed="true"]{background:var(--pg-accent); color:var(--pg-bg)}
+.pg-btn:focus-visible{outline:2px solid var(--pg-accent); outline-offset:2px}
+section h2{font-family:var(--pg-f-head); font-weight:700; font-size:22px; margin:0 0 14px; display:flex; gap:12px; align-items:baseline}
+section h2 span{font:500 13px var(--pg-f-mono); color:var(--pg-accent); letter-spacing:.08em}
+section h3{font-size:16px; margin:0 0 6px}
+.pg-dev{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+.pg-dev article{background:var(--pg-card); border-top:1px solid var(--pg-accent); padding:16px 18px; min-width:0}
+.pg-dev p{margin:0; color:var(--pg-sub)}
+.pg-dev p + p{margin-top:8px; color:var(--pg-ink); font-size:14px}
+.pg-two{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:28px}
+.pg-two > *{min-width:0}
+.pg-tbl{overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:14px}
+th,td{text-align:left; vertical-align:top; padding:8px 10px; border-bottom:1px solid var(--pg-line)}
+th{font-weight:500; color:var(--pg-sub); border-bottom:1px solid var(--pg-accent); white-space:nowrap}
+td:first-child{white-space:nowrap; font-weight:500}
+ul.pg-list,ol.pg-list{margin:0; padding-left:1.2em; display:grid; gap:6px}
+.pg-note{color:var(--pg-sub); font-size:14px}
+.pg-callout{background:var(--pg-card); border-left:2px solid var(--pg-accent); padding:14px 18px; margin:0 0 18px}
+.pg-callout p{margin:0 0 6px}
+.pg-callout p:last-child{margin:0}
+.pg-flow{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; margin:18px 0 0; padding:0; list-style:none; border-top:1px solid var(--pg-line)}
+.pg-flow li{padding:12px 14px 0 0; min-width:0}
+.pg-flow li + li{padding-left:14px; border-left:1px solid var(--pg-line)}
+.pg-flow b{display:block; font-size:14px}
+.pg-flow small{display:block; font:500 12px var(--pg-f-mono); color:var(--pg-accent); letter-spacing:.06em}
+.pg-flow span{display:block; font-size:13px; color:var(--pg-sub)}
+a{color:var(--pg-accent)}
+code{font-family:var(--pg-f-mono); font-size:.9em; color:var(--pg-accent)}
+.pg-sw{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px}
+.pg-sw div{background:var(--pg-card); border:1px solid var(--pg-line); font-size:12px; padding:0 0 8px}
+.pg-sw i{display:block; height:44px; margin-bottom:6px; border-bottom:1px solid var(--pg-line)}
+.pg-sw b,.pg-sw code{display:block; padding:0 8px; font-weight:500}
+.pg-sw code{color:var(--pg-sub)}
+.pg-code{display:grid; gap:10px}
+.pg-code pre{margin:0; max-height:520px; overflow:auto; background:var(--pg-code-bg); color:var(--pg-code-ink); font:12.5px/1.55 var(--pg-f-mono); padding:16px 18px; border:1px solid var(--pg-line); white-space:pre}
+.pg-code ol{color:var(--pg-sub); font-size:14px}
+@media (max-width:760px){
+  .pg-dev,.pg-two{grid-template-columns:minmax(0,1fr)} .pg-top h1{font-size:22px}
+  .pg-flow{grid-template-columns:minmax(0,1fr)} .pg-flow li + li{padding-left:0; border-left:0; border-top:1px solid var(--pg-line)}
+  .pg-frame .fo-cover{min-width:720px} .pg-hint{display:block}
+}
+</style>
+
+<!-- ===== 표지 CSS (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<style id="fo-css">
+/* ── 체험의 숲 표지 ─ 16:9 틀, 글자는 cqw 비례(1cqw = 가로의 1%), 지도는 그림 1536×1024 좌표 ── */
+.fo-cover{
+  --fo-night:#192C24;   /* 숲 그늘 */
+  --fo-ink:#F4EDDA;     /* 양피지 글자 */
+  --fo-sub:#B5C4AD;     /* 이끼빛 보조 글자 */
+  --fo-gold:#DFBF78;    /* 금빛 테 */
+  --fo-btn:#203B30;     /* 숲색 단추 */
+  --fo-card:#F2EBD9;    /* 안내 카드 */
+  --fo-card-ink:#29382F;
+  --fo-act:#2B4939;     /* 카드 속 단추 */
+  --fo-f-serif:"Gowun Batang","Batang","AppleMyungjo",Georgia,serif;
+  --fo-f-sans:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+  position:relative; width:100%; max-width:100%; aspect-ratio:16/9; overflow:hidden; container-type:inline-size;
+  background:var(--fo-night); color:var(--fo-ink); font-family:var(--fo-f-sans); word-break:keep-all;
+}
+.fo-cover:fullscreen{width:100vw; height:100vh; aspect-ratio:auto}
+.fo-cover *{box-sizing:border-box}
+.fo-cover button{font:inherit; cursor:pointer}
+.fo-cover button:focus-visible,.fo-cover a:focus-visible,.fo-world:focus-visible{outline:2px solid #FFD982; outline-offset:3px}
+.fo-world{position:absolute; inset:0; display:block; width:100%; height:100%; touch-action:none; outline:none}
+/* 머리말: 제목 + 전체화면·장소 목록 */
+.fo-head{position:absolute; left:2.5cqw; right:2.5cqw; top:1.8cqw; display:flex; align-items:center; justify-content:space-between; pointer-events:none; text-shadow:0 2px 12px #10281C}
+.fo-kicker{display:block; font:.75cqw Georgia,serif; letter-spacing:.2em}
+.fo-title{font-family:var(--fo-f-serif); font-weight:700; font-size:2.2cqw; letter-spacing:.04em; margin:.3cqw 0 0}
+.fo-hbtns{display:flex; gap:.8cqw}
+.fo-hbtns button{pointer-events:auto; min-height:3.9cqw; font-size:1.2cqw; background:#203A30ED; color:#F4E2BC; border:1px solid #B69F6880; border-radius:4px; padding:1cqw 1.4cqw; box-shadow:0 8px 30px #10251840}
+.fo-count{margin-left:1cqw; font-size:.85cqw; color:var(--fo-sub)}
+/* 왼쪽 위 퀘스트 카드 */
+.fo-quest{position:absolute; top:22cqw; left:2.5cqw; width:17.5cqw; background:linear-gradient(100deg,#172E26EF,#172E26C9); border-left:2px solid var(--fo-gold); padding:1.3cqw 1.5cqw; box-shadow:0 8px 30px #10251830; pointer-events:none}
+.fo-qk{display:block; font-size:.72cqw; letter-spacing:.14em; color:#D4BA80}
+.fo-qt{font-family:var(--fo-f-serif); font-weight:700; font-size:1.4cqw; margin:.7cqw 0}
+.fo-qx{font-size:.95cqw; line-height:1.8; color:#E0E4D2; margin:0}
+.fo-trail{font-size:.85cqw; color:#D7B87B; margin-top:1cqw; letter-spacing:.5em}
+/* 안내 말풍선·알림 */
+.fo-toast{position:absolute; top:7cqw; left:50%; transform:translateX(-50%); background:#20382EEF; border:1px solid #A99160; color:#F3DBA7; padding:.8cqw 1.5cqw; border-radius:4px; opacity:0; transition:opacity .25s; pointer-events:none; font-size:.95cqw; white-space:nowrap}
+.fo-toast.is-on{opacity:1}
+.fo-interact{position:absolute; bottom:12.4cqw; left:50%; transform:translateX(-50%); min-height:4.2cqw; background:#F2E6CA; color:#24372B; border:1px solid #C7AE74; border-radius:5px; box-shadow:0 8px 25px #0005; padding:.9cqw 1.6cqw; font-size:1.4cqw; white-space:nowrap}
+.fo-cover kbd{margin-left:1cqw; border:1px solid #B7AA8C; padding:.1cqw .35cqw; border-radius:3px; font-size:.8cqw}
+/* 아래 장소 단추: 누르면 그곳으로 걸어간다 */
+.fo-dest{position:absolute; bottom:6.4cqw; left:50%; transform:translateX(-50%); display:flex; gap:.85cqw; white-space:nowrap}
+.fo-dest button,.fo-place{min-height:4.4cqw; padding:1cqw 1.6cqw; font-size:1.35cqw; font-weight:700; border:1px solid #D5BF85; border-radius:8px; background:#203B30F2; color:#FFF2D0; box-shadow:0 6px 22px #0003}
+.fo-dest button:hover,.fo-place:hover{background:#42664B}
+.fo-dest button[aria-current="true"]{border-color:#FFE1A0; color:#FFE1A0}
+/* 바닥 줄 */
+.fo-foot{position:absolute; bottom:0; left:0; right:0; display:flex; align-items:flex-end; justify-content:space-between; padding:2.6cqw 2.5cqw 1.5cqw; background:linear-gradient(transparent,#10251AEB); pointer-events:none}
+.fo-ft{font-size:1.15cqw; font-weight:400}
+.fo-fs{display:block; font-size:.88cqw; letter-spacing:.05em; color:var(--fo-sub); margin-top:.4cqw}
+.fo-fh{font-size:.82cqw; color:#E1E5D5; margin:0}
+/* 안내 카드(표지 안에서만 열린다) */
+.fo-scrim{position:absolute; inset:0; background:#10251B66}
+.fo-panel{position:absolute; left:50%; transform:translateX(-50%); width:54cqw; max-height:92%; overflow:auto; color:var(--fo-card-ink); background:var(--fo-card); border:1px solid #AC986C; border-radius:8px; box-shadow:0 20px 100px #0007; padding:1.6cqw 2.2cqw}
+.fo-talk{bottom:6cqw}
+.fo-journal{top:50%; transform:translate(-50%,-50%); width:44cqw}
+.fo-ph{display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #C8BEA5; padding-bottom:.8cqw; font-size:.95cqw; letter-spacing:.14em; color:#7B704F}
+.fo-ph button{border:0; background:none; font-size:2cqw; line-height:1; color:#65715B; min-width:3.6cqw; min-height:3.6cqw}
+.fo-panel h3{font:700 2.2cqw var(--fo-f-serif); margin:1.3cqw 0 .9cqw}
+.fo-panel p{font-size:1.3cqw; line-height:1.85; white-space:pre-line; margin:0}
+.fo-panel small{display:block; font-size:.85cqw; line-height:1.8; color:#727665; margin-top:1.1cqw}
+.fo-choices{display:flex; gap:.6cqw; flex-wrap:wrap; margin-top:1.5cqw; align-items:center}
+.fo-choices button,.fo-reset{min-height:4.2cqw; font-size:1.2cqw; background:var(--fo-act); color:#F6EDDA; border:1px solid var(--fo-act); padding:.8cqw 1.3cqw; border-radius:3px}
+.fo-choices button:hover,.fo-reset:hover{background:#45654E}
+.fo-launch{display:inline-flex; align-items:center; justify-content:center; background:#30563B; color:#FFF6DF; font-size:1.5cqw; font-weight:700; min-height:4.8cqw; padding:1.1cqw 1.9cqw; text-decoration:none; border-radius:5px}
+.fo-launch.is-empty{background:none; color:#7B704F; border:1px dashed #AC986C; font-weight:500; font-size:1.1cqw}
+.fo-inv{display:grid; gap:.9cqw; margin:1.2cqw 0}
+.fo-place{text-align:left; width:100%}
+.fo-place em{font-style:normal; float:right; color:#C5E2AB}
+@media (prefers-reduced-motion:reduce){.fo-cover *{transition:none!important}}
+</style>
+
+<main class="pg">
+  <header class="pg-top">
+    <h1>레퍼런스 #75 체험의 숲</h1>
+    <p>실험형 표지 · 계열 A · 게임·탐험 지도 · 체험형 연수 · 가상 예시</p>
+  </header>
+
+  <div class="pg-stage">
+    <p class="pg-hint">좁은 화면에서는 표지를 옆으로 밀어 보세요.</p>
+    <div class="pg-frame" id="pgFrame">
+<template id="fo-tpl">
+<div class="fo-cover" id="foCover" role="region" aria-label="표지: 숲 지도 위 세 체험 장소. 장소를 누르면 여행자가 걸어가고, 도착하면 체험 안내가 열립니다.">
+  <canvas class="fo-world" tabindex="0" aria-label="숲 지도. 장소를 누르거나 방향키·WASD로 이동, E 체험 안내, J 장소 목록"></canvas>
+  <div class="fo-head"><div><small class="fo-kicker"></small><p class="fo-title"></p></div><div class="fo-hbtns"><button class="fo-full" type="button">전체화면 ⛶</button><button class="fo-jbtn" type="button"><span class="fo-jl"></span><span class="fo-count">0 / 3</span></button></div></div>
+  <aside class="fo-quest"><small class="fo-qk"></small><p class="fo-qt"></p><p class="fo-qx"></p><div class="fo-trail"></div></aside>
+  <div class="fo-toast" role="status"></div>
+  <button class="fo-interact" type="button" hidden>체험 안내 열기 <kbd>E</kbd></button>
+  <nav class="fo-dest" aria-label="체험 장소로 이동"></nav>
+  <div class="fo-foot"><span><b class="fo-ft"></b><small class="fo-fs"></small></span><p class="fo-fh"></p></div>
+  <div class="fo-scrim" hidden></div>
+  <div class="fo-panel fo-talk" role="dialog" aria-label="체험 안내" hidden><div class="fo-ph"><span class="fo-speaker"></span><button class="fo-close" type="button" aria-label="안내 닫기">×</button></div><h3></h3><p></p><div class="fo-choices"></div><small></small></div>
+  <div class="fo-panel fo-journal" role="dialog" aria-label="체험 장소 목록" hidden><div class="fo-ph"><span>CHOOSE YOUR ADVENTURE</span><button class="fo-close" type="button" aria-label="목록 닫기">×</button></div><h3></h3><p class="fo-jp"></p><div class="fo-inv"></div><button class="fo-reset" type="button"></button><small class="fo-js"></small></div>
+</div>
+</template>
+<script>
+(function(){ var t=document.getElementById('fo-tpl'); t.parentNode.appendChild(t.content.cloneNode(true)); })();
+</script>
+<!-- ===== 표지 스크립트 (가져다 쓰기 코드에 그대로 들어간다) ===== -->
+<script id="fo-js">
+(function(){
+  // ── 그림 두 장: 숲 지도(1536×1024)와 캐릭터 시트(윗줄 걷기 4장, 아랫줄 서 있는 안내인 3명 + 여행자) ──
+  var IMG = { forest: '../src/75/assets/b9629a016a.webp', sprites: '../src/75/assets/a557baed4b.webp' };
+  // ── 내용: 이 객체만 바꾸면 된다 ──
+  // cover: 표지 문구 · stations: 장소 3곳(그림 속 왼쪽 위 나무 도서관 → 가운데 공방 → 오른쪽 위 천문대 순서)
+  //   title 장소 이름 · npc 안내인 이름 · icon 단추 기호 · desc 안내 카드 설명(줄바꿈 \n) · url 체험 화면 주소(비우면 '주소를 넣으면 열립니다')
+  var DATA = /*DATA*/{
+    "cover": {"kicker":"TRY · MAKE · SHARE","title":"함께 걷는 연수의 숲","journal":"실습 장소","questKicker":"눌러서 떠나는 실습","quest":"어느 실습부터 해 볼까요?","questText":"가고 싶은 실습 장소를 누르면 여행자가 걸어가요. 도착하면 실습 안내를 열어 보세요.","footTitle":"직접 해 보고, 만들어 보고, 나눠요","footSub":"2027 ○○교육청 행정직 AI 활용 체험 연수","footHint":"장소 터치 → 걸어서 이동 → 실습 시작","journalTitle":"세 가지 실습 장소","journalText":"원하는 곳부터 자유롭게 가 보세요.","reset":"다음 모둠 · 처음으로","resetNote":"✓ 표시는 실습을 열어 본 장소입니다. ‘다음 모둠’을 누르면 표시와 위치가 처음으로 돌아갑니다.","launchNote":"새 탭에서 열립니다. 실습이 끝나면 이 숲 탭으로 돌아오세요.","start":"가고 싶은 장소를 손으로 눌러 보세요"},
+    "stations": [
+      {"title":"AI 공문 초안 쓰기","npc":"리안 · 숲의 사서","icon":"✎","url":"","desc":"생성형 AI에 상황을 알려 주고 공문 초안을 받아 봅니다.\n받은 초안에서 사실과 다른 곳을 찾아 고치는 데까지가 실습입니다. (15분)"},
+      {"title":"엑셀 자동화 공방","npc":"모아 · 도구 장인","icon":"▧","url":"","desc":"여러 엑셀 자료를 한 번에 합치고 합계를 검증합니다.\n예시 자료로 따라 한 뒤 내 업무 자료로 바꿔 보세요. (20분)"},
+      {"title":"데이터로 우리 지역 보기","npc":"유진 · 길잡이","icon":"⌖","url":"","desc":"공공 통계를 지도에 올려 우리 지역 학생 수 변화를 살펴봅니다.\n찾은 사실 한 가지를 모둠에 나눕니다. (15분)"}
+    ]
+  }/*END*/;
+
+  // ── 그림에 맞춘 길(그림을 바꾸지 않으면 손대지 않음): 길목 점과 이은 선, 안내인 자리 ──
+  var NODES = [[260,870],[400,780],[500,705],[560,650],[650,593],[510,522],[412,463],[352,386],[830,592],[937,540],[1090,535],[1228,500],[1355,427],[1310,354],[1218,294],[1288,234],
+    [660,486],[704,369],[813,299],[929,234],[984,170],[1045,130],[621,340],[537,301],[1168,263],[1110,225],[1083,165],[119,966],[302,660],[391,686]];
+  var EDGES = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[4,8],[8,9],[9,10],[10,11],[11,12],[12,13],[13,14],[14,15],
+    [4,16],[16,17],[17,18],[18,19],[19,20],[20,21],[17,22],[22,23],[14,24],[24,25],[25,26],[26,21],[0,27],[2,29],[29,28]];
+  var NPCS = [{x:382,y:384,node:7},{x:977,y:533,node:9},{x:1240,y:270,node:14,labelBelow:true}];
+  var START = {x:260, y:870}, SPEED = 145, NEAR = 85;
+
+  var root = document.getElementById('foCover');
+  if (!root) return;
+  var q = function(s){ return root.querySelector(s); };
+  var canvas = q('.fo-world'), ctx = canvas.getContext('2d'), talk = q('.fo-talk'), journal = q('.fo-journal'), scrim = q('.fo-scrim');
+  var bg = new Image(), sprites = new Image(), ready = false;
+  sprites.onload = function(){ ready = true; };
+  bg.src = IMG.forest; sprites.src = IMG.sprites;
+
+  var player = { x:START.x, y:START.y, face:1, walk:0 }, route = [], keys = {}, near = -1, last = 0, W = 0, H = 0, scale = 1, ox = 0, oy = 0, toastTimer = 0;
+  var visited = {};
+  var nVisited = function(){ return Object.keys(visited).length; };
+
+  function fill(){
+    var c = DATA.cover;
+    q('.fo-kicker').textContent = c.kicker; q('.fo-title').textContent = c.title; q('.fo-jl').textContent = c.journal;
+    q('.fo-qk').textContent = c.questKicker; q('.fo-qt').textContent = c.quest; q('.fo-qx').textContent = c.questText;
+    q('.fo-ft').textContent = c.footTitle; q('.fo-fs').textContent = c.footSub; q('.fo-fh').textContent = c.footHint;
+    journal.querySelector('h3').textContent = c.journalTitle; q('.fo-jp').textContent = c.journalText;
+    q('.fo-reset').textContent = c.reset; q('.fo-js').textContent = c.resetNote;
+    var nav = q('.fo-dest'); nav.textContent = '';
+    DATA.stations.forEach(function(s, i){
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = s.icon + ' ' + s.title;
+      b.onclick = function(){ goTo(i); }; nav.appendChild(b);
+    });
+    update();
+  }
+  function update(){
+    q('.fo-count').textContent = nVisited() + ' / ' + DATA.stations.length;
+    q('.fo-trail').textContent = DATA.stations.map(function(s, i){ return visited[i] ? '◆' : '◇'; }).join(' ─ ');
+  }
+  function toast(t){ var el = q('.fo-toast'); el.textContent = t; el.classList.add('is-on'); clearTimeout(toastTimer); toastTimer = setTimeout(function(){ el.classList.remove('is-on'); }, 3200); }
+
+  // 길 위 가장 가까운 점 → 최단 경로(다익스트라)로 걷기
+  function project(p, a, b){ var dx = b[0]-a[0], dy = b[1]-a[1], t = Math.max(0, Math.min(1, ((p.x-a[0])*dx + (p.y-a[1])*dy) / (dx*dx + dy*dy))); return { x:a[0]+dx*t, y:a[1]+dy*t }; }
+  function roadPoint(p){ var best, d = Infinity; EDGES.forEach(function(e, i){ var r = project(p, NODES[e[0]], NODES[e[1]]), n = Math.hypot(p.x-r.x, p.y-r.y); if (n < d){ best = { x:r.x, y:r.y, edge:i, d:n }; d = n; } }); return best; }
+  function walkTo(x, y){
+    var start = roadPoint(player), end = roadPoint({ x:x, y:y });
+    var pts = NODES.map(function(n){ return { x:n[0], y:n[1] }; }), graph = NODES.map(function(){ return []; });
+    var s = pts.length, t = s + 1; pts.push(start, end); graph.push([], []);
+    function link(a, b){ var c = Math.hypot(pts[a].x-pts[b].x, pts[a].y-pts[b].y); graph[a].push([b, c]); graph[b].push([a, c]); }
+    EDGES.forEach(function(e){ link(e[0], e[1]); });
+    EDGES[start.edge].forEach(function(n){ link(s, n); }); EDGES[end.edge].forEach(function(n){ link(t, n); });
+    if (start.edge === end.edge) link(s, t);
+    var dist = pts.map(function(){ return Infinity; }), prev = [], seen = {}; dist[s] = 0;
+    for (var k = 0; k < pts.length; k++){
+      var u = -1; dist.forEach(function(d, i){ if (!seen[i] && (u < 0 || d < dist[u])) u = i; });
+      if (u === t || u < 0) break; seen[u] = 1;
+      graph[u].forEach(function(v){ if (dist[u] + v[1] < dist[v[0]]){ dist[v[0]] = dist[u] + v[1]; prev[v[0]] = u; } });
+    }
+    var path = [], c = t; while (c !== s){ path.unshift(pts[c]); c = prev[c]; if (c === undefined) return; }
+    route = [start].concat(path); canvas.focus({ preventScroll:true });
+  }
+  function goTo(i){ closePanels(); walkTo(NODES[NPCS[i].node][0], NODES[NPCS[i].node][1]); toast(DATA.stations[i].title + '(으)로 걸어갑니다'); }
+
+  canvas.addEventListener('pointerdown', function(e){
+    if (!talk.hidden || !journal.hidden) return;
+    var r = canvas.getBoundingClientRect(), x = (e.clientX - r.left - ox) / scale, y = (e.clientY - r.top - oy) / scale;
+    var n = NPCS.findIndex(function(p){ return Math.hypot(p.x - x, p.y - 30 - y) < 70; });
+    if (n >= 0) goTo(n); else walkTo(x, y);
+  });
+
+  // 안내 카드·장소 목록: 표지 안에서만 열리는 패널
+  function openPanel(p){ scrim.hidden = false; p.hidden = false; route = []; keys = {}; var f = p.querySelector('.fo-choices a, .fo-choices button') || p.querySelector('.fo-place') || p.querySelector('.fo-close'); if (f) f.focus({ preventScroll:true }); }
+  function closePanels(){ var was = !talk.hidden || !journal.hidden; talk.hidden = journal.hidden = scrim.hidden = true; if (was) canvas.focus({ preventScroll:true }); }
+  function addChoice(text, fn){ var b = document.createElement('button'); b.type = 'button'; b.textContent = text; b.onclick = fn; talk.querySelector('.fo-choices').appendChild(b); }
+  function openTalk(){
+    if (near < 0) return;
+    var i = near, s = DATA.stations[i], box = talk.querySelector('.fo-choices');
+    talk.querySelector('.fo-speaker').textContent = s.npc + ' · 장소 ' + (i + 1) + ' / ' + DATA.stations.length;
+    talk.querySelector('h3').textContent = s.title; talk.querySelector('p').textContent = s.desc;
+    talk.querySelector('small').textContent = s.url ? DATA.cover.launchNote : '';
+    box.textContent = '';
+    if (s.url){
+      var a = document.createElement('a'); a.href = s.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.className = 'fo-launch'; a.textContent = '체험 시작하기 ↗';
+      a.onclick = function(){ visited[i] = 1; update(); closePanels(); toast('체험 후 이 숲 탭으로 돌아오세요'); };
+      box.appendChild(a);
+    } else {
+      var e = document.createElement('span'); e.className = 'fo-launch is-empty'; e.textContent = '체험 주소(url)를 넣으면 여기서 열립니다'; box.appendChild(e);
+      visited[i] = 1; update();
+    }
+    addChoice('다른 장소 둘러보기', closePanels);
+    openPanel(talk);
+  }
+  function openJournal(){
+    var inv = q('.fo-inv'); inv.textContent = '';
+    DATA.stations.forEach(function(s, i){
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'fo-place';
+      b.textContent = s.icon + '  ' + s.title + '  →';
+      if (visited[i]){ var m = document.createElement('em'); m.textContent = '✓'; b.appendChild(m); }
+      b.onclick = function(){ goTo(i); }; inv.appendChild(b);
+    });
+    openPanel(journal);
+  }
+  function reset(){ visited = {}; player.x = START.x; player.y = START.y; player.face = 1; route = []; update(); closePanels(); toast(DATA.cover.start); }
+
+  q('.fo-jbtn').onclick = openJournal; q('.fo-interact').onclick = openTalk; q('.fo-reset').onclick = reset; scrim.onclick = closePanels;
+  Array.prototype.forEach.call(root.querySelectorAll('.fo-close'), function(b){ b.onclick = closePanels; });
+  q('.fo-full').onclick = function(){
+    try { var r = document.fullscreenElement ? document.exitFullscreen() : root.requestFullscreen(); if (r && r.catch) r.catch(function(){ toast('브라우저의 전체화면 기능을 이용해 주세요'); }); }
+    catch(e){ toast('브라우저의 전체화면 기능을 이용해 주세요'); }
+  };
+  // 키보드는 표지에 초점이 있을 때만(페이지 스크롤을 막지 않게)
+  var MOVE = ['arrowup','arrowdown','arrowleft','arrowright','w','a','s','d'];
+  root.addEventListener('keydown', function(e){
+    var k = e.key.toLowerCase();
+    if (k === 'escape'){ closePanels(); return; }
+    if (!talk.hidden || !journal.hidden || e.target !== canvas) return;
+    if (MOVE.indexOf(k) >= 0){ e.preventDefault(); keys[k] = true; route = []; }
+    if (k === 'e' && !e.repeat) openTalk();
+    if (k === 'j' && !e.repeat) openJournal();
+  });
+  root.addEventListener('keyup', function(e){ delete keys[e.key.toLowerCase()]; });
+  canvas.addEventListener('blur', function(){ keys = {}; });
+
+  function ellipse(x, y, rx, ry, c){ ctx.fillStyle = c; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI*2); ctx.fill(); }
+  // 캐릭터: 걸을 때는 윗줄 4장을 번갈아, 서 있을 때는 아랫줄(안내인 0~2, 여행자 3)
+  function character(p, walking, isPlayer){
+    if (!ready) return;
+    var u = sprites.naturalWidth / 1536, col, rowY, sh;
+    if (isPlayer && walking){ col = Math.floor(p.walk / 1.8) % 4; rowY = 0; sh = 450; } else { col = isPlayer ? 3 : p.i; rowY = 450; sh = 574; }
+    var hgt = isPlayer ? 103 : 115, wid = hgt * 384 / sh, bob = walking ? Math.abs(Math.sin(p.walk)) * 1.2 : 0;
+    ctx.save(); ctx.translate(p.x, p.y); ellipse(0, -1, 18, 5, '#20362635');
+    if (isPlayer && walking && p.face < 0) ctx.scale(-1, 1);
+    ctx.drawImage(sprites, col*384*u, rowY*u, 384*u, sh*u, -wid/2, -hgt - bob, wid, hgt);
+    ctx.restore();
+  }
+  function label(x, y, text){
+    ctx.font = 'bold 19px "Noto Sans KR","Malgun Gothic",sans-serif'; var w = ctx.measureText(text).width + 32;
+    ctx.fillStyle = '#243E31ED'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x - w/2, y - 21, w, 38, 4) : ctx.rect(x - w/2, y - 21, w, 38); ctx.fill();
+    ctx.fillStyle = '#FFE1A0'; ctx.textAlign = 'center'; ctx.fillText(text, x, y + 5);
+  }
+  function resize(){
+    var r = root.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; if (!W || !H) return;
+    canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function frame(t){
+    var dt = Math.min((t - last) / 1000 || 0, .04); last = t;
+    var blocked = !talk.hidden || !journal.hidden, dx = 0, dy = 0;
+    if (!blocked){
+      dx = (keys.arrowright || keys.d ? 1 : 0) - (keys.arrowleft || keys.a ? 1 : 0);
+      dy = (keys.arrowdown || keys.s ? 1 : 0) - (keys.arrowup || keys.w ? 1 : 0);
+      if (dx || dy){
+        var m = Math.hypot(dx, dy); dx = dx / m * SPEED * dt; dy = dy / m * SPEED * dt;
+        var next = { x:player.x + dx, y:player.y + dy }, r = roadPoint(next);
+        if (r.d > 29) next = { x:r.x + (next.x - r.x) * 29 / r.d, y:r.y + (next.y - r.y) * 29 / r.d };   // 길에서 29 넘게 벗어나지 않게
+        dx = next.x - player.x; dy = next.y - player.y; player.x = next.x; player.y = next.y;
+      } else if (route.length){
+        var g = route[0], dist = Math.hypot(g.x - player.x, g.y - player.y), step = Math.min(SPEED * dt, dist);
+        if (dist < 1) route.shift(); else { dx = (g.x - player.x) / dist * step; dy = (g.y - player.y) / dist * step; player.x += dx; player.y += dy; }
+      }
+    }
+    var moving = Math.abs(dx) + Math.abs(dy) > .05;
+    if (moving){ player.walk += dt * 11; if (Math.abs(dx) > .1) player.face = dx > 0 ? 1 : -1; }
+    var was = near; near = NPCS.findIndex(function(n){ return Math.hypot(n.x - player.x, n.y - player.y) < NEAR; });
+    q('.fo-interact').hidden = near < 0 || blocked;
+    if (near !== was) Array.prototype.forEach.call(q('.fo-dest').children, function(b, i){ b.setAttribute('aria-current', String(i === near)); });
+
+    // 지도는 표지를 꽉 채우게(넘치는 위아래는 잘림)
+    scale = Math.max(W / 1536, H / 1024); ox = (W - 1536 * scale) / 2; oy = (H - 1024 * scale) / 2;
+    ctx.clearRect(0, 0, W, H); ctx.save(); ctx.translate(ox, oy); ctx.scale(scale, scale);
+    if (bg.complete && bg.naturalWidth) ctx.drawImage(bg, 0, 0, 1536, 1024);
+    if (route.length){
+      ctx.strokeStyle = '#FFF4CD99'; ctx.lineWidth = 2; ctx.setLineDash([3, 9]); ctx.beginPath(); ctx.moveTo(player.x, player.y);
+      route.forEach(function(p){ ctx.lineTo(p.x, p.y); }); ctx.stroke(); ctx.setLineDash([]);
+      var d = route[route.length - 1]; ctx.strokeStyle = '#FFF1C3'; ctx.beginPath(); ctx.ellipse(d.x, d.y, 16, 7, 0, 0, Math.PI*2); ctx.stroke();
+    }
+    NPCS.map(function(n, i){ return { x:n.x, y:n.y, i:i }; }).concat([{ x:player.x, y:player.y, walk:player.walk, face:player.face, isPlayer:true }])
+      .sort(function(a, b){ return a.y - b.y; })
+      .forEach(function(p){ character(p, p.isPlayer && moving, p.isPlayer); });
+    NPCS.forEach(function(n, i){
+      label(n.x, n.labelBelow ? n.y + 33 : n.y - 148, DATA.stations[i].title);
+      ctx.font = 'bold 24px Georgia,serif'; ctx.fillStyle = visited[i] ? '#C5E2AB' : '#FFF0B0'; ctx.textAlign = 'center';
+      ctx.fillText(visited[i] ? '✓' : '!', n.x, n.y - 122 + Math.sin(t / 450) * 3);
+    });
+    ctx.restore();
+    var v = ctx.createLinearGradient(0, 0, 0, H * .17); v.addColorStop(0, '#122C2580'); v.addColorStop(1, '#122C2500'); ctx.fillStyle = v; ctx.fillRect(0, 0, W, H * .17);
+    requestAnimationFrame(frame);
+  }
+
+  fill(); resize();
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(root); else window.addEventListener('resize', resize);
+  requestAnimationFrame(frame);
+  setTimeout(function(){ toast(DATA.cover.start); }, 400);
+  root.foReset = reset;
+  root.foState = function(){ return { x:Math.round(player.x), y:Math.round(player.y), route:route.length, near:near }; };
+  root.foGetData = function(){ return JSON.parse(JSON.stringify(DATA)); };
+  root.foSetData = function(d){ DATA = d; visited = {}; closePanels(); fill(); };
+})();
+</script>
+    </div>
+    <div class="pg-bar">
+      <button class="pg-btn" id="pgReset" type="button">처음으로</button>
+      <div class="pg-seg" role="group" aria-label="내용 바꿔 보기">
+        <button class="pg-btn" id="mdTrain" type="button" aria-pressed="true">체험형 연수 예시</button>
+        <button class="pg-btn" id="mdOrig" type="button" aria-pressed="false">원본(학생 체험)</button>
+      </div>
+      <p>지도나 아래 장소 단추를 누르면 여행자가 길을 따라 걸어가고, 안내인 곁에 닿으면 “체험 안내 열기”가 뜹니다. 표지를 한 번 누른 뒤에는 방향키·WASD로 걷고 E로 안내, J로 장소 목록을 엽니다.</p>
+    </div>
+  </div>
+
+  <section>
+    <h2><span>01</span>가져갈 장치</h2>
+    <div class="pg-dev">
+      <article><h3>장소 하나 = 실습 스테이션 하나</h3><p>지도 속 세 장소(나무 도서관 · 공방 · 천문대)에 안내인이 서 있고, 도착하면 안내 카드가 열려 실습 설명과 “체험 시작하기” 단추를 보여 줍니다. 실습 화면은 새 탭으로 열리고, 숲은 그대로 남아 돌아올 자리가 됩니다.</p><p>다른 데 쓰기: 체험형 연수 허브, 학부모 공개수업 체험 부스 안내, 진로 체험 박람회 지도.</p></article>
+      <article><h3>보이지 않는 길 위로만 걷기</h3><p>그림 위에 길목 점 30개와 이은 선 30개를 깔고, 누른 곳에서 가장 가까운 길 위 점까지 최단 경로로 걷게 했습니다. 아무 데나 눌러도 길을 따라 걷고, 방향키로 걸을 때도 길에서 멀리 벗어나지 않습니다. 점선이 갈 길을, 바닥 원이 도착점을 미리 보여 줍니다.</p><p>지킬 것: 그림을 바꾸면 길(<code>NODES</code>·<code>EDGES</code>)도 새 그림에 맞춰 다시 찍어야 합니다.</p></article>
+      <article><h3>모둠이 돌아가며 쓰는 한 화면</h3><p>열어 본 장소는 머리 위 “!”가 “✓”로, 왼쪽 카드의 ◇가 ◆로 바뀝니다. “다음 모둠 · 처음으로”를 누르면 표시와 여행자 위치가 처음으로 돌아가 다음 모둠이 이어 씁니다. 단추가 크고(높이 약 4cqw) 전체화면을 지원해 교실 스마트보드에 맞습니다.</p><p>다른 데 쓰기: 연수 시작 전 대기 화면, 쉬는 시간 자유 체험 화면.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>02</span>연수 설계 메모</h2>
+    <div class="pg-callout">
+      <p><b>장소 이름·설명·주소만 바꾸면 체험형 연수 허브가 됩니다.</b> 스크립트의 <code>DATA.stations</code> 세 칸에서 <code>title</code>(실습 이름), <code>npc</code>(안내인), <code>desc</code>(무엇을 하고 몇 분 걸리는지), <code>url</code>(실습 화면 주소)을 바꾸고, 제목·바닥 줄은 <code>DATA.cover</code>에서 바꿉니다. 지도 위 이름표, 아래 장소 단추, 안내 카드, 장소 목록이 함께 바뀝니다.</p>
+      <p class="pg-note">안내인 그림(책 든 사서 · 블록 든 장인 · 망원경 든 길잡이)에 맞는 실습을 짝지으면 자연스럽습니다. 글쓰기·문서 실습은 사서, 만들기·도구 실습은 장인, 데이터·지도·탐색 실습은 길잡이.</p>
+    </div>
+    <div class="pg-two">
+      <div class="pg-tbl"><table>
+        <thead><tr><th>장소(그림)</th><th>안내인</th><th>원본(학생 체험)</th><th>연수 예시</th></tr></thead>
+        <tbody>
+          <tr><td>왼쪽 위 나무 도서관</td><td>리안 · 숲의 사서</td><td>전북 꼬마 탐험대</td><td>AI 공문 초안 쓰기(15분)</td></tr>
+          <tr><td>가운데 공방</td><td>모아 · 도구 장인</td><td>블럭쌓기</td><td>엑셀 자동화 공방(20분)</td></tr>
+          <tr><td>오른쪽 위 천문대</td><td>유진 · 길잡이</td><td>숫자야구 · 오목</td><td>데이터로 우리 지역 보기(15분)</td></tr>
+        </tbody>
+      </table></div>
+      <div>
+        <p class="pg-note" style="margin-top:0"><b>먼저 알아 둘 한계</b></p>
+        <ul class="pg-list pg-note">
+          <li><b>“열었다”이지 “끝냈다”가 아닙니다.</b> ✓ 표시는 체험 화면을 연 순간 붙습니다. 이수 확인이 필요한 연수라면 실습 끝 화면에 확인 낱말을 두고, 안내 카드에서 그 낱말을 입력해야 ✓가 붙게 바꾸는 편이 맞습니다.</li>
+          <li><b>장소는 그림에 묶여 세 곳입니다.</b> 실습이 넷 이상이면 그림을 새로 그려야 하니, 한 장소에 실습 두 개를 묶어 안내 카드 안 선택지로 나누기를 권합니다.</li>
+          <li><b>기록은 저장되지 않습니다.</b> 새로 고치면 처음으로 돌아갑니다(모둠 교대용으로는 오히려 편함).</li>
+        </ul>
+      </div>
+    </div>
+    <ol class="pg-flow" aria-label="체험형 연수 진행 흐름">
+      <li><small>도입 · 5분</small><b>숲 소개</b><span>진행자가 스마트보드 전체화면으로 세 장소와 안내인을 소개</span></li>
+      <li><small>순환 · 15~20분씩</small><b>스테이션 실습</b><span>모둠마다 한 장소씩. 참여자 각자 기기로 열면 각자 진행</span></li>
+      <li><small>교대</small><b>다음 모둠 · 처음으로</b><span>표시를 지우고 다음 장소로. ◆ 개수로 남은 곳 확인</span></li>
+      <li><small>마무리 · 10분</small><b>숲으로 돌아와 나눔</b><span>장소마다 “찾은 한 가지”를 모아 정리</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2><span>03</span>재현 체크</h2>
+    <div class="pg-two">
+      <ul class="pg-list">
+        <li><b>그림</b>: 숲 지도(1536×1024)와 캐릭터 시트(1536×1024, 윗줄 걷기 4장 · 아랫줄 안내인 3명 + 여행자) 두 장. 두 파일 모두 메타데이터(C2PA)에 ChatGPT 이미지 생성 기록이 있습니다. 내부 연수에는 문제없지만 외부 배포물에는 “AI 생성 이미지” 표기를 권합니다.</li>
+        <li><b>캐릭터 배경</b>: 원본은 분홍(마젠타) 배경을 열 때마다 픽셀 단위로 지웠습니다. 미리 지운 투명 WebP로 바꿔 계산을 없앴습니다(가장자리 분홍 번짐도 정리).</li>
+        <li><b>원본에서 바꾼 것</b>: 화면 전체 → 16:9 장표 틀, 글자·단추는 틀 너비 비례(cqw) · 브라우저 대화상자(dialog) → 표지 안에서만 열리는 패널 · 방향키가 페이지 스크롤을 막지 않게 표지에 초점 있을 때만 · 전체화면은 표지만 · 주소가 빈 장소는 “주소를 넣으면 열립니다” 표시 · 쓰이지 않던 변수 정리 · 파일 8.4MB → 약 0.6MB.</li>
+        <li><b>원본 링크</b>: “원본(학생 체험)”에는 원래 세 체험 주소를 그대로 두었습니다. 지역명이 든 바닥 줄은 가상 예시 원칙에 따라 뺐습니다.</li>
+      </ul>
+      <div class="pg-note">
+        <p style="margin-top:0">참고</p>
+        <ul class="pg-list">
+          <li><a href="https://support.microsoft.com/en-us/office/use-the-morph-transition-in-powerpoint-8dd1c7b2-b935-44f5-a74c-741d8d9244ea" target="_blank" rel="noopener">PowerPoint 모핑 전환</a></li>
+          <li>같은 게임 은유 계열 A: <a href="09.html">#9 늘봄 퀘스트 일지</a>, <a href="10.html">#10 안개 걷는 영토도</a>, <a href="12.html">#12 협력 항로 해도</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span>04</span>스펙</h2>
+    <div class="pg-sw">
+      <div><i style="background:#192C24"></i><b>숲 그늘</b><code>#192C24</code></div>
+      <div><i style="background:#F4EDDA"></i><b>양피지 글자</b><code>#F4EDDA</code></div>
+      <div><i style="background:#DFBF78"></i><b>금빛 테</b><code>#DFBF78</code></div>
+      <div><i style="background:#203B30"></i><b>숲색 단추</b><code>#203B30</code></div>
+      <div><i style="background:#F2EBD9"></i><b>안내 카드</b><code>#F2EBD9</code></div>
+      <div><i style="background:#2B4939"></i><b>카드 단추</b><code>#2B4939</code></div>
+      <div><i style="background:#FFE1A0"></i><b>이름표 글자</b><code>#FFE1A0</code></div>
+      <div><i style="background:#C5E2AB"></i><b>다녀온 표시</b><code>#C5E2AB</code></div>
+    </div>
+    <div class="pg-two" style="margin-top:20px">
+      <div class="pg-tbl"><table><tbody>
+        <tr><td>폰트</td><td>제목·카드 제목 Gowun Batang 700 · 본문·단추 Noto Sans KR 400/500/700 · 머리 영문 Georgia / 대체: 바탕, 맑은 고딕</td></tr>
+        <tr><td>뼈대</td><td>16:9 틀에 지도를 꽉 채움(위아래 약 10% 잘림). 왼쪽 위 제목·퀘스트 카드, 오른쪽 위 단추 2개, 아래 가운데 장소 단추, 바닥 줄. 지도 좌표 1536×1024.</td></tr>
+        <tr><td>난이도</td><td>HTML 상(길 그래프·최단 경로·캐릭터 시트) · PPT 중(트리거 애니메이션)</td></tr>
+        <tr><td>모션</td><td>여행자 걷기 초당 145(지도 단위), 걸음 4장 순환 + 위아래 1.2 흔들림, 안내인 머리 위 “!”가 0.45초 주기로 위아래. 자동 재생 없음, 누를 때만 움직임.</td></tr>
+      </tbody></table></div>
+      <div>
+        <p style="margin-top:0"><b>PPT로 옮기기</b></p>
+        <ul class="pg-list pg-note">
+          <li>배경: 숲 그림을 슬라이드 전체에. 안내인 3명은 캐릭터 시트에서 잘라 투명 PNG로 각 장소에, 여행자는 출발점(왼쪽 아래)에.</li>
+          <li>걷기: 여행자에 [애니메이션 → 이동 경로 → 사용자 지정 경로]로 길을 따라 장소까지 선을 긋고, [트리거 → 클릭할 때 → 해당 장소 단추]. 장소마다 하나씩, 길이 2~3초.</li>
+          <li>안내 카드: 둥근 사각형 + 텍스트를 [나타내기 → 밝기 변화]로 “이전 효과 다음”. 카드 속 “체험 시작하기”에 [삽입 → 링크 → 실습 주소].</li>
+          <li>처음으로: 같은 슬라이드로 가는 링크 단추를 두면 애니메이션이 처음 상태로 돌아갑니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-code">
+    <h2><span>05</span>HTML로 가져다 쓰기</h2>
+    <ol class="pg-list">
+      <li>아래 코드는 표지만 떼어 낸 완결 코드입니다. 빈 .html 파일에 붙여 넣으면 같은 숲이 열립니다.</li>
+      <li><b>실습 바꾸기</b>: 스크립트의 <code>DATA.stations</code>에서 장소마다 <code>title</code>·<code>npc</code>·<code>icon</code>·<code>desc</code>·<code>url</code>을 바꿉니다. 위에서 고른 쪽(연수 예시 / 원본)이 코드에 들어갑니다.</li>
+      <li>제목·퀘스트 카드·바닥 줄·교대 단추 문구는 <code>DATA.cover</code>에서 바꿉니다.</li>
+      <li>그림을 바꾸면 <code>NODES</code>(길목 점)·<code>EDGES</code>(이은 선)·<code>NPCS</code>(안내인 자리)를 새 그림에 맞춰 다시 찍습니다. 그림이 같으면 손대지 않습니다.</li>
+      <li>AI 채팅에는 “그림 빼고” 코드를 붙여 넣으세요. 그림 두 장은 <code>forest.webp</code>·<code>sprites.webp</code> 자리로 비워 둡니다. 실제 파일에는 “그림 포함” 코드를 쓰면 한 파일에 다 들어갑니다(약 0.8MB).</li>
+    </ol>
+    <div class="pg-bar">
+      <button class="pg-btn" id="cpFull" type="button">코드 복사 · 그림 포함</button>
+      <button class="pg-btn" id="cpLite" type="button">코드 복사 · 그림 빼고</button>
+      <span id="cpMsg" aria-live="polite"></span>
+    </div>
+    <pre id="pgCode" tabindex="0"></pre>
+  </section>
+</main>
+
+<script>
+(function(){
+  var cover = document.getElementById('foCover');
+  document.getElementById('pgReset').addEventListener('click', function(){ if (cover.foReset) cover.foReset(); });
+
+  // 내용 바꿔 보기: 지도·길은 그대로, 글자와 주소만
+  var TRAIN = cover.foGetData();
+  var ORIG = {
+    cover: {"kicker":"PLAY · EXPLORE · DISCOVER","title":"학생들의 체험의 숲","journal":"체험 장소","questKicker":"터치해서 떠나는 모험","quest":"어디로 놀러 갈까요?","questText":"가고 싶은 장소를 누르면 여행자가 걸어가요. 가까이 도착하면 체험을 열어 보세요.","footTitle":"직접 걷고, 누르고, 생각하며 놀아요","footSub":"공간과 입체 · 두뇌 게임","footHint":"장소 터치 → 걸어서 이동 → 체험 시작","journalTitle":"세 가지 체험 장소","journalText":"원하는 곳부터 자유롭게 가 보세요.","reset":"다음 학생 · 처음으로","resetNote":"✓ 표시는 체험을 열어 본 장소입니다. ‘다음 학생’을 누르면 표시와 위치가 처음으로 돌아갑니다.","launchNote":"새 탭에서 열립니다. 체험이 끝나면 이 숲 탭으로 돌아오세요.","start":"가고 싶은 장소를 손으로 눌러 보세요"},
+    stations: [
+      {"title":"전북 꼬마 탐험대","npc":"리안 · 숲의 사서","icon":"⌖","url":"https://yubo-webzine.vercel.app/kids-explorer/","desc":"지도를 누비며 곳곳을 탐험해요. 궁금한 장소를 손으로 눌러 새로운 곳을 발견해 보세요."},
+      {"title":"블럭쌓기","npc":"모아 · 도구 장인","icon":"▧","url":"https://stack-blocks-lab.kjh0413kjh.workers.dev/solo/","desc":"쌓기나무 연구소 · 공간과 입체\n블록을 돌려 보고 쌓아서 미션을 풀어요. 어떤 방향에서 보면 어떤 모양일까요?"},
+      {"title":"숫자야구 · 오목","npc":"유진 · 길잡이","icon":"●","url":"https://baseball-game-eight.vercel.app/","desc":"생각놀이터 · 두뇌 게임\n숨은 숫자를 추리하거나 다섯 알을 먼저 이어 보세요. 열린 화면에서 숫자야구 또는 오목을 선택하세요."}
+    ]
+  };
+  var mode = TRAIN, bT = document.getElementById('mdTrain'), bO = document.getElementById('mdOrig');
+  function setMode(m){
+    mode = m; cover.foSetData(JSON.parse(JSON.stringify(m)));
+    bT.setAttribute('aria-pressed', String(m === TRAIN)); bO.setAttribute('aria-pressed', String(m === ORIG));
+    renderCode();
+  }
+  bT.addEventListener('click', function(){ setMode(TRAIN); });
+  bO.addEventListener('click', function(){ setMode(ORIG); });
+
+  // 코드 칸: 표지 CSS·마크업·스크립트를 그대로 묶고, DATA만 지금 고른 내용으로
+  var FONT = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">';
+  var css = document.getElementById('fo-css').textContent.replace(/^\n+|\s+$/g, '');
+  var html = document.getElementById('fo-tpl').innerHTML.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('fo-js').textContent.replace(/^\n+|\s+$/g, '');
+  function fmt(d){
+    var s = function(v){ return JSON.stringify(v); };
+    return '{\n    "cover": ' + s(d.cover) + ',\n    "stations": [\n' + d.stations.map(function(x){ return '      ' + s(x); }).join(',\n') + '\n    ]\n  }';
+  }
+  var pre = document.getElementById('pgCode'), msg = document.getElementById('cpMsg'), full = '', lite = '';
+  function renderCode(){
+    var j = js.replace(/\/\*DATA\*\/[\s\S]*?\/\*END\*\//, '/*DATA*/' + fmt(mode) + '/*END*/');
+    full = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + html + '\n\n<script>\n' + j + '\n</scr' + 'ipt>\n';
+    lite = full.replace(/forest: '[^']+'/, "forest: 'forest.webp'").replace(/sprites: '[^']+'/, "sprites: 'sprites.webp'");
+    lite = lite.replace("var IMG = {", "// 그림 두 장을 이 파일과 같은 폴더에 두거나 '그림 포함' 코드를 쓰세요\n  var IMG = {");
+    pre.textContent = lite;
+  }
+  renderCode();
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  function copy(text, label){
+    try {
+      navigator.clipboard.writeText(text).then(function(){ msg.textContent = label + ' 코드를 복사했습니다.'; },
+        function(){ pre.textContent = text; selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ pre.textContent = text; selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  }
+  document.getElementById('cpFull').addEventListener('click', function(){ copy(full, '그림 포함'); });
+  document.getElementById('cpLite').addEventListener('click', function(){ copy(lite, '그림 뺀'); });
+})();
+</script>
+
+</body></html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>분위기별 덱 — 디자인 레퍼런스</title>
+<meta name="description" content="한 분위기의 장표를 표지 → 목차·간지·맺음 → 본문 순서로 넘겨 보는 화면. 순서는 data/decks.json(글 목록은 catalog.md).">
+<style>
+:root{--bg:#17191D;--ink:#F1EFEA;--soft:#A6A9B0;--line:#33363C;--key:#7FB2F0;--f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all}
+a{color:inherit}
+.app{display:grid;grid-template-columns:280px 1fr;grid-template-rows:auto 1fr;height:100%}
+header{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);font-size:14px}
+header a.back{color:var(--soft);text-decoration:none}
+header b{font-size:16px}
+.fams{display:flex;flex-wrap:wrap;gap:4px}
+.fams a{padding:4px 10px;border-radius:999px;border:1px solid var(--line);text-decoration:none;font-size:13px;color:var(--soft)}
+.fams a[aria-current=true]{background:var(--ink);color:#17191D;border-color:var(--ink);font-weight:700}
+.nav{margin-left:auto;display:flex;gap:6px;align-items:center;font-size:13px;color:var(--soft)}
+.nav button{font:700 14px var(--f);padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.nav a{padding:6px 12px;border-radius:999px;border:1px solid var(--line);text-decoration:none;color:var(--ink)}
+ol{margin:0;padding:8px 0;list-style:none;overflow:auto;border-right:1px solid var(--line);font-size:13px}
+ol li.g{padding:12px 14px 4px;font-size:11.5px;font-weight:700;color:var(--soft)}
+ol button{display:block;width:100%;text-align:left;padding:6px 14px;border:0;background:none;color:var(--ink);font:13px/1.45 var(--f);cursor:pointer}
+ol button small{color:var(--soft);margin-left:4px}
+ol button[aria-current=true]{background:#262A31;box-shadow:inset 3px 0 0 var(--key)}
+iframe{width:100%;height:100%;border:0;background:#fff}
+:focus-visible{outline:2px solid var(--key);outline-offset:-2px}
+@media (max-width:760px){.app{grid-template-columns:1fr;grid-template-rows:auto 150px 1fr}ol{border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <a class="back" href="index.html">← 디자인 레퍼런스</a>
+    <b id="title">분위기별 덱</b>
+    <nav class="fams" id="fams" aria-label="분위기"></nav>
+    <div class="nav"><span id="count"></span><button type="button" id="prev" aria-label="이전 장">←</button><button type="button" id="next" aria-label="다음 장">→</button><a id="code" target="_blank" rel="noopener">가벼운 코드</a></div>
+  </header>
+  <ol id="list" aria-label="장 목록"></ol>
+  <iframe id="frame" title="장표"></iframe>
+</div>
+<noscript>이 화면은 스크립트가 필요합니다. 덱 순서는 <a href="catalog.md">catalog.md</a>와 <a href="data/decks.json">data/decks.json</a>에 글로 있습니다.</noscript>
+<script>
+// 한 분위기의 장표를 순서대로 넘겨 본다: deck.html?fam=B#3  (← → 키, 목록 누르기). 순서는 scripts/site.py 가 만든 data/decks.json
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+let slides = [], cur = 0;
+function go(i){
+  cur = Math.max(0, Math.min(slides.length - 1, i)); const s = slides[cur];
+  $('#frame').src = s.file; $('#code').href = s.code; $('#count').textContent = (cur + 1) + ' / ' + slides.length;
+  document.querySelectorAll('#list button').forEach((b, k) => { b.setAttribute('aria-current', k === cur); if (k === cur) b.scrollIntoView({block: 'nearest'}); });
+  history.replaceState(null, '', location.pathname + location.search + '#' + (cur + 1));
+}
+fetch('data/decks.json', {cache: 'no-cache'}).then(r => r.json()).then(d => {
+  const fam = (new URLSearchParams(location.search).get('fam') || 'B').replace(/[^A-H]/g, '') || 'B', deck = d[fam] || d.B;
+  slides = deck.slides; $('#title').textContent = fam + ' ' + deck.name + ' 덱'; document.title = fam + ' ' + deck.name + ' 덱 — 디자인 레퍼런스';
+  $('#fams').innerHTML = Object.keys(d).map(k => `<a href="?fam=${k}" aria-current="${k === fam}" title="${esc(d[k].name)}">${k}</a>`).join('');
+  let g = '', h = '';
+  slides.forEach((s, i) => { if (s.group !== g) { g = s.group; h += `<li class="g">${esc(g)}</li>`; } h += `<li><button type="button" data-i="${i}">${esc(s.title)}<small>#${s.no}</small></button></li>`; });
+  $('#list').innerHTML = h;
+  go((parseInt(location.hash.slice(1), 10) || 1) - 1);
+});
+$('#list').addEventListener('click', e => { const b = e.target.closest('button'); if (b) go(+b.dataset.i); });
+$('#prev').addEventListener('click', () => go(cur - 1)); $('#next').addEventListener('click', () => go(cur + 1));
+addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === 'PageDown') go(cur + 1); else if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(cur - 1); });
+</script>
+</body>
+</html>

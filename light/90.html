@@ -1,0 +1,682 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #90 픽셀 게임 키트</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Galmuri © Lee Minseo, SIL Open Font License 1.1 — 이 페이지에 쓰인 글자만 잘라 내장 */
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Galmuri11";font-weight:400;font-display:swap;src:url("../fonts/Galmuri11-400.woff2") format("woff2")}
+@font-face{font-family:"Galmuri11";font-weight:700;font-display:swap;src:url("../fonts/Galmuri11-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexSansKR-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:700;font-display:swap;src:url("../fonts/IBMPlexSansKR-700.woff2") format("woff2")}
+
+/* 페이지 틀: 장표 세 장이 맨 위에 차례로, 아래로 계열 값 카드·코드·PPT·스펙. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF0F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:70ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:74ch}
+.pg a{color:var(--pg-accent)}
+.stack{display:grid;gap:28px}
+.stage{display:grid;gap:10px}
+.stage-cap{display:flex;gap:10px;align-items:baseline;font-size:13px;color:var(--pg-sub)}
+.stage-cap b{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-ink)}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.famrow{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--pg-bg);padding-block:8px;border-bottom:1px solid var(--pg-line)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.05}
+.raw mark{background:none;color:inherit;border-bottom:2px solid var(--pg-accent);padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px;color:var(--pg-accent)}
+.raw mark.g{border-bottom-style:double;border-bottom-width:4px}
+.grp{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:34px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:24px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-accent);color:var(--pg-accent)}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:110px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+/* 계열 값 카드 */
+.card{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px}
+.sws{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.sw-i{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:center;font-size:12px}
+.sw-i i{display:block;width:34px;height:34px;border:1px solid var(--pg-line);border-radius:2px}
+.sw-i code{font-family:var(--pg-mono);font-size:11.5px;display:block}
+.sw-i span{color:var(--pg-sub)}
+.rules{display:grid;gap:10px;margin:0}
+.rules div{display:grid;grid-template-columns:96px 1fr;gap:12px;border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.rules dt{font-weight:700;font-size:13px;color:var(--pg-sub)}
+.rules dd{margin:0}
+.fontline{font-family:"Galmuri11",monospace;font-size:24px;line-height:1.4;-webkit-font-smoothing:none}
+.fontline b{font-weight:700}
+.dont{margin:0;padding-left:20px;display:grid;gap:4px}
+.list-a{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.list-a li{display:grid;grid-template-columns:56px 1fr;gap:10px;border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.list-a .no{font-family:var(--pg-mono);font-weight:600;color:var(--pg-sub)}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin:16px 0 8px;flex-wrap:wrap}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:80ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:600px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two,.card{grid-template-columns:1fr}.rels div,.rules div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+</style>
+<style id="px90-css">
+/* A 픽셀 게임 계열 키트 — 목차·섹션 간지·마무리 + 계열 전용 본문(과제 목록표). 접두어 px90 / 색은 --ds-* 변수로만 */
+.px90{
+  /* 공통 변수: A 낮(기본) 값. 계열 값을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F1EBDC; --ds-surface:#FFFBF0; --ds-ink:#1D1B2E; --ds-sub:#5E5870; --ds-line:#CFC4A6;
+  --ds-accent:#D23B52; --ds-accent2:#2B4A8F;
+  --ds-c1:#1D2B53; --ds-c2:#2F4C8C; --ds-c3:#5A82D0; --ds-c4:#A9C8F5; --ds-c5:#F7F2E4;
+  --ds-hi:#FFCF4A; /* A 계열 전용: 창 안 '선택' 표시(표지 #9의 금색 테) */
+  --ds-font-title:"Galmuri11","DotGothic16","Malgun Gothic",monospace;
+  --ds-font-body:"Galmuri11","DotGothic16","Malgun Gothic",monospace;
+  --ds-font-num:"Galmuri11","DotGothic16","Malgun Gothic",monospace;
+  --ds-radius:0px; --ds-shadow:none;
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.px90 *{box-sizing:border-box}
+/* 1 도트 = 4u(가상 화면 1600 → 400도트). 그림은 400×225 캔버스를 정수배로 키워 흐림 없이 */
+.px90-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.35;word-break:keep-all;-webkit-font-smoothing:none}
+.px90-cv{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges}
+.px90-a{position:absolute;white-space:nowrap}
+.px90-r{transform:translateX(-100%)}
+.px90-c{transform:translateX(-50%);text-align:center}
+.px90-hide{visibility:hidden}
+/* 뼈대: 머리말 띠 · 제목 · 바닥 줄 */
+.px90-sec{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*20);color:var(--ds-ink)}
+.px90-sec i{font-style:normal;margin-right:calc(var(--u)*10)}
+.px90-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.px90-tt{white-space:normal;font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*34);line-height:1.32;color:var(--ds-ink)}
+.px90-tt em,.px90-msg em{font-style:normal;color:var(--ds-accent)}
+.px90-msg{white-space:normal;font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*48);line-height:1.3;color:var(--ds-ink)}
+.px90-ft{font-size:calc(var(--u)*12);color:var(--ds-sub)}
+/* 창 안 글자(남색 바탕) */
+.px90-wh{font-weight:700;font-size:calc(var(--u)*16);color:var(--ds-c5)}
+.px90-lb{font-size:calc(var(--u)*13);color:var(--ds-c4)}
+.px90-v{font-weight:700;font-size:calc(var(--u)*16);color:var(--ds-c5)}
+.px90-rn{font-family:var(--ds-font-num);font-weight:700;font-size:calc(var(--u)*24);color:var(--ds-c4)}
+.px90-nm{font-weight:700;font-size:calc(var(--u)*21);color:var(--ds-c5)}
+.px90-sm{font-size:calc(var(--u)*13);color:var(--ds-c4)}
+.px90-pg{font-family:var(--ds-font-num);font-size:calc(var(--u)*15);color:var(--ds-c4)}
+.px90-on{color:var(--ds-hi)}
+.px90-big{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*64);line-height:1;color:var(--ds-c5)}
+.px90-ld{font-size:calc(var(--u)*17);color:var(--ds-c4)}
+.px90-tr{font-size:calc(var(--u)*13);color:var(--ds-sub)}
+.px90-trw{font-size:calc(var(--u)*14);color:var(--ds-c5)}
+.px90-d1{font-weight:700;font-size:calc(var(--u)*21);color:var(--ds-c5)}
+.px90-d2{font-size:calc(var(--u)*16);color:var(--ds-c4)}
+/* 표 */
+.px90-th{font-size:calc(var(--u)*13);color:var(--ds-c4)}
+.px90-gn{font-weight:700;font-size:calc(var(--u)*15);line-height:1.25;color:var(--ds-c5);white-space:normal;text-align:center}
+.px90-tn{font-weight:700;font-size:calc(var(--u)*18);color:var(--ds-c5)}
+.px90-td{font-size:calc(var(--u)*12);color:var(--ds-c4)}
+.px90-tv{font-family:var(--ds-font-num);font-weight:700;font-size:calc(var(--u)*17);color:var(--ds-c5)}
+.px90-kv{font-family:var(--ds-font-num);font-weight:700;font-size:calc(var(--u)*17);color:var(--ds-c5)}
+</style>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 90 · 계열 키트 · A 픽셀 게임 · 목차 · 간지 · 마무리 + 계열 전용 본문 · 가상 예시</div>
+    <h1>픽셀 게임 키트</h1>
+    <p class="pg-lead">픽셀 표지(#9 늘봄 퀘스트 일지 · #10 · #11 · #12) 뒤에 붙이는 목차·섹션 간지·마무리 세 장과, 이 계열에서만 쓰는 본문 장표 하나(과제 목록표). 표지의 진행 단계 칸 다섯 개를 다섯 장에 그대로 이어, 지금 몇 번째 장인지를 칸 하나로 보여 준다.</p>
+  </header>
+
+  <section class="stack" aria-label="장표">
+    <div class="pick famrow" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="A" aria-pressed="true">A 픽셀 게임 · 낮(기본)</button><button class="btn" type="button" data-fam="A2" aria-pressed="false">A 픽셀 게임 · 밤(#9 표지 색)</button></div>
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage">
+      <div class="stage-cap"><b>1 · 목차</b><span>정지 · 표지의 퀘스트 목록 창을 차례로 축소</span></div>
+      <div class="stage-frame"><div class="px90" id="px90-toc" data-px="toc" data-slide role="img" aria-label="목차: 다섯 장의 이름·쪽과 계획 정보, 진행 칸"></div></div>
+    </div>
+    <div class="stage">
+      <div class="stage-cap"><b>2 · 섹션 간지</b><span>같은 틀에 번호·이름만 바꿔 다섯 번 · 창 열림 전환 0.5초 한 번</span></div>
+      <div class="stage-frame"><div class="px90" id="px90-div" data-px="div" data-slide role="img" aria-label="섹션 간지: 장 번호와 이름, 다섯 칸 진행 표시"></div></div>
+      <div class="pick" role="group" aria-label="간지 섹션 고르기"><span>섹션</span><button class="btn" type="button" data-sec="0" aria-pressed="false">Ⅰ</button><button class="btn" type="button" data-sec="1" aria-pressed="true">Ⅱ</button><button class="btn" type="button" data-sec="2" aria-pressed="false">Ⅲ</button><button class="btn" type="button" data-sec="3" aria-pressed="false">Ⅳ</button><button class="btn" type="button" data-sec="4" aria-pressed="false">Ⅴ</button><button class="btn" type="button" id="replay">다시 보기</button></div>
+    </div>
+    <div class="stage">
+      <div class="stage-cap"><b>3 · 마무리</b><span>정지 · 표지의 의뢰인 대화창에 답하는 수미상관</span></div>
+      <div class="stage-frame"><div class="px90" id="px90-end" data-px="end" data-slide role="img" aria-label="마무리: 핵심 메시지, 다섯 장 보고 완료 표시, 문의처 대화창"></div></div>
+    </div>
+  </section>
+
+  <section class="stack" aria-label="계열 전용 본문 요소">
+    <div>
+      <h2>계열 전용 본문 · 과제 목록표 <small>표·목록 · 정지</small></h2>
+      <p>픽셀 표지 뒤의 본문은 픽셀 문법을 따라야 한다(기존은 #78 지표 상태창 하나). 계획안 Ⅲ장의 과제 다섯 개를 게임의 퀘스트 목록처럼 한 창에 담고, 시기는 12칸 달력, 예산은 1도트 = 1억원 막대로 같은 줄에 붙였다.</p>
+    </div>
+    <div class="stage">
+      <div class="stage-cap"><b>4 · 본문 요소</b><span>Ⅲ 세부 추진과제 · 표 + 막대 + 간트</span></div>
+      <div class="stage-frame"><div class="px90" id="px90-tbl" data-px="tbl" data-slide role="img" aria-label="세부 추진과제 다섯 개의 구분, 주관 부서, 2027년 추진 월, 예산, 성과지표 목표"></div></div>
+    </div>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅲ장 줄글, 가상)</h3>
+        <p class="raw">2027년 늘봄학교는 다섯 과제로 추진한다. <mark class="g" data-n="①">핵심 과제는 세 가지로</mark>, <mark data-n="②">늘봄지원과가</mark> <mark data-n="③">3월부터 12월까지</mark> 1~2학년 맞춤 프로그램(매일 2시간 무상)을 운영하고 <mark data-n="④">48.0억원을</mark> 들여 <mark data-n="⑤">참여율 80%를</mark> 목표로 한다. 교육시설과는 1~8월에 겸용 교실을 늘봄 전용실 120실로 바꾸며 22.5억원이 든다. 교원인사과는 1~3월에 늘봄 실무직원 150명을 채용·배치한다(18.0억원). <mark class="g" data-n="①">이와 연계하여</mark> 지역협력팀은 4월부터 지자체·대학 등 협력 기관 40곳과 프로그램을 함께 운영하고(6.5억원), 늘봄지원과는 3월과 9월에 학부모 설명회·만족도 조사를 열어 만족도 4.0점을 목표로 한다(1.2억원). 총 사업비는 96.2억원이다.</p>
+      </div>
+      <div class="panel">
+        <h3 style="margin-top:0">묶은 방법 (번호 = 장표의 열)</h3>
+        <ul class="grp">
+          <li><span class="n">①</span><div><b>구분 열: "핵심 과제는 ~ / 이와 연계하여 ~"</b><em>과제 위에 있는 한 단계 위 묶음. 행 여러 개를 덮는 세로 칸으로 만든다</em></div></li>
+          <li><span class="n">②</span><div><b>과제·주관 열: 주어(부서)와 하는 일</b><em>과제 이름은 굵게, 괄호 속 설명은 그 아래 작은 줄로</em></div></li>
+          <li><span class="n">③</span><div><b>시기 열: "~월부터 ~월까지", "3월과 9월"</b><em>글로 쓰면 비교가 안 되는 기간을 12칸 달력으로. 띄엄띄엄인 일정도 그대로 보인다</em></div></li>
+          <li><span class="n">④</span><div><b>예산 열: 괄호 속 억원</b><em>숫자 + 막대(1도트 = 1억원, 0에서 시작). 합계는 맨 아래 줄</em></div></li>
+          <li><span class="n">⑤</span><div><b>지표 열: "~를 목표로 한다"</b><em>목표값을 크게, 무엇의 값인지 작게</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">위계</span><span>구분(핵심·연계) ⊃ 과제. 구분 칸이 행을 덮어 포함 관계를 보인다.</span></div>
+          <div><span class="k">비교</span><span>예산 막대 길이로 과제끼리 비교 → 가장 긴 줄에 커서 ▶, 제목이 같은 결론을 말한다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>계열 값 카드 <small>A · PIXEL GAME</small></h2>
+    <div class="card">
+      <div>
+        <h3 style="margin-top:0">색 (낮 · 기본)</h3>
+        <div class="sws" id="sws"></div>
+        <h3>글꼴</h3>
+        <p class="fontline"><b>Ⅲ. 세부 추진과제 48.0억</b><br>늘봄학교 운영 계획 2027</p>
+        <p style="font-size:13px;color:var(--pg-sub)">제목·본문·숫자 모두 Galmuri11(굵게 700 / 보통 400, SIL OFL). 대체: DotGothic16 → 맑은 고딕. 한 장 안에서 글자 크기는 제목 34 · 이름 18~21 · 보조 12~13(가상 화면 1600 기준 px) 세 단계만.</p>
+      </div>
+      <dl class="rules">
+        <div><dt>머리말 띠</dt><dd>왼쪽 굵은 "Ⅱ. 섹션 이름", 오른쪽 계획안 이름(작게), 그 아래 2도트 간격 점선 한 줄(y 88). 띠에는 창을 쓰지 않는다.</dd></div>
+        <div><dt>창</dt><dd>정보는 남색 창(--ds-c1) 안에 담는다. 먹 테 1도트 + 크림 안테 1도트 + 모서리 1도트 깎기 + 오른쪽 아래 2도트 그림자. 창 머리줄은 --ds-c2 띠, 오른쪽으로 갈수록 체크 무늬로 옅어진다.</dd></div>
+        <div><dt>강조색</dt><dd>--ds-accent는 바탕 위 1곳(제목의 한 단어, 또는 현재 장 칸). 창 안의 '선택'은 --ds-hi 금색 1곳(커서 줄 테·막대). 둘은 같은 대상을 가리킬 때만 함께 쓴다.</dd></div>
+        <div><dt>질감</dt><dd>평면. 입체는 2도트 그림자와 큰 숫자의 1도트 윤곽까지. 그라데이션은 디더링(체크 무늬)으로만.</dd></div>
+        <div><dt>모션</dt><dd>목차·마무리·본문은 정지. 섹션 간지만 '창 열림'(6단 계단, 0.5초 이내, 한 번). 깜빡임·흔들림 없음.</dd></div>
+        <div><dt>그림</dt><dd>사진 쓰지 않음. 그림은 400×225 도트 캔버스에서 정수배로만(흐림 금지). 아이콘은 한 장에 한 종류까지(커서 ▶, 계속 ▼).</dd></div>
+        <div><dt>하지 말 것</dt><dd><ol class="dont"><li>도트 격자에 맞지 않는 둥근 모서리·부드러운 그림자·블러를 섞기</li><li>창 밖 크림 바탕에 금색(--ds-hi) 글자 쓰기 — 대비가 안 나온다</li><li>모든 줄에 픽셀 아이콘 달기 · 게임 말투로 숫자와 사실을 바꾸기(경험치·레벨업 등)</li></ol></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>이 계열과 어울리는 요소 <small>FAMILIES ∋ A</small></h2>
+    <ul class="list-a">
+      <li><span class="no">#9</span><span><a href="https://claude.ai/artifact/Ugg5gNiZi2VB7twhveaFmn" target="_blank" rel="noopener">늘봄 퀘스트 일지</a> — 표지. 이 키트의 계획 이름·진행 칸·대화창이 여기서 왔다</span></li>
+      <li><span class="no">#10~12</span><span>안개 걷는 영토도 · 디딤 타워 · 협력 항로 해도 — 표지. 밤 값이 더 잘 어울린다</span></li>
+      <li><span class="no">#78</span><span><a href="https://claude.ai/artifact/2dnJQ3oVjHircMx2ouJP9n" target="_blank" rel="noopener">지표 상태창</a> — 본문 · 핵심 수치 (Ⅱ 목표 및 지표 자리)</span></li>
+      <li><span class="no">#90</span><span>과제 목록표 — 본문 · 표·목록 (이 페이지 4번, Ⅲ 세부 추진과제 자리)</span></li>
+    </ul>
+    <p style="margin-top:12px;font-size:14px;color:var(--pg-sub)">덱 순서 예: #9 표지 → 목차 → 간지 Ⅰ → … → 간지 Ⅱ → #78 → 간지 Ⅲ → 과제 목록표 → … → 마무리. 다른 계열용 평면 요소를 쓸 때는 글꼴만 Galmuri11로 바꾸면 크게 어긋나지 않지만, 둥근 모서리(--ds-radius)는 0으로 둔다.</p>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>첫 번째 코드는 장표 네 장(목차 · 간지 · 마무리 · 과제 목록표)을 한 번에 그리는 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다. 필요 없는 장은 <code>&lt;div class="px90" …&gt;</code> 줄만 지우면 됩니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳에서 바꿉니다. <code>sections</code>(다섯 장의 번호·이름·쪽)는 목차·간지·마무리가 함께 씁니다. 간지 장 바꾸기는 <code>px90.show(2)</code>(0부터)입니다.</li>
+      <li>색은 <code>.px90{ … }</code> 맨 위 <code>--ds-*</code> 묶음만 바꿉니다. 두 번째 코드(계열 값)를 다른 요소에 붙이면 같은 분위기가 됩니다. 바꾼 뒤에는 <code>px90.paint()</code>로 다시 칠합니다.</li>
+      <li>글꼴은 Galmuri(SIL OFL)를 jsDelivr에서 불러옵니다. 제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar"><button class="btn" type="button" data-copy="code-all">코드 복사</button><span>장표 네 장</span><span class="msg" id="code-all-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code-all" tabindex="0"></pre>
+    <div class="code-bar"><button class="btn" type="button" data-copy="code-tok">코드 복사</button><span>계열 값만(:root 묶음, 낮 + 밤)</span><span class="msg" id="code-tok-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code-tok" tabindex="0" style="max-height:300px"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>SLIDE MASTER</small></h2>
+    <ol class="steps">
+      <li><b>테마 색</b>: [디자인] → [적용] → [색] → [색 사용자 지정]. 텍스트/배경-어둡게 1 = <code>#1D1B2E</code>(ink), 밝게 1 = <code>#F1EBDC</code>(bg), 어둡게 2 = <code>#1D2B53</code>(c1 창), 밝게 2 = <code>#F7F2E4</code>(c5 창 글자), 강조 1 = <code>#D23B52</code>(accent), 강조 2 = <code>#FFCF4A</code>(hi 선택), 강조 3~6 = <code>#2F4C8C · #5A82D0 · #A9C8F5 · #CFC4A6</code>. 이름은 "A 픽셀 낮". 밤 값으로 하나 더 저장해 두면 표지 #10~12용.</li>
+      <li><b>테마 글꼴</b>: [글꼴] → [글꼴 사용자 지정]. 제목·본문 모두 Galmuri11(설치 필요, 무료). 없으면 DotGothic16 → 맑은 고딕. 픽셀 글꼴은 12pt의 정수배(12 · 24 · 36pt)일 때 가장 또렷하다.</li>
+      <li><b>도트 격자</b>: [보기] → [눈금 및 안내선]에서 눈금 0.1cm, "개체를 눈금에 맞춤". 와이드 33.867cm 기준 1도트 ≈ 0.085cm라 0.1cm로 근사한다.</li>
+      <li><b>창 도형</b>: 사각형(채우기 c1, 윤곽 없음) + 0.1cm 안쪽에 크림 윤곽 0.75pt 사각형 + 바깥 먹색 0.75pt 사각형 + 오른쪽 아래로 0.2cm 민 같은 사각형(채우기 line 색)을 맨 뒤에. 넷을 그룹으로 묶어 마스터에 둔다.</li>
+      <li><b>레이아웃 3종</b>(보기 → 슬라이드 마스터): ① 목차 — 머리말 띠 + 제목 + 왼쪽 큰 창(5줄) + 오른쪽 작은 창 2개. ② 간지 — 가운데 창(가로 9.6cm 안쪽 여백 크게) + 번호 자리(텍스트 상자 54pt) + 이름 자리(36pt) + 아래 진행 칸 5개. ③ 본문 — 머리말 띠 + 제목 2줄 + 본문 창 하나. 바닥 줄(출처 · 쪽 번호)은 세 레이아웃 모두 같은 자리.</li>
+      <li><b>간지 전환</b>: [전환] → [나누기](세로 · 바깥쪽으로) 0.5초. 다른 장은 전환 없음.</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴</b>Galmuri11 Bold / Regular(제목·본문·숫자) · 대체 DotGothic16 · 맑은 고딕. 이 페이지는 쓰인 글자만 내장</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(창 도형 그룹과 도트 격자)</div>
+      <div><b>모션</b>간지 창 열림 1회(6단, 0.42초) · 나머지 정지 · 동작 줄이기 설정이면 바로 최종 화면</div>
+      <div><b>본문 요소</b>표·목록 · 모듈 표 + 막대 + 간트 · 평면 · 정지 · Ⅲ 세부 추진과제</div>
+      <div><b>트렌드</b>레트로 게임 UI를 정돈된 현대 레이아웃에 들이는 'Press Start' 마이크로트렌드 — 진행 막대·대화창 같은 게임 화면 요소를 정보 틀로 씀. <a href="https://www.adobe.com/express/learn/blog/microtrends-press-start" target="_blank" rel="noopener">Adobe Express, Press Start</a> · 픽셀 UI의 틀(대화창·메뉴) 문법: <a href="https://trends.daisyui.com/playful-illustrated-ui/" target="_blank" rel="noopener">daisyUI Trends</a></div>
+    </div>
+  </section>
+</main>
+
+<script id="px90-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    plan: '2027 ○○교육청 늘봄학교 운영 계획(안)',
+    source: '가상 예시 · ○○교육청 늘봄지원과',
+    // 다섯 장: 목차·간지·마무리가 함께 쓴다
+    sections: [
+      { no: 'Ⅰ', name: '추진 배경·현황', short: '배경·현황', sub: '늘봄 수요 · 돌봄 공백 · 2026 성과', lead: '수요는 늘고, 오후 돌봄은 비어 있다', pages: '3–5' },
+      { no: 'Ⅱ', name: '목표 및 지표', short: '목표·지표', sub: '참여율 · 전용실 · 만족도 목표', lead: '희망 학생은 모두 참여, 학교 업무는 가볍게', pages: '6–8' },
+      { no: 'Ⅲ', name: '세부 추진과제', short: '추진과제', sub: '핵심 과제 3 · 연계 과제 2', lead: '프로그램 · 공간 · 인력 · 지역 · 학부모', pages: '9–13' },
+      { no: 'Ⅳ', name: '추진체계', short: '추진체계', sub: '늘봄지원센터 · 학교 · 지역 기관', lead: '늘봄지원센터가 학교와 지역 기관을 잇는다', pages: '14–17' },
+      { no: 'Ⅴ', name: '일정 및 예산', short: '일정·예산', sub: '2027.3~2028.2 · 96.2억원', lead: '분기별 일정과 과제별 예산 96.2억원', pages: '18–20' }
+    ],
+    toc: {
+      title: '다섯 장으로 [늘봄학교 운영 계획]을 보고합니다',
+      total: '5장 · 20쪽',
+      info: [['운영 기간', '2027.3~2028.2'], ['대상', '초 1~2학년 희망 학생'], ['총 예산', '96.2억원'], ['과제', '핵심 3 · 연계 2']],
+      page: 2
+    },
+    divider: { current: 1 },          // 간지가 처음 보여 줄 장(0부터)
+    end: {
+      message: '학교가 끝나도 저녁까지,\n[모든 아이]가 안심하는 늘봄학교',
+      who: '문의처',
+      lines: ['○○교육청 늘봄지원과 · 담당 ○○○ 주무관', '전화 0○○-○○○-○○○○ · 메일 ○○○○@○○○.go.kr'],
+      note: '계획 원문은 교육청 누리집 › 정보공개 › 늘봄학교에서 내려받을 수 있습니다',
+      page: 21
+    },
+    // 계열 전용 본문: 세부 추진과제 목록표(예산 막대 1도트 = 1억원, 0에서 시작)
+    table: {
+      sec: 'Ⅲ', name: '세부 추진과제',
+      title: '다섯 과제 가운데 [맞춤 프로그램]에\n예산의 절반(48.0억원)을 둡니다',
+      groups: ['핵심\n과제', '연계\n과제'],
+      rows: [
+        { g: 0, name: '맞춤 프로그램 운영', desc: '1~2학년 매일 2시간 무상', dept: '늘봄지원과', months: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12], budget: 48.0, kpi: '80%', kpiName: '1~2학년 참여율' },
+        { g: 0, name: '늘봄 공간 재구조화', desc: '겸용 교실 → 늘봄 전용실', dept: '교육시설과', months: [1, 2, 3, 4, 5, 6, 7, 8], budget: 22.5, kpi: '120실', kpiName: '전용실 확보' },
+        { g: 0, name: '전담 인력 배치', desc: '늘봄 실무직원 채용·배치', dept: '교원인사과', months: [1, 2, 3], budget: 18.0, kpi: '150명', kpiName: '학교당 1명 이상' },
+        { g: 1, name: '지역 연계 확대', desc: '지자체·대학 프로그램 공동 운영', dept: '지역협력팀', months: [4, 5, 6, 7, 8, 9, 10, 11, 12], budget: 6.5, kpi: '40곳', kpiName: '협력 기관' },
+        { g: 1, name: '학부모 소통', desc: '설명회·만족도 조사 연 2회', dept: '늘봄지원과', months: [3, 9], budget: 1.2, kpi: '4.0점', kpiName: '만족도(5점 척도)' }
+      ],
+      source: '가상 예시 · 출처: ○○교육청 2027 늘봄학교 운영 계획(안) 재구성',
+      page: 9
+    }
+  };
+
+  var D = 4;                                   // 1 도트 = 4u
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var rich = function(s){ return esc(s).replace(/\[(.+?)\]/, '<em>$1</em>').replace(/\n/g, '<br>'); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  // 도트 좌표(x, y)에 글자 놓기. al: 'r' 오른쪽 끝 맞춤, 'c' 가운데
+  var at = function(x, y, cls, html, al){ return '<div class="px90-a ' + cls + (al ? ' px90-' + al : '') + '" style="left:' + u(x * D) + ';top:' + u(y * D) + '">' + html + '</div>'; };
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── 도트 붓: 캔버스 400×225 ──
+  function brush(root, cv){
+    var cs = getComputedStyle(root), C = function(n){ return cs.getPropertyValue('--ds-' + n).trim(); };
+    var g = cv.getContext('2d');
+    var px = function(x, y, w, h, c){ g.fillStyle = c; g.fillRect(x, y, w, h); };
+    var notch = function(x, y, w, h, c){ px(x + 1, y, w - 2, h, c); px(x, y + 1, w, h - 2, c); };
+    var B = {
+      C: C, px: px, g: g,
+      clear: function(){ g.clearRect(0, 0, 400, 225); },
+      dots: function(x0, x1, y, c){ for (var x = x0; x <= x1; x += 2) px(x, y, 1, 1, c); },
+      // 창: 그림자 → 먹 테 → 크림 안테 → 남색 바탕(모서리 1도트씩 깎음). band: 머리줄 높이
+      win: function(x, y, w, h, band){
+        notch(x + 2, y + 2, w, h, C('line'));
+        notch(x, y, w, h, C('ink'));
+        notch(x + 1, y + 1, w - 2, h - 2, C('c5'));
+        notch(x + 2, y + 2, w - 4, h - 4, C('c1'));
+        if (band){
+          // 머리줄: 왼쪽 55%는 c2로 채우고, 오른쪽으로 체크 무늬(디더)로 옅어진다
+          var x0 = x + 3, x1 = x + w - 4, w0 = x1 - x0;
+          for (var yy = y + 3; yy < y + 3 + band; yy++){
+            for (var xx = x0; xx <= x1; xx++){
+              var t = (xx - x0) / w0;
+              if (t < 0.55 || (t < 0.72 && (xx + yy) % 2 === 0) || (t < 0.84 && (xx + yy) % 4 === 0)) px(xx, yy, 1, 1, C('c2'));
+            }
+          }
+        }
+      },
+      // 커서 ▶(높이 7)
+      cursor: function(x, y, c){ for (var k = 0; k < 4; k++) px(x + k, y + k, 1, 7 - 2 * k, c); },
+      // 계속 ▼(폭 7)
+      down: function(x, y, c){ for (var k = 0; k < 4; k++) px(x + k, y + k, 7 - 2 * k, 1, c); },
+      // 진행 칸: kind = done(채움) / now(현재) / todo(빈 칸). s: 한 변
+      node: function(x, y, s, kind, o){
+        o = o || {};
+        if (kind === 'todo'){ px(x, y, s, 1, o.edge); px(x, y + s - 1, s, 1, o.edge); px(x, y, 1, s, o.edge); px(x + s - 1, y, 1, s, o.edge); return; }
+        px(x - 1, y - 1, s + 2, s + 2, o.out);
+        px(x, y, s, s, kind === 'now' ? o.now : o.done);
+        px(x, y, s, 1, o.shine);                       // 윗줄 반사 1도트
+      }
+    };
+    return B;
+  }
+
+  // ── 큰 로마 숫자: 비트맵(1 = 칠함)을 s배로 키우고 1도트 윤곽·2도트 그림자 ──
+  var GLYPH = {
+    I: ['11111', '00100', '00100', '00100', '00100', '00100', '00100', '00100', '11111'],
+    V: ['1100011', '1100011', '0100010', '0110110', '0110110', '0010100', '0011100', '0011100', '0001000']
+  };
+  var ROMAN = { 'Ⅰ': 'I', 'Ⅱ': 'II', 'Ⅲ': 'III', 'Ⅳ': 'IV', 'Ⅴ': 'V' };
+  function numeral(B, ch, cx, top, s){
+    var parts = (ROMAN[ch] || 'I').split(''), mask = {}, w = 0;
+    parts.forEach(function(p, i){
+      var gl = GLYPH[p];
+      gl.forEach(function(row, ry){ for (var rx = 0; rx < row.length; rx++) if (row[rx] === '1')
+        for (var a = 0; a < s; a++) for (var b = 0; b < s; b++) mask[(w + rx * s + a) + ',' + (ry * s + b)] = 1; });
+      w += gl[0].length * s + (i < parts.length - 1 ? s : 0);
+    });
+    var x0 = Math.round(cx - w / 2), k, xy;
+    var has = function(x, y){ return mask[x + ',' + y] === 1; };
+    // 그림자 → 윤곽 → 채움 → 윗면 반사
+    for (k in mask){ xy = k.split(','); B.px(x0 + +xy[0] + 2, top + +xy[1] + 2, 1, 1, B.C('ink')); }
+    for (k in mask){ xy = k.split(',').map(Number);
+      for (var dx = -1; dx <= 1; dx++) for (var dy = -1; dy <= 1; dy++) if (!has(xy[0] + dx, xy[1] + dy)) B.px(x0 + xy[0] + dx, top + xy[1] + dy, 1, 1, B.C('ink')); }
+    for (k in mask){ xy = k.split(',').map(Number); B.px(x0 + xy[0], top + xy[1], 1, 1, has(xy[0], xy[1] - 1) ? B.C('hi') : B.C('c5')); }
+  }
+
+  // ── 뼈대: 머리말 띠 · 바닥 줄 ──
+  function frameHtml(secNo, secName, page, source){
+    return at(20, 11, 'px90-sec', (secNo ? '<i>' + esc(secNo) + '.</i>' : '') + esc(secName)) +
+      at(380, 12, 'px90-plan', esc(DATA.plan), 'r') +
+      at(20, 212, 'px90-ft', esc(source || DATA.source)) +
+      at(380, 212, 'px90-ft', String(page), 'r');
+  }
+  function framePaint(B){ B.clear(); B.dots(20, 380, 22, B.C('line')); }
+  var nodeColors = function(B, inWin){
+    return inWin ? { edge: B.C('c3'), out: B.C('ink'), done: B.C('c4'), now: B.C('hi'), shine: B.C('c5') }
+                 : { edge: B.C('sub'), out: B.C('ink'), done: B.C('c3'), now: B.C('accent'), shine: B.C('surface') };
+  };
+
+  // ── 1 목차 ──
+  var TOC = {
+    html: function(){
+      var t = DATA.toc, h = frameHtml('', '목차', t.page);
+      h += '<div class="px90-a px90-tt" style="left:' + u(80) + ';top:' + u(112) + ';width:' + u(1440) + '">' + rich(t.title) + '</div>';
+      h += at(27, 62, 'px90-wh', '차례') + at(258, 62.5, 'px90-lb', esc(t.total), 'r');
+      DATA.sections.forEach(function(s, i){
+        var y = 74 + i * 26, on = i === 0;
+        h += at(33, y + 5, 'px90-rn' + (on ? ' px90-on' : ''), esc(s.no));
+        h += at(52, y + 3, 'px90-nm' + (on ? ' px90-on' : ''), esc(s.name));
+        h += at(52, y + 13, 'px90-sm', esc(s.sub));
+        h += at(258, y + 8, 'px90-pg', esc(s.pages) + '쪽', 'r');
+      });
+      // 오른쪽: 계획 정보 창 + 진행 창
+      h += at(281, 62, 'px90-wh', '계획 정보');
+      t.info.forEach(function(p, i){ var y = 75 + i * 15; h += at(281, y, 'px90-lb', esc(p[0])) + at(281, y + 4.5, 'px90-v', esc(p[1])); });
+      h += at(281, 150, 'px90-wh', '진행');
+      DATA.sections.forEach(function(s, i){ h += at(288 + i * 20, 176, 'px90-lb', esc(s.no), 'c'); });
+      h += at(281, 189, 'px90-lb', '다음 ▸ <span class="px90-on">' + esc(DATA.sections[0].no + ' ' + DATA.sections[0].name) + '</span>');
+      return h;
+    },
+    paint: function(B){
+      framePaint(B);
+      B.win(20, 56, 246, 150, 12);
+      DATA.sections.forEach(function(s, i){
+        var y = 74 + i * 26;
+        if (i === 0){ // 선택 줄: 금색 1도트 테 + 커서
+          var c = B.C('hi'); B.px(28, y, 233, 1, c); B.px(28, y + 23, 233, 1, c); B.px(28, y, 1, 24, c); B.px(260, y, 1, 24, c);
+          B.cursor(23, y + 8, B.C('c5'));
+        }
+        if (i < DATA.sections.length - 1) B.dots(29, 259, y + 25, B.C('c2'));
+      });
+      B.win(274, 56, 106, 82, 12);
+      B.win(274, 144, 106, 62, 12);
+      // 진행 칸 5개: 아직 시작 전, 다음 칸(Ⅰ)만 금색 테
+      var nc = nodeColors(B, true);
+      B.px(288, 168, 80, 1, B.C('c3'));
+      DATA.sections.forEach(function(s, i){
+        var x = 285 + i * 20;
+        B.px(x - 1, 164, 9, 9, B.C('c1'));
+        B.node(x, 165, 7, 'todo', nc);
+        if (i === 0){ var c = B.C('hi'); B.px(x - 2, 163, 11, 1, c); B.px(x - 2, 173, 11, 1, c); B.px(x - 2, 163, 1, 11, c); B.px(x + 8, 163, 1, 11, c); }
+      });
+    }
+  };
+
+  // ── 2 섹션 간지: 같은 틀, 번호·이름만 바꿔 다섯 번 ──
+  var WIN = { x: 56, y: 34, w: 288, h: 136 };
+  var DIV = {
+    cur: DATA.divider.current, open: 1,
+    html: function(){
+      var s = DATA.sections[this.cur], n = DATA.sections.length, h = frameHtml(s.no, s.name, s.pages.split('–')[0] - 1);
+      var t = '<div class="px90-txt' + (this.open < 1 ? ' px90-hide' : '') + '">';
+      t += at(65, 40, 'px90-wh', '제 ' + (this.cur + 1) + ' 장');
+      t += at(335, 40.5, 'px90-lb', esc(s.no) + ' / ' + esc(DATA.sections[n - 1].no), 'r');
+      t += at(200, 99, 'px90-big', esc(s.name), 'c');
+      t += at(200, 130, 'px90-ld', esc(s.lead), 'c');
+      t += at(335, 156, 'px90-lb', esc(s.pages) + '쪽', 'r');
+      t += '</div>';
+      DATA.sections.forEach(function(q, i){ h += at(162 + i * 19, 191, 'px90-tr', esc(q.no), 'c'); });
+      return h + t;
+    },
+    paint: function(B){
+      framePaint(B);
+      var o = this.open, hh = Math.max(4, Math.round(WIN.h * o)), y = WIN.y + Math.round((WIN.h - hh) / 2);
+      B.win(WIN.x, y, WIN.w, hh, o >= 1 ? 12 : 0);
+      if (o >= 1){
+        numeral(B, DATA.sections[this.cur].no, 200, 57, 4);
+        B.dots(90, 310, 125, B.C('c2'));
+      }
+      // 진행 칸: 지난 장 = 채움, 현재 = 강조색 + ▼, 남은 장 = 빈 칸
+      var nc = nodeColors(B, false), cur = this.cur;
+      B.px(162, 183, 76, 1, B.C('line'));
+      DATA.sections.forEach(function(q, i){
+        var x = 159 + i * 19;
+        B.px(x - 1, 179, 9, 9, B.C('bg'));
+        B.node(x, 180, 7, i < cur ? 'done' : i === cur && o >= 1 ? 'now' : 'todo', nc);
+        if (i === cur && o >= 1) B.down(x, 174, B.C('accent'));
+      });
+    }
+  };
+
+  // ── 3 마무리: 표지 의뢰인 대화창에 답하는 수미상관 ──
+  var END = {
+    html: function(){
+      var e = DATA.end, n = DATA.sections.length, h = frameHtml('', '맺음', e.page);
+      h += '<div class="px90-a px90-msg" style="left:' + u(80) + ';top:' + u(108) + ';width:' + u(1440) + '">' + rich(e.message) + '</div>';
+      h += at(27, 78, 'px90-wh px90-on', '보고 완료') + at(372, 78.5, 'px90-lb', n + ' / ' + n + '장', 'r');
+      DATA.sections.forEach(function(s, i){ h += at(56 + i * 72, 105, 'px90-trw', esc(s.no + ' ' + s.short), 'c'); });
+      h += at(36, 134.5, 'px90-wh px90-on', esc(e.who));
+      h += at(32, 151, 'px90-d1', esc(e.lines[0]));
+      h += at(32, 163, 'px90-d2', esc(e.lines[1]));
+      h += at(32, 184, 'px90-lb', esc(e.note));
+      return h;
+    },
+    paint: function(B){
+      framePaint(B);
+      B.win(20, 72, 360, 50, 12);
+      // 다섯 칸 모두 채움: 표지의 '진행 단계'가 끝까지 찬 모습
+      var nc = nodeColors(B, true);
+      B.px(56, 96, 288, 2, B.C('c3'));
+      DATA.sections.forEach(function(s, i){ var x = 52 + i * 72; B.px(x - 2, 90, 13, 13, B.C('c1')); B.node(x, 92, 9, 'done', nc); });
+      // 대화창 + 이름표 창 + 계속 ▼
+      B.win(20, 136, 360, 70, 0);
+      B.win(28, 129, 64, 16, 0);
+      B.dots(30, 370, 178, B.C('c2'));
+      B.down(365, 196, B.C('hi'));
+    }
+  };
+
+  // ── 4 계열 전용 본문: 세부 추진과제 목록표 ──
+  var COL = { g: 24, cur: 51, name: 56, dept: 141, mon: 186, num: 268, bar: 272, kpi: 328 };
+  var TBL = {
+    html: function(){
+      var t = DATA.table, h = frameHtml(t.sec, t.name, t.page, t.source), top = 0;
+      t.rows.forEach(function(r, i){ if (r.budget > t.rows[top].budget) top = i; });
+      h += '<div class="px90-a px90-tt" style="left:' + u(80) + ';top:' + u(112) + ';width:' + u(1440) + '">' + rich(t.title) + '</div>';
+      h += at(COL.g + 2.5, 63, 'px90-th', '구분') + at(COL.name, 63, 'px90-th', '과제') + at(COL.dept, 63, 'px90-th', '주관');
+      h += at(COL.mon, 60, 'px90-th', '2027 추진 월');
+      [1, 6, 12].forEach(function(m){ h += at(COL.mon + (m - 1) * 5 + 2, 66.5, 'px90-td', String(m), 'c'); });
+      h += at(COL.num, 63, 'px90-th', '예산', 'r') + at(COL.bar, 63, 'px90-th', '억원 · 1도트=1억');
+      h += at(COL.kpi, 63, 'px90-th', '성과지표 목표');
+      var gy = {};
+      t.rows.forEach(function(r, i){
+        var y = 75 + i * 23, on = i === top;
+        (gy[r.g] = gy[r.g] || []).push(y);
+        h += at(COL.name, y + 3.5, 'px90-tn' + (on ? ' px90-on' : ''), esc(r.name));
+        h += at(COL.name, y + 13, 'px90-td', esc(r.desc));
+        h += at(COL.dept, y + 7.5, 'px90-td', esc(r.dept));
+        h += at(COL.num, y + 7, 'px90-tv' + (on ? ' px90-on' : ''), r.budget.toFixed(1), 'r');
+        h += at(COL.kpi, y + 3.5, 'px90-kv', esc(r.kpi));
+        h += at(COL.kpi, y + 13, 'px90-td', esc(r.kpiName));
+      });
+      Object.keys(gy).forEach(function(g){ var ys = gy[g], mid = (ys[0] + ys[ys.length - 1] + 23) / 2; h += '<div class="px90-a px90-gn" style="left:' + u(COL.g * D) + ';top:' + u(mid * D) + ';width:' + u(26 * D) + ';transform:translateY(-50%)">' + rich(t.groups[g]) + '</div>'; });
+      var sum = t.rows.reduce(function(a, r){ return a + r.budget; }, 0);
+      h += at(COL.name, 192.5, 'px90-tn', '합계') + at(COL.num, 192.5, 'px90-tv', sum.toFixed(1), 'r');
+      h += at(COL.bar, 194, 'px90-td', t.rows.map(function(r){ return r.budget.toFixed(1); }).join(' + '));
+      return h;
+    },
+    paint: function(B){
+      var t = DATA.table, top = 0;
+      t.rows.forEach(function(r, i){ if (r.budget > t.rows[top].budget) top = i; });
+      framePaint(B);
+      B.win(20, 56, 360, 150, 14);
+      var prevG = null, gs = {};
+      t.rows.forEach(function(r, i){
+        var y = 75 + i * 23, on = i === top;
+        (gs[r.g] = gs[r.g] || []).push(y);
+        // 줄 구분: 같은 묶음 안은 점선, 묶음이 바뀌면 실선
+        if (i > 0) { if (r.g !== prevG) B.px(23, y - 1, 354, 1, B.C('c3')); else B.dots(COL.name - 3, 375, y - 1, B.C('c2')); }
+        prevG = r.g;
+        if (on) B.cursor(COL.cur, y + 8, B.C('hi'));
+        // 12칸 달력: 추진 월 = 채움, 나머지 = 바닥 점
+        for (var m = 1; m <= 12; m++){
+          var x = COL.mon + (m - 1) * 5;
+          if (r.months.indexOf(m) >= 0){ B.px(x, y + 7, 4, 8, on ? B.C('hi') : B.C('c4')); B.px(x, y + 7, 4, 1, B.C('c5')); }
+          else { B.px(x, y + 14, 4, 1, B.C('c2')); }
+        }
+        // 예산 막대: 1도트 = 1억원(선형, 0에서 시작)
+        var w = Math.max(1, Math.round(r.budget));
+        B.px(COL.bar, y + 7, w, 8, on ? B.C('hi') : B.C('c4'));
+        B.px(COL.bar, y + 7, w, 1, B.C('c5'));
+        B.px(COL.bar - 1, y + 5, 1, 12, B.C('c3'));     // 0 기준선
+      });
+      // 구분 칸: 행 여러 개를 덮는 세로 칸
+      Object.keys(gs).forEach(function(g){ var ys = gs[g]; B.px(COL.g, ys[0], 26, ys[ys.length - 1] + 22 - ys[0], B.C('c2')); });
+      // 달력 머리 눈금(1·6·12월)
+      [1, 6, 12].forEach(function(m){ B.px(COL.mon + (m - 1) * 5 + 1, 72, 2, 1, B.C('c4')); });
+      // 합계 줄
+      B.px(23, 190, 354, 1, B.C('c5'));
+    }
+  };
+
+  var KIND = { toc: TOC, div: DIV, end: END, tbl: TBL };
+  var slides = [];
+  function draw(sl){ sl.layer.innerHTML = sl.k.html(); sl.k.paint(brush(sl.el, sl.cv)); }
+  function render(el){
+    var k = KIND[el.getAttribute('data-px')];
+    if (!k) return;
+    el.innerHTML = '<div class="px90-in"><canvas class="px90-cv" width="400" height="225"></canvas><div class="px90-layer"></div></div>';
+    var sl = { el: el, k: k, cv: el.querySelector('canvas'), layer: el.querySelector('.px90-layer') };
+    slides.push(sl); draw(sl);
+  }
+  document.querySelectorAll('.px90[data-px]').forEach(render);
+  function paint(){ slides.forEach(draw); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(paint);
+
+  // 간지 전환: 창이 가운데서 위아래로 6단 계단처럼 열린다(0.42초, 한 번)
+  var timer = null;
+  function show(i){
+    var sl = slides.filter(function(s){ return s.k === DIV; })[0];
+    if (!sl) return;
+    DIV.cur = Math.max(0, Math.min(DATA.sections.length - 1, i));
+    clearTimeout(timer);
+    if (reduce){ DIV.open = 1; draw(sl); return; }
+    var step = 0, STEPS = 6;
+    (function tick(){
+      step++; DIV.open = step / STEPS; draw(sl);
+      if (step < STEPS) timer = setTimeout(tick, 70);
+    })();
+  }
+  window.px90 = { paint: paint, show: show, data: DATA };
+})();
+</script>
+<script>
+(function(){
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-hi','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FONT = '"Galmuri11","DotGothic16","Malgun Gothic",monospace';
+  var FAM = {
+    A: { name: 'A 픽셀 게임 · 낮(기본)', v: { '--ds-bg': '#F1EBDC', '--ds-surface': '#FFFBF0', '--ds-ink': '#1D1B2E', '--ds-sub': '#5E5870', '--ds-line': '#CFC4A6', '--ds-accent': '#D23B52', '--ds-accent2': '#2B4A8F', '--ds-c1': '#1D2B53', '--ds-c2': '#2F4C8C', '--ds-c3': '#5A82D0', '--ds-c4': '#A9C8F5', '--ds-c5': '#F7F2E4', '--ds-hi': '#FFCF4A' } },
+    A2: { name: 'A 픽셀 게임 · 밤(#9 표지 색)', v: { '--ds-bg': '#14132A', '--ds-surface': '#1D2B53', '--ds-ink': '#F4F0E6', '--ds-sub': '#A9B3C9', '--ds-line': '#0A0915', '--ds-accent': '#FFCF4A', '--ds-accent2': '#6CC66A', '--ds-c1': '#26386E', '--ds-c2': '#4161A8', '--ds-c3': '#6E94DE', '--ds-c4': '#A9C8F5', '--ds-c5': '#F4F0E6', '--ds-hi': '#FFE9A8' } }
+  };
+  ['A', 'A2'].forEach(function(k){ var v = FAM[k].v; v['--ds-font-title'] = v['--ds-font-body'] = v['--ds-font-num'] = FONT; v['--ds-radius'] = '0px'; v['--ds-shadow'] = 'none'; });
+  var DESC = { '--ds-bg': '바탕', '--ds-surface': '면', '--ds-ink': '글자', '--ds-sub': '보조 글자', '--ds-line': '선·그림자', '--ds-accent': '강조(바탕 위 1곳)', '--ds-accent2': '보조 강조', '--ds-c1': '창 바탕', '--ds-c2': '창 머리·구분', '--ds-c3': '축·칸 테', '--ds-c4': '창 보조 글자·막대', '--ds-c5': '창 글자·안테', '--ds-hi': '창 안 선택(1곳)' };
+  var slideEls = document.querySelectorAll('.px90[data-px]');
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    slideEls.forEach(function(el){ KEYS.forEach(function(k){ if (key === 'A') el.style.removeProperty(k); else el.style.setProperty(k, FAM[key].v[k]); }); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+    window.px90.paint();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window.pxFam = apply;
+  // 간지 섹션 버튼
+  var secBtns = document.querySelectorAll('[data-sec]'), cur = 1;
+  secBtns.forEach(function(b){ b.addEventListener('click', function(){ cur = +b.dataset.sec; secBtns.forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); }); window.px90.show(cur); }); });
+  document.getElementById('replay').addEventListener('click', function(){ window.px90.show(cur); });
+  // 색 견본
+  document.getElementById('sws').innerHTML = Object.keys(DESC).map(function(k){ var c = FAM.A.v[k]; return '<div class="sw-i"><i style="background:' + c + '"></i><div><code>' + k + '</code><code>' + c + '</code><span>' + DESC[k] + '</span></div></div>'; }).join('');
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var LINK = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.40.3/dist/galmuri.css">';
+  var css = document.getElementById('px90-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById('px90-js').textContent.replace(/^\n+|\s+$/g, '');
+  var marks = Array.prototype.map.call(slideEls, function(el){ return '<div class="px90" id="' + el.id + '" data-px="' + el.getAttribute('data-px') + '" role="img" aria-label="' + el.getAttribute('aria-label') + '"></div>'; }).join('\n');
+  var codeAll = '<meta charset="utf-8">\n' + LINK + '\n<style>\n' + css + '\n</style>\n\n' + marks + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var tokLines = function(k, sel){ return sel + '{\n' + KEYS.map(function(x){ return '  ' + x + ':' + FAM[k].v[x] + ';'; }).join('\n') + '\n}'; };
+  var codeTok = '/* A 픽셀 게임 계열 값 — 낮(기본). 글꼴: ' + LINK + ' */\n' + tokLines('A', ':root') + '\n\n/* 밤 값: 표지 #9~#12처럼 어두운 덱. 장표 감싸는 요소에 class="ds-a-night" */\n' + tokLines('A2', '.ds-a-night');
+  var CODES = { 'code-all': codeAll, 'code-tok': codeTok };
+  Object.keys(CODES).forEach(function(id){ document.getElementById(id).textContent = CODES[id]; });
+  window.pxCodes = CODES;
+  function selectAll(pre){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = b.dataset.copy, pre = document.getElementById(id), msg = document.getElementById(id + '-msg');
+      var fail = function(){ selectAll(pre); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; };
+      try { navigator.clipboard.writeText(CODES[id]).then(function(){ msg.textContent = '복사했습니다.'; }, fail); } catch (e){ fail(); }
+    });
+  });
+  // 스펙 표: 변수 × 낮/밤
+  var t = '<thead><tr><th>변수</th><th>쓰임</th><th>' + FAM.A.name + '</th><th>' + FAM.A2.name + '</th></tr></thead><tbody>';
+  Object.keys(DESC).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td><td>' + DESC[k] + '</td>' + ['A', 'A2'].map(function(f){ var c = FAM[f].v[k]; return '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; }).join('') + '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius / shadow</code></td><td>모서리·그림자</td><td colspan="2"><code>0px / none</code> (그림자는 캔버스의 2도트로만)</td></tr>';
+  t += '<tr><td><code>--ds-font-*</code></td><td>제목·본문·숫자</td><td colspan="2">Galmuri11 700 / 400 / 700</td></tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+
+</body></html>

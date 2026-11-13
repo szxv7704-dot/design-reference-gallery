@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #81 판본 목록표</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:600;font-display:swap;src:url("../fonts/GothicA1-600.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexSansKR-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:700;font-display:swap;src:url("../fonts/IBMPlexSansKR-700.woff2") format("woff2")}
+@font-face{font-family:"Nanum Myeongjo";font-weight:700;font-display:swap;src:url("../fonts/NanumMyeongjo-700.woff2") format("woff2")}
+@font-face{font-family:"Nanum Myeongjo";font-weight:800;font-display:swap;src:url("../fonts/NanumMyeongjo-800.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:400;font-display:swap;src:url("../fonts/NotoSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:500;font-display:swap;src:url("../fonts/NotoSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans KR";font-weight:700;font-display:swap;src:url("../fonts/NotoSansKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:600;font-display:swap;src:url("../fonts/NotoSerifKR-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:700;font-display:swap;src:url("../fonts/NotoSerifKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:800;font-display:swap;src:url("../fonts/NotoSerifKR-800.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:600;font-display:swap;src:url("../fonts/SairaSemiCondensed-600.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-display:swap;src:url("../fonts/SairaSemiCondensed-700.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+</style>
+<style id="ps81-css">
+/* 표·목록 '판본 목록표' — H 전통 공예·문양 계열에 맞춘 본문 요소. 접두어 ps81 / 색은 --ds-* 변수로만 */
+.ps81{
+  /* 공통 변수: H 기본 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F4F3EE; --ds-surface:#FBFAF6; --ds-ink:#1F252C; --ds-sub:#5E5A52; --ds-line:#D3CEC2;
+  --ds-accent:#B8402E; --ds-accent2:#2E7D5B;
+  --ds-c1:#1F4A3A; --ds-c2:#2E6B53; --ds-c3:#5E937C; --ds-c4:#A9C7B8; --ds-c5:#E2ECE5;
+  --ds-font-title:"Nanum Myeongjo","Noto Serif KR","AppleMyungjo","Batang",serif;
+  --ds-font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Nanum Myeongjo","Noto Serif KR","AppleMyungjo","Batang",serif;
+  --ds-radius:0px;
+  --ds-shadow:0 1px 0 rgba(31,37,44,.06),0 14px 30px -20px rgba(31,37,44,.30);
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps81 *{box-sizing:border-box}
+.ps81-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.35;word-break:keep-all}
+.ps81-a{position:absolute}
+.ps81-svg{position:absolute;left:0;top:0;width:100%;height:100%}
+.ps81-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps81-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*20);color:var(--ds-c1)}
+.ps81-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:700;color:var(--ds-c3)}
+.ps81-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps81-tt{left:calc(var(--u)*80);top:calc(var(--u)*106);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*36);line-height:1.28;letter-spacing:-.02em}
+.ps81-tt em{font-style:normal;color:var(--ds-accent)}
+/* 머리 행 */
+.ps81-th{display:flex;align-items:center;font-size:calc(var(--u)*13);font-weight:700;color:var(--ds-sub);letter-spacing:.02em}
+.ps81-th.c{justify-content:center}.ps81-th.r{justify-content:flex-end}
+.ps81-mo{display:flex;align-items:center;justify-content:center;font-family:var(--ds-font-num);font-weight:700;font-size:calc(var(--u)*13);color:var(--ds-sub)}
+/* 갈래(판심): 세로쓰기 */
+.ps81-grp{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*24);letter-spacing:.3em;color:var(--ds-c1)}
+/* 본문 칸 */
+.ps81-c{display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*2)}
+.ps81-c.r{align-items:flex-end}
+.ps81-pn{font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*18);color:var(--ds-ink);white-space:nowrap}
+.ps81-pd{font-size:calc(var(--u)*12.5);color:var(--ds-sub);white-space:nowrap}
+.ps81-tx{font-size:calc(var(--u)*14.5);color:var(--ds-ink);white-space:nowrap}
+.ps81-num{font-family:var(--ds-font-num);font-weight:800;font-size:calc(var(--u)*18);color:var(--ds-ink);white-space:nowrap}
+.ps81-num small{font-family:var(--ds-font-body);font-weight:400;font-size:calc(var(--u)*12);color:var(--ds-sub);margin-left:calc(var(--u)*2)}
+.ps81-sum{font-size:calc(var(--u)*13);font-weight:700;color:var(--ds-c1);display:flex;align-items:center}
+.ps81-cnt{font-family:var(--ds-font-num);font-weight:800;font-size:calc(var(--u)*13);color:var(--ds-c1);text-align:center}
+.ps81-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 81 · 본문 요소 · 표·목록 · H 전통 계열 · 정지 · 가상 예시</div>
+    <h1>판본 목록표</h1>
+    <p class="pg-lead">프로그램 여덟 개를 목판본 판면(사주쌍변 · 계선 · 판심 · 흑어미)으로 짠 목록표. 표 안에 12칸 운영 월 띠를 넣고, 아래 행에서 달별 개수를 세어 "사계절에 고루"를 받친다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps81" id="ps81" data-slide role="img" aria-label="지역 전통문화 예술교육 프로그램 여덟 개의 갈래, 대상, 운영 월, 연계 기관, 참여 인원과 달별 운영 수"></div></div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="H" aria-pressed="true">H 전통 공예·문양(기본)</button><button class="btn" type="button" data-fam="D" aria-pressed="false">D 인쇄·종이</button><button class="btn" type="button" data-fam="E" aria-pressed="false">E 자연 재질</button></div>
+  </section>
+  
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅲ장 줄글, 가상)</h3>
+        <p class="raw">2027년에는 지역 기관과 함께 전통문화 예술교육 프로그램 여덟 가지를 운영한다. <mark class="g" data-n="공예">한지공방 협동조합이 초등 5~6학년에게 3~6월 매듭·한지 공예(학교로 찾아가는 6차시, 480명)를, 전통공예관이 중학교 1~2학년에게 9~11월 옻칠 소반 만들기(260명)를 맡는다.</mark> <mark class="g" data-n="음악">국악원은 초등 3~4학년 찾아가는 국악 교실(학급당 8차시, 1,200명)을 방학을 뺀 4~11월에, 풍물보존회는 중·고 풍물 동아리(340명)를 3~12월 주 1회 지원한다.</mark> <mark class="g" data-n="놀이">5월과 10월에는 민속놀이보존회와 유치원·초 저학년 전통놀이 한마당(2,400명)을, 향교와 함께 단오·추석·동지에 세시풍속 체험(900명)을 연다.</mark> <mark class="g" data-n="답사">중·고 향교·서원 인문 답사(520명)는 4·5·10월, 고 1~2 무형유산 전승자 만남(180명)은 7·11월이다.</mark> <mark class="k" data-n="결론">프로그램을 계절별로 나눠 학교가 학기 중 언제든 신청할 수 있게 한다.</mark></p>
+        <div class="key"><span><i class="kg"></i>갈래별 문장(프로그램 2개씩)</span><span><i class="kk"></i>결론(제목 · 아래 합계 행)</span><span>이름 = 장표의 갈래 칸</span></div>
+      </div>
+      <div class="panel">
+        <div class="grp-h">한 문장 → 한 행 (여섯 칸으로 쪼개기)</div>
+        <ul class="grp">
+          <li><span class="n">갈래</span><div><b>문장 묶음 → 왼쪽 판심 칸</b><em>원문이 이미 "공예 · 음악 · 놀이 · 답사" 순서로 두 개씩 말한다. 갈래 이름은 세로쓰기로 판심 칸에, 갈래 사이는 겹줄로 가른다</em></div></li>
+          <li><span class="n">한 행</span><div><b>"누가 · 누구에게 · 언제 · 무엇을(몇 명)" → 여섯 칸</b><em>프로그램 · 대상 · 운영 월 · 연계 기관 · 인원. 운영 월은 글자 대신 12칸 띠로 칠한다</em></div></li>
+          <li><span class="n n1">결론</span><div><b>"계절별로 나눠" → 아래 합계 행</b><em>달마다 운영 프로그램 수를 세어 막대로. 1·2·8월(방학)만 비고 나머지 달이 고르게 찬 것이 결론의 근거다</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">포함 (갈래⊃행)</span><span>판심 칸 하나가 행 두 개를 품는다. 위아래 흑어미가 갈래의 시작과 끝을 표시한다.</span></div>
+          <div><span class="k">시간 (행↔달)</span><span>운영 월 띠는 이어진 달을 한 띠로 붙여, 연속 운영과 띄엄띄엄 운영이 한눈에 갈린다.</span></div>
+          <div><span class="k">근거 (행→합계)</span><span>각 행의 칠한 칸을 세로로 더한 값이 아래 합계 행이다. 제목의 "고루"가 이 막대들로 확인된다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>프로그램 목록을 <b>목판본의 판면</b> 문법으로 짰다. 바깥 굵은 테와 안쪽 가는 테(사주쌍변)가 표 전체를 감싸고, 세로 칸줄(계선)이 열을 가르며, 왼쪽 판심 칸에 갈래 이름을 세로로 쓰고 위아래에 흑어미를 붙였다. 표 가운데에는 12칸 운영 월 띠를 넣어 목록과 일정을 한 장에 합쳤다. 맨 아래 합계 행은 달마다 몇 개가 열리는지 세어, 제목의 "사계절에 고루"를 숫자로 받친다.</p>
+    <p><b>가져갈 장치 1: 표 안의 월 띠.</b> 운영 시기를 "3~6월"처럼 글로 쓰지 않고 12칸에 칠한다. 이어진 달은 한 띠로 붙여 연속 운영이 보이고, 방학 달은 바탕을 비워 학기와 구분한다.</p>
+    <p><b>가져갈 장치 2: 세로로 더한 합계 행.</b> 표의 칠한 칸을 달별로 세어 아래 행에 막대로 둔다. 목록 장표가 "그래서 고르게 퍼졌다"는 결론까지 말하게 된다.</p>
+    <p><b>가져갈 장치 3: 판면 문법.</b> 사주쌍변 · 계선 · 판심 · 흑어미 네 가지 판본 요소를 장식이 아니라 표의 테두리 · 열 구분 · 묶음 머리로 썼다. 전통 계열 표지(#58) 뒤에 이어도 문법이 같다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>학교 예술교육 지원 사업 목록: 갈래 = 지원 유형, 월 띠 = 공모 · 운영 기간</li>
+      <li>연간 연수 계획표: 갈래 = 연수 대상(신규 · 경력 · 관리자), 합계 행 = 달별 연수 수</li>
+      <li>지역 연계 체험처 목록: 갈래 = 권역, 월 띠 = 개방 기간</li>
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>groups</code>는 갈래마다 프로그램 목록이고, <code>months</code>에 운영 달(1~12)을 적으면 띠와 아래 합계가 자동으로 칠해집니다(행 8개 기준, 갈래당 1~3개).</li>
+      <li>방학 달 바탕은 스크립트의 <code>[1, 2, 8]</code>에서 바꿉니다.</li>
+      <li>계열 분위기는 <code>.ps81{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값). 제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>사주쌍변</b>: 표 바깥에 사각형 두 개 — 바깥 2.5pt 먹색, 안쪽 0.75pt 먹색을 0.2cm 안쪽에. 표 자체의 바깥 테두리는 없앤다.</li>
+      <li><b>표</b>: 6열 × 10행(머리 1 · 본문 8 · 합계 1). 첫째 열 셀 병합(갈래당 2행), 세로 텍스트 방향 "세로", 채우기 옅은 초록. 가로선은 0.5pt 회색, 갈래 사이만 0.75pt 겹선([테두리 → 이중선]).</li>
+      <li><b>흑어미</b>: [도형 → 오각형(화살표)]을 아래로 돌려 갈래 칸 위에, 위로 돌려 아래에. 폭 1cm · 높이 0.35cm, 먹초록 채움.</li>
+      <li><b>운영 월 띠</b>: 운영 월 열을 12개로 나누는 대신, 열 하나 위에 0.85×0.45cm 사각형을 달마다 놓는다. 이어진 달은 사각형 하나를 늘려 붙인다. 방학 달 세로 띠는 배경색 사각형을 맨 뒤에.</li>
+      <li><b>합계 행</b>: 달마다 작은 세로 막대(높이 = 개수 ÷ 최대 × 0.6cm)와 숫자.</li>
+      <li><b>정지 장표</b>: 애니메이션 없음. 글꼴은 나눔명조 ExtraBold(제목 · 갈래 · 숫자) + Noto Sans KR(본문).</li>
+    </ol>
+  </section>
+
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(H)</b>나눔명조 800(제목 · 갈래 · 숫자) + Noto Sans KR(본문) · 대체 바탕 · 맑은 고딕</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(셀 병합 · 세로쓰기 · 띠 사각형)</div>
+      <div><b>질감 · 모션</b>평면 · 정지</div>
+      <div><b>모듈 · 위치</b>표(판본 목록표) + 간트(운영 월 띠 · 합계 막대) · Ⅲ 세부 추진과제</div>
+      <div><b>어울리는 계열</b>H 전통 공예·문양(표지 #58 뒤에) · D 인쇄·종이 · E 자연 재질</div>
+      <div><b>트렌드</b>문화유산의 시각 문법을 현대 정보 디자인에 옮기는 '헤리티지 모던' — 판본의 광곽 · 계선 · 판심 구조 참고: <a href="https://encykorea.aks.ac.kr/Article/E0061541" target="_blank" rel="noopener">한국민족문화대백과, 판심</a> · <a href="https://encykorea.aks.ac.kr/Article/E0005186" target="_blank" rel="noopener">한국민족문화대백과, 광곽</a></div>
+    </div>
+  </section>
+
+</main>
+<script id="ps81-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다 ──
+  var DATA = {
+    sectionNo: 'Ⅲ', sectionName: '세부 추진과제',
+    plan: '2027 ○○교육청 지역 전통문화 예술교육 운영 계획',
+    title: '여덟 개 프로그램을 [사계절]에 고루 펴서, 학교가 학기 중 언제든 고를 수 있게 했습니다',
+    head: ['갈래', '프로그램', '대상', '운영 월', '연계 기관', '참여 인원'],
+    // 갈래마다 프로그램 2개. months = 운영하는 달(1~12)
+    groups: [
+      { name: '공예', items: [
+        { name: '매듭·한지 공예', note: '학교로 찾아가는 6차시', who: '초 5~6', months: [3,4,5,6], org: '○○ 한지공방 협동조합', n: 480 },
+        { name: '옻칠 소반 만들기', note: '공예관 방문 4차시', who: '중 1~2', months: [9,10,11], org: '○○ 전통공예관', n: 260 } ] },
+      { name: '음악', items: [
+        { name: '찾아가는 국악 교실', note: '학급당 8차시', who: '초 3~4', months: [4,5,6,7,9,10,11], org: '○○ 국악원', n: 1200 },
+        { name: '학교 풍물 동아리', note: '주 1회 강사 지원', who: '중·고', months: [3,4,5,6,7,9,10,11,12], org: '지역 풍물보존회', n: 340 } ] },
+      { name: '놀이', items: [
+        { name: '전통놀이 한마당', note: '유치원·초 저학년 합동', who: '유·초 1~2', months: [5,10], org: '○○ 민속놀이보존회', n: 2400 },
+        { name: '세시풍속 체험', note: '단오·추석·동지', who: '초 전 학년', months: [6,9,12], org: '○○ 향교', n: 900 } ] },
+      { name: '답사', items: [
+        { name: '향교·서원 인문 답사', note: '반나절 현장 학습', who: '중·고', months: [4,5,10], org: '○○ 향교 · ○○ 서원', n: 520 },
+        { name: '무형유산 전승자 만남', note: '전수관 초청 강연', who: '고 1~2', months: [7,11], org: '○○ 무형유산 전수관', n: 180 } ] }
+    ],
+    personUnit: '명',
+    source: '가상 예시 · 출처: ○○교육청 2026 전통문화 예술교육 수요조사(초·중·고 212교) 재구성',
+    page: 11
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var FX = 80, FY = 228, FW = 1440, FH = 576;         // 광곽(바깥 굵은 테 + 안쪽 가는 테 = 사주쌍변)
+  var IN = 7;                                          // 두 테 사이
+  var COLS = [120, 316, 140, 420, 268, 156];           // 열 너비(합 = FW - 2*IN - 4)
+  var HEAD_H = 42, ROW_H = 58, SUM_H = 52;
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + ';height:' + u(h); };
+  var num = function(v){ return v.toLocaleString('ko-KR'); };
+
+  function render(root){
+    var h = '', svg = '';
+    var x0 = FX + IN + 2, y0 = FY + IN + 2;
+    var cx = [x0]; COLS.forEach(function(w){ cx.push(cx[cx.length - 1] + w); });
+    h += '<div class="ps81-a ps81-hd"><div class="ps81-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps81-plan">' + esc(DATA.plan) + '</div></div>';
+    h += '<div class="ps81-a ps81-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>';
+
+    // 사주쌍변: 바깥 굵은 테 + 안쪽 가는 테
+    svg += '<rect x="' + FX + '" y="' + FY + '" width="' + FW + '" height="' + FH + '" style="fill:var(--ds-surface);stroke:var(--ds-ink);stroke-width:3.5"/>';
+    svg += '<rect x="' + (FX + IN) + '" y="' + (FY + IN) + '" width="' + (FW - 2 * IN) + '" height="' + (FH - 2 * IN) + '" style="fill:none;stroke:var(--ds-ink);stroke-width:1.2"/>';
+
+    // 판심 열(갈래) 바탕: 옅은 색
+    var yb = y0 + HEAD_H, nRows = DATA.groups.reduce(function(s, g){ return s + g.items.length; }, 0);
+    var yEnd = yb + nRows * ROW_H;
+    svg += '<rect x="' + cx[0] + '" y="' + y0 + '" width="' + COLS[0] + '" height="' + (yEnd + SUM_H - y0) + '" style="fill:var(--ds-c5)"/>';
+    // 머리 행 아래 굵은 선, 계선(세로 칸줄)
+    svg += '<line x1="' + (FX + IN) + '" x2="' + (FX + FW - IN) + '" y1="' + yb + '" y2="' + yb + '" style="stroke:var(--ds-ink);stroke-width:1.2"/>';
+    for (var c = 1; c < cx.length - 1; c++){
+      svg += '<line x1="' + cx[c] + '" x2="' + cx[c] + '" y1="' + (FY + IN) + '" y2="' + (FY + FH - IN) + '" style="stroke:' + (c === 1 ? 'var(--ds-ink)' : 'var(--ds-line)') + ';stroke-width:' + (c === 1 ? 1.2 : 1) + '"/>';
+    }
+    // 머리 행
+    var cls = ['c', '', '', 'c', '', 'r'];
+    DATA.head.forEach(function(t, i){
+      if (i === 3) return;
+      h += '<div class="ps81-a ps81-th ' + cls[i] + '" style="' + box(cx[i] + (i ? 16 : 0), y0, COLS[i] - (i ? 32 : 0), HEAD_H) + '">' + esc(t) + '</div>';
+    });
+    // 운영 월 머리: 1~12
+    var MW = COLS[3] / 12;
+    for (var m = 1; m <= 12; m++) h += '<div class="ps81-a ps81-mo" style="' + box(cx[3] + (m - 1) * MW, y0, MW, HEAD_H) + '">' + m + '</div>';
+    // 학기 구분: 방학(1·2·8월) 칸은 옅은 빗금 대신 옅은 바탕
+    [1, 2, 8].forEach(function(m){ svg += '<rect x="' + (cx[3] + (m - 1) * MW) + '" y="' + yb + '" width="' + MW + '" height="' + (nRows * ROW_H) + '" style="fill:var(--ds-bg)"/>'; });
+
+    // 본문 행
+    var r = 0, cnt = new Array(13).fill(0);
+    DATA.groups.forEach(function(g, gi){
+      var gy = yb + r * ROW_H, gh = g.items.length * ROW_H;
+      // 갈래 이름(세로쓰기) + 위아래 어미(흑어미: 판심의 물고기 꼬리 모양 표지)
+      var mx = cx[0] + COLS[0] / 2, ew = 40, eh = 13;
+      svg += '<path d="M' + (mx - ew / 2) + ' ' + (gy + 8) + 'h' + ew + 'v' + (eh * .45) + 'l' + (-ew / 2) + ' ' + (eh * .55) + 'l' + (-ew / 2) + ' ' + (-eh * .55) + 'z" style="fill:var(--ds-c1)"/>';
+      svg += '<path d="M' + (mx - ew / 2) + ' ' + (gy + gh - 8) + 'h' + ew + 'v' + (-eh * .45) + 'l' + (-ew / 2) + ' ' + (-eh * .55) + 'l' + (-ew / 2) + ' ' + (eh * .55) + 'z" style="fill:var(--ds-c1)"/>';
+      svg += '<line x1="' + (mx - ew / 2) + '" x2="' + (mx + ew / 2) + '" y1="' + (gy + 8 + eh + 4) + '" y2="' + (gy + 8 + eh + 4) + '" style="stroke:var(--ds-c1);stroke-width:1"/>';
+      svg += '<line x1="' + (mx - ew / 2) + '" x2="' + (mx + ew / 2) + '" y1="' + (gy + gh - 8 - eh - 4) + '" y2="' + (gy + gh - 8 - eh - 4) + '" style="stroke:var(--ds-c1);stroke-width:1"/>';
+      h += '<div class="ps81-a ps81-grp" style="' + box(cx[0], gy + 26, COLS[0], gh - 52) + '">' + esc(g.name) + '</div>';
+      g.items.forEach(function(it, ii){
+        var y = yb + r * ROW_H;
+        if (ii === 0 && gi > 0){ // 갈래 사이 겹줄
+          svg += '<line x1="' + (FX + IN) + '" x2="' + (FX + FW - IN) + '" y1="' + (y - 1.5) + '" y2="' + (y - 1.5) + '" style="stroke:var(--ds-ink);stroke-width:1"/>';
+          svg += '<line x1="' + cx[1] + '" x2="' + (FX + FW - IN) + '" y1="' + (y + 1.5) + '" y2="' + (y + 1.5) + '" style="stroke:var(--ds-ink);stroke-width:.6"/>';
+        } else if (ii > 0){
+          svg += '<line x1="' + cx[1] + '" x2="' + (FX + FW - IN) + '" y1="' + y + '" y2="' + y + '" style="stroke:var(--ds-line);stroke-width:1"/>';
+        }
+        h += '<div class="ps81-a ps81-c" style="' + box(cx[1] + 18, y, COLS[1] - 30, ROW_H) + '"><span class="ps81-pn">' + esc(it.name) + '</span><span class="ps81-pd">' + esc(it.note) + '</span></div>';
+        h += '<div class="ps81-a ps81-c" style="' + box(cx[2] + 16, y, COLS[2] - 24, ROW_H) + '"><span class="ps81-tx">' + esc(it.who) + '</span></div>';
+        // 운영 월 띠: 운영하는 달만 칠함(이어진 달은 한 띠로)
+        for (var m = 1; m <= 12; m++){
+          if (it.months.indexOf(m) < 0) continue;
+          cnt[m]++;
+          var join = it.months.indexOf(m + 1) >= 0;
+          svg += '<rect x="' + (cx[3] + (m - 1) * MW + 4) + '" y="' + (y + ROW_H / 2 - 9) + '" width="' + (MW - 8 + (join ? 8 : 0)) + '" height="18" style="fill:var(--ds-c2)"/>';
+        }
+        h += '<div class="ps81-a ps81-c" style="' + box(cx[4] + 16, y, COLS[4] - 24, ROW_H) + '"><span class="ps81-tx">' + esc(it.org) + '</span></div>';
+        h += '<div class="ps81-a ps81-c r" style="' + box(cx[5] + 8, y, COLS[5] - 26, ROW_H) + '"><span class="ps81-num">' + num(it.n) + '<small>' + esc(DATA.personUnit) + '</small></span></div>';
+        r++;
+      });
+    });
+    // 아래 합계 행: 달마다 운영 프로그램 수(막대 높이 ∝ 개수)
+    var ys = yEnd;
+    svg += '<line x1="' + (FX + IN) + '" x2="' + (FX + FW - IN) + '" y1="' + ys + '" y2="' + ys + '" style="stroke:var(--ds-ink);stroke-width:1.2"/>';
+    var mxc = Math.max.apply(null, cnt), BH = 24;
+    h += '<div class="ps81-a ps81-sum" style="' + box(cx[1] + 18, ys, COLS[1] + COLS[2] - 30, SUM_H) + '">달마다 운영하는 프로그램 수</div>';
+    for (var m2 = 1; m2 <= 12; m2++){
+      var bh = cnt[m2] / mxc * BH;
+      svg += '<rect x="' + (cx[3] + (m2 - 1) * MW + MW / 2 - 7) + '" y="' + (ys + 8 + BH - bh) + '" width="14" height="' + bh + '" style="fill:var(--ds-c3)"/>';
+      h += '<div class="ps81-a ps81-cnt" style="' + box(cx[3] + (m2 - 1) * MW, ys + 34, MW, 16) + '">' + cnt[m2] + '</div>';
+    }
+    var total = 0; DATA.groups.forEach(function(g){ g.items.forEach(function(it){ total += it.n; }); });
+    h += '<div class="ps81-a ps81-sum" style="' + box(cx[4] + 16, ys, COLS[4] - 24, SUM_H) + '">합계 ' + nRows + '개 프로그램</div>';
+    h += '<div class="ps81-a ps81-c r" style="' + box(cx[5] + 8, ys, COLS[5] - 26, SUM_H) + '"><span class="ps81-num">' + num(total) + '<small>' + esc(DATA.personUnit) + '</small></span></div>';
+    h += '<div class="ps81-a ps81-ft"><span>' + esc(DATA.source) + '</span><span>' + DATA.page + '</span></div>';
+    root.innerHTML = '<div class="ps81-in"><svg class="ps81-svg" viewBox="0 0 1600 900" aria-hidden="true">' + svg + '</svg>' + h + '</div>';
+  }
+  render(document.getElementById('ps81'));
+})();
+</script>
+<script>
+(function(){
+  var P = 'ps81';
+  var slide = document.getElementById(P);
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FAM = {"H": {"name": "H 전통 공예·문양", "fonts": "나눔명조 / Noto Sans KR / 나눔명조", "v": {"--ds-bg": "#F4F3EE", "--ds-surface": "#FBFAF6", "--ds-ink": "#1F252C", "--ds-sub": "#5E5A52", "--ds-line": "#D3CEC2", "--ds-accent": "#B8402E", "--ds-accent2": "#2E7D5B", "--ds-c1": "#1F4A3A", "--ds-c2": "#2E6B53", "--ds-c3": "#5E937C", "--ds-c4": "#A9C7B8", "--ds-c5": "#E2ECE5", "--ds-font-title": "\"Nanum Myeongjo\",\"Noto Serif KR\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"Noto Sans KR\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Nanum Myeongjo\",\"Noto Serif KR\",\"AppleMyungjo\",\"Batang\",serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 0 rgba(31,37,44,.06),0 14px 30px -20px rgba(31,37,44,.30)"}}, "D": {"name": "D 인쇄·종이", "fonts": "Noto Serif KR / IBM Plex Sans KR / Noto Serif KR", "v": {"--ds-bg": "#FBFAF6", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B1E24", "--ds-sub": "#5C606A", "--ds-line": "#CFCCC4", "--ds-accent": "#D9482B", "--ds-accent2": "#23467A", "--ds-c1": "#1F3E6E", "--ds-c2": "#3C5D8C", "--ds-c3": "#6D87AD", "--ds-c4": "#A5B5CD", "--ds-c5": "#E3E8F0", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"}}, "E": {"name": "E 자연 재질", "fonts": "Noto Serif KR / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#F5F1E8", "--ds-surface": "#FCFAF5", "--ds-ink": "#2A2620", "--ds-sub": "#6A6152", "--ds-line": "#D9D0BE", "--ds-accent": "#B5502C", "--ds-accent2": "#5B7A3C", "--ds-c1": "#4A3A26", "--ds-c2": "#6E5838", "--ds-c3": "#97805C", "--ds-c4": "#C8B693", "--ds-c5": "#ECE3D2", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(42,38,32,.06),0 14px 30px -20px rgba(42,38,32,.30)"}}};
+  var ORDER = ["H", "D", "E"];
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === ORDER[0]) slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+    if (window[P + 'Paint']) window[P + 'Paint']();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window[P + 'Fam'] = apply;
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap\">";
+  var css = document.getElementById(P + '-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById(P + '-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + "<div class=\"ps81\" id=\"ps81\" data-slide role=\"img\" aria-label=\"지역 전통문화 예술교육 프로그램 여덟 개의 갈래, 대상, 운영 월, 연계 기관, 참여 인원과 달별 운영 수\"></div>" + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+  window[P + 'Code'] = code;
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th>' + ORDER.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ORDER.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + ORDER.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + ORDER.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+</body></html>

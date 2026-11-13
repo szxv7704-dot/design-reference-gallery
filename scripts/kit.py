@@ -1,9 +1,8 @@
 # 덱 키트 만들기: kit/deck.css · kit/deck.js · kit/parts.css · kit/{계열}.css · kit/{계열}.design.md · src/flows/{흐름}.html 에서
 #   kit/v1/{계열}.css        배포용 묶음(글꼴 @font-face + 공용 바탕 + 부품) — 채팅 AI가 만든 덱이 불러옴
 #   kit/v1/deck.js           공용 엔진
-#   kit/{계열}.html           성과 공유회 예시 덱 · kit/{계열}-plan.html 계획안 발표 · kit/{계열}-lecture.html 연수 한 차시 (인터넷 없이 돎)
+#   kit/{계열}.html           성과 공유회 예시 덱 · kit/{계열}-plan.html 계획안 발표 (인터넷 없이 돎)
 #   kit/{계열}.md             그 계열 하나로 덱을 만드는 채팅 AI용 지시서(첨부용)
-#   guide.md                 AI용 안내(계열 공통) — scripts/guide.py 가 첫 화면(index.html)에도 넣는다
 #   data/kit_slides.json     예시 덱의 장 목록(흐름 · 장 · 기본 장표)
 # 예시 덱 원본은 계열 공용(src/flows/)이고, 계열마다 다른 상징 부품은 @@SIG:…@@ 자리에 넣는다.
 # 실행: python3 scripts/kit.py A B C D
@@ -149,11 +148,11 @@ def parts(fam, sample):
     return '\n\n'.join(out)
 
 # ── AI용 안내: 계열 공통(guide.md · 첫 화면) 또는 계열 하나(kit/{계열}.md) ──
-SNIPPET_FROM = ['lecture', 'plan', 'share', 'brief', 'lecture2', 'lecture3']   # 기본 장표의 견본 코드를 찾는 순서
+SNIPPET_FROM = ['plan', 'share']   # 기본 장표의 견본 코드를 찾는 순서
 def samples(pid):
     """그 기본 장표의 견본 장: [(흐름 id, (장 번호, 기본 장표 id, 장 이름, HTML))]. 질문은 보기형 + 답 공개형 둘"""
     hit = [(fid, s) for fid in SNIPPET_FROM for s in slides_of(fid) if s[1] == pid]
-    if not hit: raise SystemExit('견본 장이 없는 기본 장표: ' + pid)
+    if not hit: return []   # 예시 덱에 쓰이지 않은 기본 장표(부품은 parts.css 에 있다)
     if pid == 'ask': return [h for h in hit if 'a-a' not in h[1][3]][:1] + [h for h in hit if 'a-a' in h[1][3]][:1]
     return hit[:1]
 def code_of(fam, fid, s):
@@ -211,7 +210,6 @@ def guide(fam=None):
     for f in FLOWS:
         L += ['**%s** — %s%s' % (f['name'], f['say'], ' · 예시 덱 %skit/%s%s.html' % (BASE, fam or 'B', f['deck']) if f['deck'] is not None else ''), '',
               T([['자리', '기본 장표']] + [['---'] * 2] + [[s[0], ' · '.join(PNAME[x] for x in s[1])] for s in f['slots']]), '']
-    L += ['여러 차시 과정이면 맨 앞에 일정(`.mile`) 장표를 과정 지도로 쓰고(차시마다 이정표 하나, 지금 차시만 `.is-key`), 차시마다 연수 한 차시 흐름을 되풀이합니다.', '']
     if one:
         L += ['## 5. 분위기 계열: %s %s' % (fam, NAMES[fam]), '', '%s. 어울리는 자리: %s. 자세한 규칙은 아래 \'디자인 규칙\'.' % (META[fam]['desc'], META[fam]['fit']), '']
     else:
@@ -310,7 +308,7 @@ if __name__ == '__main__':
     if a[:1] == ['inline']:
         fam, src = a[1], a[2]; inline(fam, src, a[3] if len(a) > 3 else re.sub(r'\.html?$', '', src) + '-오프라인.html')
     else:
-        print('data/kit_slides.json', write_slides(), '· guide.md', write_guide() // 1024, 'KB')
+        print('data/kit_slides.json', write_slides())
         for fam in a or FAMS:
             hosted(fam); md(fam)
             sizes = [build.build('kit-' + fam, K, fam + f['deck'], page=page(fam, f['id'])) // 1024 for f in DECKS]

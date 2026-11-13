@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>레퍼런스 #84 날짜 비례 레인</title>
+<style>
+/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:600;font-display:swap;src:url("../fonts/GothicA1-600.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:700;font-display:swap;src:url("../fonts/GothicA1-700.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexSansKR-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:700;font-display:swap;src:url("../fonts/IBMPlexSansKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:600;font-display:swap;src:url("../fonts/NotoSerifKR-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:700;font-display:swap;src:url("../fonts/NotoSerifKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:800;font-display:swap;src:url("../fonts/NotoSerifKR-800.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:600;font-display:swap;src:url("../fonts/SairaSemiCondensed-600.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-display:swap;src:url("../fonts/SairaSemiCondensed-700.woff2") format("woff2")}
+
+/* 페이지 틀: 장표가 맨 위 주인공, 아래로 설명 칸이 차례로. 왼쪽 정렬 한 줄 기준 */
+:root{
+  --pg-bg:#EEF1F5; --pg-panel:#FFFFFF; --pg-ink:#17213A; --pg-sub:#596379; --pg-line:#D3D9E2;
+  --pg-accent:#2D4D85; --pg-code-bg:#141B2B; --pg-code-ink:#DCE3EF;
+  --pg-l1:#1B2E57; --pg-l2:#2D4D85; --pg-l3:#5474AB;
+  --pg-font:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-head:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --pg-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pg-bg:#111827; --pg-panel:#1A2336; --pg-ink:#E6EBF3; --pg-sub:#A4AEC2; --pg-line:#2E3A52;
+  --pg-accent:#9DB6E6; --pg-code-bg:#0B111D; --pg-code-ink:#DCE3EF;
+  --pg-l1:#C9D6F0; --pg-l2:#9DB6E6; --pg-l3:#7C98CC; color-scheme:dark}
+body{background:var(--pg-bg);color:var(--pg-ink);font-family:var(--pg-font);font-size:15px;line-height:1.65}
+.pg{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:grid;gap:40px}
+.pg > *{min-width:0}
+.pg-top{display:grid;gap:6px}
+.pg-kicker{font-family:var(--pg-mono);font-size:12px;letter-spacing:.14em;color:var(--pg-sub)}
+.pg h1{font-family:var(--pg-head);font-weight:800;font-size:clamp(24px,3.4vw,34px);line-height:1.25;margin:0;text-wrap:balance}
+.pg-lead{margin:0;color:var(--pg-sub);max-width:68ch}
+.pg h2{font-family:var(--pg-head);font-weight:800;font-size:20px;margin:0 0 14px;display:flex;gap:10px;align-items:baseline}
+.pg h2 small{font-family:var(--pg-mono);font-size:12px;font-weight:500;color:var(--pg-sub);letter-spacing:.08em}
+.pg h3{font-size:15px;margin:18px 0 6px;font-weight:700}
+.pg p{margin:0 0 10px;max-width:72ch}
+.pg a{color:var(--pg-accent)}
+.stage{display:grid;gap:12px}
+.stage-frame{border:1px solid var(--pg-line);background:var(--pg-panel);padding:10px;border-radius:6px;overflow-x:auto}
+.stage-hint{display:none;font-size:12px;color:var(--pg-sub);margin:0}
+.pick{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pick span{font-size:13px;color:var(--pg-sub);margin-right:4px}
+.btn{font:inherit;font-size:13px;padding:6px 12px;border:1px solid var(--pg-line);background:var(--pg-panel);color:var(--pg-ink);border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{border-color:var(--pg-accent);box-shadow:inset 0 0 0 1px var(--pg-accent);font-weight:700}
+.btn:focus-visible{outline:2px solid var(--pg-accent);outline-offset:2px}
+.pick .btn-replay{margin-left:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+.panel{background:var(--pg-panel);border:1px solid var(--pg-line);border-radius:6px;padding:20px}
+.raw{font-size:15px;line-height:2.1}
+.raw mark{background:none;color:inherit;padding-bottom:1px}
+.raw mark::after{content:attr(data-n);font-family:var(--pg-mono);font-size:11px;font-weight:600;vertical-align:super;margin-left:2px}
+.raw .o{border-bottom:2px dotted var(--pg-l3)}.raw .o::after{color:var(--pg-l3)}
+.raw .g{border-bottom:2px solid var(--pg-l3)}.raw .g::after{color:var(--pg-l3)}
+.raw .f{border-bottom:2px dashed var(--pg-l2)}.raw .f::after{color:var(--pg-l2)}
+.raw .k{border-bottom:4px double var(--pg-l1)}.raw .k::after{color:var(--pg-l1)}
+.key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--pg-sub);margin:10px 0 0}
+.key i{font-style:normal;display:inline-block;width:26px;height:9px;vertical-align:1px;margin-right:6px}
+.key .ko{border-bottom:2px dotted var(--pg-l3)}.key .kg{border-bottom:2px solid var(--pg-l3)}.key .kf{border-bottom:2px dashed var(--pg-l2)}.key .kk{border-bottom:4px double var(--pg-l1)}
+.grp{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.grp li{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.grp .n{font-family:var(--pg-mono);font-weight:600;font-size:12px;height:26px;padding:0 4px;display:grid;place-items:center;border-radius:4px;border:1.5px solid var(--pg-l3);color:var(--pg-l2)}
+.grp .n1{background:var(--pg-l1);border-color:var(--pg-l1);color:var(--pg-panel)}
+.grp .n2{border-color:var(--pg-l2);border-width:2px}
+.grp b{display:block}
+.grp em{font-style:normal;color:var(--pg-sub);font-size:14px}
+.grp-h{font-family:var(--pg-mono);font-size:12px;letter-spacing:.1em;color:var(--pg-sub);margin:0 0 8px}
+.rels{margin:16px 0 0;padding:14px 0 0;border-top:1px solid var(--pg-line);display:grid;gap:6px;font-size:14px}
+.rels div{display:grid;grid-template-columns:120px 1fr;gap:10px}
+.rels .k{font-family:var(--pg-mono);font-size:12px;color:var(--pg-sub);padding-top:2px}
+.code{background:var(--pg-code-bg);color:var(--pg-code-ink);font-family:var(--pg-mono);font-size:12.5px;line-height:1.55;max-height:520px;overflow:auto;padding:18px;border-radius:6px;margin:0;white-space:pre}
+.code-bar{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.code-bar .msg{font-size:13px;color:var(--pg-sub)}
+.pg code{font-family:var(--pg-mono);font-size:.9em}
+ol.steps,ul.plain{margin:0;padding-left:20px;display:grid;gap:4px;max-width:78ch}
+.tbl-wrap{overflow-x:auto}
+table.spec{border-collapse:collapse;width:100%;font-size:13px;min-width:640px}
+.spec th,.spec td{border-bottom:1px solid var(--pg-line);padding:7px 8px;text-align:left;vertical-align:middle}
+.spec th{font-weight:700;color:var(--pg-sub);font-size:12px}
+.spec td code{font-family:var(--pg-mono);font-size:12px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:2px;border:1px solid var(--pg-line);vertical-align:-1px;margin-right:6px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.meta div{border-top:1px solid var(--pg-line);padding-top:8px;font-size:14px}
+.meta b{display:block;font-size:12px;color:var(--pg-sub);font-weight:600}
+@media (max-width:760px){
+  .two{grid-template-columns:1fr}.pick .btn-replay{margin-left:0}.rels div{grid-template-columns:1fr;gap:0}
+  .stage-frame [data-slide]{min-width:880px}.stage-hint{display:block}
+}
+
+</style>
+<style id="ps84-css">
+/* 흐름·절차 '날짜 비례 레인' — 접두어 ps84 / 색은 --ds-* 변수로만 */
+.ps84{
+  /* 공통 변수: 중립 값. 계열을 바꾸려면 이 묶음만 바꾼다 */
+  --ds-bg:#F5F7FA; --ds-surface:#FFFFFF; --ds-ink:#18233D; --ds-sub:#5B6579; --ds-line:#D5DBE4;
+  --ds-accent:#D2502A; --ds-accent2:#2E5C8F;
+  --ds-c1:#1B2E57; --ds-c2:#2D4D85; --ds-c3:#5474AB; --ds-c4:#A8BCDA; --ds-c5:#E1E8F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  --ds-radius:4px;
+  --ds-shadow:0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28);
+  position:relative;width:100%;max-width:100%;aspect-ratio:16/9;container-type:inline-size;overflow:hidden;
+  background:var(--ds-bg);color:var(--ds-ink);font-family:var(--ds-font-body);
+}
+.ps84 *{box-sizing:border-box}
+.ps84-in{position:absolute;inset:0;--u:calc(100cqw / 1600);font-size:calc(var(--u)*16);line-height:1.4;word-break:keep-all}
+.ps84-a{position:absolute}
+.ps84-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
+.ps84-hd{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*40);height:calc(var(--u)*48);display:flex;align-items:center;justify-content:space-between;border-bottom:calc(var(--u)*1.5) solid var(--ds-line)}
+.ps84-sec{display:flex;align-items:baseline;gap:calc(var(--u)*10);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*19);color:var(--ds-c1)}
+.ps84-sec i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;color:var(--ds-c3)}
+.ps84-plan{font-size:calc(var(--u)*14);color:var(--ds-sub)}
+.ps84-tt{left:calc(var(--u)*80);top:calc(var(--u)*108);width:calc(var(--u)*1440);font-family:var(--ds-font-title);font-weight:800;font-size:calc(var(--u)*36);line-height:1.24;letter-spacing:-.01em}
+.ps84-tt em{font-style:normal;color:var(--ds-accent)}
+.ps84-ft{left:calc(var(--u)*80);right:calc(var(--u)*80);top:calc(var(--u)*846);display:flex;justify-content:space-between;font-size:calc(var(--u)*12);color:var(--ds-sub)}
+
+.ps84-ln{display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u)*2);padding-left:calc(var(--u)*14);border-left:calc(var(--u)*3) solid var(--ds-c4)}
+.ps84-ln b{font-family:var(--ds-font-title);font-weight:700;font-size:calc(var(--u)*17)}
+.ps84-ln span{font-size:calc(var(--u)*12.5);color:var(--ds-sub)}
+.ps84-st{display:flex;flex-direction:column;justify-content:center;white-space:nowrap;line-height:1.25}
+.ps84-st b{font-weight:600;font-size:calc(var(--u)*14.5)}
+.ps84-st span{font-size:calc(var(--u)*12);color:var(--ds-sub)}
+.ps84-st.in b{color:var(--ds-surface)}.ps84-st.in span{color:var(--ds-c5)}
+.ps84-st i{font-style:normal;font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*12);color:var(--ds-c3);margin-right:calc(var(--u)*6)}
+.ps84-st.in i{color:var(--ds-c4)}
+.ps84-tk{font-family:var(--ds-font-num);font-size:calc(var(--u)*12);color:var(--ds-sub);transform:translateX(-50%);white-space:nowrap}
+.ps84-br{font-size:calc(var(--u)*13);font-weight:600;color:var(--ds-c1);transform:translateX(-50%);white-space:nowrap;text-align:center}
+.ps84-br b{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*16)}
+.ps84-rl{font-size:calc(var(--u)*13);color:var(--ds-sub);white-space:nowrap;transform:translateY(-50%)}
+.ps84-rl b{color:var(--ds-ink);font-weight:600}
+.ps84-rv{font-family:var(--ds-font-num);font-weight:600;font-size:calc(var(--u)*15);white-space:nowrap;transform:translateY(-50%)}
+</style>
+</head><body>
+<main class="pg">
+  <header class="pg-top">
+    <div class="pg-kicker">REFERENCE 84 · 본문 요소 · 흐름·절차 · 정지 · 가상 예시</div>
+    <h1>날짜 비례 레인</h1>
+    <p class="pg-lead">절차 단계를 같은 간격 상자 대신 주체별 레인과 신청일부터 센 날짜 눈금 위에 놓아, 막대 길이가 곧 기한이 되게 한 흐름·절차 장표. 같은 눈금 아래에 실제 평균을 그어 기한을 넘는 몫을 남긴다.</p>
+  </header>
+  <section class="stage" aria-label="장표">
+    <p class="stage-hint">좁은 화면에서는 장표를 옆으로 밀어 보세요.</p>
+    <div class="stage-frame"><div class="ps84" id="ps84" data-slide role="img" aria-label="특수교육대상자 선정·배치 절차 7단계를 보호자·학교·교육지원청·운영위원회 레인과 날짜 눈금 위에 놓고, 2026 실제 평균 52일과 기한 44일을 비교"></div></div>
+    <div class="pick" role="group" aria-label="계열 값 바꿔 보기"><span>계열 값 바꿔 보기</span><button class="btn" type="button" data-fam="N" aria-pressed="true">중립(기본)</button><button class="btn" type="button" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button><button class="btn" type="button" data-fam="D" aria-pressed="false">D 인쇄·종이</button><button class="btn" type="button" data-fam="F" aria-pressed="false">F 관측·중계</button></div>
+  </section>
+  
+  <section>
+    <h2>원문 → 유목화 <small>RAW → GROUPS</small></h2>
+    <div class="two">
+      <div class="panel">
+        <h3 style="margin-top:0">정리 전 원문 (계획안 Ⅰ장 줄글, 가상)</h3>
+        <p class="raw"><mark class="o" data-n="1">보호자는 특수교육대상자 선정을 신청할 수 있고(학교장 경유 가능)</mark>, <mark class="o" data-n="2">학교는 이를 접수해 교육장에게 보낸다.</mark> <mark class="k" data-n="3">교육지원청 특수교육지원센터는 진단·평가를 의뢰받은 날부터 30일 이내에 진단·평가를 마치고</mark>, <mark class="o" data-n="4">특수교육운영위원회가 진단 결과와 보호자 의견을 바탕으로 선정 여부를 심사하면</mark> <mark class="o" data-n="5">교육지원청이 선정 여부와 배치 학교를 보호자에게 알린다(신청 후 44일 이내).</mark> <mark class="o" data-n="7">배치 학교는 배치 후 30일 이내에 개별화교육지원팀을 꾸려 개별화교육계획을 세운다.</mark> <mark class="g" data-n="실제">그러나 2026년 실제 평균은 신청에서 선정 통지까지 52일로 기한보다 8일 늦었고, 지연의 대부분은 진단·평가 대기(36일)였다.</mark></p>
+        <div class="key"><span><i class="ko"></i>단계(누가 · 무엇을 · 며칠)</span><span><i class="kk"></i>가장 긴 단계</span><span><i class="kg"></i>실제 현황</span><span>번호 = 장표의 단계 번호</span></div>
+      </div>
+      <div class="panel">
+        <div class="grp-h">세 축으로 쪼개기: 누가(레인) · 무엇을(막대) · 언제(날짜 눈금)</div>
+        <ul class="grp">
+          <li><span class="n">레인</span><div><b>문장의 주어 → 네 줄</b><em>보호자 · 학교 · 교육지원청 · 운영위원회. 같은 주체가 두 번 나오면(교육지원청 3 · 5) 같은 줄에 두 번 놓는다</em></div></li>
+          <li><span class="n">막대</span><div><b>동사 → 단계, 기한 → 막대 길이</b><em>"30일 이내" · "44일 이내" 같은 기한을 날짜 눈금 위 길이로 바꾼다. 기한이 없는 단계는 짧은 칸</em></div></li>
+          <li><span class="n n1">주인공</span><div><b>가장 긴 단계 → 가장 진한 막대</b><em>제목이 말하는 진단·평가 30일만 진하게, 막대 안에 이름</em></div></li>
+          <li><span class="n">실제</span><div><b>"그러나 실제 평균은" → 아래 한 줄</b><em>같은 날짜 눈금 위에 실제 평균 52일 막대. 기한(44일 점선)을 넘는 몫만 빗금</em></div></li>
+        </ul>
+        <div class="rels">
+          <div><span class="k">순서 (단계→단계)</span><span>앞 단계 끝에서 다음 단계 시작으로 세로 화살표. 레인을 건너는 화살표 수 = 기관 사이 넘김 횟수.</span></div>
+          <div><span class="k">기한 (막대↔점선)</span><span>44일 점선이 위 괄호부터 아래 실제 평균 줄까지 내려와 "규정"과 "현실"을 한 선으로 잇는다.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="panel">
+    <h2>구조 설명 <small>STRUCTURE</small></h2>
+    <p>절차를 같은 크기 상자로 늘어놓지 않고, <b>누가</b>를 가로 레인 넷으로, <b>언제</b>를 신청일부터 센 날짜 눈금으로 두었다. 단계 막대의 길이가 곧 기한이라서, 어느 단계가 전체 기간을 잡아먹는지(진단·평가 30일)가 상자 크기만 보고도 보인다. 맨 아래에 같은 눈금으로 2026 실제 평균을 한 줄 그어, 기한(점선)을 넘는 몫을 빗금으로 남겼다.</p>
+    <p><b>가져갈 장치 1: 날짜 비례 레인.</b> 흔한 절차도는 단계를 같은 간격으로 놓아 "1일짜리"와 "30일짜리"가 똑같아 보인다. 날짜 눈금에 놓으면 병목이 길이로 드러난다.</p>
+    <p><b>가져갈 장치 2: 규정 아래 현실 한 줄.</b> 기한 점선을 끝까지 내려 실제 평균 막대와 만나게 한다. 넘는 몫(8일)만 빗금이라 개선 목표가 바로 읽힌다.</p>
+    <p><b>가져갈 장치 3: 레인을 건너는 화살표.</b> 기관 사이 넘김이 세로 화살표로 보인다. 넘김이 많은 구간이 곧 서류가 오가며 기다리는 구간이다.</p>
+    <h3>응용 예</h3>
+    <ul class="plain">
+      <li>학교폭력 사안 처리(학교 · 교육지원청 · 심의위원회): 날짜 눈금 위 단계와 실제 평균</li>
+      <li>교원 임용 절차(교육청 · 시험 기관 · 학교): 공고부터 발령까지</li>
+      <li>민원 처리 흐름(민원인 · 접수 부서 · 담당 부서): 법정 처리 기한 점선</li>
+    </ul>
+  </section>
+  <section class="panel">
+    <h2>HTML로 가져다 쓰기 <small>COPY</small></h2>
+    <ol class="steps">
+      <li>아래 코드는 장표만 떼어 낸 완결 코드입니다. 빈 HTML 파일에 붙여 넣으면 같은 장표가 그려집니다.</li>
+      <li>내용은 스크립트 맨 위 <code>DATA</code> 한 곳만 바꾸면 됩니다. <code>steps</code>마다 <code>lane</code>(레인 번호) · <code>from</code>~<code>to</code>(며칠째)를 적으면 막대 길이와 연결 화살표가 자동으로 그려집니다. <code>maxDay</code>가 날짜 눈금 끝입니다.</li>
+      <li>계열 분위기는 <code>.ps84{ … }</code> 맨 위 <code>--ds-*</code> 변수 묶음만 바꿉니다(아래 스펙 표의 계열 값). 제목의 <code>[ ]</code> 안 단어 하나만 강조색이 됩니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ol>
+    <div class="code-bar" style="margin-top:14px"><button class="btn" type="button" id="copy">코드 복사</button><span class="msg" id="copy-msg" aria-live="polite"></span></div>
+    <pre class="code" id="code" tabindex="0"></pre>
+  </section>
+  <section class="panel">
+    <h2>PPT로 옮기기 <small>POWERPOINT</small></h2>
+    <ol class="steps">
+      <li><b>날짜 눈금 먼저</b>: 눈금 폭 24.7cm를 75일로 나누면 1일 ≈ 0.33cm. 10일마다 세로 회색 선(0.5pt), 신청일 선만 먹색 1.5pt.</li>
+      <li><b>레인</b>: 높이 1.7cm 사각형 넷을 흰색 · 옅은 회청으로 번갈아. 왼쪽 레인 이름 칸에 연파랑 0.1cm 세로 막대.</li>
+      <li><b>단계 막대</b>: 둥근 사각형 높이 0.85cm, 길이 = 일수 × 0.33cm(최소 0.2cm). 주인공 단계만 진한 남색 + 흰 글자, 나머지 연파랑.</li>
+      <li><b>연결</b>: [직선 화살표] 1.5pt를 앞 막대 끝 x에서 다음 레인 막대까지 세로로. Shift를 누르고 그어 수직 유지.</li>
+      <li><b>기한 점선 · 실제 평균</b>: 44일 위치에 2pt 대시 선을 맨 위 괄호부터 아래 줄까지. 실제 평균 막대는 0~52일, 44~52일 구간만 [패턴 채우기 → 넓은 상향 대각선].</li>
+      <li><b>정지 장표</b>: 애니메이션 없음.</li>
+    </ol>
+  </section>
+  <section class="panel">
+    <h2>스펙 <small>SPEC</small></h2>
+    <div class="tbl-wrap"><table class="spec" id="spec"></table></div>
+    <div class="meta">
+      <div><b>글꼴(중립)</b>Gothic A1 800(제목) + IBM Plex Sans KR(본문) + IBM Plex Mono 600(숫자) · 대체 프리텐다드 · 맑은 고딕 · Consolas</div>
+      <div><b>난이도</b>HTML 중 · PPT 중(날짜 비례 배치)</div>
+      <div><b>질감 · 모션</b>평면 · 정지</div>
+      <div><b>모듈 · 위치</b>타임라인(날짜 눈금) + 매트릭스(주체 레인) · Ⅰ 추진 배경·현황</div>
+      <div><b>어울리는 계열</b>B · C · D · E · F · G (평면 도식)</div>
+      <div><b>트렌드</b>업무 절차를 시간 비례 스윔레인으로 그려 병목을 길이로 보이는 프로세스 마이닝식 표현 — <a href="https://www.nngroup.com/articles/service-blueprints-definition/" target="_blank" rel="noopener">NN/g, Service Blueprints</a></div>
+    </div>
+  </section>
+</main>
+<script id="ps84-js">
+(function(){
+  // ── 내용 데이터: 이 객체만 바꾸면 된다(day = 신청일로부터 며칠째) ──
+  var DATA = {
+    sectionNo: 'Ⅰ', sectionName: '추진 배경·현황',
+    plan: '2027 ○○교육청 특수교육대상자 선정·배치 절차 개선 계획',
+    title: '신청부터 선정 통지까지 기한은 44일, 그중 [진단·평가 30일]이 가장 깁니다',
+    lanes: [['보호자', '신청 · 결과 수령'], ['학교', '접수 · 개별화교육'], ['교육지원청', '특수교육지원센터'], ['특수교육운영위원회', '선정 · 배치 심사']],
+    // 단계: lane(0~3), from~to(일), 이 장표의 주인공 단계는 key: true, 이름을 막대 왼쪽에 둘 때 left: true
+    steps: [
+      { lane: 0, from: 0, to: 1, name: '선정 신청', note: '학교장 경유 가능' },
+      { lane: 1, from: 1, to: 3, name: '접수·송부', note: '교육장에게' },
+      { lane: 2, from: 3, to: 33, name: '진단·평가', note: '의뢰받은 날부터 30일 이내', key: true },
+      { lane: 3, from: 33, to: 40, name: '선정 심사', note: '진단 결과 · 보호자 의견', left: true },
+      { lane: 2, from: 40, to: 44, name: '결정 통지', note: '선정 여부 · 배치 학교' },
+      { lane: 0, from: 44, to: 45, name: '결과 수령', note: '' },
+      { lane: 1, from: 45, to: 75, name: '개별화교육지원팀 · IEP 수립', note: '배치 후 30일 이내' }
+    ],
+    maxDay: 75, tick: 10,
+    spans: [{ from: 0, to: 44, label: '선정 통지까지', value: '44일' }, { from: 44, to: 75, label: '배치 후 IEP까지', value: '+30일' }],
+    // 2026 실제 평균(같은 날짜 눈금)
+    actual: { label: '2026 실제 평균', what: '신청 → 선정 통지', value: 52, limit: 44, note: '기한보다 8일 늦음 · 진단·평가 대기 36일' },
+    source: '가상 예시 · 출처: ○○교육청 2026 특수교육대상자 선정 처리 현황(신청 1,280건) 재구성 · 절차 기한은 예시',
+    page: 5
+  };
+
+  // ── 배치 값(가상 화면 1600×900 기준) ──
+  var LX = 80, LW = 220, CX = 330, CW = 1170;   // 레인 이름 | 날짜 축
+  var LY = 268, LH = 92, LG = 8, BH = 42;
+
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+  var u = function(v){ return 'calc(var(--u)*' + v + ')'; };
+  var box = function(x, y, w, h){ return 'left:' + u(x) + ';top:' + u(y) + ';width:' + u(w) + ';height:' + u(h); };
+  var at = function(x, y){ return 'left:' + u(x) + ';top:' + u(y); };
+  var num = function(v){ return Number(v).toLocaleString('ko-KR'); };
+  function frame(){
+    return '<div class="ps84-a ps84-hd"><div class="ps84-sec"><i>' + esc(DATA.sectionNo) + '.</i>' + esc(DATA.sectionName) + '</div><div class="ps84-plan">' + esc(DATA.plan) + '</div></div>' +
+      '<div class="ps84-a ps84-tt">' + esc(DATA.title).replace(/\[(.+?)\]/, '<em>$1</em>') + '</div>' +
+      '<div class="ps84-a ps84-ft"><span>' + esc(DATA.source) + '</span><span>' + DATA.page + '</span></div>';
+  }
+
+  var dx = function(d){ return CX + d / DATA.maxDay * CW; };          // 날짜 → x (선형)
+  function render(root){
+    var h = frame(), svg = '', L = DATA.lanes.length;
+    var ly = function(i){ return LY + i * (LH + LG); };
+    // 기간 묶음(위 괄호)
+    DATA.spans.forEach(function(s){
+      var x0 = dx(s.from), x1 = dx(s.to);
+      svg += '<path d="M' + (x0 + 2) + ' 248V238H' + (x1 - 2) + 'V248" style="fill:none;stroke:var(--ds-c1);stroke-width:1.5"/>';
+      h += '<div class="ps84-a ps84-br" style="' + at((x0 + x1) / 2, 206) + '">' + esc(s.label) + ' <b>' + esc(s.value) + '</b></div>';
+    });
+    // 레인 바탕 + 이름
+    DATA.lanes.forEach(function(l, i){
+      svg += '<rect x="' + CX + '" y="' + ly(i) + '" width="' + CW + '" height="' + LH + '" style="fill:' + (i % 2 ? 'var(--ds-bg)' : 'var(--ds-surface)') + '"/>';
+      h += '<div class="ps84-a ps84-ln" style="' + box(LX, ly(i) + 10, LW, LH - 20) + '"><b>' + esc(l[0]) + '</b><span>' + esc(l[1]) + '</span></div>';
+    });
+    var yEnd = ly(L - 1) + LH;
+    // 날짜 눈금
+    for (var d = 0; d <= DATA.maxDay; d += DATA.tick){
+      svg += '<line x1="' + dx(d) + '" x2="' + dx(d) + '" y1="' + LY + '" y2="' + (yEnd + 6) + '" style="stroke:' + (d ? 'var(--ds-line)' : 'var(--ds-ink)') + ';stroke-width:' + (d ? 1 : 1.5) + '"/>';
+      h += '<div class="ps84-a ps84-tk" style="' + at(dx(d), yEnd + 10) + '">' + (d ? d + '일' : '신청일') + '</div>';
+    }
+    // 기한 선(선정 통지)
+    var lim = DATA.actual.limit;
+    svg += '<line x1="' + dx(lim) + '" x2="' + dx(lim) + '" y1="232" y2="' + (yEnd + 132) + '" style="stroke:var(--ds-c1);stroke-width:2;stroke-dasharray:6 5"/>';
+    // 단계 막대 + 단계 사이 연결(앞 단계 끝 → 다음 단계 시작, 레인을 건너 세로선)
+    DATA.steps.forEach(function(s, i){
+      var x0 = dx(s.from), w = Math.max(dx(s.to) - x0, 10), y = ly(s.lane) + (LH - BH) / 2;
+      var fill = s.key ? 'var(--ds-c1)' : 'var(--ds-c4)';
+      svg += '<rect x="' + x0 + '" y="' + y + '" width="' + w + '" height="' + BH + '" rx="3" style="fill:' + fill + '"/>';
+      var inside = w > 260;
+      h += '<div class="ps84-a ps84-st' + (inside && s.key ? ' in' : '') + '" style="' + box(inside ? x0 + 14 : s.left ? x0 - 368 : x0 + w + 8, y, 360, BH) + (s.left ? ';align-items:flex-end' : '') + '"><b><i>' + (i + 1) + '</i>' + esc(s.name) + '</b>' + (s.note ? '<span>' + esc(s.note) + '</span>' : '') + '</div>';
+      var n = DATA.steps[i + 1];
+      if (n){
+        var xe = dx(s.to), down = n.lane > s.lane;
+        var y1 = down ? y + BH : y, y2 = ly(n.lane) + (down ? (LH - BH) / 2 : (LH + BH) / 2);
+        svg += '<line x1="' + xe + '" x2="' + xe + '" y1="' + y1 + '" y2="' + (y2 + (down ? -7 : 7)) + '" style="stroke:var(--ds-c2);stroke-width:1.5"/>';
+        svg += '<path d="M' + (xe - 5) + ' ' + (y2 + (down ? -8 : 8)) + 'L' + xe + ' ' + y2 + 'L' + (xe + 5) + ' ' + (y2 + (down ? -8 : 8)) + 'z" style="fill:var(--ds-c2)"/>';
+      }
+    });
+    // 2026 실제 평균(같은 날짜 눈금 위 한 줄)
+    var A = DATA.actual, ay = yEnd + 66;
+    h += '<div class="ps84-a ps84-rl" style="' + at(LX, ay + 11) + '"><b>' + esc(A.label) + '</b> · ' + esc(A.what) + '</div>';
+    svg += '<rect x="' + CX + '" y="' + ay + '" width="' + (dx(A.value) - CX) + '" height="22" style="fill:var(--ds-c3)"/>';
+    svg += '<rect x="' + dx(A.limit) + '" y="' + ay + '" width="' + (dx(A.value) - dx(A.limit)) + '" height="22" style="fill:url(#ps84h)"/>';
+    h += '<div class="ps84-a ps84-rv" style="' + at(dx(A.value) + 10, ay + 11) + '">' + A.value + '일 <span style="font-family:var(--ds-font-body);font-weight:400;font-size:' + u(13) + ';color:var(--ds-sub)">' + esc(A.note) + '</span></div>';
+    var defs = '<defs><pattern id="ps84h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" style="fill:var(--ds-c3)"/><rect width="3.5" height="8" style="fill:var(--ds-c1)"/></pattern></defs>';
+    root.innerHTML = '<div class="ps84-in"><svg class="ps84-svg" viewBox="0 0 1600 900" aria-hidden="true">' + defs + svg + '</svg>' + h + '</div>';
+  }
+  render(document.getElementById('ps84'));
+})();
+</script>
+<script>
+(function(){
+  var P = 'ps84';
+  var slide = document.getElementById(P);
+  var KEYS = ['--ds-bg','--ds-surface','--ds-ink','--ds-sub','--ds-line','--ds-accent','--ds-accent2','--ds-c1','--ds-c2','--ds-c3','--ds-c4','--ds-c5','--ds-font-title','--ds-font-body','--ds-font-num','--ds-radius','--ds-shadow'];
+  var FAM = {"N": {"name": "중립(기본)", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#F5F7FA", "--ds-surface": "#FFFFFF", "--ds-ink": "#18233D", "--ds-sub": "#5B6579", "--ds-line": "#D5DBE4", "--ds-accent": "#D2502A", "--ds-accent2": "#2E5C8F", "--ds-c1": "#1B2E57", "--ds-c2": "#2D4D85", "--ds-c3": "#5474AB", "--ds-c4": "#A8BCDA", "--ds-c5": "#E1E8F2", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "4px", "--ds-shadow": "0 1px 2px rgba(24,35,61,.06),0 10px 24px -16px rgba(24,35,61,.28)"}}, "B": {"name": "B 미니멀 스튜디오", "fonts": "Gothic A1 / IBM Plex Sans KR / IBM Plex Mono", "v": {"--ds-bg": "#EEF1F4", "--ds-surface": "#FAFAF8", "--ds-ink": "#1F2B36", "--ds-sub": "#5E6974", "--ds-line": "#CDD4DB", "--ds-accent": "#E2571A", "--ds-accent2": "#2F5D86", "--ds-c1": "#2F4252", "--ds-c2": "#4F6679", "--ds-c3": "#7389A0", "--ds-c4": "#A9B9C7", "--ds-c5": "#DCE3E9", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"IBM Plex Mono\",\"SFMono-Regular\",Consolas,monospace", "--ds-radius": "2px", "--ds-shadow": "0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"}}, "D": {"name": "D 인쇄·종이", "fonts": "Noto Serif KR / IBM Plex Sans KR / Noto Serif KR", "v": {"--ds-bg": "#FBFAF6", "--ds-surface": "#FFFFFF", "--ds-ink": "#1B1E24", "--ds-sub": "#5C606A", "--ds-line": "#CFCCC4", "--ds-accent": "#D9482B", "--ds-accent2": "#23467A", "--ds-c1": "#1F3E6E", "--ds-c2": "#3C5D8C", "--ds-c3": "#6D87AD", "--ds-c4": "#A5B5CD", "--ds-c5": "#E3E8F0", "--ds-font-title": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-font-body": "\"IBM Plex Sans KR\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Noto Serif KR\",\"Nanum Myeongjo\",\"AppleMyungjo\",\"Batang\",serif", "--ds-radius": "0px", "--ds-shadow": "0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"}}, "F": {"name": "F 관측·중계", "fonts": "Gothic A1 / Gothic A1 / Saira Semi Condensed", "v": {"--ds-bg": "#F3F5F8", "--ds-surface": "#FFFFFF", "--ds-ink": "#12203A", "--ds-sub": "#556178", "--ds-line": "#D3DAE4", "--ds-accent": "#E5483A", "--ds-accent2": "#2F64AE", "--ds-c1": "#1E3A66", "--ds-c2": "#34598F", "--ds-c3": "#5B7DB0", "--ds-c4": "#9DB3D3", "--ds-c5": "#DAE3EF", "--ds-font-title": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-body": "\"Gothic A1\",\"Pretendard\",\"Apple SD Gothic Neo\",\"Malgun Gothic\",sans-serif", "--ds-font-num": "\"Saira Semi Condensed\",\"Gothic A1\",\"Arial Narrow\",\"Malgun Gothic\",sans-serif", "--ds-radius": "3px", "--ds-shadow": "0 1px 0 rgba(18,32,58,.06),0 16px 36px -20px rgba(18,32,58,.34)"}}};
+  var ORDER = ["N", "B", "D", "F"];
+  var btns = document.querySelectorAll('[data-fam]');
+  function apply(key){
+    var v = FAM[key].v;
+    KEYS.forEach(function(k){ if (key === ORDER[0]) slide.style.removeProperty(k); else slide.style.setProperty(k, v[k]); });
+    btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.fam === key)); });
+    if (window[P + 'Paint']) window[P + 'Paint']();
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ apply(b.dataset.fam); }); });
+  window[P + 'Fam'] = apply;
+  // 코드 칸: 위 장표 CSS·스크립트를 그대로 묶어 표시(textContent라 자동 이스케이프)
+  var FONT = "<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;600;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap\">";
+  var css = document.getElementById(P + '-css').textContent.replace(/^\n+|\s+$/g, '');
+  var js = document.getElementById(P + '-js').textContent.replace(/^\n+|\s+$/g, '');
+  var code = '<meta charset="utf-8">\n' + FONT + '\n<style>\n' + css + '\n</style>\n\n' + "<div class=\"ps84\" id=\"ps84\" data-slide role=\"img\" aria-label=\"특수교육대상자 선정·배치 절차 7단계를 보호자·학교·교육지원청·운영위원회 레인과 날짜 눈금 위에 놓고, 2026 실제 평균 52일과 기한 44일을 비교\"></div>" + '\n\n<script>\n' + js + '\n</scr' + 'ipt>\n';
+  var pre = document.getElementById('code');
+  pre.textContent = code;
+  var msg = document.getElementById('copy-msg');
+  function selectAll(){ var r = document.createRange(); r.selectNodeContents(pre); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  document.getElementById('copy').addEventListener('click', function(){
+    try {
+      navigator.clipboard.writeText(code).then(function(){ msg.textContent = '복사했습니다.'; }, function(){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; });
+    } catch(e){ selectAll(); msg.textContent = '복사가 막혀 전체 선택했습니다. Ctrl+C로 복사하세요.'; }
+  });
+  window[P + 'Code'] = code;
+  // 스펙 표: 변수 × 계열
+  var t = '<thead><tr><th>변수</th>' + ORDER.map(function(f){ return '<th>' + FAM[f].name + '</th>'; }).join('') + '</tr></thead><tbody>';
+  KEYS.slice(0, 12).forEach(function(k){
+    t += '<tr><td><code>' + k + '</code></td>';
+    ORDER.forEach(function(f){ var c = FAM[f].v[k]; t += '<td><span class="sw" style="background:' + c + '"></span><code>' + c + '</code></td>'; });
+    t += '</tr>';
+  });
+  t += '<tr><td><code>--ds-radius</code></td>' + ORDER.map(function(f){ return '<td><code>' + FAM[f].v['--ds-radius'] + '</code></td>'; }).join('') + '</tr>';
+  t += '<tr><td><code>제목/본문/숫자</code></td>' + ORDER.map(function(f){ return '<td>' + FAM[f].fonts + '</td>'; }).join('') + '</tr>';
+  document.getElementById('spec').innerHTML = t + '</tbody>';
+})();
+</script>
+</body></html>

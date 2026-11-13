@@ -1,0 +1,581 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>레퍼런스 #119 위험도 세 묶음 카드</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>/* 글꼴: 갤러리 저장소의 SIL OFL 글꼴을 주소로 불러온다 */
+@font-face{font-family:"Gothic A1";font-weight:500;font-display:swap;src:url("../fonts/GothicA1-500.woff2") format("woff2")}
+@font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexMono-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-weight:600;font-display:swap;src:url("../fonts/IBMPlexMono-600.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:500;font-display:swap;src:url("../fonts/IBMPlexSansKR-500.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Sans KR";font-weight:700;font-display:swap;src:url("../fonts/IBMPlexSansKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:700;font-display:swap;src:url("../fonts/NotoSerifKR-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Serif KR";font-weight:900;font-display:swap;src:url("../fonts/NotoSerifKR-900.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:600;font-display:swap;src:url("../fonts/SairaSemiCondensed-600.woff2") format("woff2")}
+@font-face{font-family:"Saira Semi Condensed";font-weight:700;font-display:swap;src:url("../fonts/SairaSemiCondensed-700.woff2") format("woff2")}
+</style>
+<style>
+/* 페이지 틀: 왼쪽 정렬 한 단, 장표가 주인공. 페이지 색은 장표 밖에서만 쓴다. */
+:root{
+  --pg-bg:#EEF2F7; --pg-panel:#FFFFFF; --pg-ink:#16243B; --pg-sub:#566479; --pg-line:#D3DCE8; --pg-key:#1B3560; --pg-hi:#E4ECF7;
+  --pg-code-bg:#121A28; --pg-code-ink:#D7E0EE;
+  --pg-f-title:"Gothic A1","Pretendard","Malgun Gothic",sans-serif;
+  --pg-f-body:"IBM Plex Sans KR","Pretendard","Malgun Gothic",sans-serif;
+  --pg-f-mono:"IBM Plex Mono","Consolas",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --pg-bg:#0F1724; --pg-panel:#172234; --pg-ink:#E3EAF5; --pg-sub:#9AA8BE; --pg-line:#2B3A52; --pg-key:#9DB9E6; --pg-hi:#22324B; color-scheme:dark}}
+:root[data-theme="dark"]{--pg-bg:#0F1724; --pg-panel:#172234; --pg-ink:#E3EAF5; --pg-sub:#9AA8BE; --pg-line:#2B3A52; --pg-key:#9DB9E6; --pg-hi:#22324B; color-scheme:dark}
+body{word-break:keep-all; overflow-wrap:anywhere; background:var(--pg-bg); color:var(--pg-ink); font-family:var(--pg-f-body); font-size:15px; line-height:1.65}
+.pg{max-width:1180px; margin:0 auto; padding-block:28px 64px; padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.pg-top{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 16px; margin-bottom:16px}
+.pg-top h1{font-family:var(--pg-f-title); font-weight:800; font-size:clamp(22px,3vw,30px); margin:0; text-wrap:balance}
+.pg-top p{margin:0; color:var(--pg-sub); font-size:14px}
+.pg-tags{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 18px; padding:0; list-style:none}
+.pg-tags li{font-size:12.5px; padding:2px 10px; border:1px solid var(--pg-line); border-radius:99px; color:var(--pg-sub); background:var(--pg-panel)}
+.pg-stage{border-radius:8px; overflow:hidden; box-shadow:0 1px 2px rgba(0,0,0,.06),0 20px 50px -30px rgba(10,25,50,.45)}
+.pg-ctrl{display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin-top:12px}
+.pg-ctrl>span{font-size:13px; color:var(--pg-sub); min-width:96px}
+.pg-btn{font:inherit; font-size:13.5px; padding:6px 12px; border-radius:6px; border:1px solid var(--pg-line); background:var(--pg-panel); color:var(--pg-ink); cursor:pointer}
+.pg-btn[aria-pressed="true"]{background:var(--pg-key); color:var(--pg-panel); border-color:var(--pg-key)}
+.pg-btn:focus-visible{outline:2px solid var(--pg-key); outline-offset:2px}
+section.pg-sec{margin-top:44px}
+.pg-sec h2{font-family:var(--pg-f-title); font-weight:800; font-size:20px; margin:0 0 4px}
+.pg-sec h2 small{font-family:var(--pg-f-body); font-weight:500; font-size:13px; color:var(--pg-sub); margin-left:8px}
+.pg-sec>p.lead{color:var(--pg-sub); margin:0 0 16px; max-width:70ch}
+.pg-two{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:20px}
+.pg-card{background:var(--pg-panel); border:1px solid var(--pg-line); border-radius:8px; padding:20px 22px; min-width:0}
+.pg-card h3{font-size:14px; letter-spacing:.04em; color:var(--pg-sub); margin:0 0 10px; font-weight:700}
+.pg-src{margin:0; line-height:1.95}
+.pg-src mark{background:var(--pg-hi); color:var(--pg-ink); padding:1px 2px; border-radius:3px}
+.pg-src mark sup,.pg-grp b.n{font-family:var(--pg-f-mono); font-weight:600; color:var(--pg-key)}
+.pg-src mark sup{font-size:11px; margin-right:2px}
+.pg-grp{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+.pg-grp li{display:grid; grid-template-columns:28px 1fr; gap:2px 8px; padding-bottom:12px; border-bottom:1px dashed var(--pg-line)}
+.pg-grp li:last-child{border-bottom:0; padding-bottom:0}
+.pg-grp b.n{grid-row:span 2; font-size:15px}
+.pg-grp strong{font-weight:700}
+.pg-grp span{color:var(--pg-sub); font-size:14px}
+.pg-rel{margin:16px 0 0; padding:12px 14px; background:var(--pg-hi); border-radius:6px; font-size:14px}
+.pg-rel p{margin:0}
+.pg-rel p+p{margin-top:4px}
+.pg-list{margin:0; padding-left:20px}
+.pg-list li+li{margin-top:4px}
+.pg-tbl-wrap{overflow-x:auto}
+table.pg-tbl{border-collapse:collapse; width:100%; font-size:14px; min-width:560px}
+.pg-tbl th,.pg-tbl td{border-bottom:1px solid var(--pg-line); padding:8px 10px; text-align:left; vertical-align:top}
+.pg-tbl th{font-weight:700; color:var(--pg-sub); font-size:12.5px; letter-spacing:.03em}
+.pg-tbl td.num,.pg-tbl code{font-family:var(--pg-f-mono); font-size:13px; font-variant-numeric:tabular-nums}
+.sw{display:inline-block; width:12px; height:12px; border-radius:2px; vertical-align:-1px; margin-right:6px; border:1px solid rgba(0,0,0,.15)}
+.pg-code{position:relative; margin-top:12px}
+.pg-code pre{margin:0; background:var(--pg-code-bg); color:var(--pg-code-ink); font-family:var(--pg-f-mono); font-size:12.5px; line-height:1.55; padding:18px; border-radius:8px; max-height:520px; overflow:auto; white-space:pre}
+.pg-code button{position:absolute; top:10px; right:10px; font:inherit; font-size:13px; padding:6px 12px; border-radius:6px; border:1px solid #3A4B66; background:#1E2B40; color:#E6EDF8; cursor:pointer}
+.pg-code button:focus-visible{outline:2px solid #9DB9E6; outline-offset:2px}
+.pg-foot{margin-top:56px; font-size:12.5px; color:var(--pg-sub)}
+@media (max-width:760px){ .pg-two{grid-template-columns:minmax(0,1fr)} .pg-ctrl>span{min-width:0; width:100%} }
+</style>
+
+<div class="pg">
+  <div class="pg-top">
+    <h1>레퍼런스 #119 위험도 세 묶음 카드</h1>
+    <p>기본 틀 정석판 · 3단 카드 + 화살표 · 분류·유목화</p>
+  </div>
+  <ul class="pg-tags">
+    <li>본문</li><li>발표 덱</li><li>정지</li><li>시설·안전</li><li>Ⅲ 세부과제</li><li>평면</li><li>아이콘 세트</li>
+  </ul>
+
+  <div class="pg-stage">
+<style>
+/* ── 3단 카드 + 화살표 (정석판) · 접두어 tc3- ──
+   가상 화면 1600×900 기준. 1단위(--u) = 1600분의 1 화면 폭.
+   색은 아래 --ds-* 변수만 쓴다. 계열을 바꾸려면 이 묶음만 갈아 끼운다. */
+.tc3-wrap{
+  --ds-bg:#F6F8FB; --ds-surface:#FFFFFF; --ds-ink:#172A46; --ds-sub:#56667F; --ds-line:#D5DEEA;
+  --ds-accent:#D24E2B; --ds-accent2:#2F64AE;
+  --ds-c1:#1B3560; --ds-c2:#2F5A93; --ds-c3:#5E7FB0; --ds-c4:#A3B8D6; --ds-c5:#DFE7F2;
+  --ds-font-title:"Gothic A1","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Saira Semi Condensed","Arial Narrow","Malgun Gothic",sans-serif;
+  --ds-radius:6px;
+  --ds-shadow:0 1px 0 rgba(23,42,70,.05),0 14px 32px -22px rgba(23,42,70,.30);
+  container-type:inline-size; width:100%;
+}
+.tc3-slide{
+  --u:calc(100cqw / 1600);
+  position:relative; aspect-ratio:16/9; width:100%; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*22); line-height:1.45;
+}
+.tc3-slide *{box-sizing:border-box; margin:0; padding:0}
+/* 공통 아이콘 CSS (아이콘 세트 _set.css 그대로) */
+.ds-ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.ds-badge{--s:48px;width:var(--s);height:var(--s);display:grid;place-items:center;font-size:calc(var(--s)*.54);color:var(--ds-accent)}
+.ds-badge.is-line{width:auto;height:auto;font-size:var(--s)}
+.ds-badge.is-round{border-radius:50%;background:var(--ds-c5)}
+.ds-badge.is-square{border-radius:calc(var(--s)*.18);background:var(--ds-c5)}
+.ds-badge.is-slant{background:var(--ds-accent);color:var(--ds-surface);clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);width:calc(var(--s)*1.25)}
+
+/* 머리말 띠 y40~88 */
+.tc3-head{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:calc(var(--u)*1.5) solid var(--ds-ink)}
+.tc3-sec{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*22); letter-spacing:.02em}
+.tc3-sec b{color:var(--ds-c2); margin-right:calc(var(--u)*8)}
+.tc3-plan{font-size:calc(var(--u)*17); color:var(--ds-sub); letter-spacing:.02em}
+/* 제목 y112~ */
+.tc3-title{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*112);
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*44); line-height:1.3; letter-spacing:-.01em; text-wrap:balance}
+.tc3-title em{font-style:normal; color:var(--ds-accent)}
+.tc3-note{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*178);
+  font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tc3-note span+span::before{content:"·"; margin:0 calc(var(--u)*8); color:var(--ds-c4)}
+
+/* 본문 y232~820 : 카드 줄 + 후속 관리 줄 */
+.tc3-body{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*232); bottom:calc(var(--u)*80);
+  display:flex; flex-direction:column; gap:calc(var(--u)*16)}
+.tc3-cards{display:grid; grid-template-columns:1fr calc(var(--u)*56) 1fr calc(var(--u)*56) 1fr; align-items:stretch}
+.tc3-arrow{display:grid; place-items:center; color:var(--ds-c3)}
+.tc3-arrow svg{width:calc(var(--u)*32); height:calc(var(--u)*32)}
+.tc3-card{background:var(--ds-surface); border-radius:var(--ds-radius); box-shadow:var(--ds-shadow);
+  border-top:calc(var(--u)*6) solid var(--k); padding:calc(var(--u)*24) calc(var(--u)*32) calc(var(--u)*32);
+  display:grid; grid-template-columns:1fr; grid-template-areas:"head" "count" "list" "band"; align-content:start; row-gap:calc(var(--u)*16)}
+.tc3-card[data-lv="1"]{--k:var(--ds-c1)} .tc3-card[data-lv="2"]{--k:var(--ds-c2)} .tc3-card[data-lv="3"]{--k:var(--ds-c3)}
+.tc3-cardhead{grid-area:head; display:flex; align-items:center; gap:calc(var(--u)*16)}
+.tc3-cardhead .ds-badge{--s:calc(var(--u)*56); color:var(--ds-c1)}
+.tc3-kick{display:block; font-size:calc(var(--u)*17); color:var(--k); font-weight:700; letter-spacing:.04em}
+.tc3-name{display:block; font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*30); line-height:1.2}
+.tc3-count{grid-area:count; display:flex; align-items:baseline; gap:calc(var(--u)*8); padding-bottom:calc(var(--u)*16); border-bottom:calc(var(--u)*1) solid var(--ds-line)}
+.tc3-count b{font-family:var(--ds-font-num); font-weight:700; font-size:calc(var(--u)*44); line-height:1; font-variant-numeric:tabular-nums}
+.tc3-count span{color:var(--ds-sub)}
+.tc3-list{grid-area:list; list-style:none}
+.tc3-list li{display:flex; justify-content:space-between; align-items:baseline; gap:calc(var(--u)*16); padding:calc(var(--u)*8) 0}
+.tc3-list li+li{border-top:calc(var(--u)*1) dashed var(--ds-line)}
+.tc3-list li::before{content:""; flex:none; align-self:center; width:calc(var(--u)*6); height:calc(var(--u)*6); background:var(--k); margin-right:calc(var(--u)*-4)}
+.tc3-list .t{flex:1}
+.tc3-list .n{font-family:var(--ds-font-num); font-weight:600; font-variant-numeric:tabular-nums; color:var(--ds-sub)}
+.tc3-band{grid-area:band; background:var(--ds-bg); border-radius:calc(var(--ds-radius) * .6); padding:calc(var(--u)*16) calc(var(--u)*24);
+  display:grid; grid-template-columns:auto 1fr; column-gap:calc(var(--u)*16); row-gap:calc(var(--u)*8); align-items:baseline}
+.tc3-band dt{font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tc3-band dd{font-weight:700}
+/* 후속 관리 줄 */
+.tc3-foot{display:flex; align-items:center; gap:calc(var(--u)*16); padding:calc(var(--u)*16) calc(var(--u)*24);
+  border:calc(var(--u)*1) solid var(--ds-line); border-radius:var(--ds-radius); background:var(--ds-surface)}
+.tc3-foot .ds-badge{--s:calc(var(--u)*40); color:var(--ds-c1)}
+.tc3-foot strong{font-family:var(--ds-font-title); font-weight:800; white-space:nowrap}
+.tc3-foot p{color:var(--ds-ink)}
+.tc3-foot p span+span::before{content:"·"; margin:0 calc(var(--u)*8); color:var(--ds-c4)}
+/* 바닥 줄 y846~ */
+.tc3-base{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846);
+  display:flex; justify-content:space-between; font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tc3-base b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+
+/* ── 변주 1: 배지 모양 사각 → 선만 ── */
+.tc3-wrap[data-variant="line"] .tc3-cardhead .ds-badge,
+.tc3-wrap[data-variant="line"] .tc3-foot .ds-badge{background:none; width:auto; height:auto; font-size:calc(var(--s)*.86)}
+/* ── 변주 2: 가로 3단 → 세로 3줄 ── */
+.tc3-wrap[data-variant="vertical"] .tc3-body{gap:calc(var(--u)*16)}
+.tc3-wrap[data-variant="vertical"] .tc3-cards{grid-template-columns:1fr; grid-template-rows:auto calc(var(--u)*20) auto calc(var(--u)*20) auto}
+.tc3-wrap[data-variant="vertical"] .tc3-arrow{justify-content:start; padding-left:calc(var(--u)*60)}
+.tc3-wrap[data-variant="vertical"] .tc3-arrow svg{transform:rotate(90deg); width:calc(var(--u)*20); height:calc(var(--u)*20)}
+.tc3-wrap[data-variant="vertical"] .tc3-card{border-top:0; border-left:calc(var(--u)*6) solid var(--k); padding:calc(var(--u)*16) calc(var(--u)*32);
+  grid-template-columns:calc(var(--u)*380) 1fr calc(var(--u)*400); grid-template-areas:"head list band" "count list band"; column-gap:calc(var(--u)*40); row-gap:calc(var(--u)*12); align-items:center}
+.tc3-wrap[data-variant="vertical"] .tc3-count{padding-bottom:0; border-bottom:0}
+.tc3-wrap[data-variant="vertical"] .tc3-count b{font-size:calc(var(--u)*30)}
+.tc3-wrap[data-variant="vertical"] .tc3-list li{padding:calc(var(--u)*3) 0}
+.tc3-wrap[data-variant="vertical"] .tc3-foot{padding:calc(var(--u)*12) calc(var(--u)*24)}
+</style>
+
+<div class="tc3-wrap" data-variant="base">
+  <div class="tc3-slide" role="img" aria-label="점검 지적 1,240건을 위험도 세 묶음으로 나눈 3단 카드 장표">
+    <header class="tc3-head">
+      <div class="tc3-sec"><b>Ⅲ.</b>세부 추진과제</div>
+      <div class="tc3-plan">2026 학교시설 정밀안전점검 후속 조치 계획</div>
+    </header>
+    <h2 class="tc3-title">점검 지적 1,240건, 위험도 <em>세 묶음</em>으로 나눠 처리 순서를 정합니다</h2>
+    <p class="tc3-note"><span>2026년 상반기 정밀안전점검 · 관내 초·중·고 312교</span><span>왼쪽부터 위험도 높은 순</span><span>화살표 = 처리 순서</span></p>
+    <div class="tc3-body">
+      <div class="tc3-cards" id="tc3-cards"></div>
+      <div class="tc3-foot">
+        <span class="ds-badge is-square"><svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2"/><path d="M9 14l2 2l4 -4"/></svg></span>
+        <strong>후속 확인</strong>
+        <p><span>관찰 사항은 진행이 확인되면 ② 계획 보수로 올림</span><span>처리 결과는 시설안전과가 12월 말까지 학교별 확인</span></p>
+      </div>
+    </div>
+    <footer class="tc3-base"><span>가상 예시 · 출처: ○○교육청 시설안전과 정밀안전점검 결과(가상) · 아이콘: Tabler Icons(MIT)</span><b>12</b></footer>
+  </div>
+</div>
+
+<script>
+/* ── 데이터: 여기만 바꾸면 카드 내용이 바뀝니다 ──
+   lv = 위계(1 진함 → 3 옅음), icon = 아이콘 세트 id, items = [항목, 건수] */
+(function(){
+  var TC3_DATA = [
+    { lv:1, kick:"01 · 위험 사항", name:"즉시 조치", icon:"alert-triangle", count:"186", unit:"건 · 전체의 15%",
+      items:[["옹벽·축대 균열","64건"],["계단·난간 흔들림","58건"],["분전반 누전·과열","64건"]],
+      band:[["기한","사용 제한 후 30일 이내"],["재원","긴급 보수비 18억 원"]] },
+    { lv:2, kick:"02 · 보수 필요", name:"계획 보수", icon:"tools", count:"642", unit:"건 · 전체의 52%",
+      items:[["옥상 방수층 노후","248건"],["외벽 마감재 탈락 위험","216건"],["창호 기밀 불량","178건"]],
+      band:[["기한","여름방학 일괄 공사(7~8월)"],["재원","시설환경개선비 96억 원"]] },
+    { lv:3, kick:"03 · 모니터링", name:"정기 관찰", icon:"zoom-check", count:"412", unit:"건 · 전체의 33%",
+      items:[["0.3mm 미만 미세 균열","174건"],["바닥 마감 마모","132건"],["배수구 막힘","106건"]],
+      band:[["기한","분기별 사진 기록(연 4회)"],["재원","학교 기본운영비"]] }
+  ];
+  /* 아이콘 세트에서 가져온 SVG (Tabler Icons, MIT) */
+  var TC3_ICON = {
+    "alert-triangle":'<svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0"/><path d="M12 16h.01"/></svg>',
+    "tools":'<svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4"/><path d="M14.5 5.5l4 4"/><path d="M12 8l-5 -5l-4 4l5 5"/><path d="M7 8l-1.5 1.5"/><path d="M16 12l5 5l-4 4l-5 -5"/><path d="M16 17l-1.5 1.5"/></svg>',
+    "zoom-check":'<svg class="ds-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/><path d="M7 10l2 2l4 -4"/></svg>'
+  };
+  var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h12M12 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var host = document.getElementById("tc3-cards");
+  if(!host) return;
+  host.innerHTML = TC3_DATA.map(function(d,i){
+    var card = '<article class="tc3-card" data-lv="'+d.lv+'">'
+      + '<div class="tc3-cardhead"><span class="ds-badge is-square">'+TC3_ICON[d.icon]+'</span>'
+      + '<div><span class="tc3-kick">'+d.kick+'</span><span class="tc3-name">'+d.name+'</span></div></div>'
+      + '<div class="tc3-count"><b>'+d.count+'</b><span>'+d.unit+'</span></div>'
+      + '<ul class="tc3-list">'+d.items.map(function(t){return '<li><span class="t">'+t[0]+'</span><span class="n">'+t[1]+'</span></li>';}).join('')+'</ul>'
+      + '<dl class="tc3-band">'+d.band.map(function(b){return '<dt>'+b[0]+'</dt><dd>'+b[1]+'</dd>';}).join('')+'</dl>'
+      + '</article>';
+    return card + (i < TC3_DATA.length-1 ? '<div class="tc3-arrow">'+ARROW+'</div>' : '');
+  }).join('');
+})();
+</script>
+
+  </div>
+
+  <div class="pg-ctrl" role="group" aria-label="계열 값 바꿔 보기">
+    <span>계열 값 바꿔 보기</span>
+    <button class="pg-btn" data-fam="N" aria-pressed="true">중립 값</button>
+    <button class="pg-btn" data-fam="B" aria-pressed="false">B 미니멀 스튜디오</button>
+    <button class="pg-btn" data-fam="D" aria-pressed="false">D 인쇄·종이</button>
+    <button class="pg-btn" data-fam="F" aria-pressed="false">F 관측·중계</button>
+  </div>
+  <div class="pg-ctrl" role="group" aria-label="변주 보기">
+    <span>변주 보기</span>
+    <button class="pg-btn" data-var="base" aria-pressed="true">기본형</button>
+    <button class="pg-btn" data-var="line" aria-pressed="false">변주 1 · 배지 사각 → 선만</button>
+    <button class="pg-btn" data-var="vertical" aria-pressed="false">변주 2 · 가로 3단 → 세로 3줄</button>
+  </div>
+
+  <section class="pg-sec">
+    <h2>원문 → 유목화<small>계획안 줄글을 묶음 넷으로</small></h2>
+    <p class="lead">왼쪽은 정리 전 계획안 문단, 오른쪽은 묶은 방법입니다. 같은 번호가 장표의 같은 묶음(①②③ 카드, ④ 후속 확인 줄)입니다.</p>
+    <div class="pg-two">
+      <div class="pg-card">
+        <h3>정리 전 원문 (가상)</h3>
+        <p class="pg-src">2026년 상반기 관내 초·중·고 312교를 대상으로 정밀안전점검을 실시한 결과 지적사항은 총 1,240건이다. <mark><sup>①</sup>옹벽·축대 균열 64건, 계단·난간 흔들림 58건, 분전반 누전·과열 64건은 학생 안전에 직접 위험이 되는 사항으로</mark>, <mark><sup>①</sup>해당 시설은 즉시 사용을 제한하고 30일 이내 긴급 보수를 마치며 긴급 보수비 18억 원을 투입한다</mark>. <mark><sup>②</sup>옥상 방수층 노후 248건, 외벽 마감재 탈락 위험 216건, 창호 기밀 불량 178건은 당장 위험하지는 않으나 보수가 필요한 사항으로</mark>, <mark><sup>②</sup>여름방학 기간(7~8월)에 일괄 공사로 처리하고 시설환경개선비 96억 원을 편성한다</mark>. <mark><sup>③</sup>0.3mm 미만 미세 균열 174건, 바닥 마감 마모 132건, 배수구 막힘 106건은 진행 여부를 지켜볼 사항이며</mark>, <mark><sup>③</sup>학교 시설 담당자가 분기별로 사진 기록을 남기고 경미한 정비는 학교 기본운영비로 한다</mark>. <mark><sup>④</sup>관찰 사항 중 진행이 확인된 것은 보수 대상으로 올리고</mark>, <mark><sup>④</sup>처리 결과는 시설안전과가 12월 말까지 학교별로 확인한다</mark>.</p>
+      </div>
+      <div class="pg-card">
+        <h3>묶은 방법</h3>
+        <ol class="pg-grp">
+          <li><b class="n">①</b><strong>즉시 조치 · 위험 사항</strong><span>“직접 위험이 되는” 3종(186건) + 사용 제한·30일 이내 → 기한, 긴급 보수비 18억 원 → 재원</span></li>
+          <li><b class="n">②</b><strong>계획 보수 · 보수 필요</strong><span>“보수가 필요한” 3종(642건) + 여름방학 일괄 공사 → 기한, 시설환경개선비 96억 원 → 재원</span></li>
+          <li><b class="n">③</b><strong>정기 관찰 · 모니터링</strong><span>“지켜볼” 3종(412건) + 분기별 사진 기록 → 기한, 학교 기본운영비 → 재원</span></li>
+          <li><b class="n">④</b><strong>후속 확인</strong><span>상향 규칙 + 12월 말 확인. 세 묶음 모두에 걸리므로 카드 밖 한 줄로</span></li>
+        </ol>
+        <div class="pg-rel">
+          <p><b>①→②→③</b> 위험도 높은 순 = 처리 순서. 화살표는 이 순서 하나만 뜻합니다.</p>
+          <p><b>③→②</b> 진행이 확인되면 올라가는 되돌림은 ④ 줄에 글로 적습니다(화살표를 하나 더 그리면 순서가 흐려짐).</p>
+          <p><b>뺀 것 없음</b> 총 1,240건은 제목으로, 비율(15·52·33%)은 원문 건수로 계산해 더했습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>구조 설명</h2>
+    <div class="pg-two">
+      <div class="pg-card">
+        <h3>정보 구조</h3>
+        <p style="margin:0">같은 기준(위험도)으로 나눈 세 묶음을 같은 틀의 카드에 담고, 카드마다 <b>머리(아이콘·이름) → 규모(건수·비율) → 내용(유형 3개와 건수) → 지표 띠(기한·재원)</b>를 같은 높이에 둡니다. 그래서 가로로 읽으면 묶음끼리 비교되고, 세로로 읽으면 한 묶음의 처리 방법이 됩니다. 묶음의 위계는 카드 위 띠와 번호 색의 농담(진함 → 옅음)으로만 보여 줍니다.</p>
+      </div>
+      <div class="pg-card">
+        <h3>가져갈 장치 · 응용 예</h3>
+        <ul class="pg-list">
+          <li><b>같은 줄 = 같은 질문</b>: 세 카드의 지표 띠가 같은 높이·같은 라벨(기한·재원)이라 표처럼 가로 비교가 됩니다.</li>
+          <li><b>카드에 안 맞는 정보는 아래 한 줄</b>: 묶음 모두에 걸리는 규칙은 카드 밖 후속 줄로 빼서 빈 공간도 메웁니다.</li>
+          <li>응용: 학교폭력 사안 경중별 처리(관계회복·심의·긴급 보호) / 늘봄 프로그램 세 갈래(맞춤형·선택형·돌봄형) / 기록물 보존 기간별 정리(영구·준영구·단기)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>정석 수치<small>1600×900 기준 px · 간격은 8의 단계(8·16·24·32·56·80)에서만</small></h2>
+    <div class="pg-tbl-wrap">
+      <table class="pg-tbl">
+        <thead><tr><th>항목</th><th>값</th><th>메모</th></tr></thead>
+        <tbody>
+          <tr><td>바깥 여백</td><td class="num">좌우 80 · 머리말 띠 y40~88 · 본문 y232~820 · 바닥 줄 y846</td><td>공통 뼈대 그대로</td></tr>
+          <tr><td>칸 사이 간격</td><td class="num">카드 사이 56 (가운데 화살표 32) · 카드 줄 ↔ 후속 줄 16</td><td>카드 폭 = (1440 − 56×2) ÷ 3 ≈ 443</td></tr>
+          <tr><td>카드 안쪽 여백</td><td class="num">위 24 (+ 위 띠 6) · 좌우 32 · 아래 32 · 카드 안 묶음 간격 16</td><td>지표 띠 안쪽 16 / 24, 항목 줄 위아래 8</td></tr>
+          <tr><td>글자 크기 단계</td><td class="num">제목 44 · 카드 이름 30 · 본문 22 · 보조 17 (건수 44 = 제목 크기)</td><td>보조 글자는 22·17 두 단계</td></tr>
+          <tr><td>아이콘·배지</td><td class="num">카드 머리 배지 56 (아이콘 30) · 후속 줄 배지 40 (아이콘 22)</td><td>사각 배지 한 종류, 색 --ds-c1 하나</td></tr>
+          <tr><td>선 굵기</td><td class="num">머리말 밑줄 1.5 · 구분선 1 · 항목 사이 점선 1 · 카드 위 띠 6</td><td>모서리 6, 그림자 한 단</td></tr>
+          <tr><td>높이 맞춤</td><td class="num">세 카드 항목 수 동일(3) · 지표 띠 2줄 동일</td><td>칸이 늘어나 빈 곳이 생기지 않게 내용 수를 맞춤</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>이 틀을 변주하는 법</h2>
+    <ul class="pg-list">
+      <li><b>모양 하나만</b>: 배지(사각·원·선만·평행사변형) 중 하나를 덱 전체에서 고정합니다. 변주 1은 배지만 선으로 바꿨습니다.</li>
+      <li><b>배치 하나만</b>: 항목이 많거나 문장이 길면 세로 3줄로 돌립니다(머리 · 항목 · 지표 띠가 한 줄에). 변주 2는 칸 구성은 그대로, 방향만 바꿨습니다.</li>
+      <li><b>칸 수</b>: 4단으로 늘리면 카드 폭 ≈ 318이 되니 항목을 2개로 줄이고 지표 띠는 1줄로. 5단 이상이면 이 틀 대신 단계 박스나 표를 씁니다.</li>
+    </ul>
+  </section>
+
+  <section class="pg-sec">
+    <h2>HTML로 가져다 쓰기</h2>
+    <ul class="pg-list">
+      <li>내용은 코드 아래쪽 <code>TC3_DATA</code> 배열만 바꾸면 됩니다(lv = 위계 1~3, icon = 아이콘 세트 id, items = [항목, 건수], band = [라벨, 값]).</li>
+      <li>색·글꼴은 맨 위 <code>.tc3-wrap</code>의 <code>--ds-*</code> 변수만 바꿉니다. 변주는 <code>data-variant</code>를 <code>base</code> · <code>line</code> · <code>vertical</code> 중 하나로.</li>
+      <li>다른 아이콘이 필요하면 아이콘 세트 페이지에서 svg를 복사해 <code>TC3_ICON</code>에 더합니다.</li>
+      <li>인터넷이 없으면 글꼴만 대체 글꼴(맑은 고딕 등)로 바뀌고 나머지는 그대로 그려집니다.</li>
+      <li>AI 채팅에는 링크 대신 이 코드를 붙여 넣으세요.</li>
+    </ul>
+    <div class="pg-code">
+      <button type="button" id="pg-copy">코드 복사</button>
+      <pre id="pg-codebox" tabindex="0">&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;800&amp;family=IBM+Plex+Sans+KR:wght@400;500;700&amp;family=Saira+Semi+Condensed:wght@600;700&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* ── 3단 카드 + 화살표 (정석판) · 접두어 tc3- ──
+   가상 화면 1600×900 기준. 1단위(--u) = 1600분의 1 화면 폭.
+   색은 아래 --ds-* 변수만 쓴다. 계열을 바꾸려면 이 묶음만 갈아 끼운다. */
+.tc3-wrap{
+  --ds-bg:#F6F8FB; --ds-surface:#FFFFFF; --ds-ink:#172A46; --ds-sub:#56667F; --ds-line:#D5DEEA;
+  --ds-accent:#D24E2B; --ds-accent2:#2F64AE;
+  --ds-c1:#1B3560; --ds-c2:#2F5A93; --ds-c3:#5E7FB0; --ds-c4:#A3B8D6; --ds-c5:#DFE7F2;
+  --ds-font-title:&quot;Gothic A1&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-body:&quot;IBM Plex Sans KR&quot;,&quot;Pretendard&quot;,&quot;Apple SD Gothic Neo&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-font-num:&quot;Saira Semi Condensed&quot;,&quot;Arial Narrow&quot;,&quot;Malgun Gothic&quot;,sans-serif;
+  --ds-radius:6px;
+  --ds-shadow:0 1px 0 rgba(23,42,70,.05),0 14px 32px -22px rgba(23,42,70,.30);
+  container-type:inline-size; width:100%;
+}
+.tc3-slide{
+  --u:calc(100cqw / 1600);
+  position:relative; aspect-ratio:16/9; width:100%; overflow:hidden;
+  background:var(--ds-bg); color:var(--ds-ink); font-family:var(--ds-font-body);
+  font-size:calc(var(--u)*22); line-height:1.45;
+}
+.tc3-slide *{box-sizing:border-box; margin:0; padding:0}
+/* 공통 아이콘 CSS (아이콘 세트 _set.css 그대로) */
+.ds-ic{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;display:block}
+.ds-badge{--s:48px;width:var(--s);height:var(--s);display:grid;place-items:center;font-size:calc(var(--s)*.54);color:var(--ds-accent)}
+.ds-badge.is-line{width:auto;height:auto;font-size:var(--s)}
+.ds-badge.is-round{border-radius:50%;background:var(--ds-c5)}
+.ds-badge.is-square{border-radius:calc(var(--s)*.18);background:var(--ds-c5)}
+.ds-badge.is-slant{background:var(--ds-accent);color:var(--ds-surface);clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);width:calc(var(--s)*1.25)}
+
+/* 머리말 띠 y40~88 */
+.tc3-head{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*40); height:calc(var(--u)*48);
+  display:flex; align-items:center; justify-content:space-between; border-bottom:calc(var(--u)*1.5) solid var(--ds-ink)}
+.tc3-sec{font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*22); letter-spacing:.02em}
+.tc3-sec b{color:var(--ds-c2); margin-right:calc(var(--u)*8)}
+.tc3-plan{font-size:calc(var(--u)*17); color:var(--ds-sub); letter-spacing:.02em}
+/* 제목 y112~ */
+.tc3-title{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*112);
+  font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*44); line-height:1.3; letter-spacing:-.01em; text-wrap:balance}
+.tc3-title em{font-style:normal; color:var(--ds-accent)}
+.tc3-note{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*178);
+  font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tc3-note span+span::before{content:&quot;·&quot;; margin:0 calc(var(--u)*8); color:var(--ds-c4)}
+
+/* 본문 y232~820 : 카드 줄 + 후속 관리 줄 */
+.tc3-body{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*232); bottom:calc(var(--u)*80);
+  display:flex; flex-direction:column; gap:calc(var(--u)*16)}
+.tc3-cards{display:grid; grid-template-columns:1fr calc(var(--u)*56) 1fr calc(var(--u)*56) 1fr; align-items:stretch}
+.tc3-arrow{display:grid; place-items:center; color:var(--ds-c3)}
+.tc3-arrow svg{width:calc(var(--u)*32); height:calc(var(--u)*32)}
+.tc3-card{background:var(--ds-surface); border-radius:var(--ds-radius); box-shadow:var(--ds-shadow);
+  border-top:calc(var(--u)*6) solid var(--k); padding:calc(var(--u)*24) calc(var(--u)*32) calc(var(--u)*32);
+  display:grid; grid-template-columns:1fr; grid-template-areas:&quot;head&quot; &quot;count&quot; &quot;list&quot; &quot;band&quot;; align-content:start; row-gap:calc(var(--u)*16)}
+.tc3-card[data-lv=&quot;1&quot;]{--k:var(--ds-c1)} .tc3-card[data-lv=&quot;2&quot;]{--k:var(--ds-c2)} .tc3-card[data-lv=&quot;3&quot;]{--k:var(--ds-c3)}
+.tc3-cardhead{grid-area:head; display:flex; align-items:center; gap:calc(var(--u)*16)}
+.tc3-cardhead .ds-badge{--s:calc(var(--u)*56); color:var(--ds-c1)}
+.tc3-kick{display:block; font-size:calc(var(--u)*17); color:var(--k); font-weight:700; letter-spacing:.04em}
+.tc3-name{display:block; font-family:var(--ds-font-title); font-weight:800; font-size:calc(var(--u)*30); line-height:1.2}
+.tc3-count{grid-area:count; display:flex; align-items:baseline; gap:calc(var(--u)*8); padding-bottom:calc(var(--u)*16); border-bottom:calc(var(--u)*1) solid var(--ds-line)}
+.tc3-count b{font-family:var(--ds-font-num); font-weight:700; font-size:calc(var(--u)*44); line-height:1; font-variant-numeric:tabular-nums}
+.tc3-count span{color:var(--ds-sub)}
+.tc3-list{grid-area:list; list-style:none}
+.tc3-list li{display:flex; justify-content:space-between; align-items:baseline; gap:calc(var(--u)*16); padding:calc(var(--u)*8) 0}
+.tc3-list li+li{border-top:calc(var(--u)*1) dashed var(--ds-line)}
+.tc3-list li::before{content:&quot;&quot;; flex:none; align-self:center; width:calc(var(--u)*6); height:calc(var(--u)*6); background:var(--k); margin-right:calc(var(--u)*-4)}
+.tc3-list .t{flex:1}
+.tc3-list .n{font-family:var(--ds-font-num); font-weight:600; font-variant-numeric:tabular-nums; color:var(--ds-sub)}
+.tc3-band{grid-area:band; background:var(--ds-bg); border-radius:calc(var(--ds-radius) * .6); padding:calc(var(--u)*16) calc(var(--u)*24);
+  display:grid; grid-template-columns:auto 1fr; column-gap:calc(var(--u)*16); row-gap:calc(var(--u)*8); align-items:baseline}
+.tc3-band dt{font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tc3-band dd{font-weight:700}
+/* 후속 관리 줄 */
+.tc3-foot{display:flex; align-items:center; gap:calc(var(--u)*16); padding:calc(var(--u)*16) calc(var(--u)*24);
+  border:calc(var(--u)*1) solid var(--ds-line); border-radius:var(--ds-radius); background:var(--ds-surface)}
+.tc3-foot .ds-badge{--s:calc(var(--u)*40); color:var(--ds-c1)}
+.tc3-foot strong{font-family:var(--ds-font-title); font-weight:800; white-space:nowrap}
+.tc3-foot p{color:var(--ds-ink)}
+.tc3-foot p span+span::before{content:&quot;·&quot;; margin:0 calc(var(--u)*8); color:var(--ds-c4)}
+/* 바닥 줄 y846~ */
+.tc3-base{position:absolute; left:calc(var(--u)*80); right:calc(var(--u)*80); top:calc(var(--u)*846);
+  display:flex; justify-content:space-between; font-size:calc(var(--u)*17); color:var(--ds-sub)}
+.tc3-base b{font-family:var(--ds-font-num); font-weight:600; color:var(--ds-ink)}
+
+/* ── 변주 1: 배지 모양 사각 → 선만 ── */
+.tc3-wrap[data-variant=&quot;line&quot;] .tc3-cardhead .ds-badge,
+.tc3-wrap[data-variant=&quot;line&quot;] .tc3-foot .ds-badge{background:none; width:auto; height:auto; font-size:calc(var(--s)*.86)}
+/* ── 변주 2: 가로 3단 → 세로 3줄 ── */
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-body{gap:calc(var(--u)*16)}
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-cards{grid-template-columns:1fr; grid-template-rows:auto calc(var(--u)*20) auto calc(var(--u)*20) auto}
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-arrow{justify-content:start; padding-left:calc(var(--u)*60)}
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-arrow svg{transform:rotate(90deg); width:calc(var(--u)*20); height:calc(var(--u)*20)}
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-card{border-top:0; border-left:calc(var(--u)*6) solid var(--k); padding:calc(var(--u)*16) calc(var(--u)*32);
+  grid-template-columns:calc(var(--u)*380) 1fr calc(var(--u)*400); grid-template-areas:&quot;head list band&quot; &quot;count list band&quot;; column-gap:calc(var(--u)*40); row-gap:calc(var(--u)*12); align-items:center}
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-count{padding-bottom:0; border-bottom:0}
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-count b{font-size:calc(var(--u)*30)}
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-list li{padding:calc(var(--u)*3) 0}
+.tc3-wrap[data-variant=&quot;vertical&quot;] .tc3-foot{padding:calc(var(--u)*12) calc(var(--u)*24)}
+&lt;/style&gt;
+
+&lt;div class=&quot;tc3-wrap&quot; data-variant=&quot;base&quot;&gt;
+  &lt;div class=&quot;tc3-slide&quot; role=&quot;img&quot; aria-label=&quot;점검 지적 1,240건을 위험도 세 묶음으로 나눈 3단 카드 장표&quot;&gt;
+    &lt;header class=&quot;tc3-head&quot;&gt;
+      &lt;div class=&quot;tc3-sec&quot;&gt;&lt;b&gt;Ⅲ.&lt;/b&gt;세부 추진과제&lt;/div&gt;
+      &lt;div class=&quot;tc3-plan&quot;&gt;2026 학교시설 정밀안전점검 후속 조치 계획&lt;/div&gt;
+    &lt;/header&gt;
+    &lt;h2 class=&quot;tc3-title&quot;&gt;점검 지적 1,240건, 위험도 &lt;em&gt;세 묶음&lt;/em&gt;으로 나눠 처리 순서를 정합니다&lt;/h2&gt;
+    &lt;p class=&quot;tc3-note&quot;&gt;&lt;span&gt;2026년 상반기 정밀안전점검 · 관내 초·중·고 312교&lt;/span&gt;&lt;span&gt;왼쪽부터 위험도 높은 순&lt;/span&gt;&lt;span&gt;화살표 = 처리 순서&lt;/span&gt;&lt;/p&gt;
+    &lt;div class=&quot;tc3-body&quot;&gt;
+      &lt;div class=&quot;tc3-cards&quot; id=&quot;tc3-cards&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;tc3-foot&quot;&gt;
+        &lt;span class=&quot;ds-badge is-square&quot;&gt;&lt;svg class=&quot;ds-ic&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.75&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2&quot;/&gt;&lt;path d=&quot;M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2&quot;/&gt;&lt;path d=&quot;M9 14l2 2l4 -4&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;
+        &lt;strong&gt;후속 확인&lt;/strong&gt;
+        &lt;p&gt;&lt;span&gt;관찰 사항은 진행이 확인되면 ② 계획 보수로 올림&lt;/span&gt;&lt;span&gt;처리 결과는 시설안전과가 12월 말까지 학교별 확인&lt;/span&gt;&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;footer class=&quot;tc3-base&quot;&gt;&lt;span&gt;가상 예시 · 출처: ○○교육청 시설안전과 정밀안전점검 결과(가상) · 아이콘: Tabler Icons(MIT)&lt;/span&gt;&lt;b&gt;12&lt;/b&gt;&lt;/footer&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+/* ── 데이터: 여기만 바꾸면 카드 내용이 바뀝니다 ──
+   lv = 위계(1 진함 → 3 옅음), icon = 아이콘 세트 id, items = [항목, 건수] */
+(function(){
+  var TC3_DATA = [
+    { lv:1, kick:&quot;01 · 위험 사항&quot;, name:&quot;즉시 조치&quot;, icon:&quot;alert-triangle&quot;, count:&quot;186&quot;, unit:&quot;건 · 전체의 15%&quot;,
+      items:[[&quot;옹벽·축대 균열&quot;,&quot;64건&quot;],[&quot;계단·난간 흔들림&quot;,&quot;58건&quot;],[&quot;분전반 누전·과열&quot;,&quot;64건&quot;]],
+      band:[[&quot;기한&quot;,&quot;사용 제한 후 30일 이내&quot;],[&quot;재원&quot;,&quot;긴급 보수비 18억 원&quot;]] },
+    { lv:2, kick:&quot;02 · 보수 필요&quot;, name:&quot;계획 보수&quot;, icon:&quot;tools&quot;, count:&quot;642&quot;, unit:&quot;건 · 전체의 52%&quot;,
+      items:[[&quot;옥상 방수층 노후&quot;,&quot;248건&quot;],[&quot;외벽 마감재 탈락 위험&quot;,&quot;216건&quot;],[&quot;창호 기밀 불량&quot;,&quot;178건&quot;]],
+      band:[[&quot;기한&quot;,&quot;여름방학 일괄 공사(7~8월)&quot;],[&quot;재원&quot;,&quot;시설환경개선비 96억 원&quot;]] },
+    { lv:3, kick:&quot;03 · 모니터링&quot;, name:&quot;정기 관찰&quot;, icon:&quot;zoom-check&quot;, count:&quot;412&quot;, unit:&quot;건 · 전체의 33%&quot;,
+      items:[[&quot;0.3mm 미만 미세 균열&quot;,&quot;174건&quot;],[&quot;바닥 마감 마모&quot;,&quot;132건&quot;],[&quot;배수구 막힘&quot;,&quot;106건&quot;]],
+      band:[[&quot;기한&quot;,&quot;분기별 사진 기록(연 4회)&quot;],[&quot;재원&quot;,&quot;학교 기본운영비&quot;]] }
+  ];
+  /* 아이콘 세트에서 가져온 SVG (Tabler Icons, MIT) */
+  var TC3_ICON = {
+    &quot;alert-triangle&quot;:&#x27;&lt;svg class=&quot;ds-ic&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.75&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M12 9v4&quot;/&gt;&lt;path d=&quot;M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0&quot;/&gt;&lt;path d=&quot;M12 16h.01&quot;/&gt;&lt;/svg&gt;&#x27;,
+    &quot;tools&quot;:&#x27;&lt;svg class=&quot;ds-ic&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.75&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4&quot;/&gt;&lt;path d=&quot;M14.5 5.5l4 4&quot;/&gt;&lt;path d=&quot;M12 8l-5 -5l-4 4l5 5&quot;/&gt;&lt;path d=&quot;M7 8l-1.5 1.5&quot;/&gt;&lt;path d=&quot;M16 12l5 5l-4 4l-5 -5&quot;/&gt;&lt;path d=&quot;M16 17l-1.5 1.5&quot;/&gt;&lt;/svg&gt;&#x27;,
+    &quot;zoom-check&quot;:&#x27;&lt;svg class=&quot;ds-ic&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.75&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0&quot;/&gt;&lt;path d=&quot;M21 21l-6 -6&quot;/&gt;&lt;path d=&quot;M7 10l2 2l4 -4&quot;/&gt;&lt;/svg&gt;&#x27;
+  };
+  var ARROW = &#x27;&lt;svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M5 12h12M12 6l6 6-6 6&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;/svg&gt;&#x27;;
+  var host = document.getElementById(&quot;tc3-cards&quot;);
+  if(!host) return;
+  host.innerHTML = TC3_DATA.map(function(d,i){
+    var card = &#x27;&lt;article class=&quot;tc3-card&quot; data-lv=&quot;&#x27;+d.lv+&#x27;&quot;&gt;&#x27;
+      + &#x27;&lt;div class=&quot;tc3-cardhead&quot;&gt;&lt;span class=&quot;ds-badge is-square&quot;&gt;&#x27;+TC3_ICON[d.icon]+&#x27;&lt;/span&gt;&#x27;
+      + &#x27;&lt;div&gt;&lt;span class=&quot;tc3-kick&quot;&gt;&#x27;+d.kick+&#x27;&lt;/span&gt;&lt;span class=&quot;tc3-name&quot;&gt;&#x27;+d.name+&#x27;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&#x27;
+      + &#x27;&lt;div class=&quot;tc3-count&quot;&gt;&lt;b&gt;&#x27;+d.count+&#x27;&lt;/b&gt;&lt;span&gt;&#x27;+d.unit+&#x27;&lt;/span&gt;&lt;/div&gt;&#x27;
+      + &#x27;&lt;ul class=&quot;tc3-list&quot;&gt;&#x27;+d.items.map(function(t){return &#x27;&lt;li&gt;&lt;span class=&quot;t&quot;&gt;&#x27;+t[0]+&#x27;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;&#x27;+t[1]+&#x27;&lt;/span&gt;&lt;/li&gt;&#x27;;}).join(&#x27;&#x27;)+&#x27;&lt;/ul&gt;&#x27;
+      + &#x27;&lt;dl class=&quot;tc3-band&quot;&gt;&#x27;+d.band.map(function(b){return &#x27;&lt;dt&gt;&#x27;+b[0]+&#x27;&lt;/dt&gt;&lt;dd&gt;&#x27;+b[1]+&#x27;&lt;/dd&gt;&#x27;;}).join(&#x27;&#x27;)+&#x27;&lt;/dl&gt;&#x27;
+      + &#x27;&lt;/article&gt;&#x27;;
+    return card + (i &lt; TC3_DATA.length-1 ? &#x27;&lt;div class=&quot;tc3-arrow&quot;&gt;&#x27;+ARROW+&#x27;&lt;/div&gt;&#x27; : &#x27;&#x27;);
+  }).join(&#x27;&#x27;);
+})();
+&lt;/script&gt;
+</pre>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>PPT로 옮기기<small>와이드 16:9 (33.867 × 19.05 cm), 1px ≈ 0.0212 cm · 0.6 pt</small></h2>
+    <div class="pg-two">
+      <div class="pg-card">
+        <h3>도형 크기·간격</h3>
+        <ul class="pg-list">
+          <li>안내선: 좌우 1.69 cm, 머리말 밑줄 y 1.86 cm, 본문 시작 y 4.91 cm, 바닥 줄 y 17.9 cm.</li>
+          <li>카드: [사각형: 둥근 모서리] 9.37 × 10.2 cm, 모서리 반경 최소, 그림자 [바깥쪽 아래] 흐리게 10pt·투명도 85%. 위 띠는 9.37 × 0.13 cm 사각형을 카드 위에 붙여 그룹.</li>
+          <li>카드 사이 1.19 cm, 가운데 [블록 화살표가 아닌 선 화살표] 0.68 cm. 세 카드 선택 → [맞춤] 위쪽 맞춤 → 가로 간격 동일하게.</li>
+          <li>카드 안: 안쪽 여백 0.68 cm, 묶음 간격 0.34 cm. 지표 띠는 표(2행 2열, 테두리 없음, 바탕 = 장표 바탕색).</li>
+          <li>글자: 제목 26 pt · 카드 이름 18 pt · 본문 13 pt · 보조 10 pt, 건수 26 pt(숫자 글꼴).</li>
+        </ul>
+      </div>
+      <div class="pg-card">
+        <h3>아이콘·뼈대·애니메이션</h3>
+        <ul class="pg-list">
+          <li>아이콘: 아이콘 세트 페이지에서 svg 복사 → PPT에 [붙여넣기] → [그래픽 형식]에서 선 색 = c1. 배지는 1.19 cm 둥근 사각형(바탕 c5) 위에 아이콘 0.64 cm를 가운데 맞춤 후 그룹.</li>
+          <li>후속 줄: 전체 폭 30.5 × 1.2 cm 사각형(테두리 1pt, 선 색 = 구분선), 배지 0.85 cm.</li>
+          <li>머리말 띠·제목·바닥 줄은 슬라이드 마스터 레이아웃 "본문"에 넣고, 장표마다 섹션 이름·쪽 번호만 바꿉니다.</li>
+          <li>애니메이션 없음(정지 장표). 발표 중 순서를 보여 주려면 카드 셋만 [나타내기] · 클릭할 때 · 0.3초로.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-sec">
+    <h2>스펙</h2>
+    <div class="pg-tbl-wrap">
+      <table class="pg-tbl" id="pg-spec">
+        <thead><tr><th>변수</th><th>중립 값</th><th>B 미니멀 스튜디오</th><th>D 인쇄·종이</th><th>F 관측·중계</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <ul class="pg-list" style="margin-top:14px">
+      <li>글꼴: Gothic A1 800(제목) + IBM Plex Sans KR 400/500/700(본문) + Saira Semi Condensed 600/700(숫자) / 대체 Pretendard · 맑은 고딕 · Arial Narrow. 계열 값에서는 D = Noto Serif KR, B = IBM Plex Mono(숫자).</li>
+      <li>아이콘: alert-triangle(위험 · 주의), tools(시설 보수), zoom-check(점검 · 확인), clipboard-check(점검표) — 사각 배지 · 색 --ds-c1 · Tabler Icons(MIT).</li>
+      <li>난이도: HTML 하 · PPT 하. 질감 평면. 어울리는 계열 B · C · D · E · F · G.</li>
+      <li>트렌드: 간격을 정해진 단계에서만 고르는 간격 체계 — 간격·글꼴·색의 일관성이 신뢰 신호라는 2026 발표 디자인 원칙 (PitchWorx, “The Ultimate Guide to Presentation Design Core Principles for 2026”, https://pitchworx.com/the-ultimate-guide-to-presentation-design-core-principles-for-2026).</li>
+    </ul>
+  </section>
+
+  <p class="pg-foot">가상 예시 · 기관명·수치는 모두 가상입니다. ○○교육청 자리표시.</p>
+</div>
+
+<script>
+/* 페이지 전용: 계열 미리보기 · 변주 · 코드 복사 · 스펙 표 */
+(function(){
+  var FAM = {
+    N:null,
+    B:{"--ds-bg":"#EEF1F4","--ds-surface":"#FAFAF8","--ds-ink":"#1F2B36","--ds-sub":"#5E6974","--ds-line":"#CDD4DB","--ds-accent":"#E2571A","--ds-accent2":"#2F5D86","--ds-c1":"#2F4252","--ds-c2":"#4F6679","--ds-c3":"#7389A0","--ds-c4":"#9DB0C1","--ds-c5":"#C6D2DC","--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Pretendard\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"IBM Plex Mono\",Consolas,monospace","--ds-radius":"2px","--ds-shadow":"0 1px 0 rgba(31,43,54,.05),0 18px 40px -22px rgba(31,43,54,.30)"},
+    D:{"--ds-bg":"#FBFAF6","--ds-surface":"#FFFFFF","--ds-ink":"#1B1E24","--ds-sub":"#5C606A","--ds-line":"#CFCCC4","--ds-accent":"#D9482B","--ds-accent2":"#23467A","--ds-c1":"#1F3E6E","--ds-c2":"#3C5D8C","--ds-c3":"#6D87AD","--ds-c4":"#A5B5CD","--ds-c5":"#D7DEE9","--ds-font-title":"\"Noto Serif KR\",\"Nanum Myeongjo\",\"Batang\",serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Noto Sans KR\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"Noto Serif KR\",\"Nanum Myeongjo\",Georgia,serif","--ds-radius":"0px","--ds-shadow":"0 1px 2px rgba(27,30,36,.08),0 18px 40px -26px rgba(27,30,36,.32)"},
+    F:{"--ds-bg":"#F1F4F8","--ds-surface":"#FFFFFF","--ds-ink":"#13233A","--ds-sub":"#55647A","--ds-line":"#D2DAE4","--ds-accent":"#DE4430","--ds-accent2":"#2A6CB4","--ds-c1":"#1B3A63","--ds-c2":"#335C8F","--ds-c3":"#5F84B4","--ds-c4":"#9BB3D2","--ds-c5":"#D3E0EF","--ds-font-title":"\"Gothic A1\",\"Pretendard\",\"Malgun Gothic\",sans-serif","--ds-font-body":"\"IBM Plex Sans KR\",\"Pretendard\",\"Malgun Gothic\",sans-serif","--ds-font-num":"\"Saira Semi Condensed\",\"Arial Narrow\",sans-serif","--ds-radius":"3px","--ds-shadow":"0 1px 0 rgba(19,35,58,.06),0 16px 36px -20px rgba(19,35,58,.32)"}
+  };
+  var NEU = {"--ds-bg":"#F6F8FB","--ds-surface":"#FFFFFF","--ds-ink":"#172A46","--ds-sub":"#56667F","--ds-line":"#D5DEEA","--ds-accent":"#D24E2B","--ds-accent2":"#2F64AE","--ds-c1":"#1B3560","--ds-c2":"#2F5A93","--ds-c3":"#5E7FB0","--ds-c4":"#A3B8D6","--ds-c5":"#DFE7F2","--ds-radius":"6px"};
+  var wrap = document.querySelector(".tc3-wrap");
+  function press(sel, btn){ document.querySelectorAll(sel).forEach(function(b){ b.setAttribute("aria-pressed", b===btn ? "true":"false"); }); }
+  document.querySelectorAll("[data-fam]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      Object.keys(FAM.B).forEach(function(k){ wrap.style.removeProperty(k); });
+      var v = FAM[btn.dataset.fam]; if(v) Object.keys(v).forEach(function(k){ wrap.style.setProperty(k, v[k]); });
+      press("[data-fam]", btn);
+    });
+  });
+  document.querySelectorAll("[data-var]").forEach(function(btn){
+    btn.addEventListener("click", function(){ wrap.dataset.variant = btn.dataset.var; press("[data-var]", btn); });
+  });
+  var copyBtn = document.getElementById("pg-copy"), box = document.getElementById("pg-codebox");
+  copyBtn.addEventListener("click", function(){
+    function sel(){ var r=document.createRange(); r.selectNodeContents(box); var s=getSelection(); s.removeAllRanges(); s.addRange(r); copyBtn.textContent="선택됨 · Ctrl+C"; }
+    try{ navigator.clipboard.writeText(box.textContent).then(function(){ copyBtn.textContent="복사됨"; setTimeout(function(){copyBtn.textContent="코드 복사";},1600); }, sel); }catch(e){ sel(); }
+  });
+  var rows = ["--ds-bg","--ds-surface","--ds-ink","--ds-sub","--ds-line","--ds-accent","--ds-accent2","--ds-c1","--ds-c2","--ds-c3","--ds-c4","--ds-c5","--ds-radius"];
+  function cell(v){ return (v && v.charAt(0)==="#" ? '<span class="sw" style="background:'+v+'"></span>' : '') + (v||"—"); }
+  document.querySelector("#pg-spec tbody").innerHTML = rows.map(function(k){
+    return "<tr><td><code>"+k+"</code></td><td class=\"num\">"+cell(NEU[k])+"</td><td class=\"num\">"+cell(FAM.B[k])+"</td><td class=\"num\">"+cell(FAM.D[k])+"</td><td class=\"num\">"+cell(FAM.F[k])+"</td></tr>";
+  }).join("");
+})();
+</script>
+
+</body></html>
