@@ -153,3 +153,8 @@
 .tree li::before{border-radius:50%}
 .quote figure::before{border-radius:4px}
 .say p,.ask .a-q,.todo .t-do,.define dt,.points b,.tree .t-top,.tree .t-mid,.todo dd,.shot ol li b{font-weight:400}
+
+/* 배치가 다른 구성(parts.css) 계열 조정: 굵은 제목 글꼴은 400뿐, 둥근 칸 */
+.agenda li > span,.yesno .yn-term,.vs > h3,.stepper b,.story b,.big p{font-weight:400}
+.check li::before{border-radius:10px}.story > div{border-radius:var(--ds-radius)}
+.agenda li:nth-child(1) > b{color:var(--ds-toy1)}.agenda li:nth-child(2) > b{color:var(--ds-toy2)}.agenda li:nth-child(3) > b{color:var(--ds-toy3)}.agenda li:nth-child(4) > b{color:var(--ds-toy4)}.agenda li:nth-child(5) > b{color:var(--ds-toy5)}

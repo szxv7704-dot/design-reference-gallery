@@ -50,7 +50,8 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 /* 정형 부품 v1 — 모든 계열 공용(deck.css 다음, 계열 CSS 앞에 불러옴)
    모양은 토큰(--ds-*)만 써서, 계열 CSS가 색 · 글꼴 · 테두리를 바꾼다. 그림은 그리지 않는다(사진 · 화면 캡처는 .ph 자리에 이미지로).
    성과 공유회: 사업 개요 · 추진 경과 · 증감 표시 · 목표 대비 달성 · 만족도 · 전후 비교 · 우수 사례 · 향후 계획
-   기본 장표(docs/patterns.md): 한 문장 · 항목 · 용어 정의 · 인용 · 체계 · 추이 · 구성비 · 화면 짚기 · 질문 · 할 일 */
+   기본 장표(docs/patterns.md): 한 문장 · 항목 · 용어 정의 · 인용 · 체계 · 추이 · 구성비 · 화면 짚기 · 질문 · 할 일
+   배치가 다른 구성: 번호 카드 흐름 · 맞는 예와 아닌 예 · 기준별 두 열 · 세로 단계 · 한 건 이야기 · 체크 목록 · 숫자 하나 크게 */
 :root{
   --ds-on:var(--ds-ink); --ds-on-sub:var(--ds-sub); --ds-key:var(--ds-accent); --ds-track:var(--ds-c5,#E3E8ED);
   --ds-fs-body:28px; --ds-fs-label:24px; --ds-fs-sub:22px; --ds-fs-h:40px; --ds-fs-num:88px; --ds-fs-num-s:48px;
@@ -254,6 +255,70 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .todo dd{margin:0;font:700 var(--ds-fs-h)/1.3 var(--ds-font-title)}
 .todo dd small{display:block;margin-top:10px;font:400 var(--ds-fs-sub)/1.45 var(--ds-font-body);color:var(--ds-on-sub)}
 
+/* ── 흐름 · 번호 카드: 단계마다 큰 번호 + 이름 + 한 줄(시간 · 쪽). 3~5칸, 지금 칸은 .is-key ── */
+.agenda{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:20px;align-content:center}
+.agenda li{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:30px 28px 28px;display:flex;flex-direction:column;gap:14px;min-height:340px;min-width:0;color:var(--ds-on)}
+.agenda li > b{font:600 var(--ds-fs-num)/1 var(--ds-font-num);color:var(--ds-on-sub)}
+.agenda li > span{font:700 var(--ds-fs-h)/1.3 var(--ds-font-title)}
+.agenda li > small{margin-top:auto;font:500 var(--ds-fs-label)/1.3 var(--ds-font-body);color:var(--ds-on-sub)}
+.agenda li.is-key > b{color:var(--ds-key)}
+
+/* ── 개념 · 맞는 예와 아닌 예: 위에 낱말(.yn-term), 아래 두 칸(.yn-yes · .yn-no) ───────── */
+.yesno{display:grid;grid-template-columns:1fr 1fr;gap:36px 32px;align-content:center}
+.yesno .yn-term{grid-column:1 / -1;margin:0;font:700 calc(var(--ds-fs-h) * 1.9)/1.3 var(--ds-font-title)}
+.yesno .yn-term small{margin-left:20px;font:500 var(--ds-fs-body)/1.3 var(--ds-font-body);color:var(--ds-sub)}
+.yesno > div{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:44px 48px 52px;color:var(--ds-on);min-width:0}
+.yesno h3{margin:0 0 26px;font:700 var(--ds-fs-body)/1.2 var(--ds-font-body);color:var(--ds-on-sub)}
+.yesno ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px;font-size:calc(var(--ds-fs-body) * 1.3);line-height:1.45}
+.yesno li{position:relative;padding-left:52px}
+.yesno li::before{position:absolute;left:0;top:0;font:700 1em/1.45 var(--ds-font-body)}
+.yesno .yn-yes li::before{content:"○";color:var(--ds-key)}
+.yesno .yn-no li::before{content:"×";color:var(--ds-on-sub)}
+.yesno .yn-no{opacity:.82}
+
+/* ── 비교 · 기준별 두 열: 줄마다 기준 | 왼쪽 | 오른쪽. 고른 쪽 머리에 .is-key ───────────── */
+.vs{display:grid;grid-template-columns:300px 1fr 1fr;grid-auto-rows:1fr;align-content:stretch;background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:14px 36px;color:var(--ds-on);min-width:0}
+.vs > *{padding:16px 24px;border-bottom:1px solid var(--ds-on-sub);font-size:calc(var(--ds-fs-body) * 1.25);line-height:1.4;margin:0;display:flex;align-items:center}
+.vs > :nth-last-child(-n+3){border-bottom:0}
+.vs > b{font:700 var(--ds-fs-body)/1.4 var(--ds-font-body);color:var(--ds-on-sub)}
+.vs > h3{font:700 calc(var(--ds-fs-h) * 1.15)/1.3 var(--ds-font-title)}
+.vs > h3.is-key{color:var(--ds-key)}
+
+/* ── 절차 · 세로 단계: 번호 동그라미를 세로선으로 잇고, 단계마다 이름 + 한 줄. 3~5단계 ──── */
+.stepper{list-style:none;margin:0;padding:0;counter-reset:st;display:flex;flex-direction:column;justify-content:center}
+.stepper li{counter-increment:st;position:relative;display:grid;grid-template-columns:76px 560px 1fr;align-items:center;gap:0 32px;padding:22px 0}
+.stepper li::before{content:counter(st);width:76px;height:76px;border-radius:50%;background:var(--ds-c3);color:#fff;display:grid;place-items:center;font:700 var(--ds-fs-h)/1 var(--ds-font-num);position:relative;z-index:1}
+.stepper li + li::after{content:"";position:absolute;left:36px;top:-22px;width:4px;height:44px;background:var(--ds-c3)}
+.stepper b{font:700 var(--ds-fs-h)/1.3 var(--ds-font-title)}
+.stepper p{margin:0;font-size:calc(var(--ds-fs-body) * 1.15);line-height:1.45;color:var(--ds-sub)}
+.stepper li.is-key::before{background:var(--ds-accent)}.stepper li.is-key b{color:var(--ds-accent)}
+
+/* ── 사례 · 한 건 이야기: 상황 → 한 일 → 결과 세 칸. 결과 칸에 .is-key ──────────────── */
+.story{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:0;align-content:center}
+.story > div{position:relative;padding:34px 44px 34px 36px;background:var(--ds-surface);box-shadow:var(--ds-shadow);color:var(--ds-on);min-height:380px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.story > div + div{margin-left:20px}
+.story > div + div::before{content:"";position:absolute;left:-20px;top:50%;width:20px;height:4px;margin-top:-2px;background:var(--ds-c3)}
+.story span{font:700 var(--ds-fs-label)/1.2 var(--ds-font-body);color:var(--ds-on-sub)}
+.story b{font:700 var(--ds-fs-h)/1.3 var(--ds-font-title)}
+.story p{margin:0;font-size:var(--ds-fs-body);line-height:1.5}
+.story > div.is-key b{color:var(--ds-key)}
+
+/* ── 실습 · 체크 목록: 할 일을 네모 칸 목록으로. 3~5줄, 가장 중요한 줄에 .is-key ──────── */
+.check{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.check li{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:0 28px;padding:24px 32px;background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);color:var(--ds-on);font:600 calc(var(--ds-fs-body) * 1.15)/1.4 var(--ds-font-body)}
+.check li::before{content:"";width:44px;height:44px;border:4px solid var(--ds-on-sub);box-sizing:border-box}
+.check li small{font:500 var(--ds-fs-label)/1.3 var(--ds-font-body);color:var(--ds-on-sub)}
+.check li.is-key::before{border-color:var(--ds-key)}
+
+/* ── 수치 · 숫자 하나 크게: 왼쪽 큰 숫자 하나, 오른쪽에 뜻 한 문장 + 받치는 두 줄 ─────── */
+.big{display:grid;grid-template-columns:auto 1fr;gap:72px;align-items:center}
+.big > b{font:700 calc(var(--ds-fs-num) * 3)/.9 var(--ds-font-num);letter-spacing:-.03em;color:var(--ds-accent)}
+.big > b small{margin-left:10px;font:700 var(--ds-fs-num)/1 var(--ds-font-body);letter-spacing:0;color:var(--ds-ink)}
+.big > div{display:flex;flex-direction:column;gap:26px;padding-left:56px;border-left:4px solid var(--ds-ink)}
+.big p{margin:0;font:700 calc(var(--ds-fs-h) * 1.15)/1.4 var(--ds-font-title)}
+.big ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;font-size:var(--ds-fs-body);line-height:1.45;color:var(--ds-sub)}
+
+
 /* C 경쾌한 놀이 오브젝트 — 덱 키트 v1 (deck.css 다음에 불러옴)
    밝은 하늘빛 흰 바탕 + 장난감 블록. 원색 다섯은 섹션 표시에만, 빨강 강조는 한 곳.
    근거 장표: #7 · #24 · #29 · #39(표지), #82(목차·간지 키트) */
@@ -409,3 +474,8 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .tree li::before{border-radius:50%}
 .quote figure::before{border-radius:4px}
 .say p,.ask .a-q,.todo .t-do,.define dt,.points b,.tree .t-top,.tree .t-mid,.todo dd,.shot ol li b{font-weight:400}
+
+/* 배치가 다른 구성(parts.css) 계열 조정: 굵은 제목 글꼴은 400뿐, 둥근 칸 */
+.agenda li > span,.yesno .yn-term,.vs > h3,.stepper b,.story b,.big p{font-weight:400}
+.check li::before{border-radius:10px}.story > div{border-radius:var(--ds-radius)}
+.agenda li:nth-child(1) > b{color:var(--ds-toy1)}.agenda li:nth-child(2) > b{color:var(--ds-toy2)}.agenda li:nth-child(3) > b{color:var(--ds-toy3)}.agenda li:nth-child(4) > b{color:var(--ds-toy4)}.agenda li:nth-child(5) > b{color:var(--ds-toy5)}

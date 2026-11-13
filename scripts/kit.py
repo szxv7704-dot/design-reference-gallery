@@ -55,6 +55,11 @@ DECKS = []
 for _f in FLOWS:
     if _f['deck'] is not None: DECKS.append({'id': _f['id'], 'name': _f['name'], 'deck': _f['deck'], 'flow': _f['id']})
     for _m in _f.get('more', []): DECKS.append({'id': _m['id'], 'name': _m['name'], 'deck': _m['deck'], 'flow': _f['id']})
+DECKS.append({'id': 'var', 'name': '구성 모음', 'deck': '-var', 'flow': 'var'})
+# 역할마다 배치가 다른 구성 셋(src/flows/var.html) · 스타일마다 10장 예시에 쓰는 조합
+VAR = json.load(open(os.path.join(ROOT, 'data', 'variants.json'), encoding='utf-8'))
+ROLE_NAME = {r['id']: r['name'] for r in json.load(open(os.path.join(ROOT, 'data', 'roles.json'), encoding='utf-8'))['roles']}
+def pick(fam, role): return 'a' if role in ('cover', 'closing') else VAR['picks'][fam][VAR['order'].index(role)]
 
 # ── 상징 부품: 계열마다 다른 표지 · 목차 · 간지 · 맺음의 얼굴 ──
 def sig(fam, kind, i=0, n=5, num=''):
@@ -82,17 +87,25 @@ def sig(fam, kind, i=0, n=5, num=''):
     if fam == 'D':
         if kind == 'divider': return '<div class="reg is-off"%s><b>%02d</b><i class="crop"></i></div>' % (hid, i)
         return '<div class="reg"%s><b>%s</b></div>' % (hid, {'cover': num, 'toc': '%02d' % i, 'close': '끝'}[kind])
-def flow_src(fid):
-    s = rd(ROOT, 'src', 'flows', fid + '.html'); m = re.match(r'<!-- 흐름: (.+?) · 섹션 (\d+) · 표지 숫자 (\S+)', s)
-    return s.split('-->', 1)[1].strip(), int(m.group(2)), m.group(3)
+def flow_src(fid, fam=None):
+    """(본문, 섹션 수, 표지 숫자). 'set'(10장 예시)은 원본이 따로 없고 구성 모음(var)에서 그 스타일의 조합을 골라 짠다"""
+    s = rd(ROOT, 'src', 'flows', ('var' if fid == 'set' else fid) + '.html'); m = re.match(r'<!-- 흐름: (.+?) · 섹션 (\d+) · 표지 숫자 (\S+)', s)
+    body = s.split('-->', 1)[1].strip()
+    if fid == 'set':
+        out = []
+        for role in ['cover'] + VAR['order'] + ['closing']:
+            sec = re.search(r'<!-- \d+\. ([^\n]+?) -->\n(<section data-pattern="[\w-]+" data-role="%s" data-var="%s".*?</section>)' % (role, pick(fam or 'B', role)), body, re.S)
+            out.append('<!-- %d. %s -->\n%s' % (len(out) + 1, sec.group(1), sec.group(2)))
+        body = '\n\n'.join(out)
+    return body, int(m.group(2)), m.group(3)
 def sections(fam, fid):
-    body, n, num = flow_src(fid)
+    body, n, num = flow_src(fid, fam)
     body = re.sub(r'@@SIG:(\w+)(?::(\d+))?@@', lambda m: sig(fam, m.group(1), int(m.group(2) or 0), n, num), body)
     # 예시 덱의 그림(src/flows/img/)은 파일 안에 넣는다
     return re.sub(r'@@IMG:([\w.-]+)@@', lambda m: 'data:image/webp;base64,' + build.b64(os.path.join(ROOT, 'src', 'flows', 'img', m.group(1))), body)
-def slides_of(fid):
+def slides_of(fid, fam=None):
     """[(장 번호, 기본 장표 id, 원본 주석의 장 이름, 그 장의 원본 HTML)]"""
-    body = flow_src(fid)[0]; out = []
+    body = flow_src(fid, fam)[0]; out = []
     for m in re.finditer(r'<!-- (\d+)\. (.+?) -->\n(<section data-pattern="([\w-]+)".*?</section>)', body, re.S):
         out.append((int(m.group(1)), m.group(4), m.group(2), m.group(3)))
     return out
@@ -150,13 +163,13 @@ def parts(fam, sample):
     return '\n\n'.join(out)
 
 # ── AI용 안내: 계열 공통(guide.md · 첫 화면) 또는 계열 하나(kit/{계열}.md) ──
-SNIPPET_FROM = ['set', 'set2', 'plan', 'share']   # 기본 장표의 견본 코드를 찾는 순서
+SNIPPET_FROM = ['var', 'set2', 'plan', 'share']   # 기본 장표의 견본 코드를 찾는 순서
 def samples(pid):
     """그 기본 장표의 견본 장: [(흐름 id, (장 번호, 기본 장표 id, 장 이름, HTML))]. 질문은 보기형 + 답 공개형 둘"""
     hit = [(fid, s) for fid in SNIPPET_FROM for s in slides_of(fid) if s[1] == pid]
     if not hit: return []   # 예시 덱에 쓰이지 않은 기본 장표(부품은 parts.css 에 있다)
-    if pid == 'ask': return [h for h in hit if 'a-a' not in h[1][3]][:1] + [h for h in hit if 'a-a' in h[1][3]][:1]
-    return hit[:1]
+    v = [h for h in hit if h[0] == 'var']   # 구성 모음에 있으면 배치가 다른 구성을 모두 싣는다
+    return v or hit[:1]
 def code_of(fam, fid, s):
     _, n, num = flow_src(fid)
     code = re.sub(r'@@SIG:(\w+)(?::(\d+))?@@', (lambda m: sig(fam, m.group(1), int(m.group(2) or 0), n, num)) if fam else
@@ -168,7 +181,9 @@ def snippets(fam=None):
     for p in PATTERNS:
         L += ['### %s · `%s`' % (p['name'], p['id']), '', '- 이런 내용일 때: %s' % p['when'], '- 내용 조건: %s. 넘치면: %s' % (p['cond'], p['overflow']),
               '- 부품: %s%s' % (part_md(p), (' — ' + p['note']) if p['note'] else ''), '']
-        for fid, s in samples(p['id']): L += ['```html', code_of(fam, fid, s), '```', '']
+        for fid, s in samples(p['id']):
+            if fid == 'var': L += ['구성: **%s**' % s[2], '']
+            L += ['```html', code_of(fam, fid, s), '```', '']
     return '\n'.join(L)
 
 def guide(fam=None):
@@ -201,6 +216,11 @@ def guide(fam=None):
           '## 3. 기본 장표 23가지 (내용의 모양으로 고릅니다)', '',
           T([['기본 장표', '`id`', '문서에서 이런 내용이면', '내용 조건', '부품']] + [['---'] * 5] +
             [[p['name'], '`%s`' % p['id'], p['when'], p['cond'], part_md(p)] for p in PATTERNS]), '',
+          '**역할마다 배치가 다른 구성 셋** — 같은 역할이라도 내용에 따라 배치를 고릅니다. 코드는 8에서 `구성: 역할 · 이름`으로 찾습니다.' + (' ★ = 이 스타일의 10장 예시가 쓴 구성(따라 할 필요는 없고, 내용에 맞는 것을 고릅니다).' if one else ''), '',
+          T([['역할', '구성', '모습', '이럴 때', '분량', '부품']] + [['---'] * 6] +
+            [[ROLE_NAME[r] if i == 0 else '', v['name'] + (' ★' if one and pick(fam, r) == v['v'] else ''), v['look'], v['when'], v['cond'], part_md({'part': v['part']})]
+             for r in VAR['order'] for i, v in enumerate(VAR['roles'][r])]), '',
+          '같은 역할이 한 덱에 여러 번 나오면 구성을 바꿔 가며 씁니다(모든 장이 같은 배치가 되지 않게).', '',
           '**고르는 순서** — 한 문단이 둘 이상에 맞으면 위에서부터 먼저 맞는 것:', '',
           '1. 숫자가 주인공이면 수 묶음(하나면 큰 숫자, 시간 축이 있으면 추이, 합이 100%면 구성비, 나머지는 막대 비교).',
           '2. 날짜가 주인공이면 일정.',
@@ -291,8 +311,13 @@ def write_guide():
 def write_slides():
     out = []
     for f in DECKS:
-        for n, pid, title, _ in slides_of(f['id']):
-            out.append({'flow': f['flow'], 'id': f['id'], 'flow_name': f['name'], 'n': n, 'pattern': pid, 'title': title, 'deck': f['deck']})
+        for fam in (FAMS if f['id'] == 'set' else [None]):   # 10장 예시는 스타일마다 구성 조합이 다르다
+            for n, pid, title, h in slides_of(f['id'], fam):
+                e = {'flow': f['flow'], 'id': f['id'], 'flow_name': f['name'], 'n': n, 'pattern': pid, 'title': title, 'deck': f['deck']}
+                m = re.search(r'data-role="(\w+)" data-var="(\w)"', h)
+                if m: e['role'], e['var'] = m.group(1), m.group(2)
+                if fam: e['fam'] = fam
+                out.append(e)
     wr(os.path.join(ROOT, 'data', 'kit_slides.json'), json.dumps(out, ensure_ascii=False, indent=1) + '\n')
     return len(out)
 
