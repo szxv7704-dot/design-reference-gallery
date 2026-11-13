@@ -66,6 +66,14 @@ a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
 .short{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
 .short a{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:10px;text-decoration:none;font-weight:500}
 .short a::after{content:"›";color:var(--soft);font-size:20px}
+.var3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.vc{text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;font-size:14px}
+.vc img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line);width:100%}
+.vc b{display:block;margin:10px 12px 0;font-size:16.5px}.vc p{margin:4px 12px 0;color:var(--soft);line-height:1.55}.vc p:last-child{margin-bottom:12px}
+.vc p.w{color:var(--ink)}.vc.on{border-color:var(--key);box-shadow:0 0 0 2px var(--key)}
+.sw{position:sticky;top:58px;z-index:5;background:var(--bg);padding:10px 0;margin:18px 0 0;display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap;font-size:14px;border-bottom:1px solid var(--line)}
+.sw .chips button{padding:6px 14px;font-size:14px}
+@media (max-width:820px){.short{grid-template-columns:1fr 1fr}.short a{padding:10px 12px;font-size:14px}.var3{grid-template-columns:1fr}.sw{top:0}.sw .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.sw .chips button{white-space:nowrap}}
 .note{margin:12px 0 0;font-size:14px;color:var(--soft)}
 .empty{padding:40px 0;text-align:center;color:var(--soft)}
 table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
@@ -87,7 +95,9 @@ dialog::backdrop{background:rgba(20,22,26,.6)}
 .cmpgrid .row b{font-size:15px}.cmpgrid img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
 :focus-visible{outline:3px solid var(--key);outline-offset:2px}
 footer{margin-top:56px;font-size:13px;color:var(--soft)}
-@media (max-width:820px){.hero,.two{grid-template-columns:1fr}.cmpgrid .row{grid-template-columns:repeat(3,1fr)}.cmpgrid .row b{grid-column:1 / -1}}
+@media (max-width:820px){.top{position:static}.top div{flex-wrap:nowrap;gap:0 14px}.brand{font-size:15px;padding:10px 0;margin-right:0;white-space:nowrap}
+  .top nav{flex-wrap:nowrap;gap:0 16px;overflow-x:auto;scrollbar-width:none;white-space:nowrap;min-width:0}.top nav::-webkit-scrollbar{display:none}.top nav a{padding:12px 2px 9px;font-size:14px}
+  html{scroll-padding-top:12px}.hero,.two{grid-template-columns:1fr}.cmpgrid .row{grid-template-columns:repeat(3,1fr)}.cmpgrid .row b{grid-column:1 / -1}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
@@ -105,49 +115,49 @@ footer{margin-top:56px;font-size:13px;color:var(--soft)}
 <div class="cards" id="cards">
 <article class="sc item" data-kind="set" data-id="A" data-mood="경쾌한" data-ok="1" data-q="픽셀 게임 경쾌한 단계를 하나씩 깨 나가는 과정을 보여 줄 때. 참여를 끌어내는 연수 · 학생 행사">
 <a class="cv" href="styles/A.html"><img src="kit/thumbs/A-set-1.jpg" alt="픽셀 게임 표지" loading="lazy" width="640" height="360"></a>
-<div class="tri"><img src="kit/thumbs/A-set-3.jpg" alt="픽셀 게임 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/A-set-4.jpg" alt="픽셀 게임 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/A-set-9.jpg" alt="픽셀 게임 본문 예" loading="lazy" width="640" height="360"></div>
+<div class="tri"><img src="kit/thumbs/A-set-2.jpg" alt="픽셀 게임 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/A-set-4.jpg" alt="픽셀 게임 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/A-set-8.jpg" alt="픽셀 게임 본문 예" loading="lazy" width="640" height="360"></div>
 <h3>픽셀 게임</h3><p>단계를 하나씩 깨 나가는 과정을 보여 줄 때. 참여를 끌어내는 연수 · 학생 행사</p>
 <div class="ft"><span class="badge ok" title="10장 예시 · 다른 주제 시험 · 넘침 검사를 통과">10장 세트 · 검증된 세트</span><a class="btn small" href="styles/A.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="A" aria-label="픽셀 게임 비교에 담기"> 비교에 담기</label></div></article>
 <article class="sc item" data-kind="set" data-id="B" data-mood="단정한" data-ok="1" data-q="미니멀 스튜디오 단정한 개념과 비교를 군더더기 없이 전할 때. 어떤 주제에도 무난하다">
 <a class="cv" href="styles/B.html"><img src="kit/thumbs/B-set-1.jpg" alt="미니멀 스튜디오 표지" loading="lazy" width="640" height="360"></a>
-<div class="tri"><img src="kit/thumbs/B-set-3.jpg" alt="미니멀 스튜디오 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/B-set-4.jpg" alt="미니멀 스튜디오 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/B-set-9.jpg" alt="미니멀 스튜디오 본문 예" loading="lazy" width="640" height="360"></div>
+<div class="tri"><img src="kit/thumbs/B-set-2.jpg" alt="미니멀 스튜디오 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/B-set-4.jpg" alt="미니멀 스튜디오 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/B-set-8.jpg" alt="미니멀 스튜디오 본문 예" loading="lazy" width="640" height="360"></div>
 <h3>미니멀 스튜디오</h3><p>개념과 비교를 군더더기 없이 전할 때. 어떤 주제에도 무난하다</p>
 <div class="ft"><span class="badge ok" title="10장 예시 · 다른 주제 시험 · 넘침 검사를 통과">10장 세트 · 검증된 세트</span><a class="btn small" href="styles/B.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="B" aria-label="미니멀 스튜디오 비교에 담기"> 비교에 담기</label></div></article>
 <article class="sc item" data-kind="set" data-id="D" data-mood="단정한" data-ok="1" data-q="인쇄·종이 에디토리얼 단정한 근거와 수치를 차분히 읽힐 때. 정책 · 계획 보고">
 <a class="cv" href="styles/D.html"><img src="kit/thumbs/D-set-1.jpg" alt="인쇄·종이 에디토리얼 표지" loading="lazy" width="640" height="360"></a>
-<div class="tri"><img src="kit/thumbs/D-set-3.jpg" alt="인쇄·종이 에디토리얼 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/D-set-4.jpg" alt="인쇄·종이 에디토리얼 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/D-set-9.jpg" alt="인쇄·종이 에디토리얼 본문 예" loading="lazy" width="640" height="360"></div>
+<div class="tri"><img src="kit/thumbs/D-set-2.jpg" alt="인쇄·종이 에디토리얼 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/D-set-4.jpg" alt="인쇄·종이 에디토리얼 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/D-set-8.jpg" alt="인쇄·종이 에디토리얼 본문 예" loading="lazy" width="640" height="360"></div>
 <h3>인쇄·종이 에디토리얼</h3><p>근거와 수치를 차분히 읽힐 때. 정책 · 계획 보고</p>
 <div class="ft"><span class="badge ok" title="10장 예시 · 다른 주제 시험 · 넘침 검사를 통과">10장 세트 · 검증된 세트</span><a class="btn small" href="styles/D.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="D" aria-label="인쇄·종이 에디토리얼 비교에 담기"> 비교에 담기</label></div></article>
 <article class="sc item" data-kind="set" data-id="F" data-mood="몰입감 있는" data-ok="1" data-q="관측·중계 인포그래픽 몰입감 있는 실적 · 순위 · 진행 상황을 중계하듯 보여 줄 때">
 <a class="cv" href="styles/F.html"><img src="kit/thumbs/F-set-1.jpg" alt="관측·중계 인포그래픽 표지" loading="lazy" width="640" height="360"></a>
-<div class="tri"><img src="kit/thumbs/F-set-3.jpg" alt="관측·중계 인포그래픽 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/F-set-4.jpg" alt="관측·중계 인포그래픽 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/F-set-9.jpg" alt="관측·중계 인포그래픽 본문 예" loading="lazy" width="640" height="360"></div>
+<div class="tri"><img src="kit/thumbs/F-set-2.jpg" alt="관측·중계 인포그래픽 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/F-set-4.jpg" alt="관측·중계 인포그래픽 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/F-set-8.jpg" alt="관측·중계 인포그래픽 본문 예" loading="lazy" width="640" height="360"></div>
 <h3>관측·중계 인포그래픽</h3><p>실적 · 순위 · 진행 상황을 중계하듯 보여 줄 때</p>
 <div class="ft"><span class="badge ok" title="10장 예시 · 다른 주제 시험 · 넘침 검사를 통과">10장 세트 · 검증된 세트</span><a class="btn small" href="styles/F.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="F" aria-label="관측·중계 인포그래픽 비교에 담기"> 비교에 담기</label></div></article>
 <article class="sc item" data-kind="set" data-id="H" data-mood="전통적인" data-ok="1" data-q="전통 공예·문양 전통적인 역사 · 문화 · 지역을 다루는 격식 있는 자리">
 <a class="cv" href="styles/H.html"><img src="kit/thumbs/H-set-1.jpg" alt="전통 공예·문양 표지" loading="lazy" width="640" height="360"></a>
-<div class="tri"><img src="kit/thumbs/H-set-3.jpg" alt="전통 공예·문양 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/H-set-4.jpg" alt="전통 공예·문양 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/H-set-9.jpg" alt="전통 공예·문양 본문 예" loading="lazy" width="640" height="360"></div>
+<div class="tri"><img src="kit/thumbs/H-set-2.jpg" alt="전통 공예·문양 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/H-set-4.jpg" alt="전통 공예·문양 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/H-set-8.jpg" alt="전통 공예·문양 본문 예" loading="lazy" width="640" height="360"></div>
 <h3>전통 공예·문양</h3><p>역사 · 문화 · 지역을 다루는 격식 있는 자리</p>
 <div class="ft"><span class="badge ok" title="10장 예시 · 다른 주제 시험 · 넘침 검사를 통과">10장 세트 · 검증된 세트</span><a class="btn small" href="styles/H.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="H" aria-label="전통 공예·문양 비교에 담기"> 비교에 담기</label></div></article>
 <article class="sc item" data-kind="set" data-id="C" data-mood="경쾌한" data-ok="0" data-q="경쾌한 놀이 오브젝트 경쾌한 하나씩 쌓아 가는 과정을 밝게 전할 때. 유아 · 초등 대상 안내">
 <a class="cv" href="styles/C.html"><img src="kit/thumbs/C-set-1.jpg" alt="경쾌한 놀이 오브젝트 표지" loading="lazy" width="640" height="360"></a>
-<div class="tri"><img src="kit/thumbs/C-set-3.jpg" alt="경쾌한 놀이 오브젝트 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/C-set-4.jpg" alt="경쾌한 놀이 오브젝트 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/C-set-9.jpg" alt="경쾌한 놀이 오브젝트 본문 예" loading="lazy" width="640" height="360"></div>
+<div class="tri"><img src="kit/thumbs/C-set-2.jpg" alt="경쾌한 놀이 오브젝트 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/C-set-4.jpg" alt="경쾌한 놀이 오브젝트 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/C-set-8.jpg" alt="경쾌한 놀이 오브젝트 본문 예" loading="lazy" width="640" height="360"></div>
 <h3>경쾌한 놀이 오브젝트</h3><p>하나씩 쌓아 가는 과정을 밝게 전할 때. 유아 · 초등 대상 안내</p>
 <div class="ft"><span class="badge wip" title="10장 예시는 있으나 검증이 끝나지 않음">10장 세트 · 확장 중</span><a class="btn small" href="styles/C.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="C" aria-label="경쾌한 놀이 오브젝트 비교에 담기"> 비교에 담기</label></div></article>
 <article class="sc item" data-kind="set" data-id="E" data-mood="감성적인" data-ok="0" data-q="자연 재질 감성적인 천천히 자라는 변화를 이야기할 때. 환경 · 생태 · 마을 교육">
 <a class="cv" href="styles/E.html"><img src="kit/thumbs/E-set-1.jpg" alt="자연 재질 표지" loading="lazy" width="640" height="360"></a>
-<div class="tri"><img src="kit/thumbs/E-set-3.jpg" alt="자연 재질 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/E-set-4.jpg" alt="자연 재질 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/E-set-9.jpg" alt="자연 재질 본문 예" loading="lazy" width="640" height="360"></div>
+<div class="tri"><img src="kit/thumbs/E-set-2.jpg" alt="자연 재질 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/E-set-4.jpg" alt="자연 재질 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/E-set-8.jpg" alt="자연 재질 본문 예" loading="lazy" width="640" height="360"></div>
 <h3>자연 재질</h3><p>천천히 자라는 변화를 이야기할 때. 환경 · 생태 · 마을 교육</p>
 <div class="ft"><span class="badge wip" title="10장 예시는 있으나 검증이 끝나지 않음">10장 세트 · 확장 중</span><a class="btn small" href="styles/E.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="E" aria-label="자연 재질 비교에 담기"> 비교에 담기</label></div></article>
 <article class="sc item" data-kind="set" data-id="G" data-mood="몰입감 있는" data-ok="0" data-q="어두운 콘셉트 몰입감 있는 흩어진 것을 하나로 잇는 이야기. 비전 선포 · 불을 끄고 하는 발표">
 <a class="cv" href="styles/G.html"><img src="kit/thumbs/G-set-1.jpg" alt="어두운 콘셉트 표지" loading="lazy" width="640" height="360"></a>
-<div class="tri"><img src="kit/thumbs/G-set-3.jpg" alt="어두운 콘셉트 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/G-set-4.jpg" alt="어두운 콘셉트 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/G-set-9.jpg" alt="어두운 콘셉트 본문 예" loading="lazy" width="640" height="360"></div>
+<div class="tri"><img src="kit/thumbs/G-set-2.jpg" alt="어두운 콘셉트 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/G-set-4.jpg" alt="어두운 콘셉트 본문 예" loading="lazy" width="640" height="360"><img src="kit/thumbs/G-set-8.jpg" alt="어두운 콘셉트 본문 예" loading="lazy" width="640" height="360"></div>
 <h3>어두운 콘셉트</h3><p>흩어진 것을 하나로 잇는 이야기. 비전 선포 · 불을 끄고 하는 발표</p>
 <div class="ft"><span class="badge wip" title="10장 예시는 있으나 검증이 끝나지 않음">10장 세트 · 확장 중</span><a class="btn small" href="styles/G.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="G" aria-label="어두운 콘셉트 비교에 담기"> 비교에 담기</label></div></article>
@@ -180,7 +190,7 @@ document.addEventListener('click', async e => {
 });
 
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
-const S = {"A": {"name": "픽셀 게임", "th": ["kit/thumbs/A-set-1.jpg", "kit/thumbs/A-set-3.jpg", "kit/thumbs/A-set-4.jpg", "kit/thumbs/A-set-8.jpg", "kit/thumbs/A-set-10.jpg"], "lab": ["표지", "개념", "비교", "수치", "마무리"]}, "B": {"name": "미니멀 스튜디오", "th": ["kit/thumbs/B-set-1.jpg", "kit/thumbs/B-set-3.jpg", "kit/thumbs/B-set-4.jpg", "kit/thumbs/B-set-8.jpg", "kit/thumbs/B-set-10.jpg"], "lab": ["표지", "개념", "비교", "수치", "마무리"]}, "C": {"name": "경쾌한 놀이 오브젝트", "th": ["kit/thumbs/C-set-1.jpg", "kit/thumbs/C-set-3.jpg", "kit/thumbs/C-set-4.jpg", "kit/thumbs/C-set-8.jpg", "kit/thumbs/C-set-10.jpg"], "lab": ["표지", "개념", "비교", "수치", "마무리"]}, "D": {"name": "인쇄·종이 에디토리얼", "th": ["kit/thumbs/D-set-1.jpg", "kit/thumbs/D-set-3.jpg", "kit/thumbs/D-set-4.jpg", "kit/thumbs/D-set-8.jpg", "kit/thumbs/D-set-10.jpg"], "lab": ["표지", "개념", "비교", "수치", "마무리"]}, "E": {"name": "자연 재질", "th": ["kit/thumbs/E-set-1.jpg", "kit/thumbs/E-set-3.jpg", "kit/thumbs/E-set-4.jpg", "kit/thumbs/E-set-8.jpg", "kit/thumbs/E-set-10.jpg"], "lab": ["표지", "개념", "비교", "수치", "마무리"]}, "F": {"name": "관측·중계 인포그래픽", "th": ["kit/thumbs/F-set-1.jpg", "kit/thumbs/F-set-3.jpg", "kit/thumbs/F-set-4.jpg", "kit/thumbs/F-set-8.jpg", "kit/thumbs/F-set-10.jpg"], "lab": ["표지", "개념", "비교", "수치", "마무리"]}, "G": {"name": "어두운 콘셉트", "th": ["kit/thumbs/G-set-1.jpg", "kit/thumbs/G-set-3.jpg", "kit/thumbs/G-set-4.jpg", "kit/thumbs/G-set-8.jpg", "kit/thumbs/G-set-10.jpg"], "lab": ["표지", "개념", "비교", "수치", "마무리"]}, "H": {"name": "전통 공예·문양", "th": ["kit/thumbs/H-set-1.jpg", "kit/thumbs/H-set-3.jpg", "kit/thumbs/H-set-4.jpg", "kit/thumbs/H-set-8.jpg", "kit/thumbs/H-set-10.jpg"], "lab": ["표지", "개념", "비교", "수치", "마무리"]}};
+const S = {"A": {"name": "픽셀 게임", "th": ["kit/thumbs/A-set-1.jpg", "kit/thumbs/A-set-2.jpg", "kit/thumbs/A-set-4.jpg", "kit/thumbs/A-set-8.jpg", "kit/thumbs/A-set-10.jpg"], "lab": ["표지", "흐름", "비교", "수치", "마무리"]}, "B": {"name": "미니멀 스튜디오", "th": ["kit/thumbs/B-set-1.jpg", "kit/thumbs/B-set-2.jpg", "kit/thumbs/B-set-4.jpg", "kit/thumbs/B-set-8.jpg", "kit/thumbs/B-set-10.jpg"], "lab": ["표지", "흐름", "비교", "수치", "마무리"]}, "C": {"name": "경쾌한 놀이 오브젝트", "th": ["kit/thumbs/C-set-1.jpg", "kit/thumbs/C-set-2.jpg", "kit/thumbs/C-set-4.jpg", "kit/thumbs/C-set-8.jpg", "kit/thumbs/C-set-10.jpg"], "lab": ["표지", "흐름", "비교", "수치", "마무리"]}, "D": {"name": "인쇄·종이 에디토리얼", "th": ["kit/thumbs/D-set-1.jpg", "kit/thumbs/D-set-2.jpg", "kit/thumbs/D-set-4.jpg", "kit/thumbs/D-set-8.jpg", "kit/thumbs/D-set-10.jpg"], "lab": ["표지", "흐름", "비교", "수치", "마무리"]}, "E": {"name": "자연 재질", "th": ["kit/thumbs/E-set-1.jpg", "kit/thumbs/E-set-2.jpg", "kit/thumbs/E-set-4.jpg", "kit/thumbs/E-set-8.jpg", "kit/thumbs/E-set-10.jpg"], "lab": ["표지", "흐름", "비교", "수치", "마무리"]}, "F": {"name": "관측·중계 인포그래픽", "th": ["kit/thumbs/F-set-1.jpg", "kit/thumbs/F-set-2.jpg", "kit/thumbs/F-set-4.jpg", "kit/thumbs/F-set-8.jpg", "kit/thumbs/F-set-10.jpg"], "lab": ["표지", "흐름", "비교", "수치", "마무리"]}, "G": {"name": "어두운 콘셉트", "th": ["kit/thumbs/G-set-1.jpg", "kit/thumbs/G-set-2.jpg", "kit/thumbs/G-set-4.jpg", "kit/thumbs/G-set-8.jpg", "kit/thumbs/G-set-10.jpg"], "lab": ["표지", "흐름", "비교", "수치", "마무리"]}, "H": {"name": "전통 공예·문양", "th": ["kit/thumbs/H-set-1.jpg", "kit/thumbs/H-set-2.jpg", "kit/thumbs/H-set-4.jpg", "kit/thumbs/H-set-8.jpg", "kit/thumbs/H-set-10.jpg"], "lab": ["표지", "흐름", "비교", "수치", "마무리"]}};
 let mood = '', picked = [];
 // 고른 것은 주소에 남는다: 스타일 화면에 갔다 돌아와도 그대로(?mood=단정한&q=…&only=1)
 function sync(){ const u = new URLSearchParams(); if (mood) u.set('mood', mood); if ($('#q').value.trim()) u.set('q', $('#q').value.trim()); if ($('#only').checked) u.set('only', '1');

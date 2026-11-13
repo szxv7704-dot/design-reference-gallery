@@ -183,3 +183,11 @@
 .sh-bar i.is-key{background:var(--ds-hi)}.share li.is-key{border-top-color:var(--ds-hi)}
 .trend > div i{background:repeating-linear-gradient(0deg,var(--ds-c3) 0 20px,transparent 20px 24px)}
 .trend > div.is-key i{background:repeating-linear-gradient(0deg,var(--ds-hi) 0 20px,transparent 20px 24px)}
+
+/* 배치가 다른 구성(parts.css) 계열 조정: 판은 남색 창, 글자는 11의 배수 */
+.agenda li,.yesno > div,.vs,.story > div,.check li{border:var(--px) solid var(--ds-ink);box-shadow:inset 0 0 0 var(--px) var(--ds-c1),inset 0 0 0 calc(var(--px) * 2) var(--ds-c5);
+  clip-path:polygon(var(--px) 0,calc(100% - var(--px)) 0,100% var(--px),100% calc(100% - var(--px)),calc(100% - var(--px)) 100%,var(--px) 100%,0 calc(100% - var(--px)),0 var(--px))}
+.agenda li.is-key,.story > div.is-key,.check li.is-key{border-color:var(--ds-hi)}
+.yesno .yn-term{font-size:66px}.yesno .yn-term small{font-size:33px}.yesno ul{font-size:33px}.vs > *{font-size:33px}.vs > h3{font-size:44px}.stepper p{font-size:33px}
+.stepper li::before{border-radius:0;font-size:44px}.check li{font-size:33px;font-weight:400}.check li::before{border-width:var(--px)}
+.big > b{font-size:264px}.big p{font-size:44px}.story > div + div::before{background:var(--ds-ink)}

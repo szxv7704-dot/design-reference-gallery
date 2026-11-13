@@ -61,3 +61,11 @@
 ## 6. 덱 키트
 
 `kit/`은 분위기별 뼈대(표지 · 목차 · 간지 · 맺음)와 공용 부품, 예시 덱 둘(성과 공유회 · 계획안 발표)이다. 갤러리의 곁가지이고, 정의는 `data/patterns.json` · `data/flows.json`에 있다.
+
+## 7. 역할마다 배치가 다른 구성
+
+스타일(색 · 글꼴)만 다르고 배치가 같으면 여러 벌이 있을 이유가 없다. 그래서 본문의 여덟 역할(흐름 · 개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약)마다 **배치가 다른 구성을 셋씩** 둔다.
+
+- 정의: `data/variants.json`(이름 · 모습 · 이럴 때 · 분량 · 부품), 코드: `src/flows/var.html`(`data-role` · `data-var`).
+- 스타일마다 10장 예시에 쓰는 조합이 다르다(`variants.json`의 `picks`). `kit/{ID}-set.html`은 원본이 따로 없고 `scripts/kit.py`가 구성 모음에서 골라 짠다.
+- 구성을 더하려면: 부품을 `kit/parts.css`에(토큰 변수만), 장을 `var.html`에, 설명을 `variants.json`에 넣는다. 화면(`body.html`) · AI용 목록(`catalog.md`) · 적용 안내(`kit/{ID}.md`)가 함께 바뀐다.

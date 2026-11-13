@@ -19,13 +19,15 @@ for r in rounds: r['no'] = int(r['no'])
 vis = [r for r in rounds if not r.get('hidden')]
 name = lambda r: re.sub(r'^레퍼런스\s*#\d+\s*', '', r['title'])
 ver = lambda r: ('?v=' + r['v']) if r.get('v') else ''
-SET = [s for s in slides if s['id'] == 'set']; SET2 = [s for s in slides if s['id'] == 'set2']
+VAR = kit.VAR; RN = {r['id']: r for r in ROLES}
+SETS = {f: [s for s in slides if s['id'] == 'set' and s.get('fam') == f] for f in kit.FAMS}; SET2 = [s for s in slides if s['id'] == 'set2']
+VARN = {(s['role'], s['var']): s['n'] for s in slides if s['id'] == 'var'}   # 구성 모음(kit/{ID}-var.html)의 장 번호
+def users(role, v): return [s for s in STYLES if kit.pick(s['id'], role) == v]   # 그 구성을 10장 예시에 쓴 스타일
 th = lambda f, deck, n: 'kit/thumbs/%s%s-%d.jpg' % (f, deck, n)
 def status(s): return '검증된 세트' if s.get('verified') else '확장 중'
 STATUS_NOTE = {'검증된 세트': '10장 예시 · 다른 주제 시험 · 넘침 검사를 통과', '확장 중': '10장 예시는 있으나 검증이 끝나지 않음', '표지만 있음': '표지만 있고 이어지는 본문이 없음'}
-def role_slide(rid):   # 그 역할을 맡은 10장 예시의 장 번호
-    pats = next(r['patterns'] for r in ROLES if r['id'] == rid)
-    return next((s['n'] for s in SET if s['pattern'] == pats[0]), None)
+def role_slide(rid, f='B'):   # 그 역할을 맡은 10장 예시의 장 번호
+    return next((s['n'] for s in SETS[f] if s.get('role') == rid), None)
 
 NAV = [('index.html', '전체 스타일'), ('body.html', '본문 구성'), ('motion.html', '모션·강조'), ('print.html', '인쇄·홍보물'), ('guide.html', '이용 방법')]
 CSS = r'''
@@ -85,6 +87,14 @@ a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
 .short{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
 .short a{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:10px;text-decoration:none;font-weight:500}
 .short a::after{content:"›";color:var(--soft);font-size:20px}
+.var3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.vc{text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;font-size:14px}
+.vc img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line);width:100%}
+.vc b{display:block;margin:10px 12px 0;font-size:16.5px}.vc p{margin:4px 12px 0;color:var(--soft);line-height:1.55}.vc p:last-child{margin-bottom:12px}
+.vc p.w{color:var(--ink)}.vc.on{border-color:var(--key);box-shadow:0 0 0 2px var(--key)}
+.sw{position:sticky;top:58px;z-index:5;background:var(--bg);padding:10px 0;margin:18px 0 0;display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap;font-size:14px;border-bottom:1px solid var(--line)}
+.sw .chips button{padding:6px 14px;font-size:14px}
+@media (max-width:820px){.short{grid-template-columns:1fr 1fr}.short a{padding:10px 12px;font-size:14px}.var3{grid-template-columns:1fr}.sw{top:0}.sw .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.sw .chips button{white-space:nowrap}}
 .note{margin:12px 0 0;font-size:14px;color:var(--soft)}
 .empty{padding:40px 0;text-align:center;color:var(--soft)}
 table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
@@ -106,7 +116,9 @@ dialog::backdrop{background:rgba(20,22,26,.6)}
 .cmpgrid .row b{font-size:15px}.cmpgrid img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
 :focus-visible{outline:3px solid var(--key);outline-offset:2px}
 footer{margin-top:56px;font-size:13px;color:var(--soft)}
-@media (max-width:820px){.hero,.two{grid-template-columns:1fr}.cmpgrid .row{grid-template-columns:repeat(3,1fr)}.cmpgrid .row b{grid-column:1 / -1}}
+@media (max-width:820px){.top{position:static}.top div{flex-wrap:nowrap;gap:0 14px}.brand{font-size:15px;padding:10px 0;margin-right:0;white-space:nowrap}
+  .top nav{flex-wrap:nowrap;gap:0 16px;overflow-x:auto;scrollbar-width:none;white-space:nowrap;min-width:0}.top nav::-webkit-scrollbar{display:none}.top nav a{padding:12px 2px 9px;font-size:14px}
+  html{scroll-padding-top:12px}.hero,.two{grid-template-columns:1fr}.cmpgrid .row{grid-template-columns:repeat(3,1fr)}.cmpgrid .row b{grid-column:1 / -1}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 '''
 COPY_JS = r'''
@@ -166,12 +178,13 @@ def req_apply(s):
     return '''제가 올린 발표 내용에 '%s' 스타일(ID: %s)을 적용해 발표 HTML 파일 하나로 만들어 주세요.
 
 1. 적용 안내 읽기: %skit/%s.md  (디자인 규칙 · 구성별 코드 · HTML 뼈대가 들어 있습니다)
-2. 완성 예시 보기: %skit/%s-set.html  (10장: 표지 · 흐름 · 개념 · 비교 · 절차 · 화면 · 실습 · 수치 · 요약 · 마무리)
+2. 완성 예시 보기: %skit/%s-set.html  (10장: 표지 · 흐름 · 개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약 · 마무리)
+   구성 모음: %skit/%s-var.html  (역할마다 배치가 다른 구성 셋. 예시의 조합을 따라 하지 말고 제 내용에 맞는 구성을 골라 주세요)
 3. 유지할 것: %s
 4. 바꿔도 되는 것: %s
 5. 피할 것: %s
 
-%s''' % (s['name'], s['id'], BASE, s['id'], BASE, s['id'], ' / '.join(s['keep']), ' / '.join(s['change']), ' / '.join(s['avoid']), RULES)
+%s''' % (s['name'], s['id'], BASE, s['id'], BASE, s['id'], BASE, s['id'], ' / '.join(s['keep']), ' / '.join(s['change']), ' / '.join(s['avoid']), RULES)
 
 # ── 표지 레퍼런스(이어지는 본문이 없는 디자인) ──
 covers = sorted([r for r in vis if r['role'] == '표지'], key=lambda r: r['no'])
@@ -192,7 +205,6 @@ H = ['''<section class="hero"><div><h1>표지부터 마무리까지,<br>하나�
 <div class="tools"><div class="chips" id="moods" role="group" aria-label="분위기"><button type="button" data-m="" aria-pressed="true">전체</button>%s</div>
 <input type="search" id="q" placeholder="스타일이나 분위기 검색" aria-label="스타일 검색"><label><input type="checkbox" id="only"> 완성된 세트만</label></div>
 <div class="cards" id="cards">''' % ''.join('<button type="button" data-m="%s" aria-pressed="false">%s</button>' % (m, m) for m in MOODS)]
-pick3 = [role_slide('concept'), role_slide('compare'), role_slide('summary')]
 for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
     st = status(s)
     H.append('''<article class="sc item" data-kind="set" data-id="%s" data-mood="%s" data-ok="%d" data-q="%s">
@@ -202,7 +214,7 @@ for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
 <div class="ft"><span class="badge %s" title="%s">%s</span><a class="btn small" href="styles/%s.html">전체 장표 보기 →</a>
 <label class="cmp"><input type="checkbox" class="cmpbox" value="%s" aria-label="%s 비교에 담기"> 비교에 담기</label></div></article>''' % (
         s['id'], s['mood'], 1 if s.get('verified') else 0, E(s['name'] + ' ' + s['mood'] + ' ' + s['use']), s['id'], th(s['id'], '-set', 1), E(s['name']),
-        ''.join('<img src="%s" alt="%s 본문 예" loading="lazy" width="640" height="360">' % (th(s['id'], '-set', n), E(s['name'])) for n in pick3),
+        ''.join('<img src="%s" alt="%s 본문 예" loading="lazy" width="640" height="360">' % (th(s['id'], '-set', n), E(s['name'])) for n in (role_slide('flow', s['id']), role_slide('compare', s['id']), role_slide('numbers', s['id']))),
         E(s['name']), E(s['use']), 'ok' if s.get('verified') else 'wip', E(STATUS_NOTE[st]), '10장 세트 · ' + st, s['id'], s['id'], E(s['name'])))
 H.append('</div><p class="empty" id="none" hidden>조건에 맞는 스타일이 없습니다. 검색어를 지우거나 다른 분위기를 골라 보세요.</p>')
 H.append('<div id="coverwrap"><h2 id="covers">표지만 있는 디자인 <small>%d개 — 표지는 있지만 그 특징을 이어받은 본문은 아직 없습니다</small></h2>' % len(covers))
@@ -235,17 +247,21 @@ $('#trayGo').addEventListener('click', () => {
   $('#cmpgrid').innerHTML = picked.map(id => { const s = S[id]; return `<div class="row"><b><a href="styles/${id}.html">${s.name}</a></b>` + s.th.map((t, i) => `<img src="${t}" alt="${s.name} ${s.lab[i]}" loading="lazy">`).join('') + '</div>'; }).join('');
   $('#cmp').showModal(); $('#cmpClose').focus(); });
 $('#cmp').addEventListener('click', e => { if (e.target.id === 'cmpClose' || e.target === $('#cmp')) $('#cmp').close(); });
-''' % json.dumps({s['id']: {'name': s['name'], 'th': [th(s['id'], '-set', n) for n in (1, role_slide('concept'), role_slide('compare'), role_slide('numbers'), 10)], 'lab': ['표지', '개념', '비교', '수치', '마무리']} for s in STYLES}, ensure_ascii=False)
+''' % json.dumps({s['id']: {'name': s['name'], 'th': [th(s['id'], '-set', n) for n in (1, role_slide('flow', s['id']), role_slide('compare', s['id']), role_slide('numbers', s['id']), 10)], 'lab': ['표지', '흐름', '비교', '수치', '마무리']} for s in STYLES}, ensure_ascii=False)
 sizes = {'index': page('index.html', '발표 디자인 라이브러리 — 표지부터 마무리까지 하나의 스타일로', '발표자료 디자인을 고르고 AI에게 내 발표에 적용해 달라고 요청하는 갤러리. 표지 · 본문 · 마무리가 한 벌인 스타일 세트.', 'index.html', '\n'.join(H), INDEX_JS)}
 
-# ── 구성별 쓰는 법 표(스타일 화면 · 본문 구성 · catalog 가 함께 쓴다) ──
-def role_rows(s=None, up=''):
-    rows = []
-    for r in ROLES:
-        for i, pid in enumerate(r['patterns']):
-            p = PAT[pid]; n = next((x['n'] for x in SET if x['pattern'] == pid), None)
-            rows.append((r['name'] if i == 0 else '', p['name'], r['purpose'] if i == 0 else '(' + p['when'] + ')', p['cond'], p['overflow'], r['instead'] if i == 0 else '', p['part'], n))
-    return rows
+# ── 역할별 구성 셋(스타일 화면 · 본문 구성 · catalog 가 함께 쓴다) ──
+def var_cards(role, f, up='', mark=False):
+    """그 역할의 구성 셋을 스타일 f 로 나란히. mark = 그 스타일의 10장 예시가 쓴 구성에 표시"""
+    out = []
+    for v in VAR['roles'][role]:
+        n = VARN[(role, v['v'])]; on = mark and kit.pick(f, role) == v['v']
+        use = ' · '.join(u['name'] for u in users(role, v['v']))
+        out.append('<a class="vc%s" href="%skit/%s-var.html#%d" target="_blank" rel="noopener" data-n="%d"><img src="%s%s" alt="%s · %s" loading="lazy" width="640" height="360">'
+                   '<b>%s%s</b><p class="w">%s</p><p>이럴 때 · %s</p><p>분량 · %s%s</p></a>' % (
+            ' on' if on else '', up, f, n, n, up, th(f, '-var', n), E(RN[role]['name']), E(v['name']), E(v['name']), ' <span class="badge ok">이 예시에 씀</span>' if on else '',
+            E(v['look']), E(v['when']), E(v['cond']), '' if mark else ('<br>10장 예시에 쓴 스타일 · ' + E(use or '없음'))))
+    return '<div class="var3">%s</div>' % ''.join(out)
 
 # ── styles/{id}.html ──
 for s in STYLES:
@@ -261,11 +277,12 @@ for s in STYLES:
     B.append('<p class="note">내려받은 파일은 글꼴 · 그림이 안에 들어 있어 인터넷 없이 열립니다. AI가 새로 만든 발표는 열 때 인터넷이 필요합니다.</p></div></div>')
     B.append('<h2>전체 장표 <small>10장 — 역할마다 한 장. 예시 내용은 가상입니다</small></h2><div class="minis">%s</div>' % ''.join(
         '<a class="mc" href="../kit/%s-set.html#%d" target="_blank" rel="noopener"><img src="../%s" alt="%s %d장" loading="lazy" width="640" height="360"><b>%d. %s</b></a>' % (
-            f, x['n'], th(f, '-set', x['n']), E(s['name']), x['n'], x['n'], E(x['title'])) for x in SET))
+            f, x['n'], th(f, '-set', x['n']), E(s['name']), x['n'], x['n'], E(x['title'])) for x in SETS[f]))
+    B.append('<p class="note">이 스타일의 짜임 · %s. 스타일마다 구성 조합이 다릅니다.</p>' % ' / '.join('%s = %s' % (E(RN[r]['name'].split(' · ')[0]), E(next(v['name'] for v in VAR['roles'][r] if v['v'] == kit.pick(f, r)))) for r in VAR['order']))
     B.append('<h2>다른 내용에 써 보기 <small>성격이 다른 본문 %d장 — 가상 주제: 학교 독서 활동</small></h2><div class="minis">%s</div>' % (len(SET2), ''.join(
         '<a class="mc" href="../kit/%s-set2.html#%d" target="_blank" rel="noopener"><img src="../%s" alt="" loading="lazy" width="640" height="360"><b>%s</b></a>' % (f, x['n'], th(f, '-set2', x['n']), E(x['title'])) for x in SET2)))
-    B.append('<h2>구성별 쓰는 법 <small>내용에 맞는 구성을 고르고, 넘치면 장을 나눕니다</small></h2><div class="tw"><table><thead><tr><th>역할</th><th>구성</th><th>이럴 때</th><th>알맞은 분량</th><th>넘치면</th><th>이럴 땐 다른 구성</th></tr></thead><tbody>%s</tbody></table></div>' % ''.join(
-        '<tr><td><b>%s</b></td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>' % tuple(E(x) for x in row[:6]) for row in role_rows()))
+    B.append('<h2>다른 구성으로 바꾸기 <small>역할마다 배치가 다른 구성 셋 — 내용에 맞는 것을 고릅니다</small></h2><p class="note">파란 테두리가 위 10장 예시에 쓴 구성입니다. 나머지 둘도 이 스타일로 그대로 쓸 수 있습니다. <a href="../kit/%s-var.html" target="_blank" rel="noopener">구성 모음 넘겨 보기</a></p>' % f)
+    for r in VAR['order']: B.append('<h3>%s <small>%s</small></h3>%s' % (E(RN[r]['name']), E(RN[r]['purpose']), var_cards(r, f, '../', True)))
     B.append('<h2>AI에게 전달하기</h2><p class="note">아래 요청문을 복사해 발표 내용과 함께 AI 대화창에 붙여 넣으세요. 주소만 건네는 것으로는 적용이 끝나지 않습니다. AI가 구성안을 먼저 보여 주면 확인한 뒤 만들게 하세요.</p><pre class="req" id="req">%s</pre>' % E(req_apply(s)))
     B.append('<details><summary>파일과 자료</summary><ul><li>적용 안내(AI용, 디자인 규칙 · 구성별 코드 · 뼈대): <a href="../kit/%s.md">kit/%s.md</a></li><li>스타일 CSS: <a href="../kit/v1/%s.css">kit/v1/%s.css</a> · 넘김 엔진: <a href="../kit/v1/deck.js">kit/v1/deck.js</a></li>'
              '<li>더 많은 구성 예시: <a href="../kit/%s-plan.html">계획안 발표 12장</a>(체계 · 일정 · 표 · 구성비) · <a href="../kit/%s.html">성과 공유회 13장</a>(막대 · 전후 · 사진)</li>'
@@ -273,22 +290,33 @@ for s in STYLES:
     if fam_cov: B.append('<h2>같은 분위기의 표지 레퍼런스 <small>%d개 — 표지만 있는 디자인. 이 세트와 코드는 다릅니다</small></h2><div class="minis">%s</div>' % (len(fam_cov), ''.join(cover_card(r, '../') for r in fam_cov)))
     sizes['styles/' + f] = page('styles/%s.html' % f, '%s — 발표 디자인 라이브러리' % s['name'], s['use'], 'index.html', '\n'.join(B), up='../')
 
-# ── body.html: 전하려는 내용으로 본문 구성 찾기 ──
-B = ['<h1>본문 구성</h1><p class="lead">전하려는 내용으로 찾습니다. 같은 구성을 여덟 스타일로 나란히 볼 수 있습니다.</p><div class="short" style="margin-top:20px">%s</div>' % ''.join(
-    '<a href="#r-%s">%s</a>' % (r['id'], E(r['name'])) for r in ROLES)]
-alls = slides
-for r in ROLES:
-    B.append('<h2 id="r-%s">%s <small>%s</small></h2>' % (r['id'], E(r['name']), E(r['purpose'])))
-    for pid in r['patterns']:
-        p = PAT[pid]; src = next((x for x in alls if x['pattern'] == pid), None)
-        if not src: continue
-        B.append('<h3>%s <small>%s</small></h3><dl class="kv"><dt>알맞은 분량</dt><dd>%s</dd><dt>넘치면</dt><dd>%s</dd>%s</dl><div class="minis" style="margin-top:12px">%s</div>' % (
-            E(p['name']), E(p['when']), E(p['cond']), E(p['overflow']), ('<dt>참고</dt><dd>%s</dd>' % E(p['note'])) if p['note'] else '',
-            ''.join('<a class="mc" href="kit/%s%s.html#%d" target="_blank" rel="noopener"><img src="%s" alt="%s · %s" loading="lazy" width="640" height="360"><b>%s <small>%s</small></b></a>' % (
-                s['id'], src['deck'], src['n'], th(s['id'], src['deck'], src['n']), E(p['name']), E(s['name']), E(s['name']), E(status(s))) for s in STYLES)))
-    if r['instead'] != '—': B.append('<p class="note">이럴 땐 다른 구성: %s</p>' % E(r['instead']))
+# ── body.html: 역할마다 배치가 다른 구성을 나란히 ──
+B = ['<h1>본문 구성</h1><p class="lead">같은 내용도 보여 주는 방식이 여럿입니다. 역할마다 <b>배치가 다른 구성 셋</b>을 나란히 놓았습니다. 내용에 맞는 구성을 고르세요.</p><div class="short" style="margin-top:20px">%s</div>' % ''.join(
+    '<a href="#r-%s">%s</a>' % (r, E(RN[r]['name'])) for r in VAR['order'] + ['more']),
+     '<div class="sw"><span>입혀 볼 스타일</span><div class="chips" id="sw" role="group" aria-label="입혀 볼 스타일">%s</div></div>' % ''.join(
+         '<button type="button" data-f="%s" aria-pressed="%s">%s</button>' % (s['id'], 'true' if s['id'] == 'B' else 'false', E(s['name'])) for s in STYLES)]
+for r in VAR['order']:
+    B.append('<h2 id="r-%s">%s <small>%s</small></h2>%s' % (r, E(RN[r]['name']), E(RN[r]['purpose']), var_cards(r, 'B')))
+    if RN[r]['instead'] != '—': B.append('<p class="note">이럴 땐 · %s</p>' % E(RN[r]['instead']))
+# 구성 모음에 없는 모양(다른 예시 덱에 있는 것)
+used = {s['pattern'] for s in slides if s['id'] == 'var'}
+rest = [(p, next((x for x in slides if x['pattern'] == p['id'] and x['id'] != 'set'), None)) for p in kit.PATTERNS if p['id'] not in used]
+B.append('<h2 id="r-more">그 밖의 구성 <small>갈래 · 체계 · 추이 · 구성비 · 사진 · 간지</small></h2><div class="minis">%s</div>' % ''.join(
+    '<a class="mc" href="kit/B%s.html#%d" target="_blank" rel="noopener" data-n="%d" data-deck="%s"><img src="%s" alt="%s" loading="lazy" width="640" height="360"><b>%s</b><p>%s</p><p>분량 · %s</p></a>' % (
+        x['deck'], x['n'], x['n'], x['deck'], th('B', x['deck'], x['n']), E(p['name']), E(p['name']), E(p['when']), E(p['cond'])) for p, x in rest if x))
 B.append('<h2>참고 장표와 아이콘</h2><p class="note">스타일 세트와 따로 만든 본문 장표 %d개(도식 아이디어 참고용)와 아이콘 85개는 <a href="refs.html">참고 장표 모음</a>에 있습니다.</p>' % sum(1 for r in vis if r['role'] == '본문'))
-sizes['body'] = page('body.html', '본문 구성 — 발표 디자인 라이브러리', '개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약처럼 전하려는 내용으로 본문 구성을 찾는다.', 'body.html', '\n'.join(B))
+BODY_JS = r"""
+// 입혀 볼 스타일을 바꾸면 그림과 주소만 바뀐다(구성은 그대로). 고른 스타일은 주소에 남는다(?style=D)
+const sw = document.getElementById('sw');
+function skin(f){ if (!/^[A-H]$/.test(f)) f = 'B';
+  document.querySelectorAll('[data-n]').forEach(a => { const d = a.dataset.deck === undefined ? '-var' : a.dataset.deck, n = a.dataset.n;
+    a.href = 'kit/' + f + d + '.html#' + n; a.querySelector('img').src = 'kit/thumbs/' + f + d + '-' + n + '.jpg'; });
+  sw.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.f === f));
+  history.replaceState(null, '', (f === 'B' ? location.pathname : '?style=' + f) + location.hash); }
+sw.addEventListener('click', e => { const b = e.target.closest('button'); if (b) skin(b.dataset.f); });
+const f0 = new URLSearchParams(location.search).get('style'); if (f0) skin(f0);
+"""
+sizes['body'] = page('body.html', '본문 구성 — 발표 디자인 라이브러리', '흐름 · 개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약마다 배치가 다른 구성 셋을 나란히 보고 고른다.', 'body.html', '\n'.join(B), BODY_JS)
 
 # ── motion.html · print.html ──
 def ref_card(r):
@@ -332,9 +360,15 @@ for s in STYLES:
 C += ['', '상태: **검증된 세트** = ' + STATUS_NOTE['검증된 세트'] + ' / **확장 중** = ' + STATUS_NOTE['확장 중'] + '.', '']
 for s in STYLES:
     C += ['### %s %s' % (s['id'], s['name']), '- 유지할 것: ' + ' / '.join(s['keep']), '- 바꿔도 되는 것: ' + ' / '.join(s['change']), '- 피할 것: ' + ' / '.join(s['avoid']), '']
-C += ['## 구성 (모든 스타일에 같은 이름으로 있다)', '', '| 역할 | 구성 | 이럴 때 | 알맞은 분량 | 넘치면 | 이럴 땐 다른 구성 | 부품 |', '|---|---|---|---|---|---|---|']
-for row in role_rows(): C.append('| %s | %s | %s | %s | %s | %s | `%s` |' % row[:7])
-C += ['', '구성의 코드는 각 스타일의 적용 안내(`kit/{ID}.md`)에 들어 있다. 모든 구성을 다 쓸 필요는 없고, 같은 구성을 여러 번 써도 된다.', '',
+C += ['## 구성 (역할마다 배치가 다른 셋. 모든 스타일에서 같은 이름으로 쓴다)', '', '| 역할 | 구성 | 모습 | 이럴 때 | 알맞은 분량 | 부품 | 보기(B 스타일) |', '|---|---|---|---|---|---|---|']
+for r in VAR['order']:
+    for i, v in enumerate(VAR['roles'][r]): C.append('| %s | %s | %s | %s | %s | `%s` | %skit/B-var.html#%d |' % (RN[r]['name'] if i == 0 else '', v['name'], v['look'], v['when'], v['cond'], v['part'], BASE, VARN[(r, v['v'])]))
+C += ['', '그 밖의 구성(갈래 · 체계 · 추이 · 구성비 · 표 · 일정 · 사진 · 간지)과 모든 구성의 코드는 각 스타일의 적용 안내(`kit/{ID}.md`)에 들어 있다.',
+      '**장마다 내용에 맞는 구성을 고른다.** 같은 역할이 여러 번 나오면 구성을 바꿔 쓴다. 넘치면 글자를 줄이지 말고 장을 나눈다.', '',
+      '### 스타일별 10장 예시의 구성 조합', '', '스타일마다 예시의 짜임이 다르다. 참고일 뿐이고 그대로 따를 필요는 없다.', '',
+      '| 스타일 | ' + ' | '.join(RN[r]['name'].split(' · ')[0] for r in VAR['order']) + ' |', '|---|' + '---|' * len(VAR['order'])]
+for s in STYLES: C.append('| %s %s | %s |' % (s['id'], s['name'], ' | '.join(next(v['name'] for v in VAR['roles'][r] if v['v'] == kit.pick(s['id'], r)) for r in VAR['order'])))
+C += ['',
       '## 그 밖', '',
       '- 표지만 있는 디자인 %d개(이어지는 본문 없음, 참고용): %scatalog/refs.md' % (len(covers), BASE),
       '- 참고 본문 장표(도식 아이디어): %scatalog/body.md · 아이콘 85개: %scatalog/icons.md' % (BASE, BASE),
