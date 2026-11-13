@@ -31,10 +31,13 @@ def importmap_three():
 def kit_css(fam):
     K = os.path.join(ROOT, 'kit')
     css = '\n'.join(open(os.path.join(K, f), encoding='utf-8').read() for f in ('deck.css', 'parts.css', fam + '.css'))
-    return re.sub(r'/\*.*?\*/\n?', '', css, flags=re.S)
-def build(no, outdir, name=None):
+    css = re.sub(r'/\*.*?\*/\n?', '', css, flags=re.S)
+    # 계열 그림 url("img/이름.webp") → data: (인터넷 없이 도는 파일 하나에 다 넣는다)
+    return re.sub(r'url\("img/([\w.-]+)"\)', lambda m: 'url("data:image/webp;base64,%s")' % b64(os.path.join(K, 'img', m.group(1))), css)
+def build(no, outdir, name=None, page=None):
+    # page 를 주면 src/{no}/page.html 대신 그 글을 쓴다(덱 키트 예시 덱: scripts/kit.py 가 흐름 원본에서 짜 넣음)
     d = os.path.join(ROOT, 'src', str(no)); cfg = json.load(open(os.path.join(d, 'build.json')))
-    s = open(os.path.join(d, 'page.html'), encoding='utf-8').read()
+    s = page if page is not None else open(os.path.join(d, 'page.html'), encoding='utf-8').read()
     s = re.sub(r'/\*@@KIT:([A-H])@@\*/', lambda m: kit_css(m.group(1)), s)
     if '/*@@KITJS@@*/' in s: s = s.replace('/*@@KITJS@@*/', open(os.path.join(ROOT, 'kit', 'deck.js'), encoding='utf-8').read())
     text = re.sub(r'@@[A-Z]+:[^@]+@@', '', s)

@@ -47,9 +47,10 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
   .deck *,.deck *::before,.deck *::after{transition-duration:.01s!important;transition-delay:0s!important;animation-duration:.01s!important;animation-delay:0s!important;animation-iteration-count:1!important}
 }
 
-/* 성과 공유회 정형 부품 v1 — 모든 계열 공용(deck.css 다음, 계열 CSS 앞에 불러옴)
-   모양은 토큰(--ds-*)만 써서, 계열 CSS가 색 · 글꼴 · 테두리를 바꾼다. 그림은 그리지 않는다(사진은 .ph 자리에 이미지로).
-   부품: 사업 개요 · 추진 경과 · 증감 표시 · 목표 대비 달성 · 만족도 · 전후 비교 · 우수 사례(사진 + 목소리) · 향후 계획 */
+/* 정형 부품 v1 — 모든 계열 공용(deck.css 다음, 계열 CSS 앞에 불러옴)
+   모양은 토큰(--ds-*)만 써서, 계열 CSS가 색 · 글꼴 · 테두리를 바꾼다. 그림은 그리지 않는다(사진 · 화면 캡처는 .ph 자리에 이미지로).
+   성과 공유회: 사업 개요 · 추진 경과 · 증감 표시 · 목표 대비 달성 · 만족도 · 전후 비교 · 우수 사례 · 향후 계획
+   기본 장표(docs/patterns.md): 한 문장 · 항목 · 용어 정의 · 인용 · 체계 · 추이 · 구성비 · 화면 짚기 · 질문 · 할 일 */
 :root{
   --ds-on:var(--ds-ink); --ds-on-sub:var(--ds-sub); --ds-key:var(--ds-accent); --ds-track:var(--ds-c5,#E3E8ED);
   --ds-fs-body:28px; --ds-fs-label:24px; --ds-fs-sub:22px; --ds-fs-h:40px; --ds-fs-num:88px; --ds-fs-num-s:48px;
@@ -148,6 +149,110 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .road li{position:relative;padding-left:26px;font-size:calc(var(--ds-fs-body) * 1.1);line-height:1.45;color:var(--ds-ink)}
 .road li::before{content:"";position:absolute;left:0;top:.62em;width:10px;height:10px;background:var(--ds-c3)}
 .road > div.is-key h3{background:var(--ds-accent)}.road > div.is-key li::before{background:var(--ds-accent)}
+
+/* ── 한 문장: 장 가운데 큰 문장 하나 + 받치는 말 한 줄(.title 없이 .kicker 아래에) ── */
+.say{display:flex;flex-direction:column;justify-content:center;gap:36px;max-width:1560px}
+.say p{margin:0;font:700 calc(var(--ds-fs-h) * 2)/1.32 var(--ds-font-title);text-wrap:balance}
+.say p em{font-style:normal;color:var(--ds-accent)}
+.say small{font-size:calc(var(--ds-fs-body) * 1.15);line-height:1.5;color:var(--ds-sub)}
+
+/* ── 항목: 번호 + 이름 + 설명. 3~5줄(5줄이면 설명은 한 줄) ───────────── */
+.points{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;counter-reset:pt}
+.points li{counter-increment:pt;display:grid;grid-template-columns:96px 540px 1fr;align-items:baseline;gap:0 32px;padding:30px 0;border-top:2px solid var(--ds-line)}
+.points li:last-child{border-bottom:2px solid var(--ds-line)}
+.points li::before{content:counter(pt,decimal-leading-zero);font:600 var(--ds-fs-h)/1 var(--ds-font-num);color:var(--ds-sub)}
+.points b{font:700 var(--ds-fs-h)/1.3 var(--ds-font-title)}
+.points p{margin:0;font-size:var(--ds-fs-body);line-height:1.5;color:var(--ds-sub)}
+.points li.is-key::before,.points li.is-key b{color:var(--ds-accent)}
+
+/* ── 용어 정의: 왼쪽 용어, 오른쪽 뜻 한 문장 + 예 한두 개 ─────────────── */
+.define{margin:0;display:grid;grid-template-columns:600px 1fr;gap:64px;align-items:center}
+.define dt{font:700 calc(var(--ds-fs-h) * 2)/1.2 var(--ds-font-title);color:var(--ds-accent)}
+.define dt small{display:block;margin-top:20px;font:500 var(--ds-fs-label)/1.4 var(--ds-font-body);color:var(--ds-sub)}
+.define dd{margin:0;padding-left:56px;border-left:4px solid var(--ds-ink);display:flex;flex-direction:column;gap:32px}
+.define dd p{margin:0;font:600 calc(var(--ds-fs-h) * 1.05)/1.5 var(--ds-font-body)}
+.define dd ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.define dd li{display:grid;grid-template-columns:72px 1fr;gap:16px;font-size:var(--ds-fs-body);line-height:1.5;color:var(--ds-sub)}
+.define dd li::before{content:"예";font:700 var(--ds-fs-label)/1.75 var(--ds-font-body);color:var(--ds-ink)}
+
+/* ── 인용: 말 1~3개. 말한 사람은 figcaption ─────────────────────── */
+.quote{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:32px;align-content:center}
+.quote figure{margin:0;background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:44px 40px 36px;display:flex;flex-direction:column;gap:24px;min-height:400px;min-width:0;color:var(--ds-on)}
+.quote figure::before{content:"";width:56px;height:8px;background:var(--ds-on-sub)}
+.quote blockquote{margin:0;font:600 calc(var(--ds-fs-body) * 1.2)/1.55 var(--ds-font-body)}
+.quote figcaption{margin-top:auto;font-size:var(--ds-fs-sub);color:var(--ds-on-sub)}
+.quote figure.is-key::before{background:var(--ds-key)}
+
+/* ── 체계: 맨 위 하나(.t-top) → 가운데 갈래(.t-mid) → 갈래마다 할 일 목록(ul). 갈래 수는 style="--n:3" ── */
+.tree{display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:22px 24px;align-content:center}
+.tree .t-top{grid-column:1 / -1;padding:28px 40px;background:var(--ds-c1);color:#fff;border-radius:var(--ds-radius);text-align:center;font:700 var(--ds-fs-h)/1.3 var(--ds-font-title)}
+.tree .t-top small{display:block;margin-bottom:10px;font:600 var(--ds-fs-sub)/1 var(--ds-font-body);opacity:.8}
+.tree .t-mid{position:relative;padding:24px 28px;background:var(--ds-c3);color:#fff;border-radius:var(--ds-radius);font:700 calc(var(--ds-fs-h) * .85)/1.3 var(--ds-font-title)}
+.tree .t-mid small{display:block;margin-bottom:8px;font:600 var(--ds-fs-sub)/1 var(--ds-font-num);opacity:.85}
+.tree .t-mid::before,.tree ul::before{content:"";position:absolute;left:50%;bottom:100%;width:4px;height:22px;margin-left:-2px;background:var(--ds-c3)}
+.tree ul{position:relative;list-style:none;margin:0;padding:26px 28px;background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);display:flex;flex-direction:column;gap:16px;color:var(--ds-on);font-size:var(--ds-fs-body);line-height:1.4;min-width:0}
+.tree li{position:relative;padding-left:26px}
+.tree li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;background:var(--ds-on-sub)}
+.tree .t-mid.is-key{background:var(--ds-accent)}
+
+/* ── 추이: 시점마다 세로 막대. style="--v:62"(가장 큰 값 = 100). 3~8시점 ──── */
+.trend{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:40px 44px 36px;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:28px;align-items:end;color:var(--ds-on);min-width:0}
+.trend > div{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
+.trend > div b{font:600 var(--ds-fs-num-s)/1 var(--ds-font-num)}
+.trend > div b small{margin-left:4px;font:500 var(--ds-fs-sub)/1 var(--ds-font-body);color:var(--ds-on-sub)}
+.trend > div i{display:block;width:100%;max-width:160px;height:calc(var(--v) * 3.8px);background:var(--ds-c3)}
+.trend > div span{align-self:stretch;padding-top:14px;border-top:2px solid var(--ds-on-sub);text-align:center;font:500 var(--ds-fs-label)/1 var(--ds-font-num);color:var(--ds-on-sub)}
+.trend > div.is-key i{background:var(--ds-key)}.trend > div.is-key b{color:var(--ds-key)}
+
+/* ── 구성비: 100% 막대 하나(.sh-bar, <i style="--v:%"> 합 100) + 조각 설명(ul, 같은 순서) ── */
+.share{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:44px;display:flex;flex-direction:column;justify-content:center;gap:36px;color:var(--ds-on);min-width:0}
+.sh-bar{display:flex;height:96px}
+.sh-bar i{display:block;width:calc(var(--v) * 1%)}
+.share ul{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:28px}
+.share li{display:flex;flex-direction:column;gap:10px;padding-top:18px;border-top:8px solid var(--ds-track);min-width:0}
+.sh-bar i:nth-child(1){background:var(--ds-c1)}.share li:nth-child(1){border-top-color:var(--ds-c1)}
+.sh-bar i:nth-child(2){background:var(--ds-c2)}.share li:nth-child(2){border-top-color:var(--ds-c2)}
+.sh-bar i:nth-child(3){background:var(--ds-c3)}.share li:nth-child(3){border-top-color:var(--ds-c3)}
+.sh-bar i:nth-child(4){background:var(--ds-c4)}.share li:nth-child(4){border-top-color:var(--ds-c4)}
+.sh-bar i:nth-child(5){background:var(--ds-track)}.share li:nth-child(5){border-top-color:var(--ds-track)}
+.share li span{font:700 var(--ds-fs-label)/1.3 var(--ds-font-body)}
+.share li b{font:600 var(--ds-fs-num-s)/1 var(--ds-font-num)}
+.share li b small{margin-left:4px;font:500 var(--ds-fs-sub)/1 var(--ds-font-body);color:var(--ds-on-sub)}
+.share li p{margin:0;font-size:var(--ds-fs-sub);line-height:1.45;color:var(--ds-on-sub)}
+.sh-bar i.is-key{background:var(--ds-key)}.share li.is-key{border-top-color:var(--ds-key)}.share li.is-key b{color:var(--ds-key)}
+
+/* ── 화면 짚기: 화면 캡처 자리(.shot-img 안 .ph) + 번호 표시(<b style="--x:%;--y:%">) + 번호별 설명(ol) ── */
+.shot{display:grid;grid-template-columns:1.55fr 1fr;gap:56px;align-items:center}
+.shot-img{position:relative}
+.shot-img .ph{aspect-ratio:16 / 10;outline:2px solid var(--ds-line)}
+.shot-img > b,.shot ol li::before{width:56px;height:56px;border-radius:50%;background:var(--ds-c1);color:#fff;display:grid;place-items:center;font:700 28px/1 var(--ds-font-num)}
+.shot-img > b{position:absolute;left:calc(var(--x) * 1%);top:calc(var(--y) * 1%);margin:-28px 0 0 -28px;box-shadow:0 0 0 6px rgba(255,255,255,.9);z-index:1}
+.shot ol{list-style:none;margin:0;padding:0;counter-reset:sh;display:flex;flex-direction:column;gap:32px}
+.shot ol li{counter-increment:sh;display:grid;grid-template-columns:56px 1fr;gap:6px 22px;font-size:var(--ds-fs-body);line-height:1.45;color:var(--ds-sub)}
+.shot ol li::before{content:counter(sh);grid-row:1 / 3}
+.shot ol li b{font:700 calc(var(--ds-fs-h) * .85)/1.3 var(--ds-font-title);color:var(--ds-ink)}
+.shot ol li span{grid-column:2}
+.shot-img > b.is-key,.shot ol li.is-key::before{background:var(--ds-accent)}
+
+/* ── 질문: 큰 질문(.a-q) + 보기(ol, 4개까지) 또는 답(.a-a). 답은 data-step 으로 가렸다 연다 ── */
+.ask{display:flex;flex-direction:column;justify-content:center;gap:40px}
+.ask .a-q{margin:0;max-width:1560px;font:700 calc(var(--ds-fs-h) * 1.5)/1.36 var(--ds-font-title);text-wrap:balance}
+.ask .a-q::before{content:"Q";display:block;margin-bottom:20px;font:600 var(--ds-fs-num-s)/1 var(--ds-font-num);color:var(--ds-accent)}
+.ask ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:20px 28px;counter-reset:ak}
+.ask ol li{counter-increment:ak;display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:center;padding:24px 30px;background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);color:var(--ds-on);font-size:var(--ds-fs-body);line-height:1.4;min-width:0}
+.ask ol li::before{content:counter(ak);font:600 var(--ds-fs-h)/1 var(--ds-font-num);color:var(--ds-on-sub)}
+.ask .a-a{margin:0;padding:6px 0 6px 36px;border-left:6px solid var(--ds-accent);font:600 calc(var(--ds-fs-h) * .85)/1.5 var(--ds-font-body)}
+.ask .a-a b{display:block;margin-bottom:6px;font:700 var(--ds-fs-label)/1.3 var(--ds-font-body);color:var(--ds-accent)}
+
+/* ── 할 일: 지금 할 일 한 문장(.t-do) + 시간 · 결과물 · 도움 받을 곳 같은 조건 칸(dl) ── */
+.todo{display:flex;flex-direction:column;justify-content:center;gap:44px}
+.todo .t-do{margin:0;max-width:1560px;font:700 calc(var(--ds-fs-h) * 1.5)/1.36 var(--ds-font-title);text-wrap:balance}
+.todo .t-do em{font-style:normal;color:var(--ds-accent)}
+.todo dl{margin:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:28px}
+.todo dl > div{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:32px 36px;display:flex;flex-direction:column;gap:14px;color:var(--ds-on);min-width:0}
+.todo dt{font:700 var(--ds-fs-label)/1.2 var(--ds-font-body);color:var(--ds-on-sub)}
+.todo dd{margin:0;font:700 var(--ds-fs-h)/1.3 var(--ds-font-title)}
+.todo dd small{display:block;margin-top:10px;font:400 var(--ds-fs-sub)/1.45 var(--ds-font-body);color:var(--ds-on-sub)}
 
 /* C 경쾌한 놀이 오브젝트 — 덱 키트 v1 (deck.css 다음에 불러옴)
    밝은 하늘빛 흰 바탕 + 장난감 블록. 원색 다섯은 섹션 표시에만, 빨강 강조는 한 곳.
@@ -297,3 +402,10 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .road li::before{border-radius:50%}
 .ph:empty::after{border-radius:10px}
 .case blockquote{border-left-color:var(--ds-toy2)}
+
+/* 기본 장표 부품(parts.css) 계열 조정: 둥근 끝 · 둥근 점 */
+.sh-bar{border-radius:20px;overflow:hidden}
+.trend > div i{border-radius:14px 14px 0 0}
+.tree li::before{border-radius:50%}
+.quote figure::before{border-radius:4px}
+.say p,.ask .a-q,.todo .t-do,.define dt,.points b,.tree .t-top,.tree .t-mid,.todo dd,.shot ol li b{font-weight:400}
