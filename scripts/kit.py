@@ -87,7 +87,9 @@ def flow_src(fid):
     return s.split('-->', 1)[1].strip(), int(m.group(2)), m.group(3)
 def sections(fam, fid):
     body, n, num = flow_src(fid)
-    return re.sub(r'@@SIG:(\w+)(?::(\d+))?@@', lambda m: sig(fam, m.group(1), int(m.group(2) or 0), n, num), body)
+    body = re.sub(r'@@SIG:(\w+)(?::(\d+))?@@', lambda m: sig(fam, m.group(1), int(m.group(2) or 0), n, num), body)
+    # 예시 덱의 그림(src/flows/img/)은 파일 안에 넣는다
+    return re.sub(r'@@IMG:([\w.-]+)@@', lambda m: 'data:image/webp;base64,' + build.b64(os.path.join(ROOT, 'src', 'flows', 'img', m.group(1))), body)
 def slides_of(fid):
     """[(장 번호, 기본 장표 id, 원본 주석의 장 이름, 그 장의 원본 HTML)]"""
     body = flow_src(fid)[0]; out = []
@@ -148,7 +150,7 @@ def parts(fam, sample):
     return '\n\n'.join(out)
 
 # ── AI용 안내: 계열 공통(guide.md · 첫 화면) 또는 계열 하나(kit/{계열}.md) ──
-SNIPPET_FROM = ['plan', 'share']   # 기본 장표의 견본 코드를 찾는 순서
+SNIPPET_FROM = ['set', 'set2', 'plan', 'share']   # 기본 장표의 견본 코드를 찾는 순서
 def samples(pid):
     """그 기본 장표의 견본 장: [(흐름 id, (장 번호, 기본 장표 id, 장 이름, HTML))]. 질문은 보기형 + 답 공개형 둘"""
     hit = [(fid, s) for fid in SNIPPET_FROM for s in slides_of(fid) if s[1] == pid]
@@ -157,8 +159,9 @@ def samples(pid):
     return hit[:1]
 def code_of(fam, fid, s):
     _, n, num = flow_src(fid)
-    return re.sub(r'@@SIG:(\w+)(?::(\d+))?@@', (lambda m: sig(fam, m.group(1), int(m.group(2) or 0), n, num)) if fam else
+    code = re.sub(r'@@SIG:(\w+)(?::(\d+))?@@', (lambda m: sig(fam, m.group(1), int(m.group(2) or 0), n, num)) if fam else
                   (lambda m: '<!-- 상징 부품: 7의 계열 표에서 %s 코드 -->' % {'cover': '표지', 'toc': '목차', 'divider': '간지', 'close': '맺음'}[m.group(1)]), s[3])
+    return re.sub(r'@@IMG:[\w.-]+@@', '화면-캡처.png', code)   # 견본 코드에서는 그림 자리에 파일 이름만
 def part_md(p): return ' '.join('`%s`' % w if w.startswith('.') else w for w in p['part'].replace('(', '( ').replace(')', ' )').split()).replace('( ', '(').replace(' )', ')')
 def snippets(fam=None):
     L = []

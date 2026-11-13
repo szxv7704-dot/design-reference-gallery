@@ -1,4 +1,4 @@
-# 첫 화면(index.html) · 글 목록(catalog.md) · 덱 순서(data/decks.json) 만들기.
+# 참고 장표 모음(refs.html) · 참고 목록(catalog/) · 표지별 덱 순서(data/decks.json) 만들기. 첫 화면과 스타일 화면은 scripts/gallery.py 가 만든다.
 # 첫 화면은 참고용 목록이다: 기존 장표를 분위기별로 모으고(표지 → 목차·간지·맺음 → 본문), 공용 본문은 자리 순서로 묶는다.
 # 내용은 모두 HTML 안에 미리 들어 있어 채팅 AI가 주소만으로 글로 읽는다(스크립트는 빠르게 보기만 한다).
 # 재료: data/rounds.json · data/triage.json(본문의 '내용의 모양') · scripts/kit.py 의 계열 이름
@@ -48,11 +48,12 @@ grid = lambda rs, tag='': '<div class="g">%s</div>' % ''.join(card(r, tag) for r
 
 H = []
 H.append('''<header>
-  <h1>디자인 레퍼런스</h1>
+  <p class="jump"><a href="index.html">← 발표 디자인 라이브러리(전체 스타일)</a></p>
+  <h1>참고 장표 모음</h1>
   <p class="lead">발표 덱을 만들 때 참고하는 장표 모음입니다. 장표 %d개를 <b>분위기 여덟</b>으로 묶었고, <b>표지 하나가 덱 한 벌</b>입니다: 표지를 누르면 그 표지의 색 · 글꼴을 입힌 본문까지 한 덱으로 넘겨 봅니다.
   모든 기관명 · 수치는 가상 예시이고, 사진은 AI로 만든 것입니다.</p>
   <p class="ai">AI가 읽을 때: 이 페이지는 글로 된 목록입니다. 장표마다 <b>가벼운 코드</b>(<code>light/번호.html</code>, 글꼴 · 그림을 박지 않아 평균 50KB)가 있고, <b>원본</b>(<code>refs/번호.html</code>)은 인터넷 없이 도는 완성본이라 큽니다.
-  색 · 글꼴 · 설명까지 적은 글 목록은 <a href="catalog.md">catalog.md</a>(분위기별로 <code>catalog/A.md</code>~<code>H.md</code>, 공용 본문 <code>catalog/body.md</code>)입니다.</p>
+  색 · 글꼴 · 설명까지 적은 글 목록은 <a href="catalog/refs.md">catalog/refs.md</a>(분위기별로 <code>catalog/A.md</code>~<code>H.md</code>, 공용 본문 <code>catalog/body.md</code>)입니다.</p>
   <nav class="moods">%s</nav>
   <p class="jump">바로 가기: <a href="#body">본문 모음</a> · <a href="#icons">아이콘 세트</a> · <a href="#extra">와우 포인트 · 덱 키트</a> · <a href="#more">그 밖</a></p>
 </header>''' % (len(vis), ''.join('<a href="#m-%s"><img src="%s" alt="" loading="lazy" width="640" height="360"><b>%s %s</b><span>%s</span></a>' % (
@@ -193,9 +194,9 @@ page = '''<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>디자인 레퍼런스 — 발표 덱 장표 모음</title>
+<title>참고 장표 모음 — 발표 디자인 라이브러리</title>
 <meta name="description" content="발표 덱을 만들 때 참고하는 장표 모음. 분위기 여덟으로 묶은 표지 · 목차·간지 · 본문. 모든 내용은 가상 예시입니다.">
-<link rel="alternate" type="text/markdown" href="catalog.md" title="전체 목록(글)">
+<link rel="alternate" type="text/markdown" href="catalog/refs.md" title="참고 장표 목록(글)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
@@ -212,7 +213,7 @@ page = '''<!doctype html>
 </body>
 </html>
 ''' % (CSS, '\n'.join(H), JS)
-open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8').write(page)
+open(os.path.join(ROOT, 'refs.html'), 'w', encoding='utf-8').write(page)
 open(os.path.join(ROOT, 'data', 'decks.json'), 'w', encoding='utf-8').write(json.dumps(decks, ensure_ascii=False, indent=1) + '\n')
 
 # ── catalog.md: 같은 목록을 글로(색 · 글꼴 · 설명까지). AI가 한 번에 읽는 파일
@@ -259,6 +260,6 @@ I_ = ['# 아이콘 세트 — 이름 목록', '', HEAD, '', '본문 묶음 머�
 for g, ics in groups.items(): I_ += ['## %s' % g, ''] + ['- `%s` %s — %s' % (ic['id'], ic['ko'], ' · '.join(ic.get('keys') or [])) for ic in ics] + ['']
 sizes['icons'] = write('catalog/icons.md', I_)
 C += ['- 아이콘 세트(이름 목록): %scatalog/icons.md · 열어 보기 %sicons/icons.html' % (BASE, BASE), '']
-write('catalog.md', C)
+write('catalog/refs.md', C)
 text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', re.sub(r'<(script|style).*?</\1>', '', page, flags=re.S)))
-print('index.html', len(page.encode('utf-8')) // 1024, 'KB · 글', len(text), '자 · catalog/ KB', sizes, '· 덱', len(decks), '벌, 장 수', sorted({len(d['slides']) for d in decks.values()}))
+print('refs.html', len(page.encode('utf-8')) // 1024, 'KB · 글', len(text), '자 · catalog/ KB', sizes, '· 덱', len(decks), '벌, 장 수', sorted({len(d['slides']) for d in decks.values()}))
