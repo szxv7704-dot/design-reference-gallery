@@ -25,7 +25,8 @@
 | `data/patterns.json` · `data/flows.json` | 기본 장표 23 · 흐름 넷의 정의(안내문 · 첫 화면 · 판정표가 모두 이것을 읽는다) |
 | `data/triage.json` · `docs/triage.md` | 기존 장표 판정(기본 후보 · 변주 · 영감 · 범위 밖): `python3 scripts/triage.py`. 판정은 스크립트 안 `BODY`와 규칙을 고친다 |
 | `data/kit_slides.json` | 예시 덱의 장 목록(흐름 · 장 · 기본 장표): `scripts/kit.py`가 만든다 |
-| `docs/criteria.md` | 제작 기준(대상 · 그림 규칙 · 피할 것 · 루틴에 붙일 규칙) |
+| `docs/criteria.md` | 제작 기준(대상 · 그림 규칙 · 피할 것) |
+| `docs/routine.md` · `scripts/variant.py` | 평일 새벽 루틴의 절차(참고 변주 한 장 채우기)와 그 도구: `variant.py next` → `new 번호 계열 기본장표` → `add 번호` |
 | `refs/NN.html` · `thumbs/NN.jpg` · `data/rounds.json` | 레퍼런스 장표 원본 · 썸네일 · 목록(루틴이 갱신). 첫 화면에서는 '참고할 변주'와 참고 서랍에 나온다 |
 | `assets/` | 코드 칸에서 불러오는 사진(20KB 넘는 내장 사진을 뺀 것) |
 | `scripts/add-code.js` | 표지 장표만 떼어 낸 "HTML로 가져다 쓰기" 코드 칸을 페이지 끝에 붙임: `node scripts/add-code.js refs/NN.html` |
@@ -83,12 +84,10 @@ node scripts/check.js kit A A-plan A-brief A-lecture A-lecture2 A-lecture3 …  
 
 ## 갱신 방식
 
-claude.ai 루틴이 새 레퍼런스를 만들 때마다 `refs/`, `thumbs/`, `data/rounds.json`을 갱신해 `main`에 푸시합니다.
-푸시되면 GitHub Pages가 자동으로 다시 배포합니다.
+평일 새벽 루틴이 [`docs/routine.md`](docs/routine.md)대로 참고 변주 한 장을 만들어 `main`에 올립니다(`src/번호/` → `refs/번호.html` · `thumbs/번호.jpg` · `data/rounds.json` · 판정표 · 첫 화면).
+푸시되면 GitHub Pages가 자동으로 다시 배포합니다. 2026-11-13 이전 회차(#4~#121)는 옛 방식(아티팩트 → 인덱스 DB → 동기화 세션)으로 들어온 것입니다.
 
-`data/rounds.json`의 각 항목에는 `v`(HTML·썸네일 내용의 md5 앞 8자리)가 있습니다. 갤러리는 링크와 썸네일 주소 뒤에 `?v=`를 붙여, 같은 번호를 재작업해도 브라우저 캐시 때문에 옛 버전이 보이지 않게 합니다.
-
-새 회차를 `refs/`에 넣은 뒤에는 `node scripts/add-code.js refs/NN.html`로 코드 칸을 붙이고, `python3 scripts/ingest.py NN`으로 `src/` 추출 → 빌드 → 오프라인 검사 → `v` 재계산을 한 번에 합니다.
+`data/rounds.json`의 각 항목에는 `v`(HTML·썸네일 내용의 md5 앞 8자리)가 있고, 링크와 썸네일 주소 뒤에 `?v=`로 붙어 브라우저 캐시를 피합니다.
 
 ## 소스와 빌드 (인터넷 없이 도는 장표)
 

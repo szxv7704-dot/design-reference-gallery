@@ -43,17 +43,6 @@
 ## 7. 숨기기
 - 기준에 걸리는 장표는 지우지 않고 `data/rounds.json`에 `"hidden": true` · `"hide_reason"`을 적는다. 갤러리 목록에서 빠지고, 맨 아래 '숨긴 장표 보기'에서만 보인다.
 
-## 8. 루틴 프롬프트에 붙일 규칙
-새 회차를 만드는 claude.ai 루틴의 프롬프트에 아래를 그대로 붙인다.
-
-```text
-[제작 기준 — docs/criteria.md 요약]
-- 대상: 한글 문서의 내용을 옮긴 16:9 발표 덱(계획안 발표 · 성과 공유회 · 사업 설명회 · 교직원 연수). 움직임은 장점. 결재 문서 · 인쇄물은 만들지 않는다.
-- 한 장에 기본 장표 하나. docs/patterns.md 의 23가지(cover · toc · divider · closing · statement · points · define · quote · steps · compare · before-after · groups · tree · numbers · bars · trend · share · table · timeline · photo · screen · ask · todo) 중 하나를 정해 만들고, rounds.json 에 "pattern" 으로 그 id 를 적는다.
-- 무엇을 만들지는 docs/triage.md '기본 장표별 현황'에서 변주가 가장 적은 기본 장표부터 고른다.
-- 한 장에 도식을 둘 이상 넣지 않는다. 1920 × 1080 기준 읽는 글 28px 이상 · 보조 글 22px 이상. 넘치면 글자를 줄이지 말고 장을 나눈다.
-- SVG(또는 CSS · 캔버스로 흉내 낸 도형)로 사물 · 인물 · 풍경 · 캐릭터를 그리지 않는다. 그림이 필요하면 만들지 말고 사용자에게 이미지를 요청한다(무엇 · 자리 · 크기 · 배경 · 계열).
-- 피할 것: 장식 부품 덧붙이기, 요란한 효과, 찌그러짐 · 조이는 박자 같은 만화식 움직임, 뭉개진 그림, 코드로 그린 지도, 재질 질감, 뜻을 뒤집는 은유, 깨진 한글 · 틀린 영어 · 빈칸.
-- 검사(scripts/check.js, ingest.py 가 실패시킴): 움직이는 장표는 prefers-reduced-motion 처리, 움직임 줄이기에서 무한 반복 없음, 덱 장표는 16:9 무대 안에 넘침 없음.
-- 반영한 뒤: python3 scripts/triage.py && python3 scripts/site.py (판정표 · 첫 화면 다시 만들기).
-```
+## 8. 루틴
+평일 새벽에 참고 변주를 한 장씩 채우는 루틴이 돈다. 절차는 [`routine.md`](routine.md)에 있고, 루틴 프롬프트는 그 문서를 따르라는 한 문단뿐이다.
+루틴이 하는 일을 바꾸려면 프롬프트가 아니라 `docs/routine.md`를 고친다.
