@@ -22,3 +22,5 @@
 - 그 밖(발표 틀 · 인쇄 · 홍보물 · 분위기 없는 것): https://szxv7704-dot.github.io/design-reference-gallery/catalog/etc.md
 - 표지별 덱 넘겨 보기: https://szxv7704-dot.github.io/design-reference-gallery/deck.html?cover=17 (장표만: `light/번호.html?slide=c17` — 그 표지의 색 · 글꼴을 입힌 본문)
 
+- 아이콘 세트(이름 목록): https://szxv7704-dot.github.io/design-reference-gallery/catalog/icons.md · 열어 보기 https://szxv7704-dot.github.io/design-reference-gallery/icons/icons.html
+
