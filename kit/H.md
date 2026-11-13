@@ -193,7 +193,7 @@
 
 ## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)
 
-이 계열은 막새 줄(`.tiles`)을 씁니다. 막새 수 = 섹션 수, 지금 막새 `.now`, 아직 안 놓인 자리 `.ghost`.
+이 계열은 수막새 그림(`.tiles`, 이미지)을 씁니다. 표지는 큰 막새 `.tiles big`, 목차 · 간지는 처마 줄 `.tiles s1`~`s5`(그 섹션의 막새에 주홍 고리. 다섯 단계, 섹션 수에 맞춰 비율로), 맺음은 처마 끝 `.tiles roof`.
 
 ## 8. 기본 장표별 견본 코드
 
@@ -212,7 +212,7 @@
     <h1>AI로 발표 자료 만들기<br><em>문서를 장표로</em> 나누기</h1>
     <p class="c-sub">한글 문서 한 편이 발표 덱이 되기까지</p>
   </div>
-  <div class="tiles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="tiles big" aria-hidden="true"></div>
   <p class="c-org"><span>○○교육청 교육연수원</span><span>2027. 3. 12.</span></p>
 </section>
 ```
@@ -236,7 +236,7 @@
       <li><b>05</b><span>닫기</span><span>5분</span></li>
     </ol>
   </div>
-  <div class="tiles" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i><i></i></div>
+  <div class="tiles s1" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -252,7 +252,7 @@
   <div class="d-no"><small>SECTION</small>02</div>
   <h2>설명</h2>
   <p>기본 장표가 무엇인지, 어떻게 고르는지 봅니다.</p>
-  <div class="tiles" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>
+  <div class="tiles s2" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -267,7 +267,7 @@
 <section data-pattern="closing" class="slide close">
   <h2>다음 시간에는<br>AI에게 맡겨 봅니다</h2>
   <p>2차시 · AI에게 맡기기 — 문의 ○○교육청 교육연수원</p>
-  <div class="tiles" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>
+  <div class="tiles roof" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -769,7 +769,7 @@ radius: 0px
 - 강조색(`accent`)은 **한 장에 한 곳**: 제목의 핵심 낱말 하나(`<em>`) 또는 부품 하나(`.is-key`). 둘 다 쓰면 같은 내용을 가리켜야 한다.
 - 면(카드 · 타일 · 판)은 그림자 대신 쌍변으로 두른다(공통 CSS가 그림). 쌍변을 겹치거나 색을 바꾸지 않는다.
 - 제목 · 숫자는 나눔명조, 본문은 Noto Sans KR.
-- 단청 · 문양 · 기와 같은 **그림을 코드로 그리지 않는다.** 전통 건축 · 공예 사진이 필요하면 이미지를 요청한다.
+- 그림은 상징 부품의 이미지뿐이다. **새 그림을 코드로 그리지 않는다**(필요하면 이미지를 요청한다). 본문 장에는 질감 · 그림을 깔지 않는다.
 - 근거 장표: 표지 #58 · #59, 목차 · 간지 키트 #110.
 - 어울리는 자리: 역사 · 문화 · 지역 행사, 격식 있는 자리.
 
@@ -794,8 +794,11 @@ radius: 0px
 모든 본문 장은 같은 순서다: **머리말(`.kicker`) → 결론 한 문장 제목(`.title`) → 기본 장표 부품 하나 → 출처(`.src`, 수치가 있으면 반드시)**.
 한 문장 · 질문 · 할 일 장만 제목 없이 머리말 아래에 부품을 둔다.
 
-## 막새 줄(.tiles)
-처마선 아래 둥근 막새를 한 줄로. 막새 수 = 섹션 수(최대 5). `.now` 지금 막새(주홍 점) · `.ghost` 아직 안 놓인 자리(점선).
+## 수막새(.tiles)
+수막새 **그림(이미지)**이다. 근거 장표 #110의 그림을 그대로 떠낸 것으로(`kit/img/H-*.webp`), 코드로 다시 그리지 않는다.
+- 표지: 큰 막새 하나 `<div class="tiles big">`.
+- 목차 · 간지: 처마 줄 `<div class="tiles s3">`(`s1`~`s5`: 그 섹션의 막새까지 놓이고 지금 막새에 주홍 고리, 남은 자리는 점선).
+- 맺음: 처마 끝 `<div class="tiles roof">`.
 - **표지 · 목차 · 간지 · 맺음에만** 쓴다. 본문 장에는 쓰지 않는다.
 - 크기 · 위치는 부품 CSS 그대로. 돌리거나 기울이지 않는다.
 
@@ -808,8 +811,8 @@ radius: 0px
 6. 한 장에 기본 장표를 둘 이상 넣기.
 
 ## 알려진 한계 (v1)
-- 이 계열의 근거 장표는 사진 · 캔버스 그림에 기댄 표지가 많다. 키트는 그 **색 · 글꼴 · 짜임**만 옮겼고 그림은 옮기지 않았다.
-- 표지에 쓸 사진 자리는 아직 없다(표지는 글자와 상징 부품으로만 만든다).
+- 그림은 근거 장표에 있던 것 그대로라 **상태가 다섯 단계**뿐이다. 섹션이 6개 이상인 덱은 묶어서 5개 이하로 만든다.
+- 그림의 크기 · 위치는 부품 CSS가 정한다. 다른 그림으로 바꾸려면 사용자에게 이미지를 받는다.
 ````
 
 - 글꼴: 제목 Nanum Myeongjo(700/800) · 본문 Noto Sans KR(400/700) · 숫자 Nanum Myeongjo(700/800). 공통 CSS가 불러오므로 설치하지 않아도 됩니다.
@@ -830,10 +833,15 @@ radius: 0px
 - `.src` — 예: `<p class="src">`
 - `.page-no` — 예: `<span class="page-no">`
 
-**막새 줄: 둥근 막새 수 = 섹션 수. .now 지금 막새(주홍 점) · .ghost 아직 안 놓인 자리(점선)**
-- `.tiles` — 예: `<div class="tiles" aria-hidden="true">`
-- `.now` — 예: `<i class="now">`
-- `.ghost` — 예: `<i class="ghost">`
+**막새: 수막새 그림(#110 에서 떠낸 이미지). .big = 큰 막새 하나, .s1~.s5 = 처마 줄(그 막새까지 놓임, 지금 막새에 주홍 고리), .roof = 처마 끝**
+- `.tiles` — 예: `<div class="tiles big" aria-hidden="true">`
+- `.big` — 예: `<div class="tiles big" aria-hidden="true">`
+- `.roof` — 예: `<div class="tiles roof" aria-hidden="true">`
+- `.s1` — 예: `<div class="tiles s1" aria-hidden="true">`
+- `.s2` — 예: `<div class="tiles s2" aria-hidden="true">`
+- `.s3` — 예: `<div class="tiles s3" aria-hidden="true">`
+- `.s4`
+- `.s5`
 
 **표지**
 - `.cover` — 예: `<section data-pattern="cover" class="slide cover">`
@@ -841,22 +849,22 @@ radius: 0px
 - `.c-tag` — 예: `<span class="c-tag">`
 - `.c-sub` — 예: `<p class="c-sub">`
 - `.c-org` — 예: `<p class="c-org">`
-- `.tiles` — 예: `<div class="tiles" aria-hidden="true">`
+- `.tiles` — 예: `<div class="tiles big" aria-hidden="true">`
 
 **목차: 줄 높이 112px, 지금 장 한 줄만 강조색**
 - `.toc-list` — 예: `<ol class="toc-list">`
 - `.is-now` — 예: `<li class="is-now">`
 - `.toc` — 예: `<section data-pattern="toc" class="slide toc">`
-- `.tiles` — 예: `<div class="tiles" aria-hidden="true">`
+- `.tiles` — 예: `<div class="tiles big" aria-hidden="true">`
 
 **간지: 큰 번호 + 섹션 이름 + 상징 부품**
 - `.divider` — 예: `<section data-pattern="divider" class="slide divider">`
 - `.d-no` — 예: `<div class="d-no">`
-- `.tiles` — 예: `<div class="tiles" aria-hidden="true">`
+- `.tiles` — 예: `<div class="tiles big" aria-hidden="true">`
 
 **마무리**
 - `.close` — 예: `<section data-pattern="closing" class="slide close">`
-- `.tiles` — 예: `<div class="tiles" aria-hidden="true">`
+- `.tiles` — 예: `<div class="tiles big" aria-hidden="true">`
 
 **배치 격자**
 - `.grid` — 예: `<div class="grid g3 fill center">`

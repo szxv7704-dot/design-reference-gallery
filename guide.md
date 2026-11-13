@@ -174,7 +174,7 @@
 
 ## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)
 
-견본 코드(8)의 `<!-- 상징 부품 -->` 자리에 고른 계열의 코드를 넣습니다. 아래는 섹션이 5개이고 지금 2섹션일 때입니다. 칸(`<i>`) 수 = 섹션 수(5개까지).
+견본 코드(8)의 `<!-- 상징 부품 -->` 자리에 고른 계열의 코드를 넣습니다. 아래는 섹션이 5개이고 지금 2섹션일 때입니다. A · B · C · F는 칸(`<i>`) 수 = 섹션 수(5개까지), E · G · H는 그림이라 칸이 없고 상태 클래스(`s1`~`s5`)만 바꿉니다.
 
 | 계열 | 표지 | 목차(지금 2섹션) | 간지(지금 2섹션) | 맺음 |
 | --- | --- | --- | --- | --- |
@@ -182,19 +182,19 @@
 | B | `<div class="mass" aria-hidden="true"><i></i><i></i><i class="lit"></i><i></i><i></i></div>` | `<div class="mass" aria-hidden="true"><i></i><i class="lit"></i><i></i><i></i><i></i></div>` | `<div class="mass" aria-hidden="true"><i></i><i class="lit"></i><i></i><i></i><i></i></div>` | `<div class="spot" aria-hidden="true"></div>` |
 | C | `<div class="blocks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="blocks" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="blocks" aria-hidden="true"><i></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="blocks flag" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` |
 | D | `<div class="reg" aria-hidden="true"><b>2027</b></div>` | `<div class="reg" aria-hidden="true"><b>02</b></div>` | `<div class="reg is-off" aria-hidden="true"><b>02</b><i class="crop"></i></div>` | `<div class="reg" aria-hidden="true"><b>끝</b></div>` |
-| E | `<div class="rings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="rings" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="rings" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="rings" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>` |
+| E | `<div class="rings" aria-hidden="true"></div>` | `<div class="rings" aria-hidden="true"></div>` | `<div class="rings s2" aria-hidden="true"></div>` | `<div class="rings" aria-hidden="true"></div>` |
 | F | `<div class="lane" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="lane" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="lane" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="lane" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>` |
-| G | `<div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="stars" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="stars" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="stars" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>` |
-| H | `<div class="tiles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>` | `<div class="tiles" aria-hidden="true"><i></i><i class="now"></i><i></i><i></i><i></i></div>` | `<div class="tiles" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>` | `<div class="tiles" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>` |
+| G | `<div class="stars all" aria-hidden="true"></div>` | `<div class="stars s2" aria-hidden="true"></div>` | `<div class="stars s2" aria-hidden="true"></div>` | `<div class="stars all" aria-hidden="true"></div>` |
+| H | `<div class="tiles big" aria-hidden="true"></div>` | `<div class="tiles s2" aria-hidden="true"></div>` | `<div class="tiles s2" aria-hidden="true"></div>` | `<div class="tiles roof" aria-hidden="true"></div>` |
 
 - A: 진행 칸(`.prog`)을 씁니다. 칸 수 = 섹션 수, 목차는 다음 칸 `.next`, 간지는 지난 칸 `.done` · 지금 칸 `.now`, 맺음은 모두 `.done`.
 - B: 모형대 매스(`.mass`)를 씁니다. 목차 · 간지의 `.lit` 층 = 지금 섹션(아래층이 1섹션). 맺음은 `.spot`.
 - C: 블록 탑(`.blocks`)을 씁니다. 블록 수 = 섹션 수(아래가 1섹션), 간지는 지금 층까지만 놓고 남은 층은 `.ghost`, 맺음은 `.flag`.
 - D: 판 번호(`.reg`)를 씁니다. 큰 명조 숫자 하나에 주홍 판이 4px 어긋나는 곳은 덱 전체에서 간지뿐, 재단 표시(`.crop`)도 간지에만.
-- E: 나이테(`.rings`)를 씁니다. 겹 수 = 섹션 수(안쪽이 1섹션), 지금 겹은 `.now`, 간지에서 아직 안 간 겹은 `.ghost`.
+- E: 나무 단면 그림(`.rings`, 이미지)을 씁니다. 표지 · 목차 · 맺음은 다 자란 단면 `.rings`, 간지는 그 섹션까지 자란 단면 `.rings s1`~`s5`(다섯 단계. 섹션이 5개가 아니면 비율로 고름: 4개 중 2번째 → `s3`).
 - F: 구간 띠(`.lane`)를 씁니다. 칸 수 = 섹션 수, 지난 구간 `.done` · 지금 구간 `.now` · 남은 구간 `.ghost`.
-- G: 별 잇기(`.stars`)를 씁니다. 별 수 = 섹션 수, 지금 별 `.now`, 아직 안 간 별 `.ghost`.
-- H: 막새 줄(`.tiles`)을 씁니다. 막새 수 = 섹션 수, 지금 막새 `.now`, 아직 안 놓인 자리 `.ghost`.
+- G: 밤하늘과 별자리 그림(이미지)을 씁니다. 표지 · 목차 · 간지 · 맺음의 바탕은 밤하늘(공통 CSS가 넣음)이고, 그 위에 별자리 겹 `.stars`를 놓습니다: 표지 · 맺음은 다 이어진 `.stars all`, 목차 · 간지는 그 섹션까지 이어진 `.stars s1`~`s5`(다섯 단계, 섹션 수에 맞춰 비율로).
+- H: 수막새 그림(`.tiles`, 이미지)을 씁니다. 표지는 큰 막새 `.tiles big`, 목차 · 간지는 처마 줄 `.tiles s1`~`s5`(그 섹션의 막새에 주홍 고리. 다섯 단계, 섹션 수에 맞춰 비율로), 맺음은 처마 끝 `.tiles roof`.
 
 ## 8. 기본 장표별 견본 코드
 

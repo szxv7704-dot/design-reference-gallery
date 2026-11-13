@@ -1,5 +1,5 @@
 /* G 어두운 콘셉트 — 덱 키트 v1 (deck.css 다음에 불러옴)
-   고요한 밤하늘의 깊은 남색. 빛은 금빛 한 곳뿐. 별을 이어 덱의 위치를 보인다. 어두운 강당 · 저녁 행사에 맞는다.
+   고요한 밤하늘의 깊은 남색. 빛은 금빛 한 곳뿐. 밤하늘 그림(이미지) 위에 별을 이어 덱의 위치를 보인다. 어두운 강당 · 저녁 행사에 맞는다.
    근거 장표: #18 · #30 · #74(표지), #103(목차·간지 키트) */
 :root{
   --ds-stage:#03060F;
@@ -25,19 +25,13 @@
 .src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
 .page-no{position:absolute;right:120px;bottom:40px;font:500 22px/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
 
-/* ── 별 잇기: 별 수 = 섹션 수. .now 지금 별(금빛) · .ghost 아직 안 간 별(흐림, 선 없음) ── */
-.stars{position:relative;width:500px;height:220px}
-.stars i{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--ds-c4);box-shadow:0 0 14px 2px rgba(169,188,235,.45)}
-.stars i::before{content:"";position:absolute;right:9px;top:8px;height:2px;background:var(--ds-c2);transform-origin:100% 50%}
-.stars i:first-child::before{display:none}
-.stars i:nth-child(1){left:20px;top:40px}
-.stars i:nth-child(2){left:130px;top:170px}.stars i:nth-child(2)::before{width:161px;transform:rotate(49.8deg)}
-.stars i:nth-child(3){left:240px;top:80px}.stars i:nth-child(3)::before{width:133px;transform:rotate(-39.3deg)}
-.stars i:nth-child(4){left:350px;top:190px}.stars i:nth-child(4)::before{width:147px;transform:rotate(45.0deg)}
-.stars i:nth-child(5){left:460px;top:30px}.stars i:nth-child(5)::before{width:185px;transform:rotate(-55.5deg)}
-.stars i.now{width:30px;height:30px;margin:-15px 0 0 -15px;background:var(--ds-accent);box-shadow:0 0 30px 8px rgba(230,198,140,.55)}
-.stars i.now::before{right:15px;top:14px}
-.stars i.ghost{background:var(--ds-line);box-shadow:none}.stars i.ghost::before{display:none}
+/* ── 별 잇기: 밤하늘(바탕)과 별자리(투명 겹) 그림은 #103 에서 떠낸 이미지. .all = 다 이어진 별자리, .s1~.s5 = 그 별까지 이어진 것(지금 별에 고리) ── */
+.cover,.close{background:var(--ds-bg) url("img/G-sky-close.webp") center/cover no-repeat}
+.toc{background:var(--ds-bg) url("img/G-sky-toc.webp") center/cover no-repeat}
+.divider{background:var(--ds-bg) url("img/G-sky-divider.webp") center/cover no-repeat}
+.stars{position:absolute;inset:0;pointer-events:none;background:url("img/G-con-all.webp") center/cover no-repeat}
+.stars.s1{background-image:url("img/G-con-s1.webp")}.stars.s2{background-image:url("img/G-con-s2.webp")}.stars.s3{background-image:url("img/G-con-s3.webp")}
+.stars.s4{background-image:url("img/G-con-s4.webp")}.stars.s5{background-image:url("img/G-con-s5.webp")}
 
 /* ── 표지 ─────────────────────────────────────────── */
 .cover .c-text{position:absolute;left:120px;top:170px;width:1240px;display:flex;flex-direction:column;gap:28px}
@@ -46,27 +40,27 @@
 .cover h1 em{font-style:normal;color:var(--ds-accent)}
 .cover .c-sub{margin:0;font-size:32px;color:var(--ds-sub);max-width:900px}
 .cover .c-org{position:absolute;left:120px;bottom:96px;display:flex;gap:40px;margin:0;font:500 26px/1.4 var(--ds-font-body);color:var(--ds-ink)}
-.cover .stars{position:absolute;right:170px;bottom:240px}
+.cover .stars{position:absolute;inset:0}
 
 /* ── 목차: 줄 높이 112px, 지금 장 한 줄만 강조색 ────────────────── */
-.toc-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ds-ink);width:1080px}
+.toc-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ds-ink);width:860px}
 .toc-list li{display:grid;grid-template-columns:120px 1fr 120px;align-items:center;height:112px;border-bottom:1px solid var(--ds-line);font:500 36px/1.2 var(--ds-font-title)}
 .toc-list li b{font:600 28px/1 var(--ds-font-num);color:var(--ds-sub)}
 .toc-list li span:last-child{justify-self:end;font:500 24px/1 var(--ds-font-num);color:var(--ds-sub)}
 .toc-list li.is-now{color:var(--ds-accent)}.toc-list li.is-now b{color:var(--ds-accent)}
-.toc .stars{position:absolute;right:140px;bottom:260px}
+.toc .stars{position:absolute;inset:0}
 
 /* ── 간지: 큰 번호 + 섹션 이름 + 상징 부품 ──────────────────── */
 .divider .d-no{position:absolute;left:120px;top:200px;font:600 220px/1 var(--ds-font-num);letter-spacing:-.03em;color:var(--ds-ink)}
 .divider .d-no small{display:block;margin-bottom:24px;font:600 24px/1 var(--ds-font-body);letter-spacing:.12em;color:var(--ds-sub)}
 .divider h2{position:absolute;left:120px;top:560px;margin:0;font:500 88px/1.2 var(--ds-font-title)}
 .divider p{position:absolute;left:120px;top:690px;margin:0;width:900px;font-size:30px;color:var(--ds-sub)}
-.divider .stars{position:absolute;right:170px;bottom:250px}
+.divider .stars{position:absolute;inset:0}
 
 /* ── 마무리 ────────────────────────────────────────── */
 .close h2{position:absolute;left:120px;top:380px;margin:0;font:500 80px/1.25 var(--ds-font-title)}
 .close p{position:absolute;left:120px;top:600px;margin:0;font-size:30px;color:var(--ds-sub)}
-.close .stars{position:absolute;right:170px;top:400px}
+.close .stars{position:absolute;inset:0}
 
 /* ── 배치 격자 ─────────────────────────────────────── */
 .grid{display:grid;gap:32px;align-items:stretch}

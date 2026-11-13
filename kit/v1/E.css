@@ -255,7 +255,7 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .todo dd small{display:block;margin-top:10px;font:400 var(--ds-fs-sub)/1.45 var(--ds-font-body);color:var(--ds-on-sub)}
 
 /* E 자연 재질 — 덱 키트 v1 (deck.css 다음에 불러옴)
-   밝은 회녹 종이 바탕에 따뜻한 나무색 농담. 강조 청록은 한 장에 한 곳. 나이테 겹으로 덱의 위치를 보인다.
+   밝은 회녹 종이 바탕에 따뜻한 나무색 농담. 강조 청록은 한 장에 한 곳. 나무 단면 그림(이미지)의 나이테 겹으로 덱의 위치를 보인다.
    근거 장표: #17(표지), #91(목차·간지 키트) */
 :root{
   --ds-stage:#DADDD3;
@@ -281,16 +281,10 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
 .page-no{position:absolute;right:120px;bottom:40px;font:500 22px/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
 
-/* ── 나이테: 겹 수 = 섹션 수(안쪽이 1섹션). .now 지금 겹(청록) · .ghost 아직 안 자란 겹(점선) ── */
-.rings{position:relative;width:440px;height:440px}
-.rings i{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;border:30px solid var(--ds-c4);box-sizing:border-box}
-.rings i:nth-child(1){width:88px;height:88px;border-width:44px;border-color:var(--ds-c1)}
-.rings i:nth-child(2){width:172px;height:172px;border-color:var(--ds-c2)}
-.rings i:nth-child(3){width:256px;height:256px;border-color:var(--ds-c3)}
-.rings i:nth-child(4){width:340px;height:340px;border-color:var(--ds-c4)}
-.rings i:nth-child(5){width:424px;height:424px;border-color:var(--ds-c5)}
-.rings i.now{border-color:var(--ds-accent)}
-.rings i.ghost{border:3px dashed var(--ds-line)}
+/* ── 나이테: 나무 단면 그림(#91 에서 떠낸 이미지). 기본 = 다 자란 단면, .s1~.s5 = 그 겹까지 자란 단면(점선 = 다 자랐을 때 크기) ── */
+.rings{width:520px;height:520px;background:url("../img/E-full.webp") center/contain no-repeat}
+.rings.s1{background-image:url("../img/E-s1.webp")}.rings.s2{background-image:url("../img/E-s2.webp")}.rings.s3{background-image:url("../img/E-s3.webp")}
+.rings.s4{background-image:url("../img/E-s4.webp")}.rings.s5{background-image:url("../img/E-s5.webp")}
 
 /* ── 표지 ─────────────────────────────────────────── */
 .cover .c-text{position:absolute;left:120px;top:170px;width:1240px;display:flex;flex-direction:column;gap:28px}
@@ -299,7 +293,7 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .cover h1 em{font-style:normal;color:var(--ds-accent)}
 .cover .c-sub{margin:0;font-size:32px;color:var(--ds-sub);max-width:900px}
 .cover .c-org{position:absolute;left:120px;bottom:96px;display:flex;gap:40px;margin:0;font:500 26px/1.4 var(--ds-font-body);color:var(--ds-ink)}
-.cover .rings{position:absolute;right:170px;bottom:150px}
+.cover .rings{position:absolute;right:150px;bottom:190px}
 
 /* ── 목차: 줄 높이 112px, 지금 장 한 줄만 강조색 ────────────────── */
 .toc-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ds-ink);width:1080px}
@@ -307,19 +301,19 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .toc-list li b{font:600 28px/1 var(--ds-font-num);color:var(--ds-sub)}
 .toc-list li span:last-child{justify-self:end;font:500 24px/1 var(--ds-font-num);color:var(--ds-sub)}
 .toc-list li.is-now{color:var(--ds-accent)}.toc-list li.is-now b{color:var(--ds-accent)}
-.toc .rings{position:absolute;right:130px;bottom:170px}
+.toc .rings{position:absolute;right:130px;bottom:200px}
 
 /* ── 간지: 큰 번호 + 섹션 이름 + 상징 부품 ──────────────────── */
 .divider .d-no{position:absolute;left:120px;top:200px;font:600 220px/1 var(--ds-font-num);letter-spacing:-.03em;color:var(--ds-ink)}
 .divider .d-no small{display:block;margin-bottom:24px;font:600 24px/1 var(--ds-font-body);letter-spacing:.12em;color:var(--ds-sub)}
 .divider h2{position:absolute;left:120px;top:560px;margin:0;font:700 88px/1.2 var(--ds-font-title)}
 .divider p{position:absolute;left:120px;top:690px;margin:0;width:900px;font-size:30px;color:var(--ds-sub)}
-.divider .rings{position:absolute;right:190px;bottom:170px}
+.divider .rings{position:absolute;right:170px;bottom:200px;width:600px;height:600px}
 
 /* ── 마무리 ────────────────────────────────────────── */
 .close h2{position:absolute;left:120px;top:380px;margin:0;font:700 80px/1.25 var(--ds-font-title)}
 .close p{position:absolute;left:120px;top:600px;margin:0;font-size:30px;color:var(--ds-sub)}
-.close .rings{position:absolute;right:230px;top:300px}
+.close .rings{position:absolute;right:200px;top:270px}
 
 /* ── 배치 격자 ─────────────────────────────────────── */
 .grid{display:grid;gap:32px;align-items:stretch}

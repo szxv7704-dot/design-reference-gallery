@@ -194,7 +194,7 @@
 
 ## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)
 
-이 계열은 별 잇기(`.stars`)를 씁니다. 별 수 = 섹션 수, 지금 별 `.now`, 아직 안 간 별 `.ghost`.
+이 계열은 밤하늘과 별자리 그림(이미지)을 씁니다. 표지 · 목차 · 간지 · 맺음의 바탕은 밤하늘(공통 CSS가 넣음)이고, 그 위에 별자리 겹 `.stars`를 놓습니다: 표지 · 맺음은 다 이어진 `.stars all`, 목차 · 간지는 그 섹션까지 이어진 `.stars s1`~`s5`(다섯 단계, 섹션 수에 맞춰 비율로).
 
 ## 8. 기본 장표별 견본 코드
 
@@ -213,7 +213,7 @@
     <h1>AI로 발표 자료 만들기<br><em>문서를 장표로</em> 나누기</h1>
     <p class="c-sub">한글 문서 한 편이 발표 덱이 되기까지</p>
   </div>
-  <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="stars all" aria-hidden="true"></div>
   <p class="c-org"><span>○○교육청 교육연수원</span><span>2027. 3. 12.</span></p>
 </section>
 ```
@@ -237,7 +237,7 @@
       <li><b>05</b><span>닫기</span><span>5분</span></li>
     </ol>
   </div>
-  <div class="stars" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i><i></i></div>
+  <div class="stars s1" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -253,7 +253,7 @@
   <div class="d-no"><small>SECTION</small>02</div>
   <h2>설명</h2>
   <p>기본 장표가 무엇인지, 어떻게 고르는지 봅니다.</p>
-  <div class="stars" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>
+  <div class="stars s2" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -268,7 +268,7 @@
 <section data-pattern="closing" class="slide close">
   <h2>다음 시간에는<br>AI에게 맡겨 봅니다</h2>
   <p>2차시 · AI에게 맡기기 — 문의 ○○교육청 교육연수원</p>
-  <div class="stars" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>
+  <div class="stars all" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -771,7 +771,7 @@ radius: 4px
 - 어두운 바탕이라 **불을 끈 강당 · 저녁 행사**에 맞는다. 밝은 회의실 화면에서는 흐려 보일 수 있다.
 - 면은 그림자 대신 가는 테두리 한 줄로 구분한다. 빛 번짐 · 반짝임 효과를 더하지 않는다.
 - 제목은 명조 500. 더 가는 굵기는 큰 화면에서 끊겨 보이므로 쓰지 않는다.
-- 별 · 은하수 · 산 같은 **그림을 코드로 그리지 않는다.** 밤하늘 사진이 필요하면 이미지를 요청한다.
+- 그림은 상징 부품의 이미지뿐이다. **새 그림을 코드로 그리지 않는다**(필요하면 이미지를 요청한다). 본문 장에는 질감 · 그림을 깔지 않는다.
 - 근거 장표: 표지 #18 · #30 · #74, 목차 · 간지 키트 #103.
 - 어울리는 자리: 저녁 행사, 비전 선포, 불을 끄고 하는 발표.
 
@@ -796,8 +796,10 @@ radius: 4px
 모든 본문 장은 같은 순서다: **머리말(`.kicker`) → 결론 한 문장 제목(`.title`) → 기본 장표 부품 하나 → 출처(`.src`, 수치가 있으면 반드시)**.
 한 문장 · 질문 · 할 일 장만 제목 없이 머리말 아래에 부품을 둔다.
 
-## 별 잇기(.stars)
-점 다섯을 선으로 이은 것. 별 수 = 섹션 수(최대 5). `.now` 지금 별(금빛, 크게) · `.ghost` 아직 안 간 별(흐림, 선 없음).
+## 밤하늘과 별자리(.stars)
+밤하늘과 별자리 **그림(이미지)**이다. 근거 장표 #103의 그림을 그대로 떠낸 것으로(`kit/img/G-*.webp`), 코드로 다시 그리지 않는다.
+- 표지 · 목차 · 간지 · 맺음의 바탕은 밤하늘 그림이다(공통 CSS가 넣는다). **본문 장의 바탕은 그림 없이 남색 단색**이다(글과 도식이 주인공).
+- 별자리 겹: 표지 · 맺음은 다 이어진 `<div class="stars all">`, 목차 · 간지는 그 섹션까지 이어진 `<div class="stars s3">`(`s1`~`s5`, 지금 별에 고리).
 - **표지 · 목차 · 간지 · 맺음에만** 쓴다. 본문 장에는 쓰지 않는다.
 - 크기 · 위치는 부품 CSS 그대로. 돌리거나 기울이지 않는다.
 
@@ -810,8 +812,8 @@ radius: 4px
 6. 한 장에 기본 장표를 둘 이상 넣기.
 
 ## 알려진 한계 (v1)
-- 이 계열의 근거 장표는 사진 · 캔버스 그림에 기댄 표지가 많다. 키트는 그 **색 · 글꼴 · 짜임**만 옮겼고 그림은 옮기지 않았다.
-- 표지에 쓸 사진 자리는 아직 없다(표지는 글자와 상징 부품으로만 만든다).
+- 그림은 근거 장표에 있던 것 그대로라 **상태가 다섯 단계**뿐이다. 섹션이 6개 이상인 덱은 묶어서 5개 이하로 만든다.
+- 그림의 크기 · 위치는 부품 CSS가 정한다. 다른 그림으로 바꾸려면 사용자에게 이미지를 받는다.
 ````
 
 - 글꼴: 제목 Noto Serif KR(500) · 본문 Noto Sans KR(400/700) · 숫자 IBM Plex Mono(400/500). 공통 CSS가 불러오므로 설치하지 않아도 됩니다.
@@ -832,10 +834,17 @@ radius: 4px
 - `.src` — 예: `<p class="src">`
 - `.page-no` — 예: `<span class="page-no">`
 
-**별 잇기: 별 수 = 섹션 수. .now 지금 별(금빛) · .ghost 아직 안 간 별(흐림, 선 없음)**
-- `.stars` — 예: `<div class="stars" aria-hidden="true">`
-- `.now` — 예: `<i class="now">`
-- `.ghost` — 예: `<i class="ghost">`
+**별 잇기: 밤하늘(바탕)과 별자리(투명 겹) 그림은 #103 에서 떠낸 이미지. .all = 다 이어진 별자리, .s1~.s5 = 그 별까지 이어진 것(지금 별에 고리)**
+- `.cover` — 예: `<section data-pattern="cover" class="slide cover">`
+- `.close` — 예: `<section data-pattern="closing" class="slide close">`
+- `.toc` — 예: `<section data-pattern="toc" class="slide toc">`
+- `.divider` — 예: `<section data-pattern="divider" class="slide divider">`
+- `.stars` — 예: `<div class="stars all" aria-hidden="true">`
+- `.s1` — 예: `<div class="stars s1" aria-hidden="true">`
+- `.s2` — 예: `<div class="stars s2" aria-hidden="true">`
+- `.s3` — 예: `<div class="stars s3" aria-hidden="true">`
+- `.s4`
+- `.s5`
 
 **표지**
 - `.cover` — 예: `<section data-pattern="cover" class="slide cover">`
@@ -843,22 +852,22 @@ radius: 4px
 - `.c-tag` — 예: `<span class="c-tag">`
 - `.c-sub` — 예: `<p class="c-sub">`
 - `.c-org` — 예: `<p class="c-org">`
-- `.stars` — 예: `<div class="stars" aria-hidden="true">`
+- `.stars` — 예: `<div class="stars all" aria-hidden="true">`
 
 **목차: 줄 높이 112px, 지금 장 한 줄만 강조색**
 - `.toc-list` — 예: `<ol class="toc-list">`
 - `.is-now` — 예: `<li class="is-now">`
 - `.toc` — 예: `<section data-pattern="toc" class="slide toc">`
-- `.stars` — 예: `<div class="stars" aria-hidden="true">`
+- `.stars` — 예: `<div class="stars all" aria-hidden="true">`
 
 **간지: 큰 번호 + 섹션 이름 + 상징 부품**
 - `.divider` — 예: `<section data-pattern="divider" class="slide divider">`
 - `.d-no` — 예: `<div class="d-no">`
-- `.stars` — 예: `<div class="stars" aria-hidden="true">`
+- `.stars` — 예: `<div class="stars all" aria-hidden="true">`
 
 **마무리**
 - `.close` — 예: `<section data-pattern="closing" class="slide close">`
-- `.stars` — 예: `<div class="stars" aria-hidden="true">`
+- `.stars` — 예: `<div class="stars all" aria-hidden="true">`
 
 **배치 격자**
 - `.grid` — 예: `<div class="grid g3 fill center">`

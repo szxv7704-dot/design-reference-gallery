@@ -193,7 +193,7 @@
 
 ## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)
 
-이 계열은 나이테(`.rings`)를 씁니다. 겹 수 = 섹션 수(안쪽이 1섹션), 지금 겹은 `.now`, 간지에서 아직 안 간 겹은 `.ghost`.
+이 계열은 나무 단면 그림(`.rings`, 이미지)을 씁니다. 표지 · 목차 · 맺음은 다 자란 단면 `.rings`, 간지는 그 섹션까지 자란 단면 `.rings s1`~`s5`(다섯 단계. 섹션이 5개가 아니면 비율로 고름: 4개 중 2번째 → `s3`).
 
 ## 8. 기본 장표별 견본 코드
 
@@ -212,7 +212,7 @@
     <h1>AI로 발표 자료 만들기<br><em>문서를 장표로</em> 나누기</h1>
     <p class="c-sub">한글 문서 한 편이 발표 덱이 되기까지</p>
   </div>
-  <div class="rings" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="rings" aria-hidden="true"></div>
   <p class="c-org"><span>○○교육청 교육연수원</span><span>2027. 3. 12.</span></p>
 </section>
 ```
@@ -236,7 +236,7 @@
       <li><b>05</b><span>닫기</span><span>5분</span></li>
     </ol>
   </div>
-  <div class="rings" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i><i></i></div>
+  <div class="rings" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -252,7 +252,7 @@
   <div class="d-no"><small>SECTION</small>02</div>
   <h2>설명</h2>
   <p>기본 장표가 무엇인지, 어떻게 고르는지 봅니다.</p>
-  <div class="rings" aria-hidden="true"><i class="done"></i><i class="now"></i><i class="ghost"></i><i class="ghost"></i><i class="ghost"></i></div>
+  <div class="rings s2" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -267,7 +267,7 @@
 <section data-pattern="closing" class="slide close">
   <h2>다음 시간에는<br>AI에게 맡겨 봅니다</h2>
   <p>2차시 · AI에게 맡기기 — 문의 ○○교육청 교육연수원</p>
-  <div class="rings" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i></div>
+  <div class="rings" aria-hidden="true"></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -769,7 +769,7 @@ radius: 6px
 - 강조색(`accent`)은 **한 장에 한 곳**: 제목의 핵심 낱말 하나(`<em>`) 또는 부품 하나(`.is-key`). 둘 다 쓰면 같은 내용을 가리켜야 한다.
 - 위계는 나무색의 진하기로 만든다(c1 진함 → c5 옅음). 다른 색상을 더하지 않는다.
 - 모서리는 6px로 조금 둥글다. 막대 끝도 살짝 둥글다.
-- 나무결 · 종이결 같은 **질감 그림을 넣지 않는다**(재질 질감은 덱에 쓰지 않는다 — 제작 기준 6-7). 색과 겹만으로 나무를 떠올리게 한다.
+- 그림은 상징 부품의 이미지뿐이다. **새 그림을 코드로 그리지 않는다**(필요하면 이미지를 요청한다). 본문 장에는 질감 · 그림을 깔지 않는다.
 - 근거 장표: 표지 #17, 목차 · 간지 키트 #91.
 - 어울리는 자리: 환경 · 생태 · 마을 교육, 차분하고 따뜻한 자리.
 
@@ -794,8 +794,10 @@ radius: 6px
 모든 본문 장은 같은 순서다: **머리말(`.kicker`) → 결론 한 문장 제목(`.title`) → 기본 장표 부품 하나 → 출처(`.src`, 수치가 있으면 반드시)**.
 한 문장 · 질문 · 할 일 장만 제목 없이 머리말 아래에 부품을 둔다.
 
-## 나이테(.rings)
-동심원 겹. 겹 수 = 섹션 수(최대 5), 안쪽이 1섹션. `.now` 한 겹이 지금 섹션(청록), 간지에서 아직 안 간 겹은 `.ghost`(점선).
+## 나무 단면(.rings)
+나무 단면 **그림(이미지)**이다. 근거 장표 #91의 그림을 그대로 떠낸 것으로(`kit/img/E-*.webp`), 코드로 다시 그리지 않는다.
+- 표지 · 목차 · 맺음: 다 자란 단면 `<div class="rings">`.
+- 간지: 그 섹션까지 자란 단면 `<div class="rings s3">`(`s1`~`s5` 다섯 단계, 점선 원 = 다 자랐을 때 크기). 섹션이 5개가 아니면 비율로 고른다.
 - **표지 · 목차 · 간지 · 맺음에만** 쓴다. 본문 장에는 쓰지 않는다.
 - 크기 · 위치는 부품 CSS 그대로. 돌리거나 기울이지 않는다.
 
@@ -808,8 +810,8 @@ radius: 6px
 6. 한 장에 기본 장표를 둘 이상 넣기.
 
 ## 알려진 한계 (v1)
-- 이 계열의 근거 장표는 사진 · 캔버스 그림에 기댄 표지가 많다. 키트는 그 **색 · 글꼴 · 짜임**만 옮겼고 그림은 옮기지 않았다.
-- 표지에 쓸 사진 자리는 아직 없다(표지는 글자와 상징 부품으로만 만든다).
+- 그림은 근거 장표에 있던 것 그대로라 **상태가 다섯 단계**뿐이다. 섹션이 6개 이상인 덱은 묶어서 5개 이하로 만든다.
+- 그림의 크기 · 위치는 부품 CSS가 정한다. 다른 그림으로 바꾸려면 사용자에게 이미지를 받는다.
 ````
 
 - 글꼴: 제목 Hahmlet(600/700) · 본문 IBM Plex Sans KR(400/600) · 숫자 Hahmlet(600/700). 공통 CSS가 불러오므로 설치하지 않아도 됩니다.
@@ -830,10 +832,13 @@ radius: 6px
 - `.src` — 예: `<p class="src">`
 - `.page-no` — 예: `<span class="page-no">`
 
-**나이테: 겹 수 = 섹션 수(안쪽이 1섹션). .now 지금 겹(청록) · .ghost 아직 안 자란 겹(점선)**
+**나이테: 나무 단면 그림(#91 에서 떠낸 이미지). 기본 = 다 자란 단면, .s1~.s5 = 그 겹까지 자란 단면(점선 = 다 자랐을 때 크기)**
 - `.rings` — 예: `<div class="rings" aria-hidden="true">`
-- `.now` — 예: `<i class="now">`
-- `.ghost` — 예: `<i class="ghost">`
+- `.s1`
+- `.s2` — 예: `<div class="rings s2" aria-hidden="true">`
+- `.s3` — 예: `<div class="rings s3" aria-hidden="true">`
+- `.s4`
+- `.s5`
 
 **표지**
 - `.cover` — 예: `<section data-pattern="cover" class="slide cover">`

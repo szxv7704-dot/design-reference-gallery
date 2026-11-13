@@ -32,16 +32,16 @@ META = {
        'sig': '판 번호(`.reg`)를 씁니다. 큰 명조 숫자 하나에 주홍 판이 4px 어긋나는 곳은 덱 전체에서 간지뿐, 재단 표시(`.crop`)도 간지에만.'},
  'E': {'refs': '#17 · #91', 'roles': ('Hahmlet', 'IBM Plex Sans KR', 'Hahmlet'),
        'desc': '밝은 회녹 종이에 따뜻한 나무색 농담, 명조 제목. 청록 강조 한 곳', 'fit': '환경 · 생태 · 마을 교육, 차분하고 따뜻한 자리',
-       'sig': '나이테(`.rings`)를 씁니다. 겹 수 = 섹션 수(안쪽이 1섹션), 지금 겹은 `.now`, 간지에서 아직 안 간 겹은 `.ghost`.'},
+       'sig': '나무 단면 그림(`.rings`, 이미지)을 씁니다. 표지 · 목차 · 맺음은 다 자란 단면 `.rings`, 간지는 그 섹션까지 자란 단면 `.rings s1`~`s5`(다섯 단계. 섹션이 5개가 아니면 비율로 고름: 4개 중 2번째 → `s3`).'},
  'F': {'refs': '#20 · #25 · #31 · #52 · #71', 'roles': ('Gothic A1', 'Gothic A1', 'Saira Semi Condensed'),
        'desc': '맑은 청백 바탕에 남색 기록판, 좁은 숫자 글꼴. 빨강 강조 한 곳', 'fit': '실적 · 통계가 많은 성과 보고, 체육 · 진로 행사',
        'sig': '구간 띠(`.lane`)를 씁니다. 칸 수 = 섹션 수, 지난 구간 `.done` · 지금 구간 `.now` · 남은 구간 `.ghost`.'},
  'G': {'refs': '#18 · #30 · #74 · #103', 'roles': ('Noto Serif KR', 'Noto Sans KR', 'IBM Plex Mono'),
        'desc': '깊은 남색 밤하늘에 따뜻한 흰 글자, 명조 제목. 금빛 강조 한 곳', 'fit': '저녁 행사 · 비전 선포, 불을 끄고 하는 발표(밝은 회의실에는 맞지 않음)',
-       'sig': '별 잇기(`.stars`)를 씁니다. 별 수 = 섹션 수, 지금 별 `.now`, 아직 안 간 별 `.ghost`.'},
+       'sig': '밤하늘과 별자리 그림(이미지)을 씁니다. 표지 · 목차 · 간지 · 맺음의 바탕은 밤하늘(공통 CSS가 넣음)이고, 그 위에 별자리 겹 `.stars`를 놓습니다: 표지 · 맺음은 다 이어진 `.stars all`, 목차 · 간지는 그 섹션까지 이어진 `.stars s1`~`s5`(다섯 단계, 섹션 수에 맞춰 비율로).'},
  'H': {'refs': '#58 · #59 · #110', 'roles': ('Nanum Myeongjo', 'Noto Sans KR', 'Nanum Myeongjo'),
        'desc': '밝은 한지에 먹 명조 제목, 면마다 쌍변, 진녹 농담. 주홍 강조 한 곳', 'fit': '역사 · 문화 · 지역 행사, 격식 있는 자리',
-       'sig': '막새 줄(`.tiles`)을 씁니다. 막새 수 = 섹션 수, 지금 막새 `.now`, 아직 안 놓인 자리 `.ghost`.'},
+       'sig': '수막새 그림(`.tiles`, 이미지)을 씁니다. 표지는 큰 막새 `.tiles big`, 목차 · 간지는 처마 줄 `.tiles s1`~`s5`(그 섹션의 막새에 주홍 고리. 다섯 단계, 섹션 수에 맞춰 비율로), 맺음은 처마 끝 `.tiles roof`.'},
 }
 rd = lambda *p: open(os.path.join(*p), encoding='utf-8').read()
 def wr(p, s): os.makedirs(os.path.dirname(p), exist_ok=True); open(p, 'w', encoding='utf-8').write(s)
@@ -72,9 +72,14 @@ def sig(fam, kind, i=0, n=5, num=''):
     if fam == 'C':
         f = {'cover': lambda k: '', 'toc': lambda k: 'now' if k == i else '', 'divider': lambda k: 'now' if k == i else 'ghost' if k > i else '', 'close': lambda k: ''}[kind]
         return '<div class="blocks%s"%s>%s</div>' % (' flag' if kind == 'close' else '', hid, cells(f))
-    if fam in 'EFGH':   # 같은 규칙: 목차는 지금 칸 .now, 간지는 지난 칸 .done · 지금 .now · 남은 칸 .ghost, 맺음은 모두 .done
+    if fam == 'F':   # 구간 띠: 목차는 지금 칸 .now, 간지는 지난 칸 .done · 지금 .now · 남은 칸 .ghost, 맺음은 모두 .done
         f = {'cover': lambda k: '', 'toc': lambda k: 'now' if k == i else '', 'divider': lambda k: 'done' if k < i else 'now' if k == i else 'ghost', 'close': lambda k: 'done'}[kind]
-        return '<div class="%s"%s>%s</div>' % ({'E': 'rings', 'F': 'lane', 'G': 'stars', 'H': 'tiles'}[fam], hid, cells(f))
+        return '<div class="lane"%s>%s</div>' % (hid, cells(f))
+    if fam in 'EGH':   # 그림(kit/img/, 근거 키트 장표에서 떠낸 이미지). 상태 그림은 다섯 단계라 섹션 수에 맞춰 고른다
+        st = 's%d' % max(1, min(5, round(i * 5 / n))) if i else ''
+        if fam == 'E': return '<div class="rings%s"%s></div>' % (' ' + st if kind == 'divider' else '', hid)
+        if fam == 'G': return '<div class="stars %s"%s></div>' % (st if kind in ('toc', 'divider') else 'all', hid)
+        return '<div class="tiles %s"%s></div>' % ({'cover': 'big', 'close': 'roof'}.get(kind, st), hid)
     if fam == 'D':
         if kind == 'divider': return '<div class="reg is-off"%s><b>%02d</b><i class="crop"></i></div>' % (hid, i)
         return '<div class="reg"%s><b>%s</b></div>' % (hid, {'cover': num, 'toc': '%02d' % i, 'close': '끝'}[kind])
@@ -123,7 +128,8 @@ def shell(fam=None):
 def hosted(fam):
     faces = ''.join('@font-face{font-family:"%s";font-weight:%s;font-display:swap;src:url("../../fonts/%s-%s.woff2") format("woff2")}\n' % (f, w, f.replace(' ', ''), w) for f, w in fonts_of(fam))
     head = '/* %s %s — 덱 키트 v1 배포용 묶음(scripts/kit.py 가 만듦, 고치지 말 것)\n   글꼴: SIL Open Font License 1.1, 저작권 고지는 %sfonts/LICENSES.md */\n' % (fam, NAMES[fam], BASE)
-    wr(os.path.join(K, 'v1', fam + '.css'), head + faces + rd(K, 'deck.css') + '\n' + rd(K, 'parts.css') + '\n' + rd(K, fam + '.css'))
+    # 계열 그림(kit/img/)은 배포판(kit/v1/)에서 한 칸 위에 있다
+    wr(os.path.join(K, 'v1', fam + '.css'), head + faces + rd(K, 'deck.css') + '\n' + rd(K, 'parts.css') + '\n' + rd(K, fam + '.css').replace('url("img/', 'url("../img/'))
     wr(os.path.join(K, 'v1', 'deck.js'), rd(K, 'deck.js'))
 
 def parts(fam, sample):
@@ -220,7 +226,7 @@ def guide(fam=None):
     if one:
         L += ['이 계열은 ' + META[fam]['sig'], '']
     else:
-        L += ['견본 코드(8)의 `<!-- 상징 부품 -->` 자리에 고른 계열의 코드를 넣습니다. 아래는 섹션이 5개이고 지금 2섹션일 때입니다. 칸(`<i>`) 수 = 섹션 수(5개까지).', '',
+        L += ['견본 코드(8)의 `<!-- 상징 부품 -->` 자리에 고른 계열의 코드를 넣습니다. 아래는 섹션이 5개이고 지금 2섹션일 때입니다. A · B · C · F는 칸(`<i>`) 수 = 섹션 수(5개까지), E · G · H는 그림이라 칸이 없고 상태 클래스(`s1`~`s5`)만 바꿉니다.', '',
               T([['계열', '표지', '목차(지금 2섹션)', '간지(지금 2섹션)', '맺음']] + [['---'] * 5] +
                 [['%s' % f] + ['`%s`' % sig(f, k, 2, 5, '2027') for k in ('cover', 'toc', 'divider', 'close')] for f in FAMS]), '',
               '\n'.join('- %s: %s' % (f, META[f]['sig']) for f in FAMS), '']

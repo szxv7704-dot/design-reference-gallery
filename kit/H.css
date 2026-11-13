@@ -1,5 +1,5 @@
 /* H 전통 공예·문양 — 덱 키트 v1 (deck.css 다음에 불러옴)
-   밝은 한지 바탕에 먹과 진녹 농담, 주홍은 한 장에 한 곳. 판본의 쌍변(굵은 선 + 가는 선)으로 면을 두르고, 둥근 막새 줄로 덱의 위치를 보인다.
+   밝은 한지 바탕에 먹과 진녹 농담, 주홍은 한 장에 한 곳. 판본의 쌍변(굵은 선 + 가는 선)으로 면을 두르고, 수막새 그림(이미지)의 처마 줄로 덱의 위치를 보인다.
    근거 장표: #58 · #59(표지), #110(목차·간지 키트) */
 :root{
   --ds-stage:#DEDCD3;
@@ -26,12 +26,13 @@
 .src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
 .page-no{position:absolute;right:120px;bottom:40px;font:500 22px/1 var(--ds-font-num);letter-spacing:.06em;color:var(--ds-sub)}
 
-/* ── 막새 줄: 둥근 막새 수 = 섹션 수. .now 지금 막새(주홍 점) · .ghost 아직 안 놓인 자리(점선) ── */
-.tiles{display:flex;gap:22px;padding-top:26px;border-top:10px solid var(--ds-ink)}
-.tiles i{position:relative;width:104px;height:104px;border-radius:50%;background:var(--ds-c2);box-shadow:inset 0 0 0 10px var(--ds-c1),inset 0 0 0 14px var(--ds-c4)}
-.tiles i::after{content:"";position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--ds-c4)}
-.tiles i.now::after{background:var(--ds-accent);box-shadow:0 0 0 6px var(--ds-surface)}
-.tiles i.ghost{background:none;box-shadow:none;border:3px dashed var(--ds-sub)}.tiles i.ghost::after{display:none}
+/* ── 막새: 수막새 그림(#110 에서 떠낸 이미지). .big = 큰 막새 하나, .s1~.s5 = 처마 줄(그 막새까지 놓임, 지금 막새에 주홍 고리), .roof = 처마 끝 ── */
+.tiles{background:center/contain no-repeat}
+.tiles.big{width:470px;height:470px;background-image:url("img/H-big.webp")}
+.tiles.roof{width:760px;height:321px;background-image:url("img/H-roof.webp")}
+.tiles.s1,.tiles.s2,.tiles.s3,.tiles.s4,.tiles.s5{width:760px;height:161px}
+.tiles.s1{background-image:url("img/H-s1.webp")}.tiles.s2{background-image:url("img/H-s2.webp")}.tiles.s3{background-image:url("img/H-s3.webp")}
+.tiles.s4{background-image:url("img/H-s4.webp")}.tiles.s5{background-image:url("img/H-s5.webp")}
 
 /* ── 표지 ─────────────────────────────────────────── */
 .cover .c-text{position:absolute;left:120px;top:170px;width:1240px;display:flex;flex-direction:column;gap:28px}
@@ -40,7 +41,7 @@
 .cover h1 em{font-style:normal;color:var(--ds-accent)}
 .cover .c-sub{margin:0;font-size:32px;color:var(--ds-sub);max-width:900px}
 .cover .c-org{position:absolute;left:120px;bottom:96px;display:flex;gap:40px;margin:0;font:500 26px/1.4 var(--ds-font-body);color:var(--ds-ink)}
-.cover .tiles{position:absolute;right:120px;bottom:200px}
+.cover .tiles{position:absolute;right:170px;bottom:210px}
 
 /* ── 목차: 줄 높이 112px, 지금 장 한 줄만 강조색 ────────────────── */
 .toc-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ds-ink);width:1000px}
@@ -48,19 +49,19 @@
 .toc-list li b{font:600 28px/1 var(--ds-font-num);color:var(--ds-sub)}
 .toc-list li span:last-child{justify-self:end;font:500 24px/1 var(--ds-font-num);color:var(--ds-sub)}
 .toc-list li.is-now{color:var(--ds-accent)}.toc-list li.is-now b{color:var(--ds-accent)}
-.toc .tiles{position:absolute;right:120px;bottom:210px}
+.toc .tiles{position:absolute;right:70px;bottom:250px;width:620px;height:132px}
 
 /* ── 간지: 큰 번호 + 섹션 이름 + 상징 부품 ──────────────────── */
 .divider .d-no{position:absolute;left:120px;top:200px;font:600 220px/1 var(--ds-font-num);letter-spacing:-.03em;color:var(--ds-ink)}
 .divider .d-no small{display:block;margin-bottom:24px;font:600 24px/1 var(--ds-font-body);letter-spacing:.12em;color:var(--ds-sub)}
 .divider h2{position:absolute;left:120px;top:560px;margin:0;font:800 88px/1.2 var(--ds-font-title)}
 .divider p{position:absolute;left:120px;top:690px;margin:0;width:900px;font-size:30px;color:var(--ds-sub)}
-.divider .tiles{position:absolute;right:120px;bottom:210px}
+.divider .tiles{position:absolute;right:90px;bottom:230px}
 
 /* ── 마무리 ────────────────────────────────────────── */
 .close h2{position:absolute;left:120px;top:380px;margin:0;font:800 80px/1.25 var(--ds-font-title)}
 .close p{position:absolute;left:120px;top:600px;margin:0;font-size:30px;color:var(--ds-sub)}
-.close .tiles{position:absolute;right:120px;top:420px}
+.close .tiles{position:absolute;right:90px;top:330px}
 
 /* ── 배치 격자 ─────────────────────────────────────── */
 .grid{display:grid;gap:32px;align-items:stretch}
