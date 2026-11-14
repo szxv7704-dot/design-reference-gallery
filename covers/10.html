@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-kit="A">
+<html lang="ko" data-kit="B">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,129 +13,266 @@
 <!-- 1. 표지 -->
 <section data-pattern="cover" class="slide c-orig"><iframe src="../light/10.html?slide=" title="안개 걷는 영토도 표지" loading="eager"></iframe></section>
 
-<!-- 2. 목차 · 전체 흐름 · 줄 목록 -->
-<section data-pattern="toc" data-role="flow" data-var="a" class="slide toc">
+<!-- 2. 흐름 · 단계 깃발 -->
+<section data-pattern="toc" class="slide">
   <div class="s-body">
-    <p class="kicker">오늘의 흐름</p>
-    <h2 class="title">50분 동안 다섯 걸음</h2>
-    <ol class="toc-list">
-      <li class="is-now"><b>01</b><span>개념 맞추기</span><span>5분</span></li>
-      <li><b>02</b><span>좋은 요청과 나쁜 요청</span><span>10분</span></li>
-      <li><b>03</b><span>따라 하기</span><span>10분</span></li>
-      <li><b>04</b><span>실습</span><span>20분</span></li>
-      <li><b>05</b><span>정리</span><span>5분</span></li>
+    <h2 class="title" data-quest="전체 과제 · 2027~2029">세 단계에 걸쳐 <em>36학급</em>을 새로 엽니다</h2>
+    <ol class="stages fill">
+      <li><u>1단계 시범</u><b>8<small>학급</small></b><span>2027</span><p>다온 · 가람에서 먼저</p></li>
+      <li><u>2단계 확대</u><b>14<small>학급</small></b><span>2028</span><p>늘솔 · 너울 · 바로로<br>통학 지원 노선 개통</p></li>
+      <li><u>3단계 전역</u><b>14<small>학급</small></b><span>2029</span><p>미르 · 새벽까지<br>일곱 지역 모두</p></li>
     </ol>
   </div>
+    <div class="hud"><b>전체 지도</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 0/36</u><u>센터 3/7</u><u>0단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="0" aria-label="지역 진척">
+    <h4>단계 목표<span>0/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 3. 핵심 개념 · 맞는 예와 아닌 예 -->
-<section data-pattern="define" data-role="concept" data-var="c" class="slide">
+<!-- 3. 배경 · 수치 -->
+<section data-pattern="numbers" class="slide">
   <div class="s-body">
-    <p class="kicker">01 개념 맞추기</p>
-    <div class="yesno fill">
-      <p class="yn-term">프롬프트<small>AI에게 건네는 요청문</small></p>
-      <div class="yn-yes"><h3>이런 것이 프롬프트</h3><ul><li>가정통신문 초안을 학부모 눈높이로 써 줘</li><li>회의록을 결정 사항 세 줄로 줄여 줘</li></ul></div>
-      <div class="yn-no"><h3>이런 것은 아님</h3><ul><li>검색창에 넣는 낱말 몇 개</li><li>AI가 내놓은 답 그 자체</li></ul></div>
-    </div>
-  </div>
-  <span class="page-no"></span>
-</section>
-
-<!-- 4. 비교 · 전과 후 수치 -->
-<section data-pattern="before-after" data-role="compare" data-var="b" class="slide">
-  <div class="s-body">
-    <p class="kicker">02 좋은 요청과 나쁜 요청</p>
-    <h2 class="title">요청을 분명히 쓰면 <em>다시 묻는 횟수</em>가 줄어듭니다</h2>
-    <div class="fill stack">
-      <p class="ba-head"><span>막연한 요청</span><span>분명한 요청</span></p>
-      <div class="ba">
-        <div><span>다시 요청한 횟수</span><p>문서 하나당</p><b>5<small>회</small></b></div><i aria-hidden="true"></i><div class="is-key"><span>다시 요청한 횟수</span><p>문서 하나당</p><b>2<small>회</small></b></div>
-        <div><span>초안 작성 시간</span><p>문서 하나당</p><b>40<small>분</small></b></div><i aria-hidden="true"></i><div><span>초안 작성 시간</span><p>문서 하나당</p><b>15<small>분</small></b></div>
-      </div>
-    </div>
-  </div>
-  <p class="src">자료: ○○교육청 교육연수원 수료자 설문(가상 예시)</p>
-  <span class="page-no"></span>
-</section>
-
-<!-- 5. 순서 · 절차 · 가로 세 칸 -->
-<section data-pattern="steps" data-role="steps" data-var="a" class="slide">
-  <div class="s-body">
-    <p class="kicker">03 따라 하기</p>
-    <h2 class="title">요청문은 <em>세 걸음</em>으로 씁니다</h2>
-    <div class="road fill">
-      <div class="is-key"><h3><small>1</small>누구에게</h3><ul><li>읽을 사람을 적는다</li><li>학부모 · 학생 · 동료</li><li>말투도 함께</li></ul></div>
-      <div><h3><small>2</small>무엇으로</h3><ul><li>근거 자료를 붙인다</li><li>계획서 · 설문 · 회의록</li><li>개인정보는 지우고</li></ul></div>
-      <div><h3><small>3</small>어떤 모양으로</h3><ul><li>분량을 정한다</li><li>문단 · 표 · 목록</li><li>빠지면 안 될 것</li></ul></div>
-    </div>
-  </div>
-  <span class="page-no"></span>
-</section>
-
-<!-- 6. 사례 · 한 건 이야기 -->
-<section data-pattern="steps" data-role="case" data-var="c" class="slide">
-  <div class="s-body">
-    <p class="kicker">03 따라 하기 · 한 학교의 사례</p>
-    <h2 class="title">체험학습 안내문 한 장이 <em>40분에서 15분</em>이 됐습니다</h2>
-    <div class="story fill">
-      <div><span>상황</span><b>해마다 새로 쓰는 안내문</b><p>지난 문서를 찾아 고치는 데 40분이 걸렸습니다.</p></div>
-      <div><span>한 일</span><b>세 걸음으로 요청</b><p>학부모에게, 올해 계획서로, 세 문단으로 써 달라고 했습니다.</p></div>
-      <div class="is-key"><span>결과</span><b>15분 만에 발송</b><p>초안 5분, 날짜와 금액 대조 10분.</p></div>
-    </div>
-  </div>
-  <p class="src">가상 예시</p>
-  <span class="page-no"></span>
-</section>
-
-<!-- 7. 실습 · 질문과 보기 -->
-<section data-pattern="ask" data-role="practice" data-var="b" class="slide">
-  <div class="s-body">
-    <p class="kicker">04 실습</p>
-    <div class="ask fill">
-      <p class="a-q">이번 주에 쓸 문서 가운데 무엇으로 연습해 볼까요?</p>
-      <ol>
-        <li>가정통신문</li>
-        <li>회의록 요약</li>
-        <li>행사 계획서 초안</li>
-        <li>설문 결과 정리</li>
-      </ol>
-    </div>
-  </div>
-  <span class="page-no"></span>
-</section>
-
-<!-- 8. 핵심 수치 · 숫자 셋 -->
-<section data-pattern="numbers" data-role="numbers" data-var="a" class="slide">
-  <div class="s-body">
-    <p class="kicker">05 정리 · 지난 연수 결과</p>
-    <h2 class="title">초안 쓰는 시간이 <em>40분에서 15분</em>으로 줄었습니다</h2>
+    <h2 class="title" data-quest="출발점 · 2026 현황">특수학급 셋 중 하나가 <em>정원을 넘겼습니다</em></h2>
     <div class="grid g3 fill center">
-      <div class="tile is-key"><span>초안 작성 시간</span><b>15<small>분</small></b><p>연수 전 평균 40분</p></div>
-      <div class="tile"><span>다시 요청한 횟수</span><b>2<small>회</small></b><p>한 문서당 평균</p></div>
-      <div class="tile"><span>업무에 계속 쓰겠다</span><b>92<small>%</small></b><p>수료자 설문</p></div>
+      <div class="tile is-key"><span>정원 넘긴 학급</span><b>34<small>%</small></b><p>전체 212학급 가운데</p></div>
+      <div class="tile"><span>통학 30분 넘는 학생</span><b>410<small>명</small></b><p>대상 학생의 19%</p></div>
+      <div class="tile"><span>지원센터 없는 지역</span><b>4<small>곳</small></b><p>일곱 지역 가운데</p></div>
     </div>
   </div>
-  <p class="src">자료: ○○교육청 교육연수원 수료자 설문(가상 예시)</p>
+  <p class="src">자료: ○○교육청 특수교육 실태 조사(가상 예시)</p>
+    <div class="hud"><b>출발점</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 0/36</u><u>센터 3/7</u><u>0단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="0" aria-label="지역 진척">
+    <h4>단계 목표<span>0/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 9. 요약 · 한 문장 -->
-<section data-pattern="statement" data-role="summary" data-var="c" class="slide">
+<!-- 4. 지역 분포 (빌려 온 본문 #51) -->
+<section data-pattern="ref" class="slide ref">
   <div class="s-body">
-    <p class="kicker">05 정리</p>
-    <div class="say fill">
-      <p>요청문에는 <em>누구에게 · 무엇으로 · 어떤 모양으로</em><br>세 가지를 적습니다</p>
-      <small>받은 초안의 사실과 숫자는 꼭 원문과 다시 맞춰 봅니다.</small>
+    <p class="kicker">지역 살피기</p>
+    <div class="r-win"><iframe src="../light/51.html?slide=c10" title="낱칸 시·군 지도" loading="lazy"></iframe></div>
+  </div>
+  <p class="src">빌려 온 본문 #51 낱칸 시·군 지도 · 내용은 다른 가상 예시</p>
+    <div class="hud"><b>지역 살피기</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 0/36</u><u>센터 3/7</u><u>0단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="0" aria-label="지역 진척">
+    <h4>단계 목표<span>0/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 5. 1단계 · 지역 진척표 -->
+<section data-pattern="bars" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-quest="과제 1 · 1단계 시범 (2027)">먼저 <em>다온 · 가람</em>에 여덟 학급을 엽니다</h2>
+    <div class="regions fill">
+      <h3>지역 진척<span>신설 / 목표</span></h3>
+      <ul>
+        <li class="is-key">다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i></i><i></i><i></i></span><small>5/8</small><em>정원 넘긴 학급이 가장 많다</em></li>
+        <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i></i><i></i><i></i></span><small>3/6</small><em>지원센터 옆 학교부터</em></li>
+        <li class="dim">늘솔<span><i></i><i></i><i></i><i></i></span><small>0/4</small><em>2단계</em></li>
+        <li class="dim">너울<span><i></i><i></i><i></i><i></i><i></i></span><small>0/5</small><em>2단계</em></li>
+        <li class="dim">바로<span><i></i><i></i><i></i><i></i><i></i></span><small>0/5</small><em>2단계</em></li>
+        <li class="dim">미르<span><i></i><i></i><i></i><i></i></span><small>0/4</small><em>3단계 · 아직 안개</em></li>
+        <li class="dim">새벽<span><i></i><i></i><i></i><i></i></span><small>0/4</small><em>3단계 · 아직 안개</em></li>
+      </ul>
     </div>
   </div>
+    <div class="hud"><b>1단계 시범</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 8/36</u><u>센터 5/7</u><u>1단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="1" aria-label="지역 진척">
+    <h4>단계 목표<span>8/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 6. 비교 (빌려 온 본문 #49) -->
+<section data-pattern="ref" class="slide ref">
+  <div class="s-body">
+    <p class="kicker">견주어 보기</p>
+    <div class="r-win"><iframe src="../light/49.html?slide=c10" title="조사 완료선 정렬 비교" loading="lazy"></iframe></div>
+  </div>
+  <p class="src">빌려 온 본문 #49 조사 완료선 정렬 비교 · 내용은 다른 가상 예시</p>
+    <div class="hud"><b>견주어 보기</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 8/36</u><u>센터 5/7</u><u>1단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="1" aria-label="지역 진척">
+    <h4>단계 목표<span>8/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 7. 2단계 · 과제 카드와 안개 -->
+<section data-pattern="groups" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-quest="과제 2 · 2단계 확대 (2028)">늘솔 · 너울 · 바로에 14학급, <em>통학 노선</em>을 함께 엽니다</h2>
+    <div class="grid g3 fill center">
+      <div class="card is-key"><span class="c-no">과제 2-1</span><h3>학급 신설</h3><p>세 지역에<br>14학급</p><p class="c-foot">깃발 <b>14</b>개</p></div>
+      <div class="card"><span class="c-no">과제 2-2</span><h3>통학 지원</h3><p>지원센터에서<br>학교까지 노선</p><p class="c-foot">목표 <b>30분</b> 안</p></div>
+      <div class="card fog"><span class="c-no">과제 3</span><h3>전역 개방</h3><p>미르 · 새벽<br>14학급</p><p class="c-foot">2029 · 아직 안개</p></div>
+    </div>
+  </div>
+    <div class="hud"><b>2단계 확대</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 22/36</u><u>센터 5/7</u><u>2단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="2" aria-label="지역 진척">
+    <h4>단계 목표<span>22/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 8. 체계 (빌려 온 본문 #114) -->
+<section data-pattern="ref" class="slide ref">
+  <div class="s-body">
+    <p class="kicker">단계별 체계</p>
+    <div class="r-win"><iframe src="../light/114.html?slide=c10" title="생애 단계 열 체계도" loading="lazy"></iframe></div>
+  </div>
+  <p class="src">빌려 온 본문 #114 생애 단계 열 체계도 · 내용은 다른 가상 예시</p>
+    <div class="hud"><b>단계별 체계</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 22/36</u><u>센터 5/7</u><u>2단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="2" aria-label="지역 진척">
+    <h4>단계 목표<span>22/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 9. 요약 · 승리 조건 -->
+<section data-pattern="todo" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-quest="승리 조건 · 2029">세 가지가 모두 채워지면 <em>지도의 안개가 걷힙니다</em></h2>
+    <ul class="check fill">
+      <li>36학급 신설<small>1단계 8 · 2단계 14 · 3단계 14</small></li>
+      <li>일곱 지역 모두에 지원센터<small>지금 3곳 → 7곳</small></li>
+      <li class="is-key">어느 학생이든 통학 30분 안<small>가장 중요한 조건</small></li>
+    </ul>
+  </div>
+    <div class="hud"><b>승리 조건</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 36/36</u><u>센터 7/7</u><u>3단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="3" aria-label="지역 진척">
+    <h4>단계 목표<span>36/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
 <!-- 10. 마무리 -->
-<section data-pattern="closing" data-role="closing" data-var="a" class="slide close">
-  <h2>오늘 쓴 요청문을<br>내일 업무에</h2>
-  <p>문의 · ○○교육청 교육연수원 연수 담당</p>
+<section data-pattern="closing" class="slide close">
+  <div class="mapbg"></div>
+  <div class="win"><h2>남은 안개는 <em>두 지역</em>,<br>2029년에 모두 걷습니다</h2><p>문의 · ○○교육청 특수교육과 · 모든 기관 · 수치는 가상 예시</p></div>
+    <div class="hud"><b>다음 단계</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 22/36</u><u>센터 5/7</u><u>2단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="2" aria-label="지역 진척">
+    <h4>단계 목표<span>22/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 

@@ -92,7 +92,7 @@ def bespoke_body(no):
     titles = re.findall(r'<!-- \d+\. ([^\n]+?) -->', body)
     return body, base, device, refs, titles
 REFCSS = ('/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */\n'
-          '.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center}.slide.ref .r-win iframe{height:100%;aspect-ratio:16/9;max-width:100%;border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}\n')
+          '.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}\n')
 
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True); meta = []
