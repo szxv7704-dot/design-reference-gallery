@@ -1,0 +1,114 @@
+<!-- 표지 덱: #12 · 바탕 B
+     장치: 해도 눈금 테두리(A~F · 1~4) · 두루마리 제목 · 순환 항로 구간 n/7 · 남색 이름표(섬 노랑 · 위험 분홍) · 항해 일지 · 좌표 달린 과제 상자 · 나침반 네 낱말 · 표지에서 떠낸 나침반과 배
+     내용은 표지와 같은 가상 주제(유아 안전·건강 교육 지원 계획). 빌려 온 본문(@@REF@@)의 내용은 다른 가상 예시다 -->
+
+<!--DEF HUD
+  <div class="frame" aria-hidden="true"><ol class="fx"><li>A</li><li>B</li><li>C</li><li>D</li><li>E</li><li>F</li></ol><ol class="fx b"><li>A</li><li>B</li><li>C</li><li>D</li><li>E</li><li>F</li></ol><ol class="fy"><li>1</li><li>2</li><li>3</li><li>4</li></ol><ol class="fy r"><li>1</li><li>2</li><li>3</li><li>4</li></ol></div>
+  <div class="leg" data-n="$1"><span>순환 항로</span><b>구간 $1/7</b><i><u></u><u></u><u></u><u></u><u></u><u></u><u></u></i></div>
+-->
+
+<!-- 2. 흐름 · 항해 일지 -->
+<section data-pattern="toc" class="slide">
+  <div class="s-body">
+    <p class="kicker">물마루 항해기 · 항해 일지</p>
+    <h2 class="title">3월에 떠나 <em>일곱 구간</em>을 돌고 2월에 돌아옵니다</h2>
+    <div class="two fill">
+      <div class="log">
+        <ol>
+          <li class="done">봄<span>교통공원</span><small>교통안전</small></li>
+          <li class="done">여름<span>병원</span><small>응급처치</small></li>
+          <li class="is-key">가을<span>소방서</span><small>화재대피</small></li>
+          <li>겨울<span>보건소</span><small>감염예방</small></li>
+          <li>1월<span>경찰서</span><small>실종예방</small></li>
+          <li>2월<span>가정</span><small>가정연계</small></li>
+          <li>귀항<span>유치원 모항</span><small>평가 · 환류</small></li>
+        </ol>
+      </div>
+      <div class="note"><img src="img/12-ship.png" alt=""><span class="tag">가을 · 소방서</span><p>지금 배는 세 번째 섬에 닿았습니다. 계절마다 기관 한 곳과 함께합니다.</p></div>
+    </div>
+  </div>
+  @@USE:HUD:3@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 3. 개념 · 나침반 -->
+<section data-pattern="define" class="slide">
+  <div class="s-body">
+    <p class="kicker">나침반 · 네 방향</p>
+    <h2 class="title">항로는 <em>네 낱말</em>을 보고 잡습니다</h2>
+    <div class="compass fill">
+      <div class="n is-key"><b>예방</b><span>사고가 나기 전에 익힌다</span></div>
+      <div class="w"><b>참여</b><span>아이가 직접 해 본다</span></div>
+      <img src="img/12-compass.png" alt="">
+      <div class="e"><b>체험</b><span>기관의 실제 장비로</span></div>
+      <div class="s"><b>연계</b><span>가정까지 이어 간다</span></div>
+    </div>
+  </div>
+  @@USE:HUD:0@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 4. 연간 순환 (빌려 온 본문 #86) -->
+@@REF:86:해도 살피기 · 한 해 고리:HUD:0@@
+
+<!-- 5. 위험과 뱃길 -->
+<section data-pattern="compare" class="slide">
+  <div class="s-body">
+    <p class="kicker">바다의 위험 셋</p>
+    <h2 class="title">암초마다 <em>들를 섬</em>을 정해 둡니다</h2>
+    <ol class="reefs fill">
+      <li><div><b>교통 암초</b><span>등하원 길 사고</span></div><i></i><div><b>봄 · 교통공원</b><span>횡단보도 건너기 체험</span><small>B2</small></div></li>
+      <li class="is-key"><div><b>감염 · 폭염 폭풍</b><span>여름철 집단 감염</span></div><i></i><div><b>여름 · 병원, 겨울 · 보건소</b><span>손 씻기와 응급처치</span><small>C2 · E3</small></div></li>
+      <li><div><b>실종 소용돌이</b><span>나들이 중 길 잃음</span></div><i></i><div><b>1월 · 경찰서</b><span>이름표와 도움 청하기</span><small>D4</small></div></li>
+    </ol>
+  </div>
+  @@USE:HUD:2@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 6. 위험도 묶음 (빌려 온 본문 #119) -->
+@@REF:119:해도 살피기 · 위험도:HUD:2@@
+
+<!-- 7. 과제 상자 -->
+<section data-pattern="groups" class="slide">
+  <div class="s-body">
+    <p class="kicker">Ⅲ 과제 · 가을에서 겨울로</p>
+    <h2 class="title">다음 세 섬에서 할 일은 <em>섬마다 하나</em>입니다</h2>
+    <div class="isles fill">
+      <div class="is-key"><b>가을 · 소방서<small>D2</small></b><p>화재 대피 합동 훈련<br>소화기 체험</p><span>9~11월 · 지침: 재난안전</span></div>
+      <div><b>겨울 · 보건소<small>E3</small></b><p>손 씻기 · 기침 예절<br>감염병 예방 인형극</p><span>12월 · 지침: 건강</span></div>
+      <div><b>1월 · 경찰서<small>D4</small></b><p>실종 예방 교육<br>지문 사전 등록 안내</p><span>1월 · 지침: 생활안전</span></div>
+    </div>
+  </div>
+  @@USE:HUD:4@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 8. 추이 (빌려 온 본문 #48) -->
+@@REF:48:해도 살피기 · 지표:HUD:5@@
+
+<!-- 9. 요약 · 귀항 점검 -->
+<section data-pattern="points" class="slide">
+  <div class="s-body">
+    <p class="kicker">귀항 · 평가 환류</p>
+    <h2 class="title">돌아오면 <em>세 가지</em>를 적어 다음 해 항로를 고칩니다</h2>
+    <div class="log wide fill">
+      <ol>
+        <li class="done">참여<span>기관 여섯 곳 모두 다녀왔는가</span></li>
+        <li class="done">체험<span>아이가 직접 해 본 활동이 있었는가</span></li>
+        <li class="is-key">연계<span>가정에서 이어 한 것을 확인했는가</span></li>
+      </ol>
+    </div>
+  </div>
+  @@USE:HUD:7@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 10. 마무리 -->
+<section data-pattern="closing" class="slide close">
+  <h2>고리가 닫히면<br><em>다음 해 항로</em>가 열립니다</h2>
+  <p>문의 · ○○교육청 유아교육과 · 모든 기관 · 수치는 가상 예시</p>
+  <img src="img/12-compass.png" alt="">
+  @@USE:HUD:7@@
+  <span class="page-no"></span>
+</section>

@@ -1,0 +1,77 @@
+/* #12 협력 항로 해도 — 표지의 장치를 본문 틀로
+   장마다 해도 한 장: 모래색 눈금 테두리(A~F · 1~4), 바다 위에 두루마리 제목, 오른쪽 위 '순환 항로 구간 n/7'.
+   내용은 남색 이름표(섬 · 과제는 노랑, 위험은 분홍), 항해 일지(■ 지남 ▶ 지금 □ 남음), 좌표가 붙은 과제 상자, 나침반의 네 낱말로 담는다.
+   나침반 · 배 그림은 표지에서 떠낸 것(covers/img/12-*)만 쓴다. */
+:root{--s-sea:#2766A8;--s-deep:#1A3A66;--s-sand:#D9B77A;--s-sand2:#E8C873;--s-brown:#3B2B45;--s-wood:#A87B42;--s-red:#E0533D;--s-yel:#F2B63D;--s-cyan:#7FD6E4;--s-pink:#F59AA6;--s-pale:#F4F7F2;--px:5px;
+  --ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:var(--s-sea);color:var(--s-pale)}
+.slide:not(.c-orig)::before{content:"";position:absolute;inset:0;z-index:0;opacity:.35;pointer-events:none;
+  background:linear-gradient(var(--s-deep),var(--s-deep)) 0 0/100% 0 no-repeat,repeating-linear-gradient(0deg,transparent 0 268px,rgba(200,240,242,.5) 268px 270px),repeating-linear-gradient(90deg,transparent 0 318px,rgba(200,240,242,.5) 318px 320px)}
+/* ── 해도 테두리(이 표지만의 부품): 모래색 자 + 가로 A~F · 세로 1~4 ── */
+.frame{position:absolute;inset:0;z-index:4;pointer-events:none;border:56px solid var(--s-sand);box-shadow:inset 0 0 0 var(--px) var(--s-brown);outline:var(--px) solid var(--s-brown);outline-offset:calc(var(--px) * -2)}
+.frame ol{list-style:none;margin:0;padding:0;position:absolute;display:flex;font:400 22px/1 var(--ds-font-body);color:var(--s-brown)}
+.frame ol li{flex:1;display:grid;place-items:center;border-left:var(--px) solid var(--s-brown)}.frame ol li:first-child{border-left:0}
+.frame .fx{left:0;right:0;height:46px;top:-51px}.frame .fx.b{top:auto;bottom:-51px}
+.frame .fy{top:0;bottom:0;width:46px;left:-51px;flex-direction:column}.frame .fy.r{left:auto;right:-51px}
+.frame .fy li{border-left:0;border-top:var(--px) solid var(--s-brown)}.frame .fy li:first-child{border-top:0}
+/* 순환 항로 구간 */
+.leg{position:absolute;right:92px;top:92px;z-index:5;width:470px;box-sizing:border-box;padding:18px 24px;background:var(--s-deep);border:var(--px) solid var(--s-cyan);display:grid;grid-template-columns:1fr auto;gap:10px 16px;align-items:center;font:400 33px/1 var(--ds-font-body)}
+.leg span{color:var(--s-cyan)}.leg b{font-weight:400;color:var(--s-pale)}
+.leg i{grid-column:1 / -1;display:flex;gap:8px}.leg i u{flex:1;height:18px;background:#2F5E96;text-decoration:none}
+.leg[data-n="1"] u:nth-child(-n+1),.leg[data-n="2"] u:nth-child(-n+2),.leg[data-n="3"] u:nth-child(-n+3),.leg[data-n="4"] u:nth-child(-n+4),.leg[data-n="5"] u:nth-child(-n+5),.leg[data-n="6"] u:nth-child(-n+6),.leg[data-n="7"] u{background:var(--s-red)}
+/* 두루마리 제목 */
+.s-body{inset:92px 92px 88px;gap:0;z-index:3}
+.kicker,.title{width:1200px;max-width:none;box-sizing:border-box;margin:0;background:var(--s-sand);border:0;border-left:16px solid var(--s-wood);border-right:16px solid var(--s-wood);color:var(--s-brown)}
+.kicker{display:block;padding:20px 34px 0;font:400 33px/1.2 var(--ds-font-body);color:#6B4A3A;border-top:var(--px) solid var(--s-brown)}
+.kicker::before{content:none}
+.title{padding:8px 34px 22px;font:700 55px/1.25 var(--ds-font-title);border-bottom:var(--px) solid var(--s-brown);text-wrap:pretty}
+.title em{color:var(--s-red);font-style:normal}
+.s-body > .fill{margin-top:34px}
+.page-no{right:92px;bottom:66px;font:400 22px/1 var(--ds-font-body);color:var(--s-cyan);z-index:5}
+.src{left:92px;bottom:66px;font:400 22px/1 var(--ds-font-body);color:var(--s-cyan);z-index:5}
+/* 이름표: 남색 상자. 섬 · 과제는 노랑, 위험은 분홍, 설명은 흰색 · 하늘색 */
+.tag{display:inline-block;padding:10px 18px;background:var(--s-deep);border:var(--px) solid var(--s-brown);font:400 33px/1.2 var(--ds-font-body);color:var(--s-yel)}
+.tag.reef{color:var(--s-pink)}.tag.w{color:var(--s-pale)}
+/* ── 항해 일지(이 표지만의 부품): 양피지 위 차례. ■ 지남 · ▶ 지금 · □ 남음 ── */
+.log{background:var(--s-sand);border:var(--px) solid var(--s-brown);box-shadow:var(--px) var(--px) 0 var(--s-deep);color:var(--s-brown);padding:26px 40px 30px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center}
+.log h3{margin:0 0 14px;font:700 44px/1 var(--ds-font-title);color:var(--s-brown)}
+.log ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.log li{display:grid;grid-template-columns:50px 130px 1fr auto;align-items:center;gap:0 18px;font:400 44px/1.25 var(--ds-font-body)}
+.log li::before{content:"";width:34px;height:34px;border:var(--px) solid var(--s-brown);box-sizing:border-box}
+.log li.done::before{background:var(--s-brown)}
+.log li.is-key::before{border:0;width:0;height:0;border-left:30px solid var(--s-red);border-top:19px solid transparent;border-bottom:19px solid transparent}
+.log li.is-key{color:#8A2A1C}
+.log li small{font:400 33px/1 var(--ds-font-body);opacity:.75}
+.two{display:grid;grid-template-columns:7fr 5fr;gap:34px}
+.note{display:flex;flex-direction:column;justify-content:center;gap:22px;align-items:flex-start}
+.note p{margin:0;font:400 33px/1.5 var(--ds-font-body);color:var(--s-pale)}
+.note img{image-rendering:pixelated;width:200px;display:block}
+/* ── 나침반(이 표지만의 부품): 가운데 나침반, 네 방향에 낱말 하나씩 ── */
+.compass{display:grid;grid-template-columns:1fr 300px 1fr;grid-template-rows:auto auto auto;gap:22px 34px;align-items:center;align-content:center}
+.compass img{grid-column:2;grid-row:2;width:300px;height:300px;image-rendering:pixelated;display:block}
+.compass > div{background:var(--s-deep);border:var(--px) solid var(--s-brown);padding:18px 26px;display:flex;flex-direction:column;gap:6px}
+.compass > div b{font:700 44px/1.2 var(--ds-font-title);color:var(--s-yel)}.compass > div span{font:400 33px/1.35 var(--ds-font-body);color:var(--s-pale)}
+.compass .n{grid-column:2;grid-row:1;text-align:center}.compass .s{grid-column:2;grid-row:3;text-align:center}.compass .w{grid-column:1;grid-row:2;text-align:right}.compass .e{grid-column:3;grid-row:2}
+.compass > div.is-key{border-color:var(--s-yel)}
+/* ── 암초와 뱃길(이 표지만의 부품): 분홍 위험 이름표 → 점선 → 섬 이름표 ── */
+.reefs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:30px}
+.reefs li{display:grid;grid-template-columns:5fr 150px 7fr;align-items:center}
+.reefs li > i{height:0;border-top:var(--px) dotted var(--s-red);position:relative}
+.reefs li > i::after{content:"";position:absolute;right:-4px;top:-17px;border-left:22px solid var(--s-red);border-top:14px solid transparent;border-bottom:14px solid transparent}
+.reefs div{background:var(--s-deep);border:var(--px) solid var(--s-brown);padding:20px 28px;display:flex;flex-direction:column;gap:6px}
+.reefs div b{font:700 44px/1.2 var(--ds-font-title);color:var(--s-pink)}.reefs div + i + div b{color:var(--s-yel)}
+.reefs div span{font:400 33px/1.35 var(--ds-font-body);color:var(--s-pale)}.reefs div small{font:400 22px/1.3 var(--ds-font-body);color:var(--s-cyan)}
+.reefs li.is-key div + i + div{border-color:var(--s-yel)}
+/* ── 과제 상자(이 표지만의 부품): 좌표 달린 섬 과제. 노란 이름 · 흰 설명 · 하늘색 시기 ── */
+.isles{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-content:center}
+.isles > div{background:var(--s-deep);border:var(--px) solid var(--s-cyan);padding:26px 30px 30px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.isles b{font:700 44px/1.2 var(--ds-font-title);color:var(--s-yel)}.isles b small{float:right;font:400 33px/1.3 var(--ds-font-body);color:var(--s-cyan)}
+.isles p{margin:0;font:400 33px/1.4 var(--ds-font-body);color:var(--s-pale)}.isles span{margin-top:auto;padding-top:14px;font:400 22px/1.4 var(--ds-font-body);color:var(--s-cyan)}
+.isles > div.is-key{border-color:var(--s-yel);box-shadow:0 0 0 var(--px) var(--s-brown),0 0 0 calc(var(--px) * 2) var(--s-yel)}
+.slide.ref .title,.slide.ref .kicker{border-bottom:var(--px) solid var(--s-brown);padding-bottom:20px;font:700 44px/1.2 var(--ds-font-title);color:var(--s-brown);width:900px}
+.slide.ref .r-win{margin-top:26px}.r-win iframe{border:var(--px) solid var(--s-brown);box-shadow:var(--px) var(--px) 0 var(--s-deep)}
+.slide.ref .src{left:auto;right:240px}
+.close h2{position:absolute;left:150px;top:330px;margin:0;padding:34px 44px;background:var(--s-sand);border-left:16px solid var(--s-wood);border-right:16px solid var(--s-wood);font:700 66px/1.3 var(--ds-font-title);color:var(--s-brown)}.close h2 em{font-style:normal;color:var(--s-red)}
+.close > p{position:absolute;left:150px;top:650px;margin:0;font:400 33px/1.5 var(--ds-font-body);color:var(--s-pale)}
+.close > img{position:absolute;right:230px;top:300px;width:360px;image-rendering:pixelated}
+.log.wide li{grid-template-columns:50px 130px 1fr;padding:12px 0}
