@@ -1,0 +1,52 @@
+/* #29 회전 레일 — 표지의 장치를 본문 틀로
+   표지의 말: 매일 같은 레일(시간 · 공간) 위로 놀이 · 간식 · 쉼 · 특성화 활동이 돌아온다.
+   본문 틀: 오른쪽 위 시간 상자(가는 줄 사이 고정폭 '14:00 → 19:00'), 아주 굵은 제목. 활동은 접시 테 색 고리로 표시(놀이 초록 · 간식 주황 · 쉼 파랑 · 특성화 빨강).
+   내용은 시간 칸이 이어진 하루 레일, 고리 달린 차림표로 담는다. 접시 · 레일 그림은 표지에서 떠낸 것(covers/img/29-*)만 쓴다. */
+:root{--r-ink:#1D2733;--r-soft:#5A6470;--r-line:#C9CDD2;--r-g:#2E9E62;--r-o:#E0962A;--r-b:#3F6FB0;--r-r:#C0504E;--r-wood:#EAD7B5;--r-bg:#FBFAF7;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:linear-gradient(180deg,#FDFCFA,#F6F3EE);color:var(--r-ink)}
+.slide:not(.c-orig)::before{content:none}
+.s-body{inset:84px 100px 96px;gap:14px}
+.kicker{display:block;padding:0;border:0;background:none;font:500 28px/1 var(--ds-font-body);color:var(--r-soft)}
+.kicker::before{content:none}
+.title{max-width:1240px;font:900 72px/1.16 var(--ds-font-title);letter-spacing:-.02em;color:var(--r-ink)}
+.title em{font-style:normal;color:var(--r-o)}
+.page-no{right:100px;bottom:44px;font:500 22px/1 var(--ds-font-num);color:var(--r-soft)}
+.src{left:100px;bottom:44px;font-size:22px}
+/* ── 시간 상자(이 표지만의 부품): 가는 줄 사이 고정폭 시간, 아래 작은 말 ── */
+.clock{position:absolute;right:100px;top:84px;width:400px;z-index:3;border-top:1.5px solid var(--r-ink);border-bottom:1px solid var(--r-line);padding:20px 0 22px;text-align:right}
+.clock b{display:block;font:500 46px/1 var(--ds-font-num);letter-spacing:.02em;color:var(--r-ink)}
+.clock span{display:block;margin-top:12px;font:400 24px/1 var(--ds-font-body);letter-spacing:.06em;color:var(--r-soft)}
+/* 색 고리 = 활동 */
+.ring{display:inline-flex;align-items:center;gap:14px;font:700 30px/1.2 var(--ds-font-title)}
+.ring::before,.day li::before,.menu li > i{content:"";flex:none;width:28px;height:28px;border-radius:50%;border:7px solid var(--r-g);box-sizing:border-box;background:#fff}
+.o::before,.o > i{border-color:var(--r-o)!important}.b::before,.b > i{border-color:var(--r-b)!important}.r::before,.r > i{border-color:var(--r-r)!important}
+/* ── 하루 레일(이 표지만의 부품): 시간 칸이 한 줄로 이어진다. 칸마다 색 고리 ── */
+.day{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;align-content:center;border-top:1.5px solid var(--r-ink);border-bottom:1.5px solid var(--r-ink);background:#fff}
+.day li{position:relative;padding:28px 26px 30px;display:flex;flex-direction:column;gap:12px;border-left:1px dashed var(--r-line);min-width:0}
+.day li:first-child{border-left:0}
+.day time{font:500 34px/1 var(--ds-font-num);color:var(--r-soft)}
+.day b{font:900 40px/1.2 var(--ds-font-title)}
+.day p{margin:0;font-size:26px;line-height:1.45;color:var(--r-soft)}
+.day li.is-key{background:var(--r-wood)}
+/* ── 차림표(이 표지만의 부품): 접시 그림 + 색 고리 + 활동 + 하는 일 ── */
+.plates{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;align-content:center}
+.plates > div{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.plates img{width:100%;aspect-ratio:320/256;object-fit:cover;border-radius:50% / 46%;display:block}
+.plates p{margin:0;font-size:27px;line-height:1.45;color:var(--r-soft)}
+.menu{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center}
+.menu li{display:grid;grid-template-columns:44px 250px 1fr 260px;align-items:center;gap:0 22px;padding:24px 0;border-top:1px solid var(--r-line);font:900 40px/1.2 var(--ds-font-title)}.menu li:last-child{border-bottom:1px solid var(--r-line)}
+.menu li span{font:400 30px/1.4 var(--ds-font-body);color:var(--r-soft)}
+.menu li em{font:500 30px/1 var(--ds-font-num);font-style:normal;text-align:right;color:var(--r-ink)}
+.menu li.is-key{background:var(--r-wood);padding-left:18px;padding-right:18px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-content:center}
+.nums > div{padding:6px 40px;border-left:1px solid var(--r-line);display:flex;flex-direction:column;gap:16px}.nums > div:first-child{padding-left:0;border-left:0}
+.nums b{font:900 130px/1 var(--ds-font-title);letter-spacing:-.03em}.nums b small{font:500 36px/1 var(--ds-font-body);letter-spacing:0;margin-left:8px;color:var(--r-soft)}
+.nums p{margin:0;font-size:26px;color:var(--r-soft)}
+.r-win iframe{border:1px solid var(--r-line)}
+.slide.ref .clock{display:none}
+.end h2{position:absolute;left:100px;top:150px;margin:0;font:900 96px/1.16 var(--ds-font-title);letter-spacing:-.02em;color:var(--r-ink)}.end h2 em{font-style:normal;color:var(--r-o)}
+.end > p{position:absolute;left:100px;top:420px;margin:0;font-size:28px;color:var(--r-soft)}
+.end > img{position:absolute;left:170px;right:0;bottom:0;width:1750px;display:block}
+.plates img{aspect-ratio:320/240;border-radius:16px}
+.day{align-self:stretch;flex:0 0 auto;margin:auto 0}
+.day li{padding:40px 30px 44px}.day b{font-size:46px}.day p{font-size:28px}
