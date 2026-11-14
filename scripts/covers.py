@@ -61,15 +61,45 @@ def body_of(no, pk):
     s = re.sub(r'\n?\s*@@SIG:\w+(?::\d+)?@@', '', s)   # 스타일의 상징 그림은 표지 덱에 넣지 않는다
     return re.sub(r'@@IMG:([\w.-]+)@@', lambda m: '../src/flows/img/' + m.group(1), s)
 
+# ── 고유 장치 덱: src/covers/{번호}.html(손으로 쓴 장 + 빌려 온 본문) · src/covers/{번호}.css(그 표지의 장치를 본문 틀로 옮긴 것) ──
+SRC = os.path.join(ROOT, 'src', 'covers')
+def bespoke(no): return os.path.exists(os.path.join(SRC, '%d.html' % no))
+def bespoke_src(no):
+    s = kit.rd(SRC, '%d.html' % no); m = re.match(r'<!-- 표지 덱: #\d+ · 바탕 ([A-H])\s*\n\s*장치: (.+?)\n', s)
+    return s.split('-->', 1)[1].strip(), m.group(1), m.group(2).strip()
+DEV = '<div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>'
+def bespoke_body(no):
+    """손으로 쓴 장은 그대로, @@REF:번호:머리말@@ 은 기존 본문 장표를 그 표지의 색 · 글꼴로 띄운 창으로. 장마다 장치 자리(.dev)를 넣는다"""
+    body, base, device = bespoke_src(no); refs = []
+    def ref(m):
+        n = int(m.group(1)); refs.append(n)
+        return ('<section data-pattern="ref" class="slide ref">\n  <div class="s-body">\n    <p class="kicker">%s</p>\n    <div class="r-win"><iframe src="../light/%02d.html?slide=c%d" title="%s" loading="lazy"></iframe></div>\n  </div>\n'
+                '  <p class="src">빌려 온 본문 #%d %s · 내용은 다른 가상 예시</p>\n  <span class="page-no"></span>\n</section>') % (m.group(2), n, no, name(rounds[n]), n, name(rounds[n]))
+    body = re.sub(r'@@REF:(\d+):([^@]+)@@', ref, body)
+    first = '<!-- 1. 표지 -->\n<section data-pattern="cover" class="slide c-orig">%s</section>' % (
+        '<img src="img/%d.jpg" alt="%s 표지">' % (no, name(rounds[no])) if no in IMG else '<iframe src="../light/%02d.html?slide=" title="%s 표지" loading="eager"></iframe>' % (no, name(rounds[no])))
+    body = first + '\n\n' + body
+    body = re.sub(r'(<span class="page-no"></span>\n</section>)', DEV + r'\n  \1', body)
+    titles = re.findall(r'<!-- \d+\. ([^\n]+?) -->', body)
+    return body, base, device, refs, titles
+REFCSS = ('/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */\n'
+          '.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center}.slide.ref .r-win iframe{height:100%;aspect-ratio:16/9;border:0;pointer-events:none;background:var(--ds-bg)}\n')
+
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True); meta = []
     for i, no in enumerate(sorted(int(k) for k in COV)):
-        base, pk = base_of(no), picks(i)
-        kit.wr(os.path.join(OUT, '%d.css' % no), css_of(no, base))
-        html = kit.HEAD % {'fam': base, 'title': '%s — 표지에서 넓힌 10장 덱' % name(rounds[no]), 'body': body_of(no, pk),
+        base, pk = base_of(no), picks(i); extra = None
+        if bespoke(no):
+            body, base, device, refs, titles = bespoke_body(no)
+            extra = {'bespoke': True, 'device': device, 'refs': refs, 'titles': titles}
+            kit.wr(os.path.join(OUT, '%d.css' % no), css_of(no, base) + REFCSS + '\n/* ── 이 표지의 고유 장치(src/covers/%d.css) ── */\n' % no + kit.rd(SRC, '%d.css' % no))
+        else:
+            body = body_of(no, pk); kit.wr(os.path.join(OUT, '%d.css' % no), css_of(no, base))
+        html = kit.HEAD % {'fam': base, 'title': '%s — 표지에서 넓힌 10장 덱' % name(rounds[no]), 'body': body,
                            'css': '<link rel="stylesheet" href="%d.css">' % no, 'js': '<script src="../kit/v1/deck.js"></script>'}
         kit.wr(os.path.join(OUT, '%d.html' % no), html.replace('<body>', '<body>\n<!-- scripts/covers.py 가 만든 파일. 예시 내용은 가상 -->'))
         meta.append({'no': no, 'name': name(rounds[no]), 'base': base, 'picks': pk, 'family': rounds[no].get('family'),
                      'combo': [next(v['name'] for v in kit.VAR['roles'][r] if v['v'] == x) for r, x in zip(kit.VAR['order'], pk)]})
+        if extra: meta[-1].update(extra); meta[-1].pop('combo'); meta[-1].pop('picks')
     kit.wr(os.path.join(ROOT, 'data', 'cover_decks.json'), json.dumps(meta, ensure_ascii=False, indent=1) + '\n')
-    print('covers/', len(meta), '벌 · 조합', len({m['picks'] for m in meta}), '가지')
+    print('covers/', len(meta), '벌 · 고유 장치 덱', sorted(m['no'] for m in meta if m.get('bespoke')))
