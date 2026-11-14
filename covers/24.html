@@ -13,124 +13,133 @@
 <!-- 1. 표지 -->
 <section data-pattern="cover" class="slide c-orig"><iframe src="../light/24.html?slide=" title="같은 사물, 아이의 눈 표지" loading="eager"></iframe></section>
 
-<!-- 2. 목차 · 전체 흐름 · 줄 목록 -->
-<section data-pattern="toc" data-role="flow" data-var="a" class="slide toc">
+<!-- 2. 흐름 · 세 가지 전환 -->
+<section data-pattern="toc" class="slide">
   <div class="s-body">
-    <p class="kicker">오늘의 흐름</p>
-    <h2 class="title">50분 동안 다섯 걸음</h2>
-    <ol class="toc-list">
-      <li class="is-now"><b>01</b><span>개념 맞추기</span><span>5분</span></li>
-      <li><b>02</b><span>좋은 요청과 나쁜 요청</span><span>10분</span></li>
-      <li><b>03</b><span>따라 하기</span><span>10분</span></li>
-      <li><b>04</b><span>실습</span><span>20분</span></li>
-      <li><b>05</b><span>정리</span><span>5분</span></li>
+    <p class="kicker"><b>○○교육청</b> 유아교육과 · 오늘의 차례</p>
+    <h2 class="title">세 가지를 <em>아이의 눈</em>으로 다시 봅니다</h2>
+    <ol class="split fill">
+      <li><div>재료<small>정돈해 둘 재활용품</small></div><div>놀잇감<small>01 · 교실의 사물 다시 보기</small></div></li>
+      <li class="is-key"><div>수업<small>교사가 짠 활동</small></div><div>놀이<small>02 · 아이가 시작한 놀이 따라가기</small></div></li>
+      <li><div>평가<small>결과물 점검</small></div><div>기록<small>03 · 놀이 과정을 적어 나누기</small></div></li>
     </ol>
   </div>
+    <div class="handle" aria-hidden="true"></div>
+  <p class="eyes"><span><b>알기 전</b>어른의 눈 · 지금까지</span><span><b>알고 난 후</b>아이의 눈 · 앞으로</span></p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 3. 핵심 개념 · 맞는 예와 아닌 예 -->
-<section data-pattern="define" data-role="concept" data-var="c" class="slide">
+<!-- 3. 개념 · 사물 여섯 쌍 -->
+<section data-pattern="photo" class="slide">
   <div class="s-body">
-    <p class="kicker">01 개념 맞추기</p>
-    <div class="yesno fill">
-      <p class="yn-term">프롬프트<small>AI에게 건네는 요청문</small></p>
-      <div class="yn-yes"><h3>이런 것이 프롬프트</h3><ul><li>가정통신문 초안을 학부모 눈높이로 써 줘</li><li>회의록을 결정 사항 세 줄로 줄여 줘</li></ul></div>
-      <div class="yn-no"><h3>이런 것은 아님</h3><ul><li>검색창에 넣는 낱말 몇 개</li><li>AI가 내놓은 답 그 자체</li></ul></div>
+    <p class="kicker"><b>01</b> 교실의 사물 다시 보기</p>
+    <h2 class="title">새 교구가 아니라 <em>보는 눈</em>이 바뀝니다</h2>
+    <div class="things fill">
+      <figure><img src="img/24-b1.jpg" alt=""><img src="img/24-a1.jpg" alt=""><figcaption><span>골판지 상자</span><b>로켓</b></figcaption></figure>
+      <figure><img src="img/24-b2.jpg" alt=""><img src="img/24-a2.jpg" alt=""><figcaption><span>휴지심</span><b>망원경</b></figcaption></figure>
+      <figure><img src="img/24-b3.jpg" alt=""><img src="img/24-a3.jpg" alt=""><figcaption><span>병뚜껑</span><b>동전</b></figcaption></figure>
+      <figure><img src="img/24-b4.jpg" alt=""><img src="img/24-a4.jpg" alt=""><figcaption><span>나뭇가지</span><b>요술봉</b></figcaption></figure>
+      <figure><img src="img/24-b5.jpg" alt=""><img src="img/24-a5.jpg" alt=""><figcaption><span>천 조각</span><b>망토</b></figcaption></figure>
+      <figure><img src="img/24-b6.jpg" alt=""><img src="img/24-a6.jpg" alt=""><figcaption><span>페트병</span><b>물고기</b></figcaption></figure>
     </div>
   </div>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 4. 비교 · 짝 줄 -->
-<section data-pattern="compare" data-role="compare" data-var="a" class="slide" data-steps="2">
+<!-- 4. 줄마다 짝 (빌려 온 본문 #83) -->
+<section data-pattern="ref" class="slide ref">
   <div class="s-body">
-    <p class="kicker">02 좋은 요청과 나쁜 요청</p>
-    <h2 class="title">막연한 요청에 <em>대상과 모양</em>을 더하면 달라집니다</h2>
-    <div class="fill stack">
-      <div class="fix" data-step="1"><p class="q"><b>막연한 요청</b>안내문 써 줘</p><i aria-hidden="true"></i><p class="a"><b>분명한 요청</b>학부모에게 보낼 체험학습 안내문을 세 문단으로</p></div>
-      <div class="fix is-key" data-step="2"><p class="q"><b>막연한 요청</b>이 자료 정리해 줘</p><i aria-hidden="true"></i><p class="a"><b>분명한 요청</b>첨부한 설문 결과를 학년별 표로, 눈에 띄는 점 세 줄</p></div>
-    </div>
+    <p class="kicker"><b>참고</b> 줄마다 짝</p>
+    <div class="r-win"><iframe src="../light/83.html?slide=c24" title="줄마다 짝" loading="lazy"></iframe></div>
   </div>
+  <p class="src">빌려 온 본문 #83 줄마다 짝 · 내용은 다른 가상 예시</p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 5. 순서 · 절차 · 가로 세 칸 -->
-<section data-pattern="steps" data-role="steps" data-var="a" class="slide">
+<!-- 5. 핵심 수치 · 두 눈의 숫자 -->
+<section data-pattern="before-after" class="slide">
   <div class="s-body">
-    <p class="kicker">03 따라 하기</p>
-    <h2 class="title">요청문은 <em>세 걸음</em>으로 씁니다</h2>
-    <div class="road fill">
-      <div class="is-key"><h3><small>1</small>누구에게</h3><ul><li>읽을 사람을 적는다</li><li>학부모 · 학생 · 동료</li><li>말투도 함께</li></ul></div>
-      <div><h3><small>2</small>무엇으로</h3><ul><li>근거 자료를 붙인다</li><li>계획서 · 설문 · 회의록</li><li>개인정보는 지우고</li></ul></div>
-      <div><h3><small>3</small>어떤 모양으로</h3><ul><li>분량을 정한다</li><li>문단 · 표 · 목록</li><li>빠지면 안 될 것</li></ul></div>
+    <p class="kicker"><b>02</b> 아이가 시작한 놀이 따라가기</p>
+    <h2 class="title">아이가 고른 놀이가 <em>하루의 절반</em>이 됩니다</h2>
+    <div class="duo fill">
+      <div><p>아이가 스스로 고른 놀이 시간</p><b>40<small>분</small></b><p>하루 4시간 가운데</p></div>
+      <div><p>아이가 스스로 고른 놀이 시간</p><b>120<small>분</small></b><p>하루 4시간 가운데 · 2027 목표</p></div>
     </div>
   </div>
+  <p class="src">자료: ○○교육청 유치원 일과 조사(가상 예시)</p>
+    <div class="handle" aria-hidden="true"></div>
+  <p class="eyes"><span><b>알기 전</b>어른의 눈 · 2026</span><span><b>알고 난 후</b>아이의 눈 · 2027</span></p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 6. 사례 · 한 건 이야기 -->
-<section data-pattern="steps" data-role="case" data-var="c" class="slide">
+<!-- 6. 전과 후 (빌려 온 본문 #76) -->
+<section data-pattern="ref" class="slide ref">
   <div class="s-body">
-    <p class="kicker">03 따라 하기 · 한 학교의 사례</p>
-    <h2 class="title">체험학습 안내문 한 장이 <em>40분에서 15분</em>이 됐습니다</h2>
-    <div class="story fill">
-      <div><span>상황</span><b>해마다 새로 쓰는 안내문</b><p>지난 문서를 찾아 고치는 데 40분이 걸렸습니다.</p></div>
-      <div><span>한 일</span><b>세 걸음으로 요청</b><p>학부모에게, 올해 계획서로, 세 문단으로 써 달라고 했습니다.</p></div>
-      <div class="is-key"><span>결과</span><b>15분 만에 발송</b><p>초안 5분, 날짜와 금액 대조 10분.</p></div>
-    </div>
+    <p class="kicker"><b>참고</b> 줄어드는 공정</p>
+    <div class="r-win"><iframe src="../light/76.html?slide=c24" title="줄어드는 공정 띠" loading="lazy"></iframe></div>
   </div>
-  <p class="src">가상 예시</p>
+  <p class="src">빌려 온 본문 #76 줄어드는 공정 띠 · 내용은 다른 가상 예시</p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 7. 실습 · 할 일과 조건 -->
-<section data-pattern="todo" data-role="practice" data-var="a" class="slide">
+<!-- 7. 과제 · 교사의 눈 -->
+<section data-pattern="compare" class="slide">
   <div class="s-body">
-    <p class="kicker">04 실습</p>
-    <div class="todo fill">
-      <p class="t-do">이번 주에 쓸 문서 <em>하나</em>를 골라<br>세 걸음으로 요청문을 써 봅니다</p>
-      <dl>
-        <div><dt>시간</dt><dd>20분<small>15분 혼자, 5분 옆 사람과</small></dd></div>
-        <div><dt>결과물</dt><dd>요청문 + 받은 초안<small>실습지 1쪽에 붙입니다</small></dd></div>
-        <div><dt>막히면</dt><dd>세 걸음 카드<small>책상 위에 있습니다</small></dd></div>
-      </dl>
-    </div>
+    <p class="kicker"><b>02</b> 교사가 하는 일</p>
+    <h2 class="title">교사의 일은 줄지 않고 <em>자리가 바뀝니다</em></h2>
+    <ol class="split fill">
+      <li><div>활동을 미리 짠다<small>시간표대로</small></div><div>놀이를 지켜본다<small>아이가 무엇에 머무는지</small></div></li>
+      <li class="is-key"><div>재료를 나눠 준다<small>정해진 만큼</small></div><div>재료를 꺼내 둔다<small>아이 손이 닿는 곳에</small></div></li>
+      <li><div>결과물을 걷는다<small>잘 만들었는지</small></div><div>과정을 적는다<small>무엇을 궁금해했는지</small></div></li>
+    </ol>
   </div>
+    <div class="handle" aria-hidden="true"></div>
+  <p class="eyes"><span><b>알기 전</b>어른의 눈 · 지금까지</span><span><b>알고 난 후</b>아이의 눈 · 앞으로</span></p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 8. 핵심 수치 · 숫자 셋 -->
-<section data-pattern="numbers" data-role="numbers" data-var="a" class="slide">
+<!-- 8. 원인 (빌려 온 본문 #112) -->
+<section data-pattern="ref" class="slide ref">
   <div class="s-body">
-    <p class="kicker">05 정리 · 지난 연수 결과</p>
-    <h2 class="title">초안 쓰는 시간이 <em>40분에서 15분</em>으로 줄었습니다</h2>
-    <div class="grid g3 fill center">
-      <div class="tile is-key"><span>초안 작성 시간</span><b>15<small>분</small></b><p>연수 전 평균 40분</p></div>
-      <div class="tile"><span>다시 요청한 횟수</span><b>2<small>회</small></b><p>한 문서당 평균</p></div>
-      <div class="tile"><span>업무에 계속 쓰겠다</span><b>92<small>%</small></b><p>수료자 설문</p></div>
-    </div>
+    <p class="kicker"><b>참고</b> 다시 모은 칸</p>
+    <div class="r-win"><iframe src="../light/112.html?slide=c24" title="원인으로 다시 모은 칸" loading="lazy"></iframe></div>
   </div>
-  <p class="src">자료: ○○교육청 교육연수원 수료자 설문(가상 예시)</p>
+  <p class="src">빌려 온 본문 #112 원인으로 다시 모은 칸 · 내용은 다른 가상 예시</p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 9. 요약 · 한 문장 -->
-<section data-pattern="statement" data-role="summary" data-var="c" class="slide">
+<!-- 9. 요약 -->
+<section data-pattern="points" class="slide">
   <div class="s-body">
-    <p class="kicker">05 정리</p>
-    <div class="say fill">
-      <p>요청문에는 <em>누구에게 · 무엇으로 · 어떤 모양으로</em><br>세 가지를 적습니다</p>
-      <small>받은 초안의 사실과 숫자는 꼭 원문과 다시 맞춰 봅니다.</small>
-    </div>
+    <p class="kicker"><b>03</b> 놀이 과정을 적어 나누기</p>
+    <h2 class="title">올해 남길 것은 <em>세 가지</em>입니다</h2>
+    <ol class="split fill">
+      <li><div>교구 구입 목록</div><div>교실 사물 다시 보기 연수<small>유치원마다 두 번</small></div></li>
+      <li><div>주간 활동 계획안</div><div>놀이 관찰 기록<small>한 줄씩, 날마다</small></div></li>
+      <li class="is-key"><div>학기 말 결과물 전시</div><div>놀이 이야기 나눔<small>가정과 함께, 달마다</small></div></li>
+    </ol>
   </div>
+    <div class="handle" aria-hidden="true"></div>
+  <p class="eyes"><span><b>알기 전</b>어른의 눈 · 덜어 낼 것</span><span><b>알고 난 후</b>아이의 눈 · 남길 것</span></p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
 <!-- 10. 마무리 -->
-<section data-pattern="closing" data-role="closing" data-var="a" class="slide close">
-  <h2>오늘 쓴 요청문을<br>내일 업무에</h2>
-  <p>문의 · ○○교육청 교육연수원 연수 담당</p>
+<section data-pattern="closing" class="slide close">
+  <h2>같은 사물,<br><em>아이의 눈</em>으로</h2>
+  <p>문의 · ○○교육청 유아교육과 · 모든 기관 · 수치는 가상 예시</p>
+  <div class="strip"><div><img src="img/24-b1.jpg" alt=""><img src="img/24-b5.jpg" alt=""></div><div><img src="img/24-a1.jpg" alt=""><img src="img/24-a5.jpg" alt=""></div></div>
+    <div class="handle" aria-hidden="true"></div>
+  <p class="eyes"><span><b>알기 전</b>어른의 눈 · 재활용 재료</span><span><b>알고 난 후</b>아이의 눈 · 놀잇감</span></p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
