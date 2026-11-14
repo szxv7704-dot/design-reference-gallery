@@ -457,3 +457,64 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
+.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
+
+/* ── 이 표지의 고유 장치(src/covers/17.css) ── */
+/* #17 두 개의 심 — 표지의 장치를 본문 틀로
+   표지의 말: 두 심(유치원 · 어린이집)에서 자란 나이테가 바깥에서 하나로 합쳐진다.
+   본문 틀: 자간 넓은 청록 머리말, 명조 제목, 가는 나무색 줄 + 부제 한 줄. 두 심은 청록 · 황금 점 이름표, 합쳐진 것은 나무색 점 이름표.
+   내용은 '두 심 → 하나의 띠'(두 칸이 아래 한 띠로), '겹'(해마다 한 겹씩 넓어지는 띠)으로 담는다. 나무 단면은 표지에서 떠낸 것(covers/img/17-slice.png)만 쓴다. */
+:root{--w-teal:#2C8780;--w-gold:#D9A23A;--w-wood:#8A6443;--w-bark:#6B4A2E;--w-pale:#EED6A8;--w-paper:#ECEEE8;--w-ink:#22302C;
+  --ds-radius:999px;--ds-shadow:0 2px 0 rgba(42,42,34,.05),0 14px 30px -20px rgba(42,42,34,.4);--ds-surface:#F8F6EF}
+.slide:not(.c-orig){background:var(--w-paper);color:var(--w-ink)}
+.s-body{inset:92px 116px 110px;gap:22px}
+.kicker{display:block;padding:0;border:0;background:none;font:600 26px/1 var(--ds-font-body);letter-spacing:.34em;color:var(--w-teal)}
+.kicker::before{content:none}
+.title{font:700 60px/1.3 var(--ds-font-title);color:var(--w-ink);max-width:1300px}
+.title em{font-style:normal;color:var(--w-wood)}
+/* 가는 줄 + 부제 */
+.sub{margin:0;display:flex;align-items:center;gap:24px;font:700 30px/1.3 var(--ds-font-title);color:var(--w-wood)}
+.sub::before{content:"";width:76px;height:2px;background:var(--w-wood)}
+.page-no{right:116px;bottom:50px;font:500 22px/1 var(--ds-font-body);letter-spacing:.2em;color:var(--w-wood)}
+.src{left:116px;bottom:50px;font-size:22px}
+.org{position:absolute;left:116px;bottom:50px;margin:0;font:500 24px/1 var(--ds-font-body);color:#5F6A64}.org b{color:var(--w-ink);margin-right:14px}
+.slide:has(.src) .org{display:none}
+/* 점 이름표 */
+.pill{display:inline-flex;align-items:center;gap:12px;align-self:flex-start;padding:9px 22px 9px 16px;border-radius:999px;background:#FBF8F0;box-shadow:var(--ds-shadow);font:600 28px/1.2 var(--ds-font-body);color:var(--w-ink)}
+.pill::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--w-wood)}
+.pill.t::before{background:var(--w-teal)}.pill.g::before{background:var(--w-gold)}
+/* ── 두 심 → 하나의 띠(이 표지만의 부품): 위 두 칸은 각자의 심, 아래 한 띠는 함께 자랄 나이테 ── */
+.cores{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;gap:0 0;align-content:stretch}
+.cores > div{padding:28px 40px 30px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.cores > div:nth-child(1){border-top:5px solid var(--w-teal);background:linear-gradient(180deg,rgba(44,135,128,.10),transparent 70%)}
+.cores > div:nth-child(2){border-top:5px solid var(--w-gold);background:linear-gradient(180deg,rgba(217,162,58,.13),transparent 70%)}
+.cores ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:30px;line-height:1.45}
+.cores li small{display:inline-block;width:150px;font:600 24px/1 var(--ds-font-body);color:#5F6A64}
+.cores > .join{grid-column:1 / -1;border:0;background:var(--w-pale);border-top:5px solid var(--w-wood);border-bottom:5px solid var(--w-bark);padding:24px 40px 26px;flex-direction:row;align-items:center;gap:34px}
+.cores > .join p{margin:0;font:700 34px/1.4 var(--ds-font-title);color:var(--w-bark)}
+/* ── 겹(이 표지만의 부품): 해마다 한 겹. 안쪽 겹은 좁고 바깥 겹일수록 넓다 ── */
+.layers{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px}
+.layers li{box-sizing:border-box;display:grid;grid-template-columns:150px 1fr auto;align-items:center;gap:0 30px;padding:22px 44px;border-radius:999px;background:var(--w-pale);border:3px solid #C38B55;color:var(--w-bark)}
+.layers li:nth-child(1){width:58%}.layers li:nth-child(2){width:79%}.layers li:nth-child(3){width:100%}
+.layers li b{font:700 40px/1 var(--ds-font-title)}
+.layers li span{font:600 32px/1.35 var(--ds-font-body);color:var(--w-ink)}
+.layers li small{font:500 24px/1.3 var(--ds-font-body);color:var(--w-wood)}
+.layers li.is-key{border-color:var(--w-bark);box-shadow:0 0 0 5px var(--w-paper),0 0 0 8px var(--w-bark)}
+.with-slice{display:grid;grid-template-columns:1fr 460px;gap:50px;align-items:center}
+.with-slice img{width:460px;display:block;filter:drop-shadow(0 22px 26px rgba(42,42,34,.28))}
+/* 수치: 점 이름표가 머리에 붙은 숫자 */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-content:center}
+.nums > div{padding:10px 44px 10px;display:flex;flex-direction:column;gap:18px;border-left:2px solid #C9C2B2}.nums > div:first-child{border-left:0;padding-left:0}
+.nums b{font:700 120px/1 var(--ds-font-title);color:var(--w-ink)}.nums b small{margin-left:8px;font:600 34px/1 var(--ds-font-body);color:#5F6A64}
+.nums p{margin:0;font-size:26px;color:#5F6A64}
+.nums > div.is-key b{color:var(--w-wood)}
+.points li{border-color:#C9C2B2}.points li::before{font-family:var(--ds-font-title);color:var(--w-wood)}.points li.is-key::before,.points li.is-key b{color:var(--w-teal)}
+.r-win iframe{border-radius:14px;box-shadow:var(--ds-shadow)}
+.close h2{position:absolute;left:116px;top:330px;margin:0;font:700 84px/1.3 var(--ds-font-title);color:var(--w-ink)}.close h2 em{font-style:normal;color:var(--w-wood)}
+.close .sub{position:absolute;left:116px;top:600px}
+.close > img{position:absolute;right:130px;top:200px;width:760px;filter:drop-shadow(0 30px 34px rgba(42,42,34,.28))}
+.close .org{display:none}.close .sub{position:absolute;left:116px;top:610px;margin:0;width:auto;font:700 30px/1.3 var(--ds-font-title);color:var(--w-wood)}
+.cores ul{font-size:36px;gap:14px}.cores li small{font-size:26px;width:170px}.cores > .join p{font-size:38px}
+.layers{gap:20px}.layers li{padding:30px 54px}.layers li b{font-size:46px}.layers li span{font-size:36px}.layers li small{font-size:26px}
+.with-slice{grid-template-columns:1fr 560px}.with-slice img{width:560px}
