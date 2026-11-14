@@ -1,0 +1,50 @@
+/* #26 손 닿는 구명튜브 — 표지의 장치를 본문 틀로
+   장마다 박물관 도판 한 장: 위에 가는 줄과 자간 넓은 기관명, 오른쪽 위 'FIG. 0n'(쪽 번호), 아주 굵은 남색 제목, 짧은 주황 줄.
+   정보는 제원 캡션(가는 줄 아래 항목 + 고정폭 값)으로 적고, 과제는 그랩라인의 네 고정점처럼 넷으로 놓는다. 구명튜브 그림은 표지에서 떠낸 것(covers/img/26-buoy.jpg)만 쓴다. */
+:root{--b-navy:#14203A;--b-org:#E2421A;--b-soft:#5C6676;--b-line:#B9C0C9;--b-bg:#EEF1F3;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:radial-gradient(ellipse 80% 70% at 60% 45%,#F6F8F9,#E6EAEE);color:var(--b-navy)}
+.slide:not(.c-orig)::before{content:none}
+.s-body{inset:84px 96px 96px;gap:0}
+/* 위 가는 줄 + 기관명 */
+.kicker{display:flex;justify-content:space-between;padding:0 0 22px;margin:0 0 54px;border:0;border-bottom:1px solid var(--b-line);background:none;font:500 24px/1 var(--ds-font-body);letter-spacing:.18em;color:var(--b-soft)}
+.kicker::before{content:none}.kicker b{font-weight:700;color:var(--b-navy)}
+.kicker::after{content:"가상 예시"}
+/* FIG. 번호 = 쪽 번호 */
+.page-no{left:auto;right:96px;top:160px;bottom:auto;font:500 24px/1 var(--ds-font-num);letter-spacing:.1em;color:var(--b-soft)}
+.page-no::before{content:"FIG. "}
+.title{max-width:1250px;font:900 92px/1.14 var(--ds-font-title);letter-spacing:-.02em;color:var(--b-navy)}
+.title em{font-style:normal;color:var(--b-org)}
+.title::after{content:"";display:block;width:62px;height:5px;margin-top:40px;background:var(--b-org)}
+.s-body > .fill{margin-top:40px}
+.src{left:96px;bottom:44px;font:400 22px/1 var(--ds-font-num);color:var(--b-soft)}
+/* ── 제원 캡션(이 표지만의 부품): 가는 줄 아래 이름 + 항목 · 고정폭 값 ── */
+.spec{border-top:1px solid var(--b-line);padding-top:26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.spec h3{margin:0 0 6px;font:700 34px/1.2 var(--ds-font-title);color:var(--b-navy)}.spec h3 small{font:500 26px/1 var(--ds-font-body);color:var(--b-soft);margin-left:12px}
+.spec dl{margin:0;display:grid;grid-template-columns:190px 1fr;gap:12px 26px;font:500 28px/1.4 var(--ds-font-body)}
+.spec dt{color:var(--b-navy);font-weight:700}.spec dd{margin:0;font:400 28px/1.4 var(--ds-font-num);color:var(--b-soft)}
+.spec dd b{color:var(--b-org);font-weight:500}
+.spec.big dl{grid-template-columns:300px 1fr;gap:22px 30px;font-size:38px}.spec.big dd{font-size:36px}
+/* 도판 + 캡션 */
+.plate{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:end}
+.plate img{width:100%;display:block;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 86%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 86%,transparent 100%)}
+/* ── 네 고정점(이 표지만의 부품): 그랩라인을 붙드는 네 곳 = 과제 넷 ── */
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:0 40px;align-content:end}
+.four > div{border-top:1px solid var(--b-line);padding-top:26px;display:flex;flex-direction:column;gap:14px}
+.four > div::before{content:"";width:46px;height:5px;background:var(--b-navy)}
+.four b{font:500 26px/1 var(--ds-font-num);letter-spacing:.08em;color:var(--b-soft)}
+.four h3{margin:0;font:900 48px/1.2 var(--ds-font-title);color:var(--b-navy)}
+.four p{margin:0;font:400 28px/1.5 var(--ds-font-body);color:var(--b-soft)}
+.four > div.is-key::before{background:var(--b-org)}.four > div.is-key h3{color:var(--b-org)}
+/* 큰 숫자 둘 + 캡션 */
+.figs{display:grid;grid-template-columns:1fr 1fr;gap:0 80px;align-content:end}
+.figs > div{display:flex;flex-direction:column;gap:20px}
+.figs b{font:900 190px/.9 var(--ds-font-title);letter-spacing:-.04em;color:var(--b-navy)}.figs b small{font:500 44px/1 var(--ds-font-body);letter-spacing:0;margin-left:10px;color:var(--b-soft)}
+.figs > div.is-key b{color:var(--b-org)}
+.voice{display:grid;grid-template-columns:1.2fr 1fr;gap:70px;align-items:end}
+.voice p{margin:0;font:900 120px/1.1 var(--ds-font-title);letter-spacing:-.03em}.voice p em{font-style:normal;color:var(--b-org)}
+.slide.ref .kicker{margin-bottom:26px}.r-win iframe{border:1px solid var(--b-line)}
+.slide.ref .page-no{top:44px}
+.close h2{position:absolute;left:96px;top:250px;margin:0;font:900 110px/1.12 var(--ds-font-title);letter-spacing:-.02em;color:var(--b-navy)}.close h2 em{font-style:normal;color:var(--b-org)}
+.close > p{position:absolute;left:96px;top:620px;margin:0;font:500 28px/1.6 var(--ds-font-body);color:var(--b-soft)}
+.close > img{position:absolute;right:20px;top:230px;width:960px;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 86%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 86%,transparent 100%)}
+.close .page-no{top:84px}
