@@ -1,0 +1,113 @@
+<!-- 표지 덱: #25 · 바탕 F
+     장치: 일기도 머리띠(제n호 · 도면 이름 · 분석 시각) · 시간대 토글(아침 · 오후 · 저녁) · 6단 수요 눈금 색 · 파란 H(거점)와 빨간 L(과밀 · 공백) · 학교 관측소 줄 · 표지에서 시간대별로 떠낸 지도
+     내용은 표지와 같은 가상 주제(늘봄학교 운영 계획). 빌려 온 본문(@@REF@@)의 내용은 다른 가상 예시다 -->
+
+<!--DEF HDR
+  <div class="hdr"><u>제$1호</u><b>늘봄 수요 합성 분석도</b><span>$2</span><span>예보관 ○○○ · ○○교육청 늘봄지원센터 · 가상 예시</span></div>
+  <div class="tog" data-t="$3"><span>07:30<b>아침늘봄</b></span><span>13:00<b>오후늘봄</b></span><span>18:30<b>저녁늘봄</b></span></div>
+-->
+
+<!-- 2. 흐름 · 시간대 셋 -->
+<section data-pattern="toc" class="slide">
+  <div class="s-body">
+    <p class="kicker">PLAN 2027 · 유아 · 초등교육과 · 하루 세 번 분석</p>
+    <h2 class="title">같은 지도를 <em>세 시간대</em>로 겹쳐 봅니다</h2>
+    <div class="tslots fill">
+      <div class="tslot"><img src="img/25-am.jpg" alt="아침 수요 지도"><div><time>07:30</time><b>아침늘봄</b><p>출근길 돌봄. 수요는 좁고 옅다</p></div></div>
+      <div class="tslot is-key"><img src="img/25-pm.jpg" alt="오후 수요 지도"><div><time>13:00</time><b>오후늘봄</b><p>수요가 가장 넓게 번지는 시간</p></div></div>
+      <div class="tslot"><img src="img/25-eve.jpg" alt="저녁 수요 지도"><div><time>18:30</time><b>저녁늘봄</b><p>공백 전선이 동쪽으로 옮겨 간다</p></div></div>
+    </div>
+  </div>
+  @@USE:HDR:25|분석 2026.10.02(금) · 하루 전체|0@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 3. 개념 · 기호 풀이 -->
+<section data-pattern="define" class="slide">
+  <div class="s-body">
+    <p class="kicker">기호 풀이 · 이 도면을 읽는 법</p>
+    <h2 class="title">색은 수요, <em>H는 거점, L은 공백</em>입니다</h2>
+    <div class="keybox fill">
+      <h3>늘봄 수요 지수<span>신청 ÷ 정원, %</span></h3>
+      <div class="sc"><div class="scale"><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="ticks"><span>40</span><span>60</span><span>80</span><span>100</span><span>120</span><span>140+</span></p></div>
+      <dl><dt>H</dt><dd>거점 늘봄센터<small>자리가 남는 곳. 공급이 높다</small></dd></dl>
+      <dl><dt class="l">L</dt><dd>수요 과밀 · 공백<small>신청이 정원을 넘는 곳</small></dd></dl>
+      <dl><dt class="s">▼▼</dt><dd>공백 전선<small>수요가 공급을 넘는 경계</small></dd></dl>
+      <dl><dt class="s">◔</dt><dd>학교 관측소<small>원 = 참여율, 빨간 숫자 = 대기 인원</small></dd></dl>
+    </div>
+  </div>
+  @@USE:HDR:25|분석 2026.10.02(금) · 기호 풀이|0@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 4. 배경 (빌려 온 본문 #72) -->
+@@REF:72:참고 도면 · 좁혀 보기:HDR:26|참고 · 다른 가상 예시|0@@
+
+<!-- 5. 오후 · H와 L -->
+<section data-pattern="compare" class="slide">
+  <div class="s-body">
+    <p class="kicker">13:00 KST · 오후늘봄 · N 36°40′ / E 127°30′</p>
+    <h2 class="title">오후에는 거점 둘 사이에 <em>공백</em>이 생깁니다</h2>
+    <div class="mapside fill">
+      <img src="img/25-pm.jpg" alt="오후 수요 지도">
+      <div class="hl">
+        <div class="l"><b>L</b><div><span>996</span><p>수요 과밀 · 대기 64명</p><small>신청이 정원의 140%를 넘는다</small></div></div>
+        <div><b>H</b><div><span>1023</span><p>거점센터 · 정원 360</p><small>북쪽. 자리가 남는다</small></div></div>
+        <div><b>H</b><div><span>1026</span><p>거점센터 · 정원 420</p><small>남동쪽. 전선 너머에는 닿지 않는다</small></div></div>
+      </div>
+    </div>
+  </div>
+  @@USE:HDR:25|분석 2026.10.02(금) 13:00 KST|2@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 6. 구성비 (빌려 온 본문 #50) -->
+@@REF:50:참고 도면 · 지분:HDR:27|참고 · 다른 가상 예시|2@@
+
+<!-- 7. 관측소 줄 -->
+<section data-pattern="table" class="slide">
+  <div class="s-body">
+    <p class="kicker">13:00 KST · 학교 관측소 여섯 곳</p>
+    <h2 class="title">대기가 가장 긴 곳은 <em>다온초</em>입니다</h2>
+    <div class="stn fill">
+      <ul>
+        <li><i></i>학교<span>위치</span><em>수요 지수</em><b>대기</b></li>
+        <li><i style="--p:100"></i>다온초<span>공백 L 남쪽</span><em class="v6">148</em><b>334</b></li>
+        <li><i style="--p:100"></i>누리초<span>전선 북쪽 끝</span><em class="v5">131</em><b>286</b></li>
+        <li><i style="--p:75"></i>새봄초<span>전선 바로 옆</span><em class="v5">124</em><b>241</b></li>
+        <li><i style="--p:75"></i>가람초<span>거점 H 가까이</span><em class="v4">108</em><b>212</b></li>
+        <li><i style="--p:50"></i>이음초<span>남쪽 섬</span><em class="v3">92</em><b>188</b></li>
+        <li><i style="--p:50"></i>한울초<span>서쪽 해안</span><em class="v2">76</em><b>150</b></li>
+      </ul>
+    </div>
+  </div>
+  <p class="src">지형 · 수치 모두 가상</p>
+  @@USE:HDR:25|분석 2026.10.02(금) 13:00 KST|2@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 8. 구성비 (빌려 온 본문 #89) -->
+@@REF:89:참고 도면 · 펼친 조각:HDR:28|참고 · 다른 가상 예시|3@@
+
+<!-- 9. 요약 · 예보 -->
+<section data-pattern="points" class="slide">
+  <div class="s-body">
+    <p class="kicker">2027 예보 · 전선을 걷어 내는 세 가지</p>
+    <h2 class="title">공백 전선 안쪽에 <em>거점 하나</em>를 더 세웁니다</h2>
+    <ol class="points fill">
+      <li class="is-key"><b>H 하나 더</b><p>다온초 옆에 거점 늘봄센터를 새로 연다</p></li>
+      <li><b>저녁까지</b><p>거점 두 곳의 운영을 18:30에서 20:00으로 늘린다</p></li>
+      <li><b>관측은 달마다</b><p>학교별 대기 인원을 매달 다시 그린다</p></li>
+    </ol>
+  </div>
+  @@USE:HDR:25|예보 2027.03 ~|3@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 10. 마무리 -->
+<section data-pattern="closing" class="slide close">
+  <img src="img/25-eve.jpg" alt="">
+  <div class="box"><h2>수요가 몰리는 곳에<br><em>거점이 닿게</em></h2><p>문의 · ○○교육청 늘봄지원센터 · 지형 · 수치 모두 가상</p></div>
+  @@USE:HDR:25|분석 2026.10.02(금) 18:30 KST|3@@
+  <span class="page-no"></span>
+</section>

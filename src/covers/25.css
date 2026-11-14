@@ -1,0 +1,74 @@
+/* #25 늘봄 수요 일기도 — 표지의 장치를 본문 틀로
+   장마다 일기도 한 장: 위에 머리띠(제n호 칸 · 도면 이름 · 분석 시각 · 예보관), 오른쪽 위에 시간대 토글(아침 · 오후 · 저녁, 지금 시간대만 검정).
+   값은 6단 수요 눈금 색으로, 거점은 파란 H · 과밀과 공백은 빨간 L, 학교는 관측소 줄(참여율 원 · 대기 인원 빨간 숫자)로 담는다.
+   지도는 표지에서 시간대별로 떠낸 것(covers/img/25-am · pm · eve.jpg)만 쓴다. */
+:root{--k-ink:#1E2A33;--k-blue:#1F57C3;--k-red:#D3322B;--k-yel:#F2D33B;--k-bg:#F3F5F0;--k-sea:#DCE8EF;--k-soft:#5A6873;
+  --k1:#B9E2A8;--k2:#5DBB5E;--k3:#2F9A50;--k4:#F2D33B;--k5:#F29B2B;--k6:#E2502E;--ds-radius:0px;--ds-shadow:none;--ds-surface:#FFFFFF}
+.slide:not(.c-orig){background:var(--k-bg);color:var(--k-ink)}
+.slide:not(.c-orig)::before{content:"";position:absolute;inset:100px 0 0;z-index:0;pointer-events:none;opacity:.9;
+  background:repeating-linear-gradient(0deg,transparent 0 268px,#fff 268px 272px),repeating-linear-gradient(90deg,transparent 0 478px,#fff 478px 482px)}
+/* 머리띠 */
+.hdr{position:absolute;inset:0 0 auto 0;height:100px;z-index:4;box-sizing:border-box;padding:0 44px;display:flex;align-items:center;gap:26px;background:#fff;border-bottom:2px solid var(--k-ink);font:400 24px/1 var(--ds-font-num);color:var(--k-ink);white-space:nowrap}
+.hdr u{text-decoration:none;padding:10px 14px;border:1.5px solid var(--k-ink)}
+.hdr b{font:800 26px/1 var(--ds-font-num);letter-spacing:.06em}
+.hdr span:last-child{margin-left:auto}
+/* ── 시간대 토글(이 표지만의 부품): 아침 · 오후 · 저녁. 지금 보는 시간대만 검정 ── */
+.tog{position:absolute;right:44px;top:124px;z-index:4;display:flex;border:2px solid var(--k-ink);background:#fff;font:400 22px/1.3 var(--ds-font-num);text-align:center}
+.tog span{padding:12px 20px;border-left:1.5px solid var(--k-ink)}.tog span:first-child{border-left:0}
+.tog span b{display:block;font-weight:400}
+.tog[data-t="1"] span:nth-child(1),.tog[data-t="2"] span:nth-child(2),.tog[data-t="3"] span:nth-child(3){background:var(--k-ink);color:#fff}
+.s-body{inset:124px 44px 76px 60px;gap:16px}
+.kicker{display:block;padding:0;border:0;background:none;font:400 24px/1 var(--ds-font-num);letter-spacing:.06em;color:var(--k-soft)}
+.kicker::before{content:none}
+.title{max-width:1240px;font:800 60px/1.22 var(--ds-font-title);letter-spacing:-.01em;color:var(--k-ink)}
+.title em{font-style:normal;color:var(--k-red)}
+.page-no{right:44px;bottom:28px;font:400 22px/1 var(--ds-font-num);color:var(--k-soft)}
+.src{left:60px;bottom:28px;font:400 22px/1 var(--ds-font-num)}
+/* 흰 판: 검은 가는 테 */
+.box,.tslot,.hl > div,.stn,.keybox{background:#fff;border:2px solid var(--k-ink);box-sizing:border-box;min-width:0}
+/* ── 6단 수요 눈금(이 표지만의 부품) ── */
+.scale{display:grid;grid-template-columns:repeat(6,1fr);height:22px}
+.scale i:nth-child(1){background:var(--k1)}.scale i:nth-child(2){background:var(--k2)}.scale i:nth-child(3){background:var(--k3)}.scale i:nth-child(4){background:var(--k4)}.scale i:nth-child(5){background:var(--k5)}.scale i:nth-child(6){background:var(--k6)}
+.ticks{display:grid;grid-template-columns:repeat(6,1fr);margin:6px 0 0;font:400 22px/1 var(--ds-font-num);color:var(--k-soft)}
+.v1{background:var(--k1)}.v2{background:var(--k2)}.v3{background:var(--k3);color:#fff}.v4{background:var(--k4)}.v5{background:var(--k5)}.v6{background:var(--k6);color:#fff}
+/* 시간대 셋 */
+.tslots{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-content:center}
+.tslot{display:flex;flex-direction:column}
+.tslot img{width:100%;aspect-ratio:1000/530;object-fit:cover;display:block;border-bottom:2px solid var(--k-ink)}
+.tslot div{padding:20px 24px 24px;display:flex;flex-direction:column;gap:8px}
+.tslot time{font:700 44px/1 var(--ds-font-num)}.tslot b{font:800 32px/1.2 var(--ds-font-title)}.tslot p{margin:0;font-size:26px;line-height:1.45;color:var(--k-soft)}
+.tslot.is-key{box-shadow:0 0 0 4px var(--k-red)}
+/* ── H와 L(이 표지만의 부품): 거점(공급)은 파란 H, 과밀 · 공백은 빨간 L ── */
+.mapside{display:grid;grid-template-columns:1.35fr 1fr;gap:24px;align-items:stretch}
+.mapside > img{width:100%;height:100%;object-fit:cover;border:2px solid var(--k-ink);box-sizing:border-box;display:block}
+.hl{display:flex;flex-direction:column;gap:20px;justify-content:center}
+.hl > div{display:grid;grid-template-columns:120px 1fr;align-items:center;gap:0 22px;padding:20px 26px}
+.hl b{font:800 120px/.9 var(--ds-font-title);color:var(--k-blue)}.hl .l b{color:var(--k-red)}
+.hl span{font:700 36px/1 var(--ds-font-num);color:var(--k-blue)}.hl .l span{color:var(--k-red)}
+.hl p{margin:8px 0 0;font:800 30px/1.3 var(--ds-font-title)}.hl small{display:block;margin-top:4px;font:400 24px/1.4 var(--ds-font-body);color:var(--k-soft)}
+/* ── 관측소 줄(이 표지만의 부품): 학교 · 참여율 원 · 수요 지수 칸 · 대기 인원 ── */
+.stn{padding:8px 30px;display:flex;flex-direction:column;justify-content:center}
+.stn ul{list-style:none;margin:0;padding:0}
+.stn li{display:grid;grid-template-columns:44px 210px 1fr 150px 150px;align-items:center;gap:0 22px;padding:13px 0;border-top:1px dashed #AEB7BE;font:800 32px/1.2 var(--ds-font-title)}
+.stn li:first-child{border-top:0;font:400 22px/1 var(--ds-font-num);color:var(--k-soft)}
+.stn li i{width:36px;height:36px;border-radius:50%;border:2px solid var(--k-ink);box-sizing:border-box;background:conic-gradient(var(--k-ink) calc(var(--p) * 1%),#fff 0)}
+.stn li:first-child i{border:0;background:none}
+.stn li span{font:400 24px/1.3 var(--ds-font-body);color:var(--k-soft)}
+.stn li em{padding:6px 0;text-align:center;font:700 28px/1 var(--ds-font-num);font-style:normal}
+.stn li b{text-align:right;font:700 32px/1 var(--ds-font-num);color:var(--k-red)}
+.stn li:first-child b,.stn li:first-child em{font:400 22px/1 var(--ds-font-num);color:var(--k-soft)}
+/* 기호 풀이 */
+.keybox{padding:26px 34px 30px;display:grid;grid-template-columns:1fr 1fr;gap:20px 50px;align-content:center}
+.keybox h3{grid-column:1 / -1;margin:0;display:flex;justify-content:space-between;font:700 28px/1 var(--ds-font-num)}.keybox h3 span{font-weight:400;color:var(--k-soft)}
+.keybox .sc{grid-column:1 / -1}
+.keybox dl{margin:0;display:grid;grid-template-columns:90px 1fr;align-items:center;gap:0 18px}
+.keybox dt{font:800 64px/1 var(--ds-font-title);color:var(--k-blue);text-align:center}.keybox dt.l{color:var(--k-red)}.keybox dt.s{font-size:36px;color:var(--k-ink)}
+.keybox dd{margin:0;font:800 32px/1.3 var(--ds-font-title)}.keybox dd small{display:block;font:400 24px/1.4 var(--ds-font-body);color:var(--k-soft)}
+.points li{border-color:#AEB7BE}.points li::before{font-family:var(--ds-font-num);color:var(--k-blue)}.points li.is-key::before,.points li.is-key b{color:var(--k-red)}
+.r-win iframe{border:2px solid var(--k-ink)}
+.close > img{position:absolute;inset:100px 0 0;width:100%;height:calc(100% - 100px);object-fit:cover}
+.close .box{position:absolute;left:60px;bottom:70px;width:860px;padding:40px 46px}
+.close .box h2{position:static;margin:0;font:800 76px/1.2 var(--ds-font-title);color:var(--k-ink)}.close .box h2 em{font-style:normal;color:var(--k-red)}
+.close .box p{position:static;margin:22px 0 0;padding-top:20px;border-top:1px solid var(--k-ink);font:400 24px/1.5 var(--ds-font-num);color:var(--k-soft)}
+.stn li{padding:20px 0;font-size:38px;grid-template-columns:52px 250px 1fr 180px 170px}.stn li i{width:44px;height:44px}.stn li span{font-size:28px}.stn li em{font-size:34px;padding:8px 0}.stn li b{font-size:38px}
+.keybox{gap:30px 50px}.keybox dl{grid-template-columns:120px 1fr}.keybox dt{font-size:92px}.keybox dt.s{font-size:48px}.keybox dd{font-size:40px}.keybox dd small{font-size:28px}.scale{height:34px}
