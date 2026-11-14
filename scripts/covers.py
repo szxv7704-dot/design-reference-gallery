@@ -73,9 +73,10 @@ def bespoke_body(no):
     body, base, device = bespoke_src(no); refs = []
     def ref(m):
         n = int(m.group(1)); refs.append(n)
-        return ('<section data-pattern="ref" class="slide ref">\n  <div class="s-body">\n    <p class="kicker">%s</p>\n    <div class="r-win"><iframe src="../light/%02d.html?slide=c%d" title="%s" loading="lazy"></iframe></div>\n  </div>\n'
+        return ('<section data-pattern="ref" class="slide ref">\n  <div class="s-body">\n    <p class="kicker">%s</p>\n    <div class="r-win"><iframe src="../light/%02d.html?slide=%s" title="%s" loading="lazy"></iframe></div>\n  </div>\n'
                 '  <p class="src">빌려 온 본문 #%d %s · 내용은 다른 가상 예시</p>\n%s  <span class="page-no"></span>\n</section>') % (
-                    m.group(2), n, no, name(rounds[n]), n, name(rounds[n]), ('  @@USE:%s@@\n' % m.group(3)) if m.group(3) else '')
+                    m.group(2), n, '' if rounds[n].get('families') == ['A'] else 'c%d' % no,   # 픽셀 스타일 전용 본문은 제 색 그대로
+                    name(rounds[n]), n, name(rounds[n]), ('  @@USE:%s@@\n' % m.group(3)) if m.group(3) else '')
     body = re.sub(r'@@REF:(\d+):([^@:]+)(?::(\w+:[^@]*))?@@', ref, body)   # @@REF:번호:머리말@@ 또는 @@REF:번호:머리말:틀이름:값@@
     # 되풀이 틀: <!--DEF 이름 ⏎ … ⏎ --> 로 정의하고 @@USE:이름:값1|값2@@ 로 쓴다($1 · $2 자리에 값)
     defs = dict(re.findall(r'<!--DEF (\w+)\n(.*?)\n-->', body, re.S)); body = re.sub(r'<!--DEF \w+\n.*?\n-->\n*', '', body, flags=re.S)

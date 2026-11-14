@@ -1,0 +1,86 @@
+/* #9 늘봄 퀘스트 일지 — 표지의 장치를 본문 틀로
+   장마다 게임 화면: 위에 상태 바(화면 이름 · 부서 · A 수락 · 진행 단계 · 가상 예시), 아래에 의뢰인 대화창.
+   그 장의 결론(제목)은 의뢰인의 말로 대화창에 놓는다. 본문은 창 안에 — 커서가 놓인 퀘스트 목록, 체크 목표, 보상 슬롯, 진행 단계.
+   초상화 · 보상 아이콘은 표지에서 떠낸 것(covers/img/9-*.png)만 쓴다. */
+:root{--q-navy:#1D2B53;--q-deep:#0F0E1C;--q-blue:#2B4A8F;--q-sky:#4A74C9;--q-cream:#F4F0E6;--q-gray:#A9B3C9;--q-yel:#FFCF4A;--q-red:#E8475F;--q-pur:#8C6BD0}
+.slide:not(.c-orig){background:var(--q-cream)}
+/* 상태 바 */
+.hud{position:absolute;inset:0 0 auto 0;height:76px;z-index:4;display:flex;align-items:center;gap:30px;padding:0 60px;background:var(--q-navy);border-bottom:var(--px) solid var(--q-deep);font:400 22px/1 var(--ds-font-body);color:var(--q-gray)}
+.hud b{font:700 33px/1 var(--ds-font-title);color:var(--q-yel)}
+.hud span{padding-left:30px;border-left:var(--px) solid var(--q-blue);color:var(--q-cream)}
+.hud em{margin-left:auto;display:flex;align-items:center;gap:10px;font-style:normal;color:var(--q-cream)}
+.hud em::before{content:"A";width:28px;height:28px;display:grid;place-items:center;background:var(--q-red);color:var(--q-cream);font-size:22px}
+.hud ol{list-style:none;margin:0;padding:0;display:flex;gap:26px}
+.hud li{display:flex;align-items:center;gap:10px}
+.hud li::before{content:"";width:20px;height:20px;border:var(--px) solid var(--q-gray);box-sizing:border-box}
+.hud[data-step="1"] li:nth-child(1),.hud[data-step="2"] li:nth-child(2),.hud[data-step="3"] li:nth-child(3),.hud[data-step="4"] li:nth-child(4){color:var(--q-yel)}
+.hud[data-step="1"] li:nth-child(1)::before,.hud[data-step="2"] li:nth-child(2)::before,.hud[data-step="3"] li:nth-child(3)::before,.hud[data-step="4"] li:nth-child(4)::before{background:var(--q-yel);border-color:var(--q-yel)}
+.hud i{padding:8px 14px;background:var(--q-red);color:var(--q-cream);font-style:normal}
+.s-body{inset:76px 60px 36px;padding-top:30px;gap:26px}
+.kicker{display:none}
+.page-no{right:76px;bottom:52px;color:var(--q-gray);z-index:5}
+.src{left:60px;bottom:8px;font-size:22px}
+/* ── 의뢰인 대화창(이 표지만의 부품): 그 장의 결론을 의뢰인의 한마디로. data-who = 말하는 사람 ── */
+.title{order:9;position:relative;max-width:none;margin:0;min-height:216px;box-sizing:border-box;padding:76px 120px 30px 236px;
+  background:var(--q-navy);border:var(--px) solid var(--q-gray);outline:var(--px) solid var(--q-deep);color:var(--q-cream);font:400 44px/1.35 var(--ds-font-title);text-wrap:pretty}
+.title::before{content:"";position:absolute;left:28px;top:24px;width:160px;height:160px;border:var(--px) solid var(--q-gray);background:url("img/9-face.png") center/cover;image-rendering:pixelated}
+.title::after{content:attr(data-who);position:absolute;left:236px;top:26px;font:700 33px/1 var(--ds-font-title);color:var(--q-yel)}
+.title em{color:var(--q-yel)}
+.dev i:first-child{position:absolute;right:104px;bottom:64px;z-index:5;font:400 33px/1 var(--ds-font-body);font-style:normal;color:var(--q-yel)}
+.dev i:first-child::before{content:"▼"}
+.slide.ref .dev,.slide.close .dev{display:none}
+/* 창: 표지의 창 그대로 — 남색 바탕, 밝은 테, 바깥 먹 테 */
+.win,.quest,.detail,.reward,.track{background:var(--q-navy);border:var(--px) solid var(--q-gray);outline:var(--px) solid var(--q-deep);color:var(--q-cream);box-sizing:border-box;min-width:0}
+.two-win{display:grid;grid-template-columns:5fr 7fr;gap:28px}
+/* ── 퀘스트 목록(이 표지만의 부품): 탭 + ★ 메인 · ◆ 서브 + 진행 수. 지금 항목에 커서 ▶ ── */
+.quest{padding:22px 26px;display:flex;flex-direction:column;gap:14px}
+.quest .tabs{margin:0 0 6px;display:flex;gap:10px;padding-bottom:16px;border-bottom:var(--px) solid var(--q-sky)}
+.quest .tabs > *{padding:8px 14px;border:var(--px) solid var(--q-sky);background:var(--q-deep);font:400 22px/1 var(--ds-font-body);color:var(--q-gray)}
+.quest .tabs b{background:var(--q-yel);border-color:var(--q-yel);color:var(--q-deep)}
+.quest ul{list-style:none;margin:0;padding:0 0 0 40px;display:flex;flex-direction:column;gap:6px}
+.quest li{position:relative;display:grid;grid-template-columns:44px 1fr auto;align-items:center;padding:12px 14px;font:400 33px/1.2 var(--ds-font-body)}
+.quest li::before{content:"★";color:var(--q-yel);font-size:22px}
+.quest li.sub::before{content:"◆";color:var(--q-pur)}
+.quest li span{font-size:33px;color:var(--q-gray)}
+.quest li.is-key{background:var(--q-deep);outline:var(--px) solid var(--q-yel);color:var(--q-yel)}
+.quest li.is-key::after{content:"▶";position:absolute;left:-40px;top:50%;margin-top:-13px;font-size:22px;line-height:1.2;color:var(--q-cream)}
+/* ── 상세 창(이 표지만의 부품): 노란 이름표 + 큰 이름 + 점선 + 한 줄 + 체크 목표 ── */
+.detail{padding:26px 34px 30px;display:flex;flex-direction:column;gap:16px}
+.detail .tag{align-self:flex-start;padding:8px 16px;background:var(--q-yel);color:var(--q-deep);font:700 22px/1 var(--ds-font-body)}
+.detail h3{margin:0;font:700 66px/1.2 var(--ds-font-title);color:var(--q-cream);text-shadow:var(--px) var(--px) 0 var(--q-deep)}
+.detail p{margin:0;padding-top:16px;border-top:var(--px) dotted var(--q-sky);font:400 33px/1.4 var(--ds-font-body)}
+.detail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font:400 33px/1.3 var(--ds-font-body)}
+.detail li{display:flex;align-items:center;gap:16px}
+.detail li::before{content:"";width:28px;height:28px;border:var(--px) solid var(--q-gray);background:var(--q-deep);box-sizing:border-box;flex:none}
+.detail li.is-key{color:var(--q-yel)}.detail li.is-key::before{border-color:var(--q-yel)}
+.detail small{display:block;color:var(--q-yel);font:700 22px/1 var(--ds-font-body);margin-top:6px}
+/* ── 보상 슬롯(이 표지만의 부품): 얻는 것 넷을 아이템 칸으로 ── */
+.reward{padding:30px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;align-content:center}
+.reward > div{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.reward img{width:165px;height:150px;image-rendering:pixelated;display:block}
+.reward b{font:700 33px/1.2 var(--ds-font-title);color:var(--q-yel)}
+.reward p{margin:0;font:400 22px/1.5 var(--ds-font-body);color:var(--q-cream)}
+/* ── 진행 단계(이 표지만의 부품): 네모 칸을 선으로 이은 단계. 지금 단계는 노란 칸 ── */
+.track{padding:34px 44px 38px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.track h3{margin:0 0 26px;display:flex;justify-content:space-between;font:700 33px/1 var(--ds-font-title);color:var(--q-yel)}
+.track h3 span{font-weight:400;color:var(--q-gray)}
+.track ol{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:0}
+.track li{position:relative;padding-top:74px;display:flex;flex-direction:column;gap:10px;padding-right:24px}
+.track li::before{content:"";position:absolute;left:0;top:0;width:48px;height:48px;border:var(--px) solid var(--q-gray);background:var(--q-navy);box-sizing:border-box;z-index:1}
+.track li + li::after{content:"";position:absolute;right:calc(100% - 0px);top:22px;width:calc(100% - 48px);height:var(--px);background:var(--q-gray)}
+.track li b{font:700 33px/1.2 var(--ds-font-title)}
+.track li p{margin:0;font:400 22px/1.6 var(--ds-font-body);color:var(--q-gray)}
+.track li.is-key::before{background:var(--q-yel);border-color:var(--q-yel)}.track li.is-key b{color:var(--q-yel)}
+.r-win iframe{border:var(--px) solid var(--q-gray);outline:var(--px) solid var(--q-deep)}
+.slide.ref .s-body{bottom:60px}.slide.ref .src{bottom:18px}
+/* 마무리: 수락 선택 창 */
+.close .ask-win{position:absolute;left:260px;right:260px;top:300px;padding:60px 70px;background:var(--q-navy);border:var(--px) solid var(--q-gray);outline:var(--px) solid var(--q-deep);color:var(--q-cream)}
+.close .ask-win h2{position:static;margin:0;font:700 66px/1.3 var(--ds-font-title);color:var(--q-cream)}
+.close .ask-win ul{list-style:none;margin:44px 0 0;padding:0 0 0 44px;display:flex;gap:90px;font:400 44px/1 var(--ds-font-body)}
+.close .ask-win li.is-key{position:relative;color:var(--q-yel)}.close .ask-win li.is-key::before{content:"▶";position:absolute;left:-44px;font-size:33px;top:5px;color:var(--q-cream)}
+.close > p{position:absolute;left:260px;top:720px;margin:0;font:400 22px/1.6 var(--ds-font-body);color:var(--ds-sub)}
+.page-no{right:60px;bottom:6px;color:var(--ds-sub)}
+.quest{justify-content:center}.quest li{padding:20px 18px;font-size:44px}.quest li span{font-size:44px}.quest li::before{font-size:33px}.quest li.is-key::after{font-size:33px;margin-top:-20px}
+.detail{justify-content:center;gap:20px}.detail ul{font-size:44px;gap:16px}.detail p{font-size:44px}.detail h3{font-size:88px}
+.reward img{width:198px;height:180px}.reward b{font-size:44px}.reward p{font-size:33px}
+.track li b{font-size:44px}.track li p{font-size:33px}.track h3{font-size:44px}
