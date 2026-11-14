@@ -1,0 +1,53 @@
+/* #30 꺼지지 않는 창구 — 표지의 장치를 본문 틀로
+   장마다 밤의 벽: 어두운 바탕, 얇은 글자, 강조 낱말만 분홍 네온으로 빛난다. 오른쪽에 줄에 매달린 약속 간판 셋 — 지금 다루는 약속만 켜지고(하늘 · 분홍 · 호박색) 나머지는 회색 윤곽.
+   내용은 유리관 윤곽 상자에 담고, 켜진 것 하나만 빛난다. 빌려 온 본문은 밝은 등 상자처럼 벽에 건다. */
+:root{--z-bg:#0B0C12;--z-wall:#12141C;--z-ink:#FFF4F9;--z-dim:#8A8F9E;--z-off:#3A3E4B;--z-pink:#FF2D8A;--z-cyan:#25E2FF;--z-amber:#FFB01F;--z-side:430px;--z-on:var(--z-pink);--ds-radius:18px;--ds-shadow:none}
+.slide:not(.c-orig){background:var(--z-bg);color:var(--z-ink)}
+.slide:not(.c-orig)::before{content:"";position:absolute;inset:0;z-index:0;opacity:.5;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 50px,rgba(255,255,255,.035) 50px 52px),repeating-linear-gradient(90deg,transparent 0 118px,rgba(255,255,255,.03) 118px 120px)}
+.slide[data-on="1"]{--z-on:var(--z-cyan)}.slide[data-on="2"]{--z-on:var(--z-pink)}.slide[data-on="3"]{--z-on:var(--z-amber)}
+/* ── 매달린 약속 간판(이 표지만의 부품): 셋 가운데 지금 것만 켜진다 ── */
+.signs{list-style:none;margin:0;padding:0;position:absolute;right:90px;top:150px;width:calc(var(--z-side) - 90px);z-index:3;display:flex;flex-direction:column;gap:44px}
+.signs li{position:relative;height:110px;display:grid;place-items:center;border:3px solid var(--z-off);border-radius:18px;font:300 36px/1 var(--ds-font-title);letter-spacing:.08em;color:var(--z-off)}
+.signs li::before,.signs li::after{content:"";position:absolute;top:-47px;width:2px;height:44px;background:var(--z-off)}
+.signs li::before{left:18%}.signs li::after{right:18%}
+.slide[data-on="1"] .signs li:nth-child(1),.slide[data-on="all"] .signs li:nth-child(1){border-color:var(--z-cyan);color:#DFFBFF;box-shadow:0 0 22px rgba(37,226,255,.55),inset 0 0 14px rgba(37,226,255,.3);text-shadow:0 0 14px var(--z-cyan)}
+.slide[data-on="2"] .signs li:nth-child(2),.slide[data-on="all"] .signs li:nth-child(2){border-color:var(--z-pink);color:#FFE3F0;box-shadow:0 0 22px rgba(255,45,138,.55),inset 0 0 14px rgba(255,45,138,.3);text-shadow:0 0 14px var(--z-pink)}
+.slide[data-on="3"] .signs li:nth-child(3),.slide[data-on="all"] .signs li:nth-child(3){border-color:var(--z-amber);color:#FFF1D4;box-shadow:0 0 22px rgba(255,176,31,.55),inset 0 0 14px rgba(255,176,31,.3);text-shadow:0 0 14px var(--z-amber)}
+.s-body{inset:92px calc(var(--z-side) + 60px) 110px 100px;gap:22px}
+.kicker{display:flex;align-items:center;gap:26px;padding:0;border:0;background:none;font:400 26px/1 var(--ds-font-num);letter-spacing:.12em;color:var(--z-dim)}
+.kicker::before{content:none}.kicker b{font:600 28px/1 var(--ds-font-body);letter-spacing:.06em;color:var(--z-ink)}
+.kicker b::after{content:"";display:inline-block;vertical-align:middle;width:60px;height:1px;margin-left:26px;background:var(--z-dim)}
+.title{font:300 68px/1.25 var(--ds-font-title);letter-spacing:.01em;color:var(--z-ink)}
+.title em{font-style:normal;color:#fff;text-shadow:0 0 8px var(--z-on),0 0 26px var(--z-on),0 0 54px var(--z-on)}
+.foot{position:absolute;left:100px;bottom:50px;margin:0;font:400 24px/1 var(--ds-font-num);letter-spacing:.06em;color:var(--z-dim);z-index:3}.foot b{font:600 26px/1 var(--ds-font-body);color:var(--z-ink);margin-right:26px;letter-spacing:0}
+.page-no{right:90px;bottom:50px;font:400 22px/1 var(--ds-font-num);color:var(--z-dim)}
+.src{left:100px;bottom:92px;font-size:22px;color:var(--z-dim)}
+/* ── 유리관 상자(이 표지만의 부품): 윤곽선 상자. 켜진 것 하나만 빛난다 ── */
+.tubes{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:30px;align-content:center}
+.tubes > div{padding:32px 34px 36px;border:3px solid var(--z-off);border-radius:18px;display:flex;flex-direction:column;gap:14px;min-width:0;color:var(--z-dim)}
+.tubes small{font:400 24px/1 var(--ds-font-num);letter-spacing:.1em}
+.tubes h3{margin:0;font:300 48px/1.25 var(--ds-font-title);color:inherit}
+.tubes p{margin:0;font:400 28px/1.5 var(--ds-font-body)}
+.tubes b{font:300 110px/1 var(--ds-font-title);letter-spacing:-.02em}.tubes b i{font:400 34px/1 var(--ds-font-body);font-style:normal;letter-spacing:0;margin-left:8px}
+.tubes > div.is-key{border-color:var(--z-on);color:var(--z-ink);box-shadow:0 0 26px color-mix(in srgb,var(--z-on) 55%,transparent),inset 0 0 16px color-mix(in srgb,var(--z-on) 28%,transparent)}
+.tubes > div.is-key h3,.tubes > div.is-key b{color:#fff;text-shadow:0 0 12px var(--z-on),0 0 34px var(--z-on)}
+.tubes.col{grid-auto-flow:row;gap:22px}.tubes.col > div{display:grid;grid-template-columns:240px 1fr;align-items:center;gap:0 30px;padding:26px 34px}.tubes.col h3{font-size:42px}
+/* 네온 한 문장 */
+.glow{display:flex;flex-direction:column;justify-content:center;gap:34px}
+.glow p{margin:0;font:300 120px/1.2 var(--ds-font-title);color:#fff;text-shadow:0 0 8px var(--z-pink),0 0 30px var(--z-pink),0 0 70px var(--z-pink)}
+.glow small{font:400 34px/1.5 var(--ds-font-body);color:var(--z-dim)}.glow small b{color:var(--z-ink);font-weight:600}
+/* 큰 간판 셋 */
+.bigsigns{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;align-content:center}
+.bigsigns > div{padding:44px 30px 40px;border-radius:18px;border:3px solid var(--z-cyan);text-align:center;display:flex;flex-direction:column;gap:20px;box-shadow:0 0 26px rgba(37,226,255,.5),inset 0 0 16px rgba(37,226,255,.25)}
+.bigsigns > div:nth-child(2){border-color:var(--z-pink);box-shadow:0 0 26px rgba(255,45,138,.5),inset 0 0 16px rgba(255,45,138,.25)}
+.bigsigns > div:nth-child(3){border-color:var(--z-amber);box-shadow:0 0 26px rgba(255,176,31,.5),inset 0 0 16px rgba(255,176,31,.25)}
+.bigsigns h3{margin:0;font:300 54px/1.2 var(--ds-font-title);letter-spacing:.06em;color:#fff;text-shadow:0 0 14px var(--z-cyan)}
+.bigsigns > div:nth-child(2) h3{text-shadow:0 0 14px var(--z-pink)}.bigsigns > div:nth-child(3) h3{text-shadow:0 0 14px var(--z-amber)}
+.bigsigns p{margin:0;font:400 28px/1.5 var(--ds-font-body);color:var(--z-dim)}
+.slide.wide .s-body{right:100px}.slide.wide .signs{display:none}
+.slide.ref .s-body{right:100px;bottom:96px}.slide.ref .signs{display:none}
+.r-win iframe{border-radius:8px;box-shadow:0 0 0 3px #2A2D38,0 0 60px rgba(255,255,255,.12)}
+.end h2{position:absolute;left:100px;top:250px;margin:0;font:300 128px/1.2 var(--ds-font-title);color:#fff;text-shadow:0 0 8px var(--z-pink),0 0 30px var(--z-pink),0 0 70px var(--z-pink)}
+.end > p:not(.foot){position:absolute;left:100px;top:640px;margin:0;font:400 30px/1.6 var(--ds-font-body);color:var(--z-dim)}.end > p:not(.foot) b{color:var(--z-ink);font-weight:600}
+.slide.ref .src{left:auto;right:150px;bottom:50px}
