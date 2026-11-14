@@ -457,3 +457,54 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
+.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
+
+/* ── 이 표지의 고유 장치(src/covers/19.css) ── */
+/* #19 화이트 단지 모형 — 표지의 장치를 본문 틀로
+   장마다 모형의 한 곳을 고른 화면: 왼쪽에 번호 단추가 달린 조작 목록(고른 곳만 주황), 머리말은 경로(학교 전체 › 본관 › 2층 › …, 끝만 주황), 오른쪽 위 고정폭 축척 글.
+   내용은 그 곳만 주황으로 켜진 모형 + 설명 카드 + 고정폭 규격 칩. 흰색 = 기존, 주황 = 계획. 모형은 표지에서 공간별로 떠낸 것(covers/img/19-m*.jpg)만 쓴다. */
+:root{--c-org:#F08A24;--c-ink:#1F2B36;--c-soft:#5E6C79;--c-line:#D6DBE0;--c-chip:#FCEBD6;--c-chipink:#8A4A05;--c-rail:400px;
+  --ds-radius:14px;--ds-shadow:0 2px 0 rgba(31,43,54,.04),0 22px 44px -26px rgba(31,43,54,.4);--ds-surface:#FFFFFF}
+.slide:not(.c-orig){background:linear-gradient(180deg,#E9EDF1,#E4E8EC);color:var(--c-ink)}
+.slide:not(.c-orig)::before{content:none}
+/* ── 조작 목록(이 표지만의 부품): 번호 단추 + 공간 이름. 지금 고른 곳만 흰 칸에 주황 단추 ── */
+.ctl{list-style:none;margin:0;padding:0;position:absolute;left:60px;top:150px;width:calc(var(--c-rail) - 60px);z-index:3;display:flex;flex-direction:column;gap:12px}
+.ctl::before{content:"MODEL CONTROL";display:block;margin-bottom:8px;font:500 22px/1 var(--ds-font-num);letter-spacing:.14em;color:var(--c-soft)}
+.ctl li{display:grid;grid-template-columns:52px 1fr;align-items:center;gap:0 14px;padding:12px 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.7);background:rgba(255,255,255,.45);font:500 26px/1.2 var(--ds-font-body);color:var(--c-ink)}
+.ctl li b{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:0 4px 10px -4px rgba(31,43,54,.35);font:500 24px/1 var(--ds-font-num);color:var(--c-soft)}
+.ctl[data-on="1"] li:nth-child(1),.ctl[data-on="2"] li:nth-child(2),.ctl[data-on="3"] li:nth-child(3),.ctl[data-on="4"] li:nth-child(4),.ctl[data-on="5"] li:nth-child(5),.ctl[data-on="6"] li:nth-child(6),.ctl[data-on="0"] li:nth-child(7){background:#fff;border-color:var(--c-org)}
+.ctl[data-on="1"] li:nth-child(1) b,.ctl[data-on="2"] li:nth-child(2) b,.ctl[data-on="3"] li:nth-child(3) b,.ctl[data-on="4"] li:nth-child(4) b,.ctl[data-on="5"] li:nth-child(5) b,.ctl[data-on="6"] li:nth-child(6) b,.ctl[data-on="0"] li:nth-child(7) b{background:var(--c-org);color:#fff;box-shadow:0 0 0 7px rgba(240,138,36,.22)}
+.scale{position:absolute;right:70px;top:64px;margin:0;z-index:3;text-align:right;font:500 22px/1.6 var(--ds-font-num);letter-spacing:.04em;color:var(--c-soft)}
+.s-body{inset:64px 70px 84px calc(var(--c-rail) + 60px);gap:18px}
+/* 경로 머리말: 끝만 주황 */
+.kicker{display:block;padding:0;border:0;background:none;font:500 24px/1.3 var(--ds-font-num);letter-spacing:.06em;color:var(--c-soft)}
+.kicker::before{content:none}.kicker b{font-weight:500;color:var(--c-org)}
+.title{font:700 58px/1.25 var(--ds-font-title);color:var(--c-ink);max-width:1150px;letter-spacing:-.01em}
+.title em{font-style:normal;color:var(--c-org)}
+.page-no{right:70px;bottom:36px;font:500 22px/1 var(--ds-font-num);color:var(--c-soft)}
+.src{left:calc(var(--c-rail) + 60px);bottom:36px;font-size:22px}
+/* ── 모형 + 설명 카드(이 표지만의 부품) ── */
+.model{display:grid;grid-template-columns:1.25fr 1fr;gap:30px;align-items:center}
+.model > img{width:100%;display:block;border-radius:14px;mix-blend-mode:multiply}
+.callout{background:#fff;border-radius:16px;box-shadow:var(--ds-shadow);padding:30px 34px 32px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.callout h3{margin:0;display:flex;align-items:center;gap:16px;font:700 40px/1.2 var(--ds-font-title)}
+.callout h3 b{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--c-org);color:#fff;font:600 28px/1 var(--ds-font-num)}
+.callout p{margin:0;font-size:28px;line-height:1.5}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips span{padding:8px 14px;border-radius:8px;background:var(--c-chip);font:600 24px/1.2 var(--ds-font-num);color:var(--c-chipink)}
+.chips span.g{background:#E9EDF1;color:var(--c-soft)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-content:center}
+.pair .callout img{width:100%;border-radius:10px;mix-blend-mode:multiply;display:block}
+/* ── 규격표(이 표지만의 부품): 공간마다 번호 단추 + 규격 칩 ── */
+.specs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.specs li{display:grid;grid-template-columns:54px 330px 1fr;align-items:center;gap:0 18px;padding:14px 22px;border-radius:14px;background:#fff;box-shadow:var(--ds-shadow);font:600 30px/1.2 var(--ds-font-body)}
+.specs li b{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:#EEF1F4;font:500 24px/1 var(--ds-font-num);color:var(--c-soft)}
+.specs li.is-key{outline:2px solid var(--c-org)}.specs li.is-key b{background:var(--c-org);color:#fff}
+.check li{border-radius:14px;box-shadow:var(--ds-shadow);background:#fff}.check li::before{border-radius:8px;border-color:var(--c-line)}.check li.is-key::before{border-color:var(--c-org);background:var(--c-org)}
+.r-win iframe{border-radius:14px;box-shadow:var(--ds-shadow)}
+.close h2{position:absolute;left:calc(var(--c-rail) + 60px);top:120px;margin:0;font:700 76px/1.25 var(--ds-font-title);color:var(--c-ink)}.close h2 em{font-style:normal;color:var(--c-org)}
+.close > p{position:absolute;left:calc(var(--c-rail) + 60px);top:330px;margin:0;font-size:28px;color:var(--c-soft)}
+.close > img{position:absolute;right:60px;bottom:40px;width:1000px;mix-blend-mode:multiply}
+.model{grid-template-columns:1.5fr 1fr}.callout p{font-size:30px}.callout h3{font-size:44px}.chips span{font-size:26px}
+.model > img,.pair .callout img,.close > img{-webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 78%,transparent 100%);mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 78%,transparent 100%)}
