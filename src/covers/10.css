@@ -1,0 +1,82 @@
+/* #10 안개 걷는 영토도 — 표지의 장치를 본문 틀로
+   장마다 전략 게임 화면: 위에 양피지 제목 띠와 자원 표시(학급 · 센터 · 단계), 오른쪽에 '지역 진척' 패널(단계 색 칸), 아래에 빨간 '!' 과제 알림 띠.
+   그 장의 결론(제목)은 과제 알림 띠에 놓는다. 아직 가지 않은 단계 · 지역은 '안개'(흐린 빗금 칸)로 남긴다. 지도 그림은 표지에서 떠낸 것(covers/img/10-*.png)만 쓴다. */
+:root{--m-ink:#1E1832;--m-pur:#5B4E7A;--m-paper:#F6EDD5;--m-sand:#DCCCA6;--m-s1:#F2C063;--m-s2:#E5546A;--m-s3:#98CCD6;--m-fog:#EDF2F5;--m-side:520px;--px:5px;
+  --ds-surface:#FBF6E6;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:var(--m-paper);color:var(--m-ink)}
+.slide:not(.c-orig)::before{content:none}
+/* 제목 띠 + 자원 표시 */
+.hud{position:absolute;inset:0 0 auto 0;height:120px;z-index:4;box-sizing:border-box;padding:0 40px;display:flex;align-items:center;gap:36px;background:var(--m-paper);border-bottom:var(--px) solid var(--m-ink)}
+.hud b{font:700 55px/1 var(--ds-font-title);color:var(--m-ink);white-space:nowrap}.hud span,.hud em,.hud i{white-space:nowrap}
+.hud span{font:400 33px/1 var(--ds-font-body);color:var(--m-pur)}
+.hud em{margin-left:auto;font:400 33px/1 var(--ds-font-body);font-style:normal;color:var(--m-ink);display:flex;gap:34px}
+.hud em u{text-decoration:none;display:flex;align-items:center;gap:12px}
+.hud em u::before{content:"";width:22px;height:22px;background:var(--m-s2)}
+.hud em u:nth-child(2)::before{background:var(--m-pur)}.hud em u:nth-child(3)::before{background:var(--m-s1)}
+.hud i{padding:10px 16px;background:var(--m-s2);color:var(--m-paper);font:400 33px/1 var(--ds-font-body);font-style:normal}
+/* ── 지역 진척 패널(이 표지만의 부품): 지역마다 단계 색 칸. 아직 열리지 않은 칸은 모래색, 손대지 않은 지역은 흐리다 ── */
+.side{position:absolute;right:0;top:120px;bottom:0;width:var(--m-side);z-index:3;box-sizing:border-box;padding:26px 30px;border-left:var(--px) solid var(--m-ink);background:var(--m-paper);display:flex;flex-direction:column;gap:14px;font:400 33px/1.15 var(--ds-font-body)}
+.side h4{margin:0;display:flex;justify-content:space-between;font:400 33px/1 var(--ds-font-body);color:var(--m-pur)}
+.side h4 span{color:var(--m-ink)}
+.side .sgoal{display:flex;gap:10px;height:22px;margin-bottom:14px}.side .sgoal i{display:block;background:var(--m-sand)}
+.side .sgoal i:nth-child(1){flex:8}.side .sgoal i:nth-child(2){flex:14}.side .sgoal i:nth-child(3){flex:14}
+.side ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.side li{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:0 6px}
+.side li span{display:flex;gap:5px}.side li span i{width:26px;height:22px;background:var(--m-sand)}
+.side li small{font-size:33px}
+.side img{width:100%;margin-top:auto;border:var(--px) solid var(--m-ink);box-sizing:border-box;image-rendering:pixelated;display:block}
+/* 단계가 열린 만큼 칸에 색이 든다 */
+.side[data-stage="1"] .goal i:nth-child(1),.side[data-stage="2"] .goal i:nth-child(1),.side[data-stage="3"] .goal i:nth-child(1),
+.side[data-stage="1"] i.s1,.side[data-stage="2"] i.s1,.side[data-stage="3"] i.s1{background:var(--m-s1)}
+.side[data-stage="2"] .goal i:nth-child(2),.side[data-stage="3"] .goal i:nth-child(2),.side[data-stage="2"] i.s2,.side[data-stage="3"] i.s2{background:var(--m-s2)}
+.side[data-stage="3"] .goal i:nth-child(3),.side[data-stage="3"] i.s3{background:var(--m-s3)}
+.side[data-stage="0"] li,.side[data-stage="1"] li:nth-child(n+3),.side[data-stage="2"] li:nth-child(n+6){color:#A9B4C2}
+/* 본문 자리 + 과제 알림 띠(제목) */
+.s-body{inset:120px var(--m-side) 0 0;padding:36px 44px 0;gap:0;box-sizing:border-box}
+.kicker{display:none}
+.title{order:9;position:relative;max-width:none;box-sizing:border-box;margin:30px -44px 0;min-height:160px;padding:66px 40px 22px 132px;border-top:var(--px) solid var(--m-ink);background:var(--m-paper);
+  font:400 44px/1.3 var(--ds-font-title);color:var(--m-ink)}
+.title::before{content:"!";position:absolute;left:36px;top:50%;margin-top:-48px;width:66px;height:96px;display:grid;place-items:center;background:var(--m-s2);color:var(--m-ink);font:700 66px/1 var(--ds-font-title)}
+.title::after{content:attr(data-quest);position:absolute;left:132px;top:20px;font:400 33px/1.3 var(--ds-font-body);color:#A65A45}
+.title em{color:var(--m-s2);font-style:normal}
+.page-no{right:calc(var(--m-side) + 30px);bottom:14px;font:400 22px/1 var(--ds-font-body);color:var(--m-pur);z-index:5}
+.src{left:44px;bottom:176px;font:400 22px/1 var(--ds-font-body);z-index:5}
+/* 칸: 양피지 창 — 먹 테, 그림자 없음 */
+.tile,.card,.check li,.stages li,.regions{background:var(--ds-surface);border:var(--px) solid var(--m-ink);border-radius:0;box-shadow:none;color:var(--m-ink);clip-path:none}
+.tile span{font:400 33px/1.2 var(--ds-font-body);color:var(--m-pur)}.tile b{font:700 88px/1 var(--ds-font-title);color:var(--m-ink)}.tile b small{font-size:33px}.tile p{font:400 22px/1.4 var(--ds-font-body)}
+.tile.is-key{border-color:var(--m-s2);box-shadow:inset 0 0 0 var(--px) var(--m-s2)}.tile.is-key b{color:var(--m-s2)}
+.grid{gap:20px}
+/* ── 단계 깃발(이 표지만의 부품): 단계마다 깃발 색 머리 + 연도 + 학급 수. 아직 열리지 않은 단계는 안개 ── */
+.stages{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:8fr 14fr 14fr;gap:20px;align-content:center}
+.stages li{display:flex;flex-direction:column;gap:12px;padding:0 0 26px;min-width:0}
+.stages li > u{text-decoration:none;display:block;padding:12px 24px;background:var(--m-s1);font:700 33px/1 var(--ds-font-title);color:var(--m-ink);border-bottom:var(--px) solid var(--m-ink)}
+.stages li:nth-child(2) > u{background:var(--m-s2)}.stages li:nth-child(3) > u{background:var(--m-s3)}
+.stages b{padding:10px 24px 0;font:700 88px/1 var(--ds-font-title)}.stages b small{font-size:33px;margin-left:8px}
+.stages span{padding:0 24px;font:400 33px/1.3 var(--ds-font-body)}
+.stages p{margin:0;padding:0 24px;font:400 22px/1.5 var(--ds-font-body);color:var(--m-pur)}
+/* 안개: 아직 가지 않은 곳 — 흰 구름색 빗금, 글자는 흐리게 */
+.fog{background:repeating-linear-gradient(135deg,var(--m-fog) 0 10px,#DDE7EE 10px 20px)!important;color:#9AA9B8!important;border-color:#A9B4C2!important}
+.fog > u{background:#DDE7EE!important;color:#9AA9B8!important;border-color:#A9B4C2!important}.fog b,.fog p,.fog span{color:#9AA9B8!important}
+/* ── 지역 진척표(이 표지만의 부품): 패널의 줄을 크게. 지역 · 칸 · 신설/목표 ── */
+.regions{padding:22px 34px;display:flex;flex-direction:column;justify-content:center;gap:0}
+.regions h3{margin:0 0 14px;display:flex;justify-content:space-between;font:400 33px/1 var(--ds-font-body);color:var(--m-pur)}
+.regions ul{list-style:none;margin:0;padding:0}
+.regions li{display:grid;grid-template-columns:150px 1fr 110px 1fr;align-items:center;gap:0 20px;padding:11px 0;border-top:var(--px) dotted var(--m-sand);font:400 44px/1 var(--ds-font-body)}
+.regions li span{display:flex;gap:8px}.regions li span i{width:46px;height:34px;background:var(--m-sand)}
+.regions i.s1{background:var(--m-s1)}.regions i.s2{background:var(--m-s2)}.regions i.s3{background:var(--m-s3)}
+.regions li small{font-size:44px;text-align:right}.regions li em{font:400 22px/1.3 var(--ds-font-body);font-style:normal;color:var(--m-pur)}
+.regions li.is-key{color:var(--m-s2)}.regions li.dim{color:#A9B4C2}.regions li.dim em{color:#A9B4C2}
+/* 승리 조건: 체크 목록 */
+.check li{font:400 44px/1.3 var(--ds-font-body);padding:22px 30px}.check li::before{border:var(--px) solid var(--m-ink);border-radius:0}.check li small{font:400 22px/1.3 var(--ds-font-body);color:var(--m-pur)}
+.check li.is-key{border-color:var(--m-s2)}.check li.is-key::before{border-color:var(--m-s2);background:var(--m-s2)}
+.card{border-top:var(--px) solid var(--m-ink);min-height:0;padding:0 0 24px;gap:12px}.card .c-no{padding:12px 24px;background:var(--m-s2);border-bottom:var(--px) solid var(--m-ink);font:700 33px/1 var(--ds-font-title);color:var(--m-ink)}
+.card h3{margin:8px 24px 0;font:700 44px/1.25 var(--ds-font-title)}.card p{margin:0 24px;font:400 33px/1.4 var(--ds-font-body)}.card .c-foot{margin:auto 24px 0;padding-top:14px;border-top:var(--px) dotted var(--m-sand);font:400 22px/1.4 var(--ds-font-body);color:var(--m-pur)}.card .c-foot b{font:700 33px/1 var(--ds-font-title);color:var(--m-ink)}
+.slide.ref .s-body{padding-bottom:60px}.slide.ref .src{bottom:18px}
+.r-win iframe{border:var(--px) solid var(--m-ink)}
+/* 마무리: 떠낸 지도 위에 제목 창 */
+.close .mapbg{position:absolute;left:0;top:120px;right:var(--m-side);bottom:0;background:url("img/10-map.png") center/cover;image-rendering:pixelated}
+.close .mapbg::after{content:"";position:absolute;inset:0;background:rgba(246,237,213,.35)}
+.close .win{position:absolute;left:120px;top:330px;width:1160px;box-sizing:border-box;padding:44px 54px;background:var(--m-paper);border:var(--px) solid var(--m-ink)}
+.close .win h2{position:static;margin:0;font:700 66px/1.3 var(--ds-font-title);color:var(--m-ink)}.close .win h2 em{font-style:normal;color:var(--m-s2)}
+.close .win p{position:static;margin:26px 0 0;font:400 33px/1.4 var(--ds-font-body);color:var(--m-pur)}
+.card.is-key .c-no{color:var(--m-ink)}.card.is-key{box-shadow:inset 0 0 0 var(--px) var(--m-s2)}

@@ -1,0 +1,117 @@
+<!-- 표지 덱: #10 · 바탕 B
+     장치: 양피지 제목 띠와 자원 표시 · 오른쪽 지역 진척 패널(단계 색 칸) · 아래 빨간 '!' 과제 알림 띠(결론) · 가지 않은 곳은 안개 · 표지에서 떠낸 지도
+     내용은 표지와 같은 가상 주제(특수학급 신·증설 계획 2027~2029). 빌려 온 본문(@@REF@@)의 내용은 다른 가상 예시다 -->
+
+<!--DEF HUD
+  <div class="hud"><b>$3</b><span>가상 ○○교육청 특수교육과</span><em><u>학급 $2/36</u><u>센터 $4/7</u><u>$1단계</u></em><i>가상 예시</i></div>
+  <aside class="side" data-stage="$1" aria-label="지역 진척">
+    <h4>단계 목표<span>$2/36</span></h4>
+    <div class="sgoal"><i></i><i></i><i></i></div>
+    <h4>지역 진척<span>신설/목표</span></h4>
+    <ul>
+      <li>다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>8</small></li>
+      <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s2"></i><i class="s2"></i><i class="s2"></i></span><small>6</small></li>
+      <li>늘솔<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i></span><small>4</small></li>
+      <li>너울<span><i class="s2"></i><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>바로<span><i class="s2"></i><i class="s2"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>5</small></li>
+      <li>미르<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+      <li>새벽<span><i class="s3"></i><i class="s3"></i><i class="s3"></i><i class="s3"></i></span><small>4</small></li>
+    </ul>
+    <img src="img/10-mini.png" alt="">
+  </aside>
+-->
+
+<!-- 2. 흐름 · 단계 깃발 -->
+<section data-pattern="toc" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-quest="전체 과제 · 2027~2029">세 단계에 걸쳐 <em>36학급</em>을 새로 엽니다</h2>
+    <ol class="stages fill">
+      <li><u>1단계 시범</u><b>8<small>학급</small></b><span>2027</span><p>다온 · 가람에서 먼저</p></li>
+      <li><u>2단계 확대</u><b>14<small>학급</small></b><span>2028</span><p>늘솔 · 너울 · 바로로<br>통학 지원 노선 개통</p></li>
+      <li><u>3단계 전역</u><b>14<small>학급</small></b><span>2029</span><p>미르 · 새벽까지<br>일곱 지역 모두</p></li>
+    </ol>
+  </div>
+  @@USE:HUD:0|0|전체 지도|3@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 3. 배경 · 수치 -->
+<section data-pattern="numbers" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-quest="출발점 · 2026 현황">특수학급 셋 중 하나가 <em>정원을 넘겼습니다</em></h2>
+    <div class="grid g3 fill center">
+      <div class="tile is-key"><span>정원 넘긴 학급</span><b>34<small>%</small></b><p>전체 212학급 가운데</p></div>
+      <div class="tile"><span>통학 30분 넘는 학생</span><b>410<small>명</small></b><p>대상 학생의 19%</p></div>
+      <div class="tile"><span>지원센터 없는 지역</span><b>4<small>곳</small></b><p>일곱 지역 가운데</p></div>
+    </div>
+  </div>
+  <p class="src">자료: ○○교육청 특수교육 실태 조사(가상 예시)</p>
+  @@USE:HUD:0|0|출발점|3@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 4. 지역 분포 (빌려 온 본문 #51) -->
+@@REF:51:지역 살피기:HUD:0|0|지역 살피기|3@@
+
+<!-- 5. 1단계 · 지역 진척표 -->
+<section data-pattern="bars" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-quest="과제 1 · 1단계 시범 (2027)">먼저 <em>다온 · 가람</em>에 여덟 학급을 엽니다</h2>
+    <div class="regions fill">
+      <h3>지역 진척<span>신설 / 목표</span></h3>
+      <ul>
+        <li class="is-key">다온<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i class="s1"></i><i></i><i></i><i></i></span><small>5/8</small><em>정원 넘긴 학급이 가장 많다</em></li>
+        <li>가람<span><i class="s1"></i><i class="s1"></i><i class="s1"></i><i></i><i></i><i></i></span><small>3/6</small><em>지원센터 옆 학교부터</em></li>
+        <li class="dim">늘솔<span><i></i><i></i><i></i><i></i></span><small>0/4</small><em>2단계</em></li>
+        <li class="dim">너울<span><i></i><i></i><i></i><i></i><i></i></span><small>0/5</small><em>2단계</em></li>
+        <li class="dim">바로<span><i></i><i></i><i></i><i></i><i></i></span><small>0/5</small><em>2단계</em></li>
+        <li class="dim">미르<span><i></i><i></i><i></i><i></i></span><small>0/4</small><em>3단계 · 아직 안개</em></li>
+        <li class="dim">새벽<span><i></i><i></i><i></i><i></i></span><small>0/4</small><em>3단계 · 아직 안개</em></li>
+      </ul>
+    </div>
+  </div>
+  @@USE:HUD:1|8|1단계 시범|5@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 6. 비교 (빌려 온 본문 #49) -->
+@@REF:49:견주어 보기:HUD:1|8|견주어 보기|5@@
+
+<!-- 7. 2단계 · 과제 카드와 안개 -->
+<section data-pattern="groups" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-quest="과제 2 · 2단계 확대 (2028)">늘솔 · 너울 · 바로에 14학급, <em>통학 노선</em>을 함께 엽니다</h2>
+    <div class="grid g3 fill center">
+      <div class="card is-key"><span class="c-no">과제 2-1</span><h3>학급 신설</h3><p>세 지역에<br>14학급</p><p class="c-foot">깃발 <b>14</b>개</p></div>
+      <div class="card"><span class="c-no">과제 2-2</span><h3>통학 지원</h3><p>지원센터에서<br>학교까지 노선</p><p class="c-foot">목표 <b>30분</b> 안</p></div>
+      <div class="card fog"><span class="c-no">과제 3</span><h3>전역 개방</h3><p>미르 · 새벽<br>14학급</p><p class="c-foot">2029 · 아직 안개</p></div>
+    </div>
+  </div>
+  @@USE:HUD:2|22|2단계 확대|5@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 8. 체계 (빌려 온 본문 #114) -->
+@@REF:114:단계별 체계:HUD:2|22|단계별 체계|5@@
+
+<!-- 9. 요약 · 승리 조건 -->
+<section data-pattern="todo" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-quest="승리 조건 · 2029">세 가지가 모두 채워지면 <em>지도의 안개가 걷힙니다</em></h2>
+    <ul class="check fill">
+      <li>36학급 신설<small>1단계 8 · 2단계 14 · 3단계 14</small></li>
+      <li>일곱 지역 모두에 지원센터<small>지금 3곳 → 7곳</small></li>
+      <li class="is-key">어느 학생이든 통학 30분 안<small>가장 중요한 조건</small></li>
+    </ul>
+  </div>
+  @@USE:HUD:3|36|승리 조건|7@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 10. 마무리 -->
+<section data-pattern="closing" class="slide close">
+  <div class="mapbg"></div>
+  <div class="win"><h2>남은 안개는 <em>두 지역</em>,<br>2029년에 모두 걷습니다</h2><p>문의 · ○○교육청 특수교육과 · 모든 기관 · 수치는 가상 예시</p></div>
+  @@USE:HUD:2|22|다음 단계|5@@
+  <span class="page-no"></span>
+</section>
