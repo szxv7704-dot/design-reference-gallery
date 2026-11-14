@@ -25,7 +25,7 @@ VARN = {(s['role'], s['var']): s['n'] for s in slides if s['id'] == 'var'}   # �
 def users(role, v): return [s for s in STYLES if kit.pick(s['id'], role) == v]   # 그 구성을 10장 예시에 쓴 스타일
 th = lambda f, deck, n: 'kit/thumbs/%s%s-%d.jpg' % (f, deck, n)
 def status(s): return '검증된 세트' if s.get('verified') else '확장 중'
-STATUS_NOTE = {'검증된 세트': '10장 예시 · 다른 주제 시험 · 넘침 검사를 통과', '확장 중': '10장 예시는 있으나 검증이 끝나지 않음', '표지만 있음': '표지만 있고 이어지는 본문이 없음'}
+STATUS_NOTE = {'검증된 세트': '10장 예시 · 다른 주제 시험 · 넘침 검사를 통과', '확장 중': '10장 예시는 있으나 검증이 끝나지 않음', '표지 덱': '표지의 색 · 글꼴을 입힌 10장. 표지의 고유한 특징까지 본문에 이어받지는 않음'}
 def role_slide(rid, f='B'):   # 그 역할을 맡은 10장 예시의 장 번호
     return next((s['n'] for s in SETS[f] if s.get('role') == rid), None)
 
@@ -34,6 +34,7 @@ CSS = r'''
 :root{--bg:#F7F6F3;--card:#FFFFFF;--ink:#1B1E24;--soft:#5C616B;--line:#E3E1DB;--key:#1F5FD0;--keybg:#E8EFFC;--chip:#EDEBE5;--ok:#1E7B4F;--warn:#9A6400;
   --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all;line-height:1.6}
 a{color:inherit}img{max-width:100%;height:auto;display:block;background:var(--chip)}
@@ -69,7 +70,7 @@ h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--so
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:20px}
 .sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column}
 .sc .cv img{border-radius:8px;aspect-ratio:16/9;object-fit:cover}
-.sc .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}.mc .tri{gap:1px;margin:0;border-bottom:1px solid var(--line)}.mc .tri img{border:0}
 .sc .tri img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
 .sc h3{margin:12px 6px 0;font-size:20px}
 .sc p{margin:2px 6px 0;font-size:14.5px;color:var(--soft)}
@@ -188,13 +189,17 @@ def req_apply(s):
 
 # ── 표지 레퍼런스(이어지는 본문이 없는 디자인) ──
 covers = sorted([r for r in vis if r['role'] == '표지'], key=lambda r: r['no'])
+CDECK = {m['no']: m for m in J('data', 'cover_decks.json')}   # scripts/covers.py 가 만든 표지별 10장 덱
 def cover_card(r, up=''):
-    f = r.get('family')
-    return ('<article class="mc item" data-kind="cover" data-mood="%s" data-q="%s"><a href="%sdeck.html?cover=%d"><img src="%s%s%s" alt="%s 표지" loading="lazy" width="640" height="360"></a>'
-            '<b>%s <small>#%d</small></b><p><span class="badge">표지만 있음</span>%s</p>'
-            '<p class="lk"><a href="%sdeck.html?cover=%d">색만 맞춘 본문과 넘겨 보기</a> · <a href="%s%s%s">원본</a></p></article>') % (
-        E(next((s['mood'] for s in STYLES if s['id'] == f), '')), E(name(r) + ' ' + (kit.NAMES.get(f, '') if f else '')), up, r['no'], up, E(r['thumb']), ver(r), E(name(r)),
-        E(name(r)), r['no'], (' 가까운 스타일: <a href="%sstyles/%s.html">%s</a>' % (up, f, E(kit.NAMES[f]))) if f else '', up, r['no'], up, E(r['file']), ver(r))
+    f = r.get('family'); no = r['no']; d = CDECK.get(no)
+    if not d: return ''
+    return ('<article class="mc item" data-kind="cover" data-mood="%s" data-q="%s"><a href="%scovers/%d.html" target="_blank" rel="noopener"><img src="%s%s%s" alt="%s 표지" loading="lazy" width="640" height="360">'
+            '<span class="tri">%s</span></a>'
+            '<b>%s <small>#%d</small></b><p><span class="badge">표지 덱 · 10장</span>%s</p>'
+            '<p class="lk"><a href="%scovers/%d.html" target="_blank" rel="noopener">10장 넘겨 보기</a> · <a href="%s%s%s">원본 표지</a></p></article>') % (
+        E(next((s['mood'] for s in STYLES if s['id'] == f), '')), E(name(r) + ' ' + (kit.NAMES.get(f, '') if f else '')), up, no, up, E(r['thumb']), ver(r), E(name(r)),
+        ''.join('<img src="%scovers/thumbs/%d-%d.jpg" alt="%s 본문 예" loading="lazy" width="640" height="360">' % (up, no, k, E(name(r))) for k in (2, 4, 8)),
+        E(name(r)), no, (' 배치는 <a href="%sstyles/%s.html">%s</a>에서' % (up, d['base'], E(kit.NAMES[d['base']]))), up, no, up, E(r['file']), ver(r))
 
 # ── index.html ──
 H = ['''<section class="hero"><div><h1>표지부터 마무리까지,<br>하나의 스타일로.</h1>
@@ -217,8 +222,8 @@ for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
         ''.join('<img src="%s" alt="%s 본문 예" loading="lazy" width="640" height="360">' % (th(s['id'], '-set', n), E(s['name'])) for n in (role_slide('flow', s['id']), role_slide('compare', s['id']), role_slide('numbers', s['id']))),
         E(s['name']), E(s['use']), 'ok' if s.get('verified') else 'wip', E(STATUS_NOTE[st]), '10장 세트 · ' + st, s['id'], s['id'], E(s['name'])))
 H.append('</div><p class="empty" id="none" hidden>조건에 맞는 스타일이 없습니다. 검색어를 지우거나 다른 분위기를 골라 보세요.</p>')
-H.append('<div id="coverwrap"><h2 id="covers">표지만 있는 디자인 <small>%d개 — 표지는 있지만 그 특징을 이어받은 본문은 아직 없습니다</small></h2>' % len(covers))
-H.append('<p class="note">누르면 표지 뒤에 색 · 글꼴만 맞춘 공용 본문을 붙여 넘겨 볼 수 있습니다. 완성된 발표 세트는 아닙니다.</p><div class="minis">%s</div></div>' % ''.join(cover_card(r) for r in covers))
+H.append('<div id="coverwrap"><h2 id="covers">표지에서 넓힌 덱 <small>%d벌 — 표지마다 10장, 구성 조합이 모두 다릅니다</small></h2>' % len(covers))
+H.append('<p class="note">표지의 색 · 글꼴을 본문에 입히고, 배치는 분위기가 같은 스타일에서 빌렸습니다. 표지만의 고유한 장치(탑승권 절취선 같은 것)까지 본문에 이어지지는 않습니다.</p><div class="minis">%s</div></div>' % ''.join(cover_card(r) for r in covers))
 H.append('<h2>필요한 본문만 찾고 싶다면</h2><div class="short">%s</div>' % ''.join('<a href="body.html#r-%s">%s</a>' % (r['id'], E(r['name'])) for r in ROLES if r['id'] not in ('cover', 'closing', 'more')))
 H.append('<pre class="req" id="reqPick" hidden>%s</pre>' % E(REQ_PICK))
 H.append('<div class="tray" id="tray" hidden><span id="trayN"></span><button type="button" id="trayGo">비교하기</button><button type="button" id="trayX" aria-label="비교 비우기">비우기</button></div>'
@@ -287,7 +292,7 @@ for s in STYLES:
     B.append('<details><summary>파일과 자료</summary><ul><li>적용 안내(AI용, 디자인 규칙 · 구성별 코드 · 뼈대): <a href="../kit/%s.md">kit/%s.md</a></li><li>스타일 CSS: <a href="../kit/v1/%s.css">kit/v1/%s.css</a> · 넘김 엔진: <a href="../kit/v1/deck.js">kit/v1/deck.js</a></li>'
              '<li>더 많은 구성 예시: <a href="../kit/%s-plan.html">계획안 발표 12장</a>(체계 · 일정 · 표 · 구성비) · <a href="../kit/%s.html">성과 공유회 13장</a>(막대 · 전후 · 사진)</li>'
              '<li>글꼴: SIL OFL 1.1(<a href="../fonts/LICENSES.md">고지</a>)%s</li></ul></details>' % (f, f, f, f, f, f, ' · 그림: 이 갤러리의 기존 장표에서 떠낸 것(<code>kit/img/</code>)' if f in 'EGH' else ''))
-    if fam_cov: B.append('<h2>같은 분위기의 표지 레퍼런스 <small>%d개 — 표지만 있는 디자인. 이 세트와 코드는 다릅니다</small></h2><div class="minis">%s</div>' % (len(fam_cov), ''.join(cover_card(r, '../') for r in fam_cov)))
+    if fam_cov: B.append('<h2>같은 분위기의 표지 덱 <small>%d벌 — 표지마다 색 · 글꼴과 구성 조합이 다릅니다</small></h2><div class="minis">%s</div>' % (len(fam_cov), ''.join(cover_card(r, '../') for r in fam_cov)))
     sizes['styles/' + f] = page('styles/%s.html' % f, '%s — 발표 디자인 라이브러리' % s['name'], s['use'], 'index.html', '\n'.join(B), up='../')
 
 # ── body.html: 역할마다 배치가 다른 구성을 나란히 ──
@@ -338,7 +343,7 @@ n_ok = sum(1 for s in STYLES if s.get('verified'))
 B = ['<h1>이용 방법</h1><p class="lead">발표 내용을 먼저 정하고, 스타일을 고른 다음, AI에게 적용을 요청합니다.</p>',
      '<h2>1. 스타일을 직접 고를 때</h2><ol><li><a href="index.html">전체 스타일</a>에서 마음에 드는 스타일의 <b>전체 장표 보기</b>를 누릅니다.</li><li>10장 예시를 넘겨 보고, <b>이 스타일 적용 요청문 복사</b>를 누릅니다.</li><li>AI 대화창에 발표 내용(문서)과 함께 붙여 넣습니다. AI가 장별 구성안을 먼저 보여 주면 확인하고 만들게 합니다.</li><li>받은 .html 파일을 열어 → 키로 넘겨 보고, 숫자를 원문과 대조합니다.</li></ol>',
      '<h2>2. 고르는 것도 AI에게 맡길 때</h2><p>아래 요청문을 복사해 발표 내용과 함께 붙여 넣습니다.</p><div class="acts"><button type="button" class="btn fill" data-copy="reqPick">선택을 맡기는 요청문 복사</button></div><pre class="req" id="reqPick">%s</pre>' % E(REQ_PICK),
-     '<h2>알아 둘 점</h2><ul><li><b>완성 상태</b>: 검증된 세트(10장 예시 · 다른 주제 시험 · 넘침 검사 통과) %d개 · 확장 중 %d개 · 표지만 있음 %d개.</li><li>AI가 만든 발표는 열 때 인터넷이 필요합니다(글꼴 · 스타일을 이 사이트에서 불러옵니다). 내려받은 예시 발표는 인터넷 없이 열립니다.</li><li>개인정보(학생 이름 · 사진)는 AI에게 넣지 마세요.</li><li>AI가 주소를 열지 못하는 환경이면, 스타일 화면의 "파일과 자료"에서 적용 안내(.md)를 내려받아 첨부하세요.</li></ul>' % (n_ok, len(STYLES) - n_ok, len(covers)),
+     '<h2>알아 둘 점</h2><ul><li><b>완성 상태</b>: 검증된 세트(10장 예시 · 다른 주제 시험 · 넘침 검사 통과) %d개 · 확장 중 %d개 · 표지에서 넓힌 덱 %d벌(표지의 색 · 글꼴을 입힌 10장).</li><li>AI가 만든 발표는 열 때 인터넷이 필요합니다(글꼴 · 스타일을 이 사이트에서 불러옵니다). 내려받은 예시 발표는 인터넷 없이 열립니다.</li><li>개인정보(학생 이름 · 사진)는 AI에게 넣지 마세요.</li><li>AI가 주소를 열지 못하는 환경이면, 스타일 화면의 "파일과 자료"에서 적용 안내(.md)를 내려받아 첨부하세요.</li></ul>' % (n_ok, len(STYLES) - n_ok, len(covers)),
      '<details><summary>제작 정보(개발 · 관리용)</summary><ul><li>AI가 읽는 목록: <a href="catalog.md">catalog.md</a></li><li>작업 기록과 다음 할 일: <a href="docs/worklog.md">docs/worklog.md</a></li><li>분류 기준: <a href="docs/patterns.md">docs/patterns.md</a> · 제작 기준: <a href="docs/criteria.md">docs/criteria.md</a></li><li>참고 장표 모음(기존 장표 전체 · 아이콘): <a href="refs.html">refs.html</a> · 스타일 묶음 파일: <a href="kit/index.html">kit/</a></li><li>저장소 구조와 빌드: <a href="https://github.com/szxv7704-dot/design-reference-gallery#readme">README</a></li></ul></details>']
 sizes['guide'] = page('guide.html', '이용 방법 — 발표 디자인 라이브러리', '스타일을 고르고 AI에게 적용을 요청하는 방법.', 'guide.html', '\n'.join(B))
 
@@ -360,6 +365,13 @@ for s in STYLES:
 C += ['', '상태: **검증된 세트** = ' + STATUS_NOTE['검증된 세트'] + ' / **확장 중** = ' + STATUS_NOTE['확장 중'] + '.', '']
 for s in STYLES:
     C += ['### %s %s' % (s['id'], s['name']), '- 유지할 것: ' + ' / '.join(s['keep']), '- 바꿔도 되는 것: ' + ' / '.join(s['change']), '- 피할 것: ' + ' / '.join(s['avoid']), '']
+C += ['## 표지에서 넓힌 덱 (%d벌)' % len(CDECK), '',
+      '표지 하나마다 10장: 원본 표지 + 본문 여덟 역할 + 마무리. 표지의 색 · 글꼴을 입혔고 배치는 "바탕" 스타일에서 빌렸다. 표지마다 구성 조합이 다르다.',
+      '적용하려면: 바탕 스타일의 적용 안내(`kit/{바탕}.md`)를 따르되 **`<link>` 주소만 아래 CSS로 바꾸고**, 상징 부품(표지 · 목차 · 마무리에 넣는 그림)은 넣지 않는다. 표지 장은 사용자의 제목으로 새로 쓴다(원본 표지 장표는 그대로 가져오지 않는다).', '',
+      '| 번호 | 이름 | 바탕 | 10장 덱 | CSS | 구성 조합(흐름 → 요약) |', '|---|---|---|---|---|---|']
+for no in sorted(CDECK):
+    d = CDECK[no]; C.append('| #%d | %s | %s | %scovers/%d.html | %scovers/%d.css | %s |' % (no, d['name'], d['base'], BASE, no, BASE, no, ' / '.join(d['combo'])))
+C += ['']
 C += ['## 구성 (역할마다 배치가 다른 셋. 모든 스타일에서 같은 이름으로 쓴다)', '', '| 역할 | 구성 | 모습 | 이럴 때 | 알맞은 분량 | 부품 | 보기(B 스타일) |', '|---|---|---|---|---|---|---|']
 for r in VAR['order']:
     for i, v in enumerate(VAR['roles'][r]): C.append('| %s | %s | %s | %s | %s | `%s` | %skit/B-var.html#%d |' % (RN[r]['name'] if i == 0 else '', v['name'], v['look'], v['when'], v['cond'], v['part'], BASE, VARN[(r, v['v'])]))
@@ -370,7 +382,7 @@ C += ['', '그 밖의 구성(갈래 · 체계 · 추이 · 구성비 · 표 · �
 for s in STYLES: C.append('| %s %s | %s |' % (s['id'], s['name'], ' | '.join(next(v['name'] for v in VAR['roles'][r] if v['v'] == kit.pick(s['id'], r)) for r in VAR['order'])))
 C += ['',
       '## 그 밖', '',
-      '- 표지만 있는 디자인 %d개(이어지는 본문 없음, 참고용): %scatalog/refs.md' % (len(covers), BASE),
+      '- 표지 레퍼런스 설명(분위기 · 가져갈 장치): %scatalog/refs.md' % BASE,
       '- 참고 본문 장표(도식 아이디어): %scatalog/body.md · 아이콘 85개: %scatalog/icons.md' % (BASE, BASE),
       '- 사람용 이용 방법: %sguide.html' % BASE, '']
 open(os.path.join(ROOT, 'catalog.md'), 'w', encoding='utf-8').write('\n'.join(C))

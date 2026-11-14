@@ -13,6 +13,7 @@
 :root{--bg:#F7F6F3;--card:#FFFFFF;--ink:#1B1E24;--soft:#5C616B;--line:#E3E1DB;--key:#1F5FD0;--keybg:#E8EFFC;--chip:#EDEBE5;--ok:#1E7B4F;--warn:#9A6400;
   --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all;line-height:1.6}
 a{color:inherit}img{max-width:100%;height:auto;display:block;background:var(--chip)}
@@ -48,7 +49,7 @@ h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--so
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:20px}
 .sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column}
 .sc .cv img{border-radius:8px;aspect-ratio:16/9;object-fit:cover}
-.sc .tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}.mc .tri{gap:1px;margin:0;border-bottom:1px solid var(--line)}.mc .tri img{border:0}
 .sc .tri img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
 .sc h3{margin:12px 6px 0;font-size:20px}
 .sc p{margin:2px 6px 0;font-size:14.5px;color:var(--soft)}
@@ -119,7 +120,7 @@ footer{margin-top:56px;font-size:13px;color:var(--soft)}
 - 스타일은 하나만 쓰고, 장마다 내용에 맞는 구성을 고릅니다. 한 장에 구성 하나.
 - 예시에 들어 있는 기관명 · 수치 · 사례는 가상입니다. 제 발표에 가져오지 마세요. 제가 주지 않은 숫자를 지어내지 마세요.
 - 내용이 많으면 글자를 줄이지 말고 장을 나눠 주세요. 제 핵심 내용을 임의로 빼지 마세요.</pre>
-<h2>알아 둘 점</h2><ul><li><b>완성 상태</b>: 검증된 세트(10장 예시 · 다른 주제 시험 · 넘침 검사 통과) 5개 · 확장 중 3개 · 표지만 있음 27개.</li><li>AI가 만든 발표는 열 때 인터넷이 필요합니다(글꼴 · 스타일을 이 사이트에서 불러옵니다). 내려받은 예시 발표는 인터넷 없이 열립니다.</li><li>개인정보(학생 이름 · 사진)는 AI에게 넣지 마세요.</li><li>AI가 주소를 열지 못하는 환경이면, 스타일 화면의 "파일과 자료"에서 적용 안내(.md)를 내려받아 첨부하세요.</li></ul>
+<h2>알아 둘 점</h2><ul><li><b>완성 상태</b>: 검증된 세트(10장 예시 · 다른 주제 시험 · 넘침 검사 통과) 5개 · 확장 중 3개 · 표지에서 넓힌 덱 27벌(표지의 색 · 글꼴을 입힌 10장).</li><li>AI가 만든 발표는 열 때 인터넷이 필요합니다(글꼴 · 스타일을 이 사이트에서 불러옵니다). 내려받은 예시 발표는 인터넷 없이 열립니다.</li><li>개인정보(학생 이름 · 사진)는 AI에게 넣지 마세요.</li><li>AI가 주소를 열지 못하는 환경이면, 스타일 화면의 "파일과 자료"에서 적용 안내(.md)를 내려받아 첨부하세요.</li></ul>
 <details><summary>제작 정보(개발 · 관리용)</summary><ul><li>AI가 읽는 목록: <a href="catalog.md">catalog.md</a></li><li>작업 기록과 다음 할 일: <a href="docs/worklog.md">docs/worklog.md</a></li><li>분류 기준: <a href="docs/patterns.md">docs/patterns.md</a> · 제작 기준: <a href="docs/criteria.md">docs/criteria.md</a></li><li>참고 장표 모음(기존 장표 전체 · 아이콘): <a href="refs.html">refs.html</a> · 스타일 묶음 파일: <a href="kit/index.html">kit/</a></li><li>저장소 구조와 빌드: <a href="https://github.com/szxv7704-dot/design-reference-gallery#readme">README</a></li></ul></details>
 <footer>모든 기관명 · 수치 · 사례는 가상 예시입니다. 새 발표에 그대로 가져오지 마세요. 사진은 AI로 만든 것이고, 글꼴은 모두 SIL Open Font License 1.1(<a href="fonts/LICENSES.md">저작권 고지</a>).</footer>
 </main>

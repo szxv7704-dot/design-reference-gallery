@@ -12,6 +12,7 @@
 | `data/roles.json` · `data/patterns.json` | 세트가 갖출 열 가지 역할과 그 역할에 쓰는 구성(분량 · 넘칠 때 규칙) |
 | `index.html` · `styles/{ID}.html` · `body.html` · `motion.html` · `print.html` · `guide.html` · `catalog.md` | 화면과 AI용 목록. **`scripts/gallery.py`가 만든다(손으로 고치지 말 것).** 전체 스타일 · 스타일 하나 · 본문 구성 · 모션·강조 · 인쇄·홍보물 · 이용 방법 |
 | `kit/` | 스타일 파일: 공용 부품(`parts.css`) · 스타일 CSS(`{ID}.css`) · 디자인 규칙(`{ID}.design.md`) · 10장 예시(`{ID}-set.html`) · 구성 모음(`{ID}-var.html`) · 다른 주제 시험(`{ID}-set2.html`) · AI 적용 안내(`{ID}.md`) · 배포 CSS(`v1/`) |
+| `covers/` | 표지에서 넓힌 10장 덱 27벌(`scripts/covers.py`): `{번호}.html` · `{번호}.css` · 썸네일 |
 | `src/flows/` | 예시 발표의 원본(스타일 공용): `var.html`(구성 모음 — 역할마다 배치가 다른 구성 셋. 10장 예시는 여기서 스타일마다 다른 조합을 골라 만든다, `data/variants.json`) · `set2.html`(다른 주제) · `plan.html` · `share.html` |
 | `refs.html` · `deck.html` · `catalog/` · `light/` · `data/covers.json` | 참고 장표 모음(기존 장표 117개 · 아이콘) · 표지별 미리보기 · 참고 목록 · 가벼운 코드. `scripts/site.py` · `scripts/light.py`가 만든다 |
 | `refs/NN.html` · `thumbs/NN.jpg` · `data/rounds.json` | 참고 장표 원본 · 썸네일 · 목록 |
