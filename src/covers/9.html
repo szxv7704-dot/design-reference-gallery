@@ -1,0 +1,118 @@
+<!-- 표지 덱: #9 · 바탕 A
+     장치: 위 상태 바 · 아래 의뢰인 대화창(결론을 의뢰인의 말로) · 커서 놓인 퀘스트 목록 · 체크 목표 · 보상 슬롯 · 진행 단계 · 표지에서 떠낸 초상화와 아이콘
+     내용은 표지와 같은 가상 주제(늘봄학교 운영 계획). 빌려 온 본문(@@REF@@)의 내용은 다른 가상 예시다 -->
+
+<!--DEF HUD
+  <div class="hud" data-step="$1"><b>$2</b><span>○○교육청 늘봄지원과</span><em>수락</em><ol><li>준비</li><li>1학기</li><li>2학기</li><li>평가</li></ol><i>가상 예시</i></div>
+-->
+
+<!-- 2. 흐름 · 퀘스트 목록 -->
+<section data-pattern="toc" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-who="학부모 · 의뢰인">메인 셋에 서브 둘, <em>다섯 가지</em>를 해 주신다는 거죠?</h2>
+    <div class="two-win fill">
+      <div class="quest">
+        <p class="tabs"><b>전체</b><span>메인 3</span><span>서브 2</span></p>
+        <ul>
+          <li class="is-key">맞춤 프로그램<span>0/3</span></li>
+          <li>공간 재구조화<span>0/2</span></li>
+          <li>전담 인력 배치<span>0/2</span></li>
+          <li class="sub">지역 연계 확대<span>0/1</span></li>
+          <li class="sub">학부모 소통<span>0/1</span></li>
+        </ul>
+      </div>
+      <div class="detail">
+        <span class="tag">메인 퀘스트</span>
+        <h3>2027 늘봄학교</h3>
+        <p>원하는 아이 누구나, 저녁까지 안심</p>
+        <ul><li>희망 학생 모두 참여</li><li>학교 업무는 가볍게</li><li>지역과 함께 운영</li></ul>
+      </div>
+    </div>
+  </div>
+  @@USE:HUD:1|퀘스트 일지@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 3. 배경 · 의뢰 내용 -->
+<section data-pattern="numbers" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-who="학부모 · 의뢰인">학교 끝나도 <em>저녁까지</em> 안심하고 맡길 곳이 필요해요.</h2>
+    <div class="grid g3 fill center">
+      <div class="tile is-key"><span>저녁 돌봄을 바라는 가정</span><b>64<small>%</small></b><p>1~2학년 학부모 설문</p></div>
+      <div class="tile"><span>지금 받을 수 있는 자리</span><b>38<small>%</small></b><p>희망 학생 대비</p></div>
+      <div class="tile"><span>기다리는 학생</span><b>1,200<small>명</small></b><p>2026년 2학기</p></div>
+    </div>
+  </div>
+  <p class="src">자료: ○○교육청 늘봄 수요 조사(가상 예시)</p>
+  @@USE:HUD:1|의뢰 내용@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 4. 지표 상태창 (빌려 온 본문 #78) -->
+@@REF:78:지표 상태창:HUD:1|현황 살피기@@
+
+<!-- 5. 목표 · 상세 창 -->
+<section data-pattern="todo" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-who="학부모 · 의뢰인">선생님 일이 늘지 않게 한다는 약속이 <em>가장 반가워요.</em></h2>
+    <div class="detail fill" style="justify-content:center">
+      <span class="tag">수락 조건 · 방침 3</span>
+      <h3>이렇게 하겠습니다</h3>
+      <p>세 가지를 지키며 진행합니다</p>
+      <ul>
+        <li>희망 학생 모두 참여<small>기다리는 학생 0명</small></li>
+        <li class="is-key">학교 업무는 가볍게<small>전담 인력이 운영을 맡는다</small></li>
+        <li>지역과 함께 운영<small>도서관 · 체육관 · 마을 강사</small></li>
+      </ul>
+    </div>
+  </div>
+  @@USE:HUD:1|퀘스트 수락@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 6. 목록창 (빌려 온 본문 #92) -->
+@@REF:92:세 단계 지원 목록창:HUD:2|과제 살피기@@
+
+<!-- 7. 일정 · 진행 단계 -->
+<section data-pattern="timeline" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-who="학부모 · 의뢰인">그럼 <em>3월 첫 주</em>부터 맡길 수 있겠네요.</h2>
+    <div class="track fill">
+      <h3>진행 단계<span>'27.3 ~ '28.2</span></h3>
+      <ol>
+        <li class="is-key"><b>준비</b><p>수요 조사 · 공간 점검<br>전담 인력 채용</p></li>
+        <li><b>1학기</b><p>1~2학년부터 시작<br>맞춤 프로그램 3종</p></li>
+        <li><b>2학기</b><p>전 학년으로 넓힘<br>지역 기관 연계</p></li>
+        <li><b>평가</b><p>학부모 · 학생 설문<br>다음 해 계획에 반영</p></li>
+      </ol>
+    </div>
+  </div>
+  @@USE:HUD:2|진행 단계@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 8. 순위표 (빌려 온 본문 #111) -->
+@@REF:111:배정 살피기:HUD:3|자원 배정@@
+
+<!-- 9. 기대 효과 · 보상 슬롯 -->
+<section data-pattern="groups" class="slide">
+  <div class="s-body">
+    <h2 class="title" data-who="학부모 · 의뢰인">다 끝나면 <em>네 가지</em>가 남는군요.</h2>
+    <div class="reward fill">
+      <div><img src="img/9-r1.png" alt=""><b>공백 해소</b><p>방과 후 빈 시간이<br>사라진다</p></div>
+      <div><img src="img/9-r2.png" alt=""><b>학부모 신뢰</b><p>저녁까지<br>안심하고 맡긴다</p></div>
+      <div><img src="img/9-r3.png" alt=""><b>아이 성장</b><p>하고 싶은 활동을<br>골라서 한다</p></div>
+      <div><img src="img/9-r4.png" alt=""><b>업무 경감</b><p>운영은<br>전담 인력이 맡는다</p></div>
+    </div>
+  </div>
+  @@USE:HUD:4|완료 보상@@
+  <span class="page-no"></span>
+</section>
+
+<!-- 10. 마무리 · 수락 -->
+<section data-pattern="closing" class="slide close">
+  <div class="ask-win"><h2>이 퀘스트를 수락하시겠습니까?</h2><ul><li class="is-key">수락</li><li>다시 보기</li></ul></div>
+  <p>문의 · ○○교육청 늘봄지원과 · 모든 기관 · 수치는 가상 예시</p>
+  @@USE:HUD:4|저장@@
+  <span class="page-no"></span>
+</section>

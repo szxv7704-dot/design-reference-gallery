@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-kit="D">
+<html lang="ko" data-kit="B">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,129 +13,130 @@
 <!-- 1. 표지 -->
 <section data-pattern="cover" class="slide c-orig"><iframe src="../light/04.html?slide=" title="가온 야간편 탑승권 표지" loading="eager"></iframe></section>
 
-<!-- 2. 목차 · 전체 흐름 · 줄 목록 -->
-<section data-pattern="toc" data-role="flow" data-var="a" class="slide toc">
+<!-- 2. 흐름 · 여정 -->
+<section data-pattern="toc" class="slide">
   <div class="s-body">
-    <p class="kicker">오늘의 흐름</p>
-    <h2 class="title">50분 동안 다섯 걸음</h2>
-    <ol class="toc-list">
-      <li class="is-now"><b>01</b><span>개념 맞추기</span><span>5분</span></li>
-      <li><b>02</b><span>좋은 요청과 나쁜 요청</span><span>10분</span></li>
-      <li><b>03</b><span>따라 하기</span><span>10분</span></li>
-      <li><b>04</b><span>실습</span><span>20분</span></li>
-      <li><b>05</b><span>정리</span><span>5분</span></li>
-    </ol>
-  </div>
-  <span class="page-no"></span>
-</section>
-
-<!-- 3. 핵심 개념 · 세 요소로 풀기 -->
-<section data-pattern="groups" data-role="concept" data-var="b" class="slide">
-  <div class="s-body">
-    <p class="kicker">01 개념 맞추기</p>
-    <h2 class="title">프롬프트는 <em>세 가지</em>를 알려 주는 글입니다</h2>
-    <div class="grid g3 fill center">
-      <div class="card is-key"><span class="c-no">하나</span><h3>누구에게</h3><p>읽을 사람과<br>말투</p><p class="c-foot">예 <b>학부모께</b></p></div>
-      <div class="card"><span class="c-no">둘</span><h3>무엇으로</h3><p>근거가 되는<br>자료</p><p class="c-foot">예 <b>계획서</b></p></div>
-      <div class="card"><span class="c-no">셋</span><h3>어떤 모양으로</h3><p>분량과<br>형식</p><p class="c-foot">예 <b>세 문단</b></p></div>
+    <p class="kicker">여정 ITINERARY</p>
+    <h2 class="title">낮의 도시에서 밤의 도시까지 <em>세 곳</em>을 거칩니다</h2>
+    <div class="route fill">
+      <div class="r-end"><span class="fl">출발 FROM</span><b>DAY</b><p>낮에만 머무는 도시</p></div>
+      <ol>
+        <li><small>VIA 1</small><b>MKT</b><span>야시장 상설화</span><em>2027</em></li>
+        <li><small>VIA 2</small><b>RVR</b><span>수변 야경</span><em>2028</em></li>
+        <li><small>VIA 3</small><b>STY</b><span>체류형 숙박 연계</span><em>2029</em></li>
+      </ol>
+      <div class="r-end"><span class="fl">도착 TO</span><b>NGT</b><p>밤까지 머무는 도시</p></div>
     </div>
   </div>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 4. 비교 · 기준별 두 열 -->
-<section data-pattern="compare" data-role="compare" data-var="c" class="slide">
+<!-- 3. 핵심 수치 · 필드 줄 -->
+<section data-pattern="numbers" class="slide">
   <div class="s-body">
-    <p class="kicker">02 좋은 요청과 나쁜 요청</p>
-    <h2 class="title">두 요청은 <em>세 가지 기준</em>에서 갈립니다</h2>
+    <p class="kicker">출발지 FROM · 2025 현황</p>
+    <h2 class="title">방문객은 오지만 <em>밤에는 떠납니다</em></h2>
+    <div class="fill stack" style="justify-content:center;gap:44px">
+      <div class="fields">
+        <div class="is-key"><span class="fl">야간 방문객 NIGHT</span><b>42<small>만 명</small></b><p>전체 방문객의 14%</p></div>
+        <div><span class="fl">숙박 비율 STAY</span><b>18<small>%</small></b><p>당일 귀가 82%</p></div>
+        <div><span class="fl">야간 영업 OPEN</span><b>21<small>시</small></b><p>중심 상권 평균 마감</p></div>
+        <div><span class="fl">야간 소비 SPEND</span><b>1.9<small>만 원</small></b><p>1인 평균</p></div>
+      </div>
+      <p class="notice">해가 지면 머물 곳이 없습니다.<small>18시 이후 방문객의 82%가 두 시간 안에 도시를 떠납니다.</small></p>
+    </div>
+  </div>
+  <p class="src">자료: 가온시 관광 실태 조사(가상 예시)</p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 4. 추이 (빌려 온 본문 #118) -->
+<section data-pattern="ref" class="slide ref">
+  <div class="s-body">
+    <p class="kicker">참고 지표 REFERENCE · 추이</p>
+    <div class="r-win"><iframe src="../light/118.html?slide=c4" title="곱셈 줄 붙은 겸용 차트" loading="lazy"></iframe></div>
+  </div>
+  <p class="src">빌려 온 본문 #118 곱셈 줄 붙은 겸용 차트 · 내용은 다른 가상 예시</p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 5. 비교 · 출발지와 도착지 -->
+<section data-pattern="compare" class="slide">
+  <div class="s-body">
+    <p class="kicker">출발 FROM → 도착 TO</p>
+    <h2 class="title">같은 도시가 <em>밤에</em> 달라집니다</h2>
     <div class="vs fill">
-      <b></b><h3>막연한 요청</h3><h3 class="is-key">분명한 요청</h3>
-      <b>읽을 사람</b><p>적지 않음</p><p>학부모 · 학생 · 동료 중 하나</p>
-      <b>근거 자료</b><p>없이 맡김</p><p>계획서 · 설문을 붙임</p>
-      <b>결과 모양</b><p>정하지 않음</p><p>세 문단 · 표 · 목록으로 정함</p>
+      <b></b><h3>DAY 낮에만 머무는 도시</h3><h3 class="is-key">NGT 밤까지 머무는 도시</h3>
+      <b>저녁 MKT</b><p>18시에 닫는 시장</p><p>23시까지 여는 상설 야시장</p>
+      <b>강변 RVR</b><p>어두운 산책로</p><p>조명과 공연이 있는 수변광장</p>
+      <b>숙박 STY</b><p>당일 귀가</p><p>야간 프로그램과 묶은 1박</p>
     </div>
   </div>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 5. 순서 · 절차 · 가로 세 칸 -->
-<section data-pattern="steps" data-role="steps" data-var="a" class="slide">
+<!-- 6. 일정 (빌려 온 본문 #84) -->
+<section data-pattern="ref" class="slide ref">
   <div class="s-body">
-    <p class="kicker">03 따라 하기</p>
-    <h2 class="title">요청문은 <em>세 걸음</em>으로 씁니다</h2>
-    <div class="road fill">
-      <div class="is-key"><h3><small>1</small>누구에게</h3><ul><li>읽을 사람을 적는다</li><li>학부모 · 학생 · 동료</li><li>말투도 함께</li></ul></div>
-      <div><h3><small>2</small>무엇으로</h3><ul><li>근거 자료를 붙인다</li><li>계획서 · 설문 · 회의록</li><li>개인정보는 지우고</li></ul></div>
-      <div><h3><small>3</small>어떤 모양으로</h3><ul><li>분량을 정한다</li><li>문단 · 표 · 목록</li><li>빠지면 안 될 것</li></ul></div>
-    </div>
+    <p class="kicker">운항 일정 SCHEDULE</p>
+    <div class="r-win"><iframe src="../light/84.html?slide=c4" title="날짜 비례 레인" loading="lazy"></iframe></div>
   </div>
+  <p class="src">빌려 온 본문 #84 날짜 비례 레인 · 내용은 다른 가상 예시</p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 6. 사례 · 사람의 말 -->
-<section data-pattern="quote" data-role="case" data-var="b" class="slide">
+<!-- 7. 세부 과제 · 경유지 셋 -->
+<section data-pattern="groups" class="slide">
   <div class="s-body">
-    <p class="kicker">03 따라 하기 · 써 본 사람들</p>
-    <h2 class="title">가장 많이 나온 말은 <em>"다시 읽는 일이 남는다"</em>였습니다</h2>
-    <div class="quote fill">
-      <figure class="is-key"><blockquote>초안은 금방 나오지만, 숫자는 꼭 원문과 다시 맞춰 봐야 했어요.</blockquote><figcaption>초등학교 교무 담당</figcaption></figure>
-      <figure><blockquote>읽을 사람을 적었더니 말투를 고칠 일이 줄었습니다.</blockquote><figcaption>중학교 담임 교사</figcaption></figure>
-      <figure><blockquote>표로 달라고 하니 바로 붙여 쓸 수 있었습니다.</blockquote><figcaption>행정실 주무관</figcaption></figure>
+    <p class="kicker">경유지 VIA 1 · 2 · 3</p>
+    <h2 class="title">경유지마다 <em>과제 하나</em>를 내립니다</h2>
+    <div class="grid g3 fill center">
+      <div class="card is-key"><span class="c-no">VIA 1 · MKT</span><h3>야시장 상설화</h3><p>주말 임시 장터를<br>매일 23시까지</p><p class="c-foot">탑승구 GATE <b>W3</b> 수변광장</p></div>
+      <div class="card"><span class="c-no">VIA 2 · RVR</span><h3>수변 야경</h3><p>강변 2.4km 조명과<br>주말 거리 공연</p><p class="c-foot">탑승 BRD <b>2028</b></p></div>
+      <div class="card"><span class="c-no">VIA 3 · STY</span><h3>체류형 숙박 연계</h3><p>야간 프로그램과<br>숙박 묶음 상품</p><p class="c-foot">탑승 BRD <b>2029</b></p></div>
     </div>
   </div>
-  <p class="src">가상 예시</p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 7. 실습 · 체크 목록 -->
-<section data-pattern="todo" data-role="practice" data-var="c" class="slide">
+<!-- 8. 구성비 (빌려 온 본문 #120) -->
+<section data-pattern="ref" class="slide ref">
   <div class="s-body">
-    <p class="kicker">04 실습 · 20분</p>
-    <h2 class="title">요청문을 쓰면서 <em>네 가지</em>를 확인합니다</h2>
+    <p class="kicker">운임 FARE · 재원</p>
+    <div class="r-win"><iframe src="../light/120.html?slide=c4" title="경계선 이은 100% 막대" loading="lazy"></iframe></div>
+  </div>
+  <p class="src">빌려 온 본문 #120 경계선 이은 100% 막대 · 내용은 다른 가상 예시</p>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <span class="page-no"></span>
+</section>
+
+<!-- 9. 요약 · 탑승 전 확인 -->
+<section data-pattern="todo" class="slide">
+  <div class="s-body">
+    <p class="kicker">탑승 전 확인 BEFORE BOARDING</p>
+    <h2 class="title">출발 전에 <em>세 가지</em>를 마칩니다</h2>
     <ul class="check fill">
-      <li>읽을 사람과 말투를 적었다</li>
-      <li>근거 자료를 붙였다<small>개인정보는 지우고</small></li>
-      <li>분량과 형식을 정했다</li>
-      <li class="is-key">받은 초안의 숫자를 원문과 대조했다<small>가장 중요</small></li>
+      <li>야시장 상인회와 운영 협약<small>3월 MAR</small></li>
+      <li>수변광장 조명 설계 공모<small>4월 APR</small></li>
+      <li class="is-key">주민 소음 · 안전 협의<small>협의 없는 구간은 운항하지 않음</small></li>
     </ul>
   </div>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 
-<!-- 8. 핵심 수치 · 숫자 셋 -->
-<section data-pattern="numbers" data-role="numbers" data-var="a" class="slide">
-  <div class="s-body">
-    <p class="kicker">05 정리 · 지난 연수 결과</p>
-    <h2 class="title">초안 쓰는 시간이 <em>40분에서 15분</em>으로 줄었습니다</h2>
-    <div class="grid g3 fill center">
-      <div class="tile is-key"><span>초안 작성 시간</span><b>15<small>분</small></b><p>연수 전 평균 40분</p></div>
-      <div class="tile"><span>다시 요청한 횟수</span><b>2<small>회</small></b><p>한 문서당 평균</p></div>
-      <div class="tile"><span>업무에 계속 쓰겠다</span><b>92<small>%</small></b><p>수료자 설문</p></div>
-    </div>
-  </div>
-  <p class="src">자료: ○○교육청 교육연수원 수료자 설문(가상 예시)</p>
-  <span class="page-no"></span>
-</section>
-
-<!-- 9. 요약 · 네 칸 정리 -->
-<section data-pattern="points" data-role="summary" data-var="b" class="slide">
-  <div class="s-body">
-    <p class="kicker">05 정리</p>
-    <h2 class="title">오늘 내용은 <em>네 칸</em>에 담깁니다</h2>
-    <div class="brief fill">
-      <div><span>누구에게</span><b>읽을 사람과 말투</b><p>학부모 · 학생 · 동료</p></div>
-      <div><span>무엇으로</span><b>근거 자료</b><p>개인정보는 지우고</p></div>
-      <div><span>어떤 모양으로</span><b>분량과 형식</b><p>문단 · 표 · 목록</p></div>
-      <div class="is-key"><span>마지막에</span><b>다시 읽기</b><p>숫자는 원문과 대조</p></div>
-    </div>
-  </div>
-  <span class="page-no"></span>
-</section>
-
-<!-- 10. 마무리 -->
-<section data-pattern="closing" data-role="closing" data-var="a" class="slide close">
-  <h2>오늘 쓴 요청문을<br>내일 업무에</h2>
-  <p>문의 · ○○교육청 교육연수원 연수 담당</p>
+<!-- 10. 마무리 · 도착 -->
+<section data-pattern="closing" class="slide close">
+  <h2>밤까지 머무는 도시로<br>출발합니다</h2>
+  <p>문의 · 가온시 문화관광국 관광진흥과<br>모든 기관 · 수치는 가상 예시</p>
+  <div class="arr"><small>도착 TO</small>NGT</div>
+  <div class="dev" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 

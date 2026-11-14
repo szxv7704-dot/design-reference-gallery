@@ -195,11 +195,12 @@ def cover_card(r, up=''):
     if not d: return ''
     return ('<article class="mc item" data-kind="cover" data-mood="%s" data-q="%s"><a href="%scovers/%d.html" target="_blank" rel="noopener"><img src="%s%s%s" alt="%s 표지" loading="lazy" width="640" height="360">'
             '<span class="tri">%s</span></a>'
-            '<b>%s <small>#%d</small></b><p><span class="badge">표지 덱 · 10장</span>%s</p>'
+            '<b>%s <small>#%d</small></b><p>%s</p>'
             '<p class="lk"><a href="%scovers/%d.html" target="_blank" rel="noopener">10장 넘겨 보기</a> · <a href="%s%s%s">원본 표지</a></p></article>') % (
         E(next((s['mood'] for s in STYLES if s['id'] == f), '')), E(name(r) + ' ' + (kit.NAMES.get(f, '') if f else '')), up, no, up, E(r['thumb']), ver(r), E(name(r)),
         ''.join('<img src="%scovers/thumbs/%d-%d.jpg" alt="%s 본문 예" loading="lazy" width="640" height="360">' % (up, no, k, E(name(r))) for k in (2, 4, 8)),
-        E(name(r)), no, (' 배치는 <a href="%sstyles/%s.html">%s</a>에서' % (up, d['base'], E(kit.NAMES[d['base']]))), up, no, up, E(r['file']), ver(r))
+        E(name(r)), no, ('<span class="badge ok">표지의 장치를 본문까지</span> %s' % E(d['device'])) if d.get('bespoke') else
+        ('<span class="badge">색 · 글꼴만 맞춤</span> 배치는 <a href="%sstyles/%s.html">%s</a>에서' % (up, d['base'], E(kit.NAMES[d['base']]))), up, no, up, E(r['file']), ver(r))
 
 # ── index.html ──
 H = ['''<section class="hero"><div><h1>표지부터 마무리까지,<br>하나의 스타일로.</h1>
@@ -223,7 +224,8 @@ for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
         E(s['name']), E(s['use']), 'ok' if s.get('verified') else 'wip', E(STATUS_NOTE[st]), '10장 세트 · ' + st, s['id'], s['id'], E(s['name'])))
 H.append('</div><p class="empty" id="none" hidden>조건에 맞는 스타일이 없습니다. 검색어를 지우거나 다른 분위기를 골라 보세요.</p>')
 H.append('<div id="coverwrap"><h2 id="covers">표지에서 넓힌 덱 <small>%d벌 — 표지마다 10장, 구성 조합이 모두 다릅니다</small></h2>' % len(covers))
-H.append('<p class="note">표지의 색 · 글꼴을 본문에 입히고, 배치는 분위기가 같은 스타일에서 빌렸습니다. 표지만의 고유한 장치(탑승권 절취선 같은 것)까지 본문에 이어지지는 않습니다.</p><div class="minis">%s</div></div>' % ''.join(cover_card(r) for r in covers))
+NB = sum(1 for d in CDECK.values() if d.get('bespoke'))
+H.append('<p class="note"><b>표지의 장치를 본문까지</b> %d벌: 그 표지만의 장치(띠 · 절취선 · 이름표 같은 것)를 본문 틀로 옮기고, 기존 본문 장표를 빌려 섞었습니다. <b>색 · 글꼴만 맞춤</b> %d벌: 아직 색과 글꼴만 입힌 상태입니다. 하나씩 옮기는 중입니다.</p>' % (NB, len(CDECK) - NB) + '<div class="minis">%s</div></div>' % ''.join(cover_card(r) for r in sorted(covers, key=lambda r: (not CDECK.get(r['no'], {}).get('bespoke'), r['no']))))
 H.append('<h2>필요한 본문만 찾고 싶다면</h2><div class="short">%s</div>' % ''.join('<a href="body.html#r-%s">%s</a>' % (r['id'], E(r['name'])) for r in ROLES if r['id'] not in ('cover', 'closing', 'more')))
 H.append('<pre class="req" id="reqPick" hidden>%s</pre>' % E(REQ_PICK))
 H.append('<div class="tray" id="tray" hidden><span id="trayN"></span><button type="button" id="trayGo">비교하기</button><button type="button" id="trayX" aria-label="비교 비우기">비우기</button></div>'
@@ -368,9 +370,10 @@ for s in STYLES:
 C += ['## 표지에서 넓힌 덱 (%d벌)' % len(CDECK), '',
       '표지 하나마다 10장: 원본 표지 + 본문 여덟 역할 + 마무리. 표지의 색 · 글꼴을 입혔고 배치는 "바탕" 스타일에서 빌렸다. 표지마다 구성 조합이 다르다.',
       '적용하려면: 바탕 스타일의 적용 안내(`kit/{바탕}.md`)를 따르되 **`<link>` 주소만 아래 CSS로 바꾸고**, 상징 부품(표지 · 목차 · 마무리에 넣는 그림)은 넣지 않는다. 표지 장은 사용자의 제목으로 새로 쓴다(원본 표지 장표는 그대로 가져오지 않는다).', '',
-      '| 번호 | 이름 | 바탕 | 10장 덱 | CSS | 구성 조합(흐름 → 요약) |', '|---|---|---|---|---|---|']
+      '| 번호 | 이름 | 바탕 | 10장 덱 | CSS | 상태 — 장치 또는 구성 조합 |', '|---|---|---|---|---|---|']
 for no in sorted(CDECK):
-    d = CDECK[no]; C.append('| #%d | %s | %s | %scovers/%d.html | %scovers/%d.css | %s |' % (no, d['name'], d['base'], BASE, no, BASE, no, ' / '.join(d['combo'])))
+    d = CDECK[no]; C.append('| #%d | %s | %s | %scovers/%d.html | %scovers/%d.css | %s |' % (no, d['name'], d['base'], BASE, no, BASE, no,
+        ('**표지의 장치를 본문까지** — ' + d['device'] + ' · 빌린 본문 ' + ' '.join('#%d' % x for x in d['refs'])) if d.get('bespoke') else '색 · 글꼴만 맞춤 — ' + ' / '.join(d['combo'])))
 C += ['']
 C += ['## 구성 (역할마다 배치가 다른 셋. 모든 스타일에서 같은 이름으로 쓴다)', '', '| 역할 | 구성 | 모습 | 이럴 때 | 알맞은 분량 | 부품 | 보기(B 스타일) |', '|---|---|---|---|---|---|---|']
 for r in VAR['order']:
