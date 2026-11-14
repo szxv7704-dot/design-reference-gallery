@@ -74,8 +74,16 @@ def bespoke_body(no):
     def ref(m):
         n = int(m.group(1)); refs.append(n)
         return ('<section data-pattern="ref" class="slide ref">\n  <div class="s-body">\n    <p class="kicker">%s</p>\n    <div class="r-win"><iframe src="../light/%02d.html?slide=c%d" title="%s" loading="lazy"></iframe></div>\n  </div>\n'
-                '  <p class="src">빌려 온 본문 #%d %s · 내용은 다른 가상 예시</p>\n  <span class="page-no"></span>\n</section>') % (m.group(2), n, no, name(rounds[n]), n, name(rounds[n]))
-    body = re.sub(r'@@REF:(\d+):([^@]+)@@', ref, body)
+                '  <p class="src">빌려 온 본문 #%d %s · 내용은 다른 가상 예시</p>\n%s  <span class="page-no"></span>\n</section>') % (
+                    m.group(2), n, no, name(rounds[n]), n, name(rounds[n]), ('  @@USE:%s@@\n' % m.group(3)) if m.group(3) else '')
+    body = re.sub(r'@@REF:(\d+):([^@:]+)(?::(\w+:[^@]*))?@@', ref, body)   # @@REF:번호:머리말@@ 또는 @@REF:번호:머리말:틀이름:값@@
+    # 되풀이 틀: <!--DEF 이름 ⏎ … ⏎ --> 로 정의하고 @@USE:이름:값1|값2@@ 로 쓴다($1 · $2 자리에 값)
+    defs = dict(re.findall(r'<!--DEF (\w+)\n(.*?)\n-->', body, re.S)); body = re.sub(r'<!--DEF \w+\n.*?\n-->\n*', '', body, flags=re.S)
+    def use(m):
+        t = defs[m.group(1)]
+        for k, v in enumerate((m.group(2) or '').split('|'), 1): t = t.replace('$%d' % k, v)
+        return t
+    body = re.sub(r'@@USE:(\w+)(?::([^@]*))?@@', use, body)
     first = '<!-- 1. 표지 -->\n<section data-pattern="cover" class="slide c-orig">%s</section>' % (
         '<img src="img/%d.jpg" alt="%s 표지">' % (no, name(rounds[no])) if no in IMG else '<iframe src="../light/%02d.html?slide=" title="%s 표지" loading="eager"></iframe>' % (no, name(rounds[no])))
     body = first + '\n\n' + body
@@ -83,7 +91,7 @@ def bespoke_body(no):
     titles = re.findall(r'<!-- \d+\. ([^\n]+?) -->', body)
     return body, base, device, refs, titles
 REFCSS = ('/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */\n'
-          '.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center}.slide.ref .r-win iframe{height:100%;aspect-ratio:16/9;border:0;pointer-events:none;background:var(--ds-bg)}\n')
+          '.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center}.slide.ref .r-win iframe{height:100%;aspect-ratio:16/9;max-width:100%;border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}\n')
 
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True); meta = []

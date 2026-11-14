@@ -458,7 +458,7 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
 /* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
-.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center}.slide.ref .r-win iframe{height:100%;aspect-ratio:16/9;border:0;pointer-events:none;background:var(--ds-bg)}
+.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center}.slide.ref .r-win iframe{height:100%;aspect-ratio:16/9;max-width:100%;border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
 
 /* ── 이 표지의 고유 장치(src/covers/4.css) ── */
 /* #4 가온 야간편 탑승권 — 표지의 장치를 본문 틀로
@@ -509,7 +509,7 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .vs > h3{font-family:var(--ds-font-title);font-weight:400;color:var(--d-blue)}.vs > h3.is-key{color:var(--d-blue);background:var(--d-yel)}
 .vs > *{border-bottom:2px dashed var(--d-blue)}.vs{padding:8px 0}.vs > *{padding-left:36px}
 .check li::before{border-color:var(--d-blue)}.check li{font-weight:500}
-.r-win{border:3px solid var(--d-blue)}
+.r-win iframe{border:3px solid var(--d-blue)}
 
 /* ── 여정(이 표지만의 부품): 출발 코드 → 경유지 점선 → 도착 코드. 흐름 · 단계에 쓴다 ── */
 .route{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:0 44px}
