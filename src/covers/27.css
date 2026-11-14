@@ -1,0 +1,53 @@
+/* #27 일요판 1면 약속 — 표지의 장치를 본문 틀로
+   장마다 신문의 한 면: 위에 날짜 띠(날짜 · 호 · 면), 제호, 굵고 가는 이중 괘선, 12단 눈금. 그 아래 남색 작은 라벨과 큰 명조 헤드라인.
+   내용은 세로 괘선으로 나눈 단(라벨 + 명조 한 줄 + 본문), 오른쪽 짧은 라벨 단, 가는 줄 위아래의 숫자로 담는다. 신문 요소는 괘선과 단뿐, 사진 · 장식 없음. */
+:root{--n-ink:#1B1E24;--n-navy:#23467A;--n-soft:#5A5F6B;--n-line:#C8CBD1;--n-paper:#FBFAF7;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:var(--n-paper);color:var(--n-ink)}
+.slide:not(.c-orig)::before,.slide:not(.c-orig)::after{content:none}
+/* 날짜 띠 · 제호 · 이중 괘선 · 12단 눈금 */
+.mast{position:absolute;left:80px;right:80px;top:0;height:232px;z-index:3}
+.mast p{position:absolute;left:0;right:0;top:46px;margin:0;display:flex;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--n-ink);font:500 22px/1 var(--ds-font-body);letter-spacing:.04em;color:var(--n-soft)}
+.mast p b{color:var(--n-navy)}
+.mast h4{position:absolute;left:0;top:100px;margin:0;font:900 56px/1 var(--ds-font-title);letter-spacing:.06em;color:var(--n-ink)}
+.mast span{position:absolute;right:0;top:124px;font:500 22px/1 var(--ds-font-body);color:var(--n-soft)}
+.mast::before{content:"";position:absolute;left:0;right:0;top:186px;height:14px;border-top:6px solid var(--n-ink);border-bottom:1px solid var(--n-ink);box-sizing:border-box}
+.mast::after{content:"";position:absolute;left:0;right:0;top:220px;height:12px;background:repeating-linear-gradient(90deg,var(--n-line) 0 2px,transparent 2px calc(100% / 12))}
+.s-body{inset:262px 80px 100px;gap:16px}
+.kicker{display:block;padding:0;border:0;background:none;font:700 26px/1 var(--ds-font-body);letter-spacing:.14em;color:var(--n-navy)}
+.kicker::before{content:none}
+.title{max-width:1500px;font:900 76px/1.2 var(--ds-font-title);letter-spacing:-.01em;color:var(--n-ink)}
+.title em{font-style:normal;color:var(--n-navy)}
+.foot{position:absolute;left:80px;right:80px;bottom:44px;margin:0;padding-top:18px;border-top:1px solid var(--n-ink);display:flex;justify-content:space-between;font:500 22px/1 var(--ds-font-body);color:var(--n-soft);z-index:3}
+.foot b{color:var(--n-ink)}
+.page-no{right:330px;bottom:44px;font:500 22px/1 var(--ds-font-body);color:var(--n-soft);z-index:4}
+.src{left:auto;right:80px;bottom:92px;font-size:22px;z-index:4}
+/* ── 단(이 표지만의 부품): 세로 괘선으로 나눈 기사 단. 남색 라벨 + 명조 한 줄 + 본문 ── */
+.cols{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border-top:1px solid var(--n-line);align-content:stretch}
+.cols > div{padding:26px 34px 0;border-left:1px solid var(--n-line);display:flex;flex-direction:column;gap:14px;min-width:0}
+.cols > div:first-child{padding-left:0;border-left:0}
+.cols small,.labels small,.index small{font:700 24px/1 var(--ds-font-body);letter-spacing:.1em;color:var(--n-navy)}
+.cols h3{margin:0;font:700 42px/1.3 var(--ds-font-title)}
+.cols p{margin:0;font:400 28px/1.6 var(--ds-font-body);color:var(--n-soft)}
+.cols b.num{font:900 132px/1 var(--ds-font-title);letter-spacing:-.03em;color:var(--n-ink)}.cols b.num i{font:700 40px/1 var(--ds-font-body);font-style:normal;letter-spacing:0;margin-left:8px;color:var(--n-soft)}
+.cols > div.is-key h3,.cols > div.is-key b.num{color:var(--n-navy)}
+/* ── 짧은 라벨 단(이 표지만의 부품): 왼쪽 가는 줄, 라벨 + 명조 한 줄 ── */
+.lede{display:grid;grid-template-columns:1fr 520px;gap:60px;align-items:end}
+.lede > p{margin:0;font:900 108px/1.18 var(--ds-font-title);letter-spacing:-.02em}
+.lede > p em{font-style:normal;color:var(--n-navy)}
+.labels{border-left:1px solid var(--n-line);padding-left:34px;display:flex;flex-direction:column;gap:30px}
+.labels div{display:flex;flex-direction:column;gap:12px}.labels b{font:700 36px/1.3 var(--ds-font-title)}
+.labels.big{border:0;padding:0;justify-content:center;gap:0}
+.labels.big div{display:grid;grid-template-columns:200px 1fr;align-items:baseline;padding:30px 0;border-top:1px solid var(--n-line)}.labels.big div:last-child{border-bottom:1px solid var(--n-line)}
+.labels.big small{font-size:30px}.labels.big b{font-size:52px}.labels.big div.is-key b{color:var(--n-navy)}
+/* ── 오늘의 지면(이 표지만의 부품): 면 번호 + 라벨 + 명조 한 줄 ── */
+.index{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center}
+.index li{display:grid;grid-template-columns:150px 170px 1fr;align-items:baseline;gap:0 20px;padding:28px 0;border-top:1px solid var(--n-line)}.index li:last-child{border-bottom:1px solid var(--n-line)}
+.index li > i{font:900 56px/1 var(--ds-font-title);font-style:normal;color:var(--n-ink)}.index li > i::after{content:"면";font:500 26px/1 var(--ds-font-body);margin-left:6px;color:var(--n-soft)}
+.index b{font:700 48px/1.25 var(--ds-font-title)}
+.index li.is-key b{color:var(--n-navy)}
+.slide.ref .s-body{bottom:104px}.r-win iframe{border:1px solid var(--n-line)}.slide.ref .src{right:auto;left:80px;bottom:92px;display:none}
+.end h2{position:absolute;left:80px;top:330px;margin:0;font:900 140px/1.14 var(--ds-font-title);letter-spacing:-.02em;color:var(--n-ink)}
+.end > p:not(.foot){position:absolute;left:80px;top:760px;right:80px;margin:0;padding-top:26px;border-top:1px solid var(--n-line);font:700 44px/1.3 var(--ds-font-body);color:var(--n-ink)}.end > p:not(.foot) i{font-style:normal;color:var(--n-soft);font-weight:400}
+.labels.big{align-items:stretch;width:100%;box-sizing:border-box}.labels.big div{width:100%;box-sizing:border-box}
+.cols h3{font-size:48px}.cols p{font-size:32px}
+.labels.big{border-left:0!important;padding-left:0!important}
