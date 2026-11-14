@@ -457,3 +457,55 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
+.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
+
+/* ── 이 표지의 고유 장치(src/covers/37.css) ── */
+/* #37 분광 프리즘 — 표지의 장치를 본문 틀로
+   표지의 말: 한 줄기 흰 빛(한 번의 신청)이 프리즘을 지나 다섯 색 띠(의료 · 요양 · 주거 · 식사 · 마음돌봄)로 펼쳐진다.
+   본문 틀: 자간 넓은 고정폭 머리말, 아주 굵은 제목, 아래에 광학대 눈금자(100~1400)와 빨간 위치 표시(장마다 옮겨 간다).
+   내용은 '하나 → 다섯 갈래'(왼쪽 한 칸이 오른쪽 다섯 색 줄로)와 다섯 색 띠로 담는다. 프리즘 그림은 표지에서 떠낸 것(covers/img/37-prism.jpg)만 쓴다. */
+:root{--s1:#E8343A;--s2:#F2C81B;--s3:#2DB36B;--s4:#2F86E0;--s5:#7B3FE0;--s-ink:#16202B;--s-soft:#566270;--s-line:#C7CFD8;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:linear-gradient(180deg,#F6F8FA 0,#EEF2F6 70%,#E4E9EF 100%);color:var(--s-ink)}
+.slide:not(.c-orig)::before{content:none}
+.s-body{inset:84px 100px 190px;gap:18px}
+.kicker{display:block;padding:0;border:0;background:none;font:700 24px/1 var(--ds-font-num);letter-spacing:.34em;color:var(--s-soft)}
+.kicker::before{content:none}
+.title{font:900 68px/1.18 var(--ds-font-title);letter-spacing:-.02em;color:var(--s-ink)}
+.title em{font-style:normal;background:linear-gradient(90deg,var(--s1),var(--s2),var(--s3),var(--s4),var(--s5));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* ── 광학대 눈금자(이 표지만의 부품): 100~1400 눈금, 빨간 표시가 지금 자리 ── */
+.bench{position:absolute;left:100px;right:100px;bottom:70px;height:60px;z-index:3;background:linear-gradient(180deg,#F4F6F8,#CDD4DC);border-top:1px solid #AEB7C1;box-shadow:0 10px 14px -10px rgba(22,32,43,.4)}
+.bench::before{content:"";position:absolute;inset:0 0 auto 0;height:14px;background:repeating-linear-gradient(90deg,#7C8794 0 1.5px,transparent 1.5px calc(100% / 70))}
+.bench ol{list-style:none;margin:0;padding:0;position:absolute;inset:auto 0 6px 0;display:grid;grid-template-columns:repeat(14,1fr);font:500 22px/1 var(--ds-font-num);color:var(--s-soft);text-align:center}
+.bench i{position:absolute;top:-22px;left:calc(var(--at) / 14 * 100% - 100% / 28);width:0;height:0;margin-left:-11px;border-left:11px solid transparent;border-right:11px solid transparent;border-top:20px solid var(--s1)}
+.page-no{right:100px;bottom:30px;font:500 22px/1 var(--ds-font-num);color:var(--s-soft)}
+.src{left:100px;bottom:30px;font-size:22px}
+/* ── 하나 → 다섯 갈래(이 표지만의 부품): 왼쪽 한 칸(흰 빛)이 오른쪽 다섯 색 줄로 펼쳐진다 ── */
+.fan{display:grid;grid-template-columns:330px 130px 1fr;grid-template-rows:repeat(5,1fr);gap:8px 0;align-content:stretch}
+.fan > .one{grid-row:1 / 6;align-self:center;padding:30px 30px 34px;background:#fff;box-shadow:0 0 0 1px var(--s-line),0 0 34px rgba(255,220,150,.9);display:flex;flex-direction:column;gap:10px}
+.fan > .one b{font:900 44px/1.2 var(--ds-font-title)}.fan > .one span{font:500 26px/1.45 var(--ds-font-body);color:var(--s-soft)}
+.fan > i{grid-column:2;height:6px;align-self:center;background:var(--s1)}
+.fan > i:nth-of-type(2){background:var(--s2)}.fan > i:nth-of-type(3){background:var(--s3)}.fan > i:nth-of-type(4){background:var(--s4)}.fan > i:nth-of-type(5){background:var(--s5)}
+.fan > div:not(.one){grid-column:3;display:grid;grid-template-columns:230px 1fr auto;align-items:center;gap:0 24px;padding:0 28px;background:#fff;border-left:14px solid var(--s1);box-shadow:0 0 0 1px var(--s-line);font:500 30px/1.35 var(--ds-font-body);color:var(--s-soft)}
+.fan > div.c2{border-left-color:var(--s2)}.fan > div.c3{border-left-color:var(--s3)}.fan > div.c4{border-left-color:var(--s4)}.fan > div.c5{border-left-color:var(--s5)}
+.fan > div b{font:900 38px/1.2 var(--ds-font-title);color:var(--s-ink)}
+.fan > div em{font:700 28px/1 var(--ds-font-num);font-style:normal;color:var(--s-ink)}
+/* ── 다섯 색 띠(이 표지만의 부품) ── */
+.bands{display:grid;grid-template-columns:repeat(5,1fr);gap:0;align-content:center}
+.bands > div{padding:26px 22px 30px;border-top:16px solid var(--s1);background:#fff;box-shadow:0 0 0 1px var(--s-line);display:flex;flex-direction:column;gap:12px;min-width:0}
+.bands > div:nth-child(2){border-top-color:var(--s2)}.bands > div:nth-child(3){border-top-color:var(--s3)}.bands > div:nth-child(4){border-top-color:var(--s4)}.bands > div:nth-child(5){border-top-color:var(--s5)}
+.bands h3{margin:0;font:900 40px/1.2 var(--ds-font-title)}
+.bands b{font:700 76px/1 var(--ds-font-num);letter-spacing:-.04em}.bands b small{font:700 28px/1 var(--ds-font-body);letter-spacing:0;margin-left:6px;color:var(--s-soft)}
+.bands p{margin:0;font-size:26px;line-height:1.45;color:var(--s-soft)}
+.optic{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center}
+.optic img{width:100%;display:block;mix-blend-mode:multiply;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.optic ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0}
+.optic li{display:grid;grid-template-columns:150px 1fr;gap:0 20px;align-items:baseline;padding:20px 0;border-top:1px solid var(--s-line);font:500 30px/1.4 var(--ds-font-body);color:var(--s-soft)}.optic li:last-child{border-bottom:1px solid var(--s-line)}
+.optic li b{font:900 36px/1.2 var(--ds-font-title);color:var(--s-ink)}
+.points li{border-color:var(--s-line)}.points li::before{font-family:var(--ds-font-num);color:var(--s-soft)}.points b{font-weight:900}.points li.is-key::before,.points li.is-key b{color:var(--s1)}
+.slide.ref .s-body{bottom:170px}.r-win iframe{border:1px solid var(--s-line)}
+.end h2{position:absolute;left:100px;top:120px;margin:0;font:900 92px/1.16 var(--ds-font-title);letter-spacing:-.02em;color:var(--s-ink)}
+.end > p{position:absolute;left:100px;top:350px;margin:0;font:500 28px/1.6 var(--ds-font-body);color:var(--s-soft)}
+.end > img{position:absolute;right:60px;bottom:150px;width:1340px;mix-blend-mode:multiply;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.fan > i:nth-of-type(1),.fan > div:nth-of-type(2){grid-row:1}.fan > i:nth-of-type(2),.fan > div:nth-of-type(3){grid-row:2}.fan > i:nth-of-type(3),.fan > div:nth-of-type(4){grid-row:3}.fan > i:nth-of-type(4),.fan > div:nth-of-type(5){grid-row:4}.fan > i:nth-of-type(5),.fan > div:nth-of-type(6){grid-row:5}
+.fan > .one{grid-column:1}
