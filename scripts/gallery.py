@@ -94,6 +94,15 @@ h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--so
 .wowg a:hover{border-color:var(--key)}.wowg img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
 .wowg b{margin:12px 14px 0;font-size:18px}.wowg b small{margin-left:8px;font-size:13.5px;font-weight:500;color:var(--soft)}
 .wowg p{margin:4px 14px 0;font-size:14.5px;color:var(--soft);line-height:1.5}.wowg p.w{margin:8px 14px 14px;font-size:13px;color:var(--key)}
+.citabs{display:flex;gap:8px;margin:0 0 14px}.citabs button{padding:9px 20px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font:700 15px var(--f);color:var(--soft)}
+.citabs button[aria-pressed=true]{border-color:var(--key);background:var(--keybg);color:var(--key)}
+.cig{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
+.cig a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none}
+.cig a:hover{border-color:var(--key)}
+.cig .pv{height:190px;display:grid;place-items:center;padding:18px;background:repeating-conic-gradient(#ECEDEF 0 25%,#fff 0 50%) 0 0/18px 18px}
+.cig .pv.dk{background:repeating-conic-gradient(#2A3A55 0 25%,#33465F 0 50%) 0 0/18px 18px}
+.cig .pv{overflow:hidden}.cig .pv img{max-width:100%;max-height:154px;width:auto;height:auto;object-fit:contain;background:none}
+.cig b{padding:12px 14px 2px;font-size:15.5px}.cig span{padding:0 14px 12px;font-size:13px;color:var(--soft)}
 .ico{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
 .ico button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;font:500 13px/1.35 var(--f);color:var(--ink);text-align:center}
 .ico button:hover{border-color:var(--key);color:var(--key)}.ico svg{width:34px;height:34px}
@@ -391,12 +400,22 @@ sizes['present'] = page('present.html', '발표자료 고르기 — 발표 디�
 # ── icons.html: 아이콘 고르기 ──
 ICONS = J('icons', 'icons.json')
 SVG = lambda i: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>' % i['svg']
-B = ['<h1>아이콘 고르기</h1><p class="lead">교육행정 발표에 자주 쓰는 아이콘 %d개입니다. 누르면 SVG 코드가 복사됩니다. 선 색은 글자색을 따릅니다.</p>' % len(ICONS)]
+CI = J('icons', 'ci.json'); CIK = list(dict.fromkeys(c['kind'] for c in CI))
+B = ['<h1>아이콘 고르기</h1><p class="lead">교육청 비전 · 슬로건 · 기관 로고(배경 투명 PNG)와, 교육행정 발표에 자주 쓰는 아이콘 %d개입니다.</p>' % len(ICONS),
+     '<h2 id="ci">비전 · 슬로건 · 기관 로고 <small>%d개 — 누르면 투명 PNG를 내려받습니다</small></h2>' % len(CI),
+     '<div class="citabs" role="group" aria-label="종류">%s</div>' % ''.join('<button type="button" data-k="%s" aria-pressed="%s">%s</button>' % (k, 'true' if i == 0 else 'false', {'CI': '기관 로고'}.get(k, k)) for i, k in enumerate(CIK)),
+     '<div class="cig" id="cig">%s</div>' % ''.join('<a href="icons/%s" download="%s.png" data-k="%s"%s><div class="pv%s"><img src="icons/%s" alt="%s" loading="lazy"></div><b>%s</b><span>PNG · %d × %d%s</span></a>' % (
+         c['file'], E(c['name']), c['kind'], '' if c['kind'] == CIK[0] else ' hidden', ' dk' if c['white'] else '', c['file'], E(c['name']), E(c['name']), c['w'], c['h'], ' · 어두운 바탕용' if c['white'] else '') for c in CI),
+     '<p class="note">화면 캡처에서 오려 낸 것이라 해상도가 낮습니다(가로 300~420px). 크게 인쇄할 때는 교육청 CI 원본 파일을 쓰세요. 비율을 바꾸거나 색을 고치지 말고, 기관의 CI 사용 규정을 따르세요.</p>',
+     '<h2>아이콘 <small>%d개 — 누르면 SVG 코드가 복사됩니다. 선 색은 글자색을 따릅니다</small></h2>' % len(ICONS)]
 for g in dict.fromkeys(i['group'] for i in ICONS):
-    B.append('<h2>%s</h2><div class="ico">%s</div>' % (E(g), ''.join('<button type="button" data-svg="%s" title="%s">%s%s</button>' % (
+    B.append('<h3>%s</h3><div class="ico">%s</div>' % (E(g), ''.join('<button type="button" data-svg="%s" title="%s">%s%s</button>' % (
         E(SVG(i)), E(' · '.join(i['keys'])), SVG(i), E(i['ko'])) for i in ICONS if i['group'] == g)))
 B.append('<p class="note">아이콘: Tabler Icons(MIT, <a href="icons/LICENSE-tabler.txt">라이선스</a>). 교육행정 이름과 묶음은 이 갤러리에서 붙였습니다. AI용 전체 목록: <a href="catalog/icons.md">catalog/icons.md</a></p>')
 ICON_JS = r"""
+document.querySelector('.citabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('.citabs button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  document.querySelectorAll('#cig a').forEach(a => a.hidden = a.dataset.k !== b.dataset.k); });
 document.addEventListener('click', async e => { const b = e.target.closest('[data-svg]'); if (!b) return;
   try { await navigator.clipboard.writeText(b.dataset.svg); b.classList.add('ok'); setTimeout(() => b.classList.remove('ok'), 1400); } catch (err) {} });
 """
@@ -417,7 +436,7 @@ B = ['<section class="hero"><div><h1>무엇을 만들까요?</h1><p class="lead"
      '<nav class="main4" aria-label="무엇을 할까요">'
      + '<a href="present.html"><div class="vis">%s</div><div class="tx"><i>1</i><b>발표자료 고르기</b><span>컨셉 정하기 · 본문 지정하기 · 와우 포인트 적용하기</span></div></a>' % IMGS([th('D', '-set', 1), 'covers/thumbs/4-1.jpg', 'covers/thumbs/7-3.jpg', 'wow/thumbs/21-2.jpg'])
      + '<a href="print.html"><div class="vis">%s</div><div class="tx"><i>2</i><b>인쇄 · 홍보물 고르기</b><span>포스터 · 리플렛 · 소식지 · 특수 발표 틀</span></div></a>' % IMGS([r['thumb'] + ver(r) for r in pr[:4]])
-     + '<a href="icons.html"><div class="vis icons-vis">%s</div><div class="tx"><i>3</i><b>아이콘 고르기</b><span>교육행정 아이콘 %d개, 누르면 복사</span></div></a>' % (''.join(SVG(i) for i in ICONS[:12]), len(ICONS))
+     + '<a href="icons.html"><div class="vis icons-vis">%s</div><div class="tx"><i>3</i><b>아이콘 고르기</b><span>교육청 비전 · 슬로건 · 로고와 아이콘 %d개</span></div></a>' % (''.join(SVG(i) for i in ICONS[:12]), len(ICONS))
      + '<a href="ai.html"><div class="vis ai-vis"><p>이 계획안으로 10분짜리 발표를 만들어 줘. 디자인은 갤러리에서 어울리는 걸 골라 줘.</p><p>요청문 복사</p></div><div class="tx"><i>4</i><b>AI에게 맡기기</b><span>고르는 것부터 맡기고 싶을 때</span></div></a>'
      + '</nav>']
 sizes['index'] = page('index.html', '발표 디자인 라이브러리', '발표자료 · 인쇄 · 홍보물 · 아이콘을 고르고 AI에게 내 문서에 적용해 달라고 요청하는 갤러리.', '', '\n'.join(B))
