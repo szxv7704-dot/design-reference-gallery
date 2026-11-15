@@ -458,3 +458,62 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
+.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
+
+/* ── 이 표지의 고유 장치(src/covers/106.css) ── */
+/* #106 새로운 일상이 도착했습니다 — 표지의 장치를 본문 틀로
+   표지의 말: 크라프트 택배 상자에 '새로운 일상'이 담겨 도착하고, 열면 발견 · 경험 · 연결 카드 세 장이 나온다.
+   본문 틀: 위 자간 넓은 고정폭 'DELIVERED · …' 줄, 주황 테이프 띠(화살표 + 'OPEN NEW POSSIBILITIES'), 송장 라벨(바코드 · 보내는 분 · 받는 분 · 물품명 · NXT 번호 · 주황 도장), 위 테두리가 주황인 흰 카드.
+   상자 그림은 표지 원화(covers/img/106-box.webp)만 쓴다. 강조는 주황 하나. */
+:root{--d-org:#FF5A1F;--d-kraft:#C9A27A;--d-ink:#161412;--d-paper:#F4F1EA;--d-soft:#6E655B;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:linear-gradient(180deg,#EDE7DD 0,#E2D9CB 70%,#CDBFAC 100%);color:var(--d-ink)}
+.slide:not(.c-orig)::before{content:none}
+.dline{position:absolute;left:58px;top:42px;z-index:3;margin:0;font:600 24px/1 var(--ds-font-num);letter-spacing:.3em;color:#5A5047}
+/* ── 테이프 띠(이 표지만의 부품): 주황 띠 위 화살표와 고정폭 굵은 글 ── */
+.tape{position:absolute;left:-20px;right:-20px;bottom:56px;height:74px;z-index:2;display:flex;align-items:center;gap:40px;padding:0 70px;background:var(--d-org);transform:rotate(-.6deg);box-shadow:0 6px 14px -8px rgba(0,0,0,.35);
+  font:900 30px/1 var(--ds-font-title);letter-spacing:.04em;color:var(--d-ink);white-space:nowrap;overflow:hidden}
+.tape span{display:flex;align-items:center;gap:18px}.tape span::before{content:"→";font:900 40px/1 var(--ds-font-body)}
+.tape small{font:600 22px/1 var(--ds-font-body);letter-spacing:0}
+.s-body{inset:100px 80px 170px;gap:20px}
+.kicker{display:block;padding:0;border:0;background:none;font:600 24px/1 var(--ds-font-num);letter-spacing:.14em;color:var(--d-org)}
+.kicker::before{content:none}
+.title{font:400 76px/1.15 var(--ds-font-title);color:var(--d-ink);max-width:1400px}
+.title em{font-style:normal;color:var(--d-org)}
+.page-no{right:70px;bottom:auto;top:42px;font:600 22px/1 var(--ds-font-num);letter-spacing:.2em;color:#5A5047}
+.src{left:80px;bottom:150px;font:500 22px/1 var(--ds-font-num);color:var(--d-soft)}
+/* ── 송장(이 표지만의 부품): 바코드 줄 + 칸 + 번호 + 주황 도장 ── */
+.waybill{background:#FBF9F4;box-shadow:0 1px 0 rgba(0,0,0,.06),0 18px 30px -18px rgba(0,0,0,.45);transform:rotate(-1.2deg);padding:24px 30px 26px;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;gap:16px 30px;min-width:0;align-self:center}
+.waybill .code{height:64px;background:repeating-linear-gradient(90deg,#111 0 3px,transparent 3px 6px,#111 6px 7px,transparent 7px 11px,#111 11px 15px,transparent 15px 17px,#111 17px 18px,transparent 18px 22px)}
+.waybill .no{align-self:center;font:900 52px/1 var(--ds-font-title);letter-spacing:.02em}
+.waybill dl{grid-column:1;margin:0;display:grid;grid-template-columns:160px 1fr;border-top:2px solid #111}
+.waybill dt,.waybill dd{margin:0;padding:14px 0;border-bottom:1.5px solid #111;font:500 28px/1.3 var(--ds-font-body)}
+.waybill dt{font-size:24px;color:#3A332C}
+.waybill dd{font-weight:700;font-size:32px}
+.waybill .stamp{grid-column:2;grid-row:2;align-self:center;justify-self:center;padding:10px 18px;border:4px solid var(--d-org);border-radius:8px;transform:rotate(-12deg);font:900 30px/1.2 var(--ds-font-title);color:var(--d-org);text-align:center;white-space:nowrap}
+/* ── 꺼낸 카드(이 표지만의 부품): 위 테두리 주황, 고정폭 번호 · 영문, 장 번호 상자 ── */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-content:center}
+.cards3 > div{position:relative;background:var(--d-paper);border-top:8px solid var(--d-org);box-shadow:0 22px 34px -22px rgba(0,0,0,.45);padding:28px 30px 36px;display:flex;flex-direction:column;gap:16px;min-height:330px;box-sizing:border-box}
+.cards3 small{font:600 22px/1 var(--ds-font-num);letter-spacing:.14em;color:var(--d-org)}
+.cards3 i{position:absolute;right:24px;top:24px;padding:4px 10px;border:2px solid var(--d-ink);font:600 22px/1 var(--ds-font-body);font-style:normal}
+.cards3 h3{margin:0;font:400 76px/1.05 var(--ds-font-title)}
+.cards3 p{margin:0;font:400 30px/1.5 var(--ds-font-body);color:#3A332C}
+.cards3 > div.is-key{transform:translateY(-22px)}
+.boxpair{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.boxpair img{width:100%;display:block;filter:drop-shadow(0 26px 22px rgba(0,0,0,.25))}
+/* 수치: 상자 옆 표 */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-content:center}
+.nums > div{background:var(--d-paper);border-top:8px solid var(--d-ink);padding:26px 30px 30px;display:flex;flex-direction:column;gap:12px;box-shadow:0 22px 34px -22px rgba(0,0,0,.45)}
+.nums span{font:600 28px/1.3 var(--ds-font-body)}
+.nums b{font:400 130px/1 var(--ds-font-title)}.nums b small{font:600 40px/1 var(--ds-font-body);margin-left:6px}
+.nums p{margin:0;font:500 22px/1.4 var(--ds-font-num);color:var(--d-soft)}
+.nums > div.is-key{border-top-color:var(--d-org)}.nums > div.is-key b{color:var(--d-org)}
+.slide.ref .s-body{bottom:160px}.r-win iframe{box-shadow:0 22px 34px -22px rgba(0,0,0,.45)}.slide.ref .src{bottom:150px}
+.end > img{position:absolute;left:50%;top:150px;width:1240px;margin-left:-620px;filter:drop-shadow(0 30px 26px rgba(0,0,0,.28))}
+.tape{left:0;right:0;transform:none;clip-path:polygon(0 8%,100% 0,100% 92%,0 100%)}
+.waybill .code{height:70px;background:repeating-linear-gradient(90deg,#111 0 4px,transparent 4px 8px,#111 8px 10px,transparent 10px 15px,#111 15px 21px,transparent 21px 24px,#111 24px 26px,transparent 26px 32px,#111 32px 35px,transparent 35px 39px);background-size:100% 100%}
+.waybill{width:100%;box-sizing:border-box}
+.waybill.wide{align-self:center;padding:34px 44px 38px}.waybill.wide dt{font-size:30px}.waybill.wide dd{font-size:42px;padding:20px 0}
+.cards3 .waybill dd{font-size:34px}.cards3 .waybill{align-self:center}
+.waybill .code{background:repeating-linear-gradient(90deg,#111 0 4px,transparent 4px 8px,#111 8px 10px,transparent 10px 15px,#111 15px 21px,transparent 21px 24px,#111 24px 26px,transparent 26px 32px,#111 32px 35px,transparent 35px 39px) 0 0/39px 100% repeat-x}
+.waybill.wide{padding:40px 50px 46px}.waybill.wide dt{font-size:32px;padding:30px 0}.waybill.wide dd{font-size:50px;padding:26px 0}.waybill.wide .bar{height:100px}.waybill.wide .no{font-size:72px}.waybill.wide .stamp{font-size:44px}
