@@ -1,7 +1,9 @@
-# 갤러리 화면 만들기: 사람이 스타일을 고르고, AI가 그 스타일을 읽어 적용하게 하는 화면들.
-#   index.html        전체 스타일(검증된 세트가 먼저, 표지만 있는 디자인은 그 아래)
-#   styles/{id}.html  스타일 하나: 10장 미리보기 · 구성별 쓰는 법 · 내려받기 · AI 요청문
-#   body.html         본문 구성(전하려는 내용으로 찾기) · motion.html 모션·강조 · print.html 인쇄·홍보물 · guide.html 이용 방법
+# 갤러리 화면 만들기: 사람이 고르고, AI가 그것을 읽어 적용하게 하는 화면들.
+#   index.html        첫 화면: 카드 넷(발표자료 고르기 · 인쇄 · 홍보물 고르기 · 아이콘 고르기 · AI에게 맡기기)
+#   present.html      발표자료 고르기: 컨셉 정하기(concept.html) · 본문 지정하기(body.html) · 와우 포인트 적용하기(wow.html)
+#   concept.html      스타일 세트 8 · 표지에서 넓힌 덱 27 · styles/{id}.html 스타일 하나
+#   wow.html          와우 포인트 24(기법 하나 = 덱 하나, wow/{번호}.html — scripts/wow.py)
+#   print.html · icons.html · ai.html
 #   catalog.md        AI가 읽는 차례: 적용 순서 · 스타일 목록 · 구성 목록
 # 원천: data/styles.json · data/roles.json · data/patterns.json · data/kit_slides.json · data/rounds.json. 화면과 AI용 목록이 같은 데이터에서 나온다.
 # 실행: python3 scripts/gallery.py     (kit.py · kit_thumbs.js · site.py 다음에)
@@ -29,7 +31,7 @@ STATUS_NOTE = {'검증된 세트': '10장 예시 · 다른 주제 시험 · 넘�
 def role_slide(rid, f='B'):   # 그 역할을 맡은 10장 예시의 장 번호
     return next((s['n'] for s in SETS[f] if s.get('role') == rid), None)
 
-NAV = [('index.html', '컨셉')]   # 전체 스타일 · 본문 구성은 첫 화면(컨셉) 하나로. 모션 · 인쇄 · 이용 방법은 첫 화면의 단계 아래 카드로
+NAV = [('present.html', '발표자료'), ('print.html', '인쇄 · 홍보물'), ('icons.html', '아이콘'), ('ai.html', 'AI에게 맡기기')]   # 첫 화면의 카드 넷과 같다
 CSS = r'''
 :root{--bg:#F7F6F3;--card:#FFFFFF;--ink:#1B1E24;--soft:#5C616B;--line:#E3E1DB;--key:#1F5FD0;--keybg:#E8EFFC;--chip:#EDEBE5;--ok:#1E7B4F;--warn:#9A6400;
   --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
@@ -64,6 +66,42 @@ h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--so
 .more{margin:12px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .more a{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:12px;background:var(--chip);border:1px solid transparent;text-decoration:none}
 .more a b{font-size:16px;white-space:nowrap}.more a b::after{content:" ›";color:var(--soft)}.more a span{font-size:13.5px;color:var(--soft)}
+.main4{margin:34px 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.main4 > a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.main4 > a:hover{border-color:var(--key);box-shadow:0 18px 40px -28px rgba(27,30,36,.5)}
+.main4 .vis{aspect-ratio:16/8;background:var(--chip);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;overflow:hidden}
+.main4 .vis img{width:100%;height:100%;object-fit:cover}
+.main4 .vis.one{display:block}.main4 .vis.one img{width:100%;height:100%;object-fit:cover}
+.main4 .tx{padding:20px 24px 22px;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:2px 16px}
+.main4 .tx i{grid-row:1 / 3;width:44px;height:44px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center;font:900 20px var(--f);font-style:normal}
+.main4 .tx b{font-size:24px;font-weight:900}.main4 .tx span{grid-column:2;font-size:15px;color:var(--soft)}
+.main4 .tx::after{content:"›";grid-row:1 / 3;grid-column:3;font-size:34px;color:var(--soft)}
+.icons-vis{display:grid!important;grid-template-columns:repeat(6,1fr)!important;grid-template-rows:repeat(2,1fr)!important;place-items:center;padding:18px 28px;background:#EEF2FB!important;color:#1F5FD0}
+.icons-vis svg{width:56%;height:auto}
+.ai-vis{display:flex!important;flex-direction:column;justify-content:center;gap:12px;padding:22px 28px;background:linear-gradient(135deg,#E8EFFC,#F3EEFB)!important}
+.ai-vis p{margin:0;padding:14px 18px;border-radius:12px;background:#fff;font:13.5px/1.6 var(--m);color:var(--ink);box-shadow:0 10px 24px -18px rgba(27,30,36,.5)}
+.ai-vis p:nth-child(2){align-self:flex-end;background:#1F5FD0;color:#fff;font-family:var(--f);font-weight:700}
+.path{margin:30px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:pt}
+.path > a{counter-increment:pt;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none}
+.path > a:hover{border-color:var(--key)}
+.path .vis{aspect-ratio:16/10;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--chip)}.path .vis img{width:100%;height:100%;object-fit:cover}
+.path .tx{padding:18px 22px 22px}.path .tx b{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:900}
+.path .tx b::before{content:counter(pt);width:34px;height:34px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center;font-size:16px}
+.path .tx span{display:block;margin-top:8px;font-size:15px;color:var(--soft)}
+.crumb{margin:0 0 10px;font-size:14.5px}.crumb a{color:var(--soft);text-decoration:none}.crumb a:hover{color:var(--key)}
+.wowg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:16px}
+.wowg a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none}
+.wowg a:hover{border-color:var(--key)}.wowg img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.wowg b{margin:12px 14px 0;font-size:18px}.wowg b small{margin-left:8px;font-size:13.5px;font-weight:500;color:var(--soft)}
+.wowg p{margin:4px 14px 0;font-size:14.5px;color:var(--soft);line-height:1.5}.wowg p.w{margin:8px 14px 14px;font-size:13px;color:var(--key)}
+.ico{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.ico button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;font:500 13px/1.35 var(--f);color:var(--ink);text-align:center}
+.ico button:hover{border-color:var(--key);color:var(--key)}.ico svg{width:34px;height:34px}
+.ico button.ok{border-color:var(--ok);color:var(--ok)}
+.aisteps{margin:18px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:ai}
+.aisteps li{counter-increment:ai;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:15px;line-height:1.5}
+.aisteps li::before{content:counter(ai);display:grid;place-items:center;width:30px;height:30px;margin-bottom:10px;border-radius:50%;background:var(--keybg);color:var(--key);font-weight:900}
+.aisteps b{display:block;font-size:16.5px}
 .finder{margin:40px 0 0;padding:24px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
 .finder h2{margin:0 0 4px}.finder .note{margin:0 0 16px}
 .tools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:14px 0 18px}
@@ -103,7 +141,7 @@ a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
 .vc p.w{color:var(--ink)}.vc.on{border-color:var(--key);box-shadow:0 0 0 2px var(--key)}
 .sw{position:sticky;top:58px;z-index:5;background:var(--bg);padding:10px 0;margin:18px 0 0;display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap;font-size:14px;border-bottom:1px solid var(--line)}
 .sw .chips button{padding:6px 14px;font-size:14px}
-@media (max-width:820px){.steps{grid-template-columns:1fr;gap:8px}.steps a{min-height:0;padding:10px 14px;font-size:16px}.steps a small{display:none}.steps a::before{width:28px;height:28px;grid-row:auto}.more{grid-template-columns:1fr 1fr 1fr;gap:8px}.more a{padding:10px 12px}.more a span{display:none}.more a b{font-size:14px;white-space:nowrap}.finder{padding:16px}.short{grid-template-columns:1fr 1fr}.short a{padding:10px 12px;font-size:14px}.var3{grid-template-columns:1fr}.sw{top:0}.sw .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.sw .chips button{white-space:nowrap}}
+@media (max-width:820px){.main4,.path{grid-template-columns:1fr}.main4 .tx b{font-size:20px}.aisteps{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr;gap:8px}.steps a{min-height:0;padding:10px 14px;font-size:16px}.steps a small{display:none}.steps a::before{width:28px;height:28px;grid-row:auto}.more{grid-template-columns:1fr 1fr 1fr;gap:8px}.more a{padding:10px 12px}.more a span{display:none}.more a b{font-size:14px;white-space:nowrap}.finder{padding:16px}.short{grid-template-columns:1fr 1fr}.short a{padding:10px 12px;font-size:14px}.var3{grid-template-columns:1fr}.sw{top:0}.sw .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.sw .chips button{white-space:nowrap}}
 .note{margin:12px 0 0;font-size:14px;color:var(--soft)}
 .empty{padding:40px 0;text-align:center;color:var(--soft)}
 table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
@@ -179,8 +217,9 @@ RULES = '''지킬 것:
 REQ_PICK = '''제가 올린 발표 내용에 어울리는 디자인을 아래 갤러리에서 골라 적용해 주세요.
 
 1. 목록 읽기: %scatalog.md
-2. 제 발표의 내용과 자리(누구에게, 몇 분)를 보고 '검증된 세트' 중에서 스타일 하나를 고르고, 이유를 한 줄로 말해 주세요.
-3. 고른 스타일의 적용 안내(목록에 적힌 주소)를 읽고, 10장 안팎의 발표 HTML 파일 하나로 만들어 주세요.
+2. 제 발표의 내용과 자리(누구에게, 몇 분)를 보고 목록의 '스타일 세트'나 '표지에서 넓힌 덱' 가운데 하나를 고르고, 이유를 한 줄로 말해 주세요.
+3. 고른 디자인의 적용 안내(목록에 적힌 주소)를 읽고, 10장 안팎의 발표 HTML 파일 하나로 만들어 주세요.
+4. 표지나 결론처럼 꼭 기억시킬 한두 장에는 목록의 '와우 포인트' 가운데 어울리는 것을 하나 골라 써 주세요. 고른 기법과 이유도 알려 주세요.
 
 %s''' % (BASE, RULES)
 def req_apply(s):
@@ -210,14 +249,9 @@ def cover_card(r, up=''):
         E(name(r)), no, ('<span class="badge ok">표지의 장치를 본문까지</span> %s' % E(d['device'])) if d.get('bespoke') else
         ('<span class="badge">색 · 글꼴만 맞춤</span> 배치는 <a href="%sstyles/%s.html">%s</a>에서' % (up, d['base'], E(kit.NAMES[d['base']]))), up, no, up, E(r['file']), ver(r))
 
-# ── index.html ──
-H = ['''<section class="hero"><div><h1>표지부터 마무리까지,<br>하나의 스타일로.</h1>
-<p class="lead">발표자료 디자인을 고르고, AI에게 내 발표에 적용해 달라고 요청하는 곳입니다.</p></div>
-<div class="ask"><span>어떤 스타일이 좋을지 고민되나요?</span><button type="button" class="btn fill" data-copy="reqPick">AI에게 추천 맡기기 — 요청문 복사</button></div></section>
-<ol class="steps"><li><a href="#styles">스타일 고르기<small>아래 카드에서 마음에 드는 디자인</small></a></li><li><a href="#styles">전체 장표 확인하기<small>카드의 '전체 장표 보기'로 10장을 넘겨 보기</small></a></li><li><a href="guide.html">AI에 적용 요청하기<small>요청문을 복사해 AI 대화창에</small></a></li></ol>
-<nav class="more" aria-label="더 보기"><a href="motion.html"><b>모션 · 강조</b><span>청중의 눈을 붙잡는 연출 기법</span></a><a href="print.html"><b>인쇄 · 홍보물</b><span>포스터 · 리플렛 · 특수 발표 틀</span></a><a href="guide.html"><b>이용 방법</b><span>처음이라면 여기부터</span></a></nav>
-<section class="finder"><h2>필요한 본문만 찾고 싶다면</h2><p class="note">전하려는 내용을 고르면, 그 내용을 보여 주는 서로 다른 배치를 나란히 볼 수 있습니다.</p><div class="short">''' + ''.join('<a href="body.html#r-%s">%s<small>%s</small></a>' % (r['id'], E(r['name']), E(r['purpose'])) for r in ROLES if r['id'] not in ('cover', 'closing', 'more')) + '''</div></section>
-<h2 id="styles">전체 스타일 <small>표지 · 본문 · 마무리를 함께 확인하세요</small></h2>
+# ── concept.html: 컨셉 정하기(스타일 세트 · 표지에서 넓힌 덱) ──
+H = ['''<p class="crumb"><a href="present.html">← 발표자료 고르기</a></p><h1>컨셉 정하기</h1><p class="lead">발표 전체의 겉모습을 정합니다. 표지부터 마무리까지 한 벌로 만든 덱을 넘겨 보고 고르세요.</p>
+<h2 id="styles">스타일 세트 <small>8벌 — 표지 · 본문 · 마무리를 함께 확인하세요</small></h2>
 <div class="cards" id="cards">''']
 for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
     st = status(s)
@@ -250,7 +284,7 @@ $('#trayGo').addEventListener('click', () => {
   $('#cmp').showModal(); $('#cmpClose').focus(); });
 $('#cmp').addEventListener('click', e => { if (e.target.id === 'cmpClose' || e.target === $('#cmp')) $('#cmp').close(); });
 ''' % json.dumps({s['id']: {'name': s['name'], 'th': [th(s['id'], '-set', n) for n in (1, role_slide('flow', s['id']), role_slide('compare', s['id']), role_slide('numbers', s['id']), 10)], 'lab': ['표지', '흐름', '비교', '수치', '마무리']} for s in STYLES}, ensure_ascii=False)
-sizes = {'index': page('index.html', '발표 디자인 라이브러리 — 표지부터 마무리까지 하나의 스타일로', '발표자료 디자인을 고르고 AI에게 내 발표에 적용해 달라고 요청하는 갤러리. 표지 · 본문 · 마무리가 한 벌인 스타일 세트.', 'index.html', '\n'.join(H), INDEX_JS)}
+sizes = {'concept': page('concept.html', '컨셉 정하기 — 발표 디자인 라이브러리', '표지부터 마무리까지 한 벌인 덱: 스타일 세트 8 · 표지에서 넓힌 덱 27.', 'present.html', '\n'.join(H), INDEX_JS)}
 
 # ── 역할별 구성 셋(스타일 화면 · 본문 구성 · catalog 가 함께 쓴다) ──
 def var_cards(role, f, up='', mark=False):
@@ -269,7 +303,7 @@ def var_cards(role, f, up='', mark=False):
 for s in STYLES:
     f, st, up = s['id'], status(s), '../'
     fam_cov = [r for r in covers if r.get('family') == f]
-    B = ['<p class="note"><a href="../index.html">← 전체 스타일</a></p><h1>%s</h1><p class="lead">%s</p><p class="note"><span class="badge %s">%s</span> %s%s</p>' % (
+    B = ['<p class="crumb"><a href="../concept.html">← 컨셉 정하기</a></p><h1>%s</h1><p class="lead">%s</p><p class="note"><span class="badge %s">%s</span> %s%s</p>' % (
         E(s['name']), E(s['use']), 'ok' if s.get('verified') else 'wip', '10장 세트 · ' + st, E(STATUS_NOTE[st]), (' · 확인한 날 ' + E(s['verified']['date'])) if s.get('verified') else '')]
     if s.get('todo'): B.append('<p class="note"><b>남은 일</b> · %s</p>' % E(s['todo']))
     B.append('<div class="two"><div><div class="view"><iframe src="../kit/%s-set.html" title="%s 10장 예시 발표" loading="lazy"></iframe></div><p class="note">화면을 누르거나 → 키로 넘깁니다. <a href="../kit/%s-set.html" target="_blank" rel="noopener">새 창에서 크게 보기</a></p></div>' % (f, E(s['name']), f))
@@ -290,10 +324,10 @@ for s in STYLES:
              '<li>더 많은 구성 예시: <a href="../kit/%s-plan.html">계획안 발표 12장</a>(체계 · 일정 · 표 · 구성비) · <a href="../kit/%s.html">성과 공유회 13장</a>(막대 · 전후 · 사진)</li>'
              '<li>글꼴: SIL OFL 1.1(<a href="../fonts/LICENSES.md">고지</a>)%s</li></ul></details>' % (f, f, f, f, f, f, ' · 그림: 이 갤러리의 기존 장표에서 떠낸 것(<code>kit/img/</code>)' if f in 'EGH' else ''))
     if fam_cov: B.append('<h2>같은 분위기의 표지 덱 <small>%d벌 — 표지마다 색 · 글꼴과 구성 조합이 다릅니다</small></h2><div class="minis">%s</div>' % (len(fam_cov), ''.join(cover_card(r, '../') for r in fam_cov)))
-    sizes['styles/' + f] = page('styles/%s.html' % f, '%s — 발표 디자인 라이브러리' % s['name'], s['use'], 'index.html', '\n'.join(B), up='../')
+    sizes['styles/' + f] = page('styles/%s.html' % f, '%s — 발표 디자인 라이브러리' % s['name'], s['use'], 'present.html', '\n'.join(B), up='../')
 
 # ── body.html: 역할마다 배치가 다른 구성을 나란히 ──
-B = ['<h1>본문 구성</h1><p class="lead">같은 내용도 보여 주는 방식이 여럿입니다. 역할마다 <b>배치가 다른 구성 셋</b>을 나란히 놓았습니다. 내용에 맞는 구성을 고르세요.</p><div class="short" style="margin-top:20px">%s</div>' % ''.join(
+B = ['<p class="crumb"><a href="present.html">← 발표자료 고르기</a></p><h1>본문 지정하기</h1><p class="lead">같은 내용도 보여 주는 방식이 여럿입니다. 역할마다 <b>배치가 다른 구성 셋</b>을 나란히 놓았습니다. 내용에 맞는 구성을 고르세요.</p><div class="short" style="margin-top:20px">%s</div>' % ''.join(
     '<a href="#r-%s">%s</a>' % (r, E(RN[r]['name'])) for r in VAR['order'] + ['more']),
      '<div class="sw"><span>입혀 볼 스타일</span><div class="chips" id="sw" role="group" aria-label="입혀 볼 스타일">%s</div></div>' % ''.join(
          '<button type="button" data-f="%s" aria-pressed="%s">%s</button>' % (s['id'], 'true' if s['id'] == 'B' else 'false', E(s['name'])) for s in STYLES)]
@@ -318,31 +352,75 @@ function skin(f){ if (!/^[A-H]$/.test(f)) f = 'B';
 sw.addEventListener('click', e => { const b = e.target.closest('button'); if (b) skin(b.dataset.f); });
 const f0 = new URLSearchParams(location.search).get('style'); if (f0) skin(f0);
 """
-sizes['body'] = page('body.html', '본문 구성 — 발표 디자인 라이브러리', '흐름 · 개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약마다 배치가 다른 구성 셋을 나란히 보고 고른다.', 'index.html', '\n'.join(B), BODY_JS)
+sizes['body'] = page('body.html', '본문 지정하기 — 발표 디자인 라이브러리', '흐름 · 개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약마다 배치가 다른 구성 셋을 나란히 보고 고른다.', 'present.html', '\n'.join(B), BODY_JS)
 
-# ── motion.html · print.html ──
+# ── print.html ──
 def ref_card(r):
     return '<article class="mc"><a href="%s%s" target="_blank" rel="noopener"><img src="%s%s" alt="%s" loading="lazy" width="640" height="360"></a><b>%s <small>#%d</small></b><p>%s</p></article>' % (
         E(r['file']), ver(r), E(r['thumb']), ver(r), E(name(r)), E(name(r)), r['no'], E((r.get('takeaway') or r.get('topic') or '')[:70]))
-mot = [r for r in covers if r.get('motion') == '인터랙션']
-B = ['<h1>모션 · 강조</h1><p class="lead">청중의 눈을 붙잡는 연출과, 눌러서 조작하는 표지입니다. 일반 발표 세트와는 따로 씁니다.</p>',
-     '<h2>와우 포인트 24 <small>발표 연출 기법 9장</small></h2><div class="minis"><a class="mc" href="wow/wow.html"><img src="thumbs/hub-wow-1.jpg" alt="와우 포인트 24" loading="lazy" width="640" height="360"><b>와우 포인트 24</b><p>드러내기 · 대비 · 숫자 체감 · 은유 · 감각 · 소리가 보이는 모션. 장마다 실제로 움직입니다</p></a></div>',
-     '<h2>눌러서 조작하는 표지 <small>%d개 — 발표 중에 직접 눌러야 합니다</small></h2><div class="minis">%s</div>' % (len(mot), ''.join(ref_card(r) for r in mot))]
-sizes['motion'] = page('motion.html', '모션 · 강조 — 발표 디자인 라이브러리', '발표 연출 기법과 눌러서 조작하는 표지.', 'motion.html', '\n'.join(B))
 pr = [r for r in vis if r['role'] == '인쇄·홍보물']; fr = [r for r in vis if r['role'] == '발표 틀']
-B = ['<h1>인쇄 · 홍보물</h1><p class="lead">화면 발표가 아닌 종이 · 게시용 디자인과, 넘기는 방식이 다른 특수 발표 틀입니다.</p>',
+B = ['<h1>인쇄 · 홍보물 고르기</h1><p class="lead">화면 발표가 아닌 종이 · 게시용 디자인과, 넘기는 방식이 다른 특수 발표 틀입니다.</p>',
      '<h2>인쇄 · 홍보물 <small>%d개 — 포스터 · 리플렛 · 소식지</small></h2><div class="minis">%s</div>' % (len(pr), ''.join(ref_card(r) for r in pr)),
      '<h2>특수 발표 틀 <small>%d개 — 허브 · 스크롤 · 탐험처럼 자체 진행 방식을 가진 것</small></h2><div class="minis">%s</div>' % (len(fr), ''.join(ref_card(r) for r in fr))]
-sizes['print'] = page('print.html', '인쇄 · 홍보물 — 발표 디자인 라이브러리', '포스터 · 리플렛 · 소식지와 특수 발표 틀.', 'print.html', '\n'.join(B))
+sizes['print'] = page('print.html', '인쇄 · 홍보물 고르기 — 발표 디자인 라이브러리', '포스터 · 리플렛 · 소식지와 특수 발표 틀.', 'print.html', '\n'.join(B))
 
-# ── guide.html ──
+# ── wow.html: 와우 포인트 적용하기(기법 하나 = 덱 하나, scripts/wow.py) ──
+WOW = J('data', 'wow.json')
+B = ['<p class="crumb"><a href="present.html">← 발표자료 고르기</a></p><h1>와우 포인트 적용하기</h1><p class="lead">청중이 "와" 하는 순간을 만드는 기법 %d가지. 기법마다 덱 하나(표지 · 크게 보기 · 쓰는 법)라서, 누르면 실제로 움직이는 모습부터 봅니다.</p>' % len(WOW)]
+for g in dict.fromkeys(w['g'] for w in WOW):
+    ws = [w for w in WOW if w['g'] == g]
+    B.append('<h2>%s <small>%d가지</small></h2><div class="wowg">%s</div>' % (E(ws[0]['gname']), len(ws), ''.join(
+        '<a href="wow/%s.html" target="_blank" rel="noopener"><img src="wow/thumbs/%s-2.jpg" alt="%s" loading="lazy" width="640" height="360"><b>%s<small>%s</small></b><p>%s</p><p class="w">%s</p></a>' % (
+            w['no'], w['no'], E(w['name']), E(w['name']), E(w['small']), E(w['why']), ('이럴 때 · ' + E(' · '.join(w['when']))) if w['when'] else '') for w in ws)))
+B.append('<p class="note">스물네 가지를 한 덱에 모아 보려면 <a href="wow/wow.html" target="_blank" rel="noopener">한눈에 보기(9장)</a>.</p>')
+sizes['wow'] = page('wow.html', '와우 포인트 적용하기 — 발표 디자인 라이브러리', '발표 연출 기법 24가지, 기법 하나마다 덱 하나.', 'present.html', '\n'.join(B))
+
+# ── present.html: 발표자료 고르기 ──
+IMGS = lambda xs: ''.join('<img src="%s" alt="" loading="lazy">' % x for x in xs)
+B = ['<h1>발표자료 고르기</h1><p class="lead">세 가지를 차례로 고릅니다. 순서대로 하지 않아도 되고, 필요한 것만 골라도 됩니다.</p>',
+     '<nav class="path" aria-label="발표자료 고르기">'
+     + '<a href="concept.html"><div class="vis">%s</div><div class="tx"><b>컨셉 정하기</b><span>표지부터 마무리까지 한 벌인 덱 %d개 가운데 겉모습을 고릅니다</span></div></a>' % (
+         IMGS([th('A', '-set', 1), 'covers/thumbs/74-1.jpg', 'covers/thumbs/4-1.jpg', 'covers/thumbs/31-1.jpg']), len(STYLES) + len(CDECK))
+     + '<a href="body.html"><div class="vis">%s</div><div class="tx"><b>본문 지정하기</b><span>목차 · 개념 · 비교 · 절차처럼 전하려는 내용마다 배치를 고릅니다</span></div></a>' % (
+         IMGS([th('B', '-var', VARN[k]) for k in [('flow', 'c'), ('compare', 'c'), ('steps', 'b'), ('numbers', 'b')]]))
+     + '<a href="wow.html"><div class="vis">%s</div><div class="tx"><b>와우 포인트 적용하기</b><span>청중이 "와" 하는 연출 %d가지. 기법 하나마다 덱 하나</span></div></a>' % (
+         IMGS(['wow/thumbs/%s-2.jpg' % n for n in ['01', '08', '20', '21']]), len(WOW))
+     + '</nav>']
+sizes['present'] = page('present.html', '발표자료 고르기 — 발표 디자인 라이브러리', '컨셉 정하기 · 본문 지정하기 · 와우 포인트 적용하기.', 'present.html', '\n'.join(B))
+
+# ── icons.html: 아이콘 고르기 ──
+ICONS = J('icons', 'icons.json')
+SVG = lambda i: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>' % i['svg']
+B = ['<h1>아이콘 고르기</h1><p class="lead">교육행정 발표에 자주 쓰는 아이콘 %d개입니다. 누르면 SVG 코드가 복사됩니다. 선 색은 글자색을 따릅니다.</p>' % len(ICONS)]
+for g in dict.fromkeys(i['group'] for i in ICONS):
+    B.append('<h2>%s</h2><div class="ico">%s</div>' % (E(g), ''.join('<button type="button" data-svg="%s" title="%s">%s%s</button>' % (
+        E(SVG(i)), E(' · '.join(i['keys'])), SVG(i), E(i['ko'])) for i in ICONS if i['group'] == g)))
+B.append('<p class="note">아이콘: Tabler Icons(MIT, <a href="icons/LICENSE-tabler.txt">라이선스</a>). 교육행정 이름과 묶음은 이 갤러리에서 붙였습니다. AI용 전체 목록: <a href="catalog/icons.md">catalog/icons.md</a></p>')
+ICON_JS = r"""
+document.addEventListener('click', async e => { const b = e.target.closest('[data-svg]'); if (!b) return;
+  try { await navigator.clipboard.writeText(b.dataset.svg); b.classList.add('ok'); setTimeout(() => b.classList.remove('ok'), 1400); } catch (err) {} });
+"""
+sizes['icons'] = page('icons.html', '아이콘 고르기 — 발표 디자인 라이브러리', '교육행정 발표용 아이콘, 누르면 SVG 복사.', 'icons.html', '\n'.join(B), ICON_JS)
+
+# ── ai.html: AI에게 맡기기 ──
 n_ok = sum(1 for s in STYLES if s.get('verified'))
-B = ['<h1>이용 방법</h1><p class="lead">발표 내용을 먼저 정하고, 스타일을 고른 다음, AI에게 적용을 요청합니다.</p>',
-     '<h2>1. 스타일을 직접 고를 때</h2><ol><li><a href="index.html">전체 스타일</a>에서 마음에 드는 스타일의 <b>전체 장표 보기</b>를 누릅니다.</li><li>10장 예시를 넘겨 보고, <b>이 스타일 적용 요청문 복사</b>를 누릅니다.</li><li>AI 대화창에 발표 내용(문서)과 함께 붙여 넣습니다. AI가 장별 구성안을 먼저 보여 주면 확인하고 만들게 합니다.</li><li>받은 .html 파일을 열어 → 키로 넘겨 보고, 숫자를 원문과 대조합니다.</li></ol>',
-     '<h2>2. 고르는 것도 AI에게 맡길 때</h2><p>아래 요청문을 복사해 발표 내용과 함께 붙여 넣습니다.</p><div class="acts"><button type="button" class="btn fill" data-copy="reqPick">선택을 맡기는 요청문 복사</button></div><pre class="req" id="reqPick">%s</pre>' % E(REQ_PICK),
-     '<h2>알아 둘 점</h2><ul><li><b>완성 상태</b>: 검증된 세트(10장 예시 · 다른 주제 시험 · 넘침 검사 통과) %d개 · 확장 중 %d개 · 표지에서 넓힌 덱 %d벌(표지의 색 · 글꼴을 입힌 10장).</li><li>AI가 만든 발표는 열 때 인터넷이 필요합니다(글꼴 · 스타일을 이 사이트에서 불러옵니다). 내려받은 예시 발표는 인터넷 없이 열립니다.</li><li>개인정보(학생 이름 · 사진)는 AI에게 넣지 마세요.</li><li>AI가 주소를 열지 못하는 환경이면, 스타일 화면의 "파일과 자료"에서 적용 안내(.md)를 내려받아 첨부하세요.</li></ul>' % (n_ok, len(STYLES) - n_ok, len(covers)),
-     '<details><summary>제작 정보(개발 · 관리용)</summary><ul><li>AI가 읽는 목록: <a href="catalog.md">catalog.md</a></li><li>작업 기록과 다음 할 일: <a href="docs/worklog.md">docs/worklog.md</a></li><li>분류 기준: <a href="docs/patterns.md">docs/patterns.md</a> · 제작 기준: <a href="docs/criteria.md">docs/criteria.md</a></li><li>참고 장표 모음(기존 장표 전체 · 아이콘): <a href="refs.html">refs.html</a> · 스타일 묶음 파일: <a href="kit/index.html">kit/</a></li><li>저장소 구조와 빌드: <a href="https://github.com/szxv7704-dot/design-reference-gallery#readme">README</a></li></ul></details>']
-sizes['guide'] = page('guide.html', '이용 방법 — 발표 디자인 라이브러리', '스타일을 고르고 AI에게 적용을 요청하는 방법.', 'guide.html', '\n'.join(B))
+B = ['<h1>AI에게 맡기기</h1><p class="lead">고르는 것부터 AI에게 맡깁니다. 요청문을 복사해 발표할 문서와 함께 Claude나 ChatGPT에 붙여 넣으면, 이 갤러리를 읽고 어울리는 디자인을 골라 발표 HTML을 만듭니다.</p>',
+     '<ol class="aisteps"><li><b>문서 준비</b>계획안 · 강의안 등 발표할 내용</li><li><b>요청문 복사</b>아래 단추 한 번</li><li><b>붙여 넣기</b>AI 대화창에 문서와 함께</li><li><b>구성안 확인</b>장마다 무엇을 넣을지 먼저 받는다</li><li><b>파일 열기</b>받은 .html을 열고 숫자를 원문과 대조</li></ol>',
+     '<h2>요청문</h2><div class="acts"><button type="button" class="btn fill" data-copy="reqPick">요청문 복사</button></div><pre class="req" id="reqPick">%s</pre>' % E(REQ_PICK),
+     '<h2>디자인을 이미 골랐다면</h2><p class="note"><a href="concept.html">컨셉 정하기</a>에서 덱을 고른 뒤, 그 덱 화면의 <b>이 스타일 적용 요청문 복사</b>를 쓰세요. 고른 디자인을 그대로 적용하게 합니다.</p>',
+     '<h2>알아 둘 점</h2><ul><li>AI가 만든 발표는 열 때 인터넷이 필요합니다(글꼴 · 스타일을 이 사이트에서 불러옵니다). 내려받은 예시 발표는 인터넷 없이 열립니다.</li><li>개인정보(학생 이름 · 사진)는 AI에게 넣지 마세요.</li><li>AI가 주소를 열지 못하면, 스타일 화면의 "파일과 자료"에서 적용 안내(.md)를 내려받아 첨부하세요.</li><li>지금 있는 것: 검증된 스타일 세트 %d개 · 확장 중 %d개 · 표지에서 넓힌 덱 %d벌 · 와우 포인트 %d가지.</li></ul>' % (n_ok, len(STYLES) - n_ok, len(CDECK), len(WOW)),
+     '<details><summary>제작 정보(개발 · 관리용)</summary><ul><li>AI가 읽는 목록: <a href="catalog.md">catalog.md</a></li><li>작업 기록과 다음 할 일: <a href="docs/worklog.md">docs/worklog.md</a></li><li>분류 기준: <a href="docs/patterns.md">docs/patterns.md</a> · 제작 기준: <a href="docs/criteria.md">docs/criteria.md</a></li><li>참고 장표 모음(기존 장표 전체): <a href="refs.html">refs.html</a> · 스타일 묶음 파일: <a href="kit/index.html">kit/</a></li><li>저장소 구조와 빌드: <a href="https://github.com/szxv7704-dot/design-reference-gallery#readme">README</a></li></ul></details>']
+sizes['ai'] = page('ai.html', 'AI에게 맡기기 — 발표 디자인 라이브러리', '요청문을 복사해 문서와 함께 AI에 붙여 넣으면 디자인을 골라 발표 HTML을 만든다.', 'ai.html', '\n'.join(B))
+
+# ── index.html: 카드 넷 ──
+B = ['<section class="hero"><div><h1>무엇을 만들까요?</h1><p class="lead">고르면, AI가 내 문서(계획안 · 강의안)에 적용합니다.</p></div></section>',
+     '<nav class="main4" aria-label="무엇을 할까요">'
+     + '<a href="present.html"><div class="vis">%s</div><div class="tx"><i>1</i><b>발표자료 고르기</b><span>컨셉 정하기 · 본문 지정하기 · 와우 포인트 적용하기</span></div></a>' % IMGS([th('D', '-set', 1), 'covers/thumbs/4-1.jpg', 'covers/thumbs/7-3.jpg', 'wow/thumbs/21-2.jpg'])
+     + '<a href="print.html"><div class="vis">%s</div><div class="tx"><i>2</i><b>인쇄 · 홍보물 고르기</b><span>포스터 · 리플렛 · 소식지 · 특수 발표 틀</span></div></a>' % IMGS([r['thumb'] + ver(r) for r in pr[:4]])
+     + '<a href="icons.html"><div class="vis icons-vis">%s</div><div class="tx"><i>3</i><b>아이콘 고르기</b><span>교육행정 아이콘 %d개, 누르면 복사</span></div></a>' % (''.join(SVG(i) for i in ICONS[:12]), len(ICONS))
+     + '<a href="ai.html"><div class="vis ai-vis"><p>이 계획안으로 10분짜리 발표를 만들어 줘. 디자인은 갤러리에서 어울리는 걸 골라 줘.</p><p>요청문 복사</p></div><div class="tx"><i>4</i><b>AI에게 맡기기</b><span>고르는 것부터 맡기고 싶을 때</span></div></a>'
+     + '</nav>']
+sizes['index'] = page('index.html', '발표 디자인 라이브러리', '발표자료 · 인쇄 · 홍보물 · 아이콘을 고르고 AI에게 내 문서에 적용해 달라고 요청하는 갤러리.', '', '\n'.join(B))
 
 # ── catalog.md: AI가 읽는 차례 ──
 C = ['# 발표 디자인 라이브러리 — AI가 읽는 목록', '',
@@ -354,7 +432,8 @@ C = ['# 발표 디자인 라이브러리 — AI가 읽는 목록', '',
      '3. 장마다 알맞은 본문 구성을 고른다(아래 "구성" 표). 한 장에 구성 하나.',
      '4. 고른 스타일의 **적용 안내**(표의 주소)를 열어 디자인 규칙 · 구성별 코드 · HTML 뼈대를 확인한다.',
      '5. 유지할 요소를 지키면서 실제 내용을 넣는다. 내용이 넘치면 글자를 줄이지 말고 장을 나눈다. 사용자의 핵심 내용을 임의로 빼지 않는다.',
-     '6. 전체가 한 스타일로 보이는지, 글자가 잘리지 않는지, 장이 넘어가는지 확인한다.', '',
+     '6. 꼭 기억시킬 한두 장(표지 · 결론)에는 "와우 포인트" 표에서 기법 하나를 골라 쓸 수 있다. 덱 전체에 한두 번만.',
+     '7. 전체가 한 디자인으로 보이는지, 글자가 잘리지 않는지, 장이 넘어가는지 확인한다.', '',
      '**자료를 실제로 열어 읽지 못했다면 읽고 적용한 것처럼 말하지 않는다.** 열 수 없는 주소가 있으면 사용자에게 그 파일을 첨부해 달라고 한다. 사용자가 주지 않은 숫자 · 사실을 지어내지 않는다.', '',
      '## 스타일', '', '| ID | 이름 | 분위기 | 알맞은 전달 목적 | 상태 | 적용 안내 | 10장 예시 | 화면 |', '|---|---|---|---|---|---|---|---|']
 for s in STYLES:
@@ -370,6 +449,10 @@ for no in sorted(CDECK):
     d = CDECK[no]; C.append('| #%d | %s | %s | %scovers/%d.html | %scovers/%d.css | %s |' % (no, d['name'], d['base'], BASE, no, BASE, no,
         ('**표지의 장치를 본문까지** — ' + d['device'] + ' · 빌린 본문 ' + ' '.join('#%d' % x for x in d['refs'])) if d.get('bespoke') else '색 · 글꼴만 맞춤 — ' + ' / '.join(d['combo'])))
 C += ['']
+C += ['## 와우 포인트 (%d가지, 기법 하나 = 덱 하나)' % len(WOW), '', '발표 연출 기법. 덱마다 3장(표지 · 크게 보기 · 쓰는 법). 한 발표에 한두 번만 쓴다.', '',
+      '| 번호 | 기법 | 묶음 | 한 줄 | 이럴 때 | 쓰는 곳 | 덱 |', '|---|---|---|---|---|---|---|']
+for w in WOW: C.append('| %s | %s | %s | %s | %s | %s | %swow/%s.html |' % (w['no'], w['name'], w['gname'], w['why'], ' / '.join(w['when']) or '—', w['use'].get('쓰는 곳', ''), BASE, w['no']))
+C += ['']
 C += ['## 구성 (역할마다 배치가 다른 셋. 모든 스타일에서 같은 이름으로 쓴다)', '', '| 역할 | 구성 | 모습 | 이럴 때 | 알맞은 분량 | 부품 | 보기(B 스타일) |', '|---|---|---|---|---|---|---|']
 for r in VAR['order']:
     for i, v in enumerate(VAR['roles'][r]): C.append('| %s | %s | %s | %s | %s | `%s` | %skit/B-var.html#%d |' % (RN[r]['name'] if i == 0 else '', v['name'], v['look'], v['when'], v['cond'], v['part'], BASE, VARN[(r, v['v'])]))
@@ -382,6 +465,6 @@ C += ['',
       '## 그 밖', '',
       '- 표지 레퍼런스 설명(분위기 · 가져갈 장치): %scatalog/refs.md' % BASE,
       '- 참고 본문 장표(도식 아이디어): %scatalog/body.md · 아이콘 85개: %scatalog/icons.md' % (BASE, BASE),
-      '- 사람용 이용 방법: %sguide.html' % BASE, '']
+      '- 사람용 이용 방법: %sai.html' % BASE, '']
 open(os.path.join(ROOT, 'catalog.md'), 'w', encoding='utf-8').write('\n'.join(C))
 print('화면(글자 수):', sizes, '· catalog.md', os.path.getsize(os.path.join(ROOT, 'catalog.md')) // 1024, 'KB')
