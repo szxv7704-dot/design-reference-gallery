@@ -258,6 +258,13 @@ I_ = ['# 아이콘 세트 — 이름 목록', '', HEAD, '', '본문 묶음 머�
       '```html', '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">…svg…</svg>', '```', '',
       '쓰는 법: 한 묶음에 하나, 묶음 머리에만 · 머리말 단어와 뜻이 맞을 때만 · 늘 글자와 함께 · 색은 한 가지. 원본 Tabler Icons(MIT).', '']
 for g, ics in groups.items(): I_ += ['## %s' % g, ''] + ['- `%s` %s — %s' % (ic['id'], ic['ko'], ' · '.join(ic.get('keys') or [])) for ic in ics] + ['']
+# 교육청 비전 · 슬로건 · 기관 로고(투명 PNG, scripts/ci_cut.py)
+ci = J('icons', 'ci.json')
+I_ += ['## 교육청 비전 · 슬로건 · 기관 로고 (투명 PNG)', '',
+       '사용자가 "교육청 로고 · 비전 · 슬로건을 넣어 달라"고 할 때 쓴다. `<img>`로 넣고 비율을 바꾸지 않는다(높이만 정하고 `width:auto`). 색을 바꾸지 않는다. `_하양`은 어두운 바탕에만. 화면 캡처에서 오린 것이라 작게 쓴다(높이 40~80px).', '',
+       '| 종류 | 이름 | 주소 | 크기 | 쓰는 곳 |', '|---|---|---|---|---|']
+I_ += ['| %s | %s | %sicons/%s | %d × %d | %s |' % ({'CI': '기관 로고'}.get(c['kind'], c['kind']), c['name'], BASE, c['file'], c['w'], c['h'], '어두운 바탕' if c['white'] else '밝은 바탕') for c in ci] + ['',
+       '```html', '<img src="%sicons/ci/국문좌우조합1.png" alt="전북특별자치도교육청" style="height:56px;width:auto">' % BASE, '```', '']
 sizes['icons'] = write('catalog/icons.md', I_)
 C += ['- 아이콘 세트(이름 목록): %scatalog/icons.md · 열어 보기 %sicons/icons.html' % (BASE, BASE), '']
 write('catalog/refs.md', C)

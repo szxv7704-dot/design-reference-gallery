@@ -131,3 +131,30 @@
 - `map` 지역 · 권역 — 지역 · 권역 · 지도 · 분포
 - `world` 국제 — 국제 · 세계 · 글로벌 · 해외
 
+## 교육청 비전 · 슬로건 · 기관 로고 (투명 PNG)
+
+사용자가 "교육청 로고 · 비전 · 슬로건을 넣어 달라"고 할 때 쓴다. `<img>`로 넣고 비율을 바꾸지 않는다(높이만 정하고 `width:auto`). 색을 바꾸지 않는다. `_하양`은 어두운 바탕에만. 화면 캡처에서 오린 것이라 작게 쓴다(높이 40~80px).
+
+| 종류 | 이름 | 주소 | 크기 | 쓰는 곳 |
+|---|---|---|---|---|
+| 비전 | 가로조합형 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/가로조합형.png | 410 × 91 | 밝은 바탕 |
+| 비전 | 기본조합형 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/기본조합형.png | 410 × 144 | 밝은 바탕 |
+| 비전 | 집약조합형 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/집약조합형.png | 258 × 210 | 밝은 바탕 |
+| 슬로건 | 슬로건-2줄 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/슬로건-2줄.png | 420 × 202 | 밝은 바탕 |
+| 슬로건 | 슬로건-기본형 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/슬로건-기본형.png | 420 × 84 | 밝은 바탕 |
+| 슬로건 | 슬로건-세로형 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/슬로건-세로형.png | 192 × 222 | 밝은 바탕 |
+| 기관 로고 | 국문내려쓰기 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문내려쓰기.png | 37 × 202 | 밝은 바탕 |
+| 기관 로고 | 국문내려쓰기_단색 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문내려쓰기_단색.png | 37 × 202 | 밝은 바탕 |
+| 기관 로고 | 국문내려쓰기_하양 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문내려쓰기_하양.png | 37 × 202 | 어두운 바탕 |
+| 기관 로고 | 국문로고타입 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문로고타입.png | 351 × 50 | 밝은 바탕 |
+| 기관 로고 | 국문로고타입_하양 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문로고타입_하양.png | 351 × 50 | 어두운 바탕 |
+| 기관 로고 | 국문상하조합 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문상하조합.png | 337 × 164 | 밝은 바탕 |
+| 기관 로고 | 국문상하조합_단색 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문상하조합_단색.png | 337 × 165 | 밝은 바탕 |
+| 기관 로고 | 국문상하조합_하양 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문상하조합_하양.png | 337 × 165 | 어두운 바탕 |
+| 기관 로고 | 국문좌우조합1 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문좌우조합1.png | 355 × 64 | 밝은 바탕 |
+| 기관 로고 | 국문좌우조합1_단색 | https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문좌우조합1_단색.png | 355 × 64 | 밝은 바탕 |
+
+```html
+<img src="https://szxv7704-dot.github.io/design-reference-gallery/icons/ci/국문좌우조합1.png" alt="전북특별자치도교육청" style="height:56px;width:auto">
+```
+
