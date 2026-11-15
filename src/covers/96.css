@@ -1,0 +1,51 @@
+/* #96 익숙함에 틈을 내다 — 표지의 장치를 본문 틀로
+   잡지 특집호의 문법: 미색 종이 바탕, 위 기관 줄과 가는 선, 아주 큰 바탕체 결론, 그 아래 두 번째 크기의 부제와 밑줄, 작은 카피.
+   표지의 장치는 '틈': 장마다 종이가 찢겨 열린 자리로 파란 하늘과 위로 오르는 주황 계단(= 다음 단계)이 보인다. 결론의 마지막 글자 하나만 틈 위로 넘어간다.
+   틈 사진은 표지 원화(covers/img/96-*.jpg)만 쓴다. 강조는 계단의 주황 하나. */
+:root{--z-paper:#EFEBE3;--z-ink:#141414;--z-blue:#1F5FC4;--z-org:#D9773A;--z-soft:#6B655B;--z-line:#B9AE9C;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:var(--z-paper) url("img/96-paper.jpg") 0 0/cover;color:var(--z-ink)}
+.slide:not(.c-orig)::before{content:none}
+/* ── 틈(이 표지만의 부품): 오른쪽에서 찢겨 열린 자리. data-gap 으로 얼마나 열렸는지 ── */
+.gap{position:absolute;top:0;bottom:0;right:0;z-index:0;background:url("img/96-tear.jpg") 100% 50%/auto 100% no-repeat;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%);mask-image:linear-gradient(90deg,transparent 0,#000 6%)}
+/* 틈은 찢긴 가장자리째 오른쪽에서 밀고 들어온다: 장이 넘어갈수록 넓어진다 */
+.gap.w1{left:auto;width:900px;background-position:100% 50%;background-size:auto 100%}.gap.w2{width:1000px}.gap.w3{width:1120px}
+.mast{position:absolute;left:64px;right:1000px;top:46px;z-index:3;margin:0;display:flex;align-items:center;gap:20px;font:400 24px/1 var(--ds-font-title);color:var(--z-ink)}
+.mast::after{content:"";flex:1;height:1px;background:var(--z-line)}
+.foot{position:absolute;left:64px;bottom:44px;z-index:3;margin:0;display:flex;align-items:center;gap:20px;width:620px;font:400 22px/1 var(--ds-font-title);color:var(--z-soft)}
+.foot::after{content:"";flex:1;height:1px;background:var(--z-line)}
+.s-body{inset:110px 760px 110px 64px;gap:22px;z-index:2}
+.kicker{display:block;padding:0;border:0;background:none;font:700 30px/1.3 var(--ds-font-title);color:var(--z-ink);padding-bottom:16px;border-bottom:1.5px solid var(--z-ink);align-self:flex-start}
+.kicker::before{content:none}
+.title{font:700 92px/1.12 var(--ds-font-title);letter-spacing:-.02em;color:var(--z-ink);max-width:none}
+.title em{font-style:normal;color:var(--z-org)}
+.page-no{right:64px;bottom:44px;font:400 22px/1 var(--ds-font-title);color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.4);z-index:3}
+.src{left:64px;bottom:84px;font:400 22px/1 var(--ds-font-title);color:var(--z-soft)}
+.copy{margin:0;font:400 30px/1.7 var(--ds-font-title);color:var(--z-soft)}
+/* ── 계단(이 표지만의 부품): 아래에서 위로 오르는 단. 한 단 = 한 단계, 지금 단은 주황 ── */
+.steps-up{list-style:none;margin:0;padding:0;display:flex;flex-direction:column-reverse;justify-content:center;gap:10px}
+.steps-up li{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:0 22px;padding:16px 26px;background:rgba(255,255,255,.55);border-left:10px solid var(--z-line);margin-left:calc(var(--i) * 70px)}
+.steps-up li b{font:700 52px/1 var(--ds-font-title);color:var(--z-soft)}
+.steps-up li span{font:700 36px/1.3 var(--ds-font-title)}.steps-up li small{display:block;font:400 26px/1.4 var(--ds-font-title);color:var(--z-soft)}
+.steps-up li.is-key{background:var(--z-org);border-left-color:#B85A22;color:#fff}.steps-up li.is-key b,.steps-up li.is-key small{color:#FCE7D6}
+/* ── 익숙한 것 / 틈 너머(이 표지만의 부품): 왼쪽 종이 위 '늘 하던 것', 오른쪽 하늘 위 '다음' ── */
+.pair{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:0}
+.pair li{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;padding:22px 0;border-top:1px solid var(--z-line);font:400 32px/1.45 var(--ds-font-title)}.pair li:last-child{border-bottom:1px solid var(--z-line)}
+.pair li s{text-decoration:line-through;text-decoration-color:rgba(20,20,20,.35);color:var(--z-soft)}
+.pair li b{font-weight:700}
+.pair li.is-key b{color:var(--z-org)}
+.sky-r{position:absolute;right:56px;top:180px;width:620px;z-index:3;display:flex;flex-direction:column;gap:20px}
+.sky-r p{margin:0;padding:24px 30px;background:rgba(255,255,255,.88);font:400 30px/1.55 var(--ds-font-title)}.sky-r p b{display:block;font-size:44px;color:var(--z-blue);margin-bottom:6px}
+.nums{display:flex;flex-direction:column;justify-content:center;gap:28px}
+.nums > div{display:grid;grid-template-columns:300px 1fr;align-items:baseline;gap:0 24px;padding-bottom:18px;border-bottom:1px solid var(--z-line)}
+.nums b{font:700 110px/1 var(--ds-font-title)}.nums b small{font-size:40px;margin-left:6px}
+.nums span{font:400 30px/1.45 var(--ds-font-title);color:var(--z-soft)}
+.nums > div.is-key b{color:var(--z-org)}
+.slide.ref .s-body{right:64px;top:110px;bottom:100px}.slide.ref .gap{display:none}
+.r-win iframe{box-shadow:0 18px 30px -18px rgba(20,20,20,.4)}
+.end h2{position:absolute;left:56px;top:190px;margin:0;font:700 200px/1.08 var(--ds-font-title);letter-spacing:-.03em;color:var(--z-ink);z-index:3}
+.end h2 em{font-style:normal}
+.end > p:not(.mast):not(.foot){position:absolute;left:64px;top:690px;margin:0;padding-bottom:12px;border-bottom:1.5px solid var(--z-ink);font:700 40px/1.3 var(--ds-font-title);z-index:3}
+.steps-up li b{white-space:nowrap;font-size:44px}
+.s-body{right:820px}
+.slide.end .gap{width:1380px}
+.nums b{font-size:96px}.steps-up li span{font-size:34px}
