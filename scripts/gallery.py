@@ -225,7 +225,7 @@ for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
 H.append('</div><p class="empty" id="none" hidden>조건에 맞는 스타일이 없습니다. 검색어를 지우거나 다른 분위기를 골라 보세요.</p>')
 H.append('<div id="coverwrap"><h2 id="covers">표지에서 넓힌 덱 <small>%d벌 — 표지마다 10장, 구성 조합이 모두 다릅니다</small></h2>' % len(covers))
 NB = sum(1 for d in CDECK.values() if d.get('bespoke'))
-H.append('<p class="note"><b>표지의 장치를 본문까지</b> %d벌: 그 표지만의 장치(띠 · 절취선 · 이름표 같은 것)를 본문 틀로 옮기고, 기존 본문 장표를 빌려 섞었습니다. <b>색 · 글꼴만 맞춤</b> %d벌: 아직 색과 글꼴만 입힌 상태입니다. 하나씩 옮기는 중입니다.</p>' % (NB, len(CDECK) - NB) + '<div class="minis">%s</div></div>' % ''.join(cover_card(r) for r in sorted(covers, key=lambda r: (not CDECK.get(r['no'], {}).get('bespoke'), r['no']))))
+H.append('<p class="note">표지마다 10장: 그 표지만의 장치(띠 · 절취선 · 이름표 · 진행 표시 같은 것)를 본문 틀로 옮기고, 기존 본문 장표를 서로 다르게 빌려 섞었습니다. 한 표지의 장치는 다른 덱에 쓰지 않습니다.%s</p>' % ((' 아직 색 · 글꼴만 맞춘 덱 %d벌.' % (len(CDECK) - NB)) if len(CDECK) > NB else '') + '<div class="minis">%s</div></div>' % ''.join(cover_card(r) for r in sorted(covers, key=lambda r: (not CDECK.get(r['no'], {}).get('bespoke'), r['no']))))
 H.append('<h2>필요한 본문만 찾고 싶다면</h2><div class="short">%s</div>' % ''.join('<a href="body.html#r-%s">%s</a>' % (r['id'], E(r['name'])) for r in ROLES if r['id'] not in ('cover', 'closing', 'more')))
 H.append('<pre class="req" id="reqPick" hidden>%s</pre>' % E(REQ_PICK))
 H.append('<div class="tray" id="tray" hidden><span id="trayN"></span><button type="button" id="trayGo">비교하기</button><button type="button" id="trayX" aria-label="비교 비우기">비우기</button></div>'
