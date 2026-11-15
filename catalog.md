@@ -10,7 +10,8 @@
 3. 장마다 알맞은 본문 구성을 고른다(아래 "구성" 표). 한 장에 구성 하나.
 4. 고른 스타일의 **적용 안내**(표의 주소)를 열어 디자인 규칙 · 구성별 코드 · HTML 뼈대를 확인한다.
 5. 유지할 요소를 지키면서 실제 내용을 넣는다. 내용이 넘치면 글자를 줄이지 말고 장을 나눈다. 사용자의 핵심 내용을 임의로 빼지 않는다.
-6. 전체가 한 스타일로 보이는지, 글자가 잘리지 않는지, 장이 넘어가는지 확인한다.
+6. 꼭 기억시킬 한두 장(표지 · 결론)에는 "와우 포인트" 표에서 기법 하나를 골라 쓸 수 있다. 덱 전체에 한두 번만.
+7. 전체가 한 디자인으로 보이는지, 글자가 잘리지 않는지, 장이 넘어가는지 확인한다.
 
 **자료를 실제로 열어 읽지 못했다면 읽고 적용한 것처럼 말하지 않는다.** 열 수 없는 주소가 있으면 사용자에게 그 파일을 첨부해 달라고 한다. 사용자가 주지 않은 숫자 · 사실을 지어내지 않는다.
 
@@ -104,6 +105,37 @@
 | #106 | 새로운 일상이 도착했습니다 | B | https://szxv7704-dot.github.io/design-reference-gallery/covers/106.html | https://szxv7704-dot.github.io/design-reference-gallery/covers/106.css | **표지의 장치를 본문까지** — 고정폭 'DELIVERED · …' 줄 · 주황 테이프 띠(화살표 + OPEN NEW POSSIBILITIES) · 송장 라벨(바코드 · 보내는 분 · 받는 분 · 물품명 · NXT 번호 · 주황 도장) · 위 테두리 주황인 꺼낸 카드 세 장 · 표지 원화의 택배 상자 · 빌린 본문 #87 #76 #73 |
 | #109 | 피사체는 그대로, 시선은 새로 | B | https://szxv7704-dot.github.io/design-reference-gallery/covers/109.html | https://szxv7704-dot.github.io/design-reference-gallery/covers/109.css | **표지의 장치를 본문까지** — 전시 포스터 틀(위 가는 줄 'NEW WAYS OF SEEING ··· EXHIBITION / 0n', 아래 질문과 'PERSPECTIVE / ANALOG STUDY') · 아주 굵은 고딕 결론 · 렌즈 조각 줄(장마다 하나씩 끼워짐) · 빨간 뷰파인더 꺾쇠 · 표지 원화의 렌즈 조각과 고양이 · 카메라 사진 · 빌린 본문 #53 #94 |
 
+## 와우 포인트 (24가지, 기법 하나 = 덱 하나)
+
+발표 연출 기법. 덱마다 3장(표지 · 크게 보기 · 쓰는 법). 한 발표에 한두 번만 쓴다.
+
+| 번호 | 기법 | 묶음 | 한 줄 | 이럴 때 | 쓰는 곳 | 덱 |
+|---|---|---|---|---|---|---|
+| 01 | 리빌 | 드러내기·이동 | 가려 둔 만큼, 열릴 때 커진다. | "다음 단계로 넘어갑니다" / "새로 시작합니다" | 표지, 슬로건 공개, 새 출발 선언 | https://szxv7704-dot.github.io/design-reference-gallery/wow/01.html |
+| 02 | 점진적 공개 | 드러내기·이동 | 청중이 발표자 속도로 읽게 된다. | "구조가 복잡하지만 따라오세요" | 비전 체계도, 단계 절차, 복잡한 구조 | https://szxv7704-dot.github.io/design-reference-gallery/wow/02.html |
+| 03 | 줌 인 | 드러내기·이동 | 지도를 먼저 쥐여 주고 한 곳으로 데려간다. | "구조가 복잡하지만 따라오세요" | 공간·시설 계획, 세부 과제 설명 | https://szxv7704-dot.github.io/design-reference-gallery/wow/03.html |
+| 04 | 허브 이동 | 드러내기·이동 | 고른 곳으로 들어갔다 나온다. 질문에 바로 답한다. | — | 업무보고, 질의응답이 많은 자리 | https://szxv7704-dot.github.io/design-reference-gallery/wow/04.html |
+| 05 | 비포/애프터 | 대비·전환 | 구도가 같으면 눈은 바뀐 곳만 본다. | "이만큼 바뀝니다" | 현행 대비 개선, 공간·환경 개선, 서식 간소화 | https://szxv7704-dot.github.io/design-reference-gallery/wow/05.html |
+| 06 | 연속 변형 | 대비·전환 | 같은 도형이 모양만 바꿔 '같은 돈'임을 증명한다. | "이만큼 바뀝니다" | 예산 재분할, 구성비 변화, 조직 개편 | https://szxv7704-dot.github.io/design-reference-gallery/wow/06.html |
+| 07 | 수미상관 | 대비·전환 | 첫 장면으로 돌아오면 이야기가 닫힌다. | "해마다 돌며 나아집니다" | 순환·환류 체계, 덱의 마지막 장 | https://szxv7704-dot.github.io/design-reference-gallery/wow/07.html |
+| 08 | 큰 숫자 하나 | 숫자 체감 | 하나만 크게. 나머지는 조연으로 물린다. | "이 숫자가 심각합니다" / "이게 결론입니다" | 핵심 현황, 결론 장표 | https://szxv7704-dot.github.io/design-reference-gallery/wow/08.html |
+| 09 | 단위 차트 | 숫자 체감 | 41%를 '100칸 중 41칸'으로 바꿔 몸으로 느끼게. | "이 숫자가 심각합니다" | 비율, 발생률, 참여율 | https://szxv7704-dot.github.io/design-reference-gallery/wow/09.html |
+| 10 | 카운트업 | 숫자 체감 | 올라가는 동안 긴장이 쌓이고, 멈출 때 터진다. | "목표에 닿았습니다(닿을 겁니다)" | 참여 인원, 목표 달성, 누적 성과 | https://szxv7704-dot.github.io/design-reference-gallery/wow/10.html |
+| 11 | 데이터 레이스 | 숫자 체감 | 순위가 뒤집히는 순간이 곧 드라마다. | "순위·흐름이 뒤집혔습니다" | 연도별 추이, 기관·지역 순위 변화 | https://szxv7704-dot.github.io/design-reference-gallery/wow/11.html |
+| 12 | 시각 은유 | 은유·세계관 | 추상적인 정책이 사물 하나로 한 번에 이해된다. | "여럿이 함께 만듭니다" | 표지, 비전, 추진 체계 | https://szxv7704-dot.github.io/design-reference-gallery/wow/12.html |
+| 13 | 생활 서식 빌려 오기 | 은유·세계관 | 익숙한 틀을 엉뚱한 자리에 두면 눈이 멈춘다. | — | 표지, 홍보물, 연수 안내 | https://szxv7704-dot.github.io/design-reference-gallery/wow/13.html |
+| 14 | 게임화 | 은유·세계관 | 다년 계획을 레벨처럼 '깨 나가는' 이야기로. | "목표에 닿았습니다(닿을 겁니다)" | 다년 계획, 단계별 확대, 학생·연수 대상 | https://szxv7704-dot.github.io/design-reference-gallery/wow/14.html |
+| 15 | 물리 모션 | 은유·세계관 | 무게와 충돌이 '진짜 같다'는 실감을 준다. | "여럿이 함께 만듭니다" | 분류, 선후 관계, 결합 구조 | https://szxv7704-dot.github.io/design-reference-gallery/wow/15.html |
+| 16 | 키네틱 타이포 | 감각·형식 | 그림 없이 글자만으로 장면이 된다. | — | 제목, 슬로건, 간지 | https://szxv7704-dot.github.io/design-reference-gallery/wow/16.html |
+| 17 | 재질·질감 | 감각·형식 | 매끈한 화면 사이에서 만질 수 있을 것 같은 장면. | — | 친환경, 지역·문화, 아동 대상 | https://szxv7704-dot.github.io/design-reference-gallery/wow/17.html |
+| 18 | 3D·깊이 | 감각·형식 | 평면 장표들 사이에서 깊이 하나가 튀어 오른다. | "해마다 돌며 나아집니다" | 누적 지원, 층위 구조, 지형·분포 | https://szxv7704-dot.github.io/design-reference-gallery/wow/18.html |
+| 19 | 극단적 여백 | 감각·형식 | 남은 하나에 시선이 전부 모인다. | "새로 시작합니다" | 표지, 간지, 결론 한 문장 | https://szxv7704-dot.github.io/design-reference-gallery/wow/19.html |
+| 20 | 팡! 터뜨리기 | 소리가 보이는 모션 | 터지는 순간 화면이 축제가 된다. | "목표에 닿았습니다(닿을 겁니다)" | 목표 달성, 개막, 마무리 장 | https://szxv7704-dot.github.io/design-reference-gallery/wow/20.html |
+| 21 | 칙칙폭폭 지나가기 | 소리가 보이는 모션 | 입체 글자 하나하나가 객차가 되어 들어와 멈추며 읽힌다. | "다음 단계로 넘어갑니다" | 연도별 일정, 단계 전환, 슬로건 공개 | https://szxv7704-dot.github.io/design-reference-gallery/wow/21.html |
+| 22 | 또롱또롱 떨어지기 | 소리가 보이는 모션 | 같은 박자로 하나씩 생겨 개수와 순서가 몸에 남는다. | "구조가 복잡하지만 따라오세요" | 과제 목록, 절차 단계, 핵심어 나열 | https://szxv7704-dot.github.io/design-reference-gallery/wow/22.html |
+| 23 | 쿵! 내려앉기 | 소리가 보이는 모션 | 무거운 착지와 흔들림이 '이게 결론'이라고 알린다. | "이게 결론입니다" | 결론 한 문장, 핵심 숫자 | https://szxv7704-dot.github.io/design-reference-gallery/wow/23.html |
+| 24 | 타이포 조립 | 소리가 보이는 모션 | "무슨 글자지?" 하다가 한순간 맞춰지며 "아!" 하게 된다. | "새로 시작합니다" | 표지 제목, 연도·슬로건 공개, 간지 | https://szxv7704-dot.github.io/design-reference-gallery/wow/24.html |
+
 ## 구성 (역할마다 배치가 다른 셋. 모든 스타일에서 같은 이름으로 쓴다)
 
 | 역할 | 구성 | 모습 | 이럴 때 | 알맞은 분량 | 부품 | 보기(B 스타일) |
@@ -155,4 +187,4 @@
 
 - 표지 레퍼런스 설명(분위기 · 가져갈 장치): https://szxv7704-dot.github.io/design-reference-gallery/catalog/refs.md
 - 참고 본문 장표(도식 아이디어): https://szxv7704-dot.github.io/design-reference-gallery/catalog/body.md · 아이콘 85개: https://szxv7704-dot.github.io/design-reference-gallery/catalog/icons.md
-- 사람용 이용 방법: https://szxv7704-dot.github.io/design-reference-gallery/guide.html
+- 사람용 이용 방법: https://szxv7704-dot.github.io/design-reference-gallery/ai.html

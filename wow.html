@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>와우 포인트 적용하기 — 발표 디자인 라이브러리</title>
+<meta name="description" content="발표 연출 기법 24가지, 기법 하나마다 덱 하나.">
+<link rel="alternate" type="text/markdown" href="catalog.md" title="AI가 읽는 목록">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+:root{--bg:#F7F6F3;--card:#FFFFFF;--ink:#1B1E24;--soft:#5C616B;--line:#E3E1DB;--key:#1F5FD0;--keybg:#E8EFFC;--chip:#EDEBE5;--ok:#1E7B4F;--warn:#9A6400;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all;line-height:1.6}
+a{color:inherit}img{max-width:100%;height:auto;display:block;background:var(--chip)}
+button{font-family:var(--f);cursor:pointer}
+.top{position:sticky;top:0;z-index:10;background:rgba(247,246,243,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top div{max-width:1280px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:8px 26px;flex-wrap:wrap}
+.brand{font-weight:900;font-size:18px;text-decoration:none;padding:14px 0;margin-right:10px}
+.top nav{display:flex;gap:4px 22px;flex-wrap:wrap}
+.top nav a{padding:16px 2px 13px;text-decoration:none;font-size:15px;font-weight:500;border-bottom:3px solid transparent}
+.top nav a[aria-current=page]{color:var(--key);border-bottom-color:var(--key);font-weight:700}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:-.02em;line-height:1.25;margin:0}
+h2{font-size:26px;font-weight:900;margin:52px 0 6px;letter-spacing:-.01em}
+h3{font-size:17px;margin:28px 0 10px}
+h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--soft);letter-spacing:0}
+.lead{margin:10px 0 0;font-size:17px;color:var(--soft);max-width:60ch}
+.hero{display:grid;grid-template-columns:1fr auto;gap:20px 40px;align-items:start}
+.ask{background:var(--keybg);border-radius:14px;padding:20px 22px;display:flex;gap:14px 20px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:17px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 18px;border-radius:10px;border:2px solid var(--key);background:var(--card);color:var(--key);font:700 15px var(--f);text-decoration:none}
+.btn.fill{background:var(--key);color:#fff}
+.btn.small{min-height:36px;padding:4px 12px;font-size:14px;border-width:1.5px}
+.steps{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:s;font-weight:700}
+.steps a{counter-increment:s;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:0 14px;min-height:64px;padding:12px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:17px}
+.steps a::before{content:counter(s);grid-row:1 / 3;width:34px;height:34px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center}
+.steps a small{grid-column:2;display:block;font-size:13.5px;font-weight:400;color:var(--soft)}
+.steps a:hover,.more a:hover,.short a:hover{border-color:var(--key)}
+.more{margin:12px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.more a{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:12px;background:var(--chip);border:1px solid transparent;text-decoration:none}
+.more a b{font-size:16px;white-space:nowrap}.more a b::after{content:" ›";color:var(--soft)}.more a span{font-size:13.5px;color:var(--soft)}
+.main4{margin:34px 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.main4 > a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.main4 > a:hover{border-color:var(--key);box-shadow:0 18px 40px -28px rgba(27,30,36,.5)}
+.main4 .vis{aspect-ratio:16/8;background:var(--chip);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;overflow:hidden}
+.main4 .vis img{width:100%;height:100%;object-fit:cover}
+.main4 .vis.one{display:block}.main4 .vis.one img{width:100%;height:100%;object-fit:cover}
+.main4 .tx{padding:20px 24px 22px;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:2px 16px}
+.main4 .tx i{grid-row:1 / 3;width:44px;height:44px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center;font:900 20px var(--f);font-style:normal}
+.main4 .tx b{font-size:24px;font-weight:900}.main4 .tx span{grid-column:2;font-size:15px;color:var(--soft)}
+.main4 .tx::after{content:"›";grid-row:1 / 3;grid-column:3;font-size:34px;color:var(--soft)}
+.icons-vis{display:grid!important;grid-template-columns:repeat(6,1fr)!important;grid-template-rows:repeat(2,1fr)!important;place-items:center;padding:18px 28px;background:#EEF2FB!important;color:#1F5FD0}
+.icons-vis svg{width:56%;height:auto}
+.ai-vis{display:flex!important;flex-direction:column;justify-content:center;gap:12px;padding:22px 28px;background:linear-gradient(135deg,#E8EFFC,#F3EEFB)!important}
+.ai-vis p{margin:0;padding:14px 18px;border-radius:12px;background:#fff;font:13.5px/1.6 var(--m);color:var(--ink);box-shadow:0 10px 24px -18px rgba(27,30,36,.5)}
+.ai-vis p:nth-child(2){align-self:flex-end;background:#1F5FD0;color:#fff;font-family:var(--f);font-weight:700}
+.path{margin:30px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:pt}
+.path > a{counter-increment:pt;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none}
+.path > a:hover{border-color:var(--key)}
+.path .vis{aspect-ratio:16/10;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--chip)}.path .vis img{width:100%;height:100%;object-fit:cover}
+.path .tx{padding:18px 22px 22px}.path .tx b{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:900}
+.path .tx b::before{content:counter(pt);width:34px;height:34px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center;font-size:16px}
+.path .tx span{display:block;margin-top:8px;font-size:15px;color:var(--soft)}
+.crumb{margin:0 0 10px;font-size:14.5px}.crumb a{color:var(--soft);text-decoration:none}.crumb a:hover{color:var(--key)}
+.wowg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:16px}
+.wowg a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none}
+.wowg a:hover{border-color:var(--key)}.wowg img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.wowg b{margin:12px 14px 0;font-size:18px}.wowg b small{margin-left:8px;font-size:13.5px;font-weight:500;color:var(--soft)}
+.wowg p{margin:4px 14px 0;font-size:14.5px;color:var(--soft);line-height:1.5}.wowg p.w{margin:8px 14px 14px;font-size:13px;color:var(--key)}
+.ico{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.ico button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;font:500 13px/1.35 var(--f);color:var(--ink);text-align:center}
+.ico button:hover{border-color:var(--key);color:var(--key)}.ico svg{width:34px;height:34px}
+.ico button.ok{border-color:var(--ok);color:var(--ok)}
+.aisteps{margin:18px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:ai}
+.aisteps li{counter-increment:ai;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:15px;line-height:1.5}
+.aisteps li::before{content:counter(ai);display:grid;place-items:center;width:30px;height:30px;margin-bottom:10px;border-radius:50%;background:var(--keybg);color:var(--key);font-weight:900}
+.aisteps b{display:block;font-size:16.5px}
+.finder{margin:40px 0 0;padding:24px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.finder h2{margin:0 0 4px}.finder .note{margin:0 0 16px}
+.tools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:14px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid #C9C6BE;background:var(--card);font:500 15px var(--f);padding:8px 18px;border-radius:999px;color:var(--ink)}
+.chips button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tools input[type=search]{flex:1 1 220px;min-width:0;font:15px var(--f);padding:10px 14px;border:1px solid #C9C6BE;border-radius:10px;background:var(--card);color:var(--ink)}
+.tools label{display:inline-flex;align-items:center;gap:8px;font-size:15px}
+.tools input[type=checkbox],.cmp input{width:20px;height:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:20px}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column}
+.sc .cv img{border-radius:8px;aspect-ratio:16/9;object-fit:cover}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}.mc .tri{gap:1px;margin:0;border-bottom:1px solid var(--line)}.mc .tri img{border:0}
+.sc .tri img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+.sc h3{margin:12px 6px 0;font-size:20px}
+.sc p{margin:2px 6px 0;font-size:14.5px;color:var(--soft)}
+.sc .ft{margin:12px 6px 4px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--chip);font-size:13px;font-weight:500;color:var(--soft)}
+.badge.ok{background:#E2F2E9;color:var(--ok)}.badge.wip{background:#FBF0D9;color:var(--warn)}
+.cmp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:14px}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:14px}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px;display:flex;flex-direction:column}
+.mc img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.mc b{display:block;margin:8px 10px 0;font-size:14.5px;line-height:1.4}.mc small{font-weight:400;color:var(--soft)}
+.mc p{margin:3px 10px 0;color:var(--soft);line-height:1.5}
+a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
+.mc .lk{margin-top:auto;padding:8px 10px 10px;color:var(--ink)}
+.short{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.short a{display:grid;grid-template-columns:1fr auto;align-items:center;gap:0 8px;padding:14px 16px;background:var(--bg);border:1px solid var(--line);border-radius:10px;text-decoration:none;font-weight:700}
+.short a small{grid-column:1;font-size:13px;font-weight:400;color:var(--soft);line-height:1.45}
+.short a::after{grid-row:1 / 3;grid-column:2}
+.short a::after{content:"›";color:var(--soft);font-size:20px}
+.var3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.vc{text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;font-size:14px}
+.vc img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line);width:100%}
+.vc b{display:block;margin:10px 12px 0;font-size:16.5px}.vc p{margin:4px 12px 0;color:var(--soft);line-height:1.55}.vc p:last-child{margin-bottom:12px}
+.vc p.w{color:var(--ink)}.vc.on{border-color:var(--key);box-shadow:0 0 0 2px var(--key)}
+.sw{position:sticky;top:58px;z-index:5;background:var(--bg);padding:10px 0;margin:18px 0 0;display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap;font-size:14px;border-bottom:1px solid var(--line)}
+.sw .chips button{padding:6px 14px;font-size:14px}
+@media (max-width:820px){.main4,.path{grid-template-columns:1fr}.main4 .tx b{font-size:20px}.aisteps{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr;gap:8px}.steps a{min-height:0;padding:10px 14px;font-size:16px}.steps a small{display:none}.steps a::before{width:28px;height:28px;grid-row:auto}.more{grid-template-columns:1fr 1fr 1fr;gap:8px}.more a{padding:10px 12px}.more a span{display:none}.more a b{font-size:14px;white-space:nowrap}.finder{padding:16px}.short{grid-template-columns:1fr 1fr}.short a{padding:10px 12px;font-size:14px}.var3{grid-template-columns:1fr}.sw{top:0}.sw .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.sw .chips button{white-space:nowrap}}
+.note{margin:12px 0 0;font-size:14px;color:var(--soft)}
+.empty{padding:40px 0;text-align:center;color:var(--soft)}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{white-space:nowrap;background:var(--chip);font-weight:700}
+.tw{overflow-x:auto}
+.view{background:#111;border-radius:12px;overflow:hidden}.view iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#111}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+.kv{margin:0;display:grid;grid-template-columns:92px 1fr;gap:8px 12px;font-size:14.5px}.kv dt{color:var(--soft)}.kv dd{margin:0}
+.kv ul{margin:0;padding-left:1.1em}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+pre.req{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font:13.5px/1.6 var(--m);margin:10px 0 0;overflow-wrap:anywhere}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:0 14px}
+summary{padding:12px 0;font-weight:700;cursor:pointer}
+.tray{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;background:var(--ink);color:#fff;border-radius:999px;padding:8px 10px 8px 18px;display:flex;gap:12px;align-items:center;font-size:14.5px;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+.tray[hidden]{display:none}.tray button{border:0;border-radius:999px;padding:8px 16px;font:700 14px var(--f);background:#fff;color:var(--ink)}
+dialog{width:min(1240px,calc(100vw - 24px));max-height:calc(100vh - 24px);padding:18px;border:0;border-radius:14px;background:var(--bg);color:var(--ink)}
+dialog::backdrop{background:rgba(20,22,26,.6)}
+.cmpgrid{display:grid;gap:14px}.cmpgrid .row{display:grid;grid-template-columns:140px repeat(5,1fr);gap:6px;align-items:center}
+.cmpgrid .row b{font-size:15px}.cmpgrid img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+:focus-visible{outline:3px solid var(--key);outline-offset:2px}
+footer{margin-top:56px;font-size:13px;color:var(--soft)}
+@media (max-width:820px){.top{position:static}.top div{flex-wrap:nowrap;gap:0 14px}.brand{font-size:15px;padding:10px 0;margin-right:0;white-space:nowrap}
+  .top nav{flex-wrap:nowrap;gap:0 16px;overflow-x:auto;scrollbar-width:none;white-space:nowrap;min-width:0}.top nav::-webkit-scrollbar{display:none}.top nav a{padding:12px 2px 9px;font-size:14px}
+  html{scroll-padding-top:12px}.hero,.two{grid-template-columns:1fr}.cmpgrid .row{grid-template-columns:repeat(3,1fr)}.cmpgrid .row b{grid-column:1 / -1}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<!-- 이 파일은 scripts/gallery.py 가 만든다. 손으로 고치지 말 것 -->
+<header class="top"><div><a class="brand" href="index.html">발표 디자인 라이브러리</a><nav aria-label="메뉴"><a href="present.html" aria-current="page">발표자료</a><a href="print.html">인쇄 · 홍보물</a><a href="icons.html">아이콘</a><a href="ai.html">AI에게 맡기기</a></nav></div></header>
+<main class="wrap">
+<p class="crumb"><a href="present.html">← 발표자료 고르기</a></p><h1>와우 포인트 적용하기</h1><p class="lead">청중이 "와" 하는 순간을 만드는 기법 24가지. 기법마다 덱 하나(표지 · 크게 보기 · 쓰는 법)라서, 누르면 실제로 움직이는 모습부터 봅니다.</p>
+<h2>드러내기·이동 <small>4가지</small></h2><div class="wowg"><a href="wow/01.html" target="_blank" rel="noopener"><img src="wow/thumbs/01-2.jpg" alt="리빌" loading="lazy" width="640" height="360"><b>리빌<small>가렸다가 열기</small></b><p>가려 둔 만큼, 열릴 때 커진다.</p><p class="w">이럴 때 · &quot;다음 단계로 넘어갑니다&quot; · &quot;새로 시작합니다&quot;</p></a><a href="wow/02.html" target="_blank" rel="noopener"><img src="wow/thumbs/02-2.jpg" alt="점진적 공개" loading="lazy" width="640" height="360"><b>점진적 공개<small>한 층씩</small></b><p>청중이 발표자 속도로 읽게 된다.</p><p class="w">이럴 때 · &quot;구조가 복잡하지만 따라오세요&quot;</p></a><a href="wow/03.html" target="_blank" rel="noopener"><img src="wow/thumbs/03-2.jpg" alt="줌 인" loading="lazy" width="640" height="360"><b>줌 인<small>전체 → 부분</small></b><p>지도를 먼저 쥐여 주고 한 곳으로 데려간다.</p><p class="w">이럴 때 · &quot;구조가 복잡하지만 따라오세요&quot;</p></a><a href="wow/04.html" target="_blank" rel="noopener"><img src="wow/thumbs/04-2.jpg" alt="허브 이동" loading="lazy" width="640" height="360"><b>허브 이동<small>목차가 곧 지도</small></b><p>고른 곳으로 들어갔다 나온다. 질문에 바로 답한다.</p><p class="w"></p></a></div>
+<h2>대비·전환 <small>3가지</small></h2><div class="wowg"><a href="wow/05.html" target="_blank" rel="noopener"><img src="wow/thumbs/05-2.jpg" alt="비포/애프터" loading="lazy" width="640" height="360"><b>비포/애프터<small>같은 구도, 바뀐 것만</small></b><p>구도가 같으면 눈은 바뀐 곳만 본다.</p><p class="w">이럴 때 · &quot;이만큼 바뀝니다&quot;</p></a><a href="wow/06.html" target="_blank" rel="noopener"><img src="wow/thumbs/06-2.jpg" alt="연속 변형" loading="lazy" width="640" height="360"><b>연속 변형<small>모핑</small></b><p>같은 도형이 모양만 바꿔 &#x27;같은 돈&#x27;임을 증명한다.</p><p class="w">이럴 때 · &quot;이만큼 바뀝니다&quot;</p></a><a href="wow/07.html" target="_blank" rel="noopener"><img src="wow/thumbs/07-2.jpg" alt="수미상관" loading="lazy" width="640" height="360"><b>수미상관<small>처음으로 돌아오기</small></b><p>첫 장면으로 돌아오면 이야기가 닫힌다.</p><p class="w">이럴 때 · &quot;해마다 돌며 나아집니다&quot;</p></a></div>
+<h2>숫자 체감 <small>4가지</small></h2><div class="wowg"><a href="wow/08.html" target="_blank" rel="noopener"><img src="wow/thumbs/08-2.jpg" alt="큰 숫자 하나" loading="lazy" width="640" height="360"><b>큰 숫자 하나<small>주인공 하나</small></b><p>하나만 크게. 나머지는 조연으로 물린다.</p><p class="w">이럴 때 · &quot;이 숫자가 심각합니다&quot; · &quot;이게 결론입니다&quot;</p></a><a href="wow/09.html" target="_blank" rel="noopener"><img src="wow/thumbs/09-2.jpg" alt="단위 차트" loading="lazy" width="640" height="360"><b>단위 차트<small>셀 수 있게</small></b><p>41%를 &#x27;100칸 중 41칸&#x27;으로 바꿔 몸으로 느끼게.</p><p class="w">이럴 때 · &quot;이 숫자가 심각합니다&quot;</p></a><a href="wow/10.html" target="_blank" rel="noopener"><img src="wow/thumbs/10-2.jpg" alt="카운트업" loading="lazy" width="640" height="360"><b>카운트업<small>올라가는 숫자</small></b><p>올라가는 동안 긴장이 쌓이고, 멈출 때 터진다.</p><p class="w">이럴 때 · &quot;목표에 닿았습니다(닿을 겁니다)&quot;</p></a><a href="wow/11.html" target="_blank" rel="noopener"><img src="wow/thumbs/11-2.jpg" alt="데이터 레이스" loading="lazy" width="640" height="360"><b>데이터 레이스<small>순위 경주</small></b><p>순위가 뒤집히는 순간이 곧 드라마다.</p><p class="w">이럴 때 · &quot;순위·흐름이 뒤집혔습니다&quot;</p></a></div>
+<h2>은유·세계관 <small>4가지</small></h2><div class="wowg"><a href="wow/12.html" target="_blank" rel="noopener"><img src="wow/thumbs/12-2.jpg" alt="시각 은유" loading="lazy" width="640" height="360"><b>시각 은유<small>개념을 사물로</small></b><p>추상적인 정책이 사물 하나로 한 번에 이해된다.</p><p class="w">이럴 때 · &quot;여럿이 함께 만듭니다&quot;</p></a><a href="wow/13.html" target="_blank" rel="noopener"><img src="wow/thumbs/13-2.jpg" alt="생활 서식 빌려 오기" loading="lazy" width="640" height="360"><b>생활 서식 빌려 오기<small>탑승권·영수증</small></b><p>익숙한 틀을 엉뚱한 자리에 두면 눈이 멈춘다.</p><p class="w"></p></a><a href="wow/14.html" target="_blank" rel="noopener"><img src="wow/thumbs/14-2.jpg" alt="게임화" loading="lazy" width="640" height="360"><b>게임화<small>과제 = 퀘스트</small></b><p>다년 계획을 레벨처럼 &#x27;깨 나가는&#x27; 이야기로.</p><p class="w">이럴 때 · &quot;목표에 닿았습니다(닿을 겁니다)&quot;</p></a><a href="wow/15.html" target="_blank" rel="noopener"><img src="wow/thumbs/15-2.jpg" alt="물리 모션" loading="lazy" width="640" height="360"><b>물리 모션<small>튕김·낙하·연쇄</small></b><p>무게와 충돌이 &#x27;진짜 같다&#x27;는 실감을 준다.</p><p class="w">이럴 때 · &quot;여럿이 함께 만듭니다&quot;</p></a></div>
+<h2>감각·형식 <small>4가지</small></h2><div class="wowg"><a href="wow/16.html" target="_blank" rel="noopener"><img src="wow/thumbs/16-2.jpg" alt="키네틱 타이포" loading="lazy" width="640" height="360"><b>키네틱 타이포<small>글자가 연출</small></b><p>그림 없이 글자만으로 장면이 된다.</p><p class="w"></p></a><a href="wow/17.html" target="_blank" rel="noopener"><img src="wow/thumbs/17-2.jpg" alt="재질·질감" loading="lazy" width="640" height="360"><b>재질·질감<small>화면에 손맛</small></b><p>매끈한 화면 사이에서 만질 수 있을 것 같은 장면.</p><p class="w"></p></a><a href="wow/18.html" target="_blank" rel="noopener"><img src="wow/thumbs/18-2.jpg" alt="3D·깊이" loading="lazy" width="640" height="360"><b>3D·깊이<small>쌓임을 진짜 층으로</small></b><p>평면 장표들 사이에서 깊이 하나가 튀어 오른다.</p><p class="w">이럴 때 · &quot;해마다 돌며 나아집니다&quot;</p></a><a href="wow/19.html" target="_blank" rel="noopener"><img src="wow/thumbs/19-2.jpg" alt="극단적 여백" loading="lazy" width="640" height="360"><b>극단적 여백<small>비울수록 강해짐</small></b><p>남은 하나에 시선이 전부 모인다.</p><p class="w">이럴 때 · &quot;새로 시작합니다&quot;</p></a></div>
+<h2>소리가 보이는 모션 <small>5가지</small></h2><div class="wowg"><a href="wow/20.html" target="_blank" rel="noopener"><img src="wow/thumbs/20-2.jpg" alt="팡! 터뜨리기" loading="lazy" width="640" height="360"><b>팡! 터뜨리기<small>하늘 가득 불꽃</small></b><p>터지는 순간 화면이 축제가 된다.</p><p class="w">이럴 때 · &quot;목표에 닿았습니다(닿을 겁니다)&quot;</p></a><a href="wow/21.html" target="_blank" rel="noopener"><img src="wow/thumbs/21-2.jpg" alt="칙칙폭폭 지나가기" loading="lazy" width="640" height="360"><b>칙칙폭폭 지나가기<small>음절 한 량씩</small></b><p>입체 글자 하나하나가 객차가 되어 들어와 멈추며 읽힌다.</p><p class="w">이럴 때 · &quot;다음 단계로 넘어갑니다&quot;</p></a><a href="wow/22.html" target="_blank" rel="noopener"><img src="wow/thumbs/22-2.jpg" alt="또롱또롱 떨어지기" loading="lazy" width="640" height="360"><b>또롱또롱 떨어지기<small>한 방울씩</small></b><p>같은 박자로 하나씩 생겨 개수와 순서가 몸에 남는다.</p><p class="w">이럴 때 · &quot;구조가 복잡하지만 따라오세요&quot;</p></a><a href="wow/23.html" target="_blank" rel="noopener"><img src="wow/thumbs/23-2.jpg" alt="쿵! 내려앉기" loading="lazy" width="640" height="360"><b>쿵! 내려앉기<small>무게로 결론</small></b><p>무거운 착지와 흔들림이 &#x27;이게 결론&#x27;이라고 알린다.</p><p class="w">이럴 때 · &quot;이게 결론입니다&quot;</p></a><a href="wow/24.html" target="_blank" rel="noopener"><img src="wow/thumbs/24-2.jpg" alt="타이포 조립" loading="lazy" width="640" height="360"><b>타이포 조립<small>탁탁 맞춰지는 글자</small></b><p>&quot;무슨 글자지?&quot; 하다가 한순간 맞춰지며 &quot;아!&quot; 하게 된다.</p><p class="w">이럴 때 · &quot;새로 시작합니다&quot;</p></a></div>
+<p class="note">스물네 가지를 한 덱에 모아 보려면 <a href="wow/wow.html" target="_blank" rel="noopener">한눈에 보기(9장)</a>.</p>
+<footer>모든 기관명 · 수치 · 사례는 가상 예시입니다. 새 발표에 그대로 가져오지 마세요. 사진은 AI로 만든 것이고, 글꼴은 모두 SIL Open Font License 1.1(<a href="fonts/LICENSES.md">저작권 고지</a>).</footer>
+</main>
+<script>
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-copy]'); if (!b) return;
+  const t = document.getElementById(b.dataset.copy).textContent, old = b.textContent;
+  try { await navigator.clipboard.writeText(t); b.textContent = '요청문을 복사했습니다 — AI 대화창에 붙여 넣으세요'; }
+  catch (err) { const r = document.createRange(); r.selectNodeContents(document.getElementById(b.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = '아래 글을 직접 복사하세요'; }
+  setTimeout(() => { b.textContent = old; }, 2600);
+});
+</script>
+</body>
+</html>
