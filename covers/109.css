@@ -458,3 +458,67 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
+.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
+
+/* ── 이 표지의 고유 장치(src/covers/109.css) ── */
+/* #109 피사체는 그대로, 시선은 새로 — 표지의 장치를 본문 틀로
+   표지의 말: 렌즈 조각 여덟 개가 한 줄로 서서 카메라에 끼워지면 같은 피사체가 새로 보인다.
+   본문 틀: 전시 포스터 — 위 가는 줄 사이 'NEW WAYS OF SEEING ···· EXHIBITION / 0n', 아주 굵은 검은 고딕 결론, 아래 가는 줄 사이 질문 한 줄과 'PERSPECTIVE / ANALOG STUDY'.
+   장치: 렌즈 조각 줄 — 장이 넘어갈수록 조각이 하나씩 진하게 '끼워진다'(앞 조각은 흐림). 빨강은 뷰파인더 테 하나. 렌즈 조각 · 고양이와 카메라 사진은 표지 원화(covers/img/109-*)만 쓴다. */
+:root{--p-bg:#E3E7EE;--p-ink:#0C0C0E;--p-red:#E8452C;--p-soft:#5C6370;--p-line:#0C0C0E;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:linear-gradient(180deg,#E8EBF1,#DADFE7);color:var(--p-ink)}
+.slide:not(.c-orig)::before{content:none}
+.hd,.ft{position:absolute;left:70px;right:70px;z-index:3;margin:0;display:flex;align-items:center;gap:24px;font:500 22px/1 var(--ds-font-num);letter-spacing:.04em;color:var(--p-ink)}
+.hd{top:44px}.ft{bottom:44px}
+.hd::after{content:"";order:1;flex:1;height:1.5px;background:var(--p-line)}.hd span:last-child{order:2}
+.ft{padding-top:18px;border-top:1.5px solid var(--p-line);justify-content:space-between;font-family:var(--ds-font-body);font-size:24px}
+.ft span:last-child{font:500 22px/1 var(--ds-font-num)}
+.s-body{inset:96px 70px 110px;gap:22px}
+.kicker{display:block;padding:0;border:0;background:none;font:500 24px/1 var(--ds-font-num);letter-spacing:.06em;color:var(--p-soft)}
+.kicker::before{content:none}
+.title{font:900 84px/1.1 var(--ds-font-title);letter-spacing:-.03em;color:var(--p-ink);max-width:none}
+.title em{font-style:normal;color:var(--p-ink);background:linear-gradient(transparent 72%,rgba(232,69,44,.35) 72%)}
+.page-no{right:70px;bottom:auto;top:44px;font:500 22px/1 var(--ds-font-num);color:var(--p-ink);background:linear-gradient(90deg,#E6E9EF,#E6E9EF);padding-left:16px;z-index:4}
+.page-no::before{content:"EXHIBITION / "}
+.src{left:auto;right:70px;bottom:96px;font:500 22px/1 var(--ds-font-num);color:var(--p-soft)}
+/* ── 렌즈 조각 줄(이 표지만의 부품): 끼워진 만큼 진하고, 남은 조각은 흐리다 ── */
+.lenses{display:flex;align-items:center;gap:14px;height:150px}
+.lenses img{height:100%;width:auto;display:block;opacity:.22;filter:grayscale(1)}
+.lenses img:nth-child(-n+var(--n)){opacity:1}
+.lenses[data-n="1"] img:nth-child(-n+1),.lenses[data-n="2"] img:nth-child(-n+2),.lenses[data-n="3"] img:nth-child(-n+3),.lenses[data-n="4"] img:nth-child(-n+4),.lenses[data-n="5"] img:nth-child(-n+5),.lenses[data-n="6"] img:nth-child(-n+6),.lenses[data-n="7"] img:nth-child(-n+7),.lenses[data-n="8"] img{opacity:1;filter:none}
+.lenses img:last-child{height:118%}
+/* ── 뷰파인더(이 표지만의 부품): 네 모서리 빨간 꺾쇠 + 고정폭 노출 값 ── */
+.vf{position:relative;padding:34px 40px}
+.vf::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(var(--p-red),var(--p-red)) 0 0/44px 4px no-repeat,linear-gradient(var(--p-red),var(--p-red)) 0 0/4px 44px no-repeat,
+   linear-gradient(var(--p-red),var(--p-red)) 100% 0/44px 4px no-repeat,linear-gradient(var(--p-red),var(--p-red)) 100% 0/4px 44px no-repeat,
+   linear-gradient(var(--p-red),var(--p-red)) 0 100%/44px 4px no-repeat,linear-gradient(var(--p-red),var(--p-red)) 0 100%/4px 44px no-repeat,
+   linear-gradient(var(--p-red),var(--p-red)) 100% 100%/44px 4px no-repeat,linear-gradient(var(--p-red),var(--p-red)) 100% 100%/4px 44px no-repeat}
+.vf code{position:absolute;left:44px;bottom:14px;font:500 22px/1 var(--ds-font-num);letter-spacing:.08em;color:var(--p-red)}
+/* 같은 피사체, 두 시선 */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-content:center}
+.two > div{display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:6px solid var(--p-ink)}
+.two small{font:500 24px/1 var(--ds-font-num);letter-spacing:.08em;color:var(--p-soft)}
+.two h3{margin:0;font:900 52px/1.15 var(--ds-font-title)}
+.two ul{margin:0;padding:0 0 0 1.1em;font:500 30px/1.6 var(--ds-font-body)}
+.two > div:first-child{opacity:.55}
+.scene{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.scene img{width:100%;display:block;mix-blend-mode:multiply}
+.scene ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:20px}
+.scene li{display:grid;grid-template-columns:90px 1fr;gap:0 16px;align-items:baseline;font:500 30px/1.45 var(--ds-font-body)}
+.scene li b{font:900 54px/1 var(--ds-font-title)}
+.scene li.is-key b{color:var(--p-red)}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-content:center}
+.nums > div{padding:0 40px;border-left:1.5px solid var(--p-line);display:flex;flex-direction:column;gap:14px}.nums > div:first-child{padding-left:0;border-left:0}
+.nums span{font:700 30px/1.3 var(--ds-font-body)}
+.nums b{font:900 150px/1 var(--ds-font-title);letter-spacing:-.04em}.nums b small{font:700 44px/1 var(--ds-font-body);letter-spacing:0;margin-left:6px}
+.nums p{margin:0;font:500 22px/1.4 var(--ds-font-num);color:var(--p-soft)}.nums > div.is-key b{color:var(--p-red)}
+.slide.ref .s-body{bottom:100px}.r-win iframe{border:1.5px solid var(--p-line)}
+.end h2{position:absolute;left:70px;top:110px;margin:0;font:900 150px/1.06 var(--ds-font-title);letter-spacing:-.04em}
+.end .scene2{position:absolute;left:70px;right:70px;bottom:120px;height:470px;background:url("img/109-scene.jpg") 50% 70%/cover;mix-blend-mode:multiply}
+.lenses{height:200px;gap:22px}.lenses img{opacity:.18}
+.scene li{grid-template-columns:120px 1fr;font-size:34px}.scene li b{font-size:58px;white-space:nowrap}
+.end .scene2{left:auto;right:70px;width:1000px;top:340px;bottom:110px;height:auto;background-position:50% 60%;background-size:cover}
+.end h2{font-size:136px}
+.vf p{font-size:48px!important}.two h3{font-size:56px}.two ul{font-size:34px}

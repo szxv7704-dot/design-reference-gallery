@@ -1,0 +1,44 @@
+/* #31 한 칸씩 켜지는 돔 — 표지의 장치를 본문 틀로
+   장마다 좌우 분할: 왼쪽 흰 면에 글, 오른쪽에 돔 사진. 왼쪽 아래 굵은 남색 줄 밑에 참여 숫자판(고정폭 숫자 + '명 참여', 오른쪽에 목표).
+   장이 넘어갈수록 숫자가 오르고 돔이 금빛으로 더 켜진다. 내용은 삼각 칸이 켜진 만큼으로 세고, 강조는 주황 한 곳. 돔 사진은 표지에서 단계별로 떠낸 것(covers/img/31-a~e.jpg)만 쓴다. */
+:root{--g-navy:#14213D;--g-org:#E8590C;--g-gold:#F5A623;--g-blue:#2F6FB5;--g-soft:#55607A;--g-line:#D5D9E2;--g-photo:600px;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:#fff;color:var(--g-navy)}
+.slide:not(.c-orig)::before{content:none}
+.photo{position:absolute;right:0;top:0;bottom:0;width:var(--g-photo);z-index:2;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;object-position:42% 50%;display:block}
+.s-body{inset:86px calc(var(--g-photo) + 70px) 250px 86px;gap:18px}
+.kicker{display:block;padding:0;border:0;background:none;font:700 26px/1 var(--ds-font-body);letter-spacing:.08em;color:var(--g-navy)}
+.kicker::before{content:none}.kicker b{color:var(--g-org)}
+.title{font:900 68px/1.18 var(--ds-font-title);letter-spacing:-.02em;color:var(--g-navy)}
+.title em{font-style:normal;color:var(--g-org)}
+/* ── 참여 숫자판(이 표지만의 부품): 굵은 줄 아래 고정폭 숫자, 오른쪽에 목표 ── */
+.count{position:absolute;left:86px;right:calc(var(--g-photo) + 70px);bottom:86px;z-index:3;border-top:3px solid var(--g-navy);padding-top:26px;display:flex;justify-content:space-between;align-items:flex-end}
+.count b{font:600 76px/1 var(--ds-font-num);letter-spacing:-.02em;color:var(--g-navy)}.count b small{margin-left:14px;font:700 26px/1 var(--ds-font-body);letter-spacing:0}
+.count span{text-align:right;font:500 24px/1.35 var(--ds-font-body);color:var(--g-navy)}
+.page-no{right:calc(var(--g-photo) + 70px);bottom:44px;font:500 22px/1 var(--ds-font-num);color:var(--g-soft);z-index:4}
+.src{left:86px;bottom:44px;font-size:22px;z-index:4}
+/* ── 삼각 칸(이 표지만의 부품): 켜진 칸은 금빛, 아직 안 켜진 칸은 회색 테 ── */
+.cells{display:flex;gap:0;height:44px}
+.cells i{width:26px;height:44px;margin-right:-4px;background:#DADFE7;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.cells i:nth-child(even){clip-path:polygon(0 0,100% 0,50% 100%)}
+.cells i.on{background:var(--g-gold)}.cells i.key{background:var(--g-org)}
+/* 단계: 칸이 늘어 가는 네 줄 */
+.build{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:0}
+.build li{display:grid;grid-template-columns:220px 1fr 240px;align-items:center;gap:0 26px;padding:22px 0;border-top:1px solid var(--g-line)}.build li:last-child{border-bottom:1px solid var(--g-line)}
+.build b{font:900 40px/1.2 var(--ds-font-title)}.build b small{display:block;font:500 24px/1.3 var(--ds-font-num);color:var(--g-soft)}
+.build span{font:500 28px/1.4 var(--ds-font-body);color:var(--g-soft);text-align:right}
+.build li.is-key b{color:var(--g-org)}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-content:center}
+.nums > div{padding:6px 30px;border-left:1px solid var(--g-line);display:flex;flex-direction:column;gap:14px}.nums > div:first-child{padding-left:0;border-left:0}
+.nums span{font:700 26px/1.3 var(--ds-font-body)}
+.nums b{font:600 96px/1 var(--ds-font-num);letter-spacing:-.04em}.nums b small{font:700 30px/1 var(--ds-font-body);letter-spacing:0;margin-left:8px}
+.nums p{margin:0;font-size:24px;color:var(--g-soft)}.nums > div.is-key b{color:var(--g-org)}
+.voice{display:flex;flex-direction:column;justify-content:center;gap:34px}
+.voice p{margin:0;font:900 88px/1.2 var(--ds-font-title);letter-spacing:-.02em}.voice p em{font-style:normal;color:var(--g-org)}
+.voice small{font:500 34px/1.5 var(--ds-font-body);color:var(--g-soft)}
+.points li{border-color:var(--g-line)}.points li::before{font-family:var(--ds-font-num);color:var(--g-soft)}.points li.is-key::before,.points li.is-key b{color:var(--g-org)}.points b{font-weight:900}
+.slide.ref .s-body{bottom:230px}.r-win iframe{border:1px solid var(--g-line)}
+.slide.end .photo{width:1210px}
+.end h2{position:absolute;left:86px;top:330px;width:560px;margin:0;font:900 88px/1.18 var(--ds-font-title);letter-spacing:-.02em;color:var(--g-navy)}.end h2 em{font-style:normal;color:var(--g-org)}
+.end > p:not(.x){position:absolute;left:86px;top:600px;width:540px;margin:0;font:500 26px/1.6 var(--ds-font-body);color:var(--g-soft)}
+.slide.end .count{right:1280px}.slide.end .page-no{right:1280px}

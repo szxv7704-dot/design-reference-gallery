@@ -460,3 +460,63 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
+.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
+
+/* ── 이 표지의 고유 장치(src/covers/58.css) ── */
+/* #58 처마 끝 수막새 — 표지의 장치를 본문 틀로
+   장마다 박물관 해설판처럼: 자간 넓은 명조 머리말, 큰 명조 제목, 짧은 먹 줄. 내용은 지시선 끝에 점을 찍은 해설(굵은 이름 + 흐린 설명)로 단다.
+   기관 옆 주홍 인장 하나가 덱 전체의 유일한 강조색이고, 수막새 원형 확대창 · 처마 사진은 표지에서 떠낸 것(covers/img/58-*)만 쓴다.
+   '처마 끝선'은 왼쪽 아래 가는 먹 곡선 — 교실에서 통학로까지 한 줄. 재난 4단계(예방 · 대비 · 대응 · 복구)를 처마의 기와 네 장처럼 잇는다. */
+:root{--h-ink:#1F252C;--h-soft:#5F6670;--h-line:#B9B4AA;--h-red:#C2412B;--h-green:#2E7D5B;--h-paper:#F4F3EE;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:linear-gradient(180deg,#F7F6F2,#EFEDE6);color:var(--h-ink)}
+.slide:not(.c-orig)::before,.slide:not(.c-orig)::after{content:none}
+.s-body{inset:90px 96px 170px;gap:20px}
+.kicker{display:block;padding:0;border:0;background:none;font:500 28px/1 var(--ds-font-title);letter-spacing:.34em;color:var(--h-ink)}
+.kicker::before{content:none}
+.title{font:800 70px/1.25 var(--ds-font-title);letter-spacing:-.01em;color:var(--h-ink)}
+.title em{font-style:normal;color:var(--h-ink);box-shadow:inset 0 -14px 0 rgba(194,65,43,.18)}
+.title::after{content:"";display:block;width:86px;height:2px;margin-top:34px;background:var(--h-ink)}
+/* 인장과 기관 */
+.org{position:absolute;left:96px;bottom:50px;margin:0;display:flex;align-items:center;gap:26px;font:500 28px/1.35 var(--ds-font-body);color:var(--h-ink);z-index:3}
+.org img{width:84px;height:82px;display:block}.org small{display:block;font:400 22px/1.2 var(--ds-font-num);letter-spacing:.1em;color:var(--h-soft)}
+/* 처마 끝선 */
+.eave{position:absolute;left:96px;right:96px;bottom:150px;height:40px;z-index:2;border-top:2px solid var(--h-ink);border-radius:50% 50% 0 0 / 100% 100% 0 0;opacity:.55}
+.page-no{right:96px;bottom:50px;font:400 22px/1 var(--ds-font-num);letter-spacing:.1em;color:var(--h-soft)}
+.src{left:auto;right:96px;bottom:84px;font-size:22px}
+/* ── 지시선 해설(이 표지만의 부품): 점 — 가는 선 — 굵은 이름 + 흐린 설명 ── */
+.note{display:flex;flex-direction:column;gap:6px}
+.note b{font:700 32px/1.25 var(--ds-font-body)}.note span{font:400 26px/1.5 var(--ds-font-body);color:var(--h-soft)}
+.leads{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center;gap:36px}
+.leads li{display:grid;grid-template-columns:420px 1fr;align-items:center;gap:0 0}
+.leads li i{position:relative;height:1.5px;background:var(--h-soft);margin-right:26px}
+.leads li i::after{content:"";position:absolute;right:-7px;top:-6px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--h-ink)}
+.leads li.is-key i::after{background:var(--h-red);box-shadow:0 0 0 2px var(--h-red)}
+.leads li .note{order:-1;padding-right:30px}
+.leads li .note b{font-size:36px}.leads li .note span{font-size:28px}
+/* 확대창: 흰 테 원 */
+.lens{width:360px;height:360px;border-radius:50%;overflow:hidden;box-shadow:0 0 0 14px #fff,0 18px 34px -12px rgba(31,37,44,.35);flex:none}
+.lens img{width:100%;height:100%;object-fit:cover;display:block}
+.with-lens{display:grid;grid-template-columns:400px 1fr;gap:70px;align-items:center}
+/* ── 기와 네 장(이 표지만의 부품): 예방 · 대비 · 대응 · 복구가 처마처럼 이어진다 ── */
+.tiles4{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-content:center;position:relative}
+.tiles4::before{content:"";position:absolute;left:0;right:0;top:66px;height:2px;background:var(--h-ink)}
+.tiles4 li{position:relative;padding:0 28px 0 0;display:flex;flex-direction:column;gap:16px}
+.tiles4 li::before{content:"";width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,#F7F6F2 0 46%,var(--h-line) 47% 52%,#E5E1D6 53% 100%);box-shadow:0 0 0 2px var(--h-ink),0 10px 20px -10px rgba(31,37,44,.4);position:relative;z-index:1}
+.tiles4 li.is-key::before{background:radial-gradient(circle,#F7F6F2 0 46%,var(--h-red) 47% 54%,#E5E1D6 55% 100%)}
+.tiles4 b{font:800 46px/1.2 var(--ds-font-title)}
+.tiles4 small{font:500 24px/1 var(--ds-font-num);letter-spacing:.1em;color:var(--h-soft)}
+.tiles4 p{margin:0;font:400 28px/1.5 var(--ds-font-body);color:var(--h-soft)}
+/* 수치: 명조 숫자 */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-content:center}
+.nums > div{padding:6px 44px;border-left:1.5px solid var(--h-line);display:flex;flex-direction:column;gap:14px}.nums > div:first-child{padding-left:0;border-left:0}
+.nums > div > b{font:800 120px/1 var(--ds-font-title)}.nums b small{font:500 36px/1 var(--ds-font-body);margin-left:8px;color:var(--h-soft)}
+.nums > div.is-key b{color:var(--h-red)}
+.photo-r{position:absolute;right:0;top:0;bottom:0;width:820px;z-index:1;overflow:hidden;contain:paint}
+.photo-r img{position:absolute;right:0;top:100px;width:820px!important;height:auto!important;mix-blend-mode:multiply;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}
+.slide.wph .s-body{right:860px}
+.slide.ref .eave{display:none}.slide.ref .s-body{bottom:150px}.r-win iframe{box-shadow:0 0 0 1px var(--h-line),0 18px 34px -16px rgba(31,37,44,.3)}
+.end h2{position:absolute;left:96px;top:220px;margin:0;font:800 120px/1.22 var(--ds-font-title);color:var(--h-ink)}
+.end > p:not(.org){position:absolute;left:96px;top:540px;margin:0;font:500 32px/1.6 var(--ds-font-body);color:var(--h-soft)}
+.nums > div > b{font-size:150px}.nums .note b{font-size:38px}.nums .note span{font-size:28px}
+.tiles4 b{font-size:56px}.tiles4 p{font-size:32px}.with-lens .note b{font-size:40px}.with-lens .note span{font-size:30px}

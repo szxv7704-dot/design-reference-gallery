@@ -467,3 +467,63 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+/* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
+.slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
+
+/* ── 이 표지의 고유 장치(src/covers/71.css) ── */
+/* #71 미래교육 설계도 — 표지의 장치를 본문 틀로
+   장마다 도면 한 장: 짙은 청사진 바탕과 가는 격자, 모서리 십자 표시와 가는 테, 아래 도면 표제란(PROJECT · DRAWING · STATUS · 번호).
+   위에 자간 넓은 영문 고정폭 머리말, 명조 결론, 그 장의 층(ALL · 1F · 2F · 3F)을 큰 주황 글자로 적고, 아래 층 표시줄에서 지금 층에 주황 점.
+   강조는 빨간 펜 손그림(동그라미 · 화살표 · OPEN TO ALL) 하나. 층 청사진과 펜 표시는 표지의 원화(covers/img/71-*.webp)만 쓴다. */
+:root{--b-bg:#082E4B;--b-panel:#0B3A5E;--b-line:rgba(166,193,206,.35);--b-pale:#E8EEE7;--b-soft:#A6C1CE;--b-red:#FF6B4E;--mono:var(--ds-font-num);--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:var(--b-bg);color:var(--b-pale)}
+.slide:not(.c-orig)::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 47px,rgba(166,193,206,.06) 47px 48px),repeating-linear-gradient(90deg,transparent 0 47px,rgba(166,193,206,.06) 47px 48px)}
+.slide:not(.c-orig)::after{content:"";position:absolute;inset:26px;z-index:0;pointer-events:none;border:1px solid var(--b-line);
+  background:linear-gradient(var(--b-soft),var(--b-soft)) 0 0/22px 1.5px no-repeat,linear-gradient(var(--b-soft),var(--b-soft)) 10px -10px/1.5px 22px no-repeat}
+/* 도면 표제란 */
+.tb{position:absolute;left:26px;right:26px;bottom:26px;height:64px;z-index:3;display:grid;grid-template-columns:2fr 2fr 1fr 1fr;border-top:1px solid var(--b-line)}
+.tb > div{padding:10px 18px;border-left:1px solid var(--b-line);font:400 22px/1.25 var(--mono);letter-spacing:.08em;color:var(--b-pale)}
+.tb > div:first-child{border-left:0}
+.tb small{display:block;font-size:22px;color:var(--b-soft);opacity:.75;letter-spacing:.12em}
+.tb b{font:400 36px/1 var(--mono);letter-spacing:.02em;padding-top:4px;display:block}
+/* 층 표시줄 */
+.lv{position:absolute;left:86px;bottom:118px;z-index:3;margin:0;display:flex;gap:36px;font:400 24px/1 var(--mono);letter-spacing:.06em;color:var(--b-soft)}
+.lv span{display:flex;align-items:center;gap:10px}
+.lv span.on{color:var(--b-pale)}.lv span.on::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--b-red)}
+.s-body{inset:66px 86px 170px;gap:16px}
+.kicker{display:block;padding:0;border:0;background:none;font:400 24px/1 var(--mono);letter-spacing:.28em;color:var(--b-soft)}
+.kicker::before{content:none}
+.title{font:500 66px/1.25 var(--ds-font-title);color:var(--b-pale);max-width:1300px}
+.title em{font-style:normal;color:var(--b-red)}
+.page-no{right:86px;bottom:118px;font:400 24px/1 var(--mono);letter-spacing:.1em;color:var(--b-soft)}
+.src{left:auto;right:300px;bottom:118px;font:400 22px/1 var(--mono);color:var(--b-soft)}
+/* ── 층 도면(이 표지만의 부품): 왼쪽 큰 층 번호 + 설명, 오른쪽 그 층 청사진 ── */
+.floor{display:grid;grid-template-columns:520px 1fr;gap:30px;align-items:center}
+.floor .fl{display:flex;flex-direction:column;gap:18px}
+.floor .fl b{font:400 190px/.9 var(--ds-font-body);letter-spacing:-.04em;color:var(--b-red)}
+.floor .fl h3{margin:0;font:500 48px/1.25 var(--ds-font-title);color:var(--b-pale)}
+.floor .fl p{margin:0;font:400 28px/1.6 var(--ds-font-body);color:var(--b-soft)}
+.floor .fl code{padding-top:18px;border-top:1px solid var(--b-line);font:400 24px/1.4 var(--mono);letter-spacing:.06em;color:var(--b-soft)}
+.plan{position:relative;width:100%;aspect-ratio:1536/1024}
+.plan img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+/* ── 층별 범례(이 표지만의 부품): 고정폭 번호 + 공간 이름 줄 ── */
+.legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:center}
+.legend li{display:grid;grid-template-columns:120px 300px 1fr 240px;align-items:baseline;gap:0 24px;padding:22px 0;border-top:1px solid var(--b-line);font:400 30px/1.4 var(--ds-font-body);color:var(--b-soft)}.legend li:last-child{border-bottom:1px solid var(--b-line)}
+.legend li i{font:400 26px/1 var(--mono);font-style:normal;letter-spacing:.08em}
+.legend li b{font:500 40px/1.2 var(--ds-font-title);color:var(--b-pale)}
+.legend li em{font:400 24px/1 var(--mono);font-style:normal;text-align:right;letter-spacing:.06em}
+.legend li.is-key b,.legend li.is-key i{color:var(--b-red)}
+/* 수치: 도면 치수 */
+.dims{display:grid;grid-template-columns:repeat(3,1fr);gap:0 50px;align-content:center}
+.dims > div{display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1.5px solid var(--b-soft);position:relative}
+.dims > div::before,.dims > div::after{content:"";position:absolute;top:-10px;width:1.5px;height:20px;background:var(--b-soft)}.dims > div::before{left:0}.dims > div::after{right:0}
+.dims small{font:400 24px/1 var(--mono);letter-spacing:.1em;color:var(--b-soft)}
+.dims b{font:400 120px/1 var(--ds-font-body);letter-spacing:-.04em}.dims b i{font:400 36px/1 var(--mono);font-style:normal;margin-left:8px;color:var(--b-soft)}
+.dims p{margin:0;font-size:26px;color:var(--b-soft)}.dims > div.is-key b{color:var(--b-red)}
+.slide.ref .s-body{bottom:150px}.slide.ref .lv{display:none}.r-win iframe{border:1px solid var(--b-line);background:#fff}
+.end .plan{position:absolute;right:60px;top:110px;width:1200px}
+.end h2{position:absolute;left:86px;top:200px;margin:0;font:500 96px/1.2 var(--ds-font-title);color:var(--b-pale)}
+.end > p:not(.lv){position:absolute;left:90px;top:470px;margin:0;font:400 26px/1.7 var(--mono);letter-spacing:.14em;color:var(--b-soft)}
+.legend li{font-size:34px;padding:28px 0}.legend li b{font-size:46px}.legend li i,.legend li em{font-size:28px}
+.floor .fl p{font-size:32px}.floor .fl h3{font-size:54px}.dims b{font-size:150px}.dims p{font-size:30px}

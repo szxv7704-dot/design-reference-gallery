@@ -1,0 +1,51 @@
+/* #28 기준음 A440 — 표지의 장치를 본문 틀로
+   표지의 말: 네 직군의 서로 다른 떨림이 기준음 앞에서 한 줄로 맞춰진다.
+   본문 틀: 고정폭 머리말 'A4 = 440 Hz —— …', 굵은 남색 제목, 파란 부제. 내용은 네 직군의 색 점이 붙은 네 줄로 놓고, 오른쪽 끝에서 남색 한 칸(같은 기준)으로 모은다.
+   소리굽쇠 · 파형 그림은 표지에서 떠낸 것(covers/img/28-*.jpg)만 쓴다. */
+:root{--h-navy:#14213D;--h-blue:#2B59C3;--h-teal:#13998A;--h-amber:#E39B2D;--h-pink:#C4508A;--h-soft:#56607A;--h-line:#DDE2EC;--h-bg:#F6F8FB;--ds-radius:0px;--ds-shadow:none}
+.slide:not(.c-orig){background:var(--h-bg);color:var(--h-navy)}
+.slide:not(.c-orig)::before{content:none}
+.s-body{inset:92px 116px 104px;gap:18px}
+.kicker{display:flex;align-items:center;gap:22px;padding:0;border:0;background:none;font:600 26px/1 var(--ds-font-num);letter-spacing:.14em;color:var(--h-navy)}
+.kicker::before{content:none}
+.kicker span{display:flex;align-items:center;gap:22px;font-weight:400;color:var(--h-soft)}.kicker span::before{content:"";width:60px;height:1.5px;background:var(--h-navy)}
+.title{font:800 66px/1.2 var(--ds-font-title);letter-spacing:-.01em;color:var(--h-navy)}
+.title em{font-style:normal;color:var(--h-blue)}
+.page-no{right:116px;bottom:50px;font:500 22px/1 var(--ds-font-num);color:var(--h-soft)}
+.src{left:116px;bottom:50px;font-size:22px}
+.org{position:absolute;left:116px;bottom:50px;margin:0;font:500 24px/1 var(--ds-font-body);color:var(--h-soft)}.org b{color:var(--h-navy);margin-right:18px}
+.slide:has(.src) .org{display:none}
+/* ── 네 줄(이 표지만의 부품): 직군마다 한 줄, 색 점. 오른쪽 끝 한 칸에서 하나로 모인다 ── */
+.lanes{display:grid;grid-template-columns:300px repeat(var(--n,2),1fr) 360px;grid-template-rows:auto repeat(4,1fr);align-content:stretch}
+.lanes > *{padding:16px 22px;border-top:1.5px solid var(--h-line);display:flex;align-items:center;font:500 30px/1.35 var(--ds-font-body);min-width:0}
+.lanes > .h{border-top:0;padding-top:0;font:500 24px/1 var(--ds-font-num);letter-spacing:.06em;color:var(--h-soft)}
+.lanes > b{gap:14px;padding-left:0;font:700 32px/1.2 var(--ds-font-title)}
+.lanes > b::before{content:"";flex:none;width:18px;height:18px;border-radius:50%;background:var(--h-blue)}
+.lanes > b.t::before{background:var(--h-teal)}.lanes > b.a::before{background:var(--h-amber)}.lanes > b.p::before{background:var(--h-pink)}
+.lanes > .c1{color:var(--h-blue)}.lanes > .c2{color:var(--h-teal)}.lanes > .c3{color:#B5740F}.lanes > .c4{color:var(--h-pink)}
+.lanes > .one{grid-row:2 / 6;grid-column:-2 / -1;margin-left:26px;padding:30px 32px;border:0;background:var(--h-navy);color:#fff;flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;position:relative}
+.lanes > .one::before{content:"";position:absolute;left:-26px;top:50%;width:26px;height:4px;margin-top:-2px;background:var(--h-navy)}
+.lanes > .one small{font:500 22px/1 var(--ds-font-num);letter-spacing:.1em;opacity:.8}
+.lanes > .one strong{font:800 44px/1.25 var(--ds-font-title)}
+.lanes > .one span{font:400 26px/1.45 var(--ds-font-body);opacity:.9}
+/* 한 문장 + 기준 */
+.voice{display:grid;grid-template-columns:1fr 480px;gap:40px;align-items:center}
+.voice p{margin:0;font:800 96px/1.2 var(--ds-font-title);letter-spacing:-.02em}.voice p em{font-style:normal;color:var(--h-blue)}
+.voice small{display:block;margin-top:34px;font:500 34px/1.5 var(--ds-font-body);color:var(--h-soft)}
+.voice img{width:100%;mix-blend-mode:multiply;display:block}
+.wavebox{display:flex;flex-direction:column;justify-content:center;gap:20px}
+.wavebox img{width:100%;mix-blend-mode:multiply;display:block}
+/* 고정폭 숫자 */
+.hz{display:grid;grid-template-columns:repeat(4,1fr);gap:0;align-content:center}
+.hz > div{padding:6px 30px;border-left:1.5px solid var(--h-line);display:flex;flex-direction:column;gap:14px}.hz > div:first-child{padding-left:0;border-left:0}
+.hz span{display:flex;align-items:center;gap:12px;font:700 28px/1.2 var(--ds-font-title)}
+.hz span::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--h-blue)}
+.hz div:nth-child(2) span::before{background:var(--h-teal)}.hz div:nth-child(3) span::before{background:var(--h-amber)}.hz div:nth-child(4) span::before{background:var(--h-pink)}
+.hz b{font:600 100px/1 var(--ds-font-num);letter-spacing:-.04em}.hz b small{font:500 30px/1 var(--ds-font-body);letter-spacing:0;margin-left:8px;color:var(--h-soft)}
+.hz p{margin:0;font-size:24px;color:var(--h-soft)}
+.r-win iframe{border:1.5px solid var(--h-line)}
+.end h2{position:absolute;left:116px;top:250px;margin:0;font:800 96px/1.2 var(--ds-font-title);letter-spacing:-.02em;color:var(--h-navy)}.end h2 em{font-style:normal;color:var(--h-blue)}
+.end > img.w{position:absolute;left:116px;top:560px;width:1260px;mix-blend-mode:multiply}
+.end > img.f{position:absolute;right:60px;top:40px;height:1000px;mix-blend-mode:multiply}
+.voice img,.end > img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 6%,#000 94%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-composite:intersect}
+.lanes > *{font-size:34px}.lanes > b{font-size:36px}
