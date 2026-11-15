@@ -97,12 +97,17 @@ h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--so
 .citabs{display:flex;gap:8px;margin:0 0 14px}.citabs button{padding:9px 20px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font:700 15px var(--f);color:var(--soft)}
 .citabs button[aria-pressed=true]{border-color:var(--key);background:var(--keybg);color:var(--key)}
 .cig{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
-.cig a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none}
-.cig a:hover{border-color:var(--key)}
+.cig > div{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.cig > div:hover{border-color:var(--key)}
+.cig .cp{display:flex;flex-direction:column;align-items:stretch;padding:0;border:0;background:none;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.cig .cp.ok .pv{outline:3px solid var(--ok);outline-offset:-3px}
+.cig .acts2{display:flex;gap:6px;padding:0 14px 14px}.cig .acts2 > *{flex:1;display:inline-flex;justify-content:center;align-items:center;min-height:36px;border-radius:8px;border:1.5px solid var(--line);background:var(--card);font:600 13.5px var(--f);color:var(--ink);text-decoration:none;cursor:pointer}
+.cig .acts2 > *:hover{border-color:var(--key);color:var(--key)}.cig .acts2 > .ok{border-color:var(--ok);color:var(--ok)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;padding:12px 20px;border-radius:999px;background:var(--ink);color:#fff;font-size:14.5px;font-weight:700;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}.toast[hidden]{display:none}
 .cig .pv{height:190px;display:grid;place-items:center;padding:18px;background:repeating-conic-gradient(#ECEDEF 0 25%,#fff 0 50%) 0 0/18px 18px}
 .cig .pv.dk{background:repeating-conic-gradient(#2A3A55 0 25%,#33465F 0 50%) 0 0/18px 18px}
 .cig .pv{overflow:hidden}.cig .pv img{max-width:100%;max-height:154px;width:auto;height:auto;object-fit:contain;background:none}
-.cig b{padding:12px 14px 2px;font-size:15.5px}.cig span{padding:0 14px 12px;font-size:13px;color:var(--soft)}
+.cig b{display:block;padding:12px 14px 2px;font-size:15.5px}.cig .cp span{display:block;padding:0 14px 10px;font-size:13px;color:var(--soft)}
 .ico{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
 .ico button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;font:500 13px/1.35 var(--f);color:var(--ink);text-align:center}
 .ico button:hover{border-color:var(--key);color:var(--key)}.ico svg{width:34px;height:34px}
@@ -402,10 +407,14 @@ ICONS = J('icons', 'icons.json')
 SVG = lambda i: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>' % i['svg']
 CI = J('icons', 'ci.json'); CIK = list(dict.fromkeys(c['kind'] for c in CI))
 B = ['<h1>아이콘 고르기</h1><p class="lead">교육청 비전 · 슬로건 · 기관 로고(배경 투명 PNG)와, 교육행정 발표에 자주 쓰는 아이콘 %d개입니다.</p>' % len(ICONS),
-     '<h2 id="ci">비전 · 슬로건 · 기관 로고 <small>%d개 — 누르면 투명 PNG를 내려받습니다</small></h2>' % len(CI),
+     '<h2 id="ci">비전 · 슬로건 · 기관 로고 <small>%d개 — 누르면 이미지가 복사됩니다. 한글 · PPT · AI 대화창에 바로 붙여 넣으세요</small></h2>' % len(CI),
      '<div class="citabs" role="group" aria-label="종류">%s</div>' % ''.join('<button type="button" data-k="%s" aria-pressed="%s">%s</button>' % (k, 'true' if i == 0 else 'false', {'CI': '기관 로고'}.get(k, k)) for i, k in enumerate(CIK)),
-     '<div class="cig" id="cig">%s</div>' % ''.join('<a href="icons/%s" download="%s.png" data-k="%s"%s><div class="pv%s"><img src="icons/%s" alt="%s" loading="lazy"></div><b>%s</b><span>PNG · %d × %d%s</span></a>' % (
-         c['file'], E(c['name']), c['kind'], '' if c['kind'] == CIK[0] else ' hidden', ' dk' if c['white'] else '', c['file'], E(c['name']), E(c['name']), c['w'], c['h'], ' · 어두운 바탕용' if c['white'] else '') for c in CI),
+     '<div class="cig" id="cig">%s</div>' % ''.join(
+         '<div data-k="%s"%s><button type="button" class="cp" data-png="icons/%s" title="누르면 이미지 복사"><div class="pv%s"><img src="icons/%s" alt="%s" loading="lazy"></div><b>%s</b><span>투명 PNG · %d × %d%s</span></button>'
+         '<div class="acts2"><button type="button" data-url="%sicons/%s" data-alt="%s">AI용 주소 복사</button><a href="icons/%s" download="%s.png">PNG 받기</a></div></div>' % (
+         c['kind'], '' if c['kind'] == CIK[0] else ' hidden', c['file'], ' dk' if c['white'] else '', c['file'], E(c['name']), E(c['name']), c['w'], c['h'], ' · 어두운 바탕용' if c['white'] else '',
+         BASE, c['file'], E('전북특별자치도교육청 ' + c['name']), c['file'], E(c['name'])) for c in CI),
+     '<p class="note"><b>쓰는 법</b> · 카드를 누르면 이미지가 복사됩니다(붙여 넣기 Ctrl+V). <b>AI용 주소 복사</b>는 AI가 만드는 발표 HTML에 넣을 &lt;img&gt; 코드를 복사합니다. 복사가 막힌 브라우저에서는 PNG를 내려받습니다.</p>',
      '<p class="note">화면 캡처에서 오려 낸 것이라 해상도가 낮습니다(가로 300~420px). 크게 인쇄할 때는 교육청 CI 원본 파일을 쓰세요. 비율을 바꾸거나 색을 고치지 말고, 기관의 CI 사용 규정을 따르세요.</p>',
      '<h2>아이콘 <small>%d개 — 누르면 SVG 코드가 복사됩니다. 선 색은 글자색을 따릅니다</small></h2>' % len(ICONS)]
 for g in dict.fromkeys(i['group'] for i in ICONS):
@@ -415,9 +424,22 @@ B.append('<p class="note">아이콘: Tabler Icons(MIT, <a href="icons/LICENSE-ta
 ICON_JS = r"""
 document.querySelector('.citabs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return;
   document.querySelectorAll('.citabs button').forEach(x => x.setAttribute('aria-pressed', x === b));
-  document.querySelectorAll('#cig a').forEach(a => a.hidden = a.dataset.k !== b.dataset.k); });
+  document.querySelectorAll('#cig > div').forEach(a => a.hidden = a.dataset.k !== b.dataset.k); });
+const toast = Object.assign(document.createElement('div'), { className: 'toast', hidden: true }); document.body.appendChild(toast);
+const say = (t, el) => { toast.textContent = t; toast.hidden = false; el && el.classList.add('ok'); clearTimeout(say.t); say.t = setTimeout(() => { toast.hidden = true; el && el.classList.remove('ok'); }, 1800); };
+document.addEventListener('click', async e => {
+  const c = e.target.closest('[data-png]');
+  if (c) { const name = c.querySelector('img').alt;
+    try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': fetch(c.dataset.png).then(r => r.blob()) })]); say(name + ' 이미지를 복사했습니다 — 붙여 넣으세요', c); }
+    catch (err) { const a = Object.assign(document.createElement('a'), { href: c.dataset.png, download: name + '.png' }); a.click(); say('복사가 막혀 PNG로 내려받았습니다', c); }
+    return; }
+  const u = e.target.closest('[data-url]');
+  if (u) { const tag = '<img src="' + u.dataset.url + '" alt="' + u.dataset.alt + '" style="height:56px;width:auto">';
+    try { await navigator.clipboard.writeText(tag); say('AI용 이미지 코드를 복사했습니다', u); } catch (err) { prompt('아래 코드를 복사하세요', tag); }
+    return; }
+});
 document.addEventListener('click', async e => { const b = e.target.closest('[data-svg]'); if (!b) return;
-  try { await navigator.clipboard.writeText(b.dataset.svg); b.classList.add('ok'); setTimeout(() => b.classList.remove('ok'), 1400); } catch (err) {} });
+  try { await navigator.clipboard.writeText(b.dataset.svg); say(b.textContent.trim() + ' 아이콘 SVG를 복사했습니다', b); } catch (err) {} });
 """
 sizes['icons'] = page('icons.html', '아이콘 고르기 — 발표 디자인 라이브러리', '교육행정 발표용 아이콘, 누르면 SVG 복사.', 'icons.html', '\n'.join(B), ICON_JS)
 
