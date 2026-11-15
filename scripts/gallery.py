@@ -29,7 +29,7 @@ STATUS_NOTE = {'검증된 세트': '10장 예시 · 다른 주제 시험 · 넘�
 def role_slide(rid, f='B'):   # 그 역할을 맡은 10장 예시의 장 번호
     return next((s['n'] for s in SETS[f] if s.get('role') == rid), None)
 
-NAV = [('index.html', '전체 스타일'), ('body.html', '본문 구성'), ('motion.html', '모션·강조'), ('print.html', '인쇄·홍보물'), ('guide.html', '이용 방법')]
+NAV = [('index.html', '컨셉')]   # 전체 스타일 · 본문 구성은 첫 화면(컨셉) 하나로. 모션 · 인쇄 · 이용 방법은 첫 화면의 단계 아래 카드로
 CSS = r'''
 :root{--bg:#F7F6F3;--card:#FFFFFF;--ink:#1B1E24;--soft:#5C616B;--line:#E3E1DB;--key:#1F5FD0;--keybg:#E8EFFC;--chip:#EDEBE5;--ok:#1E7B4F;--warn:#9A6400;
   --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
@@ -56,10 +56,16 @@ h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--so
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 18px;border-radius:10px;border:2px solid var(--key);background:var(--card);color:var(--key);font:700 15px var(--f);text-decoration:none}
 .btn.fill{background:var(--key);color:#fff}
 .btn.small{min-height:36px;padding:4px 12px;font-size:14px;border-width:1.5px}
-.steps{list-style:none;margin:24px 0 0;padding:0 0 22px;display:flex;flex-wrap:wrap;gap:10px 28px;border-bottom:1px solid var(--line);counter-reset:s;font-weight:700}
-.steps li{counter-increment:s;display:flex;align-items:center;gap:10px}
-.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center}
-.steps li + li{padding-left:0}
+.steps{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:s;font-weight:700}
+.steps a{counter-increment:s;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:0 14px;min-height:64px;padding:12px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:17px}
+.steps a::before{content:counter(s);grid-row:1 / 3;width:34px;height:34px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center}
+.steps a small{grid-column:2;display:block;font-size:13.5px;font-weight:400;color:var(--soft)}
+.steps a:hover,.more a:hover,.short a:hover{border-color:var(--key)}
+.more{margin:12px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.more a{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:12px;background:var(--chip);border:1px solid transparent;text-decoration:none}
+.more a b{font-size:16px;white-space:nowrap}.more a b::after{content:" ›";color:var(--soft)}.more a span{font-size:13.5px;color:var(--soft)}
+.finder{margin:40px 0 0;padding:24px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.finder h2{margin:0 0 4px}.finder .note{margin:0 0 16px}
 .tools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:14px 0 18px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips button{border:1px solid #C9C6BE;background:var(--card);font:500 15px var(--f);padding:8px 18px;border-radius:999px;color:var(--ink)}
@@ -85,8 +91,10 @@ h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--so
 .mc p{margin:3px 10px 0;color:var(--soft);line-height:1.5}
 a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
 .mc .lk{margin-top:auto;padding:8px 10px 10px;color:var(--ink)}
-.short{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
-.short a{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:10px;text-decoration:none;font-weight:500}
+.short{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.short a{display:grid;grid-template-columns:1fr auto;align-items:center;gap:0 8px;padding:14px 16px;background:var(--bg);border:1px solid var(--line);border-radius:10px;text-decoration:none;font-weight:700}
+.short a small{grid-column:1;font-size:13px;font-weight:400;color:var(--soft);line-height:1.45}
+.short a::after{grid-row:1 / 3;grid-column:2}
 .short a::after{content:"›";color:var(--soft);font-size:20px}
 .var3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .vc{text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;font-size:14px}
@@ -95,7 +103,7 @@ a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
 .vc p.w{color:var(--ink)}.vc.on{border-color:var(--key);box-shadow:0 0 0 2px var(--key)}
 .sw{position:sticky;top:58px;z-index:5;background:var(--bg);padding:10px 0;margin:18px 0 0;display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap;font-size:14px;border-bottom:1px solid var(--line)}
 .sw .chips button{padding:6px 14px;font-size:14px}
-@media (max-width:820px){.short{grid-template-columns:1fr 1fr}.short a{padding:10px 12px;font-size:14px}.var3{grid-template-columns:1fr}.sw{top:0}.sw .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.sw .chips button{white-space:nowrap}}
+@media (max-width:820px){.steps{grid-template-columns:1fr;gap:8px}.steps a{min-height:0;padding:10px 14px;font-size:16px}.steps a small{display:none}.steps a::before{width:28px;height:28px;grid-row:auto}.more{grid-template-columns:1fr 1fr 1fr;gap:8px}.more a{padding:10px 12px}.more a span{display:none}.more a b{font-size:14px;white-space:nowrap}.finder{padding:16px}.short{grid-template-columns:1fr 1fr}.short a{padding:10px 12px;font-size:14px}.var3{grid-template-columns:1fr}.sw{top:0}.sw .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.sw .chips button{white-space:nowrap}}
 .note{margin:12px 0 0;font-size:14px;color:var(--soft)}
 .empty{padding:40px 0;text-align:center;color:var(--soft)}
 table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
@@ -206,11 +214,11 @@ def cover_card(r, up=''):
 H = ['''<section class="hero"><div><h1>표지부터 마무리까지,<br>하나의 스타일로.</h1>
 <p class="lead">발표자료 디자인을 고르고, AI에게 내 발표에 적용해 달라고 요청하는 곳입니다.</p></div>
 <div class="ask"><span>어떤 스타일이 좋을지 고민되나요?</span><button type="button" class="btn fill" data-copy="reqPick">AI에게 추천 맡기기 — 요청문 복사</button></div></section>
-<ol class="steps"><li>스타일 고르기</li><li>전체 장표 확인하기</li><li>AI에 적용 요청하기</li></ol>
+<ol class="steps"><li><a href="#styles">스타일 고르기<small>아래 카드에서 마음에 드는 디자인</small></a></li><li><a href="#styles">전체 장표 확인하기<small>카드의 '전체 장표 보기'로 10장을 넘겨 보기</small></a></li><li><a href="guide.html">AI에 적용 요청하기<small>요청문을 복사해 AI 대화창에</small></a></li></ol>
+<nav class="more" aria-label="더 보기"><a href="motion.html"><b>모션 · 강조</b><span>청중의 눈을 붙잡는 연출 기법</span></a><a href="print.html"><b>인쇄 · 홍보물</b><span>포스터 · 리플렛 · 특수 발표 틀</span></a><a href="guide.html"><b>이용 방법</b><span>처음이라면 여기부터</span></a></nav>
+<section class="finder"><h2>필요한 본문만 찾고 싶다면</h2><p class="note">전하려는 내용을 고르면, 그 내용을 보여 주는 서로 다른 배치를 나란히 볼 수 있습니다.</p><div class="short">''' + ''.join('<a href="body.html#r-%s">%s<small>%s</small></a>' % (r['id'], E(r['name']), E(r['purpose'])) for r in ROLES if r['id'] not in ('cover', 'closing', 'more')) + '''</div></section>
 <h2 id="styles">전체 스타일 <small>표지 · 본문 · 마무리를 함께 확인하세요</small></h2>
-<div class="tools"><div class="chips" id="moods" role="group" aria-label="분위기"><button type="button" data-m="" aria-pressed="true">전체</button>%s</div>
-<input type="search" id="q" placeholder="스타일이나 분위기 검색" aria-label="스타일 검색"><label><input type="checkbox" id="only"> 완성된 세트만</label></div>
-<div class="cards" id="cards">''' % ''.join('<button type="button" data-m="%s" aria-pressed="false">%s</button>' % (m, m) for m in MOODS)]
+<div class="cards" id="cards">''']
 for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
     st = status(s)
     H.append('''<article class="sc item" data-kind="set" data-id="%s" data-mood="%s" data-ok="%d" data-q="%s">
@@ -222,30 +230,17 @@ for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
         s['id'], s['mood'], 1 if s.get('verified') else 0, E(s['name'] + ' ' + s['mood'] + ' ' + s['use']), s['id'], th(s['id'], '-set', 1), E(s['name']),
         ''.join('<img src="%s" alt="%s 본문 예" loading="lazy" width="640" height="360">' % (th(s['id'], '-set', n), E(s['name'])) for n in (role_slide('flow', s['id']), role_slide('compare', s['id']), role_slide('numbers', s['id']))),
         E(s['name']), E(s['use']), 'ok' if s.get('verified') else 'wip', E(STATUS_NOTE[st]), '10장 세트 · ' + st, s['id'], s['id'], E(s['name'])))
-H.append('</div><p class="empty" id="none" hidden>조건에 맞는 스타일이 없습니다. 검색어를 지우거나 다른 분위기를 골라 보세요.</p>')
+H.append('</div>')
 H.append('<div id="coverwrap"><h2 id="covers">표지에서 넓힌 덱 <small>%d벌 — 표지마다 10장, 구성 조합이 모두 다릅니다</small></h2>' % len(covers))
 NB = sum(1 for d in CDECK.values() if d.get('bespoke'))
 H.append('<p class="note">표지마다 10장: 그 표지만의 장치(띠 · 절취선 · 이름표 · 진행 표시 같은 것)를 본문 틀로 옮기고, 기존 본문 장표를 서로 다르게 빌려 섞었습니다. 한 표지의 장치는 다른 덱에 쓰지 않습니다.%s</p>' % ((' 아직 색 · 글꼴만 맞춘 덱 %d벌.' % (len(CDECK) - NB)) if len(CDECK) > NB else '') + '<div class="minis">%s</div></div>' % ''.join(cover_card(r) for r in sorted(covers, key=lambda r: (not CDECK.get(r['no'], {}).get('bespoke'), r['no']))))
-H.append('<h2>필요한 본문만 찾고 싶다면</h2><div class="short">%s</div>' % ''.join('<a href="body.html#r-%s">%s</a>' % (r['id'], E(r['name'])) for r in ROLES if r['id'] not in ('cover', 'closing', 'more')))
 H.append('<pre class="req" id="reqPick" hidden>%s</pre>' % E(REQ_PICK))
 H.append('<div class="tray" id="tray" hidden><span id="trayN"></span><button type="button" id="trayGo">비교하기</button><button type="button" id="trayX" aria-label="비교 비우기">비우기</button></div>'
          '<dialog id="cmp" aria-label="스타일 비교"><div class="cmpgrid" id="cmpgrid"></div><div class="acts"><button type="button" class="btn" id="cmpClose">닫기</button></div></dialog>')
 INDEX_JS = r'''
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const S = %s;
-let mood = '', picked = [];
-// 고른 것은 주소에 남는다: 스타일 화면에 갔다 돌아와도 그대로(?mood=단정한&q=…&only=1)
-function sync(){ const u = new URLSearchParams(); if (mood) u.set('mood', mood); if ($('#q').value.trim()) u.set('q', $('#q').value.trim()); if ($('#only').checked) u.set('only', '1');
-  const qs = u.toString(); history.replaceState(null, '', qs ? '?' + qs + location.hash : location.pathname + location.hash); }
-function apply(){
-  const q = $('#q').value.trim().toLowerCase(), only = $('#only').checked; let n = 0;
-  $$('.item').forEach(el => { const ok = (!mood || el.dataset.mood === mood) && (!q || el.dataset.q.toLowerCase().includes(q)) && (!only || el.dataset.ok === '1'); el.hidden = !ok; if (ok && el.dataset.kind === 'set') n++; });
-  $('#none').hidden = n > 0; $('#coverwrap').hidden = only || !$$('#coverwrap .item').some(el => !el.hidden);
-  $$('#moods button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === mood)); sync();
-}
-$('#moods').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { mood = b.dataset.m; apply(); } });
-$('#q').addEventListener('input', apply); $('#only').addEventListener('change', apply);
-const u0 = new URLSearchParams(location.search); mood = u0.get('mood') || ''; $('#q').value = u0.get('q') || ''; $('#only').checked = u0.get('only') === '1'; apply();
+let picked = [];
 // 비교: 스타일을 둘 이상 담아 같은 구성끼리 나란히 본다
 function tray(){ picked = $$('.cmpbox:checked').map(c => c.value); $('#tray').hidden = picked.length < 1; $('#trayN').textContent = picked.length < 2 ? '비교할 스타일을 하나 더 담으세요' : picked.length + '개 담음'; $('#trayGo').disabled = picked.length < 2; }
 document.addEventListener('change', e => { if (e.target.classList.contains('cmpbox')) tray(); });
@@ -323,7 +318,7 @@ function skin(f){ if (!/^[A-H]$/.test(f)) f = 'B';
 sw.addEventListener('click', e => { const b = e.target.closest('button'); if (b) skin(b.dataset.f); });
 const f0 = new URLSearchParams(location.search).get('style'); if (f0) skin(f0);
 """
-sizes['body'] = page('body.html', '본문 구성 — 발표 디자인 라이브러리', '흐름 · 개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약마다 배치가 다른 구성 셋을 나란히 보고 고른다.', 'body.html', '\n'.join(B), BODY_JS)
+sizes['body'] = page('body.html', '본문 구성 — 발표 디자인 라이브러리', '흐름 · 개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약마다 배치가 다른 구성 셋을 나란히 보고 고른다.', 'index.html', '\n'.join(B), BODY_JS)
 
 # ── motion.html · print.html ──
 def ref_card(r):
