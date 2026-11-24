@@ -7,6 +7,7 @@
 //     - stage_ratio · stage_overflow: 덱 장표(.stage-frame 안 무대)가 16:9가 아니거나 내용이 무대 밖으로 넘침
 //     - slide_overflow · small_text: 덱 키트로 만든 덱(.deck-stage)의 장마다 내용이 1920 × 1080 밖으로 나가거나 글자가 22px 미만
 //       (키트 덱: node scripts/check.js kit B)
+//     - watermark: 교육청 로고 워터마크(<style id="jbe-wm">, scripts/watermark.py)가 없거나 화면에 안 보임 — 모든 장표
 // 실행: node scripts/check.js [폴더=refs] [번호...]  → check/report.json, check/shots/{번호}.png
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
@@ -27,6 +28,10 @@ const DECK = new Set(['표지', '본문', '목차·간지', '발표 틀']);
     const bad = Object.entries(fonts).filter(([, v]) => v === 'error').map(([k]) => k);
     await p.screenshot({ path: path.join(out, 'shots', no + '.png') }).catch(() => {});
     const rules = [], m = META[Number(no)], src = fs.readFileSync(path.join(dir, no + '.html'), 'utf8');
+    const wm = await p.evaluate(() => { const c = getComputedStyle(document.documentElement, '::after');
+      return !!document.getElementById('jbe-wm') && c.content !== 'none' && c.display !== 'none' && c.visibility !== 'hidden' && parseFloat(c.opacity) > 0.5
+        && parseFloat(c.width) >= 60 && /data:image\/png/.test(c.backgroundImage); }).catch(() => false);
+    if (!wm) rules.push('watermark');
     const deck = await p.evaluate(async () => {
       if (!document.querySelector('.deck-stage') || !window.DECK) return null; const out = [];
       for (let i = 0; i < DECK.count; i++) { DECK.go(i, 99); await new Promise(r => setTimeout(r, 450));

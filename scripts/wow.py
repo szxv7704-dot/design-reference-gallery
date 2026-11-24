@@ -4,10 +4,12 @@
 #   data/wow.json                목록(번호 · 이름 · 묶음 · 한 줄) — 화면(scripts/gallery.py)과 catalog.md 가 읽는다
 # 원본은 wow/wow.html(9장 한눈에 덱)이고 그대로 둔다. 데모 마크업 · CSS · 엔진은 원본에서 그대로 가져온다(새로 그리지 않음).
 # 실행: python3 scripts/wow.py
-import html, json, os, re
+import html, json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+import watermark
 W = os.path.join(ROOT, 'wow')
-SRC = open(os.path.join(W, 'wow.html'), encoding='utf-8').read()
+SRC = watermark.strip(open(os.path.join(W, 'wow.html'), encoding='utf-8').read())
 have = {f[:-6] for f in os.listdir(os.path.join(ROOT, 'fonts')) if f.endswith('.woff2')}
 
 # ── 공용 CSS: 원본 스타일 두 덩이 + 글꼴은 ../fonts 로 ──
@@ -125,7 +127,7 @@ for it in items:
 </section>''' % dict(it, gn=it['g'][1], dl=''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (LAB.get(t, t), d) for t, d in it['dl']),
                       when=('<p class="when"><b>이럴 때</b>%s</p>' % ''.join('<span>%s</span>' % html.escape(w) for w in it['when'])) if it['when'] else '',
                       sib=''.join('<a href="%s.html">%s</a>' % (x['no'], x['name']) for x in sib))
-    open(os.path.join(W, it['no'] + '.html'), 'w', encoding='utf-8').write(HEAD % dict(it, slides='\n\n'.join((s1, s2, s3))))
+    open(os.path.join(W, it['no'] + '.html'), 'w', encoding='utf-8').write(watermark.stamp(HEAD % dict(it, slides='\n\n'.join((s1, s2, s3)))))
 json.dump([{k: it[k] for k in ('no', 'name', 'small', 'why', 'g', 'gname')} | {'when': it['when'], 'use': dict(it['dl'])} for it in items],
           open(os.path.join(ROOT, 'data', 'wow.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 print('wow/', len(items), '덱 · wow.css', os.path.getsize(os.path.join(W, 'wow.css')) // 1024, 'KB · wow.js', os.path.getsize(os.path.join(W, 'wow.js')) // 1024, 'KB')

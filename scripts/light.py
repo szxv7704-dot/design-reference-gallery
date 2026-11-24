@@ -3,6 +3,8 @@
 # 실행: python3 scripts/light.py        (모든 회차) · python3 scripts/light.py 121
 import json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+import watermark
 def light(d):
     src = os.path.join(ROOT, 'src', d)
     s = open(os.path.join(src, 'page.html'), encoding='utf-8').read(); cfg = json.load(open(os.path.join(src, 'build.json'), encoding='utf-8'))
@@ -19,6 +21,7 @@ def light(d):
     head, sep, tail = s.rpartition('</body>')
     s = head + '<script src="slide.js"></script>\n' + sep + tail if sep else s + '<script src="slide.js"></script>'
     os.makedirs(os.path.join(ROOT, 'light'), exist_ok=True)
+    s = watermark.stamp(s)   # 교육청 로고 워터마크(지우지 말 것)
     open(os.path.join(ROOT, 'light', d + '.html'), 'w', encoding='utf-8').write(s); return len(s.encode('utf-8'))
 SLIDE_JS = r"""// 장표만 보기: light/NN.html?slide=B  (분위기별 덱 deck.html 이 쓴다)
 //  ① 페이지에서 16:9 무대만 남기고 창에 꽉 차게

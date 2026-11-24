@@ -4,6 +4,8 @@
 작업 기록과 다음 할 일은 [`docs/worklog.md`](docs/worklog.md), 분류 기준은 [`docs/patterns.md`](docs/patterns.md), 만드는 규칙은 [`docs/criteria.md`](docs/criteria.md).
 모든 기관명 · 사업 · 수치는 **가상 예시**이고, 사진은 AI로 만든 것입니다.
 
+**모든 장표와 화면에는 전북특별자치도교육청 로고 워터마크가 박혀 있습니다. 상업적 이용을 금지합니다.** 워터마크는 지우거나 숨기지 않습니다(사람 · AI 모두, [`docs/criteria.md`](docs/criteria.md) 0). 박는 곳은 `scripts/watermark.py` 하나입니다.
+
 ## 구조
 
 | 경로 | 내용 |
@@ -26,6 +28,7 @@ python3 scripts/kit.py            # 스타일 CSS · 예시 발표 · 적용 안
 node scripts/kit_thumbs.js        # 예시 발표 썸네일
 python3 scripts/light.py && python3 scripts/triage.py && python3 scripts/site.py   # 참고 장표 쪽
 python3 scripts/gallery.py        # 화면 · catalog.md
+python3 scripts/watermark.py --check   # 교육청 로고 워터마크가 모든 장표 · 화면에 있는지(빠지면 실패)
 node scripts/check.js kit C-set C-set2   # 넘침 · 글자 크기 · 인터넷 없이 열리는지
 node scripts/check_decks.js       # 표지별 미리보기 전체 검사
 ```

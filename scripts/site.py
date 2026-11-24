@@ -6,7 +6,7 @@
 import html, json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import kit
+import kit, watermark
 BASE = kit.BASE
 E = lambda s: html.escape(str(s), quote=True)
 J = lambda *p: json.load(open(os.path.join(ROOT, *p), encoding='utf-8'))
@@ -213,7 +213,7 @@ page = '''<!doctype html>
 </body>
 </html>
 ''' % (CSS, '\n'.join(H), JS)
-open(os.path.join(ROOT, 'refs.html'), 'w', encoding='utf-8').write(page)
+open(os.path.join(ROOT, 'refs.html'), 'w', encoding='utf-8').write(watermark.stamp(page))   # 교육청 로고 워터마크(지우지 말 것)
 open(os.path.join(ROOT, 'data', 'decks.json'), 'w', encoding='utf-8').write(json.dumps(decks, ensure_ascii=False, indent=1) + '\n')
 
 # ── catalog.md: 같은 목록을 글로(색 · 글꼴 · 설명까지). AI가 한 번에 읽는 파일

@@ -10,7 +10,7 @@
 import html, json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import kit
+import kit, watermark
 BASE = kit.BASE
 E = lambda s: html.escape(str(s), quote=True)
 J = lambda *p: json.load(open(os.path.join(ROOT, *p), encoding='utf-8'))
@@ -218,6 +218,7 @@ def page(path, title, desc, cur, body, js='', up=''):
 </html>
 ''' % (E(title), E(desc), up, CSS, up, nav, body, up, COPY_JS, js)
     os.makedirs(os.path.dirname(os.path.join(ROOT, path)) or ROOT, exist_ok=True)
+    s = watermark.stamp(s)   # 교육청 로고 워터마크(지우지 말 것)
     open(os.path.join(ROOT, path), 'w', encoding='utf-8').write(s)
     return len(re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', re.sub(r'<(script|style).*?</\1>', '', s, flags=re.S))))
 

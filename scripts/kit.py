@@ -10,7 +10,7 @@
 import json, os, re, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, 'scripts'))
-import build
+import build, watermark
 BASE = 'https://szxv7704-dot.github.io/design-reference-gallery/'
 K = os.path.join(ROOT, 'kit')
 FAMS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
@@ -43,7 +43,9 @@ META = {
        'sig': '수막새 그림(`.tiles`, 이미지)을 씁니다. 표지는 큰 막새 `.tiles big`, 목차 · 간지는 처마 줄 `.tiles s1`~`s5`(그 섹션의 막새에 주홍 고리. 다섯 단계, 섹션 수에 맞춰 비율로), 맺음은 처마 끝 `.tiles roof`.'},
 }
 rd = lambda *p: open(os.path.join(*p), encoding='utf-8').read()
-def wr(p, s): os.makedirs(os.path.dirname(p), exist_ok=True); open(p, 'w', encoding='utf-8').write(s)
+def wr(p, s):
+    if p.endswith('.html'): s = watermark.stamp(s)   # 교육청 로고 워터마크(지우지 말 것)
+    os.makedirs(os.path.dirname(p), exist_ok=True); open(p, 'w', encoding='utf-8').write(s)
 def fonts_of(fam): return json.load(open(os.path.join(ROOT, 'src', 'kit-' + fam, 'build.json')))['fonts']
 LINK = lambda fam: '<link rel="stylesheet" href="%skit/v1/%s.css">' % (BASE, fam)
 SCRIPT = '<script src="%skit/v1/deck.js"></script>' % BASE
@@ -328,7 +330,7 @@ def inline(fam, src, out):
     text = re.sub(r'<script>.*?</script>', '', s, flags=re.S)
     notes = {}; faces = ''.join(build.face(f, w, text, notes) for f, w in fonts_of(fam))
     faces = '/* 글꼴: SIL Open Font License 1.1 (https://openfontlicense.org)\n   ' + '\n   '.join(notes.values()) + ' */\n' + faces
-    open(out, 'w', encoding='utf-8').write(s.replace('/*@@FONTS@@*/', faces, 1))
+    open(out, 'w', encoding='utf-8').write(watermark.stamp(s.replace('/*@@FONTS@@*/', faces, 1)))
     print('인터넷 없이 도는 파일:', out, os.path.getsize(out) // 1024, 'KB')
 
 if __name__ == '__main__':

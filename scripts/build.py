@@ -8,7 +8,7 @@ import base64, io, json, os, re, sys
 from fontTools.ttLib import TTFont
 from fontTools import subset
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import fontlic
+import fontlic, watermark
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def b64(p): return base64.b64encode(open(p, 'rb').read()).decode()
 def face(fam, w, text, notes=None):
@@ -47,6 +47,7 @@ def build(no, outdir, name=None, page=None):
     s = s.replace('/*@@FONTS@@*/\n', faces, 1).replace('/*@@FONTS@@*/', faces, 1)
     s = re.sub(r'@@ASSET:([^@]+)@@', lambda m: 'data:%s;base64,%s' % (cfg['assets'][m.group(1)], b64(os.path.join(d, 'assets', m.group(1)))), s)
     if 'three' in cfg.get('vendor', []): s = s.replace('@@IMPORTMAP:three@@', importmap_three())
+    s = watermark.stamp(s)   # 교육청 로고 워터마크(지우지 말 것)
     os.makedirs(outdir, exist_ok=True); open(os.path.join(outdir, '%s.html' % (name or no)), 'w', encoding='utf-8').write(s)
     return len(s)
 if __name__ == '__main__':

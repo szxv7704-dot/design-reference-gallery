@@ -1,0 +1,9 @@
+# 교육청 로고 워터마크가 모든 장표 · 화면에 있는지 검사한다(빠지면 실패). docs/criteria.md 0
+name: watermark
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/watermark.py --check
