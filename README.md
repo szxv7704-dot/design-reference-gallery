@@ -4,7 +4,26 @@
 작업 기록과 다음 할 일은 [`docs/worklog.md`](docs/worklog.md), 분류 기준은 [`docs/patterns.md`](docs/patterns.md), 만드는 규칙은 [`docs/criteria.md`](docs/criteria.md).
 모든 기관명 · 사업 · 수치는 **가상 예시**이고, 사진은 AI로 만든 것입니다.
 
-**모든 장표와 화면에는 전북특별자치도교육청 로고 워터마크가 박혀 있습니다. 상업적 이용을 금지합니다.** 워터마크는 지우거나 숨기지 않습니다(사람 · AI 모두, [`docs/criteria.md`](docs/criteria.md) 0). 박는 곳은 `scripts/watermark.py` 하나입니다.
+**모든 장표와 화면에는 전북특별자치도교육청 로고 워터마크가 박혀 있습니다. 상업적 이용을 금지합니다([CC BY-NC-ND 4.0](LICENSE), 아래 '라이선스').** 워터마크는 지우거나 숨기지 않습니다(사람 · AI 모두, [`docs/criteria.md`](docs/criteria.md) 0). 박는 곳은 `scripts/watermark.py` 하나입니다.
+
+## 라이선스
+
+**© 2026 szxv7704-dot. 이 저장소의 원작 부분은 [크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제(CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko) 라이선스를 따릅니다.** 전문은 [`LICENSE`](LICENSE)에 있습니다.
+
+- **허용:** 출처(이 저장소 주소와 저작자)를 밝히고, 비영리 목적으로, 바꾸지 않고 복제 · 배포하기.
+- **금지:** 상업적 이용(유료 판매 · 유료 강의 자료 · 유료 템플릿 · 영리 서비스에 넣기 등), 고친 것(2차적 저작물)의 배포, 교육청 로고 워터마크를 지운 사본의 배포.
+- 위 범위 밖의 이용(상업적 이용 포함)은 저장소 소유자의 별도 서면 허락이 있어야 합니다.
+
+**이 라이선스가 적용되지 않는 것** — 각자의 라이선스 · 권리를 따릅니다.
+
+| 대상 | 권리 · 라이선스 |
+|---|---|
+| 전북특별자치도교육청 로고 · 슬로건 · 비전 이미지(`icons/ci/`, 장표의 워터마크) | 전북특별자치도교육청의 상징물. 이 저장소가 이용을 허락할 수 없습니다 |
+| 글꼴(`fonts/`, 장표에 잘라 넣은 글꼴) | SIL Open Font License 1.1 ([`fonts/LICENSES.md`](fonts/LICENSES.md)) |
+| 아이콘 원본 Tabler Icons(`icons/`) | MIT ([`icons/LICENSE-tabler.txt`](icons/LICENSE-tabler.txt)) |
+| three.js(`vendor/three/`) | MIT ([`vendor/three/LICENSE`](vendor/three/LICENSE)) |
+| #31 사진 Frunze103 “Montreal Biosphere in Winter 2016” | CC0 (Wikimedia Commons) |
+| #58 사진 경복궁 처마 ⓒ Nina R · 연꽃무늬 수막새 ⓒ 고려(과 그 사진에서 만든 그림) | 각각 CC BY 2.0 · CC BY 4.0 (Wikimedia Commons) |
 
 ## 구조
 

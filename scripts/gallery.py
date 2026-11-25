@@ -211,7 +211,7 @@ def page(path, title, desc, cur, body, js='', up=''):
 <header class="top"><div><a class="brand" href="%sindex.html">발표 디자인 라이브러리</a><nav aria-label="메뉴">%s</nav></div></header>
 <main class="wrap">
 %s
-<footer>모든 기관명 · 수치 · 사례는 가상 예시입니다. 새 발표에 그대로 가져오지 마세요. 사진은 AI로 만든 것이고, 글꼴은 모두 SIL Open Font License 1.1(<a href="%sfonts/LICENSES.md">저작권 고지</a>).</footer>
+<footer>모든 기관명 · 수치 · 사례는 가상 예시입니다. 새 발표에 그대로 가져오지 마세요. 사진은 AI로 만든 것이고, 글꼴은 모두 SIL Open Font License 1.1(<a href="%sfonts/LICENSES.md">저작권 고지</a>).<br>© 2026 szxv7704-dot · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko">CC BY-NC-ND 4.0</a>(저작자표시 · 비영리 · 변경금지) — <b>상업적 이용 금지</b>. 교육청 로고 · 글꼴 · 일부 사진은 제외(<a href="https://github.com/szxv7704-dot/design-reference-gallery#라이선스">자세히</a>).</footer>
 </main>
 <script>%s%s</script>
 </body>
