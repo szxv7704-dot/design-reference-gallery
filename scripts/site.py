@@ -206,7 +206,7 @@ page = '''<!doctype html>
 <!-- 이 파일은 scripts/site.py 가 만든다. 손으로 고치지 말 것 -->
 <div class="wrap">
 %s
-<footer>© 2026 szxv7704-dot · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko">CC BY-NC-ND 4.0</a> — <b>상업적 이용 금지</b>(교육청 로고 · 글꼴 · 일부 사진 제외, <a href="https://github.com/szxv7704-dot/design-reference-gallery#라이선스">자세히</a>). 글꼴은 모두 SIL Open Font License 1.1(<a href="fonts/LICENSES.md">저작권 고지</a>). 분류 기준은 <a href="docs/patterns.md">docs/patterns.md</a>.</footer>
+<footer>© 2026 szxv7704-dot · <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.ko">CC BY-NC-ND 4.0</a> + 교육 목적의 비영리 변형 허락 — <b>상업적 이용 금지</b>(교직원 개인 포함, 교육청 로고 · 글꼴 · 일부 사진 제외, <a href="https://github.com/szxv7704-dot/design-reference-gallery#라이선스">자세히</a>). 글꼴은 모두 SIL Open Font License 1.1(<a href="fonts/LICENSES.md">저작권 고지</a>). 분류 기준은 <a href="docs/patterns.md">docs/patterns.md</a>.</footer>
 </div>
 <dialog class="ql" id="ql" aria-label="미리보기"><iframe id="qlFrame" title="미리보기"></iframe><div class="acts"><a id="qlCode" target="_blank" rel="noopener">가벼운 코드</a><a id="qlOpen" target="_blank" rel="noopener">새 창으로 열기</a><button type="button" id="qlClose">닫기</button></div></dialog>
 <script>%s</script>
