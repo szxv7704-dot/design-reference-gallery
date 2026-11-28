@@ -2,7 +2,7 @@
 #   index.html        첫 화면: 카드 넷(발표자료 고르기 · 인쇄 · 홍보물 고르기 · 아이콘 고르기 · AI에게 맡기기)
 #   present.html      발표자료 고르기: 컨셉 정하기(concept.html) · 본문 지정하기(body.html) · 와우 포인트 적용하기(wow.html)
 #   concept.html      스타일 세트 12(무난한 기하 넷이 앞) · 표지에서 넓힌 덱 27 · styles/{id}.html 스타일 하나
-#   wow.html          와우 포인트 24(기법 하나 = 덱 하나, wow/{번호}.html — scripts/wow.py)
+#   wow.html          와우 포인트 31(기법 하나 = 덱 하나, wow/{번호}.html — scripts/wow.py)
 #   print.html · icons.html · ai.html
 #   catalog.md        AI가 읽는 차례: 적용 순서 · 스타일 목록 · 구성 목록
 # 원천: data/styles.json · data/roles.json · data/patterns.json · data/kit_slides.json · data/rounds.json. 화면과 AI용 목록이 같은 데이터에서 나온다.
@@ -386,8 +386,8 @@ for g in dict.fromkeys(w['g'] for w in WOW):
     B.append('<h2>%s <small>%d가지</small></h2><div class="wowg">%s</div>' % (E(ws[0]['gname']), len(ws), ''.join(
         '<a href="wow/%s.html" target="_blank" rel="noopener"><img src="wow/thumbs/%s-2.jpg" alt="%s" loading="lazy" width="640" height="360"><b>%s<small>%s</small></b><p>%s</p><p class="w">%s</p></a>' % (
             w['no'], w['no'], E(w['name']), E(w['name']), E(w['small']), E(w['why']), ('이럴 때 · ' + E(' · '.join(w['when']))) if w['when'] else '') for w in ws)))
-B.append('<p class="note">스물네 가지를 한 덱에 모아 보려면 <a href="wow/wow.html" target="_blank" rel="noopener">한눈에 보기(9장)</a>.</p>')
-sizes['wow'] = page('wow.html', '와우 포인트 적용하기 — 발표 디자인 라이브러리', '발표 연출 기법 24가지, 기법 하나마다 덱 하나.', 'present.html', '\n'.join(B))
+B.append('<p class="note">%d가지를 한 덱에 모아 보려면 <a href="wow/wow.html" target="_blank" rel="noopener">한눈에 보기(11장)</a>.</p>' % len(WOW))
+sizes['wow'] = page('wow.html', '와우 포인트 적용하기 — 발표 디자인 라이브러리', '발표 연출 기법 %d가지, 기법 하나마다 덱 하나.' % len(WOW), 'present.html', '\n'.join(B))
 
 # ── present.html: 발표자료 고르기 ──
 IMGS = lambda xs: ''.join('<img src="%s" alt="" loading="lazy">' % x for x in xs)

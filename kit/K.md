@@ -221,7 +221,7 @@
 
 ## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)
 
-이 계열은 격자 칸(`.cells`)을 씁니다. 표지는 `.cells full`(4 × 5 격자, `<i>` 열여섯), 맺음은 `.cells fin`(3 × 3, `<i>` 아홉), 목차 · 간지는 `.cells row`: 칸 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`.
+이 계열은 격자 칸(`.mods`)을 씁니다. 표지는 `.mods full`(4 × 5 격자, `<i>` 열여섯), 맺음은 `.mods fin`(3 × 3, `<i>` 아홉), 목차 · 간지는 `.mods row`: 칸 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`.
 
 ## 8. 기본 장표별 견본 코드
 
@@ -242,7 +242,7 @@
     <h1>생성형 AI,<br><em>업무에 쓰는</em> 첫걸음</h1>
     <p class="c-sub">요청 한 줄을 바꾸면 결과가 달라집니다</p>
   </div>
-  <div class="cells full" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="mods full" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <p class="c-org"><span>○○교육청 교육연수원</span><span>2027. 3. 12.</span></p>
 </section>
 ```
@@ -268,7 +268,7 @@
       <li><b>05</b><span>정리</span><span>5분</span></li>
     </ol>
   </div>
-  <div class="cells row" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i><i></i></div>
+  <div class="mods row" aria-hidden="true"><i class="now"></i><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -303,7 +303,7 @@
   <div class="d-no"><small>SECTION</small>03</div>
   <h2>세부 추진 과제</h2>
   <p>여섯 과제를 세 묶음으로 나눠 맡습니다.</p>
-  <div class="cells row" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
+  <div class="mods row" aria-hidden="true"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -320,7 +320,7 @@
 <section data-pattern="closing" data-role="closing" data-var="a" class="slide close">
   <h2>오늘 쓴 요청문을<br>내일 업무에</h2>
   <p>문의 · ○○교육청 교육연수원 연수 담당</p>
-  <div class="cells fin" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="mods fin" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <span class="page-no"></span>
 </section>
 ```
@@ -994,8 +994,8 @@ shadow: "0 0 0 2px #E4EAF5(테두리 한 줄)"
 - 머리말 앞은 정사각 세 칸(겨자 · 쪽빛 · 옅은 쪽빛), 번호는 정사각 칸 안에.
 - 제목 강조(`<em>`)는 글자색이 아니라 겨자 형광펜 띠. 막대는 칸을 이어 붙인 모양.
 
-## 상징 부품(.cells)
-표지는 `.cells full`(4 × 5 격자, `<i>` 열여섯), 맺음은 `.cells fin`(3 × 3, `<i>` 아홉, 가운데 겨자), 목차 · 간지는 `.cells row`(칸 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`가 크고 겨자).
+## 상징 부품(.mods)
+표지는 `.mods full`(4 × 5 격자, `<i>` 열여섯), 맺음은 `.mods fin`(3 × 3, `<i>` 아홉, 가운데 겨자), 목차 · 간지는 `.mods row`(칸 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`가 크고 겨자).
 - **표지 · 목차 · 간지 · 맺음에만** 쓴다. 본문 장에는 쓰지 않는다(본문의 주인공은 도식).
 - 표지 · 맺음의 `<i>` 수는 정해진 대로 쓴다(모양은 CSS가 순서로 정한다). 크기 · 위치 · 각도를 바꾸지 않는다.
 
@@ -1043,11 +1043,11 @@ shadow: "0 0 0 2px #E4EAF5(테두리 한 줄)"
 - `.src` — 예: `<p class="src">`
 - `.page-no` — 예: `<span class="page-no">`
 
-**격자 칸(.cells): 이 계열의 얼굴. 표지 · 목차 · 간지 · 맺음에만**
-- `.cells` — 예: `<div class="cells full" aria-hidden="true">`
-- `.full` — 예: `<div class="cells full" aria-hidden="true">`
-- `.fin` — 예: `<div class="cells fin" aria-hidden="true">`
-- `.row` — 예: `<div class="cells row" aria-hidden="true">`
+**격자 칸(.mods): 이 계열의 얼굴. 표지 · 목차 · 간지 · 맺음에만**
+- `.mods` — 예: `<div class="mods full" aria-hidden="true">`
+- `.full` — 예: `<div class="mods full" aria-hidden="true">`
+- `.fin` — 예: `<div class="mods fin" aria-hidden="true">`
+- `.row` — 예: `<div class="mods row" aria-hidden="true">`
 - `.done` — 예: `<i class="done">`
 - `.now` — 예: `<i class="now">`
 
@@ -1062,12 +1062,12 @@ shadow: "0 0 0 2px #E4EAF5(테두리 한 줄)"
 - `.toc-list` — 예: `<ol class="toc-list">`
 - `.is-now` — 예: `<li class="is-now">`
 - `.toc` — 예: `<section data-pattern="toc" data-role="flow" data-var="a" class="slide toc">`
-- `.cells` — 예: `<div class="cells full" aria-hidden="true">`
+- `.mods` — 예: `<div class="mods full" aria-hidden="true">`
 
 **간지: 큰 번호 + 섹션 이름, 지금 섹션 칸만 겨자**
 - `.divider` — 예: `<section data-pattern="divider" class="slide divider">`
 - `.d-no` — 예: `<div class="d-no">`
-- `.cells` — 예: `<div class="cells full" aria-hidden="true">`
+- `.mods` — 예: `<div class="mods full" aria-hidden="true">`
 
 **마무리**
 - `.close` — 예: `<section data-pattern="closing" data-role="closing" data-var="a" class="slide close">`
@@ -1149,7 +1149,7 @@ shadow: "0 0 0 2px #E4EAF5(테두리 한 줄)"
 **모션: 장에 들어설 때 한 번. 칸이 차례로 놓이고(격자 그리기), 막대는 왼쪽부터 칸씩 찬다**
 - `.slide` — 예: `<section data-pattern="cover" data-role="cover" data-var="a" class="slide cover">`
 - `.is-on`
-- `.cells` — 예: `<div class="cells full" aria-hidden="true">`
+- `.mods` — 예: `<div class="mods full" aria-hidden="true">`
 - `.grid` — 예: `<div class="grid g3 fill center">`
 - `.bar`
 

@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>와우 포인트 24</title>
+<title>와우 포인트 31</title>
 <style>/*@@FONTS@@*/</style>
 <style>
-/* 와우 포인트 24 — 발표 와우 기법을 여섯 묶음으로 모은 9장 덱.
+/* 와우 포인트 31 — 발표 와우 기법을 여덟 묶음으로 모은 11장 덱.
    이미지 자리: --img-A … --img-H 에 사진을 넣으면 바뀐다(없으면 점선 자리표시). */
 @property --x { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+@property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 :root{
   --bg:#ECE9E3; --paper:#F7F5F1; --surface:#FFFFFF; --ink:#1C2128; --sub:#5C636C; --mute:#9AA0A7; --line:#DAD5CC;
   --accent:#E2571A;
-  --g1:#2F5D86; --g2:#7B4F9E; --g3:#C4471A; --g4:#2E7D5B; --g5:#A87C00; --g6:#B0306A;
+  --g1:#2F5D86; --g2:#7B4F9E; --g3:#C4471A; --g4:#2E7D5B; --g5:#A87C00; --g6:#B0306A; --g7:#12808C; --g8:#617510;
   --ft:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fb:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fm:"IBM Plex Mono",ui-monospace,monospace;
@@ -67,7 +68,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .c3 .card dl{font-size:16px}
 .card dt{font-weight:700;color:var(--gc);white-space:nowrap}
 .card dd{margin:0;color:#343A42}
-.g1{--gc:var(--g1)} .g2{--gc:var(--g2)} .g3{--gc:var(--g3)} .g4{--gc:var(--g4)} .g5{--gc:var(--g5)} .g6{--gc:var(--g6)}
+.g1{--gc:var(--g1)} .g2{--gc:var(--g2)} .g3{--gc:var(--g3)} .g4{--gc:var(--g4)} .g5{--gc:var(--g5)} .g6{--gc:var(--g6)} .g7{--gc:var(--g7)} .g8{--gc:var(--g8)}
 
 /* 이미지 자리 */
 .img{position:absolute;inset:0;background-size:cover;background-position:center}
@@ -89,7 +90,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 @keyframes pop{from{opacity:0;transform:translateY(40px) scale(.85)}to{opacity:1;transform:none}}
 
 /* ── 2 한눈에 ── */
-.map{position:absolute;left:64px;right:64px;top:232px;bottom:150px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.map{position:absolute;left:64px;right:64px;top:232px;bottom:150px;display:grid;grid-template-columns:repeat(8,1fr);gap:12px}
+.map .grp{padding:16px 12px 14px}.map .grp h3{font-size:22px}.map .grp p{font-size:13px;min-height:57px}.map .grp li{font-size:15.5px;padding:7px 9px}.map .grp li small{font-size:12px}
 .grp{background:var(--surface);border-radius:14px;padding:18px 16px 16px;border-top:6px solid var(--gc);display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s}
 .grp:hover{transform:translateY(-4px)}
 .grp .n{font:700 16px var(--fm);color:var(--gc)}
@@ -393,11 +395,11 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 /* ── 9 고르는 법 ── */
 .pick{position:absolute;left:64px;top:232px;width:860px;bottom:62px;background:var(--surface);border-radius:14px;padding:26px 30px}
 .pick h3,.rules h3{margin:0 0 14px;font:800 26px var(--ft)}
-.pick table{width:100%;border-collapse:collapse;font:500 18px/1.4 var(--fb)}
+.pick table{width:100%;border-collapse:collapse;font:500 16px/1.35 var(--fb)}
 .pick th{text-align:left;font:600 14px var(--fm);color:var(--sub);padding:0 0 8px;border-bottom:2px solid var(--ink)}
-.pick td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.pick td{padding:4px 0;border-bottom:1px solid var(--line);vertical-align:top}
 .pick td:first-child{font-weight:700;width:46%;padding-right:20px}
-.pick .tg{display:inline-block;margin:0 6px 4px 0;padding:3px 10px;border-radius:99px;font:600 15px var(--fb);color:#fff;background:var(--gc)}
+.pick .tg{display:inline-block;margin:0 5px 3px 0;padding:2px 9px;border-radius:99px;font:600 14px var(--fb);color:#fff;background:var(--gc)}
 .rules{position:absolute;left:950px;right:64px;top:232px;bottom:62px;display:flex;flex-direction:column;gap:14px}
 .rules ol{margin:0;padding:0;list-style:none;display:grid;gap:12px;counter-reset:r}
 .rules li{background:var(--surface);border-radius:12px;padding:16px 20px 16px 64px;position:relative;font:400 16px/1.5 var(--fb);color:#3A4049;counter-increment:r}
@@ -409,6 +411,99 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 
 /* 인쇄: 한 장 = 한 쪽, 움직임은 끝 화면으로 */
 @page{size:1600px 900px;margin:0}
+/* ── ⑦ 흐름 띠: 띠가 왼쪽부터 차례로 흘러가고, 가장 굵은 띠만 진한 색 ── */
+.d-flow{background:#fff}
+.d-flow svg{position:absolute;inset:4% 3%;width:94%;height:92%}
+.d-flow text{font:600 13px var(--fb);fill:#1C2128}
+.d-flow .tl{font:800 15px var(--ft)}
+.d-flow .note{font:500 12px var(--fb);fill:#5C636C}
+.d-flow .bd{opacity:.95}
+.play .d-flow .bd{animation:flowIn .9s cubic-bezier(.5,0,.2,1) both;animation-delay:calc(var(--i)*.45s + .4s)}
+.play .d-flow .rn,.play .d-flow .lb{animation:fadeIn .4s both;animation-delay:calc(var(--i)*.45s + 1.1s)}
+@keyframes flowIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+
+/* ── ⑦ 점 다시 모으기(JS: regroup) ── */
+.d-regroup{background:#fff}
+.d-regroup .dot{position:absolute;width:5cqw;height:5cqw;margin:-2.5cqw 0 0 -2.5cqw;border-radius:50%;background:#C9CED4;transition:left .9s cubic-bezier(.6,0,.2,1),top .9s cubic-bezier(.6,0,.2,1),background .5s}
+.d-regroup .lab{position:absolute;bottom:7%;transform:translateX(-50%);font:600 4.4cqw var(--fb);color:#5C636C;opacity:0;transition:opacity .5s}
+.d-regroup .lab b{font:900 7cqw var(--ft);color:#1C2128;margin-left:.8cqw}
+.d-regroup .cap{position:absolute;left:6%;top:5%;font:700 4.6cqw var(--fb);color:#1C2128}
+.d-regroup.grouped .lab{opacity:1}
+
+/* ── ⑦ 시선 넘기기: 강조 틀이 한 칸씩 내려가고 나머지는 흐려진다. 끝나면 모두 밝게 ── */
+.d-hand{background:#fff}
+.d-hand .row{position:absolute;left:8%;right:8%;height:17%;top:calc(8% + var(--i)*22%);display:grid;grid-template-columns:9cqw 1fr;grid-template-rows:auto auto;align-content:center;column-gap:3cqw;font:800 6.6cqw/1.15 var(--ft);color:#1C2128}
+.d-hand .row b{grid-row:1 / 3;display:grid;place-items:center;width:9cqw;height:9cqw;border-radius:50%;background:#EEF4F5;color:var(--g7);font:700 4.6cqw var(--fm)}
+.d-hand .row span{font:500 4cqw var(--fb);color:#5C636C}
+.d-hand .box{position:absolute;left:4%;right:4%;height:20%;top:6.5%;border:.8cqw solid var(--g7);border-radius:2cqw;opacity:0}
+.play .d-hand .box{animation:handBox 5.4s cubic-bezier(.6,0,.2,1) .3s both}
+.play .d-hand .row:nth-of-type(2){animation:hand0 5.4s .3s both}.play .d-hand .row:nth-of-type(3){animation:hand1 5.4s .3s both}
+.play .d-hand .row:nth-of-type(4){animation:hand2 5.4s .3s both}.play .d-hand .row:nth-of-type(5){animation:hand3 5.4s .3s both}
+@keyframes handBox{0%{opacity:0;top:6.5%}4%,20%{opacity:1;top:6.5%}25%,41%{opacity:1;top:28.5%}46%,62%{opacity:1;top:50.5%}67%,86%{opacity:1;top:72.5%}100%{opacity:0;top:72.5%}}
+@keyframes hand0{0%,20%{opacity:1}24%,86%{opacity:.28}100%{opacity:1}}
+@keyframes hand1{0%,20%{opacity:.28}24%,41%{opacity:1}45%,86%{opacity:.28}100%{opacity:1}}
+@keyframes hand2{0%,41%{opacity:.28}45%,62%{opacity:1}66%,86%{opacity:.28}100%{opacity:1}}
+@keyframes hand3{0%,62%{opacity:.28}66%,100%{opacity:1}}
+
+/* ── ⑦ 한 바퀴 돌기: 고리가 시계 방향으로 차고, 달마다 점이 켜진다 ── */
+.d-clock{background:#fff}
+.d-clock .ring{position:absolute;left:50%;top:50%;width:62cqw;height:62cqw;margin:-31cqw 0 0 -31cqw;border-radius:50%;--a:360deg;
+  background:conic-gradient(var(--g7) var(--a),#E6E2DA 0);-webkit-mask:radial-gradient(closest-side,transparent 78%,#000 79%);mask:radial-gradient(closest-side,transparent 78%,#000 79%)}
+.play .d-clock .ring{animation:clockA 3.6s linear .5s both}
+@keyframes clockA{from{--a:0deg}to{--a:360deg}}
+.d-clock .m{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--r)) translateY(-40cqw)}
+.d-clock .m span{position:absolute;left:-3.6cqw;top:-3.6cqw;width:7.2cqw;height:7.2cqw;display:grid;place-items:center;border-radius:50%;transform:rotate(calc(var(--r) * -1));font:700 3.6cqw var(--fm);background:var(--g7);color:#fff}
+.play .d-clock .m span{animation:monthOn .3s both;animation-delay:calc(var(--i)*.3s + .5s)}
+@keyframes monthOn{from{background:#E6E2DA;color:#9AA0A7}to{background:var(--g7);color:#fff}}
+.d-clock .mid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center}
+.d-clock .mid > *{display:block}
+.d-clock .mid .a{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:800 9cqw var(--ft);color:#5C636C;opacity:0;white-space:nowrap}
+.d-clock .mid b{font:900 15cqw/1 var(--ft);color:#1C2128;letter-spacing:-.04em}
+.d-clock .mid small{margin-top:1.4cqw;font:600 3.8cqw var(--fb);color:var(--g7);white-space:nowrap}
+.play .d-clock .mid .a{animation:clockStart 4.1s both}
+.play .d-clock .mid .z{animation:fadeIn .5s 4.1s both}
+@keyframes clockStart{0%,85%{opacity:1}100%{opacity:0}}
+
+/* ── ⑧ 출발판 넘김(JS: flap) ── */
+.d-flap{background:#1E2329;padding:5% 6%;display:flex;flex-direction:column;justify-content:center}
+.d-flap .hd{display:flex;justify-content:space-between;font:600 3.6cqw var(--fm);color:#AEB4BB;border-bottom:1px solid #39404A;padding-bottom:2cqw}
+.d-flap .fr{display:flex;align-items:center;justify-content:space-between;margin-top:4cqw}
+.d-flap .k{font:700 5.2cqw var(--fb);color:#fff;white-space:nowrap}
+.d-flap .cells{display:flex;gap:1cqw}
+.d-flap .c{position:relative;width:9.6cqw;height:13cqw;display:grid;place-items:center;border-radius:1cqw;background:#2E343C;font:800 8.4cqw/1 var(--ft);color:#F4F1E8}
+.d-flap .c::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:#1E2329}
+.d-flap .c.f{animation:flapTick .07s linear}
+.d-flap .c.end{color:#E9F07A}
+@keyframes flapTick{0%{transform:scaleY(1)}50%{transform:scaleY(.15)}100%{transform:scaleY(1)}}
+
+/* ── ⑧ 동그라미 치기: 펜 선이 숫자를 두르고 손글씨 한마디 ── */
+.d-circle{background:#fff}
+.d-circle table{position:absolute;left:8%;width:84%;top:14%;border-collapse:collapse;font:500 5cqw/1 var(--fb);color:#1C2128}
+.d-circle th{font:600 3.8cqw var(--fm);color:#5C636C;text-align:right;padding:0 2cqw 2.4cqw;border-bottom:2px solid #1C2128}
+.d-circle th:first-child,.d-circle td:first-child{text-align:left}
+.d-circle td{text-align:right;padding:3.4cqw 2cqw;border-bottom:1px solid #E6E2DA}
+.d-circle td b{font-weight:800}
+.d-circle .hit{position:relative;font-weight:800}
+.d-circle svg{position:absolute;left:50%;top:50%;width:24cqw;height:14.4cqw;transform:translate(-56%,-52%);overflow:visible}
+.d-circle path{fill:none;stroke:var(--g8);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.play .d-circle path{animation:penDraw 1.1s cubic-bezier(.5,.1,.3,1) .8s both}
+@keyframes penDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.d-circle .memo{position:absolute;right:6%;bottom:9%;font:400 8.6cqw/1 "Nanum Pen Script",cursive;color:var(--g8);transform:rotate(-6deg)}
+.play .d-circle .memo{animation:fadeIn .4s 2s both}
+
+/* ── ⑧ 카드 뒤집기: 질문 면이 차례로 뒤집혀 답 ── */
+.d-flip{background:#F1EEE8;display:grid;grid-template-columns:repeat(3,1fr);column-gap:3%;padding:9% 5%;perspective:900px}
+.d-flip .fc{position:relative;transform-style:preserve-3d;transform:rotateY(180deg)}
+.play .d-flip .fc{animation:flipCard .8s cubic-bezier(.5,0,.2,1) both;animation-delay:calc(var(--i)*.9s + 1.4s)}
+@keyframes flipCard{from{transform:none}to{transform:rotateY(180deg)}}
+.d-flip .f,.d-flip .b{position:absolute;inset:0;border-radius:2cqw;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;padding:4cqw 3cqw}
+.d-flip .f{background:#fff;font:700 4.4cqw/1.35 var(--fb);color:#1C2128;box-shadow:0 1px 0 #DAD5CC}
+.d-flip .f span{font:800 9cqw/1 var(--ft);color:var(--g8);margin-bottom:3cqw}
+.d-flip .b{background:var(--g8);color:#fff;transform:rotateY(180deg);justify-content:center;align-items:center;text-align:center}
+.d-flip .b b{font:900 14cqw/1 var(--ft);letter-spacing:-.04em}
+.d-flip .b b small{font-size:.4em;margin-left:.5cqw}
+.d-flip .b span{margin-top:2.4cqw;font:600 3.6cqw var(--fb);opacity:.85}
+
 @media print{
   html,body{background:#fff;height:auto}
   .bar{display:none}
@@ -430,22 +525,24 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 <!-- 1 표지 -->
 <section class="slide cover" data-title="표지">
   <div class="kick">PRESENTATION TECHNIQUES · 디자인 레퍼런스 갤러리</div>
-  <h1>와우<br>포인트 <em>24</em></h1>
-  <p class="sub">청중이 "와" 하는 순간을 만드는 기법 24가지를 여섯 묶음으로 모았습니다. 장마다 기법이 실제로 움직입니다.</p>
+  <h1>와우<br>포인트 <em>31</em></h1>
+  <p class="sub">청중이 "와" 하는 순간을 만드는 기법 31가지를 여덟 묶음으로 모았습니다. 장마다 기법이 실제로 움직입니다.</p>
   <div class="burst" aria-hidden="true">
-    <div class="blk" style="--i:0;left:0;top:0;width:265px;height:210px;background:var(--g1)"><b>4</b>드러내기·이동<span>REVEAL</span></div>
-    <div class="blk" style="--i:1;left:285px;top:0;width:275px;height:165px;background:var(--g2)"><b>3</b>대비·전환<span>CONTRAST</span></div>
-    <div class="blk" style="--i:2;left:0;top:225px;width:265px;height:215px;background:var(--g3)"><b>4</b>숫자 체감<span>NUMBERS</span></div>
-    <div class="blk" style="--i:3;left:285px;top:180px;width:275px;height:245px;background:var(--g4)"><b>4</b>은유·세계관<span>METAPHOR</span></div>
-    <div class="blk" style="--i:4;left:0;top:455px;width:265px;height:205px;background:var(--g5)"><b>4</b>감각·형식<span>SENSE</span></div>
-    <div class="blk" style="--i:5;left:285px;top:440px;width:275px;height:220px;background:var(--g6)"><b>5</b>소리가 보이는 모션<span>팡 · 칙칙폭폭 · 또롱 · 탁탁</span></div>
+    <div class="blk" style="--i:0;left:0px;top:0px;width:265px;height:150px;background:var(--g1)"><b>4</b>드러내기·이동<span>REVEAL</span></div>
+    <div class="blk" style="--i:1;left:285px;top:0px;width:275px;height:150px;background:var(--g2)"><b>3</b>대비·전환<span>CONTRAST</span></div>
+    <div class="blk" style="--i:2;left:0px;top:166px;width:265px;height:150px;background:var(--g3)"><b>4</b>숫자 체감<span>NUMBERS</span></div>
+    <div class="blk" style="--i:3;left:285px;top:166px;width:275px;height:150px;background:var(--g4)"><b>4</b>은유·세계관<span>METAPHOR</span></div>
+    <div class="blk" style="--i:4;left:0px;top:332px;width:265px;height:150px;background:var(--g5)"><b>4</b>감각·형식<span>SENSE</span></div>
+    <div class="blk" style="--i:5;left:285px;top:332px;width:275px;height:150px;background:var(--g6)"><b>5</b>소리가 보이는 모션<span>팡 · 칙칙폭폭 · 또롱 · 탁탁</span></div>
+    <div class="blk" style="--i:6;left:0px;top:498px;width:265px;height:150px;background:var(--g7)"><b>4</b>흐름·시선<span>FLOW</span></div>
+    <div class="blk" style="--i:7;left:285px;top:498px;width:275px;height:150px;background:var(--g8)"><b>3</b>표시·뒤집기<span>MARK · FLIP</span></div>
   </div>
-  <div class="by">2026. 11. · 9장 · ← → 키로 넘기기 · R 다시 재생</div>
+  <div class="by">2026. 11. · 11장 · ← → 키로 넘기기 · R 다시 재생</div>
 </section>
 
 <!-- 2 한눈에 -->
 <section class="slide" data-title="한눈에">
-  <div class="head"><div><span class="chip" style="--gc:var(--ink)"><b>i</b>한눈에 보기</span><h2>와우는 여섯 가지 길로 온다</h2></div><div class="meta">묶음을 누르면 그 장으로</div></div>
+  <div class="head"><div><span class="chip" style="--gc:var(--ink)"><b>i</b>한눈에 보기</span><h2>와우는 여덟 가지 길로 온다</h2></div><div class="meta">묶음을 누르면 그 장으로</div></div>
   <div class="map">
     <a class="grp g1" style="--i:0" data-go="3"><span class="n">① · 3쪽</span><h3>드러내기·이동</h3><p>보여 주는 순서와 위치를 설계한다</p><ol><li>리빌<small>가렸다가 열기</small></li><li>점진적 공개<small>한 층씩 쌓기</small></li><li>줌 인<small>전체 → 부분 → 전체</small></li><li>허브 이동<small>목차가 곧 지도</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g2" style="--i:1" data-go="4"><span class="n">② · 4쪽</span><h3>대비·전환</h3><p>같은 자리에서 차이를 보여 준다</p><ol><li>비포/애프터<small>같은 구도, 바뀐 것만</small></li><li>연속 변형<small>같은 도형이 모양을 바꿈</small></li><li>수미상관<small>처음으로 돌아와 닫기</small></li></ol><span class="go">열기 →</span></a>
@@ -453,9 +550,11 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     <a class="grp g4" style="--i:3" data-go="6"><span class="n">④ · 6쪽</span><h3>은유·세계관</h3><p>정책을 익숙한 사물·이야기로 옮긴다</p><ol><li>시각 은유<small>개념을 사물 하나로</small></li><li>생활 서식 빌려 오기<small>탑승권·영수증·신문</small></li><li>게임화<small>과제 = 퀘스트</small></li><li>물리 모션<small>튕김·낙하·연쇄</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g5" style="--i:4" data-go="7"><span class="n">⑤ · 7쪽</span><h3>감각·형식</h3><p>다른 장표와 결이 달라 눈이 멈춘다</p><ol><li>키네틱 타이포<small>글자가 연출</small></li><li>재질·질감<small>화면에 손맛</small></li><li>3D·깊이<small>쌓임을 진짜 층으로</small></li><li>극단적 여백<small>비울수록 강해짐</small></li></ol><span class="go">열기 →</span></a>
     <a class="grp g6" style="--i:5" data-go="8"><span class="n">⑥ · 8쪽</span><h3>소리 모션</h3><p>팡·칙칙폭폭처럼 소리가 보이게 움직인다</p><ol><li>팡! 터뜨리기<small>하늘 가득 불꽃</small></li><li>칙칙폭폭 지나가기<small>글자·숫자 열차</small></li><li>또롱또롱 떨어지기<small>한 방울씩 생김</small></li><li>쿵! 내려앉기<small>무게로 결론</small></li><li>타이포 조립<small>탁탁 맞춰지는 글자</small></li></ol><span class="go">열기 →</span></a>
+    <a class="grp g7" style="--i:6" data-go="9"><span class="n">⑦ · 9쪽</span><h3>흐름·시선</h3><p>어디로 흐르고 어디를 볼지 보여 준다</p><ol><li>흐름 띠<small>어디로 가는지</small></li><li>점 다시 모으기<small>섞였다가 갈라지기</small></li><li>시선 넘기기<small>지금 말하는 곳만</small></li><li>한 바퀴 돌기<small>한 해가 지나감</small></li></ol><span class="go">열기 →</span></a>
+    <a class="grp g8" style="--i:7" data-go="10"><span class="n">⑧ · 10쪽</span><h3>표시·뒤집기</h3><p>짚어 주고 뒤집어 기억에 남긴다</p><ol><li>출발판 넘김<small>타다닥 숫자판</small></li><li>동그라미 치기<small>펜으로 짚기</small></li><li>카드 뒤집기<small>질문 → 답</small></li></ol><span class="go">열기 →</span></a>
   </div>
-  <div class="offs"><b>9쪽</b> 무엇을 고를까 · 쓰는 원칙 4가지 · 화면 밖 와우(청중 참여 · 실물 시연)</div>
-  <div class="foot"><span>와우 포인트 24</span><span>2 / 9</span></div>
+  <div class="offs"><b>11쪽</b> 무엇을 고를까 · 쓰는 원칙 4가지 · 화면 밖 와우(청중 참여 · 실물 시연)</div>
+  <div class="foot"><span>와우 포인트 31</span><span>2 / 11</span></div>
 </section>
 
 <!-- 3 ① 드러내기·이동 -->
@@ -503,7 +602,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>허브 이동<small>목차가 곧 지도</small></h3><p class="why">고른 곳으로 들어갔다 나온다. 질문에 바로 답한다.</p>
       <dl><dt>쓰는 곳</dt><dd>업무보고, 질의응답이 많은 자리</dd><dt>주의</dt><dd>순서가 정해진 심사 발표에는 맞지 않는다</dd><dt>PPT</dt><dd>'요약 확대/축소' 또는 도형 하이퍼링크</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 24 · ① 드러내기·이동</span><span>3 / 9</span></div>
+  <div class="foot"><span>와우 포인트 31 · ① 드러내기·이동</span><span>3 / 11</span></div>
 </section>
 
 <!-- 4 ② 대비·전환 -->
@@ -539,7 +638,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>수미상관<small>처음으로 돌아오기</small></h3><p class="why">첫 장면으로 돌아오면 이야기가 닫힌다.</p>
       <dl><dt>쓰는 곳</dt><dd>순환·환류 체계, 덱의 마지막 장</dd><dt>주의</dt><dd>돌아올 '표식'을 첫 장면에 미리 심어 둔다</dd><dt>PPT</dt><dd>첫 슬라이드를 복제해 끝에 두고 모핑</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 24 · ② 대비·전환</span><span>4 / 9</span></div>
+  <div class="foot"><span>와우 포인트 31 · ② 대비·전환</span><span>4 / 11</span></div>
 </section>
 
 <!-- 5 ③ 숫자 체감 -->
@@ -570,7 +669,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>데이터 레이스<small>순위 경주</small></h3><p class="why">순위가 뒤집히는 순간이 곧 드라마다.</p>
       <dl><dt>쓰는 곳</dt><dd>연도별 추이, 기관·지역 순위 변화</dd><dt>주의</dt><dd>끝 화면에 결론 한 줄을 남겨야 '구경'으로 안 끝난다</dd><dt>PPT</dt><dd>Flourish 등으로 영상을 만들어 삽입</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 24 · ③ 숫자 체감 · 수치는 모두 가상 예시</span><span>5 / 9</span></div>
+  <div class="foot"><span>와우 포인트 31 · ③ 숫자 체감 · 수치는 모두 가상 예시</span><span>5 / 11</span></div>
 </section>
 
 <!-- 6 ④ 은유·세계관 -->
@@ -613,7 +712,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>물리 모션<small>튕김·낙하·연쇄</small></h3><p class="why">무게와 충돌이 '진짜 같다'는 실감을 준다.</p>
       <dl><dt>쓰는 곳</dt><dd>분류, 선후 관계, 결합 구조</dd><dt>주의</dt><dd>움직임에 뜻이 있어야 한다(튕겨 나감 = 제외)</dd><dt>PPT</dt><dd>이동 경로 + 효과 옵션 '바운스 끝'</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 24 · ④ 은유·세계관</span><span>6 / 9</span></div>
+  <div class="foot"><span>와우 포인트 31 · ④ 은유·세계관</span><span>6 / 11</span></div>
 </section>
 
 <!-- 7 ⑤ 감각·형식 -->
@@ -646,7 +745,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>극단적 여백<small>비울수록 강해짐</small></h3><p class="why">남은 하나에 시선이 전부 모인다.</p>
       <dl><dt>쓰는 곳</dt><dd>표지, 간지, 결론 한 문장</dd><dt>주의</dt><dd>앞뒤 장표가 빽빽할 때 효과가 난다. 연달아 쓰면 약해진다</dd><dt>PPT</dt><dd>개체 하나 + 제목 한 줄. 나머지는 지운다</dd></dl></article>
   </div>
-  <div class="foot"><span>와우 포인트 24 · ⑤ 감각·형식</span><span>7 / 9</span></div>
+  <div class="foot"><span>와우 포인트 31 · ⑤ 감각·형식</span><span>7 / 11</span></div>
 </section>
 
 <!-- 8 ⑥ 소리가 보이는 모션 -->
@@ -696,26 +795,93 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     <div class="cv3" data-kind="thud"><canvas></canvas></div>
     <div class="fvbar"><button type="button" data-fv="replay">↻ 다시</button><button type="button" data-fv="close">✕ 닫기 (Esc)</button></div>
   </div>
-  <div class="foot"><span>와우 포인트 24 · ⑥ 소리가 보이는 모션</span><span>8 / 9</span></div>
+  <div class="foot"><span>와우 포인트 31 · ⑥ 소리가 보이는 모션</span><span>8 / 11</span></div>
 </section>
 
 <!-- 9 고르는 법 -->
+<!-- 9 ⑦ 흐름·시선 -->
+<section class="slide g7" data-title="⑦ 흐름·시선">
+  <div class="head"><div><span class="chip"><b>7</b>흐름·시선</span><h2>어디로 흘러가고 어디를 봐야 하는지 보여 준다</h2></div><div class="meta">기법 4</div></div>
+  <div class="cards c4">
+    <article class="card"><div class="demo d-flow">
+        <svg viewBox="0 0 360 324" aria-hidden="true"><rect x="28" y="46" width="16" height="220" fill="#0B4F57"/><text class="tl" x="28" y="34">총 100억</text><path class="bd" style="--i:0" fill="#12808C" d="M44 46.0 C180 46.0 180 30.0 316 30.0 L316 118.0 C180 118.0 180 134.0 44 134.0 Z"/><rect class="rn" style="--i:0" x="316" y="30.0" width="16" height="88.0" fill="#0B4F57"/><path class="bd" style="--i:1" fill="#7FC1C7" d="M44 134.0 C180 134.0 180 130.0 316 130.0 L316 185.0 C180 185.0 180 189.0 44 189.0 Z"/><rect class="rn" style="--i:1" x="316" y="130.0" width="16" height="55.0" fill="#0B4F57"/><path class="bd" style="--i:2" fill="#A9D5D9" d="M44 189.0 C180 189.0 180 197.0 316 197.0 L316 241.0 C180 241.0 180 233.0 44 233.0 Z"/><rect class="rn" style="--i:2" x="316" y="197.0" width="16" height="44.0" fill="#0B4F57"/><path class="bd" style="--i:3" fill="#CDE7E9" d="M44 233.0 C180 233.0 180 253.0 316 253.0 L316 286.0 C180 286.0 180 266.0 44 266.0 Z"/><rect class="rn" style="--i:3" x="316" y="253.0" width="16" height="33.0" fill="#0B4F57"/><text class="lb" style="--i:0" x="308" y="79.0" text-anchor="end" fill="#fff">학교 운영 40</text><text class="lb" style="--i:1" x="308" y="162.5" text-anchor="end">교육 사업 25</text><text class="lb" style="--i:2" x="308" y="224.0" text-anchor="end">시설 20</text><text class="lb" style="--i:3" x="308" y="274.5" text-anchor="end">행정 15</text><text class="note" x="180" y="306" text-anchor="middle">띠 두께 = 금액</text></svg>
+      </div><p class="steps"><i>①</i> 총액 한 덩어리 → <i>②</i> 갈래마다 흘러감 → <i>③</i> 가장 굵은 흐름</p>
+      <h3>흐름 띠<small>어디로 가는지</small></h3><p class="why">돈과 사람이 어디로 가는지 눈으로 따라간다.</p>
+      <dl><dt>쓰는 곳</dt><dd>예산 편성, 인력 배치, 졸업 후 진로</dd><dt>주의</dt><dd>갈래는 다섯 개까지, 띠 두께는 양에 정확히 비례</dd><dt>PPT</dt><dd>자유형 도형 띠 + '닦아내기(왼쪽에서)'를 차례로</dd></dl></article>
+    <article class="card"><div class="demo d-regroup" data-js="regroup">
+        <div class="lab" style="left:20%">초 <b>18</b></div><div class="lab" style="left:50%">중 <b>12</b></div><div class="lab" style="left:80%">고 <b>10</b></div>
+        <div class="cap">참여 학교 40교</div>
+      </div><p class="steps"><i>①</i> 한 덩어리 → <i>②</i> 색으로 나뉨 → <i>③</i> 무리로 모임</p>
+      <h3>점 다시 모으기<small>섞였다가 갈라지기</small></h3><p class="why">섞여 있던 점이 무리로 갈라지는 순간 비율이 보인다.</p>
+      <dl><dt>쓰는 곳</dt><dd>대상 · 학교급 분포, 설문 응답 나누기</dd><dt>주의</dt><dd>점 하나가 몇인지 꼭 적는다. 점은 100개 이하</dd><dt>PPT</dt><dd>같은 점을 두 장에 다른 배치로 + 모핑 전환</dd></dl></article>
+    <article class="card"><div class="demo d-hand">
+        <div class="box"></div>
+        <div class="row" style="--i:0"><b>1</b>진단<span>업무 목록 정리</span></div>
+        <div class="row" style="--i:1"><b>2</b>설계<span>줄일 일 고르기</span></div>
+        <div class="row" style="--i:2"><b>3</b>실행<span>시범 학교 운영</span></div>
+        <div class="row" style="--i:3"><b>4</b>공유<span>결과 나누기</span></div>
+      </div><p class="steps"><i>①</i> 1번만 밝게 → <i>②</i> 강조가 다음으로 → <i>③</i> 끝나면 모두 밝게</p>
+      <h3>시선 넘기기<small>지금 말하는 곳만</small></h3><p class="why">지금 말하는 항목만 밝다. 청중이 길을 잃지 않는다.</p>
+      <dl><dt>쓰는 곳</dt><dd>추진 과제 차례 설명, 목차 진행</dd><dt>주의</dt><dd>한 번에 한 곳만. 나머지는 지우지 말고 흐리게</dd><dt>PPT</dt><dd>같은 장을 복제해 강조 위치만 옮기고 모핑 전환</dd></dl></article>
+    <article class="card"><div class="demo d-clock">
+        <div class="ring"></div>
+        <i class="m" style="--i:0;--r:0deg"><span style="--r:0deg">3</span></i><i class="m" style="--i:1;--r:30deg"><span style="--r:30deg">4</span></i><i class="m" style="--i:2;--r:60deg"><span style="--r:60deg">5</span></i><i class="m" style="--i:3;--r:90deg"><span style="--r:90deg">6</span></i><i class="m" style="--i:4;--r:120deg"><span style="--r:120deg">7</span></i><i class="m" style="--i:5;--r:150deg"><span style="--r:150deg">8</span></i><i class="m" style="--i:6;--r:180deg"><span style="--r:180deg">9</span></i><i class="m" style="--i:7;--r:210deg"><span style="--r:210deg">10</span></i><i class="m" style="--i:8;--r:240deg"><span style="--r:240deg">11</span></i><i class="m" style="--i:9;--r:270deg"><span style="--r:270deg">12</span></i><i class="m" style="--i:10;--r:300deg"><span style="--r:300deg">1</span></i><i class="m" style="--i:11;--r:330deg"><span style="--r:330deg">2</span></i>
+        <div class="mid"><span class="a">3월</span><b class="z">1년</b><small class="z">한 바퀴 = 한 해</small></div>
+      </div><p class="steps"><i>①</i> 3월에서 출발 → <i>②</i> 달마다 한 칸 → <i>③</i> 한 바퀴 = 1년</p>
+      <h3>한 바퀴 돌기<small>한 해가 지나감</small></h3><p class="why">시계가 한 바퀴 돌면 '1년 동안'이 몸으로 느껴진다.</p>
+      <dl><dt>쓰는 곳</dt><dd>연간 추진 경과, 한 해 성과 돌아보기, 학사 일정</dd><dt>주의</dt><dd>한 바퀴는 정확히 한 주기(1년 · 1학기)로만</dd><dt>PPT</dt><dd>원형 도형 + '시계 방향 닦아내기' 효과</dd></dl></article>
+  </div>
+  <div class="foot"><span>와우 포인트 31 · ⑦ 흐름·시선 · 수치는 모두 가상 예시</span><span>9 / 11</span></div>
+</section>
+
+<!-- 10 ⑧ 표시·뒤집기 -->
+<section class="slide g8" data-title="⑧ 표시·뒤집기">
+  <div class="head"><div><span class="chip"><b>8</b>표시·뒤집기</span><h2>짚어 주고 뒤집어 보여 주면 기억에 남는다</h2></div><div class="meta">기법 3</div></div>
+  <div class="cards c3">
+    <article class="card"><div class="demo d-flap" data-js="flap">
+        <div class="hd"><span>바뀌는 것</span><span>2027</span></div>
+        <div class="fr"><span class="k">민원 처리</span><span class="cells" data-from="14일" data-to=" 3일"></span></div>
+        <div class="fr"><span class="k">제출 서류</span><span class="cells" data-from=" 7종" data-to=" 2종"></span></div>
+        <div class="fr"><span class="k">결재 단계</span><span class="cells" data-from=" 5번" data-to=" 2번"></span></div>
+      </div><p class="steps"><i>①</i> 지금 값 → <i>②</i> 칸이 타다닥 넘어감 → <i>③</i> 바뀐 값에 멈춤</p>
+      <h3>출발판 넘김<small>타다닥 바뀌는 숫자판</small></h3><p class="why">숫자판이 넘어가는 소리가 들리는 듯해 '바뀌었다'가 남는다.</p>
+      <dl><dt>쓰는 곳</dt><dd>기간 · 건수 단축, 새 일정 공개, 결과 발표</dd><dt>주의</dt><dd>바뀌는 칸만 넘긴다. 넘김은 2초 안</dd><dt>PPT</dt><dd>숫자만 다른 장 여러 장 + 아주 짧은 '밀어내기(아래에서)' 전환</dd></dl></article>
+    <article class="card"><div class="demo d-circle">
+        <table><thead><tr><th>지역</th><th>2025</th><th>2026</th></tr></thead>
+          <tbody><tr><td>가 지역</td><td>12</td><td>14</td></tr><tr><td>나 지역</td><td>9</td><td><b class="hit">21<svg viewBox="0 0 100 60" aria-hidden="true"><path pathLength="1" d="M11.3 20.7 L12.9 18.7 L14.7 16.8 L16.5 15.1 L18.5 13.6 L20.6 12.2 L22.9 11.0 L25.5 10.0 L28.3 9.1 L31.4 8.4 L34.8 7.9 L38.5 7.5 L42.3 7.2 L46.3 7.0 L50.4 7.0 L54.5 7.1 L58.5 7.3 L62.3 7.6 L65.9 8.0 L69.3 8.6 L72.3 9.3 L75.1 10.2 L77.6 11.2 L79.8 12.5 L81.9 13.9 L83.9 15.4 L85.7 17.2 L87.4 19.1 L89.1 21.2 L90.6 23.3 L92.0 25.6 L93.2 27.9 L94.1 30.3 L94.6 32.6 L94.8 34.9 L94.5 37.2 L93.7 39.3 L92.3 41.3 L90.5 43.2 L88.1 44.9 L85.4 46.4 L82.3 47.8 L78.9 49.0 L75.3 50.0 L71.6 50.9 L67.9 51.6 L64.1 52.1 L60.4 52.5 L56.8 52.8 L53.2 53.0 L49.6 53.0 L46.0 52.9 L42.4 52.7 L38.8 52.4 L35.1 52.0 L31.3 51.4 L27.6 50.7 L23.9 49.8 L20.4 48.8 L17.0 47.5 L14.0 46.1 L11.3 44.6 L9.1 42.8 L7.3 40.9 L6.1 38.8 L5.4 36.7 L5.2 34.4 L5.4 32.1 L6.1 29.7 L7.1 27.4 L8.3 25.1 L9.7 22.8 L11.3 20.7 L12.9 18.7 L14.7 16.8 L16.5 15.1 L18.5 13.6 L20.6 12.2 L22.9 11.0 L25.5 10.0 L28.3 9.1 L31.4 8.4 L34.8 7.9 L38.5 7.5 L42.3 7.2"/></svg></b></td></tr><tr><td>다 지역</td><td>15</td><td>16</td></tr></tbody></table>
+        <div class="memo">두 배 넘게!</div>
+      </div><p class="steps"><i>①</i> 표 한 장 → <i>②</i> 펜으로 두르기 → <i>③</i> 한마디 메모</p>
+      <h3>동그라미 치기<small>펜으로 짚어 주기</small></h3><p class="why">발표자가 펜으로 짚어 주는 듯해 시선이 바로 그 숫자로 간다.</p>
+      <dl><dt>쓰는 곳</dt><dd>표 · 그래프에서 숫자 하나 짚기, 법령 문구 강조</dd><dt>주의</dt><dd>한 장에 한 번. 메모는 세 낱말 이하</dd><dt>PPT</dt><dd>자유형 곡선(낙서) + '닦아내기' 또는 펜 그리기 기록</dd></dl></article>
+    <article class="card"><div class="demo d-flip">
+        <div class="fc" style="--i:0"><div class="f"><span>Q</span>업무가 줄었다고 느낀 교사는?</div><div class="b"><b>68<small>%</small></b><span>2025년 41%</span></div></div>
+        <div class="fc" style="--i:1"><div class="f"><span>Q</span>제출 서류는 몇 종으로?</div><div class="b"><b>2<small>종</small></b><span>7종에서</span></div></div>
+        <div class="fc" style="--i:2"><div class="f"><span>Q</span>민원 처리 기간은?</div><div class="b"><b>3<small>일</small></b><span>14일에서</span></div></div>
+      </div><p class="steps"><i>①</i> 질문 면 → <i>②</i> 잠깐 생각 → <i>③</i> 차례로 뒤집혀 답</p>
+      <h3>카드 뒤집기<small>질문 → 답</small></h3><p class="why">답을 먼저 짐작해 본 사람은 그 답을 오래 기억한다.</p>
+      <dl><dt>쓰는 곳</dt><dd>퀴즈, 오해와 사실, 예상과 실제</dd><dt>주의</dt><dd>뒤집기 전에 1~2초 멈춰 생각할 틈을 준다</dd><dt>PPT</dt><dd>같은 카드 두 장(앞 · 뒤) + 모핑 또는 '회전' 전환</dd></dl></article>
+  </div>
+  <div class="foot"><span>와우 포인트 31 · ⑧ 표시·뒤집기 · 수치는 모두 가상 예시</span><span>10 / 11</span></div>
+</section>
+
 <section class="slide" data-title="고르는 법">
   <div class="head"><div><span class="chip" style="--gc:var(--accent)"><b>✓</b>고르는 법</span><h2>하고 싶은 말이 기법을 정한다</h2></div><div class="meta">기법보다 메시지가 먼저</div></div>
   <div class="pick"><h3>하고 싶은 말 → 맞는 기법</h3>
     <table>
       <thead><tr><th>하고 싶은 말</th><th>기법</th></tr></thead>
       <tbody>
-        <tr><td>"이만큼 바뀝니다"</td><td><span class="tg g2">비포/애프터</span><span class="tg g2">연속 변형</span></td></tr>
+        <tr><td>"이만큼 바뀝니다"</td><td><span class="tg g2">비포/애프터</span><span class="tg g2">연속 변형</span><span class="tg g8">출발판 넘김</span></td></tr>
         <tr><td>"이 숫자가 심각합니다"</td><td><span class="tg g3">큰 숫자</span><span class="tg g3">단위 차트</span></td></tr>
         <tr><td>"목표에 닿았습니다(닿을 겁니다)"</td><td><span class="tg g6">팡! 터뜨리기</span><span class="tg g3">카운트업</span><span class="tg g4">게임화</span></td></tr>
         <tr><td>"순위·흐름이 뒤집혔습니다"</td><td><span class="tg g3">데이터 레이스</span></td></tr>
-        <tr><td>"구조가 복잡하지만 따라오세요"</td><td><span class="tg g1">점진적 공개</span><span class="tg g1">줌 인</span><span class="tg g6">또롱또롱</span></td></tr>
+        <tr><td>"구조가 복잡하지만 따라오세요"</td><td><span class="tg g1">점진적 공개</span><span class="tg g1">줌 인</span><span class="tg g6">또롱또롱</span><span class="tg g7">시선 넘기기</span></td></tr>
         <tr><td>"다음 단계로 넘어갑니다"</td><td><span class="tg g6">칙칙폭폭 지나가기</span><span class="tg g1">리빌</span></td></tr>
         <tr><td>"이게 결론입니다"</td><td><span class="tg g6">쿵! 내려앉기</span><span class="tg g3">큰 숫자</span></td></tr>
         <tr><td>"여럿이 함께 만듭니다"</td><td><span class="tg g4">시각 은유</span><span class="tg g4">물리 모션</span></td></tr>
         <tr><td>"새로 시작합니다"</td><td><span class="tg g1">리빌</span><span class="tg g6">타이포 조립</span><span class="tg g5">극단적 여백</span></td></tr>
-        <tr><td>"해마다 돌며 나아집니다"</td><td><span class="tg g2">수미상관</span><span class="tg g5">3D·깊이</span></td></tr>
+        <tr><td>"해마다 돌며 나아집니다"</td><td><span class="tg g2">수미상관</span><span class="tg g5">3D·깊이</span><span class="tg g7">한 바퀴 돌기</span></td></tr>
+        <tr><td>"돈 · 사람이 어디로 가는지 보세요"</td><td><span class="tg g7">흐름 띠</span><span class="tg g7">점 다시 모으기</span></td></tr>
+        <tr><td>"바로 이 숫자입니다" · "짐작해 보세요"</td><td><span class="tg g8">동그라미 치기</span><span class="tg g8">카드 뒤집기</span></td></tr>
       </tbody>
     </table></div>
   <div class="rules"><h3>쓰는 원칙 4가지</h3>
@@ -727,13 +893,13 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
     </ol>
     <div class="off"><b>화면 밖 와우</b> · 청중 참여(QR 실시간 투표 → 결과를 바로 장표에) · 실물 소품과 현장 시연. 화면 기법보다 강하지만 준비와 리허설 비용이 크다.</div>
   </div>
-  <div class="foot"><span>와우 포인트 24 · 고르는 법</span><span>9 / 9</span></div>
+  <div class="foot"><span>와우 포인트 31 · 고르는 법</span><span>11 / 11</span></div>
 </section>
 
 </div></div>
 <nav class="bar" aria-label="장표 넘기기">
   <button type="button" id="prev" aria-label="이전 장">←</button>
-  <span class="count" id="count">1 / 9</span>
+  <span class="count" id="count">1 / 11</span>
   <button type="button" id="next" aria-label="다음 장">→</button>
   <button type="button" id="replay">↻ 다시 재생</button>
   <a href="../index.html">갤러리로</a>
@@ -792,6 +958,41 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       set(0); let s = 0;
       const tick = () => { if (tok !== el._t || s >= 2) return; set(++s); setTimeout(tick, 1700); };
       setTimeout(tick, 1400);
+    },
+    regroup(el, end) {
+      const G = [['#0E5C64', 18, 20], ['#3FA3AD', 12, 50], ['#9CD2D7', 10, 80]];
+      if (!el._dots) { el._dots = []; let k = 0; const mix = [];
+        G.forEach(([c, n], g) => { for (let j = 0; j < n; j++) mix.push([g, j]); });
+        for (let i = mix.length - 1; i > 0; i--) { const j = (i * 7919 + 13) % (i + 1); [mix[i], mix[j]] = [mix[j], mix[i]]; }
+        mix.forEach(([g, j], i) => { const d = document.createElement('i'); d.className = 'dot'; el.appendChild(d); el._dots.push({ d, g, j, i }); }); }
+      const tok = el._t = (el._t || 0) + 1;
+      const set = ph => {
+        el.classList.toggle('grouped', ph === 2);
+        el._dots.forEach(({ d, g, j, i }) => {
+          if (ph < 2) { d.style.left = (13 + (i % 8) * 10.6) + '%'; d.style.top = (24 + Math.floor(i / 8) * 12.5) + '%'; }
+          else { d.style.left = (G[g][2] - 8 + (j % 3) * 8) + '%'; d.style.top = (24 + Math.floor(j / 3) * 9.4) + '%'; }
+          d.style.background = ph === 0 ? '#C9CED4' : G[g][0];
+        });
+      };
+      if (end || RM) return set(2);
+      set(0); let ph = 0;
+      const tick = () => { if (tok !== el._t || ph >= 2) return; set(++ph); setTimeout(tick, 1500); };
+      setTimeout(tick, 1100);
+    },
+    flap(el, end) {
+      const CH = '0123456789일종번';
+      const rows = [...el.querySelectorAll('.cells')], tok = el._t = (el._t || 0) + 1;
+      rows.forEach(r => { if (!r._c) { r._c = [...r.dataset.from].map(ch => { const c = document.createElement('span'); c.className = 'c'; r.appendChild(c); return c; }); } });
+      const put = (c, ch) => { c.textContent = ch === ' ' ? '' : ch; };
+      if (end || RM) return rows.forEach(r => r._c.forEach((c, i) => { put(c, r.dataset.to[i]); c.classList.toggle('end', r.dataset.to[i] !== r.dataset.from[i]); }));
+      rows.forEach(r => r._c.forEach((c, i) => { put(c, r.dataset.from[i]); c.classList.remove('end', 'f'); }));
+      rows.forEach((r, ri) => r._c.forEach((c, i) => {
+        const a = r.dataset.from[i], b = r.dataset.to[i]; if (a === b) return;
+        let n = 9 + ri * 4 + i * 2;
+        const step = () => { if (tok !== el._t) return; c.classList.remove('f'); void c.offsetWidth; c.classList.add('f');
+          if (--n <= 0) { put(c, b); c.classList.add('end'); return; } put(c, CH[(n * 7 + i) % 10]); setTimeout(step, 75); };
+        setTimeout(step, 900 + ri * 260);
+      }));
     },
     ba(el) { /* 자동 훑기는 CSS. 끌면 직접 비교 */ },
     fw(el, end) { el._e = el._e || Fireworks(el); end ? el._e.final() : el._e.run(); },

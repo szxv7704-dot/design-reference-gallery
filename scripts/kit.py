@@ -49,7 +49,7 @@ META = {
        'sig': '사선 띠(`.slant`)를 씁니다. 표지는 `.slant full`(띠 넷), 맺음은 `.slant fin`(띠 셋), 목차 · 간지는 `.slant row`: 평행사변형 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`.'},
  'K': {'refs': '기하 표지 씨앗 3', 'roles': ('Noto Sans KR', 'Noto Sans KR', 'Noto Sans KR'),
        'desc': '흰 바탕에 쪽빛 한 계열의 모듈 격자. 겨자는 한 장에 한 곳', 'fit': '수치 · 실적이 많은 보고, 정돈된 인상',
-       'sig': '격자 칸(`.cells`)을 씁니다. 표지는 `.cells full`(4 × 5 격자, `<i>` 열여섯), 맺음은 `.cells fin`(3 × 3, `<i>` 아홉), 목차 · 간지는 `.cells row`: 칸 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`.'},
+       'sig': '격자 칸(`.mods`)을 씁니다. 표지는 `.mods full`(4 × 5 격자, `<i>` 열여섯), 맺음은 `.mods fin`(3 × 3, `<i>` 아홉), 목차 · 간지는 `.mods row`: 칸 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`.'},
  'L': {'refs': '기하 표지 씨앗 4(대안 A)', 'roles': ('Noto Serif KR', 'IBM Plex Sans KR', 'Noto Serif KR'),
        'desc': '흰 바탕에 자주 한 계열의 점 격자와 가는 선, 명조 제목. 금빛은 한 장에 한 곳', 'fit': '정책 · 비전 보고, 차분하고 단정한 자리',
        'sig': '점 격자(`.pips`)를 씁니다. 표지는 `.pips full`(6 × 7 점, 오른쪽으로 갈수록 작아지고 금빛 점 하나가 남음, `<i>` 마흔둘), 맺음은 `.pips fin`(`<i>` 마흔둘), 목차 · 간지는 `.pips row`: 점 수 = 섹션 수, 지난 점 `.done` · 지금 점 `.now`.'},
@@ -97,7 +97,7 @@ def sig(fam, kind, i=0, n=5, num=''):
         if fam == 'G': return '<div class="stars %s"%s></div>' % (st if kind in ('toc', 'divider') else 'all', hid)
         return '<div class="tiles %s"%s></div>' % ({'cover': 'big', 'close': 'roof'}.get(kind, st), hid)
     if fam in 'IJKL':   # 기하 계열: 표지 · 맺음은 고정 구성, 목차 · 간지는 섹션 수만큼 도형 한 줄
-        cls = {'I': 'orbs', 'J': 'slant', 'K': 'cells', 'L': 'pips'}[fam]
+        cls = {'I': 'orbs', 'J': 'slant', 'K': 'mods', 'L': 'pips'}[fam]
         if kind in ('cover', 'close'):
             k = {'I': (6, 4), 'J': (4, 3), 'K': (16, 9), 'L': (42, 42)}[fam][kind == 'close']
             return '<div class="%s %s"%s>%s</div>' % (cls, 'full' if kind == 'cover' else 'fin', hid, '<i></i>' * k)

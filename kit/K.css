@@ -24,26 +24,26 @@
 .src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
 .page-no{position:absolute;right:120px;bottom:40px;font:700 22px/1 var(--ds-font-num);color:var(--ds-sub)}
 
-/* ── 격자 칸(.cells): 이 계열의 얼굴. 표지 · 목차 · 간지 · 맺음에만 ─────
+/* ── 격자 칸(.mods): 이 계열의 얼굴. 표지 · 목차 · 간지 · 맺음에만 ─────
    표지: 4 × 5 격자(<i> 열여섯, 둘은 두 칸 · 하나는 네 칸), 맺음: 3 × 3(<i> 아홉), 목차 · 간지: 칸 n개 = 섹션 수, .done 지난 · .now 지금 */
-.cells{position:absolute;pointer-events:none}
-.cells i{display:block;background:var(--ds-c5)}
-.cells.full{right:110px;top:110px;display:grid;grid-template-columns:repeat(4,180px);grid-template-rows:repeat(5,160px);gap:12px}
-.cells.full i:nth-child(1),.cells.full i:nth-child(5),.cells.full i:nth-child(7),.cells.full i:nth-child(12),.cells.full i:nth-child(14){background:transparent;box-shadow:inset 0 0 0 2px var(--ds-c5)}
-.cells.full i:nth-child(3){grid-column:span 2;background:var(--ds-c1)}
-.cells.full i:nth-child(4){grid-row:span 2;background:var(--ds-ink)}
-.cells.full i:nth-child(8){grid-column:span 2;grid-row:span 2;background:var(--ds-c1)}
-.cells.full i:nth-child(10){background:var(--ds-point)}
-.cells.full i:nth-child(13){background:var(--ds-c3)}
-.cells.full i:nth-child(15){background:var(--ds-c1)}
-.cells.fin{right:160px;top:240px;display:grid;grid-template-columns:repeat(3,180px);grid-template-rows:repeat(3,180px);gap:12px}
-.cells.fin i:nth-child(odd){background:transparent;box-shadow:inset 0 0 0 2px var(--ds-c5)}
-.cells.fin i:nth-child(2),.cells.fin i:nth-child(4){background:var(--ds-c1)}
-.cells.fin i:nth-child(5){background:var(--ds-point)}
-.cells.row{display:flex;gap:12px;align-items:flex-end}
-.cells.row i{width:72px;height:72px;background:transparent;box-shadow:inset 0 0 0 2px var(--ds-c4)}
-.cells.row i.done{background:var(--ds-c1);box-shadow:none}
-.cells.row i.now{background:var(--ds-point);box-shadow:none;width:156px;height:156px}
+.mods{position:absolute;pointer-events:none}
+.mods i{display:block;background:var(--ds-c5)}
+.mods.full{right:110px;top:110px;display:grid;grid-template-columns:repeat(4,180px);grid-template-rows:repeat(5,160px);gap:12px}
+.mods.full i:nth-child(1),.mods.full i:nth-child(5),.mods.full i:nth-child(7),.mods.full i:nth-child(12),.mods.full i:nth-child(14){background:transparent;box-shadow:inset 0 0 0 2px var(--ds-c5)}
+.mods.full i:nth-child(3){grid-column:span 2;background:var(--ds-c1)}
+.mods.full i:nth-child(4){grid-row:span 2;background:var(--ds-ink)}
+.mods.full i:nth-child(8){grid-column:span 2;grid-row:span 2;background:var(--ds-c1)}
+.mods.full i:nth-child(10){background:var(--ds-point)}
+.mods.full i:nth-child(13){background:var(--ds-c3)}
+.mods.full i:nth-child(15){background:var(--ds-c1)}
+.mods.fin{right:160px;top:240px;display:grid;grid-template-columns:repeat(3,180px);grid-template-rows:repeat(3,180px);gap:12px}
+.mods.fin i:nth-child(odd){background:transparent;box-shadow:inset 0 0 0 2px var(--ds-c5)}
+.mods.fin i:nth-child(2),.mods.fin i:nth-child(4){background:var(--ds-c1)}
+.mods.fin i:nth-child(5){background:var(--ds-point)}
+.mods.row{display:flex;gap:12px;align-items:flex-end}
+.mods.row i{width:72px;height:72px;background:transparent;box-shadow:inset 0 0 0 2px var(--ds-c4)}
+.mods.row i.done{background:var(--ds-c1);box-shadow:none}
+.mods.row i.now{background:var(--ds-point);box-shadow:none;width:156px;height:156px}
 
 /* ── 표지 ─────────────────────────────────────────── */
 .cover .c-text{position:absolute;left:150px;top:0;bottom:0;width:900px;display:flex;flex-direction:column;justify-content:center;gap:30px}
@@ -61,14 +61,14 @@
 .toc-list li b{display:grid;place-items:center;width:64px;height:64px;background:var(--ds-c5);font:700 26px/1 var(--ds-font-num);color:var(--ds-c1)}
 .toc-list li span:last-child{justify-self:end;font:700 24px/1 var(--ds-font-num);color:var(--ds-sub)}
 .toc-list li.is-now b{background:var(--ds-point);color:var(--ds-ink)}
-.toc .cells{right:160px;bottom:180px}
+.toc .mods{right:160px;bottom:180px}
 
 /* ── 간지: 큰 번호 + 섹션 이름, 지금 섹션 칸만 겨자 ─────────────── */
 .divider .d-no{position:absolute;left:150px;top:200px;font:900 220px/1 var(--ds-font-num);letter-spacing:-.05em;color:var(--ds-c1)}
 .divider .d-no small{display:block;margin-bottom:24px;font-size:26px;letter-spacing:.06em;color:var(--ds-sub)}
 .divider h2{position:absolute;left:150px;top:560px;margin:0;font:900 88px/1.2 var(--ds-font-title);letter-spacing:-.04em}
 .divider p{position:absolute;left:150px;top:690px;margin:0;width:900px;font-size:30px;color:var(--ds-sub)}
-.divider .cells{right:160px;bottom:200px}
+.divider .mods{right:160px;bottom:200px}
 
 /* ── 마무리 ────────────────────────────────────────── */
 .close h2{position:absolute;left:150px;top:380px;margin:0;width:1000px;font:900 80px/1.25 var(--ds-font-title);letter-spacing:-.04em}
@@ -147,10 +147,10 @@
 @keyframes k-cell{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
 @keyframes k-fade{from{opacity:0}to{opacity:1}}
 @keyframes k-bar{from{transform:scaleX(0)}to{transform:none}}
-.slide.is-on .cells i{animation:k-cell .32s cubic-bezier(.2,.8,.2,1) both}
-.slide.is-on .cells i:nth-child(2){animation-delay:.03s}.slide.is-on .cells i:nth-child(3){animation-delay:.06s}.slide.is-on .cells i:nth-child(4){animation-delay:.09s}
-.slide.is-on .cells i:nth-child(5){animation-delay:.12s}.slide.is-on .cells i:nth-child(6){animation-delay:.15s}.slide.is-on .cells i:nth-child(7){animation-delay:.18s}
-.slide.is-on .cells i:nth-child(8){animation-delay:.21s}.slide.is-on .cells i:nth-child(9){animation-delay:.24s}.slide.is-on .cells i:nth-child(n+10){animation-delay:.27s}
+.slide.is-on .mods i{animation:k-cell .32s cubic-bezier(.2,.8,.2,1) both}
+.slide.is-on .mods i:nth-child(2){animation-delay:.03s}.slide.is-on .mods i:nth-child(3){animation-delay:.06s}.slide.is-on .mods i:nth-child(4){animation-delay:.09s}
+.slide.is-on .mods i:nth-child(5){animation-delay:.12s}.slide.is-on .mods i:nth-child(6){animation-delay:.15s}.slide.is-on .mods i:nth-child(7){animation-delay:.18s}
+.slide.is-on .mods i:nth-child(8){animation-delay:.21s}.slide.is-on .mods i:nth-child(9){animation-delay:.24s}.slide.is-on .mods i:nth-child(n+10){animation-delay:.27s}
 .slide.is-on .grid > :not([data-step]){animation:k-fade .35s ease-out both}
 .slide.is-on .grid > :nth-child(2):not([data-step]){animation-delay:.07s}.slide.is-on .grid > :nth-child(3):not([data-step]){animation-delay:.14s}.slide.is-on .grid > :nth-child(n+4):not([data-step]){animation-delay:.21s}
 .slide.is-on .bar::before{animation:k-bar .6s steps(8,end) .1s both}

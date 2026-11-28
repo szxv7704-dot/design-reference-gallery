@@ -4,7 +4,8 @@
    IBM Plex Sans KR — Copyright 2018 IBM Corp. All rights reserved.
    IBM Plex Mono — Copyright 2017 IBM Corp. All rights reserved.
    Noto Sans KR — (c) 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'.
-   Black Han Sans — Copyright 2015 The Black Han Sans Project Authors (https://github.com/zesstype/Black-Han-Sans) */
+   Black Han Sans — Copyright 2015 The Black Han Sans Project Authors (https://github.com/zesstype/Black-Han-Sans)
+   Nanum Pen Script — Copyright © 2010 NHN Corporation. All rights reserved. Font designed by Sandoll Communications Inc. */
 @font-face{font-family:"Gothic A1";font-weight:800;font-display:swap;src:url("../fonts/GothicA1-800.woff2") format("woff2")}
 @font-face{font-family:"Gothic A1";font-weight:900;font-display:swap;src:url("../fonts/GothicA1-900.woff2") format("woff2")}
 @font-face{font-family:"IBM Plex Sans KR";font-weight:400;font-display:swap;src:url("../fonts/IBMPlexSansKR-400.woff2") format("woff2")}
@@ -17,15 +18,17 @@
 @font-face{font-family:"Gothic A1";font-weight:400;font-display:swap;src:url("../fonts/GothicA1-400.woff2") format("woff2")}
 @font-face{font-family:"Noto Sans KR";font-weight:600;font-display:swap;src:url("../fonts/NotoSansKR-600.woff2") format("woff2")}
 @font-face{font-family:"Black Han Sans";font-weight:400;font-display:swap;src:url("../fonts/BlackHanSans-400.woff2") format("woff2")}
+@font-face{font-family:"Nanum Pen Script";font-weight:400;font-display:swap;src:url("../fonts/NanumPenScript-400.woff2") format("woff2")}
 
 
-/* 와우 포인트 24 — 발표 와우 기법을 여섯 묶음으로 모은 9장 덱.
+/* 와우 포인트 31 — 발표 와우 기법을 여덟 묶음으로 모은 11장 덱.
    이미지 자리: --img-A … --img-H 에 사진을 넣으면 바뀐다(없으면 점선 자리표시). */
 @property --x { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+@property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 :root{
   --bg:#ECE9E3; --paper:#F7F5F1; --surface:#FFFFFF; --ink:#1C2128; --sub:#5C636C; --mute:#9AA0A7; --line:#DAD5CC;
   --accent:#E2571A;
-  --g1:#2F5D86; --g2:#7B4F9E; --g3:#C4471A; --g4:#2E7D5B; --g5:#A87C00; --g6:#B0306A;
+  --g1:#2F5D86; --g2:#7B4F9E; --g3:#C4471A; --g4:#2E7D5B; --g5:#A87C00; --g6:#B0306A; --g7:#12808C; --g8:#617510;
   --ft:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fb:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fm:"IBM Plex Mono",ui-monospace,monospace;
@@ -80,7 +83,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .c3 .card dl{font-size:16px}
 .card dt{font-weight:700;color:var(--gc);white-space:nowrap}
 .card dd{margin:0;color:#343A42}
-.g1{--gc:var(--g1)} .g2{--gc:var(--g2)} .g3{--gc:var(--g3)} .g4{--gc:var(--g4)} .g5{--gc:var(--g5)} .g6{--gc:var(--g6)}
+.g1{--gc:var(--g1)} .g2{--gc:var(--g2)} .g3{--gc:var(--g3)} .g4{--gc:var(--g4)} .g5{--gc:var(--g5)} .g6{--gc:var(--g6)} .g7{--gc:var(--g7)} .g8{--gc:var(--g8)}
 
 /* 이미지 자리 */
 .img{position:absolute;inset:0;background-size:cover;background-position:center}
@@ -102,7 +105,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 @keyframes pop{from{opacity:0;transform:translateY(40px) scale(.85)}to{opacity:1;transform:none}}
 
 /* ── 2 한눈에 ── */
-.map{position:absolute;left:64px;right:64px;top:232px;bottom:150px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.map{position:absolute;left:64px;right:64px;top:232px;bottom:150px;display:grid;grid-template-columns:repeat(8,1fr);gap:12px}
+.map .grp{padding:16px 12px 14px}.map .grp h3{font-size:22px}.map .grp p{font-size:13px;min-height:57px}.map .grp li{font-size:15.5px;padding:7px 9px}.map .grp li small{font-size:12px}
 .grp{background:var(--surface);border-radius:14px;padding:18px 16px 16px;border-top:6px solid var(--gc);display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s}
 .grp:hover{transform:translateY(-4px)}
 .grp .n{font:700 16px var(--fm);color:var(--gc)}
@@ -406,11 +410,11 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 /* ── 9 고르는 법 ── */
 .pick{position:absolute;left:64px;top:232px;width:860px;bottom:62px;background:var(--surface);border-radius:14px;padding:26px 30px}
 .pick h3,.rules h3{margin:0 0 14px;font:800 26px var(--ft)}
-.pick table{width:100%;border-collapse:collapse;font:500 18px/1.4 var(--fb)}
+.pick table{width:100%;border-collapse:collapse;font:500 16px/1.35 var(--fb)}
 .pick th{text-align:left;font:600 14px var(--fm);color:var(--sub);padding:0 0 8px;border-bottom:2px solid var(--ink)}
-.pick td{padding:8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.pick td{padding:4px 0;border-bottom:1px solid var(--line);vertical-align:top}
 .pick td:first-child{font-weight:700;width:46%;padding-right:20px}
-.pick .tg{display:inline-block;margin:0 6px 4px 0;padding:3px 10px;border-radius:99px;font:600 15px var(--fb);color:#fff;background:var(--gc)}
+.pick .tg{display:inline-block;margin:0 5px 3px 0;padding:2px 9px;border-radius:99px;font:600 14px var(--fb);color:#fff;background:var(--gc)}
 .rules{position:absolute;left:950px;right:64px;top:232px;bottom:62px;display:flex;flex-direction:column;gap:14px}
 .rules ol{margin:0;padding:0;list-style:none;display:grid;gap:12px;counter-reset:r}
 .rules li{background:var(--surface);border-radius:12px;padding:16px 20px 16px 64px;position:relative;font:400 16px/1.5 var(--fb);color:#3A4049;counter-increment:r}
@@ -422,6 +426,99 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 
 /* 인쇄: 한 장 = 한 쪽, 움직임은 끝 화면으로 */
 @page{size:1600px 900px;margin:0}
+/* ── ⑦ 흐름 띠: 띠가 왼쪽부터 차례로 흘러가고, 가장 굵은 띠만 진한 색 ── */
+.d-flow{background:#fff}
+.d-flow svg{position:absolute;inset:4% 3%;width:94%;height:92%}
+.d-flow text{font:600 13px var(--fb);fill:#1C2128}
+.d-flow .tl{font:800 15px var(--ft)}
+.d-flow .note{font:500 12px var(--fb);fill:#5C636C}
+.d-flow .bd{opacity:.95}
+.play .d-flow .bd{animation:flowIn .9s cubic-bezier(.5,0,.2,1) both;animation-delay:calc(var(--i)*.45s + .4s)}
+.play .d-flow .rn,.play .d-flow .lb{animation:fadeIn .4s both;animation-delay:calc(var(--i)*.45s + 1.1s)}
+@keyframes flowIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+
+/* ── ⑦ 점 다시 모으기(JS: regroup) ── */
+.d-regroup{background:#fff}
+.d-regroup .dot{position:absolute;width:5cqw;height:5cqw;margin:-2.5cqw 0 0 -2.5cqw;border-radius:50%;background:#C9CED4;transition:left .9s cubic-bezier(.6,0,.2,1),top .9s cubic-bezier(.6,0,.2,1),background .5s}
+.d-regroup .lab{position:absolute;bottom:7%;transform:translateX(-50%);font:600 4.4cqw var(--fb);color:#5C636C;opacity:0;transition:opacity .5s}
+.d-regroup .lab b{font:900 7cqw var(--ft);color:#1C2128;margin-left:.8cqw}
+.d-regroup .cap{position:absolute;left:6%;top:5%;font:700 4.6cqw var(--fb);color:#1C2128}
+.d-regroup.grouped .lab{opacity:1}
+
+/* ── ⑦ 시선 넘기기: 강조 틀이 한 칸씩 내려가고 나머지는 흐려진다. 끝나면 모두 밝게 ── */
+.d-hand{background:#fff}
+.d-hand .row{position:absolute;left:8%;right:8%;height:17%;top:calc(8% + var(--i)*22%);display:grid;grid-template-columns:9cqw 1fr;grid-template-rows:auto auto;align-content:center;column-gap:3cqw;font:800 6.6cqw/1.15 var(--ft);color:#1C2128}
+.d-hand .row b{grid-row:1 / 3;display:grid;place-items:center;width:9cqw;height:9cqw;border-radius:50%;background:#EEF4F5;color:var(--g7);font:700 4.6cqw var(--fm)}
+.d-hand .row span{font:500 4cqw var(--fb);color:#5C636C}
+.d-hand .box{position:absolute;left:4%;right:4%;height:20%;top:6.5%;border:.8cqw solid var(--g7);border-radius:2cqw;opacity:0}
+.play .d-hand .box{animation:handBox 5.4s cubic-bezier(.6,0,.2,1) .3s both}
+.play .d-hand .row:nth-of-type(2){animation:hand0 5.4s .3s both}.play .d-hand .row:nth-of-type(3){animation:hand1 5.4s .3s both}
+.play .d-hand .row:nth-of-type(4){animation:hand2 5.4s .3s both}.play .d-hand .row:nth-of-type(5){animation:hand3 5.4s .3s both}
+@keyframes handBox{0%{opacity:0;top:6.5%}4%,20%{opacity:1;top:6.5%}25%,41%{opacity:1;top:28.5%}46%,62%{opacity:1;top:50.5%}67%,86%{opacity:1;top:72.5%}100%{opacity:0;top:72.5%}}
+@keyframes hand0{0%,20%{opacity:1}24%,86%{opacity:.28}100%{opacity:1}}
+@keyframes hand1{0%,20%{opacity:.28}24%,41%{opacity:1}45%,86%{opacity:.28}100%{opacity:1}}
+@keyframes hand2{0%,41%{opacity:.28}45%,62%{opacity:1}66%,86%{opacity:.28}100%{opacity:1}}
+@keyframes hand3{0%,62%{opacity:.28}66%,100%{opacity:1}}
+
+/* ── ⑦ 한 바퀴 돌기: 고리가 시계 방향으로 차고, 달마다 점이 켜진다 ── */
+.d-clock{background:#fff}
+.d-clock .ring{position:absolute;left:50%;top:50%;width:62cqw;height:62cqw;margin:-31cqw 0 0 -31cqw;border-radius:50%;--a:360deg;
+  background:conic-gradient(var(--g7) var(--a),#E6E2DA 0);-webkit-mask:radial-gradient(closest-side,transparent 78%,#000 79%);mask:radial-gradient(closest-side,transparent 78%,#000 79%)}
+.play .d-clock .ring{animation:clockA 3.6s linear .5s both}
+@keyframes clockA{from{--a:0deg}to{--a:360deg}}
+.d-clock .m{position:absolute;left:50%;top:50%;width:0;height:0;transform:rotate(var(--r)) translateY(-40cqw)}
+.d-clock .m span{position:absolute;left:-3.6cqw;top:-3.6cqw;width:7.2cqw;height:7.2cqw;display:grid;place-items:center;border-radius:50%;transform:rotate(calc(var(--r) * -1));font:700 3.6cqw var(--fm);background:var(--g7);color:#fff}
+.play .d-clock .m span{animation:monthOn .3s both;animation-delay:calc(var(--i)*.3s + .5s)}
+@keyframes monthOn{from{background:#E6E2DA;color:#9AA0A7}to{background:var(--g7);color:#fff}}
+.d-clock .mid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center}
+.d-clock .mid > *{display:block}
+.d-clock .mid .a{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:800 9cqw var(--ft);color:#5C636C;opacity:0;white-space:nowrap}
+.d-clock .mid b{font:900 15cqw/1 var(--ft);color:#1C2128;letter-spacing:-.04em}
+.d-clock .mid small{margin-top:1.4cqw;font:600 3.8cqw var(--fb);color:var(--g7);white-space:nowrap}
+.play .d-clock .mid .a{animation:clockStart 4.1s both}
+.play .d-clock .mid .z{animation:fadeIn .5s 4.1s both}
+@keyframes clockStart{0%,85%{opacity:1}100%{opacity:0}}
+
+/* ── ⑧ 출발판 넘김(JS: flap) ── */
+.d-flap{background:#1E2329;padding:5% 6%;display:flex;flex-direction:column;justify-content:center}
+.d-flap .hd{display:flex;justify-content:space-between;font:600 3.6cqw var(--fm);color:#AEB4BB;border-bottom:1px solid #39404A;padding-bottom:2cqw}
+.d-flap .fr{display:flex;align-items:center;justify-content:space-between;margin-top:4cqw}
+.d-flap .k{font:700 5.2cqw var(--fb);color:#fff;white-space:nowrap}
+.d-flap .cells{display:flex;gap:1cqw}
+.d-flap .c{position:relative;width:9.6cqw;height:13cqw;display:grid;place-items:center;border-radius:1cqw;background:#2E343C;font:800 8.4cqw/1 var(--ft);color:#F4F1E8}
+.d-flap .c::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:#1E2329}
+.d-flap .c.f{animation:flapTick .07s linear}
+.d-flap .c.end{color:#E9F07A}
+@keyframes flapTick{0%{transform:scaleY(1)}50%{transform:scaleY(.15)}100%{transform:scaleY(1)}}
+
+/* ── ⑧ 동그라미 치기: 펜 선이 숫자를 두르고 손글씨 한마디 ── */
+.d-circle{background:#fff}
+.d-circle table{position:absolute;left:8%;width:84%;top:14%;border-collapse:collapse;font:500 5cqw/1 var(--fb);color:#1C2128}
+.d-circle th{font:600 3.8cqw var(--fm);color:#5C636C;text-align:right;padding:0 2cqw 2.4cqw;border-bottom:2px solid #1C2128}
+.d-circle th:first-child,.d-circle td:first-child{text-align:left}
+.d-circle td{text-align:right;padding:3.4cqw 2cqw;border-bottom:1px solid #E6E2DA}
+.d-circle td b{font-weight:800}
+.d-circle .hit{position:relative;font-weight:800}
+.d-circle svg{position:absolute;left:50%;top:50%;width:24cqw;height:14.4cqw;transform:translate(-56%,-52%);overflow:visible}
+.d-circle path{fill:none;stroke:var(--g8);stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.play .d-circle path{animation:penDraw 1.1s cubic-bezier(.5,.1,.3,1) .8s both}
+@keyframes penDraw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.d-circle .memo{position:absolute;right:6%;bottom:9%;font:400 8.6cqw/1 "Nanum Pen Script",cursive;color:var(--g8);transform:rotate(-6deg)}
+.play .d-circle .memo{animation:fadeIn .4s 2s both}
+
+/* ── ⑧ 카드 뒤집기: 질문 면이 차례로 뒤집혀 답 ── */
+.d-flip{background:#F1EEE8;display:grid;grid-template-columns:repeat(3,1fr);column-gap:3%;padding:9% 5%;perspective:900px}
+.d-flip .fc{position:relative;transform-style:preserve-3d;transform:rotateY(180deg)}
+.play .d-flip .fc{animation:flipCard .8s cubic-bezier(.5,0,.2,1) both;animation-delay:calc(var(--i)*.9s + 1.4s)}
+@keyframes flipCard{from{transform:none}to{transform:rotateY(180deg)}}
+.d-flip .f,.d-flip .b{position:absolute;inset:0;border-radius:2cqw;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;padding:4cqw 3cqw}
+.d-flip .f{background:#fff;font:700 4.4cqw/1.35 var(--fb);color:#1C2128;box-shadow:0 1px 0 #DAD5CC}
+.d-flip .f span{font:800 9cqw/1 var(--ft);color:var(--g8);margin-bottom:3cqw}
+.d-flip .b{background:var(--g8);color:#fff;transform:rotateY(180deg);justify-content:center;align-items:center;text-align:center}
+.d-flip .b b{font:900 14cqw/1 var(--ft);letter-spacing:-.04em}
+.d-flip .b b small{font-size:.4em;margin-left:.5cqw}
+.d-flip .b span{margin-top:2.4cqw;font:600 3.6cqw var(--fb);opacity:.85}
+
 @media print{
   html,body{background:#fff;height:auto}
   .bar{display:none}

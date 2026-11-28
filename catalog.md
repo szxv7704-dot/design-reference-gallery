@@ -129,7 +129,7 @@
 | #106 | 새로운 일상이 도착했습니다 | B | https://szxv7704-dot.github.io/design-reference-gallery/covers/106.html | https://szxv7704-dot.github.io/design-reference-gallery/covers/106.css | **표지의 장치를 본문까지** — 고정폭 'DELIVERED · …' 줄 · 주황 테이프 띠(화살표 + OPEN NEW POSSIBILITIES) · 송장 라벨(바코드 · 보내는 분 · 받는 분 · 물품명 · NXT 번호 · 주황 도장) · 위 테두리 주황인 꺼낸 카드 세 장 · 표지 원화의 택배 상자 · 빌린 본문 #87 #76 #73 |
 | #109 | 피사체는 그대로, 시선은 새로 | B | https://szxv7704-dot.github.io/design-reference-gallery/covers/109.html | https://szxv7704-dot.github.io/design-reference-gallery/covers/109.css | **표지의 장치를 본문까지** — 전시 포스터 틀(위 가는 줄 'NEW WAYS OF SEEING ··· EXHIBITION / 0n', 아래 질문과 'PERSPECTIVE / ANALOG STUDY') · 아주 굵은 고딕 결론 · 렌즈 조각 줄(장마다 하나씩 끼워짐) · 빨간 뷰파인더 꺾쇠 · 표지 원화의 렌즈 조각과 고양이 · 카메라 사진 · 빌린 본문 #53 #94 |
 
-## 와우 포인트 (24가지, 기법 하나 = 덱 하나)
+## 와우 포인트 (31가지, 기법 하나 = 덱 하나)
 
 발표 연출 기법. 덱마다 3장(표지 · 크게 보기 · 쓰는 법). 한 발표에 한두 번만 쓴다.
 
@@ -159,6 +159,13 @@
 | 22 | 또롱또롱 떨어지기 | 소리가 보이는 모션 | 같은 박자로 하나씩 생겨 개수와 순서가 몸에 남는다. | "구조가 복잡하지만 따라오세요" | 과제 목록, 절차 단계, 핵심어 나열 | https://szxv7704-dot.github.io/design-reference-gallery/wow/22.html |
 | 23 | 쿵! 내려앉기 | 소리가 보이는 모션 | 무거운 착지와 흔들림이 '이게 결론'이라고 알린다. | "이게 결론입니다" | 결론 한 문장, 핵심 숫자 | https://szxv7704-dot.github.io/design-reference-gallery/wow/23.html |
 | 24 | 타이포 조립 | 소리가 보이는 모션 | "무슨 글자지?" 하다가 한순간 맞춰지며 "아!" 하게 된다. | "새로 시작합니다" | 표지 제목, 연도·슬로건 공개, 간지 | https://szxv7704-dot.github.io/design-reference-gallery/wow/24.html |
+| 25 | 흐름 띠 | 흐름·시선 | 돈과 사람이 어디로 가는지 눈으로 따라간다. | "돈 · 사람이 어디로 가는지 보세요" | 예산 편성, 인력 배치, 졸업 후 진로 | https://szxv7704-dot.github.io/design-reference-gallery/wow/25.html |
+| 26 | 점 다시 모으기 | 흐름·시선 | 섞여 있던 점이 무리로 갈라지는 순간 비율이 보인다. | "돈 · 사람이 어디로 가는지 보세요" | 대상 · 학교급 분포, 설문 응답 나누기 | https://szxv7704-dot.github.io/design-reference-gallery/wow/26.html |
+| 27 | 시선 넘기기 | 흐름·시선 | 지금 말하는 항목만 밝다. 청중이 길을 잃지 않는다. | "구조가 복잡하지만 따라오세요" | 추진 과제 차례 설명, 목차 진행 | https://szxv7704-dot.github.io/design-reference-gallery/wow/27.html |
+| 28 | 한 바퀴 돌기 | 흐름·시선 | 시계가 한 바퀴 돌면 '1년 동안'이 몸으로 느껴진다. | "해마다 돌며 나아집니다" | 연간 추진 경과, 한 해 성과 돌아보기, 학사 일정 | https://szxv7704-dot.github.io/design-reference-gallery/wow/28.html |
+| 29 | 출발판 넘김 | 표시·뒤집기 | 숫자판이 넘어가는 소리가 들리는 듯해 '바뀌었다'가 남는다. | "이만큼 바뀝니다" | 기간 · 건수 단축, 새 일정 공개, 결과 발표 | https://szxv7704-dot.github.io/design-reference-gallery/wow/29.html |
+| 30 | 동그라미 치기 | 표시·뒤집기 | 발표자가 펜으로 짚어 주는 듯해 시선이 바로 그 숫자로 간다. | "바로 이 숫자입니다" · "짐작해 보세요" | 표 · 그래프에서 숫자 하나 짚기, 법령 문구 강조 | https://szxv7704-dot.github.io/design-reference-gallery/wow/30.html |
+| 31 | 카드 뒤집기 | 표시·뒤집기 | 답을 먼저 짐작해 본 사람은 그 답을 오래 기억한다. | "바로 이 숫자입니다" · "짐작해 보세요" | 퀴즈, 오해와 사실, 예상과 실제 | https://szxv7704-dot.github.io/design-reference-gallery/wow/31.html |
 
 ## 구성 (역할마다 배치가 다른 셋. 모든 스타일에서 같은 이름으로 쓴다)
 
