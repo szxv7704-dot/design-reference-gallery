@@ -21,14 +21,14 @@
 @font-face{font-family:"Nanum Pen Script";font-weight:400;font-display:swap;src:url("../fonts/NanumPenScript-400.woff2") format("woff2")}
 
 
-/* 와우 포인트 31 — 발표 와우 기법을 여덟 묶음으로 모은 11장 덱.
+/* 와우 포인트 38 — 발표 와우 기법을 열 묶음으로 모은 13장 덱.
    이미지 자리: --img-A … --img-H 에 사진을 넣으면 바뀐다(없으면 점선 자리표시). */
 @property --x { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
 @property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 :root{
   --bg:#ECE9E3; --paper:#F7F5F1; --surface:#FFFFFF; --ink:#1C2128; --sub:#5C636C; --mute:#9AA0A7; --line:#DAD5CC;
   --accent:#E2571A;
-  --g1:#2F5D86; --g2:#7B4F9E; --g3:#C4471A; --g4:#2E7D5B; --g5:#A87C00; --g6:#B0306A; --g7:#12808C; --g8:#617510;
+  --g1:#2F5D86; --g2:#7B4F9E; --g3:#C4471A; --g4:#2E7D5B; --g5:#A87C00; --g6:#B0306A; --g7:#12808C; --g8:#617510; --g9:#A8323E; --g10:#4A5563;
   --ft:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fb:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --fm:"IBM Plex Mono",ui-monospace,monospace;
@@ -83,7 +83,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .c3 .card dl{font-size:16px}
 .card dt{font-weight:700;color:var(--gc);white-space:nowrap}
 .card dd{margin:0;color:#343A42}
-.g1{--gc:var(--g1)} .g2{--gc:var(--g2)} .g3{--gc:var(--g3)} .g4{--gc:var(--g4)} .g5{--gc:var(--g5)} .g6{--gc:var(--g6)} .g7{--gc:var(--g7)} .g8{--gc:var(--g8)}
+.g1{--gc:var(--g1)} .g2{--gc:var(--g2)} .g3{--gc:var(--g3)} .g4{--gc:var(--g4)} .g5{--gc:var(--g5)} .g6{--gc:var(--g6)} .g7{--gc:var(--g7)} .g8{--gc:var(--g8)} .g9{--gc:var(--g9)} .g10{--gc:var(--g10)}
 
 /* 이미지 자리 */
 .img{position:absolute;inset:0;background-size:cover;background-position:center}
@@ -99,14 +99,15 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .cover .by{position:absolute;left:96px;bottom:64px;font:500 16px var(--fm);color:var(--sub)}
 .burst{position:absolute;right:80px;top:120px;width:560px;height:660px}
 .burst .blk{position:absolute;border-radius:14px;display:flex;flex-direction:column;justify-content:flex-end;padding:18px 20px;color:#fff;font:700 22px var(--fb)}
-.burst .blk b{font:800 64px/1 var(--ft);letter-spacing:-.03em}
+.burst .blk b{font:800 44px/1 var(--ft);letter-spacing:-.03em}
+.burst .blk{padding:12px 18px}
 .burst .blk span{font:500 15px var(--fm);opacity:.85;margin-top:4px}
 .play .burst .blk{animation:pop .7s cubic-bezier(.2,1.4,.4,1) both;animation-delay:calc(var(--i)*.12s + .2s)}
 @keyframes pop{from{opacity:0;transform:translateY(40px) scale(.85)}to{opacity:1;transform:none}}
 
 /* ── 2 한눈에 ── */
-.map{position:absolute;left:64px;right:64px;top:232px;bottom:150px;display:grid;grid-template-columns:repeat(8,1fr);gap:12px}
-.map .grp{padding:16px 12px 14px}.map .grp h3{font-size:22px}.map .grp p{font-size:13px;min-height:57px}.map .grp li{font-size:15.5px;padding:7px 9px}.map .grp li small{font-size:12px}
+.map{position:absolute;left:64px;right:64px;top:218px;bottom:118px;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:1fr 1fr;gap:12px}
+.map .grp{padding:12px 12px 10px;border-top-width:5px}.map .grp h3{font-size:20px;margin:2px 0 6px}.map .grp p,.map .grp li small,.map .grp .go{display:none}.map .grp ol{gap:5px}.map .grp li{font-size:14.5px;padding:5px 9px}
 .grp{background:var(--surface);border-radius:14px;padding:18px 16px 16px;border-top:6px solid var(--gc);display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit;transition:transform .2s}
 .grp:hover{transform:translateY(-4px)}
 .grp .n{font:700 16px var(--fm);color:var(--gc)}
@@ -518,6 +519,107 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-flip .b b{font:900 14cqw/1 var(--ft);letter-spacing:-.04em}
 .d-flip .b b small{font-size:.4em;margin-left:.5cqw}
 .d-flip .b span{margin-top:2.4cqw;font:600 3.6cqw var(--fb);opacity:.85}
+
+/* ── ⑨ 줌 스루: 지금 장면의 동그란 구멍으로 다가가 지나가면 다음 장면 ── */
+.d-thru{background:#0F1B33}
+.d-thru .sB{position:absolute;inset:0;background:radial-gradient(circle at 50% 60%,#2C4588,#0F1B33 72%);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:2cqw;transform-origin:50% 60%}
+.d-thru .sB .k{font:700 5cqw var(--fm);color:#A9BEFF;letter-spacing:.08em}
+.d-thru .sB b{font:900 9.4cqw/1.15 var(--ft)}
+.d-thru .sB i{position:absolute;left:var(--x);top:var(--y);width:1.3cqw;height:1.3cqw;border-radius:50%;background:#fff;opacity:.85}
+.d-thru .sA{position:absolute;inset:0;padding:9% 8%;background:#F4EFE6;transform-origin:50% 60%;opacity:0;
+  -webkit-mask:radial-gradient(circle 15cqw at 50% 60%,transparent 98%,#000 100%);mask:radial-gradient(circle 15cqw at 50% 60%,transparent 98%,#000 100%)}
+.d-thru .sA .k{display:block;font:600 4cqw var(--fm);color:#9A6B3C}
+.d-thru .sA b{display:block;margin-top:2cqw;font:900 8.6cqw/1.15 var(--ft);color:#2A2118}
+.d-thru .hl{position:absolute;left:50%;top:60%;width:30cqw;height:30cqw;margin:-15cqw 0 0 -15cqw;border-radius:50%;box-shadow:0 0 0 1.2cqw var(--g9);transform-origin:50% 50%;opacity:0}
+.d-thru .hl span{position:absolute;left:50%;top:calc(100% + 3cqw);transform:translateX(-50%);font:700 4cqw var(--fb);color:var(--g9);white-space:nowrap}
+.play .d-thru .sA{animation:thruA 2.8s cubic-bezier(.7,0,.9,.5) .2s both}
+.play .d-thru .hl{animation:thruA 2.8s cubic-bezier(.7,0,.9,.5) .2s both}
+.play .d-thru .sB{animation:thruB 2.8s cubic-bezier(.3,0,.2,1) .2s both}
+@keyframes thruA{0%,42%{opacity:1;transform:none}98%{opacity:1;transform:scale(9)}100%{opacity:0;transform:scale(9)}}
+@keyframes thruB{0%,42%{transform:scale(.42)}100%{transform:none}}
+
+/* ── ⑨ 사선 패널 교체: 같은 기울기의 판이 왼쪽에서 쓸고 지나가며 다음 담당으로 ── */
+.d-slash .pn{position:absolute;inset:0;padding:9% 9% 10%;background:var(--c);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:1.6cqw}
+.d-slash .pn em{position:absolute;right:7%;top:5%;font:900 24cqw/1 var(--ft);font-style:normal;opacity:.18;letter-spacing:-.04em}
+.d-slash .pn span{font:600 4.4cqw var(--fb);opacity:.85}
+.d-slash .pn b{font:900 9cqw/1.15 var(--ft);letter-spacing:-.03em}
+.d-slash .pn small{font:500 4cqw/1.4 var(--fb);opacity:.85}
+.play .d-slash .pn:nth-child(2){animation:slashIn .8s cubic-bezier(.7,0,.2,1) 1.2s both}
+.play .d-slash .pn:nth-child(3){animation:slashIn .8s cubic-bezier(.7,0,.2,1) 2.7s both}
+@keyframes slashIn{from{clip-path:polygon(0 0,0 0,-45% 100%,-45% 100%)}to{clip-path:polygon(0 0,145% 0,100% 100%,-45% 100%)}}
+
+/* ── ⑨ 선이 모여 줌: 기관 이름 → 선이 가운데로 → 그 점으로 확대 ── */
+.d-conv{background:#FBF6F2}
+.d-conv svg{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 51.9%;transform:scale(2.4);opacity:.14}
+.d-conv line{stroke:var(--g9);stroke-width:2;stroke-dasharray:1;stroke-dashoffset:0}
+.d-conv .nd circle{fill:#fff;stroke:#1C2128;stroke-width:2}
+.d-conv .nd text{font:600 13px var(--fb);fill:#1C2128}
+.d-conv .hub{fill:var(--g9)}
+.d-conv .cc{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:70%;padding:6cqw 5cqw;border-radius:3cqw;background:#fff;box-shadow:0 2cqw 6cqw -2cqw rgba(0,0,0,.25);text-align:center;border-top:1.4cqw solid var(--g9)}
+.d-conv .cc span{display:block;font:600 3.6cqw var(--fm);color:#5C636C}
+.d-conv .cc b{display:block;margin:2cqw 0 1cqw;font:900 8cqw/1.1 var(--ft);color:#1C2128}
+.d-conv .cc small{font:500 4cqw var(--fb);color:var(--g9)}
+.play .d-conv svg{animation:convZ 3.6s cubic-bezier(.6,0,.3,1) both}
+.play .d-conv line{animation:penDraw .55s both;animation-delay:calc(var(--i)*.14s + .4s)}
+.play .d-conv .nd{animation:fadeIn .3s both;animation-delay:calc(var(--i)*.08s)}
+.play .d-conv .hub{animation:hubPulse .5s 1.5s both}
+.play .d-conv .cc{animation:fadeIn .5s 3.1s both}
+@keyframes convZ{0%,60%{transform:none;opacity:1}100%{transform:scale(2.4);opacity:.14}}
+@keyframes hubPulse{0%{r:15}50%{r:22}100%{r:15}}
+
+/* ── ⑨ 카드 더미 펼치기: 흩어진 카드 → 한 묶음 → 부채 ── */
+.d-fan{background:#F1EEE8}
+.d-fan .fc2{position:absolute;left:36.5%;top:22%;width:27%;height:44%;border-radius:2cqw;background:#fff;box-shadow:0 1cqw 3cqw -1cqw rgba(0,0,0,.3);padding:3cqw;display:flex;flex-direction:column;gap:1.2cqw;transform-origin:50% 210%;transform:rotate(var(--fr));z-index:var(--i)}
+.d-fan .fc2 i{height:2.2cqw;border-radius:1cqw;background:var(--g9);opacity:calc(.4 + var(--i) * .15)}
+.d-fan .fc2 span{font:600 3.4cqw var(--fb);color:#5C636C;white-space:nowrap}
+.d-fan .fc2 b{font:900 10cqw/1 var(--ft);color:var(--g9)}
+.d-fan .fc2 small{margin-top:auto;font:700 3.4cqw/1.3 var(--fb);color:#1C2128;white-space:nowrap}
+.d-fan .cap2{position:absolute;left:0;right:0;bottom:6%;text-align:center;font:700 4.6cqw var(--fb);color:#1C2128}
+.play .d-fan .fc2{animation:fanK 2.8s cubic-bezier(.5,0,.2,1) .2s both}
+.play .d-fan .cap2{animation:fadeIn .4s 2.6s both}
+@keyframes fanK{0%{transform:translate(var(--sx),var(--sy)) rotate(var(--sr));opacity:0}12%{opacity:1}45%,58%{transform:translateY(calc(var(--i) * -.7cqw)) rotate(0deg)}100%{transform:rotate(var(--fr))}}
+
+/* ── ⑩ 도형 쌓기: 도형이 떨어져 학교 모양 → 한 장의 제목으로 합쳐짐 ── */
+.d-build{background:#fff}
+.d-build .sh{position:absolute;display:block;left:12%;top:26%;width:76%;height:48%;border-radius:2cqw;background:#4A5563;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.d-build .s2{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+.d-build .tt{position:absolute;left:12%;top:26%;width:76%;height:48%;padding:0 7%;display:flex;flex-direction:column;justify-content:center;gap:1.4cqw;color:#fff}
+.d-build .tt span{font:700 4cqw var(--fm);opacity:.8}
+.d-build .tt b{font:900 8cqw/1.15 var(--ft);letter-spacing:-.03em}
+.play .d-build .sh{animation:bDrop .6s cubic-bezier(.4,0,.6,1.3) both,bMerge .8s cubic-bezier(.6,0,.2,1) 2.7s both;animation-delay:calc(var(--i) * .32s + .2s),2.7s}
+.play .d-build .tt{animation:fadeIn .5s 3.5s both}
+@keyframes bDrop{from{transform:translateY(-130cqh)}to{transform:none}}
+@keyframes bMerge{from{left:var(--l);top:var(--t);width:var(--w);height:var(--h);background:var(--c);border-radius:0}to{left:12%;top:26%;width:76%;height:48%;background:#4A5563;border-radius:2cqw}}
+.play .d-build .s2{animation:bDrop .6s cubic-bezier(.4,0,.6,1.3) both,bMergeT .8s cubic-bezier(.6,0,.2,1) 2.7s both;animation-delay:calc(var(--i) * .32s + .2s),2.7s}
+@keyframes bMergeT{from{left:var(--l);top:var(--t);width:var(--w);height:var(--h);background:var(--c);border-radius:0;clip-path:polygon(50% 0,50% 0,100% 100%,0 100%)}to{left:12%;top:26%;width:76%;height:48%;background:#4A5563;border-radius:2cqw;clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+.play .d-build .s4{animation-name:bDrop,bMergeC}
+@keyframes bMergeC{from{left:var(--l);top:var(--t);width:var(--w);height:var(--h);background:var(--c);border-radius:50%}to{left:12%;top:26%;width:76%;height:48%;background:#4A5563;border-radius:2cqw}}
+
+/* ── ⑩ 회전 글자 막대: 막대가 한 줄씩 돌아 뒷면의 바뀐 문구 ── */
+.d-prism{background:#1E2329}
+.d-prism .pg{position:absolute;left:10%;right:10%;top:16%;transform:rotate(-5deg);perspective:900px;perspective-origin:50% 120%}
+.d-prism .br{position:relative;height:14cqw;margin-bottom:4cqw;transform-style:preserve-3d;transform:rotateX(90deg)}
+.d-prism .fa,.d-prism .fb{position:absolute;inset:0;display:grid;place-items:center;font:900 8.6cqw/1 var(--ft);letter-spacing:-.03em;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.d-prism .fa{background:#F4F1E8;color:#1E2329;transform:translateZ(7cqw)}
+.d-prism .fb{background:var(--g10);color:#fff;transform:rotateX(-90deg) translateZ(7cqw)}
+.d-prism .br:nth-child(2) .fb{background:#5E6A79}.d-prism .br:nth-child(3) .fb{background:#748091}
+.play .d-prism .br{animation:prismR 1s cubic-bezier(.5,-.25,.3,1.35) both;animation-delay:calc(var(--i) * .3s + 1.2s)}
+@keyframes prismR{from{transform:rotateX(0deg)}to{transform:rotateX(90deg)}}
+
+/* ── ⑩ 렌즈 속 장면: 흐린 낱말 위를 렌즈가 지나가고, 렌즈 속만 진짜 색 ── */
+.d-lens{background:#fff}
+.d-lens .ly{position:absolute;inset:0;display:grid;place-items:center;padding-bottom:10%}
+.d-lens .ly b{font:900 30cqw/1 var(--ft);letter-spacing:-.06em}
+.d-lens .bs b{color:#E6E2DA}
+.d-lens .ins{background:repeating-linear-gradient(135deg,#F6E9DA 0 3cqw,#FBF3EA 3cqw 6cqw);clip-path:circle(17cqw at 50% 45%)}
+.d-lens .ins b{background:linear-gradient(120deg,var(--g10),#E2571A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.d-lens .rg{position:absolute;left:50%;top:45%;width:34cqw;height:34cqw;margin:-17cqw 0 0 -17cqw;border-radius:50%;box-shadow:0 0 0 1.4cqw #1C2128,0 3cqw 5cqw -1cqw rgba(0,0,0,.35)}
+.d-lens .lc{position:absolute;left:0;right:0;bottom:6%;margin:0;text-align:center;font:700 4.4cqw var(--fb);color:#1C2128}
+.play .d-lens .ins{animation:lensC 3s cubic-bezier(.5,0,.3,1) .4s both}
+.play .d-lens .rg{animation:lensR 3s cubic-bezier(.5,0,.3,1) .4s both}
+.play .d-lens .lc{animation:fadeIn .4s 3.3s both}
+@keyframes lensC{0%{clip-path:circle(17cqw at 14% 45%)}45%{clip-path:circle(17cqw at 84% 45%)}100%{clip-path:circle(17cqw at 50% 45%)}}
+@keyframes lensR{0%{left:14%}45%{left:84%}100%{left:50%}}
 
 @media print{
   html,body{background:#fff;height:auto}

@@ -58,9 +58,9 @@ picks = []   # (하고 싶은 말, [태그])
 for tr in re.findall(r'<tr><td>(.*?)</td><td>(.*?)</td></tr>', SRC, re.S):
     picks.append((html.unescape(re.sub('<[^>]+>', '', tr[0])), re.findall(r'<span class="tg[^"]*">([^<]+)</span>', tr[1])))
 items = []
-for sec in re.finditer(r'<section class="slide (g\d)" data-title="([^"]+)">(.*?)</section>', SRC, re.S):
+for sec in re.finditer(r'<section class="slide (g\d+)" data-title="([^"]+)">(.*?)</section>', SRC, re.S):
     g, gtitle, body = sec.group(1), sec.group(2), sec.group(3)
-    gname = re.search(r'<span class="chip"><b>\d</b>([^<]+)</span>', body).group(1)
+    gname = re.search(r'<span class="chip"><b>\d+</b>([^<]+)</span>', body).group(1)
     cols = re.search(r'class="cards (c\d)"', body).group(1)
     for art in re.findall(r'<article class="card">(.*?)</article>', body, re.S):
         demo = art[:art.index('<p class="steps">')].strip()
@@ -109,20 +109,20 @@ for it in items:
   <p class="sub">%(why)s</p>
   <div class="num" aria-hidden="true">%(no)s</div>
   <div class="foot"><span>와우 포인트 %(no)s · %(name)s</span><span>1 / 3</span></div>
-</section>''' % dict(it, gn=it['g'][1], total=len(items))
+</section>''' % dict(it, gn=it['g'][1:], total=len(items))
     s2 = '''<section class="slide %(g)s w2" data-title="크게 보기">
   <div class="head"><div><span class="chip"><b>%(gn)s</b>%(gname)s</span><h2>%(name)s</h2></div><div class="meta">↻ 다시 재생 · R</div></div>
   <div class="stagebox" style="--ar:%(ar)s">%(demo)s</div>
   <p class="stepline">%(steps)s</p>
   <div class="foot"><span>와우 포인트 %(no)s · %(name)s</span><span>2 / 3</span></div>
-</section>''' % dict(it, gn=it['g'][1])
+</section>''' % dict(it, gn=it['g'][1:])
     s3 = '''<section class="slide %(g)s w3" data-title="쓰는 법">
   <div class="head"><div><span class="chip"><b>%(gn)s</b>%(gname)s</span><h2>%(why)s</h2></div><div class="meta">%(name)s · 쓰는 법</div></div>
   <dl class="use">%(dl)s</dl>
   %(when)s
   <p class="sib"><b style="color:var(--ink)">같은 묶음</b>%(sib)s</p>
   <div class="foot"><span>와우 포인트 %(no)s · %(name)s</span><span>3 / 3</span></div>
-</section>''' % dict(it, gn=it['g'][1], dl=''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (LAB.get(t, t), d) for t, d in it['dl']),
+</section>''' % dict(it, gn=it['g'][1:], dl=''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (LAB.get(t, t), d) for t, d in it['dl']),
                       when=('<p class="when"><b>이럴 때</b>%s</p>' % ''.join('<span>%s</span>' % html.escape(w) for w in it['when'])) if it['when'] else '',
                       sib=''.join('<a href="%s.html">%s</a>' % (x['no'], x['name']) for x in sib))
     open(os.path.join(W, it['no'] + '.html'), 'w', encoding='utf-8').write(HEAD % dict(it, slides='\n\n'.join((s1, s2, s3))))
