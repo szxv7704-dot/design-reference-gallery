@@ -1,5 +1,6 @@
 // 와우 포인트 데모 통과 기준 검사(2026-11-28): 사람이 판단할 장면 모음과 기계로 재는 세 기준.
-//  ① 폰 글자: 폰 가로 화면(844 × 390)에서 데모 안 글자가 모두 9px 이상(끝 화면 기준)
+//  ① 16:9 · 글자: 크게 보기 데모가 16:9(±1%)이고, 그 안을 16:9 틀이 빈틈 · 잘림 없이 채우며, 데모를 1920 × 1080 으로 키웠을 때
+//     글자가 모두 22px 이상(덱 키트 규칙과 같은 값, 끝 화면 기준). 폰 화면은 기준으로 삼지 않는다(2026-11-28 사용자 지시)
 //  ② 화면 사용: 바탕색이 아닌 칸을 감싸는 사각형이 데모 상자의 60% 이상(가장 넓게 쓴 순간 기준)
 //  ③ 빈 화면 없음: 0.4초 뒤부터 그 사각형이 3% 밑으로 떨어지는(단색만 남는) 순간이 없음
 //  ④ 같은 요소가 끝까지 이어지는가 · ⑤ 끝 장면 한 장으로 메시지가 읽히는가 → 장면 모음(check/wow/{번호}.png)을 보고 사람이 판단
@@ -10,15 +11,19 @@ const ROOT = path.resolve(__dirname, '..'), OUT = path.join(ROOT, 'check', 'wow'
   const nos = process.argv.slice(2); fs.mkdirSync(OUT, { recursive: true });
   const b = await chromium.launch(); const res = {};
   for (const no of nos) {
-    // ① 폰 글자(끝 화면: 움직임 줄이기)
-    const m = await b.newPage({ viewport: { width: 844, height: 390 }, deviceScaleFactor: 1 });
+    // ① 16:9 · 글자(끝 화면: 움직임 줄이기, 크게 보기)
+    const m = await b.newPage({ viewport: { width: 1600, height: 956 }, deviceScaleFactor: 1 });
     await m.emulateMedia({ reducedMotion: 'reduce' });
     await m.goto('file://' + path.join(ROOT, 'wow', no + '.html#2')); await m.waitForTimeout(600);
-    const small = await m.evaluate(() => { const d = document.querySelector('.slide.on .demo'); const k = d.getBoundingClientRect().width / d.offsetWidth; const out = [];
+    const geo = await m.evaluate(() => { const d = document.querySelector('.slide.on .demo'); const R = d.getBoundingClientRect(); const out = [];
+      const fr = d.querySelector(':scope > .fr'); const F = fr ? fr.getBoundingClientRect() : R;
+      const z = 1920 / R.width;   // 데모를 1920 폭으로 키울 때의 배율
       d.querySelectorAll('*').forEach(e => { if (![...e.childNodes].some(t => t.nodeType === 3 && t.textContent.trim())) return; const cs = getComputedStyle(e); if (e.checkVisibility && !e.checkVisibility({ opacityProperty: true, visibilityProperty: true })) return;   // 부모가 투명해 안 보이는 글자는 빼고 센다
-        const r = e.getBoundingClientRect(); if (!r.width) return; const sv = e.closest('svg'); const px = sv && sv.viewBox.baseVal && sv.viewBox.baseVal.width ? parseFloat(cs.fontSize) * sv.getBoundingClientRect().width / sv.viewBox.baseVal.width : parseFloat(cs.fontSize) * k;   // SVG 글자는 viewBox 단위
-        out.push([e.textContent.trim().slice(0, 12), +px.toFixed(1)]); }); return out; });
-    await m.close();
+        const r = e.getBoundingClientRect(); if (!r.width) return; const sv = e.closest('svg'); const k = R.width / d.offsetWidth;
+        const px = (sv && sv.viewBox.baseVal && sv.viewBox.baseVal.width ? parseFloat(cs.fontSize) * sv.getBoundingClientRect().width / sv.viewBox.baseVal.width : parseFloat(cs.fontSize) * k) * z;   // SVG 글자는 viewBox 단위
+        out.push([e.textContent.trim().slice(0, 12), +px.toFixed(1)]); });
+      return { ratio: R.width / R.height, fill: Math.min(F.width / R.width, F.height / R.height), over: Math.max(F.width / R.width, F.height / R.height), texts: out }; });
+    await m.close(); const small = geo.texts;
     // ②③ 큰 화면에서 실제 속도로 장면을 찍는다
     const p = await b.newPage({ viewport: { width: 1600, height: 956 } }); const dir = path.join(OUT, no); fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir);
     await p.goto('file://' + path.join(ROOT, 'wow', no + '.html#2')); await p.waitForTimeout(80);
@@ -48,8 +53,9 @@ S.save(sys.argv[3])
 print(json.dumps({'max_cover': round(max(cv), 2), 'end_cover': round(cv[-1], 2), 'empty_at': low[:6]}))
 `, dir, JSON.stringify(ts), path.join(OUT, no + '.png')]).toString();
     const r = JSON.parse(py); const minFont = small.length ? Math.min(...small.map(x => x[1])) : null;
-    r.min_font_phone = minFont; r.small_texts = small.filter(x => x[1] < 9).slice(0, 6);
-    r.pass = { phone_text: minFont === null || minFont >= 9, coverage: r.max_cover >= .6, no_empty: !r.empty_at.length };
+    r.ratio = +geo.ratio.toFixed(3); r.frame_fill = +geo.fill.toFixed(3); r.frame_over = +geo.over.toFixed(3);
+    r.min_font_1920 = minFont; r.small_texts = small.filter(x => x[1] < 22).slice(0, 6);
+    r.pass = { ratio_16_9: Math.abs(geo.ratio - 16 / 9) < .018, frame_exact: geo.fill > .99 && geo.over < 1.01, text_22: minFont === null || minFont >= 22, coverage: r.max_cover >= .6, no_empty: !r.empty_at.length };
     res[no] = r; fs.rmSync(dir, { recursive: true, force: true });
     console.log(no, JSON.stringify(r));
   }

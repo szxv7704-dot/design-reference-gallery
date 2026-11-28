@@ -541,10 +541,10 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .play .d-thru .lc{animation:thC 5.6s both}
 .play .d-thru .sky{animation:thSky 5.6s both}
 .play .d-thru .lz{animation:thZ 5.6s both}
-.play .d-thru .lz .cl{animation:digDrop .6s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .1s + 3.4s)}
-.play .d-thru .lz .dot{animation:dotFill .5s cubic-bezier(.3,1.8,.5,1) 3.85s both}
-.play .d-thru .lz .tg{animation:fadeIn .4s 3.35s both}
-.play .d-thru .lz .sb{animation:fadeUp .5s 4.1s both}
+.play .d-thru .lz .cl{animation:digDrop .6s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .1s + 3.15s)}
+.play .d-thru .lz .dot{animation:dotFill .5s cubic-bezier(.3,1.8,.5,1) 3.6s both}
+.play .d-thru .lz .tg{animation:fadeIn .4s 3.1s both}
+.play .d-thru .lz .sb{animation:fadeUp .5s 3.85s both}
 @keyframes digUp{from{opacity:0;transform:translateY(60%)}to{opacity:1;transform:none}}
 @keyframes digDrop{from{opacity:0;transform:translateY(-70%)}to{opacity:1;transform:none}}
 @keyframes dotFill{from{transform:scale(.2)}to{transform:none}}
@@ -554,13 +554,13 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   27%{opacity:1;transform:scale(.965);animation-timing-function:cubic-bezier(.62,0,.94,.36)}
   47%{opacity:1;transform:translate(7%,0) scale(28)}
   47.01%,100%{opacity:0;transform:translate(7%,0) scale(28)}}
-@keyframes thC{0%{opacity:1}60%{opacity:1}60.01%,100%{opacity:0}}
+@keyframes thC{0%{opacity:1}57%{opacity:1}57.01%,100%{opacity:0}}
 /* 고리: 구멍 너머로 작게 보이다(0.16배) 구멍이 열리면서 커지고, 이어서 한 겹씩 지나간다(9배) */
 @keyframes thSky{
   0%,27%{scale:.16;translate:-7cqw 0;animation-timing-function:cubic-bezier(.62,0,.94,.36)}
   47%{scale:1;translate:0 0;animation-timing-function:cubic-bezier(.45,0,.9,.5)}
   62%,100%{scale:9;translate:0 0}}
-@keyframes thZ{0%,59.9%{opacity:0}60%,100%{opacity:1}}
+@keyframes thZ{0%,56.9%{opacity:0}57%,100%{opacity:1}}
 
 /* ── ⑨ 사선 패널 교체: 같은 기울기의 판이 왼쪽에서 쓸고 지나가며 다음 담당(앞 가장자리에 노란 띠) → 끝에 사선 기둥 셋으로 나란히 ──
    판 · 띠 모두 clip-path 다각형 보간이라 상자 비율이 달라도 가장자리가 딱 맞는다. 판 k 는 0.15 + 1.85k 초에 쓸려 들어오고, 5.7초에 셋이 함께 기둥(--col)으로 */
@@ -733,8 +733,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
    두 사진은 같은 3:2 구도라 틀(.fr) 기준 % 위치가 같다. 렌즈 자리 --lx · --ly(%) · 반지름 --lr · 배율 --lm 을 틀에서 움직인다.
    .in 은 렌즈 중심을 기준점으로 --lm 배 확대하고 그 자리를 원으로 잘라 낸다(돋보기). 끝 모습은 렌즈가 화면 전체로 커져 모두 켜진 학교 + 한 줄 */
 .d-lens{background:#1B2440;overflow:hidden}
-.d-lens .fr{position:absolute;left:50%;top:50%;width:max(100cqw,150cqh);height:max(66.667cqw,100cqh);translate:-50% -50%;container-type:size;
-  --lx:50%;--ly:52%;--lr:120cqh;--lm:1}
+.d-lens .fr{position:absolute;left:50%;top:50%;width:max(100cqw,177.78cqh);height:max(56.25cqw,100cqh);translate:-50% -50%;container-type:size;
+  --lx:50%;--ly:49%;--lr:120cqh;--lm:1}
 .d-lens .out,.d-lens .in{position:absolute;inset:0;background:center/100% 100% no-repeat}
 .d-lens .out{background-image:var(--img-LO)}
 .d-lens .in{background-image:var(--img-LI);transform-origin:var(--lx) var(--ly);transform:scale(var(--lm));
@@ -751,12 +751,12 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .play .d-lens .lc{animation:fadeUp .6s 4.7s both}
 /* 렌즈: 왼쪽 밖에서 들어와 불 켜진 창 셋(3층 왼쪽 · 2층 가운데 · 3층 오른쪽)에 머물렀다가, 가운데로 와서 화면 전체로 커진다 */
 @keyframes lensWalk{
-  0%{--lx:-20%;--ly:50%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.3,0,.25,1)}
-  16%,24%{--lx:27.5%;--ly:47%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.45,0,.25,1)}
-  36%,44%{--lx:38.8%;--ly:59.6%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.45,0,.25,1)}
-  56%,63%{--lx:66%;--ly:47%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.6,0,.3,1)}
-  70%{--lx:50%;--ly:52%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.55,0,.2,1)}
-  84%,100%{--lx:50%;--ly:52%;--lr:120cqh;--lm:1}}
+  0%{--lx:-20%;--ly:45%;--lr:24cqh;--lm:1.22;animation-timing-function:cubic-bezier(.3,0,.25,1)}
+  16%,24%{--lx:27.5%;--ly:40.7%;--lr:24cqh;--lm:1.22;animation-timing-function:cubic-bezier(.45,0,.25,1)}
+  36%,44%{--lx:38.8%;--ly:55.6%;--lr:24cqh;--lm:1.22;animation-timing-function:cubic-bezier(.45,0,.25,1)}
+  56%,63%{--lx:66%;--ly:40.7%;--lr:24cqh;--lm:1.22;animation-timing-function:cubic-bezier(.6,0,.3,1)}
+  70%{--lx:50%;--ly:49%;--lr:24cqh;--lm:1.22;animation-timing-function:cubic-bezier(.55,0,.2,1)}
+  84%,100%{--lx:50%;--ly:49%;--lr:120cqh;--lm:1}}
 @keyframes lensGlass{0%{opacity:1}72%{opacity:1}82%,100%{opacity:0}}
 
 
