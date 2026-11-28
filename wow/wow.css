@@ -535,7 +535,7 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-thru .cl{position:relative;width:14cqw;height:20cqw;display:grid;place-items:center}
 .d-thru .cl b{font:900 21cqw/1 var(--ft);letter-spacing:-.04em}
 .d-thru .cl i{display:block;width:11.6cqw;height:16.4cqw;border-radius:50%;box-sizing:border-box}
-.d-thru .tg{position:absolute;left:22cqw;top:calc(50% - 15.5cqw);margin:0;font:700 2.6cqw var(--fb);letter-spacing:.06em}
+.d-thru .tg{position:absolute;left:22cqw;top:calc(50% - 16.5cqw);margin:0;font:800 3.8cqw var(--fb);letter-spacing:.06em}
 /* 올해: 크림 바탕에 먹 숫자, 0 은 붉은 빈 고리. 고리 안쪽만 뚫려 있어 그 너머 고리들이 보인다 */
 .d-thru .la{background:#F6EFE0;color:#1C2128;transform-origin:43% 50%;opacity:0;
   -webkit-mask:radial-gradient(ellipse 2.4cqw 4.8cqw at 43% 50%,transparent 97%,#000 100%);mask:radial-gradient(ellipse 2.4cqw 4.8cqw at 43% 50%,transparent 97%,#000 100%)}
@@ -549,17 +549,17 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-thru .lz{color:#F6EFE0}
 .d-thru .lz .tg{color:#F5C518}
 .d-thru .dot{background:#F5C518;box-shadow:0 0 0 .5cqw #F6EFE0 inset}
-.d-thru .sb{position:absolute;left:22cqw;top:calc(50% + 11.5cqw);margin:0;font:800 3.6cqw var(--ft);letter-spacing:-.01em}
+.d-thru .sb{position:absolute;left:22cqw;top:calc(50% + 11.5cqw);margin:0;font:800 4.4cqw var(--ft);letter-spacing:-.01em}
 .play .d-thru .la{animation:thA 5.6s both}
 .play .d-thru .la .cl{animation:digUp .55s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .09s + .15s)}
 .play .d-thru .la .tg{animation:fadeIn .4s .6s both}
 .play .d-thru .lc{animation:thC 5.6s both}
 .play .d-thru .sky{animation:thSky 5.6s both}
 .play .d-thru .lz{animation:thZ 5.6s both}
-.play .d-thru .lz .cl{animation:digDrop .6s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .1s + 3.9s)}
-.play .d-thru .lz .dot{animation:dotFill .5s cubic-bezier(.3,1.8,.5,1) 4.35s both}
-.play .d-thru .lz .tg{animation:fadeIn .4s 3.8s both}
-.play .d-thru .lz .sb{animation:fadeUp .5s 4.6s both}
+.play .d-thru .lz .cl{animation:digDrop .6s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .1s + 3.4s)}
+.play .d-thru .lz .dot{animation:dotFill .5s cubic-bezier(.3,1.8,.5,1) 3.85s both}
+.play .d-thru .lz .tg{animation:fadeIn .4s 3.35s both}
+.play .d-thru .lz .sb{animation:fadeUp .5s 4.1s both}
 @keyframes digUp{from{opacity:0;transform:translateY(60%)}to{opacity:1;transform:none}}
 @keyframes digDrop{from{opacity:0;transform:translateY(-70%)}to{opacity:1;transform:none}}
 @keyframes dotFill{from{transform:scale(.2)}to{transform:none}}
@@ -569,13 +569,13 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   27%{opacity:1;transform:scale(.965);animation-timing-function:cubic-bezier(.62,0,.94,.36)}
   47%{opacity:1;transform:translate(7%,0) scale(28)}
   47.01%,100%{opacity:0;transform:translate(7%,0) scale(28)}}
-@keyframes thC{0%{opacity:1}68%{opacity:1}68.01%,100%{opacity:0}}
+@keyframes thC{0%{opacity:1}60%{opacity:1}60.01%,100%{opacity:0}}
 /* 고리: 구멍 너머로 작게 보이다(0.16배) 구멍이 열리면서 커지고, 이어서 한 겹씩 지나간다(9배) */
 @keyframes thSky{
   0%,27%{scale:.16;translate:-7cqw 0;animation-timing-function:cubic-bezier(.62,0,.94,.36)}
   47%{scale:1;translate:0 0;animation-timing-function:cubic-bezier(.45,0,.9,.5)}
-  68%,100%{scale:9;translate:0 0}}
-@keyframes thZ{0%,67.9%{opacity:0}68%,100%{opacity:1}}
+  62%,100%{scale:9;translate:0 0}}
+@keyframes thZ{0%,59.9%{opacity:0}60%,100%{opacity:1}}
 
 /* ── ⑨ 사선 패널 교체: 같은 기울기의 판이 왼쪽에서 쓸고 지나가며 다음 담당(앞 가장자리에 노란 띠) → 끝에 사선 기둥 셋으로 나란히 ──
    판 · 띠 모두 clip-path 다각형 보간이라 상자 비율이 달라도 가장자리가 딱 맞는다. 판 k 는 0.15 + 1.85k 초에 쓸려 들어오고, 5.7초에 셋이 함께 기둥(--col)으로 */
@@ -584,27 +584,27 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-slash .eg{position:absolute;inset:0;background:#F5C518;clip-path:polygon(-1.8% 0,0 0,-30% 100%,-31.8% 100%);z-index:1}
 .d-slash .fc{position:absolute;left:8%;top:0;bottom:0;right:8%;display:flex;flex-direction:column;justify-content:center;gap:2.4cqh}
 .d-slash .fc em{position:absolute;right:0;top:6%;font:900 46cqh/1 var(--ft);font-style:normal;letter-spacing:-.05em;color:rgba(255,255,255,.12)}
-.d-slash .fc span{font:700 5.4cqh var(--fb);color:#F5C518;letter-spacing:.02em}
+.d-slash .fc span{font:700 6.2cqh var(--fb);color:#F5C518;letter-spacing:.02em}
 .d-slash .fc b{font:900 14cqh/1.1 var(--ft);letter-spacing:-.04em}
-.d-slash .fc p{margin:2cqh 0 0;display:flex;align-items:baseline;gap:1.4cqw;font:600 5cqh var(--fb)}
+.d-slash .fc p{margin:2cqh 0 0;display:flex;align-items:baseline;gap:1.4cqw;font:700 6.2cqh var(--fb)}
 .d-slash .fc p i{font-style:normal;opacity:.85}
 .d-slash .fc p strong{font:900 12cqh/1 var(--ft);color:#F5C518;letter-spacing:-.03em}
-.d-slash .fc p small{font-size:5cqh;opacity:.85}
+.d-slash .fc p small{font-size:6.2cqh;opacity:.85}
 .d-slash .cc{position:absolute;top:0;bottom:0;left:calc(var(--k) * 33.333% + 6%);width:24%;display:flex;flex-direction:column;justify-content:center;gap:1.6cqh;opacity:0}
-.d-slash .cc em{font:900 13cqh/1 var(--ft);font-style:normal;color:#F5C518;letter-spacing:-.04em}
-.d-slash .cc span{font:700 3.4cqh var(--fb);opacity:.85}
-.d-slash .cc b{font:900 5.6cqh/1.18 var(--ft);letter-spacing:-.03em}
+.d-slash .cc em{font:900 16cqh/1 var(--ft);font-style:normal;color:#F5C518;letter-spacing:-.04em}
+.d-slash .cc span{font:700 6.2cqh var(--fb);opacity:.9}
+.d-slash .cc b{font:900 7.2cqh/1.18 var(--ft);letter-spacing:-.03em}
 .d-slash .tb{position:absolute;left:8%;bottom:7%;display:flex;gap:1cqw;z-index:2}
 .d-slash .tb i{display:block;width:5cqw;height:1.4cqh;transform:skewX(-28deg);box-shadow:inset 0 0 0 .3cqh rgba(255,255,255,.7)}
-.play .d-slash .pn{animation:slSweep .7s cubic-bezier(.65,0,.25,1) both,slCol .8s cubic-bezier(.65,0,.25,1) 5.7s forwards;animation-delay:calc(var(--k) * 1.85s + .15s),5.7s}
+.play .d-slash .pn{animation:slSweep .7s cubic-bezier(.65,0,.25,1) both,slCol .8s cubic-bezier(.65,0,.25,1) 5.45s forwards;animation-delay:calc(var(--k) * 1.85s + .15s),5.45s}
 .play .d-slash .eg{animation:slEdge .7s cubic-bezier(.65,0,.25,1) both;animation-delay:calc(var(--k) * 1.85s + .15s)}
-.play .d-slash .fc > *{animation:slIn .55s cubic-bezier(.2,.8,.2,1) both,fadeOutK .25s 5.55s forwards;animation-delay:calc(var(--k) * 1.85s + .55s),5.55s}
-.play .d-slash .fc span{animation-delay:calc(var(--k) * 1.85s + .5s),5.55s}
-.play .d-slash .fc b{animation-delay:calc(var(--k) * 1.85s + .6s),5.55s}
-.play .d-slash .fc p{animation-delay:calc(var(--k) * 1.85s + .75s),5.55s}
-.play .d-slash .fc em{animation-delay:calc(var(--k) * 1.85s + .45s),5.55s}
-.play .d-slash .cc{animation:slColIn .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k) * .12s + 6.35s)}
-.play .d-slash .tb{animation:fadeOutK .3s 5.55s forwards}
+.play .d-slash .fc > *{animation:slIn .55s cubic-bezier(.2,.8,.2,1) both,fadeOutK .25s 5.4s forwards;animation-delay:calc(var(--k) * 1.85s + .55s),5.4s}
+.play .d-slash .fc span{animation-delay:calc(var(--k) * 1.85s + .5s),5.4s}
+.play .d-slash .fc b{animation-delay:calc(var(--k) * 1.85s + .6s),5.4s}
+.play .d-slash .fc p{animation-delay:calc(var(--k) * 1.85s + .75s),5.4s}
+.play .d-slash .fc em{animation-delay:calc(var(--k) * 1.85s + .45s),5.4s}
+.play .d-slash .cc{animation:slColIn .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k) * .12s + 5.95s)}
+.play .d-slash .tb{animation:fadeOutK .3s 5.4s forwards}
 .play .d-slash .tb i{animation:slTab .3s both}
 .play .d-slash .tb i:nth-child(1){animation-delay:.6s}.play .d-slash .tb i:nth-child(2){animation-delay:2.45s}.play .d-slash .tb i:nth-child(3){animation-delay:4.3s}
 @keyframes slSweep{from{clip-path:polygon(0 0,0 0,-30% 100%,-30% 100%)}to{clip-path:polygon(0 0,140% 0,110% 100%,-30% 100%)}}
@@ -615,43 +615,54 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 @keyframes slTab{from{background:transparent}to{background:#F5C518}}
 @keyframes fadeOutK{to{opacity:0}}
 
-/* ── ⑨ 선이 모여 줌: 일곱 기관에서 같은 방향으로 휘는 선이 가운데로 감겨 들고, 닿을 때마다 고리가 한 겹 ──
-   그 붉은 점으로 확대해 들어가면(고리를 지나) 붉은 면 안에 일곱이 한 줄로 선다. 16:9 틀(.fr)이 상자를 덮는다. 끝 모습은 한 줄 장면 */
+/* ── ⑨ 선이 모여 줌(세 번째 판): 일곱 기관 → 선을 따라 공이 굴러가 닿을 때마다 고리 → 일곱 점이 가운데로 빨려 듦
+   → 가운데 붉은 원이 화면을 덮음 → 같은 일곱 점이 튀어나와 한 줄 + "창구 7곳 → 1곳". 16:9 틀(.fr)이 상자를 덮는다.
+   점(g.nd)은 한 애니메이션(convN)으로 날아옴 · 빨려 듦 · 한 줄을 모두 움직인다(같은 요소가 끝까지). 끝 모습은 한 줄 장면 */
 .d-conv{background:#F6EFE0;overflow:hidden}
 .d-conv .fr{position:absolute;left:50%;top:50%;width:max(100cqw,177.78cqh);height:max(56.25cqw,100cqh);translate:-50% -50%;container-type:size}
-.d-conv .zm{position:absolute;inset:0;transform-origin:50% 50%}
-.d-conv svg{position:absolute;inset:0;width:100%;height:100%}
-.d-conv .ln path{fill:none;stroke:#1C2128;stroke-width:5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
-.d-conv .nd circle{fill:#F6EFE0;stroke:#1C2128;stroke-width:6}
-.d-conv .nd text{font:800 40px var(--fb);fill:#1C2128;text-anchor:middle}
-.d-conv .rg{fill:none;stroke:#1C2128;stroke-width:4;transform-box:fill-box;transform-origin:center}
+.d-conv svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.d-conv .ln path{fill:none;stroke:#1C2128;stroke-width:7;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.d-conv .bl path{fill:none;stroke:#A8323E;stroke-width:26;stroke-linecap:round;stroke-dasharray:0 2;stroke-dashoffset:-1;opacity:0}
+.d-conv .rg{fill:none;stroke:#1C2128;stroke-width:6;transform-box:fill-box;transform-origin:center}
 .d-conv .rg:nth-of-type(odd){stroke:#A8323E}
-.d-conv .core{fill:#A8323E}
-.d-conv .end{position:absolute;inset:0;background:#A8323E;color:#F6EFE0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7cqh;opacity:0}
-.d-conv .end p{margin:0;text-align:center;font:800 7cqh/1.3 var(--ft);letter-spacing:-.02em}
-.d-conv .end p b{font-size:14cqh;font-weight:900;color:#F5C518;letter-spacing:-.04em}
-.d-conv .end ol{list-style:none;margin:0;padding:0;display:flex;gap:2.6cqw}
-.d-conv .end li{display:flex;flex-direction:column;align-items:center;gap:1.8cqh}
-.d-conv .end li i{display:block;width:5.6cqh;height:5.6cqh;border-radius:50%;background:#F6EFE0}
-.d-conv .end li span{font:700 3.8cqh var(--fb);white-space:nowrap}
-.play .d-conv .nd{animation:convNode .4s cubic-bezier(.3,1.7,.5,1) both;animation-delay:calc(var(--i) * .07s + .15s);transform-box:fill-box;transform-origin:center}
-.play .d-conv .ln path{animation:penDraw .75s cubic-bezier(.45,0,.3,1) both;animation-delay:calc(var(--i) * .2s + .7s)}
-.play .d-conv .rg{animation:convRing .35s cubic-bezier(.3,1.8,.5,1) both;animation-delay:calc(var(--i) * .2s + 1.42s)}
-.play .d-conv .core{animation:convCore .5s cubic-bezier(.3,1.8,.5,1) .55s both;transform-box:fill-box;transform-origin:center}
-.play .d-conv .zm{animation:convZoom 6.2s both}
-.play .d-conv .end{animation:convEnd 6.2s both}
-.play .d-conv .end p{animation:fadeUp .5s 4.35s both}
-.play .d-conv .end li{animation:convDot .45s cubic-bezier(.3,1.7,.5,1) both;animation-delay:calc(var(--i) * .08s + 4.7s)}
-@keyframes convNode{from{opacity:0;transform:scale(0)}to{opacity:1;transform:none}}
+.d-conv .core{fill:#A8323E;transform-box:fill-box;transform-origin:center}
+.d-conv .nd{transform-box:view-box}
+.d-conv .nd circle{fill:#F6EFE0;stroke:#1C2128;stroke-width:8}
+.d-conv .nd text{font:800 60px var(--fb);fill:#1C2128;text-anchor:middle}
+.d-conv .end{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding-top:9cqh;gap:2.4cqh;color:#F6EFE0;text-align:center}
+.d-conv .end p{margin:0;display:flex;align-items:baseline;gap:2cqw;font:800 9cqh/1 var(--ft)}
+.d-conv .end p b{font-size:20cqh;font-weight:900;color:#F5C518;letter-spacing:-.04em}
+.d-conv .end small{font:700 6.2cqh/1.2 var(--fb)}
+/* 1) 점 날아옴 0.1~0.7초 · 2) 선 + 공 0.7초부터 0.24초 간격 · 3) 고리 = 공이 닿는 순간 · 4) 3.1초 빨려 듦 · 5) 3.5초 붉은 원 확장 · 6) 4.3초 한 줄 */
+.play .d-conv .nd{animation:convN 6.4s both;animation-delay:calc(var(--i) * .05s)}
+.play .d-conv .nd circle{animation:convNc 6.4s both;animation-delay:calc(var(--i) * .05s)}
+.play .d-conv .nd text{animation:convNt 6.4s both;animation-delay:calc(var(--i) * .05s)}
+.play .d-conv .ln path{animation:penDraw .75s cubic-bezier(.45,0,.3,1) both,fadeOutK .3s 3.05s forwards;animation-delay:calc(var(--i) * .24s + .7s),3.05s}
+.play .d-conv .bl path{animation:convBall .75s cubic-bezier(.45,0,.3,1) both;animation-delay:calc(var(--i) * .24s + .7s)}
+.play .d-conv .rg{animation:convRing .35s cubic-bezier(.3,1.8,.5,1) both,fadeOutK .25s 3.4s forwards;animation-delay:calc(var(--i) * .24s + 1.42s),3.4s}
+.play .d-conv .core{animation:convCore 6.4s both}
+.play .d-conv .end{animation:convEnd 6.4s both}
+.play .d-conv .end p{animation:fadeUp .5s 3.75s both}
+.play .d-conv .end small{animation:fadeUp .5s 4.65s both}
+@keyframes convN{
+  0%{transform:translate(var(--fx),var(--fy));opacity:0;animation-timing-function:cubic-bezier(.2,.8,.3,1.2)}
+  2%{opacity:1}
+  10%{transform:none;opacity:1}
+  48%{transform:none;animation-timing-function:cubic-bezier(.6,0,.9,.4)}
+  55%{transform:translate(var(--sx),var(--sy)) scale(.2);opacity:1}
+  55.1%,60%{transform:translate(var(--sx),var(--sy)) scale(.2);opacity:0;animation-timing-function:cubic-bezier(.2,.9,.3,1.25)}
+  60.1%{opacity:1}
+  71%,100%{transform:translate(var(--rx),var(--ry));opacity:1}}
+@keyframes convNc{0%,59%{fill:#F6EFE0;stroke:#1C2128}60%,100%{fill:#F5C518;stroke:#F6EFE0}}
+@keyframes convNt{0%,59%{fill:#1C2128}60%,100%{fill:#F6EFE0}}
+@keyframes convBall{0%{stroke-dashoffset:0;opacity:0}3%,96%{opacity:1}100%{stroke-dashoffset:-1;opacity:0}}
 @keyframes convRing{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
-@keyframes convCore{from{transform:scale(0)}to{transform:none}}
-@keyframes convDot{from{opacity:0;transform:translateY(-120%)}to{opacity:1;transform:none}}
-/* 확대: 다 모인 뒤 잠깐 멈추고(살짝 움츠림) → 가속하며 붉은 점으로 40배. 점이 화면을 덮는 순간 한 줄 장면으로 바꿔 끼운다 */
-@keyframes convZoom{
-  0%,48%{transform:none;animation-timing-function:ease-in-out}
-  53%{transform:scale(.96);animation-timing-function:cubic-bezier(.6,0,.95,.35)}
-  68%,100%{transform:scale(70)}}
-@keyframes convEnd{0%,67.9%{opacity:0}68%,100%{opacity:1}}
+@keyframes convCore{
+  0%,8%{transform:scale(0)}12%{transform:scale(1.15)}14%{transform:none}
+  49%{transform:none;animation-timing-function:ease-in-out}
+  55%{transform:scale(1.7);animation-timing-function:cubic-bezier(.6,0,.9,.5)}
+  60%,100%{transform:scale(36)}}
+@keyframes convEnd{0%,58%{opacity:0}59%,100%{opacity:1}}
 
 /* ── ⑨ 카드 더미 펼치기: 흩어진 카드 → 한 묶음 → 부채 ── */
 .d-fan{background:#F1EEE8}
@@ -708,8 +719,8 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.38),rgba(255,255,255,0) 22%),radial-gradient(circle at 70% 80%,rgba(255,255,255,.08),rgba(255,255,255,0) 30%)}
 .d-lens .gl::after{content:"";position:absolute;right:-13%;bottom:-13%;width:30%;height:10%;border-radius:2cqh;background:#1C2128;rotate:45deg;transform-origin:left center}
 .d-lens .lc{position:absolute;left:0;right:0;bottom:0;margin:0;padding:12cqh 5cqw 5cqh;z-index:2;background:linear-gradient(transparent,rgba(12,16,34,.82) 55%);color:#fff;opacity:0}
-.d-lens .lc span{display:block;font:700 max(3.6cqh,2.2cqw) var(--fm);color:#FFB45E;letter-spacing:.08em}
-.d-lens .lc b{display:block;margin-top:1.2cqh;font:900 min(6.4cqh,4.4cqw)/1.25 var(--ft);letter-spacing:-.02em}
+.d-lens .lc span{display:block;font:800 6.4cqh var(--fb);color:#FFB45E;letter-spacing:.08em}
+.d-lens .lc b{display:block;margin-top:1.2cqh;font:900 min(7.2cqh,4.6cqw)/1.25 var(--ft);letter-spacing:-.02em}
 .play .d-lens .fr{animation:lensWalk 5.8s both}
 .play .d-lens .gl{animation:lensGlass 5.8s both}
 .play .d-lens .lc{animation:fadeUp .6s 4.7s both}
