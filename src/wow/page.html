@@ -10,6 +10,10 @@
    이미지 자리: --img-A … --img-H 에 사진을 넣으면 바뀐다(없으면 점선 자리표시). */
 @property --x { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
 @property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@property --lx { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+@property --ly { syntax: '<percentage>'; inherits: true; initial-value: 50%; }
+@property --lr { syntax: '<length>'; inherits: true; initial-value: 0px; }
+@property --lm { syntax: '<number>'; inherits: true; initial-value: 1; }
 :root{
   --bg:#ECE9E3; --paper:#F7F5F1; --surface:#FFFFFF; --ink:#1C2128; --sub:#5C636C; --mute:#9AA0A7; --line:#DAD5CC;
   --accent:#E2571A;
@@ -21,6 +25,7 @@
   --img-A:url(@@ASSET:wow-a.webp@@); --img-B:url(@@ASSET:wow-b.webp@@); --img-C1:url(@@ASSET:wow-c1.webp@@); --img-C2:url(@@ASSET:wow-c2.webp@@);
   --img-D:url(@@ASSET:wow-d.webp@@); --img-E:url(@@ASSET:wow-e.webp@@); --img-F:url(@@ASSET:wow-f.webp@@); --img-H:url(@@ASSET:wow-h.webp@@);
   --img-N:url(@@ASSET:wow-n.webp@@); /* 불꽃 배경: 밤바다 · 다리 */
+  --img-LI:url(@@ASSET:wow-lens-in.webp@@); --img-LO:url(@@ASSET:wow-lens-out.webp@@); /* 렌즈 속 장면: 불 켜진 · 꺼진 같은 학교(사용자 제공 AI 사진) */
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:var(--fb);-webkit-font-smoothing:antialiased}
@@ -626,19 +631,36 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 @keyframes prismR{from{transform:rotateX(0deg)}to{transform:rotateX(90deg)}}
 
 /* ── ⑩ 렌즈 속 장면: 흐린 낱말 위를 렌즈가 지나가고, 렌즈 속만 진짜 색 ── */
-.d-lens{background:#fff}
-.d-lens .ly{position:absolute;inset:0;display:grid;place-items:center;padding-bottom:10%}
-.d-lens .ly b{font:900 30cqw/1 var(--ft);letter-spacing:-.06em}
-.d-lens .bs b{color:#E6E2DA}
-.d-lens .ins{background:repeating-linear-gradient(135deg,#F6E9DA 0 3cqw,#FBF3EA 3cqw 6cqw);clip-path:circle(17cqw at 50% 45%)}
-.d-lens .ins b{background:linear-gradient(120deg,var(--g10),#E2571A);-webkit-background-clip:text;background-clip:text;color:transparent}
-.d-lens .rg{position:absolute;left:50%;top:45%;width:34cqw;height:34cqw;margin:-17cqw 0 0 -17cqw;border-radius:50%;box-shadow:0 0 0 1.4cqw #1C2128,0 3cqw 5cqw -1cqw rgba(0,0,0,.35)}
-.d-lens .lc{position:absolute;left:0;right:0;bottom:6%;margin:0;text-align:center;font:700 4.4cqw var(--fb);color:#1C2128}
-.play .d-lens .ins{animation:lensC 3s cubic-bezier(.5,0,.3,1) .4s both}
-.play .d-lens .rg{animation:lensR 3s cubic-bezier(.5,0,.3,1) .4s both}
-.play .d-lens .lc{animation:fadeIn .4s 3.3s both}
-@keyframes lensC{0%{clip-path:circle(17cqw at 14% 45%)}45%{clip-path:circle(17cqw at 84% 45%)}100%{clip-path:circle(17cqw at 50% 45%)}}
-@keyframes lensR{0%{left:14%}45%{left:84%}100%{left:50%}}
+/* ── ⑩ 렌즈 속 장면: 불 꺼진 학교(.out) 위를 렌즈가 지나가면 그 안만 불 켜진 같은 학교(.in, 1.22배) ──
+   두 사진은 같은 3:2 구도라 틀(.fr) 기준 % 위치가 같다. 렌즈 자리 --lx · --ly(%) · 반지름 --lr · 배율 --lm 을 틀에서 움직인다.
+   .in 은 렌즈 중심을 기준점으로 --lm 배 확대하고 그 자리를 원으로 잘라 낸다(돋보기). 끝 모습은 렌즈가 화면 전체로 커져 모두 켜진 학교 + 한 줄 */
+.d-lens{background:#1B2440;overflow:hidden}
+.d-lens .fr{position:absolute;left:50%;top:50%;width:max(100cqw,150cqh);height:max(66.667cqw,100cqh);translate:-50% -50%;container-type:size;
+  --lx:50%;--ly:52%;--lr:120cqh;--lm:1}
+.d-lens .out,.d-lens .in{position:absolute;inset:0;background:center/100% 100% no-repeat}
+.d-lens .out{background-image:var(--img-LO)}
+.d-lens .in{background-image:var(--img-LI);transform-origin:var(--lx) var(--ly);transform:scale(var(--lm));
+  clip-path:circle(calc(var(--lr) / var(--lm)) at var(--lx) var(--ly))}
+.d-lens .gl{position:absolute;left:var(--lx);top:var(--ly);width:calc(var(--lr) * 2);height:calc(var(--lr) * 2);translate:-50% -50%;border-radius:50%;opacity:0;pointer-events:none;
+  box-shadow:0 0 0 1.6cqh #1C2128,0 0 0 2.2cqh rgba(255,255,255,.18),0 3cqh 6cqh rgba(0,0,0,.45),inset 0 0 4cqh rgba(255,255,255,.22);
+  background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.38),rgba(255,255,255,0) 22%),radial-gradient(circle at 70% 80%,rgba(255,255,255,.08),rgba(255,255,255,0) 30%)}
+.d-lens .gl::after{content:"";position:absolute;right:-13%;bottom:-13%;width:30%;height:10%;border-radius:2cqh;background:#1C2128;rotate:45deg;transform-origin:left center}
+.d-lens .lc{position:absolute;left:0;right:0;bottom:0;margin:0;padding:12cqh 5cqw 5cqh;z-index:2;background:linear-gradient(transparent,rgba(12,16,34,.82) 55%);color:#fff;opacity:0}
+.d-lens .lc span{display:block;font:700 max(3.6cqh,2.2cqw) var(--fm);color:#FFB45E;letter-spacing:.08em}
+.d-lens .lc b{display:block;margin-top:1.2cqh;font:900 min(6.4cqh,4.4cqw)/1.25 var(--ft);letter-spacing:-.02em}
+.play .d-lens .fr{animation:lensWalk 5.8s both}
+.play .d-lens .gl{animation:lensGlass 5.8s both}
+.play .d-lens .lc{animation:fadeUp .6s 4.7s both}
+/* 렌즈: 왼쪽 밖에서 들어와 불 켜진 창 셋(3층 왼쪽 · 2층 가운데 · 3층 오른쪽)에 머물렀다가, 가운데로 와서 화면 전체로 커진다 */
+@keyframes lensWalk{
+  0%{--lx:-20%;--ly:50%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.3,0,.25,1)}
+  16%,24%{--lx:27.5%;--ly:47%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.45,0,.25,1)}
+  36%,44%{--lx:38.8%;--ly:59.6%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.45,0,.25,1)}
+  56%,63%{--lx:66%;--ly:47%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.6,0,.3,1)}
+  70%{--lx:50%;--ly:52%;--lr:22cqh;--lm:1.22;animation-timing-function:cubic-bezier(.55,0,.2,1)}
+  84%,100%{--lx:50%;--ly:52%;--lr:120cqh;--lm:1}}
+@keyframes lensGlass{0%{opacity:1}72%{opacity:1}82%,100%{opacity:0}}
+
 
 @media print{
   html,body{background:#fff;height:auto}
@@ -1064,13 +1086,15 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>회전 글자 막대<small>돌면 다른 말</small></h3><p class="why">같은 자리에서 막대가 돌아 다른 면이 나오니, 무엇이 바뀌었는지 짝으로 보인다.</p>
       <dl><dt>쓰는 곳</dt><dd>연도 · 슬로건 공개, 전 → 후 문구 두세 줄</dd><dt>주의</dt><dd>세 줄까지. 앞 · 뒷면 글자 수를 비슷하게</dd><dt>PPT</dt><dd>3D 회전 효과(뒤집기) 또는 앞 · 뒷면 두 장 + 모핑</dd></dl></article>
     <article class="card"><div class="demo d-lens">
-        <div class="ly bs"><b>돌봄</b></div>
-        <div class="ly ins"><b>돌봄</b></div>
-        <div class="rg"></div>
-        <p class="lc">렌즈로 보면 · 아이 2,140명의 저녁</p>
-      </div><p class="steps"><i>①</i> 흐린 낱말 → <i>②</i> 렌즈가 지나감 → <i>③</i> 렌즈 속만 진짜 색</p>
-      <h3>렌즈 속 장면<small>들여다보면 다른 것</small></h3><p class="why">겉으로 보던 낱말을 렌즈로 들여다보면, 그 안의 사람 · 숫자가 보인다.</p>
-      <dl><dt>쓰는 곳</dt><dd>핵심어 하나에 뜻 입히기, 정책 이름 뒤의 대상 보여 주기</dd><dt>주의</dt><dd>낱말은 두세 글자, 렌즈는 하나</dd><dt>PPT</dt><dd>같은 낱말 두 겹 + 원형으로 자른 위 겹을 '이동 경로' 애니메이션</dd></dl></article>
+        <div class="fr">
+          <div class="out"></div>
+          <div class="in"></div>
+          <div class="gl"></div>
+        </div>
+        <p class="lc"><span>저녁 7시</span><b>불이 꺼진 학교에도<br>돌봄 교실 아홉 곳은 켜져 있습니다</b></p>
+      </div><p class="steps"><i>①</i> 불 꺼진 학교 → <i>②</i> 렌즈가 지나가며 켜진 교실을 찾음 → <i>③</i> 렌즈가 커지며 전체가 보임</p>
+      <h3>렌즈 속 장면<small>들여다보면 다른 것</small></h3><p class="why">겉으로는 불 꺼진 학교. 렌즈로 들여다본 곳만 불이 켜져 있다. 보이지 않던 것을 보여 준다.</p>
+      <dl><dt>쓰는 곳</dt><dd>드러나지 않던 대상 · 활동 보여 주기, 현황 속 숨은 수요</dd><dt>주의</dt><dd>겉 · 속 두 장의 구도가 똑같아야 한다. 렌즈는 하나, 들르는 곳은 세 곳 안팎</dd><dt>PPT</dt><dd>같은 사진 두 장(밝게 · 어둡게)을 겹치고, 위 장을 원형으로 잘라 '이동 경로' + 마지막에 원형 '확대' 전환</dd></dl></article>
   </div>
   <div class="foot"><span>와우 포인트 38 · ⑩ 형태·렌즈 · 내용은 모두 가상 예시</span><span>12 / 13</span></div>
 </section>
