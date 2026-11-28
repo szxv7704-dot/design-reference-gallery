@@ -27,6 +27,10 @@
 | F | 관측·중계 인포그래픽 | 몰입감 있는 | 실적 · 순위 · 진행 상황을 중계하듯 보여 줄 때 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/F.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/F-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/F.html |
 | G | 어두운 콘셉트 | 몰입감 있는 | 흩어진 것을 하나로 잇는 이야기. 비전 선포 · 불을 끄고 하는 발표 | 확장 중 | https://szxv7704-dot.github.io/design-reference-gallery/kit/G.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/G-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/G.html |
 | H | 전통 공예·문양 | 전통적인 | 역사 · 문화 · 지역을 다루는 격식 있는 자리 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/H.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/H-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/H.html |
+| I | 원과 반원 | 무난한 | 부드럽지만 가볍지 않게 전할 때. 설명회 · 업무보고 등 어디에나 무난하다 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/I.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/I-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/I.html |
+| J | 사선 띠 | 무난한 | 격식 있게 정리해 보고할 때. 업무보고 · 계획 보고 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/J.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/J-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/J.html |
+| K | 모듈 격자 | 무난한 | 수치 · 실적이 많은 보고를 정돈되게 보일 때 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/K.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/K-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/K.html |
+| L | 점 격자 | 무난한 | 정책 · 비전을 차분하고 단정하게 전할 때 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/L.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/L-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/L.html |
 
 상태: **검증된 세트** = 10장 예시 · 다른 주제 시험 · 넘침 검사를 통과 / **확장 중** = 10장 예시는 있으나 검증이 끝나지 않음.
 
@@ -69,6 +73,26 @@
 - 유지할 것: 한지 바탕에 먹 명조 / 면마다 쌍변(굵은 선 + 가는 선) / 주홍은 인장처럼 한 곳
 - 바꿔도 되는 것: 막새(섹션) 수는 5개까지 / 강조할 칸
 - 피할 것: 그림자 · 둥근 모서리 / 문양을 새로 그려 넣기
+
+### I 원과 반원
+- 유지할 것: 청록 한 계열의 명도 다섯 단계 + 산호 한 곳 / 원 · 반원 · 사분원은 표지 · 목차 · 간지 · 맺음에만 / 카드 · 막대 · 번호도 둥근 모양
+- 바꿔도 되는 것: 강조할 낱말이나 칸 / 칸 수와 배치
+- 피할 것: 다른 색 계열 섞기 / 원을 본문 장식으로 흩어 놓기
+
+### J 사선 띠
+- 유지할 것: 먹 · 회색 한 계열 + 빨강 한 곳 / 모든 사선은 같은 각도(-24°) / 카드 모서리 · 막대 끝을 같은 각도로 자름
+- 바꿔도 되는 것: 강조할 낱말이나 칸 / 칸 수와 배치
+- 피할 것: 빨강을 두 곳 이상 / 각도가 다른 사선 섞기
+
+### K 모듈 격자
+- 유지할 것: 쪽빛 한 계열 + 겨자 한 칸 / 모서리는 모두 직각, 칸 크기 · 간격 일정 / 제목 강조는 겨자 형광펜 띠
+- 바꿔도 되는 것: 채울 칸의 위치 / 칸 수와 배치
+- 피할 것: 겨자를 글자색으로 쓰기(대비 부족) / 칸 크기 섞기
+
+### L 점 격자
+- 유지할 것: 자주 한 계열 + 금빛 점 하나 / 점은 120px 격자 교차점에만 / 명조 제목 · 가는 선
+- 바꿔도 되는 것: 강조할 낱말이나 점 / 칸 수와 배치
+- 피할 것: 점 · 선을 규칙 없이 잇기 / 금빛을 글자색으로 쓰기(대비 부족)
 
 ## 표지에서 넓힌 덱 (27벌)
 
@@ -182,6 +206,10 @@
 | F 관측·중계 인포그래픽 | 가로 이정표 | 맞는 예와 아닌 예 | 기준별 두 열 | 가로 세 칸 | 화면 짚기 | 질문과 보기 | 목표 대비 막대 | 네 칸 정리 |
 | G 어두운 콘셉트 | 가로 이정표 | 세 요소로 풀기 | 짝 줄 | 세로 단계 | 화면 짚기 | 할 일과 조건 | 숫자 하나 크게 | 세 줄 |
 | H 전통 공예·문양 | 줄 목록 | 낱말과 뜻 | 기준별 두 열 | 단계 표 | 사람의 말 | 체크 목록 | 숫자 셋 | 네 칸 정리 |
+| I 원과 반원 | 가로 이정표 | 낱말과 뜻 | 기준별 두 열 | 세로 단계 | 한 건 이야기 | 할 일과 조건 | 숫자 셋 | 네 칸 정리 |
+| J 사선 띠 | 번호 카드 | 낱말과 뜻 | 짝 줄 | 세로 단계 | 사람의 말 | 체크 목록 | 숫자 하나 크게 | 한 문장 |
+| K 모듈 격자 | 줄 목록 | 맞는 예와 아닌 예 | 전과 후 수치 | 단계 표 | 화면 짚기 | 질문과 보기 | 숫자 하나 크게 | 세 줄 |
+| L 점 격자 | 가로 이정표 | 세 요소로 풀기 | 짝 줄 | 단계 표 | 한 건 이야기 | 할 일과 조건 | 목표 대비 막대 | 네 칸 정리 |
 
 ## 그 밖
 

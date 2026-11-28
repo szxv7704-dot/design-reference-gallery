@@ -1,7 +1,7 @@
 # 갤러리 화면 만들기: 사람이 고르고, AI가 그것을 읽어 적용하게 하는 화면들.
 #   index.html        첫 화면: 카드 넷(발표자료 고르기 · 인쇄 · 홍보물 고르기 · 아이콘 고르기 · AI에게 맡기기)
 #   present.html      발표자료 고르기: 컨셉 정하기(concept.html) · 본문 지정하기(body.html) · 와우 포인트 적용하기(wow.html)
-#   concept.html      스타일 세트 8 · 표지에서 넓힌 덱 27 · styles/{id}.html 스타일 하나
+#   concept.html      스타일 세트 12(무난한 기하 넷이 앞) · 표지에서 넓힌 덱 27 · styles/{id}.html 스타일 하나
 #   wow.html          와우 포인트 24(기법 하나 = 덱 하나, wow/{번호}.html — scripts/wow.py)
 #   print.html · icons.html · ai.html
 #   catalog.md        AI가 읽는 차례: 적용 순서 · 스타일 목록 · 구성 목록
@@ -265,9 +265,9 @@ def cover_card(r, up=''):
 
 # ── concept.html: 컨셉 정하기(스타일 세트 · 표지에서 넓힌 덱) ──
 H = ['''<p class="crumb"><a href="present.html">← 발표자료 고르기</a></p><h1>컨셉 정하기</h1><p class="lead">발표 전체의 겉모습을 정합니다. 표지부터 마무리까지 한 벌로 만든 덱을 넘겨 보고 고르세요.</p>
-<h2 id="styles">스타일 세트 <small>8벌 — 표지 · 본문 · 마무리를 함께 확인하세요</small></h2>
-<div class="cards" id="cards">''']
-for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
+<h2 id="styles">스타일 세트 <small>%d벌 — 표지 · 본문 · 마무리를 함께 확인하세요. 무난한 기하 계열이 앞에 있습니다</small></h2>
+<div class="cards" id="cards">''' % len(STYLES)]
+for s in sorted(STYLES, key=lambda s: (s['mood'] != '무난한', not s.get('verified'), s['id'])):   # 무난한 기하 계열을 앞에(튀는 장표만 있다는 지적, 2026-11-28)
     st = status(s)
     H.append('''<article class="sc item" data-kind="set" data-id="%s" data-mood="%s" data-ok="%d" data-q="%s">
 <a class="cv" href="styles/%s.html"><img src="%s" alt="%s 표지" loading="lazy" width="640" height="360"></a>
@@ -298,7 +298,7 @@ $('#trayGo').addEventListener('click', () => {
   $('#cmp').showModal(); $('#cmpClose').focus(); });
 $('#cmp').addEventListener('click', e => { if (e.target.id === 'cmpClose' || e.target === $('#cmp')) $('#cmp').close(); });
 ''' % json.dumps({s['id']: {'name': s['name'], 'th': [th(s['id'], '-set', n) for n in (1, role_slide('flow', s['id']), role_slide('compare', s['id']), role_slide('numbers', s['id']), 10)], 'lab': ['표지', '흐름', '비교', '수치', '마무리']} for s in STYLES}, ensure_ascii=False)
-sizes = {'concept': page('concept.html', '컨셉 정하기 — 발표 디자인 라이브러리', '표지부터 마무리까지 한 벌인 덱: 스타일 세트 8 · 표지에서 넓힌 덱 27.', 'present.html', '\n'.join(H), INDEX_JS)}
+sizes = {'concept': page('concept.html', '컨셉 정하기 — 발표 디자인 라이브러리', '표지부터 마무리까지 한 벌인 덱: 스타일 세트 %d · 표지에서 넓힌 덱 27.' % len(STYLES), 'present.html', '\n'.join(H), INDEX_JS)}
 
 # ── 역할별 구성 셋(스타일 화면 · 본문 구성 · catalog 가 함께 쓴다) ──
 def var_cards(role, f, up='', mark=False):
@@ -358,7 +358,7 @@ B.append('<h2>참고 장표와 아이콘</h2><p class="note">스타일 세트와
 BODY_JS = r"""
 // 입혀 볼 스타일을 바꾸면 그림과 주소만 바뀐다(구성은 그대로). 고른 스타일은 주소에 남는다(?style=D)
 const sw = document.getElementById('sw');
-function skin(f){ if (!/^[A-H]$/.test(f)) f = 'B';
+function skin(f){ if (!/^[A-L]$/.test(f)) f = 'B';
   document.querySelectorAll('[data-n]').forEach(a => { const d = a.dataset.deck === undefined ? '-var' : a.dataset.deck, n = a.dataset.n;
     a.href = 'kit/' + f + d + '.html#' + n; a.querySelector('img').src = 'kit/thumbs/' + f + d + '-' + n + '.jpg'; });
   sw.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.f === f));

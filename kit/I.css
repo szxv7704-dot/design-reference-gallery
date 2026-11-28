@@ -1,0 +1,147 @@
+/* I 원과 반원 — 덱 키트 v1 (deck.css 다음에 불러옴)
+   기하 도형 계열: 원 · 반원 · 사분원으로 면을 나눈다. 청록 한 계열의 명도 4단계 + 산호 한 곳.
+   근거: 기하 표지 씨앗 1(2026-11-28, docs/worklog.md) */
+:root{
+  --ds-stage:#DCE8E6;
+  --ds-bg:#F4F8F7; --ds-surface:#FFFFFF; --ds-ink:#0E2F2E; --ds-sub:#4A6461; --ds-line:#D3E6E3;
+  --ds-accent:#D2552F; --ds-accent2:#17605C; --ds-point:#F07A55;
+  --ds-c1:#17605C; --ds-c2:#2E7F79; --ds-c3:#5E9C96; --ds-c4:#8DBAB4; --ds-c5:#D3E6E3;
+  --ds-radius:20px; --ds-shadow:0 0 0 1px #DDEBE8;
+  --ds-font-title:"Nanum Gothic","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-body:"Nanum Gothic","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Nanum Gothic","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+.slide{isolation:isolate;background:var(--ds-bg);color:var(--ds-ink);font:400 28px/1.55 var(--ds-font-body)}
+
+/* ── 공통: 머리말 · 결론 제목 · 쪽 번호 · 출처 ─────────────────── */
+.s-body{position:absolute;inset:88px 120px 96px;display:flex;flex-direction:column;gap:40px}
+.kicker{display:flex;align-items:center;gap:14px;margin:0;font:700 24px/1 var(--ds-font-body);color:var(--ds-c1)}
+.kicker::before{content:"";width:18px;height:18px;border-radius:50%;background:var(--ds-c1)}
+.title{margin:0;max-width:1560px;font:800 56px/1.3 var(--ds-font-title);letter-spacing:-.02em;text-wrap:balance}
+.title em{font-style:normal;color:var(--ds-accent)}
+.lead{margin:-16px 0 0;max-width:1400px;font-size:28px;color:var(--ds-sub)}
+.fill{flex:1;min-height:0}
+.src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
+.page-no{position:absolute;right:120px;bottom:40px;font:700 22px/1 var(--ds-font-num);color:var(--ds-sub)}
+
+/* ── 원 묶음(.orbs): 이 계열의 얼굴. 표지 · 목차 · 간지 · 맺음에만 ─────
+   표지 · 맺음: 큰 원 · 반원 · 사분원 구성(<i> 여섯 개). 목차 · 간지: 원 n개 = 섹션 수, .done 지난 · .now 지금 */
+.orbs{position:absolute;pointer-events:none}
+.orbs i{display:block;position:absolute}
+.orbs.full,.orbs.fin{right:0;top:0;width:820px;height:1080px}
+.orbs.full i:nth-child(1){width:260px;height:260px;right:560px;top:0;border-radius:0 0 260px 0;background:var(--ds-c5)}
+.orbs.full i:nth-child(2){width:520px;height:640px;right:0;top:120px;background:radial-gradient(circle 320px at 320px 320px,var(--ds-c1) 99.6%,transparent 100%)}
+.orbs.full i:nth-child(3){width:300px;height:300px;right:40px;top:690px;border-radius:50%;border:2px solid var(--ds-c4)}
+.orbs.full i:nth-child(4){width:360px;height:180px;right:340px;top:580px;border-radius:360px 360px 0 0;background:var(--ds-c4)}
+.orbs.full i:nth-child(5){width:84px;height:84px;right:600px;top:340px;border-radius:50%;background:var(--ds-point)}
+.orbs.full i:nth-child(6){width:240px;height:240px;right:0;bottom:0;border-radius:240px 0 0 0;background:var(--ds-c5)}
+.orbs.fin i:nth-child(1){width:420px;height:520px;right:0;top:280px;background:radial-gradient(circle 260px at 260px 260px,var(--ds-c1) 99.6%,transparent 100%)}
+.orbs.fin i:nth-child(2){width:300px;height:150px;right:300px;top:650px;border-radius:300px 300px 0 0;background:var(--ds-c4)}
+.orbs.fin i:nth-child(3){width:220px;height:220px;right:420px;top:0;border-radius:0 0 220px 0;background:var(--ds-c5)}
+.orbs.fin i:nth-child(4){width:72px;height:72px;right:520px;top:440px;border-radius:50%;background:var(--ds-point)}
+.orbs.fin i:nth-child(n+5){display:none}
+.orbs.row{display:flex;gap:24px;align-items:center}
+.orbs.row i{position:static;width:72px;height:72px;border-radius:50%;border:3px solid var(--ds-c4);box-sizing:border-box}
+.orbs.row i.done{background:var(--ds-c4);border-color:var(--ds-c4)}
+.orbs.row i.now{background:var(--ds-point);border-color:var(--ds-point);width:96px;height:96px}
+
+/* ── 표지 ─────────────────────────────────────────── */
+.cover .c-text{position:absolute;left:150px;top:0;bottom:0;width:980px;display:flex;flex-direction:column;justify-content:center;gap:30px}
+.cover .c-tag{font:700 28px/1 var(--ds-font-body);color:var(--ds-c1)}
+.cover h1{margin:0;font:800 96px/1.2 var(--ds-font-title);letter-spacing:-.03em}
+.cover h1 em{font-style:normal;color:var(--ds-c1)}
+.cover .c-sub{margin:8px 0 0;font-size:36px;line-height:1.5;color:var(--ds-sub);max-width:900px}
+.cover .c-org{position:absolute;left:150px;bottom:96px;display:flex;gap:32px;margin:0;font:700 28px/1.4 var(--ds-font-body);color:var(--ds-ink)}
+.cover .c-org span+span{font-weight:400;color:var(--ds-sub)}
+
+/* ── 목차: 줄 높이 112px, 지금 장 한 줄만 산호 ────────────────── */
+.toc-list{list-style:none;margin:0;padding:0;border-top:3px solid var(--ds-c1);width:1080px}
+.toc-list li{display:grid;grid-template-columns:120px 1fr 120px;align-items:center;height:112px;border-bottom:1px solid var(--ds-line);font:800 36px/1.2 var(--ds-font-title)}
+.toc-list li b{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--ds-c5);font:800 26px/1 var(--ds-font-num);color:var(--ds-c1)}
+.toc-list li span:last-child{justify-self:end;font:700 24px/1 var(--ds-font-num);color:var(--ds-sub)}
+.toc-list li.is-now{color:var(--ds-accent)}.toc-list li.is-now b{background:var(--ds-point);color:#fff}
+.toc .orbs{right:150px;bottom:200px}
+
+/* ── 간지: 큰 번호 + 섹션 이름, 지금 섹션 원만 산호 ─────────────── */
+.divider::before{content:"";position:absolute;right:-180px;top:-180px;width:760px;height:760px;border-radius:50%;background:var(--ds-c5);z-index:-1}
+.divider .d-no{position:absolute;left:150px;top:200px;font:800 220px/1 var(--ds-font-num);letter-spacing:-.04em;color:var(--ds-c1)}
+.divider .d-no small{display:block;margin-bottom:24px;font-size:26px;letter-spacing:.08em;color:var(--ds-sub)}
+.divider h2{position:absolute;left:150px;top:560px;margin:0;font:800 88px/1.2 var(--ds-font-title);letter-spacing:-.02em}
+.divider p{position:absolute;left:150px;top:690px;margin:0;width:900px;font-size:30px;color:var(--ds-sub)}
+.divider .orbs{right:150px;bottom:180px}
+
+/* ── 마무리 ────────────────────────────────────────── */
+.close h2{position:absolute;left:150px;top:380px;margin:0;width:1000px;font:800 80px/1.25 var(--ds-font-title);letter-spacing:-.02em}
+.close p{position:absolute;left:150px;top:600px;margin:0;font-size:30px;color:var(--ds-sub)}
+
+/* ── 배치 격자 ─────────────────────────────────────── */
+.grid{display:grid;gap:32px;align-items:stretch}
+.grid.center{align-content:center}
+.grid.g2{grid-template-columns:repeat(2,1fr)}.grid.g3{grid-template-columns:repeat(3,1fr)}.grid.g4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:stretch}
+
+/* ── 카드 묶음: 둥근 면, 번호는 원 안에 ─────────────────────────── */
+.card{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:40px 40px 36px;display:flex;flex-direction:column;gap:18px;min-width:0;min-height:440px}
+.card .c-foot{margin-top:auto;padding-top:20px;border-top:1px solid var(--ds-line);font-size:24px;color:var(--ds-sub)}
+.card .c-foot b{font:800 30px/1 var(--ds-font-num);color:var(--ds-ink)}
+.card .c-no{align-self:flex-start;display:grid;place-items:center;min-width:56px;height:56px;padding:0 14px;border-radius:28px;background:var(--ds-c5);font:800 24px/1 var(--ds-font-body);color:var(--ds-c1)}
+.card h3{margin:0;font:800 44px/1.25 var(--ds-font-title);letter-spacing:-.02em}
+.card p{margin:0;font-size:28px;line-height:1.5;color:var(--ds-ink)}
+.card.is-key{box-shadow:0 0 0 3px var(--ds-point)}.card.is-key .c-no{background:var(--ds-point);color:#fff}
+
+/* ── 수치 타일 ─────────────────────────────────────── */
+.tile{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:36px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tile span{font-size:26px;color:var(--ds-sub)}
+.tile b{font:800 88px/1 var(--ds-font-num);letter-spacing:-.03em;color:var(--ds-c1)}
+.tile b small{margin-left:8px;font-size:32px;font-weight:700;letter-spacing:0;color:var(--ds-sub)}
+.tile p{margin:0;font-size:24px;color:var(--ds-sub)}
+.tile.is-key b{color:var(--ds-accent)}
+
+/* ── 막대(가로): 끝이 둥근 막대. style="--v:42" 는 최댓값 대비 % ──────── */
+.bars{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:40px;display:flex;flex-direction:column;justify-content:center;gap:44px;min-width:0}
+.bars h3{margin:0;font:800 30px/1.3 var(--ds-font-title)}
+.bar{display:grid;grid-template-columns:110px 1fr 120px;align-items:center;gap:20px;font-size:28px}
+.bar::before{content:"";grid-column:2;grid-row:1;height:56px;width:calc(var(--v) * 1%);border-radius:28px;background:var(--ds-c4);transform-origin:left center}
+.bar span{grid-column:1;grid-row:1;color:var(--ds-sub)}
+.bar b{grid-column:3;grid-row:1;justify-self:end;font:800 30px/1 var(--ds-font-num)}
+.bar.is-key::before{background:var(--ds-point)}.bar.is-key b{color:var(--ds-accent)}
+
+/* ── 현안 → 해결 표 ─────────────────────────────────── */
+.fix{display:grid;grid-template-columns:1fr 72px 1.25fr;gap:0;align-items:stretch}
+.stack{display:flex;flex-direction:column;justify-content:center;gap:28px}
+.fix > p{margin:0;padding:34px 36px;font-size:30px;line-height:1.45;border-radius:var(--ds-radius)}
+.fix .q{background:var(--ds-c5);color:var(--ds-ink)}
+.fix .a{background:var(--ds-surface);box-shadow:var(--ds-shadow);font-weight:700}
+.fix .q b,.fix .a b{display:block;margin-bottom:10px;font:700 24px/1 var(--ds-font-body);color:var(--ds-sub)}
+.fix i{position:relative}
+.fix i::after{content:"";position:absolute;left:50%;top:50%;width:28px;height:28px;margin:-14px 0 0 -14px;border-radius:50%;background:var(--ds-c1)}
+.fix.is-key .a{box-shadow:0 0 0 3px var(--ds-point)}
+
+/* ── 간트(월 1~12): style="--from:3;--to:6" ────────────────────── */
+.gantt{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:32px 36px;display:grid;grid-template-columns:260px repeat(12,1fr);row-gap:18px;align-items:center;min-width:0}
+.gantt .g-h{font:700 22px/1 var(--ds-font-num);color:var(--ds-sub);text-align:center}
+.gantt .g-h:first-child{text-align:left;font-family:var(--ds-font-body)}
+.gantt .g-name{grid-column:1;font-size:26px;line-height:1.3}
+.gantt .g-bar{grid-column:calc(var(--from) + 1) / calc(var(--to) + 2);height:30px;background:var(--ds-c3);border-radius:15px}
+.gantt .g-bar.is-key{background:var(--ds-point)}
+.gantt .g-name,.gantt .g-bar{border-top:1px solid transparent}
+
+/* ── 표 ────────────────────────────────────────────── */
+.tbl{width:100%;border-collapse:collapse;background:var(--ds-surface);box-shadow:var(--ds-shadow);border-radius:var(--ds-radius);overflow:hidden;font-size:28px}
+.tbl th{padding:20px 28px;text-align:left;font:700 24px/1.2 var(--ds-font-body);color:var(--ds-c1);background:var(--ds-c5)}
+.tbl td{padding:18px 24px;border-bottom:1px solid var(--ds-line)}
+.tbl td.n{text-align:right;font:700 28px/1 var(--ds-font-num)}
+.tbl tr.is-key td{color:var(--ds-accent);font-weight:700}
+.tbl tfoot td{font-weight:800;border-bottom:0;border-top:2px solid var(--ds-c1)}
+
+/* ── 모션: 장에 들어설 때 한 번. 원은 차례로 커지고, 막대는 왼쪽부터 자란다 ──
+   자리를 옮기지 않고(크기 · 투명도만) 0.7초 안에 끝난다. 움직임 줄이기에서는 공통 CSS가 끝 모습으로 바로 보낸다 */
+@keyframes i-grow{from{transform:scale(0)}to{transform:none}}
+@keyframes i-fade{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+@keyframes i-bar{from{transform:scaleX(0)}to{transform:none}}
+.slide.is-on .orbs i{animation:i-grow .5s cubic-bezier(.2,.8,.2,1) both}
+.slide.is-on .orbs i:nth-child(2){animation-delay:.06s}.slide.is-on .orbs i:nth-child(3){animation-delay:.12s}
+.slide.is-on .orbs i:nth-child(4){animation-delay:.18s}.slide.is-on .orbs i:nth-child(5){animation-delay:.24s}.slide.is-on .orbs i:nth-child(6){animation-delay:.18s}
+.slide.is-on .grid > :not([data-step]){animation:i-fade .45s ease-out both}
+.slide.is-on .grid > :nth-child(2):not([data-step]){animation-delay:.08s}.slide.is-on .grid > :nth-child(3):not([data-step]){animation-delay:.16s}.slide.is-on .grid > :nth-child(n+4):not([data-step]){animation-delay:.24s}
+.slide.is-on .bar::before{animation:i-bar .6s cubic-bezier(.2,.8,.2,1) .1s both}
