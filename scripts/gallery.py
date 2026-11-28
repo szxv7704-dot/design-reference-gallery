@@ -342,7 +342,7 @@ for s in STYLES:
 
 # ── body.html: 역할마다 배치가 다른 구성을 나란히 ──
 B = ['<p class="crumb"><a href="present.html">← 발표자료 고르기</a></p><h1>본문 지정하기</h1><p class="lead">같은 내용도 보여 주는 방식이 여럿입니다. 역할마다 <b>배치가 다른 구성 셋</b>을 나란히 놓았습니다. 내용에 맞는 구성을 고르세요.</p><div class="short" style="margin-top:20px">%s</div>' % ''.join(
-    '<a href="#r-%s">%s</a>' % (r, E(RN[r]['name'])) for r in VAR['order'] + ['more']),
+    '<a href="#r-%s">%s</a>' % (r, E(RN[r]['name']) if r in RN else '움직이는 분류') for r in VAR['order'] + ['more', 'move']),
      '<div class="sw"><span>입혀 볼 스타일</span><div class="chips" id="sw" role="group" aria-label="입혀 볼 스타일">%s</div></div>' % ''.join(
          '<button type="button" data-f="%s" aria-pressed="%s">%s</button>' % (s['id'], 'true' if s['id'] == 'B' else 'false', E(s['name'])) for s in STYLES)]
 for r in VAR['order']:
@@ -354,6 +354,12 @@ rest = [(p, next((x for x in slides if x['pattern'] == p['id'] and x['id'] != 's
 B.append('<h2 id="r-more">그 밖의 구성 <small>갈래 · 체계 · 추이 · 구성비 · 사진 · 간지</small></h2><div class="minis">%s</div>' % ''.join(
     '<a class="mc" href="kit/B%s.html#%d" target="_blank" rel="noopener" data-n="%d" data-deck="%s"><img src="%s" alt="%s" loading="lazy" width="640" height="360"><b>%s</b><p>%s</p><p>분량 · %s</p></a>' % (
         x['deck'], x['n'], x['n'], x['deck'], th('B', x['deck'], x['n']), E(p['name']), E(p['name']), E(p['when']), E(p['cond'])) for p, x in rest if x))
+# 움직이는 분류 장표: 판정은 '영감'(덱 재료로 조립하지 않음)이지만 사용자가 살려 두기로 한 것(2026-11-28). 장표 그대로 넘겨 보고 쓴다
+MOVING = [(6, '◉ 누르기', '과제 카드 12장을 누를 때마다 세 더미(갈래)로 나눠 놓는다. 분류 기준을 하나씩 밝히며 말할 때'),
+          (43, '▶ 모션', '흩어진 과제가 칸막이 상자 네 칸에 담긴다. 칸 넓이 = 과제 수라 어느 갈래가 큰지 한눈에 보인다')]
+B.append('<h2 id="r-move">움직이는 분류 장표 <small>과제를 갈래로 나누는 모습이 움직임으로 보인다</small></h2><p class="note">구성 셋과 달리 스타일을 입혀 바꾸지 않는 완성 장표입니다. 눌러서 열어 발표 화면에서 그대로 넘기거나, AI에게 주소를 주고 "이 움직임대로"라고 요청하세요.</p><div class="minis">%s</div>' % ''.join(
+    '<article class="mc"><a href="%s%s" target="_blank" rel="noopener"><img src="%s%s" alt="%s" loading="lazy" width="640" height="360"></a><b>%s <small>#%d · %s</small></b><p>%s</p></article>' % (
+        E(r['file']), ver(r), E(r['thumb']), ver(r), E(name(r)), E(name(r)), r['no'], tag, E(say)) for no, tag, say in MOVING for r in [next(x for x in vis if x['no'] == no)]))
 B.append('<h2>참고 장표와 아이콘</h2><p class="note">스타일 세트와 따로 만든 본문 장표 %d개(도식 아이디어 참고용)와 아이콘 85개는 <a href="refs.html">참고 장표 모음</a>에 있습니다.</p>' % sum(1 for r in vis if r['role'] == '본문'))
 BODY_JS = r"""
 // 입혀 볼 스타일을 바꾸면 그림과 주소만 바뀐다(구성은 그대로). 고른 스타일은 주소에 남는다(?style=D)

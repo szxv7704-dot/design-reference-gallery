@@ -11,7 +11,7 @@
 <div class="deck"><main class="deck-stage">
 
 <!-- 1. 표지 -->
-<section data-pattern="cover" class="slide c-orig"><iframe src="../light/74.html?slide=" title="별을 잇다 표지" loading="eager"></iframe></section>
+<section data-pattern="cover" class="slide c-orig"><iframe class="live" src="../light/74.html?slide=" title="별을 잇다 표지" loading="eager"></iframe></section>
 
 <!-- 2. 흐름 · 다섯 별자리 -->
 <section data-pattern="toc" class="slide">
@@ -165,5 +165,26 @@
 
 </main></div>
 <script src="../kit/v1/deck.js"></script>
+<script>
+/* 눌러서 조작하는 장표(iframe.live): 장표 안을 누른 뒤에도 덱을 넘길 수 있게. scripts/covers.py 가 넣음 */
+(function () {
+  var K = { ArrowRight: 'next', PageDown: 'next', ArrowLeft: 'prev', PageUp: 'prev' }, tip = document.createElement('div');
+  tip.className = 'live-tip'; tip.textContent = '장표를 조작하는 중 · Esc 를 누르면 덱으로 돌아와 ← → 로 넘깁니다'; document.body.appendChild(tip);
+  var back = function () { var a = document.activeElement; if (a && a.tagName === 'IFRAME') a.blur(); window.focus(); tip.classList.remove('on'); };
+  [].forEach.call(document.querySelectorAll('iframe.live'), function (f) {
+    var hook = function () { try { var w = f.contentWindow; if (!w || w.__deckKeys) return; w.__deckKeys = 1;
+      w.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { back(); return; }
+        var k = K[e.key]; if (!k || e.defaultPrevented || f.dataset.keys === 'own' || !window.DECK) return;
+        e.preventDefault(); back(); window.DECK[k]();
+      }); } catch (err) {} };
+    f.addEventListener('load', hook);   // 덱 스크립트보다 먼저 열렸으면 바로 붙인다
+    try { if (f.contentDocument && f.contentDocument.readyState === 'complete') hook(); } catch (err) {}
+  });
+  addEventListener('blur', function () { setTimeout(function () { var a = document.activeElement; tip.classList.toggle('on', !!(a && a.tagName === 'IFRAME' && a.classList.contains('live') && a.dataset.keys === 'own')); }, 0); });
+  addEventListener('focus', function () { tip.classList.remove('on'); });
+  window.DECK_FX = { enter: function () { back(); } };
+})();
+</script>
 </body>
 </html>

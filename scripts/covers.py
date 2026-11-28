@@ -21,7 +21,32 @@ for fn in os.listdir(os.path.join(ROOT, 'fonts')):
     m = re.match(r'(.+)-(\d+)\.woff2$', fn)
     if m: have.setdefault(m.group(1), []).append(m.group(2))
 
-IMG = {9, 11, 106}   # 장표만 떼어 띄울 수 없는 표지(무대가 픽셀 고정 · 눌러야 나타남): 원본 화면을 떠낸 그림(covers/img/)으로 띄운다
+IMG = set()   # 원본 화면을 떠낸 그림(covers/img/)으로 띄울 표지. 2026-11-28부터 비움: #9 · #11 · #106 도 light 판이 1920 × 1080 창에서 제대로 돌아 원본을 띄운다
+def live(no):   # 눌러서 조작하는 장표: 덱 안에서도 누를 수 있게(class live). 방향키를 스스로 쓰면 data-keys="own"(그때 ← → 는 장표가 쓰고 Esc 로 덱에 돌아온다)
+    if rounds[no].get('motion') != '인터랙션': return ''
+    own = 'Arrow' in open(os.path.join(ROOT, 'src', str(no), 'page.html'), encoding='utf-8').read()
+    return ' class="live"' + (' data-keys="own"' if own else '')
+LIVEJS = '''<script>
+/* 눌러서 조작하는 장표(iframe.live): 장표 안을 누른 뒤에도 덱을 넘길 수 있게. scripts/covers.py 가 넣음 */
+(function () {
+  var K = { ArrowRight: 'next', PageDown: 'next', ArrowLeft: 'prev', PageUp: 'prev' }, tip = document.createElement('div');
+  tip.className = 'live-tip'; tip.textContent = '장표를 조작하는 중 · Esc 를 누르면 덱으로 돌아와 ← → 로 넘깁니다'; document.body.appendChild(tip);
+  var back = function () { var a = document.activeElement; if (a && a.tagName === 'IFRAME') a.blur(); window.focus(); tip.classList.remove('on'); };
+  [].forEach.call(document.querySelectorAll('iframe.live'), function (f) {
+    var hook = function () { try { var w = f.contentWindow; if (!w || w.__deckKeys) return; w.__deckKeys = 1;
+      w.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { back(); return; }
+        var k = K[e.key]; if (!k || e.defaultPrevented || f.dataset.keys === 'own' || !window.DECK) return;
+        e.preventDefault(); back(); window.DECK[k]();
+      }); } catch (err) {} };
+    f.addEventListener('load', hook);   // 덱 스크립트보다 먼저 열렸으면 바로 붙인다
+    try { if (f.contentDocument && f.contentDocument.readyState === 'complete') hook(); } catch (err) {}
+  });
+  addEventListener('blur', function () { setTimeout(function () { var a = document.activeElement; tip.classList.toggle('on', !!(a && a.tagName === 'IFRAME' && a.classList.contains('live') && a.dataset.keys === 'own')); }, 0); });
+  addEventListener('focus', function () { tip.classList.remove('on'); });
+  window.DECK_FX = { enter: function () { back(); } };
+})();
+</script>'''
 def base_of(no): f = rounds[no].get('family'); return f if f and f in 'ABCDEFH' else 'B'
 def picks(i): return ''.join('abc'[(i + (i // 3) * j + (i // 9) * (j * j) + j) % 3] for j in range(len(kit.VAR['order'])))
 def tokens(no, base):
@@ -45,7 +70,10 @@ def css_of(no, base):
     fam = kit.rd(kit.K, base + '.css').replace('url("img/', 'url("../kit/img/')
     over = ':root{' + ';'.join('%s:%s' % kv for kv in tokens(no, base).items()) + '}\n' \
            '/* 표지 장: 원본 표지 장표를 그대로 띄운다 */\n.slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}\n' \
-           '.slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}\n.slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}\n'
+           '.slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}\n.slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}\n' \
+           '/* 눌러서 조작하는 장표는 덱 안에서도 누를 수 있다(iframe.live). 조작 중 안내(.live-tip)는 무대 밖 화면 아래에 */\n' \
+           '.slide iframe.live,.slide.ref .r-win iframe.live{pointer-events:auto}\n' \
+           '.live-tip{position:fixed;left:50%;bottom:56px;transform:translateX(-50%);padding:8px 14px;border-radius:6px;background:rgba(0,0,0,.72);color:#fff;font:500 14px/1.4 system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity .2s;z-index:10}.live-tip.on{opacity:1}\n@media print{.live-tip{display:none}}\n'
     head = '/* 표지 #%d %s 의 색 · 글꼴을 입힌 스타일 묶음(scripts/covers.py 가 만듦, 고치지 말 것). 배치 문법은 %s %s 에서 빌렸다\n   글꼴: SIL Open Font License 1.1, 저작권 고지는 %sfonts/LICENSES.md */\n' % (no, name(rounds[no]), base, kit.NAMES[base], kit.BASE)
     return head + faces + kit.rd(kit.K, 'deck.css') + '\n' + kit.rd(kit.K, 'parts.css') + '\n' + fam + '\n' + over
 def body_of(no, pk):
@@ -53,7 +81,7 @@ def body_of(no, pk):
     if no in IMG:   # 그림으로 띄우는 표지
         out.append('<!-- 1. 표지 -->\n<section data-pattern="cover" class="slide c-orig"><img src="img/%d.jpg" alt="%s 표지"></section>' % (no, name(rounds[no])))
     else:
-        out.append('<!-- 1. 표지 -->\n<section data-pattern="cover" class="slide c-orig"><iframe src="../light/%02d.html?slide=" title="%s 표지" loading="eager"></iframe></section>' % (no, name(rounds[no])))
+        out.append('<!-- 1. 표지 -->\n<section data-pattern="cover" class="slide c-orig"><iframe%s src="../light/%02d.html?slide=" title="%s 표지" loading="eager"></iframe></section>' % (live(no), no, name(rounds[no])))
     for role, v in list(zip(kit.VAR['order'], pk)) + [('closing', 'a')]:
         m = re.search(r'<!-- \d+\. ([^\n]+?) -->\n(<section data-pattern="[\w-]+" data-role="%s" data-var="%s".*?</section>)' % (role, v), src, re.S)
         out.append('<!-- %d. %s -->\n%s' % (len(out) + 1, m.group(1), m.group(2)))
@@ -73,9 +101,9 @@ def bespoke_body(no):
     body, base, device = bespoke_src(no); refs = []
     def ref(m):
         n = int(m.group(1)); refs.append(n)
-        return ('<section data-pattern="ref" class="slide ref">\n  <div class="s-body">\n    <p class="kicker">%s</p>\n    <div class="r-win"><iframe src="../light/%02d.html?slide=%s" title="%s" loading="lazy"></iframe></div>\n  </div>\n'
+        return ('<section data-pattern="ref" class="slide ref">\n  <div class="s-body">\n    <p class="kicker">%s</p>\n    <div class="r-win"><iframe%s src="../light/%02d.html?slide=%s" title="%s" loading="lazy"></iframe></div>\n  </div>\n'
                 '  <p class="src">빌려 온 본문 #%d %s · 내용은 다른 가상 예시</p>\n%s  <span class="page-no"></span>\n</section>') % (
-                    m.group(2), n, '' if rounds[n].get('families') == ['A'] else 'c%d' % no,   # 픽셀 스타일 전용 본문은 제 색 그대로
+                    m.group(2), live(n), n, '' if rounds[n].get('families') == ['A'] else 'c%d' % no,   # 픽셀 스타일 전용 본문은 제 색 그대로
                     name(rounds[n]), n, name(rounds[n]), ('  @@USE:%s@@\n' % m.group(3)) if m.group(3) else '')
     body = re.sub(r'@@REF:(\d+):([^@:]+)(?::(\w+(?::[^@]*)?))?@@', ref, body)   # @@REF:번호:머리말@@ 또는 @@REF:번호:머리말:틀이름:값@@
     # 되풀이 틀: <!--DEF 이름 ⏎ … ⏎ --> 로 정의하고 @@USE:이름:값1|값2@@ 로 쓴다($1 · $2 자리에 값)
@@ -86,7 +114,7 @@ def bespoke_body(no):
         return t
     body = re.sub(r'@@USE:(\w+)(?::([^@]*))?@@', use, body)
     first = '<!-- 1. 표지 -->\n<section data-pattern="cover" class="slide c-orig">%s</section>' % (
-        '<img src="img/%d.jpg" alt="%s 표지">' % (no, name(rounds[no])) if no in IMG else '<iframe src="../light/%02d.html?slide=" title="%s 표지" loading="eager"></iframe>' % (no, name(rounds[no])))
+        '<img src="img/%d.jpg" alt="%s 표지">' % (no, name(rounds[no])) if no in IMG else '<iframe%s src="../light/%02d.html?slide=" title="%s 표지" loading="eager"></iframe>' % (live(no), no, name(rounds[no])))
     body = first + '\n\n' + body
     body = re.sub(r'(<span class="page-no"></span>\n</section>)', DEV + r'\n  \1', body)
     titles = re.findall(r'<!-- \d+\. ([^\n]+?) -->', body)
@@ -105,7 +133,7 @@ if __name__ == '__main__':
         else:
             body = body_of(no, pk); kit.wr(os.path.join(OUT, '%d.css' % no), css_of(no, base))
         html = kit.HEAD % {'fam': base, 'title': '%s — 표지에서 넓힌 10장 덱' % name(rounds[no]), 'body': body,
-                           'css': '<link rel="stylesheet" href="%d.css">' % no, 'js': '<script src="../kit/v1/deck.js"></script>'}
+                           'css': '<link rel="stylesheet" href="%d.css">' % no, 'js': '<script src="../kit/v1/deck.js"></script>\n' + LIVEJS}
         kit.wr(os.path.join(OUT, '%d.html' % no), html.replace('<body>', '<body>\n<!-- scripts/covers.py 가 만든 파일. 예시 내용은 가상 -->'))
         meta.append({'no': no, 'name': name(rounds[no]), 'base': base, 'picks': pk, 'family': rounds[no].get('family'),
                      'combo': [next(v['name'] for v in kit.VAR['roles'][r] if v['v'] == x) for r, x in zip(kit.VAR['order'], pk)]})

@@ -458,6 +458,10 @@ body{overflow:hidden;word-break:keep-all;overflow-wrap:break-word;-webkit-font-s
 .slide.c-orig{padding:0;background:#111}.slide.c-orig::before,.slide.c-orig::after{content:none}
 .slide.c-orig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .slide.c-orig iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+/* 눌러서 조작하는 장표는 덱 안에서도 누를 수 있다(iframe.live). 조작 중 안내(.live-tip)는 무대 밖 화면 아래에 */
+.slide iframe.live,.slide.ref .r-win iframe.live{pointer-events:auto}
+.live-tip{position:fixed;left:50%;bottom:56px;transform:translateX(-50%);padding:8px 14px;border-radius:6px;background:rgba(0,0,0,.72);color:#fff;font:500 14px/1.4 system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity .2s;z-index:10}.live-tip.on{opacity:1}
+@media print{.live-tip{display:none}}
 /* 빌려 온 본문: 기존 본문 장표(light/번호.html)를 이 표지의 색 · 글꼴로 띄우는 16:9 창 */
 .slide.ref .r-win{flex:1;min-height:0;display:flex;justify-content:center;align-items:center;container-type:size}.slide.ref .r-win iframe{width:min(100cqw,177.78cqh);height:min(100cqh,56.25cqw);border:0;pointer-events:none;background:var(--ds-bg);box-sizing:border-box}
 
