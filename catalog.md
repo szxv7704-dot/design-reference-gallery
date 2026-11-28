@@ -166,7 +166,7 @@
 | 29 | 출발판 넘김 | 표시·뒤집기 | 숫자판이 넘어가는 소리가 들리는 듯해 '바뀌었다'가 남는다. | "이만큼 바뀝니다" | 기간 · 건수 단축, 새 일정 공개, 결과 발표 | https://szxv7704-dot.github.io/design-reference-gallery/wow/29.html |
 | 30 | 동그라미 치기 | 표시·뒤집기 | 발표자가 펜으로 짚어 주는 듯해 시선이 바로 그 숫자로 간다. | "바로 이 숫자입니다" · "짐작해 보세요" | 표 · 그래프에서 숫자 하나 짚기, 법령 문구 강조 | https://szxv7704-dot.github.io/design-reference-gallery/wow/30.html |
 | 31 | 카드 뒤집기 | 표시·뒤집기 | 답을 먼저 짐작해 본 사람은 그 답을 오래 기억한다. | "바로 이 숫자입니다" · "짐작해 보세요" | 퀴즈, 오해와 사실, 예상과 실제 | https://szxv7704-dot.github.io/design-reference-gallery/wow/31.html |
-| 32 | 줌 스루 | 장면 잇기 | 비어 있던 0으로 들어가면, 다음 해의 0은 꽉 찬 원이다. 형태만으로 '올해 → 내년'이 읽힌다. | "다음 단계로 넘어갑니다" | 표지 → 본론, 올해 → 내년, 현황 → 계획 | https://szxv7704-dot.github.io/design-reference-gallery/wow/32.html |
+| 32 | 줌 스루 | 장면 잇기 | 0 인 줄 알았던 구멍 안에 밤하늘이 있다. 그 속으로 들어가면 달이 다가와 내년의 0 이 된다. | "다음 단계로 넘어갑니다" | 표지 → 본론, 올해 → 내년, 현황 → 계획 | https://szxv7704-dot.github.io/design-reference-gallery/wow/32.html |
 | 33 | 사선 패널 교체 | 장면 잇기 | 차례로 바뀌던 판들이 한 번의 사선 칼질에 세 기둥으로 갈라진다. 따로 소개한 셋이 한 팀이 되는 순간. | "여럿을 차례로 소개합니다" | 담당 · 기관 · 사업 셋을 소개하고 '한 팀'으로 묶는 결론 | https://szxv7704-dot.github.io/design-reference-gallery/wow/33.html |
 | 34 | 선이 모여 줌 | 장면 잇기 | 일곱 곳을 돌던 길이 사라지고, 일곱이 한 창구 안에 들어간다. '7곳 → 1곳'이 그림으로 보인다. | "여럿이 함께 만듭니다" | 통합 창구 · 거점, 협력 체계, 흩어진 사업을 하나로 | https://szxv7704-dot.github.io/design-reference-gallery/wow/34.html |
 | 35 | 카드 더미 펼치기 | 장면 잇기 | 흩어진 것이 한 묶음이 되었다가 펼쳐지면, '여럿이 한 이야기'라는 게 보인다. | "여럿을 차례로 소개합니다" | 우수 사례 여러 건, 참여 학교 · 기관 소개 | https://szxv7704-dot.github.io/design-reference-gallery/wow/35.html |

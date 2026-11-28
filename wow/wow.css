@@ -525,57 +525,66 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-flip .b b small{font-size:.4em;margin-left:.5cqw}
 .d-flip .b span{margin-top:2.4cqw;font:600 3.6cqw var(--fb);opacity:.85}
 
-/* ── ⑨ 줌 스루: "2026"의 0(빈 고리)으로 들어가 → 겹친 고리를 지나 → "2027"(0이 꽉 찬 원). 그림 없이 글자 · 도형만 ──
-   16:9 틀(.fr)이 데모 상자를 덮고 틀 자신이 컨테이너라, 안의 cqw 는 틀 폭 기준(상자 비율이 달라도 위치가 같다).
-   숫자 4칸은 고정폭 14cqw, 첫 칸이 x 22cqw → 0 칸 중심은 x 43%, y 50%. 끝 모습(움직임 줄이기 · 인쇄)은 2027 장면 */
-.d-thru{background:#A8323E;overflow:hidden}
+/* ── ⑨ 줌 스루(다섯 번째 판, 참고 영상 Whoopsies 의 셋: 천천히 끊김 없이 · 구멍 안의 뜻밖의 세계 · 처음부터 보이는 주인공) ──
+   "2026"의 0(붉은 고리) 구멍 안에 밤하늘(별 세 겹 + 노란 달)이 처음부터 보이고 → 약 3초 동안 천천히 다가가며 별이 깊이별로 지나감
+   → 노란 달이 2027 의 꽉 찬 0 크기가 되어 제자리(왼쪽 7cqw)로 → 구멍 속 밤하늘이 그대로 배경, 별이 톡톡 → 2 · 2 · 7 · 한 줄.
+   16:9 틀(.fr)이 상자를 덮고 cqw 는 틀 폭 기준. 숫자 4칸 폭 14cqw, 첫 칸 x 22cqw → 0 칸 중심 x 43%. 끝 모습은 밤하늘의 2027 */
+.d-thru{background:#141A33;overflow:hidden}
 .d-thru .fr{position:absolute;left:50%;top:50%;width:max(100cqw,177.78cqh);height:max(56.25cqw,100cqh);translate:-50% -50%;container-type:size}
 .d-thru .la,.d-thru .lc,.d-thru .lz{position:absolute;inset:0}
 .d-thru .num{position:absolute;left:22cqw;top:50%;translate:0 -50%;display:flex}
 .d-thru .cl{position:relative;width:14cqw;height:20cqw;display:grid;place-items:center}
 .d-thru .cl b{font:900 21cqw/1 var(--ft);letter-spacing:-.04em}
-.d-thru .cl i{display:block;width:11.6cqw;height:16.4cqw;border-radius:50%;box-sizing:border-box}
-.d-thru .tg{position:absolute;left:22cqw;top:calc(50% - 16.5cqw);margin:0;font:800 3.8cqw var(--fb);letter-spacing:.06em}
-/* 올해: 크림 바탕에 먹 숫자, 0 은 붉은 빈 고리. 고리 안쪽만 뚫려 있어 그 너머 고리들이 보인다 */
-.d-thru .la{background:#F6EFE0;color:#1C2128;transform-origin:43% 50%;opacity:0;
+.d-thru .ring{display:block;width:11.6cqw;height:16.4cqw;border-radius:50%;box-sizing:border-box;border:3.4cqw solid #A8323E}
+.d-thru .tg{position:absolute;left:22cqw;top:calc(50% - 16.5cqw);margin:0;font:800 3.8cqw var(--fb)}
+.d-thru .la{background:#F6EFE0;color:#1C2128;transform-origin:43% 50%;
   -webkit-mask:radial-gradient(ellipse 2.4cqw 4.8cqw at 43% 50%,transparent 97%,#000 100%);mask:radial-gradient(ellipse 2.4cqw 4.8cqw at 43% 50%,transparent 97%,#000 100%)}
 .d-thru .la .tg{color:#A8323E}
-.d-thru .ring{border:3.4cqw solid #A8323E}
-/* 고리 너머: 같은 중심의 원 여섯 겹(먹 · 크림 · 붉은색). 가장 안쪽 붉은 원이 2027 장면의 바탕이 된다 */
-.d-thru .sky{position:absolute;left:50%;top:50%;width:0;height:0;transform-origin:0 0;scale:1}
-.d-thru .sky i{position:absolute;width:var(--d);height:var(--d);margin:calc(var(--d) / -2) 0 0 calc(var(--d) / -2);border-radius:50%;background:var(--c)}
-.d-thru .lc{opacity:0}
-/* 내년: 붉은 바탕에 크림 숫자, 0 은 노란 꽉 찬 원 */
-.d-thru .lz{color:#F6EFE0}
+/* 밤하늘: 남색 바탕, 가운데 노란 달(나중의 2027 의 0, 하늘이 6배일 때 0 크기), 별 세 겹 */
+.d-thru .lc{background:radial-gradient(ellipse 60% 70% at 50% 50%,#1E2752,#141A33 70%)}
+.d-thru .sky{position:absolute;left:50%;top:50%;width:0;height:0;scale:.16;translate:-7cqw 0}
+.d-thru .moon{position:absolute;width:3.867cqw;height:5.467cqw;margin:-2.733cqw 0 0 -1.933cqw;border-radius:50%;background:#F5C518;box-shadow:0 0 0 .2cqw #F6EFE0,0 0 4cqw rgba(245,197,24,.6)}
+.d-thru .sf{position:absolute;left:0;top:0}
+.d-thru .sf i,.d-thru .fs i{position:absolute;width:var(--s);height:var(--s);background:#F5C518;clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.d-thru .sf i{left:var(--px);top:var(--py);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2)}
+.d-thru .sf.far i{background:#C9D0E8}
+.d-thru .fs i{margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2)}
+.d-thru .lz{color:#F6EFE0;opacity:0}
 .d-thru .lz .tg{color:#F5C518}
-.d-thru .dot{background:#F5C518;box-shadow:0 0 0 .5cqw #F6EFE0 inset}
-.d-thru .sb{position:absolute;left:22cqw;top:calc(50% + 11.5cqw);margin:0;font:800 4.4cqw var(--ft);letter-spacing:-.01em}
-.play .d-thru .la{animation:thA 5.6s both}
+.d-thru .sb{position:absolute;left:22cqw;top:calc(50% + 11.5cqw);margin:0;font:800 4.4cqw var(--ft)}
+/* 시간표(초, 전체 5.4): 숫자 0.15 · 움츠림 0.9 · 다가감 1.2~3.0(천천히, 끊김 없이) · 달 0 크기 3.0~3.5 · 제자리 3.5~3.9 · 별 톡톡 3.6 · 2 · 2 · 7 3.6 · 한 줄 4.2 */
+.play .d-thru .la{animation:thA 5.4s both}
 .play .d-thru .la .cl{animation:digUp .55s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .09s + .15s)}
-.play .d-thru .la .tg{animation:fadeIn .4s .6s both}
-.play .d-thru .lc{animation:thC 5.6s both}
-.play .d-thru .sky{animation:thSky 5.6s both}
-.play .d-thru .lz{animation:thZ 5.6s both}
-.play .d-thru .lz .cl{animation:digDrop .6s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .1s + 3.15s)}
-.play .d-thru .lz .dot{animation:dotFill .5s cubic-bezier(.3,1.8,.5,1) 3.6s both}
-.play .d-thru .lz .tg{animation:fadeIn .4s 3.1s both}
-.play .d-thru .lz .sb{animation:fadeUp .5s 3.85s both}
+.play .d-thru .la .tg{animation:fadeIn .4s .55s both}
+.play .d-thru .sky{animation:thSky 5.4s both}
+.play .d-thru .sf.far{animation:thFar 5.4s both}
+.play .d-thru .sf.mid{animation:thMid 5.4s both}
+.play .d-thru .sf.near{animation:thNear 5.4s both}
+.play .d-thru .fs i{animation:starPop .4s cubic-bezier(.3,1.8,.5,1) both,starTw 2.4s ease-in-out 2;animation-delay:calc(var(--i) * .04s + 3.05s),calc(var(--i) * .17s + 4s)}
+.play .d-thru .lz{animation:fadeIn .01s 2.98s both}
+.play .d-thru .lz .cl:not(.z){animation:digDrop .55s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .07s + 3.05s)}
+.play .d-thru .lz .tg{animation:fadeIn .35s 3.2s both}
+.play .d-thru .lz .sb{animation:fadeUp .5s 3.6s both}
 @keyframes digUp{from{opacity:0;transform:translateY(60%)}to{opacity:1;transform:none}}
 @keyframes digDrop{from{opacity:0;transform:translateY(-70%)}to{opacity:1;transform:none}}
-@keyframes dotFill{from{transform:scale(.2)}to{transform:none}}
-/* 0 의 구멍으로: 0 을 틀 가운데로 옮기며 28배(가속). 구멍이 화면을 덮는 순간 '올해'를 내리고 고리 장면만 남긴다 */
+@keyframes starPop{from{opacity:0;transform:scale(0) rotate(-40deg)}to{opacity:1;transform:none}}
+@keyframes starTw{0%,100%{opacity:1}50%{opacity:.45}}
+/* 2026: 움츠렸다가 0 을 틀 가운데로 옮기며 28배. 천천히 시작해 일정하게 다가간다(구멍이 화면을 덮는 순간 내림) */
 @keyframes thA{
-  0%,21%{opacity:1;transform:none;animation-timing-function:ease-in-out}
-  27%{opacity:1;transform:scale(.965);animation-timing-function:cubic-bezier(.62,0,.94,.36)}
-  47%{opacity:1;transform:translate(7%,0) scale(28)}
-  47.01%,100%{opacity:0;transform:translate(7%,0) scale(28)}}
-@keyframes thC{0%{opacity:1}57%{opacity:1}57.01%,100%{opacity:0}}
-/* 고리: 구멍 너머로 작게 보이다(0.16배) 구멍이 열리면서 커지고, 이어서 한 겹씩 지나간다(9배) */
+  0%,16.7%{opacity:1;transform:none;animation-timing-function:ease-in-out}
+  22.2%{opacity:1;transform:scale(.965);animation-timing-function:cubic-bezier(.45,0,.85,.55)}
+  48%{opacity:1;transform:translate(7%,0) scale(28)}
+  48.01%,100%{opacity:0;transform:translate(7%,0) scale(28)}}
+/* 하늘: 구멍 너머 0.16배 → 같은 빠르기로 이어서 6배(달 = 0 크기)까지 감속 → 달이 제자리로 '착' */
 @keyframes thSky{
-  0%,27%{scale:.16;translate:-7cqw 0;animation-timing-function:cubic-bezier(.62,0,.94,.36)}
-  47%{scale:1;translate:0 0;animation-timing-function:cubic-bezier(.45,0,.9,.5)}
-  62%,100%{scale:9;translate:0 0}}
-@keyframes thZ{0%,56.9%{opacity:0}57%,100%{opacity:1}}
+  0%,22.2%{scale:.16;translate:-7cqw 0;animation-timing-function:cubic-bezier(.45,0,.85,.55)}
+  48%{scale:1;translate:0 0;animation-timing-function:cubic-bezier(.2,.55,.35,1)}
+  56%{scale:3;translate:0 0;animation-timing-function:cubic-bezier(.3,1.55,.5,1)}
+  62%,100%{scale:3;translate:-7cqw 0}}
+/* 별 세 겹: 하늘과 함께 커지되 가까운 겹일수록 더 커지며(시차) 바깥으로 지나가 사라진다 */
+@keyframes thFar{0%,22.2%{transform:none;opacity:1}48%{transform:scale(1.15);opacity:1}60%,100%{transform:scale(1.5);opacity:0}}
+@keyframes thMid{0%,22.2%{transform:none;opacity:1}48%{transform:scale(1.5);opacity:1}58%,100%{transform:scale(2.4);opacity:0}}
+@keyframes thNear{0%,22.2%{transform:none;opacity:1}46%{transform:scale(2);opacity:1}55%,100%{transform:scale(3.4);opacity:0}}
 
 /* ── ⑨ 사선 패널 교체(와우 판): 판 01 → 02 → 03 이 갈수록 빠르게 사선으로 쓸고(긴장) → 03 이 살짝 움츠렸다가(숨 고르기)
    → 2.8초에 노란 칼날 두 줄이 위에서 아래로 화면을 가르며 흔들리고, 세 판이 반동하며 세 기둥으로(터짐) → 기둥마다 글자가 올라온다(여운).
