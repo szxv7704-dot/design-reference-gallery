@@ -562,15 +562,43 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   68%,100%{scale:9;translate:0 0}}
 @keyframes thZ{0%,67.9%{opacity:0}68%,100%{opacity:1}}
 
-/* ── ⑨ 사선 패널 교체: 같은 기울기의 판이 왼쪽에서 쓸고 지나가며 다음 담당으로 ── */
-.d-slash .pn{position:absolute;inset:0;padding:9% 9% 10%;background:var(--c);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:1.6cqw}
-.d-slash .pn em{position:absolute;right:7%;top:5%;font:900 24cqw/1 var(--ft);font-style:normal;opacity:.18;letter-spacing:-.04em}
-.d-slash .pn span{font:600 4.4cqw var(--fb);opacity:.85}
-.d-slash .pn b{font:900 9cqw/1.15 var(--ft);letter-spacing:-.03em}
-.d-slash .pn small{font:500 4cqw/1.4 var(--fb);opacity:.85}
-.play .d-slash .pn:nth-child(2){animation:slashIn .8s cubic-bezier(.7,0,.2,1) 1.2s both}
-.play .d-slash .pn:nth-child(3){animation:slashIn .8s cubic-bezier(.7,0,.2,1) 2.7s both}
-@keyframes slashIn{from{clip-path:polygon(0 0,0 0,-45% 100%,-45% 100%)}to{clip-path:polygon(0 0,145% 0,100% 100%,-45% 100%)}}
+/* ── ⑨ 사선 패널 교체: 같은 기울기의 판이 왼쪽에서 쓸고 지나가며 다음 담당(앞 가장자리에 노란 띠) → 끝에 사선 기둥 셋으로 나란히 ──
+   판 · 띠 모두 clip-path 다각형 보간이라 상자 비율이 달라도 가장자리가 딱 맞는다. 판 k 는 0.15 + 1.85k 초에 쓸려 들어오고, 5.7초에 셋이 함께 기둥(--col)으로 */
+.d-slash{background:#F6EFE0;color:#fff;word-break:keep-all}
+.d-slash .pn{position:absolute;inset:0;background:var(--c);clip-path:polygon(0 0,0 0,-30% 100%,-30% 100%)}
+.d-slash .eg{position:absolute;inset:0;background:#F5C518;clip-path:polygon(-1.8% 0,0 0,-30% 100%,-31.8% 100%);z-index:1}
+.d-slash .fc{position:absolute;left:8%;top:0;bottom:0;right:8%;display:flex;flex-direction:column;justify-content:center;gap:2.4cqh}
+.d-slash .fc em{position:absolute;right:0;top:6%;font:900 46cqh/1 var(--ft);font-style:normal;letter-spacing:-.05em;color:rgba(255,255,255,.12)}
+.d-slash .fc span{font:700 5.4cqh var(--fb);color:#F5C518;letter-spacing:.02em}
+.d-slash .fc b{font:900 14cqh/1.1 var(--ft);letter-spacing:-.04em}
+.d-slash .fc p{margin:2cqh 0 0;display:flex;align-items:baseline;gap:1.4cqw;font:600 5cqh var(--fb)}
+.d-slash .fc p i{font-style:normal;opacity:.85}
+.d-slash .fc p strong{font:900 12cqh/1 var(--ft);color:#F5C518;letter-spacing:-.03em}
+.d-slash .fc p small{font-size:5cqh;opacity:.85}
+.d-slash .cc{position:absolute;top:0;bottom:0;left:calc(var(--k) * 33.333% + 6%);width:24%;display:flex;flex-direction:column;justify-content:center;gap:1.6cqh;opacity:0}
+.d-slash .cc em{font:900 13cqh/1 var(--ft);font-style:normal;color:#F5C518;letter-spacing:-.04em}
+.d-slash .cc span{font:700 3.4cqh var(--fb);opacity:.85}
+.d-slash .cc b{font:900 5.6cqh/1.18 var(--ft);letter-spacing:-.03em}
+.d-slash .tb{position:absolute;left:8%;bottom:7%;display:flex;gap:1cqw;z-index:2}
+.d-slash .tb i{display:block;width:5cqw;height:1.4cqh;transform:skewX(-28deg);box-shadow:inset 0 0 0 .3cqh rgba(255,255,255,.7)}
+.play .d-slash .pn{animation:slSweep .7s cubic-bezier(.65,0,.25,1) both,slCol .8s cubic-bezier(.65,0,.25,1) 5.7s forwards;animation-delay:calc(var(--k) * 1.85s + .15s),5.7s}
+.play .d-slash .eg{animation:slEdge .7s cubic-bezier(.65,0,.25,1) both;animation-delay:calc(var(--k) * 1.85s + .15s)}
+.play .d-slash .fc > *{animation:slIn .55s cubic-bezier(.2,.8,.2,1) both,fadeOutK .25s 5.55s forwards;animation-delay:calc(var(--k) * 1.85s + .55s),5.55s}
+.play .d-slash .fc span{animation-delay:calc(var(--k) * 1.85s + .5s),5.55s}
+.play .d-slash .fc b{animation-delay:calc(var(--k) * 1.85s + .6s),5.55s}
+.play .d-slash .fc p{animation-delay:calc(var(--k) * 1.85s + .75s),5.55s}
+.play .d-slash .fc em{animation-delay:calc(var(--k) * 1.85s + .45s),5.55s}
+.play .d-slash .cc{animation:slColIn .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--k) * .12s + 6.35s)}
+.play .d-slash .tb{animation:fadeOutK .3s 5.55s forwards}
+.play .d-slash .tb i{animation:slTab .3s both}
+.play .d-slash .tb i:nth-child(1){animation-delay:.6s}.play .d-slash .tb i:nth-child(2){animation-delay:2.45s}.play .d-slash .tb i:nth-child(3){animation-delay:4.3s}
+@keyframes slSweep{from{clip-path:polygon(0 0,0 0,-30% 100%,-30% 100%)}to{clip-path:polygon(0 0,140% 0,110% 100%,-30% 100%)}}
+@keyframes slEdge{from{clip-path:polygon(-1.8% 0,0 0,-30% 100%,-31.8% 100%)}to{clip-path:polygon(138.2% 0,140% 0,110% 100%,108.2% 100%)}}
+@keyframes slCol{from{clip-path:polygon(0 0,140% 0,110% 100%,-30% 100%)}to{clip-path:var(--col)}}
+@keyframes slIn{from{opacity:0;transform:translateX(-5cqw)}to{opacity:1;transform:none}}
+@keyframes slColIn{from{opacity:0;transform:translateY(4cqh)}to{opacity:1;transform:none}}
+@keyframes slTab{from{background:transparent}to{background:#F5C518}}
+@keyframes fadeOutK{to{opacity:0}}
 
 /* ── ⑨ 선이 모여 줌: 일곱 기관에서 같은 방향으로 휘는 선이 가운데로 감겨 들고, 닿을 때마다 고리가 한 겹 ──
    그 붉은 점으로 확대해 들어가면(고리를 지나) 붉은 면 안에 일곱이 한 줄로 선다. 16:9 틀(.fr)이 상자를 덮는다. 끝 모습은 한 줄 장면 */
@@ -1059,12 +1087,25 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>줌 스루<small>구멍을 지나 다음 장면</small></h3><p class="why">비어 있던 0으로 들어가면, 다음 해의 0은 꽉 찬 원이다. 형태만으로 '올해 → 내년'이 읽힌다.</p>
       <dl><dt>쓰는 곳</dt><dd>표지 → 본론, 올해 → 내년, 현황 → 계획</dd><dt>주의</dt><dd>덱 전체에 한 번. 구멍은 크고 분명한 원 하나로, 겹은 두세 단계까지</dd><dt>PPT</dt><dd>숫자 0 자리에 도형(고리)을 두고 '확대/축소'로 크게 → 같은 색 면에서 다음 장, 모핑 전환</dd></dl></article>
     <article class="card"><div class="demo d-slash">
-        <div class="pn" style="--c:#6E1F29"><em>01</em><span>기획 담당</span><b>업무 경감 총괄</b><small>줄일 일을 고르고 일정을 짭니다</small></div>
-        <div class="pn" style="--c:#A8323E"><em>02</em><span>교육과정 담당</span><b>수업 시간 지키기</b><small>행사 · 공문을 수업 밖으로</small></div>
-        <div class="pn" style="--c:#C9606A"><em>03</em><span>행정 담당</span><b>서식 하나로</b><small>제출 서류 7종 → 2종</small></div>
-      </div><p class="steps"><i>①</i> 첫 담당 → <i>②</i> 사선 판이 쓸고 지나감 → <i>③</i> 다음 담당</p>
-      <h3>사선 패널 교체<small>쓸고 지나가며 바뀜</small></h3><p class="why">같은 틀에서 판만 쓸려 가니, 여럿을 차례로 보여도 어수선하지 않다.</p>
-      <dl><dt>쓰는 곳</dt><dd>담당 · 기관 소개, 사례 차례로 보이기</dd><dt>주의</dt><dd>판 색은 한 계열 명도로, 기울기는 하나로 통일</dd><dt>PPT</dt><dd>평행사변형 도형을 '날아오기(왼쪽)'로 덮은 뒤 다음 장, 또는 모핑 전환</dd></dl></article>
+        <div class="pn" style="--k:0;--c:#6E1F29;--col:polygon(5.45% 0,37.88% 0,27.88% 100%,-4.55% 100%)">
+          <div class="fc"><em>01</em><span>기획 담당</span><b>업무 경감 총괄</b><p><i>줄일 일</i><strong>32</strong><small>건 골라냄</small></p></div>
+          <div class="cc"><em>01</em><span>기획 담당</span><b>업무 경감 총괄</b></div>
+        </div>
+        <div class="eg" style="--k:0"></div>
+        <div class="pn" style="--k:1;--c:#A8323E;--col:polygon(38.78% 0,71.22% 0,61.22% 100%,28.78% 100%)">
+          <div class="fc"><em>02</em><span>교육과정 담당</span><b>수업 시간 지키기</b><p><i>수업 밖으로 옮긴 행사 · 공문</i><strong>18</strong><small>건</small></p></div>
+          <div class="cc"><em>02</em><span>교육과정 담당</span><b>수업 시간 지키기</b></div>
+        </div>
+        <div class="eg" style="--k:1"></div>
+        <div class="pn" style="--k:2;--c:#C9606A;--col:polygon(72.12% 0,104.55% 0,94.55% 100%,62.12% 100%)">
+          <div class="fc"><em>03</em><span>행정 담당</span><b>서식 하나로</b><p><i>제출 서류</i><strong>7 → 2</strong><small>종</small></p></div>
+          <div class="cc"><em>03</em><span>행정 담당</span><b>서식 하나로</b></div>
+        </div>
+        <div class="eg" style="--k:2"></div>
+        <div class="tb"><i></i><i></i><i></i></div>
+      </div><p class="steps"><i>①</i> 첫 담당 → <i>②</i> 같은 기울기의 판이 쓸고 지나가며 다음 → <i>③</i> 셋이 기둥으로 나란히</p>
+      <h3>사선 패널 교체<small>쓸고 지나가며 바뀜</small></h3><p class="why">같은 기울기의 판이 차례로 덮어 소개하고, 끝에는 셋이 나란히 선다. 하나씩 → 한눈에.</p>
+      <dl><dt>쓰는 곳</dt><dd>담당 · 기관 · 사업 셋을 차례로 소개하고 묶을 때</dd><dt>주의</dt><dd>판은 셋, 색은 한 계열 명도로, 기울기는 하나로. 한 판에 숫자 하나만</dd><dt>PPT</dt><dd>평행사변형 도형을 '닦아내기(왼쪽에서)'로 덮고 다음 장, 마지막 장은 세 기둥으로 모핑</dd></dl></article>
     <article class="card"><div class="demo d-conv">
         <div class="fr">
           <div class="zm"><svg viewBox="0 0 1600 900" aria-hidden="true"><g class="ln"><path pathLength="1" style="--i:0" d="M800 135 Q1074 338 800 450"/><path pathLength="1" style="--i:1" d="M1222 254 Q1121 505 800 450"/><path pathLength="1" style="--i:2" d="M1326 520 Q926 631 800 450"/><path pathLength="1" style="--i:3" d="M1034 734 Q636 620 800 450"/><path pathLength="1" style="--i:4" d="M566 734 Q470 482 800 450"/><path pathLength="1" style="--i:5" d="M274 520 Q552 319 800 450"/><path pathLength="1" style="--i:6" d="M378 254 Q821 255 800 450"/></g><circle class="rg" style="--i:0" cx="800" cy="450" r="40"/><circle class="rg" style="--i:1" cx="800" cy="450" r="53"/><circle class="rg" style="--i:2" cx="800" cy="450" r="66"/><circle class="rg" style="--i:3" cx="800" cy="450" r="79"/><circle class="rg" style="--i:4" cx="800" cy="450" r="92"/><circle class="rg" style="--i:5" cx="800" cy="450" r="105"/><circle class="rg" style="--i:6" cx="800" cy="450" r="118"/><circle class="core" cx="800" cy="450" r="26"/><g class="nd" style="--i:0"><circle cx="800" cy="135" r="19"/><text x="800" y="99">학교</text></g><g class="nd" style="--i:1"><circle cx="1222" cy="254" r="19"/><text x="1222" y="218">보건소</text></g><g class="nd" style="--i:2"><circle cx="1326" cy="520" r="19"/><text x="1326" y="584">경찰서</text></g><g class="nd" style="--i:3"><circle cx="1034" cy="734" r="19"/><text x="1034" y="798">소방서</text></g><g class="nd" style="--i:4"><circle cx="566" cy="734" r="19"/><text x="566" y="798">복지관</text></g><g class="nd" style="--i:5"><circle cx="274" cy="520" r="19"/><text x="274" y="584">도서관</text></g><g class="nd" style="--i:6"><circle cx="378" cy="254" r="19"/><text x="378" y="218">주민센터</text></g></svg></div>
