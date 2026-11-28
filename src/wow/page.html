@@ -21,7 +21,6 @@
   --img-A:url(@@ASSET:wow-a.webp@@); --img-B:url(@@ASSET:wow-b.webp@@); --img-C1:url(@@ASSET:wow-c1.webp@@); --img-C2:url(@@ASSET:wow-c2.webp@@);
   --img-D:url(@@ASSET:wow-d.webp@@); --img-E:url(@@ASSET:wow-e.webp@@); --img-F:url(@@ASSET:wow-f.webp@@); --img-H:url(@@ASSET:wow-h.webp@@);
   --img-N:url(@@ASSET:wow-n.webp@@); /* 불꽃 배경: 밤바다 · 다리 */
-  --img-OA:url(@@ASSET:wow-owl-a.webp@@); --img-OB:url(@@ASSET:wow-owl-b.webp@@); --img-OC:url(@@ASSET:wow-owl-c.webp@@); /* 줌 스루: 부엉이 얼굴 · 눈 · 동공 속 밤하늘(사용자 제공 AI 그림) */
 }
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:var(--fb);-webkit-font-smoothing:antialiased}
@@ -506,43 +505,57 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .d-flip .b b small{font-size:.4em;margin-left:.5cqw}
 .d-flip .b span{margin-top:2.4cqw;font:600 3.6cqw var(--fb);opacity:.85}
 
-/* ── ⑨ 줌 스루: 부엉이 얼굴(그림 A) → 오른쪽 눈으로 3.75배 → 눈 확대(그림 B) → 동공 속으로 → 밤하늘(그림 C) ──
-   세 그림은 같은 3:2 틀(.fr)에 깔고, 틀이 데모 상자를 덮게 한다(상자 비율이 달라도 눈 · 동공 위치가 틀 기준 %로 맞음).
-   A 눈 중심 (59.34%, 55.47%) → 틀 가운데로 옮기며 3.75배 = B 홍채와 겹침. 끝 모습(움직임 줄이기 · 인쇄)은 C + 제목 */
-.d-thru{background:#111;overflow:hidden}
-.d-thru .fr{position:absolute;left:50%;top:50%;width:max(100cqw,150cqh);height:max(66.667cqw,100cqh);margin:0;translate:-50% -50%;background:center/100% 100% no-repeat;will-change:transform}
-.d-thru .oa{background-image:var(--img-OA);transform-origin:59.34% 55.47%;opacity:0}
-.d-thru .ob{background-image:var(--img-OB);transform-origin:49.97% 50.15%;opacity:0}
-.d-thru .oc{background-image:var(--img-OC);clip-path:circle(80% at 50% 50%)}
-.d-thru .st{position:absolute;translate:-50% -50%;fill:#F5C518;stroke:#1B1B1B;stroke-width:1.6;stroke-linejoin:round;overflow:visible}
-.d-thru .ttl{position:absolute;left:50%;top:44%;translate:-50% -50%;text-align:center;white-space:nowrap}
-.d-thru .ttl span{display:block;font:800 4.4cqw/1 var(--fm);color:#F5C518;letter-spacing:.12em}
-.d-thru .ttl b{display:block;margin-top:1.6cqw;font:900 7.6cqw/1.12 var(--ft);color:#F6EFE0;letter-spacing:-.02em;text-shadow:0 .5cqw 0 #0C1430}
-.play .d-thru .oa{animation:owlA 5.2s both}
-.play .d-thru .ob{animation:owlB 5.2s both}
-.play .d-thru .oc{animation:owlC 5.2s both}
-.play .d-thru .st{animation:starPop .45s cubic-bezier(.3,1.8,.5,1) both,starTw 2.4s ease-in-out 3;animation-delay:calc(var(--i) * .11s + 4.05s),calc(var(--i) * .27s + 5.2s)}
-.play .d-thru .ttl{animation:ttlDrop .7s cubic-bezier(.3,1.55,.5,1) 4.45s both}
-@keyframes owlA{
-  0%{opacity:1;transform:translateY(34%);animation-timing-function:cubic-bezier(.2,.9,.3,1.25)}
-  15%{opacity:1;transform:none;animation-timing-function:ease-in-out}
-  24%{opacity:1;transform:none;animation-timing-function:ease-in-out}
-  29%{opacity:1;transform:scale(.95);animation-timing-function:cubic-bezier(.55,0,.92,.42)}
-  47%{opacity:1;transform:translate(-9.34%,-5.57%) scale(3.75)}
-  47.01%,100%{opacity:0;transform:translate(-9.34%,-5.57%) scale(3.75)}}
-@keyframes owlB{
-  0%,46.99%{opacity:0;transform:none}
-  47%{opacity:1;transform:none}
-  50%{opacity:1;transform:none;animation-timing-function:cubic-bezier(.55,0,.95,.4)}
-  68%{opacity:1;transform:scale(5.2)}
-  69%,100%{opacity:0;transform:scale(5.2)}}
-@keyframes owlC{
-  0%,69%{opacity:0;clip-path:circle(0% at 50% 50%);transform:scale(1.18);animation-timing-function:cubic-bezier(.2,.7,.3,1)}
-  71%{opacity:1}
-  84%,100%{opacity:1;clip-path:circle(80% at 50% 50%);transform:none}}
-@keyframes starPop{from{opacity:0;transform:scale(0) rotate(-40deg)}to{opacity:1;transform:none}}
-@keyframes starTw{0%,100%{opacity:1}50%{opacity:.45}}
-@keyframes ttlDrop{from{opacity:0;transform:translateY(-45%) scale(.9)}to{opacity:1;transform:none}}
+/* ── ⑨ 줌 스루: "2026"의 0(빈 고리)으로 들어가 → 겹친 고리를 지나 → "2027"(0이 꽉 찬 원). 그림 없이 글자 · 도형만 ──
+   16:9 틀(.fr)이 데모 상자를 덮고 틀 자신이 컨테이너라, 안의 cqw 는 틀 폭 기준(상자 비율이 달라도 위치가 같다).
+   숫자 4칸은 고정폭 14cqw, 첫 칸이 x 22cqw → 0 칸 중심은 x 43%, y 50%. 끝 모습(움직임 줄이기 · 인쇄)은 2027 장면 */
+.d-thru{background:#A8323E;overflow:hidden}
+.d-thru .fr{position:absolute;left:50%;top:50%;width:max(100cqw,177.78cqh);height:max(56.25cqw,100cqh);translate:-50% -50%;container-type:size}
+.d-thru .la,.d-thru .lc,.d-thru .lz{position:absolute;inset:0}
+.d-thru .num{position:absolute;left:22cqw;top:50%;translate:0 -50%;display:flex}
+.d-thru .cl{position:relative;width:14cqw;height:20cqw;display:grid;place-items:center}
+.d-thru .cl b{font:900 21cqw/1 var(--ft);letter-spacing:-.04em}
+.d-thru .cl i{display:block;width:11.6cqw;height:16.4cqw;border-radius:50%;box-sizing:border-box}
+.d-thru .tg{position:absolute;left:22cqw;top:calc(50% - 15.5cqw);margin:0;font:700 2.6cqw var(--fb);letter-spacing:.06em}
+/* 올해: 크림 바탕에 먹 숫자, 0 은 붉은 빈 고리. 고리 안쪽만 뚫려 있어 그 너머 고리들이 보인다 */
+.d-thru .la{background:#F6EFE0;color:#1C2128;transform-origin:43% 50%;opacity:0;
+  -webkit-mask:radial-gradient(ellipse 2.4cqw 4.8cqw at 43% 50%,transparent 97%,#000 100%);mask:radial-gradient(ellipse 2.4cqw 4.8cqw at 43% 50%,transparent 97%,#000 100%)}
+.d-thru .la .tg{color:#A8323E}
+.d-thru .ring{border:3.4cqw solid #A8323E}
+/* 고리 너머: 같은 중심의 원 여섯 겹(먹 · 크림 · 붉은색). 가장 안쪽 붉은 원이 2027 장면의 바탕이 된다 */
+.d-thru .sky{position:absolute;left:50%;top:50%;width:0;height:0;transform-origin:0 0;scale:1}
+.d-thru .sky i{position:absolute;width:var(--d);height:var(--d);margin:calc(var(--d) / -2) 0 0 calc(var(--d) / -2);border-radius:50%;background:var(--c)}
+.d-thru .lc{opacity:0}
+/* 내년: 붉은 바탕에 크림 숫자, 0 은 노란 꽉 찬 원 */
+.d-thru .lz{color:#F6EFE0}
+.d-thru .lz .tg{color:#F5C518}
+.d-thru .dot{background:#F5C518;box-shadow:0 0 0 .5cqw #F6EFE0 inset}
+.d-thru .sb{position:absolute;left:22cqw;top:calc(50% + 11.5cqw);margin:0;font:800 3.6cqw var(--ft);letter-spacing:-.01em}
+.play .d-thru .la{animation:thA 5.6s both}
+.play .d-thru .la .cl{animation:digUp .55s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .09s + .15s)}
+.play .d-thru .la .tg{animation:fadeIn .4s .6s both}
+.play .d-thru .lc{animation:thC 5.6s both}
+.play .d-thru .sky{animation:thSky 5.6s both}
+.play .d-thru .lz{animation:thZ 5.6s both}
+.play .d-thru .lz .cl{animation:digDrop .6s cubic-bezier(.25,1.6,.45,1) both;animation-delay:calc(var(--i) * .1s + 3.9s)}
+.play .d-thru .lz .dot{animation:dotFill .5s cubic-bezier(.3,1.8,.5,1) 4.35s both}
+.play .d-thru .lz .tg{animation:fadeIn .4s 3.8s both}
+.play .d-thru .lz .sb{animation:fadeUp .5s 4.6s both}
+@keyframes digUp{from{opacity:0;transform:translateY(60%)}to{opacity:1;transform:none}}
+@keyframes digDrop{from{opacity:0;transform:translateY(-70%)}to{opacity:1;transform:none}}
+@keyframes dotFill{from{transform:scale(.2)}to{transform:none}}
+/* 0 의 구멍으로: 0 을 틀 가운데로 옮기며 28배(가속). 구멍이 화면을 덮는 순간 '올해'를 내리고 고리 장면만 남긴다 */
+@keyframes thA{
+  0%,21%{opacity:1;transform:none;animation-timing-function:ease-in-out}
+  27%{opacity:1;transform:scale(.965);animation-timing-function:cubic-bezier(.62,0,.94,.36)}
+  47%{opacity:1;transform:translate(7%,0) scale(28)}
+  47.01%,100%{opacity:0;transform:translate(7%,0) scale(28)}}
+@keyframes thC{0%{opacity:1}68%{opacity:1}68.01%,100%{opacity:0}}
+/* 고리: 구멍 너머로 작게 보이다(0.16배) 구멍이 열리면서 커지고, 이어서 한 겹씩 지나간다(9배) */
+@keyframes thSky{
+  0%,27%{scale:.16;translate:-7cqw 0;animation-timing-function:cubic-bezier(.62,0,.94,.36)}
+  47%{scale:1;translate:0 0;animation-timing-function:cubic-bezier(.45,0,.9,.5)}
+  68%,100%{scale:9;translate:0 0}}
+@keyframes thZ{0%,67.9%{opacity:0}68%,100%{opacity:1}}
 
 /* ── ⑨ 사선 패널 교체: 같은 기울기의 판이 왼쪽에서 쓸고 지나가며 다음 담당으로 ── */
 .d-slash .pn{position:absolute;inset:0;padding:9% 9% 10%;background:var(--c);color:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:1.6cqw}
@@ -996,12 +1009,14 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
   <div class="head"><div><span class="chip"><b>9</b>장면 잇기</span><h2>장을 넘기지 말고, 이어서 들어간다</h2></div><div class="meta">기법 4</div></div>
   <div class="cards c4">
     <article class="card"><div class="demo d-thru">
-        <div class="fr oa" aria-hidden="true"></div>
-        <div class="fr ob" aria-hidden="true"></div>
-        <div class="fr oc"><svg class="st" style="--i:0;left:21%;top:30%;width:3.4cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><svg class="st" style="--i:1;left:79%;top:27%;width:2.8cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><svg class="st" style="--i:2;left:36%;top:18%;width:2.4cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><svg class="st" style="--i:3;left:63%;top:15%;width:3cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><svg class="st" style="--i:4;left:14%;top:50%;width:2.6cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><svg class="st" style="--i:5;left:87%;top:47%;width:3.2cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><svg class="st" style="--i:6;left:27%;top:66%;width:2.4cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><svg class="st" style="--i:7;left:73%;top:64%;width:2.8cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><svg class="st" style="--i:8;left:50%;top:22%;width:2cqw" viewBox="-12 -12 24 24" aria-hidden="true"><polygon points="0,-10 2.6,-3.4 9.5,-3.1 4.1,1.3 5.9,8.1 0,4.2 -5.9,8.1 -4.1,1.3 -9.5,-3.1 -2.6,-3.4"/></svg><div class="ttl"><span>2027</span><b>새 학기가<br>열립니다</b></div></div>
-      </div><p class="steps"><i>①</i> 부엉이가 고개를 듦 → <i>②</i> 눈 속으로 → <i>③</i> 동공을 지나 밤하늘</p>
-      <h3>줌 스루<small>구멍을 지나 다음 장면</small></h3><p class="why">동그란 눈 → 더 큰 원 → 검은 동공. 형태를 따라 들어가니 설명 없이 다음 장면에 닿는다.</p>
-      <dl><dt>쓰는 곳</dt><dd>표지 → 본론, 올해 → 내년, 현황 → 계획</dd><dt>주의</dt><dd>덱 전체에 한 번. 구멍은 크고 분명한 원 하나로, 겹은 두세 단계까지</dd><dt>PPT</dt><dd>같은 눈이 든 그림 두 장(얼굴 · 눈 확대)을 모핑으로 키우고, 검은 화면에서 '원형' 전환으로 다음 장</dd></dl></article>
+        <div class="fr">
+          <div class="lc"><div class="sky"><i style="--d:160cqw;--c:#1C2128"></i><i style="--d:112cqw;--c:#F6EFE0"></i><i style="--d:80cqw;--c:#A8323E"></i><i style="--d:56cqw;--c:#1C2128"></i><i style="--d:38cqw;--c:#F6EFE0"></i><i style="--d:24cqw;--c:#A8323E"></i></div></div>
+          <div class="la"><p class="tg">올해</p><div class="num"><span class="cl" style="--i:0"><b>2</b></span><span class="cl" style="--i:1"><i class="ring"></i></span><span class="cl" style="--i:2"><b>2</b></span><span class="cl" style="--i:3"><b>6</b></span></div></div>
+          <div class="lz"><p class="tg">내년</p><div class="num"><span class="cl" style="--i:0"><b>2</b></span><span class="cl" style="--i:1"><i class="dot"></i></span><span class="cl" style="--i:2"><b>2</b></span><span class="cl" style="--i:3"><b>7</b></span></div><p class="sb">새 학기가 열립니다</p></div>
+        </div>
+      </div><p class="steps"><i>①</i> 2026이 서고 → <i>②</i> 0의 구멍 속으로 → <i>③</i> 고리를 지나 2027</p>
+      <h3>줌 스루<small>구멍을 지나 다음 장면</small></h3><p class="why">비어 있던 0으로 들어가면, 다음 해의 0은 꽉 찬 원이다. 형태만으로 '올해 → 내년'이 읽힌다.</p>
+      <dl><dt>쓰는 곳</dt><dd>표지 → 본론, 올해 → 내년, 현황 → 계획</dd><dt>주의</dt><dd>덱 전체에 한 번. 구멍은 크고 분명한 원 하나로, 겹은 두세 단계까지</dd><dt>PPT</dt><dd>숫자 0 자리에 도형(고리)을 두고 '확대/축소'로 크게 → 같은 색 면에서 다음 장, 모핑 전환</dd></dl></article>
     <article class="card"><div class="demo d-slash">
         <div class="pn" style="--c:#6E1F29"><em>01</em><span>기획 담당</span><b>업무 경감 총괄</b><small>줄일 일을 고르고 일정을 짭니다</small></div>
         <div class="pn" style="--c:#A8323E"><em>02</em><span>교육과정 담당</span><b>수업 시간 지키기</b><small>행사 · 공문을 수업 밖으로</small></div>
