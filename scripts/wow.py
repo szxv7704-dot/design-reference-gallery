@@ -53,7 +53,7 @@ open(os.path.join(W, 'wow.js'), 'w', encoding='utf-8').write('/* scripts/wow.py 
 
 # ── 기법 카드 나누기 ──
 AR = {'c3': '4/3', 'c4': '1/.9', 'c5': '4/3'}
-WIDE = {'d-pop', 'd-train', 'd-thud', 'd-asm', 'd-thru', 'd-lens'}   # 캔버스 데모는 넓은 화면에서 더 잘 보인다
+WIDE = {'d-pop', 'd-train', 'd-thud', 'd-asm', 'd-thru', 'd-lens', 'd-conv'}   # 캔버스 데모는 넓은 화면에서 더 잘 보인다
 picks = []   # (하고 싶은 말, [태그])
 for tr in re.findall(r'<tr><td>(.*?)</td><td>(.*?)</td></tr>', SRC, re.S):
     picks.append((html.unescape(re.sub('<[^>]+>', '', tr[0])), re.findall(r'<span class="tg[^"]*">([^<]+)</span>', tr[1])))

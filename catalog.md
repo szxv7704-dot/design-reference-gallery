@@ -168,7 +168,7 @@
 | 31 | 카드 뒤집기 | 표시·뒤집기 | 답을 먼저 짐작해 본 사람은 그 답을 오래 기억한다. | "바로 이 숫자입니다" · "짐작해 보세요" | 퀴즈, 오해와 사실, 예상과 실제 | https://szxv7704-dot.github.io/design-reference-gallery/wow/31.html |
 | 32 | 줌 스루 | 장면 잇기 | 비어 있던 0으로 들어가면, 다음 해의 0은 꽉 찬 원이다. 형태만으로 '올해 → 내년'이 읽힌다. | "다음 단계로 넘어갑니다" | 표지 → 본론, 올해 → 내년, 현황 → 계획 | https://szxv7704-dot.github.io/design-reference-gallery/wow/32.html |
 | 33 | 사선 패널 교체 | 장면 잇기 | 같은 틀에서 판만 쓸려 가니, 여럿을 차례로 보여도 어수선하지 않다. | "여럿을 차례로 소개합니다" | 담당 · 기관 소개, 사례 차례로 보이기 | https://szxv7704-dot.github.io/design-reference-gallery/wow/33.html |
-| 34 | 선이 모여 줌 | 장면 잇기 | 여러 갈래가 한 곳으로 모이는 것을 보고, 그 한 곳으로 들어간다. | "여럿이 함께 만듭니다" | 협력 체계, 거점 · 통합 창구, 원인이 하나로 모일 때 | https://szxv7704-dot.github.io/design-reference-gallery/wow/34.html |
+| 34 | 선이 모여 줌 | 장면 잇기 | 따로 있던 것이 한 점으로 감겨 들고, 그 점 안에서는 나란히 선다. 통합이 형태로 보인다. | "여럿이 함께 만듭니다" | 협력 체계, 통합 창구 · 거점, 흩어진 사업을 하나로 | https://szxv7704-dot.github.io/design-reference-gallery/wow/34.html |
 | 35 | 카드 더미 펼치기 | 장면 잇기 | 흩어진 것이 한 묶음이 되었다가 펼쳐지면, '여럿이 한 이야기'라는 게 보인다. | "여럿을 차례로 소개합니다" | 우수 사례 여러 건, 참여 학교 · 기관 소개 | https://szxv7704-dot.github.io/design-reference-gallery/wow/35.html |
 | 36 | 도형 쌓기 | 형태·렌즈 | 작은 조각이 모여 하나가 되는 걸 보면, 계획이 '여럿을 묶은 것'으로 읽힌다. | "여럿이 함께 만듭니다" | 표지, 여러 과제가 한 계획이 될 때 | https://szxv7704-dot.github.io/design-reference-gallery/wow/36.html |
 | 37 | 회전 글자 막대 | 형태·렌즈 | 같은 자리에서 막대가 돌아 다른 면이 나오니, 무엇이 바뀌었는지 짝으로 보인다. | "이만큼 바뀝니다" | 연도 · 슬로건 공개, 전 → 후 문구 두세 줄 | https://szxv7704-dot.github.io/design-reference-gallery/wow/37.html |

@@ -572,24 +572,43 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
 .play .d-slash .pn:nth-child(3){animation:slashIn .8s cubic-bezier(.7,0,.2,1) 2.7s both}
 @keyframes slashIn{from{clip-path:polygon(0 0,0 0,-45% 100%,-45% 100%)}to{clip-path:polygon(0 0,145% 0,100% 100%,-45% 100%)}}
 
-/* ── ⑨ 선이 모여 줌: 기관 이름 → 선이 가운데로 → 그 점으로 확대 ── */
-.d-conv{background:#FBF6F2}
-.d-conv svg{position:absolute;inset:0;width:100%;height:100%;transform-origin:50% 51.9%;transform:scale(2.4);opacity:.14}
-.d-conv line{stroke:var(--g9);stroke-width:2;stroke-dasharray:1;stroke-dashoffset:0}
-.d-conv .nd circle{fill:#fff;stroke:#1C2128;stroke-width:2}
-.d-conv .nd text{font:600 13px var(--fb);fill:#1C2128}
-.d-conv .hub{fill:var(--g9)}
-.d-conv .cc{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:70%;padding:6cqw 5cqw;border-radius:3cqw;background:#fff;box-shadow:0 2cqw 6cqw -2cqw rgba(0,0,0,.25);text-align:center;border-top:1.4cqw solid var(--g9)}
-.d-conv .cc span{display:block;font:600 3.6cqw var(--fm);color:#5C636C}
-.d-conv .cc b{display:block;margin:2cqw 0 1cqw;font:900 8cqw/1.1 var(--ft);color:#1C2128}
-.d-conv .cc small{font:500 4cqw var(--fb);color:var(--g9)}
-.play .d-conv svg{animation:convZ 3.6s cubic-bezier(.6,0,.3,1) both}
-.play .d-conv line{animation:penDraw .55s both;animation-delay:calc(var(--i)*.14s + .4s)}
-.play .d-conv .nd{animation:fadeIn .3s both;animation-delay:calc(var(--i)*.08s)}
-.play .d-conv .hub{animation:hubPulse .5s 1.5s both}
-.play .d-conv .cc{animation:fadeIn .5s 3.1s both}
-@keyframes convZ{0%,60%{transform:none;opacity:1}100%{transform:scale(2.4);opacity:.14}}
-@keyframes hubPulse{0%{r:15}50%{r:22}100%{r:15}}
+/* ── ⑨ 선이 모여 줌: 일곱 기관에서 같은 방향으로 휘는 선이 가운데로 감겨 들고, 닿을 때마다 고리가 한 겹 ──
+   그 붉은 점으로 확대해 들어가면(고리를 지나) 붉은 면 안에 일곱이 한 줄로 선다. 16:9 틀(.fr)이 상자를 덮는다. 끝 모습은 한 줄 장면 */
+.d-conv{background:#F6EFE0;overflow:hidden}
+.d-conv .fr{position:absolute;left:50%;top:50%;width:max(100cqw,177.78cqh);height:max(56.25cqw,100cqh);translate:-50% -50%;container-type:size}
+.d-conv .zm{position:absolute;inset:0;transform-origin:50% 50%}
+.d-conv svg{position:absolute;inset:0;width:100%;height:100%}
+.d-conv .ln path{fill:none;stroke:#1C2128;stroke-width:5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.d-conv .nd circle{fill:#F6EFE0;stroke:#1C2128;stroke-width:6}
+.d-conv .nd text{font:800 40px var(--fb);fill:#1C2128;text-anchor:middle}
+.d-conv .rg{fill:none;stroke:#1C2128;stroke-width:4;transform-box:fill-box;transform-origin:center}
+.d-conv .rg:nth-of-type(odd){stroke:#A8323E}
+.d-conv .core{fill:#A8323E}
+.d-conv .end{position:absolute;inset:0;background:#A8323E;color:#F6EFE0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7cqh;opacity:0}
+.d-conv .end p{margin:0;text-align:center;font:800 7cqh/1.3 var(--ft);letter-spacing:-.02em}
+.d-conv .end p b{font-size:14cqh;font-weight:900;color:#F5C518;letter-spacing:-.04em}
+.d-conv .end ol{list-style:none;margin:0;padding:0;display:flex;gap:2.6cqw}
+.d-conv .end li{display:flex;flex-direction:column;align-items:center;gap:1.8cqh}
+.d-conv .end li i{display:block;width:5.6cqh;height:5.6cqh;border-radius:50%;background:#F6EFE0}
+.d-conv .end li span{font:700 3.8cqh var(--fb);white-space:nowrap}
+.play .d-conv .nd{animation:convNode .4s cubic-bezier(.3,1.7,.5,1) both;animation-delay:calc(var(--i) * .07s + .15s);transform-box:fill-box;transform-origin:center}
+.play .d-conv .ln path{animation:penDraw .75s cubic-bezier(.45,0,.3,1) both;animation-delay:calc(var(--i) * .2s + .7s)}
+.play .d-conv .rg{animation:convRing .35s cubic-bezier(.3,1.8,.5,1) both;animation-delay:calc(var(--i) * .2s + 1.42s)}
+.play .d-conv .core{animation:convCore .5s cubic-bezier(.3,1.8,.5,1) .55s both;transform-box:fill-box;transform-origin:center}
+.play .d-conv .zm{animation:convZoom 6.2s both}
+.play .d-conv .end{animation:convEnd 6.2s both}
+.play .d-conv .end p{animation:fadeUp .5s 4.35s both}
+.play .d-conv .end li{animation:convDot .45s cubic-bezier(.3,1.7,.5,1) both;animation-delay:calc(var(--i) * .08s + 4.7s)}
+@keyframes convNode{from{opacity:0;transform:scale(0)}to{opacity:1;transform:none}}
+@keyframes convRing{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+@keyframes convCore{from{transform:scale(0)}to{transform:none}}
+@keyframes convDot{from{opacity:0;transform:translateY(-120%)}to{opacity:1;transform:none}}
+/* 확대: 다 모인 뒤 잠깐 멈추고(살짝 움츠림) → 가속하며 붉은 점으로 40배. 점이 화면을 덮는 순간 한 줄 장면으로 바꿔 끼운다 */
+@keyframes convZoom{
+  0%,48%{transform:none;animation-timing-function:ease-in-out}
+  53%{transform:scale(.96);animation-timing-function:cubic-bezier(.6,0,.95,.35)}
+  68%,100%{transform:scale(70)}}
+@keyframes convEnd{0%,67.9%{opacity:0}68%,100%{opacity:1}}
 
 /* ── ⑨ 카드 더미 펼치기: 흩어진 카드 → 한 묶음 → 부채 ── */
 .d-fan{background:#F1EEE8}
@@ -1047,11 +1066,13 @@ html,body{margin:0;height:100%;background:#22262C;color:var(--ink);font-family:v
       <h3>사선 패널 교체<small>쓸고 지나가며 바뀜</small></h3><p class="why">같은 틀에서 판만 쓸려 가니, 여럿을 차례로 보여도 어수선하지 않다.</p>
       <dl><dt>쓰는 곳</dt><dd>담당 · 기관 소개, 사례 차례로 보이기</dd><dt>주의</dt><dd>판 색은 한 계열 명도로, 기울기는 하나로 통일</dd><dt>PPT</dt><dd>평행사변형 도형을 '날아오기(왼쪽)'로 덮은 뒤 다음 장, 또는 모핑 전환</dd></dl></article>
     <article class="card"><div class="demo d-conv">
-        <svg viewBox="0 0 360 324" aria-hidden="true"><g class="ln"><line pathLength="1" style="--i:0" x1="46" y1="52" x2="180" y2="168"/><line pathLength="1" style="--i:1" x1="180" y1="30" x2="180" y2="168"/><line pathLength="1" style="--i:2" x1="316" y1="56" x2="180" y2="168"/><line pathLength="1" style="--i:3" x1="330" y1="176" x2="180" y2="168"/><line pathLength="1" style="--i:4" x1="300" y1="292" x2="180" y2="168"/><line pathLength="1" style="--i:5" x1="70" y1="290" x2="180" y2="168"/><line pathLength="1" style="--i:6" x1="30" y1="176" x2="180" y2="168"/></g><g class="nd" style="--i:0"><circle cx="46" cy="52" r="7"/><text x="46" y="74" text-anchor="middle">학교</text></g><g class="nd" style="--i:1"><circle cx="180" cy="30" r="7"/><text x="180" y="52" text-anchor="middle">보건소</text></g><g class="nd" style="--i:2"><circle cx="316" cy="56" r="7"/><text x="316" y="78" text-anchor="middle">경찰서</text></g><g class="nd" style="--i:3"><circle cx="330" cy="176" r="7"/><text x="330" y="162" text-anchor="middle">소방서</text></g><g class="nd" style="--i:4"><circle cx="300" cy="292" r="7"/><text x="300" y="278" text-anchor="middle">복지관</text></g><g class="nd" style="--i:5"><circle cx="70" cy="290" r="7"/><text x="70" y="276" text-anchor="middle">도서관</text></g><g class="nd" style="--i:6"><circle cx="30" cy="176" r="7"/><text x="30" y="162" text-anchor="middle">주민센터</text></g><circle class="hub" cx="180" cy="168" r="15"/></svg>
-        <div class="cc"><span>2027. 3. 문 엶</span><b>통합지원센터</b><small>기관 일곱이 한 창구로</small></div>
-      </div><p class="steps"><i>①</i> 흩어진 기관 → <i>②</i> 선이 한 점으로 → <i>③</i> 그 점으로 확대</p>
-      <h3>선이 모여 줌<small>한 점으로 모이기</small></h3><p class="why">여러 갈래가 한 곳으로 모이는 것을 보고, 그 한 곳으로 들어간다.</p>
-      <dl><dt>쓰는 곳</dt><dd>협력 체계, 거점 · 통합 창구, 원인이 하나로 모일 때</dd><dt>주의</dt><dd>점마다 이름을 단다. 이름 없는 선은 장식일 뿐</dd><dt>PPT</dt><dd>선 '닦아내기'를 차례로 + 가운데 점으로 '확대/축소' 또는 모핑</dd></dl></article>
+        <div class="fr">
+          <div class="zm"><svg viewBox="0 0 1600 900" aria-hidden="true"><g class="ln"><path pathLength="1" style="--i:0" d="M800 135 Q1074 338 800 450"/><path pathLength="1" style="--i:1" d="M1222 254 Q1121 505 800 450"/><path pathLength="1" style="--i:2" d="M1326 520 Q926 631 800 450"/><path pathLength="1" style="--i:3" d="M1034 734 Q636 620 800 450"/><path pathLength="1" style="--i:4" d="M566 734 Q470 482 800 450"/><path pathLength="1" style="--i:5" d="M274 520 Q552 319 800 450"/><path pathLength="1" style="--i:6" d="M378 254 Q821 255 800 450"/></g><circle class="rg" style="--i:0" cx="800" cy="450" r="40"/><circle class="rg" style="--i:1" cx="800" cy="450" r="53"/><circle class="rg" style="--i:2" cx="800" cy="450" r="66"/><circle class="rg" style="--i:3" cx="800" cy="450" r="79"/><circle class="rg" style="--i:4" cx="800" cy="450" r="92"/><circle class="rg" style="--i:5" cx="800" cy="450" r="105"/><circle class="rg" style="--i:6" cx="800" cy="450" r="118"/><circle class="core" cx="800" cy="450" r="26"/><g class="nd" style="--i:0"><circle cx="800" cy="135" r="19"/><text x="800" y="99">학교</text></g><g class="nd" style="--i:1"><circle cx="1222" cy="254" r="19"/><text x="1222" y="218">보건소</text></g><g class="nd" style="--i:2"><circle cx="1326" cy="520" r="19"/><text x="1326" y="584">경찰서</text></g><g class="nd" style="--i:3"><circle cx="1034" cy="734" r="19"/><text x="1034" y="798">소방서</text></g><g class="nd" style="--i:4"><circle cx="566" cy="734" r="19"/><text x="566" y="798">복지관</text></g><g class="nd" style="--i:5"><circle cx="274" cy="520" r="19"/><text x="274" y="584">도서관</text></g><g class="nd" style="--i:6"><circle cx="378" cy="254" r="19"/><text x="378" y="218">주민센터</text></g></svg></div>
+          <div class="end"><p>흩어진 일곱 창구가<br><b>한 곳</b>으로</p><ol><li style="--i:0"><i></i><span>학교</span></li><li style="--i:1"><i></i><span>보건소</span></li><li style="--i:2"><i></i><span>경찰서</span></li><li style="--i:3"><i></i><span>소방서</span></li><li style="--i:4"><i></i><span>복지관</span></li><li style="--i:5"><i></i><span>도서관</span></li><li style="--i:6"><i></i><span>주민센터</span></li></ol></div>
+        </div>
+      </div><p class="steps"><i>①</i> 흩어진 기관 → <i>②</i> 선이 감겨 들 때마다 고리 한 겹 → <i>③</i> 그 점으로 들어가면 한 줄로</p>
+      <h3>선이 모여 줌<small>한 점으로 모이기</small></h3><p class="why">따로 있던 것이 한 점으로 감겨 들고, 그 점 안에서는 나란히 선다. 통합이 형태로 보인다.</p>
+      <dl><dt>쓰는 곳</dt><dd>협력 체계, 통합 창구 · 거점, 흩어진 사업을 하나로</dd><dt>주의</dt><dd>점마다 이름을 단다. 선은 모두 같은 규칙으로 휘게(제각각 휘면 장식이 된다)</dd><dt>PPT</dt><dd>곡선 '닦아내기'를 차례로 + 가운데 원 '확대/축소', 같은 색 면에서 다음 장 모핑</dd></dl></article>
     <article class="card"><div class="demo d-fan">
         <div class="fc2" style="--i:0;--sx:-38cqw;--sy:-30cqh;--sr:-24deg;--fr:-30deg"><i></i><b>가</b><span>초등학교</span><small>서류 30% 줄임</small></div><div class="fc2" style="--i:1;--sx:30cqw;--sy:-34cqh;--sr:18deg;--fr:-15deg"><i></i><b>나</b><span>중학교</span><small>결재 2단계로</small></div><div class="fc2" style="--i:2;--sx:-34cqw;--sy:26cqh;--sr:30deg;--fr:0deg"><i></i><b>다</b><span>고등학교</span><small>회의 절반</small></div><div class="fc2" style="--i:3;--sx:36cqw;--sy:28cqh;--sr:-16deg;--fr:15deg"><i></i><b>라</b><span>유치원</span><small>알림장 하나로</small></div><div class="fc2" style="--i:4;--sx:2cqw;--sy:40cqh;--sr:-34deg;--fr:30deg"><i></i><b>마</b><span>특수학교</span><small>보조 인력 배치</small></div>
         <div class="cap2">우수 사례 다섯 곳</div>
