@@ -26,7 +26,7 @@ SLIDE_JS = r"""// 장표만 보기: light/NN.html?slide=B  (분위기별 덱 dec
 //  이 파일은 scripts/light.py 가 data/covers.json(표지별) · kit/{계열}.css 의 :root(계열별)에서 만든다.
 (function(){
   var q = new URLSearchParams(location.search); if (!q.has('slide')) return;
-  var T = @@TOKENS@@, fam = (/^(c\d+|[A-H])$/.exec(q.get('slide') || '') || [''])[0];
+  var T = @@TOKENS@@, fam = (/^(c\d+|[A-L])$/.exec(q.get('slide') || '') || [''])[0];
   function stage(){
     // 페이지 맨 위의 16:9 요소. 테두리 · 여백을 두른 틀(.stage-frame)이 먼저 잡히면, 그 안에서 16:9 에 더 가까운 진짜 무대로 내려간다
     var diff = function(el){ var r = el.getBoundingClientRect(); return r.width >= 600 && r.height > 0 ? Math.abs(r.width / r.height - 16 / 9) : 9; };
@@ -66,7 +66,7 @@ SLIDE_JS = r"""// 장표만 보기: light/NN.html?slide=B  (분위기별 덱 dec
 def slide_js():
     """kit/{계열}.css 의 :root 토큰과 글꼴을 light/slide.js 에 넣는다"""
     T = {}
-    for f in 'ABCDEFGH':
+    for f in 'ABCDEFGHIJKL':
         css = open(os.path.join(ROOT, 'kit', f + '.css'), encoding='utf-8').read()
         root = re.search(r':root\{(.*?)\}', css, re.S).group(1)
         vars_ = {m.group(1): m.group(2).strip() for m in re.finditer(r'(--ds-[\w-]+)\s*:\s*([^;]+);', root)}

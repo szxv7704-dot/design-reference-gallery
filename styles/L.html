@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>점 격자 — 발표 디자인 라이브러리</title>
+<meta name="description" content="정책 · 비전을 차분하고 단정하게 전할 때">
+<link rel="alternate" type="text/markdown" href="../catalog.md" title="AI가 읽는 목록">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+:root{--bg:#F7F6F3;--card:#FFFFFF;--ink:#1B1E24;--soft:#5C616B;--line:#E3E1DB;--key:#1F5FD0;--keybg:#E8EFFC;--chip:#EDEBE5;--ok:#1E7B4F;--warn:#9A6400;
+  --f:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--m:ui-monospace,SFMono-Regular,Consolas,monospace}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);word-break:keep-all;line-height:1.6}
+a{color:inherit}img{max-width:100%;height:auto;display:block;background:var(--chip)}
+button{font-family:var(--f);cursor:pointer}
+.top{position:sticky;top:0;z-index:10;background:rgba(247,246,243,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top div{max-width:1280px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:8px 26px;flex-wrap:wrap}
+.brand{font-weight:900;font-size:18px;text-decoration:none;padding:14px 0;margin-right:10px}
+.top nav{display:flex;gap:4px 22px;flex-wrap:wrap}
+.top nav a{padding:16px 2px 13px;text-decoration:none;font-size:15px;font-weight:500;border-bottom:3px solid transparent}
+.top nav a[aria-current=page]{color:var(--key);border-bottom-color:var(--key);font-weight:700}
+.wrap{max-width:1280px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:clamp(28px,4.4vw,44px);font-weight:900;letter-spacing:-.02em;line-height:1.25;margin:0}
+h2{font-size:26px;font-weight:900;margin:52px 0 6px;letter-spacing:-.01em}
+h3{font-size:17px;margin:28px 0 10px}
+h2 small,h3 small{margin-left:10px;font-size:14px;font-weight:400;color:var(--soft);letter-spacing:0}
+.lead{margin:10px 0 0;font-size:17px;color:var(--soft);max-width:60ch}
+.hero{display:grid;grid-template-columns:1fr auto;gap:20px 40px;align-items:start}
+.ask{background:var(--keybg);border-radius:14px;padding:20px 22px;display:flex;gap:14px 20px;align-items:center;flex-wrap:wrap;font-weight:700;font-size:17px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 18px;border-radius:10px;border:2px solid var(--key);background:var(--card);color:var(--key);font:700 15px var(--f);text-decoration:none}
+.btn.fill{background:var(--key);color:#fff}
+.btn.small{min-height:36px;padding:4px 12px;font-size:14px;border-width:1.5px}
+.steps{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:s;font-weight:700}
+.steps a{counter-increment:s;display:grid;grid-template-columns:34px 1fr;align-items:center;gap:0 14px;min-height:64px;padding:12px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;text-decoration:none;font-size:17px}
+.steps a::before{content:counter(s);grid-row:1 / 3;width:34px;height:34px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center}
+.steps a small{grid-column:2;display:block;font-size:13.5px;font-weight:400;color:var(--soft)}
+.steps a:hover,.more a:hover,.short a:hover{border-color:var(--key)}
+.more{margin:12px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.more a{display:flex;flex-direction:column;gap:2px;padding:14px 18px;border-radius:12px;background:var(--chip);border:1px solid transparent;text-decoration:none}
+.more a b{font-size:16px;white-space:nowrap}.more a b::after{content:" ›";color:var(--soft)}.more a span{font-size:13.5px;color:var(--soft)}
+.main4{margin:34px 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.main4 > a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.main4 > a:hover{border-color:var(--key);box-shadow:0 18px 40px -28px rgba(27,30,36,.5)}
+.main4 .vis{aspect-ratio:16/8;background:var(--chip);display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:3px;overflow:hidden}
+.main4 .vis img{width:100%;height:100%;object-fit:cover}
+.main4 .vis.one{display:block}.main4 .vis.one img{width:100%;height:100%;object-fit:cover}
+.main4 .tx{padding:20px 24px 22px;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:2px 16px}
+.main4 .tx i{grid-row:1 / 3;width:44px;height:44px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center;font:900 20px var(--f);font-style:normal}
+.main4 .tx b{font-size:24px;font-weight:900}.main4 .tx span{grid-column:2;font-size:15px;color:var(--soft)}
+.main4 .tx::after{content:"›";grid-row:1 / 3;grid-column:3;font-size:34px;color:var(--soft)}
+.icons-vis{display:grid!important;grid-template-columns:repeat(6,1fr)!important;grid-template-rows:repeat(2,1fr)!important;place-items:center;padding:18px 28px;background:#EEF2FB!important;color:#1F5FD0}
+.icons-vis svg{width:56%;height:auto}
+.ai-vis{display:flex!important;flex-direction:column;justify-content:center;gap:12px;padding:22px 28px;background:linear-gradient(135deg,#E8EFFC,#F3EEFB)!important}
+.ai-vis p{margin:0;padding:14px 18px;border-radius:12px;background:#fff;font:13.5px/1.6 var(--m);color:var(--ink);box-shadow:0 10px 24px -18px rgba(27,30,36,.5)}
+.ai-vis p:nth-child(2){align-self:flex-end;background:#1F5FD0;color:#fff;font-family:var(--f);font-weight:700}
+.path{margin:30px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:pt}
+.path > a{counter-increment:pt;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none}
+.path > a:hover{border-color:var(--key)}
+.path .vis{aspect-ratio:16/10;display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--chip)}.path .vis img{width:100%;height:100%;object-fit:cover}
+.path .tx{padding:18px 22px 22px}.path .tx b{display:flex;align-items:center;gap:12px;font-size:21px;font-weight:900}
+.path .tx b::before{content:counter(pt);width:34px;height:34px;border-radius:50%;background:var(--keybg);color:var(--key);display:grid;place-items:center;font-size:16px}
+.path .tx span{display:block;margin-top:8px;font-size:15px;color:var(--soft)}
+.crumb{margin:0 0 10px;font-size:14.5px}.crumb a{color:var(--soft);text-decoration:none}.crumb a:hover{color:var(--key)}
+.wowg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:16px}
+.wowg a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none}
+.wowg a:hover{border-color:var(--key)}.wowg img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.wowg b{margin:12px 14px 0;font-size:18px}.wowg b small{margin-left:8px;font-size:13.5px;font-weight:500;color:var(--soft)}
+.wowg p{margin:4px 14px 0;font-size:14.5px;color:var(--soft);line-height:1.5}.wowg p.w{margin:8px 14px 14px;font-size:13px;color:var(--key)}
+.citabs{display:flex;gap:8px;margin:0 0 14px}.citabs button{padding:9px 20px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);font:700 15px var(--f);color:var(--soft)}
+.citabs button[aria-pressed=true]{border-color:var(--key);background:var(--keybg);color:var(--key)}
+.cig{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
+.cig > div{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.cig > div:hover{border-color:var(--key)}
+.cig .cp{display:flex;flex-direction:column;align-items:stretch;padding:0;border:0;background:none;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.cig .cp.ok .pv{outline:3px solid var(--ok);outline-offset:-3px}
+.cig .acts2{display:flex;gap:6px;padding:0 14px 14px}.cig .acts2 > *{flex:1;display:inline-flex;justify-content:center;align-items:center;min-height:36px;border-radius:8px;border:1.5px solid var(--line);background:var(--card);font:600 13.5px var(--f);color:var(--ink);text-decoration:none;cursor:pointer}
+.cig .acts2 > *:hover{border-color:var(--key);color:var(--key)}.cig .acts2 > .ok{border-color:var(--ok);color:var(--ok)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;padding:12px 20px;border-radius:999px;background:var(--ink);color:#fff;font-size:14.5px;font-weight:700;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}.toast[hidden]{display:none}
+.cig .pv{height:190px;display:grid;place-items:center;padding:18px;background:repeating-conic-gradient(#ECEDEF 0 25%,#fff 0 50%) 0 0/18px 18px}
+.cig .pv.dk{background:repeating-conic-gradient(#2A3A55 0 25%,#33465F 0 50%) 0 0/18px 18px}
+.cig .pv{overflow:hidden}.cig .pv img{max-width:100%;max-height:154px;width:auto;height:auto;object-fit:contain;background:none}
+.cig b{display:block;padding:12px 14px 2px;font-size:15.5px}.cig .cp span{display:block;padding:0 14px 10px;font-size:13px;color:var(--soft)}
+.ico{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.ico button{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;font:500 13px/1.35 var(--f);color:var(--ink);text-align:center}
+.ico button:hover{border-color:var(--key);color:var(--key)}.ico svg{width:34px;height:34px}
+.ico button.ok{border-color:var(--ok);color:var(--ok)}
+.aisteps{margin:18px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;counter-reset:ai}
+.aisteps li{counter-increment:ai;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-size:15px;line-height:1.5}
+.aisteps li::before{content:counter(ai);display:grid;place-items:center;width:30px;height:30px;margin-bottom:10px;border-radius:50%;background:var(--keybg);color:var(--key);font-weight:900}
+.aisteps b{display:block;font-size:16.5px}
+.finder{margin:40px 0 0;padding:24px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.finder h2{margin:0 0 4px}.finder .note{margin:0 0 16px}
+.tools{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:14px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1px solid #C9C6BE;background:var(--card);font:500 15px var(--f);padding:8px 18px;border-radius:999px;color:var(--ink)}
+.chips button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tools input[type=search]{flex:1 1 220px;min-width:0;font:15px var(--f);padding:10px 14px;border:1px solid #C9C6BE;border-radius:10px;background:var(--card);color:var(--ink)}
+.tools label{display:inline-flex;align-items:center;gap:8px;font-size:15px}
+.tools input[type=checkbox],.cmp input{width:20px;height:20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));gap:20px}
+.sc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column}
+.sc .cv img{border-radius:8px;aspect-ratio:16/9;object-fit:cover}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}.mc .tri{gap:1px;margin:0;border-bottom:1px solid var(--line)}.mc .tri img{border:0}
+.sc .tri img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+.sc h3{margin:12px 6px 0;font-size:20px}
+.sc p{margin:2px 6px 0;font-size:14.5px;color:var(--soft)}
+.sc .ft{margin:12px 6px 4px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--chip);font-size:13px;font-weight:500;color:var(--soft)}
+.badge.ok{background:#E2F2E9;color:var(--ok)}.badge.wip{background:#FBF0D9;color:var(--warn)}
+.cmp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:14px}
+.minis{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:14px}
+.mc{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13px;display:flex;flex-direction:column}
+.mc img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line)}
+.mc b{display:block;margin:8px 10px 0;font-size:14.5px;line-height:1.4}.mc small{font-weight:400;color:var(--soft)}
+.mc p{margin:3px 10px 0;color:var(--soft);line-height:1.5}
+a.mc{text-decoration:none}.mc > b:last-child{margin-bottom:10px}
+.mc .lk{margin-top:auto;padding:8px 10px 10px;color:var(--ink)}
+.short{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.short a{display:grid;grid-template-columns:1fr auto;align-items:center;gap:0 8px;padding:14px 16px;background:var(--bg);border:1px solid var(--line);border-radius:10px;text-decoration:none;font-weight:700}
+.short a small{grid-column:1;font-size:13px;font-weight:400;color:var(--soft);line-height:1.45}
+.short a::after{grid-row:1 / 3;grid-column:2}
+.short a::after{content:"›";color:var(--soft);font-size:20px}
+.var3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.vc{text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;font-size:14px}
+.vc img{aspect-ratio:16/9;object-fit:cover;border-bottom:1px solid var(--line);width:100%}
+.vc b{display:block;margin:10px 12px 0;font-size:16.5px}.vc p{margin:4px 12px 0;color:var(--soft);line-height:1.55}.vc p:last-child{margin-bottom:12px}
+.vc p.w{color:var(--ink)}.vc.on{border-color:var(--key);box-shadow:0 0 0 2px var(--key)}
+.sw{position:sticky;top:58px;z-index:5;background:var(--bg);padding:10px 0;margin:18px 0 0;display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap;font-size:14px;border-bottom:1px solid var(--line)}
+.sw .chips button{padding:6px 14px;font-size:14px}
+@media (max-width:820px){.main4,.path{grid-template-columns:1fr}.main4 .tx b{font-size:20px}.aisteps{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr;gap:8px}.steps a{min-height:0;padding:10px 14px;font-size:16px}.steps a small{display:none}.steps a::before{width:28px;height:28px;grid-row:auto}.more{grid-template-columns:1fr 1fr 1fr;gap:8px}.more a{padding:10px 12px}.more a span{display:none}.more a b{font-size:14px;white-space:nowrap}.finder{padding:16px}.short{grid-template-columns:1fr 1fr}.short a{padding:10px 12px;font-size:14px}.var3{grid-template-columns:1fr}.sw{top:0}.sw .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;max-width:100%}.sw .chips button{white-space:nowrap}}
+.note{margin:12px 0 0;font-size:14px;color:var(--soft)}
+.empty{padding:40px 0;text-align:center;color:var(--soft)}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card);border-radius:10px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{white-space:nowrap;background:var(--chip);font-weight:700}
+.tw{overflow-x:auto}
+.view{background:#111;border-radius:12px;overflow:hidden}.view iframe{display:block;width:100%;aspect-ratio:16/9;border:0;background:#111}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;align-items:start}
+.kv{margin:0;display:grid;grid-template-columns:92px 1fr;gap:8px 12px;font-size:14.5px}.kv dt{color:var(--soft)}.kv dd{margin:0}
+.kv ul{margin:0;padding-left:1.1em}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+pre.req{white-space:pre-wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;font:13.5px/1.6 var(--m);margin:10px 0 0;overflow-wrap:anywhere}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:10px 0;padding:0 14px}
+summary{padding:12px 0;font-weight:700;cursor:pointer}
+.tray{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:20;background:var(--ink);color:#fff;border-radius:999px;padding:8px 10px 8px 18px;display:flex;gap:12px;align-items:center;font-size:14.5px;box-shadow:0 12px 30px -10px rgba(0,0,0,.5)}
+.tray[hidden]{display:none}.tray button{border:0;border-radius:999px;padding:8px 16px;font:700 14px var(--f);background:#fff;color:var(--ink)}
+dialog{width:min(1240px,calc(100vw - 24px));max-height:calc(100vh - 24px);padding:18px;border:0;border-radius:14px;background:var(--bg);color:var(--ink)}
+dialog::backdrop{background:rgba(20,22,26,.6)}
+.cmpgrid{display:grid;gap:14px}.cmpgrid .row{display:grid;grid-template-columns:140px repeat(5,1fr);gap:6px;align-items:center}
+.cmpgrid .row b{font-size:15px}.cmpgrid img{border-radius:6px;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line)}
+:focus-visible{outline:3px solid var(--key);outline-offset:2px}
+footer{margin-top:56px;font-size:13px;color:var(--soft)}
+@media (max-width:820px){.top{position:static}.top div{flex-wrap:nowrap;gap:0 14px}.brand{font-size:15px;padding:10px 0;margin-right:0;white-space:nowrap}
+  .top nav{flex-wrap:nowrap;gap:0 16px;overflow-x:auto;scrollbar-width:none;white-space:nowrap;min-width:0}.top nav::-webkit-scrollbar{display:none}.top nav a{padding:12px 2px 9px;font-size:14px}
+  html{scroll-padding-top:12px}.hero,.two{grid-template-columns:1fr}.cmpgrid .row{grid-template-columns:repeat(3,1fr)}.cmpgrid .row b{grid-column:1 / -1}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<!-- 이 파일은 scripts/gallery.py 가 만든다. 손으로 고치지 말 것 -->
+<header class="top"><div><a class="brand" href="../index.html">발표 디자인 라이브러리</a><nav aria-label="메뉴"><a href="../present.html" aria-current="page">발표자료</a><a href="../print.html">인쇄 · 홍보물</a><a href="../icons.html">아이콘</a><a href="../ai.html">AI에게 맡기기</a></nav></div></header>
+<main class="wrap">
+<p class="crumb"><a href="../concept.html">← 컨셉 정하기</a></p><h1>점 격자</h1><p class="lead">정책 · 비전을 차분하고 단정하게 전할 때</p><p class="note"><span class="badge ok">10장 세트 · 검증된 세트</span> 10장 예시 · 다른 주제 시험 · 넘침 검사를 통과 · 확인한 날 2026-11-28</p>
+<div class="two"><div><div class="view"><iframe src="../kit/L-set.html" title="점 격자 10장 예시 발표" loading="lazy"></iframe></div><p class="note">화면을 누르거나 → 키로 넘깁니다. <a href="../kit/L-set.html" target="_blank" rel="noopener">새 창에서 크게 보기</a></p></div>
+<div><dl class="kv"><dt>분위기</dt><dd>무난한</dd><dt>유지할 것</dt><dd><ul><li>자주 한 계열 + 금빛 점 하나</li><li>점은 120px 격자 교차점에만</li><li>명조 제목 · 가는 선</li></ul></dd><dt>바꿔도 됨</dt><dd><ul><li>강조할 낱말이나 점</li><li>칸 수와 배치</li></ul></dd><dt>피할 것</dt><dd><ul><li>점 · 선을 규칙 없이 잇기</li><li>금빛을 글자색으로 쓰기(대비 부족)</li></ul></dd></dl>
+<div class="acts"><button type="button" class="btn fill" data-copy="req">이 스타일 적용 요청문 복사</button><a class="btn" href="../kit/L-set.html" download="점 격자-예시발표.html">예시 발표 내려받기(.html)</a></div>
+<p class="note">내려받은 파일은 글꼴 · 그림이 안에 들어 있어 인터넷 없이 열립니다. AI가 새로 만든 발표는 열 때 인터넷이 필요합니다.</p></div></div>
+<h2>전체 장표 <small>10장 — 역할마다 한 장. 예시 내용은 가상입니다</small></h2><div class="minis"><a class="mc" href="../kit/L-set.html#1" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-1.jpg" alt="점 격자 1장" loading="lazy" width="640" height="360"><b>1. 표지</b></a><a class="mc" href="../kit/L-set.html#2" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-2.jpg" alt="점 격자 2장" loading="lazy" width="640" height="360"><b>2. 목차 · 전체 흐름 · 가로 이정표</b></a><a class="mc" href="../kit/L-set.html#3" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-3.jpg" alt="점 격자 3장" loading="lazy" width="640" height="360"><b>3. 핵심 개념 · 세 요소로 풀기</b></a><a class="mc" href="../kit/L-set.html#4" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-4.jpg" alt="점 격자 4장" loading="lazy" width="640" height="360"><b>4. 비교 · 짝 줄</b></a><a class="mc" href="../kit/L-set.html#5" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-5.jpg" alt="점 격자 5장" loading="lazy" width="640" height="360"><b>5. 순서 · 절차 · 단계 표</b></a><a class="mc" href="../kit/L-set.html#6" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-6.jpg" alt="점 격자 6장" loading="lazy" width="640" height="360"><b>6. 사례 · 한 건 이야기</b></a><a class="mc" href="../kit/L-set.html#7" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-7.jpg" alt="점 격자 7장" loading="lazy" width="640" height="360"><b>7. 실습 · 할 일과 조건</b></a><a class="mc" href="../kit/L-set.html#8" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-8.jpg" alt="점 격자 8장" loading="lazy" width="640" height="360"><b>8. 핵심 수치 · 목표 대비 막대</b></a><a class="mc" href="../kit/L-set.html#9" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-9.jpg" alt="점 격자 9장" loading="lazy" width="640" height="360"><b>9. 요약 · 네 칸 정리</b></a><a class="mc" href="../kit/L-set.html#10" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set-10.jpg" alt="점 격자 10장" loading="lazy" width="640" height="360"><b>10. 마무리</b></a></div>
+<p class="note">이 스타일의 짜임 · 목차 = 가로 이정표 / 핵심 개념 = 세 요소로 풀기 / 비교 = 짝 줄 / 순서 = 단계 표 / 사례 = 한 건 이야기 / 실습 과제 = 할 일과 조건 / 핵심 수치 = 목표 대비 막대 / 요약 = 네 칸 정리. 스타일마다 구성 조합이 다릅니다.</p>
+<h2>다른 내용에 써 보기 <small>성격이 다른 본문 5장 — 가상 주제: 학교 독서 활동</small></h2><div class="minis"><a class="mc" href="../kit/L-set2.html#1" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set2-1.jpg" alt="" loading="lazy" width="640" height="360"><b>프로그램 묶음</b></a><a class="mc" href="../kit/L-set2.html#2" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set2-2.jpg" alt="" loading="lazy" width="640" height="360"><b>대출 권수 추이</b></a><a class="mc" href="../kit/L-set2.html#3" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set2-3.jpg" alt="" loading="lazy" width="640" height="360"><b>참여자 말</b></a><a class="mc" href="../kit/L-set2.html#4" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set2-4.jpg" alt="" loading="lazy" width="640" height="360"><b>한 해 일정</b></a><a class="mc" href="../kit/L-set2.html#5" target="_blank" rel="noopener"><img src="../kit/thumbs/L-set2-5.jpg" alt="" loading="lazy" width="640" height="360"><b>청중에게 묻기</b></a></div>
+<h2>다른 구성으로 바꾸기 <small>역할마다 배치가 다른 구성 셋 — 내용에 맞는 것을 고릅니다</small></h2><p class="note">파란 테두리가 위 10장 예시에 쓴 구성입니다. 나머지 둘도 이 스타일로 그대로 쓸 수 있습니다. <a href="../kit/L-var.html" target="_blank" rel="noopener">구성 모음 넘겨 보기</a></p>
+<h3>목차 · 전체 흐름 <small>오늘 무엇을 어떤 순서로 다루는지 먼저 보여 준다</small></h3><div class="var3"><a class="vc" href="../kit/L-var.html#2" target="_blank" rel="noopener" data-n="2"><img src="../kit/thumbs/L-var-2.jpg" alt="목차 · 전체 흐름 · 줄 목록" loading="lazy" width="640" height="360"><b>줄 목록</b><p class="w">번호 · 이름 · 시간이 한 줄씩, 옆에 스타일의 상징</p><p>이럴 때 · 차례만 알리면 될 때. 가장 무난하다</p><p>분량 · 3~5줄</p></a><a class="vc on" href="../kit/L-var.html#3" target="_blank" rel="noopener" data-n="3"><img src="../kit/thumbs/L-var-3.jpg" alt="목차 · 전체 흐름 · 가로 이정표" loading="lazy" width="640" height="360"><b>가로 이정표 <span class="badge ok">이 예시에 씀</span></b><p class="w">가로선 위에 점을 찍고 시간 · 이름 · 한 줄</p><p>이럴 때 · 시간 배분이나 날짜가 중요할 때</p><p>분량 · 3~5개</p></a><a class="vc" href="../kit/L-var.html#4" target="_blank" rel="noopener" data-n="4"><img src="../kit/thumbs/L-var-4.jpg" alt="목차 · 전체 흐름 · 번호 카드" loading="lazy" width="640" height="360"><b>번호 카드</b><p class="w">큰 번호가 붙은 카드를 가로로 나란히</p><p>이럴 때 · 단계마다 이름을 또렷이 기억시키고 싶을 때</p><p>분량 · 3~5칸</p></a></div>
+<h3>핵심 개념 · 정의 <small>모두가 같은 뜻으로 쓰도록 낱말 하나를 맞춘다</small></h3><div class="var3"><a class="vc" href="../kit/L-var.html#5" target="_blank" rel="noopener" data-n="5"><img src="../kit/thumbs/L-var-5.jpg" alt="핵심 개념 · 정의 · 낱말과 뜻" loading="lazy" width="640" height="360"><b>낱말과 뜻</b><p class="w">왼쪽에 낱말, 오른쪽에 뜻 한 문장과 예</p><p>이럴 때 · 낯선 낱말 하나를 사전처럼 풀 때</p><p>분량 · 낱말 1 + 뜻 1문장 + 예 1~2</p></a><a class="vc on" href="../kit/L-var.html#6" target="_blank" rel="noopener" data-n="6"><img src="../kit/thumbs/L-var-6.jpg" alt="핵심 개념 · 정의 · 세 요소로 풀기" loading="lazy" width="640" height="360"><b>세 요소로 풀기 <span class="badge ok">이 예시에 씀</span></b><p class="w">개념을 이루는 요소를 카드 셋으로</p><p>이럴 때 · 개념이 몇 가지 요소로 이루어져 있을 때</p><p>분량 · 2~4칸, 칸마다 3줄 이하</p></a><a class="vc" href="../kit/L-var.html#7" target="_blank" rel="noopener" data-n="7"><img src="../kit/thumbs/L-var-7.jpg" alt="핵심 개념 · 정의 · 맞는 예와 아닌 예" loading="lazy" width="640" height="360"><b>맞는 예와 아닌 예</b><p class="w">위에 낱말, 아래 두 칸에 ○ 예와 × 예</p><p>이럴 때 · 자주 헷갈리는 것과 선을 그어야 할 때</p><p>분량 · 쪽마다 예 2~3개</p></a></div>
+<h3>비교 <small>두 대상이나 전 · 후를 같은 줄에 놓고 견준다</small></h3><div class="var3"><a class="vc on" href="../kit/L-var.html#8" target="_blank" rel="noopener" data-n="8"><img src="../kit/thumbs/L-var-8.jpg" alt="비교 · 짝 줄" loading="lazy" width="640" height="360"><b>짝 줄 <span class="badge ok">이 예시에 씀</span></b><p class="w">줄마다 왼쪽 → 오른쪽 한 짝</p><p>이럴 때 · 같은 것을 이렇게 바꾸라고 보여 줄 때</p><p>분량 · 2~3줄</p></a><a class="vc" href="../kit/L-var.html#9" target="_blank" rel="noopener" data-n="9"><img src="../kit/thumbs/L-var-9.jpg" alt="비교 · 전과 후 수치" loading="lazy" width="640" height="360"><b>전과 후 수치</b><p class="w">같은 지표의 숫자를 좌우에 크게</p><p>이럴 때 · 두 쪽을 숫자로 견줄 수 있을 때</p><p>분량 · 2~3짝, 같은 단위</p></a><a class="vc" href="../kit/L-var.html#10" target="_blank" rel="noopener" data-n="10"><img src="../kit/thumbs/L-var-10.jpg" alt="비교 · 기준별 두 열" loading="lazy" width="640" height="360"><b>기준별 두 열</b><p class="w">기준 | 왼쪽 | 오른쪽 세 열의 대조표</p><p>이럴 때 · 여러 기준으로 두 대상을 따질 때</p><p>분량 · 기준 3~4줄, 칸마다 1줄</p></a></div>
+<h3>순서 · 절차 <small>따라 할 차례를 단계로 나눈다</small></h3><div class="var3"><a class="vc" href="../kit/L-var.html#11" target="_blank" rel="noopener" data-n="11"><img src="../kit/thumbs/L-var-11.jpg" alt="순서 · 절차 · 가로 세 칸" loading="lazy" width="640" height="360"><b>가로 세 칸</b><p class="w">단계마다 한 칸, 칸 안에 할 일 목록</p><p>이럴 때 · 단계마다 할 일이 여러 줄일 때</p><p>분량 · 3~4단계, 단계마다 3줄 이하</p></a><a class="vc" href="../kit/L-var.html#12" target="_blank" rel="noopener" data-n="12"><img src="../kit/thumbs/L-var-12.jpg" alt="순서 · 절차 · 세로 단계" loading="lazy" width="640" height="360"><b>세로 단계</b><p class="w">번호 동그라미를 세로선으로 잇고 이름 + 한 줄</p><p>이럴 때 · 단계가 4~5개이고 단계마다 한 줄이면 될 때</p><p>분량 · 3~5단계, 단계마다 1줄</p></a><a class="vc on" href="../kit/L-var.html#13" target="_blank" rel="noopener" data-n="13"><img src="../kit/thumbs/L-var-13.jpg" alt="순서 · 절차 · 단계 표" loading="lazy" width="640" height="360"><b>단계 표 <span class="badge ok">이 예시에 씀</span></b><p class="w">단계 | 할 일 | 쓰는 것 | 시간의 표</p><p>이럴 때 · 단계마다 같은 항목(담당 · 도구 · 시간)을 견줄 때</p><p>분량 · 3~5행 × 3~4열</p></a></div>
+<h3>사례 · 화면 설명 <small>실제 화면이나 현장을 보여 주고 짚을 곳을 표시한다</small></h3><div class="var3"><a class="vc" href="../kit/L-var.html#14" target="_blank" rel="noopener" data-n="14"><img src="../kit/thumbs/L-var-14.jpg" alt="사례 · 화면 설명 · 화면 짚기" loading="lazy" width="640" height="360"><b>화면 짚기</b><p class="w">캡처 한 장에 번호를 찍고 옆에 설명</p><p>이럴 때 · 실제 화면의 어디를 누르는지 보여 줄 때</p><p>분량 · 캡처 1장 + 번호 3개 이하</p></a><a class="vc" href="../kit/L-var.html#15" target="_blank" rel="noopener" data-n="15"><img src="../kit/thumbs/L-var-15.jpg" alt="사례 · 화면 설명 · 사람의 말" loading="lazy" width="640" height="360"><b>사람의 말</b><p class="w">말 풍선 세 개, 가장 중요한 말 하나를 강조</p><p>이럴 때 · 화면이 없고 써 본 사람의 말이 있을 때</p><p>분량 · 1~3개, 각 60자 이하</p></a><a class="vc on" href="../kit/L-var.html#16" target="_blank" rel="noopener" data-n="16"><img src="../kit/thumbs/L-var-16.jpg" alt="사례 · 화면 설명 · 한 건 이야기" loading="lazy" width="640" height="360"><b>한 건 이야기 <span class="badge ok">이 예시에 씀</span></b><p class="w">상황 → 한 일 → 결과 세 칸</p><p>이럴 때 · 한 사례를 처음부터 끝까지 들려줄 때</p><p>분량 · 세 칸, 칸마다 이름 + 2줄</p></a></div>
+<h3>실습 과제 · 행동 안내 <small>청중이 지금 할 일 하나와 그 조건(시간 · 결과물)을 알린다</small></h3><div class="var3"><a class="vc on" href="../kit/L-var.html#17" target="_blank" rel="noopener" data-n="17"><img src="../kit/thumbs/L-var-17.jpg" alt="실습 과제 · 행동 안내 · 할 일과 조건" loading="lazy" width="640" height="360"><b>할 일과 조건 <span class="badge ok">이 예시에 씀</span></b><p class="w">할 일 한 문장을 크게, 아래에 시간 · 결과물 · 도움</p><p>이럴 때 · 과제가 하나이고 조건을 알려야 할 때</p><p>분량 · 한 문장 + 조건 2~3칸</p></a><a class="vc" href="../kit/L-var.html#18" target="_blank" rel="noopener" data-n="18"><img src="../kit/thumbs/L-var-18.jpg" alt="실습 과제 · 행동 안내 · 질문과 보기" loading="lazy" width="640" height="360"><b>질문과 보기</b><p class="w">질문 하나와 고를 보기 넷</p><p>이럴 때 · 하기 전에 먼저 고르거나 생각하게 할 때</p><p>분량 · 질문 1 + 보기 4개 이하</p></a><a class="vc" href="../kit/L-var.html#19" target="_blank" rel="noopener" data-n="19"><img src="../kit/thumbs/L-var-19.jpg" alt="실습 과제 · 행동 안내 · 체크 목록" loading="lazy" width="640" height="360"><b>체크 목록</b><p class="w">네모 칸이 달린 확인 목록</p><p>이럴 때 · 하면서 스스로 확인할 것이 여럿일 때</p><p>분량 · 3~5줄</p></a></div>
+<h3>핵심 수치 · 근거 <small>주장을 받치는 숫자를 크게 보여 준다</small></h3><div class="var3"><a class="vc" href="../kit/L-var.html#20" target="_blank" rel="noopener" data-n="20"><img src="../kit/thumbs/L-var-20.jpg" alt="핵심 수치 · 근거 · 숫자 셋" loading="lazy" width="640" height="360"><b>숫자 셋</b><p class="w">숫자 타일 셋을 나란히</p><p>이럴 때 · 받치는 숫자가 둘 이상일 때</p><p>분량 · 2~4개, 숫자마다 단위 + 한 줄</p></a><a class="vc" href="../kit/L-var.html#21" target="_blank" rel="noopener" data-n="21"><img src="../kit/thumbs/L-var-21.jpg" alt="핵심 수치 · 근거 · 숫자 하나 크게" loading="lazy" width="640" height="360"><b>숫자 하나 크게</b><p class="w">왼쪽에 아주 큰 숫자 하나, 오른쪽에 뜻과 받치는 두 줄</p><p>이럴 때 · 기억시킬 숫자가 딱 하나일 때</p><p>분량 · 숫자 1 + 뜻 1문장 + 2줄</p></a><a class="vc on" href="../kit/L-var.html#22" target="_blank" rel="noopener" data-n="22"><img src="../kit/thumbs/L-var-22.jpg" alt="핵심 수치 · 근거 · 목표 대비 막대" loading="lazy" width="640" height="360"><b>목표 대비 막대 <span class="badge ok">이 예시에 씀</span></b><p class="w">지표마다 막대와 목표선</p><p>이럴 때 · 여러 지표의 달성 정도를 견줄 때</p><p>분량 · 3~5줄, 한 가지 단위</p></a></div>
+<h3>요약 <small>기억할 것을 세 줄 안팎으로 줄인다</small></h3><div class="var3"><a class="vc" href="../kit/L-var.html#23" target="_blank" rel="noopener" data-n="23"><img src="../kit/thumbs/L-var-23.jpg" alt="요약 · 세 줄" loading="lazy" width="640" height="360"><b>세 줄</b><p class="w">번호가 붙은 세 줄, 이름 + 설명</p><p>이럴 때 · 기억할 것이 서너 가지일 때</p><p>분량 · 3~5개</p></a><a class="vc on" href="../kit/L-var.html#24" target="_blank" rel="noopener" data-n="24"><img src="../kit/thumbs/L-var-24.jpg" alt="요약 · 네 칸 정리" loading="lazy" width="640" height="360"><b>네 칸 정리 <span class="badge ok">이 예시에 씀</span></b><p class="w">이름표가 붙은 네 칸</p><p>이럴 때 · 누가 · 무엇을 · 언제처럼 항목이 정해져 있을 때</p><p>분량 · 3~4칸, 칸마다 2줄</p></a><a class="vc" href="../kit/L-var.html#25" target="_blank" rel="noopener" data-n="25"><img src="../kit/thumbs/L-var-25.jpg" alt="요약 · 한 문장" loading="lazy" width="640" height="360"><b>한 문장</b><p class="w">화면 가운데 큰 한 문장과 받치는 말</p><p>이럴 때 · 한 줄로 줄일 수 있을 때</p><p>분량 · 40자 이하 한 문장 + 1줄</p></a></div>
+<h2>AI에게 전달하기</h2><p class="note">아래 요청문을 복사해 발표 내용과 함께 AI 대화창에 붙여 넣으세요. 주소만 건네는 것으로는 적용이 끝나지 않습니다. AI가 구성안을 먼저 보여 주면 확인한 뒤 만들게 하세요.</p><pre class="req" id="req">제가 올린 발표 내용에 &#x27;점 격자&#x27; 스타일(ID: L)을 적용해 발표 HTML 파일 하나로 만들어 주세요.
+
+1. 적용 안내 읽기: https://szxv7704-dot.github.io/design-reference-gallery/kit/L.md  (디자인 규칙 · 구성별 코드 · HTML 뼈대가 들어 있습니다)
+2. 완성 예시 보기: https://szxv7704-dot.github.io/design-reference-gallery/kit/L-set.html  (10장: 표지 · 흐름 · 개념 · 비교 · 절차 · 사례 · 실습 · 수치 · 요약 · 마무리)
+   구성 모음: https://szxv7704-dot.github.io/design-reference-gallery/kit/L-var.html  (역할마다 배치가 다른 구성 셋. 예시의 조합을 따라 하지 말고 제 내용에 맞는 구성을 골라 주세요)
+3. 유지할 것: 자주 한 계열 + 금빛 점 하나 / 점은 120px 격자 교차점에만 / 명조 제목 · 가는 선
+4. 바꿔도 되는 것: 강조할 낱말이나 점 / 칸 수와 배치
+5. 피할 것: 점 · 선을 규칙 없이 잇기 / 금빛을 글자색으로 쓰기(대비 부족)
+
+지킬 것:
+- 자료를 실제로 열어 읽은 뒤에 적용해 주세요. 주소를 열 수 없으면 읽은 척하지 말고 열 수 없다고 말해 주세요.
+- 먼저 장마다 &quot;전하려는 것 · 고른 구성 · 제목&quot;을 표로 보여 주고, 제가 확인하면 만들어 주세요.
+- 스타일은 하나만 쓰고, 장마다 내용에 맞는 구성을 고릅니다. 한 장에 구성 하나.
+- 예시에 들어 있는 기관명 · 수치 · 사례는 가상입니다. 제 발표에 가져오지 마세요. 제가 주지 않은 숫자를 지어내지 마세요.
+- 내용이 많으면 글자를 줄이지 말고 장을 나눠 주세요. 제 핵심 내용을 임의로 빼지 마세요.</pre>
+<details><summary>파일과 자료</summary><ul><li>적용 안내(AI용, 디자인 규칙 · 구성별 코드 · 뼈대): <a href="../kit/L.md">kit/L.md</a></li><li>스타일 CSS: <a href="../kit/v1/L.css">kit/v1/L.css</a> · 넘김 엔진: <a href="../kit/v1/deck.js">kit/v1/deck.js</a></li><li>더 많은 구성 예시: <a href="../kit/L-plan.html">계획안 발표 12장</a>(체계 · 일정 · 표 · 구성비) · <a href="../kit/L.html">성과 공유회 13장</a>(막대 · 전후 · 사진)</li><li>글꼴: SIL OFL 1.1(<a href="../fonts/LICENSES.md">고지</a>)</li></ul></details>
+<footer>모든 기관명 · 수치 · 사례는 가상 예시입니다. 새 발표에 그대로 가져오지 마세요. 사진은 AI로 만든 것이고, 글꼴은 모두 SIL Open Font License 1.1(<a href="../fonts/LICENSES.md">저작권 고지</a>).</footer>
+</main>
+<script>
+document.addEventListener('click', async e => {
+  const b = e.target.closest('[data-copy]'); if (!b) return;
+  const t = document.getElementById(b.dataset.copy).textContent, old = b.textContent;
+  try { await navigator.clipboard.writeText(t); b.textContent = '요청문을 복사했습니다 — AI 대화창에 붙여 넣으세요'; }
+  catch (err) { const r = document.createRange(); r.selectNodeContents(document.getElementById(b.dataset.copy)); getSelection().removeAllRanges(); getSelection().addRange(r); b.textContent = '아래 글을 직접 복사하세요'; }
+  setTimeout(() => { b.textContent = old; }, 2600);
+});
+</script>
+</body>
+</html>

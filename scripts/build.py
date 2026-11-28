@@ -38,7 +38,7 @@ def build(no, outdir, name=None, page=None):
     # page 를 주면 src/{no}/page.html 대신 그 글을 쓴다(덱 키트 예시 덱: scripts/kit.py 가 흐름 원본에서 짜 넣음)
     d = os.path.join(ROOT, 'src', str(no)); cfg = json.load(open(os.path.join(d, 'build.json')))
     s = page if page is not None else open(os.path.join(d, 'page.html'), encoding='utf-8').read()
-    s = re.sub(r'/\*@@KIT:([A-H])@@\*/', lambda m: kit_css(m.group(1)), s)
+    s = re.sub(r'/\*@@KIT:([A-L])@@\*/', lambda m: kit_css(m.group(1)), s)
     if '/*@@KITJS@@*/' in s: s = s.replace('/*@@KITJS@@*/', open(os.path.join(ROOT, 'kit', 'deck.js'), encoding='utf-8').read())
     text = re.sub(r'@@[A-Z]+:[^@]+@@', '', s)
     notes = {}; faces = ''.join(face(f, w, text, notes) for f, w in cfg['fonts'])

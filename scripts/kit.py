@@ -13,8 +13,8 @@ sys.path.insert(0, os.path.join(ROOT, 'scripts'))
 import build
 BASE = 'https://szxv7704-dot.github.io/design-reference-gallery/'
 K = os.path.join(ROOT, 'kit')
-FAMS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-NAMES = {'A': '픽셀 게임', 'B': '미니멀 스튜디오', 'C': '경쾌한 놀이 오브젝트', 'D': '인쇄·종이 에디토리얼', 'E': '자연 재질', 'F': '관측·중계 인포그래픽', 'G': '어두운 콘셉트', 'H': '전통 공예·문양'}
+FAMS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
+NAMES = {'A': '픽셀 게임', 'B': '미니멀 스튜디오', 'C': '경쾌한 놀이 오브젝트', 'D': '인쇄·종이 에디토리얼', 'E': '자연 재질', 'F': '관측·중계 인포그래픽', 'G': '어두운 콘셉트', 'H': '전통 공예·문양', 'I': '원과 반원', 'J': '사선 띠', 'K': '모듈 격자', 'L': '점 격자'}
 # 계열마다 다른 것: 근거 장표 · 글꼴 역할 · 한 줄 소개 · 어울리는 자리 · 상징 부품(표지 · 목차 · 간지 · 맺음에 쓰는 이 계열의 얼굴)
 META = {
  'A': {'refs': '#9 · #10 · #11 · #12 · #90', 'roles': ('Galmuri11', 'Galmuri11', 'Galmuri11'),
@@ -41,6 +41,18 @@ META = {
  'H': {'refs': '#58 · #59 · #110', 'roles': ('Nanum Myeongjo', 'Noto Sans KR', 'Nanum Myeongjo'),
        'desc': '밝은 한지에 먹 명조 제목, 면마다 쌍변, 진녹 농담. 주홍 강조 한 곳', 'fit': '역사 · 문화 · 지역 행사, 격식 있는 자리',
        'sig': '수막새 그림(`.tiles`, 이미지)을 씁니다. 표지는 큰 막새 `.tiles big`, 목차 · 간지는 처마 줄 `.tiles s1`~`s5`(그 섹션의 막새에 주홍 고리. 다섯 단계, 섹션 수에 맞춰 비율로), 맺음은 처마 끝 `.tiles roof`.'},
+ 'I': {'refs': '기하 표지 씨앗 1', 'roles': ('Nanum Gothic', 'Nanum Gothic', 'Nanum Gothic'),
+       'desc': '흰 바탕에 청록 한 계열의 원 · 반원 · 사분원. 산호는 한 장에 한 곳', 'fit': '업무보고 · 설명회 등 어디에나 무난하다. 부드러운 인상',
+       'sig': '원 묶음(`.orbs`)을 씁니다. 표지는 `.orbs full`(원 구성, `<i>` 여섯), 맺음은 `.orbs fin`(`<i>` 넷), 목차 · 간지는 `.orbs row`: 원 수 = 섹션 수, 지난 원 `.done` · 지금 원 `.now`.'},
+ 'J': {'refs': '기하 표지 씨앗 2', 'roles': ('Gothic A1', 'Gothic A1', 'Gothic A1'),
+       'desc': '흰 바탕에 먹 · 회색 한 계열의 사선 띠와 평행사변형. 빨강은 한 장에 한 곳', 'fit': '격식 있는 업무보고 · 계획 보고',
+       'sig': '사선 띠(`.slant`)를 씁니다. 표지는 `.slant full`(띠 넷), 맺음은 `.slant fin`(띠 셋), 목차 · 간지는 `.slant row`: 평행사변형 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`.'},
+ 'K': {'refs': '기하 표지 씨앗 3', 'roles': ('Noto Sans KR', 'Noto Sans KR', 'Noto Sans KR'),
+       'desc': '흰 바탕에 쪽빛 한 계열의 모듈 격자. 겨자는 한 장에 한 곳', 'fit': '수치 · 실적이 많은 보고, 정돈된 인상',
+       'sig': '격자 칸(`.mods`)을 씁니다. 표지는 `.mods full`(4 × 5 격자, `<i>` 열여섯), 맺음은 `.mods fin`(3 × 3, `<i>` 아홉), 목차 · 간지는 `.mods row`: 칸 수 = 섹션 수, 지난 칸 `.done` · 지금 칸 `.now`.'},
+ 'L': {'refs': '기하 표지 씨앗 4(대안 A)', 'roles': ('Noto Serif KR', 'IBM Plex Sans KR', 'Noto Serif KR'),
+       'desc': '흰 바탕에 자주 한 계열의 점 격자와 가는 선, 명조 제목. 금빛은 한 장에 한 곳', 'fit': '정책 · 비전 보고, 차분하고 단정한 자리',
+       'sig': '점 격자(`.pips`)를 씁니다. 표지는 `.pips full`(6 × 7 점, 오른쪽으로 갈수록 작아지고 금빛 점 하나가 남음, `<i>` 마흔둘), 맺음은 `.pips fin`(`<i>` 마흔둘), 목차 · 간지는 `.pips row`: 점 수 = 섹션 수, 지난 점 `.done` · 지금 점 `.now`.'},
 }
 rd = lambda *p: open(os.path.join(*p), encoding='utf-8').read()
 def wr(p, s): os.makedirs(os.path.dirname(p), exist_ok=True); open(p, 'w', encoding='utf-8').write(s)
@@ -84,6 +96,13 @@ def sig(fam, kind, i=0, n=5, num=''):
         if fam == 'E': return '<div class="rings%s"%s></div>' % (' ' + st if kind == 'divider' else '', hid)
         if fam == 'G': return '<div class="stars %s"%s></div>' % (st if kind in ('toc', 'divider') else 'all', hid)
         return '<div class="tiles %s"%s></div>' % ({'cover': 'big', 'close': 'roof'}.get(kind, st), hid)
+    if fam in 'IJKL':   # 기하 계열: 표지 · 맺음은 고정 구성, 목차 · 간지는 섹션 수만큼 도형 한 줄
+        cls = {'I': 'orbs', 'J': 'slant', 'K': 'mods', 'L': 'pips'}[fam]
+        if kind in ('cover', 'close'):
+            k = {'I': (6, 4), 'J': (4, 3), 'K': (16, 9), 'L': (42, 42)}[fam][kind == 'close']
+            return '<div class="%s %s"%s>%s</div>' % (cls, 'full' if kind == 'cover' else 'fin', hid, '<i></i>' * k)
+        f = {'toc': lambda k: 'now' if k == i else '', 'divider': lambda k: 'done' if k < i else 'now' if k == i else ''}[kind]
+        return '<div class="%s row"%s>%s</div>' % (cls, hid, cells(f))
     if fam == 'D':
         if kind == 'divider': return '<div class="reg is-off"%s><b>%02d</b><i class="crop"></i></div>' % (hid, i)
         return '<div class="reg"%s><b>%s</b></div>' % (hid, {'cover': num, 'toc': '%02d' % i, 'close': '끝'}[kind])
@@ -236,18 +255,18 @@ def guide(fam=None):
     if one:
         L += ['## 5. 분위기 계열: %s %s' % (fam, NAMES[fam]), '', '%s. 어울리는 자리: %s. 자세한 규칙은 아래 \'디자인 규칙\'.' % (META[fam]['desc'], META[fam]['fit']), '']
     else:
-        L += ['## 5. 분위기 계열 여덟 (겉모습만 다르고 부품 이름은 같습니다)', '',
+        L += ['## 5. 분위기 계열 열둘 (겉모습만 다르고 부품 이름은 같습니다)', '',
               T([['계열', '겉모습', '어울리는 자리', '자세한 규칙 · 지시서']] + [['---'] * 4] +
                 [['**%s %s**' % (f, NAMES[f]), META[f]['desc'], META[f]['fit'], '%skit/%s.md' % (BASE, f)] for f in FAMS]), '',
               '계열을 정하면 그 계열의 지시서(위 주소)를 읽을 수 있을 때 읽고 \'디자인 규칙\'을 따릅니다. 읽을 수 없으면 이 안내만으로 만듭니다.', '']
     L += ['## 6. HTML 뼈대', '', '```html', shell(fam).strip(), '```', '',
-          '- `{계열}` 두 곳을 A ~ H 중 하나로 바꿉니다.' if not one else '- 공통 파일 두 줄은 그대로 둡니다.',
+          '- `{계열}` 두 곳을 A ~ L 중 하나로 바꿉니다.' if not one else '- 공통 파일 두 줄은 그대로 둡니다.',
           '- 열 때 인터넷이 필요합니다. AI 화면 안 미리보기에서 색 · 모양이 안 보여도 고치지 마세요(바깥 파일을 막는 미리보기가 있습니다). 내려받아 브라우저로 열면 정상입니다.', '',
           '## 7. 상징 부품 (표지 · 목차 · 간지 · 맺음에 넣는 계열의 얼굴)', '']
     if one:
         L += ['이 계열은 ' + META[fam]['sig'], '']
     else:
-        L += ['견본 코드(8)의 `<!-- 상징 부품 -->` 자리에 고른 계열의 코드를 넣습니다. 아래는 섹션이 5개이고 지금 2섹션일 때입니다. A · B · C · F는 칸(`<i>`) 수 = 섹션 수(5개까지), E · G · H는 그림이라 칸이 없고 상태 클래스(`s1`~`s5`)만 바꿉니다.', '',
+        L += ['견본 코드(8)의 `<!-- 상징 부품 -->` 자리에 고른 계열의 코드를 넣습니다. 아래는 섹션이 5개이고 지금 2섹션일 때입니다. A · B · C · F와 기하 계열 I · J · K · L의 목차 · 간지는 칸(`<i>`) 수 = 섹션 수(5개까지), E · G · H는 그림이라 칸이 없고 상태 클래스(`s1`~`s5`)만 바꿉니다. I · J · K · L의 표지 · 맺음은 정해진 `<i>` 수를 그대로 씁니다.', '',
               T([['계열', '표지', '목차(지금 2섹션)', '간지(지금 2섹션)', '맺음']] + [['---'] * 5] +
                 [['%s' % f] + ['`%s`' % sig(f, k, 2, 5, '2027') for k in ('cover', 'toc', 'divider', 'close')] for f in FAMS]), '',
               '\n'.join('- %s: %s' % (f, META[f]['sig']) for f in FAMS), '']

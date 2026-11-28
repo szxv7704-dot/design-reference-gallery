@@ -5,7 +5,7 @@ import glob, os, re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 rd = lambda p: open(p, encoding='utf-8').read()
 shared = set()
-for f in ['kit/parts.css', 'kit/deck.css'] + glob.glob(os.path.join(ROOT, 'kit', '[A-H].css')):
+for f in ['kit/parts.css', 'kit/deck.css'] + glob.glob(os.path.join(ROOT, 'kit', '[A-L].css')):
     shared |= set(re.findall(r'\.([a-z][\w-]*)', rd(os.path.join(ROOT, f))))
 # 일부러 같은 이름으로 덮어쓰는 공용 부품(모양만 그 표지 말투로 바꾼다)
 OVERRIDE = {'slide', 'title', 'kicker', 's-body', 'page-no', 'src', 'fill', 'tile', 'card', 'grid', 'points', 'check', 'stepper', 'vs', 'yesno', 'big',

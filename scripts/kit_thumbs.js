@@ -4,10 +4,11 @@
 const { chromium } = require('playwright'); const path = require('path'); const fs = require('fs'); const { execFileSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '..'), OUT = path.join(ROOT, 'kit', 'thumbs');
 (async () => {
-  const fams = process.argv.slice(2).length ? process.argv.slice(2) : fs.readdirSync(path.join(ROOT, 'kit')).filter(f => /^[A-H]\.design\.md$/.test(f)).map(f => f[0]);
+  const fams = process.argv.slice(2).length ? process.argv.slice(2) : fs.readdirSync(path.join(ROOT, 'kit')).filter(f => /^[A-L]\.design\.md$/.test(f)).map(f => f[0]);
   fs.mkdirSync(OUT, { recursive: true });
   fs.readdirSync(OUT).filter(f => fams.includes(f.split('-')[0])).forEach(f => fs.unlinkSync(path.join(OUT, f)));
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+  await p.emulateMedia({ reducedMotion: 'reduce' });   // 장 들어설 때 움직임이 있는 계열(I~L)도 끝 모습을 찍는다
   // 흐름별 예시 덱: kit/{계열}.html(성과 공유회) · kit/{계열}-plan.html · kit/{계열}-lecture.html → {계열}-{장}.jpg · {계열}-plan-{장}.jpg …
   const decks = [...new Set(JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'kit_slides.json'), 'utf8')).map(s => s.deck))];
   for (const F of fams) for (const D of decks) {

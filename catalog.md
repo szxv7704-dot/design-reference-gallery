@@ -27,6 +27,10 @@
 | F | 관측·중계 인포그래픽 | 몰입감 있는 | 실적 · 순위 · 진행 상황을 중계하듯 보여 줄 때 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/F.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/F-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/F.html |
 | G | 어두운 콘셉트 | 몰입감 있는 | 흩어진 것을 하나로 잇는 이야기. 비전 선포 · 불을 끄고 하는 발표 | 확장 중 | https://szxv7704-dot.github.io/design-reference-gallery/kit/G.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/G-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/G.html |
 | H | 전통 공예·문양 | 전통적인 | 역사 · 문화 · 지역을 다루는 격식 있는 자리 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/H.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/H-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/H.html |
+| I | 원과 반원 | 무난한 | 부드럽지만 가볍지 않게 전할 때. 설명회 · 업무보고 등 어디에나 무난하다 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/I.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/I-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/I.html |
+| J | 사선 띠 | 무난한 | 격식 있게 정리해 보고할 때. 업무보고 · 계획 보고 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/J.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/J-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/J.html |
+| K | 모듈 격자 | 무난한 | 수치 · 실적이 많은 보고를 정돈되게 보일 때 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/K.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/K-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/K.html |
+| L | 점 격자 | 무난한 | 정책 · 비전을 차분하고 단정하게 전할 때 | 검증된 세트 | https://szxv7704-dot.github.io/design-reference-gallery/kit/L.md | https://szxv7704-dot.github.io/design-reference-gallery/kit/L-set.html | https://szxv7704-dot.github.io/design-reference-gallery/styles/L.html |
 
 상태: **검증된 세트** = 10장 예시 · 다른 주제 시험 · 넘침 검사를 통과 / **확장 중** = 10장 예시는 있으나 검증이 끝나지 않음.
 
@@ -70,6 +74,26 @@
 - 바꿔도 되는 것: 막새(섹션) 수는 5개까지 / 강조할 칸
 - 피할 것: 그림자 · 둥근 모서리 / 문양을 새로 그려 넣기
 
+### I 원과 반원
+- 유지할 것: 청록 한 계열의 명도 다섯 단계 + 산호 한 곳 / 원 · 반원 · 사분원은 표지 · 목차 · 간지 · 맺음에만 / 카드 · 막대 · 번호도 둥근 모양
+- 바꿔도 되는 것: 강조할 낱말이나 칸 / 칸 수와 배치
+- 피할 것: 다른 색 계열 섞기 / 원을 본문 장식으로 흩어 놓기
+
+### J 사선 띠
+- 유지할 것: 먹 · 회색 한 계열 + 빨강 한 곳 / 모든 사선은 같은 각도(-24°) / 카드 모서리 · 막대 끝을 같은 각도로 자름
+- 바꿔도 되는 것: 강조할 낱말이나 칸 / 칸 수와 배치
+- 피할 것: 빨강을 두 곳 이상 / 각도가 다른 사선 섞기
+
+### K 모듈 격자
+- 유지할 것: 쪽빛 한 계열 + 겨자 한 칸 / 모서리는 모두 직각, 칸 크기 · 간격 일정 / 제목 강조는 겨자 형광펜 띠
+- 바꿔도 되는 것: 채울 칸의 위치 / 칸 수와 배치
+- 피할 것: 겨자를 글자색으로 쓰기(대비 부족) / 칸 크기 섞기
+
+### L 점 격자
+- 유지할 것: 자주 한 계열 + 금빛 점 하나 / 점은 120px 격자 교차점에만 / 명조 제목 · 가는 선
+- 바꿔도 되는 것: 강조할 낱말이나 점 / 칸 수와 배치
+- 피할 것: 점 · 선을 규칙 없이 잇기 / 금빛을 글자색으로 쓰기(대비 부족)
+
 ## 표지에서 넓힌 덱 (27벌)
 
 표지 하나마다 10장: 원본 표지 + 본문 여덟 역할 + 마무리. 표지의 색 · 글꼴을 입혔고 배치는 "바탕" 스타일에서 빌렸다. 표지마다 구성 조합이 다르다.
@@ -105,7 +129,7 @@
 | #106 | 새로운 일상이 도착했습니다 | B | https://szxv7704-dot.github.io/design-reference-gallery/covers/106.html | https://szxv7704-dot.github.io/design-reference-gallery/covers/106.css | **표지의 장치를 본문까지** — 고정폭 'DELIVERED · …' 줄 · 주황 테이프 띠(화살표 + OPEN NEW POSSIBILITIES) · 송장 라벨(바코드 · 보내는 분 · 받는 분 · 물품명 · NXT 번호 · 주황 도장) · 위 테두리 주황인 꺼낸 카드 세 장 · 표지 원화의 택배 상자 · 빌린 본문 #87 #76 #73 |
 | #109 | 피사체는 그대로, 시선은 새로 | B | https://szxv7704-dot.github.io/design-reference-gallery/covers/109.html | https://szxv7704-dot.github.io/design-reference-gallery/covers/109.css | **표지의 장치를 본문까지** — 전시 포스터 틀(위 가는 줄 'NEW WAYS OF SEEING ··· EXHIBITION / 0n', 아래 질문과 'PERSPECTIVE / ANALOG STUDY') · 아주 굵은 고딕 결론 · 렌즈 조각 줄(장마다 하나씩 끼워짐) · 빨간 뷰파인더 꺾쇠 · 표지 원화의 렌즈 조각과 고양이 · 카메라 사진 · 빌린 본문 #53 #94 |
 
-## 와우 포인트 (24가지, 기법 하나 = 덱 하나)
+## 와우 포인트 (38가지, 기법 하나 = 덱 하나)
 
 발표 연출 기법. 덱마다 3장(표지 · 크게 보기 · 쓰는 법). 한 발표에 한두 번만 쓴다.
 
@@ -135,6 +159,20 @@
 | 22 | 또롱또롱 떨어지기 | 소리가 보이는 모션 | 같은 박자로 하나씩 생겨 개수와 순서가 몸에 남는다. | "구조가 복잡하지만 따라오세요" | 과제 목록, 절차 단계, 핵심어 나열 | https://szxv7704-dot.github.io/design-reference-gallery/wow/22.html |
 | 23 | 쿵! 내려앉기 | 소리가 보이는 모션 | 무거운 착지와 흔들림이 '이게 결론'이라고 알린다. | "이게 결론입니다" | 결론 한 문장, 핵심 숫자 | https://szxv7704-dot.github.io/design-reference-gallery/wow/23.html |
 | 24 | 타이포 조립 | 소리가 보이는 모션 | "무슨 글자지?" 하다가 한순간 맞춰지며 "아!" 하게 된다. | "새로 시작합니다" | 표지 제목, 연도·슬로건 공개, 간지 | https://szxv7704-dot.github.io/design-reference-gallery/wow/24.html |
+| 25 | 흐름 띠 | 흐름·시선 | 돈과 사람이 어디로 가는지 눈으로 따라간다. | "돈 · 사람이 어디로 가는지 보세요" | 예산 편성, 인력 배치, 졸업 후 진로 | https://szxv7704-dot.github.io/design-reference-gallery/wow/25.html |
+| 26 | 점 다시 모으기 | 흐름·시선 | 섞여 있던 점이 무리로 갈라지는 순간 비율이 보인다. | "돈 · 사람이 어디로 가는지 보세요" | 대상 · 학교급 분포, 설문 응답 나누기 | https://szxv7704-dot.github.io/design-reference-gallery/wow/26.html |
+| 27 | 시선 넘기기 | 흐름·시선 | 지금 말하는 항목만 밝다. 청중이 길을 잃지 않는다. | "구조가 복잡하지만 따라오세요" | 추진 과제 차례 설명, 목차 진행 | https://szxv7704-dot.github.io/design-reference-gallery/wow/27.html |
+| 28 | 한 바퀴 돌기 | 흐름·시선 | 시계가 한 바퀴 돌면 '1년 동안'이 몸으로 느껴진다. | "해마다 돌며 나아집니다" | 연간 추진 경과, 한 해 성과 돌아보기, 학사 일정 | https://szxv7704-dot.github.io/design-reference-gallery/wow/28.html |
+| 29 | 출발판 넘김 | 표시·뒤집기 | 숫자판이 넘어가는 소리가 들리는 듯해 '바뀌었다'가 남는다. | "이만큼 바뀝니다" | 기간 · 건수 단축, 새 일정 공개, 결과 발표 | https://szxv7704-dot.github.io/design-reference-gallery/wow/29.html |
+| 30 | 동그라미 치기 | 표시·뒤집기 | 발표자가 펜으로 짚어 주는 듯해 시선이 바로 그 숫자로 간다. | "바로 이 숫자입니다" · "짐작해 보세요" | 표 · 그래프에서 숫자 하나 짚기, 법령 문구 강조 | https://szxv7704-dot.github.io/design-reference-gallery/wow/30.html |
+| 31 | 카드 뒤집기 | 표시·뒤집기 | 답을 먼저 짐작해 본 사람은 그 답을 오래 기억한다. | "바로 이 숫자입니다" · "짐작해 보세요" | 퀴즈, 오해와 사실, 예상과 실제 | https://szxv7704-dot.github.io/design-reference-gallery/wow/31.html |
+| 32 | 줌 스루 | 장면 잇기 | 장을 넘기는 대신 다음 장면 '안으로' 들어간다. 이야기가 끊기지 않는다. | "다음 단계로 넘어갑니다" | 표지 → 본론, 현황 → 계획, 올해 → 내년 | https://szxv7704-dot.github.io/design-reference-gallery/wow/32.html |
+| 33 | 사선 패널 교체 | 장면 잇기 | 같은 틀에서 판만 쓸려 가니, 여럿을 차례로 보여도 어수선하지 않다. | "여럿을 차례로 소개합니다" | 담당 · 기관 소개, 사례 차례로 보이기 | https://szxv7704-dot.github.io/design-reference-gallery/wow/33.html |
+| 34 | 선이 모여 줌 | 장면 잇기 | 여러 갈래가 한 곳으로 모이는 것을 보고, 그 한 곳으로 들어간다. | "여럿이 함께 만듭니다" | 협력 체계, 거점 · 통합 창구, 원인이 하나로 모일 때 | https://szxv7704-dot.github.io/design-reference-gallery/wow/34.html |
+| 35 | 카드 더미 펼치기 | 장면 잇기 | 흩어진 것이 한 묶음이 되었다가 펼쳐지면, '여럿이 한 이야기'라는 게 보인다. | "여럿을 차례로 소개합니다" | 우수 사례 여러 건, 참여 학교 · 기관 소개 | https://szxv7704-dot.github.io/design-reference-gallery/wow/35.html |
+| 36 | 도형 쌓기 | 형태·렌즈 | 작은 조각이 모여 하나가 되는 걸 보면, 계획이 '여럿을 묶은 것'으로 읽힌다. | "여럿이 함께 만듭니다" | 표지, 여러 과제가 한 계획이 될 때 | https://szxv7704-dot.github.io/design-reference-gallery/wow/36.html |
+| 37 | 회전 글자 막대 | 형태·렌즈 | 같은 자리에서 막대가 돌아 다른 면이 나오니, 무엇이 바뀌었는지 짝으로 보인다. | "이만큼 바뀝니다" | 연도 · 슬로건 공개, 전 → 후 문구 두세 줄 | https://szxv7704-dot.github.io/design-reference-gallery/wow/37.html |
+| 38 | 렌즈 속 장면 | 형태·렌즈 | 겉으로 보던 낱말을 렌즈로 들여다보면, 그 안의 사람 · 숫자가 보인다. | "바로 이 숫자입니다" · "짐작해 보세요" | 핵심어 하나에 뜻 입히기, 정책 이름 뒤의 대상 보여 주기 | https://szxv7704-dot.github.io/design-reference-gallery/wow/38.html |
 
 ## 구성 (역할마다 배치가 다른 셋. 모든 스타일에서 같은 이름으로 쓴다)
 
@@ -182,6 +220,10 @@
 | F 관측·중계 인포그래픽 | 가로 이정표 | 맞는 예와 아닌 예 | 기준별 두 열 | 가로 세 칸 | 화면 짚기 | 질문과 보기 | 목표 대비 막대 | 네 칸 정리 |
 | G 어두운 콘셉트 | 가로 이정표 | 세 요소로 풀기 | 짝 줄 | 세로 단계 | 화면 짚기 | 할 일과 조건 | 숫자 하나 크게 | 세 줄 |
 | H 전통 공예·문양 | 줄 목록 | 낱말과 뜻 | 기준별 두 열 | 단계 표 | 사람의 말 | 체크 목록 | 숫자 셋 | 네 칸 정리 |
+| I 원과 반원 | 가로 이정표 | 낱말과 뜻 | 기준별 두 열 | 세로 단계 | 한 건 이야기 | 할 일과 조건 | 숫자 셋 | 네 칸 정리 |
+| J 사선 띠 | 번호 카드 | 낱말과 뜻 | 짝 줄 | 세로 단계 | 사람의 말 | 체크 목록 | 숫자 하나 크게 | 한 문장 |
+| K 모듈 격자 | 줄 목록 | 맞는 예와 아닌 예 | 전과 후 수치 | 단계 표 | 화면 짚기 | 질문과 보기 | 숫자 하나 크게 | 세 줄 |
+| L 점 격자 | 가로 이정표 | 세 요소로 풀기 | 짝 줄 | 단계 표 | 한 건 이야기 | 할 일과 조건 | 목표 대비 막대 | 네 칸 정리 |
 
 ## 그 밖
 

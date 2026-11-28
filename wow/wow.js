@@ -54,6 +54,41 @@
       const tick = () => { if (tok !== el._t || s >= 2) return; set(++s); setTimeout(tick, 1700); };
       setTimeout(tick, 1400);
     },
+    regroup(el, end) {
+      const G = [['#0E5C64', 18, 20], ['#3FA3AD', 12, 50], ['#9CD2D7', 10, 80]];
+      if (!el._dots) { el._dots = []; let k = 0; const mix = [];
+        G.forEach(([c, n], g) => { for (let j = 0; j < n; j++) mix.push([g, j]); });
+        for (let i = mix.length - 1; i > 0; i--) { const j = (i * 7919 + 13) % (i + 1); [mix[i], mix[j]] = [mix[j], mix[i]]; }
+        mix.forEach(([g, j], i) => { const d = document.createElement('i'); d.className = 'dot'; el.appendChild(d); el._dots.push({ d, g, j, i }); }); }
+      const tok = el._t = (el._t || 0) + 1;
+      const set = ph => {
+        el.classList.toggle('grouped', ph === 2);
+        el._dots.forEach(({ d, g, j, i }) => {
+          if (ph < 2) { d.style.left = (13 + (i % 8) * 10.6) + '%'; d.style.top = (24 + Math.floor(i / 8) * 12.5) + '%'; }
+          else { d.style.left = (G[g][2] - 8 + (j % 3) * 8) + '%'; d.style.top = (24 + Math.floor(j / 3) * 9.4) + '%'; }
+          d.style.background = ph === 0 ? '#C9CED4' : G[g][0];
+        });
+      };
+      if (end || RM) return set(2);
+      set(0); let ph = 0;
+      const tick = () => { if (tok !== el._t || ph >= 2) return; set(++ph); setTimeout(tick, 1500); };
+      setTimeout(tick, 1100);
+    },
+    flap(el, end) {
+      const CH = '0123456789일종번';
+      const rows = [...el.querySelectorAll('.cells')], tok = el._t = (el._t || 0) + 1;
+      rows.forEach(r => { if (!r._c) { r._c = [...r.dataset.from].map(ch => { const c = document.createElement('span'); c.className = 'c'; r.appendChild(c); return c; }); } });
+      const put = (c, ch) => { c.textContent = ch === ' ' ? '' : ch; };
+      if (end || RM) return rows.forEach(r => r._c.forEach((c, i) => { put(c, r.dataset.to[i]); c.classList.toggle('end', r.dataset.to[i] !== r.dataset.from[i]); }));
+      rows.forEach(r => r._c.forEach((c, i) => { put(c, r.dataset.from[i]); c.classList.remove('end', 'f'); }));
+      rows.forEach((r, ri) => r._c.forEach((c, i) => {
+        const a = r.dataset.from[i], b = r.dataset.to[i]; if (a === b) return;
+        let n = 9 + ri * 4 + i * 2;
+        const step = () => { if (tok !== el._t) return; c.classList.remove('f'); void c.offsetWidth; c.classList.add('f');
+          if (--n <= 0) { put(c, b); c.classList.add('end'); return; } put(c, CH[(n * 7 + i) % 10]); setTimeout(step, 75); };
+        setTimeout(step, 900 + ri * 260);
+      }));
+    },
     ba(el) { /* 자동 훑기는 CSS. 끌면 직접 비교 */ },
     fw(el, end) { el._e = el._e || Fireworks(el); end ? el._e.final() : el._e.run(); },
     asm(el, end) { el._e = el._e || Assembly(el); end ? el._e.final() : el._e.run(); },

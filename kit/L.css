@@ -1,0 +1,157 @@
+/* L 점 격자 — 덱 키트 v1 (deck.css 다음에 불러옴)
+   기하 도형 계열: 120px 격자의 교차점에만 점을 놓고, 가는 선으로 잇는다. 자주 한 계열의 명도 4단계 + 금빛 한 곳, 명조 제목.
+   근거: 기하 표지 씨앗 4 대안 A(2026-11-28, docs/worklog.md) — 점이 오른쪽으로 갈수록 작아지고(덜어 냄) 금빛 점 하나가 남는다 */
+:root{
+  --ds-stage:#EADFE5;
+  --ds-bg:#F8F5F7; --ds-surface:#FFFFFF; --ds-ink:#2A1222; --ds-sub:#5E4856; --ds-line:#E6D6DF;
+  --ds-accent:#C99A3E; --x-key-text:#7E5B12; --ds-accent2:#6E2B52; --ds-point:#C99A3E;
+  --ds-c1:#6E2B52; --ds-c2:#87436B; --ds-c3:#A4708E; --ds-c4:#BC97AC; --ds-c5:#EEDFE7;
+  --ds-radius:4px; --ds-shadow:0 0 0 1.5px #EADCE4;
+  --ds-font-title:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+  --ds-font-body:"IBM Plex Sans KR","Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --ds-font-num:"Noto Serif KR","Nanum Myeongjo","AppleMyungjo","Batang",serif;
+}
+.slide{isolation:isolate;background:var(--ds-bg);color:var(--ds-ink);font:400 28px/1.55 var(--ds-font-body)}
+
+/* ── 공통: 머리말 · 결론 제목 · 쪽 번호 · 출처 ─────────────────── */
+.s-body{position:absolute;inset:88px 120px 96px;display:flex;flex-direction:column;gap:40px}
+.kicker{display:flex;align-items:center;gap:16px;margin:0;font:600 24px/1 var(--ds-font-body);color:var(--ds-c1)}
+.kicker::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--ds-c1);box-shadow:20px 0 0 -2px var(--ds-c3),38px 0 0 -4px var(--ds-c4);margin-right:36px}
+.title{margin:0;max-width:1560px;font:700 56px/1.34 var(--ds-font-title);letter-spacing:-.04em;text-wrap:balance}
+.title em{font-style:normal;color:var(--ds-c1);text-decoration:underline 3px var(--ds-point);text-underline-offset:12px}
+.lead{margin:-16px 0 0;max-width:1400px;font-size:28px;color:var(--ds-sub)}
+.fill{flex:1;min-height:0}
+.src{position:absolute;left:120px;bottom:40px;margin:0;font:400 22px/1 var(--ds-font-body);color:var(--ds-sub)}
+.page-no{position:absolute;right:120px;bottom:40px;font:700 22px/1 var(--ds-font-num);color:var(--ds-sub)}
+
+/* ── 점 격자(.pips): 이 계열의 얼굴. 표지 · 목차 · 간지 · 맺음에만 ─────
+   표지: 6 × 7 점(<i> 마흔둘, 세로로 채움). 오른쪽 열로 갈수록 작고 옅어지고, 마지막 열 가운데에 금빛 점 하나가 남는다.
+   맺음: 같은 점이 모두 덜어지고 금빛 점만 남은 모습. 목차 · 간지: 점 n개 = 섹션 수, .done 지난 · .now 지금 */
+.pips{position:absolute;pointer-events:none}
+.pips.full,.pips.fin{left:1080px;top:0;width:840px;height:1080px;display:grid;grid-template-columns:repeat(6,120px);grid-template-rows:repeat(7,120px);grid-auto-flow:column;padding:180px 0 0 60px;place-items:center;
+  background-image:linear-gradient(var(--ds-line) 1.5px,transparent 1.5px),linear-gradient(90deg,var(--ds-line) 1.5px,transparent 1.5px);background-size:120px 120px;background-position:-1px -1px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 180px);mask-image:linear-gradient(90deg,transparent 0,#000 180px)}
+.pips.full i,.pips.fin i{display:block;width:30px;height:30px;border-radius:50%;background:var(--ds-c1)}
+.pips.full i:nth-child(n+8){width:25px;height:25px;opacity:.85}
+.pips.full i:nth-child(n+15){width:20px;height:20px;opacity:.7}
+.pips.full i:nth-child(n+22){width:15px;height:15px;opacity:.55}
+.pips.full i:nth-child(n+29){width:10px;height:10px;opacity:.4}
+.pips.full i:nth-child(n+36){width:6px;height:6px;opacity:.3}
+.pips.full i:nth-child(39),.pips.fin i:nth-child(39){width:52px;height:52px;opacity:1;background:var(--ds-point);box-shadow:0 0 0 18px var(--ds-bg),0 0 0 20px var(--ds-point)}
+.pips.fin i{width:6px;height:6px;opacity:.3}
+.pips.row{display:flex;gap:56px;align-items:center}
+.pips.row i{display:block;width:20px;height:20px;border-radius:50%;background:var(--ds-c4)}
+.pips.row i.done{width:28px;height:28px;background:var(--ds-c1)}
+.pips.row i.now{width:48px;height:48px;background:var(--ds-point);box-shadow:0 0 0 14px var(--ds-bg),0 0 0 16px var(--ds-point)}
+
+/* ── 표지 ─────────────────────────────────────────── */
+.cover .c-text{position:absolute;left:150px;top:0;bottom:0;width:960px;display:flex;flex-direction:column;justify-content:center;gap:30px}
+.cover .c-tag{font:600 28px/1 var(--ds-font-body);color:var(--ds-c1)}
+.cover h1{margin:0;font:700 96px/1.26 var(--ds-font-title);letter-spacing:-.05em}
+.cover h1 em{font-style:normal;color:var(--ds-c1)}
+.cover .c-sub{margin:8px 0 0;font-size:36px;line-height:1.5;color:var(--ds-sub);max-width:880px}
+.cover .c-org{position:absolute;left:150px;bottom:96px;display:flex;gap:32px;margin:0;font:600 28px/1.4 var(--ds-font-body);color:var(--ds-ink)}
+.cover .c-org span+span{font-weight:400;color:var(--ds-sub)}
+
+/* ── 목차: 번호는 명조 숫자, 줄 앞 점, 지금 장만 금빛 점 ─────────────── */
+.toc-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ds-c1);width:1080px}
+.toc-list li{display:grid;grid-template-columns:120px 1fr 120px;align-items:center;height:112px;border-bottom:1.5px solid var(--ds-line);font:700 36px/1.2 var(--ds-font-title);letter-spacing:-.03em}
+.toc-list li b{font:700 30px/1 var(--ds-font-num);color:var(--ds-c3)}
+.toc-list li span:last-child{justify-self:end;font:700 24px/1 var(--ds-font-num);color:var(--ds-sub)}
+.toc-list li.is-now{color:var(--ds-c1)}.toc-list li.is-now b{color:var(--x-key-text)}
+.toc-list li.is-now span:nth-child(2)::after{content:"";display:inline-block;width:16px;height:16px;margin:0 0 6px 20px;border-radius:50%;background:var(--ds-point)}
+.toc .pips{right:200px;bottom:200px}
+
+/* ── 간지: 큰 명조 번호 + 섹션 이름, 지금 섹션 점만 금빛 ─────────────── */
+.divider .d-no{position:absolute;left:150px;top:200px;font:700 220px/1 var(--ds-font-num);letter-spacing:-.05em;color:var(--ds-c1)}
+.divider .d-no small{display:block;margin-bottom:24px;font:600 26px/1 var(--ds-font-body);letter-spacing:.06em;color:var(--ds-sub)}
+.divider h2{position:absolute;left:150px;top:560px;margin:0;font:700 88px/1.2 var(--ds-font-title);letter-spacing:-.04em}
+.divider p{position:absolute;left:150px;top:690px;margin:0;width:900px;font-size:30px;color:var(--ds-sub)}
+.divider .pips{right:220px;bottom:220px}
+
+/* ── 마무리 ────────────────────────────────────────── */
+.close h2{position:absolute;left:150px;top:380px;margin:0;width:1000px;font:700 80px/1.3 var(--ds-font-title);letter-spacing:-.04em}
+.close p{position:absolute;left:150px;top:600px;margin:0;font-size:30px;color:var(--ds-sub)}
+
+/* ── 배치 격자 ─────────────────────────────────────── */
+.grid{display:grid;gap:32px;align-items:stretch}
+.grid.center{align-content:center}
+.grid.g2{grid-template-columns:repeat(2,1fr)}.grid.g3{grid-template-columns:repeat(3,1fr)}.grid.g4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1.35fr 1fr;gap:48px;align-items:stretch}
+
+/* ── 카드 묶음: 가는 선 면, 번호 앞 점 ───────────────────────────── */
+.card{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);border-top:2px solid var(--ds-c1);padding:40px 40px 36px;display:flex;flex-direction:column;gap:18px;min-width:0;min-height:440px}
+.card .c-foot{margin-top:auto;padding-top:20px;border-top:1.5px dotted var(--ds-c4);font-size:24px;color:var(--ds-sub)}
+.card .c-foot b{font:700 30px/1 var(--ds-font-num);color:var(--ds-ink)}
+.card .c-no{display:flex;align-items:center;gap:12px;font:600 24px/1 var(--ds-font-body);color:var(--ds-c1)}
+.card .c-no::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--ds-c1)}
+.card h3{margin:0;font:700 44px/1.3 var(--ds-font-title);letter-spacing:-.04em}
+.card p{margin:0;font-size:28px;line-height:1.5;color:var(--ds-ink)}
+.card.is-key{border-top-color:var(--ds-point)}.card.is-key .c-no::before{background:var(--ds-point);box-shadow:0 0 0 5px var(--ds-surface),0 0 0 6.5px var(--ds-point)}
+
+/* ── 수치 타일 ─────────────────────────────────────── */
+.tile{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:36px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tile span{font-size:26px;color:var(--ds-sub)}
+.tile b{font:700 88px/1 var(--ds-font-num);letter-spacing:-.04em;color:var(--ds-c1)}
+.tile b small{margin-left:8px;font:600 32px/1 var(--ds-font-body);letter-spacing:0;color:var(--ds-sub)}
+.tile p{margin:0;font-size:24px;color:var(--ds-sub)}
+.tile.is-key b{color:var(--x-key-text)}
+
+/* ── 막대(가로): 가는 막대 끝에 점. style="--v:42" 는 최댓값 대비 % ────── */
+.bars{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:40px;display:flex;flex-direction:column;justify-content:center;gap:44px;min-width:0}
+.bars h3{margin:0;font:700 30px/1.3 var(--ds-font-title)}
+.bar{display:grid;grid-template-columns:110px 1fr 120px;align-items:center;gap:20px;font-size:28px}
+.bar::before{content:"";grid-column:2;grid-row:1;height:28px;width:calc(var(--v) * 1%);border-radius:14px;background:radial-gradient(circle at calc(100% - 14px) 50%,var(--ds-c1) 9px,transparent 10px),linear-gradient(var(--ds-c4),var(--ds-c4)) 0 50%/calc(100% - 14px) 6px no-repeat;transform-origin:left center}
+.bar span{grid-column:1;grid-row:1;color:var(--ds-sub)}
+.bar b{grid-column:3;grid-row:1;justify-self:end;font:700 30px/1 var(--ds-font-num)}
+.bar.is-key::before{background:radial-gradient(circle at calc(100% - 14px) 50%,var(--ds-point) 13px,transparent 14px),linear-gradient(var(--ds-point),var(--ds-point)) 0 50%/calc(100% - 14px) 6px no-repeat}
+.bar.is-key b{color:var(--x-key-text)}
+
+/* ── 현안 → 해결 표 ─────────────────────────────────── */
+.fix{display:grid;grid-template-columns:1fr 72px 1.25fr;gap:0;align-items:stretch}
+.stack{display:flex;flex-direction:column;justify-content:center;gap:28px}
+.fix > p{margin:0;padding:34px 36px;font-size:30px;line-height:1.45;border-radius:var(--ds-radius)}
+.fix .q{background:var(--ds-c5);color:var(--ds-ink)}
+.fix .a{background:var(--ds-surface);box-shadow:var(--ds-shadow);font-weight:600}
+.fix .q b,.fix .a b{display:block;margin-bottom:10px;font:600 24px/1 var(--ds-font-body);color:var(--ds-sub)}
+.fix i{position:relative}
+.fix i::before{content:"";position:absolute;left:12px;right:20px;top:50%;height:2px;background:var(--ds-c1)}
+.fix i::after{content:"";position:absolute;right:12px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--ds-c1)}
+.fix.is-key .a{box-shadow:inset 0 3px 0 var(--ds-point),var(--ds-shadow)}
+
+/* ── 간트(월 1~12): 가는 선 + 양 끝 점. style="--from:3;--to:6" ───────── */
+.gantt{background:var(--ds-surface);border-radius:var(--ds-radius);box-shadow:var(--ds-shadow);padding:32px 36px;display:grid;grid-template-columns:260px repeat(12,1fr);row-gap:18px;align-items:center;min-width:0}
+.gantt .g-h{font:700 22px/1 var(--ds-font-num);color:var(--ds-sub);text-align:center}
+.gantt .g-h:first-child{text-align:left;font-family:var(--ds-font-body)}
+.gantt .g-name{grid-column:1;font-size:26px;line-height:1.3}
+.gantt .g-bar{grid-column:calc(var(--from) + 1) / calc(var(--to) + 2);height:24px;border-radius:12px;background:var(--ds-c3)}
+.gantt .g-bar.is-key{background:var(--ds-point)}
+.gantt .g-name,.gantt .g-bar{border-top:1px solid transparent}
+
+/* ── 표 ────────────────────────────────────────────── */
+.tbl{width:100%;border-collapse:collapse;background:var(--ds-surface);box-shadow:var(--ds-shadow);font-size:28px}
+.tbl th{padding:20px 28px;text-align:left;font:600 24px/1.2 var(--ds-font-body);color:var(--ds-c1);border-bottom:2px solid var(--ds-c1)}
+.tbl td{padding:18px 24px;border-bottom:1.5px dotted var(--ds-c4)}
+.tbl td.n{text-align:right;font:700 28px/1 var(--ds-font-num)}
+.tbl tr.is-key td{color:var(--x-key-text);font-weight:600}
+.tbl tfoot td{font-weight:700;border-bottom:0;border-top:2px solid var(--ds-c1)}
+
+/* ── 강조색 나누기: 공용 부품의 면 강조는 밝은 금빛(--ds-accent), 글자 강조는 읽히는 어두운 금빛(--x-key-text) ──
+   밝은 금빛은 흰 바탕 글자로 대비가 모자라 글자에는 쓰지 않는다. 금빛 면 위의 글자는 흰색 대신 ink */
+.brief > div.is-key b,.mile li.is-key b,.delta,.g-row.is-key > b,.lk.is-key > b,.ba > div.is-key b,.case > div.is-key b,.say p em,
+.points li.is-key::before,.points li.is-key b,.define dt,.trend > div.is-key b,.share li.is-key b,.ask .a-q::before,.ask .a-a b,.todo .t-do em,
+.agenda li.is-key > b,.yesno .yn-yes li::before,.vs > h3.is-key,.stepper li.is-key b,.story > div.is-key b,.big > b{color:var(--x-key-text)}
+.road > div.is-key h3,.tree .t-mid.is-key,.stepper li.is-key::before,.shot ol li.is-key::before,.shot-img > b.is-key{color:var(--ds-ink)}
+
+/* ── 모션: 장에 들어설 때 한 번. 점은 왼쪽 열부터 차례로 찍히고, 막대는 왼쪽부터 그어진다 ──
+   자리를 옮기지 않고(크기 · 투명도만) 0.7초 안에 끝난다. 움직임 줄이기에서는 공통 CSS가 끝 모습으로 바로 보낸다 */
+@keyframes l-pop{from{transform:scale(0)}to{transform:none}}
+@keyframes l-fade{from{opacity:0}to{opacity:1}}
+@keyframes l-draw{from{transform:scaleX(0)}to{transform:none}}
+.slide.is-on .pips i{animation:l-pop .3s cubic-bezier(.2,.8,.2,1) both}
+.slide.is-on .pips i:nth-child(n+8){animation-delay:.06s}.slide.is-on .pips i:nth-child(n+15){animation-delay:.12s}.slide.is-on .pips i:nth-child(n+22){animation-delay:.18s}
+.slide.is-on .pips i:nth-child(n+29){animation-delay:.24s}.slide.is-on .pips i:nth-child(n+36){animation-delay:.3s}.slide.is-on .pips i:nth-child(39){animation-delay:.4s}
+.slide.is-on .pips.row i:nth-child(2){animation-delay:.06s}.slide.is-on .pips.row i:nth-child(3){animation-delay:.12s}.slide.is-on .pips.row i:nth-child(4){animation-delay:.18s}.slide.is-on .pips.row i:nth-child(5){animation-delay:.24s}
+.slide.is-on .grid > :not([data-step]){animation:l-fade .45s ease-out both}
+.slide.is-on .grid > :nth-child(2):not([data-step]){animation-delay:.08s}.slide.is-on .grid > :nth-child(3):not([data-step]){animation-delay:.16s}.slide.is-on .grid > :nth-child(n+4):not([data-step]){animation-delay:.24s}
+.slide.is-on .bar::before{animation:l-draw .6s cubic-bezier(.3,.7,.2,1) .1s both}

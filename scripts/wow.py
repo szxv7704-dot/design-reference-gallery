@@ -1,6 +1,6 @@
-# 와우 포인트: 한 덱(wow/wow.html)에 모여 있던 기법 24가지를 기법 하나당 덱 하나로 나눈다.
+# 와우 포인트: 한 덱(wow/wow.html)에 모여 있던 기법 31가지를 기법 하나당 덱 하나로 나눈다.
 #   wow/wow.css · wow/wow.js     공용(원래 덱의 스타일 · 움직임 엔진. 글꼴은 ../fonts/ 를 쓴다)
-#   wow/{01..24}.html            기법 하나 = 덱 하나: 표지 · 크게 보기(실제로 움직임) · 쓰는 법
+#   wow/{01..31}.html            기법 하나 = 덱 하나: 표지 · 크게 보기(실제로 움직임) · 쓰는 법
 #   data/wow.json                목록(번호 · 이름 · 묶음 · 한 줄) — 화면(scripts/gallery.py)과 catalog.md 가 읽는다
 # 원본은 wow/wow.html(9장 한눈에 덱)이고 그대로 둔다. 데모 마크업 · CSS · 엔진은 원본에서 그대로 가져온다(새로 그리지 않음).
 # 실행: python3 scripts/wow.py
@@ -58,9 +58,9 @@ picks = []   # (하고 싶은 말, [태그])
 for tr in re.findall(r'<tr><td>(.*?)</td><td>(.*?)</td></tr>', SRC, re.S):
     picks.append((html.unescape(re.sub('<[^>]+>', '', tr[0])), re.findall(r'<span class="tg[^"]*">([^<]+)</span>', tr[1])))
 items = []
-for sec in re.finditer(r'<section class="slide (g\d)" data-title="([^"]+)">(.*?)</section>', SRC, re.S):
+for sec in re.finditer(r'<section class="slide (g\d+)" data-title="([^"]+)">(.*?)</section>', SRC, re.S):
     g, gtitle, body = sec.group(1), sec.group(2), sec.group(3)
-    gname = re.search(r'<span class="chip"><b>\d</b>([^<]+)</span>', body).group(1)
+    gname = re.search(r'<span class="chip"><b>\d+</b>([^<]+)</span>', body).group(1)
     cols = re.search(r'class="cards (c\d)"', body).group(1)
     for art in re.findall(r'<article class="card">(.*?)</article>', body, re.S):
         demo = art[:art.index('<p class="steps">')].strip()
@@ -103,26 +103,26 @@ LAB = {'쓰는 곳': '쓰는 곳 · WHERE', '주의': '주의 · CAUTION', 'PPT'
 for it in items:
     sib = [x for x in items if x['g'] == it['g'] and x is not it]
     s1 = '''<section class="slide %(g)s w1" data-title="표지">
-  <div class="kick">WOW POINT %(no)s / 24 · 와우 포인트</div>
+  <div class="kick">WOW POINT %(no)s / %(total)d · 와우 포인트</div>
   <span class="chip"><b>%(gn)s</b>%(gname)s</span>
   <h1>%(name)s<small>%(small)s</small></h1>
   <p class="sub">%(why)s</p>
   <div class="num" aria-hidden="true">%(no)s</div>
   <div class="foot"><span>와우 포인트 %(no)s · %(name)s</span><span>1 / 3</span></div>
-</section>''' % dict(it, gn=it['g'][1])
+</section>''' % dict(it, gn=it['g'][1:], total=len(items))
     s2 = '''<section class="slide %(g)s w2" data-title="크게 보기">
   <div class="head"><div><span class="chip"><b>%(gn)s</b>%(gname)s</span><h2>%(name)s</h2></div><div class="meta">↻ 다시 재생 · R</div></div>
   <div class="stagebox" style="--ar:%(ar)s">%(demo)s</div>
   <p class="stepline">%(steps)s</p>
   <div class="foot"><span>와우 포인트 %(no)s · %(name)s</span><span>2 / 3</span></div>
-</section>''' % dict(it, gn=it['g'][1])
+</section>''' % dict(it, gn=it['g'][1:])
     s3 = '''<section class="slide %(g)s w3" data-title="쓰는 법">
   <div class="head"><div><span class="chip"><b>%(gn)s</b>%(gname)s</span><h2>%(why)s</h2></div><div class="meta">%(name)s · 쓰는 법</div></div>
   <dl class="use">%(dl)s</dl>
   %(when)s
   <p class="sib"><b style="color:var(--ink)">같은 묶음</b>%(sib)s</p>
   <div class="foot"><span>와우 포인트 %(no)s · %(name)s</span><span>3 / 3</span></div>
-</section>''' % dict(it, gn=it['g'][1], dl=''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (LAB.get(t, t), d) for t, d in it['dl']),
+</section>''' % dict(it, gn=it['g'][1:], dl=''.join('<div><dt>%s</dt><dd>%s</dd></div>' % (LAB.get(t, t), d) for t, d in it['dl']),
                       when=('<p class="when"><b>이럴 때</b>%s</p>' % ''.join('<span>%s</span>' % html.escape(w) for w in it['when'])) if it['when'] else '',
                       sib=''.join('<a href="%s.html">%s</a>' % (x['no'], x['name']) for x in sib))
     open(os.path.join(W, it['no'] + '.html'), 'w', encoding='utf-8').write(HEAD % dict(it, slides='\n\n'.join((s1, s2, s3))))

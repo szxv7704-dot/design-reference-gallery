@@ -1,8 +1,8 @@
 # 갤러리 화면 만들기: 사람이 고르고, AI가 그것을 읽어 적용하게 하는 화면들.
 #   index.html        첫 화면: 카드 넷(발표자료 고르기 · 인쇄 · 홍보물 고르기 · 아이콘 고르기 · AI에게 맡기기)
 #   present.html      발표자료 고르기: 컨셉 정하기(concept.html) · 본문 지정하기(body.html) · 와우 포인트 적용하기(wow.html)
-#   concept.html      스타일 세트 8 · 표지에서 넓힌 덱 27 · styles/{id}.html 스타일 하나
-#   wow.html          와우 포인트 24(기법 하나 = 덱 하나, wow/{번호}.html — scripts/wow.py)
+#   concept.html      스타일 세트 12(무난한 기하 넷이 앞) · 표지에서 넓힌 덱 27 · styles/{id}.html 스타일 하나
+#   wow.html          와우 포인트 38(기법 하나 = 덱 하나, wow/{번호}.html — scripts/wow.py)
 #   print.html · icons.html · ai.html
 #   catalog.md        AI가 읽는 차례: 적용 순서 · 스타일 목록 · 구성 목록
 # 원천: data/styles.json · data/roles.json · data/patterns.json · data/kit_slides.json · data/rounds.json. 화면과 AI용 목록이 같은 데이터에서 나온다.
@@ -265,9 +265,9 @@ def cover_card(r, up=''):
 
 # ── concept.html: 컨셉 정하기(스타일 세트 · 표지에서 넓힌 덱) ──
 H = ['''<p class="crumb"><a href="present.html">← 발표자료 고르기</a></p><h1>컨셉 정하기</h1><p class="lead">발표 전체의 겉모습을 정합니다. 표지부터 마무리까지 한 벌로 만든 덱을 넘겨 보고 고르세요.</p>
-<h2 id="styles">스타일 세트 <small>8벌 — 표지 · 본문 · 마무리를 함께 확인하세요</small></h2>
-<div class="cards" id="cards">''']
-for s in sorted(STYLES, key=lambda s: (not s.get('verified'), s['id'])):
+<h2 id="styles">스타일 세트 <small>%d벌 — 표지 · 본문 · 마무리를 함께 확인하세요. 무난한 기하 계열이 앞에 있습니다</small></h2>
+<div class="cards" id="cards">''' % len(STYLES)]
+for s in sorted(STYLES, key=lambda s: (s['mood'] != '무난한', not s.get('verified'), s['id'])):   # 무난한 기하 계열을 앞에(튀는 장표만 있다는 지적, 2026-11-28)
     st = status(s)
     H.append('''<article class="sc item" data-kind="set" data-id="%s" data-mood="%s" data-ok="%d" data-q="%s">
 <a class="cv" href="styles/%s.html"><img src="%s" alt="%s 표지" loading="lazy" width="640" height="360"></a>
@@ -298,7 +298,7 @@ $('#trayGo').addEventListener('click', () => {
   $('#cmp').showModal(); $('#cmpClose').focus(); });
 $('#cmp').addEventListener('click', e => { if (e.target.id === 'cmpClose' || e.target === $('#cmp')) $('#cmp').close(); });
 ''' % json.dumps({s['id']: {'name': s['name'], 'th': [th(s['id'], '-set', n) for n in (1, role_slide('flow', s['id']), role_slide('compare', s['id']), role_slide('numbers', s['id']), 10)], 'lab': ['표지', '흐름', '비교', '수치', '마무리']} for s in STYLES}, ensure_ascii=False)
-sizes = {'concept': page('concept.html', '컨셉 정하기 — 발표 디자인 라이브러리', '표지부터 마무리까지 한 벌인 덱: 스타일 세트 8 · 표지에서 넓힌 덱 27.', 'present.html', '\n'.join(H), INDEX_JS)}
+sizes = {'concept': page('concept.html', '컨셉 정하기 — 발표 디자인 라이브러리', '표지부터 마무리까지 한 벌인 덱: 스타일 세트 %d · 표지에서 넓힌 덱 27.' % len(STYLES), 'present.html', '\n'.join(H), INDEX_JS)}
 
 # ── 역할별 구성 셋(스타일 화면 · 본문 구성 · catalog 가 함께 쓴다) ──
 def var_cards(role, f, up='', mark=False):
@@ -342,7 +342,7 @@ for s in STYLES:
 
 # ── body.html: 역할마다 배치가 다른 구성을 나란히 ──
 B = ['<p class="crumb"><a href="present.html">← 발표자료 고르기</a></p><h1>본문 지정하기</h1><p class="lead">같은 내용도 보여 주는 방식이 여럿입니다. 역할마다 <b>배치가 다른 구성 셋</b>을 나란히 놓았습니다. 내용에 맞는 구성을 고르세요.</p><div class="short" style="margin-top:20px">%s</div>' % ''.join(
-    '<a href="#r-%s">%s</a>' % (r, E(RN[r]['name'])) for r in VAR['order'] + ['more']),
+    '<a href="#r-%s">%s</a>' % (r, E(RN[r]['name']) if r in RN else '움직이는 분류') for r in VAR['order'] + ['more', 'move']),
      '<div class="sw"><span>입혀 볼 스타일</span><div class="chips" id="sw" role="group" aria-label="입혀 볼 스타일">%s</div></div>' % ''.join(
          '<button type="button" data-f="%s" aria-pressed="%s">%s</button>' % (s['id'], 'true' if s['id'] == 'B' else 'false', E(s['name'])) for s in STYLES)]
 for r in VAR['order']:
@@ -354,11 +354,17 @@ rest = [(p, next((x for x in slides if x['pattern'] == p['id'] and x['id'] != 's
 B.append('<h2 id="r-more">그 밖의 구성 <small>갈래 · 체계 · 추이 · 구성비 · 사진 · 간지</small></h2><div class="minis">%s</div>' % ''.join(
     '<a class="mc" href="kit/B%s.html#%d" target="_blank" rel="noopener" data-n="%d" data-deck="%s"><img src="%s" alt="%s" loading="lazy" width="640" height="360"><b>%s</b><p>%s</p><p>분량 · %s</p></a>' % (
         x['deck'], x['n'], x['n'], x['deck'], th('B', x['deck'], x['n']), E(p['name']), E(p['name']), E(p['when']), E(p['cond'])) for p, x in rest if x))
+# 움직이는 분류 장표: 판정은 '영감'(덱 재료로 조립하지 않음)이지만 사용자가 살려 두기로 한 것(2026-11-28). 장표 그대로 넘겨 보고 쓴다
+MOVING = [(6, '◉ 누르기', '과제 카드 12장을 누를 때마다 세 더미(갈래)로 나눠 놓는다. 분류 기준을 하나씩 밝히며 말할 때'),
+          (43, '▶ 모션', '흩어진 과제가 칸막이 상자 네 칸에 담긴다. 칸 넓이 = 과제 수라 어느 갈래가 큰지 한눈에 보인다')]
+B.append('<h2 id="r-move">움직이는 분류 장표 <small>과제를 갈래로 나누는 모습이 움직임으로 보인다</small></h2><p class="note">구성 셋과 달리 스타일을 입혀 바꾸지 않는 완성 장표입니다. 눌러서 열어 발표 화면에서 그대로 넘기거나, AI에게 주소를 주고 "이 움직임대로"라고 요청하세요.</p><div class="minis">%s</div>' % ''.join(
+    '<article class="mc"><a href="%s%s" target="_blank" rel="noopener"><img src="%s%s" alt="%s" loading="lazy" width="640" height="360"></a><b>%s <small>#%d · %s</small></b><p>%s</p></article>' % (
+        E(r['file']), ver(r), E(r['thumb']), ver(r), E(name(r)), E(name(r)), r['no'], tag, E(say)) for no, tag, say in MOVING for r in [next(x for x in vis if x['no'] == no)]))
 B.append('<h2>참고 장표와 아이콘</h2><p class="note">스타일 세트와 따로 만든 본문 장표 %d개(도식 아이디어 참고용)와 아이콘 85개는 <a href="refs.html">참고 장표 모음</a>에 있습니다.</p>' % sum(1 for r in vis if r['role'] == '본문'))
 BODY_JS = r"""
 // 입혀 볼 스타일을 바꾸면 그림과 주소만 바뀐다(구성은 그대로). 고른 스타일은 주소에 남는다(?style=D)
 const sw = document.getElementById('sw');
-function skin(f){ if (!/^[A-H]$/.test(f)) f = 'B';
+function skin(f){ if (!/^[A-L]$/.test(f)) f = 'B';
   document.querySelectorAll('[data-n]').forEach(a => { const d = a.dataset.deck === undefined ? '-var' : a.dataset.deck, n = a.dataset.n;
     a.href = 'kit/' + f + d + '.html#' + n; a.querySelector('img').src = 'kit/thumbs/' + f + d + '-' + n + '.jpg'; });
   sw.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.f === f));
@@ -386,8 +392,8 @@ for g in dict.fromkeys(w['g'] for w in WOW):
     B.append('<h2>%s <small>%d가지</small></h2><div class="wowg">%s</div>' % (E(ws[0]['gname']), len(ws), ''.join(
         '<a href="wow/%s.html" target="_blank" rel="noopener"><img src="wow/thumbs/%s-2.jpg" alt="%s" loading="lazy" width="640" height="360"><b>%s<small>%s</small></b><p>%s</p><p class="w">%s</p></a>' % (
             w['no'], w['no'], E(w['name']), E(w['name']), E(w['small']), E(w['why']), ('이럴 때 · ' + E(' · '.join(w['when']))) if w['when'] else '') for w in ws)))
-B.append('<p class="note">스물네 가지를 한 덱에 모아 보려면 <a href="wow/wow.html" target="_blank" rel="noopener">한눈에 보기(9장)</a>.</p>')
-sizes['wow'] = page('wow.html', '와우 포인트 적용하기 — 발표 디자인 라이브러리', '발표 연출 기법 24가지, 기법 하나마다 덱 하나.', 'present.html', '\n'.join(B))
+B.append('<p class="note">%d가지를 한 덱에 모아 보려면 <a href="wow/wow.html" target="_blank" rel="noopener">한눈에 보기(13장)</a>.</p>' % len(WOW))
+sizes['wow'] = page('wow.html', '와우 포인트 적용하기 — 발표 디자인 라이브러리', '발표 연출 기법 %d가지, 기법 하나마다 덱 하나.' % len(WOW), 'present.html', '\n'.join(B))
 
 # ── present.html: 발표자료 고르기 ──
 IMGS = lambda xs: ''.join('<img src="%s" alt="" loading="lazy">' % x for x in xs)
