@@ -1,5 +1,5 @@
 // 와우 포인트 데모 통과 기준 검사(2026-11-28): 사람이 판단할 장면 모음과 기계로 재는 세 기준.
-//  ① 폰 글자: 폰 세로 화면(390 × 844)에서 데모 안 글자가 모두 9px 이상(끝 화면 기준)
+//  ① 폰 글자: 폰 가로 화면(844 × 390)에서 데모 안 글자가 모두 9px 이상(끝 화면 기준)
 //  ② 화면 사용: 바탕색이 아닌 칸을 감싸는 사각형이 데모 상자의 60% 이상(가장 넓게 쓴 순간 기준)
 //  ③ 빈 화면 없음: 0.4초 뒤부터 그 사각형이 3% 밑으로 떨어지는(단색만 남는) 순간이 없음
 //  ④ 같은 요소가 끝까지 이어지는가 · ⑤ 끝 장면 한 장으로 메시지가 읽히는가 → 장면 모음(check/wow/{번호}.png)을 보고 사람이 판단
@@ -11,7 +11,7 @@ const ROOT = path.resolve(__dirname, '..'), OUT = path.join(ROOT, 'check', 'wow'
   const b = await chromium.launch(); const res = {};
   for (const no of nos) {
     // ① 폰 글자(끝 화면: 움직임 줄이기)
-    const m = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 1 });
+    const m = await b.newPage({ viewport: { width: 844, height: 390 }, deviceScaleFactor: 1 });
     await m.emulateMedia({ reducedMotion: 'reduce' });
     await m.goto('file://' + path.join(ROOT, 'wow', no + '.html#2')); await m.waitForTimeout(600);
     const small = await m.evaluate(() => { const d = document.querySelector('.slide.on .demo'); const k = d.getBoundingClientRect().width / d.offsetWidth; const out = [];
